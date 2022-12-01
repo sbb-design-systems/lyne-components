@@ -240,11 +240,9 @@ const Template = (args) => (
                   <div slot="category">
                     <span>Saver ticket</span>
                   </div>
-                  <div slot="title">
-                    <sbb-title level="2" visual-level="6">
-                      Libero day ticket: All zones
-                    </sbb-title>
-                  </div>
+                  <sbb-title slot="title" level="2" visual-level="6">
+                    Libero day ticket: All zones
+                  </sbb-title>
                   <div slot="text">
                     <span>Today, Valid 24 hours</span>
                   </div>
@@ -332,11 +330,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                <span>Daily ticket</span>
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              <span>Daily ticket</span>
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -363,11 +359,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Bike day pass
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Bike day pass
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -394,11 +388,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Libero short distance ticket
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Libero short distance ticket
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -416,11 +408,9 @@ const Template = (args) => (
             layout="loose"
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
-            <div slot="title">
-              <sbb-title level="2" visual-level="1">
-                GA
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="1">
+              GA
+            </sbb-title>
             <div slot="lead">
               <sbb-title level="3" visual-level="6">
                 Generalabonnement

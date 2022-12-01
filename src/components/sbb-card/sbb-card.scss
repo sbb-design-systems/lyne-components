@@ -126,3 +126,7 @@
 .sbb-card__opens-in-new-window {
   @include sbb.screen-reader-only;
 }
+
+::slotted(sbb-title:first-child) {
+  margin-block-start: 0;
+}

@@ -69,6 +69,8 @@
 
 .sbb-teaser__lead {
   @include sbb.clamp-lines($lines: 2);
+
+  margin: 0; // Overwrite sbb-title default margin
 }
 
 .sbb-teaser__description {

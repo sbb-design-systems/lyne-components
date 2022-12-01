@@ -72,6 +72,7 @@ export class SbbLinkList implements ComponentInterface {
       <div class="sbb-link-list-wrapper">
         {(this._namedSlots.title || this.titleContent) && (
           <sbb-title
+            class="sbb-link-list__title"
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}

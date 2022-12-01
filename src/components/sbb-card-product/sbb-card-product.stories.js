@@ -382,9 +382,7 @@ const SlotActionTemplate = ({ label, ...args }) => <sbb-button {...args}>{label}
 const TemplateTopProductDayPass = (args) => (
   <sbb-card-product {...args}>
     <SlotIconTemplate {...iconArgs} />
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleDayPassArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleDayPassArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextValidTodayArgs} />
     </div>
@@ -397,9 +395,7 @@ const TemplateTopProductDayPass = (args) => (
 const TemplateTopProductDayPassBicycle = (args) => (
   <sbb-card-product {...args}>
     <SlotIconTemplate {...iconBicycleArgs} />
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleDayPassBicycleArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleDayPassBicycleArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextValidTodayArgs} />
     </div>
@@ -412,9 +408,7 @@ const TemplateTopProductDayPassBicycle = (args) => (
 const TemplateTopProductTravelCardPointToPoint = (args) => (
   <sbb-card-product {...args}>
     <SlotIconTemplate {...iconArgs} />
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardPointToPointArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardPointToPointArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextTravelCardPointToPointArgs} />
     </div>
@@ -427,9 +421,7 @@ const TemplateTopProductTravelCardPointToPoint = (args) => (
 const TemplateYourProductPointToPointPersonalized = (args) => (
   <sbb-card-product {...args}>
     <SlotIconTemplate {...iconArgs} />
-    <div slot="title">
-      <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
-    </div>
+    <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextValidTodayArgs} />
     </div>
@@ -445,9 +437,7 @@ const TemplateYourProductTravelCardPersonalized = (args) => (
     <div slot="category">
       <SlotSbbCategoryTemplate {...sbbCategoryArgs} />
     </div>
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardLiberoArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardLiberoArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextValidTodayLongArgs} />
     </div>
@@ -459,9 +449,7 @@ const TemplateYourProductTravelCardPersonalized = (args) => (
 
 const TemplateYourProductTicketPersonalized = (args) => (
   <sbb-card-product {...args}>
-    <div slot="title">
-      <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
-    </div>
+    <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextConnectionDetailsArgs} />
     </div>
@@ -476,9 +464,7 @@ const TemplateYourProductTicketPersonalized = (args) => (
 
 const TemplateTravelCardGA = (args) => (
   <sbb-card-product {...args}>
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardGAArgs} />
     <div slot="lead">
       <SlotSbbLeadTemplate {...sbbLeadGALongArgs} />
     </div>
@@ -490,9 +476,7 @@ const TemplateTravelCardGA = (args) => (
 
 const TemplateTravelCardGAPersonalized = (args) => (
   <sbb-card-product {...args}>
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardGAArgs} />
     <div slot="lead">
       <SlotSbbLeadTemplate {...sbbLeadGAArgs} />
     </div>
@@ -507,9 +491,7 @@ const TemplateTravelCardGAPersonalized = (args) => (
 
 const TemplateTravelCardHalfFarePersonalized = (args) => (
   <sbb-card-product {...args}>
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardHalfFareArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardHalfFareArgs} />
     <div slot="lead">
       <SlotSbbLeadTemplate {...sbbLeadHalfFareArgs} />
     </div>
@@ -524,9 +506,7 @@ const TemplateTravelCardHalfFarePersonalized = (args) => (
 
 const TemplateTravelCardHalfFare = (args) => (
   <sbb-card-product {...args}>
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardHalfFareArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardHalfFareArgs} />
     <div slot="lead">
       <SlotSbbLeadTemplate {...sbbLeadHalfFareLongArgs} />
     </div>
@@ -542,10 +522,8 @@ const TemplateTheWholeShabang = (args) => (
     <div slot="category">
       <SlotSbbCategoryTemplate {...sbbCategoryArgs} />
     </div>
-    <div slot="title">
-      <SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs} />
-      <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
-    </div>
+    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardGAArgs} />
+    <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
     <div slot="lead">
       <SlotSbbLeadTemplate {...sbbLeadGAArgs} />
     </div>

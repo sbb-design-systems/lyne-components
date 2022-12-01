@@ -36,11 +36,11 @@
 }
 
 .journey-header--size-4 {
-  @include sbb.title-4;
+  @include sbb.title-4($exclude-spacing: true);
 }
 
 .journey-header--size-5 {
-  @include sbb.title-5;
+  @include sbb.title-5($exclude-spacing: true);
 }
 
 .connection--visually-hidden {

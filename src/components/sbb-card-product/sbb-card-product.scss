@@ -133,7 +133,7 @@
 }
 
 .card-product__lead {
-  @include sbb.title-6;
+  @include sbb.title-6(true);
 }
 
 .card-product__category,
@@ -142,4 +142,8 @@
 
   margin: 0;
   color: var(--sbb-color-granite-default);
+}
+
+::slotted(sbb-title) {
+  margin: 0; // Overwrite sbb-title default margin
 }

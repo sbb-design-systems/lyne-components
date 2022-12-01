@@ -191,6 +191,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
           </span>
           <span class="sbb-alert__content">
             <sbb-title
+              class="sbb-alert__title"
               level={this.titleLevel}
               visual-level={this.size === 'l' ? '3' : '5'}
               negative

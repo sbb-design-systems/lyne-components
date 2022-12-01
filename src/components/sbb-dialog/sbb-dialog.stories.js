@@ -288,7 +288,7 @@ const NoFooterTemplate = (args) => [
 const FullScreenTemplate = (args) => [
   triggerButton('my-dialog-6'),
   <sbb-dialog data-testid="dialog" id="my-dialog-6" {...args}>
-    <sbb-title visual-level="2" style={'margin-bottom: 1rem'} negative={args.negative}>
+    <sbb-title visual-level="2" negative={args.negative}>
       Many Meetings
     </sbb-title>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
