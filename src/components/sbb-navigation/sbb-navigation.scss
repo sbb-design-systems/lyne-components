@@ -13,6 +13,7 @@
   --sbb-navigation-width: 100vw;
   --sbb-navigation-backdrop-color: transparent;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   position: var(--sbb-navigation-position);
   left: 0;
@@ -70,6 +71,10 @@
   }
 }
 
+:host([disable-animation]) {
+  --sbb-navigation-animation-duration: 0s;
+}
+
 .sbb-navigation {
   display: block;
   position: var(--sbb-navigation-position);
@@ -117,8 +122,6 @@
   top: var(--sbb-spacing-responsive-xs);
   right: var(--sbb-spacing-responsive-xs);
   z-index: 1;
-
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 .sbb-navigation__content {

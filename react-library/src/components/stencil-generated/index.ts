@@ -43,7 +43,6 @@ export const SbbNavigation = /*@__PURE__*/createReactComponent<JSX.SbbNavigation
 export const SbbNavigationAction = /*@__PURE__*/createReactComponent<JSX.SbbNavigationAction, HTMLSbbNavigationActionElement>('sbb-navigation-action');
 export const SbbNavigationList = /*@__PURE__*/createReactComponent<JSX.SbbNavigationList, HTMLSbbNavigationListElement>('sbb-navigation-list');
 export const SbbNavigationMarker = /*@__PURE__*/createReactComponent<JSX.SbbNavigationMarker, HTMLSbbNavigationMarkerElement>('sbb-navigation-marker');
-export const SbbNavigationSection = /*@__PURE__*/createReactComponent<JSX.SbbNavigationSection, HTMLSbbNavigationSectionElement>('sbb-navigation-section');
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
 export const SbbPearlChain = /*@__PURE__*/createReactComponent<JSX.SbbPearlChain, HTMLSbbPearlChainElement>('sbb-pearl-chain');
 export const SbbPearlChainTime = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainTime, HTMLSbbPearlChainTimeElement>('sbb-pearl-chain-time');

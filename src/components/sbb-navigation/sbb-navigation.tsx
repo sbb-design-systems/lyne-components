@@ -15,17 +15,25 @@ import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { isEventOnElement } from '../../global/helpers/position';
 import { i18nCloseDialog } from '../../global/i18n';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
  */
+
+let nextId = 0;
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-navigation.scss',
   tag: 'sbb-navigation',
 })
-export class SbbNavigation {
+export class SbbNavigation implements AccessibilityProperties {
+  /**
+   * This id will be forwarded to the relevant inner element.
+   */
+  @Prop() public navigationId = `sbb-dialog-${++nextId}`;
+
   /**
    * The element that will trigger the navigation.
    * Accepts both a string (id of an element) or an HTML element.
@@ -33,9 +41,29 @@ export class SbbNavigation {
   @Prop() public trigger: string | HTMLElement;
 
   /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
+
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
+   */
+  @Prop() public accessibilityDescribedby: string | undefined;
+
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
+   */
+  @Prop() public accessibilityLabelledby: string | undefined;
+
+  /**
    * This will be forwarded as aria-label to the close button element.
    */
   @Prop() public accessibilityCloseLabel: string | undefined;
+
+  /**
+   * Whether the animation is enabled.
+   */
+  @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
    * The state of the navigation.
@@ -273,12 +301,13 @@ export class SbbNavigation {
       <sbb-button
         class="sbb-navigation__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        accessibility-controls={this.navigationId}
         variant="transparent"
         negative={true}
         size="m"
         type="button"
-        onClick={() => this.close()}
         icon-name="cross-small"
+        sbb-navigation-close
       ></sbb-button>
     );
     return (
@@ -290,8 +319,10 @@ export class SbbNavigation {
         }}
       >
         <dialog
-          onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
           ref={(navigationRef) => (this._navigation = navigationRef)}
+          id={this.navigationId}
+          aria-label={this.accessibilityLabel}
+          onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation"
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}

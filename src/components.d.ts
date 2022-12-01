@@ -949,9 +949,29 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
           * Closes the navigation.
          */
         "close": () => Promise<void>;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "navigationId": string;
         /**
           * Opens the navigation on trigger click.
          */
@@ -1028,9 +1048,6 @@ export namespace Components {
           * Marker size variant.
          */
         "size"?: 'l' | 's';
-    }
-    interface SbbNavigationSection {
-        "label"?: string;
     }
     interface SbbOverlay {
         /**
@@ -1916,12 +1933,6 @@ declare global {
         prototype: HTMLSbbNavigationMarkerElement;
         new (): HTMLSbbNavigationMarkerElement;
     };
-    interface HTMLSbbNavigationSectionElement extends Components.SbbNavigationSection, HTMLStencilElement {
-    }
-    var HTMLSbbNavigationSectionElement: {
-        prototype: HTMLSbbNavigationSectionElement;
-        new (): HTMLSbbNavigationSectionElement;
-    };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
     var HTMLSbbOverlayElement: {
@@ -2192,7 +2203,6 @@ declare global {
         "sbb-navigation-action": HTMLSbbNavigationActionElement;
         "sbb-navigation-list": HTMLSbbNavigationListElement;
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
-        "sbb-navigation-section": HTMLSbbNavigationSectionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -3172,6 +3182,26 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "navigationId"?: string;
+        /**
           * Emits whenever the navigation is closed.
          */
         "onSbb-navigation_did-close"?: (event: SbbNavigationCustomEvent<void>) => void;
@@ -3259,9 +3289,6 @@ declare namespace LocalJSX {
           * Marker size variant.
          */
         "size"?: 'l' | 's';
-    }
-    interface SbbNavigationSection {
-        "label"?: string;
     }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
@@ -3932,7 +3959,6 @@ declare namespace LocalJSX {
         "sbb-navigation-action": SbbNavigationAction;
         "sbb-navigation-list": SbbNavigationList;
         "sbb-navigation-marker": SbbNavigationMarker;
-        "sbb-navigation-section": SbbNavigationSection;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -4013,7 +4039,6 @@ declare module "@stencil/core" {
             "sbb-navigation-action": LocalJSX.SbbNavigationAction & JSXBase.HTMLAttributes<HTMLSbbNavigationActionElement>;
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
-            "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
