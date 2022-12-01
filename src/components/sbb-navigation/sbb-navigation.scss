@@ -105,6 +105,8 @@
   top: var(--sbb-spacing-responsive-xs);
   right: var(--sbb-spacing-responsive-xs);
   z-index: 1;
+
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 ::slotted(sbb-navigation-marker) {
