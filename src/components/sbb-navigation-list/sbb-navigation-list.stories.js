@@ -26,7 +26,7 @@ const DefaultTemplate = (args) => (
 
 const SlottedLabelTemplate = (args) => (
   <sbb-navigation-list {...args}>
-    <span slot="label">Label</span>
+    <span slot="label">Slotted label</span>
     <sbb-navigation-action size="m">Tickets & Offers</sbb-navigation-action>
     <sbb-navigation-action size="m">Vacations & Recreation</sbb-navigation-action>
     <sbb-navigation-action size="m">Travel information</sbb-navigation-action>
@@ -37,12 +37,12 @@ const SlottedLabelTemplate = (args) => (
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
-Default.documentation = { title: 'Size M' };
+Default.documentation = { title: 'Default' };
 
 export const SlottedLabel = SlottedLabelTemplate.bind({});
 SlottedLabel.argTypes = defaultArgTypes;
 SlottedLabel.args = {};
-SlottedLabel.documentation = { title: 'Size M' };
+SlottedLabel.documentation = { title: 'Slotted label' };
 
 export default {
   decorators: [

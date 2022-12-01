@@ -1,17 +1,37 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-navigation-action {...args}>Some text</sbb-navigation-action>;
-
-export const Default = Template.bind({});
-
-Default.args = {
-  size: 's',
+const size = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'm', 's'],
 };
 
-Default.documentation = {
-  title: 'Title which will be rendered on documentation platform',
+const defaultArgTypes = {
+  size,
 };
+
+const defaultArgs = {
+  size: size.options[0],
+};
+
+const Template = (args) => <sbb-navigation-action {...args}>Label</sbb-navigation-action>;
+
+export const SizeL = Template.bind({});
+SizeL.argTypes = defaultArgTypes;
+SizeL.args = { ...defaultArgs };
+SizeL.documentation = { title: 'Size L' };
+
+export const SizeM = Template.bind({});
+SizeM.argTypes = defaultArgTypes;
+SizeM.args = { ...defaultArgs, size: size.options[1] };
+SizeM.documentation = { title: 'Size M' };
+
+export const SizeS = Template.bind({});
+SizeS.argTypes = defaultArgTypes;
+SizeS.args = { ...defaultArgs, size: size.options[2] };
+SizeS.documentation = { title: 'Size S' };
 
 export default {
   decorators: [
@@ -21,9 +41,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     actions: {
       handles: [],

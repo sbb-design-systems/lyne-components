@@ -17,6 +17,42 @@ const playStory = async ({ canvasElement }) => {
   await userEvent.click(button);
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
+const accessibilityCloseLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const basicArgTypes = {
+  'accessibility-label': accessibilityLabel,
+  'accessibility-close-label': accessibilityCloseLabel,
+  'disable-animation': disableAnimation,
+};
+
+const basicArgs = {
+  'accessibility-label': undefined,
+  'accessibility-close-label': undefined,
+  'disable-animation': isChromatic(),
+};
+
 const triggerButton = (id) => (
   <sbb-button
     data-testid="navigation-trigger"
@@ -27,49 +63,92 @@ const triggerButton = (id) => (
   ></sbb-button>
 );
 
-const triggerControl = {
-  control: { type: 'text' },
-};
+const navigationActionsL = (active) => [
+  <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
+  <sbb-navigation-action id="nav-2" active={active}>
+    Vacations & Recreation
+  </sbb-navigation-action>,
+  <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>,
+  <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>,
+];
 
-const defaultArgTypes = {
-  trigger: triggerControl,
-};
+const navigationActionsS = (active) => [
+  <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>,
+  <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>,
+  <sbb-navigation-action id="nav-7" active={active}>
+    Italiano
+  </sbb-navigation-action>,
+  <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
+];
 
-const defaultArgs = {
-  trigger: 'trigger-button',
+const actionLabels = (num) => {
+  const labels = [];
+  for (let i = 1; i <= num; i++) {
+    labels.push(<sbb-navigation-action>Label</sbb-navigation-action>);
+  }
+  return labels;
 };
 
 const DefaultTemplate = (args) => [
-  triggerButton('trigger-button'),
-  <sbb-navigation data-testid="navigation" {...args} id="navigation">
-    <sbb-navigation-marker>
-      <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
-      <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
-      <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
-      <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
-    </sbb-navigation-marker>
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
+    <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
+
     <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
-      <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
-      <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
-      <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+      {navigationActionsS(false)}
     </sbb-navigation-marker>
-    <sbb-button size="m" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      All tickets & offers
-    </sbb-button>
+  </sbb-navigation>,
+];
+
+const ActiveTemplate = (args) => [
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
+    <sbb-navigation-marker>{navigationActionsL(true)}</sbb-navigation-marker>
+
+    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
+      {navigationActionsS(true)}
+    </sbb-navigation-marker>
+  </sbb-navigation>,
+];
+
+const LongContentTemplate = (args) => [
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
+    <sbb-navigation-marker>
+      <sbb-navigation-action id="nav-9">Tickets & Offers</sbb-navigation-action>
+      <sbb-navigation-action id="nav-10">Vacations & Recreation</sbb-navigation-action>
+      <sbb-navigation-action id="nav-11">Travel information</sbb-navigation-action>
+      <sbb-navigation-action id="nav-12">Help & Contact</sbb-navigation-action>
+    </sbb-navigation-marker>
+
+    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
+      {actionLabels(20)}
+    </sbb-navigation-marker>
   </sbb-navigation>,
 ];
 
 export const Default = DefaultTemplate.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs };
+Default.argTypes = basicArgTypes;
+Default.args = { ...basicArgs };
 Default.documentation = { title: 'Default' };
 Default.play = playStory;
+
+export const Active = ActiveTemplate.bind({});
+Active.argTypes = basicArgTypes;
+Active.args = { ...basicArgs };
+Active.documentation = { title: 'Active' };
+Active.play = playStory;
+
+export const LongContent = LongContentTemplate.bind({});
+LongContent.argTypes = basicArgTypes;
+LongContent.args = { ...basicArgs };
+LongContent.documentation = { title: 'Long Content' };
+LongContent.play = playStory;
 
 export default {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
+      <div style={'padding: 2rem'}>
         <Story />
       </div>
     ),
@@ -83,7 +162,7 @@ export default {
     },
     docs: {
       inlineStories: false,
-      iframeHeight: '400px',
+      iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
   },
