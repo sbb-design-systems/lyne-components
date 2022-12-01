@@ -421,7 +421,7 @@ const TemplateTopProductTravelCardPointToPoint = (args) => (
 const TemplateYourProductPointToPointPersonalized = (args) => (
   <sbb-card-product {...args}>
     <SlotIconTemplate {...iconArgs} />
-    <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
+    <SlotSbbJourneyHeaderTemplate slot="title" {...sbbJourneyHeaderArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextValidTodayArgs} />
     </div>
@@ -449,7 +449,7 @@ const TemplateYourProductTravelCardPersonalized = (args) => (
 
 const TemplateYourProductTicketPersonalized = (args) => (
   <sbb-card-product {...args}>
-    <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
+    <SlotSbbJourneyHeaderTemplate slot="title" {...sbbJourneyHeaderArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextConnectionDetailsArgs} />
     </div>
@@ -465,9 +465,7 @@ const TemplateYourProductTicketPersonalized = (args) => (
 const TemplateTravelCardGA = (args) => (
   <sbb-card-product {...args}>
     <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardGAArgs} />
-    <div slot="lead">
-      <SlotSbbLeadTemplate {...sbbLeadGALongArgs} />
-    </div>
+    <SlotSbbLeadTemplate slot="lead" {...sbbLeadGALongArgs} />
     <div slot="action">
       <SlotActionTemplate {...actionGAArgs} />
     </div>
@@ -477,9 +475,7 @@ const TemplateTravelCardGA = (args) => (
 const TemplateTravelCardGAPersonalized = (args) => (
   <sbb-card-product {...args}>
     <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardGAArgs} />
-    <div slot="lead">
-      <SlotSbbLeadTemplate {...sbbLeadGAArgs} />
-    </div>
+    <SlotSbbLeadTemplate slot="lead" {...sbbLeadGAArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextTravelCardValidityArgs} />
     </div>
@@ -492,9 +488,7 @@ const TemplateTravelCardGAPersonalized = (args) => (
 const TemplateTravelCardHalfFarePersonalized = (args) => (
   <sbb-card-product {...args}>
     <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardHalfFareArgs} />
-    <div slot="lead">
-      <SlotSbbLeadTemplate {...sbbLeadHalfFareArgs} />
-    </div>
+    <SlotSbbLeadTemplate slot="lead" {...sbbLeadHalfFareArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextTravelCardValidityArgs} />
     </div>
@@ -507,9 +501,7 @@ const TemplateTravelCardHalfFarePersonalized = (args) => (
 const TemplateTravelCardHalfFare = (args) => (
   <sbb-card-product {...args}>
     <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardHalfFareArgs} />
-    <div slot="lead">
-      <SlotSbbLeadTemplate {...sbbLeadHalfFareLongArgs} />
-    </div>
+    <SlotSbbLeadTemplate slot="lead" {...sbbLeadHalfFareLongArgs} />
     <div slot="action">
       <SlotActionTemplate {...actionHalfFareArgs} />
     </div>
@@ -522,11 +514,14 @@ const TemplateTheWholeShabang = (args) => (
     <div slot="category">
       <SlotSbbCategoryTemplate {...sbbCategoryArgs} />
     </div>
-    <SlotSbbTitleTemplate slot="title" {...sbbTitleTravelCardGAArgs} />
-    <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
-    <div slot="lead">
-      <SlotSbbLeadTemplate {...sbbLeadGAArgs} />
+    <div
+      slot="title"
+      style="--sbb-title-margin-block-start-override: 0; --sbb-title-margin-block-end-override: 0;"
+    >
+      <SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs} />
+      <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
     </div>
+    <SlotSbbLeadTemplate slot="lead" {...sbbLeadGAArgs} />
     <div slot="text">
       <SlotSbbTextTemplate {...sbbTextTravelCardValidityArgs} />
     </div>

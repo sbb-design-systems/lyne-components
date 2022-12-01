@@ -5,6 +5,11 @@ Internally this is represented by the heading elements: h1, h2, h3, h4, h5 and h
 In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
 it is possible to use the `visual-level`.
 
+As a default the `<sbb-title>` contains spacing on top and bottom. To achieve a custom spacing, 
+set margin on `<sbb-title style='margin:0'>`.
+As an alternative you can also set the following 
+css vars: `--sbb-title-margin-block-start-override` and `--sbb-title-margin-block-end-override` to a specific value.
+
 <!-- Auto Generated Below -->
 
 
