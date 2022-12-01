@@ -92,14 +92,15 @@ export class SbbToggleOption {
           value={this.value}
         />
         <span class="sbb-toggle-option">
-          {!this.iconName ? (
-            <label id={this.toggleOptionId} htmlFor={this.toggleOptionId}>
-              {this.value}
-            </label>
-          ) : (
+          {this.iconName && (
             <slot name="icon">
               <sbb-icon name={this.iconName}></sbb-icon>
             </slot>
+          )}
+          {this.value && (
+            <label id={this.toggleOptionId} htmlFor={this.toggleOptionId}>
+              {this.value}
+            </label>
           )}
         </span>
       </Host>
