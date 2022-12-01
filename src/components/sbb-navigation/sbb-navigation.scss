@@ -9,6 +9,7 @@
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive)
     var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
+  --sbb-navigation-padding-block-end: var(--sbb-spacing-fixed-6x);
   --sbb-navigation-width: 100vw;
   --sbb-navigation-backdrop-color: transparent;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
@@ -82,8 +83,8 @@
   height: 100vh;
   color: var(--sbb-color-white-default);
   background-color: var(--sbb-color-midnight-default);
-  padding-inline: var(--sbb-navigation-padding-inline);
-  padding-block-start: var(--sbb-navigation-padding-block-start);
+  padding: 0;
+  overflow: hidden;
 
   &[open] {
     visibility: visible;
@@ -114,6 +115,16 @@
   z-index: 1;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+.sbb-navigation__content {
+  @include scrollbar-dark;
+
+  height: 100vh;
+  padding-inline: var(--sbb-navigation-padding-inline);
+  padding-block-start: var(--sbb-navigation-padding-block-start);
+  padding-block-end: var(--sbb-navigation-padding-block-end);
+  overflow-y: auto;
 }
 
 @keyframes open {
