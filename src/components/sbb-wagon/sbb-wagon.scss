@@ -11,11 +11,11 @@
   --sbb-wagon-shape-outline-width: var(--sbb-border-width-1x);
   --sbb-wagon-blocked-background-color: var(--sbb-color-red-default);
   --sbb-wagon-blocked-bar-color: var(--sbb-color-white-default);
-  --sbb-wagon-icons-padding-top: var(--sbb-spacing-fixed-2x);
+  --sbb-wagon-icons-padding-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
 
   // Blocked passage icon
-  --sbb-wagon-blocked-passage-icon-dimensions: #{px-to-rem-build(16)};
+  --sbb-wagon-blocked-passage-icon-dimension: #{px-to-rem-build(16)};
   --sbb-wagon-blocked-passage-icon-bar-width: #{px-to-rem-build(10)};
   --sbb-wagon-blocked-passage-icon-bar-height: #{px-to-rem-build(4)};
   --sbb-wagon-blocked-passage-icon-bar-border-radius: #{px-to-rem-build(1)};
@@ -37,30 +37,20 @@
   }
 
   :host([type='blocked']) & {
-    width: var(--sbb-wagon-blocked-passage-icon-dimensions);
+    width: var(--sbb-wagon-blocked-passage-icon-dimension);
   }
 }
 
 .sbb-wagon__label {
   @include text-s--regular;
+}
 
-  opacity: 0;
-  margin: 0;
+.sbb-wagon__label-screenreader {
+  @include screenReaderOnly;
+}
 
-  :host([type='wagon']) & {
-    opacity: 1;
-
-    span:not([aria-hidden]) {
-      @include screenReaderOnly;
-    }
-  }
-
-  :host([type='locomotive']) &,
-  :host([type='blocked']) & {
-    white-space: nowrap;
-    max-width: 100%;
-    pointer-events: none;
-  }
+.sbb-wagon__label-text {
+  display: inline-block;
 }
 
 .sbb-wagon__compartment {
@@ -86,7 +76,7 @@
 .sbb-wagon__class {
   @include title-6;
 
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .sbb-wagon__icons {
@@ -101,7 +91,7 @@
     flex-wrap: wrap;
     gap: var(--sbb-wagon-icons-gap);
     justify-content: center;
-    padding-block-start: var(--sbb-wagon-icons-padding-top);
+    padding-block-start: var(--sbb-wagon-icons-padding-block-start);
   }
 
   li {
@@ -111,7 +101,7 @@
 
 .sbb-wagon__blocked-icon {
   width: 100%;
-  height: var(--sbb-wagon-blocked-passage-icon-dimensions);
+  height: var(--sbb-wagon-blocked-passage-icon-dimension);
   border-radius: 50%;
   background-color: var(--sbb-wagon-blocked-background-color);
   position: relative;

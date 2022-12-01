@@ -1744,7 +1744,7 @@ export namespace Components {
          */
         "accessibilityLabel"?: string;
         /**
-          * Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.
+          * Controls the direction indicator to show the arrow left or right. Default is left.
          */
         "direction": InterfaceSbbTrainAttributes['direction'];
         /**
@@ -4081,7 +4081,7 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string;
         /**
-          * Controls the direction indicator to show the arrow LEFT or RIGHT. Default is LEFT.
+          * Controls the direction indicator to show the arrow left or right. Default is left.
          */
         "direction"?: InterfaceSbbTrainAttributes['direction'];
         /**

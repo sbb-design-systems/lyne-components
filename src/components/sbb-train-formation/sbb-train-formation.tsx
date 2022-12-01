@@ -60,7 +60,7 @@ export class SbbTrainFormation {
   }
 
   /**
-   * Apply to every given sbb-train the possbile width of the scrollable space of the formation as a
+   * Apply to every given sbb-train the possible width of the scrollable space of the formation as a
    * css variable
    */
   private _applyCssWidthVarToTrains(train: HTMLSbbTrainElement): void {
