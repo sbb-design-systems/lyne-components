@@ -70,14 +70,12 @@ const defaultArgTypes = {
   disabled,
   even,
   size,
-  value,
 };
 
 const defaultArgs = {
   disabled: false,
   even: false,
   size: 'm',
-  value: 'option-1',
 };
 
 const toggleOption = (args) => [
@@ -88,35 +86,45 @@ const toggleOption = (args) => [
 const DefaultTemplate = (args) => <sbb-toggle {...args}>{toggleOption(args)}</sbb-toggle>;
 
 export const sbbToggle = DefaultTemplate.bind({});
-sbbToggle.args = { ...defaultArgs, value1: 'option-1', value2: 'option-2' };
-sbbToggle.argTypes = { ...defaultArgTypes, value1, value2 };
+sbbToggle.args = { ...defaultArgs, value: 'option-1', value1: 'option-1', value2: 'option-2' };
+sbbToggle.argTypes = { ...defaultArgTypes, value, value1, value2 };
 sbbToggle.documentation = {
   title: 'sbb-toggle',
 };
 
-export const sbbToggleDynamicWidth = DefaultTemplate.bind({});
-sbbToggleDynamicWidth.args = {
-  ...defaultArgs,
-  value: 'Lorem Ipsum',
-  value1: 'Lorem Ipsum',
-  value2:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-};
-sbbToggleDynamicWidth.argTypes = { ...defaultArgTypes, value1, value2 };
-sbbToggleDynamicWidth.documentation = {
-  title: 'sbb-toggle',
-};
-
 export const sbbToggleDisabled = DefaultTemplate.bind({});
-sbbToggleDisabled.args = { ...defaultArgs, disabled: true, value1: 'option-1', value2: 'option-2' };
-sbbToggleDisabled.argTypes = { ...defaultArgTypes, value1, value2 };
+sbbToggleDisabled.args = {
+  ...defaultArgs,
+  disabled: true,
+  value: 'option-1',
+  value1: 'option-1',
+  value2: 'option-2',
+};
+sbbToggleDisabled.argTypes = { ...defaultArgTypes, value, value1, value2 };
 sbbToggleDisabled.documentation = {
   title: 'sbb-toggle disabled',
 };
+export const sbbToggleDynamicWidth = DefaultTemplate.bind({});
+sbbToggleDynamicWidth.args = {
+  ...defaultArgs,
+  value: 'Lorem Ipsum.',
+  value1: 'Lorem Ipsum.',
+  value2: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+};
 
+sbbToggleDynamicWidth.argTypes = { ...defaultArgTypes, value, value1, value2 };
+sbbToggleDynamicWidth.documentation = {
+  title: 'sbb-toggle',
+};
 export const sbbToggleFixedWidth = DefaultTemplate.bind({});
-sbbToggleFixedWidth.args = { ...defaultArgs, even: true, value1: 'option-1', value2: 'option-2' };
-sbbToggleFixedWidth.argTypes = { ...defaultArgTypes, value1, value2 };
+sbbToggleFixedWidth.args = {
+  ...defaultArgs,
+  even: true,
+  value: 'Lorem Ipsum.',
+  value1: 'Lorem Ipsum.',
+  value2: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+};
+sbbToggleFixedWidth.argTypes = { ...defaultArgTypes, value, value1, value2 };
 sbbToggleFixedWidth.documentation = {
   title: 'sbb-toggle fixed width',
 };
@@ -124,13 +132,24 @@ sbbToggleFixedWidth.documentation = {
 export const sbbToggleWithIcons = DefaultTemplate.bind({});
 sbbToggleWithIcons.args = {
   ...defaultArgs,
-  value1: 'option-1',
-  value2: 'option-2',
   iconName: 'arrow-right-small',
 };
-sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName, value1, value2 };
+sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
 sbbToggleWithIcons.documentation = {
   title: 'sbb-toggle with custom icon',
+};
+
+export const sbbToggleWithIconsAndLabel = DefaultTemplate.bind({});
+sbbToggleWithIconsAndLabel.args = {
+  ...defaultArgs,
+  iconName: 'arrow-right-small',
+  value: 'option-1',
+  value1: 'option-1',
+  value2: 'option-2',
+};
+sbbToggleWithIconsAndLabel.argTypes = { ...defaultArgTypes, iconName, value, value1, value2 };
+sbbToggleWithIconsAndLabel.documentation = {
+  title: 'sbb-toggle with custom icon and label',
 };
 
 export default {
