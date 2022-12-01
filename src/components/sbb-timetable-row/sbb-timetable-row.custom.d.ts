@@ -7,7 +7,7 @@ import {
 export interface Notice {
   name: string;
   /** Priority - A lower priority value means a higher importance */
-  priority: number;
+  priority?: number;
   /** Text format with linkable parameters */
   text: string;
 }
@@ -18,7 +18,7 @@ export type OccupancyEnum = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
 /** A public transportation situation message affecting the planned Public Transport operation */
 export interface PtSituation {
   /** Priority value: lowest = 80, medium = 60, highest = 40, de: Großereignis = 20 */
-  broadcastMessages: PtSituationMessage[];
+  broadcastMessages?: PtSituationMessage[];
   /** A classification of what caused the SITUATION (HIM category) */
   cause?: PtSituationCauseEnum | null;
 }
@@ -47,6 +47,13 @@ export type PtSituationCauseEnum =
   | 'END_MESSAGE'
   | 'INFORMATION'
   | 'TRAIN_REPLACEMENT_BY_BUS';
+
+/** Most critical boarding/alighting accessibility */
+export type BoardingAlightingAccessibilityEnum =
+  | 'BOARDING_ALIGHTING_BY_CREW'
+  | 'BOARDING_ALIGHTING_BY_NOTIFICATION'
+  | 'BOARDING_ALIGHTING_NOT_POSSIBLE'
+  | 'BOARDING_ALIGHTING_SELF';
 
 /** A public transportation situation broadcast message affecting the planned PT operation */
 export interface PtSituationMessage {
@@ -85,6 +92,11 @@ export interface ServiceProduct {
 }
 
 export interface TripStatus {
+  /** false: Planned connection; true: Realtime alternative */
+  alternative: boolean;
+  /** Text intended for passengers about an alternative Trip, relates to alternative. */
+  alternativeText?: string;
+  /** PTRideLeg cancelled */
   cancelled: boolean;
   /** Contains at least one delay (de:Verspätung) on any PTRideLeg. */
   delayed: boolean;
@@ -106,12 +118,13 @@ export interface TripSummary {
   occupancy: Occupancy;
   product?: ServiceProduct | null;
   tripStatus: TripStatus | null;
+  boardingAlightingAccessibility?: BoardingAlightingAccessibilityEnum;
 }
 
 export interface Price {
-  price: string;
-  text: string;
-  isDiscount: boolean;
+  price?: string;
+  text?: string;
+  isDiscount?: boolean;
 }
 
 export interface Trip {
@@ -136,8 +149,4 @@ export interface Trip {
   id?: string;
   /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
   valid?: boolean;
-}
-export interface InterfaceTimetableRowAttributes {
-  trip: Trip;
-  price?: Price;
 }

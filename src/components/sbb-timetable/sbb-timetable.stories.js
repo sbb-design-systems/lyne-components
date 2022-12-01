@@ -1,6 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { config } from '../sbb-timetable-row/sbb-timetable-row.sample-data';
+import { defaultTrip } from '../sbb-timetable-row/sbb-timetable-row.sample-data';
 
 const Template = (args) => (
   <sbb-timetable>
@@ -15,10 +15,9 @@ const Template = (args) => (
 /* ************************************************* */
 export const sbbTimetable = Template.bind({});
 sbbTimetable.args = {
-  'loading-price': config.loadingPrice,
-  'loading-trip': config.loadingTrip,
-  trip: config.trip,
-  price: config.price,
+  'loading-trip': defaultTrip.loadingTrip,
+  trip: defaultTrip.trip,
+  price: defaultTrip.price,
 };
 
 sbbTimetable.documentation = {

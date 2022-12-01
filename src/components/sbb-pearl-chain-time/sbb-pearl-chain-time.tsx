@@ -1,5 +1,4 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { InterfacePearlChainAttributes } from '../sbb-pearl-chain/sbb-pearl-chain.custom';
 import {
   i18nDeparture,
   i18nArrival,
@@ -9,6 +8,7 @@ import {
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
+import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
 
 @Component({
   shadow: true,
@@ -26,7 +26,7 @@ export class SbbPearlChainTime {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: InterfacePearlChainAttributes['legs'];
+  @Prop() public legs!: PTRideLeg[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
   @Prop() public departureTime!: string;

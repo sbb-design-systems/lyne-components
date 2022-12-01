@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import { progressLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 const departureWalk = {
   control: {
@@ -34,13 +35,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  legs: [
-    {
-      duration: 300,
-    },
-  ],
-  'departure-time': '2022-10-28T02:48:00+02:00',
-  'arrival-time': '2022-10-28T12:48:00+02:00',
+  legs: [progressLeg],
   'disable-animation': isChromatic(),
   'data-now': undefined,
 };
@@ -75,14 +70,8 @@ maximal.args = {
   ...defaultArgs,
   'departure-walk': '10',
   'arrival-walk': '5',
-  legs: [
-    {
-      duration: 300,
-      arrival: { time: '2022-10-20T13:00' },
-      departure: { time: '2022-10-08T12:00' },
-    },
-  ],
-  'data-now': new Date('2022-10-13T12:00').valueOf(),
+  legs: [progressLeg],
+  'data-now': new Date().valueOf(),
 };
 
 export default {

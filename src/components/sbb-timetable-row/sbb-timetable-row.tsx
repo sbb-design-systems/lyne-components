@@ -1,16 +1,26 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { InterfaceTimetableRowAttributes, Notice } from './sbb-timetable-row.custom';
+import { BoardingAlightingAccessibilityEnum, Price, Trip } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import { i18nClass, i18nDirection, i18nFromQuay, i18nOccupancy } from '../../global/i18n';
 import {
-  convertCauseInIconName,
+  i18nClass,
+  i18nDirection,
+  i18nFromPier,
+  i18nFromPlatform,
+  i18nFromStand,
+  i18nOccupancy,
+} from '../../global/i18n';
+import {
   durationToTime,
+  getCus,
+  getHimIcon,
+  getTransportIcon,
+  handleNotices,
   isProductIcon,
   renderIconProduct,
   renderStringProduct,
+  sortSituation,
 } from './sbb-timetable-row.helper';
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
@@ -20,10 +30,10 @@ export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
 
   /** The trip Prop */
-  @Prop() public trip?: InterfaceTimetableRowAttributes['trip'];
+  @Prop() public trip?: Trip;
 
   /** The price Prop, which consists of the data for the badge. */
-  @Prop() public price?: InterfaceTimetableRowAttributes['price'];
+  @Prop() public price?: Price;
 
   /** This will be forwarded as aria-label to the relevant element. */
   @Prop() public accessibilityLabel: string | undefined;
@@ -31,14 +41,14 @@ export class SbbTimetableRow {
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
+  /** This will be forwarded to the notices section */
+  @Prop() public boardingAlightingAccessibility?: BoardingAlightingAccessibilityEnum;
+
   /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
   @Prop() public loadingTrip?: boolean;
-
-  /** When this prop is true the badge for the price will appear loading. */
-  @Prop() public loadingPrice?: boolean;
 
   /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public active?: boolean;
@@ -53,9 +63,8 @@ export class SbbTimetableRow {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): JSX.Element {
     return (
-      <sbb-card         size='l'
-       class="sbb-loading">
-        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
+      <sbb-card size="l" class="sbb-loading">
+        <sbb-card-badge slot="badge" class="sbb-loading__badge" />
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -65,22 +74,48 @@ export class SbbTimetableRow {
     );
   }
 
-  /**
-   * Sorts the Notice Array and sets the items with the highest priority to the top
-   * @param items Array with the type of Notice.
-   * @returns sorted Array with the type of Notice.
-   */
-  private _sortNoticePriority(items: Notice[]): Notice[] {
-    return items?.slice().sort((a, b) => b.priority - a.priority);
+  private _getQuayType(vehicleMode: string): any {
+    switch (vehicleMode) {
+      case 'TRAIN':
+        return i18nFromPlatform;
+      case 'SHIP':
+        return i18nFromPier;
+      case 'TRAMWAY':
+        return i18nFromStand;
+      case 'BUS':
+        return i18nFromStand;
+      default:
+        return undefined;
+    }
+  }
+
+  /** map Quay */
+  private _renderQuayType(): JSX.Element {
+    return (
+      <span class="sbb-timetable__row--quay">
+        <span class="sbb-screenreaderonly">
+          {this._getQuayType(this.trip?.summary?.product?.vehicleMode)?.long[this._currentLanguage]}
+        </span>
+        {this._getQuayType(this.trip?.summary?.product?.vehicleMode)?.short[this._currentLanguage]}
+      </span>
+    );
+  }
+
+  private _handleHimCus(trip: Trip): string {
+    const situations = sortSituation(trip?.situations);
+    const cus = getCus(trip);
+
+    return cus?.length ? cus[0] : situations?.length && getHimIcon(situations[0]);
   }
 
   public render(): JSX.Element {
-    if (this.loadingTrip) {
-      return this._renderSkeleton();
-    }
+    if (this.loadingTrip) return this._renderSkeleton();
 
-    const { legs, id, notices, situations }: InterfaceTimetableRowAttributes['trip'] =
-      this.trip || {};
+    const { legs, id, notices }: Trip = this.trip || {};
+
+    const isBoardingAccessible =
+      this.boardingAlightingAccessibility &&
+      this.boardingAlightingAccessibility !== 'BOARDING_ALIGHTING_NOT_POSSIBLE';
 
     const {
       product,
@@ -93,18 +128,14 @@ export class SbbTimetableRow {
       duration,
     } = this.trip?.summary || {};
 
-    const sortedNotices = notices?.length ? this._sortNoticePriority(notices) : null;
-
     return (
       <sbb-card
-        size='l'
+        size="l"
         active={this.active}
         card-id={id}
         accessibility-label={this.accessibilityLabel}
-        onClick={this._clickHandler}
       >
-        {this.loadingPrice && <span slot="badge" class="sbb-loading__badge"></span>}
-        {this.price && !this.loadingPrice && (
+        {this.price && (
           <sbb-card-badge
             slot="badge"
             appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
@@ -116,14 +147,18 @@ export class SbbTimetableRow {
         <div class="sbb-timetable__row">
           <div class="sbb-timetable__row-header">
             <div class="sbb-timetable__row-details">
-              {product?.vehicleMode !== 'UNKNOWN' && (
-                <sbb-icon name={product?.vehicleMode.toLocaleLowerCase() + '-small'} />
+              {getTransportIcon(product?.vehicleMode) && (
+                <sbb-icon
+                  class="sbb-timetable__row-transport-type"
+                  name={'picto:' + getTransportIcon(product?.vehicleMode) + '-right'}
+                />
               )}
-              {isProductIcon(product?.vehicleSubModeShortName.toLocaleLowerCase())
+              {product?.vehicleSubModeShortName &&
+              isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
                 ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
                 : renderStringProduct(product?.vehicleSubModeShortName, product?.line)}
             </div>
-            <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>
+            {direction && <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>}
           </div>
           <sbb-pearl-chain-time
             legs={legs}
@@ -134,17 +169,14 @@ export class SbbTimetableRow {
             disableAnimation={this.disableAnimation}
             data-now={this._now()}
           ></sbb-pearl-chain-time>
-
           <div class="sbb-timetable__row-footer">
-            {(departure?.quayRtName || departure?.quayAimedName) &&
-             <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
-                <span class="sbb-screenreaderonly">{i18nFromQuay.long[this._currentLanguage]}</span>
-                <span class="sbb-timetable__row--quay">
-                  {i18nFromQuay.short[this._currentLanguage]}
+            {this._getQuayType(this.trip?.summary?.product?.vehicleMode) !== undefined &&
+              departure?.quayAimedName && (
+                <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
+                  {this._renderQuayType()}
+                  {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
                 </span>
-                {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
-              </span>
-            }
+              )}
             {(occupancy?.firstClass || occupancy?.secondClass) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
                 {occupancy?.firstClass && (
@@ -189,43 +221,36 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {notices?.length > 0 ? (
+            {(handleNotices(notices)?.length || isBoardingAccessible) && (
               <ul class="sbb-timetable__row-hints" role="list">
-                {sortedNotices?.map((notice, index) =>
-                  index < 4 ? (
-                    <li>
-                      <sbb-icon
-                        class="sbb-travel-hints__item"
-                        name={'sa-' + notice?.name?.toLowerCase()}
-                        aria-hidden="false"
-                        aria-label={notice?.text}
-                      />
-                    </li>
-                  ) : (
-                    ''
-                  )
+                {handleNotices(notices)?.map(
+                  (notice, index) =>
+                    index < 4 && (
+                      <li>
+                        <sbb-icon
+                          class="sbb-travel-hints__item"
+                          name={notice}
+                          aria-hidden="false"
+                        />
+                      </li>
+                    )
+                )}
+                {isBoardingAccessible && (
+                  <li>
+                    <sbb-icon class="sbb-travel-hints__item" name="sa-rs" aria-hidden="false" />
+                  </li>
                 )}
               </ul>
-            ) : (
-              ''
             )}
             {duration > 0 && <time>{durationToTime(duration)}</time>}
-            {situations?.length > 0 ? (
+            {!!this._handleHimCus(this.trip) && (
               <span class="sbb-timetable__row-warning">
-                {situations?.map((situation, index) =>
-                  index < 1 ? (
-                    <sbb-icon
-                      name={convertCauseInIconName(situation?.cause)}
-                      aria-hidden="false"
-                      aria-label={situation.broadcastMessages}
-                    />
-                  ) : (
-                    ''
-                  )
-                )}
+                <sbb-icon
+                  name={this._handleHimCus(this.trip)}
+                  aria-hidden="false"
+                  aria-label={this._handleHimCus(this.trip)}
+                />
               </span>
-            ) : (
-              ''
             )}
           </div>
         </div>

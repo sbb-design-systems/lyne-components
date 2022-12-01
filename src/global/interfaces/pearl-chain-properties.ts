@@ -39,6 +39,9 @@ export interface ServiceAlteration {
    * Example: Your connecting train will be waiting, please change trains immediately.
    */
   reachableText?: string;
+
+  /** Text intended for passengers about an additional non-planned stop at a station */
+  unplannedStopPointsText?: string;
 }
 
 export interface ServiceJourney {
@@ -48,6 +51,9 @@ export interface ServiceJourney {
 }
 
 export interface PTRideLeg {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  __typename?: 'PTRideLeg';
+  /** arrival time and quay */
   arrival: ScheduledStopPointDetail;
   /** departure time and quay */
   departure: ScheduledStopPointDetail;

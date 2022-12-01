@@ -6,18 +6,21 @@
 }
 
 // override icons sizes
+.sbb-timetable__row-transport-type {
+  --sbb-icon-svg-width: #{px-to-rem-build(20)};
+  --sbb-icon-svg-height: #{px-to-rem-build(20)};
+}
+
+// override icons sizes
 .sbb-travel-hints__item {
-  --sbb-icon-svg-width: #{px-to-rem-build(16)};
-  --sbb-icon-svg-height: #{px-to-rem-build(16)};
+  --sbb-icon-svg-height: #{px-to-rem-build(14)};
 }
 
 // Design spec: icon should have spesific size
 .sbb-occupancy__item {
-  --sbb-icon-svg-width: #{px-to-rem-build(14.25)};
   --sbb-icon-svg-height: #{px-to-rem-build(12)};
 
   @include mq($from: medium) {
-    --sbb-icon-svg-width: #{px-to-rem-build(19)};
     --sbb-icon-svg-height: #{px-to-rem-build(16)};
   }
 }
@@ -73,6 +76,7 @@ li {
 .sbb-timetable__row-hints {
   display: inline-flex;
   gap: var(--sbb-spacing-fixed-1x);
+  align-items: center;
 }
 
 .sbb-timetable__row-header p {
@@ -176,5 +180,9 @@ li {
 
   67% {
     background: var(--sbb-color-milk-default);
+  }
+
+  100% {
+    background: var(--sbb-color-cloud-default);
   }
 }
