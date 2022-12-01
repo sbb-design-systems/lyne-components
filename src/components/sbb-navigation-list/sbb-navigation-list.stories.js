@@ -15,7 +15,7 @@ const defaultArgs = {
   label: 'Label',
 };
 
-const SizeMTemplate = (args) => (
+const DefaultTemplate = (args) => (
   <sbb-navigation-list {...args}>
     <sbb-navigation-action size="m">Tickets & Offers</sbb-navigation-action>
     <sbb-navigation-action size="m">Vacations & Recreation</sbb-navigation-action>
@@ -24,10 +24,25 @@ const SizeMTemplate = (args) => (
   </sbb-navigation-list>
 );
 
-export const SizeM = SizeMTemplate.bind({});
-SizeM.argTypes = defaultArgTypes;
-SizeM.args = { ...defaultArgs };
-SizeM.documentation = { title: 'Size M' };
+const SlottedLabelTemplate = (args) => (
+  <sbb-navigation-list {...args}>
+    <span slot="label">Label</span>
+    <sbb-navigation-action size="m">Tickets & Offers</sbb-navigation-action>
+    <sbb-navigation-action size="m">Vacations & Recreation</sbb-navigation-action>
+    <sbb-navigation-action size="m">Travel information</sbb-navigation-action>
+    <sbb-navigation-action size="m">Help & Contact</sbb-navigation-action>
+  </sbb-navigation-list>
+);
+
+export const Default = DefaultTemplate.bind({});
+Default.argTypes = defaultArgTypes;
+Default.args = { ...defaultArgs };
+Default.documentation = { title: 'Size M' };
+
+export const SlottedLabel = SlottedLabelTemplate.bind({});
+SlottedLabel.argTypes = defaultArgTypes;
+SlottedLabel.args = {};
+SlottedLabel.documentation = { title: 'Size M' };
 
 export default {
   decorators: [

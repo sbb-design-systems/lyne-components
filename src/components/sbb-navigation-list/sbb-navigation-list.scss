@@ -12,3 +12,11 @@
 .sbb-navigation-list__action {
   margin-block: var(--sbb-spacing-fixed-1x);
 }
+
+.sbb-navigation-list__label {
+  @include text-xxs--bold;
+
+  display: inline-block;
+  color: var(--sbb-color-storm-default);
+  margin-block-end: var(--sbb-spacing-fixed-2x);
+}

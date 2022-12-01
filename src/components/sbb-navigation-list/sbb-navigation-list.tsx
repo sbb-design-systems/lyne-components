@@ -1,4 +1,8 @@
 import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 /**
  * @slot label - Use this to provide a label element.
@@ -16,6 +20,13 @@ export class SbbNavigationList {
   /** Sbb-navigation-action elements */
   @State() private _actions: HTMLSbbNavigationActionElement[];
 
+  /**
+   * State of listed named slots, by indicating whether any element for a named slot is defined.
+   */
+  @State() private _namedSlots = createNamedSlotState('label');
+
+  private _hasLabel = false;
+
   @Element() private _element: HTMLElement;
 
   /**
@@ -28,14 +39,21 @@ export class SbbNavigationList {
   }
 
   public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._hasLabel = !!this.label || this._namedSlots['label'];
     this._readActions();
   }
 
   public render(): JSX.Element {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
+    const labelElement = (
+      <span class="sbb-navigation-list__label">
+        <slot name="label">{this.label}</slot>
+      </span>
+    );
     return (
       <Host class="sbb-navigation-list">
-        <slot name="label" />
+        {this._hasLabel && labelElement}
         <ul class="sbb-navigation-list__content">
           {this._actions.map((_, index) => (
             <li class="sbb-navigation-list__action">

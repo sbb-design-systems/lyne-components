@@ -60,46 +60,11 @@ const DefaultTemplate = (args) => [
   </sbb-navigation>,
 ];
 
-const ListTemplate = (args) => [
-  triggerButton('trigger-button'),
-  <sbb-navigation data-testid="navigation" {...args} id="navigation">
-    <sbb-navigation-list>
-      <sbb-navigation-action size="m" id="nav-1">
-        Tickets & Offers
-      </sbb-navigation-action>
-      <sbb-navigation-action size="m" id="nav-2">
-        Vacations & Recreation
-      </sbb-navigation-action>
-      <sbb-navigation-action size="m" id="nav-3">
-        Travel information
-      </sbb-navigation-action>
-      <sbb-navigation-action size="m" id="nav-4">
-        Help & Contact
-      </sbb-navigation-action>
-    </sbb-navigation-list>
-    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
-      <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
-      <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
-      <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
-    </sbb-navigation-marker>
-    <sbb-button size="m" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      All tickets & offers
-    </sbb-button>
-  </sbb-navigation>,
-];
-
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
 Default.documentation = { title: 'Default' };
 Default.play = playStory;
-
-export const List = ListTemplate.bind({});
-List.argTypes = defaultArgTypes;
-List.args = { ...defaultArgs };
-List.documentation = { title: 'Default' };
-List.play = playStory;
 
 export default {
   decorators: [
