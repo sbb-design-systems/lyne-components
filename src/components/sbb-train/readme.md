@@ -11,7 +11,7 @@ It should refer to the section where the locomotive is placed.
 
 <sbb-train direction-label="driving direction" station="Genève-Aéroport" direction="LEFT"
            accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction.">
-  <slot />
+  ...
 </sbb-train>
 ```
 
@@ -49,5 +49,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
