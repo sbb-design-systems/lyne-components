@@ -12,6 +12,7 @@ describe('sbb-navigation', () => {
         <sbb-navigation>
           <mock:shadow-root>
             <dialog class="sbb-navigation">
+              <sbb-button accessibility-label="Close modal" class="sbb-dialog__close" icon-name="cross-small" negative="" size="m" type="button" variant="transparent"></sbb-button>
               <div class="sbb-navigation__content">
                 <slot></slot>
               </div>

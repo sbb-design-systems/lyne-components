@@ -1025,7 +1025,7 @@ export namespace Components {
     }
     interface SbbNavigationMarker {
         /**
-          * Marker size variant
+          * Marker size variant.
          */
         "size"?: 'l' | 's';
     }
@@ -3256,7 +3256,7 @@ declare namespace LocalJSX {
     }
     interface SbbNavigationMarker {
         /**
-          * Marker size variant
+          * Marker size variant.
          */
         "size"?: 'l' | 's';
     }

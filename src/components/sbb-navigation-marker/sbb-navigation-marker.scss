@@ -5,35 +5,52 @@
 :host {
   @include title-4;
 
-  --sbb-navigation-marker-position-x: 0;
+  --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
   --sbb-navigation-marker-position-y: 0;
   --sbb-navigation-marker-width: #{px-to-rem-build(17)};
   --sbb-navigation-marker-height: var(--sbb-border-width-1x);
-  --sbb-navigation-marker-margin-block: calc(0.5em + var(--sbb-navigation-marker-height) * 2);
+  --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
+  --sbb-navigation-marker-margin-block: calc(
+    var(--sbb-font-size-title-4) * var(--sbb-typo-line-height-titles) / 2 -
+      var(--sbb-border-width-1x) / 2
+  );
   --sbb-navigation-action-margin-block-end: var(--sbb-spacing-responsive-xs);
 
   position: relative;
-  padding-inline-start: var(--sbb-spacing-fixed-6x);
+  padding-inline-start: var(--sbb-navigation-marker-padding-inline-start);
 
   &::before {
     content: '';
     position: absolute;
+    opacity: 0;
     left: var(--sbb-navigation-marker-position-x);
     top: var(--sbb-navigation-marker-position-y);
     width: var(--sbb-navigation-marker-width);
     height: var(--sbb-navigation-marker-height);
     background: var(--sbb-color-storm-default);
     margin-block: var(--sbb-navigation-marker-margin-block);
-    transition: top var(--sbb-animation-duration-6x) ease 0s;
+    transition: {
+      duration: var(--sbb-animation-duration-6x);
+      timing-function: ease;
+      property: opacity, top;
+    }
   }
+}
+
+:host(.sbb-navigation-marker--visible)::before {
+  opacity: 1;
 }
 
 :host([size='s']) {
   @include text-xxs--bold;
 
-  --sbb-navigation-marker-width: #{px-to-rem-build(8)};
   --sbb-navigation-marker-position-x: calc(
-    var(--sbb-navigation-marker-margin-block) + #{px-to-rem-build(6)}
+    var(--sbb-navigation-marker-padding-inline-start) - var(--sbb-spacing-fixed-2x)
+  );
+  --sbb-navigation-marker-width: #{px-to-rem-build(8)};
+  --sbb-navigation-marker-margin-block: calc(
+    var(--sbb-font-size-text-xxs) * var(--sbb-typo-line-height-body-text) / 2 -
+      var(--sbb-border-width-1x) / 2
   );
   --sbb-navigation-action-margin-block-end: var(--sbb-spacing-fixed-2x);
 }

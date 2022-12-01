@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic/isChromatic';
 
 const size = {
   control: {
@@ -17,24 +16,38 @@ const defaultArgs = {
   size: size.options[0],
 };
 
-const DefaultTemplate = (args) => (
+const SizeLTemplate = (args) => (
   <sbb-navigation-marker {...args}>
-    <sbb-navigation-action id="nav1">Billette & Angebote</sbb-navigation-action>
-    <sbb-navigation-action id="nav2">Ferien & Freizeit</sbb-navigation-action>
-    <sbb-navigation-action id="nav3">Reiseinformationen</sbb-navigation-action>
-    <sbb-navigation-action id="nav4">Hilfe & Kontakt</sbb-navigation-action>
+    <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
+    <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
+    <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
+    <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
   </sbb-navigation-marker>
 );
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs };
-Default.documentation = { title: 'Default Marker' };
+const SizeSTemplate = (args) => (
+  <sbb-navigation-marker {...args}>
+    <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
+    <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
+    <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
+    <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+  </sbb-navigation-marker>
+);
+
+export const SizeL = SizeLTemplate.bind({});
+SizeL.argTypes = defaultArgTypes;
+SizeL.args = { ...defaultArgs };
+SizeL.documentation = { title: 'Size L' };
+
+export const SizeS = SizeSTemplate.bind({});
+SizeS.argTypes = defaultArgTypes;
+SizeS.args = { ...defaultArgs, size: size.options[1] };
+SizeS.documentation = { title: 'Size S' };
 
 export default {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
+      <div style={'padding: 2rem;'}>
         <Story />
       </div>
     ),
@@ -47,8 +60,6 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '400px',
       extractComponentDescription: () => readme,
     },
   },

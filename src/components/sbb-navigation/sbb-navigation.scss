@@ -5,7 +5,7 @@
 :host {
   --sbb-navigation-position: fixed;
   --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
-  --sbb-navigation-animation-easing: ease;
+  --sbb-navigation-animation-easing: ease-out;
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive)
     var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
@@ -18,7 +18,7 @@
     --sbb-navigation-position: absolute;
     --sbb-navigation-width: #{px-to-rem-build(496)};
 
-    // navigation backdrop (not visible on mobile)
+    // Navigation backdrop (not visible on mobile)
     &::before {
       content: '';
       visibility: hidden;
@@ -104,6 +104,11 @@
   position: absolute;
   top: var(--sbb-spacing-responsive-xs);
   right: var(--sbb-spacing-responsive-xs);
+  z-index: 1;
+}
+
+::slotted(sbb-navigation-marker) {
+  margin-block-end: var(--sbb-spacing-responsive-xxl);
 }
 
 @keyframes open {
