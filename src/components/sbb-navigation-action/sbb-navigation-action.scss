@@ -4,6 +4,8 @@
 
 :host {
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
+
+  cursor: pointer;
 }
 
 :host(:focus-within) {
@@ -14,7 +16,6 @@
   @include buttonReset;
 
   text-decoration: none;
-  cursor: pointer;
 
   &:focus-visible {
     outline: none;
@@ -44,7 +45,6 @@
   }
 
   :host([active]) .sbb-navigation-action & {
-    transition-duration: var(--sbb-animation-duration-3x);
     color: var(--sbb-color-storm-default);
   }
 
@@ -55,8 +55,8 @@
   }
 
   @include hover-mq($hover: true) {
-    :host .sbb-navigation-action:hover & {
-      transition-duration: var(--sbb-animation-duration-3x);
+    :host(:hover) & {
+      cursor: pointer;
       color: var(--sbb-color-storm-default);
     }
   }
