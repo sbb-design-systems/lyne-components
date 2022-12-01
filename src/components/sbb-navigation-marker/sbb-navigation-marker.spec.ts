@@ -9,11 +9,14 @@ describe('sbb-navigation-marker', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation-marker>
-          <mock:shadow-root>
+      <sbb-navigation-marker style="--sbb-navigation-marker-position-y: undefinedpx;">
+        <mock:shadow-root>
+          <ul class="sbb-navigation-marker__content"></ul>
+          <span hidden="">
             <slot></slot>
-          </mock:shadow-root>
-        </sbb-navigation-marker>
-      `);
+          </span>
+        </mock:shadow-root>
+      </sbb-navigation-marker>
+    `);
   });
 });

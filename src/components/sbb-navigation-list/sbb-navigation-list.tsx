@@ -36,6 +36,7 @@ export class SbbNavigationList {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     return (
       <Host class="sbb-navigation-list">
+        <slot name="label"/>
         <ul class="sbb-navigation-list__content">
           {this._actions.map((_, index) => (
             <li class="sbb-navigation-list__action">

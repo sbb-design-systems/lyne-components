@@ -12,7 +12,10 @@ describe('sbb-navigation-list', () => {
         <sbb-navigation-list class="sbb-navigation-list">
           <mock:shadow-root>
             <slot name="label"></slot>
-            <slot></slot>
+            <ul class="sbb-navigation-list__content"></ul>
+            <span hidden="">
+              <slot></slot>
+            </span>
           </mock:shadow-root>
         </sbb-navigation-list>
       `);
