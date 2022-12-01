@@ -9,7 +9,7 @@ import {
   Method,
   Prop,
   State,
-  Watch
+  Watch,
 } from '@stencil/core';
 import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import getDocumentLang from '../../global/helpers/get-document-lang';
@@ -82,8 +82,11 @@ export class SbbNavigation {
   })
   public didClose: EventEmitter<void>;
 
-  private _dialog: HTMLDialogElement;
+  private _navigation: HTMLDialogElement;
+  private _navigationWrapperElement: HTMLElement;
+  private _navigationContentElement: HTMLElement;
   private _triggerElement: HTMLElement;
+  private _firstFocusable: HTMLElement;
   private _navigationController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
@@ -98,13 +101,13 @@ export class SbbNavigation {
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._state === 'closing' || !this._dialog) {
+    if (this._state === 'closing' || !this._navigation) {
       return;
     }
 
     this.willOpen.emit();
     this._state = 'opening';
-    this._dialog.show();
+    this._navigation.show();
   }
 
   /**
@@ -154,7 +157,7 @@ export class SbbNavigation {
 
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._navigationController.signal,
+      signal: this._navigationController?.signal,
     });
     this._triggerElement.addEventListener(
       'keydown',
@@ -163,7 +166,7 @@ export class SbbNavigation {
           this._openedByKeyboard = true;
         }
       },
-      { signal: this._navigationController.signal }
+      { signal: this._navigationController?.signal }
     );
   }
 
@@ -176,8 +179,8 @@ export class SbbNavigation {
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
       this._state = 'closed';
-      //this._dialog.firstElementChild.scrollTo(0, 0);
-      this._dialog.close();
+      this._navigationContentElement.scrollTo(0, 0);
+      this._navigation.close();
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
@@ -205,35 +208,57 @@ export class SbbNavigation {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+    this._firstFocusable = this._element.shadowRoot.querySelector(
+      IS_FOCUSABLE_QUERY
+    ) as HTMLElement;
 
     if (this._openedByKeyboard) {
-      firstFocusable.focus();
+      this._firstFocusable.focus();
+    } else {
+      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
+      // the focus-visible styles would be incorrectly applied
+      this._navigationWrapperElement.tabIndex = 0;
+      this._navigationWrapperElement.focus();
+
+      this._navigationWrapperElement.addEventListener(
+        'blur',
+        () => this._navigationWrapperElement.removeAttribute('tabindex'),
+        { once: true }
+      );
     }
   }
 
-  // Check if the pointerdown event target is triggered on the dialog.
+  // Check if the pointerdown event target is triggered on the navigation.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnDialog = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnDialog = isEventOnElement(this._navigation, event);
   };
 
-  // Close dialog on backdrop click.
+  // Close navigation on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._dialog, event)) {
+    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._navigation, event)) {
       this.close();
     }
   };
+
+  // Close the navigation on click of any element that has the 'sbb-navigation-close' attribute.
+  private _closeOnSbbDialogCloseClick(event: Event): void {
+    const target = event.target as HTMLElement;
+
+    if (target.hasAttribute('sbb-navigation-close') && !target.hasAttribute('disabled')) {
+      this.close();
+    }
+  }
 
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
 
-    // Close dialog on backdrop click
+    // Close navigation on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this._navigationController.signal,
+      signal: this._navigationController?.signal,
     });
     this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this._navigationController.signal,
+      signal: this._navigationController?.signal,
     });
   }
 
@@ -246,7 +271,7 @@ export class SbbNavigation {
   public render(): JSX.Element {
     const closeButton = (
       <sbb-button
-        class="sbb-dialog__close"
+        class="sbb-navigation__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
         variant="transparent"
         negative={true}
@@ -266,12 +291,22 @@ export class SbbNavigation {
       >
         <dialog
           onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-          ref={(dialogRef) => (this._dialog = dialogRef)}
+          ref={(navigationRef) => (this._navigation = navigationRef)}
           class="sbb-navigation"
         >
-          {closeButton}
-          <div class="sbb-navigation__content">
-            <slot />
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+          <div
+            onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
+            ref={(navigationWrapperRef) => (this._navigationWrapperElement = navigationWrapperRef)}
+            class="sbb-navigation__wrapper"
+          >
+            {closeButton}
+            <div
+              class="sbb-navigation__content"
+              ref={(navigationContent) => (this._navigationContentElement = navigationContent)}
+            >
+              <slot />
+            </div>
           </div>
         </dialog>
       </Host>

@@ -108,7 +108,11 @@
   }
 }
 
-.sbb-dialog__close {
+.sbb-navigation__wrapper {
+  outline: none;
+}
+
+.sbb-navigation__close {
   position: absolute;
   top: var(--sbb-spacing-responsive-xs);
   right: var(--sbb-spacing-responsive-xs);
