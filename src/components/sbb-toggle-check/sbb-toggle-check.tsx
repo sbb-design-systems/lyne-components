@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, EventEmitter, Event, h, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  EventEmitter,
+  Event,
+  h,
+  JSX,
+  Prop,
+  State,
+} from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
