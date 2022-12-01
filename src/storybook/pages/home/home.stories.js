@@ -256,11 +256,9 @@ const Template = (args) => (
             <sbb-title slot="title" level="2" visual-level="1">
               GA
             </sbb-title>
-            <div slot="lead">
-              <sbb-title level="3" visual-level="6">
-                Enjoy unlimited travel with the GA travelcard.
-              </sbb-title>
-            </div>
+            <sbb-title slot="lead" level="3" visual-level="6">
+              Enjoy unlimited travel with the GA travelcard.
+            </sbb-title>
             <div slot="action">
               <sbb-button variant="secondary" static>
                 All GAs at a glance
@@ -278,11 +276,9 @@ const Template = (args) => (
             <sbb-title slot="title" level="2" visual-level="1">
               1/2
             </sbb-title>
-            <div slot="lead">
-              <sbb-title level="3" visual-level="6">
-                Travel at half price with the Halbtax travelcard.
-              </sbb-title>
-            </div>
+            <sbb-title slot="lead" level="3" visual-level="6">
+              Travel at half price with the Halbtax travelcard.
+            </sbb-title>
             <div slot="action">
               <sbb-button variant="secondary" static>
                 Ride at half price
