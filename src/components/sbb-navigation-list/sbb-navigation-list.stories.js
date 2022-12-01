@@ -3,9 +3,9 @@ import readme from './readme.md';
 
 const Template = (args) => (
   <sbb-navigation-list {...args}>
-    <sbb-navigation-action>Label n1</sbb-navigation-action>
-    <sbb-navigation-action>Label n2</sbb-navigation-action>
-    <sbb-navigation-action>Label n3</sbb-navigation-action>
+    <sbb-navigation-action size="m">Label n1</sbb-navigation-action>
+    <sbb-navigation-action size="m">Label n2</sbb-navigation-action>
+    <sbb-navigation-action size="m">Label n3</sbb-navigation-action>
   </sbb-navigation-list>
 );
 

@@ -11,3 +11,14 @@
   flex-direction: column;
   gap: var(--sbb-navigation-gap);
 }
+
+.sbb-navigation-list__content {
+  @include list-reset;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sbb-navigation-list__action {
+  margin-block: var(--sbb-spacing-fixed-1x);
+}

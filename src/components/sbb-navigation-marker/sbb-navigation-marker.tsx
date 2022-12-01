@@ -21,6 +21,9 @@ export class SbbNavigationMarker {
    */
   @State() private _hasActiveAction = false;
 
+  /** Sbb-navigation-action elements */
+  @State() private _actions: HTMLSbbNavigationActionElement[];
+
   private _navigationMarkerResizeObserver = new ResizeObserver(() => this._setMarkerPosition());
 
   @Element() private _element: HTMLElement;
@@ -37,6 +40,7 @@ export class SbbNavigationMarker {
 
   public connectedCallback(): void {
     this._navigationMarkerResizeObserver.observe(this._element);
+    this._readActions();
   }
 
   public disconnectedCallback(): void {
@@ -69,6 +73,16 @@ export class SbbNavigationMarker {
     return this._navigationActions.find((action) => action.active);
   }
 
+  /**
+   * Create an array with only the sbb-navigation-action children
+   */
+  private _readActions(): void {
+    this._actions = Array.from(this._element.children).filter(
+      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION'
+    );
+    this._updateMarkerActions();
+  }
+
   private _setMarkerPosition(): void {
     this._element?.style.setProperty(
       '--sbb-navigation-marker-position-y',
@@ -77,9 +91,19 @@ export class SbbNavigationMarker {
   }
 
   public render(): JSX.Element {
+    this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     return (
       <Host class={{ 'sbb-navigation-marker--visible': this._hasActiveAction }}>
-        <slot onSlotchange={() => this._updateMarkerActions()} />
+        <ul class="sbb-navigation-marker__content">
+          {this._actions.map((_, index) => (
+            <li>
+              <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
+            </li>
+          ))}
+        </ul>
+        <span hidden>
+          <slot onSlotchange={(): void => this._readActions()} />
+        </span>
       </Host>
     );
   }

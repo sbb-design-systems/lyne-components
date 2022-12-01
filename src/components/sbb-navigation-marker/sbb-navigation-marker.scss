@@ -62,3 +62,7 @@
 ::slotted(sbb-navigation-action:not(:last-child)) {
   margin-block-end: var(--sbb-navigation-action-margin-block-end);
 }
+
+.sbb-navigation-marker__content {
+  @include list-reset;
+}
