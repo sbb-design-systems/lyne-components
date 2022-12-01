@@ -179,17 +179,15 @@ DynamicWidthSizeS.args = {
   labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
   iconName: iconName.options[1],
 };
-
-export const sbbToggleDisabled = DefaultTemplate.bind({});
-sbbToggleDisabled.args = { ...defaultArgs, disabled: true, value1: 'option-1', value2: 'option-2' };
-sbbToggleDisabled.argTypes = { ...defaultArgTypes, value1, value2 };
-sbbToggleDisabled.documentation = {
-  title: 'sbb-toggle disabled',
-};
-
 export const sbbToggleFixedWidth = DefaultTemplate.bind({});
-sbbToggleFixedWidth.args = { ...defaultArgs, even: true, value1: 'option-1', value2: 'option-2' };
-sbbToggleFixedWidth.argTypes = { ...defaultArgTypes, value1, value2 };
+sbbToggleFixedWidth.args = {
+  ...defaultArgs,
+  even: true,
+  value: 'Lorem Ipsum.',
+  value1: 'Lorem Ipsum.',
+  value2: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+};
+sbbToggleFixedWidth.argTypes = { ...defaultArgTypes, value, value1, value2 };
 sbbToggleFixedWidth.documentation = {
   title: 'sbb-toggle fixed width',
 };
@@ -197,13 +195,24 @@ sbbToggleFixedWidth.documentation = {
 export const sbbToggleWithIcons = DefaultTemplate.bind({});
 sbbToggleWithIcons.args = {
   ...defaultArgs,
-  value1: 'option-1',
-  value2: 'option-2',
   iconName: 'arrow-right-small',
 };
-sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName, value1, value2 };
+sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
 sbbToggleWithIcons.documentation = {
   title: 'sbb-toggle with custom icon',
+};
+
+export const sbbToggleWithIconsAndLabel = DefaultTemplate.bind({});
+sbbToggleWithIconsAndLabel.args = {
+  ...defaultArgs,
+  iconName: 'arrow-right-small',
+  value: 'option-1',
+  value1: 'option-1',
+  value2: 'option-2',
+};
+sbbToggleWithIconsAndLabel.argTypes = { ...defaultArgTypes, iconName, value, value1, value2 };
+sbbToggleWithIconsAndLabel.documentation = {
+  title: 'sbb-toggle with custom icon and label',
 };
 
 export default {
