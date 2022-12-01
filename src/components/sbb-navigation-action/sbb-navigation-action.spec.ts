@@ -9,12 +9,10 @@ describe('sbb-navigation-action', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation-action  size="l">
+        <sbb-navigation-action size="l">
           <mock:shadow-root>
             <button class="sbb-navigation-action" dir="ltr" type="button">
-              <span class="sbb-navigation-action__content">
-                <slot></slot>
-              </span>
+              <slot></slot>
             </button>
          </mock:shadow-root>
         </sbb-navigation-action>

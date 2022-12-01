@@ -77,9 +77,7 @@ export class SbbNavigationAction implements LinkButtonProperties {
     );
     return (
       <TAG_NAME class="sbb-navigation-action" {...attributes}>
-        <span class="sbb-navigation-action__content">
-          <slot />
-        </span>
+        <slot />
       </TAG_NAME>
     );
   }

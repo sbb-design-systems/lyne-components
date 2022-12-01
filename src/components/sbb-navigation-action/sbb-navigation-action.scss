@@ -11,44 +11,33 @@
 }
 
 .sbb-navigation-action {
+  @include title-4;
   @include buttonReset;
 
   text-decoration: none;
-
-  &:focus-visible {
-    outline: none;
-  }
-}
-
-.sbb-navigation-action__content {
-  @include title-4;
-
   display: flex;
   align-items: center;
   user-select: none;
+  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   -webkit-tap-highlight-color: transparent;
   transition: color var(--sbb-animation-duration-3x) ease;
   word-break: break-all;
   text-align: left;
 
-  :host([size='m']) .sbb-navigation-action & {
+  :host([size='m']) & {
     @include text-s--bold;
   }
 
-  :host([size='s']) .sbb-navigation-action & {
+  :host([size='s']) & {
     @include text-xxs--bold;
   }
 
-  :host([active]) .sbb-navigation-action & {
+  :host([active]) & {
     color: var(--sbb-color-storm-default);
   }
 
-  .sbb-navigation-action:focus-visible & {
-    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
+  &:focus-visible {
     @include focusOutline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
   @include hover-mq($hover: true) {
