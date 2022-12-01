@@ -190,7 +190,9 @@
   flex: 1;
   overflow: hidden;
   align-self: center;
-  margin: 0; // Overwrite sbb-title default margin
+
+  // Overwrite sbb-title default margin
+  margin: 0;
 }
 
 .sbb-dialog__content {

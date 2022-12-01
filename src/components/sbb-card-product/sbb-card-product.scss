@@ -145,5 +145,6 @@
 }
 
 ::slotted(sbb-title) {
-  margin: 0; // Overwrite sbb-title default margin
+  // Overwrite sbb-title default margin
+  margin: 0;
 }

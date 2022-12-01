@@ -29,7 +29,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 .sbb-link-list__title {
-  margin: 0; // Overwrite sbb-title default margin
+  // Overwrite sbb-title default margin
+  margin: 0;
 }
 
 .sbb-link-list {
