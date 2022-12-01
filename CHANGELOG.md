@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.7](https://github.com/lyne-design-system/lyne-components/compare/v0.15.6...v0.15.7) (2022-12-01)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix toggle vertical alignment ([#1461](https://github.com/lyne-design-system/lyne-components/issues/1461)) ([e59239c](https://github.com/lyne-design-system/lyne-components/commit/e59239c89deee8727e83cff0148097ec111ca006))
+
+### Documentation
+
+- **sbb-dialog:** add an example of sbb-dialog-close attribute ([#1475](https://github.com/lyne-design-system/lyne-components/issues/1475)) ([13d7f09](https://github.com/lyne-design-system/lyne-components/commit/13d7f09196608013ad8f04ff21278b72fb3cf84f))
+
 ### [0.15.6](https://github.com/lyne-design-system/lyne-components/compare/v0.15.5...v0.15.6) (2022-12-01)
 
 ### Bug Fixes
