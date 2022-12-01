@@ -75,7 +75,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   }
 
   public render(): JSX.Element {
-    const labelSlot = <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />;
     return (
       <label class="sbb-toggle-check" htmlFor={this.inputId}>
         <input
@@ -94,11 +93,9 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
           aria-labelledby={this.accessibilityLabelledby}
         />
         <span class="sbb-toggle-check__container">
-          {this._hasLabelText ? (
-            <span class="sbb-toggle-check__label">{labelSlot}</span>
-          ) : (
-            labelSlot
-          )}
+          <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
+            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+          </span>
           <span class="sbb-toggle-check__slider">
             <span class="sbb-toggle-check__circle">
               <slot name="icon">

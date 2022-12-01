@@ -14,13 +14,15 @@ describe('sbb-toggle-check', () => {
             <label class="sbb-toggle-check" htmlfor="sbb-toggle-checkbox-1">
               <input id="sbb-toggle-checkbox-1" type="checkbox"/>
                 <span class="sbb-toggle-check__container">
-                  <slot></slot>
-                  <span class="sbb-toggle-check__slider">
-                  <span class="sbb-toggle-check__circle">
-                    <slot name="icon">
-                      <sbb-icon name="tick-small"></sbb-icon>
-                    </slot>
+                  <span class="sbb-toggle-check__label" hidden="">
+                    <slot></slot>
                   </span>
+                  <span class="sbb-toggle-check__slider">
+                    <span class="sbb-toggle-check__circle">
+                      <slot name="icon">
+                        <sbb-icon name="tick-small"></sbb-icon>
+                      </slot>
+                    </span>
                 </span>
               </span>
             </label>
@@ -77,7 +79,9 @@ describe('sbb-toggle-check', () => {
               <label class="sbb-toggle-check" htmlfor="sbb-toggle-checkbox-3">
                 <input checked="" id="sbb-toggle-checkbox-3" type="checkbox"/>
                 <span class="sbb-toggle-check__container">
-                  <slot></slot>
+                  <span class="sbb-toggle-check__label" hidden="">
+                    <slot></slot>
+                  </span>
                   <span class="sbb-toggle-check__slider">
                     <span class="sbb-toggle-check__circle">
                       <slot name="icon">
@@ -106,7 +110,9 @@ describe('sbb-toggle-check', () => {
               <label class="sbb-toggle-check" htmlfor="sbb-toggle-checkbox-4">
                 <input disabled="" aria-disabled="" id="sbb-toggle-checkbox-4" type="checkbox">
                   <span class="sbb-toggle-check__container">
-                  <slot></slot>
+                  <span class="sbb-toggle-check__label" hidden="">
+                    <slot></slot>
+                  </span>
                   <span class="sbb-toggle-check__slider">
                     <span class="sbb-toggle-check__circle">
                      <slot name="icon">
@@ -135,7 +141,9 @@ describe('sbb-toggle-check', () => {
               <label class="sbb-toggle-check" htmlfor="sbb-toggle-checkbox-5">
                 <input checked="" type="checkbox" disabled aria-disabled="" id="sbb-toggle-checkbox-5"/>
                 <span class="sbb-toggle-check__container">
-                  <slot></slot>
+                  <span class="sbb-toggle-check__label" hidden="">
+                    <slot></slot>
+                  </span>
                   <span class="sbb-toggle-check__slider">
                     <span class="sbb-toggle-check__circle">
                       <slot name="icon">
