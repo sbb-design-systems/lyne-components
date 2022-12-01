@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, EventEmitter, Event, h, JSX, Prop } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
@@ -45,12 +45,18 @@ export class SbbToggleCheck implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
+  /**
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   */
+  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+
   @Element() private _element!: HTMLElement;
 
   /** Method triggered on toggle change. */
   public checkedChanged(event: Event): void {
     this.checked = this._checkbox?.checked;
     forwardEventToHost(event, this._element);
+    this.didChange.emit();
   }
 
   public render(): JSX.Element {

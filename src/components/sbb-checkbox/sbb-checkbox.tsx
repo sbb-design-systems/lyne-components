@@ -1,5 +1,15 @@
-import { Component, Prop, h, JSX, Element, State, ComponentInterface, Listen } from '@stencil/core';
-import { forwardEventToHost } from '../../global/helpers/forward-event';
+import {
+  Component,
+  Prop,
+  h,
+  JSX,
+  Element,
+  State,
+  ComponentInterface,
+  Listen,
+  EventEmitter,
+  Event,
+} from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import {
@@ -12,6 +22,7 @@ import {
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
 import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
+import { forwardEventToHost } from '../../global/helpers/forward-event';
 
 let nextId = 0;
 
@@ -88,6 +99,11 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
+  /**
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   */
+  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
@@ -130,6 +146,7 @@ export class SbbCheckbox implements AccessibilityProperties, ComponentInterface 
       this.checked = this._checkbox?.checked;
     }
     forwardEventToHost(event, this._element);
+    this.didChange.emit();
   }
 
   public render(): JSX.Element {

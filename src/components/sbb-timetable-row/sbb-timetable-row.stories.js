@@ -8,7 +8,6 @@ import {
   configCancelledStops,
   configPast,
 } from './sbb-timetable-row.sample-data';
-import events from './sbb-timetable-row.events';
 import isChromatic from 'chromatic/isChromatic';
 
 const accessibilityLabel = {
@@ -176,7 +175,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: ['click'],
     },
     docs: {
       extractComponentDescription: () => readme,
