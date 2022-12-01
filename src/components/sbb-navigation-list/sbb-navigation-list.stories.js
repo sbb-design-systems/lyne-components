@@ -1,23 +1,33 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => (
+const label = {
+  control: {
+    type: 'text',
+  },
+};
+
+const defaultArgTypes = {
+  label,
+};
+
+const defaultArgs = {
+  label: 'Label',
+};
+
+const SizeMTemplate = (args) => (
   <sbb-navigation-list {...args}>
-    <sbb-navigation-action size="m">Label n1</sbb-navigation-action>
-    <sbb-navigation-action size="m">Label n2</sbb-navigation-action>
-    <sbb-navigation-action size="m">Label n3</sbb-navigation-action>
+    <sbb-navigation-action size="m">Tickets & Offers</sbb-navigation-action>
+    <sbb-navigation-action size="m">Vacations & Recreation</sbb-navigation-action>
+    <sbb-navigation-action size="m">Travel information</sbb-navigation-action>
+    <sbb-navigation-action size="m">Help & Contact</sbb-navigation-action>
   </sbb-navigation-list>
 );
 
-export const Default = Template.bind({});
-
-Default.args = {
-  'some-prop': 'opt1',
-};
-
-Default.documentation = {
-  title: 'Title which will be rendered on documentation platform',
-};
+export const SizeM = SizeMTemplate.bind({});
+SizeM.argTypes = defaultArgTypes;
+SizeM.args = { ...defaultArgs };
+SizeM.documentation = { title: 'Size M' };
 
 export default {
   decorators: [

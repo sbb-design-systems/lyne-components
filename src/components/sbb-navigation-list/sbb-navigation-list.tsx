@@ -11,8 +11,7 @@ import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
   tag: 'sbb-navigation-list',
 })
 export class SbbNavigationList {
-  @Prop()
-  public label?: string;
+  @Prop() public label?: string;
 
   /** Sbb-navigation-action elements */
   @State() private _actions: HTMLSbbNavigationActionElement[];
