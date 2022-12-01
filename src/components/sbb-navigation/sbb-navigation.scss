@@ -11,12 +11,24 @@
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
   --sbb-navigation-width: 100vw;
   --sbb-navigation-backdrop-color: transparent;
+  --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
+
+  position: var(--sbb-navigation-position);
+  left: 0;
+  top: 0;
+  z-index: 10;
+
+  ::slotted(sbb-navigation-list),
+  ::slotted(sbb-navigation-marker) {
+    margin-block-start: var(--sbb-navigation-list-margin-block-start);
+  }
 
   @include mq($from: large) {
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
     --sbb-navigation-position: absolute;
     --sbb-navigation-width: #{px-to-rem-build(496)};
+    --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
 
     // Navigation backdrop (not visible on mobile)
     &::before {
@@ -43,11 +55,6 @@
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
     --sbb-navigation-width: #{px-to-rem-build(473)};
   }
-
-  position: var(--sbb-navigation-position);
-  left: 0;
-  top: 0;
-  z-index: 10;
 }
 
 :host(.sbb-navigation--opened),
@@ -107,10 +114,6 @@
   z-index: 1;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-}
-
-::slotted(sbb-navigation-marker) {
-  margin-block-end: var(--sbb-spacing-responsive-xxl);
 }
 
 @keyframes open {

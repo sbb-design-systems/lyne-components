@@ -55,6 +55,7 @@
   --sbb-navigation-action-margin-block-end: var(--sbb-spacing-fixed-2x);
 }
 
-::slotted(sbb-navigation-action) {
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+::slotted(sbb-navigation-action:not(:last-child)) {
   margin-block-end: var(--sbb-navigation-action-margin-block-end);
 }

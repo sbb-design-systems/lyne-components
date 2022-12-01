@@ -48,13 +48,15 @@ const DefaultTemplate = (args) => [
       <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
       <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
     </sbb-navigation-marker>
-    <sbb-navigation-marker size="s">
+    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
       <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
       <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
       <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
       <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
     </sbb-navigation-marker>
-    <sbb-button size="m">All tickets & offers</sbb-button>
+    <sbb-button size="m" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
+      All tickets & offers
+    </sbb-button>
   </sbb-navigation>,
 ];
 

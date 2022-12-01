@@ -3,15 +3,9 @@
 @include host-component-properties;
 
 :host {
-  --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-navigation-padding-inline-start: var(--sbb-spacing-fixed-6x);
   --sbb-navigation-gap: var(--sbb-spacing-responsive-xs);
 
-  @include mq($from: large) {
-    --sbb-navigation-padding-block-start: var(--sbb-spacing-fixed-1x);
-  }
-
-  padding-block-start: var(--sbb-navigation-padding-block-start);
   padding-inline-start: var(--sbb-navigation-padding-inline-start);
   display: flex;
   flex-direction: column;
