@@ -14,6 +14,7 @@
     var(--sbb-font-size-title-4) * var(--sbb-typo-line-height-titles) / 2 -
       var(--sbb-border-width-1x) / 2
   );
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
 
   position: relative;
@@ -55,6 +56,7 @@
     var(--sbb-font-size-text-xxs) * var(--sbb-typo-line-height-body-text) / 2 -
       var(--sbb-border-width-1x) / 2
   );
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
   --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
 }
 
@@ -64,4 +66,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--sbb-navigation-action-gap);
+}
+
+::slotted(sbb-navigation-action) {
+  margin-inline-start: var(--sbb-navigation-margin-inline-start);
 }

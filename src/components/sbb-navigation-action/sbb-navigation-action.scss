@@ -3,8 +3,6 @@
 @include host-component-properties;
 
 :host {
-  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
-
   cursor: pointer;
 }
 
@@ -29,7 +27,6 @@
   align-items: center;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  margin-inline-start: var(--sbb-navigation-margin-inline-start);
   transition: color var(--sbb-animation-duration-3x) ease;
   word-break: break-all;
   text-align: left;
@@ -40,8 +37,6 @@
 
   :host([size='s']) .sbb-navigation-action & {
     @include text-xxs--bold;
-
-    --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
   }
 
   :host([active]) .sbb-navigation-action & {
