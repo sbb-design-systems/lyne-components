@@ -89,6 +89,7 @@ export class SbbRadioButtonGroup {
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
+    this.change.emit({ value });
     this.didChange.emit({ value });
   }
 
@@ -124,13 +125,22 @@ export class SbbRadioButtonGroup {
 
   /**
    * Emits whenever the radio group value changes.
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'change',
   })
   public didChange: EventEmitter;
+
+  /**
+   * Emits whenever the radio group value changes.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+  })
+  public change: EventEmitter;
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);

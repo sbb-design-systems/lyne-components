@@ -76,6 +76,13 @@ The `<sbb-slider>` has the following behaviour on keypress when focused:
 | `valueAsNumber`            | `value-as-number`           | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
 
 
+## Events
+
+| Event       | Description                                                                                                                         | Type               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+
+
 ## Slots
 
 | Slot       | Description                                            |

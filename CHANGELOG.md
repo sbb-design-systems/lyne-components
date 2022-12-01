@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.6](https://github.com/lyne-design-system/lyne-components/compare/v0.15.5...v0.15.6) (2022-12-01)
+
+### Bug Fixes
+
+- provide didChange event for react consumers ([#1472](https://github.com/lyne-design-system/lyne-components/issues/1472)) ([de71bda](https://github.com/lyne-design-system/lyne-components/commit/de71bdab7513359dda9d75c8bee2f52cc4132a88))
+
 ### [0.15.5](https://github.com/lyne-design-system/lyne-components/compare/v0.15.4...v0.15.5) (2022-11-29)
 
 ### [0.15.4](https://github.com/lyne-design-system/lyne-components/compare/v0.15.3...v0.15.4) (2022-11-29)
