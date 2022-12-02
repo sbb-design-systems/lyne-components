@@ -12,9 +12,9 @@
 
 ## Slots
 
-| Slot        | Description                                                       |
-| ----------- | ----------------------------------------------------------------- |
-| `"unnamed"` | Use this slot to project anything into the sbb-navigation-marker. |
+| Slot        | Description                                                         |
+| ----------- | ------------------------------------------------------------------- |
+| `"unnamed"` | Use this slot to navigation actions into the sbb-navigation-marker. |
 
 
 ----------------------------------------------

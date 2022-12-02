@@ -2,7 +2,7 @@ import { Component, Element, h, Host, JSX, Listen, Prop, State, Watch } from '@s
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 /**
- * @slot unnamed - Use this slot to project anything into the sbb-navigation-marker.
+ * @slot unnamed - Use this slot to navigation actions into the sbb-navigation-marker.
  */
 
 @Component({
@@ -21,7 +21,9 @@ export class SbbNavigationMarker {
    */
   @State() private _hasActiveAction = false;
 
-  /** Sbb-navigation-action elements */
+  /**
+   * Navigation action elements.
+   */
   @State() private _actions: HTMLSbbNavigationActionElement[];
 
   private _navigationMarkerResizeObserver = new ResizeObserver(() => this._setMarkerPosition());
@@ -53,13 +55,14 @@ export class SbbNavigationMarker {
   @Listen('click')
   public onClick(event: Event): void {
     const action = event.target as HTMLSbbNavigationActionElement | undefined;
-    if (action?.tagName !== 'SBB-NAVIGATION-ACTION' || action.hasAttribute('disabled')) {
+    if (action?.tagName !== 'SBB-NAVIGATION-ACTION') {
       return;
     }
 
     this._navigationActions.forEach(
       (action) => ((action as HTMLSbbNavigationActionElement).active = false)
     );
+
     action.active = true;
     this._setMarkerPosition();
     this._hasActiveAction = true;
@@ -73,9 +76,7 @@ export class SbbNavigationMarker {
     return this._navigationActions.find((action) => action.active);
   }
 
-  /**
-   * Create an array with only the sbb-navigation-action children
-   */
+  // Create an array with only the sbb-navigation-action children.
   private _readActions(): void {
     this._actions = Array.from(this._element.children).filter(
       (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION'

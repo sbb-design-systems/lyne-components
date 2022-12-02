@@ -13,7 +13,7 @@ import {
  * @slot unnamed - Use this slot to provide the navigation action label.
  */
 
- let nextId = 0;
+let nextId = 0;
 
 @Component({
   shadow: true,
@@ -21,53 +21,53 @@ import {
   tag: 'sbb-navigation-action',
 })
 export class SbbNavigationAction implements LinkButtonProperties {
-  /** 
-   * This id will be forwarded to the relevant inner element. 
+  /**
+   * This id will be forwarded to the relevant inner element.
    */
   @Prop() public navigationActionId = `sbb-navigation-action-${++nextId}`;
 
-  /** 
+  /**
    * Action size variant.
    */
   @Prop({ reflect: true }) public size?: 'l' | 'm' | 's' = 'l';
 
-  /** 
-   * The href value you want to link to (if it is not present navigation action becomes a button). 
+  /**
+   * The href value you want to link to (if it is not present navigation action becomes a button).
    */
   @Prop() public href: string | undefined;
 
-  /** 
-   * Where to display the linked URL. 
+  /**
+   * Where to display the linked URL.
    */
   @Prop() public target?: LinkTargetType | string | undefined;
 
-  /** 
-   * The relationship of the linked URL as space-separated link types. 
+  /**
+   * The relationship of the linked URL as space-separated link types.
    */
   @Prop() public rel?: string | undefined;
 
-  /** 
-   * Whether the browser will show the download dialog on click. 
+  /**
+   * Whether the browser will show the download dialog on click.
    */
   @Prop() public download?: boolean;
 
-  /** 
-   * The type attribute to use for the button. 
+  /**
+   * The type attribute to use for the button.
    */
   @Prop() public type: ButtonType | undefined;
 
-  /** 
-   * Whether the action is active. 
+  /**
+   * Whether the action is active.
    */
   @Prop({ reflect: true }) public active = false;
 
-  /** 
-   * The name attribute to use for the button. 
+  /**
+   * The name attribute to use for the button.
    */
   @Prop() public name: string | undefined;
 
-  /** 
-   * The value attribute to use for the button. 
+  /**
+   * The value attribute to use for the button.
    */
   @Prop() public value?: string;
 
@@ -84,18 +84,18 @@ export class SbbNavigationAction implements LinkButtonProperties {
    */
   @Prop() public accessibilityHaspopup: PopupType | undefined;
 
-  /** 
-   * This will be forwarded as aria-label to the relevant nested element. 
+  /**
+   * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** 
-   * This will be forwarded as aria-describedby to the relevant nested element. 
+  /**
+   * This will be forwarded as aria-describedby to the relevant nested element.
    */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** 
-   * This will be forwarded as aria-labelledby to the relevant nested element. 
+  /**
+   * This will be forwarded as aria-labelledby to the relevant nested element.
    */
   @Prop() public accessibilityLabelledby: string | undefined;
 
