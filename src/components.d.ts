@@ -1045,6 +1045,7 @@ export namespace Components {
     }
     interface SbbNavigationList {
         "label"?: string;
+        "labelId": string;
     }
     interface SbbNavigationMarker {
         /**
@@ -3289,6 +3290,7 @@ declare namespace LocalJSX {
     }
     interface SbbNavigationList {
         "label"?: string;
+        "labelId"?: string;
     }
     interface SbbNavigationMarker {
         /**

@@ -5,9 +5,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `label`  | `label`   |             | `string` | `undefined` |
+| Property  | Attribute  | Description | Type     | Default                                   |
+| --------- | ---------- | ----------- | -------- | ----------------------------------------- |
+| `label`   | `label`    |             | `string` | `undefined`                               |
+| `labelId` | `label-id` |             | `string` | ``sbb-navigation-list-label-${++nextId}`` |
 
 
 ## Slots

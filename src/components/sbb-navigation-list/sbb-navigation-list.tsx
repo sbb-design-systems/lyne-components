@@ -4,6 +4,8 @@ import {
   queryAndObserveNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 
+let nextId = 0;
+
 /**
  * @slot label - Use this to provide a label element.
  * @slot unnamed - Use this to provide content for sbb-navigation-list
@@ -15,9 +17,19 @@ import {
   tag: 'sbb-navigation-list',
 })
 export class SbbNavigationList {
+  /*
+   * This id will be forwarded to the relevant inner element.
+   */
+  @Prop() public labelId = `sbb-navigation-list-label-${++nextId}`;
+
+  /*
+   * The label to be shown before the action list.
+   */
   @Prop() public label?: string;
 
-  /** Sbb-navigation-action elements */
+  /*
+   * Sbb-navigation-action elements
+   */
   @State() private _actions: HTMLSbbNavigationActionElement[];
 
   /**
@@ -47,14 +59,15 @@ export class SbbNavigationList {
   public render(): JSX.Element {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     const labelElement = (
-      <span class="sbb-navigation-list__label">
+      <span class="sbb-navigation-list__label" id={this.labelId}>
         <slot name="label">{this.label}</slot>
       </span>
     );
+    const ariaLabelledByAttribute = this._hasLabel ? { 'aria-labelledby': this.labelId } : {};
     return (
       <Host class="sbb-navigation-list">
         {this._hasLabel && labelElement}
-        <ul class="sbb-navigation-list__content">
+        <ul class="sbb-navigation-list__content" {...ariaLabelledByAttribute}>
           {this._actions.map((_, index) => (
             <li class="sbb-navigation-list__action">
               <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
