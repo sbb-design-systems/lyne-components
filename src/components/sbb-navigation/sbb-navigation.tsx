@@ -222,6 +222,13 @@ export class SbbNavigation implements AccessibilityProperties {
     });
   }
 
+  // Close the navigation when a link is clicked.
+  private _closeOnLinkElementClick(event: Event): void {
+    if (event.composedPath().some((el) => (el as HTMLElement).nodeName === 'A')) {
+      this.close();
+    }
+  }
+
   // Closes the navigation on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
@@ -332,7 +339,9 @@ export class SbbNavigation implements AccessibilityProperties {
             class="sbb-navigation__wrapper"
           >
             {closeButton}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div
+              onClick={(event: Event) => this._closeOnLinkElementClick(event)}
               class="sbb-navigation__content"
               ref={(navigationContent) => (this._navigationContentElement = navigationContent)}
             >

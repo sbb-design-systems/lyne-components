@@ -65,7 +65,7 @@ const triggerButton = (id) => (
 
 const navigationActionsL = (active) => [
   <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-2" active={active}>
+  <sbb-navigation-action id="nav-2" href="https://www.sbb.ch/en/" active={active}>
     Vacations & Recreation
   </sbb-navigation-action>,
   <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>,
