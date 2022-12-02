@@ -114,12 +114,7 @@ const ActiveTemplate = (args) => [
 const LongContentTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
-    <sbb-navigation-marker>
-      <sbb-navigation-action id="nav-9">Tickets & Offers</sbb-navigation-action>
-      <sbb-navigation-action id="nav-10">Vacations & Recreation</sbb-navigation-action>
-      <sbb-navigation-action id="nav-11">Travel information</sbb-navigation-action>
-      <sbb-navigation-action id="nav-12">Help & Contact</sbb-navigation-action>
-    </sbb-navigation-marker>
+    <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
 
     <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
       {actionLabels(20)}

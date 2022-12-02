@@ -185,7 +185,7 @@ export class SbbNavigation implements AccessibilityProperties {
 
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._navigationController?.signal,
+      signal: this._navigationController.signal,
     });
     this._triggerElement.addEventListener(
       'keydown',
@@ -194,7 +194,7 @@ export class SbbNavigation implements AccessibilityProperties {
           this._openedByKeyboard = true;
         }
       },
-      { signal: this._navigationController?.signal }
+      { signal: this._navigationController.signal }
     );
   }
 
@@ -283,10 +283,10 @@ export class SbbNavigation implements AccessibilityProperties {
 
     // Close navigation on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this._navigationController?.signal,
+      signal: this._navigationController.signal,
     });
     this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this._navigationController?.signal,
+      signal: this._navigationController.signal,
     });
   }
 
