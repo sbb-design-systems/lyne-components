@@ -490,36 +490,40 @@ export const NoticesTrip = {
   legs: [futureLeg, futureLeg, longFutureLeg],
   notices: [
     {
-      name: 'R',
+      name: 'XT',
       text: 'Platzreservierung möglich',
-      textArguments: [],
-      type: 'ATTRIBUTE',
-      priority: 8,
-      __typename: 'Notice',
     },
     {
-      name: 'R',
+      name: 'EXISTIERTNICHT',
       text: 'Platzreservierung möglich',
-      textArguments: [],
-      type: 'ATTRIBUTE',
-      priority: 8,
-      __typename: 'Notice',
     },
     {
       name: 'TG',
       text: 'Platzreservierung möglich',
-      textArguments: [],
-      type: 'ATTRIBUTE',
-      priority: 8,
-      __typename: 'Notice',
+    },
+    {
+      name: 'VR',
+      text: 'Platzreservierung möglich',
+    },
+    {
+      name: 'SZ >deleteme<',
+      text: 'Platzreservierung möglich',
+    },
+    {
+      name: 'SB >deleteme<',
+      text: 'Platzreservierung möglich',
     },
     {
       name: 'Z',
       text: 'Platzreservierung möglich',
-      textArguments: [],
-      type: 'ATTRIBUTE',
-      priority: 8,
-      __typename: 'Notice',
+    },
+    {
+      name: 'Z',
+      text: 'Platzreservierung möglich',
+    },
+    {
+      name: 'Z',
+      text: 'Platzreservierung möglich',
     },
   ],
   situations: [],

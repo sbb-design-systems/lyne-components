@@ -95,6 +95,10 @@ li {
   > span {
     align-self: center;
   }
+
+  :only-child {
+    margin-inline-start: auto;
+  }
 }
 
 .sbb-timetable__row-occupancy {

@@ -40,6 +40,18 @@ const active = {
   },
 };
 
+const boarding = {
+  control: {
+    type: 'select',
+  },
+  options: [
+    'BOARDING_ALIGHTING_BY_CREW',
+    'BOARDING_ALIGHTING_BY_NOTIFICATION',
+    'BOARDING_ALIGHTING_NOT_POSSIBLE',
+    'BOARDING_ALIGHTING_SELF',
+  ],
+};
+
 const now = {
   control: {
     type: 'date',
@@ -52,6 +64,7 @@ const defaultArgTypes = {
   'loading-trip': loadingTrip,
   active,
   'data-now': now,
+  'boarding-alighting-accessibility': boarding,
 };
 
 const defaultArgs = {
@@ -61,6 +74,7 @@ const defaultArgs = {
   active: false,
   'data-now': new Date().valueOf(),
   trip: defaultTrip,
+  'boarding-alighting-accessibility': boarding.options[0],
 };
 
 // TEMPLATES
