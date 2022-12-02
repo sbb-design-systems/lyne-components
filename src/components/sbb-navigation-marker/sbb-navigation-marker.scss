@@ -35,6 +35,10 @@
       timing-function: ease;
       property: opacity, top;
     }
+
+    @include ifForcedColors {
+      background: CanvasText;
+    }
   }
 }
 
