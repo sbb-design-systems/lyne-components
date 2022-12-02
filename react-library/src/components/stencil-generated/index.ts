@@ -14,6 +14,7 @@ export const SbbActionGroup = /*@__PURE__*/createReactComponent<JSX.SbbActionGro
 export const SbbAlert = /*@__PURE__*/createReactComponent<JSX.SbbAlert, HTMLSbbAlertElement>('sbb-alert');
 export const SbbAlertGroup = /*@__PURE__*/createReactComponent<JSX.SbbAlertGroup, HTMLSbbAlertGroupElement>('sbb-alert-group');
 export const SbbButton = /*@__PURE__*/createReactComponent<JSX.SbbButton, HTMLSbbButtonElement>('sbb-button');
+export const SbbCalendar = /*@__PURE__*/createReactComponent<JSX.SbbCalendar, HTMLSbbCalendarElement>('sbb-calendar');
 export const SbbCard = /*@__PURE__*/createReactComponent<JSX.SbbCard, HTMLSbbCardElement>('sbb-card');
 export const SbbCardBadge = /*@__PURE__*/createReactComponent<JSX.SbbCardBadge, HTMLSbbCardBadgeElement>('sbb-card-badge');
 export const SbbCheckbox = /*@__PURE__*/createReactComponent<JSX.SbbCheckbox, HTMLSbbCheckboxElement>('sbb-checkbox');

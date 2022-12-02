@@ -266,6 +266,28 @@ export namespace Components {
          */
         "variant": InterfaceButtonAttributes['variant'];
     }
+    interface SbbCalendar {
+        /**
+          * A function used to filter out dates.
+         */
+        "dateFilter": (date: Date | null) => boolean;
+        /**
+          * The maximum valid date.
+         */
+        "max": Date;
+        /**
+          * The minimum valid date.
+         */
+        "min": Date;
+        /**
+          * The selected date.
+         */
+        "selectedDate": Date;
+        /**
+          * If set to true, two months are displayed
+         */
+        "wide": boolean;
+    }
     interface SbbCard {
         /**
           * Used to set the component's active state.
@@ -1593,6 +1615,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbCalendarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbCalendarElement;
+}
 export interface SbbCheckboxCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbCheckboxElement;
@@ -1697,6 +1723,12 @@ declare global {
     var HTMLSbbButtonElement: {
         prototype: HTMLSbbButtonElement;
         new (): HTMLSbbButtonElement;
+    };
+    interface HTMLSbbCalendarElement extends Components.SbbCalendar, HTMLStencilElement {
+    }
+    var HTMLSbbCalendarElement: {
+        prototype: HTMLSbbCalendarElement;
+        new (): HTMLSbbCalendarElement;
     };
     interface HTMLSbbCardElement extends Components.SbbCard, HTMLStencilElement {
     }
@@ -2104,6 +2136,7 @@ declare global {
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-button": HTMLSbbButtonElement;
+        "sbb-calendar": HTMLSbbCalendarElement;
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-checkbox": HTMLSbbCheckboxElement;
@@ -2364,6 +2397,32 @@ declare namespace LocalJSX {
           * Variant of the button, like primary, secondary etc.
          */
         "variant"?: InterfaceButtonAttributes['variant'];
+    }
+    interface SbbCalendar {
+        /**
+          * A function used to filter out dates.
+         */
+        "dateFilter"?: (date: Date | null) => boolean;
+        /**
+          * The maximum valid date.
+         */
+        "max"?: Date;
+        /**
+          * The minimum valid date.
+         */
+        "min"?: Date;
+        /**
+          * Event emitted on date selection.
+         */
+        "onDate-selected"?: (event: SbbCalendarCustomEvent<Date>) => void;
+        /**
+          * The selected date.
+         */
+        "selectedDate"?: Date;
+        /**
+          * If set to true, two months are displayed
+         */
+        "wide"?: boolean;
     }
     interface SbbCard {
         /**
@@ -3764,6 +3823,7 @@ declare namespace LocalJSX {
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
         "sbb-button": SbbButton;
+        "sbb-calendar": SbbCalendar;
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
         "sbb-checkbox": SbbCheckbox;
@@ -3842,6 +3902,7 @@ declare module "@stencil/core" {
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
+            "sbb-calendar": LocalJSX.SbbCalendar & JSXBase.HTMLAttributes<HTMLSbbCalendarElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
