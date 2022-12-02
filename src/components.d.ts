@@ -1014,17 +1014,20 @@ export namespace Components {
           * The href value you want to link to (if it is not present navigation action becomes a button).
          */
         "href": string | undefined;
-        "label"?: string;
         /**
           * The name attribute to use for the button.
          */
         "name": string | undefined;
         /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "navigationActionId": string;
+        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
         /**
-          * Action size variant
+          * Action size variant.
          */
         "size"?: 'l' | 'm' | 's';
         /**
@@ -3255,17 +3258,20 @@ declare namespace LocalJSX {
           * The href value you want to link to (if it is not present navigation action becomes a button).
          */
         "href"?: string | undefined;
-        "label"?: string;
         /**
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
         /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "navigationActionId"?: string;
+        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
         /**
-          * Action size variant
+          * Action size variant.
          */
         "size"?: 'l' | 'm' | 's';
         /**

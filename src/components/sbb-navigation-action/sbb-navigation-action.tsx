@@ -1,6 +1,7 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, Element, JSX, Prop, Listen } from '@stencil/core';
 import {
   ButtonType,
+  forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -11,38 +12,63 @@ import {
 /**
  * @slot unnamed - Use this slot to provide the navigation action label.
  */
+
+ let nextId = 0;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-navigation-action.scss',
   tag: 'sbb-navigation-action',
 })
 export class SbbNavigationAction implements LinkButtonProperties {
-  /** Action size variant*/
-  @Prop({ reflect: true })
-  public size?: 'l' | 'm' | 's' = 'l';
+  /** 
+   * This id will be forwarded to the relevant inner element. 
+   */
+  @Prop() public navigationActionId = `sbb-navigation-action-${++nextId}`;
 
-  /** The href value you want to link to (if it is not present navigation action becomes a button). */
+  /** 
+   * Action size variant.
+   */
+  @Prop({ reflect: true }) public size?: 'l' | 'm' | 's' = 'l';
+
+  /** 
+   * The href value you want to link to (if it is not present navigation action becomes a button). 
+   */
   @Prop() public href: string | undefined;
 
-  /** Where to display the linked URL. */
+  /** 
+   * Where to display the linked URL. 
+   */
   @Prop() public target?: LinkTargetType | string | undefined;
 
-  /** The relationship of the linked URL as space-separated link types. */
+  /** 
+   * The relationship of the linked URL as space-separated link types. 
+   */
   @Prop() public rel?: string | undefined;
 
-  /** Whether the browser will show the download dialog on click. */
+  /** 
+   * Whether the browser will show the download dialog on click. 
+   */
   @Prop() public download?: boolean;
 
-  /** The type attribute to use for the button. */
+  /** 
+   * The type attribute to use for the button. 
+   */
   @Prop() public type: ButtonType | undefined;
 
-  /** Whether the action is active. */
+  /** 
+   * Whether the action is active. 
+   */
   @Prop({ reflect: true }) public active = false;
 
-  /** The name attribute to use for the button. */
+  /** 
+   * The name attribute to use for the button. 
+   */
   @Prop() public name: string | undefined;
 
-  /** The value attribute to use for the button. */
+  /** 
+   * The value attribute to use for the button. 
+   */
   @Prop() public value?: string;
 
   /**
@@ -58,17 +84,36 @@ export class SbbNavigationAction implements LinkButtonProperties {
    */
   @Prop() public accessibilityHaspopup: PopupType | undefined;
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
+  /** 
+   * This will be forwarded as aria-label to the relevant nested element. 
+   */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
+  /** 
+   * This will be forwarded as aria-describedby to the relevant nested element. 
+   */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
+  /** 
+   * This will be forwarded as aria-labelledby to the relevant nested element. 
+   */
   @Prop() public accessibilityLabelledby: string | undefined;
 
-  @Prop()
-  public label?: string;
+  @Element() private _element: HTMLElement;
+
+  public connectedCallback(): void {
+    // Forward focus call to action element
+    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+  }
+
+  private _actionElement(): HTMLElement {
+    return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostEvent(event, this._element, this._actionElement());
+  }
 
   public render(): JSX.Element {
     const { tagName: TAG_NAME, attributes }: LinkButtonRenderVariables = resolveRenderVariables(
@@ -76,7 +121,7 @@ export class SbbNavigationAction implements LinkButtonProperties {
       false
     );
     return (
-      <TAG_NAME class="sbb-navigation-action" {...attributes}>
+      <TAG_NAME id={this.navigationActionId} class="sbb-navigation-action" {...attributes}>
         <slot />
       </TAG_NAME>
     );
