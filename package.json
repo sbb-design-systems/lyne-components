@@ -86,7 +86,7 @@
     "jest-cli": "27.5.1",
     "jsx-dom": "8.0.3",
     "jsx-transform": "2.4.1",
-    "lint-staged": "13.0.4",
+    "lint-staged": "13.1.0",
     "lyne-helper-trigger-travis": "1.0.6",
     "lyne-icons": "4.40.0",
     "minimist": "1.2.7",
