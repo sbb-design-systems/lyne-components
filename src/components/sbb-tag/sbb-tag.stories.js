@@ -1,4 +1,3 @@
-import events from './sbb-tag.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -80,6 +79,12 @@ const defaultArgs = {
   'accessibility-labelledby': undefined,
 };
 
+const defaultArgsIconAndAmount = {
+  ...defaultArgs,
+  amount: 123,
+  'icon-name': 'dog-small',
+};
+
 const Template = ({ label, ...args }) => (
   <sbb-tag {...args}>
     {label}
@@ -87,11 +92,37 @@ const Template = ({ label, ...args }) => (
   </sbb-tag>
 );
 
-export const defaultTag = Template.bind({});
-defaultTag.argTypes = defaultArgTypes;
-defaultTag.args = {
-  ...defaultArgs,
-};
+export const basicTag = Template.bind({});
+basicTag.argTypes = defaultArgTypes;
+basicTag.args = { ...defaultArgs };
+
+export const checkedTag = Template.bind({});
+checkedTag.argTypes = defaultArgTypes;
+checkedTag.args = { ...defaultArgs, checked: true };
+
+export const disabledTag = Template.bind({});
+disabledTag.argTypes = defaultArgTypes;
+disabledTag.args = { ...defaultArgs, disabled: true };
+
+export const withAmount = Template.bind({});
+withAmount.argTypes = defaultArgTypes;
+withAmount.args = { ...defaultArgs, amount: 123 };
+
+export const withIcon = Template.bind({});
+withIcon.argTypes = defaultArgTypes;
+withIcon.args = { ...defaultArgs, 'icon-name': 'dog-small' };
+
+export const withAmountAndIcon = Template.bind({});
+withAmountAndIcon.argTypes = defaultArgTypes;
+withAmountAndIcon.args = { ...defaultArgsIconAndAmount };
+
+export const withAmountAndIconChecked = Template.bind({});
+withAmountAndIconChecked.argTypes = defaultArgTypes;
+withAmountAndIconChecked.args = { ...defaultArgsIconAndAmount, checked: true };
+
+export const withAmountAndIconDisabled = Template.bind({});
+withAmountAndIconDisabled.argTypes = defaultArgTypes;
+withAmountAndIconDisabled.args = { ...defaultArgsIconAndAmount, disabled: true };
 
 export default {
   decorators: [
@@ -103,7 +134,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change', events.didChange],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,

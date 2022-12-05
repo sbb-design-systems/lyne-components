@@ -3,13 +3,19 @@
 @include host-component-properties;
 
 :host {
-  --sbb-tag-title-height: #{px-to-rem-build(40)};
+  --sbb-tag-height: #{px-to-rem-build(36)};
+  --sbb-tag-border-radius: var(--sbb-tag-height);
   --sbb-tag-background-color: var(--sbb-color-white-default);
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
   --sbb-tag-background-disabled-color: var(--sbb-color-milk-default);
   --sbb-tag-disabled-color: var(--sbb-color-platinum-default);
+  --sbb-tag-background-hover-color: var(--sbb-color-cloud-default);
+
+  @include mq($from: medium) {
+    --sbb-tag-height: #{px-to-rem-build(40)};
+  }
 
   display: inline-block;
 }
@@ -26,12 +32,22 @@
 
 .sbb-tag__label {
   position: relative;
+
+  // If the the device can hover over elements with ease
+  @include hover-mq($hover: true) {
+    // stylelint-disable plugin/stylelint-bem-namics
+    :host(:not([disabled])) &:hover {
+      --sbb-tag-background-color: var(--sbb-tag-background-hover-color);
+    }
+    // stylelint-enable plugin/stylelint-bem-namics
+  }
 }
 
 .sbb-tag__label--wrapper {
   position: relative;
   margin: 0;
-  min-height: 40px;
+  min-height: var(--sbb-tag-height);
+  max-height: var(--sbb-tag-height);
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
@@ -39,14 +55,15 @@
   padding-block: var(--sbb-spacing-fixed-2x);
   cursor: pointer;
   background-color: var(--sbb-tag-background-color);
-  border-radius: 20px;
+  border-radius: var(--sbb-tag-border-radius);
+  color: var(--sbb-tag-text-color);
 
   &::before {
     position: absolute;
     content: '';
     inset: 0;
     border: var(--sbb-border-width-1x) solid var(--sbb-tag-border-color);
-    border-radius: 20px;
+    border-radius: var(--sbb-tag-border-radius);
   }
 
   :host([disabled]) & {
@@ -59,6 +76,16 @@
   }
 }
 
+:host(:focus-visible) {
+  outline: 0;
+
+  .sbb-tag__label--wrapper {
+    &::before {
+      @include focusOutline;
+    }
+  }
+}
+
 .sbb-tag__label--icon {
   display: flex;
   align-items: center;
@@ -66,9 +93,6 @@
 
 .sbb-tag__label--text {
   @include text-xs--bold;
-
-  color: var(--sbb-tag-text-color);
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
 }
 
 .sbb-tag__label--amount {

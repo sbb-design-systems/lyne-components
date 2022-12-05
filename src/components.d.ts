@@ -1224,15 +1224,15 @@ export namespace Components {
          */
         "accessibilityLabelledby": string | undefined;
         /**
-          * Active tab state
+          * Active tag state
          */
         "active"?: boolean;
         /**
-          * Whether the checkbox is checked.
+          * Whether the internal hidden checkbox is checked.
          */
         "checked": boolean;
         /**
-          * Whether the checkbox is disabled.
+          * Whether the internal hidden checkbox is disabled.
          */
         "disabled": boolean;
         /**
@@ -1240,15 +1240,15 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * Whether the checkbox is required.
+          * Whether the internal hidden checkbox is required.
          */
         "required": boolean;
         /**
-          * Id of the internal input element - default id will be set automatically.
+          * Id of the internal hidden checkbox element - default id will be set automatically.
          */
         "tagId": string;
         /**
-          * Value of checkbox.
+          * Value of internal hidden checkbox.
          */
         "value"?: string;
     }
@@ -3373,15 +3373,15 @@ declare namespace LocalJSX {
          */
         "accessibilityLabelledby"?: string | undefined;
         /**
-          * Active tab state
+          * Active tag state
          */
         "active"?: boolean;
         /**
-          * Whether the checkbox is checked.
+          * Whether the internal hidden checkbox is checked.
          */
         "checked"?: boolean;
         /**
-          * Whether the checkbox is disabled.
+          * Whether the internal hidden checkbox is disabled.
          */
         "disabled"?: boolean;
         /**
@@ -3393,15 +3393,15 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbTagCustomEvent<any>) => void;
         /**
-          * Whether the checkbox is required.
+          * Whether the internal hidden checkbox is required.
          */
         "required"?: boolean;
         /**
-          * Id of the internal input element - default id will be set automatically.
+          * Id of the internal hidden checkbox element - default id will be set automatically.
          */
         "tagId"?: string;
         /**
-          * Value of checkbox.
+          * Value of internal hidden checkbox.
          */
         "value"?: string;
     }

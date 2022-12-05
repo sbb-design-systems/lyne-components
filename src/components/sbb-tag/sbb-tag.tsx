@@ -23,7 +23,7 @@ let nextId = 0;
 /**
  * @slot unnamed - This slot will show the provided tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
- * @slot amount - Provide an `sbb-tab-amount` to show an amount at the component end.
+ * @slot amount - Provide an amount to show it at the component end.
  */
 @Component({
   shadow: true,
@@ -31,23 +31,23 @@ let nextId = 0;
   tag: 'sbb-tag',
 })
 export class SbbTag implements ComponentInterface {
-  /** Id of the internal input element - default id will be set automatically. */
+  /** Id of the internal hidden checkbox element - default id will be set automatically. */
   @Prop() public tagId = `sbb-tag-${++nextId}`;
 
-  /** Value of checkbox. */
+  /** Value of internal hidden checkbox. */
   @Prop() public value?: string;
 
-  /** Whether the checkbox is disabled. */
-  @Prop({ reflect: true }) public disabled = false;
+  /** Whether the internal hidden checkbox is checked. */
+  @Prop({ mutable: true, reflect: true }) public checked: boolean;
 
-  /** Whether the checkbox is required. */
-  @Prop() public required = false;
-
-  /** Active tab state */
+  /** Active tag state */
   @Prop() public active?: boolean;
 
-  /** Whether the checkbox is checked. */
-  @Prop({ mutable: true, reflect: true }) public checked: boolean;
+  /** Whether the internal hidden checkbox is disabled. */
+  @Prop({ reflect: true }) public disabled = false;
+
+  /** Whether the internal hidden checkbox is required. */
+  @Prop() public required = false;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon', 'amount');
@@ -79,13 +79,13 @@ export class SbbTag implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
+  private _checkbox: HTMLInputElement;
+
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
-  private _checkbox: HTMLInputElement;
-
-  /** Method triggered on checkbox change. If not indeterminate, inverts the value; otherwise sets checked to true. */
+  /** Method triggered on checkbox change. Inverts the checked value and emits events. */
   public checkedChanged(event: Event): void {
     this.checked = this._checkbox?.checked;
     forwardEventToHost(event, this._element);
@@ -103,6 +103,7 @@ export class SbbTag implements ComponentInterface {
           aria-disabled={this.disabled}
           required={this.required}
           checked={this.checked}
+          aria-checked={this.checked}
           value={this.value}
           {...getAccessibilityAttributeList(this)}
           onChange={(event: Event): void => this.checkedChanged(event)}
