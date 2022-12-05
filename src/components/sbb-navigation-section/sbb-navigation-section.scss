@@ -24,7 +24,7 @@
   @include mq($from: large) {
     --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-4x);
     --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
-    --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
+    --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-14x)
       var(--sbb-layout-base-offset-responsive);
     --sbb-navigation-section-position: absolute;
     --sbb-navigation-section-width: calc(100vw - #{px-to-rem-build(496)});
@@ -148,7 +148,7 @@
 
   @include mq($from: wide) {
     grid-template-columns: repeat(3, 1fr);
-    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-white-alpha-20);
+    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   }
 
   :host(.sbb-navigation-section--closing) & {
