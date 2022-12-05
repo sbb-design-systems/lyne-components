@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-card-background-color: var(--sbb-color-white-default);
@@ -77,7 +79,7 @@
   }
 
   &:focus-visible {
-    @include focusOutline;
+    @include sbb.focusOutline;
   }
 
   :host([href]) & {
@@ -87,11 +89,11 @@
 
   // stylelint-disable-next-line plugin/stylelint-bem-namics
   :host(:not([href])) & {
-    @include text-inherit;
+    @include sbb.text-inherit;
 
     cursor: pointer;
 
-    // can't use @include buttonReset because overrides paddings, backgrounds..., only basic rules added
+    // can't use @include sbb.buttonReset because overrides paddings, backgrounds..., only basic rules added
     border: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -110,17 +112,17 @@
   transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 
-@include hover-mq($hover: true) {
+@include sbb.hover-mq($hover: true) {
   // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
   :host(:not([active]):hover) .sbb-card {
-    @include shadow-level-9-hard;
+    @include sbb.shadow-level-9-hard;
 
     .sbb-card__content {
-      transform: translateY(#{px-to-rem-build(-2)});
+      transform: translateY(#{sbb.px-to-rem-build(-2)});
     }
   }
 }
 
 .sbb-card__opens-in-new-window {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }

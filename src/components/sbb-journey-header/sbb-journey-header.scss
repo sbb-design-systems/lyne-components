@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
@@ -8,11 +10,11 @@
 }
 
 .journey-header[id] {
-  @include scrollMarginBlockStart;
+  @include sbb.scrollMarginBlockStart;
 }
 
 .journey-header {
-  @include fontSmoothing;
+  @include sbb.fontSmoothing;
 
   display: flex;
   flex-wrap: wrap;
@@ -30,19 +32,19 @@
 }
 
 .journey-header--primary-negative {
-  @include title--negative;
+  @include sbb.title--negative;
 }
 
 .journey-header--size-4 {
-  @include title-4;
+  @include sbb.title-4;
 }
 
 .journey-header--size-5 {
-  @include title-5;
+  @include sbb.title-5;
 }
 
 .connection--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }
 
 .icon {
@@ -53,7 +55,7 @@
   svg {
     fill: currentcolor;
 
-    @include ifForcedColors {
+    @include sbb.ifForcedColors {
       fill: ButtonText;
     }
   }

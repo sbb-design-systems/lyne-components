@@ -1,5 +1,7 @@
+@use './typo';
+
 @mixin badge {
-  @include text-xxs--bold;
+  @include typo.text-xxs--bold;
 
   display: flex;
   align-items: center;

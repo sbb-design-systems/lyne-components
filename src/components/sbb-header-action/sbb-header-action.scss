@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 // Displays the action item's text and corrects spacings.
 $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
@@ -28,7 +30,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 @each $breakpoint in $breakpoints {
   :host([expand-from='#{$breakpoint}']) {
-    @include mq($from: $breakpoint) {
+    @include sbb.mq($from: $breakpoint) {
       --sbb-header-action-text-display: block;
       --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
 
@@ -41,7 +43,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   }
 }
 
-@include hover-mq($hover: true) {
+@include sbb.hover-mq($hover: true) {
   :host(:hover) {
     --sbb-header-action-background-color: var(--sbb-color-milk-default);
   }
@@ -52,8 +54,8 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 .sbb-header-action {
-  @include buttonReset;
-  @include text-inherit;
+  @include sbb.buttonReset;
+  @include sbb.text-inherit;
 
   text-decoration: none;
   display: flex;
@@ -72,7 +74,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   gap: var(--sbb-spacing-fixed-2x);
 
   &:focus-visible {
-    @include focusOutline;
+    @include sbb.focusOutline;
   }
 }
 
@@ -88,12 +90,12 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 .sbb-header-action__text {
-  @include text-xs--bold;
+  @include sbb.text-xs--bold;
 
   display: var(--sbb-header-action-text-display);
   color: var(--sbb-color-black-default);
 }
 
 .sbb-header-action__opens-in-new-window {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }

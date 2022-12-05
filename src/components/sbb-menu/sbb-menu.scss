@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-menu-position: fixed;
@@ -14,15 +16,15 @@
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
-  --sbb-menu-min-height: #{px-to-rem-build(120)};
+  --sbb-menu-min-height: #{sbb.px-to-rem-build(120)};
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-backdrop-color: transparent;
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-menu-position: absolute;
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
-    --sbb-menu-max-width: #{px-to-rem-build(320)};
-    --sbb-menu-min-width: #{px-to-rem-build(180)};
+    --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
+    --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
   }
 
   position: fixed;
@@ -50,7 +52,7 @@
 :host(.sbb-menu--opening) {
   --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-menu-backdrop-color: transparent;
   }
 
@@ -113,11 +115,11 @@
     animation-name: close;
   }
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     top: 0;
     left: 0;
     right: unset;
@@ -135,7 +137,7 @@
 }
 
 .sbb-menu__content {
-  @include scrollbar-dark;
+  @include sbb.scrollbar-dark;
 
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);
@@ -149,7 +151,7 @@
     height: var(--sbb-spacing-fixed-8x);
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     max-height: fit-content;
 
     .sbb-menu[open] & {

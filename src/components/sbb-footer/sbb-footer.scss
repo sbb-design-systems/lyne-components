@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   // TODO: Remove once sbb-stack is refactored
@@ -9,10 +11,10 @@
   --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
   --sbb-footer-gap-vertical: var(--sbb-spacing-responsive-l);
   --sbb-footer-background-color: var(--sbb-color-milk-default);
-  --sbb-footer-clock-width: #{px-to-rem-build(76)};
+  --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
 
-  @include mq($from: small) {
-    --sbb-footer-clock-width: #{px-to-rem-build(112)};
+  @include sbb.mq($from: small) {
+    --sbb-footer-clock-width: #{sbb.px-to-rem-build(112)};
   }
 }
 
@@ -27,7 +29,7 @@
 }
 
 .sbb-footer__title {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }
 
 ::slotted(.sbb-link-list-button-group) {
@@ -45,11 +47,11 @@
     grid-template-rows: auto;
     column-gap: var(--sbb-footer-gap-horizontal);
 
-    @include mq($from: small) {
+    @include sbb.mq($from: small) {
       grid-template-columns: calc(50% - (var(--sbb-footer-gap-horizontal) / 2));
     }
 
-    @include mq($from: wide) {
+    @include sbb.mq($from: wide) {
       max-width: var(--sbb-layout-base-page-max-width);
       margin-inline-start: auto;
       margin-inline-end: auto;
@@ -66,12 +68,12 @@
     max-width: var(--sbb-footer-clock-width);
     grid-row: 1;
 
-    @include mq($from: small) {
+    @include sbb.mq($from: small) {
       align-self: start;
       grid-row: 2;
     }
 
-    @include mq($from: wide) {
+    @include sbb.mq($from: wide) {
       grid-row: 1;
       grid-column: 4 / 5;
       width: 100%;
@@ -83,18 +85,18 @@
     margin-block-start: calc(var(--sbb-spacing-responsive-xl) - var(--sbb-footer-gap-vertical));
     margin-block-end: var(--sbb-spacing-responsive-s);
 
-    @include mq($from: small) {
+    @include sbb.mq($from: small) {
       grid-row: 3;
       grid-column: 1 / 4;
       width: 100%;
     }
 
-    @include mq($from: wide) {
+    @include sbb.mq($from: wide) {
       grid-row: 2;
     }
   }
 
-  @include mq($from: small) {
+  @include sbb.mq($from: small) {
     /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(-n + 2)) {
       grid-row: 1;
@@ -111,13 +113,13 @@
     }
   }
 
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     ::slotted(*:last-child) {
       grid-column: 1 / 4;
     }
   }
 
-  @include mq($from: wide) {
+  @include sbb.mq($from: wide) {
     /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(-n + 4)) {
       grid-row: 1;

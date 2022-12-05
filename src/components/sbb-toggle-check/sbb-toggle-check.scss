@@ -1,3 +1,9 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 :host {
   display: inline-block;
 
@@ -15,7 +21,7 @@
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-icon-opacity: 0;
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-toggle-check-circle-background: Canvas;
     --sbb-toggle-check-background: CanvasText;
   }
@@ -29,7 +35,7 @@
   );
   --sbb-toggle-check-icon-opacity: 1;
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-toggle-check-fill: Highlight;
     --sbb-toggle-check-background: Highlight;
   }
@@ -42,7 +48,7 @@
   --sbb-toggle-check-circle-background: var(--sbb-color-milk-default);
   --sbb-toggle-check-cursor: not-allowed;
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-toggle-check-fill: GrayText;
     --sbb-toggle-check-background: GrayText;
   }
@@ -54,7 +60,7 @@
 
 .sbb-toggle-check {
   // Avoids unwanted space displayed if no label text is set.
-  @include zeroWidthSpace;
+  @include sbb.zeroWidthSpace;
 
   position: relative;
   display: flex;
@@ -64,11 +70,11 @@
 }
 
 input[type='checkbox'] {
-  @include invisibleContainerOverlay;
+  @include sbb.invisibleContainerOverlay;
 }
 
 .sbb-toggle-check__container {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   display: flex;
   flex-direction: var(--sbb-toggle-check-flex-direction);
@@ -93,13 +99,13 @@ input[type='checkbox'] {
   cursor: var(--sbb-toggle-check-cursor);
 
   input[type='checkbox']:focus-visible + .toggle-check__container & {
-    @include focusOutline;
+    @include sbb.focusOutline;
   }
 }
 
 .sbb-toggle-check__circle {
-  @include shadow-level-5-hard;
-  @include absoluteCenterY;
+  @include sbb.shadow-level-5-hard;
+  @include sbb.absoluteCenterY;
 
   width: var(--sbb-toggle-check-circle-diameter);
   height: var(--sbb-toggle-check-circle-diameter);

@@ -1,12 +1,14 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 @mixin horizontal-orientation {
   --sbb-link-list-flex-flow: row wrap;
 
   .sbb-link-list-title {
-    @include screenReaderOnly;
+    @include sbb.screenReaderOnly;
   }
 }
 
@@ -27,7 +29,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 .sbb-link-list {
-  @include list-reset;
+  @include sbb.list-reset;
 
   display: flex;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-8x);
@@ -35,7 +37,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 @each $breakpoint in $breakpoints {
-  @include mq($from: #{$breakpoint}) {
+  @include sbb.mq($from: #{$breakpoint}) {
     // horizontal-from overrides orientation vertical
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
       @include horizontal-orientation;

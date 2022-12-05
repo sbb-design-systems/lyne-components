@@ -41,19 +41,7 @@ export const config: Config = {
       includeDefineCustomElements: true,
     }),
   ],
-  plugins: [
-    inlineSvg(),
-    sass({
-      injectGlobalPaths: [
-        'src/global/styles/component-utilities.scss',
-        'src/global/styles/functions.scss',
-        'src/global/styles/mediaqueries.scss',
-        'src/global/styles/mixins.scss',
-        'src/global/styles/variables.scss',
-        'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables_css--placeholder.scss',
-      ],
-    }),
-  ],
+  plugins: [inlineSvg(), sass()],
   rollupPlugins: {
     // eslint-disable-next-line
     before: [eventSync()],

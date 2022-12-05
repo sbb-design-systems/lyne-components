@@ -1,7 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
-@include host-component-properties;
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
 
 :host {
   --sbb-form-field-background-color: var(--sbb-color-white-default);
@@ -26,8 +27,8 @@
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
   display: inline-block;
-  min-width: #{px-to-rem-build(150)};
-  width: min(#{px-to-rem-build(300)}, 100%);
+  min-width: #{sbb.px-to-rem-build(150)};
+  width: min(#{sbb.px-to-rem-build(300)}, 100%);
 }
 
 :host([size='l']) {
@@ -54,7 +55,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-graphite-default);
   --sbb-form-field-text-color: var(--sbb-color-graphite-default);
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-form-field-label-color: GrayText;
     --sbb-form-field-prefix-color: GrayText;
     --sbb-form-field-text-color: GrayText;
@@ -75,7 +76,7 @@
   --sbb-form-field-border-color: var(--sbb-color-red125-default);
   --sbb-form-field-text-color: var(--sbb-color-red125-default);
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-form-field-border-color: LinkText;
     --sbb-form-field-text-color: LinkText;
   }
@@ -101,7 +102,7 @@
 .sbb-form-field__space-wrapper {
   display: flex;
   flex-direction: column;
-  @include zeroWidthSpace;
+  @include sbb.zeroWidthSpace;
 }
 
 .sbb-form-field__wrapper {
@@ -123,7 +124,7 @@
 }
 
 .sbb-form-field__select-input-icon {
-  @include absoluteCenterY;
+  @include sbb.absoluteCenterY;
 
   inset-inline-end: 0;
   position: absolute;
@@ -144,7 +145,7 @@
 
 // Label
 .sbb-form-field__label {
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   display: flex;
   max-width: 100%;
@@ -162,15 +163,15 @@
 
 ::slotted(*[slot='label']),
 slot[name='label'] > span {
-  @include ellipsis;
+  @include sbb.ellipsis;
 }
 
 // Input
 /* stylelint-disable plugin/stylelint-bem-namics */
 .sbb-form-field__input ::slotted(:where(input, select)) {
-  @include text-m--regular;
-  @include placeholder;
-  @include ellipsis;
+  @include sbb.text-m--regular;
+  @include sbb.placeholder;
+  @include sbb.ellipsis;
 
   overflow: var(--sbb-form-field-overflow);
   -webkit-appearance: none;

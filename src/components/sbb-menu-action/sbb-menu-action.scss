@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-menu-action-border-radius: var(--sbb-border-radius-8x);
@@ -13,7 +15,7 @@
 }
 
 .sbb-menu-action {
-  @include buttonReset;
+  @include sbb.buttonReset;
 
   text-decoration: none;
   display: block;
@@ -33,7 +35,7 @@
 }
 
 .sbb-menu-action__content {
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   display: flex;
   align-items: center;
@@ -46,10 +48,10 @@
   .sbb-menu-action:focus-visible & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-    @include focusOutline;
+    @include sbb.focusOutline;
   }
 
-  @include hover-mq($hover: true) {
+  @include sbb.hover-mq($hover: true) {
     // stylelint-disable-next-line plugin/stylelint-bem-namics
     :host(:not([disabled])) .sbb-menu-action:hover & {
       background-color: var(--sbb-color-iron-default);
@@ -64,7 +66,7 @@
 }
 
 .sbb-menu-action__label {
-  @include ellipsis;
+  @include sbb.ellipsis;
 
   :host([disabled]) & {
     text-decoration: line-through;
@@ -72,5 +74,5 @@
 }
 
 .sbb-menu-action__amount {
-  @include badge;
+  @include sbb.badge;
 }

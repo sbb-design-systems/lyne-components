@@ -1,25 +1,27 @@
 /* stylelint-disable */
 // TODO: solve stylelint issues
 
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  @include card-host-properties;
+  @include sbb.card-host-properties;
 }
 
 .button {
-  @include card;
-  @include card--primary-negative;
-  @include card--m;
+  @include sbb.card;
+  @include sbb.card--primary-negative;
+  @include sbb.card--m;
 
   width: 100%;
   border: 0;
 }
 
 .button__inner_wrapper {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   display: flex;
   flex-wrap: nowrap;
@@ -46,13 +48,13 @@ button[dir='rtl'] .button__chevron {
 }
 
 .button--walk .button__cta {
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   margin-inline-start: var(--sbb-spacing-fixed-2x);
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 
-  @include mq($to: micro) {
-    @include screenReaderOnly;
+  @include sbb.mq($to: micro) {
+    @include sbb.screenReaderOnly;
   }
 }
 

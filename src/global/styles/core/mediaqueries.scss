@@ -2,27 +2,26 @@
 
 @use 'sass:math';
 @use 'sass:string';
-
-@import './node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss';
+@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
 $mq-breakpoints: (
-  zero: $sbb-breakpoint-zero-min,
+  zero: sbb-tokens.$sbb-breakpoint-zero-min,
   // 0
-  micro: $sbb-breakpoint-micro-min,
+  micro: sbb-tokens.$sbb-breakpoint-micro-min,
   // 360
-  small: $sbb-breakpoint-small-min,
+  small: sbb-tokens.$sbb-breakpoint-small-min,
   // 600
-  medium: $sbb-breakpoint-medium-min,
+  medium: sbb-tokens.$sbb-breakpoint-medium-min,
   // 840
-  large: $sbb-breakpoint-large-min,
+  large: sbb-tokens.$sbb-breakpoint-large-min,
   // 1024
-  wide: $sbb-breakpoint-wide-min,
+  wide: sbb-tokens.$sbb-breakpoint-wide-min,
   // 1280
-  ultra: $sbb-breakpoint-ultra-min,
+  ultra: sbb-tokens.$sbb-breakpoint-ultra-min,
   // 1440
   ultra--max-content:
     (
-      $sbb-breakpoint-ultra-min + (2 * $sbb-spacing-fixed-18x),
+      sbb-tokens.$sbb-breakpoint-ultra-min + (2 * sbb-tokens.$sbb-spacing-fixed-18x),
     ),
 ) !default;
 $mq-media-type: all !default;

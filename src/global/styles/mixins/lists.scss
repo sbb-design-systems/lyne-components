@@ -1,6 +1,9 @@
 /* stylelint-disable plugin/stylelint-bem-namics */
 
 @use 'sass:selector';
+@use '../core/functions';
+@use '../core/mediaqueries';
+@use './typo';
 
 @mixin list-reset {
   list-style: none;
@@ -71,7 +74,7 @@
 }
 
 @mixin step-list {
-  --sbb-step-list-marker-dimensions: #{px-to-rem-build(34)};
+  --sbb-step-list-marker-dimensions: #{functions.px-to-rem-build(34)};
   --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-step-list-padding-inline: var(--sbb-spacing-responsive-xxs);
   --sbb-step-list-marker-to-text-gap: var(--sbb-spacing-responsive-xxxs);
@@ -96,8 +99,8 @@
   }
 
   &:where(.sbb-text-xl) {
-    @include mq($from: medium) {
-      --sbb-step-list-marker-dimensions: #{px-to-rem-build(41)};
+    @include mediaqueries.mq($from: medium) {
+      --sbb-step-list-marker-dimensions: #{functions.px-to-rem-build(41)};
     }
   }
 
@@ -126,7 +129,7 @@
     );
 
     &::before {
-      @include text-xxs--bold;
+      @include typo.text-xxs--bold;
 
       content: counter(steps);
       position: absolute;
