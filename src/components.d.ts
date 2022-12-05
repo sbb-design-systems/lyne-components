@@ -3967,7 +3967,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the toggle value changes.
          */
-        "onSbb-toggle_did-change"?: (event: SbbToggleCustomEvent<any>) => void;
+        "onDid-change"?: (event: SbbToggleCustomEvent<any>) => void;
         /**
           * Id of the toggle element.
          */
@@ -4047,7 +4047,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the toggle-option value changes.
          */
-        "onSbb-toggle-option_did-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
+        "onDid-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
         /**
           * Id of the internal input element - default id will be set automatically.
          */

@@ -49,7 +49,7 @@ export class SbbToggleOption {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-toggle-option_did-select',
+    eventName: 'did-select',
   })
   public didSelect: EventEmitter<any>;
 
@@ -97,11 +97,9 @@ export class SbbToggleOption {
               <sbb-icon name={this.iconName}></sbb-icon>
             </slot>
           )}
-          {this.value && (
-            <label id={this.toggleOptionId} htmlFor={this.toggleOptionId}>
-              {this.value}
-            </label>
-          )}
+          <label id={this.toggleOptionId} htmlFor={this.toggleOptionId}>
+            <slot />
+          </label>
         </span>
       </Host>
     );

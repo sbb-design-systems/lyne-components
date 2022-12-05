@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didSelect: 'sbb-toggle-option_did-select',
+  didSelect: 'did-select',
 };

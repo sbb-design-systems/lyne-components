@@ -8,9 +8,11 @@ import {
   JSX,
   Listen,
   Prop,
+  State,
   Watch,
 } from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
+import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 let nextId = 0;
 
@@ -49,9 +51,15 @@ export class SbbToggle {
    */
   @Prop({ mutable: true, reflect: true }) public value: any | null;
 
+  /**
+   * Whether the list has an active action.
+   */
+  @State() private _hasCheckedOption = false;
+
   @Element() private _element: HTMLElement;
 
   private _toggleElement: HTMLElement;
+  private _toggleResizeObserver = new ResizeObserver(() => this._setCheckedPillPosition());
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
@@ -79,7 +87,7 @@ export class SbbToggle {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-toggle_did-change',
+    eventName: 'did-change',
   })
   public didChange: EventEmitter<any>;
 
@@ -93,25 +101,18 @@ export class SbbToggle {
     return this._options.find((toggle) => toggle.checked);
   }
 
-  @Listen('sbb-toggle-option_did-select', { passive: true })
+  @Listen('did-select', { passive: true })
   public onToggleOptionSelect(event: CustomEvent<Set<string>>): void {
     this.value = event.detail;
   }
 
-  @Listen('resize', { target: 'window', passive: true })
   private _setCheckedPillPosition(): void {
     const checked = this._checked;
 
     if (!checked) {
       return;
     }
-
-    // Set checked pill position
-    this._element.style.setProperty(
-      '--sbb-toggle-width',
-      `${this._options[0].clientWidth + this._options[1].clientWidth}px`
-    );
-
+    this._hasCheckedOption = true;
     this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft - 2}px`);
     this._element.style.setProperty(
       '--sbb-toggle-option-right',
@@ -119,8 +120,12 @@ export class SbbToggle {
     );
   }
 
-  public componentDidLoad(): void {
-    this._setCheckedPillPosition();
+  public connectedCallback(): void {
+    this._toggleResizeObserver.observe(this._element.firstElementChild);
+  }
+
+  public disconnectedCallback(): void {
+    this._toggleResizeObserver.disconnect();
   }
 
   private _updateToggle(): void {
@@ -148,7 +153,7 @@ export class SbbToggle {
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <Host class={{ 'sbb-toggle--checked': this._hasCheckedOption }}>
         <div class="sbb-toggle" ref={(toggle) => (this._toggleElement = toggle)}>
           <slot onSlotchange={() => this._updateToggle()} />
         </div>

@@ -3,9 +3,6 @@
 @include host-component-properties;
 
 :host {
-  --sbb-toggle-option-flex-grow: 1;
-  --sbb-toggle-option-flex-basis: auto;
-  --sbb-toggle-option-max-width: 100%;
   --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-selected-option-background-color: var(--sbb-color-white-default);
@@ -14,18 +11,15 @@
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-toggle-cursor: pointer;
 
-  width: 100%;
+  display: flex;
   position: relative;
+  width: 100%;
 }
 
 :host([even]) {
-  --sbb-toggle-option-flex-grow: 0;
-  --sbb-toggle-option-flex-basis: 50%;
-  --sbb-toggle-option-max-width: 50%;
+  display: block;
 
-  width: 100%;
-
-  &::after {
+  ::slotted(sbb-toggle-option) {
     width: 50%;
   }
 }
@@ -50,36 +44,38 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  &::before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    left: 0;
-    width: var(--sbb-toggle-width);
-    background: var(--sbb-color-cloud-default);
-    border-radius: var(--sbb-border-radius-16x);
-  }
+  background: var(--sbb-color-cloud-default);
+  border-radius: var(--sbb-border-radius-16x);
 
   &::after {
     content: '';
-    color: transparent;
     padding-inline: var(--sbb-toggle-padding-inline);
     display: inline-block;
+    opacity: 0;
     background-color: var(--sbb-toggle-selected-option-background-color);
     border: var(--sbb-border-width-1x) solid var(--sbb-toggle-selected-option-border-color);
     border-radius: var(--sbb-border-radius-16x);
     position: absolute;
     max-width: 100%;
 
-    // selected option exceeds toggle dimensions by 2x border width
+    // Selected option exceeds toggle dimensions by 2x border width
     top: calc(-2 * var(--sbb-border-width-1x));
     bottom: calc(-2 * var(--sbb-border-width-1x));
     left: var(--sbb-toggle-option-left);
     right: var(--sbb-toggle-option-right);
-    transition: all var(--sbb-animation-duration-6x) ease-in;
+    transition: {
+      duration: var(--sbb-animation-duration-6x);
+      timing-function: ease;
+      property: opacity, left, right;
+    }
+  }
+
+  :host(.sbb-toggle--checked) & {
+    &::after {
+      opacity: 1;
+    }
   }
 }
