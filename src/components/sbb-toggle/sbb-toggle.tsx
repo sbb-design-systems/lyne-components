@@ -13,6 +13,7 @@ import {
 } from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 let nextId = 0;
 
@@ -180,6 +181,42 @@ export class SbbToggle {
 
   private _getOptionTabIndex(option: HTMLSbbToggleOptionElement): number {
     return option.checked && !option.disabled && !this.disabled ? 0 : -1;
+  }
+
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    if (!this._options) {
+      return;
+    }
+
+    const enabledToggleOptions = this._options.filter((t) => !t.disabled);
+    const checked = enabledToggleOptions.findIndex((radio) => radio.checked);
+    const cur = checked !== -1 ? checked : 0;
+    const size = enabledToggleOptions.length;
+    const prev = cur === 0 ? size - 1 : cur - 1;
+    const next = cur === size - 1 ? 0 : cur + 1;
+
+    // don't trap nested handling
+    if (
+      (evt.target as HTMLElement) !== this._element &&
+      (evt.target as HTMLElement).parentElement !== this._element
+    ) {
+      return;
+    }
+
+    const currentWritingMode = getDocumentWritingMode();
+    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+
+    if (evt.key === prevKey || evt.key === 'ArrowUp') {
+      enabledToggleOptions[prev].select();
+      enabledToggleOptions[prev].focus();
+      evt.preventDefault();
+    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
+      enabledToggleOptions[next].select();
+      enabledToggleOptions[next].focus();
+      evt.preventDefault();
+    }
   }
 
   public render(): JSX.Element {
