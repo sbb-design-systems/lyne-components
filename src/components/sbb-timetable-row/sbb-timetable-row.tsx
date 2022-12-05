@@ -1,5 +1,3 @@
-'use strict';
-
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { BoardingAlightingAccessibilityEnum, Price, Trip } from './sbb-timetable-row.custom';
 
