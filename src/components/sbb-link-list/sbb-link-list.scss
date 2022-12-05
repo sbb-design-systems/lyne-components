@@ -2,39 +2,43 @@
 // travel the shadow boundary are defined through this mixin
 @include host-component-properties;
 
-@mixin link-list--horizontal {
-  sbb-title {
-    @include screenReaderOnly;
-  }
+@mixin horizontal-orientation {
+  --sbb-link-list-flex-flow: row wrap;
 
-  ul {
-    flex-flow: row wrap;
+  .sbb-link-list-title {
+    @include screenReaderOnly;
   }
 }
 
-.sbb-link-list {
+$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+
+:host {
+  --sbb-link-list-flex-flow: column nowrap;
+}
+
+:host([orientation='horizontal']) {
+  @include horizontal-orientation;
+}
+
+.sbb-link-list-wrapper {
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-link-list ul {
+.sbb-link-list {
   @include list-reset;
 
   display: flex;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-8x);
-  flex-direction: column;
+  flex-flow: var(--sbb-link-list-flex-flow);
 }
 
-.sbb-link-list--horizontal {
-  @include link-list--horizontal;
-}
-
-@each $breakpointName, $value in $mq-breakpoints {
-  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-  .sbb-link-list--horizontal-from-#{$breakpointName} {
-    @include mq($from: #{$breakpointName}) {
-      @include link-list--horizontal;
+@each $breakpoint in $breakpoints {
+  @include mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      @include horizontal-orientation;
     }
   }
 }

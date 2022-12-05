@@ -2,6 +2,14 @@
 The `<sbb-link-list>` is a collection of sbb-links. It has an optional title which stays visually always on level 5. 
 The title is used as the aria-labelledby attribute of the ul element. The list can be oriented vertically or 
 horizontally. The title will not be display in the horizontal orientation.
+
+```html
+<sbb-link-list title-level="2" title-content="Help &amp; Contact" horizontal-from="medium">
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html' text-size='s'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html' text-size='s'>Loss Report</sbb-link>
+  ...
+</sbb-link-list>
+```
   
 <!-- Auto Generated Below -->
 
