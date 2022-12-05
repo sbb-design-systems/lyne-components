@@ -3,21 +3,13 @@
 @include host-component-properties;
 
 :host {
-  width: fit-content;
-  max-width: 50%;
+  --sbb-toggle-option-icon-min-size: #{px-to-rem-build(24)};
+
+  display: inline-block;
+  overflow: hidden;
+  flex-grow: 1;
+  min-width: var(--sbb-spacing-fixed-16x);
   z-index: 1;
-
-  // reserve horizontal space for bold variant when selected
-  &::before {
-    @include text-xs--bold;
-    @include ellipsis;
-
-    content: attr(value);
-    padding-inline: var(--sbb-toggle-padding-inline);
-    display: block;
-    visibility: hidden;
-    height: 0;
-  }
 }
 
 :host input[type='radio'] {
@@ -28,21 +20,37 @@
   @include text-xs--bold;
 
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
   padding-inline: var(--sbb-toggle-padding-inline);
   padding-block: var(--sbb-toggle-padding-block);
   border-radius: var(--sbb-border-radius-16x);
   color: var(--sbb-toggle-option-text-color);
-  justify-content: center;
 
   label {
     @include ellipsis;
 
     cursor: inherit;
   }
-}
 
-:host([checked]) {
-  .sbb-toggle-option {
+  :host([checked]) & {
     color: var(--sbb-toggle-selected-option-text-color);
   }
+
+  :host([icon-name]) & {
+    --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
+
+    // Recalculate padding to maintain the same toggle height when the icon is displayed.
+    padding-block: calc(
+      var(--sbb-toggle-padding-block) -
+        ((var(--sbb-toggle-option-icon-min-size) - var(--sbb-toggle-option-line-height)) / 2)
+    );
+  }
+}
+
+sbb-icon,
+::slotted(sbb-icon) {
+  min-width: var(--sbb-toggle-option-icon-min-size);
+  min-height: var(--sbb-toggle-option-icon-min-size);
 }

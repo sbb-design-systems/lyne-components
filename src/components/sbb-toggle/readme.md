@@ -16,9 +16,9 @@
 
 ## Events
 
-| Event                   | Description                              | Type               |
-| ----------------------- | ---------------------------------------- | ------------------ |
-| `sbb-toggle_did-change` | Emits whenever the toggle value changes. | `CustomEvent<any>` |
+| Event        | Description                              | Type               |
+| ------------ | ---------------------------------------- | ------------------ |
+| `did-change` | Emits whenever the toggle value changes. | `CustomEvent<any>` |
 
 
 ## Slots

@@ -17,9 +17,9 @@
 
 ## Events
 
-| Event                          | Description                                     | Type               |
-| ------------------------------ | ----------------------------------------------- | ------------------ |
-| `sbb-toggle-option_did-select` | Emits whenever the toggle-option value changes. | `CustomEvent<any>` |
+| Event        | Description                                     | Type               |
+| ------------ | ----------------------------------------------- | ------------------ |
+| `did-select` | Emits whenever the toggle-option value changes. | `CustomEvent<any>` |
 
 
 ## Methods
