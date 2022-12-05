@@ -157,7 +157,7 @@ export const LinkListHorizontalFrom = Template.bind({});
 LinkListHorizontalFrom.argTypes = defaultArgTypes;
 LinkListHorizontalFrom.args = {
   ...defaultArgs,
-  horizontalFrom: 'medium',
+  'horizontal-from': 'medium',
 };
 
 export const LinkListWithSlottedTitle = TemplateSlottedTitle.bind({});
