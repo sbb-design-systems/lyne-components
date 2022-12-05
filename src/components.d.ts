@@ -1833,14 +1833,6 @@ export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleOptionElement;
 }
-export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleElement;
-}
-export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleOptionElement;
-}
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
