@@ -12,6 +12,14 @@
   z-index: 1;
 }
 
+:host(:focus-visible) {
+  @include focusOutline;
+
+  --sbb-focus-outline-offset: #{px-to-rem-build(6)};
+
+  border-radius: var(--sbb-border-radius-16x);
+}
+
 :host input[type='radio'] {
   display: none;
 }
