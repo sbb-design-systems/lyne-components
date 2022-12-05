@@ -18,12 +18,12 @@
 
 ## Events
 
-| Event                       | Description                                                  | Type                |
-| --------------------------- | ------------------------------------------------------------ | ------------------- |
-| `sbb-navigation_did-close`  | Emits whenever the navigation is closed.                     | `CustomEvent<void>` |
-| `sbb-navigation_did-open`   | Emits whenever the navigation is opened.                     | `CustomEvent<void>` |
-| `sbb-navigation_will-close` | Emits whenever the navigation begins the closing transition. | `CustomEvent<void>` |
-| `sbb-navigation_will-open`  | Emits whenever the navigation starts the opening transition. | `CustomEvent<void>` |
+| Event       | Description                                                  | Type                |
+| ----------- | ------------------------------------------------------------ | ------------------- |
+| `didClose`  | Emits whenever the navigation is closed.                     | `CustomEvent<void>` |
+| `didOpen`   | Emits whenever the navigation is opened.                     | `CustomEvent<void>` |
+| `willClose` | Emits whenever the navigation begins the closing transition. | `CustomEvent<void>` |
+| `willOpen`  | Emits whenever the navigation starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods

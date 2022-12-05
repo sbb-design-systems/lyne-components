@@ -3261,19 +3261,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the navigation is closed.
          */
-        "onSbb-navigation_did-close"?: (event: SbbNavigationCustomEvent<void>) => void;
+        "onDidClose"?: (event: SbbNavigationCustomEvent<void>) => void;
         /**
           * Emits whenever the navigation is opened.
          */
-        "onSbb-navigation_did-open"?: (event: SbbNavigationCustomEvent<void>) => void;
+        "onDidOpen"?: (event: SbbNavigationCustomEvent<void>) => void;
         /**
           * Emits whenever the navigation begins the closing transition.
          */
-        "onSbb-navigation_will-close"?: (event: SbbNavigationCustomEvent<void>) => void;
+        "onWillClose"?: (event: SbbNavigationCustomEvent<void>) => void;
         /**
           * Emits whenever the navigation starts the opening transition.
          */
-        "onSbb-navigation_will-open"?: (event: SbbNavigationCustomEvent<void>) => void;
+        "onWillOpen"?: (event: SbbNavigationCustomEvent<void>) => void;
         /**
           * The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3377,21 +3377,13 @@ declare namespace LocalJSX {
          */
         "navigationSectionId"?: string;
         /**
-          * Emits whenever the navigation section is closed.
-         */
-        "onSbb-navigation-section_did-close"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
-        /**
-          * Emits whenever the navigation section is opened.
-         */
-        "onSbb-navigation-section_did-open"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
-        /**
           * Emits whenever the navigation section begins the closing transition.
          */
-        "onSbb-navigation-section_will-close"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        "onWillClose"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
         /**
           * Emits whenever the navigation section starts the opening transition.
          */
-        "onSbb-navigation-section_will-open"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        "onWillOpen"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
         "titleContent"?: string;
         "titleId"?: string;
         "titleLevel"?: InterfaceTitleAttributes['level'];

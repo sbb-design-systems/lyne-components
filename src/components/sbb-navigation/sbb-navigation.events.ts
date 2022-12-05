@@ -3,8 +3,8 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didClose: 'sbb-navigation_did-close',
-  didOpen: 'sbb-navigation_did-open',
-  willClose: 'sbb-navigation_will-close',
-  willOpen: 'sbb-navigation_will-open',
+  didClose: 'didClose',
+  didOpen: 'didOpen',
+  willClose: 'willClose',
+  willOpen: 'willOpen',
 };

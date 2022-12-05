@@ -104,19 +104,8 @@ export class SbbNavigationSection implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-navigation-section_will-open',
   })
   public willOpen: EventEmitter<void>;
-
-  /**
-   * Emits whenever the navigation section is opened.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-navigation-section_did-open',
-  })
-  public didOpen: EventEmitter<void>;
 
   /**
    * Emits whenever the navigation section begins the closing transition.
@@ -124,19 +113,8 @@ export class SbbNavigationSection implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-navigation-section_will-close',
   })
   public willClose: EventEmitter<void>;
-
-  /**
-   * Emits whenever the navigation section is closed.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'sbb-navigation-section_did-close',
-  })
-  public didClose: EventEmitter<void>;
 
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionWrapperElement: HTMLElement;
@@ -228,14 +206,12 @@ export class SbbNavigationSection implements AccessibilityProperties {
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
       this._state = 'opened';
-      this.didOpen.emit();
       this._setDialogFocus();
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationSectionContentElement.scrollTo(0, 0);
       this._navigationSection.close();
-      this.didClose.emit();
       this._windowEventsController?.abort();
     }
   }

@@ -82,7 +82,6 @@ export class SbbNavigation implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-navigation_will-open',
   })
   public willOpen: EventEmitter<void>;
 
@@ -92,7 +91,6 @@ export class SbbNavigation implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-navigation_did-open',
   })
   public didOpen: EventEmitter<void>;
 
@@ -102,7 +100,6 @@ export class SbbNavigation implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-navigation_will-close',
   })
   public willClose: EventEmitter<void>;
 
@@ -112,7 +109,6 @@ export class SbbNavigation implements AccessibilityProperties {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-navigation_did-close',
   })
   public didClose: EventEmitter<void>;
 
@@ -299,14 +295,20 @@ export class SbbNavigation implements AccessibilityProperties {
     }
   }
 
-  @Listen('sbb-navigation-section_will-open')
-  public onNavigationSectionOpening(): void {
-    this._hasNavigationSection = true;
+  @Listen('willOpen')
+  public onNavigationSectionOpening(event: Event): void {
+    if ((event.target as HTMLElement).nodeName === 'SBB-NAVIGATION-SECTION') {
+      this._hasNavigationSection = true;
+      event.stopImmediatePropagation();
+    }
   }
 
-  @Listen('sbb-navigation-section_will-close')
-  public onNavigationSectionClosing(): void {
-    this._hasNavigationSection = false;
+  @Listen('willClose')
+  public onNavigationSectionClosing(event: Event): void {
+    if ((event.target as HTMLElement).nodeName === 'SBB-NAVIGATION-SECTION') {
+      this._hasNavigationSection = false;
+      event.stopImmediatePropagation();
+    }
   }
 
   public connectedCallback(): void {

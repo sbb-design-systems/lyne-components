@@ -21,12 +21,10 @@
 
 ## Events
 
-| Event                               | Description                                                          | Type                |
-| ----------------------------------- | -------------------------------------------------------------------- | ------------------- |
-| `sbb-navigation-section_did-close`  | Emits whenever the navigation section is closed.                     | `CustomEvent<void>` |
-| `sbb-navigation-section_did-open`   | Emits whenever the navigation section is opened.                     | `CustomEvent<void>` |
-| `sbb-navigation-section_will-close` | Emits whenever the navigation section begins the closing transition. | `CustomEvent<void>` |
-| `sbb-navigation-section_will-open`  | Emits whenever the navigation section starts the opening transition. | `CustomEvent<void>` |
+| Event       | Description                                                          | Type                |
+| ----------- | -------------------------------------------------------------------- | ------------------- |
+| `willClose` | Emits whenever the navigation section begins the closing transition. | `CustomEvent<void>` |
+| `willOpen`  | Emits whenever the navigation section starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods
