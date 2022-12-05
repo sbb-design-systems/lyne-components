@@ -105,6 +105,7 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-menu-action](../sbb-menu-action)
  - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
  - [sbb-slider](../sbb-slider)
+ - [sbb-tag](../sbb-tag)
  - [sbb-timetable-row](../sbb-timetable-row)
  - [sbb-toggle-check](../sbb-toggle-check)
  - [sbb-train](../sbb-train)
@@ -122,6 +123,7 @@ graph TD;
   sbb-menu-action --> sbb-icon
   sbb-pearl-chain-time --> sbb-icon
   sbb-slider --> sbb-icon
+  sbb-tag --> sbb-icon
   sbb-timetable-row --> sbb-icon
   sbb-toggle-check --> sbb-icon
   sbb-train --> sbb-icon

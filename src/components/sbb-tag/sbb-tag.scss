@@ -1,0 +1,82 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+:host {
+  --sbb-tag-title-height: #{px-to-rem-build(40)};
+  --sbb-tag-background-color: var(--sbb-color-white-default);
+  --sbb-tag-border-color: var(--sbb-color-cloud-default);
+  --sbb-tag-text-color: var(--sbb-color-charcoal-default);
+  --sbb-tag-amount-color: var(--sbb-color-metal-default);
+  --sbb-tag-background-disabled-color: var(--sbb-color-milk-default);
+  --sbb-tag-disabled-color: var(--sbb-color-platinum-default);
+
+  display: inline-block;
+}
+
+:host([checked]) {
+  --sbb-tag-border-color: var(--sbb-color-charcoal-default);
+}
+
+:host([disabled]) {
+  --sbb-tag-text-color: var(--sbb-tag-disabled-color);
+  --sbb-tag-amount-color: var(--sbb-tag-disabled-color);
+  --sbb-tag-background-color: var(--sbb-tag-background-disabled-color);
+}
+
+.sbb-tag__label {
+  position: relative;
+}
+
+.sbb-tag__label--wrapper {
+  position: relative;
+  margin: 0;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+  padding-block: var(--sbb-spacing-fixed-2x);
+  cursor: pointer;
+  background-color: var(--sbb-tag-background-color);
+  border-radius: 20px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    border: var(--sbb-border-width-1x) solid var(--sbb-tag-border-color);
+    border-radius: 20px;
+  }
+
+  :host([disabled]) & {
+    &::after {
+      content: '';
+      inset: 50% var(--sbb-spacing-fixed-5x);
+      border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
+      @include absoluteCenterY;
+    }
+  }
+}
+
+.sbb-tag__label--icon {
+  display: flex;
+  align-items: center;
+}
+
+.sbb-tag__label--text {
+  @include text-xs--bold;
+
+  color: var(--sbb-tag-text-color);
+  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
+}
+
+.sbb-tag__label--amount {
+  @include text-xs--regular;
+
+  color: var(--sbb-tag-amount-color);
+}
+
+input[type='checkbox'] {
+  @include invisibleContainerOverlay;
+}

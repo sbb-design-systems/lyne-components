@@ -1210,6 +1210,48 @@ export namespace Components {
          */
         "level"?: InterfaceTabTitleAttributes['level'];
     }
+    interface SbbTag {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Active tab state
+         */
+        "active"?: boolean;
+        /**
+          * Whether the checkbox is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the checkbox is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+         */
+        "iconName"?: string;
+        /**
+          * Whether the checkbox is required.
+         */
+        "required": boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "tagId": string;
+        /**
+          * Value of checkbox.
+         */
+        "value"?: string;
+    }
     interface SbbTeaser {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
@@ -1604,6 +1646,10 @@ export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
+export interface SbbTagCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTagElement;
+}
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
@@ -1889,6 +1935,12 @@ declare global {
         prototype: HTMLSbbTabTitleElement;
         new (): HTMLSbbTabTitleElement;
     };
+    interface HTMLSbbTagElement extends Components.SbbTag, HTMLStencilElement {
+    }
+    var HTMLSbbTagElement: {
+        prototype: HTMLSbbTagElement;
+        new (): HTMLSbbTagElement;
+    };
     interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
     }
     var HTMLSbbTeaserElement: {
@@ -2080,6 +2132,7 @@ declare global {
         "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-tab-title": HTMLSbbTabTitleElement;
+        "sbb-tag": HTMLSbbTagElement;
         "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-timetable": HTMLSbbTimetableElement;
@@ -3306,6 +3359,52 @@ declare namespace LocalJSX {
          */
         "level"?: InterfaceTabTitleAttributes['level'];
     }
+    interface SbbTag {
+        /**
+          * The aria-describedby prop for the hidden input.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * The aria-label prop for the hidden input.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * The aria-labelledby prop for the hidden input.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Active tab state
+         */
+        "active"?: boolean;
+        /**
+          * Whether the checkbox is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the checkbox is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+         */
+        "iconName"?: string;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbTagCustomEvent<any>) => void;
+        /**
+          * Whether the checkbox is required.
+         */
+        "required"?: boolean;
+        /**
+          * Id of the internal input element - default id will be set automatically.
+         */
+        "tagId"?: string;
+        /**
+          * Value of checkbox.
+         */
+        "value"?: string;
+    }
     interface SbbTeaser {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
@@ -3718,6 +3817,7 @@ declare namespace LocalJSX {
         "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
         "sbb-tab-title": SbbTabTitle;
+        "sbb-tag": SbbTag;
         "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-timetable": SbbTimetable;
@@ -3794,6 +3894,7 @@ declare module "@stencil/core" {
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
+            "sbb-tag": LocalJSX.SbbTag & JSXBase.HTMLAttributes<HTMLSbbTagElement>;
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
