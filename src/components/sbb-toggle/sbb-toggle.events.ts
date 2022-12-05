@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didChange: 'sbb-toggle_did-change',
+  didChange: 'did-change',
 };

@@ -13,7 +13,7 @@ describe('sbb-toggle-option', () => {
           <mock:shadow-root>
             <input aria-hidden="true" checked id="sbb-toggle-option-1" tabindex="-1" type="radio" value="Option 1">
             <span class="sbb-toggle-option">
-              <label htmlfor="sbb-toggle-option-1" id="sbb-toggle-option-1">Option 1</label>
+              <label htmlfor="sbb-toggle-option-1" id="sbb-toggle-option-1"><slot></slot></label>
             </span>
           </mock:shadow-root>
         </sbb-toggle-option>
@@ -34,6 +34,9 @@ describe('sbb-toggle-option', () => {
               <slot name="icon">
                 <sbb-icon name="arrow-right-small"></sbb-icon>
               </slot>
+              <label htmlfor="sbb-toggle-option-2" id="sbb-toggle-option-2">
+                <slot></slot>
+              </label>
             </span>
           </mock:shadow-root>
         </sbb-toggle-option>
@@ -54,7 +57,7 @@ describe('sbb-toggle-option', () => {
               <slot name="icon">
                 <sbb-icon name="arrow-right-small"></sbb-icon>
               </slot>
-              <label htmlfor="sbb-toggle-option-3" id="sbb-toggle-option-3">Option 1</label>
+              <label htmlfor="sbb-toggle-option-3" id="sbb-toggle-option-3"><slot></slot></label>
             </span>
           </mock:shadow-root>
         </sbb-toggle-option>

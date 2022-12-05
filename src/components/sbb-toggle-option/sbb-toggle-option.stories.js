@@ -2,6 +2,12 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-toggle-option.events';
 
+const label = {
+  control: {
+    type: 'text',
+  },
+};
+
 const checked = {
   control: {
     type: 'boolean',
@@ -16,15 +22,9 @@ const disabled = {
 
 const iconName = {
   control: {
-    type: 'text',
+    type: 'select',
   },
-};
-
-const size = {
-  control: {
-    type: 'inline-radio',
-    options: ['m', 's'],
-  },
+  options: ['arrow-right-small', 'app-icon-small', 'train-small', 'swisspass-small'],
 };
 
 const value = {
@@ -34,48 +34,39 @@ const value = {
 };
 
 const defaultArgTypes = {
+  label,
+  value,
   checked,
   disabled,
-  size,
+  'icon-name': iconName,
 };
 
 const defaultArgs = {
+  label: 'Option',
+  value: 'Value',
   checked: false,
   disabled: false,
-  size: 'm',
+  'icon-name': undefined,
 };
 
-const DefaultTemplate = (args) => <sbb-toggle-option {...args}>Option 1</sbb-toggle-option>;
+const DefaultTemplate = (args) => <sbb-toggle-option {...args}>{args.label}</sbb-toggle-option>;
 
-export const sbbToggleOption = DefaultTemplate.bind({});
-sbbToggleOption.argTypes = { ...defaultArgTypes, value };
-sbbToggleOption.args = { ...defaultArgs, value: 'Option 1' };
-sbbToggleOption.documentation = {
-  title: 'sbb-toggle-option',
-};
+export const Default = DefaultTemplate.bind({});
+Default.argTypes = { ...defaultArgTypes, value };
+Default.args = { ...defaultArgs };
 
-export const sbbToggleOptionWithIcon = DefaultTemplate.bind({});
-sbbToggleOptionWithIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName };
-sbbToggleOptionWithIcon.args = { ...defaultArgs, 'icon-name': 'arrow-right-small' };
-sbbToggleOptionWithIcon.documentation = {
-  title: 'sbb-toggle-option with custom icon',
-};
+export const IconOnly = DefaultTemplate.bind({});
+IconOnly.argTypes = { ...defaultArgTypes };
+IconOnly.args = { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] };
 
-export const sbbToggleOptionWithLabelAndIcon = DefaultTemplate.bind({});
-sbbToggleOptionWithLabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
-sbbToggleOptionWithLabelAndIcon.args = {
-  ...defaultArgs,
-  'icon-name': 'arrow-right-small',
-  value: 'Option 1',
-};
-sbbToggleOptionWithLabelAndIcon.documentation = {
-  title: 'sbb-toggle-option with custom icon',
-};
+export const LabelAndIcon = DefaultTemplate.bind({});
+LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
+LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; max-width: 1050px'}>
+      <div style={'padding: 2rem'}>
         <Story />
       </div>
     ),
