@@ -3,10 +3,10 @@ import readme from './readme.md';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    return `background-color: var(sbb-color-charcoal-default);`;
+    return `background-color: var(--sbb-color-charcoal-default);`;
   }
 
-  return `background-color:  var(sbb-color-white-default);`;
+  return `background-color:  var(--sbb-color-white-default);`;
 };
 
 const LinkTemplate = (args) => (
