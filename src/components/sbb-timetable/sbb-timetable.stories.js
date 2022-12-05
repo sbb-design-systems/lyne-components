@@ -16,8 +16,7 @@ const Template = (args) => (
 export const sbbTimetable = Template.bind({});
 sbbTimetable.args = {
   'loading-trip': defaultTrip.loadingTrip,
-  trip: defaultTrip.trip,
-  price: defaultTrip.price,
+  trip: defaultTrip,
 };
 
 sbbTimetable.documentation = {

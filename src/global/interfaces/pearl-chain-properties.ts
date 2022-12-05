@@ -16,7 +16,7 @@ export interface ScheduledStopPointDetail {
 
 export interface ServiceAlteration {
   /** If (partially) cancelled, enduser cancellation info. */
-  cancellationInfo?: string;
+  cancelledText?: string;
   /** true: Journey is (partially) cancelled (default=false) */
   cancelled: boolean;
   /**
@@ -24,6 +24,11 @@ export interface ServiceAlteration {
    *
    */
   delayText: string;
+
+  /** true: journey is redirected */
+  redirected: boolean;
+  redirectedText: string;
+
   /**
    * true: transport-product change from PTRideLeg to PTRideLeg is reachable
    * (de: Anschluss kann gehalten werden, see Trip::valid);
@@ -31,13 +36,6 @@ export interface ServiceAlteration {
    *
    */
   reachable: boolean;
-  /** true: journey is redirected */
-  redirected: boolean;
-
-  /**
-   * Transport-product change from Leg to Leg info according to SBB business rules. Relates to reachable.
-   * Example: Your connecting train will be waiting, please change trains immediately.
-   */
   reachableText?: string;
 
   /** Text intended for passengers about an additional non-planned stop at a station */

@@ -45,9 +45,9 @@ const boarding = {
     type: 'select',
   },
   options: [
+    'BOARDING_ALIGHTING_NOT_POSSIBLE',
     'BOARDING_ALIGHTING_BY_CREW',
     'BOARDING_ALIGHTING_BY_NOTIFICATION',
-    'BOARDING_ALIGHTING_NOT_POSSIBLE',
     'BOARDING_ALIGHTING_SELF',
   ],
 };

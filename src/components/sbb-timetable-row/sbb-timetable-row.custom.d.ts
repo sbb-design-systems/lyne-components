@@ -20,7 +20,7 @@ export interface PtSituation {
   /** Priority value: lowest = 80, medium = 60, highest = 40, de: Großereignis = 20 */
   broadcastMessages?: PtSituationMessage[];
   /** A classification of what caused the SITUATION (HIM category) */
-  cause?: PtSituationCauseEnum | null;
+  cause: PtSituationCauseEnum | null;
 }
 
 /** Mode of public transportation */
@@ -98,6 +98,7 @@ export interface TripStatus {
   alternativeText?: string;
   /** PTRideLeg cancelled */
   cancelled: boolean;
+  cancelledText: string;
   /** Contains at least one delay (de:Verspätung) on any PTRideLeg. */
   delayed: boolean;
   /** Contains at lease one unknown delay (de:Unbestimmte Verspätung) on any PTRideLeg. */
@@ -129,24 +130,24 @@ export interface Price {
 
 export interface Trip {
   /** List of transfer points */
-  legs?: PTRideLeg[];
+  legs: PTRideLeg[];
   /**
    * List of legs travel hints
    * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2
    */
-  notices?: Notice[];
+  notices: Notice[];
   /**
    * List of legs situation messages
    * Usefull for level 1, may not needed for level 2
    */
-  situations?: PtSituation[];
+  situations: PtSituation[] | undefined;
   /**
    * Summary of most relevant aspects of the given Trip and its PTRideLeg's
    * Usefull for level 1, not needed for level 2
    */
   summary?: TripSummary;
   /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
-  id?: string;
+  id: string;
   /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
   valid?: boolean;
 }

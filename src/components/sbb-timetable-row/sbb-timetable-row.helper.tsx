@@ -1,3 +1,5 @@
+'use strict';
+
 import { h, JSX } from '@stencil/core';
 import {
   differenceInDays,
@@ -92,14 +94,15 @@ export const isProductIcon = (transport: string): boolean => {
   return possibleTransportTypes.includes(transport);
 };
 
-export const renderIconProduct = (transport: string, line?: string): JSX.Element => {
+export const renderIconProduct = (transport: string, line?: string | null): JSX.Element => {
   const dashLine = line ? '-' + line : '';
+
   return (
     <sbb-icon class="sbb-timetable__row-transport" name={transport.toLowerCase() + dashLine} />
   );
 };
 
-export const renderStringProduct = (vehicleName: string, line: string): JSX.Element => {
+export const renderStringProduct = (vehicleName: string, line?: string | null): JSX.Element => {
   return (
     <span class="sbb-timetable__row-transportnumber">
       {line !== null ? vehicleName + ' ' + line : vehicleName}
@@ -131,9 +134,9 @@ export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
     END_MESSAGE: 5,
   };
 
-  return situations
-    ?.slice()
-    ?.sort((a: PtSituation, b: PtSituation) => priorities[a?.cause] - priorities[b?.cause]);
+  return [...situations]?.sort(
+    (a: PtSituation, b: PtSituation) => priorities[a.cause] - priorities[b.cause]
+  );
 };
 
 export const getHimIcon = (situation: PtSituation): string => {
@@ -153,24 +156,21 @@ export const getHimIcon = (situation: PtSituation): string => {
   }
 };
 
-export const getCus = (trip: Trip): string[] => {
-  const cus = [];
-  (trip?.summary.tripStatus?.cancelled || trip?.summary.tripStatus?.partiallyCancelled) &&
-    cus.push('cancellation');
-  !cus.length && !isReachable(trip?.legs) && cus.push('missed-connection');
-  !cus.length && trip?.summary?.tripStatus?.alternative && cus.push('alternative');
-  !cus.length && isRedirected(trip?.legs) && cus.push('reroute');
-  !cus.length && isUnplannedStop(trip?.legs) && cus.push('add-stop');
-  !cus.length &&
-    (trip?.summary?.tripStatus?.delayed || trip?.summary?.tripStatus?.delayedUnknown) &&
-    cus.push('delay');
-  !cus.length && trip?.summary?.tripStatus?.quayChanged && cus.push('platform-change');
+export const getCus = (trip: Trip): string => {
+  const { legs, summary } = trip;
+  const { tripStatus } = summary || {};
+  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled) return 'cancellation';
+  if (!isReachable(legs)) return 'missed-connection';
+  if (tripStatus?.alternative) return 'alternative';
+  if (isRedirected(legs)) return 'reroute';
+  if (isUnplannedStop(legs)) return 'add-stop';
+  if (tripStatus?.delayed || tripStatus?.delayedUnknown) return 'delay';
+  if (tripStatus?.quayChanged) return 'platform-change';
 
-  return cus;
+  return '';
 };
 
 export const handleNotices = (notices: Notice[]): string[] => {
-  const sortedNotices = [];
   const reservationNotice = [
     'RR',
     'RK',
@@ -188,12 +188,18 @@ export const handleNotices = (notices: Notice[]): string[] => {
     'RB',
   ];
 
-  notices?.some((notice) => notice.name === 'Z') && sortedNotices.push('sa-z');
-  notices?.some((notice) => reservationNotice.includes(notice.name)) && sortedNotices.push('sa-rr');
-  notices?.some((notice) => notice.name === 'SB') && sortedNotices.push('sa-sb');
-  notices?.some((notice) => notice.name === 'SZ') && sortedNotices.push('sa-sz');
-  notices?.some((notice) => notice.name === 'VR') && sortedNotices.push('sa-vr');
-  notices?.some((notice) => notice.name === 'TG') && sortedNotices.push('sa-tg');
+  const names = notices.map((item) => item.name);
 
-  return sortedNotices;
+  const priority: [string, (names: string[]) => boolean][] = [
+    ['sa-z', (names) => names.includes('Z')],
+    ['sa-rr', (names) => names.some((n) => reservationNotice.includes(n))],
+    ['sa-sb', (names) => names.includes('SB')],
+    ['sa-sz', (names) => names.includes('SZ')],
+    ['sa-vr', (names) => names.includes('VR')],
+    ['sa-tg', (names) => names.includes('TG')],
+  ];
+
+  return priority.reduce((arr, item) => {
+    return item[1](names) ? [...arr, item[0]] : arr;
+  }, [] as string[]);
 };

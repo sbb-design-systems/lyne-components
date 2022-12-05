@@ -57,6 +57,7 @@ export class SbbPearlChain {
     const allDurations = this._getAllDuration(legs);
 
     if (allDurations === 0) return 100;
+
     return (duration / allDurations) * 100;
   }
 
@@ -76,8 +77,9 @@ export class SbbPearlChain {
     return 'future';
   }
 
-  private _renderPosition(start: Date, end: Date): JSX.Element {
+  private _renderPosition(start: Date, end: Date): JSX.Element | undefined {
     const currentPosition = this._getProgress(start, end);
+    if (currentPosition < 0 && currentPosition > 100) return undefined;
 
     const statusStyle = (): Record<string, string> => {
       return {
@@ -88,9 +90,7 @@ export class SbbPearlChain {
 
     const animation = this.disableAnimation ? 'sbb-pearl-chain__position--no-animation' : '';
 
-    if (currentPosition > 0 && currentPosition <= 100) {
-      return <span style={statusStyle()} class={`sbb-pearl-chain__position ${animation}`}></span>;
-    }
+    return <span style={statusStyle()} class={`sbb-pearl-chain__position ${animation}`}></span>;
   }
 
   public render(): JSX.Element {

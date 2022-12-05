@@ -29,7 +29,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   __typename: 'PTRideLeg',
   'disable-animation': isChromatic(),
-  'data-now': undefined,
+  'data-now': now,
 };
 
 const Template = (args) => {
@@ -72,7 +72,7 @@ withPosition.argTypes = defaultArgTypes;
 withPosition.args = {
   ...defaultArgs,
   legs: [progressLeg],
-  'data-now': new Date().valueOf(),
+  'data-now': new Date('2022-12-07T12:11:00').valueOf(),
 };
 
 export const Past = Template.bind({});

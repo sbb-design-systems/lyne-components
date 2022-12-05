@@ -1,3 +1,5 @@
+'use strict';
+
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { BoardingAlightingAccessibilityEnum, Price, Trip } from './sbb-timetable-row.custom';
 
@@ -30,7 +32,7 @@ export class SbbTimetableRow {
   private _currentLanguage = getDocumentLang();
 
   /** The trip Prop */
-  @Prop() public trip?: Trip;
+  @Prop() public trip!: Trip;
 
   /** The price Prop, which consists of the data for the badge. */
   @Prop() public price?: Price;
@@ -90,28 +92,29 @@ export class SbbTimetableRow {
   }
 
   /** map Quay */
-  private _renderQuayType(): JSX.Element {
+  private _renderQuayType(): JSX.Element | undefined {
+    if (!this.trip.summary?.product) return undefined;
     return (
       <span class="sbb-timetable__row--quay">
         <span class="sbb-screenreaderonly">
-          {this._getQuayType(this.trip?.summary?.product?.vehicleMode)?.long[this._currentLanguage]}
+          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.long[this._currentLanguage]}
         </span>
-        {this._getQuayType(this.trip?.summary?.product?.vehicleMode)?.short[this._currentLanguage]}
+        {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
       </span>
     );
   }
 
-  private _handleHimCus(trip: Trip): string {
-    const situations = sortSituation(trip?.situations);
+  private _handleHimCus(trip: Trip): string | undefined {
+    const situations = trip.situations && sortSituation(trip.situations);
     const cus = getCus(trip);
 
-    return cus?.length ? cus[0] : situations?.length && getHimIcon(situations[0]);
+    return cus ? cus : situations?.length && getHimIcon(situations[0]);
   }
 
   public render(): JSX.Element {
     if (this.loadingTrip) return this._renderSkeleton();
 
-    const { legs, id, notices }: Trip = this.trip || {};
+    const { legs, id, notices } = this.trip || {};
 
     const isBoardingAccessible =
       this.boardingAlightingAccessibility &&
@@ -127,6 +130,8 @@ export class SbbTimetableRow {
       occupancy,
       duration,
     } = this.trip?.summary || {};
+
+    const himCus = this.trip && this._handleHimCus(this.trip);
 
     return (
       <sbb-card
@@ -147,16 +152,17 @@ export class SbbTimetableRow {
         <div class="sbb-timetable__row">
           <div class="sbb-timetable__row-header">
             <div class="sbb-timetable__row-details">
-              {getTransportIcon(product?.vehicleMode) && (
+              {product && getTransportIcon(product.vehicleMode) && (
                 <sbb-icon
                   class="sbb-timetable__row-transport-type"
-                  name={'picto:' + getTransportIcon(product?.vehicleMode) + '-right'}
+                  name={'picto:' + getTransportIcon(product.vehicleMode) + '-right'}
                 />
               )}
-              {product?.vehicleSubModeShortName &&
-              isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
-                ? renderIconProduct(product?.vehicleSubModeShortName, product?.line)
-                : renderStringProduct(product?.vehicleSubModeShortName, product?.line)}
+              {product &&
+                product.vehicleSubModeShortName &&
+                (isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())
+                  ? renderIconProduct(product.vehicleSubModeShortName, product.line)
+                  : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
             {direction && <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>}
           </div>
@@ -170,13 +176,12 @@ export class SbbTimetableRow {
             data-now={this._now()}
           ></sbb-pearl-chain-time>
           <div class="sbb-timetable__row-footer">
-            {this._getQuayType(this.trip?.summary?.product?.vehicleMode) !== undefined &&
-              departure?.quayAimedName && (
-                <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
-                  {this._renderQuayType()}
-                  {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
-                </span>
-              )}
+            {product && this._getQuayType(product.vehicleMode) && departure?.quayAimedName && (
+              <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
+                {this._renderQuayType()}
+                {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
+              </span>
+            )}
             {(occupancy?.firstClass || occupancy?.secondClass) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
                 {occupancy?.firstClass && (
@@ -221,20 +226,21 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {(handleNotices(notices)?.length || isBoardingAccessible) && (
+            {((notices && handleNotices(notices)?.length) || isBoardingAccessible) && (
               <ul class="sbb-timetable__row-hints" role="list">
-                {handleNotices(notices)?.map(
-                  (notice, index) =>
-                    index < 4 && (
-                      <li>
-                        <sbb-icon
-                          class="sbb-travel-hints__item"
-                          name={notice}
-                          aria-hidden="false"
-                        />
-                      </li>
-                    )
-                )}
+                {notices &&
+                  handleNotices(notices)?.map(
+                    (notice, index) =>
+                      index < 4 && (
+                        <li>
+                          <sbb-icon
+                            class="sbb-travel-hints__item"
+                            name={notice}
+                            aria-hidden="false"
+                          />
+                        </li>
+                      )
+                  )}
                 {isBoardingAccessible && (
                   <li>
                     <sbb-icon class="sbb-travel-hints__item" name="sa-rs" aria-hidden="false" />
@@ -242,14 +248,10 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {duration > 0 && <time>{durationToTime(duration)}</time>}
-            {!!this._handleHimCus(this.trip) && (
+            {duration && duration > 0 && <time>{durationToTime(duration)}</time>}
+            {!!himCus && (
               <span class="sbb-timetable__row-warning">
-                <sbb-icon
-                  name={this._handleHimCus(this.trip)}
-                  aria-hidden="false"
-                  aria-label={this._handleHimCus(this.trip)}
-                />
+                <sbb-icon name={himCus} aria-hidden="false" aria-label={himCus} />
               </span>
             )}
           </div>

@@ -1,10 +1,7 @@
-import { format } from 'date-fns';
-
-const dayAfterYesterday = format(new Date().setDate(new Date().getDate() - 2), 'yyyy-MM-dd');
-const yesterday = format(new Date().setDate(new Date().getDate() - 1), 'yyyy-MM-dd');
-const tomorrow = format(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd');
-const dayAfterTomorrow = format(new Date().setDate(new Date().getDate() + 2), 'yyyy-MM-dd');
-const nextWeek = format(new Date().setDate(new Date().getDate() + 7), 'yyyy-MM-dd');
+const past2 = '2022-11-30T12:13:00+01:00';
+const past = '2022-12-04T12:13:00+01:00';
+const future = '2022-12-07T12:11:00+01:00';
+const future2 = '2022-12-11T12:13:00+01:00';
 
 const defaultService = {
   serviceAlteration: {
@@ -50,10 +47,10 @@ const redirectedService = {
 export const futureLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: dayAfterTomorrow,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: defaultService,
 };
@@ -61,10 +58,10 @@ export const futureLeg = {
 export const longFutureLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: nextWeek,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: defaultService,
 };
@@ -72,10 +69,10 @@ export const longFutureLeg = {
 export const cancelledLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: dayAfterTomorrow,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: cancelledService,
 };
@@ -83,10 +80,10 @@ export const cancelledLeg = {
 export const progressLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: tomorrow,
+    time: future,
   },
   departure: {
-    time: yesterday,
+    time: past,
   },
   serviceJourney: defaultService,
 };
@@ -94,10 +91,10 @@ export const progressLeg = {
 export const pastLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: yesterday,
+    time: past,
   },
   departure: {
-    time: dayAfterYesterday,
+    time: past2,
   },
   serviceJourney: defaultService,
 };
@@ -105,10 +102,10 @@ export const pastLeg = {
 export const delayedLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: dayAfterTomorrow,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: delayedService,
 };
@@ -116,10 +113,10 @@ export const delayedLeg = {
 export const notReachableLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: dayAfterTomorrow,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: isNotReachableService,
 };
@@ -127,10 +124,10 @@ export const notReachableLeg = {
 export const unplannedStopLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: dayAfterTomorrow,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: unplannedStopService,
 };
@@ -138,10 +135,10 @@ export const unplannedStopLeg = {
 export const redirectedLeg = {
   __typename: 'PTRideLeg',
   arrival: {
-    time: dayAfterTomorrow,
+    time: future2,
   },
   departure: {
-    time: tomorrow,
+    time: future,
   },
   serviceJourney: redirectedService,
 };

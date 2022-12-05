@@ -29,10 +29,10 @@ export class SbbPearlChainTime {
   @Prop() public legs!: PTRideLeg[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
-  @Prop() public departureTime!: string;
+  @Prop() public departureTime?: string;
 
   /** Prop to render the arrival time - will be formatted as "H:mm" */
-  @Prop() public arrivalTime!: string;
+  @Prop() public arrivalTime?: string;
 
   /** Optional prop to render the walk time (in minutes) before departure */
   @Prop() public departureWalk?: number;
@@ -54,8 +54,12 @@ export class SbbPearlChainTime {
   }
 
   public render(): JSX.Element {
-    const departure: Date = removeTimezoneFromISOTimeString(this.departureTime);
-    const arrival: Date = removeTimezoneFromISOTimeString(this.arrivalTime);
+    const departure: Date | undefined = this.departureTime
+      ? removeTimezoneFromISOTimeString(this.departureTime)
+      : undefined;
+    const arrival: Date | undefined = this.arrivalTime
+      ? removeTimezoneFromISOTimeString(this.arrivalTime)
+      : undefined;
 
     return (
       <div class="sbb-pearl-chain__time">
@@ -71,20 +75,24 @@ export class SbbPearlChainTime {
             </time>
           </span>
         )}
-        <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
-          <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-          {this.departureTime && format(departure, 'H:mm')}
-        </time>
+        {departure && (
+          <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
+            <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
+            {format(departure, 'H:mm')}
+          </time>
+        )}
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
           legs={this.legs}
           disable-animation={this.disableAnimation}
           data-now={this._now()}
         />
-        <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
-          <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-          {this.arrivalTime && format(arrival, 'H:mm')}
-        </time>
+        {arrival && (
+          <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
+            <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
+            {format(arrival, 'H:mm')}
+          </time>
+        )}
         {this.arrivalWalk > 0 && (
           <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--right">
             <sbb-icon name="walk-small"></sbb-icon>

@@ -1122,7 +1122,7 @@ export namespace Components {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "arrivalTime": string;
+        "arrivalTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) after arrival
          */
@@ -1130,7 +1130,7 @@ export namespace Components {
         /**
           * Prop to render the departure time - will be formatted as "H:mm"
          */
-        "departureTime": string;
+        "departureTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) before departure
          */
@@ -1554,7 +1554,7 @@ export namespace Components {
         /**
           * The trip Prop
          */
-        "trip"?: Trip;
+        "trip": Trip;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -3337,7 +3337,7 @@ declare namespace LocalJSX {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "arrivalTime": string;
+        "arrivalTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) after arrival
          */
@@ -3345,7 +3345,7 @@ declare namespace LocalJSX {
         /**
           * Prop to render the departure time - will be formatted as "H:mm"
          */
-        "departureTime": string;
+        "departureTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) before departure
          */
@@ -3774,7 +3774,7 @@ declare namespace LocalJSX {
         /**
           * The trip Prop
          */
-        "trip"?: Trip;
+        "trip": Trip;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
