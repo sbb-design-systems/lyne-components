@@ -72,7 +72,7 @@ const defaultArgs = {
   'disable-animation': isChromatic(),
   'loading-trip': false,
   active: false,
-  'data-now': new Date().valueOf(),
+  'data-now': new Date('2022-12-07T12:11:00').valueOf(),
   trip: defaultTrip,
   'boarding-alighting-accessibility': boarding.options[0],
 };
@@ -129,7 +129,7 @@ Position.argTypes = defaultArgTypes;
 Position.args = {
   ...defaultArgs,
   trip: progressTrip,
-  'data-now': new Date().valueOf(),
+  'data-now': new Date('2022-12-07T12:11:00').valueOf(),
 };
 
 export const PositionDisabledAnimation = Template.bind({});
@@ -138,7 +138,7 @@ PositionDisabledAnimation.args = {
   ...defaultArgs,
   'disable-animation': true,
   trip: progressTrip,
-  'data-now': new Date().valueOf(),
+  'data-now': new Date('2022-12-07T12:11:00').valueOf(),
 };
 
 export const Cancelled = Template.bind({});

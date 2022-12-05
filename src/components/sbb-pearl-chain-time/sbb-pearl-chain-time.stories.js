@@ -71,7 +71,7 @@ maximal.args = {
   'departure-walk': '10',
   'arrival-walk': '5',
   legs: [progressLeg],
-  'data-now': new Date().valueOf(),
+  'data-now': new Date('2022-12-07T12:11:00').valueOf(),
 };
 
 export default {

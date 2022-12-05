@@ -29,7 +29,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   __typename: 'PTRideLeg',
   'disable-animation': isChromatic(),
-  'data-now': now,
+  'data-now': undefined,
 };
 
 const Template = (args) => {
