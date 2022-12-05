@@ -3,6 +3,7 @@ import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-de
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import { futureLeg } from '../../../components/sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 /* ************************************************* */
 /* Storybook component wrapper, used in Storybook    */
@@ -185,7 +186,7 @@ const Template = (args) => (
                     <span>2nd class, valid until 30.11.2022</span>
                   </div>
                   <div slot="details">
-                    <sbb-pearl-chain legs={[{ duration: 60 }, { duration: 120 }]} />
+                    <sbb-pearl-chain legs={[futureLeg, futureLeg]} />
                   </div>
                   <div slot="card-badge">
                     <sbb-card-badge
@@ -267,7 +268,7 @@ const Template = (args) => (
                     <span>Saturday, 21.02.2021, 1 h 26 min</span>
                   </div>
                   <div slot="details">
-                    <sbb-pearl-chain legs={[{ duration: 60 }, { duration: 120 }]} />
+                    <sbb-pearl-chain legs={[futureLeg, futureLeg]} />
                   </div>
                   <div slot="action">
                     <sbb-button variant="secondary" static>
