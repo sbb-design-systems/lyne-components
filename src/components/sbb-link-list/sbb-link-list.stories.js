@@ -1,13 +1,12 @@
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    return `background-color: ${SbbColorCharcoalDefault};`;
+    return `background-color: var(--sbb-color-charcoal-default);`;
   }
 
-  return `background-color: ${SbbColorWhiteDefault};`;
+  return `background-color:  var(--sbb-color-white-default);`;
 };
 
 const LinkTemplate = (args) => (
@@ -127,64 +126,44 @@ const defaultArgs = {
   linkTextSize: linkTextSize.options[1],
 };
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
 export const LinkListDefault = Template.bind({});
-
 LinkListDefault.argTypes = defaultArgTypes;
 LinkListDefault.args = {
   ...defaultArgs,
 };
 
-LinkListDefault.documentation = {
-  title: 'Link List',
-};
-
 export const LinkListXS = Template.bind({});
-
 LinkListXS.argTypes = defaultArgTypes;
 LinkListXS.args = {
   ...defaultArgs,
   linkTextSize: linkTextSize.options[0],
 };
 
-LinkListXS.documentation = {
-  title: 'Link List - Textsize extra small',
-};
-
 export const LinkListNoTitle = Template.bind({});
-
 LinkListNoTitle.argTypes = defaultArgTypes;
 LinkListNoTitle.args = {
   ...defaultArgs,
   'title-content': undefined,
 };
 
-LinkListNoTitle.documentation = {
-  title: 'Link List No Title',
-};
-
 export const LinkListNegative = Template.bind({});
-
 LinkListNegative.argTypes = defaultArgTypes;
 LinkListNegative.args = {
   ...defaultArgs,
   negative: true,
 };
 
-LinkListNegative.documentation = {
-  title: 'Link List Negative',
+export const LinkListHorizontalFrom = Template.bind({});
+LinkListHorizontalFrom.argTypes = defaultArgTypes;
+LinkListHorizontalFrom.args = {
+  ...defaultArgs,
+  'horizontal-from': 'medium',
 };
 
 export const LinkListWithSlottedTitle = TemplateSlottedTitle.bind({});
 LinkListWithSlottedTitle.argTypes = defaultArgTypes;
 LinkListWithSlottedTitle.args = {
   ...defaultArgs,
-};
-
-LinkListWithSlottedTitle.documentation = {
-  title: 'Link List with slotted title',
 };
 
 export default {

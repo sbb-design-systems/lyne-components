@@ -28,10 +28,12 @@ export class SbbLinkList {
   @Prop() public negative: boolean;
 
   /** Selected breakpoint from which the list is rendered horizontally. */
-  @Prop() public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
+  @Prop({ reflect: true })
+  public horizontalFrom?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
 
   /** The orientation in which the list will be shown vertical or horizontal. */
-  @Prop() public orientation: InterfaceLinkListAttributes['orientation'] = 'vertical';
+  @Prop({ reflect: true }) public orientation: InterfaceLinkListAttributes['orientation'] =
+    'vertical';
 
   /** Sbb-Link elements */
   @State() private _links: HTMLSbbLinkElement[];
@@ -41,18 +43,6 @@ export class SbbLinkList {
 
   /** Host element */
   @Element() private _element!: HTMLElement;
-
-  private _getClassString(): string {
-    let horizontalClass = this.horizontalFrom
-      ? ` sbb-link-list--horizontal-from-${this.horizontalFrom}`
-      : '';
-
-    if (!horizontalClass) {
-      horizontalClass = this.orientation === 'horizontal' ? ' sbb-link-list--horizontal' : '';
-    }
-
-    return `sbb-link-list${horizontalClass}`;
-  }
 
   /**
    * Create an array with only the sbb-link children
@@ -85,18 +75,19 @@ export class SbbLinkList {
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
-      <div class={this._getClassString()}>
+      <div class="sbb-link-list-wrapper">
         {(this._namedSlots.title || this.titleContent) && (
           <sbb-title
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
             title-id={this.titleId}
+            class="sbb-link-list-title"
           >
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
         )}
-        <ul {...ariaLabelledByAttribute}>
+        <ul {...ariaLabelledByAttribute} class="sbb-link-list">
           {this._links.map((_, index) => (
             <li>
               <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
