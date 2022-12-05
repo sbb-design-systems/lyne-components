@@ -1821,13 +1821,13 @@ export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
-export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbToggleCheckElement;
-}
 export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleElement;
+}
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleCheckElement;
 }
 export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
