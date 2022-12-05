@@ -1,5 +1,3 @@
-'use strict';
-
 import { h, JSX } from '@stencil/core';
 import {
   differenceInDays,
