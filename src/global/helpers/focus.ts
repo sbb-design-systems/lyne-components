@@ -6,11 +6,14 @@ export function getFocusableElements(elements: HTMLElement[]): HTMLElement[] {
 
   function getFocusables(elements: HTMLElement[]): void {
     for (const el of elements) {
+      const isClosedNavSection =
+        el.nodeName === 'SBB-NAVIGATION-SECTION' &&
+        !el.classList.contains('sbb-navigation-section--opened');
       if (el.matches(IS_FOCUSABLE_QUERY)) {
         focusableEls.add(el);
       } else if (el.nodeName === 'SLOT') {
         getFocusables(Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[]);
-      } else if (Array.from(el.children).length) {
+      } else if (!isClosedNavSection && Array.from(el.children).length) {
         getFocusables(Array.from(el.children) as HTMLElement[]);
       }
     }
@@ -41,7 +44,7 @@ export class FocusTrap {
           ? [firstFocusable, lastFocusable]
           : [lastFocusable, firstFocusable];
 
-        if (element.shadowRoot.activeElement === pivot || document.activeElement === pivot) {
+        if (element.shadowRoot?.activeElement === pivot || document.activeElement === pivot) {
           next.focus();
           event.preventDefault();
         }

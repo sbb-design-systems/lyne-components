@@ -1048,6 +1048,7 @@ export namespace Components {
         "labelId": string;
     }
     interface SbbNavigationMarker {
+        "reset": () => Promise<void>;
         /**
           * Marker size variant.
          */

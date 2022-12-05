@@ -65,11 +65,11 @@ const triggerButton = (id) => (
 
 const navigationActionsL = (active) => [
   <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-2" href="https://www.sbb.ch/en/" active={active}>
-    Vacations & Recreation
-  </sbb-navigation-action>,
+  <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>,
   <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>,
+  <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/" active={active}>
+    Help & Contact
+  </sbb-navigation-action>,
 ];
 
 const navigationActionsS = (active) => [
@@ -93,10 +93,7 @@ const DefaultTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
     <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
-
-    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      {navigationActionsS(false)}
-    </sbb-navigation-marker>
+    <sbb-navigation-marker size="s">{navigationActionsS(false)}</sbb-navigation-marker>
   </sbb-navigation>,
 ];
 
@@ -104,10 +101,7 @@ const ActiveTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
     <sbb-navigation-marker>{navigationActionsL(true)}</sbb-navigation-marker>
-
-    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      {navigationActionsS(true)}
-    </sbb-navigation-marker>
+    <sbb-navigation-marker size="s">{navigationActionsS(true)}</sbb-navigation-marker>
   </sbb-navigation>,
 ];
 
@@ -115,10 +109,7 @@ const LongContentTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
     <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
-
-    <sbb-navigation-marker size="s" style="margin-block-start: var(--sbb-spacing-responsive-xxl)">
-      {actionLabels(20)}
-    </sbb-navigation-marker>
+    <sbb-navigation-marker size="s">{actionLabels(20)}</sbb-navigation-marker>
   </sbb-navigation>,
 ];
 

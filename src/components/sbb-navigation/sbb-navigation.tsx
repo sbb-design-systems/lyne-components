@@ -6,6 +6,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -69,6 +70,11 @@ export class SbbNavigation implements AccessibilityProperties {
    * The state of the navigation.
    */
   @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+
+  /**
+   * Whether a navigation section is displayed.
+   */
+  @State() private _hasNavigationSection = false;
 
   /**
    * Emits whenever the navigation starts the opening transition.
@@ -224,7 +230,10 @@ export class SbbNavigation implements AccessibilityProperties {
 
   // Close the navigation when a link is clicked.
   private _closeOnLinkElementClick(event: Event): void {
-    if (event.composedPath().some((el) => (el as HTMLElement).nodeName === 'A')) {
+    const composedPathElements = event
+      .composedPath()
+      .filter((el) => el instanceof window.HTMLElement);
+    if (composedPathElements.some((el) => (el as HTMLElement).nodeName === 'A')) {
       this.close();
     }
   }
@@ -265,7 +274,13 @@ export class SbbNavigation implements AccessibilityProperties {
 
   // Check if the pointerdown event target is triggered on the navigation.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnDialog = isEventOnElement(this._navigation, event);
+    this._isPointerDownEventOnDialog =
+      isEventOnElement(this._navigation, event) ||
+      isEventOnElement(
+        this._element.querySelector('.sbb-navigation-section--opened')?.shadowRoot
+          .firstElementChild as HTMLElement,
+        event
+      );
   };
 
   // Close navigation on backdrop click.
@@ -276,12 +291,22 @@ export class SbbNavigation implements AccessibilityProperties {
   };
 
   // Close the navigation on click of any element that has the 'sbb-navigation-close' attribute.
-  private _closeOnSbbDialogCloseClick(event: Event): void {
+  private _closeOnSbbNavigationCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
 
     if (target.hasAttribute('sbb-navigation-close') && !target.hasAttribute('disabled')) {
       this.close();
     }
+  }
+
+  @Listen('sbb-navigation-section_will-open')
+  public onNavigationSectionOpening(): void {
+    this._hasNavigationSection = true;
+  }
+
+  @Listen('sbb-navigation-section_will-close')
+  public onNavigationSectionClosing(): void {
+    this._hasNavigationSection = false;
   }
 
   public connectedCallback(): void {
@@ -323,6 +348,7 @@ export class SbbNavigation implements AccessibilityProperties {
           'sbb-navigation--opened': this._state === 'opened',
           'sbb-navigation--opening': this._state === 'opening',
           'sbb-navigation--closing': this._state === 'closing',
+          'sbb-navigation--has-navigation-section': this._hasNavigationSection,
         }}
       >
         <dialog
@@ -334,7 +360,7 @@ export class SbbNavigation implements AccessibilityProperties {
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
+            onClick={(event: Event) => this._closeOnSbbNavigationCloseClick(event)}
             ref={(navigationWrapperRef) => (this._navigationWrapperElement = navigationWrapperRef)}
             class="sbb-navigation__wrapper"
           >

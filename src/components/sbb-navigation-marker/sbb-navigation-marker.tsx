@@ -1,4 +1,15 @@
-import { Component, Element, h, Host, JSX, Listen, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Method,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 /**
@@ -59,13 +70,19 @@ export class SbbNavigationMarker {
       return;
     }
 
-    this._navigationActions.forEach(
-      (action) => ((action as HTMLSbbNavigationActionElement).active = false)
-    );
-
+    this.reset();
     action.active = true;
     this._setMarkerPosition();
     this._hasActiveAction = true;
+  }
+
+  @Method()
+  public reset(): void {
+    if (!this._hasActiveAction) {
+      return;
+    }
+    this._activeNavigationAction.active = false;
+    this._hasActiveAction = false;
   }
 
   private get _navigationActions(): HTMLSbbNavigationActionElement[] {

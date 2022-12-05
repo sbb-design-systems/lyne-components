@@ -10,6 +10,19 @@
 | `size`   | `size`    | Marker size variant. | `"l" \| "s"` | `'l'`   |
 
 
+## Methods
+
+### `reset() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Slots
 
 | Slot        | Description                                                         |
