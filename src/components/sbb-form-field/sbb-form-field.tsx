@@ -1,14 +1,4 @@
-import {
-  Component,
-  Host,
-  h,
-  JSX,
-  Prop,
-  State,
-  ComponentInterface,
-  Element,
-  Listen,
-} from '@stencil/core';
+import { Component, h, JSX, Prop, State, ComponentInterface, Element, Listen } from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
@@ -18,6 +8,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 let nextId = 0;
 
@@ -42,7 +33,8 @@ export class SbbFormField implements ComponentInterface {
    * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
-  @Prop() public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] = 'none';
+  @Prop({ reflect: true }) public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] =
+    'none';
 
   /**
    * Label text for the input which is internally rendered as `<label>`.
@@ -57,32 +49,17 @@ export class SbbFormField implements ComponentInterface {
   /**
    * Size variant, either l or m.
    */
-  @Prop() public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
+  @Prop({ reflect: true }) public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
 
   /**
    * Whether to display the form field without a border.
    */
-  @Prop() public borderless = false;
-
-  /**
-   * It is used internally to get the native `disabled` attribute from `<input>`.
-   */
-  @State() private _disabled: boolean;
-
-  /**
-   * It is used internally to get the native `readonly` attribute from `<input>`.
-   */
-  @State() private _readonly: boolean;
+  @Prop({ reflect: true }) public borderless = false;
 
   /**
    * It is used internally to get the `error` slot.
    */
   @State() private _errorElements: Element[] = [];
-
-  /**
-   * Whether the input inside the form field is invalid.
-   */
-  @State() private _invalid = false;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('label');
@@ -100,7 +77,7 @@ export class SbbFormField implements ComponentInterface {
   /**
    * It is used internally to get the `input` slot.
    */
-  private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
+  @State() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -130,6 +107,7 @@ export class SbbFormField implements ComponentInterface {
   private _onSlotErrorChange(event: Event): void {
     this._errorElements = (event.target as HTMLSlotElement).assignedElements();
     this._applyAriaDescribedby();
+    toggleDatasetEntry(this._element, 'hasError', !!this._errorElements.length);
   }
 
   /**
@@ -159,12 +137,15 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _readInputState(): void {
-    this._readonly = this._input.hasAttribute('readonly');
-    this._disabled = this._input.hasAttribute('disabled');
-    this._invalid =
+    toggleDatasetEntry(this._element, 'readonly', this._input.hasAttribute('readonly'));
+    toggleDatasetEntry(this._element, 'disabled', this._input.hasAttribute('disabled'));
+    toggleDatasetEntry(
+      this._element,
+      'invalid',
       this._input.classList.contains('sbb-invalid') ||
-      (this._input.classList.contains('ng-touched') &&
-        this._input.classList.contains('ng-invalid'));
+        (this._input.classList.contains('ng-touched') &&
+          this._input.classList.contains('ng-invalid'))
+    );
   }
 
   private _applyAriaDescribedby(): void {
@@ -176,60 +157,40 @@ export class SbbFormField implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host
-        class={{
-          [`form-field--error-space-${this.errorSpace}`]: true,
-          [`form-field--size-${this.size}`]: true,
-          'form-field--borderless': this.borderless,
-          'form-field--disabled': this._disabled,
-          'form-field--readonly': this._readonly,
-          'form-field--select': this._input?.tagName === 'SELECT',
-          'sbb-invalid': this._invalid,
-        }}
-      >
-        <div class="form-field__space-wrapper">
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={(): void => this._input?.focus()} class="form-field__wrapper">
-            <slot name="prefix"></slot>
+      <div class="sbb-form-field__space-wrapper">
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+        <div onClick={(): void => this._input?.focus()} class="sbb-form-field__wrapper">
+          <slot name="prefix"></slot>
 
-            <div class="form-field__input-container">
-              {(this.label || this._namedSlots.label) && (
-                <label class="form-field__label" htmlFor={this._input?.id}>
-                  <slot name="label">
-                    <span>{this.label}</span>
-                  </slot>
-                  {this.optional && (
-                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                  )}
-                </label>
-              )}
-              <div class="form-field__input">
-                <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
-              </div>
-              {this._input?.tagName === 'SELECT' && (
-                <sbb-icon
-                  name="chevron-small-down-small"
-                  class="form-field__select-input-icon"
-                ></sbb-icon>
-              )}
+          <div class="sbb-form-field__input-container">
+            {(this.label || this._namedSlots.label) && (
+              <label class="sbb-form-field__label" htmlFor={this._input?.id}>
+                <slot name="label">
+                  <span>{this.label}</span>
+                </slot>
+                {this.optional && (
+                  <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                )}
+              </label>
+            )}
+            <div class="sbb-form-field__input">
+              <slot onSlotchange={(event): void => this._onSlotInputChange(event)}></slot>
             </div>
-
-            <slot name="suffix"></slot>
+            {this._input?.tagName === 'SELECT' && (
+              <sbb-icon
+                name="chevron-small-down-small"
+                class="sbb-form-field__select-input-icon"
+              ></sbb-icon>
+            )}
           </div>
 
-          <div
-            class={{
-              'form-field__error': true,
-              'form-field__error--empty': !this._errorElements.length,
-            }}
-          >
-            <slot
-              name="error"
-              onSlotchange={(event): void => this._onSlotErrorChange(event)}
-            ></slot>
-          </div>
+          <slot name="suffix"></slot>
         </div>
-      </Host>
+
+        <div class="sbb-form-field__error">
+          <slot name="error" onSlotchange={(event): void => this._onSlotErrorChange(event)}></slot>
+        </div>
+      </div>
     );
   }
 }

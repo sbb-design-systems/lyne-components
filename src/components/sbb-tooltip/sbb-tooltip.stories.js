@@ -70,7 +70,7 @@ const tooltipTrigger = (position) => (
 
 const tooltip = (args) => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
-    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
+    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s);'}>
       Simple information tooltip with link.{' '}
       <sbb-link
         text-size="s"
@@ -103,7 +103,7 @@ const EndAboveTemplate = (args) => [tooltipTrigger('right: 2rem; bottom: 2rem'),
 const LongContentTemplate = (args) => [
   tooltipTrigger('left: 2rem'),
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
-    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s)'}>
+    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s);'}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat.

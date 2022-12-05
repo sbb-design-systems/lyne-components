@@ -1,4 +1,15 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  JSX,
+  Prop,
+  State,
+  Watch,
+  Event,
+  EventEmitter,
+} from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
@@ -60,6 +71,11 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
    */
   @State() private _valueFraction = 0;
 
+  /**
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   */
+  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+
   /** Host element */
   @Element() private _element!: HTMLElement;
 
@@ -119,6 +135,7 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   private _emitChange(event): void {
     this._syncValues();
     forwardEventToHost(event, this._element);
+    this.didChange.emit();
   }
 
   public render(): JSX.Element {

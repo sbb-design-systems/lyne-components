@@ -116,25 +116,4 @@ describe('sbb-timetable-row', () => {
       `);
     });
   });
-
-  describe('sbb-timetable-row click event', () => {
-    it('emits an event when clicked', async () => {
-      const page = await newSpecPage({
-        components: [SbbTimetableRow],
-        html: `
-        <sbb-timetable-row>
-        </sbb-timetable-row>
-       `,
-      });
-      page.rootInstance.trip = config.trip;
-      page.rootInstance.price = config.price;
-      const element = page.root.shadowRoot.querySelector('sbb-card');
-      const buttonSpy = jest.fn();
-
-      page.win.addEventListener('sbb-timetable-row_click', buttonSpy);
-      element.click();
-      await page.waitForChanges();
-      expect(buttonSpy).toHaveBeenCalled();
-    });
-  });
 });

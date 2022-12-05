@@ -3,5 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  sbbClick: 'sbb-timetable-row_click',
+  didChange: 'didChange',
 };

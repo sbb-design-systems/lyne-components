@@ -63,6 +63,13 @@ to describe the element on which the attribute is set.
 | `value`                    | `value`                     | Value of toggle-check.                                                   | `string`              | `undefined`                         |
 
 
+## Events
+
+| Event       | Description                                                                                                                         | Type               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Depends on

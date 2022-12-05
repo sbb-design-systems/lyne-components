@@ -129,7 +129,7 @@ const openDialog = (event, id) => {
 };
 
 const onFormDialogClose = (dialog) => {
-  dialog.addEventListener('sbb-dialog_will-close', (event) => {
+  dialog.addEventListener('will-close', (event) => {
     if (event.detail) {
       document.getElementById(
         'returned-value-message'

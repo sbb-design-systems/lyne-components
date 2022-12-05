@@ -1,5 +1,3 @@
-jest.mock('../../global/guid');
-
 import { SbbLinkList } from './sbb-link-list';
 import { newSpecPage } from '@stencil/core/testing';
 

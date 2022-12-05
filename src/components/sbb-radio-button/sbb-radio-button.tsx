@@ -82,7 +82,7 @@ export class SbbRadioButton {
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'sbb-radio-button_did-select',
+    eventName: 'did-select',
   })
   public didSelect: EventEmitter;
 

@@ -18,6 +18,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 let nextId = 0;
 
@@ -88,17 +89,14 @@ export class SbbRadioButtonGroup {
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
+    this.change.emit({ value });
     this.didChange.emit({ value });
   }
 
   @Watch('disabled')
   public updateDisabled(): void {
     for (const radio of this._radioButtons) {
-      if (this.disabled) {
-        radio.dataset.groupDisabled = '';
-      } else {
-        delete radio.dataset.groupDisabled;
-      }
+      toggleDatasetEntry(radio, 'groupDisabled', this.disabled);
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
@@ -107,11 +105,7 @@ export class SbbRadioButtonGroup {
   @Watch('required')
   public updateRequired(): void {
     for (const radio of this._radioButtons) {
-      if (this.required) {
-        radio.dataset.groupRequired = '';
-      } else {
-        delete radio.dataset.groupRequired;
-      }
+      toggleDatasetEntry(radio, 'groupRequired', this.required);
     }
   }
 
@@ -131,13 +125,22 @@ export class SbbRadioButtonGroup {
 
   /**
    * Emits whenever the radio group value changes.
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'change',
   })
   public didChange: EventEmitter;
+
+  /**
+   * Emits whenever the radio group value changes.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+  })
+  public change: EventEmitter;
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
@@ -148,7 +151,7 @@ export class SbbRadioButtonGroup {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  @Listen('sbb-radio-button_did-select', { passive: true })
+  @Listen('did-select', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<string>): void {
     this.value = event.detail;
   }
@@ -161,17 +164,8 @@ export class SbbRadioButtonGroup {
       radio.size = this.size;
       radio.allowEmptySelection = this.allowEmptySelection;
 
-      if (this.disabled) {
-        radio.dataset.groupDisabled = '';
-      } else {
-        delete radio.dataset.groupDisabled;
-      }
-
-      if (this.required) {
-        radio.dataset.groupRequired = '';
-      } else {
-        delete radio.dataset.groupRequired;
-      }
+      toggleDatasetEntry(radio, 'groupDisabled', this.disabled);
+      toggleDatasetEntry(radio, 'groupRequired', this.required);
 
       radio.tabIndex = this._getRadioTabIndex(radio);
     }

@@ -1,4 +1,14 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  EventEmitter,
+  Event,
+  h,
+  JSX,
+  Prop,
+  State,
+} from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
@@ -9,7 +19,7 @@ let nextId = 0;
   styleUrl: 'sbb-toggle-check.scss',
   tag: 'sbb-toggle-check',
 })
-export class SbbToggleCheck implements AccessibilityProperties {
+export class SbbToggleCheck implements ComponentInterface, AccessibilityProperties {
   private _checkbox: HTMLInputElement;
 
   /** Whether the toggle-check is checked. */
@@ -34,7 +44,8 @@ export class SbbToggleCheck implements AccessibilityProperties {
   @Prop() public required = false;
 
   /** The label position relative to the toggle. Defaults to 'after' */
-  @Prop() public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
+  @Prop({ reflect: true }) public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] =
+    'after';
 
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel: string | undefined;
@@ -45,25 +56,37 @@ export class SbbToggleCheck implements AccessibilityProperties {
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
+  /**
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   */
+  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+
   @Element() private _element!: HTMLElement;
+
+  @State() private _hasLabelText = false;
 
   /** Method triggered on toggle change. */
   public checkedChanged(event: Event): void {
     this.checked = this._checkbox?.checked;
     forwardEventToHost(event, this._element);
+    this.didChange.emit();
+  }
+
+  public connectedCallback(): void {
+    this._hasLabelText = Array.from(this._element.childNodes).some(
+      (n: ChildNode) => !(n as Element).slot && n.textContent
+    );
+  }
+
+  private _onLabelSlotChange(event: Event): void {
+    this._hasLabelText = (event.target as HTMLSlotElement)
+      .assignedNodes()
+      .some((n: Node) => !!n.textContent.trim());
   }
 
   public render(): JSX.Element {
     return (
-      <label
-        class={{
-          'toggle-check': true,
-          [`toggle-check--${this.labelPosition}`]: true,
-          'toggle-check--checked': this.checked,
-          'toggle-check--disabled': this.disabled,
-        }}
-        htmlFor={this.inputId}
-      >
+      <label class="sbb-toggle-check" htmlFor={this.inputId}>
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
@@ -79,10 +102,12 @@ export class SbbToggleCheck implements AccessibilityProperties {
           aria-describedby={this.accessibilityDescribedby}
           aria-labelledby={this.accessibilityLabelledby}
         />
-        <span class="toggle-check__container">
-          <slot />
-          <span class="toggle-check__slider">
-            <span class="toggle-check__circle">
+        <span class="sbb-toggle-check__container">
+          <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
+            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+          </span>
+          <span class="sbb-toggle-check__slider">
+            <span class="sbb-toggle-check__circle">
               <slot name="icon">
                 <sbb-icon name={this.icon}></sbb-icon>
               </slot>

@@ -1789,6 +1789,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbCheckboxElement;
+}
 export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbDialogElement;
@@ -1809,13 +1813,25 @@ export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
 }
+export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSliderElement;
+}
 export interface SbbTabGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTabGroupElement;
 }
-export interface SbbTimetableRowCustomEvent<T> extends CustomEvent<T> {
+export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSbbTimetableRowElement;
+    target: HTMLSbbToggleElement;
+}
+export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleCheckElement;
+}
+export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleOptionElement;
 }
 export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2410,15 +2426,15 @@ declare namespace LocalJSX {
         /**
           * Emits when the fade in animation ends and the button is displayed.
          */
-        "onSbb-alert_did-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onDid-present"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Emits when dismissal of an alert was requested.
          */
-        "onSbb-alert_dismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onDismissal-requested"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Emits when the fade in animation starts.
          */
-        "onSbb-alert_will-present"?: (event: SbbAlertCustomEvent<void>) => void;
+        "onWill-present"?: (event: SbbAlertCustomEvent<void>) => void;
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
@@ -2456,11 +2472,11 @@ declare namespace LocalJSX {
         /**
           * Emits when an alert was removed from DOM.
          */
-        "onSbb-alert-group_did-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
+        "onDid-dismiss-alert"?: (event: SbbAlertGroupCustomEvent<HTMLSbbAlertElement>) => void;
         /**
           * Emits when `sbb-alert-group` becomes empty.
          */
-        "onSbb-alert-group_empty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
+        "onEmpty"?: (event: SbbAlertGroupCustomEvent<void>) => void;
         /**
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
@@ -2808,6 +2824,10 @@ declare namespace LocalJSX {
          */
         "indeterminate"?: boolean;
         /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        /**
           * Whether the checkbox is required.
          */
         "required"?: boolean;
@@ -2892,23 +2912,23 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the dialog is closed.
          */
-        "onSbb-dialog_did-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onDid-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
           * Emits whenever the dialog is opened.
          */
-        "onSbb-dialog_did-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the back button is clicked.
          */
-        "onSbb-dialog_request-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onRequest-back-action"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Emits whenever the dialog begins the closing transition.
          */
-        "onSbb-dialog_will-close"?: (event: SbbDialogCustomEvent<any>) => void;
+        "onWill-close"?: (event: SbbDialogCustomEvent<any>) => void;
         /**
           * Emits whenever the dialog starts the opening transition.
          */
-        "onSbb-dialog_will-open"?: (event: SbbDialogCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbDialogCustomEvent<void>) => void;
         /**
           * Whether a back button is displayed next to the title.
          */
@@ -3319,19 +3339,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the menu is closed.
          */
-        "onSbb-menu_did-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onDid-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu is opened.
          */
-        "onSbb-menu_did-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu begins the closing transition.
          */
-        "onSbb-menu_will-close"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onWill-close"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * Emits whenever the menu starts the opening transition.
          */
-        "onSbb-menu_will-open"?: (event: SbbMenuCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbMenuCustomEvent<void>) => void;
         /**
           * The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3478,7 +3498,7 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the radio group value changes.
          */
-        "onSbb-radio-button_did-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -3513,6 +3533,11 @@ declare namespace LocalJSX {
           * Emits whenever the radio group value changes.
          */
         "onChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
+        /**
+          * Emits whenever the radio group value changes.
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
         /**
           * Radio group's orientation, either horizontal or vertical.
          */
@@ -3588,6 +3613,10 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbSliderCustomEvent<any>) => void;
+        /**
           * Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one.
          */
         "readonly"?: boolean;
@@ -3662,7 +3691,7 @@ declare namespace LocalJSX {
         /**
           * Emits an event on selected tab change
          */
-        "onSbb-tab-group_did-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+        "onDid-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
     }
     interface SbbTabTitle {
         /**
@@ -3860,10 +3889,6 @@ declare namespace LocalJSX {
          */
         "loadingTrip"?: boolean;
         /**
-          * This click event gets emitted when the user clicks on the component.
-         */
-        "onSbb-timetable-row_click"?: (event: SbbTimetableRowCustomEvent<any>) => void;
-        /**
           * The price Prop, which consists of the data for the badge.
          */
         "price"?: InterfaceTimetableRowAttributes['price'];
@@ -4019,6 +4044,10 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbToggleCheckCustomEvent<any>) => void;
+        /**
           * The required prop for the required state.
          */
         "required"?: boolean;
@@ -4077,19 +4106,19 @@ declare namespace LocalJSX {
         /**
           * Emits whenever the tooltip is closed.
          */
-        "onSbb-tooltip_did-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onDid-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip is opened.
          */
-        "onSbb-tooltip_did-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Emits whenever the tooltip begins the closing transition.
          */
-        "onSbb-tooltip_will-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        "onWill-close"?: (event: SbbTooltipCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
           * Emits whenever the tooltip starts the opening transition.
          */
-        "onSbb-tooltip_will-open"?: (event: SbbTooltipCustomEvent<void>) => void;
+        "onWill-open"?: (event: SbbTooltipCustomEvent<void>) => void;
         /**
           * Open the tooltip after a certain delay.
          */

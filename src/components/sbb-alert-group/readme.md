@@ -32,7 +32,7 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 in some combinations of screen readers and browsers not every part of the alert is fully read.**
 
 If all alerts are dismissed, it's recommended to completely remove the `sbb-alert-group` from DOM. 
-You can catch this moment by listening to `sbb-alert-group_empty` event and react accordingly.
+You can catch this moment by listening to `empty` event and react accordingly.
 
 
 <!-- Auto Generated Below -->
@@ -49,10 +49,10 @@ You can catch this moment by listening to `sbb-alert-group_empty` event and reac
 
 ## Events
 
-| Event                               | Description                                 | Type                               |
-| ----------------------------------- | ------------------------------------------- | ---------------------------------- |
-| `sbb-alert-group_did-dismiss-alert` | Emits when an alert was removed from DOM.   | `CustomEvent<HTMLSbbAlertElement>` |
-| `sbb-alert-group_empty`             | Emits when `sbb-alert-group` becomes empty. | `CustomEvent<void>`                |
+| Event               | Description                                 | Type                               |
+| ------------------- | ------------------------------------------- | ---------------------------------- |
+| `did-dismiss-alert` | Emits when an alert was removed from DOM.   | `CustomEvent<HTMLSbbAlertElement>` |
+| `empty`             | Emits when `sbb-alert-group` becomes empty. | `CustomEvent<void>`                |
 
 
 ## Slots

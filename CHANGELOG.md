@@ -2,6 +2,64 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.15.7](https://github.com/lyne-design-system/lyne-components/compare/v0.15.6...v0.15.7) (2022-12-01)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix toggle vertical alignment ([#1461](https://github.com/lyne-design-system/lyne-components/issues/1461)) ([e59239c](https://github.com/lyne-design-system/lyne-components/commit/e59239c89deee8727e83cff0148097ec111ca006))
+
+### Documentation
+
+- **sbb-dialog:** add an example of sbb-dialog-close attribute ([#1475](https://github.com/lyne-design-system/lyne-components/issues/1475)) ([13d7f09](https://github.com/lyne-design-system/lyne-components/commit/13d7f09196608013ad8f04ff21278b72fb3cf84f))
+
+### [0.15.6](https://github.com/lyne-design-system/lyne-components/compare/v0.15.5...v0.15.6) (2022-12-01)
+
+### Bug Fixes
+
+- provide didChange event for react consumers ([#1472](https://github.com/lyne-design-system/lyne-components/issues/1472)) ([de71bda](https://github.com/lyne-design-system/lyne-components/commit/de71bdab7513359dda9d75c8bee2f52cc4132a88))
+
+### [0.15.5](https://github.com/lyne-design-system/lyne-components/compare/v0.15.4...v0.15.5) (2022-11-29)
+
+### [0.15.4](https://github.com/lyne-design-system/lyne-components/compare/v0.15.3...v0.15.4) (2022-11-29)
+
+### Bug Fixes
+
+- remove Firefox focus outline rule from normalize ([#1471](https://github.com/lyne-design-system/lyne-components/issues/1471)) ([3b61a40](https://github.com/lyne-design-system/lyne-components/commit/3b61a40923463db12edfb87509c7e7f25ad3df5f))
+
+### Documentation
+
+- fix snippets in readme ([#1470](https://github.com/lyne-design-system/lyne-components/issues/1470)) ([0b62fc5](https://github.com/lyne-design-system/lyne-components/commit/0b62fc5c33b5cfa81aa1343f064653fedbf03601))
+
+### [0.15.3](https://github.com/lyne-design-system/lyne-components/compare/v0.15.2...v0.15.3) (2022-11-29)
+
+### Features
+
+- **styles:** list styles ([#1450](https://github.com/lyne-design-system/lyne-components/issues/1450)) ([b6b696e](https://github.com/lyne-design-system/lyne-components/commit/b6b696e023d78ec3be6995701f2b5fea2fafb439))
+
+### [0.15.2](https://github.com/lyne-design-system/lyne-components/compare/v0.15.1...v0.15.2) (2022-11-28)
+
+### [0.15.1](https://github.com/lyne-design-system/lyne-components/compare/v0.15.0...v0.15.1) (2022-11-28)
+
+### Bug Fixes
+
+- **sbb-radio-button:** remove red dot on low resolution screens ([#1469](https://github.com/lyne-design-system/lyne-components/issues/1469)) ([8854dc0](https://github.com/lyne-design-system/lyne-components/commit/8854dc0c029de614ee12d5f5128d2ed31279eecc))
+
+## [0.15.0](https://github.com/lyne-design-system/lyne-components/compare/v0.14.5...v0.15.0) (2022-11-28)
+
+### ⚠ BREAKING CHANGES
+
+- Event name prefixes are removed (e.g `sbb-alert-group_did-dismiss-alert` was renamed to `did-dismiss-alert`). If it is necessary to determine which element is the event origin, check the event context (e.g. event.target).
+
+### Features
+
+- remove event name prefixes ([#1466](https://github.com/lyne-design-system/lyne-components/issues/1466)) ([cdb5962](https://github.com/lyne-design-system/lyne-components/commit/cdb59620e07582e3c6887feaecca4f30bfbcaffa))
+
+### [0.14.5](https://github.com/lyne-design-system/lyne-components/compare/v0.14.4...v0.14.5) (2022-11-24)
+
+### Features
+
+- **sbb-icon:** add pictogram namespace ([#1463](https://github.com/lyne-design-system/lyne-components/issues/1463)) ([fcd2750](https://github.com/lyne-design-system/lyne-components/commit/fcd275003cf57ccb4b88e0faa616ccef5732470b))
+
 ### [0.14.4](https://github.com/lyne-design-system/lyne-components/compare/v0.14.3...v0.14.4) (2022-11-23)
 
 ### Features

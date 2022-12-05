@@ -20,6 +20,7 @@ the current state can be read from `event.target.checked`, while the value from 
 ## Usage
 
 Checked:
+
 ```html
 <sbb-checkbox value="single-checkbox" checked="true">
   Example
@@ -27,6 +28,7 @@ Checked:
 ```
 
 Unchecked and disabled with icon
+
 ```html
 <sbb-checkbox value="single-checkbox" disabled="false" checked="false" icon-name= "tickets-class-small">
   Example
@@ -34,6 +36,7 @@ Unchecked and disabled with icon
 ```
 
 Indeterminate and required with icon placed before the label
+
 ```html
 <sbb-checkbox value="single-checkbox" required="true" indeterminate="true" icon-name="tickets-class-small" icon-placement="start">
   Example
@@ -80,6 +83,13 @@ to describe the element on which the attribute is set.
 | `required`                 | `required`                  | Whether the checkbox is required.                                                                                                                   | `boolean`          | `false`                      |
 | `size`                     | `size`                      | Label size variant, either m or s.                                                                                                                  | `"m" \| "s"`       | `'m'`                        |
 | `value`                    | `value`                     | Value of checkbox.                                                                                                                                  | `string`           | `undefined`                  |
+
+
+## Events
+
+| Event       | Description                                                                                                                         | Type               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
 
 
 ## Slots

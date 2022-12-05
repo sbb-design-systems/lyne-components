@@ -3,9 +3,9 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  backClick: 'sbb-dialog_request-back-action',
-  didClose: 'sbb-dialog_did-close',
-  didOpen: 'sbb-dialog_did-open',
-  willClose: 'sbb-dialog_will-close',
-  willOpen: 'sbb-dialog_will-open',
+  backClick: 'request-back-action',
+  didClose: 'did-close',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  willOpen: 'will-open',
 };

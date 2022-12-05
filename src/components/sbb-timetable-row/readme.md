@@ -1,5 +1,12 @@
+# sbb-timetable-row
 
-The `<sbb-timetable-row>` component displays a journey. The whole component is clickable and therefore emits a click-event. A Journey consists of various icons that display information about the means of transport, the occupancy in the first and second class, the most important warning for the trip and travel hints. Train changes are displayed in a pearl chain, which has the capability to show, if a connection is in the past, future or cancelled. In addition to that, the current position within the journey can be shown.
+The `<sbb-timetable-row>` component displays a journey. The whole component is clickable and therefore emits a click-event. 
+A Journey consists of various icons that display information about the means of transport, 
+the occupancy in the first and second class, the most important warning for the trip and travel hints. 
+Train changes are displayed in a pearl chain, which has the capability to show, 
+if a connection is in the past, future or cancelled. 
+In addition to that, the current position within the journey can be shown.
+
 ## Usage with props
 Example props:  priceProp: {price:'12', text: 'CHF', isDiscount: true} <br>
                 tripProp: {
@@ -16,6 +23,7 @@ Example props:  priceProp: {price:'12', text: 'CHF', isDiscount: true} <br>
                       },
                     },
                   ],
+                }
 
 ```html
 <sbb-timetable-row accessibility-label="label" disable-animation={false} loading-price={false} loading-trip={false} 
@@ -41,13 +49,6 @@ This is helpful if you need a specific state of the component.
 | `loadingTrip`        | `loading-trip`        | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean` | `undefined` |
 | `price`              | --                    | The price Prop, which consists of the data for the badge.                                         | `Price`   | `undefined` |
 | `trip`               | --                    | The trip Prop                                                                                     | `Trip`    | `undefined` |
-
-
-## Events
-
-| Event                     | Description                                                          | Type               |
-| ------------------------- | -------------------------------------------------------------------- | ------------------ |
-| `sbb-timetable-row_click` | This click event gets emitted when the user clicks on the component. | `CustomEvent<any>` |
 
 
 ## Dependencies

@@ -9,7 +9,7 @@ import { validateContent } from './validate';
 })
 export class SbbIcon {
   private _svgName: string;
-  private _svgNamespace = 'sbb';
+  private _svgNamespace = 'default';
 
   @Element() private _element!: HTMLElement;
 

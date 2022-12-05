@@ -1,10 +1,13 @@
 # sbb-radio-button-group
 
-Radio buttons should be used within a `sbb-radio-button-group`. Pressing a radio checks it and unchecks the previously selected radio, if any. They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
+Radio buttons should be used within a `sbb-radio-button-group`. 
+Pressing a radio checks it and unchecks the previously selected radio, if any. 
+They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
 
 ## Usage
 
-Within a group of radio buttons, only one radio button can be selected at a time. If you need to select more than one item, it is recommended to use checkboxes.
+Within a group of radio buttons, only one radio button can be selected at a time. 
+If you need to select more than one item, it is recommended to use checkboxes.
 
 ```html
 <!-- The first option will be selected by default -->
@@ -37,11 +40,12 @@ The radio group can have different states:
 
 ### Deselecting Radios
 
-In order to deselect a radio inside the group you can use the `allowEmptySelection` property on the parent radio group, which enables the radios to be deselected (by default, a selected cannot be deselected).
+In order to deselect a radio inside the group you can use the `allowEmptySelection` property on the parent radio group, 
+which enables the radios to be deselected (by default, a selected cannot be deselected).
 
 ### Accessibility
 
-In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-buton-group`.
+In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
 
 <!-- Auto Generated Below -->
 
@@ -62,9 +66,10 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 ## Events
 
-| Event    | Description                                   | Type               |
-| -------- | --------------------------------------------- | ------------------ |
-| `change` | Emits whenever the radio group value changes. | `CustomEvent<any>` |
+| Event       | Description                                                                                                                                                                      | Type               |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `change`    | Emits whenever the radio group value changes.                                                                                                                                    | `CustomEvent<any>` |
+| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/>Emits whenever the radio group value changes. | `CustomEvent<any>` |
 
 
 ## Slots
