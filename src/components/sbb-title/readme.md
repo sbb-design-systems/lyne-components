@@ -28,6 +28,7 @@ via simple CSS rules.
  - [sbb-alert](../sbb-alert)
  - [sbb-dialog](../sbb-dialog)
  - [sbb-link-list](../sbb-link-list)
+ - [sbb-navigation-section](../sbb-navigation-section)
  - [sbb-teaser](../sbb-teaser)
 
 ### Graph
@@ -36,6 +37,7 @@ graph TD;
   sbb-alert --> sbb-title
   sbb-dialog --> sbb-title
   sbb-link-list --> sbb-title
+  sbb-navigation-section --> sbb-title
   sbb-teaser --> sbb-title
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -1054,6 +1054,47 @@ export namespace Components {
          */
         "size"?: 'l' | 's';
     }
+    interface SbbNavigationSection {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby": string | undefined;
+        /**
+          * Closes the navigation section.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "navigationSectionId": string;
+        /**
+          * Opens the navigation section on trigger click.
+         */
+        "open": () => Promise<void>;
+        "titleContent"?: string;
+        "titleId": string;
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -1699,6 +1740,10 @@ export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbNavigationElement;
 }
+export interface SbbNavigationSectionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbNavigationSectionElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -1937,6 +1982,12 @@ declare global {
     var HTMLSbbNavigationMarkerElement: {
         prototype: HTMLSbbNavigationMarkerElement;
         new (): HTMLSbbNavigationMarkerElement;
+    };
+    interface HTMLSbbNavigationSectionElement extends Components.SbbNavigationSection, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationSectionElement: {
+        prototype: HTMLSbbNavigationSectionElement;
+        new (): HTMLSbbNavigationSectionElement;
     };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
@@ -2208,6 +2259,7 @@ declare global {
         "sbb-navigation-action": HTMLSbbNavigationActionElement;
         "sbb-navigation-list": HTMLSbbNavigationListElement;
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
+        "sbb-navigation-section": HTMLSbbNavigationSectionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -3299,6 +3351,55 @@ declare namespace LocalJSX {
          */
         "size"?: 'l' | 's';
     }
+    interface SbbNavigationSection {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-describedby to the relevant nested element.
+         */
+        "accessibilityDescribedby"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-labelledby to the relevant nested element.
+         */
+        "accessibilityLabelledby"?: string | undefined;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * This id will be forwarded to the relevant inner element.
+         */
+        "navigationSectionId"?: string;
+        /**
+          * Emits whenever the navigation section is closed.
+         */
+        "onSbb-navigation-section_did-close"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation section is opened.
+         */
+        "onSbb-navigation-section_did-open"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation section begins the closing transition.
+         */
+        "onSbb-navigation-section_will-close"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation section starts the opening transition.
+         */
+        "onSbb-navigation-section_will-open"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        "titleContent"?: string;
+        "titleId"?: string;
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -3968,6 +4069,7 @@ declare namespace LocalJSX {
         "sbb-navigation-action": SbbNavigationAction;
         "sbb-navigation-list": SbbNavigationList;
         "sbb-navigation-marker": SbbNavigationMarker;
+        "sbb-navigation-section": SbbNavigationSection;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -4048,6 +4150,7 @@ declare module "@stencil/core" {
             "sbb-navigation-action": LocalJSX.SbbNavigationAction & JSXBase.HTMLAttributes<HTMLSbbNavigationActionElement>;
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
+            "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;

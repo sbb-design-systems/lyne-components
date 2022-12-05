@@ -77,7 +77,7 @@ export class SbbNavigationMarker {
   }
 
   @Method()
-  public reset(): void {
+  public async reset(): Promise<void> {
     if (!this._hasActiveAction) {
       return;
     }

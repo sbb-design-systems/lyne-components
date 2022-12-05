@@ -81,6 +81,17 @@ const navigationActionsS = (active) => [
   <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
 ];
 
+const navigationList = (label) => [
+  <sbb-navigation-list label={label}>
+    <sbb-navigation-action size="m">Label</sbb-navigation-action>
+    <sbb-navigation-action size="m">Label</sbb-navigation-action>
+    <sbb-navigation-action size="m">Label</sbb-navigation-action>
+    <sbb-navigation-action size="m" href="https://www.sbb.ch/en/">
+      Label
+    </sbb-navigation-action>
+  </sbb-navigation-list>,
+];
+
 const actionLabels = (num) => {
   const labels = [];
   for (let i = 1; i <= num; i++) {
@@ -93,7 +104,43 @@ const DefaultTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
     <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
+
     <sbb-navigation-marker size="s">{navigationActionsS(false)}</sbb-navigation-marker>
+
+    <sbb-navigation-section trigger="nav-1" title-content="Title one">
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      <sbb-button size="m" style="width: fit-content">
+        All Tickets & Offers
+      </sbb-button>
+    </sbb-navigation-section>
+
+    <sbb-navigation-section trigger="nav-2" title-content="Title two">
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+    </sbb-navigation-section>
+
+    <sbb-navigation-section trigger="nav-3" title-content="Title three">
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      <sbb-button
+        size="m"
+        variant="secondary"
+        icon-name="circle-information-small"
+        style="width: fit-content"
+      >
+        Travel Information
+      </sbb-button>
+    </sbb-navigation-section>
   </sbb-navigation>,
 ];
 
@@ -101,6 +148,7 @@ const ActiveTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
     <sbb-navigation-marker>{navigationActionsL(true)}</sbb-navigation-marker>
+
     <sbb-navigation-marker size="s">{navigationActionsS(true)}</sbb-navigation-marker>
   </sbb-navigation>,
 ];
@@ -109,6 +157,7 @@ const LongContentTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
   <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
     <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
+
     <sbb-navigation-marker size="s">{actionLabels(20)}</sbb-navigation-marker>
   </sbb-navigation>,
 ];
