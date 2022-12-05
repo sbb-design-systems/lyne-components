@@ -16,9 +16,7 @@
 
   text-decoration: none;
   display: flex;
-  align-items: center;
   user-select: none;
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   -webkit-tap-highlight-color: transparent;
   transition: color var(--sbb-animation-duration-3x) ease;
   word-break: break-all;
@@ -38,10 +36,12 @@
 
   &:focus-visible {
     @include focusOutline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
   @include hover-mq($hover: true) {
-    :host(:hover) & {
+    &:hover {
       cursor: pointer;
       color: var(--sbb-color-storm-default);
     }

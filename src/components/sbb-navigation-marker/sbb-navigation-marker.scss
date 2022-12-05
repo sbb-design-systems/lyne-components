@@ -5,17 +5,17 @@
 :host {
   @include title-4;
 
+  --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
   --sbb-navigation-marker-position-y: 0;
   --sbb-navigation-marker-width: #{px-to-rem-build(17)};
   --sbb-navigation-marker-height: var(--sbb-border-width-1x);
   --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
-  --sbb-navigation-marker-margin-block: calc(
-    var(--sbb-font-size-title-4) * var(--sbb-typo-line-height-titles) / 2 -
-      var(--sbb-border-width-1x) / 2
-  );
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-titles);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
-  --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
+  --sbb-navigation-marker-margin-block: calc(
+    1em * var(--sbb-navigation-marker-typo-line-height) / 2 - var(--sbb-border-width-1x) / 2
+  );
 
   position: relative;
   padding-inline-start: var(--sbb-navigation-marker-padding-inline-start);
@@ -49,19 +49,16 @@
 :host([size='s']) {
   @include text-xxs--bold;
 
+  --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-navigation-marker-width: #{px-to-rem-build(8)};
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
   --sbb-navigation-marker-position-x: calc(
     var(--sbb-navigation-marker-padding-inline-start) - var(--sbb-spacing-fixed-2x)
   );
-  --sbb-navigation-marker-width: #{px-to-rem-build(8)};
   --sbb-navigation-marker-padding-inline-start: calc(
     var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-1x)
   );
-  --sbb-navigation-marker-margin-block: calc(
-    var(--sbb-font-size-text-xxs) * var(--sbb-typo-line-height-body-text) / 2 -
-      var(--sbb-border-width-1x) / 2
-  );
-  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
-  --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-navigation-marker__content {
@@ -69,6 +66,7 @@
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--sbb-navigation-action-gap);
 }
 
