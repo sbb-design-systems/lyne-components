@@ -1,3 +1,4 @@
+import events from './sbb-tag.events';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -134,14 +135,11 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change'],
-    },
-    backgrounds: {
-      disable: true,
+      handles: ['change', events.didChange],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-tag',
+  title: 'components/tag/sbb-tag',
 };

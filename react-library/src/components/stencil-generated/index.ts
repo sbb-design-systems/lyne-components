@@ -55,6 +55,7 @@ export const SbbTabAmount = /*@__PURE__*/createReactComponent<JSX.SbbTabAmount, 
 export const SbbTabGroup = /*@__PURE__*/createReactComponent<JSX.SbbTabGroup, HTMLSbbTabGroupElement>('sbb-tab-group');
 export const SbbTabTitle = /*@__PURE__*/createReactComponent<JSX.SbbTabTitle, HTMLSbbTabTitleElement>('sbb-tab-title');
 export const SbbTag = /*@__PURE__*/createReactComponent<JSX.SbbTag, HTMLSbbTagElement>('sbb-tag');
+export const SbbTagGroup = /*@__PURE__*/createReactComponent<JSX.SbbTagGroup, HTMLSbbTagGroupElement>('sbb-tag-group');
 export const SbbTeaser = /*@__PURE__*/createReactComponent<JSX.SbbTeaser, HTMLSbbTeaserElement>('sbb-teaser');
 export const SbbTeaserHero = /*@__PURE__*/createReactComponent<JSX.SbbTeaserHero, HTMLSbbTeaserHeroElement>('sbb-teaser-hero');
 export const SbbTimetable = /*@__PURE__*/createReactComponent<JSX.SbbTimetable, HTMLSbbTimetableElement>('sbb-timetable');

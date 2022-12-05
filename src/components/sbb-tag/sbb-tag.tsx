@@ -94,7 +94,7 @@ export class SbbTag implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-tag__label" htmlFor={this.tagId}>
+      <label class="sbb-tag" htmlFor={this.tagId}>
         <input
           ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
           type="checkbox"
@@ -108,17 +108,17 @@ export class SbbTag implements ComponentInterface {
           {...getAccessibilityAttributeList(this)}
           onChange={(event: Event): void => this.checkedChanged(event)}
         />
-        <span class="sbb-tag__label--wrapper">
+        <span class="sbb-tag__wrapper">
           {(this.iconName || this._namedSlots['icon']) && (
             <span class="sbb-tag__label--icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </span>
           )}
-          <span class="sbb-tag__label--text">
+          <span class="sbb-tag__text">
             <slot></slot>
           </span>
           {this._namedSlots['amount'] && (
-            <span class="sbb-tag__label--amount">
+            <span class="sbb-tag__amount">
               <slot name="amount"></slot>
             </span>
           )}

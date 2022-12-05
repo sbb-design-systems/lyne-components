@@ -1,0 +1,9 @@
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include host-component-properties;
+
+.sbb-tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-3x);
+}

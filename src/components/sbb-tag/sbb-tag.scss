@@ -9,15 +9,13 @@
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
-  --sbb-tag-background-disabled-color: var(--sbb-color-milk-default);
-  --sbb-tag-disabled-color: var(--sbb-color-platinum-default);
-  --sbb-tag-background-hover-color: var(--sbb-color-cloud-default);
 
   @include mq($from: medium) {
     --sbb-tag-height: #{px-to-rem-build(40)};
   }
 
   display: inline-block;
+  max-width: 100%;
 }
 
 :host([checked]) {
@@ -25,25 +23,25 @@
 }
 
 :host([disabled]) {
-  --sbb-tag-text-color: var(--sbb-tag-disabled-color);
-  --sbb-tag-amount-color: var(--sbb-tag-disabled-color);
-  --sbb-tag-background-color: var(--sbb-tag-background-disabled-color);
+  --sbb-tag-text-color: var(--sbb-color-platinum-default);
+  --sbb-tag-amount-color: var(--sbb-color-platinum-default);
+  --sbb-tag-background-color: var(--sbb-color-milk-default);
 }
 
-.sbb-tag__label {
+.sbb-tag {
   position: relative;
 
   // If the the device can hover over elements with ease
   @include hover-mq($hover: true) {
     // stylelint-disable plugin/stylelint-bem-namics
     :host(:not([disabled])) &:hover {
-      --sbb-tag-background-color: var(--sbb-tag-background-hover-color);
+      --sbb-tag-background-color: var(--sbb-color-cloud-default);
     }
     // stylelint-enable plugin/stylelint-bem-namics
   }
 }
 
-.sbb-tag__label--wrapper {
+.sbb-tag__wrapper {
   position: relative;
   margin: 0;
   min-height: var(--sbb-tag-height);
@@ -58,6 +56,11 @@
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
 
+  &:active {
+    --sbb-tag-background-color: var(--sbb-color-milk-default);
+    --sbb-tag-border-color: var(--sbb-color-iron-default);
+  }
+
   &::before {
     position: absolute;
     content: '';
@@ -67,6 +70,9 @@
   }
 
   :host([disabled]) & {
+    cursor: unset;
+    pointer-events: none;
+
     &::after {
       content: '';
       inset: 50% var(--sbb-spacing-fixed-5x);
@@ -76,26 +82,17 @@
   }
 }
 
-:host(:focus-visible) {
-  outline: 0;
-
-  .sbb-tag__label--wrapper {
-    &::before {
-      @include focusOutline;
-    }
-  }
-}
-
-.sbb-tag__label--icon {
+.sbb-tag__icon {
   display: flex;
   align-items: center;
 }
 
-.sbb-tag__label--text {
+.sbb-tag__text {
   @include text-xs--bold;
+  @include ellipsis;
 }
 
-.sbb-tag__label--amount {
+.sbb-tag__amount {
   @include text-xs--regular;
 
   color: var(--sbb-tag-amount-color);
@@ -103,4 +100,10 @@
 
 input[type='checkbox'] {
   @include invisibleContainerOverlay;
+}
+
+input[type='checkbox']:focus-visible + .sbb-tag__label--wrapper {
+  @include focusOutline;
+
+  outline-offset: var(--sbb-spacing-fixed-1x);
 }
