@@ -63,16 +63,9 @@ export const LabelAndIcon = DefaultTemplate.bind({});
 LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
 LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
-export const sbbToggleOptionWithLabelAndIcon = DefaultTemplate.bind({});
-sbbToggleOptionWithLabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
-sbbToggleOptionWithLabelAndIcon.args = {
-  ...defaultArgs,
-  'icon-name': 'arrow-right-small',
-  value: 'Option 1',
-};
-sbbToggleOptionWithLabelAndIcon.documentation = {
-  title: 'sbb-toggle-option with custom icon',
-};
+export const LabelAndIcon = DefaultTemplate.bind({});
+LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
+LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
 export default {
   decorators: [

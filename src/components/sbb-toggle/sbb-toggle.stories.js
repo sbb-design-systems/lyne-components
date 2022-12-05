@@ -182,37 +182,29 @@ DynamicWidthSizeS.args = {
 export const sbbToggleFixedWidth = DefaultTemplate.bind({});
 sbbToggleFixedWidth.args = {
   ...defaultArgs,
-  even: true,
-  value: 'Lorem Ipsum.',
-  value1: 'Lorem Ipsum.',
-  value2: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-};
-sbbToggleFixedWidth.argTypes = { ...defaultArgTypes, value, value1, value2 };
-sbbToggleFixedWidth.documentation = {
-  title: 'sbb-toggle fixed width',
+  iconName: iconName.options[0],
+  size: size.options[1],
+  label: undefined,
+  labelTwo: undefined,
 };
 
-export const sbbToggleWithIcons = DefaultTemplate.bind({});
-sbbToggleWithIcons.args = {
+export const DynamicWidth = DefaultTemplate.bind({});
+DynamicWidth.argTypes = { ...defaultArgTypes };
+DynamicWidth.args = {
   ...defaultArgs,
-  iconName: 'arrow-right-small',
-};
-sbbToggleWithIcons.argTypes = { ...defaultArgTypes, iconName };
-sbbToggleWithIcons.documentation = {
-  title: 'sbb-toggle with custom icon',
+  label: 'Zurich',
+  labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
+  iconName: iconName.options[1],
 };
 
-export const sbbToggleWithIconsAndLabel = DefaultTemplate.bind({});
-sbbToggleWithIconsAndLabel.args = {
+export const DynamicWidthSizeS = DefaultTemplate.bind({});
+DynamicWidthSizeS.argTypes = { ...defaultArgTypes };
+DynamicWidthSizeS.args = {
   ...defaultArgs,
-  iconName: 'arrow-right-small',
-  value: 'option-1',
-  value1: 'option-1',
-  value2: 'option-2',
-};
-sbbToggleWithIconsAndLabel.argTypes = { ...defaultArgTypes, iconName, value, value1, value2 };
-sbbToggleWithIconsAndLabel.documentation = {
-  title: 'sbb-toggle with custom icon and label',
+  size: size.options[1],
+  label: 'Zurich',
+  labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
+  iconName: iconName.options[1],
 };
 
 export default {
