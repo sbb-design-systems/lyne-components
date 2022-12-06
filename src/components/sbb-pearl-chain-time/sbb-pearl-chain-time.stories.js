@@ -37,7 +37,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   legs: [progressLeg],
   'disable-animation': isChromatic(),
-  'data-now': undefined,
+  'data-now': new Date('2022-12-11T12:11:00').valueOf(),
 };
 
 const Template = (args) => {
@@ -71,7 +71,6 @@ maximal.args = {
   'departure-walk': '10',
   'arrival-walk': '5',
   legs: [progressLeg],
-  'data-now': new Date('2022-12-07T12:11:00').valueOf(),
 };
 
 export default {
