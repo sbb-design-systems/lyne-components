@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --form-error-height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+  --form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
   --form-error-color: var(--sbb-color-red125-default);
 
   // Overrides sbb icon
