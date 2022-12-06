@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop, Element, Listen } from '@stencil/core';
+import { Component, h, JSX, Prop, Element, Listen, ComponentInterface } from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
@@ -23,7 +23,7 @@ let nextId = 0;
   styleUrl: 'sbb-header-action.scss',
   tag: 'sbb-header-action',
 })
-export class SbbHeaderAction implements LinkButtonProperties {
+export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties {
   /** Action element's id. */
   @Prop() public headerActionId = `sbb-header-action-${++nextId}`;
 

@@ -1,4 +1,14 @@
-import { Component, Element, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
@@ -20,7 +30,7 @@ import { InterfaceSbbCardAttributes } from './sbb-card.custom';
   styleUrl: 'sbb-card.scss',
   tag: 'sbb-card',
 })
-export class SbbCard implements LinkButtonProperties {
+export class SbbCard implements ComponentInterface, LinkButtonProperties {
   /** Size variant, either xs, s, m, l, xl or xxl. */
   @Prop({ reflect: true }) public size?: InterfaceSbbCardAttributes['size'] = 'm';
 

@@ -27,7 +27,7 @@ import {
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements LinkButtonProperties, ComponentInterface {
+export class SbbLink implements ComponentInterface, LinkButtonProperties {
   /** Variant of the link (block or inline). */
   @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 

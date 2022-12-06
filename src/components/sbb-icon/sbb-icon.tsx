@@ -1,4 +1,14 @@
-import { Component, Element, h, JSX, Host, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  Element,
+  h,
+  JSX,
+  Host,
+  Prop,
+  State,
+  Watch,
+  ComponentInterface,
+} from '@stencil/core';
 import { getSvgContent, iconNamespaces, registeredIcons } from './request';
 import { validateContent } from './validate';
 
@@ -7,7 +17,7 @@ import { validateContent } from './validate';
   styleUrl: 'sbb-icon.scss',
   tag: 'sbb-icon',
 })
-export class SbbIcon {
+export class SbbIcon implements ComponentInterface {
   private _svgName: string;
   private _svgNamespace = 'default';
 

@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop, Watch } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, Watch } from '@stencil/core';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
@@ -27,7 +27,7 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
 /**
  * Generalized product card — merge of ticket and subscription
  */
-export class SbbCardProduct implements AccessibilityProperties {
+export class SbbCardProduct implements ComponentInterface, AccessibilityProperties {
   /** CardProduct appearance */
   @Prop() public appearance?: InterfaceCardProductAttributes['appearance'] = 'primary';
 

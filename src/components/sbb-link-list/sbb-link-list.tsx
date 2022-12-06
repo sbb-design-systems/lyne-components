@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, JSX, Element, Listen } from '@stencil/core';
+import { Component, h, Prop, State, JSX, Element, Listen, ComponentInterface } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
 import {
@@ -14,7 +14,7 @@ let nextId = 0;
   styleUrl: 'sbb-link-list.scss',
   tag: 'sbb-link-list',
 })
-export class SbbLinkList {
+export class SbbLinkList implements ComponentInterface {
   /** This id will be forwarded to the relevant inner element. */
   @Prop() public titleId = `sbb-link-list-title-${++nextId}`;
 

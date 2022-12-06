@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
@@ -21,7 +21,7 @@ const eventListenerOptions = {
   styleUrl: 'sbb-clock.scss',
   tag: 'sbb-clock',
 })
-export class SbbClock {
+export class SbbClock implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   /**

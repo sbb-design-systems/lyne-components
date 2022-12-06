@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import { i18nUseArrowKeysToNavigate, i18nXResultsAvailable } from '../../global/i18n';
 
@@ -11,7 +11,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   styleUrl: 'sbb-autocomplete.scss',
   tag: 'sbb-autocomplete',
 })
-export class SbbAutocomplete {
+export class SbbAutocomplete implements ComponentInterface {
   /**
    * Items to show in the autocomplete interface. You should pass a stringified
    * array of objects, containing the `text` key for each object with an
