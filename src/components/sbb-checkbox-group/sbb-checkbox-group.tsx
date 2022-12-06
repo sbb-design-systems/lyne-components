@@ -11,6 +11,10 @@ import {
   Watch,
 } from '@stencil/core';
 import {
+  getNextElementIndexFunction,
+  isArrowKeyPressed,
+} from '../../global/helpers/arrow-navigation';
+import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
@@ -102,25 +106,25 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
+    const enabledCheckboxes: HTMLSbbCheckboxElement[] = this._checkboxes.filter(
+      (tag: HTMLSbbCheckboxElement) => !tag.hasAttribute('disabled')
+    );
+
     if (
-      (evt.target as HTMLElement) !== this._element &&
-      (evt.target as HTMLElement).parentElement !== this._element
+      !enabledCheckboxes ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
     ) {
       return;
     }
 
-    const enabledTags = this._checkboxes.filter(
-      (tag: HTMLSbbCheckboxElement) => !tag.hasAttribute('disabled')
-    );
-    const cur = enabledTags.findIndex((e: HTMLSbbCheckboxElement) => e === evt.target);
-    const size = enabledTags.length;
-    const prev = cur === 0 ? size - 1 : cur - 1;
-    const next = cur === size - 1 ? 0 : cur + 1;
-
-    if (evt.key == 'ArrowLeft' || evt.key === 'ArrowUp') {
-      enabledTags[prev]?.focus();
-    } else if (evt.key == 'ArrowRight' || evt.key === 'ArrowDown') {
-      enabledTags[next]?.focus();
+    if (isArrowKeyPressed(evt)) {
+      const current: number = enabledCheckboxes.findIndex(
+        (e: HTMLSbbCheckboxElement) => e === evt.target
+      );
+      const nextIndex: number = getNextElementIndexFunction(evt)(current, enabledCheckboxes.length);
+      enabledCheckboxes[nextIndex]?.focus();
     }
   }
 
