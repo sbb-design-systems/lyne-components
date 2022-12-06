@@ -12,12 +12,21 @@ const disableAnimation = {
     type: 'boolean',
   },
 };
+
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
 const defaultArgTypes = {
   'disable-animation': disableAnimation,
+  'data-now': now,
 };
 
 const defaultArgs = {
   'disable-animation': false,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 const Template = (args) => (
   <sbb-journey-summary config={args}>
