@@ -5,29 +5,29 @@
 @include sbb.host-component-properties;
 
 :host {
-  --form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
-  --form-error-color: var(--sbb-color-red125-default);
+  --sbb-form-error-height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  --sbb-form-error-color: var(--sbb-color-red125-default);
 
   // Overrides sbb icon
   --sbb-icon-svg-width: var(--sbb-size-icon-form-error);
   --sbb-icon-svg-height: var(--sbb-size-icon-form-error);
 
   @include sbb.if-forced-colors {
-    --form-error-color: LinkText;
+    --sbb-form-error-color: LinkText;
   }
 
   @include sbb.text-xs--regular;
 
   display: flex;
   align-items: flex-start;
-  color: var(--form-error-color);
-  min-height: var(--form-error-height);
+  color: var(--sbb-form-error-color);
+  min-height: var(--sbb-form-error-height);
 }
 
 .form-error__icon {
   display: flex;
   align-items: center;
-  height: var(--form-error-height);
+  height: var(--sbb-form-error-height);
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
@@ -39,4 +39,5 @@
 
 .form-error__icon-svg {
   stroke: currentcolor;
+  height: var(--sbb-form-error-height);
 }
