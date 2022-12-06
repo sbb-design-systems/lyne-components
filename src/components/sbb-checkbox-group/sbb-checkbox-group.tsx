@@ -100,6 +100,30 @@ export class SbbCheckboxGroup implements ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    if (
+      (evt.target as HTMLElement) !== this._element &&
+      (evt.target as HTMLElement).parentElement !== this._element
+    ) {
+      return;
+    }
+
+    const enabledTags = this._checkboxes.filter(
+      (tag: HTMLSbbCheckboxElement) => !tag.hasAttribute('disabled')
+    );
+    const cur = enabledTags.findIndex((e: HTMLSbbCheckboxElement) => e === evt.target);
+    const size = enabledTags.length;
+    const prev = cur === 0 ? size - 1 : cur - 1;
+    const next = cur === size - 1 ? 0 : cur + 1;
+
+    if (evt.key == 'ArrowLeft' || evt.key === 'ArrowUp') {
+      enabledTags[prev]?.focus();
+    } else if (evt.key == 'ArrowRight' || evt.key === 'ArrowDown') {
+      enabledTags[next]?.focus();
+    }
+  }
+
   private _updateCheckboxes(): void {
     const checkboxes = this._checkboxes;
 
