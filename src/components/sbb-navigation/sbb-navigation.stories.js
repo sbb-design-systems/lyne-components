@@ -85,7 +85,6 @@ const navigationList = (label) => [
   <sbb-navigation-list label={label}>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
-    <sbb-navigation-action size="m">Label</sbb-navigation-action>
     <sbb-navigation-action size="m" href="https://www.sbb.ch/en/">
       Label
     </sbb-navigation-action>
@@ -100,10 +99,22 @@ const actionLabels = (num) => {
   return labels;
 };
 
+const onNavigationClose = (dialog) => {
+  dialog.addEventListener('didClose', () => {
+    document.getElementById('nav-marker').reset();
+  });
+};
+
 const DefaultTemplate = (args) => [
   triggerButton('navigation-trigger-1'),
-  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
-    <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
+  <sbb-navigation
+    data-testid="navigation"
+    id="navigation"
+    trigger="navigation-trigger-1"
+    ref={(dialog) => onNavigationClose(dialog)}
+    {...args}
+  >
+    <sbb-navigation-marker id="nav-marker">{navigationActionsL(false)}</sbb-navigation-marker>
 
     <sbb-navigation-marker size="s">{navigationActionsS(false)}</sbb-navigation-marker>
 

@@ -75,10 +75,6 @@
   }
 }
 
-:host(.sbb-navigation--has-navigation-section)::before {
-  background-color: var(--sbb-color-midnight-default);
-}
-
 :host([disable-animation]) {
   --sbb-navigation-animation-duration: 0s;
 }
