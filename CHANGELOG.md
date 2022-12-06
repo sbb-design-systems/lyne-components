@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.16.0](https://github.com/lyne-design-system/lyne-components/compare/v0.15.9...v0.16.0) (2022-12-06)
+
+### ⚠ BREAKING CHANGES
+
+- Previously the sass code could be used via `@import`.
+  This is no longer possible as we refactored the sass code to switch
+  from `@import` to `@use` (see https://sass-lang.com/documentation/at-rules/use).
+  You should now be able to use the following code to import
+  our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
+
+- adapt sass to [@use](https://github.com/use) instead of [@import](https://github.com/import) ([#1482](https://github.com/lyne-design-system/lyne-components/issues/1482)) ([219d68c](https://github.com/lyne-design-system/lyne-components/commit/219d68c101a746a1671f9a8ff9c8dba63018f63f))
+
 ### [0.15.9](https://github.com/lyne-design-system/lyne-components/compare/v0.15.8...v0.15.9) (2022-12-06)
 
 ### Bug Fixes
