@@ -29,7 +29,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   __typename: 'PTRideLeg',
   'disable-animation': isChromatic(),
-  'data-now': new Date('2022-12-11T12:11:00').valueOf(),
+  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
 const Template = (args) => {
@@ -72,14 +72,15 @@ withPosition.argTypes = defaultArgTypes;
 withPosition.args = {
   ...defaultArgs,
   legs: [progressLeg],
-  'data-now': new Date('2022-12-5T12:11:00').valueOf(),
+  'data-now': undefined,
 };
 
 export const Past = Template.bind({});
 Past.argTypes = defaultArgTypes;
 Past.args = {
   ...defaultArgs,
-  legs: [pastLeg],
+  legs: [pastLeg, pastLeg],
+  'data-now': new Date('2023-11-01T12:11:00').valueOf(),
 };
 
 export const Mixed = Template.bind({});
@@ -87,7 +88,7 @@ Mixed.argTypes = defaultArgTypes;
 Mixed.args = {
   ...defaultArgs,
   legs: [pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg],
-  'data-now': new Date('2022-12-5T12:11:00').valueOf(),
+  'data-now': undefined,
 };
 
 export default {

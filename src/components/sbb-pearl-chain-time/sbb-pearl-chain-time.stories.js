@@ -15,6 +15,18 @@ const arrivalWalk = {
   },
 };
 
+const departureTime = {
+  control: {
+    type: 'text',
+  },
+};
+
+const arrivalTime = {
+  control: {
+    type: 'text',
+  },
+};
+
 const disableAnimation = {
   control: {
     type: 'boolean',
@@ -30,14 +42,18 @@ const now = {
 const defaultArgTypes = {
   'departure-walk': departureWalk,
   'arrival-walk': arrivalWalk,
+  'arrival-time': arrivalTime,
+  'departure-time': departureTime,
   'disable-animation': disableAnimation,
   'data-now': now,
 };
 
 const defaultArgs = {
   legs: [progressLeg],
+  'arrival-time': '2022-12-11T14:11:00',
+  'departure-time': '2022-12-11T12:11:00',
   'disable-animation': isChromatic(),
-  'data-now': new Date('2022-12-11T12:11:00').valueOf(),
+  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
 const Template = (args) => {
@@ -70,6 +86,7 @@ maximal.args = {
   ...defaultArgs,
   'departure-walk': '10',
   'arrival-walk': '5',
+  'data-now': undefined,
   legs: [progressLeg],
 };
 
