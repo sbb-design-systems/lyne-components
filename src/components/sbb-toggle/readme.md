@@ -1,4 +1,14 @@
 # sbb-toggle
+The `<sbb-toggle>` component offers the user an exacty option to chose. Inside the component the `<sbb-toggle-option>` is used the render the options.
+
+## Usage
+
+```html
+<sbb-toggle size="m" value="Value 1">
+    <sbb-toggle-option value="Value 1">Bern</sbb-toggle-option>
+    <sbb-toggle-option value="Value 2">Zurich</sbb-toggle-option>
+</sbb-toggle>
+```
 
 <!-- Auto Generated Below -->
 
