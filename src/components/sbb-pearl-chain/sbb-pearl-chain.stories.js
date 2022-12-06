@@ -27,7 +27,6 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  __typename: 'PTRideLeg',
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
