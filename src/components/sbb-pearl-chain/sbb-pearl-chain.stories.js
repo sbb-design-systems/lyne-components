@@ -72,7 +72,7 @@ withPosition.argTypes = defaultArgTypes;
 withPosition.args = {
   ...defaultArgs,
   legs: [progressLeg],
-  'data-now': undefined,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const Past = Template.bind({});
@@ -88,7 +88,7 @@ Mixed.argTypes = defaultArgTypes;
 Mixed.args = {
   ...defaultArgs,
   legs: [pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg],
-  'data-now': undefined,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export default {

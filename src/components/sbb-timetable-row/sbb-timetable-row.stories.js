@@ -129,7 +129,7 @@ Position.argTypes = defaultArgTypes;
 Position.args = {
   ...defaultArgs,
   trip: progressTrip,
-  'data-now': undefined,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const PositionDisabledAnimation = Template.bind({});
@@ -138,7 +138,7 @@ PositionDisabledAnimation.args = {
   ...defaultArgs,
   'disable-animation': true,
   trip: progressTrip,
-  'data-now': undefined,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const Cancelled = Template.bind({});
@@ -168,6 +168,7 @@ Disturbance.argTypes = defaultArgTypes;
 Disturbance.args = {
   ...defaultArgs,
   trip: disturbanceTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const QuayChanged = Template.bind({});
@@ -175,6 +176,7 @@ QuayChanged.argTypes = defaultArgTypes;
 QuayChanged.args = {
   ...defaultArgs,
   trip: quayChangeTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const Train = Template.bind({});

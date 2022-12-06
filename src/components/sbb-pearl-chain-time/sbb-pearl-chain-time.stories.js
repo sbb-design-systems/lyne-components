@@ -86,7 +86,7 @@ maximal.args = {
   ...defaultArgs,
   'departure-walk': '10',
   'arrival-walk': '5',
-  'data-now': undefined,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   legs: [progressLeg],
 };
 
