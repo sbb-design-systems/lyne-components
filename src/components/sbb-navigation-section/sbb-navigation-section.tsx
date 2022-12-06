@@ -229,8 +229,11 @@ export class SbbNavigationSection implements AccessibilityProperties {
   }
 
   private _handleNavigationSectionClose = (event: PointerEvent): void => {
-    const target = event.target as HTMLElement;
+    if (this._state !== 'opened') {
+      return;
+    }
 
+    const target = event.target as HTMLElement;
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
@@ -243,6 +246,7 @@ export class SbbNavigationSection implements AccessibilityProperties {
     // Close the navigation section on click of any element that has the 'sbb-navigation-close' or the 'sbb-navigation-section-close' attribute.
     if (isNavigationClose && !target.hasAttribute('disabled')) {
       this.close();
+      return;
     }
 
     // Check if the target is a navigation action belonging to the same group as the trigger.
