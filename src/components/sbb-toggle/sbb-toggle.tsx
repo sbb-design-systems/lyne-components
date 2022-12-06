@@ -48,16 +48,6 @@ export class SbbToggle {
   @Prop() public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
-   * Set the width of the component.
-   */
-  @Prop() public even: boolean;
-
-  /**
-   * Size variant, either m or s.
-   */
-  @Prop() public size?: InterfaceSbbToggleAttributes['size'] = 'm';
-
-  /**
    * The value of the toggle.
    */
   @Prop({ mutable: true, reflect: true }) public value: any | null;
@@ -71,27 +61,6 @@ export class SbbToggle {
 
   private _toggleElement: HTMLElement;
   private _toggleResizeObserver = new ResizeObserver(() => this._setCheckedPillPosition());
-
-  @Listen('resize', { target: 'window', passive: true })
-  private _setCheckedPillPosition(): void {
-    const checked = this._checked;
-
-    if (!checked) {
-      return;
-    }
-
-    // Set checked pill position
-    this._element.style.setProperty(
-      '--sbb-toggle-width',
-      `${this._options[0].clientWidth + this._options[1].clientWidth}px`
-    );
-
-    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft - 2}px`);
-    this._element.style.setProperty(
-      '--sbb-toggle-option-right',
-      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth) - 2}px`
-    );
-  }
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {

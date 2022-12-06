@@ -63,10 +63,6 @@ export const LabelAndIcon = DefaultTemplate.bind({});
 LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
 LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
-export const LabelAndIcon = DefaultTemplate.bind({});
-LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
-LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
-
 export default {
   decorators: [
     (Story) => (

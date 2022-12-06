@@ -179,33 +179,6 @@ DynamicWidthSizeS.args = {
   labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
   iconName: iconName.options[1],
 };
-export const sbbToggleFixedWidth = DefaultTemplate.bind({});
-sbbToggleFixedWidth.args = {
-  ...defaultArgs,
-  iconName: iconName.options[0],
-  size: size.options[1],
-  label: undefined,
-  labelTwo: undefined,
-};
-
-export const DynamicWidth = DefaultTemplate.bind({});
-DynamicWidth.argTypes = { ...defaultArgTypes };
-DynamicWidth.args = {
-  ...defaultArgs,
-  label: 'Zurich',
-  labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
-  iconName: iconName.options[1],
-};
-
-export const DynamicWidthSizeS = DefaultTemplate.bind({});
-DynamicWidthSizeS.argTypes = { ...defaultArgTypes };
-DynamicWidthSizeS.args = {
-  ...defaultArgs,
-  size: size.options[1],
-  label: 'Zurich',
-  labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
-  iconName: iconName.options[1],
-};
 
 export default {
   decorators: [
