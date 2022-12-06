@@ -140,6 +140,16 @@ const tagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }) => (
   </sbb-tag-group>
 );
 
+const nestedGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
+  <sbb-tag-group>
+    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => tagTemplate(args, i === 0))}
+    {tagGroupTemplate({ numberOfTagsInGroup, ...args })}
+  </sbb-tag-group>,
+  <div style="padding-block: 2rem;">
+    Nested sbb-tag-group example. You should see an error in console.
+  </div>,
+];
+
 export const tagGroup = tagGroupTemplate.bind({});
 tagGroup.argTypes = defaultArgTypes;
 tagGroup.args = { ...defaultArgs };
@@ -159,6 +169,10 @@ withAmountAndIcon.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123
 export const ellipsisLabel = tagGroupTemplateEllipsis.bind({});
 ellipsisLabel.argTypes = defaultArgTypes;
 ellipsisLabel.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123 };
+
+export const nestedGroup = nestedGroupTemplate.bind({});
+nestedGroup.argTypes = defaultArgTypes;
+nestedGroup.args = { ...defaultArgs };
 
 export default {
   decorators: [

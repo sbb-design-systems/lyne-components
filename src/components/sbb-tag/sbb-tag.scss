@@ -85,6 +85,7 @@
 .sbb-tag__icon {
   display: flex;
   align-items: center;
+  line-height: 0;
 }
 
 .sbb-tag__text {
@@ -102,7 +103,7 @@ input[type='checkbox'] {
   @include invisibleContainerOverlay;
 }
 
-input[type='checkbox']:focus-visible + .sbb-tag__label--wrapper {
+input[type='checkbox']:focus-visible + .sbb-tag__wrapper {
   @include focusOutline;
 
   outline-offset: var(--sbb-spacing-fixed-1x);

@@ -81,8 +81,13 @@ export class SbbTag implements ComponentInterface {
 
   private _checkbox: HTMLInputElement;
 
+  private _inputElement(): HTMLElement {
+    return this._element.shadowRoot.querySelector('input');
+  }
+
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
   }
 
   /** Method triggered on checkbox change. Inverts the checked value and emits events. */
@@ -110,7 +115,7 @@ export class SbbTag implements ComponentInterface {
         />
         <span class="sbb-tag__wrapper">
           {(this.iconName || this._namedSlots['icon']) && (
-            <span class="sbb-tag__label--icon">
+            <span class="sbb-tag__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </span>
           )}
