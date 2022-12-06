@@ -1,5 +1,6 @@
 import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
+import { futureLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
 import events from './sbb-card-product.events';
 
@@ -302,7 +303,7 @@ const SlotSbbTextTemplate = (args) => <span>{args.text}</span>;
 
 /* --- pearl chain slot ---------------------------------- */
 
-const SlotPearlChainTemplate = () => <sbb-pearl-chain legs={[{ duration: 60 }]} />;
+const SlotPearlChainTemplate = () => <sbb-pearl-chain legs={[futureLeg]} />;
 
 /* --- card-badge slot ----------------------------- */
 

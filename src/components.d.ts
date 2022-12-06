@@ -31,7 +31,7 @@ import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { InterfacePearlChainAttributes } from "./components/sbb-pearl-chain/sbb-pearl-chain.custom";
+import { PTRideLeg } from "./global/interfaces/pearl-chain-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -43,8 +43,7 @@ import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.cu
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-import { InterfaceTimetablePlatformAttributes } from "./components/sbb-timetable-platform/sbb-timetable-platform.custom";
-import { InterfaceTimetableRowAttributes } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+import { BoardingAlightingAccessibilityEnum, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
@@ -1117,13 +1116,13 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": InterfacePearlChainAttributes['legs'];
+        "legs": PTRideLeg[];
     }
     interface SbbPearlChainTime {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "arrivalTime": string;
+        "arrivalTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) after arrival
          */
@@ -1131,7 +1130,7 @@ export namespace Components {
         /**
           * Prop to render the departure time - will be formatted as "H:mm"
          */
-        "departureTime": string;
+        "departureTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) before departure
          */
@@ -1143,7 +1142,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": InterfacePearlChainAttributes['legs'];
+        "legs": PTRideLeg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -1527,16 +1526,6 @@ export namespace Components {
          */
         "config": string;
     }
-    interface SbbTimetablePlatform {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetablePlatformAttributes['appearance'];
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
-    }
     interface SbbTimetableRow {
         /**
           * This will be forwarded as aria-label to the relevant element.
@@ -1547,13 +1536,13 @@ export namespace Components {
          */
         "active"?: boolean;
         /**
+          * This will be forwarded to the notices section
+         */
+        "boardingAlightingAccessibility"?: BoardingAlightingAccessibilityEnum;
+        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
-        /**
-          * When this prop is true the badge for the price will appear loading.
-         */
-        "loadingPrice"?: boolean;
         /**
           * The loading state - when this is true it will be render skeleton with an idling animation
          */
@@ -1561,11 +1550,11 @@ export namespace Components {
         /**
           * The price Prop, which consists of the data for the badge.
          */
-        "price"?: InterfaceTimetableRowAttributes['price'];
+        "price"?: Price;
         /**
           * The trip Prop
          */
-        "trip"?: InterfaceTimetableRowAttributes['trip'];
+        "trip": Trip;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -1580,12 +1569,6 @@ export namespace Components {
         "config": string;
     }
     interface SbbTimetableRowHeader {
-        "config": string;
-    }
-    interface SbbTimetableTransportationDetails {
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
         "config": string;
     }
     interface SbbTimetableTransportationNumber {
@@ -2110,12 +2093,6 @@ declare global {
         prototype: HTMLSbbTimetableParkAndRailElement;
         new (): HTMLSbbTimetableParkAndRailElement;
     };
-    interface HTMLSbbTimetablePlatformElement extends Components.SbbTimetablePlatform, HTMLStencilElement {
-    }
-    var HTMLSbbTimetablePlatformElement: {
-        prototype: HTMLSbbTimetablePlatformElement;
-        new (): HTMLSbbTimetablePlatformElement;
-    };
     interface HTMLSbbTimetableRowElement extends Components.SbbTimetableRow, HTMLStencilElement {
     }
     var HTMLSbbTimetableRowElement: {
@@ -2139,12 +2116,6 @@ declare global {
     var HTMLSbbTimetableRowHeaderElement: {
         prototype: HTMLSbbTimetableRowHeaderElement;
         new (): HTMLSbbTimetableRowHeaderElement;
-    };
-    interface HTMLSbbTimetableTransportationDetailsElement extends Components.SbbTimetableTransportationDetails, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableTransportationDetailsElement: {
-        prototype: HTMLSbbTimetableTransportationDetailsElement;
-        new (): HTMLSbbTimetableTransportationDetailsElement;
     };
     interface HTMLSbbTimetableTransportationNumberElement extends Components.SbbTimetableTransportationNumber, HTMLStencilElement {
     }
@@ -2244,12 +2215,10 @@ declare global {
         "sbb-timetable-duration": HTMLSbbTimetableDurationElement;
         "sbb-timetable-occupancy": HTMLSbbTimetableOccupancyElement;
         "sbb-timetable-park-and-rail": HTMLSbbTimetableParkAndRailElement;
-        "sbb-timetable-platform": HTMLSbbTimetablePlatformElement;
         "sbb-timetable-row": HTMLSbbTimetableRowElement;
         "sbb-timetable-row-column-headers": HTMLSbbTimetableRowColumnHeadersElement;
         "sbb-timetable-row-day-change": HTMLSbbTimetableRowDayChangeElement;
         "sbb-timetable-row-header": HTMLSbbTimetableRowHeaderElement;
-        "sbb-timetable-transportation-details": HTMLSbbTimetableTransportationDetailsElement;
         "sbb-timetable-transportation-number": HTMLSbbTimetableTransportationNumberElement;
         "sbb-timetable-transportation-time": HTMLSbbTimetableTransportationTimeElement;
         "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
@@ -3362,13 +3331,13 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": InterfacePearlChainAttributes['legs'];
+        "legs"?: PTRideLeg[];
     }
     interface SbbPearlChainTime {
         /**
           * Prop to render the arrival time - will be formatted as "H:mm"
          */
-        "arrivalTime": string;
+        "arrivalTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) after arrival
          */
@@ -3376,7 +3345,7 @@ declare namespace LocalJSX {
         /**
           * Prop to render the departure time - will be formatted as "H:mm"
          */
-        "departureTime": string;
+        "departureTime"?: string;
         /**
           * Optional prop to render the walk time (in minutes) before departure
          */
@@ -3388,7 +3357,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": InterfacePearlChainAttributes['legs'];
+        "legs": PTRideLeg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -3777,16 +3746,6 @@ declare namespace LocalJSX {
          */
         "config": string;
     }
-    interface SbbTimetablePlatform {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetablePlatformAttributes['appearance'];
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
-    }
     interface SbbTimetableRow {
         /**
           * This will be forwarded as aria-label to the relevant element.
@@ -3797,13 +3756,13 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * This will be forwarded to the notices section
+         */
+        "boardingAlightingAccessibility"?: BoardingAlightingAccessibilityEnum;
+        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
-        /**
-          * When this prop is true the badge for the price will appear loading.
-         */
-        "loadingPrice"?: boolean;
         /**
           * The loading state - when this is true it will be render skeleton with an idling animation
          */
@@ -3811,11 +3770,11 @@ declare namespace LocalJSX {
         /**
           * The price Prop, which consists of the data for the badge.
          */
-        "price"?: InterfaceTimetableRowAttributes['price'];
+        "price"?: Price;
         /**
           * The trip Prop
          */
-        "trip"?: InterfaceTimetableRowAttributes['trip'];
+        "trip": Trip;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -3830,12 +3789,6 @@ declare namespace LocalJSX {
         "config": string;
     }
     interface SbbTimetableRowHeader {
-        "config": string;
-    }
-    interface SbbTimetableTransportationDetails {
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
         "config": string;
     }
     interface SbbTimetableTransportationNumber {
@@ -4048,12 +4001,10 @@ declare namespace LocalJSX {
         "sbb-timetable-duration": SbbTimetableDuration;
         "sbb-timetable-occupancy": SbbTimetableOccupancy;
         "sbb-timetable-park-and-rail": SbbTimetableParkAndRail;
-        "sbb-timetable-platform": SbbTimetablePlatform;
         "sbb-timetable-row": SbbTimetableRow;
         "sbb-timetable-row-column-headers": SbbTimetableRowColumnHeaders;
         "sbb-timetable-row-day-change": SbbTimetableRowDayChange;
         "sbb-timetable-row-header": SbbTimetableRowHeader;
-        "sbb-timetable-transportation-details": SbbTimetableTransportationDetails;
         "sbb-timetable-transportation-number": SbbTimetableTransportationNumber;
         "sbb-timetable-transportation-time": SbbTimetableTransportationTime;
         "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
@@ -4122,12 +4073,10 @@ declare module "@stencil/core" {
             "sbb-timetable-duration": LocalJSX.SbbTimetableDuration & JSXBase.HTMLAttributes<HTMLSbbTimetableDurationElement>;
             "sbb-timetable-occupancy": LocalJSX.SbbTimetableOccupancy & JSXBase.HTMLAttributes<HTMLSbbTimetableOccupancyElement>;
             "sbb-timetable-park-and-rail": LocalJSX.SbbTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLSbbTimetableParkAndRailElement>;
-            "sbb-timetable-platform": LocalJSX.SbbTimetablePlatform & JSXBase.HTMLAttributes<HTMLSbbTimetablePlatformElement>;
             "sbb-timetable-row": LocalJSX.SbbTimetableRow & JSXBase.HTMLAttributes<HTMLSbbTimetableRowElement>;
             "sbb-timetable-row-column-headers": LocalJSX.SbbTimetableRowColumnHeaders & JSXBase.HTMLAttributes<HTMLSbbTimetableRowColumnHeadersElement>;
             "sbb-timetable-row-day-change": LocalJSX.SbbTimetableRowDayChange & JSXBase.HTMLAttributes<HTMLSbbTimetableRowDayChangeElement>;
             "sbb-timetable-row-header": LocalJSX.SbbTimetableRowHeader & JSXBase.HTMLAttributes<HTMLSbbTimetableRowHeaderElement>;
-            "sbb-timetable-transportation-details": LocalJSX.SbbTimetableTransportationDetails & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationDetailsElement>;
             "sbb-timetable-transportation-number": LocalJSX.SbbTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationNumberElement>;
             "sbb-timetable-transportation-time": LocalJSX.SbbTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationTimeElement>;
             "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;

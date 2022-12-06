@@ -1,12 +1,18 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import {
-  config,
-  configPosition,
-  configMinimal,
-  configCancelled,
-  configCancelledStops,
-  configPast,
+  defaultTrip,
+  progressTrip,
+  cancelledTrip,
+  partiallyCancelled,
+  pastTrip,
+  disturbanceTrip,
+  TrainTrip,
+  BusTrip,
+  quayChangeTrip,
+  ShipTrip,
+  walkTimeTrip,
+  NoticesTrip,
 } from './sbb-timetable-row.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 
@@ -28,16 +34,22 @@ const loadingTrip = {
   },
 };
 
-const loadingPrice = {
+const active = {
   control: {
     type: 'boolean',
   },
 };
 
-const active = {
+const boarding = {
   control: {
-    type: 'boolean',
+    type: 'select',
   },
+  options: [
+    'BOARDING_ALIGHTING_NOT_POSSIBLE',
+    'BOARDING_ALIGHTING_BY_CREW',
+    'BOARDING_ALIGHTING_BY_NOTIFICATION',
+    'BOARDING_ALIGHTING_SELF',
+  ],
 };
 
 const now = {
@@ -50,16 +62,19 @@ const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
-  'loading-price': loadingPrice,
   active,
   'data-now': now,
+  'boarding-alighting-accessibility': boarding,
 };
 
 const defaultArgs = {
   'accessibility-label': 'Aria Label',
   'disable-animation': isChromatic(),
+  'loading-trip': false,
   active: false,
-  'data-now': undefined,
+  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
+  trip: defaultTrip,
+  'boarding-alighting-accessibility': boarding.options[0],
 };
 
 // TEMPLATES
@@ -72,21 +87,34 @@ export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = {
   ...defaultArgs,
-  'loading-price': config.loadingPrice,
-  'loading-trip': config.loadingTrip,
-  trip: config.trip,
-  price: config.price,
 };
 
 export const Active = Template.bind({});
 Active.argTypes = defaultArgTypes;
 Active.args = {
   ...defaultArgs,
-  'loading-price': config.loadingPrice,
-  'loading-trip': config.loadingTrip,
-  trip: config.trip,
-  price: config.price,
   active: true,
+};
+
+export const Price = Template.bind({});
+Price.argTypes = defaultArgTypes;
+Price.args = {
+  ...defaultArgs,
+  price: { price: '39.90', text: 'ab CHF', isDiscount: false },
+};
+
+export const Discount = Template.bind({});
+Discount.argTypes = defaultArgTypes;
+Discount.args = {
+  ...defaultArgs,
+  price: { isDiscount: true },
+};
+
+export const discountPrice = Template.bind({});
+discountPrice.argTypes = defaultArgTypes;
+discountPrice.args = {
+  ...defaultArgs,
+  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
 };
 
 export const LoadingTrip = Template.bind({});
@@ -94,36 +122,14 @@ LoadingTrip.argTypes = defaultArgTypes;
 LoadingTrip.args = {
   ...defaultArgs,
   'loading-trip': true,
-  trip: config.trip,
-  price: config.price,
-};
-
-export const PriceLoading = Template.bind({});
-PriceLoading.argTypes = defaultArgTypes;
-PriceLoading.args = {
-  ...defaultArgs,
-  trip: config.trip,
-  price: config.price,
-  'loading-price': true,
-  'loading-trip': config.loadingTrip,
-};
-
-export const LoadingAll = Template.bind({});
-LoadingAll.argTypes = defaultArgTypes;
-LoadingAll.args = {
-  ...defaultArgs,
-  'loading-price': true,
-  'loading-trip': true,
-  trip: config.trip,
-  price: config.price,
 };
 
 export const Position = Template.bind({});
 Position.argTypes = defaultArgTypes;
 Position.args = {
   ...defaultArgs,
-  trip: configPosition.trip,
-  'data-now': new Date('2024-06-21T02:29').valueOf(),
+  trip: progressTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const PositionDisabledAnimation = Template.bind({});
@@ -131,38 +137,81 @@ PositionDisabledAnimation.argTypes = defaultArgTypes;
 PositionDisabledAnimation.args = {
   ...defaultArgs,
   'disable-animation': true,
-  trip: configPosition.trip,
-  'data-now': new Date('2023-12-31T10:00').valueOf(),
-};
-
-export const Minimal = Template.bind({});
-Minimal.argTypes = defaultArgTypes;
-Minimal.args = {
-  ...defaultArgs,
-  trip: configMinimal.trip,
-  'data-now': new Date('2022-06-30T10:00').valueOf(),
+  trip: progressTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const Cancelled = Template.bind({});
 Cancelled.argTypes = defaultArgTypes;
 Cancelled.args = {
   ...defaultArgs,
-  trip: configCancelled.trip,
+  trip: cancelledTrip,
 };
 
-export const CancelledStops = Template.bind({});
-CancelledStops.argTypes = defaultArgTypes;
-CancelledStops.args = {
+export const PartiallyCancelled = Template.bind({});
+PartiallyCancelled.argTypes = defaultArgTypes;
+PartiallyCancelled.args = {
   ...defaultArgs,
-  trip: configCancelledStops.trip,
+  trip: partiallyCancelled,
 };
 
 export const Past = Template.bind({});
 Past.argTypes = defaultArgTypes;
 Past.args = {
   ...defaultArgs,
-  trip: configPast.trip,
-  'data-now': new Date('2022-10-30T17:00:00').valueOf(),
+  trip: pastTrip,
+  'data-now': new Date('2023-12-01T12:11:00').valueOf(),
+};
+
+export const Disturbance = Template.bind({});
+Disturbance.argTypes = defaultArgTypes;
+Disturbance.args = {
+  ...defaultArgs,
+  trip: disturbanceTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const QuayChanged = Template.bind({});
+QuayChanged.argTypes = defaultArgTypes;
+QuayChanged.args = {
+  ...defaultArgs,
+  trip: quayChangeTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const Train = Template.bind({});
+Train.argTypes = defaultArgTypes;
+Train.args = {
+  ...defaultArgs,
+  trip: TrainTrip,
+};
+
+export const Bus = Template.bind({});
+Bus.argTypes = defaultArgTypes;
+Bus.args = {
+  ...defaultArgs,
+  trip: BusTrip,
+};
+
+export const Ship = Template.bind({});
+Ship.argTypes = defaultArgTypes;
+Ship.args = {
+  ...defaultArgs,
+  trip: ShipTrip,
+};
+
+export const WalkTime = Template.bind({});
+WalkTime.argTypes = defaultArgTypes;
+WalkTime.args = {
+  ...defaultArgs,
+  trip: walkTimeTrip,
+};
+
+export const Notices = Template.bind({});
+Notices.argTypes = defaultArgTypes;
+Notices.args = {
+  ...defaultArgs,
+  trip: NoticesTrip,
 };
 
 export default {

@@ -17,7 +17,7 @@ describe('sbb-pearl-chain-time', () => {
     });
     page.rootInstance.legs = [
       {
-        duration: 60,
+        __typename: 'PTRideLeg',
       },
     ];
     await page.waitForChanges();
@@ -58,7 +58,7 @@ describe('sbb-pearl-chain-time', () => {
     });
     page.rootInstance.legs = [
       {
-        duration: 60,
+        __typename: 'PTRideLeg',
       },
     ];
     await page.waitForChanges();
@@ -107,7 +107,7 @@ describe('sbb-pearl-chain-time', () => {
     });
     page.rootInstance.legs = [
       {
-        duration: 60,
+        __typename: 'PTRideLeg',
       },
     ];
     await page.waitForChanges();
@@ -161,7 +161,7 @@ describe('sbb-pearl-chain-time', () => {
     });
     page.rootInstance.legs = [
       {
-        duration: 60,
+        __typename: 'PTRideLeg',
       },
     ];
     await page.waitForChanges();

@@ -1,5 +1,6 @@
 import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
+import { futureLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
 
 /* ************************************************* */
@@ -302,7 +303,7 @@ const TemplateTickets = (args) => (
         <span>Samstag, 21.02.2021, 1 h 26 min</span>
       </div>
       <div slot="details">
-        <sbb-pearl-chain legs={[{ duration: 60 }]}></sbb-pearl-chain>
+        <sbb-pearl-chain legs={[futureLeg]}></sbb-pearl-chain>
       </div>
       <div slot="action">
         <sbb-button variant="secondary" static>
