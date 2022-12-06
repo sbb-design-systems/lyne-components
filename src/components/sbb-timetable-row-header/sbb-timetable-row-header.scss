@@ -1,3 +1,5 @@
+@use '../../global/styles' as sbb;
+
 .row-header {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }

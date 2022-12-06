@@ -1,13 +1,15 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-dialog-color: var(--sbb-color-black-default);
   --sbb-dialog-background-color: var(--sbb-color-white-default);
   --sbb-dialog-max-width: 100%;
-  --sbb-dialog-max-width-default: #{px-to-rem-build(892)};
+  --sbb-dialog-max-width-default: #{sbb.px-to-rem-build(892)};
   --sbb-dialog-max-height: 100%;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
   --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
@@ -41,15 +43,15 @@
     }
   }
 
-  @include mq($from: micro) {
+  @include sbb.mq($from: micro) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
   }
 
-  @include mq($from: small) {
+  @include sbb.mq($from: small) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
     --sbb-dialog-max-width: min(
       calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
@@ -63,7 +65,7 @@
 :host(:is(.sbb-dialog--opened, .sbb-dialog--opening)) {
   pointer-events: all;
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
 
     &::before {
@@ -138,11 +140,11 @@
     border-radius: 0;
   }
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
     height: fit-content;
     overflow: hidden;
@@ -156,7 +158,7 @@
   max-height: var(--sbb-dialog-max-height);
   outline: none;
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     height: auto;
   }
 }
@@ -179,7 +181,7 @@
     padding-block-start: var(--sbb-spacing-responsive-xs);
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
   }
 }
@@ -191,7 +193,7 @@
 }
 
 .sbb-dialog__content {
-  @include scrollbar;
+  @include sbb.scrollbar;
 
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);
@@ -215,7 +217,7 @@
 // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
 :is(.sbb-dialog__header, .sbb-dialog__footer) {
   :host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) & {
-    @include shadow-level-9-soft;
+    @include sbb.shadow-level-9-soft;
   }
 }
 // stylelint-enable plugin/stylelint-bem-namics, selector-not-notation

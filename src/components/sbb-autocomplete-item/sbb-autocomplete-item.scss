@@ -1,13 +1,15 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: block;
 }
 
 .autocomplete-item {
-  @include text-s--bold;
+  @include sbb.text-s--bold;
 
   background-color: var(--sbb-color-white-default);
   border-radius: var(--sbb-border-radius-4x);
@@ -16,14 +18,14 @@
   padding-inline-start: var(--sbb-spacing-responsive-xxxs-zero);
   padding-inline-end: var(--sbb-spacing-responsive-xxxs-zero);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     padding-inline-start: var(--sbb-spacing-responsive-xxxs-medium);
     padding-inline-end: var(--sbb-spacing-responsive-xxxs-medium);
   }
 }
 
 .autocomplete-item__highlight {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 }
 
 .autocomplete-item--selected,
@@ -31,7 +33,7 @@
 .autocomplete-item:focus {
   background-color: var(--sbb-color-milk-default);
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     background-color: Highlight;
     color: HighlightText;
 

@@ -1,3 +1,5 @@
+@use '../core/mediaqueries';
+
 @mixin grid-base() {
   display: grid;
   grid-template-columns: repeat(var(--sbb-grid-base-columns), 1fr);
@@ -10,7 +12,7 @@
   column-gap: var(--sbb-grid-base-gutter-responsive);
   row-gap: var(--sbb-spacing-fixed-3x);
 
-  @include mq($from: medium) {
+  @include mediaqueries.mq($from: medium) {
     grid-template-columns: repeat(var(--sbb-grid-base-columns), 1fr);
     max-width: 100%;
   }

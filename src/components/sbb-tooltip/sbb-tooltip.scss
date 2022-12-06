@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-tooltip-position: absolute;
@@ -40,12 +42,12 @@
   left: var(--sbb-tooltip-arrow-position-x);
   bottom: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
   background-color: var(--sbb-tooltip-background);
-  border-radius: #{px-to-rem-build(4)} 0;
+  border-radius: #{sbb.px-to-rem-build(4)} 0;
   transform: rotate(45deg);
 }
 
 .sbb-tooltip {
-  @include shadow-level-5-hard;
+  @include sbb.shadow-level-5-hard;
 
   position: var(--sbb-tooltip-position);
   pointer-events: all;
@@ -70,9 +72,9 @@
 
   // Tooltip arrow
   &::after {
-    @include shadow-level-5-hard;
+    @include sbb.shadow-level-5-hard;
 
-    @include ifForcedColors {
+    @include sbb.ifForcedColors {
       outline: var(--sbb-border-width-1x) solid CanvasText;
     }
 
@@ -90,7 +92,7 @@
     }
   }
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 }

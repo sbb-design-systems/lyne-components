@@ -1,5 +1,11 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 .sbb-journey-summary {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   display: flex;
   flex-direction: column;
@@ -10,7 +16,7 @@
 }
 
 .sbb-journey-summary__vias {
-  @include ellipsis;
+  @include sbb.ellipsis;
 
   margin-block-start: 0;
   margin-block-end: var(--sbb-spacing-fixed-1x);

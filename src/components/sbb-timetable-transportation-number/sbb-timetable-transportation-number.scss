@@ -1,8 +1,8 @@
-// Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin
+@use '../../global/styles' as sbb;
+
 :host {
-  --transportation-number-element-height: #{px-to-rem-build(20)};
-  --product-icon-width: #{px-to-rem-build(59)};
+  --transportation-number-element-height: #{sbb.px-to-rem-build(20)};
+  --product-icon-width: #{sbb.px-to-rem-build(59)};
 }
 
 :host(sbb-timetable-transportation-number) {
@@ -21,11 +21,11 @@
 
 .transportation-number--first-level span {
   height: var(--transportation-number-element-height);
-  line-height: #{px-to-rem-build(22)};
+  line-height: #{sbb.px-to-rem-build(22)};
 }
 
 .transportation-number--visual {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   display: flex;
   flex: 0 0 100%;
@@ -58,16 +58,16 @@
 }
 
 .transportation-number__product-text {
-  @include text-s--bold;
+  @include sbb.text-s--bold;
 }
 
 .transportation-number--first-level .transportation-number__product-text {
-  line-height: #{px-to-rem-build(22)};
+  line-height: #{sbb.px-to-rem-build(22)};
 }
 
 .transportation-number--second-level .transportation-number__product-text {
   line-height: var(--transportation-number-element-height);
-  transform: translateY(#{px-to-rem-build(1)});
+  transform: translateY(#{sbb.px-to-rem-build(1)});
 }
 
 .transportation-number__direction {
@@ -85,11 +85,11 @@
 }
 
 .transportation-number--first-level .transportation-number__direction-text {
-  @include ellipsis;
+  @include sbb.ellipsis;
 }
 
 .transportation-number--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }
 
 svg {

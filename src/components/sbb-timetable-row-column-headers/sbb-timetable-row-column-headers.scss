@@ -1,3 +1,5 @@
+@use '../../global/styles' as sbb;
+
 .column-headers {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }

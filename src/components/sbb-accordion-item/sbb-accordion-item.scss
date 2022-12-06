@@ -1,9 +1,11 @@
 /* stylelint-disable */
 // TODO: solve stylelint issues
 
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: block;
@@ -53,8 +55,8 @@
 }
 
 .accordion-item__button {
-  @include buttonReset;
-  @include text-m--regular;
+  @include sbb.buttonReset;
+  @include sbb.text-m--regular;
 
   width: 100%;
   display: flex;
@@ -159,7 +161,7 @@
 }
 
 // Forced Colors
-@include ifForcedColors {
+@include sbb.ifForcedColors {
   .accordion-item--open .accordion-item__button,
   .accordion-item:not(.accordion-item--disabled):hover,
   .accordion-item:not(.accordion-item--disabled):focus-within {
@@ -172,7 +174,7 @@
   }
 
   .accordion-item {
-    border: #{px-to-rem-build(1)} solid CanvasText;
+    border: #{sbb.px-to-rem-build(1)} solid CanvasText;
   }
 
   .accordion-item__chevron svg,

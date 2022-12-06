@@ -1,11 +1,15 @@
+@use '../core/functions';
+@use '../core/mediaqueries';
+@use './typo';
+
 // ----------------------------------------------------------------------------------------------------
 // Panel Mixins: Achieve the styling of a panel
 // ----------------------------------------------------------------------------------------------------
 
 @mixin panel-variables {
-  --panel-width: #{px-to-rem-build(223)};
-  --panel-height: #{px-to-rem-build(167)};
-  --panel-triangle-height: #{px-to-rem-build(33)};
+  --panel-width: #{functions.px-to-rem-build(223)};
+  --panel-height: #{functions.px-to-rem-build(167)};
+  --panel-triangle-height: #{functions.px-to-rem-build(33)};
   --panel-font-family: var(--sbb-typo-type-face-sbb-light);
   --panel-letter-spacing: var(--sbb-typo-letter-spacing-titles);
   --panel-line-height: var(--sbb-typo-line-height-titles);
@@ -18,17 +22,17 @@
   --panel-animation-duration: var(--sbb-animation-duration-4x);
   --panel-animation-easing: var(--sbb-animation-easing);
 
-  @include mq($from: medium) {
-    --panel-width: #{px-to-rem-build(321)};
-    --panel-height: #{px-to-rem-build(240.11)};
-    --panel-triangle-height: #{px-to-rem-build(47.45)};
+  @include mediaqueries.mq($from: medium) {
+    --panel-width: #{functions.px-to-rem-build(321)};
+    --panel-height: #{functions.px-to-rem-build(240.11)};
+    --panel-triangle-height: #{functions.px-to-rem-build(47.45)};
     --panel-font-size: var(--sbb-typo-scale-2x);
   }
 
-  @include mq($from: large) {
-    --panel-width: #{px-to-rem-build(428)};
-    --panel-height: #{px-to-rem-build(320.38)};
-    --panel-triangle-height: #{px-to-rem-build(63.31)};
+  @include mediaqueries.mq($from: large) {
+    --panel-width: #{functions.px-to-rem-build(428)};
+    --panel-height: #{functions.px-to-rem-build(320.38)};
+    --panel-triangle-height: #{functions.px-to-rem-build(63.31)};
     --panel-font-size: var(--sbb-typo-scale-2-5x);
     --panel-line-height: 1.2;
   }
@@ -53,7 +57,7 @@
   background-color: var(--panel-background-color);
   transition: background var(--panel-animation-duration) var(--panel-animation-easing);
 
-  @include hover-mq($hover: true) {
+  @include mediaqueries.hover-mq($hover: true) {
     &:hover {
       --panel-background-color: var(--panel-background-color-hover);
     }
@@ -61,7 +65,7 @@
 }
 
 @mixin panel-text {
-  @include fontSmoothing;
+  @include typo.fontSmoothing;
 
   font-family: var(--panel-font-family);
   font-size: var(--panel-font-size);

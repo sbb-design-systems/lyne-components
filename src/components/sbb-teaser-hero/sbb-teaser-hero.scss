@@ -1,9 +1,11 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  @include panel-variables;
+  @include sbb.panel-variables;
 
   --teaser-hero-brightness-hover: 1.075;
 }
@@ -13,10 +15,10 @@
   display: block;
 
   &:focus-visible {
-    @include focusOutline;
+    @include sbb.focusOutline;
   }
 
-  @include hover-mq($hover: true) {
+  @include sbb.hover-mq($hover: true) {
     &:hover {
       --panel-background-color: var(--panel-background-color-hover);
       --teaser-hero-brightness: var(--teaser-hero-brightness-hover);
@@ -25,22 +27,22 @@
 }
 
 .sbb-teaser-hero__panel {
-  @include panel;
-  @include absoluteCenterY;
+  @include sbb.panel;
+  @include sbb.absoluteCenterY;
 
   z-index: 1;
 }
 
 .sbb-teaser-hero__panel-text {
-  @include panel-text;
+  @include sbb.panel-text;
 }
 
 .sbb-teaser-hero__panel-link {
-  @include fontSmoothing;
+  @include sbb.fontSmoothing;
 }
 
 .sbb-teaser-hero__opens-in-new-window {
-  @include screenReaderOnly;
+  @include sbb.screenReaderOnly;
 }
 
 ::slotted([slot='image']),

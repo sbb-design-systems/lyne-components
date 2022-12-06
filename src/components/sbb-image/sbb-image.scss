@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --image-border-radius: var(--sbb-border-radius-4x);
@@ -89,7 +91,7 @@
 
 .image__caption {
   margin-block-start: var(--sbb-spacing-fixed-4x);
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 }
 
 // no radius
@@ -101,7 +103,7 @@
 .image__figure--teaser-hero .image__wrapper {
   aspect-ratio: 1 / 1;
 
-  @include mq($from: small) {
+  @include sbb.mq($from: small) {
     aspect-ratio: 16 / 9;
   }
 }

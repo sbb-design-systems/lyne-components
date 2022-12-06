@@ -1,4 +1,8 @@
-@include host-component-properties;
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
 
 :host {
   --sbb-checkbox-border-width: var(--sbb-border-width-1x);
@@ -8,7 +12,7 @@
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-checkbox-selection-color: CanvasText;
   }
 
@@ -23,7 +27,7 @@
   --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
   --sbb-checkbox-cursor: default;
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     --sbb-checkbox-color: GrayText;
     --sbb-checkbox-label-color: GrayText;
     --sbb-checkbox-selection-color: GrayText;
@@ -33,11 +37,11 @@
 .sbb-checkbox-wrapper {
   display: flex;
 
-  @include zeroWidthSpace;
+  @include sbb.zeroWidthSpace;
 }
 
 .sbb-checkbox {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   position: relative;
   display: block;
@@ -45,10 +49,10 @@
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  @include stretch('width');
+  @include sbb.stretch('width');
 
   :host([size='m']) & {
-    @include text-m--regular;
+    @include sbb.text-m--regular;
   }
 }
 
@@ -59,7 +63,7 @@
 }
 
 input[type='checkbox'] {
-  @include invisibleContainerOverlay;
+  @include sbb.invisibleContainerOverlay;
 }
 
 .sbb-checkbox__aligner,
@@ -119,7 +123,7 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
-  @include focusOutline;
+  @include sbb.focusOutline;
 
   border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }
