@@ -27,9 +27,8 @@ export class SbbTrain {
    * Create the aria-label text out of the direction label, station and the accessibility label.
    */
   private _getDirectionAriaLabel(): string {
-    let text = `${this.directionLabel} ${this.station}.`;
-    text = this.accessibilityLabel.length ? `${text} ${this.accessibilityLabel}.` : text;
-    return text;
+    const text = `${this.directionLabel} ${this.station}.`;
+    return this.accessibilityLabel.length ? `${text} ${this.accessibilityLabel}.` : text;
   }
 
   public render(): JSX.Element {

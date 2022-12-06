@@ -11,7 +11,7 @@ describe('sbb-train-formation', () => {
     expect(root).toEqualHtml(`
         <sbb-train-formation>
           <mock:shadow-root>
-            <div class="sbb-train-formation">
+            <div class="sbb-train-formation" style="--sbb-train-direction-width: 0px;">
               <slot />
             </div>
           </mock:shadow-root>

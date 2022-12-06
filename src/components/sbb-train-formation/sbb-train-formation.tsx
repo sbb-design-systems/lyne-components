@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX } from '@stencil/core';
+import { Component, h, JSX } from '@stencil/core';
 
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
@@ -12,12 +12,6 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
   tag: 'sbb-train-formation',
 })
 export class SbbTrainFormation {
-  /** Host element */
-  @Element() private _element!: HTMLElement;
-
-  /** Slotted sbb-trains */
-  private _slottedTrains: HTMLSbbTrainElement[];
-
   /** Element that defines the visible content width */
   private _formationDiv: HTMLDivElement;
 
@@ -35,36 +29,21 @@ export class SbbTrainFormation {
 
   private _onResize(): void {
     this._contentWidth = this._formationDiv.getBoundingClientRect().width;
-    this._slottedTrains.forEach((train) => this._applyCssWidthVarToTrains(train));
+    this._applyCssWidth();
   }
 
   public componentDidLoad(): void {
     this._contentWidth = this._formationDiv.getBoundingClientRect().width;
     this._contentResizeObserver.observe(this._formationDiv);
-    this._slottedTrains = this._getTrains();
-    this._slottedTrains.forEach((train) => this._applyCssWidthVarToTrains(train));
+    this._applyCssWidth();
   }
 
   /**
-   * Get all slotted sbb-train elements
+   * Apply width of the scrollable space of the formation as a css variable. This will be used from
+   * every slotted sbb-train for the direction-label
    */
-  private _getTrains(): HTMLSbbTrainElement[] {
-    return Array.from(this._element.children).filter(
-      (e): e is HTMLSbbTrainElement => e.tagName === 'SBB-TRAIN'
-    );
-  }
-
-  private _onSlotChange(): void {
-    this._slottedTrains = this._getTrains();
-    this._slottedTrains.forEach((train) => this._applyCssWidthVarToTrains(train));
-  }
-
-  /**
-   * Apply to every given sbb-train the possible width of the scrollable space of the formation as a
-   * css variable
-   */
-  private _applyCssWidthVarToTrains(train: HTMLSbbTrainElement): void {
-    train.style.setProperty('--sbb-train-direction-width', `${this._contentWidth}px`);
+  private _applyCssWidth(): void {
+    this._formationDiv.style.setProperty('--sbb-train-direction-width', `${this._contentWidth}px`);
   }
 
   public render(): JSX.Element {
@@ -75,7 +54,7 @@ export class SbbTrainFormation {
           this._formationDiv = el;
         }}
       >
-        <slot onSlotchange={() => this._onSlotChange()} />
+        <slot />
       </div>
     );
   }
