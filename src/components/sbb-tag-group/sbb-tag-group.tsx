@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen } from '@stencil/core';
-import { HTMLStencilElement } from '@stencil/core/internal';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { hostContext } from '../../global/helpers/host-context';
 
 /**
@@ -15,12 +15,10 @@ export class SbbTagGroup implements ComponentInterface {
 
   private _isNested: boolean;
 
-  public tags: HTMLStencilElement[];
+  public tags: HTMLSbbTagElement[];
 
-  private _getTags(): HTMLStencilElement[] {
-    return Array.from(this._element.children).filter((child) =>
-      /^SBB-TAG$/u.test(child.tagName)
-    ) as HTMLStencilElement[];
+  private _getTags(): HTMLSbbTagElement[] {
+    return Array.from(this._element.querySelectorAll('sbb-tag')) as HTMLSbbTagElement[];
   }
 
   private _onTagSlotChange(): void {
@@ -31,6 +29,7 @@ export class SbbTagGroup implements ComponentInterface {
     this._isNested = !!hostContext('sbb-tag-group', this._element);
   }
 
+  // FIXME will be refactored in https://github.com/lyne-design-system/lyne-components/pull/1485
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     if (
@@ -40,15 +39,21 @@ export class SbbTagGroup implements ComponentInterface {
       return;
     }
 
-    const enabledTags = this._getTags().filter((tag) => !tag.hasAttribute('disabled'));
-    const cur = enabledTags.findIndex((e) => e === evt.target);
-    const size = enabledTags.length;
-    const prev = cur === 0 ? size - 1 : cur - 1;
-    const next = cur === size - 1 ? 0 : cur + 1;
+    const enabledTags: HTMLSbbTagElement[] = this._getTags().filter(
+      (tag) => !tag.hasAttribute('disabled')
+    );
+    const cur: number = enabledTags.findIndex((e) => e === evt.target);
+    const size: number = enabledTags.length;
+    const prev: number = cur === 0 ? size - 1 : cur - 1;
+    const next: number = cur === size - 1 ? 0 : cur + 1;
 
-    if (evt.key == 'ArrowLeft' || evt.key === 'ArrowUp') {
+    const currentWritingMode = getDocumentWritingMode();
+    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
+
+    if (evt.key === prevKey || evt.key === 'ArrowUp') {
       enabledTags[prev]?.focus();
-    } else if (evt.key == 'ArrowRight' || evt.key === 'ArrowDown') {
+    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
       enabledTags[next]?.focus();
     }
   }
