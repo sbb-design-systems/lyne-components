@@ -10,11 +10,11 @@
 }
 
 .journey-header[id] {
-  @include sbb.scrollMarginBlockStart;
+  @include sbb.scroll-margin-block-start;
 }
 
 .journey-header {
-  @include sbb.fontSmoothing;
+  @include sbb.font-smoothing;
 
   display: flex;
   flex-wrap: wrap;
@@ -44,7 +44,7 @@
 }
 
 .connection--visually-hidden {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 .icon {
@@ -55,7 +55,7 @@
   svg {
     fill: currentcolor;
 
-    @include sbb.ifForcedColors {
+    @include sbb.if-forced-colors {
       fill: ButtonText;
     }
   }

@@ -21,7 +21,7 @@
     --sbb-alert-close-button-wrapper-width: var(--sbb-spacing-fixed-12x);
   }
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     // Use outline here to not influence content position.
     // Due to overflow hidden of inner elements it's placed on host.
     outline: var(--sbb-border-width-1x) solid CanvasText;

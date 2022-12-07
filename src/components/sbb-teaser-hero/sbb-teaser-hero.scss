@@ -15,7 +15,7 @@
   display: block;
 
   &:focus-visible {
-    @include sbb.focusOutline;
+    @include sbb.focus-outline;
   }
 
   @include sbb.hover-mq($hover: true) {
@@ -28,7 +28,7 @@
 
 .sbb-teaser-hero__panel {
   @include sbb.panel;
-  @include sbb.absoluteCenterY;
+  @include sbb.absolute-center-y;
 
   z-index: 1;
 }
@@ -38,11 +38,11 @@
 }
 
 .sbb-teaser-hero__panel-link {
-  @include sbb.fontSmoothing;
+  @include sbb.font-smoothing;
 }
 
 .sbb-teaser-hero__opens-in-new-window {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 ::slotted([slot='image']),

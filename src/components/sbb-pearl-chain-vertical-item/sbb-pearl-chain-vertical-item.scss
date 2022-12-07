@@ -19,7 +19,7 @@
   background-color: transparent;
   z-index: 2;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     .pearl-chain--past & {
       border-color: GrayText;
     }

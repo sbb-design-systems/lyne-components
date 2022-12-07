@@ -6,7 +6,7 @@
 
 :host {
   @include sbb.text-xs--regular;
-  @include sbb.fontSmoothing;
+  @include sbb.font-smoothing;
 
   display: inline-block;
 }

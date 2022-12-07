@@ -29,7 +29,7 @@
 }
 
 .sbb-footer__title {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 ::slotted(.sbb-link-list-button-group) {

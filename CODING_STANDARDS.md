@@ -598,7 +598,7 @@ This is a low-effort task that makes a big difference for low-vision users. Exam
 ```scss
 @use '../../global/styles' as sbb;
 
-@include sbb.ifForcedColors {
+@include sbb.if-forced-colors {
   .unicorn-motocycle {
     border: 1px solid #fff !important;
   }

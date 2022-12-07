@@ -14,7 +14,7 @@
   --sbb-logo-svg-container-height: auto;
   --sbb-logo-background-color: none;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-logo-panel-color: ButtonText !important;
     --sbb-logo-panel-stroke-color: ButtonText !important;
     --sbb-logo-signet-color: Canvas !important;

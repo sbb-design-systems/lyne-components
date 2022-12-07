@@ -19,7 +19,7 @@
   --border-radius-end-end: 0;
   --color-background-hover: var(--sbb-color-white-default);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --item-margin-block: var(--sbb-spacing-fixed-1x);
     --body-padding-inline: var(--sbb-spacing-fixed-6x);
     --header-padding-inline: var(--sbb-spacing-fixed-6x);

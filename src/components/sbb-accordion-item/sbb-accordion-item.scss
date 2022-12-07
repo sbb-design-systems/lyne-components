@@ -55,7 +55,7 @@
 }
 
 .accordion-item__button {
-  @include sbb.buttonReset;
+  @include sbb.button-reset;
   @include sbb.text-m--regular;
 
   width: 100%;
@@ -161,7 +161,7 @@
 }
 
 // Forced Colors
-@include sbb.ifForcedColors {
+@include sbb.if-forced-colors {
   .accordion-item--open .accordion-item__button,
   .accordion-item:not(.accordion-item--disabled):hover,
   .accordion-item:not(.accordion-item--disabled):focus-within {

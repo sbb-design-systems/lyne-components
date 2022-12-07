@@ -17,14 +17,14 @@
 
 .sbb-title {
   color: var(--sbb-title-text-color-normal);
-  @include sbb.fontSmoothing;
+  @include sbb.font-smoothing;
 
   :host([visually-hidden]) & {
-    @include sbb.screenReaderOnly;
+    @include sbb.screen-reader-only;
   }
 
   &[id] {
-    @include sbb.scrollMarginBlockStart;
+    @include sbb.scroll-margin-block-start;
   }
 
   // stylelint-disable plugin/stylelint-bem-namics
