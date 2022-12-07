@@ -9,6 +9,7 @@
   --sbb-tag-border-radius: var(--sbb-tag-height);
   --sbb-tag-background-color: var(--sbb-color-white-default);
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
+  --sbb-tag-border-width: var(--sbb-border-width-1x);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
 
@@ -22,6 +23,7 @@
 
 :host([checked]) {
   --sbb-tag-border-color: var(--sbb-color-charcoal-default);
+  --sbb-tag-border-width: var(--sbb-border-width-2x);
 }
 
 :host([disabled]) {
@@ -37,7 +39,7 @@
   @include sbb.hover-mq($hover: true) {
     // stylelint-disable plugin/stylelint-bem-namics
     :host(:not([disabled])) &:hover {
-      --sbb-tag-background-color: var(--sbb-color-cloud-default);
+      --sbb-tag-background-color: var(--sbb-color-milk-default);
     }
     // stylelint-enable plugin/stylelint-bem-namics
   }
@@ -46,8 +48,6 @@
 .sbb-tag__wrapper {
   position: relative;
   margin: 0;
-  min-height: var(--sbb-tag-height);
-  max-height: var(--sbb-tag-height);
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
@@ -61,13 +61,14 @@
   &:active {
     --sbb-tag-background-color: var(--sbb-color-milk-default);
     --sbb-tag-border-color: var(--sbb-color-iron-default);
+    --sbb-tag-border-width: var(--sbb-border-width-2x);
   }
 
   &::before {
     position: absolute;
     content: '';
     inset: 0;
-    border: var(--sbb-border-width-1x) solid var(--sbb-tag-border-color);
+    border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
     border-radius: var(--sbb-tag-border-radius);
   }
 
@@ -87,7 +88,7 @@
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  line-height: 0;
+  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
 }
 
 .sbb-tag__text {
