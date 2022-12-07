@@ -10,10 +10,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import {
-  getNextElementIndexFunction,
-  isArrowKeyPressed,
-} from '../../global/helpers/arrow-navigation';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -123,7 +120,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
       const current: number = enabledCheckboxes.findIndex(
         (e: HTMLSbbCheckboxElement) => e === evt.target
       );
-      const nextIndex: number = getNextElementIndexFunction(evt)(current, enabledCheckboxes.length);
+      const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();
     }
   }

@@ -11,10 +11,7 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
-import {
-  getNextElementIndexFunction,
-  isArrowKeyPressed,
-} from '../../global/helpers/arrow-navigation';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
@@ -299,8 +296,8 @@ export class SbbTabGroup implements ComponentInterface {
     }
 
     if (isArrowKeyPressed(evt)) {
-      const current: number = enabledTabs.findIndex((t) => t.active);
-      const nextIndex: number = getNextElementIndexFunction(evt)(current, enabledTabs.length);
+      const current: number = enabledTabs.findIndex((t: InterfaceSbbTabGroupTab) => t.active);
+      const nextIndex: number = getNextElementIndex(evt, current, enabledTabs.length);
       enabledTabs[nextIndex]?.tabGroupActions.select();
       enabledTabs[nextIndex]?.focus();
       evt.preventDefault();

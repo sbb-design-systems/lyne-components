@@ -12,10 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import {
-  getNextElementIndexFunction,
-  isArrowKeyPressed,
-} from '../../global/helpers/arrow-navigation';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -215,11 +212,11 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     }
 
     if (isArrowKeyPressed(evt)) {
-      const checked: number = enabledRadios.findIndex((radio) => radio.checked);
-      const nextIndex: number = getNextElementIndexFunction(evt)(
-        checked !== -1 ? checked : 0,
-        enabledRadios.length
+      const checked: number = enabledRadios.findIndex(
+        (radio: HTMLSbbRadioButtonElement) => radio.checked
       );
+      const current: number = checked !== -1 ? checked : 0;
+      const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
       enabledRadios[nextIndex].select();
       enabledRadios[nextIndex].focus();
       evt.preventDefault();
