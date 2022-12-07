@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const lineType = {
   options: ['dotted', 'standard', 'thin'],
@@ -60,7 +61,10 @@ const defaultArgs = {
 const Template = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item
+        pearlChainVerticalItemAttributes={args}
+        disable-animaton={isChromatic()}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
@@ -82,7 +86,7 @@ const TemplateWithoutContent = (args) => {
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
         pearlChainVerticalItemAttributes={args}
-        disable-animation={false}
+        disable-animation={isChromatic()}
       ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
@@ -91,7 +95,10 @@ const TemplateWithoutContent = (args) => {
 const TemplateLeftSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item
+        pearlChainVerticalItemAttributes={args}
+        disable-animation={isChromatic()}
+      >
         <div slot="left" style=" --sbb-pearl-chain-vertical-left-item-inline-end:10px">
           slot for content
         </div>
@@ -103,7 +110,10 @@ const TemplateLeftSlot = (args) => {
 const TemplateTwoDots = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item
+        pearlChainVerticalItemAttributes={args}
+        disable-animation={isChromatic()}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
@@ -117,6 +127,7 @@ const TemplateTwoDots = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
@@ -135,7 +146,10 @@ const TemplateTwoDots = (args) => {
 const TemplateLeftSecondSlot = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item
+        pearlChainVerticalItemAttributes={args}
+        disable-animation={isChromatic()}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start:-8px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
@@ -155,6 +169,7 @@ const TemplateLeftSecondSlot = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
@@ -180,7 +195,10 @@ const TemplateLeftSecondSlot = (args) => {
 const connectionDetailTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item
+        pearlChainVerticalItemAttributes={args}
+        disable-animation={isChromatic()}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start:-8px; --sbb-pearl-chain-vertical-right-item-inline-start:10px;"
@@ -227,6 +245,7 @@ const connectionDetailTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
@@ -258,6 +277,7 @@ const thirdLevelTemplate = (args) => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
@@ -274,7 +294,10 @@ const thirdLevelTemplate = (args) => {
           10:31
         </div>
       </sbb-pearl-chain-vertical-item>
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
+      <sbb-pearl-chain-vertical-item
+        pearlChainVerticalItemAttributes={args}
+        disable-animation={isChromatic()}
+      >
         <div
           slot="right"
           style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
@@ -305,6 +328,7 @@ const thirdLevelTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'charcoal',
@@ -346,6 +370,7 @@ const thirdLevelTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
@@ -381,6 +406,7 @@ const thirdLevelTemplate = (args) => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
@@ -422,6 +448,7 @@ const TimetableInputTemplate = () => {
     <div>
       <sbb-pearl-chain-vertical>
         <sbb-pearl-chain-vertical-item
+          disable-animation={isChromatic()}
           pearlChainVerticalItemAttributes={{
             lineType: 'thin',
             lineColor: 'metal',
@@ -442,6 +469,7 @@ const TimetableInputTemplate = () => {
       <div style={{ marginTop: '2px' }}>
         <sbb-pearl-chain-vertical>
           <sbb-pearl-chain-vertical-item
+            disable-animation={isChromatic()}
             style={{ top: '2px' }}
             pearlChainVerticalItemAttributes={{
               lineType: 'thin',
@@ -461,6 +489,7 @@ const TimetableInputTemplate = () => {
             </div>
           </sbb-pearl-chain-vertical-item>
           <sbb-pearl-chain-vertical-item
+            disable-animation={isChromatic()}
             pearlChainVerticalItemAttributes={{
               dotColor: 'metal',
               minHeight: '40',
@@ -485,6 +514,7 @@ const TimetableChange = () => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
@@ -542,6 +572,7 @@ const TimetableChange = () => {
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
+        disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
@@ -675,7 +706,6 @@ positionPearlChain.argTypes = defaultArgTypes;
 positionPearlChain.args = {
   ...defaultArgs,
   position: 75,
-  'disable-animation': false,
 };
 
 connectionDetail.argTypes = defaultArgTypes;
