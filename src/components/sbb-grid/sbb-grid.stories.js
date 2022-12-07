@@ -2,7 +2,7 @@ import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-de
 import { h } from 'jsx-dom';
 import { futureLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 /* ************************************************* */
 /* Documentation platform container                  */

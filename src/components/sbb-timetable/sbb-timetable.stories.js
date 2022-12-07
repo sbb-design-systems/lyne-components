@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import { defaultTrip } from '../sbb-timetable-row/sbb-timetable-row.sample-data';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 const Template = (args) => (
   <sbb-timetable>
