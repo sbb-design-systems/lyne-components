@@ -1,17 +1,19 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  --sbb-tag-height: #{px-to-rem-build(36)};
+  --sbb-tag-height: #{sbb.px-to-rem-build(36)};
   --sbb-tag-border-radius: var(--sbb-tag-height);
   --sbb-tag-background-color: var(--sbb-color-white-default);
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
 
-  @include mq($from: medium) {
-    --sbb-tag-height: #{px-to-rem-build(40)};
+  @include sbb.mq($from: medium) {
+    --sbb-tag-height: #{sbb.px-to-rem-build(40)};
   }
 
   display: inline-block;
@@ -32,7 +34,7 @@
   position: relative;
 
   // If the the device can hover over elements with ease
-  @include hover-mq($hover: true) {
+  @include sbb.hover-mq($hover: true) {
     // stylelint-disable plugin/stylelint-bem-namics
     :host(:not([disabled])) &:hover {
       --sbb-tag-background-color: var(--sbb-color-cloud-default);
@@ -77,7 +79,7 @@
       content: '';
       inset: 50% var(--sbb-spacing-fixed-5x);
       border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
-      @include absoluteCenterY;
+      @include sbb.absoluteCenterY;
     }
   }
 }
@@ -89,22 +91,22 @@
 }
 
 .sbb-tag__text {
-  @include text-xs--bold;
-  @include ellipsis;
+  @include sbb.text-xs--bold;
+  @include sbb.ellipsis;
 }
 
 .sbb-tag__amount {
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   color: var(--sbb-tag-amount-color);
 }
 
 input[type='checkbox'] {
-  @include invisibleContainerOverlay;
+  @include sbb.invisibleContainerOverlay;
 }
 
 input[type='checkbox']:focus-visible + .sbb-tag__wrapper {
-  @include focusOutline;
+  @include sbb.focusOutline;
 
   outline-offset: var(--sbb-spacing-fixed-1x);
 }
