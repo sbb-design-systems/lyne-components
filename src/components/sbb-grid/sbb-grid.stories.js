@@ -306,7 +306,7 @@ const TemplateTickets = (args) => (
       <div slot="details">
         <sbb-pearl-chain
           legs={[futureLeg]}
-          data-now={new Date('2022-12-08T12:11:00+01:00').valueOf()}
+          data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
           disable-animation={isChromatic()}
         ></sbb-pearl-chain>
       </div>
