@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 
 import {
   InterfaceImageAttributes,
@@ -18,7 +18,7 @@ const eventListenerOptions = {
   styleUrl: 'sbb-image.scss',
   tag: 'sbb-image',
 })
-export class SbbImage {
+export class SbbImage implements ComponentInterface {
   private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;
   private _linksInCaption;

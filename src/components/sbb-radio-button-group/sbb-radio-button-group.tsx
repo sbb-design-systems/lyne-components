@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -32,7 +33,7 @@ let nextId = 0;
   styleUrl: 'sbb-radio-button-group.scss',
   tag: 'sbb-radio-button-group',
 })
-export class SbbRadioButtonGroup {
+export class SbbRadioButtonGroup implements ComponentInterface {
   /**
    * Id of the radio group element.
    */

@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop, Element } from '@stencil/core';
+import { Component, h, JSX, Prop, Element, ComponentInterface } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
@@ -11,7 +11,7 @@ import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-h
   styleUrl: 'sbb-journey-summary.scss',
   tag: 'sbb-journey-summary',
 })
-export class SbbJourneySummary {
+export class SbbJourneySummary implements ComponentInterface {
   /**  The config prop */
   @Prop() public config!: InterfaceJourneySummaryAttributes['config'];
 
