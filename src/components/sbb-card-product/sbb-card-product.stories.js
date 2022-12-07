@@ -3,6 +3,7 @@ import { h } from 'jsx-dom';
 import { futureLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
 import events from './sbb-card-product.events';
+import isChromatic from 'chromatic/isChromatic';
 
 /* ************************************************* */
 /* Documentation platform container                  */
@@ -303,7 +304,13 @@ const SlotSbbTextTemplate = (args) => <span>{args.text}</span>;
 
 /* --- pearl chain slot ---------------------------------- */
 
-const SlotPearlChainTemplate = () => <sbb-pearl-chain legs={[futureLeg]} />;
+const SlotPearlChainTemplate = () => (
+  <sbb-pearl-chain
+    legs={[futureLeg]}
+    data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
+    disable-animation={isChromatic()}
+  />
+);
 
 /* --- card-badge slot ----------------------------- */
 
