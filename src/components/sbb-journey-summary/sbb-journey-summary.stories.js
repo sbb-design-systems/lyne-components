@@ -29,8 +29,9 @@ const defaultArgs = {
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
-const Template = (args) => (
-  <sbb-journey-summary config={args}>
+
+const Template = ({ 'disable-animation': disableAnimation, 'data-now': dataNow, ...args }) => (
+  <sbb-journey-summary disable-animation={disableAnimation} data-now={dataNow} config={args}>
     <div
       style={{
         display: 'flex',
@@ -45,7 +46,17 @@ const Template = (args) => (
   </sbb-journey-summary>
 );
 
-const TemplateNoSlot = (args) => <sbb-journey-summary config={args}></sbb-journey-summary>;
+const TemplateNoSlot = ({
+  'disable-animation': disableAnimation,
+  'data-now': dataNow,
+  ...args
+}) => (
+  <sbb-journey-summary
+    disable-animation={disableAnimation}
+    data-now={dataNow}
+    config={args}
+  ></sbb-journey-summary>
+);
 
 export const summaryNoSlot = TemplateNoSlot.bind({});
 export const summary = Template.bind({});
