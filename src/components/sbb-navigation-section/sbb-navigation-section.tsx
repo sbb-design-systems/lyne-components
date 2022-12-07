@@ -40,7 +40,7 @@ export class SbbNavigationSection implements AccessibilityProperties {
   /**
    * This id will be forwarded to the relevant inner element.
    */
-  @Prop() public navigationSectionId = `sbb-dialog-${++nextId}`;
+  @Prop() public navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
   /*
    * This id will be forwarded to the relevant inner element.
@@ -341,6 +341,7 @@ export class SbbNavigationSection implements AccessibilityProperties {
           'sbb-navigation-section--opened': this._state === 'opened',
           'sbb-navigation-section--opening': this._state === 'opening',
           'sbb-navigation-section--closing': this._state === 'closing',
+          'sbb-navigation-section--closed': this._state === 'closed',
         }}
       >
         <dialog

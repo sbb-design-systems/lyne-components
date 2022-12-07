@@ -332,17 +332,21 @@ export class SbbNavigation implements AccessibilityProperties {
 
   public render(): JSX.Element {
     const closeButton = (
-      <sbb-button
-        class="sbb-navigation__close"
-        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
-        accessibility-controls={this.navigationId}
-        variant="transparent"
-        negative={true}
-        size="m"
-        type="button"
-        icon-name="cross-small"
-        sbb-navigation-close
-      ></sbb-button>
+      <div class="sbb-navigation__header">
+        <sbb-button
+          class="sbb-navigation__close"
+          accessibility-label={
+            this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]
+          }
+          accessibility-controls={this.navigationId}
+          variant="transparent"
+          negative={true}
+          size="m"
+          type="button"
+          icon-name="cross-small"
+          sbb-navigation-close
+        ></sbb-button>
+      </div>
     );
     return (
       <Host
@@ -350,23 +354,24 @@ export class SbbNavigation implements AccessibilityProperties {
           'sbb-navigation--opened': this._state === 'opened',
           'sbb-navigation--opening': this._state === 'opening',
           'sbb-navigation--closing': this._state === 'closing',
+          'sbb-navigation--closed': this._state === 'closed',
           'sbb-navigation--has-navigation-section': this._hasNavigationSection,
         }}
       >
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */}
         <dialog
           ref={(navigationRef) => (this._navigation = navigationRef)}
           id={this.navigationId}
           aria-label={this.accessibilityLabel}
           onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
+          onClick={(event: Event) => this._closeOnSbbNavigationCloseClick(event)}
           class="sbb-navigation"
         >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+          {closeButton}
           <div
-            onClick={(event: Event) => this._closeOnSbbNavigationCloseClick(event)}
             ref={(navigationWrapperRef) => (this._navigationWrapperElement = navigationWrapperRef)}
             class="sbb-navigation__wrapper"
           >
-            {closeButton}
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div
               onClick={(event: Event) => this._closeOnLinkElementClick(event)}
