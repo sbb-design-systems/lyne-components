@@ -67,6 +67,7 @@
 
   @include sbb.mq($from: ultra) {
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
+    --sbb-navigation-columns: 1 / 6;
   }
 }
 

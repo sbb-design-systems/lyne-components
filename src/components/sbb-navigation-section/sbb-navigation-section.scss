@@ -14,6 +14,8 @@
   --sbb-navigation-section-list-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-section-column: 1 / 5;
+  --sbb-navigation-section-left: calc(var(--sbb-layout-base-offset-responsive) * -1);
+  --sbb-navigation-section-right: calc(var(--sbb-layout-base-offset-responsive) * -1);
 
   @include sbb.grid-base;
 
@@ -29,7 +31,7 @@
   }
 
   @include sbb.mq($from: medium) {
-    --sbb-navigation-section-column: 5 / 9;
+    --sbb-navigation-section-column: 1 / 9;
   }
 
   @include sbb.mq($from: large) {
@@ -39,11 +41,17 @@
       var(--sbb-layout-base-offset-responsive);
     --sbb-navigation-section-transform: 0;
     --sbb-navigation-section-list-padding-inline-start: 0;
-    --sbb-navigation-section-column: 5 / 12;
+    --sbb-navigation-section-left: calc(var(--sbb-grid-base-gutter-responsive) * -1);
+    --sbb-navigation-section-column: 5 / 9;
+  }
+
+  @include sbb.mq($from: wide) {
+    --sbb-navigation-section-column: 5 / 13;
   }
 
   @include sbb.mq($from: ultra) {
     --sbb-navigation-section-padding-block-start: var(--sbb-spacing-responsive-xxl);
+    --sbb-navigation-section-column: 6 / 17;
   }
 }
 
@@ -62,8 +70,8 @@
   height: calc(100vh - calc(100vh - 100%));
   width: auto;
   top: 0;
-  left: calc(var(--sbb-grid-base-gutter-responsive) * -1);
-  right: 0;
+  left: var(--sbb-navigation-section-left);
+  right: var(--sbb-navigation-section-right);
   opacity: 0;
   grid-column: var(--sbb-navigation-section-column);
   margin: 0;
