@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.16.1](https://github.com/lyne-design-system/lyne-components/compare/v0.16.0...v0.16.1) (2022-12-07)
+
+### Bug Fixes
+
+- **sbb-journey-summary:** enable configuration of current date ([#1487](https://github.com/lyne-design-system/lyne-components/issues/1487)) ([1c72cc4](https://github.com/lyne-design-system/lyne-components/commit/1c72cc4c89973f53e82086b839d29a3bed99033d))
+
 ## [0.16.0](https://github.com/lyne-design-system/lyne-components/compare/v0.15.9...v0.16.0) (2022-12-06)
 
 ### ⚠ BREAKING CHANGES
