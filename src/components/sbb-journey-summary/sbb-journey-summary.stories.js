@@ -6,6 +6,7 @@ import {
   progressLeg,
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const disableAnimation = {
   control: {
@@ -25,7 +26,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'disable-animation': false,
+  'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 const Template = (args) => (

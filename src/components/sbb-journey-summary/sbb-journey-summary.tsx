@@ -31,6 +31,11 @@ export class SbbJourneySummary implements ComponentInterface {
     this._hasContentSlot = Boolean(this._hostElement.querySelector('[slot="content"]'));
   }
 
+  private _now(): number {
+    const dataNow = +this._hostElement.dataset?.now;
+    return isNaN(dataNow) ? Date.now() : dataNow;
+  }
+
   /**  formats the duration of the journey */
   private _formatTime(duration: Duration): JSX.Element {
     return (
@@ -127,6 +132,7 @@ export class SbbJourneySummary implements ComponentInterface {
             arrivalWalk={arrivalWalk}
             legs={legs}
             disableAnimation={this.disableAnimation}
+            data-now={this._now()}
           />
           {this._hasContentSlot && (
             <div class="sbb-journey-summary__slot">
