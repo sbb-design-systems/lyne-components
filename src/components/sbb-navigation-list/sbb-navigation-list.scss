@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: flex;
@@ -8,7 +10,7 @@
 }
 
 .sbb-navigation-list__content {
-  @include list-reset;
+  @include sbb.list-reset;
 
   display: flex;
   flex-direction: column;
@@ -18,7 +20,7 @@
 }
 
 .sbb-navigation-list__label {
-  @include text-xxs--bold;
+  @include sbb.text-xxs--bold;
 
   display: inline-block;
   color: var(--sbb-color-storm-default);

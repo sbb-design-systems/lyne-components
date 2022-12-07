@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-navigation-position: fixed;
@@ -15,7 +17,7 @@
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-  @include grid-base;
+  @include sbb.grid-base;
 
   width: 100vw;
   height: 100vh;
@@ -30,11 +32,11 @@
     margin-block-start: var(--sbb-navigation-list-margin-block-start);
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-navigation-columns: 1 / 9;
   }
 
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     --sbb-navigation-columns: 1 / 5;
     --sbb-navigation-right: 0;
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
@@ -63,7 +65,7 @@
     }
   }
 
-  @include mq($from: ultra) {
+  @include sbb.mq($from: ultra) {
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   }
 }
@@ -75,7 +77,7 @@
 
 :host(.sbb-navigation--opened),
 :host(.sbb-navigation--opening) {
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     --sbb-navigation-backdrop-color: var(--sbb-color-black-alpha-70);
 
     &::before {
@@ -143,7 +145,7 @@
     animation-name: close;
   }
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
@@ -173,7 +175,7 @@
 }
 
 .sbb-navigation__content {
-  @include scrollbar-dark;
+  @include sbb.scrollbar-dark;
 
   display: flex;
   flex-direction: column;
@@ -195,7 +197,7 @@
     left: -100%;
   }
 
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     :host(.sbb-navigation--has-navigation-section) & {
       left: 0%;
     }

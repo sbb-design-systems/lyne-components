@@ -1,9 +1,11 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  @include title-4;
+  @include sbb.title-4;
 
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
@@ -36,7 +38,7 @@
       property: opacity, top;
     }
 
-    @include ifForcedColors {
+    @include sbb.ifForcedColors {
       background: CanvasText;
     }
   }
@@ -47,7 +49,7 @@
 }
 
 :host([size='s']) {
-  @include text-xxs--bold;
+  @include sbb.text-xxs--bold;
 
   --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
   --sbb-navigation-marker-width: #{px-to-rem-build(8)};
@@ -62,7 +64,7 @@
 }
 
 .sbb-navigation-marker__content {
-  @include list-reset;
+  @include sbb.list-reset;
 
   display: flex;
   flex-direction: column;

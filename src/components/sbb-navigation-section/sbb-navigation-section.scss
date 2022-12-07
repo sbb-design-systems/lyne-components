@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-navigation-section-position: fixed;
@@ -13,7 +15,7 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-section-column: 1 / 5;
 
-  @include grid-base;
+  @include sbb.grid-base;
 
   width: 100vw;
   height: 100vh;
@@ -26,11 +28,11 @@
     padding-inline-start: var(--sbb-navigation-section-list-padding-inline-start);
   }
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-navigation-section-column: 5 / 9;
   }
 
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-4x);
     --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-14x)
@@ -40,7 +42,7 @@
     --sbb-navigation-section-column: 5 / 12;
   }
 
-  @include mq($from: ultra) {
+  @include sbb.mq($from: ultra) {
     --sbb-navigation-section-padding-block-start: var(--sbb-spacing-responsive-xxl);
   }
 }
@@ -88,18 +90,18 @@
     pointer-events: none;
     animation-name: close;
 
-    @include mq($from: large) {
+    @include sbb.mq($from: large) {
       animation-delay: var(--sbb-navigation-section-animation-duration);
     }
   }
 
-  @include ifForcedColors {
+  @include sbb.ifForcedColors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
 
 .sbb-navigation-section__wrapper {
-  @include scrollbar-dark;
+  @include sbb.scrollbar-dark;
 
   height: calc(100vh - calc(100vh - 100%));
   padding-block: var(--sbb-navigation-section-padding-block);
@@ -118,17 +120,17 @@
   gap: var(--sbb-spacing-fixed-1x);
   margin-block-start: var(--sbb-spacing-responsive-xxl);
 
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     margin-block-start: 0;
   }
 
-  @include mq($from: wide) {
+  @include sbb.mq($from: wide) {
     grid-column: 1 / 4;
   }
 }
 
 .sbb-navigation-section__back {
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     display: none;
   }
 }
@@ -139,7 +141,7 @@
   grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-layout-base-grid-gutter-responsive-medium);
   padding-inline: var(--sbb-navigation-section-padding-inline);
 
-  @include mq($from: large) {
+  @include sbb.mq($from: large) {
     opacity: 0;
     transform: translateY(var(--sbb-spacing-fixed-3x));
     transition: {
@@ -155,7 +157,7 @@
     }
   }
 
-  @include mq($from: wide) {
+  @include sbb.mq($from: wide) {
     grid-template-columns: repeat(3, 1fr);
     border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   }
