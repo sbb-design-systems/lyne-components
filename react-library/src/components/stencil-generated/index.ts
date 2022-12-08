@@ -15,6 +15,7 @@ export const SbbAlert = /*@__PURE__*/createReactComponent<JSX.SbbAlert, HTMLSbbA
 export const SbbAlertGroup = /*@__PURE__*/createReactComponent<JSX.SbbAlertGroup, HTMLSbbAlertGroupElement>('sbb-alert-group');
 export const SbbAutocomplete = /*@__PURE__*/createReactComponent<JSX.SbbAutocomplete, HTMLSbbAutocompleteElement>('sbb-autocomplete');
 export const SbbAutocompleteItem = /*@__PURE__*/createReactComponent<JSX.SbbAutocompleteItem, HTMLSbbAutocompleteItemElement>('sbb-autocomplete-item');
+export const SbbBlockedPassage = /*@__PURE__*/createReactComponent<JSX.SbbBlockedPassage, HTMLSbbBlockedPassageElement>('sbb-blocked-passage');
 export const SbbButton = /*@__PURE__*/createReactComponent<JSX.SbbButton, HTMLSbbButtonElement>('sbb-button');
 export const SbbCard = /*@__PURE__*/createReactComponent<JSX.SbbCard, HTMLSbbCardElement>('sbb-card');
 export const SbbCardBadge = /*@__PURE__*/createReactComponent<JSX.SbbCardBadge, HTMLSbbCardBadgeElement>('sbb-card-badge');
