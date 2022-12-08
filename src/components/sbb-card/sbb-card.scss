@@ -79,7 +79,7 @@
   }
 
   &:focus-visible {
-    @include sbb.focusOutline;
+    @include sbb.focus-outline;
   }
 
   :host([href]) & {
@@ -93,7 +93,7 @@
 
     cursor: pointer;
 
-    // can't use @include sbb.buttonReset because overrides paddings, backgrounds..., only basic rules added
+    // can't use @include sbb.button-reset because overrides paddings, backgrounds..., only basic rules added
     border: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -124,5 +124,5 @@
 }
 
 .sbb-card__opens-in-new-window {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

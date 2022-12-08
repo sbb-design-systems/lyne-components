@@ -65,7 +65,7 @@
   }
 
   &:focus-visible {
-    @include sbb.focusOutline;
+    @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
@@ -89,7 +89,7 @@
     }
   }
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
@@ -97,7 +97,7 @@
 // stylelint-enable plugin/stylelint-bem-namics
 
 button:where(.sbb-link) {
-  @include sbb.buttonReset;
+  @include sbb.button-reset;
 }
 
 .sbb-link__icon {
@@ -113,10 +113,10 @@ button:where(.sbb-link) {
 
   ::slotted([slot='icon']),
   sbb-icon {
-    @include sbb.absoluteCenterY;
+    @include sbb.absolute-center-y;
   }
 }
 
 .sbb-link__opens-in-new-window {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

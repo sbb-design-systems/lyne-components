@@ -18,7 +18,7 @@
 }
 
 :host(:focus-visible) {
-  @include sbb.focusOutline;
+  @include sbb.focus-outline;
 
   border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }
@@ -29,7 +29,7 @@
 }
 
 .sbb-radio-button__input {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 // One radio button per line
@@ -80,7 +80,7 @@
 
     :host([data-group-disabled]) &,
     :host([disabled]) & {
-      @include sbb.ifForcedColors {
+      @include sbb.if-forced-colors {
         border-color: GrayText;
       }
     }

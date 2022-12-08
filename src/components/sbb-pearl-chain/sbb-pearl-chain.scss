@@ -50,7 +50,7 @@
   inset-block-start: 0;
   z-index: 3;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: CanvasText;
   }
 }
@@ -65,7 +65,7 @@
 
 .sbb-pearl-chain.sbb-pearl-chain--past::before,
 .sbb-pearl-chain.sbb-pearl-chain--past::after {
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: GrayText;
   }
 }
@@ -74,7 +74,7 @@
 .sbb-pearl-chain--arrival-cancellation::after {
   color: var(--color-cancellation);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: ActiveText;
   }
 }
@@ -83,7 +83,7 @@
 .sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
   color: var(--color-past);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     color: GrayText;
   }
 }
@@ -91,7 +91,7 @@
 .sbb-pearl-chain--past {
   position: relative;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     color: GrayText;
   }
 }
@@ -105,7 +105,7 @@
   background-color: currentcolor;
   width: var(--leg-width);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     color: CanvasText;
   }
 }
@@ -133,7 +133,7 @@
     border: var(--sbb-pearl-chain-height) solid currentcolor;
     z-index: 2;
 
-    @include sbb.ifForcedColors {
+    @include sbb.if-forced-colors {
       .sbb-pearl-chain--past & {
         border-color: GrayText;
       }
@@ -152,7 +152,7 @@
   border-radius: var(--sbb-pearl-chain-height);
   z-index: 1;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: CanvasText;
 
     .sbb-pearl-chain--past & {
@@ -173,7 +173,7 @@
 .sbb-pearl-chain__leg--cancellation {
   color: var(--color-cancellation);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     color: ActiveText;
   }
 }
@@ -188,7 +188,7 @@
 
 .sbb-pearl-chain__leg--cancellation::after,
 .sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background: none;
     border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
     transform: translateY(#{sbb.px-to-rem-build(1)});
@@ -209,7 +209,7 @@
   inset-inline-start: var(--status-position);
   animation: pulse 3s infinite;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: ActiveText;
   }
 }

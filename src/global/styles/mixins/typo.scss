@@ -150,19 +150,19 @@
  * Usage:
  *
  * .var_dark_on_light {
- * 	@include fontSmoothing;
+ * 	@include font-smoothing;
  * }
  * .var_light_on_dark {
- * 	@include fontSmoothingReset;
+ * 	@include font-smoothing-reset;
  * }
  */
 
-@mixin fontSmoothing() {
+@mixin font-smoothing() {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@mixin fontSmoothingReset() {
+@mixin font-smoothing-reset() {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
 }
@@ -173,7 +173,7 @@
   }
 }
 
-@mixin clampLines($lines) {
+@mixin clamp-lines($lines) {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

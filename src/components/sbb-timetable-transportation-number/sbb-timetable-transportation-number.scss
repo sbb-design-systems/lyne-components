@@ -89,7 +89,7 @@
 }
 
 .transportation-number--visually-hidden {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 svg {

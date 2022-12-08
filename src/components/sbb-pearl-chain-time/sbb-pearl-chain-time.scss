@@ -36,5 +36,5 @@
 }
 
 .sbb-screenreaderonly {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

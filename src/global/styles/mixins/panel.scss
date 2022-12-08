@@ -65,7 +65,7 @@
 }
 
 @mixin panel-text {
-  @include typo.fontSmoothing;
+  @include typo.font-smoothing;
 
   font-family: var(--panel-font-family);
   font-size: var(--panel-font-size);

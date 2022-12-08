@@ -10,7 +10,7 @@
   --sbb-signet-aspect-ratio: 2 / 1;
   --sbb-signet-svg-container-height: auto;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-signet-background-color: ButtonText !important;
     --sbb-signet-icon-color: Canvas !important;
   }

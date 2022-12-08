@@ -18,5 +18,5 @@
 
 .timetable > svg,
 .timetable__column-headers {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

@@ -162,10 +162,10 @@
 }
 
 .sbb-button {
-  @include sbb.buttonReset;
+  @include sbb.button-reset;
   @include sbb.stretch(width);
   @include sbb.text-xs--bold;
-  @include sbb.fontSmoothing;
+  @include sbb.font-smoothing;
 
   // Reset for link variant
   text-decoration: none;
@@ -201,13 +201,13 @@
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
 
-    @include sbb.ifForcedColors {
+    @include sbb.if-forced-colors {
       border: #{sbb.px-to-rem-build(1)} solid windowText;
     }
   }
 
   &:focus-visible::before {
-    @include sbb.focusOutline;
+    @include sbb.focus-outline;
   }
 
   // If the the device can hover over elements with ease
@@ -228,7 +228,7 @@
         background-color: var(--sbb-button-color-hover-background);
         border-color: var(--sbb-button-color-hover-border);
 
-        @include sbb.ifForcedColors {
+        @include sbb.if-forced-colors {
           border-color: Highlight;
         }
       }
@@ -249,18 +249,18 @@
     // Line through content
     &::after {
       content: '';
-      @include sbb.absoluteCenterY;
+      @include sbb.absolute-center-y;
 
       background-color: var(--sbb-button-color-disabled-text);
       height: var(--sbb-button-disabled-line-through-height);
       inset-inline: var(--sbb-button-padding-inline);
 
-      @include sbb.ifForcedColors {
+      @include sbb.if-forced-colors {
         background-color: GrayText;
       }
     }
 
-    @include sbb.ifForcedColors {
+    @include sbb.if-forced-colors {
       color: GrayText;
     }
   }
@@ -288,7 +288,7 @@
   }
   // stylelint-enable plugin/stylelint-bem-namics
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     color: ButtonText;
   }
 }
@@ -333,5 +333,5 @@
 }
 
 .sbb-button__opens-in-new-window {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

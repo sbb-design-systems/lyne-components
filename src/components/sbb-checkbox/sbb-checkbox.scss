@@ -12,7 +12,7 @@
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: CanvasText;
   }
 
@@ -27,7 +27,7 @@
   --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
   --sbb-checkbox-cursor: default;
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-checkbox-color: GrayText;
     --sbb-checkbox-label-color: GrayText;
     --sbb-checkbox-selection-color: GrayText;
@@ -37,7 +37,7 @@
 .sbb-checkbox-wrapper {
   display: flex;
 
-  @include sbb.zeroWidthSpace;
+  @include sbb.zero-width-space;
 }
 
 .sbb-checkbox {
@@ -63,7 +63,7 @@
 }
 
 input[type='checkbox'] {
-  @include sbb.invisibleContainerOverlay;
+  @include sbb.invisible-container-overlay;
 }
 
 .sbb-checkbox__aligner,
@@ -123,7 +123,7 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
-  @include sbb.focusOutline;
+  @include sbb.focus-outline;
 
   border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }

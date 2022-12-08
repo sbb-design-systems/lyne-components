@@ -12,7 +12,7 @@
   --sbb-icon-svg-width: var(--sbb-size-icon-form-error);
   --sbb-icon-svg-height: var(--sbb-size-icon-form-error);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --form-error-color: LinkText;
   }
 

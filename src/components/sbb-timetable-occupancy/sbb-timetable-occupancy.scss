@@ -31,7 +31,7 @@
 }
 
 .occupancy__class--visually-hidden {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 .occupancy__icon {

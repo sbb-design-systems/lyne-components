@@ -48,7 +48,7 @@
     padding-inline-end: var(--sbb-spacing-responsive-xxxs-medium);
   }
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: Canvas;
     border: #{sbb.px-to-rem-build(1)} solid Highlight;
     border-block-start: none;
@@ -62,5 +62,5 @@
 }
 
 .autocomplete__accessibility-hint {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

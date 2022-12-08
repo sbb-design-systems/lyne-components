@@ -43,5 +43,5 @@
 }
 
 .time__text--visually-hidden {
-  @include sbb.screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

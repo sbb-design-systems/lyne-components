@@ -33,7 +33,7 @@
 .autocomplete-item:focus {
   background-color: var(--sbb-color-milk-default);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: Highlight;
     color: HighlightText;
 

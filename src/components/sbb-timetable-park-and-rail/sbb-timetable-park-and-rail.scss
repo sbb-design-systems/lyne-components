@@ -15,7 +15,7 @@
   height: var(--park-and-rail-icon-height);
   width: var(--park-and-rail-icon-width);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     fill: CanvasText;
   }
 }

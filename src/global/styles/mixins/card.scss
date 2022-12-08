@@ -42,7 +42,7 @@
   &:focus {
     @include card--shadow;
 
-    @include a11y.focusOutline;
+    @include a11y.focus-outline;
   }
 
   // If the the device can hover over elements with ease
@@ -52,7 +52,7 @@
     }
   }
 
-  @include a11y.ifForcedColors {
+  @include a11y.if-forced-colors {
     border: #{functions.px-to-rem-build(1)} solid ButtonText;
 
     &:disabled {

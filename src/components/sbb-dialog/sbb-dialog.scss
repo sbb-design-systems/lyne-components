@@ -140,7 +140,7 @@
     border-radius: 0;
   }
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 

@@ -74,7 +74,7 @@
   &::after {
     @include sbb.shadow-level-5-hard;
 
-    @include sbb.ifForcedColors {
+    @include sbb.if-forced-colors {
       outline: var(--sbb-border-width-1x) solid CanvasText;
     }
 
@@ -92,7 +92,7 @@
     }
   }
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 }

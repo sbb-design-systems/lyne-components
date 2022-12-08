@@ -11,7 +11,7 @@
   --card-badge-background-color-primary-negative: var(--sbb-color-white-default);
   --card-badge-border-color-primary-negative: var(--sbb-color-aluminium-default);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     border-inline-start: #{sbb.px-to-rem-build(1)} solid CanvasText;
     border-block-end: #{sbb.px-to-rem-build(1)} solid CanvasText;
   }

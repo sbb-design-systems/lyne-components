@@ -17,7 +17,7 @@
   --sbb-slider-line-color: var(--sbb-color-smoke-default);
   --sbb-slider-line-disabled-color: var(--sbb-color-graphite-default);
 
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-slider-selected-line-color: Highlight;
     --sbb-slider-line-color: CanvasText;
   }
@@ -40,7 +40,7 @@
 
 :host([disabled]),
 :host([readonly]) {
-  @include sbb.ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-slider-icon-color: GrayText;
     --sbb-slider-selected-line-disabled-color: GrayText;
     --sbb-slider-line-disabled-color: GrayText;
@@ -51,7 +51,7 @@
 }
 
 .sbb-slider__height-container {
-  @include sbb.zeroWidthSpace;
+  @include sbb.zero-width-space;
 
   display: flex;
   flex-direction: column;
@@ -79,7 +79,7 @@
 }
 
 .sbb-slider__line {
-  @include sbb.absoluteCenterY;
+  @include sbb.absolute-center-y;
 
   height: var(--sbb-slider-line-height);
   width: 100%;
@@ -97,7 +97,7 @@
 }
 
 .sbb-slider__knob {
-  @include sbb.absoluteCenterY;
+  @include sbb.absolute-center-y;
   @include sbb.shadow-level-5-hard;
 
   width: var(--sbb-slider-knob-size);
@@ -124,7 +124,7 @@
   }
 
   .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
-    @include sbb.focusOutline;
+    @include sbb.focus-outline;
   }
 }
 /* stylelint-enable plugin/stylelint-bem-namics */

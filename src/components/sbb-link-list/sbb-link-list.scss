@@ -8,7 +8,7 @@
   --sbb-link-list-flex-flow: row wrap;
 
   .sbb-link-list-title {
-    @include sbb.screenReaderOnly;
+    @include sbb.screen-reader-only;
   }
 }
 
