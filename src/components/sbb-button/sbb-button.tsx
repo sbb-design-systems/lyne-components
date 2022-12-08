@@ -27,7 +27,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   styleUrl: 'sbb-button.scss',
   tag: 'sbb-button',
 })
-export class SbbButton implements LinkButtonProperties, ComponentInterface {
+export class SbbButton implements ComponentInterface, LinkButtonProperties {
   /** Variant of the button, like primary, secondary etc. */
   @Prop({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
 

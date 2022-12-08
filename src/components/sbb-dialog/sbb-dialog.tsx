@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -38,7 +39,7 @@ let nextTitleId = 0;
   styleUrl: 'sbb-dialog.scss',
   tag: 'sbb-dialog',
 })
-export class SbbDialog implements AccessibilityProperties {
+export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   /**
    * This id will be forwarded to the relevant inner element.
    */

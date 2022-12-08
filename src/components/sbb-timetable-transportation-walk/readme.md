@@ -19,13 +19,11 @@ here to show the various configuration options to component developers. !!
 ### Used by
 
  - [sbb-timetable-button](../sbb-timetable-button)
- - [sbb-timetable-transportation-details](../sbb-timetable-transportation-details)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-timetable-button --> sbb-timetable-transportation-walk
-  sbb-timetable-transportation-details --> sbb-timetable-transportation-walk
   style sbb-timetable-transportation-walk fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

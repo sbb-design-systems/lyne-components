@@ -5,6 +5,9 @@ import readme from './readme.md';
 /* Storybook controls                                */
 /* ************************************************* */
 
+const longLabel =
+  'For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum. In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor. Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh. Quisque vitae massa et turpis fermentum tristique.';
+
 const checked = {
   control: {
     type: 'boolean',
@@ -40,7 +43,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   checked: false,
   disabled: false,
-  'label-position': labelPosition[1],
+  'label-position': labelPosition.options[1],
   label: 'Title',
   name: 'toggle',
 };
@@ -64,6 +67,7 @@ const ToggleCheckCustomIconTemplate = (args) => (
 
 export const sbbToggleCheckDefault = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckDefaultChecked = ToggleCheckDefaultTemplate.bind({});
+export const sbbToggleCheckDefaultLongLabel = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckLabelBefore = ToggleCheckDefaultTemplate.bind({});
 export const sbbToggleCheckWithoutLabel = ToggleCheckWithoutLabelTemplate.bind({});
 export const sbbToggleCheckDisabled = ToggleCheckDefaultTemplate.bind({});
@@ -79,6 +83,12 @@ sbbToggleCheckDefaultChecked.argTypes = defaultArgTypes;
 sbbToggleCheckDefaultChecked.args = {
   ...defaultArgs,
   checked: true,
+};
+
+sbbToggleCheckDefaultLongLabel.argTypes = defaultArgTypes;
+sbbToggleCheckDefaultLongLabel.args = {
+  ...defaultArgs,
+  label: longLabel,
 };
 
 sbbToggleCheckLabelBefore.argTypes = defaultArgTypes;

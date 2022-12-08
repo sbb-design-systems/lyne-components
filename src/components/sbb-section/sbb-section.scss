@@ -1,9 +1,11 @@
 /* stylelint-disable */
 // TODO: solve stylelint issues
 
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   // Todo during grid enhancements, refactor below gutter tokens / add them to
@@ -35,32 +37,32 @@
 }
 
 .section--page-spacing {
-  @include page-spacing;
+  @include sbb.page-spacing;
 
   .columns,
   .full-width {
-    @include page-spacing__inner;
+    @include sbb.page-spacing__inner;
   }
 }
 
 .section--full-bleed--until-ultra {
-  @include mq($from: ultra) {
-    @include page-spacing;
+  @include sbb.mq($from: ultra) {
+    @include sbb.page-spacing;
 
     .columns,
     .full-width {
-      @include page-spacing__inner;
+      @include sbb.page-spacing__inner;
     }
   }
 }
 
 .section--full-bleed--until-ultra-plus {
-  @include mq($from: ultra) {
-    @include page-spacing;
+  @include sbb.mq($from: ultra) {
+    @include sbb.page-spacing;
 
     .columns,
     .full-width {
-      @include page-spacing__inner--ultra-plus;
+      @include sbb.page-spacing__inner--ultra-plus;
     }
   }
 }
@@ -80,11 +82,11 @@
   ::slotted([slot]) {
     flex-basis: 100%;
 
-    @include mq($from: small) {
+    @include sbb.mq($from: small) {
       flex: 0 0 calc(50% - (var(--_section-gap-horizontal) / 2));
       max-width: calc(50% - (var(--_section-gap-horizontal) / 2));
     }
-    @include mq($from: wide) {
+    @include sbb.mq($from: wide) {
       flex: 0 0 calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
       max-width: calc(25% - ((3 * var(--_section-gap-horizontal)) / 4));
     }

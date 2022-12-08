@@ -1,3 +1,8 @@
+@use '../core/functions';
+@use '../core/mediaqueries';
+@use './a11y';
+@use './shadows';
+
 // -----------------------------------------------------------------------------
 // Card: Mixins & CSS custom properties
 // -----------------------------------------------------------------------------
@@ -37,18 +42,18 @@
   &:focus {
     @include card--shadow;
 
-    @include focusOutline;
+    @include a11y.focus-outline;
   }
 
   // If the the device can hover over elements with ease
-  @include hover-mq($hover: true) {
+  @include mediaqueries.hover-mq($hover: true) {
     &:hover {
       @include card--shadow;
     }
   }
 
-  @include ifForcedColors {
-    border: #{px-to-rem-build(1)} solid ButtonText;
+  @include a11y.if-forced-colors {
+    border: #{functions.px-to-rem-build(1)} solid ButtonText;
 
     &:disabled {
       border-color: GrayText;
@@ -180,7 +185,7 @@
 
 @mixin card--shadow {
   &:not(:disabled) {
-    @include shadow-level-9-hard;
+    @include shadows.shadow-level-9-hard;
 
     padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
     padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));

@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: block;
@@ -17,7 +19,7 @@
   --border-radius-end-end: 0;
   --color-background-hover: var(--sbb-color-white-default);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --item-margin-block: var(--sbb-spacing-fixed-1x);
     --body-padding-inline: var(--sbb-spacing-fixed-6x);
     --header-padding-inline: var(--sbb-spacing-fixed-6x);

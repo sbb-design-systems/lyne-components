@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.17.0](https://github.com/lyne-design-system/lyne-components/compare/v0.16.2...v0.17.0) (2022-12-08)
+
+### ⚠ BREAKING CHANGES
+
+- In order to standardize mixin names, all mixin names were renamed to kebab-case style.
+  E.g. `ifForcedColors` became `if-forced-colors`.
+
+- rename all mixins to kebab-case notation ([#1489](https://github.com/lyne-design-system/lyne-components/issues/1489)) ([c867749](https://github.com/lyne-design-system/lyne-components/commit/c867749846751c85f31b06c714bdf643ea3cd91c))
+
+### [0.16.2](https://github.com/lyne-design-system/lyne-components/compare/v0.16.1...v0.16.2) (2022-12-07)
+
+### Bug Fixes
+
+- fix times for chromatic tests ([#1490](https://github.com/lyne-design-system/lyne-components/issues/1490)) ([baf9556](https://github.com/lyne-design-system/lyne-components/commit/baf9556483b17cb02a4bffc1b6524ee4991a360a))
+
+### [0.16.1](https://github.com/lyne-design-system/lyne-components/compare/v0.16.0...v0.16.1) (2022-12-07)
+
+### Bug Fixes
+
+- **sbb-journey-summary:** enable configuration of current date ([#1487](https://github.com/lyne-design-system/lyne-components/issues/1487)) ([1c72cc4](https://github.com/lyne-design-system/lyne-components/commit/1c72cc4c89973f53e82086b839d29a3bed99033d))
+
+## [0.16.0](https://github.com/lyne-design-system/lyne-components/compare/v0.15.9...v0.16.0) (2022-12-06)
+
+### ⚠ BREAKING CHANGES
+
+- Previously the sass code could be used via `@import`.
+  This is no longer possible as we refactored the sass code to switch
+  from `@import` to `@use` (see https://sass-lang.com/documentation/at-rules/use).
+  You should now be able to use the following code to import
+  our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
+
+- adapt sass to [@use](https://github.com/use) instead of [@import](https://github.com/import) ([#1482](https://github.com/lyne-design-system/lyne-components/issues/1482)) ([219d68c](https://github.com/lyne-design-system/lyne-components/commit/219d68c101a746a1671f9a8ff9c8dba63018f63f))
+
+### [0.15.9](https://github.com/lyne-design-system/lyne-components/compare/v0.15.8...v0.15.9) (2022-12-06)
+
+### Bug Fixes
+
+- fix timetable data ([#1474](https://github.com/lyne-design-system/lyne-components/issues/1474)) ([5bba303](https://github.com/lyne-design-system/lyne-components/commit/5bba3038b83dbf5e17e9bcfcce52cf417c0248d5))
+
+### [0.15.8](https://github.com/lyne-design-system/lyne-components/compare/v0.15.7...v0.15.8) (2022-12-05)
+
+### [0.15.7](https://github.com/lyne-design-system/lyne-components/compare/v0.15.6...v0.15.7) (2022-12-01)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** fix toggle vertical alignment ([#1461](https://github.com/lyne-design-system/lyne-components/issues/1461)) ([e59239c](https://github.com/lyne-design-system/lyne-components/commit/e59239c89deee8727e83cff0148097ec111ca006))
+
+### Documentation
+
+- **sbb-dialog:** add an example of sbb-dialog-close attribute ([#1475](https://github.com/lyne-design-system/lyne-components/issues/1475)) ([13d7f09](https://github.com/lyne-design-system/lyne-components/commit/13d7f09196608013ad8f04ff21278b72fb3cf84f))
+
 ### [0.15.6](https://github.com/lyne-design-system/lyne-components/compare/v0.15.5...v0.15.6) (2022-12-01)
 
 ### Bug Fixes

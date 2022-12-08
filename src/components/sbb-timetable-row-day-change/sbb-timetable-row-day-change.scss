@@ -1,10 +1,12 @@
+@use '../../global/styles' as sbb;
+
 .day-change:not(day-change--visually-hidden) {
   padding-block-start: var(--sbb-spacing-fixed-2x);
   padding-block-end: var(--sbb-spacing-fixed-1x);
 }
 
 .day-change__text {
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   margin: 0;
   color: var(--sbb-color-smoke-default);
@@ -12,5 +14,5 @@
 
 .day-change--visually-hidden,
 .day-change__text--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

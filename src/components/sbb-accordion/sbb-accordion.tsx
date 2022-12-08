@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
 import events from '../sbb-accordion-item/sbb-accordion-item.events';
 
 /**
@@ -10,7 +10,7 @@ import events from '../sbb-accordion-item/sbb-accordion-item.events';
   styleUrl: 'sbb-accordion.scss',
   tag: 'sbb-accordion',
 })
-export class SbbAccordion {
+export class SbbAccordion implements ComponentInterface {
   /**
    * Set this if you want to use the accordion on a non-white background.
    */

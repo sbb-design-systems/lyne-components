@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { config } from '../sbb-timetable-row/sbb-timetable-row.sample-data';
+import { defaultTrip } from '../sbb-timetable-row/sbb-timetable-row.sample-data';
+import isChromatic from 'chromatic/isChromatic';
 
 const Template = (args) => (
   <sbb-timetable>
@@ -10,19 +11,33 @@ const Template = (args) => (
   </sbb-timetable>
 );
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
-export const sbbTimetable = Template.bind({});
-sbbTimetable.args = {
-  'loading-price': config.loadingPrice,
-  'loading-trip': config.loadingTrip,
-  trip: config.trip,
-  price: config.price,
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
 };
 
-sbbTimetable.documentation = {
-  title: 'SBB Timetable',
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
+const defaultArgTypes = {
+  'disable-animation': disableAnimation,
+  'data-now': now,
+};
+
+const defaultArgs = {
+  'disable-animation': isChromatic(),
+  'data-now': new Date('2022-12-08T12:11:00').valueOf(),
+};
+
+export const sbbTimetable = Template.bind({});
+sbbTimetable.argTypes = defaultArgTypes;
+sbbTimetable.args = {
+  ...defaultArgs,
+  trip: defaultTrip,
 };
 
 export default {

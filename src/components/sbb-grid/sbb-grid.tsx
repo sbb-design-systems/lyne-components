@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Host, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Host, Prop, ComponentInterface } from '@stencil/core';
 import { InterfaceGridAttributes } from './sbb-grid.custom';
 
 @Component({
@@ -6,7 +6,7 @@ import { InterfaceGridAttributes } from './sbb-grid.custom';
   styleUrl: 'sbb-grid.scss',
   tag: 'sbb-grid',
 })
-export class SbbGrid {
+export class SbbGrid implements ComponentInterface {
   /** Section appearance */
   @Prop() public appearance?: InterfaceGridAttributes['appearance'] = 'primary';
 

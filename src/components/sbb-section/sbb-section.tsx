@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Host, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Host, Prop, ComponentInterface } from '@stencil/core';
 import { InterfaceSectionAttributes } from './sbb-section.custom';
 
 @Component({
@@ -6,7 +6,7 @@ import { InterfaceSectionAttributes } from './sbb-section.custom';
   styleUrl: 'sbb-section.scss',
   tag: 'sbb-section',
 })
-export class SbbSection {
+export class SbbSection implements ComponentInterface {
   /** Section appearance */
   @Prop() public appearance?: InterfaceSectionAttributes['appearance'] = 'primary';
 

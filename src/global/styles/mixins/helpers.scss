@@ -1,17 +1,3 @@
-@import 'mixins/mixins_a11y.scss';
-@import 'mixins/mixins_badge.scss';
-@import 'mixins/mixins_buttons.scss';
-@import 'mixins/mixins_card.scss';
-@import 'mixins/mixins_grid_layout.scss';
-@import 'mixins/mixins_list.scss';
-@import 'mixins/mixins_panel.scss';
-@import 'mixins/mixins_scrollbar.scss';
-@import 'mixins/mixins_shadows.scss';
-@import 'mixins/mixins_spacing.scss';
-@import 'mixins/mixins_typo.scss';
-
-@import 'mixins/mixins_dev_and_debug.scss';
-
 @mixin ellipsis() {
   overflow: hidden;
   white-space: nowrap;
@@ -23,27 +9,27 @@
   #{$property}: stretch;
 }
 
-@mixin absoluteCenterXY() {
+@mixin absolute-center-x-y() {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-@mixin absoluteCenterX() {
+@mixin absolute-center-x() {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
-@mixin absoluteCenterY() {
+@mixin absolute-center-y() {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
 /** This mixin can be used to avoid spacing problems by inserting an invisible space as pseudo element. */
-@mixin zeroWidthSpace() {
+@mixin zero-width-space() {
   &::before {
     content: '\200B';
     user-select: none;
@@ -52,7 +38,7 @@
   }
 }
 
-@mixin invisibleContainerOverlay {
+@mixin invisible-container-overlay {
   position: absolute;
   opacity: 0;
   inset: 0;
@@ -64,4 +50,12 @@
   // Puts the element behind the parent while keeping it visible so that
   // it allows `click` events to propagate up.
   z-index: -1;
+}
+
+@mixin box-sizing {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
 }

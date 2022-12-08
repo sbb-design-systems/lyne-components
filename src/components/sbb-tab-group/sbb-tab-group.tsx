@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -40,7 +41,7 @@ let nextId = 0;
   styleUrl: 'sbb-tab-group.scss',
   tag: 'sbb-tab-group',
 })
-export class SbbTabGroup {
+export class SbbTabGroup implements ComponentInterface {
   public tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;

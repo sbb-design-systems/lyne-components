@@ -1,10 +1,12 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   // Necessary to forward styles to native link
-  @include text-inherit;
+  @include sbb.text-inherit;
 
   display: inline-block;
   color: inherit;
@@ -32,7 +34,7 @@
 
 // stylelint-disable plugin/stylelint-bem-namics
 .sbb-link {
-  @include stretch(width);
+  @include sbb.stretch(width);
 
   display: flex;
   align-items: center;
@@ -44,26 +46,26 @@
   text-align: left;
 
   :host([text-size='xs']:not([variant='inline'])) & {
-    @include text-xs--regular;
+    @include sbb.text-xs--regular;
   }
 
   :host([text-size='s']:not([variant='inline'])) & {
-    @include text-s--regular;
+    @include sbb.text-s--regular;
   }
 
   :host([text-size='m']:not([variant='inline'])) & {
-    @include text-m--regular;
+    @include sbb.text-m--regular;
   }
 
   :host([variant='inline']) & {
-    @include text-inherit;
+    @include sbb.text-inherit;
 
     color: inherit;
     text-decoration: underline;
   }
 
   &:focus-visible {
-    @include focusOutline;
+    @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
@@ -74,7 +76,7 @@
   }
 
   :host(:not([disabled])) & {
-    @include hover-mq($hover: true) {
+    @include sbb.hover-mq($hover: true) {
       &:hover {
         color: var(--sbb-link-color-hover);
         text-decoration: underline;
@@ -87,7 +89,7 @@
     }
   }
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     text-decoration: underline;
     text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
   }
@@ -95,7 +97,7 @@
 // stylelint-enable plugin/stylelint-bem-namics
 
 button:where(.sbb-link) {
-  @include buttonReset;
+  @include sbb.button-reset;
 }
 
 .sbb-link__icon {
@@ -111,10 +113,10 @@ button:where(.sbb-link) {
 
   ::slotted([slot='icon']),
   sbb-icon {
-    @include absoluteCenterY;
+    @include sbb.absolute-center-y;
   }
 }
 
 .sbb-link__opens-in-new-window {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 @mixin card-product-reset {
   // Since we are using either an '<a>' or '<button>' to render the card-product
@@ -12,7 +14,7 @@
 }
 
 :host {
-  @include card-host-properties;
+  @include sbb.card-host-properties;
 
   --slot-icon-spacing-inline: var(--sbb-spacing-fixed-4x);
   --slot-details-spacing-top: var(--sbb-spacing-fixed-2x);
@@ -27,14 +29,14 @@
 /* ************************************************* */
 .card-product {
   @include card-product-reset;
-  @include card;
-  @include card--m;
+  @include sbb.card;
+  @include sbb.card--m;
 
   color: var(--card-text-color);
 }
 
 .card-product--tall {
-  @include card--m-tall;
+  @include sbb.card--m-tall;
 }
 
 .card-product__icon {
@@ -67,7 +69,7 @@
 }
 
 // Layout switch
-@include mq($from: small) {
+@include sbb.mq($from: small) {
   .card-product {
     display: flex;
     flex-wrap: nowrap;
@@ -95,14 +97,14 @@
 // Special behaviour/action alignment for type loose
 .card-product--loose {
   // Button position switch
-  @include mq($from: small) {
+  @include sbb.mq($from: small) {
     .card-product__action {
       align-self: flex-end;
     }
   }
 
   // Switch back to initial layout (button position)
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     display: block;
 
     .card-product__action {
@@ -111,7 +113,7 @@
   }
 
   // And here we switch back again to the 'small' breakpoint layout
-  @include mq($from: wide) {
+  @include sbb.mq($from: wide) {
     display: flex;
   }
 }
@@ -123,20 +125,20 @@
 /* ************************************************* */
 
 .card-product--primary {
-  @include card--primary;
+  @include sbb.card--primary;
 }
 
 .card-product--primary-negative {
-  @include card--primary-negative;
+  @include sbb.card--primary-negative;
 }
 
 .card-product__lead {
-  @include title-6;
+  @include sbb.title-6;
 }
 
 .card-product__category,
 .card-product__text {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   margin: 0;
   color: var(--sbb-color-granite-default);

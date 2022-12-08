@@ -1,7 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
-// travel the shadow boundary are defined through this mixin, available for shared
-// and default mode
-@include host-component-properties;
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
 
 :host {
   --form-error-height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
@@ -11,11 +12,11 @@
   --sbb-icon-svg-width: var(--sbb-size-icon-form-error);
   --sbb-icon-svg-height: var(--sbb-size-icon-form-error);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --form-error-color: LinkText;
   }
 
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   display: flex;
   align-items: flex-start;

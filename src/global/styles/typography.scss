@@ -1,5 +1,8 @@
+@use './mixins/typo';
+@use './mixins/lists';
+
 html {
-  @include text;
+  @include typo.text;
 
   color: var(--sbb-font-default-color);
 }
@@ -10,37 +13,37 @@ html {
 }
 
 .sbb-text-xxs {
-  @include text-xxs--regular;
+  @include typo.text-xxs--regular;
 }
 
 .sbb-text-xs {
-  @include text-xs--regular;
+  @include typo.text-xs--regular;
 }
 
 .sbb-text-s {
-  @include text-s--regular;
+  @include typo.text-s--regular;
 }
 
 .sbb-text-m {
-  @include text-m--regular;
+  @include typo.text-m--regular;
 }
 
 .sbb-text-l {
-  @include text-l--regular;
+  @include typo.text-l--regular;
 }
 
 .sbb-text-xl {
-  @include text-xl--regular;
+  @include typo.text-xl--regular;
 }
 
 .sbb-text-bold {
-  @include text--bold;
+  @include typo.text--bold;
 }
 
 .sbb-list {
-  @include list;
+  @include lists.list;
 }
 
 .sbb-step-list {
-  @include step-list;
+  @include lists.step-list;
 }

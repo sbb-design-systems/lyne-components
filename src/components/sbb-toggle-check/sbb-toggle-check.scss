@@ -1,109 +1,124 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
 :host {
   display: inline-block;
 
-  --toggle-check-color: var(--sbb-color-charcoal-default);
-  --toggle-check-background: var(--sbb-color-smoke-default);
-  --toggle-check-fill: var(--sbb-color-red-default);
-  --toggle-check-circle-background: var(--sbb-color-white-default);
-  --toggle-check-circle-offset: var(--sbb-border-width-2x);
-  --toggle-check-circle-diameter: var(--sbb-size-icon-ui-small);
-  --toggle-check-height: calc(
-    var(--toggle-check-circle-diameter) + 2 * var(--toggle-check-circle-offset)
+  --sbb-toggle-check-color: var(--sbb-color-charcoal-default);
+  --sbb-toggle-check-background: var(--sbb-color-smoke-default);
+  --sbb-toggle-check-fill: var(--sbb-color-red-default);
+  --sbb-toggle-check-circle-background: var(--sbb-color-white-default);
+  --sbb-toggle-check-circle-offset: var(--sbb-border-width-2x);
+  --sbb-toggle-check-circle-diameter: var(--sbb-size-icon-ui-small);
+  --sbb-toggle-check-height: calc(
+    var(--sbb-toggle-check-circle-diameter) + 2 * var(--sbb-toggle-check-circle-offset)
   );
-  --toggle-check-circle-transform: translate(var(--toggle-check-circle-offset), -50%);
-  --toggle-check-cursor: pointer;
-  --toggle-check-flex-direction: row-reverse;
-  --toggle-check-icon-opacity: 0;
+  --sbb-toggle-check-circle-transform: translate(var(--sbb-toggle-check-circle-offset), -50%);
+  --sbb-toggle-check-cursor: pointer;
+  --sbb-toggle-check-flex-direction: row-reverse;
+  --sbb-toggle-check-icon-opacity: 0;
 
-  @include ifForcedColors {
-    --toggle-check-circle-background: Canvas;
-    --toggle-check-background: CanvasText;
+  @include sbb.if-forced-colors {
+    --sbb-toggle-check-circle-background: Canvas;
+    --sbb-toggle-check-background: CanvasText;
   }
 }
 
-.toggle-check--checked {
-  --toggle-check-background: var(--sbb-color-red-default);
-  --toggle-check-circle-transform: translate(calc(100% - var(--toggle-check-circle-offset)), -50%);
-  --toggle-check-icon-opacity: 1;
+:host([checked]) {
+  --sbb-toggle-check-background: var(--sbb-color-red-default);
+  --sbb-toggle-check-circle-transform: translate(
+    calc(100% - var(--sbb-toggle-check-circle-offset)),
+    -50%
+  );
+  --sbb-toggle-check-icon-opacity: 1;
 
-  @include ifForcedColors {
-    --toggle-check-fill: Highlight;
-    --toggle-check-background: Highlight;
+  @include sbb.if-forced-colors {
+    --sbb-toggle-check-fill: Highlight;
+    --sbb-toggle-check-background: Highlight;
   }
 }
 
-.toggle-check--disabled {
-  --toggle-check-color: var(--sbb-color-graphite-default);
-  --toggle-check-background: var(--sbb-color-cloud-default);
-  --toggle-check-fill: var(--sbb-color-granite-default);
-  --toggle-check-circle-background: var(--sbb-color-milk-default);
-  --toggle-check-cursor: not-allowed;
+:host([disabled]) {
+  --sbb-toggle-check-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-check-background: var(--sbb-color-cloud-default);
+  --sbb-toggle-check-fill: var(--sbb-color-granite-default);
+  --sbb-toggle-check-circle-background: var(--sbb-color-milk-default);
+  --sbb-toggle-check-cursor: not-allowed;
 
-  @include ifForcedColors {
-    --toggle-check-fill: GrayText;
-    --toggle-check-background: GrayText;
+  @include sbb.if-forced-colors {
+    --sbb-toggle-check-fill: GrayText;
+    --sbb-toggle-check-background: GrayText;
   }
 }
 
-.toggle-check--before {
-  --toggle-check-flex-direction: row;
+:host([label-position='before']) {
+  --sbb-toggle-check-flex-direction: row;
 }
 
-.toggle-check {
+.sbb-toggle-check {
   // Avoids unwanted space displayed if no label text is set.
-  @include zeroWidthSpace;
+  @include sbb.zero-width-space;
 
   position: relative;
   display: flex;
-  color: var(--toggle-check-color);
+  color: var(--sbb-toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 
 input[type='checkbox'] {
-  @include invisibleContainerOverlay;
+  @include sbb.invisible-container-overlay;
 }
 
-.toggle-check__container {
-  @include text-s--regular;
+.sbb-toggle-check__container {
+  @include sbb.text-s--regular;
 
   display: flex;
-  flex-direction: var(--toggle-check-flex-direction);
+  flex-direction: var(--sbb-toggle-check-flex-direction);
   gap: var(--sbb-spacing-fixed-3x);
-  align-items: center;
+  align-items: start;
 }
 
-.toggle-check__slider {
+.sbb-toggle-check__label {
+  padding-block-start: calc(
+    (var(--sbb-toggle-check-height) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
+  );
+}
+
+.sbb-toggle-check__slider {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  min-width: calc(2 * var(--toggle-check-circle-diameter));
-  height: var(--toggle-check-height);
-  border-radius: var(--toggle-check-height);
-  background-color: var(--toggle-check-background);
-  cursor: var(--toggle-check-cursor);
+  min-width: calc(2 * var(--sbb-toggle-check-circle-diameter));
+  height: var(--sbb-toggle-check-height);
+  border-radius: var(--sbb-toggle-check-height);
+  background-color: var(--sbb-toggle-check-background);
+  cursor: var(--sbb-toggle-check-cursor);
 
   input[type='checkbox']:focus-visible + .toggle-check__container & {
-    @include focusOutline;
+    @include sbb.focus-outline;
   }
 }
 
-.toggle-check__circle {
-  @include shadow-level-5-hard;
-  @include absoluteCenterY;
+.sbb-toggle-check__circle {
+  @include sbb.shadow-level-5-hard;
+  @include sbb.absolute-center-y;
 
-  width: var(--toggle-check-circle-diameter);
-  height: var(--toggle-check-circle-diameter);
-  border-radius: var(--toggle-check-height);
-  background-color: var(--toggle-check-circle-background);
-  color: var(--toggle-check-fill);
+  width: var(--sbb-toggle-check-circle-diameter);
+  height: var(--sbb-toggle-check-circle-diameter);
+  border-radius: var(--sbb-toggle-check-height);
+  background-color: var(--sbb-toggle-check-circle-background);
+  color: var(--sbb-toggle-check-fill);
   will-change: transform;
-  transform: var(--toggle-check-circle-transform);
+  transform: var(--sbb-toggle-check-circle-transform);
   transition: transform ease var(--sbb-animation-duration-6x);
 }
 
 ::slotted(sbb-icon),
 slot[name='icon'] sbb-icon {
-  opacity: var(--toggle-check-icon-opacity);
+  opacity: var(--sbb-toggle-check-icon-opacity);
   transition: opacity ease var(--sbb-animation-duration-6x);
 }

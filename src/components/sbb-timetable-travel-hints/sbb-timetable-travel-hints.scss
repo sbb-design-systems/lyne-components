@@ -1,19 +1,21 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  --travel-hint-icon-height: #{px-to-rem-build(12)};
+  --travel-hint-icon-height: #{sbb.px-to-rem-build(12)};
   --travel-hint-icon-scaling-factor: 0.75;
 
-  @include mq($from: medium) {
-    --travel-hint-icon-height: #{px-to-rem-build(16)};
+  @include sbb.mq($from: medium) {
+    --travel-hint-icon-height: #{sbb.px-to-rem-build(16)};
     --travel-hint-icon-scaling-factor: 1;
   }
 }
 
 .travel-hints__list {
-  @include list-reset;
+  @include sbb.list-reset;
 
   display: flex;
   gap: var(--sbb-spacing-fixed-1x);
@@ -38,11 +40,11 @@
 }
 
 .travel-hints__text--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
-@mixin widthWithScalingFactor($width) {
-  width: calc(var(--travel-hint-icon-scaling-factor) * #{px-to-rem-build($width)});
+@mixin width-with-scaling-factor($width) {
+  width: calc(var(--travel-hint-icon-scaling-factor) * #{sbb.px-to-rem-build($width)});
 }
 
 // This might look like a terribly complicated solution but was unfortunately the most efficient and
@@ -53,29 +55,29 @@
 // great an absolutely equal spacing.
 
 .travel-hints__icon--sa-mi svg {
-  @include widthWithScalingFactor(8);
+  @include width-with-scaling-factor(8);
 }
 
 .travel-hints__icon--sa-r svg {
-  @include widthWithScalingFactor(9);
+  @include width-with-scaling-factor(9);
 }
 
 .travel-hints__icon--sa-s svg {
-  @include widthWithScalingFactor(10);
+  @include width-with-scaling-factor(10);
 }
 
 .travel-hints__icon--sa-1,
 .travel-hints__icon--sa-2,
 .travel-hints__icon--sa-p {
   svg {
-    @include widthWithScalingFactor(11);
+    @include width-with-scaling-factor(11);
   }
 }
 
 .travel-hints__icon--sa-y,
 .travel-hints__icon--sa-z {
   svg {
-    @include widthWithScalingFactor(12);
+    @include width-with-scaling-factor(12);
   }
 }
 
@@ -83,28 +85,28 @@
 .travel-hints__icon--sa-gn,
 .travel-hints__icon--sa-rr {
   svg {
-    @include widthWithScalingFactor(13);
+    @include width-with-scaling-factor(13);
   }
 }
 
 .travel-hints__icon--sa-wr svg {
-  @include widthWithScalingFactor(14);
+  @include width-with-scaling-factor(14);
 }
 
 .travel-hints__icon--sa-x svg {
-  @include widthWithScalingFactor(15);
+  @include width-with-scaling-factor(15);
 }
 
 .travel-hints__icon--sa-pa svg {
-  @include widthWithScalingFactor(16);
+  @include width-with-scaling-factor(16);
 }
 
 .travel-hints__icon--sa-vi svg {
-  @include widthWithScalingFactor(17);
+  @include width-with-scaling-factor(17);
 }
 
 .travel-hints__icon--sa-fl svg {
-  @include widthWithScalingFactor(18);
+  @include width-with-scaling-factor(18);
 }
 
 .travel-hints__icon--sa-b,
@@ -114,7 +116,7 @@
 .travel-hints__icon--sa-vl,
 .travel-hints__icon--sa-vr {
   svg {
-    @include widthWithScalingFactor(19);
+    @include width-with-scaling-factor(19);
   }
 }
 
@@ -124,7 +126,7 @@
 .travel-hints__icon--sa-tf,
 .travel-hints__icon--sa-ts {
   svg {
-    @include widthWithScalingFactor(20);
+    @include width-with-scaling-factor(20);
   }
 }
 
@@ -139,7 +141,7 @@
 .travel-hints__icon--sa-tt,
 .travel-hints__icon--sa-wl {
   svg {
-    @include widthWithScalingFactor(21);
+    @include width-with-scaling-factor(21);
   }
 }
 
@@ -154,7 +156,7 @@
 .travel-hints__icon--sa-vp,
 .travel-hints__icon--sa-yb {
   svg {
-    @include widthWithScalingFactor(22);
+    @include width-with-scaling-factor(22);
   }
 }
 
@@ -172,7 +174,7 @@
 .travel-hints__icon--sa-ws,
 .travel-hints__icon--sa-yt {
   svg {
-    @include widthWithScalingFactor(23);
+    @include width-with-scaling-factor(23);
   }
 }
 
@@ -180,7 +182,7 @@
 .travel-hints__icon--sa-sh,
 .travel-hints__icon--sa-sv {
   svg {
-    @include widthWithScalingFactor(24);
+    @include width-with-scaling-factor(24);
   }
 }
 
@@ -193,7 +195,7 @@
 .travel-hints__icon--sa-xp,
 .travel-hints__icon--sa-xr {
   svg {
-    @include widthWithScalingFactor(25);
+    @include width-with-scaling-factor(25);
   }
 }
 
@@ -201,14 +203,14 @@
 .travel-hints__icon--sa-uk,
 .travel-hints__icon--sa-xt {
   svg {
-    @include widthWithScalingFactor(26);
+    @include width-with-scaling-factor(26);
   }
 }
 
 .travel-hints__icon--sa-hk,
 .travel-hints__icon--sa-hn {
   svg {
-    @include widthWithScalingFactor(27);
+    @include width-with-scaling-factor(27);
   }
 }
 
@@ -216,7 +218,7 @@
 .travel-hints__icon--sa-mp,
 .travel-hints__icon--sa-sm {
   svg {
-    @include widthWithScalingFactor(28);
+    @include width-with-scaling-factor(28);
   }
 }
 
@@ -224,22 +226,22 @@
 .travel-hints__icon--sa-ym,
 .travel-hints__icon--sa-zm {
   svg {
-    @include widthWithScalingFactor(29);
+    @include width-with-scaling-factor(29);
   }
 }
 
 .travel-hints__icon--sa-wv {
-  @include widthWithScalingFactor(31);
+  @include width-with-scaling-factor(31);
 }
 
 .travel-hints__icon--sa-vb {
-  @include widthWithScalingFactor(32);
+  @include width-with-scaling-factor(32);
 }
 
 .travel-hints__icon--sa-kw {
-  @include widthWithScalingFactor(33);
+  @include width-with-scaling-factor(33);
 }
 
 .travel-hints__icon--sa-aw {
-  @include widthWithScalingFactor(34);
+  @include width-with-scaling-factor(34);
 }

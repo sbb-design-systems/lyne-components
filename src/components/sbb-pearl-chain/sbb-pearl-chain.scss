@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 @mixin dot {
   content: '';
@@ -13,16 +15,17 @@
 :host {
   display: block;
 
-  --dot-size-large: #{px-to-rem-build(10)};
-  --dot-size-small: #{px-to-rem-build(8)};
-  --border-width: var(--sbb-border-width-2x);
-  --spacing-small: var(--sbb-spacing-fixed-1x);
+  --sbb-dot-size-large: #{sbb.px-to-rem-build(10)};
+  --sbb-dot-size-small: #{sbb.px-to-rem-build(8)};
+  --sbb-pearl-chain-height: var(--sbb-border-width-2x);
+  --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
   --color-white: var(--sbb-color-white-default);
   --color-default: var(--sbb-color-black-default);
   --color-current-location: var(--sbb-color-red-default);
   --color-current-location-dark: var(--sbb-color-red150-default);
   --color-cancellation: var(--sbb-color-red-default);
   --color-past: var(--sbb-color-metal-default);
+  --leg-width: 100%;
 }
 
 .sbb-pearl-chain {
@@ -32,22 +35,22 @@
   flex-wrap: nowrap;
   color: var(--sbb-color-default);
   width: 100%;
-  padding-block-start: calc((var(--dot-size-large) - var(--border-width)) / 2);
-  padding-block-end: calc((var(--dot-size-large) - var(--border-width)) / 2);
-  padding-inline-end: var(--dot-size-large);
+  padding-block-start: calc((var(--sbb-dot-size-large) - var(--sbb-pearl-chain-height)) / 2);
+  padding-block-end: calc((var(--sbb-dot-size-large) - var(--sbb-pearl-chain-height)) / 2);
+  padding-inline-end: var(--sbb-dot-size-large);
 }
 
 // first and last dot
 .sbb-pearl-chain::before,
 .sbb-pearl-chain::after {
-  --dot-size: var(--dot-size-large);
+  --dot-size: var(--sbb-dot-size-large);
   @include dot;
 
   background-color: currentcolor;
   inset-block-start: 0;
   z-index: 3;
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: CanvasText;
   }
 }
@@ -62,7 +65,7 @@
 
 .sbb-pearl-chain.sbb-pearl-chain--past::before,
 .sbb-pearl-chain.sbb-pearl-chain--past::after {
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: GrayText;
   }
 }
@@ -71,7 +74,7 @@
 .sbb-pearl-chain--arrival-cancellation::after {
   color: var(--color-cancellation);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: ActiveText;
   }
 }
@@ -80,7 +83,7 @@
 .sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
   color: var(--color-past);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     color: GrayText;
   }
 }
@@ -88,7 +91,7 @@
 .sbb-pearl-chain--past {
   position: relative;
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     color: GrayText;
   }
 }
@@ -97,12 +100,12 @@
   flex-shrink: 0;
   flex-grow: 0;
   position: relative;
-  height: var(--border-width);
-  border-inline-end: var(--spacing-small) solid var(--color-white);
+  height: var(--sbb-pearl-chain-height);
+  border-inline-end: var(--sbb-pearl-chain-spacing-small) solid Canvas;
   background-color: currentcolor;
   width: var(--leg-width);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     color: CanvasText;
   }
 }
@@ -121,16 +124,16 @@
 // dot on leg
 .sbb-pearl-chain__leg:not(:first-child) {
   &::before {
-    --dot-size: var(--dot-size-small);
+    --dot-size: var(--sbb-dot-size-small);
     @include dot;
 
-    inset-block-start: calc(var(--dot-size) / -2 + var(--border-width) / 2);
+    inset-block-start: calc(var(--dot-size) / -2 + var(--sbb-pearl-chain-height) / 2);
     inset-inline-start: 0;
-    background-color: var(--color-white);
-    border: var(--border-width) solid currentcolor;
+    background-color: Canvas;
+    border: var(--sbb-pearl-chain-height) solid currentcolor;
     z-index: 2;
 
-    @include ifForcedColors {
+    @include sbb.if-forced-colors {
       .sbb-pearl-chain--past & {
         border-color: GrayText;
       }
@@ -146,10 +149,10 @@
   inset-block-end: 0;
   inset-inline-start: 0;
   background-color: currentcolor;
-  border-radius: var(--border-width);
+  border-radius: var(--sbb-pearl-chain-height);
   z-index: 1;
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: CanvasText;
 
     .sbb-pearl-chain--past & {
@@ -159,7 +162,7 @@
 }
 
 .sbb-pearl-chain__leg:last-of-type::after {
-  inset-inline-end: calc(-1 * var(--border-width));
+  inset-inline-end: calc(-1 * var(--sbb-pearl-chain-height));
 }
 
 .sbb-pearl-chain__leg--progress::after {
@@ -170,45 +173,32 @@
 .sbb-pearl-chain__leg--cancellation {
   color: var(--color-cancellation);
 
-  .sbb-pearl-chain--past & {
-    color: var(--color-past);
-
-    @include ifForcedColors {
-      color: GrayText;
-    }
-  }
-
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     color: ActiveText;
   }
 }
 
 .sbb-pearl-chain__leg--cancellation::after {
   background-color: unset;
-  background-image: linear-gradient(
-    to right,
-    currentcolor 0%,
-    currentcolor 50%,
-    var(--color-white) 50%
-  );
+  background-image: linear-gradient(to right, currentcolor 0%, currentcolor 50%, Canvas 50%);
   background-repeat: repeat-x;
-  background-size: calc(2 * var(--spacing-small)) var(--border-width);
-  inset-inline-end: var(--border-width);
+  background-size: calc(2 * var(--sbb-pearl-chain-spacing-small)) var(--sbb-pearl-chain-height);
+  inset-inline-end: var(--sbb-pearl-chain-height);
 }
 
 .sbb-pearl-chain__leg--cancellation::after,
 .sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background: none;
-    border-block-start: #{px-to-rem-build(1)} dashed currentcolor;
-    transform: translateY(#{px-to-rem-build(1)});
+    border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
+    transform: translateY(#{sbb.px-to-rem-build(1)});
   }
 }
 
 .sbb-pearl-chain__position {
   position: absolute;
 
-  --dot-size: var(--dot-size-large);
+  --dot-size: var(--sbb-dot-size-large);
   @include dot;
 
   background-color: var(--color-current-location);
@@ -219,7 +209,7 @@
   inset-inline-start: var(--status-position);
   animation: pulse 3s infinite;
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: ActiveText;
   }
 }
@@ -234,6 +224,6 @@
   }
 
   40% {
-    box-shadow: 0 0 0 #{px-to-rem-build(6)} transparent;
+    box-shadow: 0 0 0 #{sbb.px-to-rem-build(6)} transparent;
   }
 }

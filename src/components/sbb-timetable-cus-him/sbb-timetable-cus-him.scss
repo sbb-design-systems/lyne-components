@@ -1,5 +1,7 @@
+@use '../../global/styles' as sbb;
+
 :host {
-  --cus-him-icon-height: #{px-to-rem-build(16)}; // TODO: Missing Design Token
+  --cus-him-icon-height: #{sbb.px-to-rem-build(16)}; // TODO: Missing Design Token
 }
 
 .cus-him {
@@ -20,7 +22,7 @@
 // ----------------------------------------------
 .cus-him--second-level-list {
   --cus-him-width: auto;
-  --cus-him-icon-height: #{px-to-rem-build(20)};
+  --cus-him-icon-height: #{sbb.px-to-rem-build(20)};
   --list-item-justification: flex-start;
 }
 
@@ -34,7 +36,7 @@
 }
 
 .cus-him__text--second-level-message {
-  @include text-xs--bold;
+  @include sbb.text-xs--bold;
 
   color: var(--sbb-color-red-default);
 }
@@ -43,13 +45,13 @@
 // ----------------------------------------------
 
 .cus-him--second-level-button {
-  --cus-him-icon-height: #{px-to-rem-build(20)};
+  --cus-him-icon-height: #{sbb.px-to-rem-build(20)};
 
   gap: var(--sbb-spacing-fixed-2x);
 }
 
 .cus-him__text--second-level-button {
-  @include text-s--bold;
+  @include sbb.text-s--bold;
 
   text-align: start;
 }
@@ -57,7 +59,7 @@
 // General List Styling
 // ----------------------------------------------
 .cus-him__list {
-  @include list-reset;
+  @include sbb.list-reset;
 
   display: flex;
   flex-wrap: wrap;
@@ -86,18 +88,18 @@
   cursor: help;
 
   .cus-him--second-level-message & {
-    margin-block-start: #{px-to-rem-build(2)};
+    margin-block-start: #{sbb.px-to-rem-build(2)};
 
-    @include mq($from: medium) {
-      margin-block-start: #{px-to-rem-build(3)};
+    @include sbb.mq($from: medium) {
+      margin-block-start: #{sbb.px-to-rem-build(3)};
     }
   }
 
   .cus-him--second-level-button & {
-    margin-block-start: #{px-to-rem-build(1)};
+    margin-block-start: #{sbb.px-to-rem-build(1)};
 
-    @include mq($from: medium) {
-      margin-block-start: #{px-to-rem-build(3)};
+    @include sbb.mq($from: medium) {
+      margin-block-start: #{sbb.px-to-rem-build(3)};
     }
   }
 }
@@ -107,5 +109,5 @@
 }
 
 .cus-him__text--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

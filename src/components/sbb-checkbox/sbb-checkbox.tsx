@@ -40,7 +40,7 @@ const checkboxObserverConfig: MutationObserverInit = {
   styleUrl: 'sbb-checkbox.scss',
   tag: 'sbb-checkbox',
 })
-export class SbbCheckbox implements AccessibilityProperties, ComponentInterface {
+export class SbbCheckbox implements ComponentInterface, AccessibilityProperties {
   /** Id of the internal input element - default id will be set automatically. */
   @Prop() public checkboxId = `sbb-checkbox-${++nextId}`;
 

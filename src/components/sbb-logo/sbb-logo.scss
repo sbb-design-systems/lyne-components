@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-logo-panel-color: var(--sbb-color-red-default);
@@ -12,7 +14,7 @@
   --sbb-logo-svg-container-height: auto;
   --sbb-logo-background-color: none;
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-logo-panel-color: ButtonText !important;
     --sbb-logo-panel-stroke-color: ButtonText !important;
     --sbb-logo-signet-color: Canvas !important;
@@ -40,8 +42,8 @@
   justify-content: center;
   background-color: var(--sbb-logo-background-color);
   aspect-ratio: var(--sbb-logo-aspect-ratio);
-  @include stretch('height');
-  @include stretch('width');
+  @include sbb.stretch('height');
+  @include sbb.stretch('width');
 }
 
 .sbb-logo .sbb-logo__svg-container {

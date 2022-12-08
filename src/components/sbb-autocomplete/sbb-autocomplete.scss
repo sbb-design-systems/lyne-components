@@ -1,16 +1,18 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: block;
   border-radius: var(--sbb-border-radius-4x);
   background-color: var(--sbb-color-white-default);
 
-  --input-height: #{px-to-rem-build(48)}; // TODO Design Token??
+  --input-height: #{sbb.px-to-rem-build(48)}; // TODO Design Token??
 
-  @include mq($from: medium) {
-    --input-height: #{px-to-rem-build(56)}; // TODO Design Token??
+  @include sbb.mq($from: medium) {
+    --input-height: #{sbb.px-to-rem-build(56)}; // TODO Design Token??
   }
 
   position: relative;
@@ -22,8 +24,8 @@
 }
 
 .autocomplete__list {
-  @include list-reset;
-  @include shadow-level-5-hard;
+  @include sbb.list-reset;
+  @include sbb.shadow-level-5-hard;
 
   cursor: default;
   position: absolute;
@@ -41,14 +43,14 @@
   padding-inline-start: var(--sbb-spacing-responsive-xxxs-zero);
   padding-inline-end: var(--sbb-spacing-responsive-xxxs-zero);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     padding-inline-start: var(--sbb-spacing-responsive-xxxs-medium);
     padding-inline-end: var(--sbb-spacing-responsive-xxxs-medium);
   }
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     background-color: Canvas;
-    border: #{px-to-rem-build(1)} solid Highlight;
+    border: #{sbb.px-to-rem-build(1)} solid Highlight;
     border-block-start: none;
   }
 }
@@ -56,9 +58,9 @@
 .autocomplete__list--visible {
   display: flex;
   flex-direction: column;
-  gap: #{px-to-rem-build(2)};
+  gap: #{sbb.px-to-rem-build(2)};
 }
 
 .autocomplete__accessibility-hint {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

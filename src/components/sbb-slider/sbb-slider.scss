@@ -1,12 +1,14 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  --sbb-slider-line-height: #{px-to-rem-build(4)};
+  --sbb-slider-line-height: #{sbb.px-to-rem-build(4)};
   --sbb-slider-value-fraction: 0;
-  --sbb-slider-knob-size: #{px-to-rem-build(28)};
-  --sbb-slider-knob-border-size: #{px-to-rem-build(3)};
+  --sbb-slider-knob-size: #{sbb.px-to-rem-build(28)};
+  --sbb-slider-knob-border-size: #{sbb.px-to-rem-build(3)};
   --sbb-slider-knob-color: var(--sbb-color-white-default);
   --sbb-slider-knob-border-color: var(--sbb-color-red-default);
   --sbb-slider-icon-color: var(--sbb-color-black-default);
@@ -15,14 +17,14 @@
   --sbb-slider-line-color: var(--sbb-color-smoke-default);
   --sbb-slider-line-disabled-color: var(--sbb-color-graphite-default);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-slider-selected-line-color: Highlight;
     --sbb-slider-line-color: CanvasText;
   }
 
   display: inline-block;
-  min-width: #{px-to-rem-build(150)};
-  width: min(#{px-to-rem-build(400)}, 100%);
+  min-width: #{sbb.px-to-rem-build(150)};
+  width: min(#{sbb.px-to-rem-build(400)}, 100%);
 }
 
 :host([disabled]) {
@@ -38,7 +40,7 @@
 
 :host([disabled]),
 :host([readonly]) {
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-slider-icon-color: GrayText;
     --sbb-slider-selected-line-disabled-color: GrayText;
     --sbb-slider-line-disabled-color: GrayText;
@@ -49,7 +51,7 @@
 }
 
 .sbb-slider__height-container {
-  @include zeroWidthSpace;
+  @include sbb.zero-width-space;
 
   display: flex;
   flex-direction: column;
@@ -77,7 +79,7 @@
 }
 
 .sbb-slider__line {
-  @include absoluteCenterY;
+  @include sbb.absolute-center-y;
 
   height: var(--sbb-slider-line-height);
   width: 100%;
@@ -95,8 +97,8 @@
 }
 
 .sbb-slider__knob {
-  @include absoluteCenterY;
-  @include shadow-level-5-hard;
+  @include sbb.absolute-center-y;
+  @include sbb.shadow-level-5-hard;
 
   width: var(--sbb-slider-knob-size);
   height: var(--sbb-slider-knob-size);
@@ -118,11 +120,11 @@
 :host(:not(:is([disabled], [readonly]))) {
   .sbb-slider__range-input:active ~ .sbb-slider__knob,
   .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
-    --sbb-slider-knob-size: #{px-to-rem-build(31)};
+    --sbb-slider-knob-size: #{sbb.px-to-rem-build(31)};
   }
 
   .sbb-slider__range-input:focus-visible ~ .sbb-slider__knob {
-    @include focusOutline;
+    @include sbb.focus-outline;
   }
 }
 /* stylelint-enable plugin/stylelint-bem-namics */

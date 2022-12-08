@@ -1,7 +1,9 @@
+@use '../core/functions';
+
 @mixin scrollbar() {
   --sbb-scrollbar-width: var(--sbb-spacing-fixed-4x);
-  --sbb-scrollbar-thumb-width: #{px-to-rem-build(2)};
-  --sbb-scrollbar-thumb-width-hover: #{px-to-rem-build(4)};
+  --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(2)};
+  --sbb-scrollbar-thumb-width-hover: #{functions.px-to-rem-build(4)};
 
   &::-webkit-scrollbar {
     // Total width

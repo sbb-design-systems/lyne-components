@@ -48,14 +48,24 @@ You can also set the property `titleBackButton` to display the back button in th
 // Title provided via property
 <sbb-dialog id="my-dialog" title-content="Title" title-back-button="true">
   Dialog content.
-  <div slot="action-group">...</div>
+  <div slot="action-group">
+    <sbb-action-group>
+      <sbb-button sbb-dialog-close>Abort</sbb-button>
+      <sbb-button>Confirm</sbb-button>
+    </sbb-action-group>
+  </div>
 </sbb-dialog>
 
 // Slotted title
 <sbb-dialog id="my-dialog" title-back-button="true">
   <span slot="title">My dialog title</span>
   Dialog content.
-  <div slot="action-group">...</div>
+  <div slot="action-group">
+    <sbb-action-group>
+      <sbb-button sbb-dialog-close>Abort</sbb-button>
+      <sbb-button>Confirm</sbb-button>
+    </sbb-action-group>
+  </div>
 </sbb-dialog>
 ```
 

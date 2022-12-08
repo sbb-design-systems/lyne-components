@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
@@ -15,7 +15,7 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
   styleUrl: 'sbb-card-badge.scss',
   tag: 'sbb-card-badge',
 })
-export class SbbCardBadge implements AccessibilityProperties {
+export class SbbCardBadge implements ComponentInterface, AccessibilityProperties {
   /**
    * Accessibility label text. This text gets exposed to screen reader users.
    * The text should reflect all the information which gets passed into the

@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import { progressLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 const departureWalk = {
   control: {
@@ -11,6 +12,18 @@ const departureWalk = {
 const arrivalWalk = {
   control: {
     type: 'number',
+  },
+};
+
+const departureTime = {
+  control: {
+    type: 'text',
+  },
+};
+
+const arrivalTime = {
+  control: {
+    type: 'text',
   },
 };
 
@@ -29,20 +42,18 @@ const now = {
 const defaultArgTypes = {
   'departure-walk': departureWalk,
   'arrival-walk': arrivalWalk,
+  'arrival-time': arrivalTime,
+  'departure-time': departureTime,
   'disable-animation': disableAnimation,
   'data-now': now,
 };
 
 const defaultArgs = {
-  legs: [
-    {
-      duration: 300,
-    },
-  ],
-  'departure-time': '2022-10-28T02:48:00+02:00',
-  'arrival-time': '2022-10-28T12:48:00+02:00',
+  legs: [progressLeg],
+  'arrival-time': '2022-12-11T14:11:00',
+  'departure-time': '2022-12-11T12:11:00',
   'disable-animation': isChromatic(),
-  'data-now': undefined,
+  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
 const Template = (args) => {
@@ -75,14 +86,8 @@ maximal.args = {
   ...defaultArgs,
   'departure-walk': '10',
   'arrival-walk': '5',
-  legs: [
-    {
-      duration: 300,
-      arrival: { time: '2022-10-20T13:00' },
-      departure: { time: '2022-10-08T12:00' },
-    },
-  ],
-  'data-now': new Date('2022-10-13T12:00').valueOf(),
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  legs: [progressLeg],
 };
 
 export default {
