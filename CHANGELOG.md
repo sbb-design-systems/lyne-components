@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.17.0](https://github.com/lyne-design-system/lyne-components/compare/v0.16.2...v0.17.0) (2022-12-08)
+
+### ⚠ BREAKING CHANGES
+
+- In order to standardize mixin names, all mixin names were renamed to kebab-case style.
+  E.g. `ifForcedColors` became `if-forced-colors`.
+
+- rename all mixins to kebab-case notation ([#1489](https://github.com/lyne-design-system/lyne-components/issues/1489)) ([c867749](https://github.com/lyne-design-system/lyne-components/commit/c867749846751c85f31b06c714bdf643ea3cd91c))
+
 ### [0.16.2](https://github.com/lyne-design-system/lyne-components/compare/v0.16.1...v0.16.2) (2022-12-07)
 
 ### Bug Fixes
