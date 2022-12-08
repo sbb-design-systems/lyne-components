@@ -1291,8 +1291,6 @@ export namespace Components {
          */
         "valueAsNumber"?: number;
     }
-    interface SbbSlotComponent {
-    }
     interface SbbStack {
         /**
           * Stack appearance
@@ -2009,12 +2007,6 @@ declare global {
         prototype: HTMLSbbSliderElement;
         new (): HTMLSbbSliderElement;
     };
-    interface HTMLSbbSlotComponentElement extends Components.SbbSlotComponent, HTMLStencilElement {
-    }
-    var HTMLSbbSlotComponentElement: {
-        prototype: HTMLSbbSlotComponentElement;
-        new (): HTMLSbbSlotComponentElement;
-    };
     interface HTMLSbbStackElement extends Components.SbbStack, HTMLStencilElement {
     }
     var HTMLSbbStackElement: {
@@ -2201,7 +2193,6 @@ declare global {
         "sbb-section": HTMLSbbSectionElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
-        "sbb-slot-component": HTMLSbbSlotComponentElement;
         "sbb-stack": HTMLSbbStackElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
@@ -3522,8 +3513,6 @@ declare namespace LocalJSX {
          */
         "valueAsNumber"?: number;
     }
-    interface SbbSlotComponent {
-    }
     interface SbbStack {
         /**
           * Stack appearance
@@ -3987,7 +3976,6 @@ declare namespace LocalJSX {
         "sbb-section": SbbSection;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
-        "sbb-slot-component": SbbSlotComponent;
         "sbb-stack": SbbStack;
         "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
@@ -4059,7 +4047,6 @@ declare module "@stencil/core" {
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
-            "sbb-slot-component": LocalJSX.SbbSlotComponent & JSXBase.HTMLAttributes<HTMLSbbSlotComponentElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;

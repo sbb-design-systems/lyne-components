@@ -27,10 +27,6 @@ Default.args = {
   name: iconName.options[0],
 };
 
-Default.documentation = {
-  title: 'Default Icon',
-};
-
 export default {
   decorators: [
     (Story) => (

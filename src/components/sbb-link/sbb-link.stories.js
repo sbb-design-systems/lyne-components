@@ -1,34 +1,18 @@
-import {
-  SbbColorAluminiumDefault,
-  SbbColorCharcoalDefault,
-  SbbColorIronDefault,
-  SbbColorWhiteDefault,
-  SbbTypoLetterSpacingBodyText,
-  SbbTypoLineHeightBodyText,
-  SbbTypoScaleDefault,
-  SbbTypoTypeFaceSbbRoman,
-} from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
   if (!context.args.negative) {
-    return `background-color: ${SbbColorWhiteDefault};`;
+    return `background-color: var(--sbb-color-white-default);`;
   }
 
-  return `background-color: ${SbbColorCharcoalDefault};`;
+  return `background-color: var(--sbb-color-charcoal-default);`;
 };
 
-const paragraphStyle = (context) => {
-  let color;
-
-  if (context.args.negative) {
-    color = `color: ${SbbColorAluminiumDefault};`;
-  } else {
-    color = `color: ${SbbColorIronDefault};`;
-  }
-
-  return `${color} font-family: ${SbbTypoTypeFaceSbbRoman}; font-weight: normal; line-height: ${SbbTypoLineHeightBodyText}; letter-spacing: ${SbbTypoLetterSpacingBodyText}; font-size: ${SbbTypoScaleDefault}px`;
+const paragraphStyle = (negative) => {
+  return negative
+    ? `color: var(--sbb-color-aluminium-default);`
+    : `color: var(--sbb-color-iron-default);`;
 };
 
 const Template = ({ text, ...args }) => <sbb-link {...args}>{text}</sbb-link>;
@@ -46,8 +30,8 @@ const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
   </sbb-link>
 );
 
-const InlineTemplate = ({ text, ...args }, context) => (
-  <p style={paragraphStyle(context)}>
+const InlineTemplate = ({ text, ...args }) => (
+  <p style={paragraphStyle(args.negative)} class="sbb-text-m">
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
     dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor

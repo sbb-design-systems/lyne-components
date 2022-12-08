@@ -499,6 +499,7 @@ export default {
     ),
   ],
   parameters: {
+    chromatic: { disableSnapshot: false },
     docs: {
       extractComponentDescription: () => readme,
     },
