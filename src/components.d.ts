@@ -247,6 +247,8 @@ export namespace Components {
          */
         "text": string;
     }
+    interface SbbBlockedPassage {
+    }
     interface SbbButton {
         /**
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
@@ -1760,25 +1762,18 @@ export namespace Components {
     }
     interface SbbWagon {
         /**
-          * Accessibility text for translations to add additional information to wagon.
-         */
-        "accessibilityAdditionalWagonText": string;
-        /**
-          * Accessibility text for translations to describe the class of a wagon.
-         */
-        "accessibilityLabelClass": string;
-        /**
           * Accessibility-text for translations as the list title for additional information icons on a wagon.
          */
         "accessibilityLabelIconListTitle": string;
         /**
-          * Accessibility text for translations to describe the occupation level of a wagon.
+          * Additional accessibility text which will be appended to the constructed default text.
          */
-        "accessibilityLabelOccupation": string;
+        "additionalAccessibilityText": string;
+        "blockedPassage": InterfaceSbbWagonAttributes['blockedPassage'];
         /**
-          * Accessibility text for translations to describe the wagon type.
+          * Custom accessibility text to overwrite the constructed default text.
          */
-        "accessibilityLabelWagon": string;
+        "customAccessibilityLabel": string;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -1788,7 +1783,7 @@ export namespace Components {
          */
         "label"?: string;
         /**
-          * Occupation icon of a wagon.
+          * Occupancy of a wagon.
          */
         "occupancy": InterfaceSbbWagonAttributes['occupancy'];
         /**
@@ -1891,6 +1886,12 @@ declare global {
     var HTMLSbbAutocompleteItemElement: {
         prototype: HTMLSbbAutocompleteItemElement;
         new (): HTMLSbbAutocompleteItemElement;
+    };
+    interface HTMLSbbBlockedPassageElement extends Components.SbbBlockedPassage, HTMLStencilElement {
+    }
+    var HTMLSbbBlockedPassageElement: {
+        prototype: HTMLSbbBlockedPassageElement;
+        new (): HTMLSbbBlockedPassageElement;
     };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
@@ -2290,6 +2291,7 @@ declare global {
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
+        "sbb-blocked-passage": HTMLSbbBlockedPassageElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
@@ -2567,6 +2569,8 @@ declare namespace LocalJSX {
           * Text to show as content of the autocomplete item
          */
         "text": string;
+    }
+    interface SbbBlockedPassage {
     }
     interface SbbButton {
         /**
@@ -4118,25 +4122,18 @@ declare namespace LocalJSX {
     }
     interface SbbWagon {
         /**
-          * Accessibility text for translations to add additional information to wagon.
-         */
-        "accessibilityAdditionalWagonText"?: string;
-        /**
-          * Accessibility text for translations to describe the class of a wagon.
-         */
-        "accessibilityLabelClass"?: string;
-        /**
           * Accessibility-text for translations as the list title for additional information icons on a wagon.
          */
         "accessibilityLabelIconListTitle"?: string;
         /**
-          * Accessibility text for translations to describe the occupation level of a wagon.
+          * Additional accessibility text which will be appended to the constructed default text.
          */
-        "accessibilityLabelOccupation"?: string;
+        "additionalAccessibilityText"?: string;
+        "blockedPassage"?: InterfaceSbbWagonAttributes['blockedPassage'];
         /**
-          * Accessibility text for translations to describe the wagon type.
+          * Custom accessibility text to overwrite the constructed default text.
          */
-        "accessibilityLabelWagon"?: string;
+        "customAccessibilityLabel"?: string;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -4146,7 +4143,7 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
-          * Occupation icon of a wagon.
+          * Occupancy of a wagon.
          */
         "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
         /**
@@ -4166,6 +4163,7 @@ declare namespace LocalJSX {
         "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-autocomplete-item": SbbAutocompleteItem;
+        "sbb-blocked-passage": SbbBlockedPassage;
         "sbb-button": SbbButton;
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
@@ -4244,6 +4242,7 @@ declare module "@stencil/core" {
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
+            "sbb-blocked-passage": LocalJSX.SbbBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbBlockedPassageElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
