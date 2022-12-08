@@ -1,4 +1,5 @@
 export interface InterfaceSbbWagonAttributes {
-  type: 'locomotive' | 'blocked' | 'wagon';
-  occupancy: 'high' | 'medium' | 'low' | 'none';
+  type: 'locomotive' | 'closed' | 'wagon';
+  occupancy: 'high' | 'medium' | 'low' | 'unknown';
+  blockedPassage: 'previous' | 'next' | 'both' | 'none';
 }

@@ -11,19 +11,14 @@ const MountedFormationTemplate = (args) => (
       accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction."
     >
       <sbb-sector label="Sector A">
-        <sbb-wagon
-          type="locomotive"
-          accessibility-label-wagon="Locomotive"
-          accessibility-additional-wagon-text="Top of the train"
-        ></sbb-wagon>
-        <sbb-wagon type="blocked" accessibility-label-wagon="Passage blocked"></sbb-wagon>
+        <sbb-wagon type="locomotive" additional-accessibility-text="Top of the train"></sbb-wagon>
+        <sbb-wagon type="closed"></sbb-wagon>
+        <sbb-blocked-passage />
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="38"
-          accessibility-label-occupation="Expected occupancy low"
           occupancy="low"
-          accessibility-label-class="First class"
+          blocked-passage="previous"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="1"
         >
@@ -34,16 +29,18 @@ const MountedFormationTemplate = (args) => (
             aria-label="Business zone in 1st class: Reservation possible"
             name="sa-bz"
           ></sbb-icon>
+          <sbb-icon
+            aria-hidden="false"
+            aria-label="Business zone in 1st class: Reservation possible"
+            name="sa-bz"
+          ></sbb-icon>
         </sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector B">
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="39"
-          accessibility-label-occupation="Expected occupancy low"
           occupancy="low"
-          accessibility-label-class="First class"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="1"
         >
@@ -51,10 +48,7 @@ const MountedFormationTemplate = (args) => (
         </sbb-wagon>
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="40"
-          accessibility-label-occupation="Expected occupancy hight"
-          accessibility-label-class="Second class"
           occupancy="high"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
@@ -68,10 +62,7 @@ const MountedFormationTemplate = (args) => (
         </sbb-wagon>
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="41"
-          accessibility-label-occupation="Expected occupancy medium"
-          accessibility-label-class="Second class"
           occupancy="medium"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
@@ -82,10 +73,7 @@ const MountedFormationTemplate = (args) => (
       <sbb-sector label="Sector C">
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="42"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
           occupancy="low"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
@@ -94,10 +82,7 @@ const MountedFormationTemplate = (args) => (
         </sbb-wagon>
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="43"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
           occupancy="low"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
@@ -111,10 +96,7 @@ const MountedFormationTemplate = (args) => (
         </sbb-wagon>
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="44"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
           occupancy="low"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
@@ -124,31 +106,12 @@ const MountedFormationTemplate = (args) => (
         </sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector D">
+        <sbb-wagon type="wagon" label="45" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="46" occupancy="low" wagon-class="2"></sbb-wagon>
         <sbb-wagon
           type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="45"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="46"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
           label="47"
           accessibility-additional-wagon-text="End of the train"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
           occupancy="low"
           wagon-class="2"
         ></sbb-wagon>
@@ -164,105 +127,26 @@ const MountedFormationTemplate = (args) => (
         <sbb-wagon
           type="locomotive"
           accessibility-label-wagon="Locomotive"
-          accessibility-additional-wagon-text="Top of the train"
+          additional-accessibility-text="Top of the train"
         ></sbb-wagon>
-        <sbb-wagon type="blocked" accessibility-label-wagon="Passage blocked"></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="50"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
+        <sbb-wagon type="closed" label="49"></sbb-wagon>
+        <sbb-blocked-passage />
+        <sbb-wagon type="wagon" label="50" occupancy="low" wagon-class="2"></sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector F">
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="51"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="52"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="53"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
+        <sbb-wagon type="wagon" label="51" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="52" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="53" occupancy="low" wagon-class="2"></sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector G">
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="54"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="55"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="56"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
+        <sbb-wagon type="wagon" label="54" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="55" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="56" occupancy="low" wagon-class="2"></sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector H">
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="57"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="58"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          accessibility-label-wagon="Train coach number"
-          label="59"
-          accessibility-label-occupation="Expected occupancy low"
-          accessibility-label-class="Second class"
-          occupancy="low"
-          wagon-class="2"
-        ></sbb-wagon>
+        <sbb-wagon type="wagon" label="57" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="58" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon type="wagon" label="59" occupancy="low" wagon-class="2"></sbb-wagon>
       </sbb-sector>
     </sbb-train>
   </sbb-train-formation>

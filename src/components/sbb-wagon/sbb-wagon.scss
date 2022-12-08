@@ -8,22 +8,10 @@
   --sbb-wagon-inner-padding: var(--sbb-spacing-fixed-3x);
   --sbb-wagon-shape-border-radius: var(--sbb-train-formation-wagon-border-radius);
   --sbb-wagon-shape-outline-color: var(--sbb-color-charcoal-default);
+  --sbb-wagon-shape-outline-color-block: var(--sbb-color-metal-default);
   --sbb-wagon-shape-outline-width: var(--sbb-border-width-1x);
-  --sbb-wagon-blocked-background-color: var(--sbb-color-red-default);
-  --sbb-wagon-blocked-bar-color: var(--sbb-color-white-default);
   --sbb-wagon-icons-padding-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
-
-  // Blocked passage icon
-  --sbb-wagon-blocked-passage-icon-dimension: #{px-to-rem-build(16)};
-  --sbb-wagon-blocked-passage-icon-bar-width: #{px-to-rem-build(10)};
-  --sbb-wagon-blocked-passage-icon-bar-height: #{px-to-rem-build(4)};
-  --sbb-wagon-blocked-passage-icon-bar-border-radius: #{px-to-rem-build(1)};
-
-  @include ifForcedColors {
-    --sbb-wagon-blocked-background-color: CanvasText;
-    --sbb-wagon-blocked-bar-color: Canvas;
-  }
 }
 
 .sbb-wagon {
@@ -32,12 +20,9 @@
   align-items: center;
   max-width: var(--sbb-wagon-width);
 
-  :host([type='wagon']) & {
+  :host([type='wagon']) &,
+  :host([type='closed']) & {
     width: var(--sbb-wagon-width);
-  }
-
-  :host([type='blocked']) & {
-    width: var(--sbb-wagon-blocked-passage-icon-dimension);
   }
 }
 
@@ -56,20 +41,21 @@
 .sbb-wagon__compartment {
   height: var(--sbb-wagon-height);
 
-  :host([type='wagon']) & {
-    width: 100%;
-    border-radius: var(--sbb-wagon-shape-border-radius);
-    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color);
+  :host([type='wagon']) &,
+  :host([type='closed']) & {
     padding: 0 var(--sbb-wagon-inner-padding);
     display: flex;
     align-items: center;
+    width: 100%;
+    border-radius: var(--sbb-wagon-shape-border-radius);
   }
 
-  :host([type='blocked']) & {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  :host([type='wagon']) & {
+    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color);
+  }
+
+  :host([type='closed']) & {
+    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color-block);
   }
 }
 
@@ -96,25 +82,5 @@
 
   li {
     display: inline-flex;
-  }
-}
-
-.sbb-wagon__blocked-icon {
-  width: 100%;
-  height: var(--sbb-wagon-blocked-passage-icon-dimension);
-  border-radius: 50%;
-  background-color: var(--sbb-wagon-blocked-background-color);
-  position: relative;
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-
-  &::before {
-    content: '';
-    width: var(--sbb-wagon-blocked-passage-icon-bar-width);
-    height: var(--sbb-wagon-blocked-passage-icon-bar-height);
-    border-radius: var(--sbb-wagon-blocked-passage-icon-bar-border-radius);
-    background-color: var(--sbb-wagon-blocked-bar-color);
-    margin: auto 0;
   }
 }

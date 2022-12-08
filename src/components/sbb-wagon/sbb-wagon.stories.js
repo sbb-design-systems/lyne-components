@@ -82,7 +82,7 @@ const type = {
   control: {
     type: 'inline-radio',
   },
-  options: ['locomotive', 'blocked', 'wagon'],
+  options: ['locomotive', 'closed', 'wagon'],
   table: {
     category: 'Wagon',
   },
@@ -146,15 +146,15 @@ locomotive.documentation = {
   title: 'Locomotive example',
 };
 
-export const blocked = Template.bind({});
-blocked.argTypes = defaultArgTypes;
-blocked.args = {
+export const closed = Template.bind({});
+closed.argTypes = defaultArgTypes;
+closed.args = {
   ...defaultArgs,
   type: type.options[1],
   'accessibility-label-wagon': 'Passage blocked',
 };
-blocked.documentation = {
-  title: 'Blocked wagon example',
+closed.documentation = {
+  title: 'Closed wagon example',
 };
 
 export default {

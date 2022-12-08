@@ -1,5 +1,14 @@
 import { Component, Element, Fragment, h, JSX, Prop, State } from '@stencil/core';
 import { InterfaceSbbWagonAttributes } from './sbb-wagon.custom.d';
+import getDocumentLang from '../../global/helpers/get-document-lang';
+import {
+  i18nWagonLabel,
+  i18nClass,
+  i18nOccupancy,
+  i18nBlockedPassage,
+  i18nLocomotiveLabel,
+  i18nClosedCompartmentLabel,
+} from '../../global/i18n';
 
 let nextId = 0;
 
@@ -16,8 +25,10 @@ export class SbbWagon {
   /** Wagon type. */
   @Prop({ reflect: true }) public type: InterfaceSbbWagonAttributes['type'] = 'wagon';
 
-  /** Occupation icon of a wagon. */
-  @Prop() public occupancy: InterfaceSbbWagonAttributes['occupancy'] = 'none';
+  /** Occupancy of a wagon. */
+  @Prop() public occupancy: InterfaceSbbWagonAttributes['occupancy'] = 'unknown';
+
+  @Prop() public blockedPassage: InterfaceSbbWagonAttributes['blockedPassage'] = 'none';
 
   /** Visible class label of a wagon. */
   @Prop() public wagonClass?: '1' | '2';
@@ -25,17 +36,11 @@ export class SbbWagon {
   /** Visible label for the wagon number. Not used by type locomotive or blocked. */
   @Prop() public label?: string;
 
-  /** Accessibility text for translations to describe the wagon type. */
-  @Prop() public accessibilityLabelWagon = '';
+  /** Custom accessibility text to overwrite the constructed default text. */
+  @Prop() public customAccessibilityLabel = '';
 
-  /** Accessibility text for translations to add additional information to wagon. */
-  @Prop() public accessibilityAdditionalWagonText = '';
-
-  /** Accessibility text for translations to describe the occupation level of a wagon. */
-  @Prop() public accessibilityLabelOccupation = '';
-
-  /** Accessibility text for translations to describe the class of a wagon. */
-  @Prop() public accessibilityLabelClass = '';
+  /** Additional accessibility text which will be appended to the constructed default text. */
+  @Prop() public additionalAccessibilityText = '';
 
   /** Accessibility-text for translations as the list title for additional information icons on a wagon. */
   @Prop() public accessibilityLabelIconListTitle = '';
@@ -66,20 +71,38 @@ export class SbbWagon {
    * Create the accessibility text for the specific wagon types.
    */
   private _getAccessibilityText(): string {
-    if (this.type === 'wagon') {
-      let text = `${this.accessibilityLabelWagon} ${this.label}.`;
-      text = this.accessibilityLabelClass.length
-        ? `${text} ${this.accessibilityLabelClass}.`
-        : text;
-      text = this.accessibilityLabelOccupation.length
-        ? `${text} ${this.accessibilityLabelOccupation}.`
-        : text;
-      text = this.accessibilityAdditionalWagonText.length
-        ? `${text} ${this.accessibilityAdditionalWagonText}.`
-        : text;
-      return text;
+    // Custom overwrite text
+    if (this.customAccessibilityLabel.length) {
+      return this.customAccessibilityLabel;
     }
-    return `${this.accessibilityLabelWagon} ${this.accessibilityAdditionalWagonText}`;
+
+    const currentLanguage = getDocumentLang();
+    let text = '';
+    if (this.type === 'locomotive') {
+      text = `${i18nLocomotiveLabel[currentLanguage]}.`;
+    } else if (this.type === 'closed') {
+      text = i18nClosedCompartmentLabel(parseInt(this.label))[currentLanguage];
+    } else {
+      // Wagon type text
+      text = `${i18nWagonLabel(parseInt(this.label))[currentLanguage]}`;
+      // Class text
+      text =
+        this.wagonClass === '1'
+          ? `${text} ${i18nClass['first'][currentLanguage]}.`
+          : `${text} ${i18nClass['second'][currentLanguage]}.`;
+      // Occupancy text
+      text = `${text} ${i18nOccupancy[this.occupancy][currentLanguage]}`;
+      // Blocked passage
+      if (this.blockedPassage !== 'none') {
+        text = `${text} ${i18nBlockedPassage[this.blockedPassage][currentLanguage]}`;
+      }
+    }
+    // Additional text like e.g. "Top/End of the train"-hint
+    text = this.additionalAccessibilityText.length
+      ? `${text} ${this.additionalAccessibilityText}.`
+      : text;
+
+    return text;
   }
 
   public render(): JSX.Element {
@@ -103,7 +126,7 @@ export class SbbWagon {
             </Fragment>
           ) : (
             <Fragment>
-              {this.type === 'locomotive' ? (
+              {this.type === 'locomotive' && (
                 <svg
                   aria-hidden="true"
                   width="80"
@@ -117,8 +140,6 @@ export class SbbWagon {
                     stroke="#767676"
                   />
                 </svg>
-              ) : (
-                <span class="sbb-wagon__blocked-icon"></span>
               )}
             </Fragment>
           )}
