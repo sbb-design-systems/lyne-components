@@ -10,41 +10,27 @@ const wrapperStyle = (context) => {
 };
 
 const LinkTemplate = (args) => (
-  <sbb-link
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-    text-size={args.linkTextSize}
-    negative={args.negative}
-  >
+  <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
     {args.linkTitle}
   </sbb-link>
 );
 
 // SlottedTitle
-const TemplateSlottedTitle = ({ 'title-content': titleContent, linkTextSize, ...args }) => (
+const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }) => (
   <sbb-link-list {...args}>
     <span slot="title">{titleContent}</span>
-    {links.map((linkTitle) => {
-      const linkArgs = {
-        linkTitle,
-        linkTextSize,
-        negative: args.negative,
-      };
-      return <LinkTemplate {...linkArgs} />;
-    })}
+    {links.map((linkTitle) => (
+      <LinkTemplate {...{ linkTitle }} />
+    ))}
   </sbb-link-list>
 );
 
 // TitleAsProperty
-const Template = ({ linkTextSize, ...args }) => (
+const Template = ({ ...args }) => (
   <sbb-link-list {...args}>
-    {links.map((linkTitle) => {
-      const linkArgs = {
-        linkTitle,
-        linkTextSize,
-        negative: args.negative,
-      };
-      return <LinkTemplate {...linkArgs} />;
-    })}
+    {links.map((linkTitle) => (
+      <LinkTemplate {...{ linkTitle }} />
+    ))}
   </sbb-link-list>
 );
 
@@ -99,7 +85,7 @@ const negative = {
   },
 };
 
-const linkTextSize = {
+const textSize = {
   control: {
     type: 'select',
   },
@@ -115,7 +101,7 @@ const defaultArgTypes = {
   'title-level': titleLevel,
   'title-content': titleContent,
   negative,
-  linkTextSize,
+  textSize,
 };
 
 const defaultArgs = {
@@ -123,7 +109,7 @@ const defaultArgs = {
   'title-level': titleLevel.options[0],
   'title-content': 'Help & Contact',
   negative: false,
-  linkTextSize: linkTextSize.options[1],
+  textSize: textSize.options[1],
 };
 
 export const LinkListDefault = Template.bind({});
@@ -136,7 +122,7 @@ export const LinkListXS = Template.bind({});
 LinkListXS.argTypes = defaultArgTypes;
 LinkListXS.args = {
   ...defaultArgs,
-  linkTextSize: linkTextSize.options[0],
+  textSize: textSize.options[0],
 };
 
 export const LinkListNoTitle = Template.bind({});
