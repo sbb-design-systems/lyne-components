@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -11,7 +12,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   createNamedSlotState,
@@ -36,7 +36,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation-section.scss',
   tag: 'sbb-navigation-section',
 })
-export class SbbNavigationSection implements AccessibilityProperties {
+export class SbbNavigationSection implements ComponentInterface, AccessibilityProperties {
   /**
    * This id will be forwarded to the relevant inner element.
    */
@@ -99,31 +99,19 @@ export class SbbNavigationSection implements AccessibilityProperties {
   @State() private _namedSlots = createNamedSlotState('title');
 
   /**
-   * Emits whenever the navigation section starts the opening transition.
+   * Emits whenever the navigation section is closed.
    */
   @Event({
     bubbles: true,
     composed: true,
   })
-  public willOpen: EventEmitter<void>;
-
-  /**
-   * Emits whenever the navigation section begins the closing transition.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-  })
-  public willClose: EventEmitter<void>;
+  public didClose: EventEmitter<void>;
 
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionWrapperElement: HTMLElement;
-  private _navigationSectionContentElement: HTMLElement;
   private _triggerElement: HTMLElement;
-  private _firstFocusable: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
-  private _openedByKeyboard = false;
   private _hasTitle = false;
   private _currentLanguage = getDocumentLang();
 
@@ -134,11 +122,10 @@ export class SbbNavigationSection implements AccessibilityProperties {
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._state === 'opened' || this._state === 'closing' || !this._navigationSection) {
+    if (this._state !== 'closed' || !this._navigationSection) {
       return;
     }
 
-    this.willOpen.emit();
     this._state = 'opening';
     this._navigationSection.show();
   }
@@ -148,13 +135,11 @@ export class SbbNavigationSection implements AccessibilityProperties {
    */
   @Method()
   public async close(): Promise<void> {
-    if (this._state === 'opening') {
+    if (this._state !== 'opened') {
       return;
     }
 
-    this.willClose.emit();
     this._state = 'closing';
-    this._openedByKeyboard = false;
   }
 
   // Removes trigger click listener on trigger change.
@@ -192,26 +177,17 @@ export class SbbNavigationSection implements AccessibilityProperties {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._navigationSectionController.signal }
-    );
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
       this._state = 'opened';
-      this._setDialogFocus();
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
       this._state = 'closed';
-      this._navigationSectionContentElement.scrollTo(0, 0);
+      this._navigationSectionWrapperElement.scrollTo(0, 0);
       this._navigationSection.close();
+      this.didClose.emit();
       this._windowEventsController?.abort();
     }
   }
@@ -222,49 +198,34 @@ export class SbbNavigationSection implements AccessibilityProperties {
       signal: this._windowEventsController.signal,
     });
 
-    // Close navigation section on action click
-    window.addEventListener('pointerup', this._handleNavigationSectionClose, {
+    // Close navigation section on action click or sbb-navigation-section-close click
+    window.addEventListener('click', this._handleNavigationSectionClose, {
       signal: this._windowEventsController.signal,
     });
   }
 
-  private _handleNavigationSectionClose = (event: PointerEvent): void => {
-    if (this._state !== 'opened') {
-      return;
-    }
-
-    const target = event.target as HTMLElement;
+  private _handleNavigationSectionClose = (event: Event): void => {
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
-    const isNavigationClose = composedPathElements.some(
-      (el) =>
-        (el as HTMLElement).hasAttribute('sbb-navigation-close') ||
-        (el as HTMLElement).hasAttribute('sbb-navigation-section-close')
-    );
-
-    // Close the navigation section on click of any element that has the 'sbb-navigation-close' or the 'sbb-navigation-section-close' attribute.
-    if (isNavigationClose && !target.hasAttribute('disabled')) {
-      this.close();
-      return;
-    }
-
-    // Check if the target is a navigation action belonging to the same group as the trigger.
-    const isActionElement =
-      target !== this._triggerElement &&
-      target.nodeName === 'SBB-NAVIGATION-ACTION' &&
-      target.parentElement === this._triggerElement.parentElement;
-
-    if (isActionElement || target.hasAttribute('sbb-close-navigation')) {
+    if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
       this.close();
     }
   };
 
-  // Close the navigation when a link is clicked.
-  private _closeOnLinkElementClick(event: Event): void {
-    if (event.composedPath().some((el) => (el as HTMLElement).nodeName === 'A')) {
-      this.close();
-    }
+  private _isCloseElement(element: HTMLElement): boolean {
+    // Check if the element is a navigation action belonging to the same group as the trigger.
+    const isActionElement =
+      element !== this._triggerElement &&
+      element.nodeName === 'SBB-NAVIGATION-ACTION' &&
+      element.parentElement === this._triggerElement.parentElement;
+
+    return (
+      isActionElement ||
+      element.nodeName === 'A' ||
+      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled')) ||
+      (element.hasAttribute('sbb-navigation-section-close') && !element.hasAttribute('disabled'))
+    );
   }
 
   // Closes the navigation on "Esc" key pressed.
@@ -276,28 +237,6 @@ export class SbbNavigationSection implements AccessibilityProperties {
     if (event.key === 'Escape') {
       this.close();
       return;
-    }
-  }
-
-  // Set focus on the first focusable element.
-  private _setDialogFocus(): void {
-    this._firstFocusable = this._element.shadowRoot.querySelector(
-      IS_FOCUSABLE_QUERY
-    ) as HTMLElement;
-
-    if (this._openedByKeyboard) {
-      this._firstFocusable.focus();
-    } else {
-      // Focusing sbb-navigation-section__wrapper in order to provide a consistent behavior in Safari where else
-      // the focus-visible styles would be incorrectly applied
-      this._navigationSectionWrapperElement.tabIndex = 0;
-      this._navigationSectionWrapperElement.focus();
-
-      this._navigationSectionWrapperElement.addEventListener(
-        'blur',
-        () => this._navigationSectionWrapperElement.removeAttribute('tabindex'),
-        { once: true }
-      );
     }
   }
 
@@ -341,8 +280,8 @@ export class SbbNavigationSection implements AccessibilityProperties {
           'sbb-navigation-section--opened': this._state === 'opened',
           'sbb-navigation-section--opening': this._state === 'opening',
           'sbb-navigation-section--closing': this._state === 'closing',
-          'sbb-navigation-section--closed': this._state === 'closed',
         }}
+        slot="navigation-section"
       >
         <dialog
           ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
@@ -357,14 +296,7 @@ export class SbbNavigationSection implements AccessibilityProperties {
             }
             class="sbb-navigation-section__wrapper"
           >
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-            <div
-              onClick={(event: Event) => this._closeOnLinkElementClick(event)}
-              class="sbb-navigation-section__content"
-              ref={(navigationSectionContent) =>
-                (this._navigationSectionContentElement = navigationSectionContent)
-              }
-            >
+            <div class="sbb-navigation-section__content">
               {this._hasTitle && labelElement}
               <slot />
             </div>

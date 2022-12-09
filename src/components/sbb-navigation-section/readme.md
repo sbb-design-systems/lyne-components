@@ -21,10 +21,9 @@
 
 ## Events
 
-| Event       | Description                                                          | Type                |
-| ----------- | -------------------------------------------------------------------- | ------------------- |
-| `willClose` | Emits whenever the navigation section begins the closing transition. | `CustomEvent<void>` |
-| `willOpen`  | Emits whenever the navigation section starts the opening transition. | `CustomEvent<void>` |
+| Event      | Description                                      | Type                |
+| ---------- | ------------------------------------------------ | ------------------- |
+| `didClose` | Emits whenever the navigation section is closed. | `CustomEvent<void>` |
 
 
 ## Methods

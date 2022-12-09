@@ -3271,7 +3271,7 @@ declare namespace LocalJSX {
          */
         "onWillClose"?: (event: SbbNavigationCustomEvent<void>) => void;
         /**
-          * Emits whenever the navigation starts the opening transition.
+          * Emits whenever the navigation begins the opening transition.
          */
         "onWillOpen"?: (event: SbbNavigationCustomEvent<void>) => void;
         /**
@@ -3377,13 +3377,9 @@ declare namespace LocalJSX {
          */
         "navigationSectionId"?: string;
         /**
-          * Emits whenever the navigation section begins the closing transition.
+          * Emits whenever the navigation section is closed.
          */
-        "onWillClose"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
-        /**
-          * Emits whenever the navigation section starts the opening transition.
-         */
-        "onWillOpen"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
+        "onDidClose"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
         "titleContent"?: string;
         "titleId"?: string;
         "titleLevel"?: InterfaceTitleAttributes['level'];

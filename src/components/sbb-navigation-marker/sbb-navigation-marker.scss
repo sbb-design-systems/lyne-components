@@ -9,8 +9,8 @@
 
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
-  --sbb-navigation-marker-position-y: 0;
-  --sbb-navigation-marker-width: #{px-to-rem-build(17)};
+  --sbb-navigation-marker-position-y: unset;
+  --sbb-navigation-marker-width: #{sbb.px-to-rem-build(17)};
   --sbb-navigation-marker-height: var(--sbb-border-width-1x);
   --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
   --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-titles);
@@ -52,7 +52,7 @@
   @include sbb.text-xxs--bold;
 
   --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-navigation-marker-width: #{px-to-rem-build(8)};
+  --sbb-navigation-marker-width: #{sbb.px-to-rem-build(8)};
   --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-body-text);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
   --sbb-navigation-marker-position-x: calc(

@@ -9,7 +9,7 @@ describe('sbb-navigation-marker', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-navigation-marker style="--sbb-navigation-marker-position-y: undefinedpx;">
+      <sbb-navigation-marker>
         <mock:shadow-root>
           <ul class="sbb-navigation-marker__content"></ul>
           <span hidden="">

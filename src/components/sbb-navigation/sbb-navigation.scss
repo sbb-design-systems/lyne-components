@@ -4,28 +4,34 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+@mixin transition($properties...) {
+  transition: {
+    duration: var(--sbb-navigation-animation-duration);
+    timing-function: var(--sbb-navigation-animation-easing);
+    property: $properties;
+  }
+}
+
 :host {
+  --sbb-navigation-grid-column: 1 / 5;
   --sbb-navigation-position: fixed;
-  --sbb-navigation-right: calc(var(--sbb-layout-base-offset-responsive) * -1);
   --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
   --sbb-navigation-animation-easing: ease-out;
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
   --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
-  --sbb-navigation-columns: 1 / 5;
   --sbb-navigation-backdrop-color: transparent;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   @include sbb.grid-base;
 
-  width: 100vw;
-  height: 100vh;
+  column-gap: 0;
   position: var(--sbb-navigation-position);
   left: 0;
   top: 0;
+  pointer-events: none;
   z-index: 10;
-  padding-inline: var(--sbb-layout-base-offset-responsive);
 
   ::slotted(sbb-navigation-list:first-child),
   ::slotted(sbb-navigation-marker:first-child) {
@@ -33,47 +39,38 @@
   }
 
   @include sbb.mq($from: medium) {
-    --sbb-navigation-columns: 1 / 9;
+    --sbb-navigation-grid-column: 1 / 9;
   }
 
   @include sbb.mq($from: large) {
-    --sbb-navigation-columns: 1 / 5;
-    --sbb-navigation-right: 0;
+    --sbb-navigation-grid-column: 1 / 5;
+    --sbb-navigation-animation-duration: var(--sbb-animation-duration-4x);
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
+    --sbb-navigation-position: absolute;
     --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
-
-    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-    ::slotted(:not(sbb-navigation-section)) {
-      z-index: 1;
-    }
 
     // Navigation backdrop (not visible on mobile)
     &::before {
+      @include transition(background-color, visibility);
+
       content: '';
       visibility: hidden;
       pointer-events: none;
       position: fixed;
       inset: 0;
       background-color: var(--sbb-navigation-backdrop-color);
-
-      transition: {
-        duration: var(--sbb-navigation-animation-duration);
-        timing-function: var(--sbb-navigation-animation-easing);
-        property: background-color, visibility;
-      }
     }
   }
 
   @include sbb.mq($from: ultra) {
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
-    --sbb-navigation-columns: 1 / 6;
   }
 }
 
-:host(.sbb-navigation--closed) {
-  width: 0;
-  height: 0;
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:not(.sbb-navigation-section--closed)) {
+  inset: 0;
 }
 
 :host(.sbb-navigation--opened),
@@ -93,39 +90,37 @@
 }
 
 .sbb-navigation {
-  position: absolute;
+  @include transition(width);
+
+  display: block;
+  grid-column: var(--sbb-navigation-grid-column);
+  padding: 0;
+  margin: 0;
+  position: var(--sbb-navigation-position);
   visibility: hidden;
   opacity: 0;
+  left: 0;
+  top: 0;
   border: none;
   pointer-events: none;
-  margin: 0;
+  width: 100%;
   height: 100vh;
   color: var(--sbb-color-white-default);
   background-color: var(--sbb-color-midnight-default);
-  padding: 0;
-  width: auto;
-  left: calc(var(--sbb-layout-base-offset-responsive) * -1);
-  right: var(--sbb-navigation-right);
-  grid-column: var(--sbb-navigation-columns);
 
   &::before {
+    @include transition(width);
+
     content: '';
     position: absolute;
-    background-color: var(--sbb-color-midnight-default);
-    height: 100vh;
-    width: 100vw;
-    right: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--sbb-color-midnight-default);
 
-    transition: {
-      duration: var(--sbb-animation-duration-5x);
-      delay: var(--sbb-animation-duration-2x);
-      timing-function: ease-in-out;
-      property: right;
-    }
-
-    :host(.sbb-navigation--has-navigation-section) & {
-      right: -100vw;
-      transition-delay: var(--sbb-animation-duration-1x);
+    @include sbb.mq($from: 'large') {
+      :host(.sbb-navigation--has-navigation-section) & {
+        width: 100vw;
+      }
     }
   }
 
@@ -156,26 +151,35 @@
 }
 
 .sbb-navigation__header {
-  position: absolute;
+  @include transition(width, transform);
+
   display: flex;
-  justify-content: end;
-  padding: var(--sbb-spacing-responsive-xs);
-  z-index: 1;
+  transform: translateX(-100%);
+  justify-content: flex-end;
+  grid-column: var(--sbb-navigation-grid-column);
+  position: absolute;
   width: 100%;
-  transition: {
-    duration: var(--sbb-animation-duration-4x);
-    delay: var(--sbb-animation-duration-3x);
-    timing-function: ease-in-out;
-    property: width;
+  height: auto;
+  pointer-events: none;
+  padding: var(--sbb-spacing-responsive-xs);
+  z-index: 11;
+
+  :host(.sbb-navigation--opened) &,
+  :host(.sbb-navigation--opening) & {
+    transform: translateX(0%);
   }
 
   :host(.sbb-navigation--has-navigation-section) & {
     width: 100vw;
-    transition-delay: var(--sbb-animation-duration-1x);
   }
 }
 
+.sbb-navigation__close {
+  pointer-events: all;
+}
+
 .sbb-navigation__content {
+  @include transition(transform);
   @include sbb.scrollbar-dark;
 
   display: flex;
@@ -187,20 +191,14 @@
   padding-block-start: var(--sbb-navigation-padding-block-start);
   padding-block-end: var(--sbb-navigation-padding-block-end);
   overflow-y: auto;
-  left: 0%;
-  transition: {
-    duration: var(--sbb-animation-duration-3x);
-    timing-function: ease-in-out;
-    property: left;
-  }
 
   :host(.sbb-navigation--has-navigation-section) & {
-    left: -100%;
+    transform: translateX(-100%);
   }
 
   @include sbb.mq($from: large) {
     :host(.sbb-navigation--has-navigation-section) & {
-      left: 0%;
+      transform: translateX(0%);
     }
   }
 }

@@ -17,28 +17,29 @@ describe('sbb-navigation', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation class="sbb-navigation--closed" trigger="nav-trigger">
+        <sbb-navigation trigger="nav-trigger">
           <mock:shadow-root>
-            <dialog class="sbb-navigation" id="sbb-dialog-1">
-              <div class="sbb-navigation__header">
-                <sbb-button 
-                  accessibility-controls="sbb-dialog-1"
-                  accessibility-label="Close modal" 
-                  class="sbb-navigation__close" 
-                  icon-name="cross-small" 
-                  negative=""
-                  sbb-navigation-close=""
-                  size="m" 
-                  type="button" 
-                  variant="transparent">
-                </sbb-button>
-              </div>
+            <div class="sbb-navigation__header">
+              <sbb-button 
+                accessibility-controls="sbb-navigation-1"
+                accessibility-label="Close modal" 
+                class="sbb-navigation__close" 
+                icon-name="cross-small" 
+                negative=""
+                sbb-navigation-close=""
+                size="m" 
+                type="button" 
+                variant="transparent">
+              </sbb-button>
+            </div>
+            <dialog class="sbb-navigation" id="sbb-navigation-1">
               <div class="sbb-navigation__wrapper">
                 <div class="sbb-navigation__content">
                   <slot></slot>
                 </div>
               </div>
             </dialog>
+            <slot name="navigation-section"></slot>
           </mock:shadow-root>
           <sbb-navigation-marker>
             <sbb-navigation-action id="nav-1">

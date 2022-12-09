@@ -5,44 +5,35 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-navigation-section-column: 1 / 5;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-3x);
-  --sbb-navigation-section-animation-easing: ease-in-out;
+  --sbb-navigation-section-animation-easing: ease-out;
   --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-navigation-section-transform: translateX(100%);
   --sbb-navigation-section-list-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-navigation-section-column: 1 / 5;
-  --sbb-navigation-section-left: calc(var(--sbb-layout-base-offset-responsive) * -1);
-  --sbb-navigation-section-right: calc(var(--sbb-layout-base-offset-responsive) * -1);
 
-  @include sbb.grid-base;
-
-  width: 100vw;
-  height: 100vh;
-  padding-inline: var(--sbb-layout-base-offset-responsive);
   position: var(--sbb-navigation-section-position);
+  grid-column: var(--sbb-navigation-section-column);
   left: 0;
   top: 0;
+  z-index: 10;
 
   ::slotted(sbb-navigation-list) {
     padding-inline-start: var(--sbb-navigation-section-list-padding-inline-start);
   }
 
-  @include sbb.mq($from: medium) {
-    --sbb-navigation-section-column: 1 / 9;
-  }
-
   @include sbb.mq($from: large) {
+    --sbb-navigation-section-column: 5 / 9;
     --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-4x);
     --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-14x)
       var(--sbb-layout-base-offset-responsive);
-    --sbb-navigation-section-transform: 0;
+    --sbb-navigation-section-position: absolute;
+    --sbb-navigation-section-transform: translateX(0%);
     --sbb-navigation-section-list-padding-inline-start: 0;
-    --sbb-navigation-section-left: calc(var(--sbb-grid-base-gutter-responsive) * -1);
-    --sbb-navigation-section-column: 5 / 9;
   }
 
   @include sbb.mq($from: wide) {
@@ -51,32 +42,26 @@
 
   @include sbb.mq($from: ultra) {
     --sbb-navigation-section-padding-block-start: var(--sbb-spacing-responsive-xxl);
-    --sbb-navigation-section-column: 6 / 17;
   }
+}
+
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:not(.sbb-navigation-section--closed)) {
+  inset: 0;
 }
 
 :host([disable-animation]) {
   --sbb-navigation-section-animation-duration: 0s;
 }
 
-:host(.sbb-navigation-section--closed) {
-  width: 0;
-  height: 0;
-}
-
 .sbb-navigation-section {
-  position: absolute;
   visibility: hidden;
-  height: calc(100vh - calc(100vh - 100%));
-  width: auto;
-  top: 0;
-  left: var(--sbb-navigation-section-left);
-  right: var(--sbb-navigation-section-right);
   opacity: 0;
-  grid-column: var(--sbb-navigation-section-column);
-  margin: 0;
   border: none;
   pointer-events: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
   color: var(--sbb-color-white-default);
   background-color: transparent;
   padding: 0;
@@ -97,10 +82,6 @@
   :host(.sbb-navigation-section--closing) & {
     pointer-events: none;
     animation-name: close;
-
-    @include sbb.mq($from: large) {
-      animation-delay: var(--sbb-navigation-section-animation-duration);
-    }
   }
 
   @include sbb.ifForcedColors {
@@ -111,7 +92,7 @@
 .sbb-navigation-section__wrapper {
   @include sbb.scrollbar-dark;
 
-  height: calc(100vh - calc(100vh - 100%));
+  height: 100%;
   padding-block: var(--sbb-navigation-section-padding-block);
   outline: none;
   overflow-y: auto;
@@ -119,6 +100,8 @@
   :host(.sbb-navigation-section--opening) &,
   :host(.sbb-navigation-section--closing) & {
     --sbb-scrollbar-color: transparent;
+
+    scrollbar-color: transparent transparent;
   }
 }
 
@@ -146,7 +129,7 @@
 .sbb-navigation-section__content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-layout-base-grid-gutter-responsive-medium);
+  grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
   padding-inline: var(--sbb-navigation-section-padding-inline);
 
   @include sbb.mq($from: large) {

@@ -47,8 +47,8 @@ export class SbbNavigationMarker {
       action.size = this.size;
     }
 
-    this._setMarkerPosition();
     this._hasActiveAction = !!this._activeNavigationAction;
+    this._setMarkerPosition();
   }
 
   public connectedCallback(): void {
@@ -72,8 +72,8 @@ export class SbbNavigationMarker {
 
     this.reset();
     action.active = true;
-    this._setMarkerPosition();
     this._hasActiveAction = true;
+    this._setMarkerPosition();
   }
 
   @Method()
@@ -102,10 +102,12 @@ export class SbbNavigationMarker {
   }
 
   private _setMarkerPosition(): void {
-    this._element?.style.setProperty(
-      '--sbb-navigation-marker-position-y',
-      `${this._activeNavigationAction?.offsetTop}px`
-    );
+    if (this._hasActiveAction) {
+      this._element?.style.setProperty(
+        '--sbb-navigation-marker-position-y',
+        `${this._activeNavigationAction?.offsetTop}px`
+      );
+    }
   }
 
   public render(): JSX.Element {
