@@ -9,6 +9,39 @@ on:
     types: [completed]
 
 jobs:
+  preview-image:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.conclusion == 'success' && (
+        github.event.workflow_run.event == 'pull_request' || (
+          github.event.workflow_run.event == 'push' &&
+          github.event.workflow_run.head_branch == 'main'
+        )
+      )
+    env:
+      IMAGE_REPO: ghcr.io/${{ env.GITHUB_REPOSITORY }}/storybook-preview
+      IMAGE_TAG: rev-${{ github.event.workflow_run.head_sha }}
+      ALLOWED_EXTENSIONS: css, gitignore, gitkeep, html, ico, jpg, js, json, png, scss, stackblitzrc, svg, ts
+    steps:
+      - name: Login to GitHub Docker Repository
+        uses: azure/docker-login@v1
+        with:
+          login-server: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
+      - name: Download artifacts
+        uses: ./.github/actions/download-artifacts-from-workflow
+        with:
+          artifacts: 'pr, storybook'
+      - run: unzip pr.zip
+      - run: mkdir storybook-static
+      - run: unzip storybook.zip -d storybook-static
+      - name: 'Docker: Build image'
+        run: docker build -t $IMAGE_REPO:$IMAGE_TAG .
+      - name: 'Docker: Publish image'
+        run: docker push $IMAGE_REPO:$IMAGE_TAG
+
   codecov:
     runs-on: ubuntu-latest
     if: >
