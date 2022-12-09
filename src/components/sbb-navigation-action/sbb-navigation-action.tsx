@@ -1,4 +1,4 @@
-import { Component, h, Element, JSX, Prop, Listen } from '@stencil/core';
+import { Component, h, Element, JSX, Prop, Listen, ComponentInterface } from '@stencil/core';
 import {
   ButtonType,
   forwardHostEvent,
@@ -20,7 +20,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation-action.scss',
   tag: 'sbb-navigation-action',
 })
-export class SbbNavigationAction implements LinkButtonProperties {
+export class SbbNavigationAction implements ComponentInterface, LinkButtonProperties {
   /**
    * This id will be forwarded to the relevant inner element.
    */

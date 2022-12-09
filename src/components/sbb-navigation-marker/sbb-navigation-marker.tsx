@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   h,
   Host,
@@ -21,7 +22,7 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
   styleUrl: 'sbb-navigation-marker.scss',
   tag: 'sbb-navigation-marker',
 })
-export class SbbNavigationMarker {
+export class SbbNavigationMarker implements ComponentInterface {
   /**
    * Marker size variant.
    */

@@ -38,7 +38,7 @@
       property: opacity, top;
     }
 
-    @include sbb.ifForcedColors {
+    @include sbb.if-forced-colors {
       background: CanvasText;
     }
   }

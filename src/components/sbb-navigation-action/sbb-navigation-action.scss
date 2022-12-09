@@ -14,7 +14,7 @@
 
 .sbb-navigation-action {
   @include sbb.title-4;
-  @include sbb.buttonReset;
+  @include sbb.button-reset;
 
   text-decoration: none;
   display: flex;
@@ -37,7 +37,7 @@
   }
 
   &:focus-visible {
-    @include sbb.focusOutline;
+    @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }

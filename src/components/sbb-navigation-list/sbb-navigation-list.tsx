@@ -1,4 +1,4 @@
-import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -16,7 +16,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation-list.scss',
   tag: 'sbb-navigation-list',
 })
-export class SbbNavigationList {
+export class SbbNavigationList implements ComponentInterface {
   /*
    * This id will be forwarded to the relevant inner element.
    */
