@@ -33,10 +33,27 @@ jobs:
       - name: Download artifacts
         uses: ./.github/actions/download-artifacts-from-workflow
         with:
-          artifacts: 'pr, storybook'
-      - run: unzip pr.zip
+          artifacts: 'storybook'
       - run: mkdir storybook-static
       - run: unzip storybook.zip -d storybook-static
+      - name: Remove files with forbidden extensions
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const allowedExtensions = process.env.ALLOWED_EXTENSIONS.split(/[, ]+/g).map(e => `.${e}`);
+            function clean(dir) {
+              fs.readdirSync(dir, { withFileTypes: true }).forEach((d) => {
+                if (d.isDirectory()) {
+                  clean(path.join(dir, d.name));
+                } else if (d.isFile() && allowedExtensions.includes(path.extname(d.name))) {
+                  fs.unlinkSync(path.join(dir, d.name));
+                }
+              })
+            }
+            clean(path.resolve('storybook-static'));
+
       - name: 'Docker: Build image'
         run: docker build -t $IMAGE_REPO:$IMAGE_TAG .
       - name: 'Docker: Publish image'
