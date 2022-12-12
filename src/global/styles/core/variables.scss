@@ -5,8 +5,6 @@
   // Grab css vars defined by `@sbb-esta/lyne-design-tokens` npm package
   @extend %lyne-design-tokens-css-variables;
 
-  // TODO: remove as soon as design token is merged
-  --sbb-typo-line-height-body-text: 1.75;
   --sbb-font-default-color: var(--sbb-color-charcoal-default);
 
   //////////////////////////////////////////////////////////////////////////////

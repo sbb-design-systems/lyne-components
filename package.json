@@ -53,7 +53,7 @@
     "@commitlint/cli": "17.3.0",
     "@commitlint/config-conventional": "17.3.0",
     "@namics/stylelint-bem": "8.0.0",
-    "@sbb-esta/lyne-design-tokens": "0.2.6",
+    "@sbb-esta/lyne-design-tokens": "0.3.0",
     "@stencil/core": "2.20.0",
     "@stencil/react-output-target": "0.3.1",
     "@stencil/sass": "2.0.1",
