@@ -40,8 +40,9 @@
 }
 
 .sbb-title {
-  color: var(--sbb-title-text-color-normal);
   @include sbb.font-smoothing;
+
+  color: var(--sbb-title-text-color-normal);
 
   :host([visually-hidden]) & {
     @include sbb.screen-reader-only;
