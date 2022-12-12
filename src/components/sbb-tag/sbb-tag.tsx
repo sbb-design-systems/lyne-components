@@ -40,9 +40,6 @@ export class SbbTag implements ComponentInterface {
   /** Whether the internal hidden checkbox is checked. */
   @Prop({ mutable: true, reflect: true }) public checked: boolean;
 
-  /** Active tag state */
-  @Prop() public active?: boolean;
-
   /** Whether the internal hidden checkbox is disabled. */
   @Prop({ reflect: true }) public disabled = false;
 
