@@ -6,16 +6,15 @@ describe('sbb-teaser-hero', () => {
   it('should render all properties', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
+      html: `<sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" href="https://www.sbb.ch" rel="external" target="_blank" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" accessibility-labelledby="labelledby" href="https://www.sbb.ch" rel="external" target="_blank" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero accessibility-label="label" accessibility-describedby="describedby" href="https://www.sbb.ch" rel="external" target="_blank" teaser-hero-id="id1" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
             <a
               aria-describedby="describedby"
               aria-label="label. Link target opens in new window."
-              aria-labelledby="labelledby"
               class="sbb-teaser-hero"
               dir="ltr"
               id="id1"

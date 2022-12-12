@@ -64,14 +64,6 @@ export class SbbLinkList implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    let ariaLabelledByAttribute = {};
-
-    if (this._namedSlots.title || this.titleContent) {
-      ariaLabelledByAttribute = {
-        'aria-labelledby': this.titleId,
-      };
-    }
-
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
@@ -87,7 +79,7 @@ export class SbbLinkList implements ComponentInterface {
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
         )}
-        <ul {...ariaLabelledByAttribute} class="sbb-link-list">
+        <ul class="sbb-link-list">
           {this._links.map((_, index) => (
             <li>
               <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />

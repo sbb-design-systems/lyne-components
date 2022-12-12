@@ -139,12 +139,6 @@ const accessibilityDescribedby = {
   },
 };
 
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const basicArgTypes = {
   text,
   'expand-from': expandFrom,
@@ -162,7 +156,6 @@ const basicArgTypes = {
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const basicArgs = {
@@ -182,7 +175,6 @@ const basicArgs = {
   'accessibility-haspopup': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 const basicArgsButton = {

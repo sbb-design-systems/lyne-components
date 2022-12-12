@@ -32,7 +32,6 @@ You can either use slots or props to render the `sbb-teaser-hero` component.
 | -------------------------- | --------------------------- | ----------------------------------------------------------------- | -------- | ----------- |
 | `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the anchor tag.     | `string` | `undefined` |
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to anchor tag.               | `string` | `undefined` |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the anchor tag.      | `string` | `undefined` |
 | `href`                     | `href`                      | The href value you want to link to.                               | `string` | `undefined` |
 | `imageAlt`                 | `image-alt`                 | Image alt text will be passed to `sbb-image`.                     | `string` | `undefined` |
 | `imageSrc`                 | `image-src`                 | Image src will be passed to `sbb-image`.                          | `string` | `undefined` |

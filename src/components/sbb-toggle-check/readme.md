@@ -15,15 +15,14 @@ the current state can be read from `event.target.checked` and the value from `ev
   Example
 </sbb-toggle-check>
 ```
-
+           
 ## Label
 
 The label is provided as the content to the `<sbb-toggle-check>` element.
 It can be displayed after or before the toggle-check.
 
 If you don't want the label to appear next to the toggle-check, you can use
-`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) or
-`accessibility-labelledby` (forwarded as [`aria-labelledby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA16.html)) to
+`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) to
 specify an appropriate label.
 
 ## Accessibility
@@ -33,7 +32,7 @@ This internal checkbox receives focus and is automatically labelled by the text 
 `<sbb-toggle-check>` element. Avoid adding other interactive controls into the content of
 `<sbb-toggle-check>`, as this degrades the experience for users of assistive technology.
 
-Always provide an accessible label via `accessibility-label` or `accessibility-labelledby` for checkboxes without
+Always provide an accessible label via `accessibility-label` for checkboxes without
 descriptive text content.
 
 Additionally, you can use `accessibility-describedby` (forwarded as [`aria-describedby`](https://www.w3.org/TR/WCAG20-TECHS/ARIA1.html))
@@ -52,7 +51,6 @@ to describe the element on which the attribute is set.
 | -------------------------- | --------------------------- | ------------------------------------------------------------------------ | --------------------- | ----------------------------------- |
 | `accessibilityDescribedby` | `accessibility-describedby` | The aria-describedby prop for the hidden input.                          | `string`              | `undefined`                         |
 | `accessibilityLabel`       | `accessibility-label`       | The aria-label prop for the hidden input.                                | `string`              | `undefined`                         |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                           | `string`              | `undefined`                         |
 | `checked`                  | `checked`                   | Whether the toggle-check is checked.                                     | `boolean`             | `false`                             |
 | `disabled`                 | `disabled`                  | The disabled prop for the disabled state.                                | `boolean`             | `false`                             |
 | `icon`                     | `icon`                      | The svg name for the true state - default -> 'tick-small'                | `string`              | `'tick-small'`                      |

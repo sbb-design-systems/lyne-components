@@ -81,11 +81,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   @Prop() public accessibilityDescribedby: string | undefined;
 
   /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /**
    * This will be forwarded as aria-label to the close button element.
    */
   @Prop() public accessibilityCloseLabel: string | undefined;
@@ -403,7 +398,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
           id={this.dialogId}
           aria-label={this.accessibilityLabel}
           aria-describedby={this.accessibilityDescribedby}
-          aria-labelledby={this.accessibilityLabelledby || this.titleId}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
         >

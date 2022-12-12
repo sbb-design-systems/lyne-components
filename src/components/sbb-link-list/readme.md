@@ -1,6 +1,5 @@
 # sbb-link-list
-The `<sbb-link-list>` is a collection of sbb-links. It has an optional title which stays visually always on level 5. 
-The title is used as the aria-labelledby attribute of the ul element. The list can be oriented vertically or 
+The `<sbb-link-list>` is a collection of sbb-links. It has an optional title which stays visually always on level 5. The list can be oriented vertically or 
 horizontally. The title will not be display in the horizontal orientation.
 
 ```html

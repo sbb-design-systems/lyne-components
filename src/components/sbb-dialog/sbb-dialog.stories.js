@@ -64,15 +64,6 @@ const accessibilityDescribedby = {
   },
 };
 
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const accessibilityCloseLabel = {
   control: {
     type: 'text',
@@ -104,7 +95,6 @@ const basicArgTypes = {
   negative,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
@@ -117,7 +107,6 @@ const basicArgs = {
   negative: false,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
   'accessibility-close-label': undefined,
   'accessibility-back-label': undefined,
   'disable-animation': isChromatic(),

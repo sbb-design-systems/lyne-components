@@ -106,9 +106,6 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
   /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 

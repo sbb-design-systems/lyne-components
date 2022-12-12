@@ -7,9 +7,6 @@ export interface AccessibilityProperties {
 
   /** This will be forwarded as aria-describedby to the relevant nested element. */
   accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  accessibilityLabelledby: string | undefined;
 }
 
 /**
@@ -22,9 +19,6 @@ export function getAccessibilityAttributeList(
   return {
     'aria-label': accessibilityProps?.accessibilityLabel
       ? accessibilityProps.accessibilityLabel
-      : undefined,
-    'aria-labelledby': accessibilityProps?.accessibilityLabelledby
-      ? accessibilityProps.accessibilityLabelledby
       : undefined,
     'aria-describedby': accessibilityProps?.accessibilityDescribedby
       ? accessibilityProps.accessibilityDescribedby

@@ -108,12 +108,6 @@ const accessibilityDescribedby = {
   },
 };
 
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const name = {
   control: {
     type: 'text',
@@ -161,7 +155,6 @@ const basicArgTypes = {
   'card-id': cardId,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
   name,
   type,
   form,
@@ -179,7 +172,6 @@ const basicArgs = {
   'card-id': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
   name: undefined,
   type: undefined,
   form: undefined,

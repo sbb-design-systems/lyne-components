@@ -36,7 +36,6 @@ In the first one, the `sbb-card` will be internally rendered as a button, in the
 | -------------------------- | --------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------- | ----------- |
 | `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.      | `string`                                     | `undefined` |
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                     | `undefined` |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.       | `string`                                     | `undefined` |
 | `active`                   | `active`                    | Used to set the component's active state.                                       | `boolean`                                    | `false`     |
 | `cardId`                   | `card-id`                   | Id used to identify the inner element.                                          | `string`                                     | `undefined` |
 | `download`                 | `download`                  | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |

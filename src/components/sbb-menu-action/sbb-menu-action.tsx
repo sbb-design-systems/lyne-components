@@ -80,9 +80,6 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
   @Element() private _element: HTMLElement;
 
   public connectedCallback(): void {

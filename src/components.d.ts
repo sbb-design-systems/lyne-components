@@ -52,10 +52,6 @@ import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sb
 export namespace Components {
     interface SbbAccordion {
         /**
-          * Use the aria-labelledby to reference to an id of a title outside of the accordion. That way we can improve the context for the screenreader users. When the first button in the accordion receives focus, the referenced title is also spoken out by the screenreader.
-         */
-        "ariaLabelledby"?: string;
-        /**
           * Set this if you want to use the accordion on a non-white background.
          */
         "nonWhiteBackground"?: boolean;
@@ -109,10 +105,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the fade in animation should be disabled.
          */
@@ -262,10 +254,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Pass in an id, if you need to identify the inner element.
          */
         "buttonId"?: string;
@@ -336,10 +324,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Used to set the component's active state.
          */
         "active": boolean;
@@ -398,10 +382,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Badge appearance
          */
         "appearance": InterfaceCardBadgeAttributes['appearance'];
@@ -431,10 +411,6 @@ export namespace Components {
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * CardProduct appearance
          */
@@ -489,10 +465,6 @@ export namespace Components {
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -583,10 +555,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Closes the dialog element.
          */
@@ -709,10 +677,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -905,10 +869,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Whether the button is disabled.
          */
         "disabled": boolean;
@@ -1044,10 +1004,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Value shown as badge at component end.
          */
@@ -1247,10 +1203,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Disabled state for the inner HTMLInputElement.
          */
         "disabled"?: boolean;
@@ -1384,10 +1336,6 @@ export namespace Components {
          */
         "accessibilityLabel": string;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * The href value you want to link to.
          */
         "href": string | undefined;
@@ -1421,10 +1369,6 @@ export namespace Components {
           * This will be forwarded as aria-label to anchor tag.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the anchor tag.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -1640,10 +1584,6 @@ export namespace Components {
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
@@ -2222,10 +2162,6 @@ declare global {
 declare namespace LocalJSX {
     interface SbbAccordion {
         /**
-          * Use the aria-labelledby to reference to an id of a title outside of the accordion. That way we can improve the context for the screenreader users. When the first button in the accordion receives focus, the referenced title is also spoken out by the screenreader.
-         */
-        "ariaLabelledby"?: string;
-        /**
           * Set this if you want to use the accordion on a non-white background.
          */
         "nonWhiteBackground"?: boolean;
@@ -2279,10 +2215,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the fade in animation should be disabled.
          */
@@ -2448,10 +2380,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Pass in an id, if you need to identify the inner element.
          */
         "buttonId"?: string;
@@ -2522,10 +2450,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Used to set the component's active state.
          */
         "active"?: boolean;
@@ -2584,10 +2508,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Badge appearance
          */
         "appearance"?: InterfaceCardBadgeAttributes['appearance'];
@@ -2617,10 +2537,6 @@ declare namespace LocalJSX {
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * CardProduct appearance
          */
@@ -2675,10 +2591,6 @@ declare namespace LocalJSX {
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Id of the internal input element - default id will be set automatically.
          */
@@ -2773,10 +2685,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * This id will be forwarded to the relevant inner element.
          */
@@ -2911,10 +2819,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -3107,10 +3011,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Whether the button is disabled.
          */
         "disabled"?: boolean;
@@ -3254,10 +3154,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Value shown as badge at component end.
          */
@@ -3465,10 +3361,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Disabled state for the inner HTMLInputElement.
          */
         "disabled"?: boolean;
@@ -3595,10 +3487,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel": string;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * The href value you want to link to.
          */
         "href"?: string | undefined;
@@ -3632,10 +3520,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to anchor tag.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the anchor tag.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -3851,10 +3735,6 @@ declare namespace LocalJSX {
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the toggle-check is checked.
          */

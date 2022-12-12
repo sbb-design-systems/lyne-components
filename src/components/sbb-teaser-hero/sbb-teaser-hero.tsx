@@ -26,9 +26,6 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
   /** This will be forwarded as aria-describedby to the anchor tag. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** This will be forwarded as aria-labelledby to the anchor tag. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
   /** The href value you want to link to. */
   @Prop() public href: string | undefined;
 

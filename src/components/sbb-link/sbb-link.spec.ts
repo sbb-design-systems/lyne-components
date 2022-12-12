@@ -13,7 +13,6 @@ describe('sbb-link', () => {
           link-id="id"
           accessibility-label="Travelcards & tickets"
           accessibility-describedbdy="id"
-          accessibility-labelledby="id"
           >
             Travelcards &amp; tickets.
           </sbb-link>
@@ -29,12 +28,10 @@ describe('sbb-link', () => {
           link-id="id"
           accessibility-label="Travelcards & tickets"
           accessibility-describedbdy="id"
-          accessibility-labelledby="id"
           >
           <mock:shadow-root>
             <a
               aria-label="Travelcards & tickets"
-              aria-labelledby="id"
               class="sbb-link"
               dir="ltr"
               download

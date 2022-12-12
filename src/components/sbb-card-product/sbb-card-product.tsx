@@ -50,9 +50,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
   /** This will be forwarded as aria-describedby to the relevant nested element. */
   @Prop() public accessibilityDescribedby: string | undefined;
 
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
   /**
    * Check if accessibilityLabel is provided since it is a required prop,
    * otherwise throw an error.
@@ -264,7 +261,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
       <TAGNAME
         aria-label={ariaLabel}
         aria-describedby={this.accessibilityDescribedby}
-        aria-labelledby={this.accessibilityLabelledby}
         class={`card-product card-product--${this.appearance} card-product--${this.layout}
           ${cardSizeClass}`}
         {...additionalCardAttributes}

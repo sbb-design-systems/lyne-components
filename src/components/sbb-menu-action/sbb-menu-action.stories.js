@@ -163,12 +163,6 @@ const accessibilityDescribedby = {
   },
 };
 
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   amount,
@@ -187,7 +181,6 @@ const defaultArgTypes = {
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -209,7 +202,6 @@ const defaultArgs = {
   'accessibility-haspopup': undefined,
   'accessibility-label': 'Details',
   'accessibility-describedby': '',
-  'accessibility-labelledby': '',
 };
 
 const buttonArgs = {

@@ -73,10 +73,6 @@ If the title is not provided, the dialog will be displayed in full-screen mode a
 in the content section along with the back button (if visible). 
 Also note that if the title is not present, but the footer is provided, the footer will not be displayed.
 
-## Accessibility
-The ARIA attributes `aria-labelledby` an `aria-describedby` can be set to improve accessibility. 
-If `aria-labelledby` is empty, it will automatically be added with the `id` of the title element.
-
 <!-- Auto Generated Below -->
 
 
@@ -88,7 +84,6 @@ If `aria-labelledby` is empty, it will automatically be added with the `id` of t
 | `accessibilityCloseLabel`  | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.               | `string`                                 | `undefined`                           |
 | `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.      | `string`                                 | `undefined`                           |
 | `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                 | `undefined`                           |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.       | `string`                                 | `undefined`                           |
 | `dialogId`                 | `dialog-id`                 | This id will be forwarded to the relevant inner element.                        | `string`                                 | ``sbb-dialog-${++nextId}``            |
 | `disableAnimation`         | `disable-animation`         | Whether the animation is enabled.                                               | `boolean`                                | `false`                               |
 | `negative`                 | `negative`                  | Negative coloring variant flag.                                                 | `boolean`                                | `false`                               |

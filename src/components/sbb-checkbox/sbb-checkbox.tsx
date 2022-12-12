@@ -69,9 +69,6 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** The aria-labelledby prop for the hidden input. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
   /** The aria-describedby prop for the hidden input. */
   @Prop() public accessibilityDescribedby: string | undefined;
 

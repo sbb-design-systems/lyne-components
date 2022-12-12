@@ -159,7 +159,6 @@ export class SbbRadioButton implements ComponentInterface {
         aria-checked={`${this.checked}`}
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
         /* eslint-enable jsx-a11y/aria-proptypes */
-        aria-labelledby={this._radioButtonLabelId}
         role="radio"
       >
         <label id={this._radioButtonLabelId} htmlFor={this.radioButtonId} class="sbb-radio-button">

@@ -74,12 +74,6 @@ const accessibilityDescribedby = {
   },
 };
 
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   size,
   checked,
@@ -91,7 +85,6 @@ const defaultArgTypes = {
   'icon-placement': iconPlacement,
   'accessibility-label': accessibilityLabel,
   'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -105,7 +98,6 @@ const defaultArgs = {
   'icon-placement': undefined,
   'accessibility-label': undefined,
   'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 /* ************************************************* */
