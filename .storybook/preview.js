@@ -55,6 +55,7 @@ export const parameters = {
   chromatic: {
     delay: 1000,
     viewports: getViewports(),
+    disableSnapshot: true,
   },
   breakpoints: {
     breakpointNames: getBreakpointNames(),

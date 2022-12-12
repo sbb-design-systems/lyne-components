@@ -49,7 +49,6 @@ export const SbbRadioButtonGroup = /*@__PURE__*/createReactComponent<JSX.SbbRadi
 export const SbbSection = /*@__PURE__*/createReactComponent<JSX.SbbSection, HTMLSbbSectionElement>('sbb-section');
 export const SbbSignet = /*@__PURE__*/createReactComponent<JSX.SbbSignet, HTMLSbbSignetElement>('sbb-signet');
 export const SbbSlider = /*@__PURE__*/createReactComponent<JSX.SbbSlider, HTMLSbbSliderElement>('sbb-slider');
-export const SbbSlotComponent = /*@__PURE__*/createReactComponent<JSX.SbbSlotComponent, HTMLSbbSlotComponentElement>('sbb-slot-component');
 export const SbbStack = /*@__PURE__*/createReactComponent<JSX.SbbStack, HTMLSbbStackElement>('sbb-stack');
 export const SbbTabAmount = /*@__PURE__*/createReactComponent<JSX.SbbTabAmount, HTMLSbbTabAmountElement>('sbb-tab-amount');
 export const SbbTabGroup = /*@__PURE__*/createReactComponent<JSX.SbbTabGroup, HTMLSbbTabGroupElement>('sbb-tab-group');
