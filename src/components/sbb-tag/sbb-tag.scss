@@ -80,7 +80,7 @@
       content: '';
       inset: 50% var(--sbb-spacing-fixed-5x);
       border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
-      @include sbb.absoluteCenterY;
+      @include sbb.absolute-center-y;
     }
   }
 }
@@ -103,11 +103,11 @@
 }
 
 input[type='checkbox'] {
-  @include sbb.invisibleContainerOverlay;
+  @include sbb.invisible-container-overlay;
 }
 
 input[type='checkbox']:focus-visible + .sbb-tag__wrapper {
-  @include sbb.focusOutline;
+  @include sbb.focus-outline;
 
   outline-offset: var(--sbb-spacing-fixed-1x);
 }

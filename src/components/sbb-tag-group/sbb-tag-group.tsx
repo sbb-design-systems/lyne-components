@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen } from '@stencil/core';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { hostContext } from '../../global/helpers/host-context';
 
 /**
@@ -29,32 +29,25 @@ export class SbbTagGroup implements ComponentInterface {
     this._isNested = !!hostContext('sbb-tag-group', this._element);
   }
 
-  // FIXME will be refactored in https://github.com/lyne-design-system/lyne-components/pull/1485
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
+    const enabledTags: HTMLSbbTagElement[] = this._getTags().filter(
+      (tag) => !tag.hasAttribute('disabled')
+    );
+
     if (
-      (evt.target as HTMLElement) !== this._element &&
-      (evt.target as HTMLElement).parentElement !== this._element
+      !enabledTags ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
     ) {
       return;
     }
 
-    const enabledTags: HTMLSbbTagElement[] = this._getTags().filter(
-      (tag) => !tag.hasAttribute('disabled')
-    );
-    const cur: number = enabledTags.findIndex((e) => e === evt.target);
-    const size: number = enabledTags.length;
-    const prev: number = cur === 0 ? size - 1 : cur - 1;
-    const next: number = cur === size - 1 ? 0 : cur + 1;
-
-    const currentWritingMode = getDocumentWritingMode();
-    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
-    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
-
-    if (evt.key === prevKey || evt.key === 'ArrowUp') {
-      enabledTags[prev]?.focus();
-    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
-      enabledTags[next]?.focus();
+    if (isArrowKeyPressed(evt)) {
+      const cur: number = enabledTags.findIndex((e: HTMLSbbTagElement) => e === evt.target);
+      const nextIndex: number = getNextElementIndex(evt, cur, enabledTags.length);
+      enabledTags[nextIndex]?.focus();
     }
   }
 
