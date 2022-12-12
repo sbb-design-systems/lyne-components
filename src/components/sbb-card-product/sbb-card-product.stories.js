@@ -228,7 +228,11 @@ const sbbTitleTravelCardHalfFareArgs = {
   'visual-level': 1,
 };
 
-const SlotSbbTitleTemplate = (args) => <sbb-title {...args}>{args.text}</sbb-title>;
+const SlotSbbTitleTemplate = (args) => (
+  <sbb-title {...args} style="margin: 0">
+    {args.text}
+  </sbb-title>
+);
 
 const sbbJourneyHeaderArgs = {
   destination: 'Loèche-les-Bains',
@@ -514,10 +518,7 @@ const TemplateTheWholeShabang = (args) => (
     <div slot="category">
       <SlotSbbCategoryTemplate {...sbbCategoryArgs} />
     </div>
-    <div
-      slot="title"
-      style="--sbb-title-margin-block-start-override: 0; --sbb-title-margin-block-end-override: 0;"
-    >
+    <div slot="title">
       <SlotSbbTitleTemplate {...sbbTitleTravelCardGAArgs} />
       <SlotSbbJourneyHeaderTemplate {...sbbJourneyHeaderArgs} />
     </div>

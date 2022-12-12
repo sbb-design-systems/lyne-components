@@ -12,11 +12,8 @@
   --sbb-title-margin-block-start: 0;
   --sbb-title-margin-block-end: 0;
 
-  margin-block-start: var(
-    --sbb-title-margin-block-start-override,
-    var(--sbb-title-margin-block-start)
-  );
-  margin-block-end: var(--sbb-title-margin-block-start-override, var(--sbb-title-margin-block-end));
+  margin-block-start: var(--sbb-title-margin-block-start);
+  margin-block-end: var(--sbb-title-margin-block-end);
 }
 
 // stylelint-disable plugin/stylelint-bem-namics

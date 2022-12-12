@@ -168,11 +168,8 @@ const Template = (args) => (
                   <div slot="category">
                     <span>Saver ticket</span>
                   </div>
-                  <div
-                    slot="title"
-                    style="--sbb-title-margin-block-start-override: 0; --sbb-title-margin-block-end-override: 0;"
-                  >
-                    <sbb-title level="2" visual-level="1">
+                  <div slot="title">
+                    <sbb-title level="2" visual-level="1" style="margin-block:0;">
                       GA
                     </sbb-title>
                     <sbb-journey-header
