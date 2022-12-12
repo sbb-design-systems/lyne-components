@@ -12,7 +12,6 @@ describe('sbb-link', () => {
           download
           link-id="id"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedbdy="id"
           >
             Travelcards &amp; tickets.
           </sbb-link>
@@ -27,7 +26,6 @@ describe('sbb-link', () => {
           download
           link-id="id"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedbdy="id"
           >
           <mock:shadow-root>
             <a

@@ -793,10 +793,6 @@ export namespace Components {
          */
         "isRoundTrip"?: boolean;
         /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "journeyHeaderId"?: '';
-        /**
           * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
          */
         "markup"?: InterfaceJourneyHeaderAttributes['markup'];
@@ -1510,10 +1506,6 @@ export namespace Components {
           * Choose negative variant
          */
         "negative"?: boolean;
-        /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "titleId": string;
         /**
           * Visual level for the title. Optional, if not set, the value of level will be used.
          */
@@ -2879,10 +2871,6 @@ declare namespace LocalJSX {
          */
         "isRoundTrip"?: boolean;
         /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "journeyHeaderId"?: '';
-        /**
           * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
          */
         "markup"?: InterfaceJourneyHeaderAttributes['markup'];
@@ -3605,10 +3593,6 @@ declare namespace LocalJSX {
           * Choose negative variant
          */
         "negative"?: boolean;
-        /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "titleId"?: string;
         /**
           * Visual level for the title. Optional, if not set, the value of level will be used.
          */
