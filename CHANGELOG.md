@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.18.0](https://github.com/lyne-design-system/lyne-components/compare/v0.17.0...v0.18.0) (2022-12-12)
+
+### ⚠ BREAKING CHANGES
+
+- Text line-height (--sbb-typo-line-height-body-text) has changed from 1.7 to 1.75
+
+### Bug Fixes
+
+- change line-height from 1.7 to 1.75 ([#1484](https://github.com/lyne-design-system/lyne-components/issues/1484)) ([1e26b15](https://github.com/lyne-design-system/lyne-components/commit/1e26b15e940f8027fd385bd515a226c599aab51e))
+
 ## [0.17.0](https://github.com/lyne-design-system/lyne-components/compare/v0.16.2...v0.17.0) (2022-12-08)
 
 ### ⚠ BREAKING CHANGES
