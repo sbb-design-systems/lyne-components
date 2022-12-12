@@ -10,13 +10,13 @@ const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas
-      .getByTestId('navigation-section')
-      .shadowRoot.querySelector('dialog.sbb-navigation-section')
+    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation')
   );
 
-  const button = canvas.getByTestId('navigation-section-trigger');
+  const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
+  const action = canvas.getByTestId('navigation-section-trigger');
+  await userEvent.click(action);
 };
 
 const accessibilityLabel = {
@@ -47,13 +47,19 @@ const basicArgs = {
 
 const triggerButton = (id) => (
   <sbb-button
-    data-testid="navigation-section-trigger"
+    data-testid="navigation-trigger"
     id={id}
     variant="secondary"
     size="l"
     icon-name="hamburger-menu-small"
   ></sbb-button>
 );
+
+const navigationActionsL = [
+  <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger">
+    Label
+  </sbb-navigation-action>,
+];
 
 const navigationList = (label) => [
   <sbb-navigation-list label={label}>
@@ -65,48 +71,79 @@ const navigationList = (label) => [
   </sbb-navigation-list>,
 ];
 
+const onNavigationClose = (dialog) => {
+  dialog.addEventListener('didClose', () => {
+    document.getElementById('nav-marker').reset();
+  });
+};
+
 const DefaultTemplate = (args) => [
-  triggerButton('navigation-section-trigger-1'),
-  <sbb-navigation-section
-    title-content="Title"
-    data-testid="navigation-section"
-    id="navigation-section"
-    trigger="navigation-section-trigger-1"
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation
+    data-testid="navigation"
+    id="navigation"
+    trigger="navigation-trigger-1"
+    ref={(dialog) => onNavigationClose(dialog)}
     {...args}
   >
-    {navigationList('Label')}
-    {navigationList('Label')}
-    {navigationList('Label')}
+    <sbb-navigation-marker id="nav-marker">{navigationActionsL}</sbb-navigation-marker>
+    <sbb-navigation-section
+      title-content="Title"
+      data-testid="navigation-section"
+      id="navigation-section"
+      trigger="nav-1"
+      {...args}
+    >
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
 
-    {navigationList('Label')}
-    {navigationList('Label')}
-    {navigationList('Label')}
-    <sbb-button size="m" style="width: fit-content" sbb-navigation-section-close>
-      Close section
-    </sbb-button>
-  </sbb-navigation-section>,
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      <sbb-button size="m" style="width: fit-content" sbb-navigation-section-close>
+        Close section
+      </sbb-button>
+    </sbb-navigation-section>
+  </sbb-navigation>,
 ];
 
 const LongContentTemplate = (args) => [
-  triggerButton('navigation-section-trigger-1'),
-  <sbb-navigation-section
-    title-content="Title"
-    data-testid="navigation-section"
-    id="navigation-section"
-    trigger="navigation-section-trigger-1"
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation
+    data-testid="navigation"
+    id="navigation"
+    trigger="navigation-trigger-1"
+    ref={(dialog) => onNavigationClose(dialog)}
     {...args}
   >
-    {navigationList('Label')}
-    {navigationList('Label')}
-    {navigationList('Label')}
+    <sbb-navigation-marker id="nav-marker">{navigationActionsL}</sbb-navigation-marker>
+    <sbb-navigation-section
+      title-content="Title"
+      data-testid="navigation-section"
+      id="navigation-section"
+      trigger="nav-1"
+      {...args}
+    >
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
 
-    {navigationList('Label')}
-    {navigationList('Label')}
-    {navigationList('Label')}
-    <sbb-button size="m" style="width: fit-content" sbb-navigation-section-close>
-      Close section
-    </sbb-button>
-  </sbb-navigation-section>,
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+
+      {navigationList('Label')}
+      {navigationList('Label')}
+      {navigationList('Label')}
+      <sbb-button size="m" style="width: fit-content" sbb-navigation-section-close>
+        Close section
+      </sbb-button>
+    </sbb-navigation-section>
+  </sbb-navigation>,
 ];
 
 export const Default = DefaultTemplate.bind({});
