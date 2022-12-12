@@ -55,15 +55,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const accessibilityCloseLabel = {
   control: {
     type: 'text',
@@ -94,7 +85,6 @@ const basicArgTypes = {
   'title-back-button': titleBackButton,
   negative,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
@@ -106,7 +96,6 @@ const basicArgs = {
   'title-back-button': true,
   negative: false,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
   'accessibility-close-label': undefined,
   'accessibility-back-label': undefined,
   'disable-animation': isChromatic(),
@@ -325,7 +314,7 @@ const FullScreenTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.documentation = { title: 'Default Dialog' };
 Default.argTypes = basicArgTypes;
-Default.args = { ...basicArgs, 'accessibility-describedby': 'dialog-content-1' };
+Default.args = basicArgs;
 Default.play = playStory;
 
 export const Negative = DefaultTemplate.bind({});
@@ -333,7 +322,6 @@ Negative.documentation = { title: 'Negative Dialog' };
 Negative.argTypes = basicArgTypes;
 Negative.args = {
   ...basicArgs,
-  'accessibility-describedby': 'dialog-content-1',
   negative: true,
 };
 Negative.play = playStory;
@@ -345,7 +333,6 @@ SlottedTitle.args = {
   ...basicArgs,
   'title-content': undefined,
   'title-back-button': false,
-  'accessibility-describedby': 'dialog-content-2',
 };
 SlottedTitle.play = playStory;
 

@@ -59,9 +59,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
   /**
    * The ratio between the absolute value and the validity interval.
    * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
@@ -145,7 +142,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
       valueAsNumber: this.valueAsNumber || null,
       value: this.value || null,
       'aria-label': this.accessibilityLabel || null,
-      'aria-describedby': this.accessibilityDescribedby || null,
     };
 
     return (

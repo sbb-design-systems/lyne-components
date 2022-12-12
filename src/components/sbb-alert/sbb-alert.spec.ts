@@ -38,11 +38,11 @@ describe('sbb-alert', () => {
   it('should render customized properties', async () => {
     const { root } = await newSpecPage({
       components: [SbbAlert],
-      html: '<sbb-alert title-content="Interruption" title-level="2" id="custom-id" size="l" disable-animation="true" icon-name="disruption" accessibility-label="label" accessibility-describedby="describedby" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">Alert content</sbb-alert>',
+      html: '<sbb-alert title-content="Interruption" title-level="2" id="custom-id" size="l" disable-animation="true" icon-name="disruption" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">Alert content</sbb-alert>',
     });
 
     expect(root).toEqualHtml(`
-        <sbb-alert title-content="Interruption" title-level="2" id="custom-id" size="l" disable-animation="true" icon-name="disruption" accessibility-label="label" accessibility-describedby="describedby" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">
+        <sbb-alert title-content="Interruption" title-level="2" id="custom-id" size="l" disable-animation="true" icon-name="disruption" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank" link-content="Show much more">
           <mock:shadow-root>
             <div class="sbb-alert__transition-wrapper">
               <div class="sbb-alert">
@@ -57,7 +57,7 @@ describe('sbb-alert', () => {
                   </sbb-title>
                   <slot></slot>
                   <span aria-hidden="true"></span>
-                  <sbb-link negative variant="inline" accessibility-label="label" accessibility-describedby="describedby" href="https://www.sbb.ch" rel="noopener" target="_blank">
+                  <sbb-link negative variant="inline" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank">
                     Show much more
                   </sbb-link>
                 </span>

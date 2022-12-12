@@ -80,9 +80,6 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
   /** Emits when the fade in animation starts. */
   @Event({
     eventName: 'will-present',
@@ -178,7 +175,6 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   private _linkProperties(): Record<string, string> {
     return {
       ['accessibility-label']: this.accessibilityLabel,
-      ['accessibility-describedby']: this.accessibilityDescribedby,
       href: this.href,
       rel: this.rel,
       target: this.target,

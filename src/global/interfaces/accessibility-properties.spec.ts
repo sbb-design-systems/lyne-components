@@ -4,11 +4,9 @@ describe('AccessibilityProperties', () => {
   it('should return all parameters', () => {
     const accessibilityProps: AccessibilityProperties = {
       accessibilityLabel: 'label',
-      accessibilityDescribedby: 'describedby',
     };
     const expectedObj = {
       'aria-label': 'label',
-      'aria-describedby': 'describedby',
     };
     expect(getAccessibilityAttributeList(accessibilityProps)).toEqual(expectedObj);
   });
@@ -16,7 +14,6 @@ describe('AccessibilityProperties', () => {
   it('should filter undefined parameters', () => {
     const accessibilityProps: AccessibilityProperties = {
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: undefined,
     };
     const expectedObj = {
       'aria-label': 'Test',

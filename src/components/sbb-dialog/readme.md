@@ -78,19 +78,18 @@ Also note that if the title is not present, but the footer is provided, the foot
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                                     | Type                                     | Default                               |
-| -------------------------- | --------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------- |
-| `accessibilityBackLabel`   | `accessibility-back-label`  | This will be forwarded as aria-label to the back button element.                | `string`                                 | `undefined`                           |
-| `accessibilityCloseLabel`  | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.               | `string`                                 | `undefined`                           |
-| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.      | `string`                                 | `undefined`                           |
-| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                 | `undefined`                           |
-| `dialogId`                 | `dialog-id`                 | This id will be forwarded to the relevant inner element.                        | `string`                                 | ``sbb-dialog-${++nextId}``            |
-| `disableAnimation`         | `disable-animation`         | Whether the animation is enabled.                                               | `boolean`                                | `false`                               |
-| `negative`                 | `negative`                  | Negative coloring variant flag.                                                 | `boolean`                                | `false`                               |
-| `titleBackButton`          | `title-back-button`         | Whether a back button is displayed next to the title.                           | `boolean`                                | `false`                               |
-| `titleContent`             | `title-content`             | Dialog title.                                                                   | `string`                                 | `undefined`                           |
-| `titleId`                  | `title-id`                  | This id will be forwarded to the relevant inner element.                        | `string`                                 | ``sbb-dialog-title-${++nextTitleId}`` |
-| `titleLevel`               | `title-level`               | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`                                 |
+| Property                  | Attribute                   | Description                                                                     | Type                                     | Default                               |
+| ------------------------- | --------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------- |
+| `accessibilityBackLabel`  | `accessibility-back-label`  | This will be forwarded as aria-label to the back button element.                | `string`                                 | `undefined`                           |
+| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.               | `string`                                 | `undefined`                           |
+| `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                 | `undefined`                           |
+| `dialogId`                | `dialog-id`                 | This id will be forwarded to the relevant inner element.                        | `string`                                 | ``sbb-dialog-${++nextId}``            |
+| `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                               | `boolean`                                | `false`                               |
+| `negative`                | `negative`                  | Negative coloring variant flag.                                                 | `boolean`                                | `false`                               |
+| `titleBackButton`         | `title-back-button`         | Whether a back button is displayed next to the title.                           | `boolean`                                | `false`                               |
+| `titleContent`            | `title-content`             | Dialog title.                                                                   | `string`                                 | `undefined`                           |
+| `titleId`                 | `title-id`                  | This id will be forwarded to the relevant inner element.                        | `string`                                 | ``sbb-dialog-title-${++nextTitleId}`` |
+| `titleLevel`              | `title-level`               | Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`                                 |
 
 
 ## Events

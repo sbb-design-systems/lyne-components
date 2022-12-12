@@ -19,7 +19,6 @@ describe('sbb-button', () => {
           accessibility-controls="id"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedby="id"
         >
           Label Text
         </sbb-button>`,
@@ -39,7 +38,6 @@ describe('sbb-button', () => {
           accessibility-controls="id"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedby="id"
         >
           <mock:shadow-root>
             <button
@@ -54,7 +52,6 @@ describe('sbb-button', () => {
               aria-controls="id"
               aria-haspopup="true"
               aria-label="Travelcards &amp; tickets"
-              aria-describedby="id"
              >
               <span class='sbb-button__label'><slot></slot></span>
             </button>

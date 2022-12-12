@@ -59,9 +59,6 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
    */
   @Prop() public accessibilityLabel!: string;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
   @Element() private _element!: HTMLElement;
 
   /**

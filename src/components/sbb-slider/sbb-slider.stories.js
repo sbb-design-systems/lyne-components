@@ -109,15 +109,6 @@ const accessibilityLabelArg = {
   },
 };
 
-const accessibilityDescribedbyArg = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Slider attribute',
-  },
-};
-
 const labelArg = {
   control: {
     type: 'text',
@@ -146,7 +137,6 @@ const basicArgTypes = {
   'start-icon': startIconArg,
   'end-icon': endIconArg,
   'accessibility-label': accessibilityLabelArg,
-  'accessibility-describedby': accessibilityDescribedbyArg,
 };
 
 const formFieldBasicArgsTypes = {
@@ -165,7 +155,6 @@ const basicArgs = {
   'start-icon': 'walk-slow-small',
   'end-icon': 'walk-fast-small',
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
 };
 
 const formFieldBasicArgs = {

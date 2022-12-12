@@ -96,9 +96,6 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
   @Element() private _element!: HTMLElement;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */

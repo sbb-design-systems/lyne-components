@@ -50,9 +50,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
@@ -96,7 +93,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
           value={this.value}
           onChange={(event: Event): void => this.checkedChanged(event)}
           aria-label={this.accessibilityLabel}
-          aria-describedby={this.accessibilityDescribedby}
         />
         <span class="sbb-toggle-check__container">
           <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>

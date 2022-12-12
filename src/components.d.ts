@@ -98,10 +98,6 @@ export namespace Components {
     }
     interface SbbAlert {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
@@ -242,10 +238,6 @@ export namespace Components {
          */
         "accessibilityControls": string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -316,10 +308,6 @@ export namespace Components {
     }
     interface SbbCard {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
@@ -374,10 +362,6 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
         "accessibilityLabel": string | undefined;
@@ -403,10 +387,6 @@ export namespace Components {
         "text"?: string;
     }
     interface SbbCardProduct {
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
@@ -457,10 +437,6 @@ export namespace Components {
         "value"?: string;
     }
     interface SbbCheckbox {
-        /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
@@ -547,10 +523,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the close button element.
          */
         "accessibilityCloseLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
@@ -665,10 +637,6 @@ export namespace Components {
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
          */
         "accessibilityControls": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -857,10 +825,6 @@ export namespace Components {
          */
         "accessibilityControls": string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -992,10 +956,6 @@ export namespace Components {
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
          */
         "accessibilityControls": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -1195,10 +1155,6 @@ export namespace Components {
     }
     interface SbbSlider {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
@@ -1328,10 +1284,6 @@ export namespace Components {
     }
     interface SbbTeaser {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
@@ -1361,10 +1313,6 @@ export namespace Components {
         "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
-        /**
-          * This will be forwarded as aria-describedby to the anchor tag.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * This will be forwarded as aria-label to anchor tag.
          */
@@ -1576,10 +1524,6 @@ export namespace Components {
         "visuallyHidden"?: false;
     }
     interface SbbToggleCheck {
-        /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby": string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
@@ -2208,10 +2152,6 @@ declare namespace LocalJSX {
     }
     interface SbbAlert {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
@@ -2368,10 +2308,6 @@ declare namespace LocalJSX {
          */
         "accessibilityControls"?: string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -2442,10 +2378,6 @@ declare namespace LocalJSX {
     }
     interface SbbCard {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
@@ -2500,10 +2432,6 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
         "accessibilityLabel"?: string | undefined;
@@ -2529,10 +2457,6 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface SbbCardProduct {
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
@@ -2583,10 +2507,6 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface SbbCheckbox {
-        /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */
@@ -2677,10 +2597,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the close button element.
          */
         "accessibilityCloseLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
@@ -2807,10 +2723,6 @@ declare namespace LocalJSX {
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
          */
         "accessibilityControls"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -2999,10 +2911,6 @@ declare namespace LocalJSX {
          */
         "accessibilityControls"?: string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -3142,10 +3050,6 @@ declare namespace LocalJSX {
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
          */
         "accessibilityControls"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
@@ -3353,10 +3257,6 @@ declare namespace LocalJSX {
     }
     interface SbbSlider {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
@@ -3479,10 +3379,6 @@ declare namespace LocalJSX {
     }
     interface SbbTeaser {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
@@ -3512,10 +3408,6 @@ declare namespace LocalJSX {
         "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
-        /**
-          * This will be forwarded as aria-describedby to the anchor tag.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * This will be forwarded as aria-label to anchor tag.
          */
@@ -3727,10 +3619,6 @@ declare namespace LocalJSX {
         "visuallyHidden"?: false;
     }
     interface SbbToggleCheck {
-        /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby"?: string | undefined;
         /**
           * The aria-label prop for the hidden input.
          */

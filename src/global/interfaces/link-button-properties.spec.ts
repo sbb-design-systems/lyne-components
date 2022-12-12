@@ -18,7 +18,6 @@ describe('getLinkButtonBaseAttributeList', () => {
   it('should return the parameter object', () => {
     const accessibilityProps: AccessibilityProperties = {
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: undefined,
     };
     const expectedObj = {
       dir: 'ltr',
@@ -40,7 +39,6 @@ describe('getLinkAttributeList', () => {
     const linkProperties: LinkProperties = {
       href: 'link',
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -55,7 +53,6 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: '_blank',
       accessibilityLabel: null,
-      accessibilityDescribedby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -72,7 +69,6 @@ describe('getLinkAttributeList', () => {
       target: '_blank',
       rel: 'custom',
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -89,7 +85,6 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: 'custom',
       accessibilityLabel: null,
-      accessibilityDescribedby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -104,10 +99,8 @@ describe('getLinkAttributeList', () => {
     const linkProperties: LinkProperties = {
       href: 'link',
       accessibilityLabel: null,
-      accessibilityDescribedby: null,
     };
     const buttonProperties: ButtonProperties = {
-      accessibilityDescribedby: undefined,
       accessibilityLabel: undefined,
       accessibilityHaspopup: undefined,
       accessibilityControls: undefined,
@@ -138,7 +131,6 @@ describe('getButtonAttributeList', () => {
       accessibilityHaspopup: 'true',
       accessibilityControls: 'id',
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: '',
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -160,7 +152,6 @@ describe('getLinkRenderVariables', () => {
   const linkButtonProperties: LinkButtonProperties = {
     href: 'link',
     target: '_blank',
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     emitButtonClick: () => true,
     name: undefined,
@@ -208,7 +199,6 @@ describe('getLinkRenderVariables', () => {
 
 describe('getButtonRenderVariables', () => {
   const buttonProperties: ButtonProperties = {
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     emitButtonClick: () => true,
     type: 'submit',
@@ -233,7 +223,6 @@ describe('getButtonRenderVariables', () => {
 
 describe('getLinkButtonStaticRenderVariables', () => {
   const accessibilityProperties: AccessibilityProperties = {
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
   };
   it('should return the correct variables', () => {
@@ -253,7 +242,6 @@ describe('resolveRenderVariables', () => {
   const linkButtonProperties: LinkButtonProperties = {
     href: 'link',
     target: undefined,
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
     emitButtonClick: () => undefined,
     type: undefined,
@@ -280,7 +268,6 @@ describe('resolveLinkRenderVariables', () => {
   const linkProperties: LinkProperties = {
     href: 'link',
     target: undefined,
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
   };
 

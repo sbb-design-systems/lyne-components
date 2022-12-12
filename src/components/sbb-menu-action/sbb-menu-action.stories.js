@@ -157,12 +157,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   amount,
@@ -180,7 +174,6 @@ const defaultArgTypes = {
   'accessibility-controls': accessibilityControls,
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
 };
 
 const defaultArgs = {
@@ -201,7 +194,6 @@ const defaultArgs = {
   'accessibility-controls': undefined,
   'accessibility-haspopup': undefined,
   'accessibility-label': 'Details',
-  'accessibility-describedby': '',
 };
 
 const buttonArgs = {
