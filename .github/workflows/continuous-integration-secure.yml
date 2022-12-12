@@ -19,7 +19,7 @@ jobs:
         )
       )
     env:
-      IMAGE_REPO: ghcr.io/${{ env.GITHUB_REPOSITORY }}/storybook-preview
+      IMAGE_REPO: ghcr.io/lyne-design-system/lyne-components/storybook-preview
       IMAGE_TAG: rev-${{ github.event.workflow_run.head_sha }}
       ALLOWED_EXTENSIONS: css, gitignore, gitkeep, html, ico, jpg, js, json, png, scss, stackblitzrc, svg, ts
     steps:
