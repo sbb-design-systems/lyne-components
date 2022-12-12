@@ -14,7 +14,7 @@ export function isArrowKeyPressed(event: KeyboardEvent): boolean {
  * @param size The size of the array.
  * @param offset The amount to move by.
  */
-function goToElement(currentIndex: number, size: number, offset: number): number {
+function calcIndexInRange(currentIndex: number, size: number, offset: number): number {
   return (currentIndex + offset + size) % size;
 }
 
@@ -39,8 +39,8 @@ export function getNextElementIndex(event: KeyboardEvent, current: number, size:
   }
 
   if (event.key === prevKey || event.key === 'ArrowUp') {
-    return goToElement(current, size, -1);
+    return calcIndexInRange(current, size, -1);
   } else if (event.key === nextKey || event.key === 'ArrowDown') {
-    return goToElement(current, size, 1);
+    return calcIndexInRange(current, size, 1);
   }
 }
