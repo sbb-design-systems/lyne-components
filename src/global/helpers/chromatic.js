@@ -8,8 +8,11 @@ export function combineStories(config, stories) {
   const decorators = (name, story) =>
     [
       (Story) => (
-        <div style="margin-bottom: 2rem;">
-          <sbb-title level="5" style="margin-bottom: 1rem;text-transform: capitalize;">
+        <div style="margin-block-end: 2rem;">
+          <sbb-title
+            level="5"
+            style="margin-block-end: 1rem;margin-block-start:0;text-transform: capitalize;"
+          >
             {unCamelCase(name)}
           </sbb-title>
           <div style="outline: 1px solid #ad00ff;">
