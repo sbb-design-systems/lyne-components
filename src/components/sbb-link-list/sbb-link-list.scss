@@ -28,7 +28,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   gap: var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-link-list__title {
+.sbb-link-list-title {
   // Overwrite sbb-title default margin
   margin: 0;
 }

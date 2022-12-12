@@ -72,12 +72,11 @@ export class SbbLinkList implements ComponentInterface {
       <div class="sbb-link-list-wrapper">
         {(this._namedSlots.title || this.titleContent) && (
           <sbb-title
-            class="sbb-link-list__title"
+            class="sbb-link-list-title"
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
             id="sbb-link-list-title-id"
-            class="sbb-link-list-title"
           >
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
