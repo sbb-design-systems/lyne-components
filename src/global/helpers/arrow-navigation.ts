@@ -9,13 +9,13 @@ export function isArrowKeyPressed(event: KeyboardEvent): boolean {
 }
 
 /**
- * Calculate the index of the next element based on the given offset
+ * Calculate the index of the next element based on the given offset.
  * @param currentIndex The index of the current element.
- * @param size The size of the array.
+ * @param maxIndex The maximum permitted value (e.g. array size).
  * @param offset The amount to move by.
  */
-function calcIndexInRange(currentIndex: number, size: number, offset: number): number {
-  return (currentIndex + offset + size) % size;
+function calcIndexInRange(currentIndex: number, maxIndex: number, offset: number): number {
+  return (currentIndex + offset + maxIndex) % maxIndex;
 }
 
 /**
