@@ -4,28 +4,19 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-@mixin dot {
-  content: '';
-  position: absolute;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 100%;
-}
-
 :host {
+  @include sbb.dot-variables;
+
   display: block;
 
   --sbb-dot-size-large: #{sbb.px-to-rem-build(10)};
   --sbb-dot-size-small: #{sbb.px-to-rem-build(8)};
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
-  --color-white: var(--sbb-color-white-default);
-  --color-default: var(--sbb-color-black-default);
-  --color-current-location: var(--sbb-color-red-default);
-  --color-current-location-dark: var(--sbb-color-red150-default);
-  --color-cancellation: var(--sbb-color-red-default);
-  --color-past: var(--sbb-color-metal-default);
-  --leg-width: 100%;
+  --sbb-color-default: var(--sbb-color-charcoal-default);
+  --sbb-color-cancellation: var(--sbb-color-red-default);
+  --sbb-color-past: var(--sbb-color-metal-default);
+  --sbb-leg-width: 100%;
 }
 
 .sbb-pearl-chain {
@@ -43,9 +34,12 @@
 // first and last dot
 .sbb-pearl-chain::before,
 .sbb-pearl-chain::after {
-  --dot-size: var(--sbb-dot-size-large);
-  @include dot;
+  @include sbb.dot;
 
+  --dot-size: var(--sbb-dot-size-large);
+
+  content: '';
+  position: absolute;
   background-color: currentcolor;
   inset-block-start: 0;
   z-index: 3;
@@ -72,7 +66,7 @@
 
 .sbb-pearl-chain--departure-cancellation::before,
 .sbb-pearl-chain--arrival-cancellation::after {
-  color: var(--color-cancellation);
+  color: var(--sbb-color-cancellation);
 
   @include sbb.if-forced-colors {
     background-color: ActiveText;
@@ -81,7 +75,7 @@
 
 .sbb-pearl-chain--departure-cancellation.pearl-chain--past::before,
 .sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
-  color: var(--color-past);
+  color: var(--sbb-color-past);
 
   @include sbb.if-forced-colors {
     color: GrayText;
@@ -103,7 +97,7 @@
   height: var(--sbb-pearl-chain-height);
   border-inline-end: var(--sbb-pearl-chain-spacing-small) solid Canvas;
   background-color: currentcolor;
-  width: var(--leg-width);
+  width: var(--sbb-leg-width);
 
   @include sbb.if-forced-colors {
     color: CanvasText;
@@ -118,19 +112,22 @@
 .sbb-pearl-chain--past,
 .sbb-pearl-chain__leg--progress::before,
 .sbb-pearl-chain--progress::before {
-  color: var(--color-past);
+  --dot-color: var(--sbb-color-past);
+
+  color: var(--sbb-color-past);
 }
 
 // dot on leg
 .sbb-pearl-chain__leg:not(:first-child) {
   &::before {
-    --dot-size: var(--sbb-dot-size-small);
-    @include dot;
+    @include sbb.dot-transfer;
 
+    --dot-size: var(--sbb-dot-size-small);
+
+    content: '';
+    position: absolute;
     inset-block-start: calc(var(--dot-size) / -2 + var(--sbb-pearl-chain-height) / 2);
     inset-inline-start: 0;
-    background-color: Canvas;
-    border: var(--sbb-pearl-chain-height) solid currentcolor;
     z-index: 2;
 
     @include sbb.if-forced-colors {
@@ -139,6 +136,11 @@
       }
     }
   }
+}
+
+.sbb-pearl-chain__leg--past:not(:first-child)::before,
+.sbb-pearl-chain__leg--progress::before {
+  --dot-color: var(--sbb-color-past);
 }
 
 // line on leg
@@ -166,12 +168,16 @@
 }
 
 .sbb-pearl-chain__leg--progress::after {
-  background-color: var(--color-past);
+  --dot-color: var(--sbb-color-past);
+
+  background-color: var(--sbb-color-past);
   width: var(--leg-status);
 }
 
 .sbb-pearl-chain__leg--cancellation {
-  color: var(--color-cancellation);
+  --dot-color: var(--sbb-color-cancellation);
+
+  color: var(--sbb-color-cancellation);
 
   @include sbb.if-forced-colors {
     color: ActiveText;
@@ -196,18 +202,16 @@
 }
 
 .sbb-pearl-chain__position {
-  position: absolute;
+  @include sbb.dot-position;
 
   --dot-size: var(--sbb-dot-size-large);
-  @include dot;
 
-  background-color: var(--color-current-location);
+  position: absolute;
   inset-block-start: -200%;
   z-index: 4;
 
   // --status-position: defined in .tsx file
-  inset-inline-start: var(--status-position);
-  animation: pulse 3s infinite;
+  inset-inline-start: var(--sbb-status-position);
 
   @include sbb.if-forced-colors {
     background-color: ActiveText;
@@ -216,14 +220,4 @@
 
 .sbb-pearl-chain__position--no-animation {
   animation: unset;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--color-current-location-dark);
-  }
-
-  40% {
-    box-shadow: 0 0 0 #{sbb.px-to-rem-build(6)} transparent;
-  }
 }

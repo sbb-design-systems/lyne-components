@@ -13,7 +13,7 @@ import { PearlChainVerticalItemAttributes } from './sbb-pearl-chain-vertical-ite
 })
 export class SbbPearlChainVerticalItem {
   /** The pearlChainVerticalItemAttributes Prop for styling the dots and line.*/
-  @Prop() public pearlChainVerticalItemAttributes: PearlChainVerticalItemAttributes;
+  @Prop() public pearlChainVerticalItemAttributes!: PearlChainVerticalItemAttributes;
 
   /** If true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
@@ -40,18 +40,10 @@ export class SbbPearlChainVerticalItem {
               class={`sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-color--${lineColor}`}
             ></div>
           )}
-          {dotType !== 'double-bullet' ? (
+          {dotType && (
             <div
-              class={`sbb-pearl-chain-vertical-item__dot--${dotType} ${dotColorClass} sbb-pearl-chain-vertical-item__dot-size--${dotSize}`}
+              class={`sbb-pearl-chain-vertical-item__dot sbb-pearl-chain-vertical-item__dot--${dotType} ${dotColorClass} sbb-pearl-chain-vertical-item__dot-size--${dotSize}`}
             />
-          ) : (
-            <div
-              class={`sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-color--${dotColor} sbb-pearl-chain-vertical-item__dot-size--ultra`}
-            >
-              <div
-                class={`sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-color--${dotColor} sbb-pearl-chain-vertical-item__dot-size--extra-small`}
-              />
-            </div>
           )}
           {position > 0 && (
             <div

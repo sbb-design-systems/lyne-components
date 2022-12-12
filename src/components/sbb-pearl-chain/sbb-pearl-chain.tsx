@@ -83,7 +83,7 @@ export class SbbPearlChain {
 
     const statusStyle = (): Record<string, string> => {
       return {
-        '--status-position': `${currentPosition}%`,
+        '--sbb-status-position': `${currentPosition}%`,
         ...(currentPosition >= 50 ? { transform: `translateX(-100%)` } : {}),
       };
     };
@@ -147,7 +147,7 @@ export class SbbPearlChain {
 
           const legStyle = (): Record<string, string> => {
             return {
-              '--leg-width': `${duration}%`,
+              '--sbb-leg-width': `${duration}%`,
               ...(this._getStatus(departure, arrival) === 'progress' && !cancelled
                 ? { '--leg-status': `${this._getProgress(departure, arrival)}%` }
                 : {}),

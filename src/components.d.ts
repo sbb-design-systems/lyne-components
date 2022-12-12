@@ -3087,7 +3087,7 @@ declare namespace LocalJSX {
         /**
           * The pearlChainVerticalItemAttributes Prop for styling the dots and line.
          */
-        "pearlChainVerticalItemAttributes"?: PearlChainVerticalItemAttributes;
+        "pearlChainVerticalItemAttributes": PearlChainVerticalItemAttributes;
     }
     interface SbbRadioButton {
         /**

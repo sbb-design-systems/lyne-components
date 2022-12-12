@@ -1,0 +1,161 @@
+@use './a11y';
+@use '../core/functions.scss';
+
+// ----------------------------------------------------------------------------------------------------
+// Dot Mixins: Achieve the styling of a dot
+// ----------------------------------------------------------------------------------------------------
+
+@mixin dot-variables {
+  --dot-size: var(--sbb-spacing-fixed-2x);
+  --dot-size-xl: var(--sbb-spacing-fixed-4x);
+  --dot-size-l: var(--sbb-spacing-fixed-3x);
+  --dot-size-m: #{functions.px-to-rem-build(10)};
+  --dot-size-s: var(--dot-size);
+  --dot-size-xs: #{functions.px-to-rem-build(6)};
+  --dot-color: var(--sbb-color-charcoal-default);
+  --dot-white: var(--sbb-color-white-default);
+  --dot-red: var(--sbb-color-red-default);
+  --dot-metal: var(--sbb-color-metal-default);
+  --dot-sky: #0079c7;
+  --dot-border-width: var(--sbb-border-width-2x);
+  --dot-border-width-thin: var(--sbb-border-width-1x);
+  --dot-border-color: var(--sbb-color-white-default);
+  --dot-animation-duration: 1920ms;
+  --dot-animation-easing: ease-out;
+  --dot-crossed-bullet-width: #{functions.px-to-rem-build(14.14)};
+  --dot-crossed-bullet-height: #{functions.px-to-rem-build(3.5)};
+  --dot-crossed-bullet-border-width: #{functions.px-to-rem-build(1.5)};
+}
+
+@mixin dot {
+  height: var(--dot-size);
+  width: var(--dot-size);
+  background: var(--dot-color);
+  color: var(--dot-color);
+  border-color: var(--dot-color);
+  border-radius: 100%;
+}
+
+@mixin dot--xs {
+  --dot-size: var(--dot-size-xs);
+}
+
+@mixin dot--s {
+  --dot-size: var(--dot-size-s);
+}
+
+@mixin dot--m {
+  --dot-size: var(--dot-size-m);
+}
+
+@mixin dot--l {
+  --dot-size: var(--dot-size-l);
+}
+
+@mixin dot--xl {
+  --dot-size: var(--dot-size-xl);
+}
+
+@mixin dot-red {
+  --dot-color: var(--dot-red);
+}
+
+@mixin dot-metal {
+  --dot-color: var(--dot-metal);
+}
+
+@mixin dot-sky {
+  --dot-color: var(--dot-sky);
+}
+
+@mixin dot-transfer {
+  @include dot;
+
+  background: Canvas !important;
+  border: var(--dot-border-width) solid var(--dot-color);
+}
+
+@mixin dot-thin-bulett {
+  @include dot-transfer;
+
+  --dot-border-width: var(--dot-border-width-thin);
+}
+
+@mixin dot-crossed-bullet {
+  @include dot-transfer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-top: var(--dot-crossed-bullet-border-width) solid canvas;
+    background: var(--dot-red);
+    height: var(--dot-crossed-bullet-height);
+    width: var(--dot-crossed-bullet-width);
+  }
+}
+
+@mixin dot-crossed-bullet--s {
+  @include dot-crossed-bullet;
+
+  --dot-crossed-bullet-width: #{functions.px-to-rem-build(11.31)};
+  --dot-crossed-bullet-height: #{functions.px-to-rem-build(3)};
+}
+
+@mixin dot-crossed-bullet--xl {
+  @include dot-crossed-bullet;
+
+  --dot-crossed-bullet-width: #{functions.px-to-rem-build(22.63)};
+}
+
+@mixin dot-double-bullet {
+  @include dot-thin-bulett;
+
+  --dot-size: var(--dot-size-l);
+
+  &::before {
+    @include dot-thin-bulett;
+
+    --dot-size: var(--dot-size-xs);
+    --dot-color: currentcolor;
+
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin dot-position {
+  @include dot;
+
+  --dot-size: var(--dot-size-l);
+  --dot-color: var(--dot-red);
+
+  animation: pulse var(--dot-animation-duration) var(--dot-animation-easing) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--dot-red);
+  }
+
+  25% {
+    box-shadow: 0 0 0 0 var(--dot-red);
+  }
+
+  50% {
+    box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
+  }
+
+  75% {
+    box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 var(--dot-red);
+  }
+}

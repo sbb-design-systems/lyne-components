@@ -30,7 +30,7 @@ pearlChainItem.args = {
   dotColor: 'charcoal',
   minHeight: '100',
   hideLine: false,
-  dotSize: 'medium',
+  dotSize: 'm',
 };
 
 export default {
@@ -43,23 +43,23 @@ export default {
   argTypes: {
     lineType: {
       options: ['dotted', 'standard', 'thin'],
-      control: { type: 'radio' },
+      control: { type: 'select' },
     },
     lineColor: {
       options: ['charcoal', 'red', 'metal', 'sky'],
-      control: { type: 'radio' },
+      control: { type: 'select' },
     },
     dotType: {
-      options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet'],
-      control: { type: 'radio' },
+      options: ['standard', 'thin-bullet', 'thick-bullet', 'crossed-bullet', 'double-bullet'],
+      control: { type: 'select' },
     },
     dotColor: {
       options: ['charcoal', 'red', 'metal', 'sky'],
-      control: { type: 'radio' },
+      control: { type: 'select' },
     },
     dotSize: {
-      options: ['small', 'medium', 'large'],
-      control: { type: 'radio' },
+      options: ['xs', 's', 'm', 'l', 'xl'],
+      control: { type: 'select' },
     },
   },
   title: 'components/timetable/pearl-chains/sbb-pearl-chain-vertical-item',

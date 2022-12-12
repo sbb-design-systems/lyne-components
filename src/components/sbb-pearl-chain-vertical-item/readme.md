@@ -26,10 +26,10 @@ Example prop:
 
 ## Properties
 
-| Property                           | Attribute           | Description                                                              | Type                               | Default     |
-| ---------------------------------- | ------------------- | ------------------------------------------------------------------------ | ---------------------------------- | ----------- |
-| `disableAnimation`                 | `disable-animation` | If true the position won't be animated.                                  | `boolean`                          | `undefined` |
-| `pearlChainVerticalItemAttributes` | --                  | The pearlChainVerticalItemAttributes Prop for styling the dots and line. | `PearlChainVerticalItemAttributes` | `undefined` |
+| Property                                        | Attribute           | Description                                                              | Type                               | Default     |
+| ----------------------------------------------- | ------------------- | ------------------------------------------------------------------------ | ---------------------------------- | ----------- |
+| `disableAnimation`                              | `disable-animation` | If true the position won't be animated.                                  | `boolean`                          | `undefined` |
+| `pearlChainVerticalItemAttributes` _(required)_ | --                  | The pearlChainVerticalItemAttributes Prop for styling the dots and line. | `PearlChainVerticalItemAttributes` | `undefined` |
 
 
 ## Slots

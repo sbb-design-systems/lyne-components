@@ -4,23 +4,23 @@ import isChromatic from 'chromatic/isChromatic';
 
 const lineType = {
   options: ['dotted', 'standard', 'thin'],
-  control: { type: 'radio' },
+  control: { type: 'select' },
 };
 const lineColor = {
   options: ['charcoal', 'red', 'metal', 'sky'],
-  control: { type: 'radio' },
+  control: { type: 'select' },
 };
 const dotType = {
-  options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet'],
-  control: { type: 'radio' },
+  options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet', 'crossed-bullet'],
+  control: { type: 'select' },
 };
 const dotColor = {
   options: ['charcoal', 'red', 'metal', 'sky'],
-  control: { type: 'radio' },
+  control: { type: 'select' },
 };
 const dotSize = {
-  options: ['small', 'medium', 'large'],
-  control: { type: 'radio' },
+  options: ['xs', 's', 'm', 'l', 'xl'],
+  control: { type: 'select' },
 };
 
 const hideLine = {
@@ -617,6 +617,8 @@ export const thinPearlChain = Template.bind({});
 export const thickBulletPearlChain = Template.bind({});
 export const thinBulletPearlChain = Template.bind({});
 export const doubleBulletPearlChain = Template.bind({});
+export const crossedBulletPearlChain = Template.bind({});
+
 export const positionPearlChain = Template.bind({});
 
 export const connectionDetail = connectionDetailTemplate.bind({});
@@ -699,6 +701,12 @@ doubleBulletPearlChain.argTypes = defaultArgTypes;
 doubleBulletPearlChain.args = {
   ...defaultArgs,
   dotType: 'double-bullet',
+};
+
+crossedBulletPearlChain.argTypes = defaultArgTypes;
+crossedBulletPearlChain.args = {
+  ...defaultArgs,
+  dotType: 'crossed-bullet',
 };
 
 /** position */

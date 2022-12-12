@@ -1,10 +1,15 @@
 export type LineType = 'dotted' | 'standard' | 'thin';
 
-export type DotType = 'standard' | 'thick-bullet' | 'thin-bullet' | 'double-bullet';
+export type DotType =
+  | 'standard'
+  | 'thick-bullet'
+  | 'thin-bullet'
+  | 'double-bullet'
+  | 'crossed-bullet';
 
-export type Color = 'red' | 'gray' | 'black' | 'sky';
+export type Color = 'red' | 'metal' | 'charcoal' | 'sky';
 
-export type DotSize = 'small' | 'medium' | 'large';
+export type DotSize = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 export interface PearlChainVerticalItemAttributes {
   lineType: LineType;
