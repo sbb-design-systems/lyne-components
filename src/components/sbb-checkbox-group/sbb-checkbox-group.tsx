@@ -10,6 +10,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -98,6 +99,30 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
+
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    const enabledCheckboxes: HTMLSbbCheckboxElement[] = this._checkboxes.filter(
+      (tag: HTMLSbbCheckboxElement) => !tag.hasAttribute('disabled')
+    );
+
+    if (
+      !enabledCheckboxes ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
+    ) {
+      return;
+    }
+
+    if (isArrowKeyPressed(evt)) {
+      const current: number = enabledCheckboxes.findIndex(
+        (e: HTMLSbbCheckboxElement) => e === evt.target
+      );
+      const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
+      enabledCheckboxes[nextIndex]?.focus();
+    }
   }
 
   private _updateCheckboxes(): void {
