@@ -30,6 +30,11 @@
   --sbb-tag-text-color: var(--sbb-color-platinum-default);
   --sbb-tag-amount-color: var(--sbb-color-platinum-default);
   --sbb-tag-background-color: var(--sbb-color-milk-default);
+  --sbb-tag-border-color: transparent;
+}
+
+:host([checked][disabled]) {
+  --sbb-tag-border-color: var(--sbb-color-platinum-default);
 }
 
 .sbb-tag {

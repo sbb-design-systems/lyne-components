@@ -105,6 +105,10 @@ export const disabledTag = Template.bind({});
 disabledTag.argTypes = defaultArgTypes;
 disabledTag.args = { ...defaultArgs, disabled: true };
 
+export const checkedAndDisabledTag = Template.bind({});
+checkedAndDisabledTag.argTypes = defaultArgTypes;
+checkedAndDisabledTag.args = { ...defaultArgs, checked: true, disabled: true };
+
 export const withAmount = Template.bind({});
 withAmount.argTypes = defaultArgTypes;
 withAmount.args = { ...defaultArgs, amount: 123 };
@@ -124,6 +128,14 @@ withAmountAndIconChecked.args = { ...defaultArgsIconAndAmount, checked: true };
 export const withAmountAndIconDisabled = Template.bind({});
 withAmountAndIconDisabled.argTypes = defaultArgTypes;
 withAmountAndIconDisabled.args = { ...defaultArgsIconAndAmount, disabled: true };
+
+export const withAmountAndIconCheckedAndDisabled = Template.bind({});
+withAmountAndIconCheckedAndDisabled.argTypes = defaultArgTypes;
+withAmountAndIconCheckedAndDisabled.args = {
+  ...defaultArgsIconAndAmount,
+  checked: true,
+  disabled: true,
+};
 
 export default {
   decorators: [
