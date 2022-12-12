@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.18.1](https://github.com/lyne-design-system/lyne-components/compare/v0.18.0...v0.18.1) (2022-12-12)
+
+### Bug Fixes
+
+- arrow navigation refactoring ([#1485](https://github.com/lyne-design-system/lyne-components/issues/1485)) ([160bd21](https://github.com/lyne-design-system/lyne-components/commit/160bd21e716d0a6e4a61f1490c6971dc6043f95f))
+
 ## [0.18.0](https://github.com/lyne-design-system/lyne-components/compare/v0.17.0...v0.18.0) (2022-12-12)
 
 ### ⚠ BREAKING CHANGES
