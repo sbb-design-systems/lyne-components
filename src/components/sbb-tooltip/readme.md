@@ -49,7 +49,7 @@ The tooltip automatically calculates where it should place itself, based on avai
 
 ### Accessibility
 
-In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `id` as shown below:
+In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below:
 
 ```html
 <!-- Trigger element -->

@@ -32,7 +32,6 @@ import { hostContext } from '../../global/helpers/host-context';
  */
 
 let nextId = 0;
-let nextTitleId = 0;
 
 @Component({
   shadow: true,
@@ -44,11 +43,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
    * This id will be forwarded to the relevant inner element.
    */
   @Prop() public dialogId = `sbb-dialog-${++nextId}`;
-
-  /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public titleId = `sbb-dialog-title-${++nextTitleId}`;
 
   /**
    * Dialog title.
@@ -365,7 +359,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
             level={this.titleLevel}
             visual-level="3"
             negative={this.negative}
-            title-id={this.titleId}
           >
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>

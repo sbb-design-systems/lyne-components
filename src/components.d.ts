@@ -556,10 +556,6 @@ export namespace Components {
          */
         "titleContent": string;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId": string;
-        /**
           * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
         "titleLevel": InterfaceTitleAttributes['level'];
@@ -910,10 +906,6 @@ export namespace Components {
           * The title text we want to show before the list.
          */
         "titleContent"?: string;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId": string;
         /**
           * The semantic level of the title, e.g. 2 = h2.
          */
@@ -2634,10 +2626,6 @@ declare namespace LocalJSX {
          */
         "titleContent"?: string;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId"?: string;
-        /**
           * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
@@ -2988,10 +2976,6 @@ declare namespace LocalJSX {
           * The title text we want to show before the list.
          */
         "titleContent"?: string;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId"?: string;
         /**
           * The semantic level of the title, e.g. 2 = h2.
          */

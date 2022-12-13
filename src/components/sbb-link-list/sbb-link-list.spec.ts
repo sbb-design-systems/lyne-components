@@ -19,7 +19,7 @@ describe('sbb-link-list', () => {
         <sbb-link-list title-level="2" orientation="vertical">
           <mock:shadow-root>
             <div class="sbb-link-list-wrapper">
-              <sbb-title level="2" title-id="sbb-link-list-title-1" visual-level="5" class="sbb-link-list-title">
+              <sbb-title level="2" visual-level="5" class="sbb-link-list-title">
                 <slot name="title"></slot>
               </sbb-title>
               <ul class="sbb-link-list">
@@ -63,7 +63,7 @@ describe('sbb-link-list', () => {
           >
           <mock:shadow-root>
             <div class="sbb-link-list-wrapper">
-              <sbb-title level="2" title-id="sbb-link-list-title-2" visual-level="5" class="sbb-link-list-title">
+              <sbb-title level="2" visual-level="5" class="sbb-link-list-title">
                 <slot name="title">
                 Help &amp; Contact
               </sbb-title>

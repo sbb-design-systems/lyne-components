@@ -66,6 +66,9 @@ export class SbbFormField implements ComponentInterface {
 
   @Element() private _element: HTMLElement;
 
+  /** Original aria-describedby value of the slotted input element. */
+  private _originalInputAriaDescribedby?: string;
+
   /**
    * Get the document language; used for translations.
    */
@@ -98,8 +101,12 @@ export class SbbFormField implements ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  /**
+   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
+   */
   private _onSlotErrorChange(event: Event): void {
     this._errorElements = (event.target as HTMLSlotElement).assignedElements();
+    this._applyAriaDescribedby();
     toggleDatasetEntry(this._element, 'hasError', !!this._errorElements.length);
   }
 
@@ -112,6 +119,8 @@ export class SbbFormField implements ComponentInterface {
       .find((e): e is HTMLElement => this._supportedInputElements.includes(e.tagName));
 
     if (this._input) {
+      this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
+      this._applyAriaDescribedby();
       this._readInputState();
 
       this._formFieldAttributeObserver.observe(this._input, {
@@ -139,6 +148,13 @@ export class SbbFormField implements ComponentInterface {
     );
   }
 
+  private _applyAriaDescribedby(): void {
+    const value = this._errorElements.length
+      ? this._errorElements.map((e) => e.id).join(',')
+      : this._originalInputAriaDescribedby;
+    this._input?.setAttribute('aria-describedby', value);
+  }
+  
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">

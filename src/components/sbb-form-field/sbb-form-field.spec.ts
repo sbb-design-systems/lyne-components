@@ -129,7 +129,7 @@ describe('sbb-form-field', () => {
       components: [SbbFormField],
       html: `
         <sbb-form-field label="Fill input">
-        <input class="input" readonly placeholder="This is an input" slot="input">
+        <input aria-describedby="error" class="input" readonly placeholder="This is an input" slot="input">
           <sbb-form-error id="error">
             You can't change this value.
           </sbb-form-error>
@@ -161,7 +161,7 @@ describe('sbb-form-field', () => {
             </div>
           </div>
         </mock:shadow-root>
-        <input class="input" placeholder="This is an input" readonly="" slot="input">
+        <input aria-describedby="error" class="input" placeholder="This is an input" readonly="" slot="input"><input aria-describedby="error" class="input" placeholder="This is an input" readonly="" slot="input"><input aria-describedby="error" class="input" placeholder="This is an input" readonly="" slot="input">
         <sbb-form-error id="error">
           You can't change this value.
         </sbb-form-error>

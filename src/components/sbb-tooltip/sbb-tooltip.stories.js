@@ -63,6 +63,7 @@ const tooltipTrigger = (position) => (
     data-testid="tooltip-trigger"
     id="tooltip-trigger"
     name="circle-information-small"
+    aria-describedby="tooltip-content"
     style={`margin-inline: 2rem; position: absolute; cursor: pointer; ${position};`}
   />
 );
