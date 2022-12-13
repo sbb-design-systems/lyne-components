@@ -39,7 +39,7 @@ export class SbbToggle implements ComponentInterface {
   @Prop() public disabled = false;
 
   /**
-   * Set the width of the component.
+   * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
    */
   @Prop() public even: boolean;
 
@@ -74,6 +74,7 @@ export class SbbToggle implements ComponentInterface {
       toggleOption.checked = toggleOption.value === value;
     }
     this._setCheckedPillPosition(false);
+    this.change.emit({ value });
     this.didChange.emit({ value });
   }
 
@@ -85,14 +86,23 @@ export class SbbToggle implements ComponentInterface {
   }
 
   /**
-   * Emits whenever the toggle value changes.
+   * Emits whenever the radio group value changes.
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'did-change',
   })
-  public didChange: EventEmitter<any>;
+  public didChange: EventEmitter;
+
+  /**
+   * Emits whenever the radio group value changes.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+  })
+  public change: EventEmitter;
 
   private get _options(): HTMLSbbToggleOptionElement[] {
     return Array.from(
@@ -172,7 +182,11 @@ export class SbbToggle implements ComponentInterface {
     const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
     const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
 
-    if (evt.key === prevKey || evt.key === 'ArrowUp') {
+    if (checked === -1 && cur === 0 && (evt.key === ' ' || evt.key === 'Enter')) {
+      enabledToggleOptions[cur].select();
+      enabledToggleOptions[cur].focus();
+      evt.preventDefault();
+    } else if (evt.key === prevKey || evt.key === 'ArrowUp') {
       enabledToggleOptions[prev].select();
       enabledToggleOptions[prev].focus();
       evt.preventDefault();

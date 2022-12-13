@@ -110,8 +110,7 @@ export class SbbToggleOption implements ComponentInterface {
         // eslint-disable-next-line jsx-a11y/aria-proptypes
         aria-checked={`${this.checked}`}
         aria-disabled={this.disabled}
-        /* eslint-enable jsx-a11y/aria-proptypes */
-        aria-labelledby={this.toggleOptionId}
+        role="radio"
       >
         <input
           type="radio"

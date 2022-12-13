@@ -9,7 +9,7 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toggle-option aria-checked="true" aria-labelledby="sbb-toggle-option-1" checked="" value="Option 1">
+    <sbb-toggle-option aria-checked="true" checked="" role="radio" value="Option 1">
           <mock:shadow-root>
             <input aria-hidden="true" checked id="sbb-toggle-option-1" tabindex="-1" type="radio" value="Option 1">
             <span class="sbb-toggle-option"></span>
@@ -25,7 +25,7 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toggle-option aria-checked="true" aria-labelledby="sbb-toggle-option-2" checked="" icon-name="arrow-right-small">
+    <sbb-toggle-option aria-checked="true" checked="" icon-name="arrow-right-small" role="radio">
           <mock:shadow-root>
             <input aria-hidden="true" checked id="sbb-toggle-option-2" tabindex="-1" type="radio">
             <span class="sbb-toggle-option">
@@ -45,7 +45,7 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toggle-option aria-checked="true" aria-labelledby="sbb-toggle-option-3" checked="" icon-name="arrow-right-small" value="Option 1">
+    <sbb-toggle-option aria-checked="true" checked="" icon-name="arrow-right-small" role="radio" value="Option 1">
           <mock:shadow-root>
             <input aria-hidden="true" checked id="sbb-toggle-option-3" tabindex="-1" type="radio" value="Option 1">
             <span class="sbb-toggle-option">

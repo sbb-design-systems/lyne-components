@@ -1642,7 +1642,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Set the width of the component.
+          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
          */
         "even": boolean;
         /**
@@ -3924,13 +3924,18 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Set the width of the component.
+          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
          */
         "even"?: boolean;
         /**
-          * Emits whenever the toggle value changes.
+          * Emits whenever the radio group value changes.
          */
-        "onDid-change"?: (event: SbbToggleCustomEvent<any>) => void;
+        "onChange"?: (event: SbbToggleCustomEvent<any>) => void;
+        /**
+          * Emits whenever the radio group value changes.
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbToggleCustomEvent<any>) => void;
         /**
           * Id of the toggle element.
          */

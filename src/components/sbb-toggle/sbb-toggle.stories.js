@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-toggle.events';
 
 const disabled = {
   control: {
@@ -87,16 +86,16 @@ const defaultArgs = {
   iconName: undefined,
 };
 
-const toggleOption = (args) => [
-  <sbb-toggle-option disabled={args.disabled} icon-name={args.iconName} value="Value 1">
-    <span slot="label">{args.label}</span>
+const toggleOption = ({ disabled, iconName, label, labelTwo }) => [
+  <sbb-toggle-option disabled={disabled} icon-name={iconName} value="Value 1">
+    <span slot="label">{label}</span>
   </sbb-toggle-option>,
   <sbb-toggle-option
-    disabled={args.disabled}
-    icon-name={args.iconName && 'arrows-right-left-small'}
+    disabled={disabled}
+    icon-name={iconName && 'arrows-right-left-small'}
     value="Value 2"
   >
-    <span slot="label">{args.labelTwo}</span>
+    <span slot="label">{labelTwo}</span>
   </sbb-toggle-option>,
 ];
 
@@ -190,7 +189,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.didChange],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,
