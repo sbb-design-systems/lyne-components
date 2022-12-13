@@ -15,11 +15,11 @@
   --sbb-train-direction-label-background: var(--sbb-color-white-default);
 
   // Static value from design specs
-  --sbb-train-direction-indicator-end-height: #{px-to-rem-build(12)};
+  --sbb-train-direction-indicator-end-height: #{sbb.px-to-rem-build(12)};
 
   // Evaluate offset for the arrow-icon because 50% offset will cause a cut off of
   // the arrow-top on the overflowing edge
-  --sbb-train-direction-indicator-arrow-offset-end: #{px-to-rem-build(9)};
+  --sbb-train-direction-indicator-arrow-offset-end: #{sbb.px-to-rem-build(9)};
   --sbb-train-direction-indicator-arrow-offset-start: calc(
     var(--sbb-train-direction-indicator-arrow-offset-end) * -1
   );
