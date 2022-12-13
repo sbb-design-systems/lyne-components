@@ -249,7 +249,7 @@ const FormTemplate = (args) => [
     {...args}
     ref={(dialog) => onFormDialogClose(dialog)}
   >
-    <div style={'margin-bottom: var(--sbb-spacing-fixed-4x)'}>
+    <div style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}>
       Submit the form below to close the dialog box using the
       <code style={codeStyle}>close(result?: any, target?: HTMLElement)</code>
       method and returning the form values to update the details.
@@ -288,7 +288,7 @@ const NoFooterTemplate = (args) => [
 const FullScreenTemplate = (args) => [
   triggerButton('my-dialog-6'),
   <sbb-dialog data-testid="dialog" id="my-dialog-6" {...args}>
-    <sbb-title visual-level="2" negative={args.negative}>
+    <sbb-title visual-level="2" negative={args.negative} style="margin-block-start:0">
       Many Meetings
     </sbb-title>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
