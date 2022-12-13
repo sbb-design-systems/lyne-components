@@ -1,5 +1,5 @@
 # sbb-toggle
-The `<sbb-toggle>` component offers the user an exacty option to chose. Inside the component the `<sbb-toggle-option>` is used the render the options.
+The `<sbb-toggle>` component offers the user to choose exact one option. Inside the component the `<sbb-toggle-option>` is used the render the options.
 
 ## Usage
 
