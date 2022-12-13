@@ -20,6 +20,10 @@
 :host([checked]) {
   --sbb-tag-border-color: var(--sbb-color-charcoal-default);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
+
+  @include sbb.if-forced-colors {
+    --sbb-tag-border-color: Highlight;
+  }
 }
 
 :host([disabled]) {
@@ -85,6 +89,12 @@
       inset: 50% var(--sbb-spacing-fixed-5x);
       border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
       @include sbb.absolute-center-y;
+    }
+
+    @include sbb.if-forced-colors {
+      --sbb-tag-text-color: GrayText;
+      --sbb-tag-amount-color: GrayText;
+      --sbb-tag-border-color: GrayText;
     }
   }
 }
