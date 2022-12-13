@@ -5,17 +5,13 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-tag-height: #{sbb.px-to-rem-build(36)};
-  --sbb-tag-border-radius: var(--sbb-tag-height);
+  --sbb-tag-border-radius: var(--sbb-border-radius-16x);
   --sbb-tag-background-color: var(--sbb-color-white-default);
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
   --sbb-tag-border-width: var(--sbb-border-width-1x);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
-
-  @include sbb.mq($from: medium) {
-    --sbb-tag-height: #{sbb.px-to-rem-build(40)};
-  }
+  --sbb-tag-inset: 0;
 
   display: inline-block;
   max-width: 100%;
@@ -45,6 +41,7 @@
     // stylelint-disable plugin/stylelint-bem-namics
     :host(:not([disabled])) &:hover {
       --sbb-tag-background-color: var(--sbb-color-milk-default);
+      --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
     }
     // stylelint-enable plugin/stylelint-bem-namics
   }
@@ -59,7 +56,6 @@
   padding-inline: var(--sbb-spacing-fixed-5x);
   padding-block: var(--sbb-spacing-fixed-2x);
   cursor: pointer;
-  background-color: var(--sbb-tag-background-color);
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
 
@@ -70,11 +66,14 @@
   }
 
   &::before {
-    position: absolute;
     content: '';
-    inset: 0;
+    position: absolute;
+    z-index: -1;
+    inset: var(--sbb-tag-inset);
+    background-color: var(--sbb-tag-background-color);
     border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
     border-radius: var(--sbb-tag-border-radius);
+    transition: all var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
   }
 
   :host([disabled]) & {
