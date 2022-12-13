@@ -5,7 +5,9 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-toggle-option-color: var(--sbb-color-anthracite-default);
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
+  --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
 
   display: inline-block;
   overflow: hidden;
@@ -15,6 +17,14 @@
 
 :host(:focus-visible) {
   outline: none;
+}
+
+:host([checked]) {
+  --sbb-toggle-option-color: var(--sbb-color-charcoal-default);
+}
+
+:host([disabled]) {
+  --sbb-toggle-option-color: var(--sbb-color-graphite-default);
 }
 
 input[type='radio'] {
@@ -32,7 +42,7 @@ input[type='radio'] {
   padding-inline: var(--sbb-toggle-padding-inline);
   padding-block: var(--sbb-toggle-padding-block);
   border-radius: var(--sbb-border-radius-16x);
-  color: var(--sbb-toggle-option-text-color);
+  color: var(--sbb-toggle-option-color);
 
   label {
     @include sbb.ellipsis;
@@ -40,13 +50,7 @@ input[type='radio'] {
     cursor: inherit;
   }
 
-  :host([checked]) & {
-    color: var(--sbb-toggle-selected-option-text-color);
-  }
-
   :host([icon-name]) & {
-    --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
-
     // Recalculate padding to maintain the same toggle height when the icon is displayed.
     padding-block: calc(
       var(--sbb-toggle-padding-block) -

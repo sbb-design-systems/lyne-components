@@ -36,17 +36,17 @@ export class SbbToggle implements ComponentInterface {
   /**
    * Whether the toggle is disabled.
    */
-  @Prop() public disabled = false;
+  @Prop({ reflect: true }) public disabled = false;
 
   /**
    * Set the width of the component.
    */
-  @Prop() public even: boolean;
+  @Prop({ reflect: true }) public even: boolean;
 
   /**
    * Size variant, either m or s.
    */
-  @Prop() public size?: InterfaceSbbToggleAttributes['size'] = 'm';
+  @Prop({ reflect: true }) public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
    * The value of the toggle.
