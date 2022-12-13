@@ -44,7 +44,7 @@ export class SbbToggleOption implements ComponentInterface {
   /**
    * Whether the toggle option is disabled.
    */
-  @Prop() public disabled = false;
+  @Prop({ reflect: true }) public disabled = false;
 
   /**
    * Name of the icon for `<sbb-icon>`.

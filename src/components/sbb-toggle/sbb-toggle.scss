@@ -9,8 +9,6 @@
   --sbb-toggle-min-width: calc(
     var(--sbb-toggle-padding-inline) * 2 + var(--sbb-size-icon-ui-small)
   );
-  --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
-  --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-selected-option-background-color: var(--sbb-color-white-default);
   --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
@@ -28,8 +26,6 @@
 }
 
 :host([disabled]) {
-  --sbb-toggle-option-text-color: var(--sbb-color-graphite-default);
-  --sbb-toggle-selected-option-text-color: var(--sbb-color-graphite-default);
   --sbb-toggle-selected-option-background-color: var(--sbb-color-milk-default);
   --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite-default);
   --sbb-toggle-cursor: unset;
@@ -80,10 +76,8 @@
       timing-function: ease;
       property: opacity, left, inset-inline;
     }
-  }
 
-  :host(.sbb-toggle--checked) & {
-    &::after {
+    :host(.sbb-toggle--checked) & {
       opacity: 1;
     }
   }
