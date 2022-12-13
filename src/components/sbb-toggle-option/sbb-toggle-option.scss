@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
@@ -20,7 +22,7 @@ input[type='radio'] {
 }
 
 .sbb-toggle-option {
-  @include text-xs--bold;
+  @include sbb.text-xs--bold;
 
   display: flex;
   justify-content: center;
@@ -33,7 +35,7 @@ input[type='radio'] {
   color: var(--sbb-toggle-option-text-color);
 
   label {
-    @include ellipsis;
+    @include sbb.ellipsis;
 
     cursor: inherit;
   }

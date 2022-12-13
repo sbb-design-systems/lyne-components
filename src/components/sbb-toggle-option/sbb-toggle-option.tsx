@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -29,7 +30,7 @@ let nextId = 0;
   styleUrl: 'sbb-toggle-option.scss',
   tag: 'sbb-toggle-option',
 })
-export class SbbToggleOption {
+export class SbbToggleOption implements ComponentInterface {
   /**
    * Id of the internal input element - default id will be set automatically.
    */

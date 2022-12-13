@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -26,7 +27,7 @@ let nextId = 0;
   styleUrl: 'sbb-toggle.scss',
   tag: 'sbb-toggle',
 })
-export class SbbToggle {
+export class SbbToggle implements ComponentInterface {
   /**
    * Id of the toggle element.
    */
