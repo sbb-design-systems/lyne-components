@@ -1,7 +1,9 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
 // FIXME draft, to be checked
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: inline-block;
@@ -26,14 +28,7 @@
 }
 
 .sbb-calendar__table {
-  @include stretch(width);
-}
-
-th {
-  @include text-xs--regular; // fixme for medium
-
-  padding: 0;
-  min-width: 40px;
+  @include sbb.stretch(width);
 }
 
 // FIXME trick for spacing between thead and tbody
@@ -44,15 +39,22 @@ tbody::before {
   line-height: var(--sbb-spacing-fixed-4x);
 }
 
+th {
+  @include sbb.text-xs--regular; // fixme for medium
+
+  padding: 0;
+  min-width: 40px;
+}
+
 td > button {
-  @include text-s--regular;
-  @include buttonReset;
-  @include stretch(width);
-  @include stretch(height);
+  @include sbb.text-s--regular;
+  @include sbb.button-reset;
+  @include sbb.stretch(width);
+  @include sbb.stretch(height);
 }
 
 .sbb-datepicker__day-today {
-  @include text-s--bold; // fixme
+  @include sbb.text-s--bold; // fixme
 }
 
 .sbb-datepicker__day-selected {
@@ -60,5 +62,5 @@ td > button {
 }
 
 .visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
