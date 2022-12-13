@@ -109,6 +109,10 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  private _inputElement(): HTMLElement {
+    return this._element.shadowRoot.querySelector('input');
+  }
+
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
     this._disabledFromGroup = !!this._element.dataset.groupDisabled;
@@ -130,6 +134,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._setupInitialStateAndAttributeObserver();
   }
 
