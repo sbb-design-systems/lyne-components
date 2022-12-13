@@ -13,7 +13,6 @@ import {
   tag: 'sbb-link-list',
 })
 export class SbbLinkList implements ComponentInterface {
-
   /** The title text we want to show before the list. */
   @Prop() public titleContent?: string;
 
@@ -76,7 +75,7 @@ export class SbbLinkList implements ComponentInterface {
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
-            id='foo'
+            id="foo"
             class="sbb-link-list-title"
           >
             <slot name="title">{this.titleContent}</slot>

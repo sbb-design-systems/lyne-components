@@ -154,7 +154,7 @@ export class SbbFormField implements ComponentInterface {
       : this._originalInputAriaDescribedby;
     this._input?.setAttribute('aria-describedby', value);
   }
-  
+
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
