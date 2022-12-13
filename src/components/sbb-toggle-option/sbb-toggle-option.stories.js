@@ -49,7 +49,11 @@ const defaultArgs = {
   'icon-name': undefined,
 };
 
-const DefaultTemplate = (args) => <sbb-toggle-option {...args}>{args.label}</sbb-toggle-option>;
+const DefaultTemplate = (args) => (
+  <sbb-toggle-option {...args}>
+    <span slot="label">{args.label}</span>
+  </sbb-toggle-option>
+);
 
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = { ...defaultArgTypes, value };

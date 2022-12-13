@@ -1653,6 +1653,10 @@ export namespace Components {
     }
     interface SbbToggle {
         /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * Whether the toggle is disabled.
          */
         "disabled": boolean;
@@ -1732,10 +1736,6 @@ export namespace Components {
           * Name of the icon for `<sbb-icon>`.
          */
         "iconName"?: string;
-        /**
-          * Name of the toggle-option.
-         */
-        "name"?: string;
         "select": () => Promise<void>;
         /**
           * Id of the internal input element - default id will be set automatically.
@@ -3974,6 +3974,10 @@ declare namespace LocalJSX {
     }
     interface SbbToggle {
         /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
           * Whether the toggle is disabled.
          */
         "disabled"?: boolean;
@@ -4061,10 +4065,6 @@ declare namespace LocalJSX {
           * Name of the icon for `<sbb-icon>`.
          */
         "iconName"?: string;
-        /**
-          * Name of the toggle-option.
-         */
-        "name"?: string;
         /**
           * Emits whenever the toggle-option value changes.
          */

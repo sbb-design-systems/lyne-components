@@ -3,21 +3,22 @@
 @include host-component-properties;
 
 :host {
+  --sbb-toggle-width: fit-content;
+  --sbb-toggle-min-width: calc(
+    var(--sbb-toggle-padding-inline) * 2 + var(--sbb-size-icon-ui-small)
+  );
   --sbb-toggle-option-text-color: var(--sbb-color-anthracite-default);
   --sbb-toggle-selected-option-text-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-selected-option-background-color: var(--sbb-color-white-default);
   --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-toggle-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-toggle-cursor: pointer;
-
-  display: flex;
-  position: relative;
-  width: 100%;
 }
 
 :host([even]) {
-  display: block;
+  --sbb-toggle-width: 100%;
 
   ::slotted(sbb-toggle-option) {
     width: 50%;
@@ -37,6 +38,10 @@
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
 }
 
+:host([disable-animation]) {
+  --sbb-toggle-animation-duration: 0s;
+}
+
 .sbb-toggle {
   @include text-m--regular;
 
@@ -44,7 +49,9 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: var(--sbb-toggle-width);
   max-width: 100%;
+  min-width: calc(var(--sbb-toggle-min-width) * 2);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   background: var(--sbb-color-cloud-default);
@@ -60,16 +67,16 @@
     border-radius: var(--sbb-border-radius-16x);
     position: absolute;
     max-width: 100%;
+    min-width: var(--sbb-toggle-min-width);
 
     // Selected option exceeds toggle dimensions by 2x border width
-    top: calc(-2 * var(--sbb-border-width-1x));
-    bottom: calc(-2 * var(--sbb-border-width-1x));
-    left: var(--sbb-toggle-option-left);
-    right: var(--sbb-toggle-option-right);
+    inset-block: calc(-2 * var(--sbb-border-width-1x));
+    inset-inline-end: calc(var(--sbb-toggle-option-right) - #{px-to-rem-build(2)});
+    inset-inline-start: calc(var(--sbb-toggle-option-left) - #{px-to-rem-build(2)});
     transition: {
-      duration: var(--sbb-animation-duration-6x);
+      duration: var(--sbb-toggle-animation-duration);
       timing-function: ease;
-      property: opacity, left, right;
+      property: opacity, left, inset-inline;
     }
   }
 
@@ -77,5 +84,11 @@
     &::after {
       opacity: 1;
     }
+  }
+
+  &:focus-visible {
+    @include focusOutline;
+
+    --sbb-focus-outline-offset: #{px-to-rem-build(5)};
   }
 }

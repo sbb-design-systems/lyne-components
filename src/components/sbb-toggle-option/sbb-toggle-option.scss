@@ -3,24 +3,19 @@
 @include host-component-properties;
 
 :host {
-  --sbb-toggle-option-icon-min-size: #{px-to-rem-build(24)};
+  --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
 
   display: inline-block;
   overflow: hidden;
   flex-grow: 1;
-  min-width: var(--sbb-spacing-fixed-16x);
   z-index: 1;
 }
 
 :host(:focus-visible) {
-  @include focusOutline;
-
-  --sbb-focus-outline-offset: #{px-to-rem-build(6)};
-
-  border-radius: var(--sbb-border-radius-16x);
+  outline: none;
 }
 
-:host input[type='radio'] {
+input[type='radio'] {
   display: none;
 }
 
@@ -31,6 +26,7 @@
   justify-content: center;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
+  min-width: var(--sbb-toggle-min-width);
   padding-inline: var(--sbb-toggle-padding-inline);
   padding-block: var(--sbb-toggle-padding-block);
   border-radius: var(--sbb-border-radius-16x);

@@ -12,9 +12,7 @@ describe('sbb-toggle-option', () => {
         <sbb-toggle-option aria-checked="true" aria-labelledby="sbb-toggle-option-1" checked="" value="Option 1">
           <mock:shadow-root>
             <input aria-hidden="true" checked id="sbb-toggle-option-1" tabindex="-1" type="radio" value="Option 1">
-            <span class="sbb-toggle-option">
-              <label htmlfor="sbb-toggle-option-1" id="sbb-toggle-option-1"><slot></slot></label>
-            </span>
+            <span class="sbb-toggle-option"></span>
           </mock:shadow-root>
         </sbb-toggle-option>
       `);
@@ -34,9 +32,6 @@ describe('sbb-toggle-option', () => {
               <slot name="icon">
                 <sbb-icon name="arrow-right-small"></sbb-icon>
               </slot>
-              <label htmlfor="sbb-toggle-option-2" id="sbb-toggle-option-2">
-                <slot></slot>
-              </label>
             </span>
           </mock:shadow-root>
         </sbb-toggle-option>
@@ -46,7 +41,7 @@ describe('sbb-toggle-option', () => {
   it('renders with sbb-icon and label', async () => {
     const { root } = await newSpecPage({
       components: [SbbToggleOption],
-      html: '<sbb-toggle-option checked icon-name="arrow-right-small" value="Option 1" />',
+      html: '<sbb-toggle-option checked icon-name="arrow-right-small" value="Option 1"><span slot="label">Label</span></ sbb-toggle-option>',
     });
 
     expect(root).toEqualHtml(`
@@ -57,9 +52,12 @@ describe('sbb-toggle-option', () => {
               <slot name="icon">
                 <sbb-icon name="arrow-right-small"></sbb-icon>
               </slot>
-              <label htmlfor="sbb-toggle-option-3" id="sbb-toggle-option-3"><slot></slot></label>
+              <label htmlfor="sbb-toggle-option-3" id="sbb-toggle-option-3"><slot name="label"></slot></label>
             </span>
           </mock:shadow-root>
+          <span slot="label">
+            Label
+          </span>
         </sbb-toggle-option>
       `);
   });

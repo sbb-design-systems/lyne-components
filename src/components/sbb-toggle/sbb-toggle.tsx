@@ -50,26 +50,29 @@ export class SbbToggle {
   /**
    * The value of the toggle.
    */
-  @Prop({ mutable: true, reflect: true }) public value: any | null;
+  @Prop({ mutable: true }) public value: any | null;
 
   /**
    * Whether the list has an active action.
    */
   @State() private _hasCheckedOption = false;
 
+  /**
+   * Whether the animation is enabled.
+   */
+  @Prop({ reflect: true, mutable: true }) public disableAnimation = false;
+
   @Element() private _element: HTMLElement;
 
   private _toggleElement: HTMLElement;
-  private _toggleResizeObserver = new ResizeObserver(() => this._setCheckedPillPosition());
+  private _toggleResizeObserver = new ResizeObserver(() => this._setCheckedPillPosition(true));
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
     for (const toggleOption of this._options) {
       toggleOption.checked = toggleOption.value === value;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
-    this._setFocusableOption();
-    this._setCheckedPillPosition();
+    this._setCheckedPillPosition(false);
     this.didChange.emit({ value });
   }
 
@@ -77,9 +80,7 @@ export class SbbToggle {
   public updateDisabled(): void {
     for (const toggleOption of this._options) {
       toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
-    this._setFocusableOption();
   }
 
   /**
@@ -103,26 +104,32 @@ export class SbbToggle {
   }
 
   @Listen('did-select', { passive: true })
-  public onToggleOptionSelect(event: CustomEvent<Set<string>>): void {
+  public onToggleOptionSelect(event: CustomEvent): void {
     this.value = event.detail;
   }
 
-  private _setCheckedPillPosition(): void {
+  private _setCheckedPillPosition(disableAnimation: boolean): void {
     const checked = this._checked;
 
     if (!checked) {
       return;
     }
+
+    if (!disableAnimation) {
+      this._element.removeAttribute('disable-animation');
+    }
+
+    this.disableAnimation = disableAnimation;
     this._hasCheckedOption = true;
-    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft - 2}px`);
+    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft}px`);
     this._element.style.setProperty(
       '--sbb-toggle-option-right',
-      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth) - 2}px`
+      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth)}px`
     );
   }
 
   public connectedCallback(): void {
-    this._toggleResizeObserver.observe(this._element.firstElementChild);
+    this._toggleResizeObserver.observe(this._element);
   }
 
   public disconnectedCallback(): void {
@@ -131,25 +138,12 @@ export class SbbToggle {
 
   private _updateToggle(): void {
     const options = this._options;
-    const value = this.value ?? options.find((toggleOption) => toggleOption.checked)?.value;
+    const value = this.value ?? this._checked?.value;
 
     for (const toggleOption of options) {
       toggleOption.checked = toggleOption.value === value;
       toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
-
-    this._setFocusableOption();
-  }
-
-  private _setFocusableOption(): void {
-    if (!this._checked) {
-      this._options[0].tabIndex = 0;
-    }
-  }
-
-  private _getOptionTabIndex(option: HTMLSbbToggleOptionElement): number {
-    return option.checked && !option.disabled && !this.disabled ? 0 : -1;
   }
 
   @Listen('keydown')
@@ -159,7 +153,7 @@ export class SbbToggle {
     }
 
     const enabledToggleOptions = this._options.filter((t) => !t.disabled);
-    const checked = enabledToggleOptions.findIndex((radio) => radio.checked);
+    const checked = enabledToggleOptions.findIndex((toggleOption) => toggleOption.checked);
     const cur = checked !== -1 ? checked : 0;
     const size = enabledToggleOptions.length;
     const prev = cur === 0 ? size - 1 : cur - 1;
@@ -191,7 +185,11 @@ export class SbbToggle {
   public render(): JSX.Element {
     return (
       <Host class={{ 'sbb-toggle--checked': this._hasCheckedOption }}>
-        <div class="sbb-toggle" ref={(toggle) => (this._toggleElement = toggle)}>
+        <div
+          class="sbb-toggle"
+          tabIndex={this.disabled ? -1 : 0}
+          ref={(toggle) => (this._toggleElement = toggle)}
+        >
           <slot onSlotchange={() => this._updateToggle()} />
         </div>
       </Host>

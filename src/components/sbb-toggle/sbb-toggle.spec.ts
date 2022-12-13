@@ -11,7 +11,7 @@ describe('sbb-toggle', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle>
           <mock:shadow-root>
-            <div class="sbb-toggle">
+            <div class="sbb-toggle" tabindex="0">
               <slot></slot>
             </div>  
           </mock:shadow-root>
@@ -28,7 +28,7 @@ describe('sbb-toggle', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle disabled>
           <mock:shadow-root>
-            <div class="sbb-toggle">
+            <div class="sbb-toggle" tabindex="-1">
               <slot></slot>
             </div>  
           </mock:shadow-root>
@@ -45,7 +45,7 @@ describe('sbb-toggle', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle even>
           <mock:shadow-root>
-            <div class="sbb-toggle">
+            <div class="sbb-toggle" tabindex="0">
               <slot></slot>
             </div>  
           </mock:shadow-root>
@@ -62,7 +62,7 @@ describe('sbb-toggle', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle size="s">
           <mock:shadow-root>
-            <div class="sbb-toggle">
+            <div class="sbb-toggle" tabindex="0">
               <slot></slot>
             </div>  
           </mock:shadow-root>
