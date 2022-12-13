@@ -1,12 +1,14 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
-  --sbb-header-logo-height: #{px-to-rem-build(16)};
+  --sbb-header-logo-height: #{sbb.px-to-rem-build(16)};
 
-  @include mq($from: medium) {
-    --sbb-header-logo-height: #{px-to-rem-build(20)};
+  @include sbb.mq($from: medium) {
+    --sbb-header-logo-height: #{sbb.px-to-rem-build(20)};
   }
 
   // Setting the height here reserves the space for the header which will else be lost with fixed position.
@@ -23,7 +25,7 @@
   z-index: 10;
 
   :host([shadow]) & {
-    @include shadow-level-9-soft;
+    @include sbb.shadow-level-9-soft;
   }
 }
 

@@ -10,10 +10,6 @@ story1.args = {
   'some-prop': 'opt1',
 };
 
-story1.documentation = {
-  title: 'Title which will be rendered on documentation platform',
-};
-
 export default {
   decorators: [
     (Story) => (
@@ -22,9 +18,6 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
     actions: {
       handles: [events.click],

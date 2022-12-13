@@ -1,9 +1,11 @@
 /* stylelint-disable */
 // TODO: solve stylelint issues
 
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --_stack-text-color-normal: var(--stack-text-color-normal, var(--sbb-color-granite-default));
@@ -97,10 +99,10 @@
 }
 
 // For each breakpoint except zero we create a collapse below class
-@each $breakpoint-name, $breakpoint-value in $mq-breakpoints {
+@each $breakpoint-name, $breakpoint-value in sbb.$mq-breakpoints {
   @if $breakpoint-name != 'zero' {
     .stack--horizontal--collapse-below--#{$breakpoint-name} {
-      @include mq($to: #{$breakpoint-name}) {
+      @include sbb.mq($to: #{$breakpoint-name}) {
         flex-direction: column;
       }
     }
@@ -112,7 +114,7 @@
 }
 
 .stack--is-placeholder {
-  @include development-style;
+  @include sbb.development-style;
 }
 
 // Quirk for slotted elements

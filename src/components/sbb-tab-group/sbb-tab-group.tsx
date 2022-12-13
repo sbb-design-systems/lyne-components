@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -10,13 +11,13 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { hostContext } from '../../global/helpers/host-context';
 import throttle from '../../global/helpers/throttle';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 /**
  * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
@@ -40,7 +41,7 @@ let nextId = 0;
   styleUrl: 'sbb-tab-group.scss',
   tag: 'sbb-tab-group',
 })
-export class SbbTabGroup {
+export class SbbTabGroup implements ComponentInterface {
   public tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;
@@ -283,31 +284,22 @@ export class SbbTabGroup {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledTabs = this._enabledTabs;
-    const cur = enabledTabs.findIndex((t) => t.active);
-    const size = enabledTabs.length;
-    const prev = cur === 0 ? size - 1 : cur - 1;
-    const next = cur === size - 1 ? 0 : cur + 1;
+    const enabledTabs: InterfaceSbbTabGroupTab[] = this._enabledTabs;
 
-    // don't trap nested handling
     if (
-      (evt.target as HTMLElement) !== this._element &&
-      (evt.target as HTMLElement).parentElement !== this._element
+      !enabledTabs ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
     ) {
       return;
     }
 
-    const currentWritingMode = getDocumentWritingMode();
-    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
-    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
-
-    if (evt.key === prevKey || evt.key === 'ArrowUp') {
-      enabledTabs[prev]?.tabGroupActions.select();
-      enabledTabs[prev]?.focus();
-      evt.preventDefault();
-    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
-      enabledTabs[next]?.tabGroupActions.select();
-      enabledTabs[next]?.focus();
+    if (isArrowKeyPressed(evt)) {
+      const current: number = enabledTabs.findIndex((t: InterfaceSbbTabGroupTab) => t.active);
+      const nextIndex: number = getNextElementIndex(evt, current, enabledTabs.length);
+      enabledTabs[nextIndex]?.tabGroupActions.select();
+      enabledTabs[nextIndex]?.focus();
       evt.preventDefault();
     }
   }

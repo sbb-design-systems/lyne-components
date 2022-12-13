@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: inline-block;
@@ -36,7 +38,7 @@
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-button-gap: var(--sbb-spacing-fixed-2x);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
   }
 }
@@ -154,16 +156,16 @@
   --sbb-button-min-height: var(--sbb-size-button-m-min-height);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   }
 }
 
 .sbb-button {
-  @include buttonReset;
-  @include stretch(width);
-  @include text-xs--bold;
-  @include fontSmoothing;
+  @include sbb.button-reset;
+  @include sbb.stretch(width);
+  @include sbb.text-xs--bold;
+  @include sbb.font-smoothing;
 
   // Reset for link variant
   text-decoration: none;
@@ -199,20 +201,20 @@
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
 
-    @include ifForcedColors {
-      border: #{px-to-rem-build(1)} solid windowText;
+    @include sbb.if-forced-colors {
+      border: #{sbb.px-to-rem-build(1)} solid windowText;
     }
   }
 
   &:focus-visible::before {
-    @include focusOutline;
+    @include sbb.focus-outline;
   }
 
   // If the the device can hover over elements with ease
-  @include hover-mq($hover: true) {
+  @include sbb.hover-mq($hover: true) {
     // stylelint-disable plugin/stylelint-bem-namics
     :host(:not([disabled])) &:hover {
-      --sbb-button-translate-y-content-hover: #{px-to-rem-build(-1)};
+      --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
       --sbb-button-shadow-1-offset-y: calc(
         0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
       );
@@ -226,7 +228,7 @@
         background-color: var(--sbb-button-color-hover-background);
         border-color: var(--sbb-button-color-hover-border);
 
-        @include ifForcedColors {
+        @include sbb.if-forced-colors {
           border-color: Highlight;
         }
       }
@@ -247,18 +249,18 @@
     // Line through content
     &::after {
       content: '';
-      @include absoluteCenterY;
+      @include sbb.absolute-center-y;
 
       background-color: var(--sbb-button-color-disabled-text);
       height: var(--sbb-button-disabled-line-through-height);
       inset-inline: var(--sbb-button-padding-inline);
 
-      @include ifForcedColors {
+      @include sbb.if-forced-colors {
         background-color: GrayText;
       }
     }
 
-    @include ifForcedColors {
+    @include sbb.if-forced-colors {
       color: GrayText;
     }
   }
@@ -286,7 +288,7 @@
   }
   // stylelint-enable plugin/stylelint-bem-namics
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     color: ButtonText;
   }
 }
@@ -314,12 +316,12 @@
 .sbb-button__icon {
   transition: transform var(--sbb-button-transition-duration)
     var(--sbb-button-transition-easing-function);
-  transform: translateY(var(--sbb-button-translate-y-content-hover, #{px-to-rem-build(0)}));
+  transform: translateY(var(--sbb-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
 }
 
 .sbb-button__label {
   display: block;
-  @include ellipsis;
+  @include sbb.ellipsis;
 }
 
 .sbb-button__label--hidden {
@@ -331,5 +333,5 @@
 }
 
 .sbb-button__opens-in-new-window {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

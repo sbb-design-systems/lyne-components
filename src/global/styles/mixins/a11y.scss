@@ -1,0 +1,33 @@
+// ----------------------------------------------------------------------------------------------------
+// A11y: MediaQueries & Other things
+// ----------------------------------------------------------------------------------------------------
+@mixin if-forced-colors {
+  @media (forced-colors: active) {
+    @content;
+  }
+}
+
+@mixin focus-outline {
+  outline-offset: var(--sbb-focus-outline-offset);
+  outline: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+
+  @include if-forced-colors {
+    outline-color: Highlight;
+  }
+}
+
+@mixin screen-reader-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@mixin scroll-margin-block-start() {
+  scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
+}

@@ -461,11 +461,13 @@ Also define CSS variables in :host.
 // Variables are for example purposes only and do not actually exist.
 // For sizes you would usually use pre-defined sizes variables, which already
 // automatically scale with viewport size.
+@use '../../global/styles' as sbb;
+
 :host {
   --sbb-component-color: var(--sbb-color-standard);
   --sbb-component-padding: var(--sbb-padding-standard);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-component-padding: var(--sbb-padding-medium);
   }
 
@@ -593,8 +595,10 @@ you can write
 
 This is a low-effort task that makes a big difference for low-vision users. Example:
 
-```css
-@include ifForcedColors {
+```scss
+@use '../../global/styles' as sbb;
+
+@include sbb.if-forced-colors {
   .unicorn-motocycle {
     border: 1px solid #fff !important;
   }

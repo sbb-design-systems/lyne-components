@@ -12,20 +12,12 @@
 //
 // *****************************************************************************
 
-// Font face declaration
-@import 'font-face.scss';
-
-// Normalize (modern normalize) appearance
-@import 'normalize.scss';
-
-// Import mixins
-@import 'mixins.scss';
-
-// Import typography
-@import 'typography.scss';
+@use './_index' as sbb;
+@use './normalize';
+@use './typography';
 
 // Core variables, are always needed
 :root {
   // Core variables for :root context
-  @include lyne-components-css-vars;
+  @include sbb.lyne-components-css-vars;
 }

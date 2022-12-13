@@ -2,6 +2,8 @@ import { SbbJourneySummary } from './sbb-journey-summary';
 import { newSpecPage } from '@stencil/core/testing';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
 
+const now = new Date('2022-08-29T21:00:00Z').valueOf();
+
 const data: InterfaceJourneySummaryAttributes = {
   config: {
     legs: [],
@@ -34,12 +36,12 @@ describe('sbb-journey-summary', () => {
   it('renders', async () => {
     const page = await newSpecPage({
       components: [SbbJourneySummary],
-      html: `<sbb-journey-summary></sbb-journey-summary>`,
+      html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
     });
     page.rootInstance.config = data?.config;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
-      `<sbb-journey-summary>
+      `<sbb-journey-summary data-now="1661806800000">
       <mock:shadow-root>
         <div class="sbb-journey-summary">
           <div class="sbb-journey-summary__via-block">
@@ -64,7 +66,7 @@ describe('sbb-journey-summary', () => {
                 0min
               </time>
             </span>
-            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+            <sbb-pearl-chain-time data-now="1661806800000" arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
         </div>
       </mock:shadow-root>
@@ -75,12 +77,12 @@ describe('sbb-journey-summary', () => {
   it('renders without vias', async () => {
     const page = await newSpecPage({
       components: [SbbJourneySummary],
-      html: `<sbb-journey-summary></sbb-journey-summary>`,
+      html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
     });
     page.rootInstance.config = dataWithoutVia?.config;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
-      `<sbb-journey-summary>
+      `<sbb-journey-summary data-now="1661806800000">
       <mock:shadow-root>
         <div class="sbb-journey-summary">
           <div class="sbb-journey-summary__body">
@@ -95,7 +97,7 @@ describe('sbb-journey-summary', () => {
                 40min
               </time>
             </span>
-            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+            <sbb-pearl-chain-time data-now="1661806800000" arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
         </div>
       </mock:shadow-root>

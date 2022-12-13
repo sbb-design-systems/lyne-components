@@ -16,14 +16,13 @@ describe('sbb-link-list', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link-list
-            title-level="2">
+        <sbb-link-list title-level="2" orientation="vertical">
           <mock:shadow-root>
-            <div class="sbb-link-list">
-              <sbb-title level="2" title-id="sbb-link-list-title-1" visual-level="5">
+            <div class="sbb-link-list-wrapper">
+              <sbb-title level="2" title-id="sbb-link-list-title-1" visual-level="5" class="sbb-link-list-title">
                 <slot name="title"></slot>
               </sbb-title>
-              <ul aria-labelledby="sbb-link-list-title-1">
+              <ul class="sbb-link-list" aria-labelledby="sbb-link-list-title-1">
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>
@@ -59,14 +58,16 @@ describe('sbb-link-list', () => {
     expect(root).toEqualHtml(`
         <sbb-link-list
             title-level="2"
-            title-content="Help &amp; Contact">
+            title-content="Help &amp; Contact"
+            orientation="vertical"
+          >
           <mock:shadow-root>
-            <div class="sbb-link-list">
-              <sbb-title level="2" title-id="sbb-link-list-title-2" visual-level="5">
+            <div class="sbb-link-list-wrapper">
+              <sbb-title level="2" title-id="sbb-link-list-title-2" visual-level="5" class="sbb-link-list-title">
                 <slot name="title">
                 Help &amp; Contact
               </sbb-title>
-              <ul aria-labelledby="sbb-link-list-title-2">
+              <ul aria-labelledby="sbb-link-list-title-2" class="sbb-link-list">
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>
@@ -99,10 +100,10 @@ describe('sbb-link-list', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link-list>
+        <sbb-link-list orientation="vertical">
           <mock:shadow-root>
-            <div class="sbb-link-list">
-              <ul>
+            <div class="sbb-link-list-wrapper">
+              <ul class="sbb-link-list">
                 <li><slot name="link-0"></slot></li>
                 <li><slot name="link-1"></slot></li>
                 <li><slot name="link-2"></slot></li>

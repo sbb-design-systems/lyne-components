@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Listen, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop } from '@stencil/core';
 import {
   forwardHostEvent,
   LinkProperties,
@@ -19,7 +19,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
   styleUrl: 'sbb-teaser-hero.scss',
   tag: 'sbb-teaser-hero',
 })
-export class SbbTeaserHero implements LinkProperties {
+export class SbbTeaserHero implements ComponentInterface, LinkProperties {
   /** This will be forwarded as aria-label to anchor tag. */
   @Prop() public accessibilityLabel: string | undefined;
 

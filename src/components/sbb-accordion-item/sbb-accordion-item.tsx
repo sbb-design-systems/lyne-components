@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './sbb-accordion-item.events';
 import { guid } from './guid';
@@ -21,7 +21,7 @@ const iconSlotName = 'icon';
   styleUrl: 'sbb-accordion-item.scss',
   tag: 'sbb-accordion-item',
 })
-export class SbbAccordionItem {
+export class SbbAccordionItem implements ComponentInterface {
   /**
    * Text to show as title for the accordion.
    */

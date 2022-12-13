@@ -1,0 +1,103 @@
+// Inspired by: https://github.com/sass-mq/sass-mq
+
+@use 'sass:math';
+@use 'sass:string';
+@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
+
+$mq-breakpoints: (
+  zero: sbb-tokens.$sbb-breakpoint-zero-min,
+  // 0
+  micro: sbb-tokens.$sbb-breakpoint-micro-min,
+  // 360
+  small: sbb-tokens.$sbb-breakpoint-small-min,
+  // 600
+  medium: sbb-tokens.$sbb-breakpoint-medium-min,
+  // 840
+  large: sbb-tokens.$sbb-breakpoint-large-min,
+  // 1024
+  wide: sbb-tokens.$sbb-breakpoint-wide-min,
+  // 1280
+  ultra: sbb-tokens.$sbb-breakpoint-ultra-min,
+  // 1440
+  ultra--max-content:
+    (
+      sbb-tokens.$sbb-breakpoint-ultra-min + (2 * sbb-tokens.$sbb-spacing-fixed-18x),
+    ),
+) !default;
+$mq-media-type: all !default;
+
+@function mq-px2rem($rem, $modifier) {
+  @return calc(#{$rem + (math.div($modifier, 16) * 1rem)});
+}
+
+@function mq-get-breakpoint-width($name, $breakpoints: $mq-breakpoints) {
+  @if map-has-key($breakpoints, $name) {
+    @return map-get($breakpoints, $name);
+  } @else {
+    @warn "Breakpoint #{$name} wasn't found in $breakpoints.";
+  }
+}
+
+@mixin mq(
+  $from: false,
+  $to: false,
+  $and: false,
+  $media-type: $mq-media-type,
+  $breakpoints: $mq-breakpoints
+) {
+  $min-width: 0;
+  $max-width: 0;
+  $media-query: '';
+
+  // From: this breakpoint (inclusive)
+  @if $from {
+    @if type-of($from) == number {
+      $min-width: mq-px2rem($from);
+    } @else {
+      $min-width: mq-px2rem(mq-get-breakpoint-width($from, $breakpoints), 0);
+    }
+  }
+
+  // Until: that breakpoint (exclusive)
+  @if $to {
+    @if type-of($to) == number {
+      $max-width: mq-px2rem($to);
+    } @else {
+      $max-width: mq-px2rem(mq-get-breakpoint-width($to, $breakpoints), -1);
+    }
+  }
+
+  @if $min-width != 0 {
+    $media-query: '#{$media-query} and (min-width: #{$min-width})';
+  }
+  @if $max-width != 0 {
+    $media-query: '#{$media-query} and (max-width: #{$max-width})';
+  }
+  @if $and {
+    $media-query: '#{$media-query} and #{$and}';
+  }
+
+  // Remove unnecessary media query prefix 'all and '
+  @if $media-type == 'all' and $media-query != '' {
+    $media-type: '';
+    $media-query: string.slice(string.unquote($media-query), 6);
+  }
+
+  @media #{$media-type + $media-query} {
+    @content;
+  }
+}
+
+@mixin hover-mq($hover: true) {
+  $media-query: '';
+
+  @if $hover == true {
+    $media-query: '(any-hover: hover)';
+  } @else if $hover == false {
+    $media-query: '(hover: none)';
+  }
+
+  @media #{$media-query} {
+    @content;
+  }
+}

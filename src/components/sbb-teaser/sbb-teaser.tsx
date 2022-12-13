@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Listen, Prop, Watch } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, Watch } from '@stencil/core';
 import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 import {
   forwardHostEvent,
@@ -25,7 +25,7 @@ let nextId = 0;
 /**
  * Generalized Teaser - for displaying an image, title and paragraph
  */
-export class SbbTeaser implements LinkProperties {
+export class SbbTeaser implements ComponentInterface, LinkProperties {
   /** This id will be forwarded to the relevant inner element. */
   @Prop() public teaserId = `sbb-teaser-${++nextId}`;
 

@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -11,7 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -32,7 +33,7 @@ let nextId = 0;
   styleUrl: 'sbb-radio-button-group.scss',
   tag: 'sbb-radio-button-group',
 })
-export class SbbRadioButtonGroup {
+export class SbbRadioButtonGroup implements ComponentInterface {
   /**
    * Id of the radio group element.
    */
@@ -199,36 +200,25 @@ export class SbbRadioButtonGroup {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    if (!this._enabledRadios) {
-      return;
-    }
+    const enabledRadios: HTMLSbbRadioButtonElement[] = this._enabledRadios;
 
-    const enabledRadios = this._enabledRadios;
-    const checked = enabledRadios.findIndex((radio) => radio.checked);
-    const cur = checked !== -1 ? checked : 0;
-    const size = enabledRadios.length;
-    const prev = cur === 0 ? size - 1 : cur - 1;
-    const next = cur === size - 1 ? 0 : cur + 1;
-
-    // don't trap nested handling
     if (
-      (evt.target as HTMLElement) !== this._element &&
-      (evt.target as HTMLElement).parentElement !== this._element
+      !enabledRadios ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
     ) {
       return;
     }
 
-    const currentWritingMode = getDocumentWritingMode();
-    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
-    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
-
-    if (evt.key === prevKey || evt.key === 'ArrowUp') {
-      enabledRadios[prev].select();
-      enabledRadios[prev].focus();
-      evt.preventDefault();
-    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
-      enabledRadios[next].select();
-      enabledRadios[next].focus();
+    if (isArrowKeyPressed(evt)) {
+      const checked: number = enabledRadios.findIndex(
+        (radio: HTMLSbbRadioButtonElement) => radio.checked
+      );
+      const current: number = checked !== -1 ? checked : 0;
+      const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
+      enabledRadios[nextIndex].select();
+      enabledRadios[nextIndex].focus();
       evt.preventDefault();
     }
   }

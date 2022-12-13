@@ -27,7 +27,7 @@ let nextId = 0;
   styleUrl: 'sbb-alert.scss',
   tag: 'sbb-alert',
 })
-export class SbbAlert implements LinkProperties, ComponentInterface {
+export class SbbAlert implements ComponentInterface, LinkProperties {
   /**
    * With this way of handling the id we deviate from the recommended way
    * that the host id is set with assignId(). This exception was made because the id must

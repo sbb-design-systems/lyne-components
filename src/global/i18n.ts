@@ -223,7 +223,7 @@ export const i18nEarlierConnections: any = {
   it: 'Collegamenti precedenti',
 };
 
-export const i18nFromQuay: any = {
+export const i18nFromPlatform: any = {
   long: {
     de: 'Von Gleis',
     en: 'from platform',
@@ -235,6 +235,36 @@ export const i18nFromQuay: any = {
     en: 'Pl.',
     fr: 'Voie',
     it: 'Bin.',
+  },
+};
+
+export const i18nFromStand: any = {
+  long: {
+    de: 'Von Kante',
+    en: 'from Stand',
+    fr: 'à partir de la Quai',
+    it: 'Dalla Corsia',
+  },
+  short: {
+    de: 'Kante',
+    en: 'Stand',
+    fr: 'Quai',
+    it: 'Corsia.',
+  },
+};
+
+export const i18nFromPier: any = {
+  long: {
+    de: 'Von Steg',
+    en: 'from Pier',
+    fr: 'à partir de la Imbarco',
+    it: 'Dalla Corsia',
+  },
+  short: {
+    de: 'Steg',
+    en: 'Pier',
+    fr: 'Quai',
+    it: 'Imbarco.',
   },
 };
 

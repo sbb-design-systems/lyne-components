@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
@@ -15,11 +17,11 @@
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x);
   --sbb-alert-close-button-wrapper-width: var(--sbb-spacing-fixed-10x);
 
-  @include mq($from: medium) {
+  @include sbb.mq($from: medium) {
     --sbb-alert-close-button-wrapper-width: var(--sbb-spacing-fixed-12x);
   }
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     // Use outline here to not influence content position.
     // Due to overflow hidden of inner elements it's placed on host.
     outline: var(--sbb-border-width-1x) solid CanvasText;
@@ -39,7 +41,7 @@
 }
 
 .sbb-alert {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   display: flex;
   gap: var(--sbb-alert-gap);

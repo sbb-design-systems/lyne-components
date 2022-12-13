@@ -1,12 +1,14 @@
+@use '../../global/styles' as sbb;
+
 :host {
-  --walk-icon-height: #{px-to-rem-build(24)};
+  --walk-icon-height: #{sbb.px-to-rem-build(24)};
   --walk-icon-width: var(--walk-icon-height);
 }
 
 .walk {
   display: flex;
   align-items: center;
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   margin: 0;
   pointer-events: all;
@@ -22,16 +24,16 @@
 }
 
 .walk__text--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 .walk__icon {
-  width: #{px-to-rem-build(10)};
+  width: #{sbb.px-to-rem-build(10)};
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
 .walk--second-level {
-  @include text-xs--regular;
+  @include sbb.text-xs--regular;
 
   cursor: pointer;
 }
@@ -50,9 +52,9 @@
   float: left;
   height: var(--walk-icon-height);
   width: var(--walk-icon-width);
-  transform: translateX(#{px-to-rem-build(-7)});
+  transform: translateX(#{sbb.px-to-rem-build(-7)});
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     fill: CanvasText;
   }
 }

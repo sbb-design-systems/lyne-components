@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 @mixin horizontal-orientation {
   --sbb-checkbox-group-orientation: row;
@@ -23,7 +25,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 @each $breakpoint in $breakpoints {
-  @include mq($from: #{$breakpoint}) {
+  @include sbb.mq($from: #{$breakpoint}) {
     // horizontal-from overrides orientation vertical
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
       @include horizontal-orientation;

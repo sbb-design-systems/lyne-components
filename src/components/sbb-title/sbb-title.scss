@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-title-text-color-normal: var(
@@ -10,44 +12,44 @@
 }
 
 :host([negative]) {
-  @include title--negative;
+  @include sbb.title--negative;
 }
 
 .sbb-title {
   color: var(--sbb-title-text-color-normal);
-  @include fontSmoothing;
+  @include sbb.font-smoothing;
 
   :host([visually-hidden]) & {
-    @include screenReaderOnly;
+    @include sbb.screen-reader-only;
   }
 
   &[id] {
-    @include scrollMarginBlockStart;
+    @include sbb.scroll-margin-block-start;
   }
 
   // stylelint-disable plugin/stylelint-bem-namics
   :host(:is([level='1']:not([visual-level]), [visual-level='1'])) & {
-    @include title-1;
+    @include sbb.title-1;
   }
 
   :host(:is([level='2']:not([visual-level]), [visual-level='2'])) & {
-    @include title-2;
+    @include sbb.title-2;
   }
 
   :host(:is([level='3']:not([visual-level]), [visual-level='3'])) & {
-    @include title-3;
+    @include sbb.title-3;
   }
 
   :host(:is([level='4']:not([visual-level]), [visual-level='4'])) & {
-    @include title-4;
+    @include sbb.title-4;
   }
 
   :host(:is([level='5']:not([visual-level]), [visual-level='5'])) & {
-    @include title-5;
+    @include sbb.title-5;
   }
 
   :host(:is([level='6']:not([visual-level]), [visual-level='6'])) & {
-    @include title-6;
+    @include sbb.title-6;
   }
   // stylelint-enable plugin/stylelint-bem-namics
 }

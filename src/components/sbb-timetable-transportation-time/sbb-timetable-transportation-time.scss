@@ -1,14 +1,16 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   display: block;
 
-  --transportation-min-width: #{px-to-rem-build(38)};
+  --transportation-min-width: #{sbb.px-to-rem-build(38)};
 
-  @include mq($from: medium) {
-    --transportation-min-width: #{px-to-rem-build(43)};
+  @include sbb.mq($from: medium) {
+    --transportation-min-width: #{sbb.px-to-rem-build(43)};
   }
 }
 
@@ -19,7 +21,7 @@
 }
 
 .time--departure {
-  @include text-s--bold;
+  @include sbb.text-s--bold;
 }
 
 .time--first-level.time--departure {
@@ -27,19 +29,19 @@
 }
 
 .time--first-level.time--arrival {
-  @include text-s--bold;
+  @include sbb.text-s--bold;
 
   margin-inline-start: var(--sbb-spacing-fixed-3x);
 }
 
 .time-second-level.time--departure {
-  @include text-s--bold;
+  @include sbb.text-s--bold;
 }
 
 .time--second-level.time--arrival {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 }
 
 .time__text--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

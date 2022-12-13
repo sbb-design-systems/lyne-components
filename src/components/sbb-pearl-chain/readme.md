@@ -7,18 +7,10 @@ Minimal examples
 
 ```html
 <sbb-pearl-chain 
-  legs={[{duration: 60}, {duration: 120}]}
+  legs={[{__typename: 'PTRideLeg', arrival: { time: '2022-07-31T13:00' }, departure: { time: '2022-07-31T12:00' }]}
 />
 ```
 
-Example with time
-
-```html
-<sbb-pearl-chain 
-  legs={[{duration: 60, arrival: { time: '2022-07-31T13:00' }, departure: { time: '2022-07-31T12:00' }]}
-  disable-animation="true" 
-/>
-```
 
 ## Testing
 
@@ -30,10 +22,10 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Property            | Attribute           | Description                                                                                                                                                                                                                                                                   | Type          | Default     |
-| ------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------- |
-| `disableAnimation`  | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                | `boolean`     | `undefined` |
-| `legs` _(required)_ | --                  | define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. | `PTRideLeg[]` | `undefined` |
+| Property           | Attribute           | Description                                                                                                                                                                                                                                                                   | Type          | Default     |
+| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------- |
+| `disableAnimation` | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property.                                                                                                                                                                | `boolean`     | `undefined` |
+| `legs`             | --                  | define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%. | `PTRideLeg[]` | `undefined` |
 
 
 ## Dependencies

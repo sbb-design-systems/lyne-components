@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -30,7 +31,7 @@ const radioButtonObserverConfig: MutationObserverInit = {
   styleUrl: 'sbb-radio-button.scss',
   tag: 'sbb-radio-button',
 })
-export class SbbRadioButton {
+export class SbbRadioButton implements ComponentInterface {
   /**
    * Id of the internal input element - default id will be set automatically.
    */

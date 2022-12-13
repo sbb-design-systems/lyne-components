@@ -1,0 +1,17 @@
+// ----------------------------------------------------------------------------------------------------
+// Buttons Mixins
+// ----------------------------------------------------------------------------------------------------
+
+@mixin button-reset {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+  color: inherit;
+}

@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Listen, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop } from '@stencil/core';
 import {
   ButtonType,
   forwardHostEvent,
@@ -20,7 +20,7 @@ let nextId = 0;
   styleUrl: 'sbb-menu-action.scss',
   tag: 'sbb-menu-action',
 })
-export class SbbMenuAction implements LinkButtonProperties {
+export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   /** This id will be forwarded to the relevant inner element. */
   @Prop() public menuActionId = `sbb-menu-action-${++nextId}`;
 

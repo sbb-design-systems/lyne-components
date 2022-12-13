@@ -1,10 +1,12 @@
+@use '../../global/styles' as sbb;
+
 .duration {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   margin: 0;
   white-space: nowrap;
 }
 
 .duration__text--visually-hidden {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }

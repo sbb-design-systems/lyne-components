@@ -1,20 +1,37 @@
 import { h } from 'jsx-dom';
+import {
+  futureLeg,
+  longFutureLeg,
+  pastLeg,
+  progressLeg,
+} from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const disableAnimation = {
   control: {
     type: 'boolean',
   },
 };
+
+const now = {
+  control: {
+    type: 'date',
+  },
+};
+
 const defaultArgTypes = {
   'disable-animation': disableAnimation,
+  'data-now': now,
 };
 
 const defaultArgs = {
-  'disable-animation': false,
+  'disable-animation': isChromatic(),
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
-const Template = (args) => (
-  <sbb-journey-summary config={args}>
+
+const Template = ({ 'disable-animation': disableAnimation, 'data-now': dataNow, ...args }) => (
+  <sbb-journey-summary disable-animation={disableAnimation} data-now={dataNow} config={args}>
     <div
       style={{
         display: 'flex',
@@ -29,7 +46,17 @@ const Template = (args) => (
   </sbb-journey-summary>
 );
 
-const TemplateNoSlot = (args) => <sbb-journey-summary config={args}></sbb-journey-summary>;
+const TemplateNoSlot = ({
+  'disable-animation': disableAnimation,
+  'data-now': dataNow,
+  ...args
+}) => (
+  <sbb-journey-summary
+    disable-animation={disableAnimation}
+    data-now={dataNow}
+    config={args}
+  ></sbb-journey-summary>
+);
 
 export const summaryNoSlot = TemplateNoSlot.bind({});
 export const summary = Template.bind({});
@@ -41,20 +68,7 @@ summaryNoSlot.argTypes = defaultArgTypes;
 summaryNoSlot.args = {
   ...defaultArgs,
   vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'via6'],
-  legs: [
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-  ],
+  legs: [futureLeg, longFutureLeg, futureLeg],
   origin: 'Station',
   destination: 'Station',
   departure: { time: '2022-08-29T20:30:00+02:00' },
@@ -66,20 +80,7 @@ summary.argTypes = defaultArgTypes;
 summary.args = {
   ...defaultArgs,
   vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'via6'],
-  legs: [
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-  ],
+  legs: [futureLeg, longFutureLeg, futureLeg],
   origin: 'Station',
   destination: 'Station',
   departure: { time: '2022-08-29T20:30:00+02:00' },
@@ -92,20 +93,7 @@ summaryNoVias.args = {
   ...defaultArgs,
   origin: 'Station',
   destination: 'Station',
-  legs: [
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-  ],
+  legs: [futureLeg, longFutureLeg, futureLeg],
   arrivalWalk: 10,
   departureWalk: 5,
   departure: { time: '2022-08-29T20:30:00+02:00' },
@@ -118,20 +106,7 @@ summaryNoArrivalWalk.args = {
   ...defaultArgs,
   origin: 'Station',
   destination: 'Station',
-  legs: [
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-  ],
+  legs: [futureLeg, longFutureLeg, futureLeg],
   departureWalk: 5,
   departure: { time: '2022-08-30T20:30:00+02:00' },
   arrival: { time: '2022-08-29T22:30:00+02:00' },
@@ -142,38 +117,7 @@ summaryPosition.argTypes = defaultArgTypes;
 summaryPosition.args = {
   ...defaultArgs,
   vias: ['via1', 'via2', 'via3', 'via4'],
-  legs: [
-    {
-      duration: 60,
-      id: 'test',
-      arrival: {
-        time: '2022-10-18T13:00',
-      },
-      departure: {
-        time: '2022-10-11T00:00',
-      },
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-    {
-      duration: 60,
-      id: 'test',
-      arrival: {
-        time: '2022-10-20T13:00',
-      },
-      departure: {
-        time: '2022-10-18T13:00',
-      },
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-  ],
+  legs: [pastLeg, progressLeg, futureLeg],
   origin: 'Station',
   destination: 'Station',
   departure: { time: '2022-09-19T20:30:00+02:00' },

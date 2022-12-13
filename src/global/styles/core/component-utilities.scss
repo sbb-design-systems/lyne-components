@@ -1,0 +1,22 @@
+@use '../mixins/helpers';
+
+// *****************************************************************************
+//
+// Each component needs to use the host-component-properties mixin
+// to provide a streamlined component experience / developer experience.
+//
+// *****************************************************************************
+
+@mixin host-component-properties {
+  @include helpers.box-sizing;
+
+  :host {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+}

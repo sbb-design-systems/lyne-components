@@ -1,6 +1,1 @@
-@import 'src/global/styles/component-utilities.scss';
-@import 'src/global/styles/functions.scss';
-@import 'src/global/styles/mediaqueries.scss';
-@import 'src/global/styles/mixins.scss';
-@import 'src/global/styles/variables.scss';
-@warn "The sass API of @sbb-esta/lyne-components is still experimental and subject to change.";
+@forward 'src/global/styles/_index' hide development-style, host-component-properties;

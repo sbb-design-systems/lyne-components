@@ -1,7 +1,8 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { InterfacePearlChainAttributes } from './sbb-pearl-chain.custom';
 import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
+import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
+import { isRideLeg } from './sbb-pearl-chain.helper';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({
@@ -18,7 +19,7 @@ export class SbbPearlChain {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: InterfacePearlChainAttributes['legs'];
+  @Prop() public legs: PTRideLeg[];
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -33,29 +34,38 @@ export class SbbPearlChain {
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
-  private _departureTime = this.legs && new Date(Date.parse(this.legs[0]?.departure?.time));
-  private _arrivalTime =
-    this.legs && new Date(Date.parse(this.legs[this.legs?.length - 1].arrival?.time));
-
-  private _getAllDuration(legs: InterfacePearlChainAttributes['legs']): number {
-    return legs.reduce((sum: number, leg) => (sum += leg.duration), 0);
+  private _getAllDuration(legs: PTRideLeg[]): number {
+    return legs?.reduce(
+      (sum: number, leg) =>
+        (sum += differenceInMinutes(
+          removeTimezoneFromISOTimeString(leg.arrival?.time),
+          removeTimezoneFromISOTimeString(leg.departure?.time)
+        )),
+      0
+    );
   }
 
-  private _getRelativeDuration(
-    legs: InterfacePearlChainAttributes['legs'],
-    leg: PTRideLeg
-  ): number {
+  private _isAllCancelled(legs: PTRideLeg[]): boolean {
+    return legs?.every((leg) => leg?.serviceJourney?.serviceAlteration?.cancelled);
+  }
+
+  private _getRelativeDuration(legs: PTRideLeg[], leg: PTRideLeg): number {
+    const duration = differenceInMinutes(
+      removeTimezoneFromISOTimeString(leg.arrival?.time),
+      removeTimezoneFromISOTimeString(leg.departure?.time)
+    );
     const allDurations = this._getAllDuration(legs);
 
-    return (leg.duration / allDurations) * 100;
+    if (allDurations === 0) return 100;
+
+    return (duration / allDurations) * 100;
   }
 
   private _getProgress(start: Date, end: Date): number {
     const total = differenceInMinutes(end, start);
-
     const progress = differenceInMinutes(this._now(), start);
 
-    return (progress / total) * 100;
+    return total && (progress / total) * 100;
   }
 
   private _getStatus(start: Date, end: Date): Status {
@@ -67,8 +77,9 @@ export class SbbPearlChain {
     return 'future';
   }
 
-  private _renderPosition(start: Date, end: Date): JSX.Element {
+  private _renderPosition(start: Date, end: Date): JSX.Element | undefined {
     const currentPosition = this._getProgress(start, end);
+    if (currentPosition < 0 && currentPosition > 100) return undefined;
 
     const statusStyle = (): Record<string, string> => {
       return {
@@ -79,60 +90,74 @@ export class SbbPearlChain {
 
     const animation = this.disableAnimation ? 'sbb-pearl-chain__position--no-animation' : '';
 
-    if (currentPosition > 0 && currentPosition <= 100) {
-      return <span style={statusStyle()} class={`sbb-pearl-chain__position ${animation}`}></span>;
-    }
+    return <span style={statusStyle()} class={`sbb-pearl-chain__position ${animation}`}></span>;
   }
 
   public render(): JSX.Element {
+    const rideLegs: PTRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg));
+    const departureTime =
+      rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
+    const arrivalTime =
+      rideLegs?.length &&
+      removeTimezoneFromISOTimeString(rideLegs[rideLegs?.length - 1].arrival?.time);
+
     const departureCancelClass = ((): string => {
-      return this.legs && this.legs[0]?.serviceJourney?.serviceAlteration?.cancelled
+      return rideLegs && rideLegs[0]?.serviceJourney?.serviceAlteration?.cancelled
         ? ' sbb-pearl-chain--departure-cancellation'
         : '';
     })();
 
     const arrivalCancelClass = ((): string => {
-      const firstCancelled =
-        this.legs && this.legs[0]?.serviceJourney?.serviceAlteration?.cancelled;
-      const lastCancelled =
-        this.legs && this.legs[this.legs.length - 1]?.serviceJourney?.serviceAlteration?.cancelled;
-
-      return firstCancelled || lastCancelled ? 'sbb-pearl-chain--arrival-cancellation' : '';
+      return rideLegs && rideLegs[rideLegs.length - 1]?.serviceJourney?.serviceAlteration?.cancelled
+        ? 'sbb-pearl-chain--arrival-cancellation'
+        : '';
     })();
 
     const statusClass =
-      this._departureTime && this._arrivalTime
-        ? 'sbb-pearl-chain--' + this._getStatus(this._departureTime, this._arrivalTime)
+      rideLegs &&
+      departureTime &&
+      arrivalTime &&
+      !rideLegs[0]?.serviceJourney?.serviceAlteration?.cancelled
+        ? 'sbb-pearl-chain--' + this._getStatus(departureTime, arrivalTime)
         : '';
 
+    if (this._isAllCancelled(rideLegs)) {
+      return (
+        <div
+          class={`sbb-pearl-chain sbb-pearl-chain--departure-cancellation sbb-pearl-chain--arrival-cancellation`}
+        >
+          <div class={`sbb-pearl-chain__leg sbb-pearl-chain__leg--cancellation`}></div>
+        </div>
+      );
+    }
     return (
-      <div class={`sbb-pearl-chain ${statusClass} ${arrivalCancelClass}  ${departureCancelClass}`}>
-        {this.legs?.map((leg: PTRideLeg) => {
-          const duration = this._getRelativeDuration(this.legs, leg);
-
-          const departure = new Date(Date.parse(leg.departure?.time));
-          const arrival = new Date(Date.parse(leg.arrival?.time));
-
-          const legStyle = (): Record<string, string> => {
-            return {
-              '--leg-width': `${duration}%`,
-              ...(this._getStatus(departure, arrival) === 'progress'
-                ? { '--leg-status': `${this._getProgress(departure, arrival)}%` }
-                : {}),
-            };
-          };
-
+      <div class={`sbb-pearl-chain ${statusClass} ${arrivalCancelClass} ${departureCancelClass}`}>
+        {rideLegs?.map((leg: PTRideLeg) => {
+          const duration = this._getRelativeDuration(rideLegs, leg);
+          const departure = removeTimezoneFromISOTimeString(leg.departure?.time);
+          const arrival = removeTimezoneFromISOTimeString(leg.arrival?.time);
           const cancelled = leg.serviceJourney?.serviceAlteration?.cancelled
             ? 'sbb-pearl-chain__leg--cancellation'
             : '';
 
           const legStatus =
+            !cancelled &&
             this._getStatus(departure, arrival) &&
             'sbb-pearl-chain__leg--' + this._getStatus(departure, arrival);
+
+          const legStyle = (): Record<string, string> => {
+            return {
+              '--leg-width': `${duration}%`,
+              ...(this._getStatus(departure, arrival) === 'progress' && !cancelled
+                ? { '--leg-status': `${this._getProgress(departure, arrival)}%` }
+                : {}),
+            };
+          };
 
           return (
             <div class={`sbb-pearl-chain__leg ${legStatus} ${cancelled}`} style={legStyle()}>
               {this._getStatus(departure, arrival) === 'progress' &&
+                !cancelled &&
                 this._renderPosition(departure, arrival)}
             </div>
           );

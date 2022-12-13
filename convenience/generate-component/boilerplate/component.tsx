@@ -1,17 +1,16 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
 import events from './__name__.events';
 import { Interface__nameUpperCase__Attributes } from './__name__.custom.d';
 
 /**
  * @slot unnamed - Use this to document a slot.
  */
-
 @Component({
   shadow: true,
   styleUrl: '__name__.scss',
   tag: '__name__',
 })
-export class __nameUpperCase__ {
+export class __nameUpperCase__ implements ComponentInterface {
   /** Documentation for someProp */
   @Prop()
   public someProp?: Interface__nameUpperCase__Attributes['someInterface'];

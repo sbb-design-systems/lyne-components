@@ -1,6 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import data from './sbb-pearl-chain.sample-data';
+import {
+  cancelledLeg,
+  progressLeg,
+  pastLeg,
+  futureLeg,
+  longFutureLeg,
+} from './sbb-pearl-chain.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 
 const disableAnimation = {
@@ -22,7 +28,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   'disable-animation': isChromatic(),
-  'data-now': undefined,
+  'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
 const Template = (args) => {
@@ -33,11 +39,7 @@ export const NoStops = Template.bind({});
 NoStops.argTypes = defaultArgTypes;
 NoStops.args = {
   ...defaultArgs,
-  legs: [
-    {
-      duration: 300,
-    },
-  ],
+  legs: [futureLeg],
 };
 NoStops.documentation = {
   title: 'No stops',
@@ -47,139 +49,51 @@ export const ManyStops = Template.bind({});
 ManyStops.argTypes = defaultArgTypes;
 ManyStops.args = {
   ...defaultArgs,
-  legs: [
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-    {
-      duration: 300,
-    },
-  ],
+  legs: [futureLeg, longFutureLeg, futureLeg, futureLeg],
 };
 
 export const Cancelled = Template.bind({});
 Cancelled.argTypes = defaultArgTypes;
 Cancelled.args = {
   ...defaultArgs,
-  legs: [
-    {
-      duration: 300,
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: true,
-        },
-      },
-    },
-  ],
+  legs: [cancelledLeg],
 };
 
 export const CancelledManyStops = Template.bind({});
 CancelledManyStops.argTypes = defaultArgTypes;
 CancelledManyStops.args = {
   ...defaultArgs,
-  legs: [
-    {
-      duration: 300,
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-    {
-      duration: 300,
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-    {
-      duration: 211,
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: true,
-        },
-      },
-    },
-    {
-      duration: 300,
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: true,
-        },
-      },
-    },
-    {
-      duration: 300,
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-  ],
+  legs: [futureLeg, cancelledLeg, futureLeg, cancelledLeg],
 };
 
-export const withData = Template.bind({});
-withData.argTypes = defaultArgTypes;
-withData.args = {
+export const withPosition = Template.bind({});
+withPosition.argTypes = defaultArgTypes;
+withPosition.args = {
   ...defaultArgs,
-  legs: data,
-  'data-now': new Date('2022-10-15T00:00').valueOf(),
+  legs: [progressLeg],
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const Past = Template.bind({});
 Past.argTypes = defaultArgTypes;
 Past.args = {
   ...defaultArgs,
-  legs: [
-    {
-      duration: 120,
-      id: 'test',
-      arrival: { time: '2022-08-16T05:00:00' },
-      departure: { time: '2022-08-16T03:00:00' },
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-    {
-      duration: 600,
-      id: 'test',
-      arrival: { time: '2022-08-16T17:00:00' },
-      departure: { time: '2022-08-16T08:00:00' },
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-    {
-      duration: 600,
-      id: 'test',
-      arrival: { time: '2022-08-16T17:00:00' },
-      departure: { time: '2022-08-16T08:00:00' },
-      serviceJourney: {
-        serviceAlteration: {
-          cancelled: false,
-        },
-      },
-    },
-  ],
+  legs: [pastLeg, pastLeg],
+  'data-now': new Date('2023-11-01T12:11:00').valueOf(),
+};
+
+export const Mixed = Template.bind({});
+Mixed.argTypes = defaultArgTypes;
+Mixed.args = {
+  ...defaultArgs,
+  legs: [pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg],
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'max-width: 20rem;'}>
+      <div style={'max-width: 80%;'}>
         <Story />
       </div>
     ),
