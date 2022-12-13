@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-wagon-width: var(--sbb-train-formation-wagon-width);
@@ -27,11 +29,11 @@
 }
 
 .sbb-wagon__label {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 }
 
 .sbb-wagon__label-screenreader {
-  @include screenReaderOnly;
+  @include sbb.screen-reader-only;
 }
 
 .sbb-wagon__label-text {
@@ -60,18 +62,18 @@
 }
 
 .sbb-wagon__class {
-  @include title-6;
+  @include sbb.title-6;
 
   margin-inline-start: auto;
 }
 
 .sbb-wagon__icons {
   p {
-    @include screenReaderOnly;
+    @include sbb.screen-reader-only;
   }
 
   ul {
-    @include list-reset;
+    @include sbb.list-reset;
 
     display: flex;
     flex-wrap: wrap;

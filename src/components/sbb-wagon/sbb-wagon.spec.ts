@@ -5,15 +5,15 @@ describe('sbb-wagon', () => {
   it('renders as type wagon', async () => {
     const { root } = await newSpecPage({
       components: [SbbWagon],
-      html: '<sbb-wagon occupancy="none" wagon-class="1" type="wagon" label="38"/>',
+      html: '<sbb-wagon occupancy="unknown" wagon-class="1" type="wagon" label="38" blocked-passage="previous"/>',
     });
 
     expect(root).toEqualHtml(`
-        <sbb-wagon label="38" occupancy="none" type="wagon" wagon-class="1">
+        <sbb-wagon blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
           <mock:shadow-root>
             <div class="sbb-wagon">
               <span class="sbb-wagon__label">
-                <span class="sbb-wagon__label-screenreader">Train coach with the number 38. First Class. No occupancy forecast available.</span>
+                <span class="sbb-wagon__label-screenreader">Train coach with the number 38. First Class. No occupancy forecast available. No passage to the previous train coach.</span>
                 <span class="sbb-wagon__label-text" aria-hidden="true">38</span>
               </span>
               <div class="sbb-wagon__compartment">

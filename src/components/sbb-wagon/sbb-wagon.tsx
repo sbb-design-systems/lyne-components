@@ -106,7 +106,7 @@ export class SbbWagon {
   }
 
   public render(): JSX.Element {
-    const occupancyIcon = `utilization-${this.occupancy}`;
+    const occupancyIcon = `utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`;
     this._icons.forEach((icon, index) => icon.setAttribute('slot', `sbb-wagon-icon-${index}`));
     return (
       <div class="sbb-wagon">

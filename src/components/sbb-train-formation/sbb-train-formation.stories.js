@@ -13,7 +13,7 @@ const MountedFormationTemplate = (args) => (
       <sbb-sector label="Sector A">
         <sbb-wagon type="locomotive" additional-accessibility-text="Top of the train"></sbb-wagon>
         <sbb-wagon type="closed"></sbb-wagon>
-        <sbb-blocked-passage />
+        <sbb-wagon-blocked-passage />
         <sbb-wagon
           type="wagon"
           label="38"
@@ -40,7 +40,7 @@ const MountedFormationTemplate = (args) => (
         <sbb-wagon
           type="wagon"
           label="39"
-          occupancy="low"
+          occupancy="unknown"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="1"
         >
@@ -77,15 +77,18 @@ const MountedFormationTemplate = (args) => (
           occupancy="low"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
+          blocked-passage="next"
         >
           <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
         </sbb-wagon>
+        <sbb-wagon-blocked-passage />
         <sbb-wagon
           type="wagon"
           label="43"
           occupancy="low"
           accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
+          blocked-passage="previous"
         >
           <sbb-icon
             aria-hidden="false"
@@ -130,8 +133,14 @@ const MountedFormationTemplate = (args) => (
           additional-accessibility-text="Top of the train"
         ></sbb-wagon>
         <sbb-wagon type="closed" label="49"></sbb-wagon>
-        <sbb-blocked-passage />
-        <sbb-wagon type="wagon" label="50" occupancy="low" wagon-class="2"></sbb-wagon>
+        <sbb-wagon-blocked-passage />
+        <sbb-wagon
+          type="wagon"
+          label="50"
+          occupancy="low"
+          wagon-class="2"
+          blocked-passage="previous"
+        ></sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector F">
         <sbb-wagon type="wagon" label="51" occupancy="low" wagon-class="2"></sbb-wagon>

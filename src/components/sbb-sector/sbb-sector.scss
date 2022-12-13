@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-sector-label-color: var(--sbb-color-metal-default);
@@ -11,7 +13,7 @@
   --sbb-sector-wagon-width: var(--sbb-train-formation-wagon-width);
   --sbb-sector-wagon-gap: var(--sbb-spacing-fixed-1x);
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-sector-line-color: CanvasText;
   }
 }
@@ -24,7 +26,7 @@
   color: var(--sbb-sector-label-color);
   text-align: center;
   position: relative;
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   // Line behind the sector-label
   &::before {

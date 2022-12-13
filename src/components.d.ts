@@ -246,8 +246,6 @@ export namespace Components {
          */
         "text": string;
     }
-    interface SbbBlockedPassage {
-    }
     interface SbbButton {
         /**
           * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
@@ -1776,6 +1774,8 @@ export namespace Components {
          */
         "wagonClass"?: '1' | '2';
     }
+    interface SbbWagonBlockedPassage {
+    }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1867,12 +1867,6 @@ declare global {
     var HTMLSbbAutocompleteItemElement: {
         prototype: HTMLSbbAutocompleteItemElement;
         new (): HTMLSbbAutocompleteItemElement;
-    };
-    interface HTMLSbbBlockedPassageElement extends Components.SbbBlockedPassage, HTMLStencilElement {
-    }
-    var HTMLSbbBlockedPassageElement: {
-        prototype: HTMLSbbBlockedPassageElement;
-        new (): HTMLSbbBlockedPassageElement;
     };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
@@ -2246,6 +2240,12 @@ declare global {
         prototype: HTMLSbbWagonElement;
         new (): HTMLSbbWagonElement;
     };
+    interface HTMLSbbWagonBlockedPassageElement extends Components.SbbWagonBlockedPassage, HTMLStencilElement {
+    }
+    var HTMLSbbWagonBlockedPassageElement: {
+        prototype: HTMLSbbWagonBlockedPassageElement;
+        new (): HTMLSbbWagonBlockedPassageElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -2254,7 +2254,6 @@ declare global {
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
-        "sbb-blocked-passage": HTMLSbbBlockedPassageElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
@@ -2317,6 +2316,7 @@ declare global {
         "sbb-train": HTMLSbbTrainElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
         "sbb-wagon": HTMLSbbWagonElement;
+        "sbb-wagon-blocked-passage": HTMLSbbWagonBlockedPassageElement;
     }
 }
 declare namespace LocalJSX {
@@ -2529,8 +2529,6 @@ declare namespace LocalJSX {
           * Text to show as content of the autocomplete item
          */
         "text": string;
-    }
-    interface SbbBlockedPassage {
     }
     interface SbbButton {
         /**
@@ -4097,6 +4095,8 @@ declare namespace LocalJSX {
          */
         "wagonClass"?: '1' | '2';
     }
+    interface SbbWagonBlockedPassage {
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -4105,7 +4105,6 @@ declare namespace LocalJSX {
         "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-autocomplete-item": SbbAutocompleteItem;
-        "sbb-blocked-passage": SbbBlockedPassage;
         "sbb-button": SbbButton;
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
@@ -4168,6 +4167,7 @@ declare namespace LocalJSX {
         "sbb-train": SbbTrain;
         "sbb-train-formation": SbbTrainFormation;
         "sbb-wagon": SbbWagon;
+        "sbb-wagon-blocked-passage": SbbWagonBlockedPassage;
     }
 }
 export { LocalJSX as JSX };
@@ -4181,7 +4181,6 @@ declare module "@stencil/core" {
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
-            "sbb-blocked-passage": LocalJSX.SbbBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbBlockedPassageElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
@@ -4244,6 +4243,7 @@ declare module "@stencil/core" {
             "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
             "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;
+            "sbb-wagon-blocked-passage": LocalJSX.SbbWagonBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbWagonBlockedPassageElement>;
         }
     }
 }

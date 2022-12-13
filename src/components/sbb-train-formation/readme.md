@@ -24,6 +24,7 @@ initially and on resize.
         occupancy="low"
         accessibility-label-icon-list-title="Additional wagon information"
         wagon-class="1"
+        blocked-passage="previous"
       >
         <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
         <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>

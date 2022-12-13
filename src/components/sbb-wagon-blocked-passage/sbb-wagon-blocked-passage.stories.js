@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-blocked-passage {...args}></sbb-blocked-passage>;
+const Template = (args) => <sbb-wagon-blocked-passage {...args}></sbb-wagon-blocked-passage>;
 
 export const blockedPassage = Template.bind({});
 
@@ -21,5 +21,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/train-formation/sbb-blocked-passage',
+  title: 'components/timetable/train-formation/sbb-wagon-blocked-passage',
 };

@@ -1,6 +1,8 @@
+@use '../../global/styles' as sbb;
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-@include host-component-properties;
+@include sbb.host-component-properties;
 
 :host {
   --sbb-train-sector-padding: var(--sbb-spacing-fixed-1x);
@@ -22,7 +24,7 @@
     var(--sbb-train-direction-indicator-arrow-offset-end) * -1
   );
 
-  @include ifForcedColors {
+  @include sbb.if-forced-colors {
     --sbb-train-direction-line-color: CanvasText;
   }
 }
@@ -40,7 +42,7 @@
 }
 
 .sbb-train__direction {
-  @include text-s--regular;
+  @include sbb.text-s--regular;
 
   padding-block-start: var(--sbb-train-direction-spacing);
   margin-block-end: var(--sbb-train-direction-spacing);
@@ -122,5 +124,5 @@
   text-overflow: ellipsis;
   overflow: hidden;
   padding: 0 var(--sbb-train-direction-station-padding);
-  @include text-xxs--regular;
+  @include sbb.text-xxs--regular;
 }
