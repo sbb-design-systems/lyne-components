@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.18.2](https://github.com/lyne-design-system/lyne-components/compare/v0.18.1...v0.18.2) (2022-12-13)
+
+### Bug Fixes
+
+- **sbb-card:** stretch height to host ([#1495](https://github.com/lyne-design-system/lyne-components/issues/1495)) ([fdb0ba8](https://github.com/lyne-design-system/lyne-components/commit/fdb0ba86c862f3e64e7ddc77ae2d3da2406ba29d))
+
 ### [0.18.1](https://github.com/lyne-design-system/lyne-components/compare/v0.18.0...v0.18.1) (2022-12-12)
 
 ### Bug Fixes
