@@ -63,7 +63,7 @@ export class SbbLinkList implements ComponentInterface {
 
     if (this._namedSlots.title || this.titleContent) {
       ariaLabelledByAttribute = {
-        'aria-labelledby': 'foo',
+        'aria-labelledby': 'sbb-link-list-title-id',
       };
     }
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
@@ -75,7 +75,7 @@ export class SbbLinkList implements ComponentInterface {
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
-            id="foo"
+            id="sbb-link-list-title-id"
             class="sbb-link-list-title"
           >
             <slot name="title">{this.titleContent}</slot>

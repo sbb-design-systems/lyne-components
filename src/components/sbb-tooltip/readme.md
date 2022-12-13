@@ -56,7 +56,7 @@ In order to make screen readers announce the tooltip content when the trigger is
 <button id="tooltip-trigger">Button with tooltip</button>
 
 <!-- Tooltip component with `hover-trigger` property -->
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
+<button id="tooltip-trigger" aria-describedby="tooltip-content">Button with tooltip</button>
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
   </p>
