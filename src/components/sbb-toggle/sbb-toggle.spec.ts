@@ -9,7 +9,7 @@ describe('sbb-toggle', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-toggle>
+        <sbb-toggle size="m">
           <mock:shadow-root>
             <div class="sbb-toggle" tabindex="0">
               <slot></slot>
