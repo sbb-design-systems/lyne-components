@@ -19,6 +19,12 @@ const Content = () => [<sbb-title level="4">Example text</sbb-title>, ContentTex
 
 const Template = (args) => <sbb-card {...args}>{Content()}</sbb-card>;
 
+const TemplateFixedHeight = (args) => (
+  <sbb-card {...args} style="height:250px;">
+    {Content()}
+  </sbb-card>
+);
+
 const TemplateWithBadge = (args) => (
   <sbb-card {...args}>
     <sbb-card-badge slot="badge" appearance="primary" is-discount price="19.99" text="from CHF" />
@@ -210,101 +216,62 @@ const basicArgsButtonNegative = {
 export const sbbCardLink = Template.bind({});
 sbbCardLink.argTypes = basicArgTypes;
 sbbCardLink.args = { ...basicArgs };
-sbbCardLink.documentation = {
-  title: 'Card (link version).',
-};
 
 export const sbbCardLinkNegative = Template.bind({});
 sbbCardLinkNegative.argTypes = basicArgTypes;
 sbbCardLinkNegative.args = { ...basicArgsNegative };
-sbbCardLinkNegative.documentation = {
-  title: 'Card negative (link version).',
-};
 
 export const sbbCardButton = Template.bind({});
 sbbCardButton.argTypes = basicArgTypes;
 sbbCardButton.args = { ...basicArgsButton };
-sbbCardButton.documentation = {
-  title: 'Card (button version).',
-};
 
 export const sbbCardButtonNegative = Template.bind({});
 sbbCardButtonNegative.argTypes = basicArgTypes;
 sbbCardButtonNegative.args = { ...basicArgsButtonNegative };
-sbbCardButtonNegative.documentation = {
-  title: 'Card negative (button version).',
-};
 
 export const sbbCardButtonActive = Template.bind({});
 sbbCardButtonActive.argTypes = basicArgTypes;
 sbbCardButtonActive.args = { ...basicArgsButton, active: true };
-sbbCardButtonActive.documentation = {
-  title: 'Card active (button version).',
-};
 
 export const sbbCardButtonActiveNegative = Template.bind({});
 sbbCardButtonActiveNegative.argTypes = basicArgTypes;
 sbbCardButtonActiveNegative.args = { ...basicArgsButtonNegative, active: true };
-sbbCardButtonActiveNegative.documentation = {
-  title: 'Card active negative (button version).',
-};
 
 export const sbbCardWithSbbBadgeLink = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLink.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLink.args = { ...basicArgs };
-sbbCardWithSbbBadgeLink.documentation = {
-  title: 'Card with badge (link version - the slot is hidden if size are below m).',
-};
 
 export const sbbCardWithSbbBadgeLinkNegative = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLinkNegative.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLinkNegative.args = { ...basicArgsNegative };
-sbbCardWithSbbBadgeLinkNegative.documentation = {
-  title: 'Card negative with badge (link version - the slot is hidden if size are below m).',
-};
 
 export const sbbCardWithSbbBadgeButton = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeButton.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeButton.args = { ...basicArgsButton };
-sbbCardWithSbbBadgeButton.documentation = {
-  title: 'Card with badge (button version - the slot is hidden if size are below m).',
-};
 
 export const sbbCardWithSbbBadgeButtonNegative = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeButtonNegative.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeButtonNegative.args = { ...basicArgsButtonNegative };
-sbbCardWithSbbBadgeButtonNegative.documentation = {
-  title: 'Card negative with badge (button version - the slot is hidden if size are below m).',
-};
 
 export const sbbCardWithSbbBadgeLinkActive = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLinkActive.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLinkActive.args = { ...basicArgs, active: true };
-sbbCardWithSbbBadgeLinkActive.documentation = {
-  title: 'Card active with badge (link version - the slot is hidden if sizes are below m).',
-};
 
 export const sbbCardWithSbbBadgeLinkActiveNegative = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLinkActiveNegative.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLinkActiveNegative.args = { ...basicArgsNegative, active: true };
-sbbCardWithSbbBadgeLinkActiveNegative.documentation = {
-  title:
-    'Card active negative with badge (link version - the slot is hidden if sizes are below m).',
-};
+
+export const sbbCardFixedHeight = TemplateFixedHeight.bind({});
+sbbCardFixedHeight.argTypes = basicArgTypes;
+sbbCardFixedHeight.args = { ...basicArgsButton };
 
 export const sbbCardMultiple = TemplateMultipleCards.bind({});
 sbbCardMultiple.argTypes = basicArgTypes;
 sbbCardMultiple.args = { ...basicArgs };
-sbbCardMultiple.documentation = {
-  title: 'Multiple cards.',
-};
 
 export const sbbCardMultipleNegative = TemplateMultipleCards.bind({});
 sbbCardMultipleNegative.argTypes = basicArgTypes;
 sbbCardMultipleNegative.args = { ...basicArgsNegative };
-sbbCardMultipleNegative.documentation = {
-  title: 'Multiple cards negative.',
-};
 
 export default {
   decorators: [
