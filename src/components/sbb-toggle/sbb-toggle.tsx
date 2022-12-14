@@ -14,7 +14,7 @@ import {
 } from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 
 let nextId = 0;
 
@@ -111,7 +111,7 @@ export class SbbToggle implements ComponentInterface {
   }
 
   private get _checked(): HTMLSbbToggleOptionElement {
-    return this._options.find((toggle) => toggle.checked);
+    return this._options.find((toggle) => toggle.checked) ?? this._options[0];
   }
 
   @Listen('did-select', { passive: true })
@@ -159,40 +159,25 @@ export class SbbToggle implements ComponentInterface {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    if (!this._options) {
-      return;
-    }
+    const enabledToggleOptions = this._options?.filter((t) => !t.disabled);
 
-    const enabledToggleOptions = this._options.filter((t) => !t.disabled);
-    const checked = enabledToggleOptions.findIndex((toggleOption) => toggleOption.checked);
-    const cur = checked !== -1 ? checked : 0;
-    const size = enabledToggleOptions.length;
-    const prev = cur === 0 ? size - 1 : cur - 1;
-    const next = cur === size - 1 ? 0 : cur + 1;
-
-    // don't trap nested handling
     if (
-      (evt.target as HTMLElement) !== this._element &&
-      (evt.target as HTMLElement).parentElement !== this._element
+      !enabledToggleOptions ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
     ) {
       return;
     }
 
-    const currentWritingMode = getDocumentWritingMode();
-    const prevKey = currentWritingMode === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
-    const nextKey = currentWritingMode === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
-
-    if (checked === -1 && cur === 0 && (evt.key === ' ' || evt.key === 'Enter')) {
-      enabledToggleOptions[cur].select();
-      enabledToggleOptions[cur].focus();
-      evt.preventDefault();
-    } else if (evt.key === prevKey || evt.key === 'ArrowUp') {
-      enabledToggleOptions[prev].select();
-      enabledToggleOptions[prev].focus();
-      evt.preventDefault();
-    } else if (evt.key === nextKey || evt.key === 'ArrowDown') {
-      enabledToggleOptions[next].select();
-      enabledToggleOptions[next].focus();
+    if (isArrowKeyPressed(evt)) {
+      const checked: number = enabledToggleOptions.findIndex(
+        (toggleOption: HTMLSbbToggleOptionElement) => toggleOption.checked
+      );
+      const current: number = checked !== -1 ? checked : 0;
+      const nextIndex: number = getNextElementIndex(evt, current, enabledToggleOptions.length);
+      enabledToggleOptions[nextIndex].select();
+      enabledToggleOptions[nextIndex].focus();
       evt.preventDefault();
     }
   }

@@ -117,14 +117,6 @@ export const DisabledSizeS = DefaultTemplate.bind({});
 DisabledSizeS.argTypes = { ...defaultArgTypes };
 DisabledSizeS.args = { ...defaultArgs, disabled: true, size: size.options[1] };
 
-export const Unselected = DefaultTemplate.bind({});
-Unselected.argTypes = { ...defaultArgTypes };
-Unselected.args = { ...defaultArgs, value: undefined };
-
-export const UnselectedSizeS = DefaultTemplate.bind({});
-UnselectedSizeS.argTypes = { ...defaultArgTypes };
-UnselectedSizeS.args = { ...defaultArgs, value: undefined, size: size.options[1] };
-
 export const Even = DefaultTemplate.bind({});
 Even.argTypes = { ...defaultArgTypes };
 Even.args = { ...defaultArgs, even: true };
