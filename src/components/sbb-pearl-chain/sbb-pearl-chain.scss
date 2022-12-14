@@ -9,8 +9,8 @@
 
   display: block;
 
-  --sbb-pearl-chain-dot-size-large: #{sbb.px-to-rem-build(10)};
-  --sbb-pearl-chain-dot-size-small: #{sbb.px-to-rem-build(8)};
+  --sbb-pearl-chain-dot-size-medium: var(--sbb-pearl-chain-dot-size-m);
+  --sbb-pearl-chain-dot-size-small: var(--sbb-pearl-chain-dot-size);
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
   --sbb-pearl-chain-color-default: var(--sbb-color-charcoal-default);
@@ -27,20 +27,19 @@
   color: var(--sbb-pearl-chain-color-default);
   width: 100%;
   padding-block-start: calc(
-    (var(--sbb-pearl-chain-dot-size-large) - var(--sbb-pearl-chain-height)) / 2
+    (var(--sbb-pearl-chain-dot-size-medium) - var(--sbb-pearl-chain-height)) / 2
   );
   padding-block-end: calc(
-    (var(--sbb-pearl-chain-dot-size-large) - var(--sbb-pearl-chain-height)) / 2
+    (var(--sbb-pearl-chain-dot-size-medium) - var(--sbb-pearl-chain-height)) / 2
   );
-  padding-inline-end: var(--sbb-pearl-chain-dot-size-large);
+  padding-inline-end: var(--sbb-pearl-chain-dot-size-medium);
 }
 
 // first and last dot
 .sbb-pearl-chain::before,
 .sbb-pearl-chain::after {
   @include sbb.pearl-chain-dot;
-
-  --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-large);
+  @include sbb.pearl-chain-dot--m;
 
   content: '';
   position: absolute;
@@ -116,17 +115,21 @@
 .sbb-pearl-chain--past,
 .sbb-pearl-chain__leg--progress::before,
 .sbb-pearl-chain--progress::before {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-color-past);
+  @include sbb.pearl-chain-dot-past;
 
   color: var(--sbb-pearl-chain-color-past);
+}
+
+.sbb-pearl-chain__leg--past:not(:first-child)::before,
+.sbb-pearl-chain__leg--progress::before {
+  @include sbb.pearl-chain-dot-past;
 }
 
 // dot on leg
 .sbb-pearl-chain__leg:not(:first-child) {
   &::before {
     @include sbb.pearl-chain-dot-transfer;
-
-    --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-small);
+    @include sbb.pearl-chain-dot--s;
 
     content: '';
     position: absolute;
@@ -142,11 +145,6 @@
       }
     }
   }
-}
-
-.sbb-pearl-chain__leg--past:not(:first-child)::before,
-.sbb-pearl-chain__leg--progress::before {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-color-past);
 }
 
 // line on leg
@@ -174,7 +172,7 @@
 }
 
 .sbb-pearl-chain__leg--progress::after {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-color-past);
+  @include sbb.pearl-chain-dot-past;
 
   background-color: var(--sbb-pearl-chain-color-past);
 
@@ -183,7 +181,7 @@
 }
 
 .sbb-pearl-chain__leg--cancellation {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-color-cancellation);
+  @include sbb.pearl-chain-dot-warning;
 
   color: var(--sbb-pearl-chain-color-cancellation);
 
@@ -211,8 +209,7 @@
 
 .sbb-pearl-chain__position {
   @include sbb.pearl-chain-dot-position;
-
-  --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-large);
+  @include sbb.pearl-chain-dot--m;
 
   position: absolute;
   inset-block-start: -200%;

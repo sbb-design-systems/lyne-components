@@ -6,17 +6,16 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin pearl-chain-dot-variables {
-  --sbb-pearl-chain-dot-size: var(--sbb-spacing-fixed-2x);
-  --sbb-pearl-chain-dot-size-xl: var(--sbb-spacing-fixed-4x);
-  --sbb-pearl-chain-dot-size-l: var(--sbb-spacing-fixed-3x);
+  --sbb-pearl-chain-dot-size: #{functions.px-to-rem-build(8)};
+  --sbb-pearl-chain-dot-size-xl: #{functions.px-to-rem-build(16)};
+  --sbb-pearl-chain-dot-size-l: #{functions.px-to-rem-build(12)};
   --sbb-pearl-chain-dot-size-m: #{functions.px-to-rem-build(10)};
   --sbb-pearl-chain-dot-size-s: var(--sbb-pearl-chain-dot-size);
   --sbb-pearl-chain-dot-size-xs: #{functions.px-to-rem-build(6)};
   --sbb-pearl-chain-dot-color: var(--sbb-color-charcoal-default);
-  --sbb-pearl-chain-dot-white: var(--sbb-color-white-default);
-  --sbb-pearl-chain-dot-red: var(--sbb-color-red-default);
-  --sbb-pearl-chain-dot-metal: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-dot-sky: #0079c7;
+  --sbb-pearl-chain-dot-color-red: var(--sbb-color-red-default);
+  --sbb-pearl-chain-dot-color-metal: var(--sbb-color-metal-default);
+  --sbb-pearl-chain-dot-color-sky: var(--sbb-color-sky-default);
   --sbb-pearl-chain-dot-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-dot-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-dot-border-color: var(--sbb-color-white-default);
@@ -57,15 +56,15 @@
 }
 
 @mixin pearl-chain-dot-warning {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-red);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-red);
 }
 
 @mixin pearl-chain-dot-past {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-metal);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-metal);
 }
 
 @mixin pearl-chain-dot-walk {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-sky);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-sky);
 }
 
 @mixin pearl-chain-dot-transfer {
@@ -75,7 +74,7 @@
   border: var(--sbb-pearl-chain-dot-border-width) solid var(--sbb-pearl-chain-dot-color);
 }
 
-@mixin pearl-chain-dot-thin-bulett {
+@mixin pearl-chain-dot-thin-bullet {
   @include pearl-chain-dot-transfer;
 
   --sbb-pearl-chain-dot-border-width: var(--sbb-pearl-chain-dot-border-width-thin);
@@ -91,7 +90,7 @@
     inset-inline-start: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
     border-block-start: var(--sbb-pearl-chain-dot-crossed-bullet-border-width) solid canvas;
-    background: var(--sbb-pearl-chain-dot-red);
+    background: var(--sbb-pearl-chain-dot-color-red);
     height: var(--sbb-pearl-chain-dot-crossed-bullet-height);
     width: var(--sbb-pearl-chain-dot-crossed-bullet-width);
   }
@@ -111,12 +110,12 @@
 }
 
 @mixin pearl-chain-dot-double-bullet {
-  @include pearl-chain-dot-thin-bulett;
+  @include pearl-chain-dot-thin-bullet;
 
   --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-l);
 
   &::before {
-    @include pearl-chain-dot-thin-bulett;
+    @include pearl-chain-dot-thin-bullet;
 
     --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-xs);
     --sbb-pearl-chain-dot-color: currentcolor;
@@ -133,19 +132,19 @@
   @include pearl-chain-dot;
 
   --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-m);
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-red);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-red);
 
-  animation: dot-position-pulse var(--sbb-pearl-chain-dot-animation-duration)
+  animation: pearl-chain-dot-position-pulse var(--sbb-pearl-chain-dot-animation-duration)
     var(--sbb-pearl-chain-dot-animation-easing) infinite;
 }
 
 @keyframes pearl-chain-dot-position-pulse {
   0% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-red);
+    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-red);
   }
 
   25% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-red);
+    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-red);
   }
 
   50% {
@@ -157,6 +156,6 @@
   }
 
   100% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-red);
+    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-red);
   }
 }

@@ -20,7 +20,7 @@
   --sbb-pearl-chain-vertical-item-color-red: var(--sbb-color-red-default);
   --sbb-pearl-chain-vertical-item-color-red-dark: var(--sbb-color-red150-default);
   --sbb-pearl-chain-vertical-item-color-metal: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-vertical-item-color-sky: #0079c7;
+  --sbb-pearl-chain-vertical-item-color-sky: var(--sbb-color-sky-default);
   --sbb-pearl-chain-vertical-item-inline-start: 50%;
   --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
 }
@@ -123,7 +123,7 @@
 }
 
 .sbb-pearl-chain-vertical-item__dot--thin-bullet {
-  @include sbb.pearl-chain-dot-thin-bulett;
+  @include sbb.pearl-chain-dot-thin-bullet;
 }
 
 .sbb-pearl-chain-vertical-item__dot--double-bullet {
