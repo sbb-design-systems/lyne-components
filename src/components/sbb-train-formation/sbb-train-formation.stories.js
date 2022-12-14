@@ -81,7 +81,7 @@ const MountedFormationTemplate = (args) => (
         <sbb-wagon
           type="wagon"
           label="47"
-          accessibility-additional-wagon-text="End of the train"
+          additional-accessibility-text="End of the train"
           occupancy="low"
           wagon-class="2"
         ></sbb-wagon>
