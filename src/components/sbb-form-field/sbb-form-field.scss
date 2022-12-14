@@ -32,7 +32,6 @@
 }
 
 :host([size='l']) {
-  --sbb-form-field-border-radius: var(--sbb-border-radius-8x);
   --sbb-form-field-height: var(--sbb-size-form-element-l-min-height);
   --sbb-form-field-padding-inline: var(--sbb-spacing-responsive-xxxs);
 }
