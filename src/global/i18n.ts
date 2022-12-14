@@ -103,7 +103,7 @@ export const i18nBlockedPassage: any = {
 };
 
 export const i18nAdditionalWagonInformationHeading: any = {
-  de: 'Zusätzliche Wagoninformation',
+  de: 'Zusätzliche Waggoninformation',
   en: 'Additional wagon information',
   fr: 'Informations supplémentaires sur les wagons',
   it: 'Informazioni aggiuntive sul vagone',
