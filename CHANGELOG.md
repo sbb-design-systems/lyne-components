@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.18.4](https://github.com/lyne-design-system/lyne-components/compare/v0.18.3...v0.18.4) (2022-12-14)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** fix px-to-rem usage ([#1497](https://github.com/lyne-design-system/lyne-components/issues/1497)) ([4f53b70](https://github.com/lyne-design-system/lyne-components/commit/4f53b70e92f8cc611cc4122852f1cb704329ba2f))
+
 ### [0.18.3](https://github.com/lyne-design-system/lyne-components/compare/v0.18.2...v0.18.3) (2022-12-14)
 
 ### Bug Fixes
