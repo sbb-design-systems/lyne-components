@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.dot-variables;
+  @include sbb.pearl-chain-dot-variables;
 
   display: table-row;
   position: relative;
@@ -36,37 +36,37 @@
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--xs {
-  @include sbb.dot--xs;
+  @include sbb.pearl-chain-dot--xs;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--s {
-  @include sbb.dot--s;
+  @include sbb.pearl-chain-dot--s;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--m {
-  @include sbb.dot--m;
+  @include sbb.pearl-chain-dot--m;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--l {
-  @include sbb.dot--l;
+  @include sbb.pearl-chain-dot--l;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--xl {
-  @include sbb.dot--xl;
+  @include sbb.pearl-chain-dot--xl;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--xs.sbb-pearl-chain-vertical-item__dot--crossed-bullet,
 .sbb-pearl-chain-vertical-item__dot-size--s.sbb-pearl-chain-vertical-item__dot--crossed-bullet {
-  @include sbb.dot-crossed-bullet--s;
+  @include sbb.pearl-chain-dot-crossed-bullet--s;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--m.sbb-pearl-chain-vertical-item__dot--crossed-bullet {
-  @include sbb.dot-crossed-bullet;
+  @include sbb.pearl-chain-dot-crossed-bullet;
 }
 
 .sbb-pearl-chain-vertical-item__dot-size--l.sbb-pearl-chain-vertical-item__dot--crossed-bullet,
 .sbb-pearl-chain-vertical-item__dot-size--xl.sbb-pearl-chain-vertical-item__dot--crossed-bullet {
-  @include sbb.dot-crossed-bullet--xl;
+  @include sbb.pearl-chain-dot-crossed-bullet--xl;
 }
 
 .sbb-pearl-chain-vertical-item__line {
@@ -76,7 +76,7 @@
   inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
   transform: var(--sbb-pearl-chain-vertical-item-transform);
   width: var(--sbb-border-width-2x);
-  inset-block-start: calc(var(--dot-size) / 2);
+  inset-block-start: calc(var(--sbb-pearl-chain-dot-size) / 2);
 
   &::after {
     content: '';
@@ -90,7 +90,7 @@
 }
 
 .sbb-pearl-chain-vertical-item-position__dot {
-  @include sbb.dot-position;
+  @include sbb.pearl-chain-dot-position;
   @include sbb.absolute-center-x;
 
   inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
@@ -115,19 +115,19 @@
 }
 
 .sbb-pearl-chain-vertical-item__dot--standard {
-  @include sbb.dot;
+  @include sbb.pearl-chain-dot;
 }
 
 .sbb-pearl-chain-vertical-item__dot--thick-bullet {
-  @include sbb.dot-transfer;
+  @include sbb.pearl-chain-dot-transfer;
 }
 
 .sbb-pearl-chain-vertical-item__dot--thin-bullet {
-  @include sbb.dot-thin-bulett;
+  @include sbb.pearl-chain-dot-thin-bulett;
 }
 
 .sbb-pearl-chain-vertical-item__dot--double-bullet {
-  @include sbb.dot-double-bullet;
+  @include sbb.pearl-chain-dot-double-bullet;
 }
 
 .sbb-color--charcoal {
@@ -165,7 +165,7 @@
 }
 
 .sbb-pearl-chain-vertical-item__column--middle {
-  width: var(--sbb-pearl-chain-vertical-middle-item-width, --dot-size);
+  width: var(--sbb-pearl-chain-vertical-middle-item-width, --sbb-pearl-chain-dot-size);
 }
 
 slot[name='left']::slotted(*) {
