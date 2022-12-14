@@ -14,7 +14,7 @@ initially and on resize.
     <sbb-sector label="Sector A">
       <sbb-wagon
         type="locomotive"
-        accessibility-additional-wagon-text="Top of the train"
+        additional-accessibility-text="Top of the train"
       ></sbb-wagon>
       <sbb-wagon type="closed"></sbb-wagon>
       <sbb-wagon-blocked-passage />
