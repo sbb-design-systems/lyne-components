@@ -88,14 +88,14 @@ const defaultArgs = {
 
 const toggleOption = ({ disabled, iconName, label, labelTwo }) => [
   <sbb-toggle-option disabled={disabled} icon-name={iconName} value="Value 1">
-    <span slot="label">{label}</span>
+    {label}
   </sbb-toggle-option>,
   <sbb-toggle-option
     disabled={disabled}
     icon-name={iconName && 'arrows-right-left-small'}
     value="Value 2"
   >
-    <span slot="label">{labelTwo}</span>
+    {labelTwo}
   </sbb-toggle-option>,
 ];
 

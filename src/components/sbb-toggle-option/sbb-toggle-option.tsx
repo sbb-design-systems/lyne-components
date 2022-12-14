@@ -1,7 +1,6 @@
 import {
   Component,
   ComponentInterface,
-  Element,
   Event,
   EventEmitter,
   h,
@@ -12,11 +11,6 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 
 let nextId = 0;
 
@@ -57,9 +51,9 @@ export class SbbToggleOption implements ComponentInterface {
   @Prop() public value?: string;
 
   /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
+   * Whether the toggle option has a label.
    */
-  @State() private _namedSlots = createNamedSlotState('label');
+  @State() private _hasLabel = false;
 
   /**
    * Emits whenever the toggle-option value changes.
@@ -70,15 +64,6 @@ export class SbbToggleOption implements ComponentInterface {
     eventName: 'did-select',
   })
   public didSelect: EventEmitter<any>;
-
-  private _hasLabel = false;
-
-  @Element() private _element!: HTMLElement;
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
 
   @Listen('click')
   public handleClick(event: Event): void {
@@ -99,11 +84,6 @@ export class SbbToggleOption implements ComponentInterface {
     this.didSelect.emit(this.value);
   }
 
-  public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._hasLabel = this._namedSlots['label'];
-  }
-
   public render(): JSX.Element {
     return (
       <Host
@@ -121,18 +101,26 @@ export class SbbToggleOption implements ComponentInterface {
           checked={this.checked}
           value={this.value}
         />
-        <span class="sbb-toggle-option">
+        <label
+          class={{
+            'sbb-toggle-option': true,
+            'sbb-toggle-option--icon-only': !this._hasLabel && !!this.iconName,
+          }}
+          htmlFor={this.toggleOptionId}
+        >
           {this.iconName && (
             <slot name="icon">
               <sbb-icon name={this.iconName}></sbb-icon>
             </slot>
           )}
-          {this._hasLabel && (
-            <label id={this.toggleOptionId} htmlFor={this.toggleOptionId}>
-              <slot name="label" />
-            </label>
-          )}
-        </span>
+          <span class="sbb-toggle-option__label">
+            <slot
+              onSlotchange={(event) =>
+                (this._hasLabel = (event.target as HTMLSlotElement).assignedNodes().length > 0)
+              }
+            />
+          </span>
+        </label>
       </Host>
     );
   }

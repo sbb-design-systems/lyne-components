@@ -14,7 +14,6 @@
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-toggle-animation-duration: var(--sbb-animation-duration-6x);
-  --sbb-toggle-cursor: pointer;
 }
 
 :host([even]) {
@@ -28,7 +27,6 @@
 :host([disabled]) {
   --sbb-toggle-selected-option-background-color: var(--sbb-color-milk-default);
   --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite-default);
-  --sbb-toggle-cursor: unset;
 }
 
 :host([size='m']) {
@@ -43,7 +41,6 @@
 .sbb-toggle {
   @include sbb.text-m--regular;
 
-  cursor: var(--sbb-toggle-cursor);
   position: relative;
   display: flex;
   align-items: center;
