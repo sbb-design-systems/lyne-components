@@ -6,13 +6,13 @@
 
 :host {
   --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-timetable-row-loading-height: #{px-to-rem-build(24)};
+  --sbb-timetable-row-loading-height: #{sbb.px-to-rem-build(24)};
 }
 
 // override icons sizes
 .sbb-timetable__row-transport-type {
-  --sbb-icon-svg-width: #{px-to-rem-build(20)};
-  --sbb-icon-svg-height: #{px-to-rem-build(20)};
+  --sbb-icon-svg-width: #{sbb.px-to-rem-build(20)};
+  --sbb-icon-svg-height: #{sbb.px-to-rem-build(20)};
 }
 
 // override icons sizes
@@ -145,7 +145,7 @@ li {
   border-radius: var(--sbb-border-radius-1x);
 
   @include sbb.mq($from: medium) {
-    --sbb-timetable-row-loading-height: #{px-to-rem-build(27)};
+    --sbb-timetable-row-loading-height: #{sbb.px-to-rem-build(27)};
   }
 }
 
