@@ -61,13 +61,11 @@ Type: `Promise<void>`
 ### Depends on
 
 - [sbb-button](../sbb-button)
-- [sbb-title](../sbb-title)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-navigation-section --> sbb-button
-  sbb-navigation-section --> sbb-title
   sbb-button --> sbb-icon
   style sbb-navigation-section fill:#f9f,stroke:#333,stroke-width:4px
 ```
