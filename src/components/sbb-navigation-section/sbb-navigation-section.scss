@@ -105,7 +105,7 @@
   }
 }
 
-.sbb-navigation-section__title {
+.sbb-navigation-section__header {
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
@@ -123,6 +123,14 @@
 .sbb-navigation-section__back {
   @include sbb.mq($from: large) {
     display: none;
+  }
+}
+
+.sbb-navigation-section__title {
+  @include sbb.title-4;
+
+  @include sbb.mq($from: large) {
+    @include sbb.title-2;
   }
 }
 

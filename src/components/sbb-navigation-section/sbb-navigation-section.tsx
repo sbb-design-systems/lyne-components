@@ -267,11 +267,11 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     );
 
     const labelElement = (
-      <div class="sbb-navigation-section__title">
+      <div class="sbb-navigation-section__header">
         {backButton}
-        <sbb-title level={this.titleLevel} visual-level="2" negative={true} title-id={this.titleId}>
+        <span class="sbb-navigation-section__title">
           <slot name="title">{this.titleContent}</slot>
-        </sbb-title>
+        </span>
       </div>
     );
     return (
