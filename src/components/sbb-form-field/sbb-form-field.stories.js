@@ -295,51 +295,38 @@ const basicArgs = {
 export const Input = TemplateInput.bind({});
 Input.argTypes = basicArgTypes;
 Input.args = { ...basicArgs, value: 'This input value is so long that it needs ellipsis to fit.' };
-Input.documentation = {
-  title: 'sbb-form-field component with input tag and long text',
+
+export const InputSizeL = TemplateInput.bind({});
+InputSizeL.argTypes = basicArgTypes;
+InputSizeL.args = {
+  ...basicArgs,
+  value: 'This input value is so long that it needs ellipsis to fit.',
+  size: 'l',
 };
 
 export const InputNoLabel = TemplateInput.bind({});
 InputNoLabel.argTypes = basicArgTypes;
 InputNoLabel.args = { ...basicArgs, label: '' };
-InputNoLabel.documentation = {
-  title: 'sbb-form-field component with input tag without label',
-};
 
 export const InputWithSlottedLabel = TemplateInputWithSlottedLabel.bind({});
 InputWithSlottedLabel.argTypes = basicArgTypes;
 InputWithSlottedLabel.args = { ...basicArgs, value: 'Random value' };
-InputWithSlottedLabel.documentation = {
-  title: 'sbb-form-field component with slotted label',
-};
 
 export const InputWithoutBorder = TemplateInput.bind({});
 InputWithoutBorder.argTypes = basicArgTypes;
 InputWithoutBorder.args = { ...basicArgs, borderless: true };
-InputWithoutBorder.documentation = {
-  title: 'sbb-form-field component with input tag and borderless',
-};
 
 export const InputDisabled = TemplateInput.bind({});
 InputDisabled.argTypes = basicArgTypes;
 InputDisabled.args = { ...basicArgs, disabled: true };
-InputDisabled.documentation = {
-  title: 'sbb-form-field component with input tag disabled',
-};
 
 export const InputReadonly = TemplateInput.bind({});
 InputReadonly.argTypes = basicArgTypes;
 InputReadonly.args = { ...basicArgs, readonly: true };
-InputReadonly.documentation = {
-  title: 'sbb-form-field with input tag readonly',
-};
 
 export const InputOptionalAndIcons = TemplateInputWithIcons.bind({});
 InputOptionalAndIcons.argTypes = basicArgTypes;
 InputOptionalAndIcons.args = { ...basicArgs, optional: true };
-InputOptionalAndIcons.documentation = {
-  title: 'sbb-form-field component with input tag, optional label and prefix/suffix icons',
-};
 
 export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
 InputLongLabelAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
@@ -350,44 +337,26 @@ InputLongLabelAndErrorSpace.args = {
   label: 'This label name is so long that it needs ellipsis to fit.',
   value: 'This input value is so long that it needs ellipsis to fit.',
 };
-InputLongLabelAndErrorSpace.documentation = {
-  title: 'sbb-form-field component with input tag, sbb-form-error and long error message',
-};
 
 export const Select = TemplateSelect.bind({});
 Select.argTypes = basicArgTypes;
 Select.args = JSON.parse(JSON.stringify(basicArgs));
-Select.documentation = {
-  title: 'sbb-form-field component with select tag',
-};
 
 export const SelectWithoutBorder = TemplateSelect.bind({});
 SelectWithoutBorder.argTypes = basicArgTypes;
 SelectWithoutBorder.args = { ...basicArgs, borderless: true };
-SelectWithoutBorder.documentation = {
-  title: 'sbb-form-field component with select tag and borderless',
-};
 
 export const SelectDisabled = TemplateSelect.bind({});
 SelectDisabled.argTypes = basicArgTypes;
 SelectDisabled.args = { ...basicArgs, disabled: true };
-SelectDisabled.documentation = {
-  title: 'sbb-form-field component with disabled select tag',
-};
 
 export const SelectErrorSpace = TemplateSelectWithErrorSpace.bind({});
 SelectErrorSpace.argTypes = basicArgTypes;
 SelectErrorSpace.args = { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' };
-SelectErrorSpace.documentation = {
-  title: 'sbb-form-field component with select tag and sbb-form-error',
-};
 
 export const SelectOptionalAndIcons = TemplateSelectWithIcons.bind({});
 SelectOptionalAndIcons.argTypes = basicArgTypes;
 SelectOptionalAndIcons.args = { ...basicArgs, optional: true };
-SelectOptionalAndIcons.documentation = {
-  title: 'sbb-form-field component with select tag, optional label and prefix/suffix icons',
-};
 
 export default {
   decorators: [
