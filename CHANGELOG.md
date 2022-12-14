@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.18.3](https://github.com/lyne-design-system/lyne-components/compare/v0.18.2...v0.18.3) (2022-12-14)
+
+### Bug Fixes
+
+- **sbb-form-field:** fix border radius for size L ([#1496](https://github.com/lyne-design-system/lyne-components/issues/1496)) ([120c507](https://github.com/lyne-design-system/lyne-components/commit/120c5076e1695abca07a52e1e46c5b96d3f40d70))
+
 ### [0.18.2](https://github.com/lyne-design-system/lyne-components/compare/v0.18.1...v0.18.2) (2022-12-13)
 
 ### Bug Fixes
