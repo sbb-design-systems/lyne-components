@@ -13,9 +13,9 @@
   --sbb-pearl-chain-dot-size-s: var(--sbb-pearl-chain-dot-size);
   --sbb-pearl-chain-dot-size-xs: #{functions.px-to-rem-build(6)};
   --sbb-pearl-chain-dot-color: var(--sbb-color-charcoal-default);
-  --sbb-pearl-chain-dot-color-red: var(--sbb-color-red-default);
-  --sbb-pearl-chain-dot-color-metal: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-dot-color-sky: var(--sbb-color-sky-default);
+  --sbb-pearl-chain-dot-color-warning: var(--sbb-color-red-default);
+  --sbb-pearl-chain-dot-color-past: var(--sbb-color-metal-default);
+  --sbb-pearl-chain-dot-color-walk: var(--sbb-color-sky-default);
   --sbb-pearl-chain-dot-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-dot-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-dot-border-color: var(--sbb-color-white-default);
@@ -56,15 +56,15 @@
 }
 
 @mixin pearl-chain-dot-warning {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-red);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-warning);
 }
 
 @mixin pearl-chain-dot-past {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-metal);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-past);
 }
 
 @mixin pearl-chain-dot-walk {
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-sky);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-walk);
 }
 
 @mixin pearl-chain-dot-transfer {
@@ -90,7 +90,7 @@
     inset-inline-start: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
     border-block-start: var(--sbb-pearl-chain-dot-crossed-bullet-border-width) solid canvas;
-    background: var(--sbb-pearl-chain-dot-color-red);
+    background: var(--sbb-pearl-chain-dot-color-warning);
     height: var(--sbb-pearl-chain-dot-crossed-bullet-height);
     width: var(--sbb-pearl-chain-dot-crossed-bullet-width);
   }
@@ -132,7 +132,7 @@
   @include pearl-chain-dot;
 
   --sbb-pearl-chain-dot-size: var(--sbb-pearl-chain-dot-size-m);
-  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-red);
+  --sbb-pearl-chain-dot-color: var(--sbb-pearl-chain-dot-color-warning);
 
   animation: pearl-chain-dot-position-pulse var(--sbb-pearl-chain-dot-animation-duration)
     var(--sbb-pearl-chain-dot-animation-easing) infinite;
@@ -140,11 +140,11 @@
 
 @keyframes pearl-chain-dot-position-pulse {
   0% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-red);
+    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-warning);
   }
 
   25% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-red);
+    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-warning);
   }
 
   50% {
@@ -156,6 +156,6 @@
   }
 
   100% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-red);
+    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-dot-color-warning);
   }
 }
