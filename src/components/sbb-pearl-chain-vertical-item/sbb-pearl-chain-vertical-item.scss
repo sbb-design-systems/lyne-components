@@ -15,12 +15,10 @@
   --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
   --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
-  --sbb-pearl-chain-vertical-item-color-white: var(--sbb-color-white-default);
-  --sbb-pearl-chain-vertical-item-color-default: var(--sbb-color-charcoal-default);
-  --sbb-pearl-chain-vertical-item-color-red: var(--sbb-color-red-default);
-  --sbb-pearl-chain-vertical-item-color-red-dark: var(--sbb-color-red150-default);
-  --sbb-pearl-chain-vertical-item-color-metal: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-vertical-item-color-sky: var(--sbb-color-sky-default);
+  --sbb-pearl-chain-vertical-item-color: var(--sbb-pearl-chain-dot-color);
+  --sbb-pearl-chain-vertical-item-color-warning: var(--sbb-pearl-chain-dot-color-warning);
+  --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-dot-color-past);
+  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-pearl-chain-dot-color-walk);
   --sbb-pearl-chain-vertical-item-inline-start: 50%;
   --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
 }
@@ -85,7 +83,7 @@
     inset-block-start: 0;
     height: var(--sbb-pearl-chain-vertical-item-leg-status);
     width: var(--sbb-pearl-chain-vertical-item-border-width);
-    background-color: var(--sbb-pearl-chain-vertical-item-color-metal);
+    background-color: var(--sbb-pearl-chain-vertical-item-color-past);
   }
 }
 
@@ -99,12 +97,7 @@
 .sbb-pearl-chain-vertical-item__line--dotted {
   background-color: unset;
   border-color: unset;
-  background-image: linear-gradient(
-    to bottom,
-    currentcolor 0%,
-    currentcolor 50%,
-    var(--sbb-pearl-chain-vertical-item-color-white) 50%
-  );
+  background-image: linear-gradient(to bottom, currentcolor 0%, currentcolor 50%, Canvas 50%);
   background-repeat: repeat-y;
   background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
     var(--sbb-pearl-chain-vertical-item-spacing-small);
@@ -131,27 +124,27 @@
 }
 
 .sbb-color--charcoal {
-  background-color: var(--sbb-pearl-chain-vertical-item-color-default);
-  border-color: var(--sbb-pearl-chain-vertical-item-color-default);
-  color: var(--sbb-pearl-chain-vertical-item-color-default);
+  background-color: var(--sbb-pearl-chain-vertical-item-color);
+  border-color: var(--sbb-pearl-chain-vertical-item-color);
+  color: var(--sbb-pearl-chain-vertical-item-color);
 }
 
 .sbb-color--red {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-red);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-red);
-  color: var(--sbb-pearl-chain-vertical-item-color-red);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-warning);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-warning);
+  color: var(--sbb-pearl-chain-vertical-item-color-warning);
 }
 
 .sbb-color--metal {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-metal);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-metal);
-  color: var(--sbb-pearl-chain-vertical-item-color-metal);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  color: var(--sbb-pearl-chain-vertical-item-color-past);
 }
 
 .sbb-color--sky {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-sky);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-sky);
-  color: var(--sbb-pearl-chain-vertical-item-color-sky);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  color: var(--sbb-pearl-chain-vertical-item-color-walk);
 }
 
 .sbb-pearl-chain-vertical-item__column {
