@@ -10,7 +10,6 @@ import {
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { InterfaceSbbTimeInputAttributes } from './sbb-time-input.custom';
 
 @Component({
   shadow: true,
@@ -44,9 +43,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
 
   /** This will be forwarded as aria-labelledby to the relevant nested element. */
   @Prop() public accessibilityLabelledby: string | undefined;
-
-  /** Size variant, either l or m. */
-  @Prop({ reflect: true }) public size?: InterfaceSbbTimeInputAttributes['size'] = 'm';
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.

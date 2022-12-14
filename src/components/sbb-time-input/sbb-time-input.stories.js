@@ -2,16 +2,6 @@ import events from './sbb-time-input.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const size = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['m', 's'],
-  table: {
-    category: 'Time input attribute',
-  },
-};
-
 const value = {
   control: {
     type: 'text',
@@ -93,6 +83,16 @@ const accessibilityLabelledby = {
   },
 };
 
+const size = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 'l'],
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const label = {
   control: {
     type: 'text',
@@ -139,7 +139,6 @@ const iconEnd = {
 };
 
 const basicArgTypes = {
-  size,
   value,
   'value-as-date': valueAsDate,
   form,
@@ -154,6 +153,7 @@ const basicArgTypes = {
 const formFieldBasicArgsTypes = {
   ...basicArgTypes,
   label,
+  size,
   optional,
   borderless,
   iconStart,
@@ -161,7 +161,6 @@ const formFieldBasicArgsTypes = {
 };
 
 const basicArgs = {
-  size: size.options[0],
   value: '12:00',
   'value-as-date': new Date(new Date(0).setHours(12, 0)),
   form: undefined,
@@ -176,6 +175,7 @@ const basicArgs = {
 const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
+  size: size.options[0],
   optional: false,
   borderless: false,
   iconStart: undefined,
@@ -190,9 +190,10 @@ const TemplateSbbTimeInputInFormField = ({
   borderless,
   iconStart,
   iconEnd,
+  size,
   ...args
 }) => (
-  <sbb-form-field label={label} optional={optional} borderless={borderless}>
+  <sbb-form-field size={size} label={label} optional={optional} borderless={borderless}>
     {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
     {TemplateSbbTimeInput(args)}
     {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
