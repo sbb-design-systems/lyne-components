@@ -12,6 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
   createNamedSlotState,
@@ -139,6 +140,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       return;
     }
 
+    this._resetMarker();
     this._state = 'closing';
   }
 
@@ -226,6 +228,12 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled')) ||
       (element.hasAttribute('sbb-navigation-section-close') && !element.hasAttribute('disabled'))
     );
+  }
+
+  private _resetMarker(): void {
+    if (isBreakpoint('zero', 'large')) {
+      (this._triggerElement?.parentElement as HTMLSbbNavigationMarkerElement)?.reset();
+    }
   }
 
   // Closes the navigation on "Esc" key pressed.

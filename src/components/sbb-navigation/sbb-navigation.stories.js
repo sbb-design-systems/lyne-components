@@ -15,6 +15,10 @@ const playStory = async ({ canvasElement }) => {
 
   const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
+  const actionL = canvas.getByTestId('navigation-section-trigger-1');
+  await userEvent.click(actionL);
+  const actionS = canvas.getByTestId('navigation-section-trigger-2');
+  await userEvent.click(actionS);
 };
 
 const accessibilityLabel = {
@@ -63,19 +67,21 @@ const triggerButton = (id) => (
   ></sbb-button>
 );
 
-const navigationActionsL = (active) => [
-  <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
+const navigationActionsL = () => [
+  <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
+    Tickets & Offers
+  </sbb-navigation-action>,
   <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>,
   <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/" active={active}>
+  <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/">
     Help & Contact
   </sbb-navigation-action>,
 ];
 
-const navigationActionsS = (active) => [
+const navigationActionsS = () => [
   <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>,
   <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>,
-  <sbb-navigation-action id="nav-7" active={active}>
+  <sbb-navigation-action id="nav-7" data-testid="navigation-section-trigger-2">
     Italiano
   </sbb-navigation-action>,
   <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
@@ -92,7 +98,9 @@ const navigationList = (label) => [
 ];
 
 const actionLabels = (num) => {
-  const labels = [];
+  const labels = [
+    <sbb-navigation-action data-testid="navigation-section-trigger-2">Label</sbb-navigation-action>,
+  ];
   for (let i = 1; i <= num; i++) {
     labels.push(<sbb-navigation-action>Label</sbb-navigation-action>);
   }
@@ -114,9 +122,30 @@ const DefaultTemplate = (args) => [
     ref={(dialog) => onNavigationClose(dialog)}
     {...args}
   >
-    <sbb-navigation-marker id="nav-marker">{navigationActionsL(false)}</sbb-navigation-marker>
+    <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
+    <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
+  </sbb-navigation>,
+];
 
-    <sbb-navigation-marker size="s">{navigationActionsS(false)}</sbb-navigation-marker>
+const LongContentTemplate = (args) => [
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
+    <sbb-navigation-marker>{navigationActionsL()}</sbb-navigation-marker>
+    <sbb-navigation-marker size="s">{actionLabels(20)}</sbb-navigation-marker>
+  </sbb-navigation>,
+];
+
+const WithNavigationSectionTemplate = (args) => [
+  triggerButton('navigation-trigger-1'),
+  <sbb-navigation
+    data-testid="navigation"
+    id="navigation"
+    trigger="navigation-trigger-1"
+    ref={(dialog) => onNavigationClose(dialog)}
+    {...args}
+  >
+    <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
+    <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
 
     <sbb-navigation-section trigger="nav-1" title-content="Title one">
       {navigationList('Label')}
@@ -155,41 +184,20 @@ const DefaultTemplate = (args) => [
   </sbb-navigation>,
 ];
 
-const ActiveTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
-    <sbb-navigation-marker>{navigationActionsL(true)}</sbb-navigation-marker>
-
-    <sbb-navigation-marker size="s">{navigationActionsS(true)}</sbb-navigation-marker>
-  </sbb-navigation>,
-];
-
-const LongContentTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
-    <sbb-navigation-marker>{navigationActionsL(false)}</sbb-navigation-marker>
-
-    <sbb-navigation-marker size="s">{actionLabels(20)}</sbb-navigation-marker>
-  </sbb-navigation>,
-];
-
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;
 Default.args = { ...basicArgs };
-Default.documentation = { title: 'Default' };
 Default.play = playStory;
-
-export const Active = ActiveTemplate.bind({});
-Active.argTypes = basicArgTypes;
-Active.args = { ...basicArgs };
-Active.documentation = { title: 'Active' };
-Active.play = playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = basicArgTypes;
 LongContent.args = { ...basicArgs };
-LongContent.documentation = { title: 'Long Content' };
 LongContent.play = playStory;
+
+export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
+WithNavigationSection.argTypes = basicArgTypes;
+WithNavigationSection.args = { ...basicArgs };
+WithNavigationSection.play = playStory;
 
 export default {
   decorators: [

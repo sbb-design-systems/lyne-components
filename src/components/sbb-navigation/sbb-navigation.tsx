@@ -318,9 +318,9 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   @Listen('didClose')
   public setNavigationSectionFocus(event: Event): void {
     const target = event.target as HTMLElement;
-    if (target.nodeName === 'SBB-NAVIGATION-SECTION' && this._activeNavigationSection) {
-      (this._activeNavigationSection.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement).focus();
+    if (target.nodeName === 'SBB-NAVIGATION-SECTION') {
       event.stopImmediatePropagation();
+      (this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement)?.focus();
     }
   }
 

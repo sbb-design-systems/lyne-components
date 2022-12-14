@@ -6,7 +6,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async (trigger, canvasElement) => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -15,7 +15,7 @@ const playStory = async ({ canvasElement }) => {
 
   const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
-  const action = canvas.getByTestId('navigation-section-trigger');
+  const action = canvas.getByTestId(trigger);
   await userEvent.click(action);
 };
 
@@ -56,9 +56,13 @@ const triggerButton = (id) => (
 );
 
 const navigationActionsL = [
-  <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger">
+  <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
     Label
   </sbb-navigation-action>,
+  <sbb-navigation-action id="nav-2" data-testid="navigation-section-trigger-2">
+    Label
+  </sbb-navigation-action>,
+  <sbb-navigation-action id="nav-3">Label</sbb-navigation-action>,
 ];
 
 const navigationList = (label) => [
@@ -87,8 +91,9 @@ const DefaultTemplate = (args) => [
     {...args}
   >
     <sbb-navigation-marker id="nav-marker">{navigationActionsL}</sbb-navigation-marker>
+
     <sbb-navigation-section
-      title-content="Title"
+      title-content="Title one"
       data-testid="navigation-section"
       id="navigation-section"
       trigger="nav-1"
@@ -98,31 +103,16 @@ const DefaultTemplate = (args) => [
       {navigationList('Label')}
       {navigationList('Label')}
 
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-      <sbb-button size="m" style="width: fit-content" sbb-navigation-section-close>
-        Close section
+      <sbb-button size="m" style="width: fit-content">
+        Button
       </sbb-button>
     </sbb-navigation-section>
-  </sbb-navigation>,
-];
 
-const LongContentTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation
-    data-testid="navigation"
-    id="navigation"
-    trigger="navigation-trigger-1"
-    ref={(dialog) => onNavigationClose(dialog)}
-    {...args}
-  >
-    <sbb-navigation-marker id="nav-marker">{navigationActionsL}</sbb-navigation-marker>
     <sbb-navigation-section
-      title-content="Title"
+      title-content="Title two"
       data-testid="navigation-section"
       id="navigation-section"
-      trigger="nav-1"
+      trigger="nav-2"
       {...args}
     >
       {navigationList('Label')}
@@ -132,15 +122,13 @@ const LongContentTemplate = (args) => [
       {navigationList('Label')}
       {navigationList('Label')}
       {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
 
       {navigationList('Label')}
       {navigationList('Label')}
       {navigationList('Label')}
-      <sbb-button size="m" style="width: fit-content" sbb-navigation-section-close>
-        Close section
+
+      <sbb-button size="m" variant="secondary" style="width: fit-content" sbb-navigation-close>
+        Close navigation
       </sbb-button>
     </sbb-navigation-section>
   </sbb-navigation>,
@@ -149,14 +137,12 @@ const LongContentTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;
 Default.args = { ...basicArgs };
-Default.documentation = { title: 'Default' };
-Default.play = playStory;
+Default.play = ({ canvasElement }) => playStory('navigation-section-trigger-1', canvasElement);
 
-export const LongContent = LongContentTemplate.bind({});
+export const LongContent = DefaultTemplate.bind({});
 LongContent.argTypes = basicArgTypes;
 LongContent.args = { ...basicArgs };
-LongContent.documentation = { title: 'Long Content' };
-LongContent.play = playStory;
+LongContent.play = ({ canvasElement }) => playStory('navigation-section-trigger-2', canvasElement);
 
 export default {
   decorators: [
@@ -168,7 +154,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
+      handles: [events.didClose],
     },
     backgrounds: {
       disable: true,
