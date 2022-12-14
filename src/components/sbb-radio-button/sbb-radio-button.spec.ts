@@ -11,8 +11,8 @@ describe('sbb-radio-button', () => {
     expect(root).toEqualHtml(`
         <sbb-radio-button aria-checked="false" aria-disabled="false" size="m" role="radio">
           <mock:shadow-root>
-          <label class="sbb-radio-button" htmlfor="sbb-radio-button-2" id="sbb-radio-button-label-1">
-            <input aria-hidden="true" class="sbb-radio-button__input" id="sbb-radio-button-2" tabindex="-1" type="radio">
+          <label class="sbb-radio-button" htmlfor="sbb-radio-button-id" id="sbb-radio-button-label-id">
+            <input aria-hidden="true" class="sbb-radio-button__input" id="sbb-radio-button-id" tabindex="-1" type="radio">
             <span class="sbb-radio-button__label-slot">
               <slot></slot>
             </span>

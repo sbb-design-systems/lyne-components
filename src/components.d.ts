@@ -114,10 +114,6 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
-         */
-        "internalId": string;
-        /**
           * Content of the link.
          */
         "linkContent"?: string;
@@ -246,10 +242,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "buttonId"?: string;
-        /**
           * Whether the button is disabled.
          */
         "disabled": boolean;
@@ -315,10 +307,6 @@ export namespace Components {
           * Used to set the component's active state.
          */
         "active": boolean;
-        /**
-          * Id used to identify the inner element.
-         */
-        "cardId"?: string;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -442,10 +430,6 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "checkboxId": string;
-        /**
           * Whether the checkbox is checked.
          */
         "checked": boolean;
@@ -479,10 +463,6 @@ export namespace Components {
         "value"?: string;
     }
     interface SbbCheckboxGroup {
-        /**
-          * Id of the checkbox group element.
-         */
-        "checkboxGroupId": string;
         /**
           * Whether the checkbox group is disabled.
          */
@@ -531,10 +511,6 @@ export namespace Components {
           * Closes the dialog element.
          */
         "close": (result?: any, target?: HTMLElement) => Promise<any>;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "dialogId": string;
         /**
           * Whether the animation is enabled.
          */
@@ -653,10 +629,6 @@ export namespace Components {
           * Form attribute if component is displayed as a button.
          */
         "form"?: string;
-        /**
-          * Action element's id.
-         */
-        "headerActionId": string;
         /**
           * The href value you want to link to (if it is not present sbb-header-action becomes a button).
          */
@@ -977,10 +949,6 @@ export namespace Components {
          */
         "iconName"?: string | undefined;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "menuActionId": string;
-        /**
           * The name attribute to use for the button.
          */
         "name": string | undefined;
@@ -1074,10 +1042,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "radioButtonId": string;
-        /**
           * Whether the radio button is required.
          */
         "required": boolean;
@@ -1108,10 +1072,6 @@ export namespace Components {
           * Radio group's orientation, either horizontal or vertical.
          */
         "orientation": InterfaceSbbRadioButtonGroupAttributes['orientation'];
-        /**
-          * Id of the radio group element.
-         */
-        "radioButtonGroupId": string;
         /**
           * Whether the radio group is required.
          */
@@ -1291,10 +1251,6 @@ export namespace Components {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "teaserId": string;
         /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
@@ -1524,10 +1480,6 @@ export namespace Components {
           * The svg name for the true state - default -> 'tick-small'
          */
         "icon": string;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "inputId": string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
@@ -2152,10 +2104,6 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
-         */
-        "internalId"?: string;
-        /**
           * Content of the link.
          */
         "linkContent"?: string;
@@ -2300,10 +2248,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "buttonId"?: string;
-        /**
           * Whether the button is disabled.
          */
         "disabled"?: boolean;
@@ -2369,10 +2313,6 @@ declare namespace LocalJSX {
           * Used to set the component's active state.
          */
         "active"?: boolean;
-        /**
-          * Id used to identify the inner element.
-         */
-        "cardId"?: string;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -2496,10 +2436,6 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "checkboxId"?: string;
-        /**
           * Whether the checkbox is checked.
          */
         "checked"?: boolean;
@@ -2537,10 +2473,6 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface SbbCheckboxGroup {
-        /**
-          * Id of the checkbox group element.
-         */
-        "checkboxGroupId"?: string;
         /**
           * Whether the checkbox group is disabled.
          */
@@ -2585,10 +2517,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "dialogId"?: string;
         /**
           * Whether the animation is enabled.
          */
@@ -2723,10 +2651,6 @@ declare namespace LocalJSX {
           * Form attribute if component is displayed as a button.
          */
         "form"?: string;
-        /**
-          * Action element's id.
-         */
-        "headerActionId"?: string;
         /**
           * The href value you want to link to (if it is not present sbb-header-action becomes a button).
          */
@@ -3055,10 +2979,6 @@ declare namespace LocalJSX {
          */
         "iconName"?: string | undefined;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "menuActionId"?: string;
-        /**
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
@@ -3152,10 +3072,6 @@ declare namespace LocalJSX {
          */
         "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "radioButtonId"?: string;
-        /**
           * Whether the radio button is required.
          */
         "required"?: boolean;
@@ -3194,10 +3110,6 @@ declare namespace LocalJSX {
           * Radio group's orientation, either horizontal or vertical.
          */
         "orientation"?: InterfaceSbbRadioButtonGroupAttributes['orientation'];
-        /**
-          * Id of the radio group element.
-         */
-        "radioButtonGroupId"?: string;
         /**
           * Whether the radio group is required.
          */
@@ -3370,10 +3282,6 @@ declare namespace LocalJSX {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "teaserId"?: string;
         /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
@@ -3603,10 +3511,6 @@ declare namespace LocalJSX {
           * The svg name for the true state - default -> 'tick-small'
          */
         "icon"?: string;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "inputId"?: string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */

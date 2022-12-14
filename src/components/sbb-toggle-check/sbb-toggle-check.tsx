@@ -13,7 +13,6 @@ import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
-let nextId = 0;
 @Component({
   shadow: true,
   styleUrl: 'sbb-toggle-check.scss',
@@ -30,9 +29,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   /** Name of the toggle-check. */
   @Prop() public name?: string;
-
-  /** Id of the internal input element - default id will be set automatically. */
-  @Prop() public inputId = `sbb-toggle-checkbox-${++nextId}`;
 
   /** The svg name for the true state - default -> 'tick-small' */
   @Prop() public icon = 'tick-small';
@@ -80,12 +76,11 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-toggle-check" htmlFor={this.inputId}>
+      <label class="sbb-toggle-check">
         <input
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
           name={this.name}
-          id={this.inputId}
           disabled={this.disabled}
           aria-disabled={this.disabled}
           required={this.required}

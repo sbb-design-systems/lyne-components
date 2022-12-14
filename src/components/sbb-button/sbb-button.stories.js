@@ -92,12 +92,6 @@ const isStatic = {
   control: { type: 'boolean' },
 };
 
-const buttonId = {
-  control: {
-    type: 'text',
-  },
-};
-
 const iconName = {
   control: {
     type: 'text',
@@ -219,7 +213,6 @@ const defaultArgTypes = {
   negative,
   size,
   static: isStatic,
-  'button-id': buttonId,
   'icon-name': iconName,
   href,
   target,

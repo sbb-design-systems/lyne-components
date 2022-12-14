@@ -16,8 +16,6 @@ import { AgnosticMutationObserver as MutationObserver } from '../../global/helpe
 import { InterfaceSbbRadioButtonAttributes } from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
-let nextId = 0;
-
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-required', 'data-group-disabled'],
@@ -35,7 +33,7 @@ export class SbbRadioButton implements ComponentInterface {
   /**
    * Id of the internal input element - default id will be set automatically.
    */
-  @Prop() public radioButtonId = `sbb-radio-button-${++nextId}`;
+  private _radioButtonId = 'sbb-radio-button-id';
 
   /**
    * Whether the radio can be deselected.
@@ -87,7 +85,8 @@ export class SbbRadioButton implements ComponentInterface {
   })
   public didSelect: EventEmitter;
 
-  private _radioButtonLabelId = `sbb-radio-button-label-${++nextId}`;
+  private _radioButtonLabelId = 'sbb-radio-button-label-id';
+
   private _radioButtonAttributeObserver = new MutationObserver(
     this._onRadioButtonAttributesChange.bind(this)
   );
@@ -161,12 +160,12 @@ export class SbbRadioButton implements ComponentInterface {
         /* eslint-enable jsx-a11y/aria-proptypes */
         role="radio"
       >
-        <label id={this._radioButtonLabelId} htmlFor={this.radioButtonId} class="sbb-radio-button">
+        <label id={this._radioButtonLabelId} htmlFor={this._radioButtonId} class="sbb-radio-button">
           <input
             type="radio"
             aria-hidden="true"
             tabindex="-1"
-            id={this.radioButtonId}
+            id={this._radioButtonId}
             disabled={this.disabled || this._disabledFromGroup}
             required={this.required || this._requiredFromGroup}
             checked={this.checked}

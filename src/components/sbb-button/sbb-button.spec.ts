@@ -10,7 +10,6 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          button-id="id"
           type="button"
           disabled
           name="name"
@@ -29,7 +28,6 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          button-id="id"
           type="button"
           disabled
           name="name"
@@ -43,7 +41,6 @@ describe('sbb-button', () => {
             <button
               class="sbb-button"
               dir="ltr"
-              id="id"
               type="button"
               disabled="true"
               name="name"

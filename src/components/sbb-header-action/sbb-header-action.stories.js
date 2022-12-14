@@ -24,12 +24,6 @@ const expandFrom = {
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const actionHeaderId = {
-  control: {
-    type: 'text',
-  },
-};
-
 const iconName = {
   control: {
     type: 'text',
@@ -136,7 +130,6 @@ const accessibilityLabel = {
 const basicArgTypes = {
   text,
   'expand-from': expandFrom,
-  'header-action-id': actionHeaderId,
   'icon-name': iconName,
   href,
   target,
@@ -154,7 +147,6 @@ const basicArgTypes = {
 const basicArgs = {
   text: 'Menu',
   'expand-from': expandFrom.options[0],
-  'header-action-id': 'menu',
   'icon-name': 'hamburger-menu-small',
   href: 'https://github.com/lyne-design-system/lyne-components',
   target: '_blank',

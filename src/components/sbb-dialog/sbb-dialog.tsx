@@ -31,8 +31,6 @@ import { hostContext } from '../../global/helpers/host-context';
  * @slot action-group - Use this slot to display an action group in the footer.
  */
 
-let nextId = 0;
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-dialog.scss',
@@ -42,7 +40,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   /**
    * This id will be forwarded to the relevant inner element.
    */
-  @Prop() public dialogId = `sbb-dialog-${++nextId}`;
+  private _dialogId = `sbb-dialog-id`;
 
   /**
    * Dialog title.
@@ -327,7 +325,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       <sbb-button
         class="sbb-dialog__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
-        accessibility-controls={this.dialogId}
+        accessibility-controls={this._dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
@@ -383,7 +381,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       >
         <dialog
           ref={(dialogRef) => (this._dialog = dialogRef)}
-          id={this.dialogId}
+          id={this._dialogId}
           aria-label={this.accessibilityLabel}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"

@@ -94,7 +94,6 @@ const ErrorMessageTemplate = (args) => {
   return (
     <sbb-radio-button-group
       {...args}
-      id="sbb-radio-group"
       onChange={(event) => {
         if (event.detail.value) {
           sbbFormError.remove();

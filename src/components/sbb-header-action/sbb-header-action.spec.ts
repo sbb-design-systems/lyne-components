@@ -15,7 +15,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action icon-name='pie-small' expand-from="medium" name="test" type="reset" value="value" accessibility-controls="id" accessibility-haspopup="dialog">
         <mock:shadow-root>
-          <button class="sbb-header-action" dir="ltr" id="sbb-header-action-1" name="test" type="reset" value="value" aria-controls="id" aria-haspopup="dialog">
+          <button aria-controls="id" aria-haspopup="dialog" class="sbb-header-action" dir="ltr" name="test" type="reset" value="value">
             <span class="sbb-header-action__icon">
               <slot name="icon">
                 <sbb-icon name="pie-small"></sbb-icon>
@@ -40,7 +40,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action expand-from="small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" >
         <mock:shadow-root>
-          <a dir="ltr" id="sbb-header-action-2" rel="external noopener nofollow" target="_blank" class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components">
+          <a class="sbb-header-action" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
             <span class="sbb-header-action__icon">
               <slot name="icon"/>
             </span>

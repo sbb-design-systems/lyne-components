@@ -40,9 +40,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   /** Used to set the component's active state. */
   @Prop({ reflect: true }) public active = false;
 
-  /** Id used to identify the inner element. */
-  @Prop() public cardId?: string;
-
   /* @internal */
   @State() private _hasBadge = false;
 
@@ -108,7 +105,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
         <TAG_NAME
-          id={this.cardId}
           class="sbb-card"
           {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}

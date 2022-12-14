@@ -86,22 +86,5 @@ describe('sbb-card', () => {
 
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
-
-    it('should forward host focus event to action element', async () => {
-      const button = await page.find('sbb-card >>> .sbb-card');
-
-      const changeSpy = await button.spyOnEvent('focus');
-
-      await element.focus();
-      await page.waitForChanges();
-
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-
-      // Although the inner native button receives the focus, the active element is the host
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-        'inner-id'
-      );
-    });
   });
 });
