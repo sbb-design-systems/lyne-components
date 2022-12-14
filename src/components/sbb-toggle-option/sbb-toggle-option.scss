@@ -48,14 +48,14 @@ input[type='radio'] {
   &:not(.sbb-toggle-option--icon-only) {
     --sbb-icon-margin-inline: 0 var(--sbb-spacing-fixed-1x);
   }
+}
 
-  :host([icon-name]) & {
-    // Recalculate padding to maintain the same toggle height when the icon is displayed.
-    padding-block: calc(
-      var(--sbb-toggle-padding-block) -
-        ((var(--sbb-toggle-option-icon-min-size) - var(--sbb-toggle-option-line-height)) / 2)
-    );
-  }
+.sbb-toggle-option--has-icon {
+  // Recalculate padding to maintain the same toggle height when the icon is displayed.
+  padding-block: calc(
+    var(--sbb-toggle-padding-block) -
+      ((var(--sbb-toggle-option-icon-min-size) - var(--sbb-toggle-option-line-height)) / 2)
+  );
 }
 
 .sbb-toggle-option__label {

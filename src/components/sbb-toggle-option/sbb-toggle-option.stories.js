@@ -49,7 +49,16 @@ const defaultArgs = {
   'icon-name': undefined,
 };
 
-const DefaultTemplate = (args) => <sbb-toggle-option {...args}>{args.label}</sbb-toggle-option>;
+const DefaultTemplate = ({ label, ...args }) => (
+  <sbb-toggle-option {...args}>{label}</sbb-toggle-option>
+);
+
+const SlottedIconTemplate = ({ label, 'icon-name': iconName, ...args }) => (
+  <sbb-toggle-option {...args}>
+    <sbb-icon slot="icon" name={iconName}></sbb-icon>
+    {label}
+  </sbb-toggle-option>
+);
 
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = { ...defaultArgTypes, value };
@@ -62,6 +71,14 @@ IconOnly.args = { ...defaultArgs, label: undefined, 'icon-name': iconName.option
 export const LabelAndIcon = DefaultTemplate.bind({});
 LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
 LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
+
+export const IconOnlySlotted = SlottedIconTemplate.bind({});
+IconOnlySlotted.argTypes = { ...defaultArgTypes };
+IconOnlySlotted.args = { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] };
+
+export const LabelAndIconSlotted = SlottedIconTemplate.bind({});
+LabelAndIconSlotted.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
+LabelAndIconSlotted.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
 export default {
   decorators: [

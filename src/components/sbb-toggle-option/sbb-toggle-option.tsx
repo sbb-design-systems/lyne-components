@@ -2,6 +2,7 @@ import {
   Component,
   ComponentInterface,
   Event,
+  Element,
   EventEmitter,
   h,
   Host,
@@ -11,6 +12,11 @@ import {
   Prop,
   State,
 } from '@stencil/core';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 let nextId = 0;
 
@@ -56,6 +62,13 @@ export class SbbToggleOption implements ComponentInterface {
   @State() private _hasLabel = false;
 
   /**
+   * State of listed named slots, by indicating whether any element for a named slot is defined.
+   */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
+  @Element() private _element!: HTMLElement;
+
+  /**
    * Emits whenever the toggle-option value changes.
    */
   @Event({
@@ -69,6 +82,15 @@ export class SbbToggleOption implements ComponentInterface {
   public handleClick(event: Event): void {
     this.select();
     event.preventDefault();
+  }
+
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
+
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   @Method()
@@ -104,14 +126,14 @@ export class SbbToggleOption implements ComponentInterface {
         <label
           class={{
             'sbb-toggle-option': true,
-            'sbb-toggle-option--icon-only': !this._hasLabel && !!this.iconName,
+            'sbb-toggle-option--has-icon': !!(this.iconName || this._namedSlots.icon),
+            'sbb-toggle-option--icon-only':
+              !this._hasLabel && !!(this.iconName || this._namedSlots.icon),
           }}
           htmlFor={this.toggleOptionId}
         >
-          {this.iconName && (
-            <slot name="icon">
-              <sbb-icon name={this.iconName}></sbb-icon>
-            </slot>
+          {(this.iconName || this._namedSlots.icon) && (
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           )}
           <span class="sbb-toggle-option__label">
             <slot

@@ -32,7 +32,7 @@ describe('sbb-toggle-option', () => {
       <sbb-toggle-option aria-checked="true" checked="" icon-name="arrow-right-small" role="radio">
         <mock:shadow-root>
           <input aria-hidden="true" checked id="sbb-toggle-option-2" tabindex="-1" type="radio">
-          <label class="sbb-toggle-option sbb-toggle-option--icon-only" htmlfor="sbb-toggle-option-2">
+          <label class="sbb-toggle-option sbb-toggle-option--has-icon sbb-toggle-option--icon-only" htmlfor="sbb-toggle-option-2">
             <slot name="icon">
               <sbb-icon name="arrow-right-small"></sbb-icon>
             </slot>

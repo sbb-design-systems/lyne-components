@@ -86,20 +86,30 @@ const defaultArgs = {
   iconName: undefined,
 };
 
-const toggleOption = ({ disabled, iconName, label, labelTwo }) => [
-  <sbb-toggle-option disabled={disabled} icon-name={iconName} value="Value 1">
-    {label}
-  </sbb-toggle-option>,
-  <sbb-toggle-option
-    disabled={disabled}
-    icon-name={iconName && 'arrows-right-left-small'}
-    value="Value 2"
-  >
-    {labelTwo}
-  </sbb-toggle-option>,
-];
+const DefaultTemplate = ({ label, labelTwo, iconName, ...args }) => (
+  <sbb-toggle {...args}>
+    <sbb-toggle-option icon-name={iconName} value="Value 1">
+      {label}
+    </sbb-toggle-option>
+    <sbb-toggle-option icon-name={iconName && 'arrows-right-left-small'} value="Value 2">
+      {labelTwo}
+    </sbb-toggle-option>
+  </sbb-toggle>
+);
 
-const DefaultTemplate = (args) => <sbb-toggle {...args}>{toggleOption(args)}</sbb-toggle>;
+const SlottedIconTemplate = ({ label, labelTwo, iconName, ...args }) => (
+  <sbb-toggle {...args}>
+    <sbb-toggle-option value="Value 1">
+      <sbb-icon slot="icon" name={iconName}></sbb-icon>
+      {label}
+    </sbb-toggle-option>
+
+    <sbb-toggle-option value="Value 2">
+      <sbb-icon slot="icon" name={iconName && 'arrows-right-left-small'}></sbb-icon>
+      {labelTwo}
+    </sbb-toggle-option>
+  </sbb-toggle>
+);
 
 export const SizeM = DefaultTemplate.bind({});
 SizeM.argTypes = { ...defaultArgTypes };
@@ -133,6 +143,10 @@ export const LabelAndIconSizeS = DefaultTemplate.bind({});
 LabelAndIconSizeS.argTypes = { ...defaultArgTypes };
 LabelAndIconSizeS.args = { ...defaultArgs, iconName: iconName.options[0], size: size.options[1] };
 
+export const LabelAndIconSlotted = SlottedIconTemplate.bind({});
+LabelAndIconSlotted.argTypes = { ...defaultArgTypes };
+LabelAndIconSlotted.args = { ...defaultArgs, iconName: iconName.options[1] };
+
 export const IconsOnly = DefaultTemplate.bind({});
 IconsOnly.argTypes = { ...defaultArgTypes };
 IconsOnly.args = {
@@ -148,6 +162,15 @@ IconsOnlySizeS.args = {
   ...defaultArgs,
   iconName: iconName.options[0],
   size: size.options[1],
+  label: undefined,
+  labelTwo: undefined,
+};
+
+export const IconsOnlySlotted = SlottedIconTemplate.bind({});
+IconsOnlySlotted.argTypes = { ...defaultArgTypes };
+IconsOnlySlotted.args = {
+  ...defaultArgs,
+  iconName: iconName.options[1],
   label: undefined,
   labelTwo: undefined,
 };
