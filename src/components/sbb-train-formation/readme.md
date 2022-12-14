@@ -17,7 +17,7 @@ initially and on resize.
         accessibility-additional-wagon-text="Top of the train"
       ></sbb-wagon>
       <sbb-wagon type="closed"></sbb-wagon>
-      <sbb-blocked-passage />
+      <sbb-wagon-blocked-passage />
       <sbb-wagon
         type="wagon"
         label="38"

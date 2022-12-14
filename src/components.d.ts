@@ -1748,17 +1748,16 @@ export namespace Components {
           * Additional accessibility text which will be appended to the constructed default text.
          */
         "additionalAccessibilityText": string;
+        /**
+          * Accessibility text for blocked passages of the wagon.
+         */
         "blockedPassage": InterfaceSbbWagonAttributes['blockedPassage'];
         /**
           * Custom accessibility text to overwrite the constructed default text.
          */
         "customAccessibilityLabel": string;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "iconListTitleId": string;
-        /**
-          * Visible label for the wagon number. Not used by type locomotive or blocked.
+          * Visible label for the wagon number. Not used by type locomotive or closed.
          */
         "label"?: string;
         /**
@@ -4069,17 +4068,16 @@ declare namespace LocalJSX {
           * Additional accessibility text which will be appended to the constructed default text.
          */
         "additionalAccessibilityText"?: string;
+        /**
+          * Accessibility text for blocked passages of the wagon.
+         */
         "blockedPassage"?: InterfaceSbbWagonAttributes['blockedPassage'];
         /**
           * Custom accessibility text to overwrite the constructed default text.
          */
         "customAccessibilityLabel"?: string;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "iconListTitleId"?: string;
-        /**
-          * Visible label for the wagon number. Not used by type locomotive or blocked.
+          * Visible label for the wagon number. Not used by type locomotive or closed.
          */
         "label"?: string;
         /**

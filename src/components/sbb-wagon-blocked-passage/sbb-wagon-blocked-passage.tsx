@@ -1,8 +1,5 @@
 import { Component, ComponentInterface, h, JSX } from '@stencil/core';
 
-/**
- * @slot unnamed - Use this to document a slot.
- */
 @Component({
   shadow: true,
   styleUrl: 'sbb-wagon-blocked-passage.scss',

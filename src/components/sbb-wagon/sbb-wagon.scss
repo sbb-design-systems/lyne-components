@@ -10,7 +10,7 @@
   --sbb-wagon-inner-padding: var(--sbb-spacing-fixed-3x);
   --sbb-wagon-shape-border-radius: var(--sbb-train-formation-wagon-border-radius);
   --sbb-wagon-shape-outline-color: var(--sbb-color-charcoal-default);
-  --sbb-wagon-shape-outline-color-block: var(--sbb-color-metal-default);
+  --sbb-wagon-shape-outline-color-closed: var(--sbb-color-metal-default);
   --sbb-wagon-shape-outline-width: var(--sbb-border-width-1x);
   --sbb-wagon-icons-padding-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
@@ -57,7 +57,7 @@
   }
 
   :host([type='closed']) & {
-    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color-block);
+    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color-closed);
   }
 }
 

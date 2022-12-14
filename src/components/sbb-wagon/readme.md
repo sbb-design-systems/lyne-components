@@ -29,17 +29,16 @@ into a list (ul>li) element and requires a title for the list as well as an aria
 
 ## Properties
 
-| Property                          | Attribute                             | Description                                                                                        | Type                                       | Default                              |
-| --------------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------ |
-| `accessibilityLabelIconListTitle` | `accessibility-label-icon-list-title` | Accessibility-text for translations as the list title for additional information icons on a wagon. | `string`                                   | `''`                                 |
-| `additionalAccessibilityText`     | `additional-accessibility-text`       | Additional accessibility text which will be appended to the constructed default text.              | `string`                                   | `''`                                 |
-| `blockedPassage`                  | `blocked-passage`                     |                                                                                                    | `"both" \| "next" \| "none" \| "previous"` | `'none'`                             |
-| `customAccessibilityLabel`        | `custom-accessibility-label`          | Custom accessibility text to overwrite the constructed default text.                               | `string`                                   | `''`                                 |
-| `iconListTitleId`                 | `icon-list-title-id`                  | This id will be forwarded to the relevant inner element.                                           | `string`                                   | ``sbb-wagon-list-title-${++nextId}`` |
-| `label`                           | `label`                               | Visible label for the wagon number. Not used by type locomotive or blocked.                        | `string`                                   | `undefined`                          |
-| `occupancy`                       | `occupancy`                           | Occupancy of a wagon.                                                                              | `"high" \| "low" \| "medium" \| "unknown"` | `'unknown'`                          |
-| `type`                            | `type`                                | Wagon type.                                                                                        | `"closed" \| "locomotive" \| "wagon"`      | `'wagon'`                            |
-| `wagonClass`                      | `wagon-class`                         | Visible class label of a wagon.                                                                    | `"1" \| "2"`                               | `undefined`                          |
+| Property                          | Attribute                             | Description                                                                                        | Type                                       | Default     |
+| --------------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
+| `accessibilityLabelIconListTitle` | `accessibility-label-icon-list-title` | Accessibility-text for translations as the list title for additional information icons on a wagon. | `string`                                   | `''`        |
+| `additionalAccessibilityText`     | `additional-accessibility-text`       | Additional accessibility text which will be appended to the constructed default text.              | `string`                                   | `''`        |
+| `blockedPassage`                  | `blocked-passage`                     | Accessibility text for blocked passages of the wagon.                                              | `"both" \| "next" \| "none" \| "previous"` | `'none'`    |
+| `customAccessibilityLabel`        | `custom-accessibility-label`          | Custom accessibility text to overwrite the constructed default text.                               | `string`                                   | `''`        |
+| `label`                           | `label`                               | Visible label for the wagon number. Not used by type locomotive or closed.                         | `string`                                   | `undefined` |
+| `occupancy`                       | `occupancy`                           | Occupancy of a wagon.                                                                              | `"high" \| "low" \| "medium" \| "unknown"` | `'unknown'` |
+| `type`                            | `type`                                | Wagon type.                                                                                        | `"closed" \| "locomotive" \| "wagon"`      | `'wagon'`   |
+| `wagonClass`                      | `wagon-class`                         | Visible class label of a wagon.                                                                    | `"1" \| "2"`                               | `undefined` |
 
 
 ## Slots

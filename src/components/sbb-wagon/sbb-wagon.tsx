@@ -28,12 +28,13 @@ export class SbbWagon {
   /** Occupancy of a wagon. */
   @Prop() public occupancy: InterfaceSbbWagonAttributes['occupancy'] = 'unknown';
 
+  /** Accessibility text for blocked passages of the wagon.*/
   @Prop() public blockedPassage: InterfaceSbbWagonAttributes['blockedPassage'] = 'none';
 
   /** Visible class label of a wagon. */
   @Prop() public wagonClass?: '1' | '2';
 
-  /** Visible label for the wagon number. Not used by type locomotive or blocked. */
+  /** Visible label for the wagon number. Not used by type locomotive or closed. */
   @Prop() public label?: string;
 
   /** Custom accessibility text to overwrite the constructed default text. */
@@ -45,14 +46,14 @@ export class SbbWagon {
   /** Accessibility-text for translations as the list title for additional information icons on a wagon. */
   @Prop() public accessibilityLabelIconListTitle = '';
 
-  /** This id will be forwarded to the relevant inner element. */
-  @Prop() public iconListTitleId = `sbb-wagon-list-title-${++nextId}`;
-
-  /** Slotted Sbb-Icons. */
+  /** Slotted Sbb-icons. */
   @State() private _icons: HTMLSbbIconElement[];
 
   /** Host element. */
   @Element() private _element!: HTMLElement;
+
+  /** This id will be forwarded to the relevant inner element. */
+  private _iconListTitleId = `sbb-wagon-list-title-${++nextId}`;
 
   public connectedCallback(): void {
     this._readSlottedIcons();
@@ -146,10 +147,10 @@ export class SbbWagon {
         </div>
         {this.type === 'wagon' && (
           <div class="sbb-wagon__icons">
-            <p aria-hidden="true" id={this.iconListTitleId}>
+            <p aria-hidden="true" id={this._iconListTitleId}>
               {this.accessibilityLabelIconListTitle}
             </p>
-            <ul aria-labelledby={this.iconListTitleId}>
+            <ul aria-labelledby={this._iconListTitleId}>
               {this._icons.map((_, index) => (
                 <li>
                   <slot
