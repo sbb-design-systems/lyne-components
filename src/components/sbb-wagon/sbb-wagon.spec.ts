@@ -23,8 +23,8 @@ describe('sbb-wagon', () => {
                 </span>
               </div>
               <div class="sbb-wagon__icons">
-                <p aria-hidden="true" id="sbb-wagon-list-title-1"></p>
-                <ul aria-labelledby="sbb-wagon-list-title-1"></ul>
+                <p aria-hidden="true" id="sbb-wagon__list-title">Additional wagon information</p>
+                <ul aria-labelledby="sbb-wagon__list-title"></ul>
                 <span hidden>
                   <slot></slot>
                 </span>
@@ -55,8 +55,8 @@ describe('sbb-wagon', () => {
                 </span>
               </div>
               <div class="sbb-wagon__icons">
-                <p aria-hidden="true" id="sbb-wagon-list-title-2"></p>
-                <ul aria-labelledby="sbb-wagon-list-title-2"></ul>
+                <p aria-hidden="true" id="sbb-wagon__list-title">Additional wagon information</p>
+                <ul aria-labelledby="sbb-wagon__list-title"></ul>
                 <span hidden>
                   <slot></slot>
                 </span>

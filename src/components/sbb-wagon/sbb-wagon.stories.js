@@ -23,7 +23,7 @@ const label = {
   },
 };
 
-const accessibilityLabelWagon = {
+const additionalAccessibilityText = {
   control: {
     type: 'text',
   },
@@ -32,34 +32,7 @@ const accessibilityLabelWagon = {
   },
 };
 
-const accessibilityAdditionalWagonText = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Wagon',
-  },
-};
-
-const accessibilityLabelOccupation = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Wagon',
-  },
-};
-
-const accessibilityLabelClass = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Wagon',
-  },
-};
-
-const accessibilityLabelIconListTitle = {
+const customAccessibilityLabel = {
   control: {
     type: 'text',
   },
@@ -103,11 +76,8 @@ const defaultArgTypes = {
   type,
   label,
   'wagon-class': wagonClass,
-  'accessibility-label-wagon': accessibilityLabelWagon,
-  'accessibility-additional-wagon-text': accessibilityAdditionalWagonText,
-  'accessibility-label-occupation': accessibilityLabelOccupation,
-  'accessibility-label-class': accessibilityLabelClass,
-  'accessibility-label-icon-list-title': accessibilityLabelIconListTitle,
+  'additional-accessibility-text': additionalAccessibilityText,
+  'custom-accessibility-label': customAccessibilityLabel,
 };
 
 const defaultArgs = {
@@ -115,10 +85,8 @@ const defaultArgs = {
   type: type.options[2],
   occupancy: occupancy.options[2],
   'wagon-class': wagonClass.options[1],
-  'accessibility-label-wagon': 'Train coach number ',
-  'accessibility-label-occupation': 'Expected occupancy low',
-  'accessibility-label-class': 'Second class',
-  'accessibility-label-icon-list-title': 'Additional wagon information',
+  'additional-accessibility-text': '',
+  'custom-accessibility-label': '',
 };
 
 export const wagon = Template.bind({});
@@ -140,7 +108,6 @@ locomotive.argTypes = defaultArgTypes;
 locomotive.args = {
   ...defaultArgs,
   type: type.options[0],
-  'accessibility-label-wagon': 'Locomotive',
 };
 locomotive.documentation = {
   title: 'Locomotive example',
@@ -151,7 +118,6 @@ closed.argTypes = defaultArgTypes;
 closed.args = {
   ...defaultArgs,
   type: type.options[1],
-  'accessibility-label-wagon': 'Passage blocked',
 };
 closed.documentation = {
   title: 'Closed wagon example',

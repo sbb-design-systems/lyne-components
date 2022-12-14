@@ -1,7 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-train-formation {...args}></sbb-train-formation>;
 const MountedFormationTemplate = (args) => (
   <sbb-train-formation {...args}>
     <sbb-train
@@ -19,7 +18,6 @@ const MountedFormationTemplate = (args) => (
           label="38"
           occupancy="low"
           blocked-passage="previous"
-          accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="1"
         >
           <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
@@ -37,22 +35,10 @@ const MountedFormationTemplate = (args) => (
         </sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector B">
-        <sbb-wagon
-          type="wagon"
-          label="39"
-          occupancy="unknown"
-          accessibility-label-icon-list-title="Additional wagon information"
-          wagon-class="1"
-        >
+        <sbb-wagon type="wagon" label="39" occupancy="unknown" wagon-class="1">
           <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
         </sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          label="40"
-          occupancy="high"
-          accessibility-label-icon-list-title="Additional wagon information"
-          wagon-class="2"
-        >
+        <sbb-wagon type="wagon" label="40" occupancy="high" wagon-class="2">
           <sbb-icon
             aria-hidden="false"
             aria-label="Restaurant 1st and 2nd class"
@@ -60,36 +46,16 @@ const MountedFormationTemplate = (args) => (
           ></sbb-icon>
           <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
         </sbb-wagon>
-        <sbb-wagon
-          type="wagon"
-          label="41"
-          occupancy="medium"
-          accessibility-label-icon-list-title="Additional wagon information"
-          wagon-class="2"
-        >
+        <sbb-wagon type="wagon" label="41" occupancy="medium" wagon-class="2">
           <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
         </sbb-wagon>
       </sbb-sector>
       <sbb-sector label="Sector C">
-        <sbb-wagon
-          type="wagon"
-          label="42"
-          occupancy="low"
-          accessibility-label-icon-list-title="Additional wagon information"
-          wagon-class="2"
-          blocked-passage="next"
-        >
+        <sbb-wagon type="wagon" label="42" occupancy="low" wagon-class="2" blocked-passage="next">
           <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
         </sbb-wagon>
         <sbb-wagon-blocked-passage />
-        <sbb-wagon
-          type="wagon"
-          label="43"
-          occupancy="low"
-          accessibility-label-icon-list-title="Additional wagon information"
-          wagon-class="2"
-          blocked-passage="previous"
-        >
+        <sbb-wagon type="wagon" label="43" occupancy="low" wagon-class="2" blocked-passage="both">
           <sbb-icon
             aria-hidden="false"
             aria-label="stroller space"
@@ -97,11 +63,12 @@ const MountedFormationTemplate = (args) => (
           ></sbb-icon>
           <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
         </sbb-wagon>
+        <sbb-wagon-blocked-passage />
         <sbb-wagon
+          blocked-passage="previous"
           type="wagon"
           label="44"
           occupancy="low"
-          accessibility-label-icon-list-title="Additional wagon information"
           wagon-class="2"
         >
           <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
@@ -160,11 +127,6 @@ const MountedFormationTemplate = (args) => (
     </sbb-train>
   </sbb-train-formation>
 );
-
-export const EmptyTrainFormation = Template.bind({});
-EmptyTrainFormation.documentation = {
-  title: 'Sbb-train-formation without any content',
-};
 
 export const TrainFormation = MountedFormationTemplate.bind({});
 TrainFormation.documentation = {

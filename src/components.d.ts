@@ -1741,10 +1741,6 @@ export namespace Components {
     }
     interface SbbWagon {
         /**
-          * Accessibility-text for translations as the list title for additional information icons on a wagon.
-         */
-        "accessibilityLabelIconListTitle": string;
-        /**
           * Additional accessibility text which will be appended to the constructed default text.
          */
         "additionalAccessibilityText": string;
@@ -4060,10 +4056,6 @@ declare namespace LocalJSX {
     interface SbbTrainFormation {
     }
     interface SbbWagon {
-        /**
-          * Accessibility-text for translations as the list title for additional information icons on a wagon.
-         */
-        "accessibilityLabelIconListTitle"?: string;
         /**
           * Additional accessibility text which will be appended to the constructed default text.
          */

@@ -9,7 +9,7 @@ It should refer to the section where the locomotive is placed.
 
 ```html
 
-<sbb-train direction-label="driving direction" station="Genève-Aéroport" direction="LEFT"
+<sbb-train direction-label="driving direction" station="Genève-Aéroport" direction="left"
            accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction.">
   ...
 </sbb-train>

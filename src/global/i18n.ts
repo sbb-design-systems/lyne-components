@@ -102,6 +102,13 @@ export const i18nBlockedPassage: any = {
   },
 };
 
+export const i18nAdditionalWagonInformationHeading: any = {
+  de: 'Zusätzliche Wagoninformation',
+  en: 'Additional wagon information',
+  fr: 'Informations supplémentaires sur les wagons',
+  it: 'Informazioni aggiuntive sul vagone',
+};
+
 export const i18nConnectionsDepartOn: any = {
   de: 'Abfahrten am',
   en: 'Departures on',

@@ -22,7 +22,6 @@ initially and on resize.
         type="wagon"
         label="38"
         occupancy="low"
-        accessibility-label-icon-list-title="Additional wagon information"
         wagon-class="1"
         blocked-passage="previous"
       >

@@ -7,10 +7,9 @@ import {
   i18nOccupancy,
   i18nBlockedPassage,
   i18nLocomotiveLabel,
+  i18nAdditionalWagonInformationHeading,
   i18nClosedCompartmentLabel,
 } from '../../global/i18n';
-
-let nextId = 0;
 
 /**
  * @slot unnamed - Used to slot one to x icons for meta information of the sbb-wagon.
@@ -28,7 +27,7 @@ export class SbbWagon {
   /** Occupancy of a wagon. */
   @Prop() public occupancy: InterfaceSbbWagonAttributes['occupancy'] = 'unknown';
 
-  /** Accessibility text for blocked passages of the wagon.*/
+  /** Accessibility text for blocked passages of the wagon. */
   @Prop() public blockedPassage: InterfaceSbbWagonAttributes['blockedPassage'] = 'none';
 
   /** Visible class label of a wagon. */
@@ -43,19 +42,17 @@ export class SbbWagon {
   /** Additional accessibility text which will be appended to the constructed default text. */
   @Prop() public additionalAccessibilityText = '';
 
-  /** Accessibility-text for translations as the list title for additional information icons on a wagon. */
-  @Prop() public accessibilityLabelIconListTitle = '';
-
   /** Slotted Sbb-icons. */
   @State() private _icons: HTMLSbbIconElement[];
 
   /** Host element. */
   @Element() private _element!: HTMLElement;
 
-  /** This id will be forwarded to the relevant inner element. */
-  private _iconListTitleId = `sbb-wagon-list-title-${++nextId}`;
+  /** Current document language */
+  private _language: string;
 
   public connectedCallback(): void {
+    this._language = getDocumentLang();
     this._readSlottedIcons();
   }
 
@@ -77,25 +74,24 @@ export class SbbWagon {
       return this.customAccessibilityLabel;
     }
 
-    const currentLanguage = getDocumentLang();
     let text = '';
     if (this.type === 'locomotive') {
-      text = `${i18nLocomotiveLabel[currentLanguage]}.`;
+      text = `${i18nLocomotiveLabel[this._language]}.`;
     } else if (this.type === 'closed') {
-      text = i18nClosedCompartmentLabel(parseInt(this.label))[currentLanguage];
+      text = i18nClosedCompartmentLabel(parseInt(this.label))[this._language];
     } else {
       // Wagon type text
-      text = `${i18nWagonLabel(parseInt(this.label))[currentLanguage]}`;
+      text = `${i18nWagonLabel(parseInt(this.label))[this._language]}`;
       // Class text
       text =
         this.wagonClass === '1'
-          ? `${text} ${i18nClass['first'][currentLanguage]}.`
-          : `${text} ${i18nClass['second'][currentLanguage]}.`;
+          ? `${text} ${i18nClass['first'][this._language]}.`
+          : `${text} ${i18nClass['second'][this._language]}.`;
       // Occupancy text
-      text = `${text} ${i18nOccupancy[this.occupancy][currentLanguage]}`;
+      text = `${text} ${i18nOccupancy[this.occupancy][this._language]}`;
       // Blocked passage
       if (this.blockedPassage !== 'none') {
-        text = `${text} ${i18nBlockedPassage[this.blockedPassage][currentLanguage]}`;
+        text = `${text} ${i18nBlockedPassage[this.blockedPassage][this._language]}`;
       }
     }
     // Additional text like e.g. "Top/End of the train"-hint
@@ -147,10 +143,10 @@ export class SbbWagon {
         </div>
         {this.type === 'wagon' && (
           <div class="sbb-wagon__icons">
-            <p aria-hidden="true" id={this._iconListTitleId}>
-              {this.accessibilityLabelIconListTitle}
+            <p aria-hidden="true" id="sbb-wagon__list-title">
+              {i18nAdditionalWagonInformationHeading[this._language]}
             </p>
-            <ul aria-labelledby={this._iconListTitleId}>
+            <ul aria-labelledby="sbb-wagon__list-title">
               {this._icons.map((_, index) => (
                 <li>
                   <slot
