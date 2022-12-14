@@ -208,6 +208,14 @@ export const sbbTimeInputInFormField = TemplateSbbTimeInputInFormField.bind({});
 sbbTimeInputInFormField.argTypes = { ...formFieldBasicArgsTypes };
 sbbTimeInputInFormField.args = { ...formFieldBasicArgs };
 
+export const sbbTimeInputInFormFieldWithIcons = TemplateSbbTimeInputInFormField.bind({});
+sbbTimeInputInFormFieldWithIcons.argTypes = { ...formFieldBasicArgsTypes };
+sbbTimeInputInFormFieldWithIcons.args = {
+  ...formFieldBasicArgs,
+  iconStart: 'clock-small',
+  iconEnd: 'circle-information-small',
+};
+
 export default {
   decorators: [
     (Story) => (

@@ -4,10 +4,6 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-:host {
-  --some-color-var: var(--color-black-default);
-}
-
-.some-class {
-  color: var(--some-color-var);
+input {
+  @include sbb.button-reset;
 }
