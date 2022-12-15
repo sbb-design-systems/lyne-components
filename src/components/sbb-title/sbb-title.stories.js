@@ -39,7 +39,6 @@ const defaultArgTypes = {
 const defaultArgs = {
   level: 1,
   text: 'Data without insights are trivial, and insights without action are pointless',
-  'title-id': '',
   negative: false,
   'visual-level': 1,
   'visually-hidden': false,

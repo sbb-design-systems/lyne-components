@@ -9,8 +9,6 @@ import {
   resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 
-let nextId = 0;
-
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
  * @slot icon - Use this slot to provide an icon. If `icon` is set, an sbb-icon will be used.
@@ -21,9 +19,6 @@ let nextId = 0;
   tag: 'sbb-menu-action',
 })
 export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
-  /** This id will be forwarded to the relevant inner element. */
-  @Prop() public menuActionId = `sbb-menu-action-${++nextId}`;
-
   /**
    * The name of the icon, choose from the small icon variants
    * from the ui-icons category from here
@@ -62,13 +57,6 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   @Prop() public form?: string;
 
   /**
-   * When an interaction of this button has an impact on another element(s) in the document, the id
-   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
-   * to the relevant nested element.
-   */
-  @Prop() public accessibilityControls: string | undefined;
-
-  /**
    * If you use the button to trigger another widget which itself is covering
    * the page, you must provide an according attribute for aria-haspopup.
    */
@@ -76,12 +64,6 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   @Element() private _element: HTMLElement;
 
@@ -113,7 +95,6 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
-        id={this.menuActionId}
         class="sbb-menu-action"
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}

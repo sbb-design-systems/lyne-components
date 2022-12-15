@@ -70,7 +70,6 @@ const defaultArgs = {
   appearance: appearance.options[0],
   destination: 'Loèche-les-Bains',
   'is-round-trip': false,
-  'journey-header-id': '',
   markup: 'h1',
   origin: 'La Chaux de Fonds',
   size: 5,

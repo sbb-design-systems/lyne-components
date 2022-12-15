@@ -96,25 +96,7 @@ const rel = {
   },
 };
 
-const cardId = {
-  control: {
-    type: 'text',
-  },
-};
-
 const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
   control: {
     type: 'text',
   },
@@ -164,10 +146,7 @@ const basicArgTypes = {
   download,
   target,
   rel,
-  'card-id': cardId,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
   name,
   type,
   form,
@@ -182,10 +161,7 @@ const basicArgs = {
   download: false,
   target: '_blank',
   rel: undefined,
-  'card-id': undefined,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
   name: undefined,
   type: undefined,
   form: undefined,

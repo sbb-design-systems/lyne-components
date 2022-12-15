@@ -64,7 +64,7 @@ associates this label with the field's form element via a native <label> element
 attribute to reference the control's ID.
 
 When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds
-these elements' IDs to the form element's aria-describedby attribute. Additionally,
+these elements' IDs to the form element's aria-describedby attribute. Additionally, 
 `<sbb-form-error>` applies aria-live="polite" by default such that assistive technology will
 announce errors when they appear.
 

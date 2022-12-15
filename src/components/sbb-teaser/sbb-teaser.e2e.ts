@@ -7,6 +7,7 @@ describe('sbb-teaser', () => {
     page = await newE2EPage();
     await page.setContent('<sbb-teaser href="link">Teaser content</sbb-teaser>');
     const teaserHero = await page.find('sbb-teaser >>> .sbb-teaser');
+
     const changeSpy = await teaserHero.spyOnEvent('click');
 
     element = await page.find('sbb-teaser');
@@ -19,9 +20,13 @@ describe('sbb-teaser', () => {
 
   it('should forward host focus event to action element', async () => {
     page = await newE2EPage();
-    await page.setContent(
-      '<sbb-teaser href="link" id="outer-id" teaser-id="inner-id">Teaser content</sbb-teaser>'
+    await page.setContent('<sbb-teaser href="link" id="outer-id">Teaser content</sbb-teaser>');
+
+    // Set id of the inner-button for later comparing of active element
+    await page.evaluate(
+      () => (document.getElementById('outer-id').shadowRoot.querySelector('a').id = 'inner-id')
     );
+
     element = await page.find('sbb-teaser');
     const link = await page.find('sbb-teaser >>> .sbb-teaser');
 

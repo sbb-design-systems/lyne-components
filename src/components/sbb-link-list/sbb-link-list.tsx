@@ -7,17 +7,12 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 
-let nextId = 0;
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-link-list.scss',
   tag: 'sbb-link-list',
 })
 export class SbbLinkList implements ComponentInterface {
-  /** This id will be forwarded to the relevant inner element. */
-  @Prop() public titleId = `sbb-link-list-title-${++nextId}`;
-
   /** The title text we want to show before the list. */
   @Prop() public titleContent?: string;
 
@@ -68,10 +63,9 @@ export class SbbLinkList implements ComponentInterface {
 
     if (this._namedSlots.title || this.titleContent) {
       ariaLabelledByAttribute = {
-        'aria-labelledby': this.titleId,
+        'aria-labelledby': 'sbb-link-list-title-id',
       };
     }
-
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
@@ -81,7 +75,7 @@ export class SbbLinkList implements ComponentInterface {
             level={this.titleLevel}
             visual-level="5"
             negative={this.negative}
-            title-id={this.titleId}
+            id="sbb-link-list-title-id"
             class="sbb-link-list-title"
           >
             <slot name="title">{this.titleContent}</slot>

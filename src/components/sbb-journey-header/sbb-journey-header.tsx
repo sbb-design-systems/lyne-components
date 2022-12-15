@@ -35,14 +35,6 @@ export class SbbJourneyHeader {
   /** Journey header size */
   @Prop() public size?: InterfaceJourneyHeaderAttributes['size'] = '5';
 
-  /**
-   * A11y Tip:
-   * Sometimes we need to set an id, especially if we want to associate
-   * a relationship with another element through the use of aria-labelledby
-   * or aria-describedby or just offer an anchor target
-   */
-  @Prop() public journeyHeaderId?: '';
-
   public render(): JSX.Element {
     const journeyIcon = this.isRoundTrip ? iconRoundTrip : iconOneWay;
 
@@ -65,10 +57,6 @@ export class SbbJourneyHeader {
     const attrs = {
       class: className,
     };
-
-    if (this.journeyHeaderId && this.journeyHeaderId !== '') {
-      attrs['id'] = this.journeyHeaderId;
-    }
 
     return (
       <TAGNAME {...attrs} dir={currentWritingMode}>

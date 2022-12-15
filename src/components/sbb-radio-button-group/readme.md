@@ -52,16 +52,15 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 
 ## Properties
 
-| Property              | Attribute               | Description                                               | Type                                                                       | Default                                |
-| --------------------- | ----------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------- |
-| `allowEmptySelection` | `allow-empty-selection` | Whether the radios can be deselected.                     | `boolean`                                                                  | `false`                                |
-| `disabled`            | `disabled`              | Whether the radio group is disabled.                      | `boolean`                                                                  | `false`                                |
-| `horizontalFrom`      | `horizontal-from`       | Overrides the behaviour of `orientation` property.        | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`                            |
-| `orientation`         | `orientation`           | Radio group's orientation, either horizontal or vertical. | `"horizontal" \| "vertical"`                                               | `'horizontal'`                         |
-| `radioButtonGroupId`  | `radio-button-group-id` | Id of the radio group element.                            | `string`                                                                   | ``sbb-radio-button-group-${++nextId}`` |
-| `required`            | `required`              | Whether the radio group is required.                      | `boolean`                                                                  | `false`                                |
-| `size`                | `size`                  | Size variant, either m or s.                              | `"m" \| "s"`                                                               | `'m'`                                  |
-| `value`               | `value`                 | The value of the radio group.                             | `any`                                                                      | `undefined`                            |
+| Property              | Attribute               | Description                                               | Type                                                                       | Default        |
+| --------------------- | ----------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
+| `allowEmptySelection` | `allow-empty-selection` | Whether the radios can be deselected.                     | `boolean`                                                                  | `false`        |
+| `disabled`            | `disabled`              | Whether the radio group is disabled.                      | `boolean`                                                                  | `false`        |
+| `horizontalFrom`      | `horizontal-from`       | Overrides the behaviour of `orientation` property.        | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`    |
+| `orientation`         | `orientation`           | Radio group's orientation, either horizontal or vertical. | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
+| `required`            | `required`              | Whether the radio group is required.                      | `boolean`                                                                  | `false`        |
+| `size`                | `size`                  | Size variant, either m or s.                              | `"m" \| "s"`                                                               | `'m'`          |
+| `value`               | `value`                 | The value of the radio group.                             | `any`                                                                      | `undefined`    |
 
 
 ## Events

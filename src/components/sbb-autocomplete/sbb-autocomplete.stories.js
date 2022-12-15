@@ -35,15 +35,6 @@ const eventId = {
   },
 };
 
-const autocompleteId = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Autocomplete',
-  },
-};
-
 const inputBorderless = {
   control: {
     type: 'boolean',
@@ -108,7 +99,6 @@ const minChars = {
 };
 
 const defaultArgTypes = {
-  'autocomplete-id': autocompleteId,
   'event-id': eventId,
   'input-borderless': inputBorderless,
   'input-debounceTimeout': inputDebounceTimeout,
@@ -123,7 +113,6 @@ const defaultArgTypes = {
 
 // ---- DefaultArgs
 const defaultArgs = {
-  'autocomplete-id': 'sample-id',
   'event-id': 'sample-id',
   'input-borderless': true,
   'input-debounceTimeout': 200,

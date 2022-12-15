@@ -5,7 +5,14 @@ describe('sbb-link', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-link id="outer-id" link-id="inner-id">Link as Button</sbb-link>');
+    await page.setContent('<sbb-link id="outer-id">Link as Button</sbb-link>');
+
+    // Set id of the inner-button for later comparing of active element
+    await page.evaluate(
+      () =>
+        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
+    );
+
     element = await page.find('sbb-link');
   });
 

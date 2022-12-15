@@ -19,8 +19,6 @@ import {
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
-let nextId = 0;
-
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
  * @slot error - Slot used to render the <sbb-form-error> inside the <sbb-checkbox-group>.
@@ -32,11 +30,6 @@ let nextId = 0;
   tag: 'sbb-checkbox-group',
 })
 export class SbbCheckboxGroup implements ComponentInterface {
-  /**
-   * Id of the checkbox group element.
-   */
-  @Prop() public checkboxGroupId = `sbb-checkbox-group-${++nextId}`;
-
   /**
    * Whether the checkbox group is disabled.
    */

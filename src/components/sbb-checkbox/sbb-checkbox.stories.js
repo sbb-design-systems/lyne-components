@@ -68,18 +68,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   size,
   checked,
@@ -90,8 +78,6 @@ const defaultArgTypes = {
   'icon-name': icon,
   'icon-placement': iconPlacement,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -104,8 +90,6 @@ const defaultArgs = {
   'icon-name': undefined,
   'icon-placement': undefined,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 /* ************************************************* */

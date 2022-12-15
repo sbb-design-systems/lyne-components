@@ -69,12 +69,6 @@ const isStatic = {
   control: { type: 'boolean' },
 };
 
-const linkId = {
-  control: {
-    type: 'text',
-  },
-};
-
 const iconName = {
   control: {
     type: 'text',
@@ -176,15 +170,6 @@ const form = {
   },
 };
 
-const accessibilityControls = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const accessibilityHaspopup = {
   control: {
     type: 'text',
@@ -200,25 +185,12 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   variant,
   negative,
   'text-size': textSize,
   static: isStatic,
-  'link-id': linkId,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
   href,
@@ -230,11 +202,8 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-controls': accessibilityControls,
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -243,7 +212,6 @@ const defaultArgs = {
   negative: false,
   'text-size': textSize.options[1],
   static: false,
-  'link-id': undefined,
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',
@@ -255,11 +223,8 @@ const defaultArgs = {
   name: 'Button name',
   value: undefined,
   form: undefined,
-  'accessibility-controls': undefined,
   'accessibility-haspopup': undefined,
   'accessibility-label': 'Travelcards & tickets',
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 /* ************************************************* */

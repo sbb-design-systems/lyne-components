@@ -11,8 +11,8 @@ describe('sbb-alert-group', () => {
     const page = await newE2EPage();
     await page.setContent(`
   <sbb-alert-group id='${alertGroupId}' accessibility-title='${accessibilityTitle}' accessibility-title-level='${accessibilityTitleLevel}'>
-    <sbb-alert title-content='Interruption' id='alert1' href='www.sbb.ch'>First</sbb-alert>
-    <sbb-alert title-content='Interruption' id='alert2' href='www.sbb.ch'>Second</sbb-alert>
+    <sbb-alert title-content='Interruption' href='www.sbb.ch'>First</sbb-alert>
+    <sbb-alert title-content='Interruption' href='www.sbb.ch'>Second</sbb-alert>
   </sbb-alert-group>
 `);
     const didDismissAlertSpy = await page.spyOnEvent(events.didDismissAlert);

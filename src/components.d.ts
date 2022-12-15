@@ -52,10 +52,6 @@ import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sb
 export namespace Components {
     interface SbbAccordion {
         /**
-          * Use the aria-labelledby to reference to an id of a title outside of the accordion. That way we can improve the context for the screenreader users. When the first button in the accordion receives focus, the referenced title is also spoken out by the screenreader.
-         */
-        "ariaLabelledby"?: string;
-        /**
           * Set this if you want to use the accordion on a non-white background.
          */
         "nonWhiteBackground"?: boolean;
@@ -102,17 +98,9 @@ export namespace Components {
     }
     interface SbbAlert {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the fade in animation should be disabled.
          */
@@ -125,10 +113,6 @@ export namespace Components {
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
-        /**
-          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
-         */
-        "internalId": string;
         /**
           * Content of the link.
          */
@@ -177,10 +161,6 @@ export namespace Components {
         "role": InterfaceSbbAlertGroupAttributes['role'];
     }
     interface SbbAutocomplete {
-        /**
-          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
-         */
-        "autocompleteId"?: string;
         /**
           * Id which is sent as the id in the eventDetail payload when a value is selected
          */
@@ -246,14 +226,6 @@ export namespace Components {
     }
     interface SbbButton {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -261,14 +233,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "buttonId"?: string;
         /**
           * Whether the button is disabled.
          */
@@ -328,25 +292,13 @@ export namespace Components {
     }
     interface SbbCard {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Used to set the component's active state.
          */
         "active": boolean;
-        /**
-          * Id used to identify the inner element.
-         */
-        "cardId"?: string;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -390,17 +342,9 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Badge appearance
          */
@@ -424,17 +368,9 @@ export namespace Components {
     }
     interface SbbCardProduct {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * CardProduct appearance
          */
@@ -443,10 +379,6 @@ export namespace Components {
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
-        /**
-          * The ID value you want to reference
-         */
-        "cardProductId"?: string;
         /**
           * Id which is sent in the click event payload
          */
@@ -482,21 +414,9 @@ export namespace Components {
     }
     interface SbbCheckbox {
         /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "checkboxId": string;
         /**
           * Whether the checkbox is checked.
          */
@@ -531,10 +451,6 @@ export namespace Components {
         "value"?: string;
     }
     interface SbbCheckboxGroup {
-        /**
-          * Id of the checkbox group element.
-         */
-        "checkboxGroupId": string;
         /**
           * Whether the checkbox group is disabled.
          */
@@ -576,25 +492,13 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
-        /**
           * Closes the dialog element.
          */
         "close": (result?: any, target?: HTMLElement) => Promise<any>;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "dialogId": string;
         /**
           * Whether the animation is enabled.
          */
@@ -615,10 +519,6 @@ export namespace Components {
           * Dialog title.
          */
         "titleContent": string;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId": string;
         /**
           * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
@@ -694,14 +594,6 @@ export namespace Components {
     }
     interface SbbHeaderAction {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -709,10 +601,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -725,10 +613,6 @@ export namespace Components {
           * Form attribute if component is displayed as a button.
          */
         "form"?: string;
-        /**
-          * Action element's id.
-         */
-        "headerActionId": string;
         /**
           * The href value you want to link to (if it is not present sbb-header-action becomes a button).
          */
@@ -861,10 +745,6 @@ export namespace Components {
          */
         "isRoundTrip"?: boolean;
         /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "journeyHeaderId"?: '';
-        /**
           * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
          */
         "markup"?: InterfaceJourneyHeaderAttributes['markup'];
@@ -889,14 +769,6 @@ export namespace Components {
     }
     interface SbbLink {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -904,10 +776,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the button is disabled.
          */
@@ -936,10 +804,6 @@ export namespace Components {
           * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
          */
         "isStatic": boolean;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "linkId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -991,10 +855,6 @@ export namespace Components {
          */
         "titleContent"?: string;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId": string;
-        /**
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes1['level'];
@@ -1029,14 +889,6 @@ export namespace Components {
     }
     interface SbbMenuAction {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls": string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -1044,10 +896,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Value shown as badge at component end.
          */
@@ -1072,10 +920,6 @@ export namespace Components {
           * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string | undefined;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "menuActionId": string;
         /**
           * The name attribute to use for the button.
          */
@@ -1170,10 +1014,6 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "radioButtonId": string;
-        /**
           * Whether the radio button is required.
          */
         "required": boolean;
@@ -1205,10 +1045,6 @@ export namespace Components {
          */
         "orientation": InterfaceSbbRadioButtonGroupAttributes['orientation'];
         /**
-          * Id of the radio group element.
-         */
-        "radioButtonGroupId": string;
-        /**
           * Whether the radio group is required.
          */
         "required": boolean;
@@ -1239,17 +1075,9 @@ export namespace Components {
     }
     interface SbbSlider {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Disabled state for the inner HTMLInputElement.
          */
@@ -1376,17 +1204,9 @@ export namespace Components {
     }
     interface SbbTeaser {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -1404,27 +1224,15 @@ export namespace Components {
          */
         "target"?: LinkTargetType | string | undefined;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "teaserId": string;
-        /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel": InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
-          * This will be forwarded as aria-describedby to the anchor tag.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to anchor tag.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the anchor tag.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -1449,10 +1257,6 @@ export namespace Components {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Pass in an id, if you need to identify the inner link element.
-         */
-        "teaserHeroId"?: string;
     }
     interface SbbTimetable {
     }
@@ -1619,10 +1423,6 @@ export namespace Components {
          */
         "negative"?: boolean;
         /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "titleId": string;
-        /**
           * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
@@ -1633,17 +1433,9 @@ export namespace Components {
     }
     interface SbbToggleCheck {
         /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
@@ -1656,10 +1448,6 @@ export namespace Components {
           * The svg name for the true state - default -> 'tick-small'
          */
         "icon": string;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "inputId": string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
@@ -2222,10 +2010,6 @@ declare global {
 declare namespace LocalJSX {
     interface SbbAccordion {
         /**
-          * Use the aria-labelledby to reference to an id of a title outside of the accordion. That way we can improve the context for the screenreader users. When the first button in the accordion receives focus, the referenced title is also spoken out by the screenreader.
-         */
-        "ariaLabelledby"?: string;
-        /**
           * Set this if you want to use the accordion on a non-white background.
          */
         "nonWhiteBackground"?: boolean;
@@ -2272,17 +2056,9 @@ declare namespace LocalJSX {
     }
     interface SbbAlert {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the fade in animation should be disabled.
          */
@@ -2295,10 +2071,6 @@ declare namespace LocalJSX {
           * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
-        /**
-          * With this way of handling the id we deviate from the recommended way that the host id is set with assignId(). This exception was made because the id must be used with the close button and therefore a reference must exist.
-         */
-        "internalId"?: string;
         /**
           * Content of the link.
          */
@@ -2364,10 +2136,6 @@ declare namespace LocalJSX {
     }
     interface SbbAutocomplete {
         /**
-          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
-         */
-        "autocompleteId"?: string;
-        /**
           * Id which is sent as the id in the eventDetail payload when a value is selected
          */
         "eventId"?: string;
@@ -2432,14 +2200,6 @@ declare namespace LocalJSX {
     }
     interface SbbButton {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -2447,14 +2207,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "buttonId"?: string;
         /**
           * Whether the button is disabled.
          */
@@ -2514,25 +2266,13 @@ declare namespace LocalJSX {
     }
     interface SbbCard {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Used to set the component's active state.
          */
         "active"?: boolean;
-        /**
-          * Id used to identify the inner element.
-         */
-        "cardId"?: string;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -2576,17 +2316,9 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Badge appearance
          */
@@ -2610,17 +2342,9 @@ declare namespace LocalJSX {
     }
     interface SbbCardProduct {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * CardProduct appearance
          */
@@ -2629,10 +2353,6 @@ declare namespace LocalJSX {
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
-        /**
-          * The ID value you want to reference
-         */
-        "cardProductId"?: string;
         /**
           * Id which is sent in the click event payload
          */
@@ -2668,21 +2388,9 @@ declare namespace LocalJSX {
     }
     interface SbbCheckbox {
         /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "checkboxId"?: string;
         /**
           * Whether the checkbox is checked.
          */
@@ -2721,10 +2429,6 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface SbbCheckboxGroup {
-        /**
-          * Id of the checkbox group element.
-         */
-        "checkboxGroupId"?: string;
         /**
           * Whether the checkbox group is disabled.
          */
@@ -2766,21 +2470,9 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "dialogId"?: string;
         /**
           * Whether the animation is enabled.
          */
@@ -2817,10 +2509,6 @@ declare namespace LocalJSX {
           * Dialog title.
          */
         "titleContent"?: string;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId"?: string;
         /**
           * Level of title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
          */
@@ -2896,14 +2584,6 @@ declare namespace LocalJSX {
     }
     interface SbbHeaderAction {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -2911,10 +2591,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -2927,10 +2603,6 @@ declare namespace LocalJSX {
           * Form attribute if component is displayed as a button.
          */
         "form"?: string;
-        /**
-          * Action element's id.
-         */
-        "headerActionId"?: string;
         /**
           * The href value you want to link to (if it is not present sbb-header-action becomes a button).
          */
@@ -3063,10 +2735,6 @@ declare namespace LocalJSX {
          */
         "isRoundTrip"?: boolean;
         /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "journeyHeaderId"?: '';
-        /**
           * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
          */
         "markup"?: InterfaceJourneyHeaderAttributes['markup'];
@@ -3091,14 +2759,6 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -3106,10 +2766,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the button is disabled.
          */
@@ -3138,10 +2794,6 @@ declare namespace LocalJSX {
           * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
          */
         "isStatic"?: boolean;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "linkId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -3193,10 +2845,6 @@ declare namespace LocalJSX {
          */
         "titleContent"?: string;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "titleId"?: string;
-        /**
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes1['level'];
@@ -3239,14 +2887,6 @@ declare namespace LocalJSX {
     }
     interface SbbMenuAction {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls"?: string | undefined;
-        /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -3254,10 +2894,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Value shown as badge at component end.
          */
@@ -3282,10 +2918,6 @@ declare namespace LocalJSX {
           * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string | undefined;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "menuActionId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -3380,10 +3012,6 @@ declare namespace LocalJSX {
          */
         "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "radioButtonId"?: string;
-        /**
           * Whether the radio button is required.
          */
         "required"?: boolean;
@@ -3423,10 +3051,6 @@ declare namespace LocalJSX {
          */
         "orientation"?: InterfaceSbbRadioButtonGroupAttributes['orientation'];
         /**
-          * Id of the radio group element.
-         */
-        "radioButtonGroupId"?: string;
-        /**
           * Whether the radio group is required.
          */
         "required"?: boolean;
@@ -3457,17 +3081,9 @@ declare namespace LocalJSX {
     }
     interface SbbSlider {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Disabled state for the inner HTMLInputElement.
          */
@@ -3587,17 +3203,9 @@ declare namespace LocalJSX {
     }
     interface SbbTeaser {
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
         "accessibilityLabel": string;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -3615,27 +3223,15 @@ declare namespace LocalJSX {
          */
         "target"?: LinkTargetType | string | undefined;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "teaserId"?: string;
-        /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
         "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
     }
     interface SbbTeaserHero {
         /**
-          * This will be forwarded as aria-describedby to the anchor tag.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to anchor tag.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the anchor tag.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -3660,10 +3256,6 @@ declare namespace LocalJSX {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Pass in an id, if you need to identify the inner link element.
-         */
-        "teaserHeroId"?: string;
     }
     interface SbbTimetable {
     }
@@ -3830,10 +3422,6 @@ declare namespace LocalJSX {
          */
         "negative"?: boolean;
         /**
-          * A11y Tip: Sometimes we need to set an id, especially if we want to associate a relationship with another element through the use of aria-labelledby or aria-describedby or just offer an anchor target
-         */
-        "titleId"?: string;
-        /**
           * Visual level for the title. Optional, if not set, the value of level will be used.
          */
         "visualLevel"?: InterfaceTitleAttributes['visualLevel'];
@@ -3844,17 +3432,9 @@ declare namespace LocalJSX {
     }
     interface SbbToggleCheck {
         /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the toggle-check is checked.
          */
@@ -3867,10 +3447,6 @@ declare namespace LocalJSX {
           * The svg name for the true state - default -> 'tick-small'
          */
         "icon"?: string;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "inputId"?: string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */

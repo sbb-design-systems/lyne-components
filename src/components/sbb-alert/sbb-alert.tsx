@@ -15,8 +15,6 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
-let nextId = 0;
-
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Title content.
@@ -28,18 +26,6 @@ let nextId = 0;
   tag: 'sbb-alert',
 })
 export class SbbAlert implements ComponentInterface, LinkProperties {
-  /**
-   * With this way of handling the id we deviate from the recommended way
-   * that the host id is set with assignId(). This exception was made because the id must
-   * be used with the close button and therefore a reference must exist.
-   * @internal
-   */
-  @Prop({
-    attribute: 'id',
-    reflect: true,
-  })
-  public internalId = `sbb-alert-${++nextId}`;
-
   /**
    * Whether the alert is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
@@ -79,12 +65,6 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   /** Emits when the fade in animation starts. */
   @Event({
@@ -181,8 +161,6 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   private _linkProperties(): Record<string, string> {
     return {
       ['accessibility-label']: this.accessibilityLabel,
-      ['accessibility-describedby']: this.accessibilityDescribedby,
-      ['accessibility-labelledby']: this.accessibilityLabelledby,
       href: this.href,
       rel: this.rel,
       target: this.target,
@@ -238,7 +216,6 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
                 icon-name="cross-small"
                 onClick={() => this.requestDismissal()}
                 accessibility-label={i18nCloseAlert[this._currentLanguage]}
-                accessibility-controls={this.internalId}
                 class="sbb-alert__close-button"
               />
             </span>

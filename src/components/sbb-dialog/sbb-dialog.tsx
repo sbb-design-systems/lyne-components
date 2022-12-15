@@ -31,25 +31,12 @@ import { hostContext } from '../../global/helpers/host-context';
  * @slot action-group - Use this slot to display an action group in the footer.
  */
 
-let nextId = 0;
-let nextTitleId = 0;
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-dialog.scss',
   tag: 'sbb-dialog',
 })
 export class SbbDialog implements ComponentInterface, AccessibilityProperties {
-  /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public dialogId = `sbb-dialog-${++nextId}`;
-
-  /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public titleId = `sbb-dialog-title-${++nextTitleId}`;
-
   /**
    * Dialog title.
    */
@@ -74,16 +61,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
    * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * This will be forwarded as aria-label to the close button element.
@@ -343,7 +320,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       <sbb-button
         class="sbb-dialog__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
-        accessibility-controls={this.dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
@@ -375,7 +351,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
             level={this.titleLevel}
             visual-level="3"
             negative={this.negative}
-            title-id={this.titleId}
           >
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
@@ -400,10 +375,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       >
         <dialog
           ref={(dialogRef) => (this._dialog = dialogRef)}
-          id={this.dialogId}
           aria-label={this.accessibilityLabel}
-          aria-describedby={this.accessibilityDescribedby}
-          aria-labelledby={this.accessibilityLabelledby || this.titleId}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
         >

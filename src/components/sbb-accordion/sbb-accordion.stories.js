@@ -110,7 +110,6 @@ Default.argTypes = {
 };
 
 Default.args = {
-  'aria-labelledby': '',
   items,
   'non-white-background': false,
   'only-one-open': false,
@@ -134,7 +133,6 @@ NonWhiteBackground.argTypes = {
 };
 
 NonWhiteBackground.args = {
-  'aria-labelledby': '',
   items,
   'non-white-background': true,
   'only-one-open': true,
@@ -158,7 +156,6 @@ OnlyOneOpen.argTypes = {
 };
 
 OnlyOneOpen.args = {
-  'aria-labelledby': '',
   items,
   'non-white-background': false,
   'only-one-open': true,

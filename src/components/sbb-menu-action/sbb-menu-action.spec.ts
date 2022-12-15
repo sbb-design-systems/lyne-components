@@ -6,16 +6,16 @@ describe('sbb-menu-action', () => {
     const { root } = await newSpecPage({
       components: [SbbMenuAction],
       html: `
-        <sbb-menu-action form="formid" name="name" type="submit" accessibility-controls="id" accessibility-haspopup="true">
+        <sbb-menu-action form="formid" name="name" type="submit" accessibility-haspopup="true">
           <span>Action</span>
         </sbb-menu-action>
       `,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-menu-action form="formid" name="name" type="submit" accessibility-controls="id" accessibility-haspopup="true">
+        <sbb-menu-action form="formid" name="name" type="submit" accessibility-haspopup="true">
           <mock:shadow-root>
-            <button class="sbb-menu-action" dir="ltr" id="sbb-menu-action-1" form="formid" name="name" type="submit" aria-controls="id" aria-haspopup="true">
+            <button aria-haspopup="true" class="sbb-menu-action" dir="ltr" form="formid" name="name" type="submit">
               <span class="sbb-menu-action__content">
                 <span class="sbb-menu-action__icon">
                   <slot name="icon"></slot>
@@ -44,7 +44,7 @@ describe('sbb-menu-action', () => {
     expect(root).toEqualHtml(`
         <sbb-menu-action amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
           <mock:shadow-root>
-            <a class="sbb-menu-action" dir="ltr" id="sbb-menu-action-2" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
+            <a class="sbb-menu-action" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
               <span class="sbb-menu-action__content">
                 <span class="sbb-menu-action__icon">
                   <slot name="icon">
