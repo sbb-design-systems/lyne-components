@@ -2,6 +2,12 @@ import events from './sbb-time-input.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const changeEventHandler = (event) => {
+  const div = document.createElement('div');
+  div.innerText = `value is: ${event.target.value}; valueAsDate is: ${event.target.valueAsDate}.`;
+  document.getElementById('container-value').append(div);
+};
+
 const value = {
   control: {
     type: 'text',
@@ -162,7 +168,7 @@ const formFieldBasicArgsTypes = {
 
 const basicArgs = {
   value: '12:00',
-  'value-as-date': new Date(new Date(0).setHours(12, 0)),
+  'value-as-date': new Date(new Date(0).setHours(12, 0, 0)),
   form: undefined,
   disabled: false,
   readonly: false,
@@ -182,7 +188,11 @@ const formFieldBasicArgs = {
   iconEnd: undefined,
 };
 
-const TemplateSbbTimeInput = (args) => <sbb-time-input {...args}></sbb-time-input>;
+const TemplateSbbTimeInput = (args) => [
+  <sbb-time-input {...args} onChange={(event) => changeEventHandler(event)}></sbb-time-input>,
+  <div style="margin-block-start: 1rem;">Change time:</div>,
+  <div id="container-value"></div>,
+];
 
 const TemplateSbbTimeInputInFormField = ({
   label,

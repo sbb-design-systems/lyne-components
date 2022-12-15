@@ -11,6 +11,10 @@ import {
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
+const REGEX_PATTERN = /[0-9]{3,4}/;
+const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})[.:,\-;_hH]?([0-9]{1,2})?/;
+const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-time-input.scss',
@@ -18,10 +22,10 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
 })
 export class SbbTimeInput implements ComponentInterface, AccessibilityProperties {
   /** Value for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public value?: string = '';
+  @Prop() public value?: string = '';
 
   /** Date value with the given time for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public valueAsDate?: Date;
+  @Prop() public valueAsDate?: Date;
 
   /** The <form> element to associate the inner HTMLInputElement with. */
   @Prop() public form?: string;
@@ -54,14 +58,64 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
 
   private _placeholder = 'HH:MM';
 
-  private _inputElement(): HTMLElement {
+  private _inputElement(): HTMLInputElement {
     return this._element.shadowRoot.querySelector('input');
+  }
+
+  private _updateValueAndEmitChange(event): void {
+    this._updateValue(event.target.value);
+    this._emitChange(event);
+  }
+
+  private _formatValue(value: string): string {
+    const regGroups = this._validateInput(value);
+    if (!regGroups || regGroups.length <= 2) {
+      return null;
+    }
+
+    const hours = this._parseHour(regGroups[1]);
+    const minutes = this._parseMinute(regGroups[2]);
+    return `${hours}:${minutes}`;
+  }
+
+  private _formatValueAsDate(value: string): Date {
+    const regGroups = this._validateInput(value);
+    if (!regGroups || regGroups.length <= 2) {
+      return null;
+    }
+
+    return new Date(new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0));
+  }
+
+  private _updateValue(value: string): void {
+    this.value = this._formatValue(value);
+    this.valueAsDate = this._formatValueAsDate(value);
   }
 
   /** Emits the change event. */
   private _emitChange(event): void {
     forwardEventToHost(event, this._element);
     this.didChange.emit();
+  }
+
+  private _validateInput(value: string): RegExpMatchArray {
+    if (REGEX_PATTERN.test(value)) {
+      // special case: the input is 3 or 4 digits; split like so: AB?:CD
+      return value.match(REGEX_GROUPS_WO_COLON);
+    } else if (value) {
+      return value.match(REGEX_GROUPS_WITH_COLON);
+    } else {
+      return null;
+    }
+  }
+
+  private _parseHour(regGroupHours: string): string {
+    return regGroupHours.length > 1 ? regGroupHours : '0' + regGroupHours;
+  }
+
+  private _parseMinute(regGroupMin: string): string {
+    regGroupMin = regGroupMin || '00';
+    return regGroupMin.length > 1 ? regGroupMin : '0' + regGroupMin;
   }
 
   public connectedCallback(): void {
@@ -75,8 +129,8 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       disabled: this.disabled || null,
       readonly: this.readonly || null,
       required: this.required || null,
-      valueAsDate: this.valueAsDate || null,
-      value: this.value || null,
+      valueAsDate: this._formatValueAsDate(this.value) || null,
+      value: this._formatValue(this.value) || null,
       placeholder: this._placeholder,
       'aria-label': this.accessibilityLabel || null,
       'aria-describedby': this.accessibilityDescribedby || null,
@@ -86,7 +140,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       <input
         type="text"
         {...inputAttributes}
-        onChange={(event: Event) => this._emitChange(event)}
+        onChange={(event: Event) => this._updateValueAndEmitChange(event)}
       />
     );
   }
