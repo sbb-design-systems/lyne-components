@@ -132,12 +132,7 @@ export class SbbTimetableRow {
     const himCus = this.trip && this._handleHimCus(this.trip);
 
     return (
-      <sbb-card
-        size="l"
-        active={this.active}
-        card-id={id}
-        accessibility-label={this.accessibilityLabel}
-      >
+      <sbb-card size="l" active={this.active} id={id} accessibility-label={this.accessibilityLabel}>
         {this.price && (
           <sbb-card-badge
             slot="badge"

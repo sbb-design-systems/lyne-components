@@ -34,9 +34,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
   /** CardProduct layout */
   @Prop() public layout?: InterfaceCardProductAttributes['layout'] = 'standard';
 
-  /** The ID value you want to reference */
-  @Prop() public cardProductId?: string;
-
   /**
    * The text which gets exposed to screen reader users. The text should
    * reflect all the information which gets passed into the component's slots
@@ -168,13 +165,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
      */
     let additionalCardAttributes = {};
     let ariaLabel = this.accessibilityLabel;
-
-    if (this.cardProductId) {
-      additionalCardAttributes = {
-        ...additionalCardAttributes,
-        id: this.cardProductId,
-      };
-    }
 
     // Check if hrefValue or isButton is set
     if (!this.isButton && !this.hrefValue) {

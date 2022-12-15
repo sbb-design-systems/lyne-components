@@ -37,7 +37,6 @@ You can either use slots or props to render the `sbb-teaser-hero` component.
 | `linkContent`        | `link-content`        | Panel link text.                                                  | `string` | `undefined` |
 | `rel`                | `rel`                 | The relationship of the linked URL as space-separated link types. | `string` | `undefined` |
 | `target`             | `target`              | Where to display the linked URL.                                  | `string` | `undefined` |
-| `teaserHeroId`       | `teaser-hero-id`      | Pass in an id, if you need to identify the inner link element.    | `string` | `undefined` |
 
 
 ## Slots

@@ -35,10 +35,9 @@ export class SbbAutocomplete implements ComponentInterface {
   @Prop() public eventId?: string;
 
   /**
-   * Autocomplete id. If you use multiple instances on a page,
-   * you should set individual id's to each of them.
+   * Autocomplete id.
    */
-  @Prop() public autocompleteId? = 'autocomplete-list';
+  private _autocompleteId = 'autocomplete-list';
 
   /**
    * Define if borderless variant of autocomplete input should be used. See
@@ -301,9 +300,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _listAttributes = (): any => {
     const listAttributes = {};
 
-    if (this.autocompleteId) {
-      listAttributes['id'] = this.autocompleteId;
-    }
+    listAttributes['id'] = this._autocompleteId;
 
     if (!this._isVisible) {
       listAttributes['aria-hidden'] = true;
@@ -349,7 +346,7 @@ export class SbbAutocomplete implements ComponentInterface {
             aria-expanded={this._isVisible}
             role="combobox"
             aria-autocomplete="list"
-            aria-controls={this.autocompleteId}
+            aria-controls={this._autocompleteId}
             value={this.value}
           />
         </sbb-form-field>

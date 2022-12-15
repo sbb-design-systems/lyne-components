@@ -10,7 +10,6 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
           download
-          link-id="id"
           accessibility-label="Travelcards & tickets"
           >
             Travelcards &amp; tickets.
@@ -24,7 +23,6 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
           download
-          link-id="id"
           accessibility-label="Travelcards & tickets"
           >
           <mock:shadow-root>
@@ -34,7 +32,6 @@ describe('sbb-link', () => {
               dir="ltr"
               download
               href="https://github.com/lyne-design-system/lyne-components"
-              id="id"
             >
               <slot></slot>
             </a>

@@ -162,10 +162,6 @@ export namespace Components {
     }
     interface SbbAutocomplete {
         /**
-          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
-         */
-        "autocompleteId"?: string;
-        /**
           * Id which is sent as the id in the eventDetail payload when a value is selected
          */
         "eventId"?: string;
@@ -387,10 +383,6 @@ export namespace Components {
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
-        /**
-          * The ID value you want to reference
-         */
-        "cardProductId"?: string;
         /**
           * Id which is sent in the click event payload
          */
@@ -824,10 +816,6 @@ export namespace Components {
           * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
          */
         "isStatic": boolean;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "linkId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -1285,10 +1273,6 @@ export namespace Components {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Pass in an id, if you need to identify the inner link element.
-         */
-        "teaserHeroId"?: string;
     }
     interface SbbTimetable {
     }
@@ -2168,10 +2152,6 @@ declare namespace LocalJSX {
     }
     interface SbbAutocomplete {
         /**
-          * Autocomplete id. If you use multiple instances on a page, you should set individual id's to each of them.
-         */
-        "autocompleteId"?: string;
-        /**
           * Id which is sent as the id in the eventDetail payload when a value is selected
          */
         "eventId"?: string;
@@ -2393,10 +2373,6 @@ declare namespace LocalJSX {
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
-        /**
-          * The ID value you want to reference
-         */
-        "cardProductId"?: string;
         /**
           * Id which is sent in the click event payload
          */
@@ -2846,10 +2822,6 @@ declare namespace LocalJSX {
           * Set this property to true if you want only a visual representation of a link, but no interaction (a span instead of a link/button will be rendered).
          */
         "isStatic"?: boolean;
-        /**
-          * Pass in an id, if you need to identify the inner element.
-         */
-        "linkId"?: string;
         /**
           * The name attribute to use for the button.
          */
@@ -3316,10 +3288,6 @@ declare namespace LocalJSX {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Pass in an id, if you need to identify the inner link element.
-         */
-        "teaserHeroId"?: string;
     }
     interface SbbTimetable {
     }

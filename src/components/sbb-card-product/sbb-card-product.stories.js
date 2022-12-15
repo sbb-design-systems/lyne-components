@@ -53,15 +53,6 @@ const accessibilityLabel = {
   },
 };
 
-const cardProductId = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'General',
-  },
-};
-
 /* --- Link ---------------------------------------- */
 
 const hrefValue = {
@@ -156,7 +147,6 @@ const layout = {
 const defaultArgTypes = {
   appearance,
   layout,
-  'card-product-id': cardProductId,
   'accessibility-label': accessibilityLabel,
   'href-value': hrefValue,
   'is-button': isButton,

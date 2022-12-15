@@ -32,9 +32,6 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
   /** Where to display the linked URL. */
   @Prop() public target?: LinkTargetType | string | undefined;
 
-  /** Pass in an id, if you need to identify the inner link element. */
-  @Prop() public teaserHeroId?: string;
-
   /** Panel link text. */
   @Prop() public linkContent?: string;
 
@@ -70,7 +67,7 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
     } = resolveLinkRenderVariables(this);
 
     return (
-      <TAG_NAME class="sbb-teaser-hero" id={this.teaserHeroId} {...attributes}>
+      <TAG_NAME class="sbb-teaser-hero" {...attributes}>
         <span class="sbb-teaser-hero__panel">
           <span class="sbb-teaser-hero__panel-text">
             <slot />

@@ -1,8 +1,8 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const getBasicTemplate = ({ text, 'menu-action-id': menuActionId, ...args }, id, iconSlot) => (
-  <sbb-menu-action {...args} menu-action-id={`${menuActionId}-${id}`}>
+const getBasicTemplate = ({ text, ...args }, id, iconSlot) => (
+  <sbb-menu-action {...args}>
     {text} {id}
     {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
   </sbb-menu-action>
@@ -31,12 +31,6 @@ const text = {
 };
 
 const amount = {
-  control: {
-    type: 'text',
-  },
-};
-
-const menuActionId = {
   control: {
     type: 'text',
   },
@@ -160,7 +154,6 @@ const accessibilityLabel = {
 const defaultArgTypes = {
   text,
   amount,
-  'menu-action-id': menuActionId,
   'icon-name': iconName,
   href,
   target,
@@ -179,7 +172,6 @@ const defaultArgTypes = {
 const defaultArgs = {
   text: 'Details',
   amount: '99',
-  'menu-action-id': undefined,
   'icon-name': 'tick-small',
 
   href: 'https://www.sbb.ch/en',

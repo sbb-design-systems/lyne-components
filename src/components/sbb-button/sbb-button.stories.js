@@ -234,7 +234,6 @@ const defaultArgs = {
   negative: false,
   size: size.options[0],
   static: false,
-  'button-id': undefined,
   'icon-name': 'arrow-right-small',
   href: undefined,
   target: undefined,

@@ -90,12 +90,6 @@ const rel = {
   },
 };
 
-const cardId = {
-  control: {
-    type: 'text',
-  },
-};
-
 const accessibilityLabel = {
   control: {
     type: 'text',
@@ -146,7 +140,6 @@ const basicArgTypes = {
   download,
   target,
   rel,
-  'card-id': cardId,
   'accessibility-label': accessibilityLabel,
   name,
   type,
@@ -162,7 +155,6 @@ const basicArgs = {
   download: false,
   target: '_blank',
   rel: undefined,
-  'card-id': undefined,
   'accessibility-label': undefined,
   name: undefined,
   type: undefined,
