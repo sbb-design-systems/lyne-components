@@ -15,7 +15,6 @@ describe('sbb-button', () => {
           name="name"
           value="value"
           form="formid"
-          accessibility-controls="id"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
         >
@@ -33,7 +32,6 @@ describe('sbb-button', () => {
           name="name"
           value="value"
           form="formid"
-          accessibility-controls="id"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
         >
@@ -46,7 +44,6 @@ describe('sbb-button', () => {
               name="name"
               value="value"
               form="formid"
-              aria-controls="id"
               aria-haspopup="true"
               aria-label="Travelcards &amp; tickets"
              >

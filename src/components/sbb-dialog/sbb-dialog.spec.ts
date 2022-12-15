@@ -21,8 +21,7 @@ describe('sbb-dialog', () => {
                   sbb-dialog-close=""
                   size="m"
                   type="button"
-                  variant="secondary"
-                  accessibility-controls="sbb-dialog-id">
+                  variant="secondary">
                 </sbb-button>
               </div>
               <div class="sbb-dialog__content">

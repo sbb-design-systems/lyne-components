@@ -267,7 +267,6 @@ export class SbbTabGroup implements ComponentInterface {
     tab.active = tab.hasAttribute('active') && !tab.hasAttribute('disabled');
     tab.disabled = tab.hasAttribute('disabled');
     tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');
     tab.relatedContent.setAttribute('role', 'tabpanel');
     tab.relatedContent.removeAttribute('active');

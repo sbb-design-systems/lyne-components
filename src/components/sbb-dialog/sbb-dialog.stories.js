@@ -124,7 +124,6 @@ const triggerButton = (dialogId) => (
     data-testid="dialog-trigger"
     size="m"
     type="button"
-    accessibility-controls={dialogId}
     onClick={(event) => openDialog(event, dialogId)}
   >
     Open dialog

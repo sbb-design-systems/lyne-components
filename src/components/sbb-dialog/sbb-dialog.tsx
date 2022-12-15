@@ -325,7 +325,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       <sbb-button
         class="sbb-dialog__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
-        accessibility-controls={this._dialogId}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"

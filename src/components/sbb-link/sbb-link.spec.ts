@@ -53,7 +53,6 @@ describe('sbb-link', () => {
           type="submit"
           form="formid"
           disabled
-          accessibility-controls="id"
           accessibility-haspopup="true"
         >
           <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
@@ -71,7 +70,6 @@ describe('sbb-link', () => {
           type="submit"
           form="formid"
           disabled
-          accessibility-controls="id"
           accessibility-haspopup="true"
         >
           <mock:shadow-root>
@@ -82,7 +80,6 @@ describe('sbb-link', () => {
               form="formid"
               name="name"
               type="submit"
-              aria-controls="id"
               aria-haspopup="true"
             >
               <span class="sbb-link__icon">

@@ -15,7 +15,7 @@ the current state can be read from `event.target.checked` and the value from `ev
   Example
 </sbb-toggle-check>
 ```
-           
+
 ## Label
 
 The label is provided as the content to the `<sbb-toggle-check>` element.

@@ -6,16 +6,16 @@ describe('sbb-header-action', () => {
     const { root } = await newSpecPage({
       components: [SbbHeaderAction],
       html: `
-        <sbb-header-action icon-name='pie-small' name="test" type="reset" value="value" accessibility-controls="id" accessibility-haspopup="dialog">
+        <sbb-header-action icon-name='pie-small' name="test" type="reset" value="value" accessibility-haspopup="dialog">
           Action
         </sbb-header-action>
       `,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-header-action icon-name='pie-small' expand-from="medium" name="test" type="reset" value="value" accessibility-controls="id" accessibility-haspopup="dialog">
+      <sbb-header-action icon-name='pie-small' expand-from="medium" name="test" type="reset" value="value" accessibility-haspopup="dialog">
         <mock:shadow-root>
-          <button aria-controls="id" aria-haspopup="dialog" class="sbb-header-action" dir="ltr" name="test" type="reset" value="value">
+          <button aria-haspopup="dialog" class="sbb-header-action" dir="ltr" name="test" type="reset" value="value">
             <span class="sbb-header-action__icon">
               <slot name="icon">
                 <sbb-icon name="pie-small"></sbb-icon>

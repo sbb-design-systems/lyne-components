@@ -31,11 +31,6 @@ const radioButtonObserverConfig: MutationObserverInit = {
 })
 export class SbbRadioButton implements ComponentInterface {
   /**
-   * Id of the internal input element - default id will be set automatically.
-   */
-  private _radioButtonId = 'sbb-radio-button-id';
-
-  /**
    * Whether the radio can be deselected.
    */
   @Prop() public allowEmptySelection = false;
@@ -84,8 +79,6 @@ export class SbbRadioButton implements ComponentInterface {
     eventName: 'did-select',
   })
   public didSelect: EventEmitter;
-
-  private _radioButtonLabelId = 'sbb-radio-button-label-id';
 
   private _radioButtonAttributeObserver = new MutationObserver(
     this._onRadioButtonAttributesChange.bind(this)
@@ -160,12 +153,11 @@ export class SbbRadioButton implements ComponentInterface {
         /* eslint-enable jsx-a11y/aria-proptypes */
         role="radio"
       >
-        <label id={this._radioButtonLabelId} htmlFor={this._radioButtonId} class="sbb-radio-button">
+        <label class="sbb-radio-button">
           <input
             type="radio"
             aria-hidden="true"
             tabindex="-1"
-            id={this._radioButtonId}
             disabled={this.disabled || this._disabledFromGroup}
             required={this.required || this._requiredFromGroup}
             checked={this.checked}
