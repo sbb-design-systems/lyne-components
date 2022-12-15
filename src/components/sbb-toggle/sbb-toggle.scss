@@ -71,7 +71,7 @@
     transition: {
       duration: var(--sbb-toggle-animation-duration);
       timing-function: ease;
-      property: opacity, left, inset-inline;
+      property: opacity, inset-inline-end, inset-inline-start;
     }
 
     :host(.sbb-toggle--checked) & {

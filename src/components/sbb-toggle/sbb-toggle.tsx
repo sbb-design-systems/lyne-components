@@ -120,6 +120,7 @@ export class SbbToggle implements ComponentInterface {
   }
 
   private _setCheckedPillPosition(disableAnimation: boolean): void {
+    const options = this._options;
     const checked = this._checked;
 
     if (!checked) {
@@ -132,11 +133,14 @@ export class SbbToggle implements ComponentInterface {
 
     this.disableAnimation = disableAnimation;
     this._hasCheckedOption = true;
-    this._element.style.setProperty('--sbb-toggle-option-left', `${checked?.offsetLeft}px`);
-    this._element.style.setProperty(
-      '--sbb-toggle-option-right',
-      `${this._toggleElement.clientWidth - (checked?.offsetLeft + checked?.clientWidth)}px`
-    );
+
+    const checkedIndex = options.findIndex((option) => option === checked);
+    const pillLeft = checkedIndex === 0 ? '0px' : `${options[0].clientWidth}px`;
+    const pillRigth =
+      checkedIndex === 0 ? `${this._toggleElement.clientWidth - options[0].clientWidth}px` : '0px';
+
+    this._element.style.setProperty('--sbb-toggle-option-left', pillLeft);
+    this._element.style.setProperty('--sbb-toggle-option-right', pillRigth);
   }
 
   public connectedCallback(): void {
