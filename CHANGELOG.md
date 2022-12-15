@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.19.1](https://github.com/lyne-design-system/lyne-components/compare/v0.19.0...v0.19.1) (2022-12-15)
+
+### Features
+
+- **sbb-train-formation:** initial implementation ([#1462](https://github.com/lyne-design-system/lyne-components/issues/1462)) ([343f510](https://github.com/lyne-design-system/lyne-components/commit/343f510d3593860fbae0aba12a90b823c8c062a6)), closes [#1428](https://github.com/lyne-design-system/lyne-components/issues/1428)
+
 ## [0.19.0](https://github.com/lyne-design-system/lyne-components/compare/v0.18.4...v0.19.0) (2022-12-15)
 
 ### ⚠ BREAKING CHANGES
