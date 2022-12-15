@@ -202,6 +202,7 @@ export class SbbAccordionItem implements ComponentInterface {
             class="accordion-item__button"
             aria-label={this.heading}
             aria-expanded={this.open ? 'true' : 'false'}
+            aria-controls={`${this._guid}_body`}
           >
             <div class="accordion-item__icon">
               <slot name={iconSlotName} />

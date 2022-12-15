@@ -201,7 +201,7 @@ specific error being caught and why it cannot be prevented.
 
 ##### General
 
-- Prefer writing out words instead of using abbreviations.
+- Prefer to write out words instead of using abbreviations.
 - Prefer _exact_ names over short names (within reason). E.g., `labelPosition` is better than
   `align` because the former much more exactly communicates what the property means.
 - Except for `@Prop` properties, use `is` and `has` prefixes for boolean properties / methods.
@@ -243,7 +243,7 @@ openDialog() {
 
 #### Inheritance
 
-Inheritence cannot be used for components, as Stencil.js does not allow it.
+Inheritance cannot be used for components, as Stencil.js does not allow it.
 
 #### Prefer for-of instead of forEach
 
@@ -319,7 +319,7 @@ Properties/Attributes are automatically documented and can be inferred by the ID
 
 #### Prefer `<slot>`, instead of wrapping other elements or using label properties
 
-Instead of forwarding properties/content, use a `<slot>` (and/or a named named slot
+Instead of forwarding properties/content, use a `<slot>` (and/or a named slot
 `<slot name="example">`) to provide the possibility of directly assigning content/values.
 
 #### Use `variant` property, if a component has more than one variant
@@ -347,33 +347,8 @@ For consistency, please use the AccessibilityProperties interface (see sbb-tease
 
 #### id handling
 
-Element ids are relevent for both connecting elements for specific functionality and to provide a
+Element ids are relevant for both connecting elements for specific functionality and to provide a
 better experience for accessibility.
-
-##### Nested id
-
-We sometimes need to forward ids to inner elements, in order to facilitate screen reader usage.
-For this a property should be provided with a default value. The name of the property should be
-`inputId` for custom form elements and `{componentName}Id` for everything else.
-
-The default value should be `sbb-component-name-element-name-${++nextId}`, with `let nextId = 0;` being declared
-in the global scope before the component.
-
-```ts
-let nextId = 0;
-
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-title.scss',
-  tag: 'sbb-title',
-})
-export class SbbTitle {
-  ...
-  /** This id will be forwarded to the relevant inner element. */
-  @Prop() public titleId = `sbb-title-heading-${++nextId}`;
-  ...
-}
-```
 
 ##### Host id
 
@@ -408,7 +383,7 @@ export class SbbTitle {
 
 For various use cases, a component might need to behave or render in a specific way when placed
 within another component (e.g. a `<sbb-link>` should not render an `<a>` or `<button>` element
-when placed in another `<a>` or `<button>` ancester or `<sbb-title>` should be designed in a
+when placed in another `<a>` or `<button>` ancestor or `<sbb-title>` should be designed in a
 specific way when placed within a `<sbb-alert>`, etc.).
 
 (Ideally we could use the `:host-context` for the styling part, but the Firefox and Safari
@@ -493,11 +468,11 @@ If a global variable is missing, create an issue or pull request in
 #### Be cautious with use of `display: flex`
 
 - The [baseline calculation for flex elements](http://www.w3.org/TR/css-flexbox-1/#flex-baselines)
-  is different than other display values, making it difficult to align flex elements with standard
+  is different from other display values, making it difficult to align flex elements with standard
   elements like input and button.
 - Component outermost elements should avoid flex (prefer block or inline-block)
 
-#### Use lowest specificity possible
+#### Use the lowest specificity possible
 
 Always prioritize lower specificity over other factors. Most style definitions should consist of a
 single element or css selector plus necessary state modifiers. **Avoid SCSS nesting for the sake of
@@ -595,7 +570,7 @@ This is a low-effort task that makes a big difference for low-vision users. Exam
 @use '../../global/styles' as sbb;
 
 @include sbb.if-forced-colors {
-  .unicorn-motocycle {
+  .unicorn-motorcycle {
     border: 1px solid #fff !important;
   }
 }

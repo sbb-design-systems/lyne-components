@@ -38,11 +38,6 @@ import { hostContext } from '../../global/helpers/host-context';
 })
 export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  private _dialogId = `sbb-dialog-id`;
-
-  /**
    * Dialog title.
    */
   @Prop() public titleContent: string;
@@ -380,7 +375,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       >
         <dialog
           ref={(dialogRef) => (this._dialog = dialogRef)}
-          id={this._dialogId}
           aria-label={this.accessibilityLabel}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"

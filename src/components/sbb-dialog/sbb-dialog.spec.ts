@@ -11,7 +11,7 @@ describe('sbb-dialog', () => {
     expect(root).toEqualHtml(`
       <sbb-dialog class="sbb-dialog--closed sbb-dialog--full-screen">
         <mock:shadow-root>
-          <dialog class="sbb-dialog" id="sbb-dialog-id">
+          <dialog class="sbb-dialog">
             <div class="sbb-dialog__wrapper">
               <div class="sbb-dialog__header">
                 <sbb-button
