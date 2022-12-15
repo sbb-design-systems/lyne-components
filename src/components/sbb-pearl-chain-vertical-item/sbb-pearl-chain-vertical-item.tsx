@@ -12,20 +12,28 @@ import { PearlChainVerticalItemAttributes } from './sbb-pearl-chain-vertical-ite
   tag: 'sbb-pearl-chain-vertical-item',
 })
 export class SbbPearlChainVerticalItem {
-  /** The pearlChainVerticalItemAttributes Prop for styling the dots and line.*/
+  /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @Prop() public pearlChainVerticalItemAttributes!: PearlChainVerticalItemAttributes;
 
   /** If true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
   public render(): JSX.Element {
-    const { dotColor, dotType, lineType, lineColor, hideLine, minHeight, dotSize, position } =
-      this.pearlChainVerticalItemAttributes || {};
+    const {
+      bulletColor,
+      bulletType,
+      lineType,
+      lineColor,
+      hideLine,
+      minHeight,
+      bulletSize,
+      position,
+    } = this.pearlChainVerticalItemAttributes || {};
 
-    const dotColorClass =
-      position > 0 && position <= 100 ? 'sbb-color--metal' : `sbb-color--${dotColor}`;
+    const bulletColorClass =
+      position > 0 && position <= 100 ? 'sbb-color--metal' : `sbb-color--${bulletColor}`;
     const animation = this.disableAnimation
-      ? 'sbb-pearl-chain-vertical-item-position__dot--disable-animation'
+      ? 'sbb-pearl-chain-vertical-item-position__bullet--disable-animation'
       : '';
 
     return (
@@ -40,15 +48,15 @@ export class SbbPearlChainVerticalItem {
               class={`sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-color--${lineColor}`}
             ></div>
           )}
-          {dotType && (
+          {bulletType && (
             <div
-              class={`sbb-pearl-chain-vertical-item__dot sbb-pearl-chain-vertical-item__dot--${dotType} ${dotColorClass} sbb-pearl-chain-vertical-item__dot-size--${dotSize}`}
+              class={`sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--${bulletType} ${bulletColorClass} sbb-pearl-chain-vertical-item__bullet-size--${bulletSize}`}
             />
           )}
           {position > 0 && (
             <div
               style={{ '--sbb-pearl-chain-vertical-item-position': `${position}%` }}
-              class={`sbb-pearl-chain-vertical-item-position__dot ${animation}`}
+              class={`sbb-pearl-chain-vertical-item-position__bullet ${animation}`}
             ></div>
           )}
         </div>

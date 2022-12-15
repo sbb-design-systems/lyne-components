@@ -5,17 +5,17 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.pearl-chain-dot-variables;
+  @include sbb.pearl-chain-bullet-variables;
 
   display: block;
 
-  --sbb-pearl-chain-dot-size-medium: var(--sbb-pearl-chain-dot-size-m);
-  --sbb-pearl-chain-dot-size-small: var(--sbb-pearl-chain-dot-size);
+  --sbb-pearl-chain-bullet-size-medium: var(--sbb-pearl-chain-bullet-size-m);
+  --sbb-pearl-chain-bullet-size-small: var(--sbb-pearl-chain-bullet-size);
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
-  --sbb-pearl-chain-color: var(--sbb-pearl-chain-dot-color);
-  --sbb-pearl-chain-color-warning: var(--sbb-pearl-chain-dot-color-warning);
-  --sbb-pearl-chain-color-past: var(--sbb-pearl-chain-dot-color-past);
+  --sbb-pearl-chain-color: var(--sbb-pearl-chain-bullet-color);
+  --sbb-pearl-chain-color-incidence: var(--sbb-pearl-chain-bullet-color-incidence);
+  --sbb-pearl-chain-color-past: var(--sbb-pearl-chain-bullet-color-past);
   --sbb-pearl-chain-leg-width: 100%;
 }
 
@@ -27,19 +27,19 @@
   color: var(--sbb-pearl-chain-color);
   width: 100%;
   padding-block-start: calc(
-    (var(--sbb-pearl-chain-dot-size-medium) - var(--sbb-pearl-chain-height)) / 2
+    (var(--sbb-pearl-chain-bullet-size-medium) - var(--sbb-pearl-chain-height)) / 2
   );
   padding-block-end: calc(
-    (var(--sbb-pearl-chain-dot-size-medium) - var(--sbb-pearl-chain-height)) / 2
+    (var(--sbb-pearl-chain-bullet-size-medium) - var(--sbb-pearl-chain-height)) / 2
   );
-  padding-inline-end: var(--sbb-pearl-chain-dot-size-medium);
+  padding-inline-end: var(--sbb-pearl-chain-bullet-size-medium);
 }
 
-// first and last dot
+// first and last bullet
 .sbb-pearl-chain::before,
 .sbb-pearl-chain::after {
-  @include sbb.pearl-chain-dot;
-  @include sbb.pearl-chain-dot--m;
+  @include sbb.pearl-chain-bullet;
+  @include sbb.pearl-chain-bullet--m;
 
   content: '';
   position: absolute;
@@ -69,7 +69,7 @@
 
 .sbb-pearl-chain--departure-cancellation::before,
 .sbb-pearl-chain--arrival-cancellation::after {
-  color: var(--sbb-pearl-chain-color-warning);
+  color: var(--sbb-pearl-chain-color-incidence);
 
   @include sbb.if-forced-colors {
     background-color: ActiveText;
@@ -115,26 +115,26 @@
 .sbb-pearl-chain--past,
 .sbb-pearl-chain__leg--progress::before,
 .sbb-pearl-chain--progress::before {
-  @include sbb.pearl-chain-dot-past;
+  @include sbb.pearl-chain-bullet-past;
 
   color: var(--sbb-pearl-chain-color-past);
 }
 
 .sbb-pearl-chain__leg--past:not(:first-child)::before,
 .sbb-pearl-chain__leg--progress::before {
-  @include sbb.pearl-chain-dot-past;
+  @include sbb.pearl-chain-bullet-past;
 }
 
-// dot on leg
+// bullet on leg
 .sbb-pearl-chain__leg:not(:first-child) {
   &::before {
-    @include sbb.pearl-chain-dot-transfer;
-    @include sbb.pearl-chain-dot--s;
+    @include sbb.pearl-chain-bullet-transfer;
+    @include sbb.pearl-chain-bullet--s;
 
     content: '';
     position: absolute;
     inset-block-start: calc(
-      var(--sbb-pearl-chain-dot-size) / -2 + var(--sbb-pearl-chain-height) / 2
+      var(--sbb-pearl-chain-bullet-size) / -2 + var(--sbb-pearl-chain-height) / 2
     );
     inset-inline-start: 0;
     z-index: 2;
@@ -172,7 +172,7 @@
 }
 
 .sbb-pearl-chain__leg--progress::after {
-  @include sbb.pearl-chain-dot-past;
+  @include sbb.pearl-chain-bullet-past;
 
   background-color: var(--sbb-pearl-chain-color-past);
 
@@ -181,9 +181,9 @@
 }
 
 .sbb-pearl-chain__leg--cancellation {
-  @include sbb.pearl-chain-dot-warning;
+  @include sbb.pearl-chain-bullet-incidence;
 
-  color: var(--sbb-pearl-chain-color-warning);
+  color: var(--sbb-pearl-chain-color-incidence);
 
   @include sbb.if-forced-colors {
     color: ActiveText;
@@ -208,8 +208,8 @@
 }
 
 .sbb-pearl-chain__position {
-  @include sbb.pearl-chain-dot-position;
-  @include sbb.pearl-chain-dot--m;
+  @include sbb.pearl-chain-bullet-position;
+  @include sbb.pearl-chain-bullet--m;
 
   position: absolute;
   inset-block-start: -200%;

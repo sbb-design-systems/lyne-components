@@ -8,11 +8,11 @@ Example prop:
               pearlChainVerticalItemAttributes={{
                 lineType: 'standard',
                 lineColor: 'charcoal',
-                dotColor: 'charcoal',
+                bulletColor: 'charcoal',
                 minHeight: '89',
                 hideLine: false,
-                dotType: 'thick-bullet',
-                dotSize: 'small',
+                bulletType: 'thick-bullet',
+                bulletSize: 'small',
               }}
 
 ```html

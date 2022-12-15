@@ -998,7 +998,7 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * The pearlChainVerticalItemAttributes Prop for styling the dots and line.
+          * The pearlChainVerticalItemAttributes Prop for styling the bullets and line.
          */
         "pearlChainVerticalItemAttributes": PearlChainVerticalItemAttributes;
     }
@@ -3085,7 +3085,7 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * The pearlChainVerticalItemAttributes Prop for styling the dots and line.
+          * The pearlChainVerticalItemAttributes Prop for styling the bullets and line.
          */
         "pearlChainVerticalItemAttributes": PearlChainVerticalItemAttributes;
     }

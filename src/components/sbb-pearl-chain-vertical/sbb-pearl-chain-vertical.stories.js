@@ -10,15 +10,15 @@ const lineColor = {
   options: ['charcoal', 'red', 'metal', 'sky'],
   control: { type: 'select' },
 };
-const dotType = {
-  options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet', 'crossed-bullet'],
+const bulletType = {
+  options: ['standard', 'thin', 'thick', 'double', 'crossed'],
   control: { type: 'select' },
 };
-const dotColor = {
+const bulletColor = {
   options: ['charcoal', 'red', 'metal', 'sky'],
   control: { type: 'select' },
 };
-const dotSize = {
+const bulletSize = {
   options: ['xs', 's', 'm', 'l', 'xl'],
   control: { type: 'select' },
 };
@@ -39,9 +39,9 @@ const position = {
 const defaultArgTypes = {
   lineType,
   lineColor,
-  dotType,
-  dotColor,
-  dotSize,
+  bulletType,
+  bulletColor,
+  bulletSize,
   hideLine,
   minHeight,
   position,
@@ -50,11 +50,11 @@ const defaultArgTypes = {
 const defaultArgs = {
   lineType: lineType.options[1],
   lineColor: lineColor.options[0],
-  dotType: dotType.options[0],
-  dotColor: dotColor.options[0],
+  bulletType: bulletType.options[0],
+  bulletColor: bulletColor.options[0],
   minHeight: '100',
   hideLine: false,
-  dotSize: dotSize.options[1],
+  bulletSize: bulletSize.options[1],
   position: 0,
 };
 
@@ -131,11 +131,11 @@ const TemplateTwoDots = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
-          dotType: 'standard',
-          dotColor: 'red',
+          bulletType: 'standard',
+          bulletColor: 'red',
           minHeight: '100px',
           hideLine: true,
-          dotSize: 'medium',
+          bulletSize: 'medium',
           position: 0,
         }}
       ></sbb-pearl-chain-vertical-item>
@@ -173,11 +173,11 @@ const TemplateLeftSecondSlot = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'red',
-          dotType: 'standard',
-          dotColor: 'red',
+          bulletType: 'standard',
+          bulletColor: 'red',
           minHeight: '100px',
           hideLine: true,
-          dotSize: 'medium',
+          bulletSize: 'medium',
           position: 0,
         }}
       >
@@ -251,7 +251,7 @@ const connectionDetailTemplate = (args) => {
           lineColor: 'red',
           minHeight: '100px',
           hideLine: true,
-          dotSize: 'medium',
+          bulletSize: 'medium',
           position: 0,
         }}
       >
@@ -281,10 +281,10 @@ const thirdLevelTemplate = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
-          dotColor: 'metal',
+          bulletColor: 'metal',
           minHeight: '39',
           hideLine: false,
-          dotSize: 'small',
+          bulletSize: 'small',
         }}
       >
         <div
@@ -332,11 +332,11 @@ const thirdLevelTemplate = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'charcoal',
-          dotColor: 'charcoal',
+          bulletColor: 'charcoal',
           minHeight: '89',
           hideLine: false,
-          dotType: 'thick-bullet',
-          dotSize: 'small',
+          bulletType: 'thick',
+          bulletSize: 'small',
         }}
       >
         <div
@@ -374,11 +374,11 @@ const thirdLevelTemplate = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
-          dotColor: 'charcoal',
+          bulletColor: 'charcoal',
           minHeight: '89',
           hideLine: false,
-          dotType: 'standard',
-          dotSize: 'medium',
+          bulletType: 'standard',
+          bulletSize: 'medium',
         }}
       >
         <div
@@ -410,11 +410,11 @@ const thirdLevelTemplate = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'metal',
-          dotColor: 'metal',
+          bulletColor: 'metal',
           minHeight: '39',
           hideLine: false,
-          dotSize: 'small',
-          dotType: 'thin-bullet',
+          bulletSize: 'small',
+          bulletType: 'thin',
         }}
       >
         <div
@@ -452,10 +452,10 @@ const TimetableInputTemplate = () => {
           pearlChainVerticalItemAttributes={{
             lineType: 'thin',
             lineColor: 'metal',
-            dotColor: 'metal',
+            bulletColor: 'metal',
             minHeight: '40',
             hideLine: false,
-            dotType: 'double-bullet',
+            bulletType: 'double',
           }}
         >
           <div
@@ -474,11 +474,11 @@ const TimetableInputTemplate = () => {
             pearlChainVerticalItemAttributes={{
               lineType: 'thin',
               lineColor: 'metal',
-              dotColor: 'metal',
+              bulletColor: 'metal',
               minHeight: '40',
               hideLine: false,
-              dotType: 'thin-bullet',
-              dotSize: 'small',
+              bulletType: 'thin',
+              bulletSize: 'small',
             }}
           >
             <div
@@ -491,10 +491,10 @@ const TimetableInputTemplate = () => {
           <sbb-pearl-chain-vertical-item
             disable-animation={isChromatic()}
             pearlChainVerticalItemAttributes={{
-              dotColor: 'metal',
+              bulletColor: 'metal',
               minHeight: '40',
               hideLine: true,
-              dotType: 'double-bullet',
+              bulletType: 'double',
             }}
           >
             <div
@@ -518,11 +518,11 @@ const TimetableChange = () => {
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
-          dotType: 'thick-bullet',
-          dotColor: 'charcoal',
+          bulletType: 'thick',
+          bulletColor: 'charcoal',
           minHeight: '122',
           false: true,
-          dotSize: 'medium',
+          bulletSize: 'medium',
           position: 0,
         }}
       >
@@ -576,11 +576,11 @@ const TimetableChange = () => {
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'sky',
-          dotType: 'standard',
-          dotColor: 'charcoal',
+          bulletType: 'standard',
+          bulletColor: 'charcoal',
           minHeight: '100px',
           hideLine: true,
-          dotSize: 'medium',
+          bulletSize: 'medium',
           position: 0,
         }}
       >
@@ -629,7 +629,7 @@ export const inputForm = TimetableInputTemplate.bind({});
 
 export const timetableChange = TimetableChange.bind({});
 
-/** All kinds oft possible slot and dot combinations */
+/** All kinds oft possible slot and bullet combinations */
 defaultPearlChainRightSlot.argTypes = defaultArgTypes;
 defaultPearlChainRightSlot.args = {
   ...defaultArgs,
@@ -643,7 +643,7 @@ defaultPearlChainLeftSlot.argTypes = defaultArgTypes;
 defaultPearlChainLeftSlot.args = {
   ...defaultArgs,
   lineColor: 'red',
-  dotColor: 'red',
+  bulletColor: 'red',
   minHeight: '100',
 };
 
@@ -655,58 +655,58 @@ defaultPearlChainLeftSecondSlot.args = {
 charcoalPearlChain.argTypes = defaultArgTypes;
 charcoalPearlChain.args = {
   ...defaultArgs,
-  dotType: 'thick-bullet',
+  bulletType: 'thick',
 };
 
 defaultPearlChainTwoDots.argTypes = defaultArgTypes;
 defaultPearlChainTwoDots.args = {
   ...defaultArgs,
   lineColor: 'red',
-  dotColor: 'red',
+  bulletColor: 'red',
 };
 
-/** additional dot types */
+/** additional bullet types */
 dottedPearlChain.argTypes = defaultArgTypes;
 dottedPearlChain.args = {
   ...defaultArgs,
   lineType: 'dotted',
-  dotColor: 'red',
+  bulletColor: 'red',
   lineColor: 'red',
-  dotSize: 'small',
+  bulletSize: 'small',
 };
 
 thinPearlChain.argTypes = defaultArgTypes;
 thinPearlChain.args = {
   ...defaultArgs,
   lineType: 'thin',
-  dotColor: 'red',
+  bulletColor: 'red',
   lineColor: 'red',
-  dotSize: 'small',
+  bulletSize: 'small',
 };
 
 /** additional dot types */
 thickBulletPearlChain.argTypes = defaultArgTypes;
 thickBulletPearlChain.args = {
   ...defaultArgs,
-  dotType: 'thick-bullet',
+  bulletType: 'thick',
 };
 
 thinBulletPearlChain.argTypes = defaultArgTypes;
 thinBulletPearlChain.args = {
   ...defaultArgs,
-  dotType: 'thin-bullet',
+  bulletType: 'thin',
 };
 
 doubleBulletPearlChain.argTypes = defaultArgTypes;
 doubleBulletPearlChain.args = {
   ...defaultArgs,
-  dotType: 'double-bullet',
+  bulletType: 'double',
 };
 
 crossedBulletPearlChain.argTypes = defaultArgTypes;
 crossedBulletPearlChain.args = {
   ...defaultArgs,
-  dotType: 'crossed-bullet',
+  bulletType: 'crossed',
 };
 
 /** position */

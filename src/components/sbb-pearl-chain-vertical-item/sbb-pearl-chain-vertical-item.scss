@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.pearl-chain-dot-variables;
+  @include sbb.pearl-chain-bullet-variables;
 
   display: table-row;
   position: relative;
@@ -15,56 +15,56 @@
   --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
   --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
-  --sbb-pearl-chain-vertical-item-color: var(--sbb-pearl-chain-dot-color);
-  --sbb-pearl-chain-vertical-item-color-warning: var(--sbb-pearl-chain-dot-color-warning);
-  --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-dot-color-past);
-  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-pearl-chain-dot-color-walk);
+  --sbb-pearl-chain-vertical-item-color: var(--sbb-pearl-chain-bullet-color);
+  --sbb-pearl-chain-vertical-item-color-incidence: var(--sbb-pearl-chain-bullet-color-incidence);
+  --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-bullet-color-past);
+  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-pearl-chain-bullet-color-walk);
   --sbb-pearl-chain-vertical-item-inline-start: 50%;
   --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-vertical-item__dot {
+.sbb-pearl-chain-vertical-item__bullet {
   position: relative;
   inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
   transform: var(--sbb-pearl-chain-vertical-item-transform);
 }
 
-.sbb-pearl-chain-vertical-item-position__dot--disable-animation {
+.sbb-pearl-chain-vertical-item-position__bullet--disable-animation {
   animation: unset !important;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--xs {
-  @include sbb.pearl-chain-dot--xs;
+.sbb-pearl-chain-vertical-item__bullet-size--xs {
+  @include sbb.pearl-chain-bullet--xs;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--s {
-  @include sbb.pearl-chain-dot--s;
+.sbb-pearl-chain-vertical-item__bullet-size--s {
+  @include sbb.pearl-chain-bullet--s;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--m {
-  @include sbb.pearl-chain-dot--m;
+.sbb-pearl-chain-vertical-item__bullet-size--m {
+  @include sbb.pearl-chain-bullet--m;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--l {
-  @include sbb.pearl-chain-dot--l;
+.sbb-pearl-chain-vertical-item__bullet-size--l {
+  @include sbb.pearl-chain-bullet--l;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--xl {
-  @include sbb.pearl-chain-dot--xl;
+.sbb-pearl-chain-vertical-item__bullet-size--xl {
+  @include sbb.pearl-chain-bullet--xl;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--xs.sbb-pearl-chain-vertical-item__dot--crossed-bullet,
-.sbb-pearl-chain-vertical-item__dot-size--s.sbb-pearl-chain-vertical-item__dot--crossed-bullet {
-  @include sbb.pearl-chain-dot-crossed-bullet--s;
+.sbb-pearl-chain-vertical-item__bullet-size--xs.sbb-pearl-chain-vertical-item__bullet--crossed,
+.sbb-pearl-chain-vertical-item__bullet-size--s.sbb-pearl-chain-vertical-item__bullet--crossed {
+  @include sbb.pearl-chain-bullet-crossed--s;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--m.sbb-pearl-chain-vertical-item__dot--crossed-bullet {
-  @include sbb.pearl-chain-dot-crossed-bullet;
+.sbb-pearl-chain-vertical-item__bullet-size--m.sbb-pearl-chain-vertical-item__bullet--crossed {
+  @include sbb.pearl-chain-bullet-crossed;
 }
 
-.sbb-pearl-chain-vertical-item__dot-size--l.sbb-pearl-chain-vertical-item__dot--crossed-bullet,
-.sbb-pearl-chain-vertical-item__dot-size--xl.sbb-pearl-chain-vertical-item__dot--crossed-bullet {
-  @include sbb.pearl-chain-dot-crossed-bullet--xl;
+.sbb-pearl-chain-vertical-item__bullet-size--l.sbb-pearl-chain-vertical-item__bullet--crossed,
+.sbb-pearl-chain-vertical-item__bullet-size--xl.sbb-pearl-chain-vertical-item__bullet--crossed {
+  @include sbb.pearl-chain-bullet-crossed--xl;
 }
 
 .sbb-pearl-chain-vertical-item__line {
@@ -74,7 +74,7 @@
   inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
   transform: var(--sbb-pearl-chain-vertical-item-transform);
   width: var(--sbb-border-width-2x);
-  inset-block-start: calc(var(--sbb-pearl-chain-dot-size) / 2);
+  inset-block-start: calc(var(--sbb-pearl-chain-bullet-size) / 2);
 
   &::after {
     content: '';
@@ -87,8 +87,8 @@
   }
 }
 
-.sbb-pearl-chain-vertical-item-position__dot {
-  @include sbb.pearl-chain-dot-position;
+.sbb-pearl-chain-vertical-item-position__bullet {
+  @include sbb.pearl-chain-bullet-position;
   @include sbb.absolute-center-x;
 
   inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
@@ -107,20 +107,20 @@
   width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
 }
 
-.sbb-pearl-chain-vertical-item__dot--standard {
-  @include sbb.pearl-chain-dot;
+.sbb-pearl-chain-vertical-item__bullet--standard {
+  @include sbb.pearl-chain-bullet;
 }
 
-.sbb-pearl-chain-vertical-item__dot--thick-bullet {
-  @include sbb.pearl-chain-dot-transfer;
+.sbb-pearl-chain-vertical-item__bullet--thick {
+  @include sbb.pearl-chain-bullet-transfer;
 }
 
-.sbb-pearl-chain-vertical-item__dot--thin-bullet {
-  @include sbb.pearl-chain-dot-thin-bullet;
+.sbb-pearl-chain-vertical-item__bullet--thin {
+  @include sbb.pearl-chain-bullet-thin;
 }
 
-.sbb-pearl-chain-vertical-item__dot--double-bullet {
-  @include sbb.pearl-chain-dot-double-bullet;
+.sbb-pearl-chain-vertical-item__bullet--double {
+  @include sbb.pearl-chain-bullet-double;
 }
 
 .sbb-color--charcoal {
@@ -130,9 +130,9 @@
 }
 
 .sbb-color--red {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-warning);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-warning);
-  color: var(--sbb-pearl-chain-vertical-item-color-warning);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-incidence);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-incidence);
+  color: var(--sbb-pearl-chain-vertical-item-color-incidence);
 }
 
 .sbb-color--metal {
@@ -158,7 +158,7 @@
 }
 
 .sbb-pearl-chain-vertical-item__column--middle {
-  width: var(--sbb-pearl-chain-vertical-middle-item-width, --sbb-pearl-chain-dot-size);
+  width: var(--sbb-pearl-chain-vertical-middle-item-width, --sbb-pearl-chain-bullet-size);
 }
 
 slot[name='left']::slotted(*) {
