@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.19.0](https://github.com/lyne-design-system/lyne-components/compare/v0.18.4...v0.19.0) (2022-12-15)
+
+### ⚠ BREAKING CHANGES
+
+- As it is not possible from shadow DOM to reach the light DOM by id values, we removed all id, accessibility-labelledby, accessibility-describedby and accessibility-controls properties because they were usless.
+
+Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
+
+### Bug Fixes
+
+- remove obsolete id references ([#1493](https://github.com/lyne-design-system/lyne-components/issues/1493)) ([f442283](https://github.com/lyne-design-system/lyne-components/commit/f4422830a74816fe76180394dc80561403746d47))
+
 ### [0.18.4](https://github.com/lyne-design-system/lyne-components/compare/v0.18.3...v0.18.4) (2022-12-14)
 
 ### Bug Fixes
