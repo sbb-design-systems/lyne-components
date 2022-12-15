@@ -49,6 +49,8 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
+import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
+import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -1067,6 +1069,12 @@ export namespace Components {
          */
         "width"?: InterfaceSectionAttributes['width'];
     }
+    interface SbbSector {
+        /**
+          * Label for the sector.
+         */
+        "label": string;
+    }
     interface SbbSignet {
         /**
           * Visual protective room around signet.
@@ -1499,6 +1507,58 @@ export namespace Components {
          */
         "trigger": string | HTMLElement;
     }
+    interface SbbTrain {
+        /**
+          * Accessibility label for additional information regarding the leaving direction of the train.
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * Controls the direction indicator to show the arrow left or right. Default is left.
+         */
+        "direction": InterfaceSbbTrainAttributes['direction'];
+        /**
+          * General label for "driving direction".
+         */
+        "directionLabel": string;
+        /**
+          * Label for the destination station of the train.
+         */
+        "station": string;
+    }
+    interface SbbTrainFormation {
+    }
+    interface SbbWagon {
+        /**
+          * Additional accessibility text which will be appended to the constructed default text.
+         */
+        "additionalAccessibilityText": string;
+        /**
+          * Accessibility text for blocked passages of the wagon.
+         */
+        "blockedPassage": InterfaceSbbWagonAttributes['blockedPassage'];
+        /**
+          * Custom accessibility text to overwrite the constructed default text.
+         */
+        "customAccessibilityLabel": string;
+        /**
+          * Visible label for the wagon number. Not used by type locomotive or closed.
+         */
+        "label"?: string;
+        /**
+          * Occupancy of a wagon.
+         */
+        "occupancy": InterfaceSbbWagonAttributes['occupancy'];
+        /**
+          * Wagon type.
+         */
+        "type": InterfaceSbbWagonAttributes['type'];
+        /**
+          * Visible class label of a wagon.
+         */
+        "wagonClass"?: '1' | '2';
+    }
+    interface SbbWagonBlockedPassage {
+    }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1783,6 +1843,12 @@ declare global {
         prototype: HTMLSbbSectionElement;
         new (): HTMLSbbSectionElement;
     };
+    interface HTMLSbbSectorElement extends Components.SbbSector, HTMLStencilElement {
+    }
+    var HTMLSbbSectorElement: {
+        prototype: HTMLSbbSectorElement;
+        new (): HTMLSbbSectorElement;
+    };
     interface HTMLSbbSignetElement extends Components.SbbSignet, HTMLStencilElement {
     }
     var HTMLSbbSignetElement: {
@@ -1939,6 +2005,30 @@ declare global {
         prototype: HTMLSbbTooltipElement;
         new (): HTMLSbbTooltipElement;
     };
+    interface HTMLSbbTrainElement extends Components.SbbTrain, HTMLStencilElement {
+    }
+    var HTMLSbbTrainElement: {
+        prototype: HTMLSbbTrainElement;
+        new (): HTMLSbbTrainElement;
+    };
+    interface HTMLSbbTrainFormationElement extends Components.SbbTrainFormation, HTMLStencilElement {
+    }
+    var HTMLSbbTrainFormationElement: {
+        prototype: HTMLSbbTrainFormationElement;
+        new (): HTMLSbbTrainFormationElement;
+    };
+    interface HTMLSbbWagonElement extends Components.SbbWagon, HTMLStencilElement {
+    }
+    var HTMLSbbWagonElement: {
+        prototype: HTMLSbbWagonElement;
+        new (): HTMLSbbWagonElement;
+    };
+    interface HTMLSbbWagonBlockedPassageElement extends Components.SbbWagonBlockedPassage, HTMLStencilElement {
+    }
+    var HTMLSbbWagonBlockedPassageElement: {
+        prototype: HTMLSbbWagonBlockedPassageElement;
+        new (): HTMLSbbWagonBlockedPassageElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -1979,6 +2069,7 @@ declare global {
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
         "sbb-section": HTMLSbbSectionElement;
+        "sbb-sector": HTMLSbbSectorElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
         "sbb-stack": HTMLSbbStackElement;
@@ -2005,6 +2096,10 @@ declare global {
         "sbb-title": HTMLSbbTitleElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
         "sbb-tooltip": HTMLSbbTooltipElement;
+        "sbb-train": HTMLSbbTrainElement;
+        "sbb-train-formation": HTMLSbbTrainFormationElement;
+        "sbb-wagon": HTMLSbbWagonElement;
+        "sbb-wagon-blocked-passage": HTMLSbbWagonBlockedPassageElement;
     }
 }
 declare namespace LocalJSX {
@@ -3073,6 +3168,12 @@ declare namespace LocalJSX {
          */
         "width"?: InterfaceSectionAttributes['width'];
     }
+    interface SbbSector {
+        /**
+          * Label for the sector.
+         */
+        "label": string;
+    }
     interface SbbSignet {
         /**
           * Visual protective room around signet.
@@ -3510,6 +3611,58 @@ declare namespace LocalJSX {
          */
         "trigger"?: string | HTMLElement;
     }
+    interface SbbTrain {
+        /**
+          * Accessibility label for additional information regarding the leaving direction of the train.
+         */
+        "accessibilityLabel"?: string;
+        /**
+          * Controls the direction indicator to show the arrow left or right. Default is left.
+         */
+        "direction"?: InterfaceSbbTrainAttributes['direction'];
+        /**
+          * General label for "driving direction".
+         */
+        "directionLabel": string;
+        /**
+          * Label for the destination station of the train.
+         */
+        "station": string;
+    }
+    interface SbbTrainFormation {
+    }
+    interface SbbWagon {
+        /**
+          * Additional accessibility text which will be appended to the constructed default text.
+         */
+        "additionalAccessibilityText"?: string;
+        /**
+          * Accessibility text for blocked passages of the wagon.
+         */
+        "blockedPassage"?: InterfaceSbbWagonAttributes['blockedPassage'];
+        /**
+          * Custom accessibility text to overwrite the constructed default text.
+         */
+        "customAccessibilityLabel"?: string;
+        /**
+          * Visible label for the wagon number. Not used by type locomotive or closed.
+         */
+        "label"?: string;
+        /**
+          * Occupancy of a wagon.
+         */
+        "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
+        /**
+          * Wagon type.
+         */
+        "type"?: InterfaceSbbWagonAttributes['type'];
+        /**
+          * Visible class label of a wagon.
+         */
+        "wagonClass"?: '1' | '2';
+    }
+    interface SbbWagonBlockedPassage {
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -3550,6 +3703,7 @@ declare namespace LocalJSX {
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
         "sbb-section": SbbSection;
+        "sbb-sector": SbbSector;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
         "sbb-stack": SbbStack;
@@ -3576,6 +3730,10 @@ declare namespace LocalJSX {
         "sbb-title": SbbTitle;
         "sbb-toggle-check": SbbToggleCheck;
         "sbb-tooltip": SbbTooltip;
+        "sbb-train": SbbTrain;
+        "sbb-train-formation": SbbTrainFormation;
+        "sbb-wagon": SbbWagon;
+        "sbb-wagon-blocked-passage": SbbWagonBlockedPassage;
     }
 }
 export { LocalJSX as JSX };
@@ -3621,6 +3779,7 @@ declare module "@stencil/core" {
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
             "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
+            "sbb-sector": LocalJSX.SbbSector & JSXBase.HTMLAttributes<HTMLSbbSectorElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
@@ -3647,6 +3806,10 @@ declare module "@stencil/core" {
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
             "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
+            "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
+            "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
+            "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;
+            "sbb-wagon-blocked-passage": LocalJSX.SbbWagonBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbWagonBlockedPassageElement>;
         }
     }
 }

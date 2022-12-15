@@ -50,6 +50,65 @@ export const i18nClass: any = {
   },
 };
 
+export const i18nWagonLabel = (wagonNumber: number): any => ({
+  de: `Zugwaggon mit der Nummer ${wagonNumber}.`,
+  en: `Train coach with the number ${wagonNumber}.`,
+  fr: `Wagon de train avec numéro ${wagonNumber}.`,
+  it: `Vagone del treno con il numero ${wagonNumber}.`,
+});
+
+export const i18nClosedCompartmentLabel = (wagonNumber: number): any => {
+  if (wagonNumber) {
+    return {
+      de: `Geschlossener Zugwaggon mit der Nummer ${wagonNumber}.`,
+      en: `Closed train coach with the number ${wagonNumber}.`,
+      fr: `Wagon de train fermé avec le numéro ${wagonNumber}.`,
+      it: `Vagone del treno chiuso con il numero ${wagonNumber}.`,
+    };
+  }
+  return {
+    de: 'Geschlossener Zugwaggon.',
+    en: 'Closed train coach.',
+    fr: 'Wagon de train fermé.',
+    it: 'Vagone del treno chiuso.',
+  };
+};
+
+export const i18nLocomotiveLabel: any = {
+  de: 'Lokomotive',
+  en: 'Locomotive',
+  fr: 'Locomotive',
+  it: 'Locomotiva',
+};
+
+export const i18nBlockedPassage: any = {
+  previous: {
+    de: 'Kein Durchgang zum vorherigen Zugwaggon.',
+    en: 'No passage to the previous train coach.',
+    fr: 'Pas de passage au wagon du train précédent.',
+    it: 'Nessun passaggio allo vagone del treno precedente.',
+  },
+  next: {
+    de: 'Kein Durchgang zum nächsten Zugwaggon.',
+    en: 'No passage to the next train coach.',
+    fr: 'Pas de passage au wagon de train suivant.',
+    it: 'Nessun passaggio allo vagone del treno successivo.',
+  },
+  both: {
+    de: 'Kein Durchgang zum nächsten und vorherigen Zugwaggon.',
+    en: 'No passage to the next and previous train coach.',
+    fr: 'Pas de passage au wagon de train suivant et précédent.',
+    it: 'Nessun passaggio allo vagone del treno successivo e precedente',
+  },
+};
+
+export const i18nAdditionalWagonInformationHeading: any = {
+  de: 'Zusätzliche Waggoninformation',
+  en: 'Additional wagon information',
+  fr: 'Informations supplémentaires sur les wagons',
+  it: 'Informazioni aggiuntive sul vagone',
+};
+
 export const i18nConnectionsDepartOn: any = {
   de: 'Abfahrten am',
   en: 'Departures on',
