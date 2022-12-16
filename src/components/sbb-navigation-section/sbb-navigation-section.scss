@@ -115,6 +115,7 @@
 }
 
 .sbb-navigation-section__header {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
