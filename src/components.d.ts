@@ -1356,6 +1356,10 @@ export namespace Components {
         /**
           * The loading state - when this is true it will be render skeleton with an idling animation
          */
+        "loadingPrice"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
         "loadingTrip"?: boolean;
         /**
           * The price Prop, which consists of the data for the badge.
@@ -3445,6 +3449,10 @@ declare namespace LocalJSX {
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
+        /**
+          * The loading state - when this is true it will be render skeleton with an idling animation
+         */
+        "loadingPrice"?: boolean;
         /**
           * The loading state - when this is true it will be render skeleton with an idling animation
          */

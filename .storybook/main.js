@@ -10,4 +10,8 @@ module.exports = {
   features: {
     postcss: false,
   },
+  managerWebpack: (config, options) => {
+    options.cache.set = () => Promise.resolve();
+    return config;
+  },
 };
