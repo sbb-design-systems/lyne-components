@@ -49,17 +49,15 @@ This internal checkbox receives focus and is automatically labelled by the text 
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                                                                                                         | Type      | Default                 |
-| -------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------- |
-| `accessibilityDescribedby` | `accessibility-describedby` | The aria-describedby prop for the hidden input.                                                                                                     | `string`  | `undefined`             |
-| `accessibilityLabel`       | `accessibility-label`       | The aria-label prop for the hidden input.                                                                                                           | `string`  | `undefined`             |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | The aria-labelledby prop for the hidden input.                                                                                                      | `string`  | `undefined`             |
-| `checked`                  | `checked`                   | Whether the internal hidden checkbox is checked.                                                                                                    | `boolean` | `undefined`             |
-| `disabled`                 | `disabled`                  | Whether the internal hidden checkbox is disabled.                                                                                                   | `boolean` | `false`                 |
-| `iconName`                 | `icon-name`                 | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined`             |
-| `required`                 | `required`                  | Whether the internal hidden checkbox is required.                                                                                                   | `boolean` | `false`                 |
-| `tagId`                    | `tag-id`                    | Id of the internal hidden checkbox element - default id will be set automatically.                                                                  | `string`  | ``sbb-tag-${++nextId}`` |
-| `value`                    | `value`                     | Value of internal hidden checkbox.                                                                                                                  | `string`  | `undefined`             |
+| Property             | Attribute             | Description                                                                                                                                         | Type      | Default                 |
+| -------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------- |
+| `accessibilityLabel` | `accessibility-label` | The aria-label prop for the hidden input.                                                                                                           | `string`  | `undefined`             |
+| `checked`            | `checked`             | Whether the internal hidden checkbox is checked.                                                                                                    | `boolean` | `undefined`             |
+| `disabled`           | `disabled`            | Whether the internal hidden checkbox is disabled.                                                                                                   | `boolean` | `false`                 |
+| `iconName`           | `icon-name`           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined`             |
+| `required`           | `required`            | Whether the internal hidden checkbox is required.                                                                                                   | `boolean` | `false`                 |
+| `tagId`              | `tag-id`              | Id of the internal hidden checkbox element - default id will be set automatically.                                                                  | `string`  | ``sbb-tag-${++nextId}`` |
+| `value`              | `value`               | Value of internal hidden checkbox.                                                                                                                  | `string`  | `undefined`             |
 
 
 ## Events

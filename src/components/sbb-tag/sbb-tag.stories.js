@@ -44,18 +44,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   checked,
   disabled,
@@ -64,8 +52,6 @@ const defaultArgTypes = {
   'icon-name': icon,
   amount,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -76,8 +62,6 @@ const defaultArgs = {
   'icon-name': undefined,
   amount: undefined,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 const defaultArgsIconAndAmount = {

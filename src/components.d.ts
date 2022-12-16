@@ -1212,17 +1212,9 @@ export namespace Components {
     }
     interface SbbTag {
         /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the internal hidden checkbox is checked.
          */
@@ -3366,17 +3358,9 @@ declare namespace LocalJSX {
     }
     interface SbbTag {
         /**
-          * The aria-describedby prop for the hidden input.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * The aria-label prop for the hidden input.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * The aria-labelledby prop for the hidden input.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the internal hidden checkbox is checked.
          */

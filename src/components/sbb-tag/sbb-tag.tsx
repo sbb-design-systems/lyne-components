@@ -16,7 +16,10 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { getAccessibilityAttributeList } from '../../global/interfaces/accessibility-properties';
+import {
+  AccessibilityProperties,
+  getAccessibilityAttributeList,
+} from '../../global/interfaces/accessibility-properties';
 
 let nextId = 0;
 
@@ -30,7 +33,7 @@ let nextId = 0;
   styleUrl: 'sbb-tag.scss',
   tag: 'sbb-tag',
 })
-export class SbbTag implements ComponentInterface {
+export class SbbTag implements ComponentInterface, AccessibilityProperties {
   /** Id of the internal hidden checkbox element - default id will be set automatically. */
   @Prop() public tagId = `sbb-tag-${++nextId}`;
 
@@ -57,12 +60,6 @@ export class SbbTag implements ComponentInterface {
 
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** The aria-labelledby prop for the hidden input. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedby: string | undefined;
 
   @Element() private _element: HTMLElement;
 
