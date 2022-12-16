@@ -13,12 +13,11 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
-      lineColor: 'charcoal',
-      bulletType: 'standard',
-      bulletColor: 'charcoal',
+      lineColor: 'default',
+      bulletType: 'default',
       minHeight: '100',
       hideLine: false,
-      bulletSize: 'm',
+      bulletSize: 'start-end',
       position: 0,
     };
     await page.waitForChanges();
@@ -29,8 +28,8 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--middle">
-        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>       
-        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--standard sbb-pearl-chain-vertical-item__bullet-size--m"></div>
+        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>       
+        <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
@@ -51,12 +50,11 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
-      lineColor: 'red',
-      bulletType: 'standard',
-      bulletColor: 'red',
+      lineColor: 'disruption',
+      bulletType: 'default',
       minHeight: '100',
       hideLine: false,
-      bulletSize: 'm',
+      bulletSize: 'start-end',
       position: 0,
     };
     await page.waitForChanges();
@@ -67,8 +65,8 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
-        <div class="sbb-color--red sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>
-        <div class="sbb-color--red sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--standard sbb-pearl-chain-vertical-item__bullet-size--m"></div>
+        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--disruption sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>
+        <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
@@ -91,10 +89,9 @@ describe('sbb-pearl-chain-vertical-item', () => {
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'dotted',
       lineColor: 'charcoal',
-      bulletType: 'standard',
-      bulletColor: 'metal',
+      bulletType: 'default',
       minHeight: '100',
-      bulletSize: 'm',
+      bulletSize: 'start-end',
       hideLine: true,
     };
     await page.waitForChanges();
@@ -105,7 +102,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
-        <div class="sbb-color--metal sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--standard sbb-pearl-chain-vertical-item__bullet-size--m"></div>
+        <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
         <slot name="right"></slot>
@@ -130,11 +127,10 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
-      lineColor: 'red',
-      bulletType: 'thick',
-      bulletColor: 'charcoal',
+      lineColor: 'disruption',
+      bulletType: 'past',
       minHeight: '100',
-      bulletSize: 's',
+      bulletSize: 'start-end',
       hideLine: true,
     };
     await page.waitForChanges();
@@ -145,7 +141,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
-        <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--thick sbb-pearl-chain-vertical-item__bullet-size--s"></div>
+        <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right ">
         <slot name="right"></slot>
@@ -171,11 +167,10 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
-      lineColor: 'red',
-      bulletType: 'thick',
-      bulletColor: 'charcoal',
+      lineColor: 'disruption',
+      bulletType: 'past',
       minHeight: '100',
-      bulletSize: 'm',
+      bulletSize: 'start-end',
       hideLine: true,
     };
     await page.waitForChanges();
@@ -186,7 +181,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
             <slot name="left"></slot>
           </div>
           <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
-            <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--thick sbb-pearl-chain-vertical-item__bullet-size--m"></div>
+            <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
           </div>
           <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--right">
             <slot name="right"></slot>
@@ -215,12 +210,11 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
-      lineColor: 'red',
-      bulletType: 'double',
-      bulletColor: 'charcoal',
+      lineColor: 'disruption',
+      bulletType: 'default',
       minHeight: '100',
       hideLine: true,
-      bulletSize: 'm',
+      bulletSize: 'start-end',
       position: 50,
     };
     await page.waitForChanges();
@@ -232,8 +226,8 @@ describe('sbb-pearl-chain-vertical-item', () => {
             <slot name="left"></slot>
           </div>
           <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
-            <div class="sbb-color--metal sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--double sbb-pearl-chain-vertical-item__bullet-size--m"></div>
-            <div class="sbb-pearl-chain-vertical-item-position__bullet" style="--sbb-pearl-chain-vertical-item-position: 50%;"></div>
+          <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
+            <div class="sbb-pearl-chain-vertical-item__bullet--position" style="--sbb-pearl-chain-vertical-item-position: 50%;"></div>
           </div>
           <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
             <slot name="right"></slot>
@@ -262,12 +256,11 @@ describe('sbb-pearl-chain-vertical-item', () => {
 
     page.rootInstance.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
-      lineColor: 'red',
-      bulletType: 'crossed',
-      bulletColor: 'charcoal',
+      lineColor: 'disruption',
+      bulletType: 'skipped',
       minHeight: '100',
       hideLine: true,
-      bulletSize: 'm',
+      bulletSize: 'start-end',
       position: 0,
     };
     await page.waitForChanges();
@@ -279,7 +272,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
             <slot name="left"></slot>
           </div>
           <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle">
-            <div class="sbb-color--charcoal sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--crossed sbb-pearl-chain-vertical-item__bullet-size--m"></div>
+            <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--skipped sbb-pearl-chain-vertical-item__bullet--start-end"></div>
           </div>
           <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--right">
             <slot name="right"></slot>

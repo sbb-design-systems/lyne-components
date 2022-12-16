@@ -7,19 +7,15 @@ const lineType = {
   control: { type: 'select' },
 };
 const lineColor = {
-  options: ['charcoal', 'red', 'metal', 'sky'],
+  options: ['default', 'disruption', 'past', 'walk'],
   control: { type: 'select' },
 };
 const bulletType = {
-  options: ['standard', 'thin', 'thick', 'double', 'crossed'],
-  control: { type: 'select' },
-};
-const bulletColor = {
-  options: ['charcoal', 'red', 'metal', 'sky'],
+  options: ['default', 'disruption', 'past', 'irrelevant', 'skipped'],
   control: { type: 'select' },
 };
 const bulletSize = {
-  options: ['xs', 's', 'm', 'l', 'xl'],
+  options: ['start-end', 'stop'],
   control: { type: 'select' },
 };
 
@@ -40,7 +36,6 @@ const defaultArgTypes = {
   lineType,
   lineColor,
   bulletType,
-  bulletColor,
   bulletSize,
   hideLine,
   minHeight,
@@ -51,7 +46,6 @@ const defaultArgs = {
   lineType: lineType.options[1],
   lineColor: lineColor.options[0],
   bulletType: bulletType.options[0],
-  bulletColor: bulletColor.options[0],
   minHeight: '100',
   hideLine: false,
   bulletSize: bulletSize.options[1],
@@ -130,12 +124,11 @@ const TemplateTwoDots = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
-          lineColor: 'red',
+          lineColor: 'disruption',
           bulletType: 'standard',
-          bulletColor: 'red',
           minHeight: '100px',
           hideLine: true,
-          bulletSize: 'medium',
+          bulletSize: 'stop',
           position: 0,
         }}
       ></sbb-pearl-chain-vertical-item>
@@ -172,12 +165,11 @@ const TemplateLeftSecondSlot = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
-          lineColor: 'red',
+          lineColor: 'disruption',
           bulletType: 'standard',
-          bulletColor: 'red',
           minHeight: '100px',
           hideLine: true,
-          bulletSize: 'medium',
+          bulletSize: 'stop',
           position: 0,
         }}
       >
@@ -248,10 +240,10 @@ const connectionDetailTemplate = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
-          lineColor: 'red',
+          lineColor: 'disruption',
           minHeight: '100px',
           hideLine: true,
-          bulletSize: 'medium',
+          bulletSize: 'stop',
           position: 0,
         }}
       >
@@ -280,11 +272,10 @@ const thirdLevelTemplate = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
-          lineColor: 'metal',
-          bulletColor: 'metal',
+          lineColor: 'past',
           minHeight: '39',
           hideLine: false,
-          bulletSize: 'small',
+          bulletSize: 'stop',
         }}
       >
         <div
@@ -331,12 +322,11 @@ const thirdLevelTemplate = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
-          lineColor: 'charcoal',
-          bulletColor: 'charcoal',
+          lineColor: 'default',
           minHeight: '89',
           hideLine: false,
-          bulletType: 'thick',
-          bulletSize: 'small',
+          bulletType: 'default',
+          bulletSize: 'stop',
         }}
       >
         <div
@@ -373,12 +363,11 @@ const thirdLevelTemplate = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
-          lineColor: 'metal',
-          bulletColor: 'charcoal',
+          lineColor: 'past',
           minHeight: '89',
           hideLine: false,
-          bulletType: 'standard',
-          bulletSize: 'medium',
+          bulletType: 'default',
+          bulletSize: 'stop',
         }}
       >
         <div
@@ -409,12 +398,11 @@ const thirdLevelTemplate = (args) => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
-          lineColor: 'metal',
-          bulletColor: 'metal',
+          lineColor: 'past',
           minHeight: '39',
           hideLine: false,
-          bulletSize: 'small',
-          bulletType: 'thin',
+          bulletSize: 'stop',
+          bulletType: 'irrelevant',
         }}
       >
         <div
@@ -443,73 +431,6 @@ const thirdLevelTemplate = (args) => {
   );
 };
 
-const TimetableInputTemplate = () => {
-  return (
-    <div>
-      <sbb-pearl-chain-vertical>
-        <sbb-pearl-chain-vertical-item
-          disable-animation={isChromatic()}
-          pearlChainVerticalItemAttributes={{
-            lineType: 'thin',
-            lineColor: 'metal',
-            bulletColor: 'metal',
-            minHeight: '40',
-            hideLine: false,
-            bulletType: 'double',
-          }}
-        >
-          <div
-            slot="right"
-            style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
-          >
-            <input></input>
-          </div>
-        </sbb-pearl-chain-vertical-item>
-      </sbb-pearl-chain-vertical>
-      <div style={{ marginTop: '2px' }}>
-        <sbb-pearl-chain-vertical>
-          <sbb-pearl-chain-vertical-item
-            disable-animation={isChromatic()}
-            style={{ top: '2px' }}
-            pearlChainVerticalItemAttributes={{
-              lineType: 'thin',
-              lineColor: 'metal',
-              bulletColor: 'metal',
-              minHeight: '40',
-              hideLine: false,
-              bulletType: 'thin',
-              bulletSize: 'small',
-            }}
-          >
-            <div
-              slot="right"
-              style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
-            >
-              <input></input>
-            </div>
-          </sbb-pearl-chain-vertical-item>
-          <sbb-pearl-chain-vertical-item
-            disable-animation={isChromatic()}
-            pearlChainVerticalItemAttributes={{
-              bulletColor: 'metal',
-              minHeight: '40',
-              hideLine: true,
-              bulletType: 'double',
-            }}
-          >
-            <div
-              slot="right"
-              style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
-            >
-              <input></input>
-            </div>
-          </sbb-pearl-chain-vertical-item>
-        </sbb-pearl-chain-vertical>
-      </div>
-    </div>
-  );
-};
-
 const TimetableChange = () => {
   return (
     <sbb-pearl-chain-vertical>
@@ -517,12 +438,11 @@ const TimetableChange = () => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
-          lineColor: 'sky',
+          lineColor: 'walk',
           bulletType: 'thick',
-          bulletColor: 'charcoal',
           minHeight: '122',
           false: true,
-          bulletSize: 'medium',
+          bulletSize: 'stop',
           position: 0,
         }}
       >
@@ -575,12 +495,11 @@ const TimetableChange = () => {
         disable-animation={isChromatic()}
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
-          lineColor: 'sky',
+          lineColor: 'walk',
           bulletType: 'standard',
-          bulletColor: 'charcoal',
           minHeight: '100px',
           hideLine: true,
-          bulletSize: 'medium',
+          bulletSize: 'start-end',
           position: 0,
         }}
       >
@@ -616,7 +535,6 @@ export const dottedPearlChain = Template.bind({});
 export const thinPearlChain = Template.bind({});
 export const thickBulletPearlChain = Template.bind({});
 export const thinBulletPearlChain = Template.bind({});
-export const doubleBulletPearlChain = Template.bind({});
 export const crossedBulletPearlChain = Template.bind({});
 
 export const positionPearlChain = Template.bind({});
@@ -624,8 +542,6 @@ export const positionPearlChain = Template.bind({});
 export const connectionDetail = connectionDetailTemplate.bind({});
 
 export const timetableConnection = thirdLevelTemplate.bind({});
-
-export const inputForm = TimetableInputTemplate.bind({});
 
 export const timetableChange = TimetableChange.bind({});
 
@@ -642,8 +558,8 @@ defaultPearlChainWithoutContent.args = {
 defaultPearlChainLeftSlot.argTypes = defaultArgTypes;
 defaultPearlChainLeftSlot.args = {
   ...defaultArgs,
-  lineColor: 'red',
-  bulletColor: 'red',
+  lineColor: 'disruption',
+  bulletType: 'disruption',
   minHeight: '100',
 };
 
@@ -661,8 +577,8 @@ charcoalPearlChain.args = {
 defaultPearlChainTwoDots.argTypes = defaultArgTypes;
 defaultPearlChainTwoDots.args = {
   ...defaultArgs,
-  lineColor: 'red',
-  bulletColor: 'red',
+  lineColor: 'disruption',
+  bulletType: 'disruption',
 };
 
 /** additional bullet types */
@@ -670,18 +586,18 @@ dottedPearlChain.argTypes = defaultArgTypes;
 dottedPearlChain.args = {
   ...defaultArgs,
   lineType: 'dotted',
-  bulletColor: 'red',
-  lineColor: 'red',
-  bulletSize: 'small',
+  lineColor: 'disruption',
+  bulletType: 'disruption',
+  bulletSize: 'stop',
 };
 
 thinPearlChain.argTypes = defaultArgTypes;
 thinPearlChain.args = {
   ...defaultArgs,
   lineType: 'thin',
-  bulletColor: 'red',
-  lineColor: 'red',
-  bulletSize: 'small',
+  lineColor: 'disruption',
+  bulletType: 'disruption',
+  bulletSize: 'stop',
 };
 
 /** additional dot types */
@@ -694,19 +610,15 @@ thickBulletPearlChain.args = {
 thinBulletPearlChain.argTypes = defaultArgTypes;
 thinBulletPearlChain.args = {
   ...defaultArgs,
-  bulletType: 'thin',
-};
-
-doubleBulletPearlChain.argTypes = defaultArgTypes;
-doubleBulletPearlChain.args = {
-  ...defaultArgs,
-  bulletType: 'double',
+  bulletType: 'irrelevant',
 };
 
 crossedBulletPearlChain.argTypes = defaultArgTypes;
 crossedBulletPearlChain.args = {
   ...defaultArgs,
-  bulletType: 'crossed',
+  bulletType: 'skipped',
+  lineType: 'dotted',
+  lineColor: 'disruption',
 };
 
 /** position */

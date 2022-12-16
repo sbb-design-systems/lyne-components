@@ -9,12 +9,10 @@
 
   display: block;
 
-  --sbb-pearl-chain-bullet-size-medium: var(--sbb-pearl-chain-bullet-size-m);
-  --sbb-pearl-chain-bullet-size-small: var(--sbb-pearl-chain-bullet-size);
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
-  --sbb-pearl-chain-color: var(--sbb-pearl-chain-bullet-color);
-  --sbb-pearl-chain-color-incidence: var(--sbb-pearl-chain-bullet-color-incidence);
+  --sbb-pearl-chain-color: var(--sbb-pearl-chain-bullet-color-default);
+  --sbb-pearl-chain-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
   --sbb-pearl-chain-color-past: var(--sbb-pearl-chain-bullet-color-past);
   --sbb-pearl-chain-leg-width: 100%;
 }
@@ -27,19 +25,19 @@
   color: var(--sbb-pearl-chain-color);
   width: 100%;
   padding-block-start: calc(
-    (var(--sbb-pearl-chain-bullet-size-medium) - var(--sbb-pearl-chain-height)) / 2
+    (var(--sbb-pearl-chain-bullet-size-start-end) - var(--sbb-pearl-chain-height)) / 2
   );
   padding-block-end: calc(
-    (var(--sbb-pearl-chain-bullet-size-medium) - var(--sbb-pearl-chain-height)) / 2
+    (var(--sbb-pearl-chain-bullet-size-start-end) - var(--sbb-pearl-chain-height)) / 2
   );
-  padding-inline-end: var(--sbb-pearl-chain-bullet-size-medium);
+  padding-inline-end: var(--sbb-pearl-chain-bullet-size-start-end);
 }
 
 // first and last bullet
 .sbb-pearl-chain::before,
 .sbb-pearl-chain::after {
   @include sbb.pearl-chain-bullet;
-  @include sbb.pearl-chain-bullet--m;
+  @include sbb.pearl-chain-bullet-start-stop;
 
   content: '';
   position: absolute;
@@ -69,7 +67,7 @@
 
 .sbb-pearl-chain--departure-cancellation::before,
 .sbb-pearl-chain--arrival-cancellation::after {
-  color: var(--sbb-pearl-chain-color-incidence);
+  color: var(--sbb-pearl-chain-color-disruption);
 
   @include sbb.if-forced-colors {
     background-color: ActiveText;
@@ -128,13 +126,13 @@
 // bullet on leg
 .sbb-pearl-chain__leg:not(:first-child) {
   &::before {
-    @include sbb.pearl-chain-bullet-transfer;
-    @include sbb.pearl-chain-bullet--s;
+    @include sbb.pearl-chain-bullet;
+    @include sbb.pearl-chain-bullet-stop;
 
     content: '';
     position: absolute;
     inset-block-start: calc(
-      var(--sbb-pearl-chain-bullet-size) / -2 + var(--sbb-pearl-chain-height) / 2
+      var(--sbb-pearl-chain-bullet-size-stop) / -2 + var(--sbb-pearl-chain-height) / 2
     );
     inset-inline-start: 0;
     z-index: 2;
@@ -181,9 +179,9 @@
 }
 
 .sbb-pearl-chain__leg--cancellation {
-  @include sbb.pearl-chain-bullet-incidence;
+  @include sbb.pearl-chain-bullet-disruption;
 
-  color: var(--sbb-pearl-chain-color-incidence);
+  color: var(--sbb-pearl-chain-color-disruption);
 
   @include sbb.if-forced-colors {
     color: ActiveText;
@@ -209,7 +207,6 @@
 
 .sbb-pearl-chain__position {
   @include sbb.pearl-chain-bullet-position;
-  @include sbb.pearl-chain-bullet--m;
 
   position: absolute;
   inset-block-start: -200%;

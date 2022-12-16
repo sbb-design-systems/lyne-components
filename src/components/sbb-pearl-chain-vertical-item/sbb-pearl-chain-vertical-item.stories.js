@@ -25,12 +25,11 @@ export const pearlChainItem = Template.bind({});
 
 pearlChainItem.args = {
   lineType: 'standard',
-  lineColor: 'charcoal',
-  bulletType: 'standard',
-  bulletColor: 'charcoal',
+  lineColor: 'default',
+  bulletType: 'default',
   minHeight: '100',
   hideLine: false,
-  bulletSize: 'm',
+  bulletSize: 'start-end',
 };
 
 export default {
@@ -46,19 +45,15 @@ export default {
       control: { type: 'select' },
     },
     lineColor: {
-      options: ['charcoal', 'red', 'metal', 'sky'],
+      options: ['default', 'disruption', 'past', 'sky'],
       control: { type: 'select' },
     },
     bulletType: {
-      options: ['standard', 'thin', 'thick', 'crossed', 'double'],
-      control: { type: 'select' },
-    },
-    bulletColor: {
-      options: ['charcoal', 'red', 'metal', 'sky'],
+      options: ['default', 'disruption', 'past', 'irrelevant', 'skipped'],
       control: { type: 'select' },
     },
     bulletSize: {
-      options: ['xs', 's', 'm', 'l', 'xl'],
+      options: ['start-end', 'stop'],
       control: { type: 'select' },
     },
   },

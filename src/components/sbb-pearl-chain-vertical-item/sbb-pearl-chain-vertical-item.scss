@@ -15,137 +15,15 @@
   --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
   --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
-  --sbb-pearl-chain-vertical-item-color: var(--sbb-pearl-chain-bullet-color);
-  --sbb-pearl-chain-vertical-item-color-incidence: var(--sbb-pearl-chain-bullet-color-incidence);
+  --sbb-pearl-chain-vertical-item-color-default: var(--sbb-pearl-chain-bullet-color-default);
+  --sbb-pearl-chain-vertical-item-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
   --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-bullet-color-past);
-  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-pearl-chain-bullet-color-walk);
+  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-color-sky-default);
   --sbb-pearl-chain-vertical-item-inline-start: 50%;
   --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-vertical-item__bullet {
-  position: relative;
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-}
-
-.sbb-pearl-chain-vertical-item-position__bullet--disable-animation {
-  animation: unset !important;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--xs {
-  @include sbb.pearl-chain-bullet--xs;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--s {
-  @include sbb.pearl-chain-bullet--s;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--m {
-  @include sbb.pearl-chain-bullet--m;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--l {
-  @include sbb.pearl-chain-bullet--l;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--xl {
-  @include sbb.pearl-chain-bullet--xl;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--xs.sbb-pearl-chain-vertical-item__bullet--crossed,
-.sbb-pearl-chain-vertical-item__bullet-size--s.sbb-pearl-chain-vertical-item__bullet--crossed {
-  @include sbb.pearl-chain-bullet-crossed--s;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--m.sbb-pearl-chain-vertical-item__bullet--crossed {
-  @include sbb.pearl-chain-bullet-crossed;
-}
-
-.sbb-pearl-chain-vertical-item__bullet-size--l.sbb-pearl-chain-vertical-item__bullet--crossed,
-.sbb-pearl-chain-vertical-item__bullet-size--xl.sbb-pearl-chain-vertical-item__bullet--crossed {
-  @include sbb.pearl-chain-bullet-crossed--xl;
-}
-
-.sbb-pearl-chain-vertical-item__line {
-  position: absolute;
-  bottom: 0;
-  flex: 1 1 0%;
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-  width: var(--sbb-border-width-2x);
-  inset-block-start: calc(var(--sbb-pearl-chain-bullet-size) / 2);
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset-inline-start: 0;
-    inset-block-start: 0;
-    height: var(--sbb-pearl-chain-vertical-item-leg-status);
-    width: var(--sbb-pearl-chain-vertical-item-border-width);
-    background-color: var(--sbb-pearl-chain-vertical-item-color-past);
-  }
-}
-
-.sbb-pearl-chain-vertical-item-position__bullet {
-  @include sbb.pearl-chain-bullet-position;
-  @include sbb.absolute-center-x;
-
-  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
-}
-
-.sbb-pearl-chain-vertical-item__line--dotted {
-  background-color: unset;
-  border-color: unset;
-  background-image: linear-gradient(to bottom, currentcolor 0%, currentcolor 50%, Canvas 50%);
-  background-repeat: repeat-y;
-  background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
-    var(--sbb-pearl-chain-vertical-item-spacing-small);
-}
-
-.sbb-pearl-chain-vertical-item__line--thin {
-  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
-}
-
-.sbb-pearl-chain-vertical-item__bullet--standard {
-  @include sbb.pearl-chain-bullet;
-}
-
-.sbb-pearl-chain-vertical-item__bullet--thick {
-  @include sbb.pearl-chain-bullet-transfer;
-}
-
-.sbb-pearl-chain-vertical-item__bullet--thin {
-  @include sbb.pearl-chain-bullet-thin;
-}
-
-.sbb-pearl-chain-vertical-item__bullet--double {
-  @include sbb.pearl-chain-bullet-double;
-}
-
-.sbb-color--charcoal {
-  background-color: var(--sbb-pearl-chain-vertical-item-color);
-  border-color: var(--sbb-pearl-chain-vertical-item-color);
-  color: var(--sbb-pearl-chain-vertical-item-color);
-}
-
-.sbb-color--red {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-incidence);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-incidence);
-  color: var(--sbb-pearl-chain-vertical-item-color-incidence);
-}
-
-.sbb-color--metal {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-past);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-past);
-  color: var(--sbb-pearl-chain-vertical-item-color-past);
-}
-
-.sbb-color--sky {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-walk);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-walk);
-  color: var(--sbb-pearl-chain-vertical-item-color-walk);
-}
+// layout stlyes
 
 .sbb-pearl-chain-vertical-item__column {
   display: table-cell;
@@ -158,7 +36,7 @@
 }
 
 .sbb-pearl-chain-vertical-item__column--middle {
-  width: var(--sbb-pearl-chain-vertical-middle-item-width, --sbb-pearl-chain-bullet-size);
+  width: var(--sbb-pearl-chain-vertical-middle-item-width, --sbb-pearl-chain-bullet-size-start-end);
 }
 
 slot[name='left']::slotted(*) {
@@ -174,4 +52,112 @@ slot[name='right']::slotted(*) {
 .sbb-pearl-chain-vertical-item__middle {
   vertical-align: top;
   border-spacing: 0;
+}
+
+// line styles
+
+.sbb-pearl-chain-vertical-item__line {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
+  width: var(--sbb-border-width-2x);
+  inset-block-start: calc(var(--sbb-pearl-chain-bullet-size-start-end) / 2);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    height: var(--sbb-pearl-chain-vertical-item-leg-status);
+    width: var(--sbb-pearl-chain-vertical-item-border-width);
+    background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  }
+}
+
+.sbb-pearl-chain-vertical-item__line--dotted {
+  background-color: unset;
+  border-color: unset;
+  background-image: linear-gradient(to bottom, currentcolor 0%, currentcolor 50%, Canvas 50%);
+  background-repeat: repeat-y;
+  background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
+    var(--sbb-pearl-chain-vertical-item-spacing-small);
+}
+
+.sbb-pearl-chain-vertical-item__line--thin {
+  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
+}
+
+.sbb-pearl-chain-vertical-item__line--default {
+  background-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  color: var(--sbb-pearl-chain-vertical-item-color-default);
+}
+
+.sbb-pearl-chain-vertical-item__line--disruption {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+}
+
+.sbb-pearl-chain-vertical-item__line--past {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  color: var(--sbb-pearl-chain-vertical-item-color-past);
+}
+
+.sbb-pearl-chain-vertical-item__line--walk {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  color: var(--sbb-pearl-chain-vertical-item-color-walk);
+}
+
+// Bullet styles
+
+.sbb-pearl-chain-vertical-item__bullet {
+  @include sbb.pearl-chain-bullet;
+
+  position: relative;
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
+}
+
+.sbb-pearl-chain-vertical-item__bullet--start-end {
+  @include sbb.pearl-chain-bullet-start-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop {
+  @include sbb.pearl-chain-bullet-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--disruption {
+  @include sbb.pearl-chain-bullet-disruption;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--irrelevant,
+.sbb-pearl-chain-vertical-item__bullet--past {
+  @include sbb.pearl-chain-bullet-past;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--irrelevant {
+  @include sbb.pearl-chain-bullet-irrelevant-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--start-end.sbb-pearl-chain-vertical-item__bullet--skipped {
+  @include sbb.pearl-chain-bullet-skipped;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--skipped {
+  @include sbb.pearl-chain-bullet-skipped-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--position {
+  @include sbb.pearl-chain-bullet-position;
+  @include sbb.absolute-center-x;
+
+  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
+}
+
+.sbb-pearl-chain-vertical-item__bullet--position-disable-animation {
+  animation: unset !important;
 }
