@@ -7,5 +7,7 @@
 input {
   @include sbb.input-reset;
 
+  font-size: var(--sbb-font-size-text-m);
+  line-height: var(--sbb-typo-line-height-body-text);
   color: var(--sbb-form-field-text-color);
 }
