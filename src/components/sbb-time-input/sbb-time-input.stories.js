@@ -188,6 +188,16 @@ const formFieldBasicArgs = {
   iconEnd: undefined,
 };
 
+const formFieldBasicArgsWithIcons = {
+  ...basicArgs,
+  label: 'Label',
+  size: size.options[0],
+  optional: false,
+  borderless: false,
+  iconStart: 'clock-small',
+  iconEnd: 'circle-information-small',
+};
+
 const TemplateSbbTimeInput = (args) => [
   <sbb-time-input {...args} onChange={(event) => changeEventHandler(event)}></sbb-time-input>,
   <div style="margin-block-start: 1rem;">Change time:</div>,
@@ -220,10 +230,27 @@ sbbTimeInputInFormField.args = { ...formFieldBasicArgs };
 
 export const sbbTimeInputInFormFieldWithIcons = TemplateSbbTimeInputInFormField.bind({});
 sbbTimeInputInFormFieldWithIcons.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFieldWithIcons.args = {
-  ...formFieldBasicArgs,
-  iconStart: 'clock-small',
-  iconEnd: 'circle-information-small',
+sbbTimeInputInFormFieldWithIcons.args = { ...formFieldBasicArgsWithIcons };
+
+export const sbbTimeInputInFormFieldBorderless = TemplateSbbTimeInputInFormField.bind({});
+sbbTimeInputInFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
+sbbTimeInputInFormFieldBorderless.args = {
+  ...formFieldBasicArgsWithIcons,
+  borderless: true,
+};
+
+export const sbbTimeInputInFormFielDisabled = TemplateSbbTimeInputInFormField.bind({});
+sbbTimeInputInFormFielDisabled.argTypes = { ...formFieldBasicArgsTypes };
+sbbTimeInputInFormFielDisabled.args = {
+  ...formFieldBasicArgsWithIcons,
+  disabled: true,
+};
+
+export const sbbTimeInputInFormFieldReadonly = TemplateSbbTimeInputInFormField.bind({});
+sbbTimeInputInFormFieldReadonly.argTypes = { ...formFieldBasicArgsTypes };
+sbbTimeInputInFormFieldReadonly.args = {
+  ...formFieldBasicArgsWithIcons,
+  readonly: true,
 };
 
 export default {

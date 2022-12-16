@@ -5,5 +5,7 @@
 @include sbb.host-component-properties;
 
 input {
-  @include sbb.button-reset;
+  @include sbb.input-reset;
+
+  color: var(--sbb-form-field-text-color);
 }
