@@ -168,7 +168,7 @@ const formFieldBasicArgsTypes = {
 
 const basicArgs = {
   value: '12:00',
-  'value-as-date': new Date(new Date(0).setHours(12, 0, 0)),
+  'value-as-date': new Date(new Date(0).setHours(12, 0, 0, 0)),
   form: undefined,
   disabled: false,
   readonly: false,
@@ -205,7 +205,7 @@ const TemplateSbbTimeInputInFormField = ({
 }) => (
   <sbb-form-field size={size} label={label} optional={optional} borderless={borderless}>
     {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
-    {TemplateSbbTimeInput(args)}
+    <sbb-time-input {...args}></sbb-time-input>
     {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
   </sbb-form-field>
 );

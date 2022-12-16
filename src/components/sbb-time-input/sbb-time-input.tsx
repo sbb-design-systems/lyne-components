@@ -56,17 +56,20 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   /** Host element */
   @Element() private _element!: HTMLElement;
 
+  /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'HH:MM';
 
   private _inputElement(): HTMLInputElement {
     return this._element.shadowRoot.querySelector('input');
   }
 
+  /** Applies the correct format to values and triggers event dispatch. */
   private _updateValueAndEmitChange(event): void {
     this._updateValue(event.target.value);
     this._emitChange(event);
   }
 
+  /** Returns the right format for the `value` property . */
   private _formatValue(value: string): string {
     const regGroups = this._validateInput(value);
     if (!regGroups || regGroups.length <= 2) {
@@ -78,6 +81,10 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     return `${hours}:${minutes}`;
   }
 
+  /**
+   * Returns the right format for the `valueAsDate` property:
+   * sets the start date at 01.01.1970, then adds the typed hours/minutes.
+   */
   private _formatValueAsDate(value: string): Date {
     const regGroups = this._validateInput(value);
     if (!regGroups || regGroups.length <= 2) {
@@ -87,9 +94,14 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     return new Date(new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0));
   }
 
+  /**
+   * Updates `value` and `valueAsDate`. The direct update on the `_inputElement` is required
+   * to force the input change when the typed value is the same of the current one.
+   */
   private _updateValue(value: string): void {
     this.value = this._formatValue(value);
     this.valueAsDate = this._formatValueAsDate(value);
+    this._inputElement().value = this.value;
   }
 
   /** Emits the change event. */
@@ -98,6 +110,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     this.didChange.emit();
   }
 
+  /** Validate input against the defined RegExps. */
   private _validateInput(value: string): RegExpMatchArray {
     if (REGEX_PATTERN.test(value)) {
       // special case: the input is 3 or 4 digits; split like so: AB?:CD
@@ -109,10 +122,12 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     }
   }
 
+  /** Parse the hours with two chars. */
   private _parseHour(regGroupHours: string): string {
     return regGroupHours.length > 1 ? regGroupHours : '0' + regGroupHours;
   }
 
+  /** Parse the minutes with two chars. */
   private _parseMinute(regGroupMin: string): string {
     regGroupMin = regGroupMin || '00';
     return regGroupMin.length > 1 ? regGroupMin : '0' + regGroupMin;
