@@ -23,10 +23,12 @@
   --sbb-navigation-backdrop-color: transparent;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-navigation-left: 0;
+  --sbb-navigation-width: 100%;
 
   @include sbb.grid-base;
 
-  column-gap: 0;
+  padding-inline: 0;
   position: var(--sbb-navigation-position);
   left: 0;
   top: 0;
@@ -49,6 +51,10 @@
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
     --sbb-navigation-position: absolute;
     --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
+    --sbb-navigation-left: calc(var(--sbb-layout-base-offset-responsive) * -1);
+    --sbb-navigation-width: calc(100% + var(--sbb-layout-base-offset-responsive));
+
+    padding-inline: var(--sbb-layout-base-offset-responsive);
 
     // Navigation backdrop (not visible on mobile)
     &::before {
@@ -64,6 +70,7 @@
   }
 
   @include sbb.mq($from: ultra) {
+    --sbb-navigation-grid-column: 1 / 6;
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   }
 }
@@ -93,17 +100,17 @@
   @include transition(width);
 
   display: block;
+  width: var(--sbb-navigation-width);
   grid-column: var(--sbb-navigation-grid-column);
   padding: 0;
   margin: 0;
   position: var(--sbb-navigation-position);
   visibility: hidden;
   opacity: 0;
-  left: 0;
+  left: var(--sbb-navigation-left);
   top: 0;
   border: none;
   pointer-events: none;
-  width: 100%;
   height: 100vh;
   color: var(--sbb-color-white-default);
   background-color: var(--sbb-color-midnight-default);
@@ -158,7 +165,8 @@
   justify-content: flex-end;
   grid-column: var(--sbb-navigation-grid-column);
   position: absolute;
-  width: 100%;
+  left: var(--sbb-navigation-left);
+  width: var(--sbb-navigation-width);
   height: auto;
   pointer-events: none;
   padding: var(--sbb-spacing-responsive-xs);
