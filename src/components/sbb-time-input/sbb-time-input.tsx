@@ -9,7 +9,10 @@ import {
   Prop,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import {
+  AccessibilityProperties,
+  getAccessibilityAttributeList,
+} from '../../global/interfaces/accessibility-properties';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
 const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})[.:,\-;_hH]?([0-9]{1,2})?/;
@@ -41,12 +44,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -147,9 +144,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       valueAsDate: this._formatValueAsDate(this.value) || null,
       value: this._formatValue(this.value) || null,
       placeholder: this._placeholder,
-      'aria-label': this.accessibilityLabel || null,
-      'aria-describedby': this.accessibilityDescribedby || null,
-      'aria-labelledby': this.accessibilityLabelledby || null,
+      ...getAccessibilityAttributeList(this),
     };
     return (
       <input

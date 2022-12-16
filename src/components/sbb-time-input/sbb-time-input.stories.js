@@ -71,24 +71,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Time input attribute',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Time input attribute',
-  },
-};
-
 const size = {
   control: {
     type: 'inline-radio',
@@ -152,8 +134,6 @@ const basicArgTypes = {
   readonly,
   required,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const formFieldBasicArgsTypes = {
@@ -174,8 +154,6 @@ const basicArgs = {
   readonly: false,
   required: false,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 const formFieldBasicArgs = {
