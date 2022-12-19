@@ -5,14 +5,14 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-pearl-chain-height: auto;
+  --sbb-pearl-chain-time-height: auto;
 
   @include sbb.mq($from: small) {
-    --sbb-pearl-chain-height: #{sbb.px-to-rem-build(25)};
+    --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(25)};
   }
 
   @include sbb.mq($from: medium) {
-    --sbb-pearl-chain-height: #{sbb.px-to-rem-build(28)};
+    --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(28)};
   }
 }
 
@@ -21,7 +21,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  height: var(--sbb-pearl-chain-height);
+  height: var(--sbb-pearl-chain-time-height);
 }
 
 .sbb-pearl-chain__time-walktime {

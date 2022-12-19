@@ -6,7 +6,7 @@
 
 :host {
   --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-timetable-row-height: var(--sbb-pearl-chain-height);
+  --sbb-timetable-row-height: #{sbb.px-to-rem-build(25)};
   --sbb-timetable-row-height-header: #{sbb.px-to-rem-build(20)};
   --sbb-timetable-row-height-footer: #{sbb.px-to-rem-build(16)};
 }
