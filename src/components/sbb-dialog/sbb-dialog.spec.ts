@@ -1,5 +1,6 @@
 import { SbbDialog } from './sbb-dialog';
 import { newSpecPage } from '@stencil/core/testing';
+import { i18nCloseDialog } from '../../global/i18n';
 
 describe('sbb-dialog', () => {
   it('renders', async () => {
@@ -15,7 +16,7 @@ describe('sbb-dialog', () => {
             <div class="sbb-dialog__wrapper">
               <div class="sbb-dialog__header">
                 <sbb-button
-                  accessibility-label="Close modal"
+                  accessibility-label="${i18nCloseDialog.en}"
                   class="sbb-dialog__close"
                   icon-name="cross-small"
                   sbb-dialog-close=""
