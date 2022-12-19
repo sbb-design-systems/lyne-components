@@ -20,10 +20,10 @@ describe('sbb-navigation', () => {
         <sbb-navigation trigger="nav-trigger">
           <mock:shadow-root>
             <div class="sbb-navigation__container">
-              <dialog class="sbb-navigation" id="sbb-navigation-1">
+              <dialog class="sbb-navigation" id="sbb-navigation-dialog-id">
                 <div class="sbb-navigation__header">
                   <sbb-button 
-                    accessibility-controls="sbb-navigation-1"
+                    accessibility-controls="sbb-navigation-dialog-id"
                     accessibility-label="Close modal" 
                     class="sbb-navigation__close" 
                     icon-name="cross-small" 

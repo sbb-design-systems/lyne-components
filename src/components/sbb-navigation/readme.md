@@ -15,14 +15,18 @@ Some of its features are:
 To display the navigation you can either provide a trigger element or call the `open()` method on the `sbb-navigation` component.
 
 ```html
-<sbb-navigation trigger="some-button-id">
+<!-- Trigger element -->
+<sbb-button id="nav-trigger">Navigation trigger</sbb-button>
+
+<!-- Navigation component with navigation sections -->
+<sbb-navigation trigger="nav-trigger">
   <sbb-navigation-marker>
-    <sbb-navigation-action id="nav1">Label 1</sbb-navigation-action>
-    <sbb-navigation-action id="nav2">Label 2</sbb-navigation-action>
+    <sbb-navigation-action id="nav-section-1">Label 1</sbb-navigation-action>
+    <sbb-navigation-action id="nav-section-2">Label 2</sbb-navigation-action>
     <sbb-navigation-action href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-action>
   <sbb-navigation-marker>
 
-  <sbb-navigation-section trigger="nav1">
+  <sbb-navigation-section trigger="nav-section-1">
     <span slot="label">Title 1</span>
     <sbb-navigation-list>
       <span slot="label">Label 1.1</span>
@@ -42,15 +46,12 @@ To display the navigation you can either provide a trigger element or call the `
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                                                                | Type                    | Default                        |
-| -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------ |
-| `accessibilityCloseLabel`  | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                          | `string`                | `undefined`                    |
-| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                 | `string`                | `undefined`                    |
-| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                       | `string`                | `undefined`                    |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                  | `string`                | `undefined`                    |
-| `disableAnimation`         | `disable-animation`         | Whether the animation is enabled.                                                                          | `boolean`               | `false`                        |
-| `navigationId`             | `navigation-id`             | This id will be forwarded to the relevant inner element.                                                   | `string`                | ``sbb-navigation-${++nextId}`` |
-| `trigger`                  | `trigger`                   | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined`                    |
+| Property                  | Attribute                   | Description                                                                                                | Type                    | Default     |
+| ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                          | `string`                | `undefined` |
+| `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                       | `string`                | `undefined` |
+| `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                          | `boolean`               | `false`     |
+| `trigger`                 | `trigger`                   | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 
 ## Events

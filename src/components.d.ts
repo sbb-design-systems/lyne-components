@@ -949,17 +949,9 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Closes the navigation.
          */
@@ -968,10 +960,6 @@ export namespace Components {
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "navigationId": string;
         /**
           * Opens the navigation on trigger click.
          */
@@ -987,10 +975,6 @@ export namespace Components {
          */
         "accessibilityControls": string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup": PopupType | undefined;
@@ -998,10 +982,6 @@ export namespace Components {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Whether the action is active.
          */
@@ -1011,7 +991,7 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to (if it is not present navigation action becomes a button).
+          * The href value you want to link to (if it is not present, navigation action becomes a button).
          */
         "href": string | undefined;
         /**
@@ -1041,7 +1021,6 @@ export namespace Components {
     }
     interface SbbNavigationList {
         "label"?: string;
-        "labelId": string;
     }
     interface SbbNavigationMarker {
         "reset": () => Promise<void>;
@@ -1056,17 +1035,9 @@ export namespace Components {
          */
         "accessibilityBackLabel": string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby": string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel": string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby": string | undefined;
         /**
           * Closes the navigation section.
          */
@@ -3230,25 +3201,13 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
-        /**
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
-        /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "navigationId"?: string;
         /**
           * Emits whenever the navigation is closed.
          */
@@ -3276,10 +3235,6 @@ declare namespace LocalJSX {
          */
         "accessibilityControls"?: string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
          */
         "accessibilityHaspopup"?: PopupType | undefined;
@@ -3287,10 +3242,6 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the action is active.
          */
@@ -3300,7 +3251,7 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
-          * The href value you want to link to (if it is not present navigation action becomes a button).
+          * The href value you want to link to (if it is not present, navigation action becomes a button).
          */
         "href"?: string | undefined;
         /**
@@ -3330,7 +3281,6 @@ declare namespace LocalJSX {
     }
     interface SbbNavigationList {
         "label"?: string;
-        "labelId"?: string;
     }
     interface SbbNavigationMarker {
         /**
@@ -3344,17 +3294,9 @@ declare namespace LocalJSX {
          */
         "accessibilityBackLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-describedby to the relevant nested element.
-         */
-        "accessibilityDescribedby"?: string | undefined;
-        /**
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
-        /**
-          * This will be forwarded as aria-labelledby to the relevant nested element.
-         */
-        "accessibilityLabelledby"?: string | undefined;
         /**
           * Whether the animation is enabled.
          */

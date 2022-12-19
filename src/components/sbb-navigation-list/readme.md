@@ -23,10 +23,9 @@ Its intended use is inside of a [sbb-navigation-section](../sbb-navigation-secti
 
 ## Properties
 
-| Property  | Attribute  | Description | Type     | Default                                   |
-| --------- | ---------- | ----------- | -------- | ----------------------------------------- |
-| `label`   | `label`    |             | `string` | `undefined`                               |
-| `labelId` | `label-id` |             | `string` | ``sbb-navigation-list-label-${++nextId}`` |
+| Property | Attribute | Description | Type     | Default     |
+| -------- | --------- | ----------- | -------- | ----------- |
+| `label`  | `label`   |             | `string` | `undefined` |
 
 
 ## Slots

@@ -23,7 +23,7 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
- * @slot unnamed - Use this to project any content inside the navigation.
+ * @slot unnamed - Use this to project any content inside the navigation section.
  */
 
 @Component({
@@ -52,16 +52,6 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
    * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * This will be forwarded as aria-label to the back button element.

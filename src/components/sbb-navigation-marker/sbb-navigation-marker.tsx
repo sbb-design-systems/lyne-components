@@ -14,7 +14,7 @@ import {
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 /**
- * @slot unnamed - Use this slot to navigation actions into the sbb-navigation-marker.
+ * @slot unnamed - Use this slot to provide navigation actions into the sbb-navigation-marker.
  */
 
 @Component({

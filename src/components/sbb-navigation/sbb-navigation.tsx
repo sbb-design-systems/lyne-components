@@ -24,8 +24,6 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
  * @slot unnamed - Use this to project any content inside the navigation.
  */
 
-let nextId = 0;
-
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
   subtree: true,
@@ -39,11 +37,6 @@ const navigationObserverConfig: MutationObserverInit = {
 })
 export class SbbNavigation implements ComponentInterface, AccessibilityProperties {
   /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public navigationId = `sbb-navigation-${++nextId}`;
-
-  /**
    * The element that will trigger the navigation.
    * Accepts both a string (id of an element) or an HTML element.
    */
@@ -53,16 +46,6 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
    * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * This will be forwarded as aria-label to the close button element.
@@ -351,7 +334,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       <sbb-button
         class="sbb-navigation__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
-        accessibility-controls={this.navigationId}
+        accessibility-controls="sbb-navigation-dialog-id"
         variant="transparent"
         negative={true}
         size="m"
@@ -372,7 +355,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
         <div class="sbb-navigation__container">
           <dialog
             ref={(navigationRef) => (this._navigation = navigationRef)}
-            id={this.navigationId}
+            id="sbb-navigation-dialog-id"
             aria-label={this.accessibilityLabel}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation"

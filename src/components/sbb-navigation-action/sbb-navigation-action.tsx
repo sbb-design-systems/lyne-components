@@ -25,7 +25,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   @Prop({ reflect: true }) public size?: 'l' | 'm' | 's' = 'l';
 
   /**
-   * The href value you want to link to (if it is not present navigation action becomes a button).
+   * The href value you want to link to (if it is not present, navigation action becomes a button).
    */
   @Prop() public href: string | undefined;
 
@@ -81,16 +81,6 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
    * This will be forwarded as aria-label to the relevant nested element.
    */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /**
-   * This will be forwarded as aria-describedby to the relevant nested element.
-   */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /**
-   * This will be forwarded as aria-labelledby to the relevant nested element.
-   */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   @Element() private _element: HTMLElement;
 
