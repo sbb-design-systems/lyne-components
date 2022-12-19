@@ -285,9 +285,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     return (
       <Host
         class={{
-          'sbb-navigation-section--opened': this._state === 'opened',
-          'sbb-navigation-section--opening': this._state === 'opening',
-          'sbb-navigation-section--closing': this._state === 'closing',
+          [`sbb-navigation-section--${this._state}`]: true,
         }}
         slot="navigation-section"
       >

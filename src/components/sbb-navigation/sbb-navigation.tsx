@@ -369,27 +369,31 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
           'sbb-navigation--has-navigation-section': !!this._activeNavigationSection,
         }}
       >
-        <div class="sbb-navigation__header">{closeButton}</div>
-        <dialog
-          ref={(navigationRef) => (this._navigation = navigationRef)}
-          id={this.navigationId}
-          aria-label={this.accessibilityLabel}
-          onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-          class="sbb-navigation"
-        >
-          <div
-            ref={(navigationWrapperRef) => (this._navigationWrapperElement = navigationWrapperRef)}
-            class="sbb-navigation__wrapper"
+        <div class="sbb-navigation__container">
+          <dialog
+            ref={(navigationRef) => (this._navigation = navigationRef)}
+            id={this.navigationId}
+            aria-label={this.accessibilityLabel}
+            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
+            class="sbb-navigation"
           >
+            <div class="sbb-navigation__header">{closeButton}</div>
             <div
-              class="sbb-navigation__content"
-              ref={(navigationContent) => (this._navigationContentElement = navigationContent)}
+              ref={(navigationWrapperRef) =>
+                (this._navigationWrapperElement = navigationWrapperRef)
+              }
+              class="sbb-navigation__wrapper"
             >
-              <slot />
+              <div
+                class="sbb-navigation__content"
+                ref={(navigationContent) => (this._navigationContentElement = navigationContent)}
+              >
+                <slot />
+              </div>
             </div>
-          </div>
-        </dialog>
-        <slot name="navigation-section" />
+          </dialog>
+          <slot name="navigation-section" />
+        </div>
       </Host>
     );
   }

@@ -16,10 +16,11 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-section-width: 100%;
 
+  display: none;
   position: var(--sbb-navigation-section-position);
   grid-column: var(--sbb-navigation-section-column);
   inset-inline-start: 0;
-  top: 0;
+  inset-block-start: 0;
   width: var(--sbb-navigation-section-width);
   z-index: 10;
 
@@ -33,10 +34,14 @@
     --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
       var(--sbb-layout-base-offset-responsive);
-    --sbb-navigation-section-position: absolute;
+    --sbb-navigation-section-position: relative;
     --sbb-navigation-section-transform: translateX(0%);
     --sbb-navigation-section-content-padding-inline-start: 0;
-    --sbb-navigation-section-width: calc(100% + var(--sbb-layout-base-offset-responsive));
+    --sbb-navigation-section-width: calc(
+      100% + var(--sbb-layout-base-offset-responsive) + var(--sbb-grid-base-gutter-responsive)
+    );
+
+    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
   }
 
   @include sbb.mq($from: wide) {
@@ -50,8 +55,13 @@
   }
 }
 
+:host(.sbb-navigation-section--opening) {
+  --sbb-navigation-section-position: absolute;
+}
+
 /* stylelint-disable-next-line plugin/stylelint-bem-namics */
 :host(:not(.sbb-navigation-section--closed)) {
+  display: block;
   inset: 0;
 }
 
@@ -154,7 +164,6 @@
   @include sbb.mq($from: large) {
     opacity: 0;
     transform: translateY(var(--sbb-spacing-fixed-3x));
-
     transition: {
       duration: var(--sbb-navigation-section-animation-duration);
       delay: var(--sbb-navigation-section-animation-duration);

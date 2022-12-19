@@ -19,27 +19,29 @@ describe('sbb-navigation', () => {
     expect(root).toEqualHtml(`
         <sbb-navigation trigger="nav-trigger">
           <mock:shadow-root>
-            <div class="sbb-navigation__header">
-              <sbb-button 
-                accessibility-controls="sbb-navigation-1"
-                accessibility-label="Close modal" 
-                class="sbb-navigation__close" 
-                icon-name="cross-small" 
-                negative=""
-                sbb-navigation-close=""
-                size="m" 
-                type="button" 
-                variant="transparent">
-              </sbb-button>
-            </div>
-            <dialog class="sbb-navigation" id="sbb-navigation-1">
-              <div class="sbb-navigation__wrapper">
-                <div class="sbb-navigation__content">
-                  <slot></slot>
+            <div class="sbb-navigation__container">
+              <dialog class="sbb-navigation" id="sbb-navigation-1">
+                <div class="sbb-navigation__header">
+                  <sbb-button 
+                    accessibility-controls="sbb-navigation-1"
+                    accessibility-label="Close modal" 
+                    class="sbb-navigation__close" 
+                    icon-name="cross-small" 
+                    negative=""
+                    sbb-navigation-close=""
+                    size="m" 
+                    type="button" 
+                    variant="transparent">
+                  </sbb-button>
                 </div>
-              </div>
-            </dialog>
-            <slot name="navigation-section"></slot>
+                <div class="sbb-navigation__wrapper">
+                  <div class="sbb-navigation__content">
+                    <slot></slot>
+                  </div>
+                </div>
+              </dialog>
+              <slot name="navigation-section"></slot>
+            </div>
           </mock:shadow-root>
           <sbb-navigation-marker>
             <sbb-navigation-action id="nav-1">

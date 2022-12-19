@@ -9,7 +9,7 @@ describe('sbb-navigation-section', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation-section slot="navigation-section">
+        <sbb-navigation-section class="sbb-navigation-section--closed" slot="navigation-section">
           <mock:shadow-root>
             <dialog class="sbb-navigation-section" id="sbb-navigation-section-1">
               <div class="sbb-navigation-section__wrapper">

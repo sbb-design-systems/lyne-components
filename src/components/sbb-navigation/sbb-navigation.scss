@@ -23,17 +23,15 @@
   --sbb-navigation-backdrop-color: transparent;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-navigation-left: 0;
+  --sbb-navigation-inline-start: 0;
   --sbb-navigation-width: 100%;
 
-  @include sbb.grid-base;
-
-  column-gap: 0;
   padding-inline: 0;
   position: var(--sbb-navigation-position);
   inset-inline-start: 0;
   inset-block-start: 0;
   pointer-events: none;
+  overflow: hidden;
   z-index: 10;
 
   ::slotted(sbb-navigation-list:first-child),
@@ -52,7 +50,7 @@
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
     --sbb-navigation-position: absolute;
     --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
-    --sbb-navigation-left: calc(var(--sbb-layout-base-offset-responsive) * -1);
+    --sbb-navigation-inline-start: calc(var(--sbb-layout-base-offset-responsive) * -1);
     --sbb-navigation-width: calc(100% + var(--sbb-layout-base-offset-responsive));
 
     padding-inline: var(--sbb-layout-base-offset-responsive);
@@ -97,6 +95,10 @@
   --sbb-navigation-animation-duration: 0s;
 }
 
+.sbb-navigation__container {
+  @include sbb.grid-base;
+}
+
 .sbb-navigation {
   @include transition(width);
 
@@ -105,11 +107,11 @@
   grid-column: var(--sbb-navigation-grid-column);
   padding: 0;
   margin: 0;
-  position: var(--sbb-navigation-position);
+  position: relative;
   visibility: hidden;
   opacity: 0;
-  left: var(--sbb-navigation-left);
-  top: 0;
+  inset-inline-start: var(--sbb-navigation-inline-start);
+  inset-block-start: 0;
   border: none;
   pointer-events: none;
   height: 100vh;
@@ -159,24 +161,15 @@
 }
 
 .sbb-navigation__header {
-  @include transition(width, transform);
+  @include transition(width);
 
   display: flex;
-  transform: translateX(-100%);
   justify-content: flex-end;
-  grid-column: var(--sbb-navigation-grid-column);
   position: absolute;
-  left: var(--sbb-navigation-left);
-  width: var(--sbb-navigation-width);
-  height: auto;
+  width: 100%;
   pointer-events: none;
   padding: var(--sbb-spacing-responsive-xs);
   z-index: 11;
-
-  :host(.sbb-navigation--opened) &,
-  :host(.sbb-navigation--opening) & {
-    transform: translateX(0%);
-  }
 
   :host(.sbb-navigation--has-navigation-section) & {
     width: 100vw;
