@@ -42,10 +42,27 @@ export interface ServiceAlteration {
   unplannedStopPointsText?: string;
 }
 
+/** vehicle journeys stop point state */
+export type StopStatusEnum =
+  | 'BEGIN_PARTIAL_CANCELLATION'
+  | 'CANCELLED'
+  | 'END_PARTIAL_CANCELLATION'
+  | 'NOT_SERVICED'
+  | 'PLANNED'
+  | 'UNPLANNED';
+
+/** Stop point on a vehicle journey */
+export interface ScheduledStopPoint {
+  stopStatus?: StopStatusEnum;
+}
+
+/** A passenger carrying vehicle journey for one specified operation day */
 export interface ServiceJourney {
   /** List of ServiceProduct attributes and journey hints */
   /** Status (realtime changes) to Journey. */
   serviceAlteration: ServiceAlteration;
+  /** List of stop points */
+  stopPoints: ScheduledStopPoint[];
 }
 
 export interface PTRideLeg {

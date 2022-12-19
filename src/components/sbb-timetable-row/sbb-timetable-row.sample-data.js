@@ -4,6 +4,8 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
+  redirectedOnArrivalLeg,
+  redirectedOnDepartureLeg,
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 export const defaultTrip = {
@@ -116,6 +118,82 @@ export const pastTrip = {
     },
     tripStatus: {
       partiallyCancelled: false,
+    },
+  },
+};
+
+export const skippedLastArrivalStopTrip = {
+  legs: [pastLeg, progressLeg, futureLeg, redirectedOnArrivalLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+    },
+  },
+};
+
+export const skippedArrivalStopTrip = {
+  legs: [pastLeg, progressLeg, redirectedOnArrivalLeg, futureLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+    },
+  },
+};
+
+export const skippedDepartureStopTrip = {
+  legs: [pastLeg, progressLeg, redirectedOnDepartureLeg, futureLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+    },
+  },
+};
+
+export const skippedFirstDepartureStopTrip = {
+  legs: [redirectedOnDepartureLeg, futureLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
     },
   },
 };
