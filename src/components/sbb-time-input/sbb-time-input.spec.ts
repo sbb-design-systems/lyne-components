@@ -9,11 +9,56 @@ describe('sbb-time-input', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-time-input>
-          <mock:shadow-root>
-            <button class="some-class"></button>
-          </mock:shadow-root>
-        </sbb-time-input>
-      `);
+      <sbb-time-input>
+        <mock:shadow-root>
+          <input placeholder="HH:MM" type="text">
+        </mock:shadow-root>
+      </sbb-time-input>
+    `);
+  });
+
+  it('renders readonly', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTimeInput],
+      html: '<sbb-time-input readonly="true"/>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-time-input readonly="true">
+        <mock:shadow-root>
+          <input placeholder="HH:MM" type="text" readonly="">
+        </mock:shadow-root>
+      </sbb-time-input>
+    `);
+  });
+
+  it('renders required with value', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTimeInput],
+      html: '<sbb-time-input required="true" value="1200"/>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-time-input required="true" value="1200">
+        <mock:shadow-root>
+          <input placeholder="HH:MM" type="text" required="" value="12:00">
+        </mock:shadow-root>
+      </sbb-time-input>
+    `);
+  });
+
+  it('renders disabled with value and form', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTimeInput],
+      html: '<sbb-time-input disabled="true" value="123" form="myForm"/>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-time-input disabled="true" value="123" form="myForm">
+        <mock:shadow-root>
+          <input placeholder="HH:MM" type="text" disabled="" value="01:23" form="myForm">
+        </mock:shadow-root>
+      </sbb-time-input>
+    `);
   });
 });

@@ -66,6 +66,22 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     this._emitChange(event);
   }
 
+  /**
+   * Updates `value` and `valueAsDate`. The direct update on the `_inputElement` is required
+   * to force the input change when the typed value is the same of the current one.
+   */
+  private _updateValue(value: string): void {
+    this.value = this._formatValue(value);
+    this.valueAsDate = this._formatValueAsDate(value);
+    this._inputElement().value = this.value;
+  }
+
+  /** Emits the change event. */
+  private _emitChange(event): void {
+    forwardEventToHost(event, this._element);
+    this.didChange.emit();
+  }
+
   /** Returns the right format for the `value` property . */
   private _formatValue(value: string): string {
     const regGroups = this._validateInput(value);
@@ -89,22 +105,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     }
 
     return new Date(new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0));
-  }
-
-  /**
-   * Updates `value` and `valueAsDate`. The direct update on the `_inputElement` is required
-   * to force the input change when the typed value is the same of the current one.
-   */
-  private _updateValue(value: string): void {
-    this.value = this._formatValue(value);
-    this.valueAsDate = this._formatValueAsDate(value);
-    this._inputElement().value = this.value;
-  }
-
-  /** Emits the change event. */
-  private _emitChange(event): void {
-    forwardEventToHost(event, this._element);
-    this.didChange.emit();
   }
 
   /** Validate input against the defined RegExps. */
