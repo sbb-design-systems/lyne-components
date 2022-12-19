@@ -52,13 +52,7 @@ export default {
       </div>
     ),
   ],
-  documentation: {
-    disableArgs: ['someArgToDisableForDocumentationPlatform'],
-  },
   parameters: {
-    actions: {
-      handles: [],
-    },
     backgrounds: {
       disable: true,
     },

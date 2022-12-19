@@ -65,13 +65,13 @@ export class SbbNavigationMarker implements ComponentInterface {
    * Handles click and checks if its target is an sbb-navigation-action.
    */
   @Listen('click')
-  public onClick(event: Event): void {
+  public async onClick(event: Event): Promise<void> {
     const action = event.target as HTMLSbbNavigationActionElement | undefined;
     if (action?.tagName !== 'SBB-NAVIGATION-ACTION') {
       return;
     }
 
-    this.reset();
+    await this.reset();
     action.active = true;
     this._hasActiveAction = true;
     this._setMarkerPosition();

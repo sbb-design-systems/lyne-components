@@ -4,11 +4,6 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-:host {
-  display: flex;
-  flex-direction: column;
-}
-
 .sbb-navigation-list__content {
   @include sbb.list-reset;
 

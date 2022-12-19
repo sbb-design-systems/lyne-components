@@ -51,17 +51,16 @@ export class SbbNavigationList implements ComponentInterface {
 
   public render(): JSX.Element {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
-    const labelElement = (
-      <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
-        <slot name="label">{this.label}</slot>
-      </span>
-    );
     const ariaLabelledByAttribute = this._hasLabel
       ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
       : {};
     return (
       <Host class="sbb-navigation-list">
-        {this._hasLabel && labelElement}
+        {this._hasLabel && (
+          <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
+            <slot name="label">{this.label}</slot>
+          </span>
+        )}
         <ul class="sbb-navigation-list__content" {...ariaLabelledByAttribute}>
           {this._actions.map((_, index) => (
             <li class="sbb-navigation-list__action">

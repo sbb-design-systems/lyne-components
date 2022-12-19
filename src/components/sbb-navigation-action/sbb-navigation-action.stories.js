@@ -42,9 +42,6 @@ export default {
     ),
   ],
   parameters: {
-    actions: {
-      handles: [],
-    },
     backgrounds: {
       disable: true,
     },

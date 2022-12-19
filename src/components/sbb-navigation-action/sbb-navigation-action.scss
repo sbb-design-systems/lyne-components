@@ -5,17 +5,24 @@
 @include sbb.host-component-properties;
 
 :host {
-  cursor: pointer;
+  --sbb-navigation-action-color: var(--sbb-color-cloud-default);
 }
 
-:host(:focus-within) {
-  outline: none;
+:host([active]) {
+  --sbb-navigation-action-color: var(--sbb-color-storm-default);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-navigation-action-color: var(--sbb-color-storm-default);
+  }
 }
 
 .sbb-navigation-action {
-  @include sbb.title-4;
   @include sbb.button-reset;
+  @include sbb.title-4;
 
+  cursor: pointer;
   text-decoration: none;
   display: flex;
   user-select: none;
@@ -23,6 +30,7 @@
   transition: color var(--sbb-animation-duration-3x) ease;
   word-break: break-all;
   text-align: left;
+  color: var(--sbb-navigation-action-color);
 
   :host([size='m']) & {
     @include sbb.text-s--bold;
@@ -32,20 +40,9 @@
     @include sbb.text-xxs--bold;
   }
 
-  :host([active]) & {
-    color: var(--sbb-color-storm-default);
-  }
-
   &:focus-visible {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
-
-  @include sbb.hover-mq($hover: true) {
-    &:hover {
-      cursor: pointer;
-      color: var(--sbb-color-storm-default);
-    }
   }
 }
