@@ -8,7 +8,9 @@ const TextTemplate = () =>
     <sbb-title level={sizes.length - index}>
       Titel Level {sizes.length - index} / Text size {textSize}
     </sbb-title>,
-    <p class={`sbb-text-${textSize}`}>{text}</p>,
+    <p class={`sbb-text-${textSize}`} style="margin-block-start:0">
+      {text}
+    </p>,
   ]);
 
 const TextBoldTemplate = () =>
@@ -16,7 +18,9 @@ const TextBoldTemplate = () =>
     <sbb-title level={sizes.length - index}>
       Titel Level {sizes.length - index} / Text size {textSize}
     </sbb-title>,
-    <p class={`sbb-text-${textSize} sbb-text-bold`}>{text}</p>,
+    <p class={`sbb-text-${textSize} sbb-text-bold`} style="margin-block-start:0">
+      {text}
+    </p>,
   ]);
 
 export const Text = TextTemplate.bind({});
