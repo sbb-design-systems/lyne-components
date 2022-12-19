@@ -48,7 +48,7 @@ const defaultArgs = {
   bulletType: bulletType.options[0],
   minHeight: '100',
   hideLine: false,
-  bulletSize: bulletSize.options[1],
+  bulletSize: bulletSize.options[0],
   position: 0,
 };
 
@@ -125,10 +125,10 @@ const TemplateTwoDots = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'disruption',
-          bulletType: 'standard',
+          bulletType: 'disruption',
           minHeight: '100px',
           hideLine: true,
-          bulletSize: 'stop',
+          bulletSize: 'start-end',
           position: 0,
         }}
       ></sbb-pearl-chain-vertical-item>
@@ -166,10 +166,10 @@ const TemplateLeftSecondSlot = (args) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'disruption',
-          bulletType: 'standard',
+          bulletType: 'disruption',
           minHeight: '100px',
           hideLine: true,
-          bulletSize: 'stop',
+          bulletSize: 'start-end',
           position: 0,
         }}
       >
@@ -367,7 +367,7 @@ const thirdLevelTemplate = (args) => {
           minHeight: '89',
           hideLine: false,
           bulletType: 'default',
-          bulletSize: 'stop',
+          bulletSize: 'start-end',
         }}
       >
         <div
@@ -588,7 +588,7 @@ dottedPearlChain.args = {
   lineType: 'dotted',
   lineColor: 'disruption',
   bulletType: 'disruption',
-  bulletSize: 'stop',
+  bulletSize: 'start-end',
 };
 
 thinPearlChain.argTypes = defaultArgTypes;
@@ -604,13 +604,14 @@ thinPearlChain.args = {
 thickBulletPearlChain.argTypes = defaultArgTypes;
 thickBulletPearlChain.args = {
   ...defaultArgs,
-  bulletType: 'thick',
+  bulletSize: 'stop',
 };
 
 thinBulletPearlChain.argTypes = defaultArgTypes;
 thinBulletPearlChain.args = {
   ...defaultArgs,
   bulletType: 'irrelevant',
+  bulletSize: 'stop',
 };
 
 crossedBulletPearlChain.argTypes = defaultArgTypes;
