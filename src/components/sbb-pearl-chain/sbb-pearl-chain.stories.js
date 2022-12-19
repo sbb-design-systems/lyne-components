@@ -6,6 +6,8 @@ import {
   pastLeg,
   futureLeg,
   longFutureLeg,
+  redirectedOnDepartureLeg,
+  redirectedOnArrivalLeg,
 } from './sbb-pearl-chain.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 
@@ -80,6 +82,38 @@ Past.args = {
   ...defaultArgs,
   legs: [pastLeg, pastLeg],
   'data-now': new Date('2023-11-01T12:11:00').valueOf(),
+};
+
+export const DepartureStopSkipped = Template.bind({});
+DepartureStopSkipped.argTypes = defaultArgTypes;
+DepartureStopSkipped.args = {
+  ...defaultArgs,
+  legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnDepartureLeg, futureLeg],
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const ArrivalStopSkipped = Template.bind({});
+ArrivalStopSkipped.argTypes = defaultArgTypes;
+ArrivalStopSkipped.args = {
+  ...defaultArgs,
+  legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnArrivalLeg, futureLeg],
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const FirstStopSkipped = Template.bind({});
+FirstStopSkipped.argTypes = defaultArgTypes;
+FirstStopSkipped.args = {
+  ...defaultArgs,
+  legs: [redirectedOnDepartureLeg, futureLeg, longFutureLeg],
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const LastStopSkipped = Template.bind({});
+LastStopSkipped.argTypes = defaultArgTypes;
+LastStopSkipped.args = {
+  ...defaultArgs,
+  legs: [futureLeg, longFutureLeg, redirectedOnArrivalLeg],
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 export const Mixed = Template.bind({});

@@ -1,5 +1,13 @@
 @use '../../global/styles' as sbb;
 
+@mixin sbb-pearl-chain-dotted {
+  background-color: unset;
+  background-image: linear-gradient(to right, currentcolor 0%, currentcolor 50%, Canvas 50%);
+  background-repeat: repeat-x;
+  background-size: calc(2 * var(--sbb-pearl-chain-spacing-small)) var(--sbb-pearl-chain-height);
+  inset-inline-end: var(--sbb-pearl-chain-height);
+}
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
@@ -34,8 +42,7 @@
 }
 
 // first and last bullet
-.sbb-pearl-chain::before,
-.sbb-pearl-chain::after {
+.sbb-pearl-chain__bullet {
   @include sbb.pearl-chain-bullet;
   @include sbb.pearl-chain-bullet-start-stop;
 
@@ -50,45 +57,12 @@
   }
 }
 
-.sbb-pearl-chain::before {
+.sbb-pearl-chain__bullet:first-of-type {
   inset-inline-start: 0;
 }
 
-.sbb-pearl-chain::after {
+.sbb-pearl-chain__bullet:last-of-type {
   inset-inline-end: 0;
-}
-
-.sbb-pearl-chain.sbb-pearl-chain--past::before,
-.sbb-pearl-chain.sbb-pearl-chain--past::after {
-  @include sbb.if-forced-colors {
-    background-color: GrayText;
-  }
-}
-
-.sbb-pearl-chain--departure-cancellation::before,
-.sbb-pearl-chain--arrival-cancellation::after {
-  color: var(--sbb-pearl-chain-color-disruption);
-
-  @include sbb.if-forced-colors {
-    background-color: ActiveText;
-  }
-}
-
-.sbb-pearl-chain--departure-cancellation.pearl-chain--past::before,
-.sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
-  color: var(--sbb-pearl-chain-color-past);
-
-  @include sbb.if-forced-colors {
-    color: GrayText;
-  }
-}
-
-.sbb-pearl-chain--past {
-  position: relative;
-
-  @include sbb.if-forced-colors {
-    color: GrayText;
-  }
 }
 
 .sbb-pearl-chain__leg {
@@ -99,6 +73,8 @@
   border-inline-end: var(--sbb-pearl-chain-spacing-small) solid Canvas;
   background-color: currentcolor;
   width: var(--sbb-pearl-chain-leg-width);
+  display: flex;
+  align-items: center;
 
   @include sbb.if-forced-colors {
     color: CanvasText;
@@ -109,40 +85,77 @@
   border: none;
 }
 
+// dot on leg
+.sbb-pearl-chain__stop {
+  @include sbb.pearl-chain-bullet;
+  @include sbb.pearl-chain-bullet-stop;
+
+  position: relative;
+  z-index: 2;
+}
+
 .sbb-pearl-chain__leg--past,
 .sbb-pearl-chain--past,
-.sbb-pearl-chain__leg--progress::before,
-.sbb-pearl-chain--progress::before {
+.sbb-pearl-chain__leg--progress::after,
+.sbb-pearl-chain__leg--progress .sbb-pearl-chain__stop,
+.sbb-pearl-chain--progress,
+.sbb-pearl-chain__bullet--past {
   @include sbb.pearl-chain-bullet-past;
 
   color: var(--sbb-pearl-chain-color-past);
+
+  @include sbb.if-forced-colors {
+    color: GrayText;
+  }
 }
 
-.sbb-pearl-chain__leg--past:not(:first-child)::before,
-.sbb-pearl-chain__leg--progress::before {
+.sbb-pearl-chain__bullet--progress {
   @include sbb.pearl-chain-bullet-past;
 }
 
-// bullet on leg
-.sbb-pearl-chain__leg:not(:first-child) {
-  &::before {
-    @include sbb.pearl-chain-bullet;
-    @include sbb.pearl-chain-bullet-stop;
+.sbb-pearl-chain__bullet--departure-disruption,
+.sbb-pearl-chain--arrival-disruption,
+.sbb-pearl-chain--departure-disruption,
+.sbb-pearl-chain__leg--disruption {
+  @include sbb.pearl-chain-bullet-disruption;
 
-    content: '';
-    position: absolute;
-    inset-block-start: calc(
-      var(--sbb-pearl-chain-bullet-size-stop) / -2 + var(--sbb-pearl-chain-height) / 2
-    );
-    inset-inline-start: 0;
-    z-index: 2;
+  color: var(--sbb-pearl-chain-color-disruption);
 
-    @include sbb.if-forced-colors {
-      .sbb-pearl-chain--past & {
-        border-color: GrayText;
-      }
-    }
+  @include sbb.if-forced-colors {
+    background-color: ActiveText;
   }
+}
+
+.sbb-pearl-chain__leg--disruption::after {
+  @include sbb-pearl-chain-dotted;
+}
+
+.sbb-pearl-chain__leg--skipped {
+  color: var(--sbb-pearl-chain-color-disruption);
+
+  &::after {
+    @include sbb-pearl-chain-dotted;
+  }
+}
+
+.sbb-pearl-chain__leg--disruption::after,
+.sbb-pearl-chain--past .sbb-pearl-chain__leg--disruption::after {
+  @include sbb.if-forced-colors {
+    background: none;
+    border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
+    transform: translateY(#{sbb.px-to-rem-build(1)});
+  }
+}
+
+.sbb-pearl-chain__stop--departure-skipped {
+  @include sbb.pearl-chain-bullet-skipped;
+  @include sbb.pearl-chain-bullet-stop;
+}
+
+.sbb-pearl-chain--arrival-skipped,
+.sbb-pearl-chain--departure-skipped {
+  @include sbb.pearl-chain-bullet-start-stop;
+  @include sbb.pearl-chain-bullet-skipped;
 }
 
 // line on leg
@@ -170,39 +183,10 @@
 }
 
 .sbb-pearl-chain__leg--progress::after {
-  @include sbb.pearl-chain-bullet-past;
-
   background-color: var(--sbb-pearl-chain-color-past);
 
   // --sbb-pearl-chain-leg-status: defined in .tsx file
   width: var(--sbb-pearl-chain-leg-status);
-}
-
-.sbb-pearl-chain__leg--cancellation {
-  @include sbb.pearl-chain-bullet-disruption;
-
-  color: var(--sbb-pearl-chain-color-disruption);
-
-  @include sbb.if-forced-colors {
-    color: ActiveText;
-  }
-}
-
-.sbb-pearl-chain__leg--cancellation::after {
-  background-color: unset;
-  background-image: linear-gradient(to right, currentcolor 0%, currentcolor 50%, Canvas 50%);
-  background-repeat: repeat-x;
-  background-size: calc(2 * var(--sbb-pearl-chain-spacing-small)) var(--sbb-pearl-chain-height);
-  inset-inline-end: var(--sbb-pearl-chain-height);
-}
-
-.sbb-pearl-chain__leg--cancellation::after,
-.sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
-  @include sbb.if-forced-colors {
-    background: none;
-    border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
-    transform: translateY(#{sbb.px-to-rem-build(1)});
-  }
 }
 
 .sbb-pearl-chain__position {

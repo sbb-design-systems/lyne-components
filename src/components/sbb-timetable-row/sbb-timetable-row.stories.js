@@ -13,6 +13,10 @@ import {
   ShipTrip,
   walkTimeTrip,
   NoticesTrip,
+  skippedDepartureStopTrip,
+  skippedArrivalStopTrip,
+  skippedFirstDepartureStopTrip,
+  skippedLastArrivalStopTrip,
 } from './sbb-timetable-row.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 
@@ -192,6 +196,38 @@ Disturbance.argTypes = defaultArgTypes;
 Disturbance.args = {
   ...defaultArgs,
   trip: disturbanceTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedDepartureStop = Template.bind({});
+SkippedDepartureStop.argTypes = defaultArgTypes;
+SkippedDepartureStop.args = {
+  ...defaultArgs,
+  trip: skippedDepartureStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedArrivalStop = Template.bind({});
+SkippedArrivalStop.argTypes = defaultArgTypes;
+SkippedArrivalStop.args = {
+  ...defaultArgs,
+  trip: skippedArrivalStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedLastArrivalStop = Template.bind({});
+SkippedLastArrivalStop.argTypes = defaultArgTypes;
+SkippedLastArrivalStop.args = {
+  ...defaultArgs,
+  trip: skippedLastArrivalStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedFirstDepartureStop = Template.bind({});
+SkippedFirstDepartureStop.argTypes = defaultArgTypes;
+SkippedFirstDepartureStop.args = {
+  ...defaultArgs,
+  trip: skippedFirstDepartureStopTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 

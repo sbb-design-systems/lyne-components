@@ -68,7 +68,7 @@ export class SbbPearlChain {
     return total && (progress / total) * 100;
   }
 
-  private _getStatus(start: Date, end: Date): Status {
+  private _getStatus(end: Date, start?: Date): Status {
     if (isBefore(start, this._now()) && isAfter(end, this._now())) {
       return 'progress';
     } else if (isBefore(end, this._now())) {
@@ -101,67 +101,120 @@ export class SbbPearlChain {
       rideLegs?.length &&
       removeTimezoneFromISOTimeString(rideLegs[rideLegs?.length - 1].arrival?.time);
 
+    const departureNotServiced = ((): string => {
+      return rideLegs &&
+        rideLegs[0]?.serviceJourney?.stopPoints &&
+        rideLegs[0]?.serviceJourney?.stopPoints[0].stopStatus === 'NOT_SERVICED'
+        ? 'sbb-pearl-chain--departure-skipped'
+        : '';
+    })();
+
+    const arrivalNotServiced = ((): string => {
+      const lastLeg = rideLegs && rideLegs[rideLegs.length - 1];
+      const stops = lastLeg && lastLeg.serviceJourney?.stopPoints;
+
+      return stops && stops[stops.length - 1].stopStatus === 'NOT_SERVICED'
+        ? 'sbb-pearl-chain--arrival-skipped'
+        : '';
+    })();
+
     const departureCancelClass = ((): string => {
       return rideLegs && rideLegs[0]?.serviceJourney?.serviceAlteration?.cancelled
-        ? ' sbb-pearl-chain--departure-cancellation'
+        ? 'sbb-pearl-chain--departure-disruption'
         : '';
     })();
 
     const arrivalCancelClass = ((): string => {
       return rideLegs && rideLegs[rideLegs.length - 1]?.serviceJourney?.serviceAlteration?.cancelled
-        ? 'sbb-pearl-chain--arrival-cancellation'
+        ? 'sbb-pearl-chain--arrival-disruption'
         : '';
     })();
 
-    const statusClass =
-      rideLegs &&
-      departureTime &&
-      arrivalTime &&
-      !rideLegs[0]?.serviceJourney?.serviceAlteration?.cancelled
-        ? 'sbb-pearl-chain--' + this._getStatus(departureTime, arrivalTime)
+    const statusClassDeparture =
+      rideLegs && departureTime && arrivalTime && !departureCancelClass
+        ? 'sbb-pearl-chain__bullet--' + this._getStatus(arrivalTime, departureTime)
+        : '';
+
+    const statusClassArrival =
+      rideLegs && arrivalTime && !arrivalCancelClass
+        ? 'sbb-pearl-chain__bullet--' + this._getStatus(arrivalTime)
         : '';
 
     if (this._isAllCancelled(rideLegs)) {
       return (
-        <div
-          class={`sbb-pearl-chain sbb-pearl-chain--departure-cancellation sbb-pearl-chain--arrival-cancellation`}
-        >
-          <div class={`sbb-pearl-chain__leg sbb-pearl-chain__leg--cancellation`}></div>
+        <div class={`sbb-pearl-chain`}>
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain--departure-disruption"></span>
+          <div class={`sbb-pearl-chain__leg sbb-pearl-chain__leg--disruption`}></div>
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain--departure-disruption"></span>
         </div>
       );
     }
+
     return (
-      <div class={`sbb-pearl-chain ${statusClass} ${arrivalCancelClass} ${departureCancelClass}`}>
-        {rideLegs?.map((leg: PTRideLeg) => {
+      <div class="sbb-pearl-chain">
+        <span
+          class={`sbb-pearl-chain__bullet ${statusClassDeparture} ${departureNotServiced} ${departureCancelClass}`}
+        ></span>
+        {rideLegs?.map((leg: PTRideLeg, index: number) => {
+          const { stopPoints, serviceAlteration } = leg?.serviceJourney || {};
+
           const duration = this._getRelativeDuration(rideLegs, leg);
           const departure = removeTimezoneFromISOTimeString(leg.departure?.time);
           const arrival = removeTimezoneFromISOTimeString(leg.arrival?.time);
-          const cancelled = leg.serviceJourney?.serviceAlteration?.cancelled
-            ? 'sbb-pearl-chain__leg--cancellation'
-            : '';
+
+          const isArrivalNotServiced =
+            stopPoints && stopPoints[stopPoints.length - 1]?.stopStatus === 'NOT_SERVICED';
+          const isArrivalPlanned =
+            stopPoints && stopPoints[stopPoints.length - 1]?.stopStatus === 'PLANNED';
+          const isDepartureNotServiced = stopPoints && stopPoints[0]?.stopStatus === 'NOT_SERVICED';
+
+          const stopPointsBefore = index > 0 && rideLegs[index - 1].serviceJourney.stopPoints;
+          const isBeforeLegArrivalNotServiced =
+            stopPointsBefore &&
+            stopPointsBefore[stopPointsBefore.length - 1]?.stopStatus === 'NOT_SERVICED';
+
+          const skippedLeg =
+            isArrivalNotServiced || (isDepartureNotServiced && isArrivalPlanned)
+              ? 'sbb-pearl-chain__leg--skipped'
+              : '';
+          const departureSkippedBullet =
+            isDepartureNotServiced || isBeforeLegArrivalNotServiced
+              ? 'sbb-pearl-chain__stop--departure-skipped'
+              : '';
+
+          const cancelled = serviceAlteration?.cancelled ? 'sbb-pearl-chain__leg--disruption' : '';
 
           const legStatus =
             !cancelled &&
             this._getStatus(departure, arrival) &&
-            'sbb-pearl-chain__leg--' + this._getStatus(departure, arrival);
+            'sbb-pearl-chain__leg--' + this._getStatus(arrival, departure);
 
           const legStyle = (): Record<string, string> => {
             return {
               '--sbb-pearl-chain-leg-width': `${duration}%`,
-              ...(this._getStatus(departure, arrival) === 'progress' && !cancelled
+              ...(this._getStatus(arrival, departure) === 'progress' && !cancelled
                 ? { '--sbb-pearl-chain-leg-status': `${this._getProgress(departure, arrival)}%` }
                 : {}),
             };
           };
 
           return (
-            <div class={`sbb-pearl-chain__leg ${legStatus} ${cancelled}`} style={legStyle()}>
-              {this._getStatus(departure, arrival) === 'progress' &&
+            <div
+              class={`sbb-pearl-chain__leg ${legStatus} ${cancelled} ${skippedLeg}`}
+              style={legStyle()}
+            >
+              {index > 0 && index < rideLegs.length && (
+                <span class={`sbb-pearl-chain__stop ${departureSkippedBullet}`}></span>
+              )}
+              {this._getStatus(arrival, departure) === 'progress' &&
                 !cancelled &&
                 this._renderPosition(departure, arrival)}
             </div>
           );
         })}
+        <span
+          class={`sbb-pearl-chain__bullet ${statusClassArrival} ${arrivalNotServiced} ${arrivalCancelClass}`}
+        ></span>
       </div>
     );
   }
