@@ -12,20 +12,22 @@ import { PearlChainVerticalItemAttributes } from './sbb-pearl-chain-vertical-ite
   tag: 'sbb-pearl-chain-vertical-item',
 })
 export class SbbPearlChainVerticalItem {
-  /** The pearlChainVerticalItemAttributes Prop for styling the dots and line.*/
-  @Prop() public pearlChainVerticalItemAttributes: PearlChainVerticalItemAttributes;
+  /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
+  @Prop() public pearlChainVerticalItemAttributes!: PearlChainVerticalItemAttributes;
 
   /** If true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 
   public render(): JSX.Element {
-    const { dotColor, dotType, lineType, lineColor, hideLine, minHeight, dotSize, position } =
+    const { bulletType, lineType, lineColor, hideLine, minHeight, bulletSize, position } =
       this.pearlChainVerticalItemAttributes || {};
 
-    const dotColorClass =
-      position > 0 && position <= 100 ? 'sbb-color--metal' : `sbb-color--${dotColor}`;
+    const bulletTypeClass =
+      position > 0 && position <= 100
+        ? 'sbb-pearl-chain-vertical-item__bullet--past'
+        : `sbb-pearl-chain-vertical-item__bullet--${bulletType}`;
     const animation = this.disableAnimation
-      ? 'sbb-pearl-chain-vertical-item-position__dot--disable-animation'
+      ? '.sbb-pearl-chain-vertical-item__bullet--position-disable-animation'
       : '';
 
     return (
@@ -37,26 +39,18 @@ export class SbbPearlChainVerticalItem {
           {!hideLine && (
             <div
               style={{ '--sbb-pearl-chain-vertical-item-leg-status': `${position}%` }}
-              class={`sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-color--${lineColor}`}
+              class={`sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--${lineType} sbb-pearl-chain-vertical-item__line--${lineColor}`}
             ></div>
           )}
-          {dotType !== 'double-bullet' ? (
+          {bulletType && (
             <div
-              class={`sbb-pearl-chain-vertical-item__dot--${dotType} ${dotColorClass} sbb-pearl-chain-vertical-item__dot-size--${dotSize}`}
+              class={`sbb-pearl-chain-vertical-item__bullet  sbb-pearl-chain-vertical-item__bullet--${bulletSize} ${bulletTypeClass}`}
             />
-          ) : (
-            <div
-              class={`sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-color--${dotColor} sbb-pearl-chain-vertical-item__dot-size--ultra`}
-            >
-              <div
-                class={`sbb-pearl-chain-vertical-item__dot--thin-bullet sbb-color--${dotColor} sbb-pearl-chain-vertical-item__dot-size--extra-small`}
-              />
-            </div>
           )}
           {position > 0 && (
             <div
               style={{ '--sbb-pearl-chain-vertical-item-position': `${position}%` }}
-              class={`sbb-pearl-chain-vertical-item-position__dot ${animation}`}
+              class={`sbb-pearl-chain-vertical-item__bullet--position ${animation}`}
             ></div>
           )}
         </div>

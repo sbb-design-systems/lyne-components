@@ -25,12 +25,11 @@ export const pearlChainItem = Template.bind({});
 
 pearlChainItem.args = {
   lineType: 'standard',
-  lineColor: 'charcoal',
-  dotType: 'standard',
-  dotColor: 'charcoal',
+  lineColor: 'default',
+  bulletType: 'default',
   minHeight: '100',
   hideLine: false,
-  dotSize: 'medium',
+  bulletSize: 'start-end',
 };
 
 export default {
@@ -43,23 +42,19 @@ export default {
   argTypes: {
     lineType: {
       options: ['dotted', 'standard', 'thin'],
-      control: { type: 'radio' },
+      control: { type: 'select' },
     },
     lineColor: {
-      options: ['charcoal', 'red', 'metal', 'sky'],
-      control: { type: 'radio' },
+      options: ['default', 'disruption', 'past', 'sky'],
+      control: { type: 'select' },
     },
-    dotType: {
-      options: ['standard', 'thin-bullet', 'thick-bullet', 'double-bullet'],
-      control: { type: 'radio' },
+    bulletType: {
+      options: ['default', 'disruption', 'past', 'irrelevant', 'skipped'],
+      control: { type: 'select' },
     },
-    dotColor: {
-      options: ['charcoal', 'red', 'metal', 'sky'],
-      control: { type: 'radio' },
-    },
-    dotSize: {
-      options: ['small', 'medium', 'large'],
-      control: { type: 'radio' },
+    bulletSize: {
+      options: ['start-end', 'stop'],
+      control: { type: 'select' },
     },
   },
   title: 'components/timetable/pearl-chains/sbb-pearl-chain-vertical-item',
