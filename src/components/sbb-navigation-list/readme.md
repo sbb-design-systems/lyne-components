@@ -1,4 +1,5 @@
 # sbb-navigation-list
+
 The `<sbb-navigation-list>` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md). 
 
 Optionally a label can be provided via slot. 
