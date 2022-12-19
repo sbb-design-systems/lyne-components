@@ -3,14 +3,14 @@ import {
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
-  subHours,
   addMinutes,
+  subHours,
   subDays,
 } from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
-import { Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
+import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
 
 export const durationToTime = (duration: number): string => {
   const result = [];
@@ -112,14 +112,23 @@ const isReachable = (legs: PTRideLeg[]): boolean => {
   return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.reachable === true);
 };
 
+const getReachableText = (legs: PTRideLeg[]): string => {
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText !== '')
+    .serviceJourney?.serviceAlteration?.reachableText;
+};
+
 const isRedirected = (legs: PTRideLeg[]): boolean => {
   return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.redirected === true);
 };
 
-const isUnplannedStop = (legs: PTRideLeg[]): boolean => {
-  return legs?.some(
-    (leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText === true
-  );
+const getRedirectedText = (legs: PTRideLeg[]): string => {
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.redirectedText !== '')
+    .serviceJourney?.serviceAlteration?.redirectedText;
+};
+
+const getUnplannedStop = (legs: PTRideLeg[]): string => {
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText !== '')
+    ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
 
 export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
@@ -137,38 +146,58 @@ export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
   );
 };
 
-export const getHimIcon = (situation: PtSituation): string => {
+export const getHimIcon = (situation: PtSituation): HimCus => {
   switch (situation?.cause) {
     case 'DISTURBANCE':
-      return 'disruption';
+      return {
+        name: 'disruption',
+        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+      };
     case 'INFORMATION':
-      return 'info';
+      return {
+        name: 'info',
+        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+      };
     case 'DELAY':
-      return 'delay';
+      return {
+        name: 'delay',
+        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+      };
     case 'TRAIN_REPLACEMENT_BY_BUS':
-      return 'replacementbus';
+      return {
+        name: 'replacementbus',
+        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+      };
     case 'CONSTRUCTION_SITE':
-      return 'construction';
+      return {
+        name: 'construction',
+        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+      };
     default:
-      return 'info';
+      return {
+        name: 'info',
+        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+      };
   }
 };
 
-export const getCus = (trip: Trip): string => {
+export const getCus = (trip: Trip): HimCus => {
   const { legs, summary } = trip;
   const { tripStatus } = summary || {};
-  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled) return 'cancellation';
-  if (!isReachable(legs)) return 'missed-connection';
-  if (tripStatus?.alternative) return 'alternative';
-  if (isRedirected(legs)) return 'reroute';
-  if (isUnplannedStop(legs)) return 'add-stop';
-  if (tripStatus?.delayed || tripStatus?.delayedUnknown) return 'delay';
-  if (tripStatus?.quayChanged) return 'platform-change';
 
-  return '';
+  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
+    return { name: 'cancellation', text: tripStatus?.cancelledText };
+  if (!isReachable(legs)) return { name: 'missed-connection', text: getReachableText(legs) };
+  if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
+  if (isRedirected(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
+  if (getUnplannedStop(legs)) return { name: 'add-stop', text: getUnplannedStop(legs) };
+  if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
+  if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
+
+  return {} as HimCus;
 };
 
-export const handleNotices = (notices: Notice[]): string[] => {
+const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
   const reservationNotice = [
     'RR',
     'RK',
@@ -186,18 +215,40 @@ export const handleNotices = (notices: Notice[]): string[] => {
     'RB',
   ];
 
-  const names = notices.map((item) => item.name);
+  return notices.reduce((foundNotice, notice) => {
+    if (foundNotice) return foundNotice;
+    if (reservationNotice.includes(notice.name)) {
+      return {
+        name: 'RR',
+        text: notice.text,
+      };
+    }
+  }, undefined);
+};
 
-  const priority: [string, (names: string[]) => boolean][] = [
-    ['sa-z', (names) => names.includes('Z')],
-    ['sa-rr', (names) => names.some((n) => reservationNotice.includes(n))],
-    ['sa-sb', (names) => names.includes('SB')],
-    ['sa-sz', (names) => names.includes('SZ')],
-    ['sa-vr', (names) => names.includes('VR')],
-    ['sa-tg', (names) => names.includes('TG')],
-  ];
+export const filterNotices = (notices: Notice[]): Notice[] => {
+  const allowedNames = ['Z', 'SB', 'SZ', 'VR', 'TG'];
 
-  return priority.reduce((arr, item) => {
-    return item[1](names) ? [...arr, item[0]] : arr;
-  }, [] as string[]);
+  const filterNotice = notices.filter((notice, index) => {
+    return notices.findIndex((n) => n.name === notice.name) === index;
+  });
+
+  return filterNotice
+    .filter((notice) => allowedNames.includes(notice.name))
+    .sort((a, b) => allowedNames.indexOf(a.name) - allowedNames.indexOf(b.name));
+};
+
+export const handleNotices = (notices: Notice[]): Notice[] => {
+  const reservationNotice = findAndReplaceNotice(notices);
+  const filteredNotices = filterNotices(notices);
+
+  if (reservationNotice === undefined) return filteredNotices;
+  if (!filteredNotices.length) return [reservationNotice];
+
+  if (filteredNotices[0].name === 'Z') {
+    return [filteredNotices[0], reservationNotice, filteredNotices[1]].concat(
+      filteredNotices.slice(2)
+    );
+  }
+  return filteredNotices.splice(0, 0, reservationNotice);
 };

@@ -238,8 +238,8 @@ export const TrainTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,
@@ -268,8 +268,8 @@ export const BusTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,
@@ -301,8 +301,8 @@ export const ShipTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,
@@ -506,8 +506,8 @@ export const NoticesTrip = {
       text: 'Platzreservierung möglich',
     },
     {
-      name: 'SZ >deleteme<',
-      text: 'Platzreservierung möglich',
+      name: 'RM',
+      text: 'AAA möglich',
     },
     {
       name: 'SB >deleteme<',
@@ -529,8 +529,8 @@ export const NoticesTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,

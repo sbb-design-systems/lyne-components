@@ -34,6 +34,12 @@ const loadingTrip = {
   },
 };
 
+const loadingPrice = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const active = {
   control: {
     type: 'boolean',
@@ -62,15 +68,16 @@ const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
+  'loading-price': loadingPrice,
   active,
   'data-now': now,
   'boarding-alighting-accessibility': boarding,
 };
 
 const defaultArgs = {
-  'accessibility-label': 'Aria Label',
   'disable-animation': isChromatic(),
   'loading-trip': false,
+  'loading-price': false,
   active: false,
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
@@ -117,11 +124,28 @@ discountPrice.args = {
   price: { price: '39.90', text: 'ab CHF', isDiscount: true },
 };
 
+export const LoadingPrice = Template.bind({});
+LoadingPrice.argTypes = defaultArgTypes;
+LoadingPrice.args = {
+  ...defaultArgs,
+  'loading-price': true,
+  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+};
+
 export const LoadingTrip = Template.bind({});
 LoadingTrip.argTypes = defaultArgTypes;
 LoadingTrip.args = {
   ...defaultArgs,
   'loading-trip': true,
+};
+
+export const LoadingTripPrice = Template.bind({});
+LoadingTripPrice.argTypes = defaultArgTypes;
+LoadingTripPrice.args = {
+  ...defaultArgs,
+  'loading-trip': true,
+  'loading-price': true,
+  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
 };
 
 export const Position = Template.bind({});

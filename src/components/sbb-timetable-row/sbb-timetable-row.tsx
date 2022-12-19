@@ -1,5 +1,10 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { BoardingAlightingAccessibilityEnum, Price, Trip } from './sbb-timetable-row.custom';
+import {
+  BoardingAlightingAccessibilityEnum,
+  HimCus,
+  Price,
+  Trip,
+} from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
@@ -12,10 +17,10 @@ import {
 } from '../../global/i18n';
 import {
   durationToTime,
+  handleNotices,
   getCus,
   getHimIcon,
   getTransportIcon,
-  handleNotices,
   isProductIcon,
   renderIconProduct,
   renderStringProduct,
@@ -50,6 +55,12 @@ export class SbbTimetableRow {
    */
   @Prop() public loadingTrip?: boolean;
 
+  /**
+   * The loading state -
+   * when this is true it will be render skeleton with an idling animation
+   */
+  @Prop() public loadingPrice?: boolean;
+
   /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public active?: boolean;
 
@@ -64,7 +75,7 @@ export class SbbTimetableRow {
   private _renderSkeleton(): JSX.Element {
     return (
       <sbb-card size="l" class="sbb-loading">
-        <sbb-card-badge slot="badge" class="sbb-loading__badge" />
+        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -102,11 +113,11 @@ export class SbbTimetableRow {
     );
   }
 
-  private _handleHimCus(trip: Trip): string | undefined {
+  private _handleHimCus(trip: Trip): HimCus | undefined {
     const situations = trip.situations && sortSituation(trip.situations);
     const cus = getCus(trip);
 
-    return cus ? cus : situations?.length && getHimIcon(situations[0]);
+    return Object.keys(cus)?.length ? cus : situations?.length && getHimIcon(situations[0]);
   }
 
   public render(): JSX.Element {
@@ -130,11 +141,16 @@ export class SbbTimetableRow {
     } = this.trip?.summary || {};
 
     const himCus = this.trip && this._handleHimCus(this.trip);
+    const hasHimCus = !!himCus && !!Object.keys(himCus).length;
+
+    const noticeAttributes = notices && handleNotices(notices);
 
     return (
-      <sbb-card size="l" active={this.active} id={id} accessibility-label={this.accessibilityLabel}>
-        {this.price && (
+      <sbb-card size="l" active={this.active} id={id} role="rowgroup">
+        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
+        {this.price && !this.loadingPrice && (
           <sbb-card-badge
+            class="sbb-timetable__row-price"
             slot="badge"
             appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
             price={this.price.price}
@@ -142,14 +158,17 @@ export class SbbTimetableRow {
             isDiscount={this.price.isDiscount}
           />
         )}
-        <div class="sbb-timetable__row">
-          <div class="sbb-timetable__row-header">
+        <div class="sbb-timetable__row" role="row">
+          <div class="sbb-timetable__row-header" role="gridcell">
             <div class="sbb-timetable__row-details">
               {product && getTransportIcon(product.vehicleMode) && (
-                <sbb-icon
-                  class="sbb-timetable__row-transport-type"
-                  name={'picto:' + getTransportIcon(product.vehicleMode) + '-right'}
-                />
+                <span class="sbb-timetable__row-transport-wrapper">
+                  <sbb-icon
+                    class="sbb-timetable__row-transport-icon"
+                    name={'picto:' + getTransportIcon(product.vehicleMode) + '-right'}
+                  />
+                  <span class="sbb-screenreaderonly">{product.vehicleMode}</span>
+                </span>
               )}
               {product &&
                 product.vehicleSubModeShortName &&
@@ -160,6 +179,7 @@ export class SbbTimetableRow {
             {direction && <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>}
           </div>
           <sbb-pearl-chain-time
+            role="gridcell"
             legs={legs}
             departureTime={departure?.time}
             arrivalTime={arrival?.time}
@@ -168,7 +188,7 @@ export class SbbTimetableRow {
             disableAnimation={this.disableAnimation}
             data-now={this._now()}
           ></sbb-pearl-chain-time>
-          <div class="sbb-timetable__row-footer">
+          <div class="sbb-timetable__row-footer" role="gridcell">
             {product && this._getQuayType(product.vehicleMode) && departure?.quayAimedName && (
               <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
                 {this._renderQuayType()}
@@ -219,18 +239,18 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {((notices && handleNotices(notices)?.length) || isBoardingAccessible) && (
+            {((noticeAttributes && noticeAttributes.length) || isBoardingAccessible) && (
               <ul class="sbb-timetable__row-hints" role="list">
                 {notices &&
-                  handleNotices(notices)?.map(
+                  noticeAttributes?.map(
                     (notice, index) =>
                       index < 4 && (
                         <li>
                           <sbb-icon
                             class="sbb-travel-hints__item"
-                            name={notice}
-                            aria-hidden="false"
+                            name={'sa-' + notice.name.toLowerCase()}
                           />
+                          <span class="sbb-screenreaderonly">{notice.text}</span>
                         </li>
                       )
                   )}
@@ -241,10 +261,10 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {duration && duration > 0 && <time>{durationToTime(duration)}</time>}
-            {!!himCus && (
+            {duration > 0 && <time>{durationToTime(duration)}</time>}
+            {hasHimCus && (
               <span class="sbb-timetable__row-warning">
-                <sbb-icon name={himCus} aria-hidden="false" aria-label={himCus} />
+                <sbb-icon name={himCus.name} aria-hidden="false" aria-label={himCus.text} />
               </span>
             )}
           </div>
