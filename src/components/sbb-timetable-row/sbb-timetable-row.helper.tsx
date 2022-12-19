@@ -1,5 +1,5 @@
 import { h, JSX } from '@stencil/core';
-import { differenceInDays, differenceInHours, differenceInMinutes, addMinutes } from 'date-fns';
+import { differenceInDays, differenceInHours, differenceInMinutes, addMinutes, subHours, subDays } from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
@@ -7,19 +7,19 @@ import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timeta
 
 export const durationToTime = (duration: number): string => {
   const result = [];
-  const now = new Date();
-  const future = addMinutes(now, duration);
+  const now = 0;
+  let future = addMinutes(now, duration);
 
   const days = differenceInDays(future, now);
   if (days > 0) {
     result.push(`${days} d`);
-    now.setDate(now.getDate() + days);
+    future = subDays(future, days);
   }
 
   const hours = differenceInHours(future, now);
   if (hours > 0) {
     result.push(`${hours} ${i18nDurationHour.multiple.short[getDocumentLang()]}`);
-    now.setHours(now.getHours() + hours);
+    future = subHours(future, hours);
   }
 
   const minutes = differenceInMinutes(future, now);

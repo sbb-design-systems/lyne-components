@@ -166,7 +166,6 @@ export class SbbTimetableRow {
                   <sbb-icon
                     class="sbb-timetable__row-transport-icon"
                     name={'picto:' + getTransportIcon(product.vehicleMode) + '-right'}
-                    aria-hidden="true"
                   />
                   <span class="sbb-screenreaderonly">{product.vehicleMode}</span>
                 </span>
@@ -250,7 +249,6 @@ export class SbbTimetableRow {
                           <sbb-icon
                             class="sbb-travel-hints__item"
                             name={'sa-' + notice.name.toLowerCase()}
-                            aria-hidden="true"
                           />
                           <span class="sbb-screenreaderonly">{notice.text}</span>
                         </li>
