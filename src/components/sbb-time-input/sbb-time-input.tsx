@@ -25,10 +25,10 @@ const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
 })
 export class SbbTimeInput implements ComponentInterface, AccessibilityProperties {
   /** Value for the inner HTMLInputElement. */
-  @Prop() public value?: string = '';
+  @Prop({ mutable: true }) public value?: string = '';
 
   /** Date value with the given time for the inner HTMLInputElement. */
-  @Prop() public valueAsDate?: Date;
+  @Prop({ mutable: true }) public valueAsDate?: Date;
 
   /** The <form> element to associate the inner HTMLInputElement with. */
   @Prop() public form?: string;
