@@ -9,7 +9,7 @@
 
   @if not($exclude-spacing) {
     --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xs);
+    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
   }
 
   margin: 0;
@@ -32,18 +32,30 @@
   @include title($exclude-spacing);
 
   --sbb-title-font-size: var(--sbb-font-size-title-2);
+
+  @if not($exclude-spacing) {
+    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+  }
 }
 
 @mixin title-3($exclude-spacing: false) {
   @include title($exclude-spacing);
 
   --sbb-title-font-size: var(--sbb-font-size-title-3);
+
+  @if not($exclude-spacing) {
+    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+  }
 }
 
 @mixin title-4($exclude-spacing: false) {
   @include title($exclude-spacing);
 
   --sbb-title-font-size: var(--sbb-font-size-title-4);
+
+  @if not($exclude-spacing) {
+    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+  }
 }
 
 @mixin title-5($exclude-spacing: false) {
@@ -53,7 +65,7 @@
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-5x);
+    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
   }
 }
 
@@ -64,7 +76,7 @@
   --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
 
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-4x);
+    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
   }
 }
 
