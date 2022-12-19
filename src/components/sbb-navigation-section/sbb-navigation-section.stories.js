@@ -153,6 +153,7 @@ export default {
     ),
   ],
   parameters: {
+    chromatic: { disableSnapshot: false },
     actions: {
       handles: [events.didClose],
     },
