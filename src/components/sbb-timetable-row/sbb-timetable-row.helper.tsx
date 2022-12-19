@@ -1,5 +1,12 @@
 import { h, JSX } from '@stencil/core';
-import { differenceInDays, differenceInHours, differenceInMinutes, addMinutes, subHours, subDays } from 'date-fns';
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  addMinutes,
+  subHours,
+  subDays,
+} from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
