@@ -6,8 +6,15 @@ describe('sbb-navigation-action', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(
-      '<sbb-navigation-action id="outer-id" navigation-action-id="inner-id">Navigation Action</sbb-navigation-action>'
+      '<sbb-navigation-action id="outer-id">Navigation Action</sbb-navigation-action>'
     );
+
+    // Set id of the inner-button for later comparing of active element
+    await page.evaluate(
+      () =>
+        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
+    );
+
     element = await page.find('sbb-navigation-action');
   });
 

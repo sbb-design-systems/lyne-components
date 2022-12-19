@@ -26,28 +26,12 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
  * @slot unnamed - Use this to project any content inside the navigation.
  */
 
-let nextId = 0;
-
-/**
- * @slot unnamed - Use this to document a slot.
- */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-navigation-section.scss',
   tag: 'sbb-navigation-section',
 })
 export class SbbNavigationSection implements ComponentInterface, AccessibilityProperties {
-  /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public navigationSectionId = `sbb-navigation-section-${++nextId}`;
-
-  /*
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public titleId = `sbb-navigation-section-title-${++nextId}`;
-
   /*
    * The label to be shown before the action list.
    */
@@ -291,7 +275,6 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       >
         <dialog
           ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
-          id={this.navigationSectionId}
           aria-label={this.accessibilityLabel}
           onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
           class="sbb-navigation-section"

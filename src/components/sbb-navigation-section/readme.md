@@ -24,18 +24,16 @@ Its intended use is inside of a [sbb-navigation](../sbb-navigation/readme.md) co
 
 ## Properties
 
-| Property                   | Attribute                   | Description                                                                                                        | Type                                     | Default                                      |
-| -------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- | -------------------------------------------- |
-| `accessibilityBackLabel`   | `accessibility-back-label`  | This will be forwarded as aria-label to the back button element.                                                   | `string`                                 | `undefined`                                  |
-| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                         | `string`                                 | `undefined`                                  |
-| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                               | `string`                                 | `undefined`                                  |
-| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                          | `string`                                 | `undefined`                                  |
-| `disableAnimation`         | `disable-animation`         | Whether the animation is enabled.                                                                                  | `boolean`                                | `false`                                      |
-| `navigationSectionId`      | `navigation-section-id`     | This id will be forwarded to the relevant inner element.                                                           | `string`                                 | ``sbb-navigation-section-${++nextId}``       |
-| `titleContent`             | `title-content`             |                                                                                                                    | `string`                                 | `undefined`                                  |
-| `titleId`                  | `title-id`                  |                                                                                                                    | `string`                                 | ``sbb-navigation-section-title-${++nextId}`` |
-| `titleLevel`               | `title-level`               |                                                                                                                    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`                                        |
-| `trigger`                  | `trigger`                   | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string`                  | `undefined`                                  |
+| Property                   | Attribute                   | Description                                                                                                        | Type                                     | Default     |
+| -------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- | ----------- |
+| `accessibilityBackLabel`   | `accessibility-back-label`  | This will be forwarded as aria-label to the back button element.                                                   | `string`                                 | `undefined` |
+| `accessibilityDescribedby` | `accessibility-describedby` | This will be forwarded as aria-describedby to the relevant nested element.                                         | `string`                                 | `undefined` |
+| `accessibilityLabel`       | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                               | `string`                                 | `undefined` |
+| `accessibilityLabelledby`  | `accessibility-labelledby`  | This will be forwarded as aria-labelledby to the relevant nested element.                                          | `string`                                 | `undefined` |
+| `disableAnimation`         | `disable-animation`         | Whether the animation is enabled.                                                                                  | `boolean`                                | `false`     |
+| `titleContent`             | `title-content`             |                                                                                                                    | `string`                                 | `undefined` |
+| `titleLevel`               | `title-level`               |                                                                                                                    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
+| `trigger`                  | `trigger`                   | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string`                  | `undefined` |
 
 
 ## Events
@@ -70,9 +68,9 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `"unnamed"` | Use this to project any content inside the navigation. |
 
 
 ## Dependencies

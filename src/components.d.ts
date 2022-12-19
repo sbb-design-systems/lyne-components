@@ -1019,10 +1019,6 @@ export namespace Components {
          */
         "name": string | undefined;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "navigationActionId": string;
-        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
@@ -1080,15 +1076,10 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "navigationSectionId": string;
-        /**
           * Opens the navigation section on trigger click.
          */
         "open": () => Promise<void>;
         "titleContent"?: string;
-        "titleId": string;
         "titleLevel"?: InterfaceTitleAttributes['level'];
         /**
           * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
@@ -3317,10 +3308,6 @@ declare namespace LocalJSX {
          */
         "name"?: string | undefined;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "navigationActionId"?: string;
-        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
@@ -3373,15 +3360,10 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * This id will be forwarded to the relevant inner element.
-         */
-        "navigationSectionId"?: string;
-        /**
           * Emits whenever the navigation section is closed.
          */
         "onDidClose"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
         "titleContent"?: string;
-        "titleId"?: string;
         "titleLevel"?: InterfaceTitleAttributes['level'];
         /**
           * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.

@@ -13,19 +13,12 @@ import {
  * @slot unnamed - Use this slot to provide the navigation action label.
  */
 
-let nextId = 0;
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-navigation-action.scss',
   tag: 'sbb-navigation-action',
 })
 export class SbbNavigationAction implements ComponentInterface, LinkButtonProperties {
-  /**
-   * This id will be forwarded to the relevant inner element.
-   */
-  @Prop() public navigationActionId = `sbb-navigation-action-${++nextId}`;
-
   /**
    * Action size variant.
    */
@@ -121,7 +114,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
       false
     );
     return (
-      <TAG_NAME id={this.navigationActionId} class="sbb-navigation-action" {...attributes}>
+      <TAG_NAME class="sbb-navigation-action" {...attributes}>
         <slot />
       </TAG_NAME>
     );
