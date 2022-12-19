@@ -23,6 +23,11 @@
 }
 
 // Due to using :where, order does matter
+:host(:where([level='1']:not([visual-level]), [visual-level='1']):where(:not([visually-hidden]))) {
+  --sbb-title-margin-block-start: var(--sbb-spacing-responsive-l);
+}
+
+// Due to using :where, order does matter
 :host(:where([level='2']:not([visual-level]), [visual-level='2']):where(:not([visually-hidden]))),
 :host(:where([level='3']:not([visual-level]), [visual-level='3']):where(:not([visually-hidden]))) {
   --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
