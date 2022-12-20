@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.20.0](https://github.com/lyne-design-system/lyne-components/compare/v0.19.7...v0.20.0) (2022-12-20)
+
+### ⚠ BREAKING CHANGES
+
+- Title mixins and <sbb-title>-component now have a default margin block to meet design specs. In the mixin you can opt out by passing the flag $exclude-spacing with true (e.g. @include text-1($exclude-spacing: true)).
+  In the sbb-title component you can just set any margin from outside on the <sbb-title> itself, e.g. <sbb-title style='margin:0'>.
+
+### Features
+
+- add default title margins ([#1476](https://github.com/lyne-design-system/lyne-components/issues/1476)) ([78cb161](https://github.com/lyne-design-system/lyne-components/commit/78cb1618cd63711c1c7979e334de62df63e2e785))
+
 ### [0.19.7](https://github.com/lyne-design-system/lyne-components/compare/v0.19.6...v0.19.7) (2022-12-20)
 
 ### Bug Fixes
