@@ -1,4 +1,3 @@
-import events from '../sbb-tag/sbb-tag.events';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -76,24 +75,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'sbb-tag properties',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'sbb-tag properties',
-  },
-};
-
 const defaultArgTypes = {
   checked,
   disabled,
@@ -102,8 +83,6 @@ const defaultArgTypes = {
   'icon-name': icon,
   amount,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
   numberOfTagsInGroup,
 };
 
@@ -115,8 +94,6 @@ const defaultArgs = {
   'icon-name': undefined,
   amount: undefined,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
   numberOfTagsInGroup: 8,
 };
 
@@ -184,7 +161,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change', events.didChange],
+      handles: ['change'],
     },
     docs: {
       extractComponentDescription: () => readme,
