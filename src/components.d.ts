@@ -1702,10 +1702,6 @@ export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbNavigationElement;
 }
-export interface SbbNavigationSectionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbNavigationSectionElement;
-}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -3301,10 +3297,6 @@ declare namespace LocalJSX {
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
-        /**
-          * Emits whenever the navigation section is closed.
-         */
-        "onDidClose"?: (event: SbbNavigationSectionCustomEvent<void>) => void;
         "titleContent"?: string;
         "titleLevel"?: InterfaceTitleAttributes['level'];
         /**

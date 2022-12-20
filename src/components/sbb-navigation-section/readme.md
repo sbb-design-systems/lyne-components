@@ -35,13 +35,6 @@ Its intended use is inside of a [sbb-navigation](../sbb-navigation/readme.md) co
 | `trigger`                | `trigger`                  | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string`                  | `undefined` |
 
 
-## Events
-
-| Event      | Description                                      | Type                |
-| ---------- | ------------------------------------------------ | ------------------- |
-| `didClose` | Emits whenever the navigation section is closed. | `CustomEvent<void>` |
-
-
 ## Methods
 
 ### `close() => Promise<void>`

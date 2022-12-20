@@ -2,8 +2,6 @@ import {
   Component,
   ComponentInterface,
   Element,
-  Event,
-  EventEmitter,
   h,
   Host,
   JSX,
@@ -72,15 +70,6 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @State() private _namedSlots = createNamedSlotState('title');
-
-  /**
-   * Emits whenever the navigation section is closed.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-  })
-  public didClose: EventEmitter<void>;
 
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionWrapperElement: HTMLElement;
@@ -163,7 +152,6 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       this._state = 'closed';
       this._navigationSectionWrapperElement.scrollTo(0, 0);
       this._navigationSection.close();
-      this.didClose.emit();
       this._windowEventsController?.abort();
     }
   }

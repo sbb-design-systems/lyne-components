@@ -1,5 +1,4 @@
 import { h } from 'jsx-dom';
-import events from './sbb-navigation-section.events.ts';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
@@ -154,9 +153,6 @@ export default {
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
-    actions: {
-      handles: [events.didClose],
-    },
     backgrounds: {
       disable: true,
     },

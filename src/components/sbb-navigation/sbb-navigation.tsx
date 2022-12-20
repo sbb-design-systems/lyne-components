@@ -294,16 +294,8 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
         this._activeNavigationSection = this._element.querySelector(
           '.sbb-navigation-section--opening, .sbb-navigation-section--opened'
         );
+        (this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement)?.focus();
       }
-    }
-  }
-
-  @Listen('didClose')
-  public setNavigationSectionFocus(event: Event): void {
-    const target = event.target as HTMLElement;
-    if (target.nodeName === 'SBB-NAVIGATION-SECTION') {
-      event.stopImmediatePropagation();
-      (this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement)?.focus();
     }
   }
 
