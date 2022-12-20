@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.19.6](https://github.com/lyne-design-system/lyne-components/compare/v0.19.5...v0.19.6) (2022-12-20)
+
+### Bug Fixes
+
+- **sbb-pearl-chain:** use min-width to prevent squeezing ([#1504](https://github.com/lyne-design-system/lyne-components/issues/1504)) ([80965d0](https://github.com/lyne-design-system/lyne-components/commit/80965d0a4117a9db80702c944cf21281fc9aaa31))
+
 ### [0.19.5](https://github.com/lyne-design-system/lyne-components/compare/v0.19.4...v0.19.5) (2022-12-19)
 
 ### [0.19.4](https://github.com/lyne-design-system/lyne-components/compare/v0.19.3...v0.19.4) (2022-12-19)
