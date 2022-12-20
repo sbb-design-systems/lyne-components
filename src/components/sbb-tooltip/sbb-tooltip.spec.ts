@@ -1,5 +1,6 @@
 import { SbbTooltip } from './sbb-tooltip';
 import { newSpecPage } from '@stencil/core/testing';
+import { i18nCloseTooltip } from '../../global/i18n';
 
 describe('sbb-tooltip', () => {
   it('renders', async () => {
@@ -19,7 +20,7 @@ describe('sbb-tooltip', () => {
                 </slot>
               </span>
               <span class="sbb-tooltip__close">
-                <sbb-button accessibility-label="Close tooltip" iconname="cross-small" sbb-tooltip-close="" size="m" type="button" variant="secondary"></sbb-button>
+                <sbb-button accessibility-label="${i18nCloseTooltip.en}" iconname="cross-small" sbb-tooltip-close="" size="m" type="button" variant="secondary"></sbb-button>
               </span>
             </div>
           </dialog>
