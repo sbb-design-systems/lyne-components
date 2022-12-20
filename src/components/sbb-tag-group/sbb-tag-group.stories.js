@@ -1,6 +1,22 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const uncheckOtherTags = (event) => {
+  Array.from(document.querySelectorAll('sbb-tag'))
+    .filter((e) => e !== event.target && !e.getAttribute('disabled'))
+    .forEach((e) => e.removeAttribute('checked'));
+};
+
+const uncheckAllTag = () => {
+  document.getElementById('all').removeAttribute('checked');
+};
+
+const uncheckTags = () => {
+  Array.from(document.querySelectorAll('sbb-tag'))
+    .filter((e) => e.getAttribute('id') !== 'all' && !e.getAttribute('disabled'))
+    .forEach((e) => e.removeAttribute('checked'));
+};
+
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`;
 
 const numberOfTagsInGroup = {
@@ -127,6 +143,43 @@ const nestedGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
   </div>,
 ];
 
+const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
+  <sbb-tag-group>
+    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => {
+      return (
+        <sbb-tag {...args} onChange={(event) => uncheckOtherTags(event)}>
+          {label} {i + 1}
+          {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
+        </sbb-tag>
+      );
+    })}
+  </sbb-tag-group>,
+  <div style="margin-block-start: 1rem;">
+    This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
+    unchecked.
+  </div>,
+];
+
+const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
+  <sbb-tag-group>
+    <sbb-tag id="all" {...args} onChange={() => uncheckTags()}>
+      All
+    </sbb-tag>
+    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => {
+      return (
+        <sbb-tag {...args} onChange={() => uncheckAllTag()}>
+          {label} {i + 1}
+          {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
+        </sbb-tag>
+      );
+    })}
+  </sbb-tag-group>,
+  <div style="margin-block-start: 1rem;">
+    This sbb-tag-group permits to select the 'All' option, or to select multiple values removing the
+    'All' selection.
+  </div>,
+];
+
 export const tagGroup = tagGroupTemplate.bind({});
 tagGroup.argTypes = defaultArgTypes;
 tagGroup.args = { ...defaultArgs };
@@ -150,6 +203,14 @@ ellipsisLabel.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123 };
 export const nestedGroup = nestedGroupTemplate.bind({});
 nestedGroup.argTypes = defaultArgTypes;
 nestedGroup.args = { ...defaultArgs };
+
+export const exclusiveTagGroup = exclusiveTagGroupTemplate.bind({});
+exclusiveTagGroup.argTypes = defaultArgTypes;
+exclusiveTagGroup.args = { ...defaultArgs };
+
+export const allChoiceTagGroup = allChoiceTagGroupTemplate.bind({});
+allChoiceTagGroup.argTypes = defaultArgTypes;
+allChoiceTagGroup.args = { ...defaultArgs };
 
 export default {
   decorators: [
