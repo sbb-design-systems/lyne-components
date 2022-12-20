@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.19.7](https://github.com/lyne-design-system/lyne-components/compare/v0.19.6...v0.19.7) (2022-12-20)
+
+### Bug Fixes
+
+- **sbb-train-formation:** fix colors, icon size and translations ([#1502](https://github.com/lyne-design-system/lyne-components/issues/1502)) ([c2a26bd](https://github.com/lyne-design-system/lyne-components/commit/c2a26bda728e1bf7a17e73eb23eb1cf381b30f44))
+
 ### [0.19.6](https://github.com/lyne-design-system/lyne-components/compare/v0.19.5...v0.19.6) (2022-12-20)
 
 ### Bug Fixes
