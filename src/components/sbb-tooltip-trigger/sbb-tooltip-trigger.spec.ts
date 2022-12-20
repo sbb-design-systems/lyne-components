@@ -1,0 +1,19 @@
+import { SbbTooltipTrigger } from './sbb-tooltip-trigger';
+import { newSpecPage } from '@stencil/core/testing';
+
+describe('sbb-tooltip-trigger', () => {
+  it('renders', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTooltipTrigger],
+      html: '<sbb-tooltip-trigger />',
+    });
+
+    expect(root).toEqualHtml(`
+        <sbb-tooltip-trigger>
+          <mock:shadow-root>
+            <button class="some-class"></button>
+          </mock:shadow-root>
+        </sbb-tooltip-trigger>
+      `);
+  });
+});
