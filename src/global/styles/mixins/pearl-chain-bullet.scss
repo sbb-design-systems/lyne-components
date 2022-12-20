@@ -27,14 +27,18 @@
   border-radius: 100%;
 }
 
-@mixin pearl-chain-bullet-start-stop {
-  height: var(--sbb-pearl-chain-bullet-size-start-end);
+@mixin pearl-chain-bullet-start-end {
+  min-height: var(--sbb-pearl-chain-bullet-size-start-end);
   min-width: var(--sbb-pearl-chain-bullet-size-start-end);
+  height: var(--sbb-pearl-chain-bullet-size-start-end);
+  width: var(--sbb-pearl-chain-bullet-size-start-end);
 }
 
 @mixin pearl-chain-bullet-stop {
-  height: var(--sbb-pearl-chain-bullet-size-stop);
+  min-height: var(--sbb-pearl-chain-bullet-size-stop);
   min-width: var(--sbb-pearl-chain-bullet-size-stop);
+  height: var(--sbb-pearl-chain-bullet-size-stop);
+  width: var(--sbb-pearl-chain-bullet-size-stop);
   border: var(--sbb-pearl-chain-bullet-border-width) solid currentcolor;
   background: Canvas;
 }
@@ -84,7 +88,7 @@
 
 @mixin pearl-chain-bullet-position {
   @include pearl-chain-bullet;
-  @include pearl-chain-bullet-start-stop;
+  @include pearl-chain-bullet-start-end;
   @include pearl-chain-bullet-disruption;
 
   animation: pearl-chain-bullet-position-pulse var(--sbb-pearl-chain-bullet-animation-duration)
