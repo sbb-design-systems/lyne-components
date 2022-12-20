@@ -3,6 +3,9 @@
 Every text size (xxs, xs, s, m, l and xl) is available as sass mixin or css class.
 It also includes line-height, letter-spacing and font-family.
 
+The native browser margins (1em) between paragraph elements `<p>` correctly corresponds
+to the defined paragraph spacing. Due to this there are no additional rules for paragraph spacing.
+
 | css class      | css class bold               | sass mixin          | sass mixin bold  |
 | -------------- | ---------------------------- | ------------------- | ---------------- |
 | `sbb-text-xxs` | `sbb-text-xxs sbb-text-bold` | `text-xxs--regular` | `text-xxs--bold` |

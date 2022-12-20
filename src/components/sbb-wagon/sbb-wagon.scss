@@ -63,7 +63,7 @@
 }
 
 .sbb-wagon__class {
-  @include sbb.title-6;
+  @include sbb.title-6($exclude-spacing: true);
 
   margin-inline-start: auto;
 }

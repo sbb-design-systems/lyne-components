@@ -146,11 +146,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Daily ticket
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Daily ticket
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -177,11 +175,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Bike day pass
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Bike day pass
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -208,11 +204,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Libero short distance ticket
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Libero short distance ticket
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -239,11 +233,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Route map
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Route map
+            </sbb-title>
             <div slot="text">
               <span>For regular trips</span>
             </div>
@@ -261,16 +253,12 @@ const Template = (args) => (
             layout="loose"
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
-            <div slot="title">
-              <sbb-title level="2" visual-level="1">
-                GA
-              </sbb-title>
-            </div>
-            <div slot="lead">
-              <sbb-title level="3" visual-level="6">
-                Enjoy unlimited travel with the GA travelcard.
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="1">
+              GA
+            </sbb-title>
+            <sbb-title slot="lead" level="3" visual-level="6">
+              Enjoy unlimited travel with the GA travelcard.
+            </sbb-title>
             <div slot="action">
               <sbb-button variant="secondary" static>
                 All GAs at a glance
@@ -285,16 +273,12 @@ const Template = (args) => (
             layout="loose"
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
-            <div slot="title">
-              <sbb-title level="2" visual-level="1">
-                1/2
-              </sbb-title>
-            </div>
-            <div slot="lead">
-              <sbb-title level="3" visual-level="6">
-                Travel at half price with the Halbtax travelcard.
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="1">
+              1/2
+            </sbb-title>
+            <sbb-title slot="lead" level="3" visual-level="6">
+              Travel at half price with the Halbtax travelcard.
+            </sbb-title>
             <div slot="action">
               <sbb-button variant="secondary" static>
                 Ride at half price

@@ -126,3 +126,9 @@
 .sbb-card__opens-in-new-window {
   @include sbb.screen-reader-only;
 }
+
+// We remove upper margin from all titles
+// as we do not expect multiple titles to be used inside a card.
+.sbb-card__content ::slotted(sbb-title) {
+  margin-block-start: 0;
+}

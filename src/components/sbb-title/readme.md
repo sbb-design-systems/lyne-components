@@ -5,6 +5,9 @@ Internally this is represented by the heading elements: h1, h2, h3, h4, h5 and h
 In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
 it is possible to use the `visual-level`.
 
+As a default the `<sbb-title>` contains spacing on top and bottom on the host. This can be removed or customized
+via simple CSS rules.
+
 <!-- Auto Generated Below -->
 
 

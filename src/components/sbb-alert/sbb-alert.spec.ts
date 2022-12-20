@@ -19,7 +19,7 @@ describe('sbb-alert', () => {
                   </slot>
                 </span>
                 <span class="sbb-alert__content">
-                  <sbb-title level="3" negative visual-level="5">
+                  <sbb-title class="sbb-alert__title" level="3" negative visual-level="5">
                     <slot name="title">Interruption</slot>
                   </sbb-title>
                   <slot></slot>
@@ -52,7 +52,7 @@ describe('sbb-alert', () => {
                   </slot>
                 </span>
                 <span class="sbb-alert__content">
-                  <sbb-title level="2" negative visual-level="3">
+                  <sbb-title class="sbb-alert__title" level="2" negative visual-level="3">
                     <slot name="title">Interruption</slot>
                   </sbb-title>
                   <slot></slot>
