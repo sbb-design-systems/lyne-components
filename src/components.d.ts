@@ -1707,6 +1707,10 @@ export namespace Components {
          */
         "trigger": string | HTMLElement;
     }
+    interface SbbTooltipTrigger {
+        "iconName": string;
+        "id": string;
+    }
     interface SbbTrain {
         /**
           * Accessibility label for additional information regarding the leaving direction of the train.
@@ -2275,6 +2279,12 @@ declare global {
         prototype: HTMLSbbTooltipElement;
         new (): HTMLSbbTooltipElement;
     };
+    interface HTMLSbbTooltipTriggerElement extends Components.SbbTooltipTrigger, HTMLStencilElement {
+    }
+    var HTMLSbbTooltipTriggerElement: {
+        prototype: HTMLSbbTooltipTriggerElement;
+        new (): HTMLSbbTooltipTriggerElement;
+    };
     interface HTMLSbbTrainElement extends Components.SbbTrain, HTMLStencilElement {
     }
     var HTMLSbbTrainElement: {
@@ -2375,6 +2385,7 @@ declare global {
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
         "sbb-toggle-option": HTMLSbbToggleOptionElement;
         "sbb-tooltip": HTMLSbbTooltipElement;
+        "sbb-tooltip-trigger": HTMLSbbTooltipTriggerElement;
         "sbb-train": HTMLSbbTrainElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
         "sbb-wagon": HTMLSbbWagonElement;
@@ -4104,6 +4115,10 @@ declare namespace LocalJSX {
          */
         "trigger"?: string | HTMLElement;
     }
+    interface SbbTooltipTrigger {
+        "iconName"?: string;
+        "id"?: string;
+    }
     interface SbbTrain {
         /**
           * Accessibility label for additional information regarding the leaving direction of the train.
@@ -4232,6 +4247,7 @@ declare namespace LocalJSX {
         "sbb-toggle-check": SbbToggleCheck;
         "sbb-toggle-option": SbbToggleOption;
         "sbb-tooltip": SbbTooltip;
+        "sbb-tooltip-trigger": SbbTooltipTrigger;
         "sbb-train": SbbTrain;
         "sbb-train-formation": SbbTrainFormation;
         "sbb-wagon": SbbWagon;
@@ -4317,6 +4333,7 @@ declare module "@stencil/core" {
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
             "sbb-toggle-option": LocalJSX.SbbToggleOption & JSXBase.HTMLAttributes<HTMLSbbToggleOptionElement>;
             "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
+            "sbb-tooltip-trigger": LocalJSX.SbbTooltipTrigger & JSXBase.HTMLAttributes<HTMLSbbTooltipTriggerElement>;
             "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
             "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;

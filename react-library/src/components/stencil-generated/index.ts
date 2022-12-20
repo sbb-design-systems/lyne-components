@@ -83,6 +83,7 @@ export const SbbToggle = /*@__PURE__*/createReactComponent<JSX.SbbToggle, HTMLSb
 export const SbbToggleCheck = /*@__PURE__*/createReactComponent<JSX.SbbToggleCheck, HTMLSbbToggleCheckElement>('sbb-toggle-check');
 export const SbbToggleOption = /*@__PURE__*/createReactComponent<JSX.SbbToggleOption, HTMLSbbToggleOptionElement>('sbb-toggle-option');
 export const SbbTooltip = /*@__PURE__*/createReactComponent<JSX.SbbTooltip, HTMLSbbTooltipElement>('sbb-tooltip');
+export const SbbTooltipTrigger = /*@__PURE__*/createReactComponent<JSX.SbbTooltipTrigger, HTMLSbbTooltipTriggerElement>('sbb-tooltip-trigger');
 export const SbbTrain = /*@__PURE__*/createReactComponent<JSX.SbbTrain, HTMLSbbTrainElement>('sbb-train');
 export const SbbTrainFormation = /*@__PURE__*/createReactComponent<JSX.SbbTrainFormation, HTMLSbbTrainFormationElement>('sbb-train-formation');
 export const SbbWagon = /*@__PURE__*/createReactComponent<JSX.SbbWagon, HTMLSbbWagonElement>('sbb-wagon');

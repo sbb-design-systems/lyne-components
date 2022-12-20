@@ -109,6 +109,7 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-timetable-row](../sbb-timetable-row)
  - [sbb-toggle-check](../sbb-toggle-check)
  - [sbb-toggle-option](../sbb-toggle-option)
+ - [sbb-tooltip-trigger](../sbb-tooltip-trigger)
  - [sbb-train](../sbb-train)
  - [sbb-wagon](../sbb-wagon)
 
@@ -128,6 +129,7 @@ graph TD;
   sbb-timetable-row --> sbb-icon
   sbb-toggle-check --> sbb-icon
   sbb-toggle-option --> sbb-icon
+  sbb-tooltip-trigger --> sbb-icon
   sbb-train --> sbb-icon
   sbb-wagon --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
