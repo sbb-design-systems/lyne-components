@@ -29,12 +29,12 @@
 
 @mixin pearl-chain-bullet-start-stop {
   height: var(--sbb-pearl-chain-bullet-size-start-end);
-  width: var(--sbb-pearl-chain-bullet-size-start-end);
+  min-width: var(--sbb-pearl-chain-bullet-size-start-end);
 }
 
 @mixin pearl-chain-bullet-stop {
   height: var(--sbb-pearl-chain-bullet-size-stop);
-  width: var(--sbb-pearl-chain-bullet-size-stop);
+  min-width: var(--sbb-pearl-chain-bullet-size-stop);
   border: var(--sbb-pearl-chain-bullet-border-width) solid currentcolor;
   background: Canvas;
 }
