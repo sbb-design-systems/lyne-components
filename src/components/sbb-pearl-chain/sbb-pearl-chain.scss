@@ -44,7 +44,7 @@
 // first and last bullet
 .sbb-pearl-chain__bullet {
   @include sbb.pearl-chain-bullet;
-  @include sbb.pearl-chain-bullet-start-stop;
+  @include sbb.pearl-chain-bullet-start-end;
 
   content: '';
   position: absolute;
@@ -154,7 +154,7 @@
 
 .sbb-pearl-chain--arrival-skipped,
 .sbb-pearl-chain--departure-skipped {
-  @include sbb.pearl-chain-bullet-start-stop;
+  @include sbb.pearl-chain-bullet-start-end;
   @include sbb.pearl-chain-bullet-skipped;
 }
 
