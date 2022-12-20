@@ -97,6 +97,11 @@
   --sbb-form-field-background-color: var(--sbb-color-white-default);
 }
 
+:host([width='collapse']) {
+  min-width: auto;
+  width: auto;
+}
+
 .sbb-form-field__space-wrapper {
   display: flex;
   flex-direction: column;
@@ -119,6 +124,7 @@
 ::slotted(*[slot='suffix']) {
   min-width: var(--sbb-icon-svg-width);
   display: flex;
+  color: var(--sbb-form-field-prefix-color);
 }
 
 .sbb-form-field__select-input-icon {
@@ -127,10 +133,6 @@
   inset-inline-end: 0;
   position: absolute;
   pointer-events: none;
-}
-
-::slotted(*[slot='prefix']) {
-  color: var(--sbb-form-field-prefix-color);
 }
 
 .sbb-form-field__input-container {

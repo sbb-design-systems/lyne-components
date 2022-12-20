@@ -31,6 +31,7 @@ const TemplateInput = (args) => (
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
+    width={args.width}
   >
     {TemplateBasicInput(args)}
   </sbb-form-field>
@@ -42,6 +43,7 @@ const TemplateInputWithSlottedLabel = (args) => (
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
+    width={args.width}
   >
     <span slot="label">{args.label}</span>
     {TemplateBasicInput(args)}
@@ -61,6 +63,7 @@ const TemplateInputWithErrorSpace = (args) => {
           optional={args.optional}
           size={args.size}
           borderless={args.borderless}
+          width={args.width}
         >
           <input
             id="sbb-form-field-input"
@@ -101,6 +104,7 @@ const TemplateSelect = (args) => (
     optional={args.optional}
     size={args.size}
     borderless={args.borderless}
+    width={args.width}
   >
     {TemplateBasicSelect(args)}
   </sbb-form-field>
@@ -119,6 +123,7 @@ const TemplateSelectWithErrorSpace = (args) => {
           optional={args.optional}
           size={args.size}
           borderless={args.borderless}
+          width={args.width}
         >
           <select
             id="sbb-form-field-input"
@@ -227,6 +232,16 @@ const errorSpaceArg = {
   },
 };
 
+const widthArg = {
+  control: {
+    type: 'select',
+  },
+  options: ['default', 'collapse'],
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const labelArg = {
   control: {
     type: 'text',
@@ -276,6 +291,7 @@ const basicArgTypes = {
   readonly: readonlyArg,
   value: valueArg,
   errortext: errortextArg,
+  width: widthArg,
 };
 
 const basicArgs = {
@@ -283,13 +299,14 @@ const basicArgs = {
   label: 'Input name',
   optional: false,
   borderless: false,
-  size: 'm',
+  size: sizeArg.options[0],
   class: '',
   placeholder: 'Input placeholder',
   value: 'Input value',
   disabled: false,
   readonly: false,
   errortext: 'This is a required field.',
+  width: widthArg.options[0],
 };
 
 export const Input = TemplateInput.bind({});
@@ -315,6 +332,10 @@ InputWithSlottedLabel.args = { ...basicArgs, value: 'Random value' };
 export const InputWithoutBorder = TemplateInput.bind({});
 InputWithoutBorder.argTypes = basicArgTypes;
 InputWithoutBorder.args = { ...basicArgs, borderless: true };
+
+export const InputCollapsedWidth = TemplateInput.bind({});
+InputCollapsedWidth.argTypes = basicArgTypes;
+InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
 
 export const InputDisabled = TemplateInput.bind({});
 InputDisabled.argTypes = basicArgTypes;

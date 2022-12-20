@@ -42,7 +42,7 @@ Basic usage:
 
 Required and readonly inside a sbb-form-field:
 ```html
-<sbb-form-field size='m' label='My form'>
+<sbb-form-field size='m' label='My form' width='collapse'>
   <sbb-time-input value='23:15' required='true' readonly='true' form='form'></sbb-time-input>
   <sbb-form-error>This field is required!</sbb-form-error>
 </sbb-form-field>

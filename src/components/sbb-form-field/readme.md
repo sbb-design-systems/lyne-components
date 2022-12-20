@@ -11,6 +11,7 @@ The following components are designed to work inside a `<sbb-form-field>`:
 - `<input>`
 - `<select>`
 - `<sbb-slider>`
+- `<sbb-time-input>`
 
 ## Usage
 
@@ -53,6 +54,12 @@ the `prefix` and `suffix` slots.
 </sbb-form-field>
 ```
 
+### Width
+
+By default, the component has a defined width and min-width. However, this behavior can be overridden by setting 
+the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.
+This is useful, for example, for the `sbb-time-input` component. 
+
 ## Accessibility
 
 By itself, `<sbb-form-field>` does not apply any additional accessibility treatment to a form
@@ -73,13 +80,14 @@ announce errors when they appear.
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                                                                            | Type                  | Default     |
-| ------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | ----------- |
-| `borderless` | `borderless`  | Whether to display the form field without a border.                                                                                    | `boolean`             | `false`     |
-| `errorSpace` | `error-space` | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message. | `"none" \| "reserve"` | `'none'`    |
-| `label`      | `label`       | Label text for the input which is internally rendered as `<label>`.                                                                    | `string`              | `undefined` |
-| `optional`   | `optional`    | Indicates whether the input is optional.                                                                                               | `boolean`             | `undefined` |
-| `size`       | `size`        | Size variant, either l or m.                                                                                                           | `"l" \| "m"`          | `'m'`       |
+| Property     | Attribute     | Description                                                                                                                                                           | Type                      | Default     |
+| ------------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
+| `borderless` | `borderless`  | Whether to display the form field without a border.                                                                                                                   | `boolean`                 | `false`     |
+| `errorSpace` | `error-space` | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                | `"none" \| "reserve"`     | `'none'`    |
+| `label`      | `label`       | Label text for the input which is internally rendered as `<label>`.                                                                                                   | `string`                  | `undefined` |
+| `optional`   | `optional`    | Indicates whether the input is optional.                                                                                                                              | `boolean`                 | `undefined` |
+| `size`       | `size`        | Size variant, either l or m.                                                                                                                                          | `"l" \| "m"`              | `'m'`       |
+| `width`      | `width`       | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. | `"collapse" \| "default"` | `'default'` |
 
 
 ## Slots

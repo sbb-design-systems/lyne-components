@@ -578,6 +578,10 @@ export namespace Components {
           * Size variant, either l or m.
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
+        /**
+          * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
+         */
+        "width": 'default' | 'collapse';
     }
     interface SbbHeader {
         /**
@@ -2865,6 +2869,10 @@ declare namespace LocalJSX {
           * Size variant, either l or m.
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
+        /**
+          * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
+         */
+        "width"?: 'default' | 'collapse';
     }
     interface SbbHeader {
         /**

@@ -191,7 +191,13 @@ const TemplateSbbTimeInputInFormField = ({
   size,
   ...args
 }) => (
-  <sbb-form-field size={size} label={label} optional={optional} borderless={borderless}>
+  <sbb-form-field
+    size={size}
+    label={label}
+    optional={optional}
+    borderless={borderless}
+    width="collapse"
+  >
     {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
     <sbb-time-input {...args}></sbb-time-input>
     {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
@@ -217,9 +223,9 @@ sbbTimeInputInFormFieldBorderless.args = {
   borderless: true,
 };
 
-export const sbbTimeInputInFormFielDisabled = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormFielDisabled.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFielDisabled.args = {
+export const sbbTimeInputInFormFieldDisabled = TemplateSbbTimeInputInFormField.bind({});
+sbbTimeInputInFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
+sbbTimeInputInFormFieldDisabled.args = {
   ...formFieldBasicArgsWithIcons,
   disabled: true,
 };

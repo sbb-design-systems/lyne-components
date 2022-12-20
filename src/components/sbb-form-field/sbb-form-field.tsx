@@ -57,6 +57,11 @@ export class SbbFormField implements ComponentInterface {
    */
   @Prop({ reflect: true }) public borderless = false;
 
+  /** Defines the width of the component:
+   * - `default`: the component has defined width and min-width;
+   * - `collapse`: the component adapts itself to its inner input content. */
+  @Prop({ reflect: true }) public width: 'default' | 'collapse' = 'default';
+
   /**
    * It is used internally to get the `error` slot.
    */
