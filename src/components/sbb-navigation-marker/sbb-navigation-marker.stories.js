@@ -16,6 +16,9 @@ const defaultArgs = {
   size: size.options[0],
 };
 
+const style =
+  'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
+
 const navigationActionsL = (active) => [
   <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
   <sbb-navigation-action id="nav-2" active={active}>
@@ -73,7 +76,7 @@ SizeSActive.documentation = { title: 'Size S Active' };
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem;'}>
+      <div style={style}>
         <Story />
       </div>
     ),

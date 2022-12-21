@@ -32,7 +32,7 @@ const DefaultTemplate = (args) => (
 );
 
 const SlottedLabelTemplate = (args) => (
-  <sbb-navigation-list style={style} {...args}>
+  <sbb-navigation-list {...args}>
     <span slot="label">Slotted label</span>
     {navigationActions}
   </sbb-navigation-list>
@@ -51,7 +51,7 @@ SlottedLabel.documentation = { title: 'Slotted label' };
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={style}>
         <Story />
       </div>
     ),

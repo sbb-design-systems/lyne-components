@@ -18,6 +18,9 @@ const defaultArgs = {
 
 const Template = (args) => <sbb-navigation-action {...args}>Label</sbb-navigation-action>;
 
+const style =
+  'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 1rem 2rem';
+
 export const SizeL = Template.bind({});
 SizeL.argTypes = defaultArgTypes;
 SizeL.args = { ...defaultArgs };
@@ -36,7 +39,7 @@ SizeS.documentation = { title: 'Size S' };
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={style}>
         <Story />
       </div>
     ),
