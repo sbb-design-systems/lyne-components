@@ -78,7 +78,7 @@ Type: `Promise<void>`
 
 ### `open() => Promise<void>`
 
-Opens the navigation on trigger click.
+Opens the navigation.
 
 #### Returns
 

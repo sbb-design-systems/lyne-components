@@ -121,7 +121,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   @Element() private _element: HTMLElement;
 
   /**
-   * Opens the navigation on trigger click.
+   * Opens the navigation.
    */
   @Method()
   public async open(): Promise<void> {
