@@ -213,7 +213,7 @@
   // If the the device can hover over elements with ease
   @include sbb.hover-mq($hover: true) {
     // stylelint-disable plugin/stylelint-bem-namics
-    :host(:not([disabled])) &:hover {
+    :host(:not([disabled])) &:hover:not(:active) {
       --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
       --sbb-button-shadow-1-offset-y: calc(
         0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
