@@ -26,9 +26,7 @@ const style =
   'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
 
 const DefaultTemplate = (args) => (
-  <sbb-navigation-list style={style} {...args}>
-    {navigationActions}
-  </sbb-navigation-list>
+  <sbb-navigation-list {...args}>{navigationActions}</sbb-navigation-list>
 );
 
 const SlottedLabelTemplate = (args) => (
