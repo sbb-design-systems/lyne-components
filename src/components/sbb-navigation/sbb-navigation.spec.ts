@@ -24,7 +24,7 @@ describe('sbb-navigation', () => {
                 <div class="sbb-navigation__header">
                   <sbb-button 
                     accessibility-controls="sbb-navigation-dialog-id"
-                    accessibility-label="Close modal" 
+                    accessibility-label="Close secondary window" 
                     class="sbb-navigation__close" 
                     icon-name="cross-small" 
                     negative=""

@@ -26,7 +26,7 @@ export class SbbNavigationMarker implements ComponentInterface {
   /**
    * Marker size variant.
    */
-  @Prop() public size?: 'l' | 's' = 'l';
+  @Prop({ reflect: true }) public size?: 'l' | 's' = 'l';
 
   /**
    * Whether the list has an active action.
