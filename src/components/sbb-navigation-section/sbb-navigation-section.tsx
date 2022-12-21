@@ -200,13 +200,8 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
 
   // Closes the navigation on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this._state !== 'opened') {
-      return;
-    }
-
-    if (event.key === 'Escape') {
+    if (this._state === 'opened' && event.key === 'Escape') {
       this.close();
-      return;
     }
   }
 
