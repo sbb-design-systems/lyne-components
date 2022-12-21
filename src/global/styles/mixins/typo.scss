@@ -216,7 +216,7 @@
 }
 
 %sub-sup {
-  font-size: 58%;
+  font-size: 60%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
@@ -225,7 +225,7 @@
 @mixin sub {
   @extend %sub-sup;
 
-  bottom: -0.25em;
+  bottom: -0.36em;
 }
 
 @mixin sup {

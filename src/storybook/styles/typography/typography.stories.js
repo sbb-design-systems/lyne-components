@@ -27,9 +27,9 @@ const TextBoldTemplate = () =>
     </p>,
   ]);
 
-const LegendTemplate = () => [
+const LegendSubSupTemplate = () => [
   <p class="sbb-text-m">
-    {text} Another sentence<sub>sub</sub>.
+    A sentence with a<sub>subscript</sub> character.
   </p>,
   <span class="sbb-legend">
     <sup>1</sup>&nbsp;Legend text which is small and should be placed at the end.
@@ -51,7 +51,7 @@ const LinkInlineNegativeTemplate = () => (
     class="sbb-text-m"
     style="background-color:var(--sbb-color-charcoal-default);color:var(--sbb-color-white-default);padding:1rem;"
   >
-    A text with a link inside{' '}
+    A text with a negative link inside{' '}
     <a href="" class="sbb-link-inline-negative">
       the text
     </a>
@@ -61,7 +61,7 @@ const LinkInlineNegativeTemplate = () => (
 
 export const Text = TextTemplate.bind({});
 export const TextBold = TextBoldTemplate.bind({});
-export const LegendSubSup = LegendTemplate.bind({});
+export const LegendSubSup = LegendSubSupTemplate.bind({});
 export const LinkInline = LinkInlineTemplate.bind({});
 export const LinkInlineNegative = LinkInlineNegativeTemplate.bind({});
 
