@@ -64,6 +64,8 @@ const triggerButton = (id) => (
     variant="secondary"
     size="l"
     icon-name="hamburger-menu-small"
+    accessibilityLabel="trigger navigation"
+    accessibilityHaspopup="true"
   ></sbb-button>
 );
 
