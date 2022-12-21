@@ -17,14 +17,19 @@
   max-width: 100%;
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+/* stylelint-disable plugin/stylelint-bem-namics */
 :host(:hover:not([disabled])) {
   // If the the device can hover over elements with ease
   @include sbb.hover-mq($hover: true) {
     --sbb-tag-background-color: var(--sbb-color-milk-default);
     --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
+
+    .sbb-tag {
+      transform: translateY(calc(var(--sbb-border-width-1x) * -1));
+    }
   }
 }
+/* stylelint-enable plugin/stylelint-bem-namics */
 
 // Active state
 :host([checked]) {

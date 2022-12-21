@@ -69,10 +69,13 @@ const defaultArgsIconAndAmount = {
   'icon-name': 'dog-small',
 };
 
-const Template = ({ label, ...args }) => (
+const Template = ({ label, ...args }) => <sbb-tag {...args}>{label}</sbb-tag>;
+
+const TemplateSlottedIconAndAmount = ({ label, ...args }) => (
   <sbb-tag {...args}>
+    <sbb-icon slot="icon" name="pie-small" />
     {label}
-    {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
+    <span slot="amount">999</span>
   </sbb-tag>
 );
 
@@ -103,6 +106,10 @@ withIcon.args = { ...defaultArgs, 'icon-name': 'dog-small' };
 export const withAmountAndIcon = Template.bind({});
 withAmountAndIcon.argTypes = defaultArgTypes;
 withAmountAndIcon.args = { ...defaultArgsIconAndAmount };
+
+export const withAmountAndIconSlotted = TemplateSlottedIconAndAmount.bind({});
+withAmountAndIconSlotted.argTypes = defaultArgTypes;
+withAmountAndIconSlotted.args = { ...defaultArgs };
 
 export const withAmountAndIconChecked = Template.bind({});
 withAmountAndIconChecked.argTypes = defaultArgTypes;
