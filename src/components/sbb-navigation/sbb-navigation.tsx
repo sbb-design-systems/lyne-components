@@ -327,7 +327,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       <sbb-button
         class="sbb-navigation__close"
         accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
-        accessibility-controls="sbb-navigation-dialog-id"
+        aria-controls="sbb-navigation-dialog-id"
         variant="transparent"
         negative={true}
         size="m"
