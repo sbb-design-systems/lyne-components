@@ -20,7 +20,7 @@
 
 .sbb-navigation-action {
   @include sbb.button-reset;
-  @include sbb.title-4;
+  @include sbb.title-4($exclude-spacing: true);
 
   cursor: pointer;
   text-decoration: none;

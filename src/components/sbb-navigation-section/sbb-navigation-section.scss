@@ -148,10 +148,10 @@
 }
 
 .sbb-navigation-section__title {
-  @include sbb.title-4;
+  @include sbb.title-4($exclude-spacing: true);
 
   @include sbb.mq($from: large) {
-    @include sbb.title-2;
+    @include sbb.title-2($exclude-spacing: true);
   }
 }
 

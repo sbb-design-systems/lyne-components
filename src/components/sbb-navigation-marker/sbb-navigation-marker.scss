@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.title-4;
+  @include sbb.title-4($exclude-spacing: true);
 
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
