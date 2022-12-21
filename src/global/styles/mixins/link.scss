@@ -1,0 +1,50 @@
+// stylelint-disable plugin/stylelint-bem-namics
+
+@use './typo';
+@use './a11y';
+@use '../core/mediaqueries';
+
+%link-inline-core {
+  @include typo.text-inherit;
+
+  color: inherit;
+  text-decoration: underline;
+
+  &:focus-visible {
+    @include a11y.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+
+  @include mediaqueries.hover-mq($hover: true) {
+    &:hover {
+      color: var(--sbb-link-color-hover);
+    }
+  }
+
+  // Active definitions have to be after :hover definitions
+  &:active {
+    color: var(--sbb-link-color-active);
+  }
+
+  @include a11y.if-forced-colors {
+    text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
+  }
+}
+
+@mixin link-inline {
+  --sbb-link-color-hover: var(--sbb-color-red125-default);
+  --sbb-link-color-active: var(--sbb-color-red150-default);
+
+  @extend %link-inline-core;
+}
+
+@mixin link-inline-negative {
+  --sbb-link-color-hover: var(--sbb-color-graphite-default);
+  --sbb-link-color-active: var(--sbb-color-metal-default);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+  @extend %link-inline-core;
+}
+
+// stylelint-enable plugin/stylelint-bem-namics

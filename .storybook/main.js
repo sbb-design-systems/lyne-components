@@ -6,6 +6,7 @@ module.exports = {
     '@brightlayer-ui/storybook-rtl-addon/register',
     'storybook-addon-breakpoints',
     '@storybook/addon-interactions',
+    '@storybook/preset-scss',
   ],
   features: {
     postcss: false,
