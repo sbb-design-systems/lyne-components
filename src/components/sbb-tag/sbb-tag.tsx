@@ -40,6 +40,9 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
   /** Value of internal hidden checkbox. */
   @Prop() public value?: string;
 
+  /** Amount displayed inside the tag. */
+  @Prop() public amount?: string;
+
   /** Whether the internal hidden checkbox is checked. */
   @Prop({ mutable: true, reflect: true }) public checked: boolean;
 
@@ -116,9 +119,9 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
           <span class="sbb-tag__text">
             <slot></slot>
           </span>
-          {this._namedSlots['amount'] && (
+          {(this.amount || this._namedSlots['amount']) && (
             <span class="sbb-tag__amount">
-              <slot name="amount"></slot>
+              <slot name="amount">{this.amount}</slot>
             </span>
           )}
         </span>

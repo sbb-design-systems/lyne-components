@@ -18,7 +18,7 @@ the current state can be read from `event.target.checked`, while the value from 
 Checked:
 
 ```html
-<sbb-tag checked="true" value="All">All</sbb-tag>
+<sbb-tag checked="true" value="All" amount="123">All</sbb-tag>
 ```
 
 Unchecked disabled with icon:
@@ -33,7 +33,7 @@ Unchecked required with custom icon and amount:
 <sbb-tag required="true" value="All">
   <sbb-icon slot="icon" name="pie-small" />
   All
-  <span slot="amount"></span>
+  <span slot="amount">123</span>
 </sbb-tag>
 ```
 
@@ -52,6 +52,7 @@ This internal checkbox receives focus and is automatically labelled by the text 
 | Property             | Attribute             | Description                                                                                                                                         | Type      | Default                 |
 | -------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------- |
 | `accessibilityLabel` | `accessibility-label` | The aria-label prop for the hidden input.                                                                                                           | `string`  | `undefined`             |
+| `amount`             | `amount`              | Amount displayed inside the tag.                                                                                                                    | `string`  | `undefined`             |
 | `checked`            | `checked`             | Whether the internal hidden checkbox is checked.                                                                                                    | `boolean` | `undefined`             |
 | `disabled`           | `disabled`            | Whether the internal hidden checkbox is disabled.                                                                                                   | `boolean` | `false`                 |
 | `iconName`           | `icon-name`           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined`             |
