@@ -19,6 +19,7 @@ import getDocumentLang from '../../global/helpers/get-document-lang';
 import { isEventOnElement } from '../../global/helpers/position';
 import { i18nCloseDialog } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
@@ -290,7 +291,11 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
         this._activeNavigationSection = this._element.querySelector(
           '.sbb-navigation-section--opening, .sbb-navigation-section--opened'
         );
-        (this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement)?.focus();
+        if (!isBreakpoint('zero', 'large')) {
+          (
+            this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement
+          )?.focus();
+        }
       }
     }
   }
