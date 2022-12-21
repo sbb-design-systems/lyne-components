@@ -4,14 +4,12 @@ The `<sbb-navigation-section>` is a container for both [sbb-navigation-list](../
 
 Optionally a label can be provided via slot.
 
-Its intended use is inside of a [sbb-navigation](../sbb-navigation/readme.md) component.
+Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component.
 
 ## Usage
 ```html
-<sbb-navigation-section trigger="nav1">
-    <span slot="label">Title 1</span>
-    <sbb-navigation-list>
-      <span slot="label">Label 1.1</span>
+<sbb-navigation-section trigger="nav1" label="Title 1">
+    <sbb-navigation-list label="Label 1.1">
       <sbb-navigation-action size="m" href="...">Label 1.1.1</sbb-navigation-action>
       <sbb-navigation-action size="m" href="...">Label 1.1.2</sbb-navigation-action>
       ...
