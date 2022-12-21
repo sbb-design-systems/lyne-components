@@ -17,6 +17,16 @@
   max-width: 100%;
 }
 
+/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+:host(:hover:not([disabled])) {
+  // If the the device can hover over elements with ease
+  @include sbb.hover-mq($hover: true) {
+    --sbb-tag-background-color: var(--sbb-color-milk-default);
+    --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
+  }
+}
+
+// Active state
 :host([checked]) {
   --sbb-tag-border-color: var(--sbb-color-charcoal-default);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
@@ -31,27 +41,25 @@
   --sbb-tag-amount-color: var(--sbb-color-platinum-default);
   --sbb-tag-background-color: var(--sbb-color-milk-default);
   --sbb-tag-border-color: transparent;
+
+  @include sbb.if-forced-colors {
+    --sbb-tag-text-color: GrayText;
+    --sbb-tag-amount-color: GrayText;
+    --sbb-tag-border-color: GrayText;
+  }
 }
 
 :host([checked][disabled]) {
   --sbb-tag-border-color: var(--sbb-color-platinum-default);
 }
 
-.sbb-tag {
+.sbb-tag__wrapper {
   position: relative;
-
-  // If the the device can hover over elements with ease
-  @include sbb.hover-mq($hover: true) {
-    // stylelint-disable plugin/stylelint-bem-namics
-    :host(:not([disabled])) &:hover {
-      --sbb-tag-background-color: var(--sbb-color-milk-default);
-      --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
-    }
-    // stylelint-enable plugin/stylelint-bem-namics
-  }
 }
 
-.sbb-tag__wrapper {
+.sbb-tag {
+  @include sbb.text-xs--bold;
+
   position: relative;
   margin: 0;
   display: flex;
@@ -63,6 +71,7 @@
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
 
+  // Pressed state
   &:active {
     --sbb-tag-background-color: var(--sbb-color-milk-default);
     --sbb-tag-border-color: var(--sbb-color-iron-default);
@@ -90,23 +99,16 @@
       border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
       @include sbb.absolute-center-y;
     }
-
-    @include sbb.if-forced-colors {
-      --sbb-tag-text-color: GrayText;
-      --sbb-tag-amount-color: GrayText;
-      --sbb-tag-border-color: GrayText;
-    }
   }
 }
 
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
 }
 
 .sbb-tag__text {
-  @include sbb.text-xs--bold;
   @include sbb.ellipsis;
 }
 
@@ -120,7 +122,7 @@ input[type='checkbox'] {
   @include sbb.invisible-container-overlay;
 }
 
-input[type='checkbox']:focus-visible + .sbb-tag__wrapper {
+input[type='checkbox']:focus-visible + .sbb-tag {
   @include sbb.focus-outline;
 
   outline-offset: var(--sbb-spacing-fixed-1x);

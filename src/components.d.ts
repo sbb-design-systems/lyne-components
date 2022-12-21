@@ -1216,6 +1216,10 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
+          * Amount displayed inside the tag.
+         */
+        "amount"?: string;
+        /**
           * Whether the internal hidden checkbox is checked.
          */
         "checked": boolean;
@@ -1227,14 +1231,6 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
         "iconName"?: string;
-        /**
-          * Whether the internal hidden checkbox is required.
-         */
-        "required": boolean;
-        /**
-          * Id of the internal hidden checkbox element - default id will be set automatically.
-         */
-        "tagId": string;
         /**
           * Value of internal hidden checkbox.
          */
@@ -3362,6 +3358,10 @@ declare namespace LocalJSX {
          */
         "accessibilityLabel"?: string | undefined;
         /**
+          * Amount displayed inside the tag.
+         */
+        "amount"?: string;
+        /**
           * Whether the internal hidden checkbox is checked.
          */
         "checked"?: boolean;
@@ -3377,14 +3377,6 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbTagCustomEvent<any>) => void;
-        /**
-          * Whether the internal hidden checkbox is required.
-         */
-        "required"?: boolean;
-        /**
-          * Id of the internal hidden checkbox element - default id will be set automatically.
-         */
-        "tagId"?: string;
         /**
           * Value of internal hidden checkbox.
          */

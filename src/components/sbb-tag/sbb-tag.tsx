@@ -21,8 +21,6 @@ import {
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
 
-let nextId = 0;
-
 /**
  * @slot unnamed - This slot will show the provided tag label.
  * @slot icon - Use this slot to display an icon at the component start, by providing a `sbb-icon` component.
@@ -34,9 +32,6 @@ let nextId = 0;
   tag: 'sbb-tag',
 })
 export class SbbTag implements ComponentInterface, AccessibilityProperties {
-  /** Id of the internal hidden checkbox element - default id will be set automatically. */
-  @Prop() public tagId = `sbb-tag-${++nextId}`;
-
   /** Value of internal hidden checkbox. */
   @Prop() public value?: string;
 
@@ -48,9 +43,6 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
 
   /** Whether the internal hidden checkbox is disabled. */
   @Prop({ reflect: true }) public disabled = false;
-
-  /** Whether the internal hidden checkbox is required. */
-  @Prop() public required = false;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon', 'amount');
@@ -96,21 +88,19 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-tag" htmlFor={this.tagId}>
+      <label class="sbb-tag__wrapper">
         <input
           ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
           type="checkbox"
-          id={this.tagId}
           disabled={this.disabled}
           aria-disabled={this.disabled}
-          required={this.required}
           checked={this.checked}
           aria-checked={this.checked}
           value={this.value}
           {...getAccessibilityAttributeList(this)}
           onChange={(event: Event): void => this.checkedChanged(event)}
         />
-        <span class="sbb-tag__wrapper">
+        <span class="sbb-tag">
           {(this.iconName || this._namedSlots['icon']) && (
             <span class="sbb-tag__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
