@@ -50,7 +50,10 @@ export class SbbNavigationList implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
+    this._actions.forEach((action, index) => {
+      action.setAttribute('slot', `action-${index}`);
+      action.size = 'm';
+    });
     const ariaLabelledByAttribute = this._hasLabel
       ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
       : {};

@@ -15,22 +15,26 @@ const defaultArgs = {
   label: 'Label',
 };
 
+const navigationActions = [
+  <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>,
+  <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>,
+  <sbb-navigation-action>Travel information</sbb-navigation-action>,
+  <sbb-navigation-action>Help & Contact</sbb-navigation-action>,
+];
+
+const style =
+  'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
+
 const DefaultTemplate = (args) => (
-  <sbb-navigation-list {...args}>
-    <sbb-navigation-action size="m">Tickets & Offers</sbb-navigation-action>
-    <sbb-navigation-action size="m">Vacations & Recreation</sbb-navigation-action>
-    <sbb-navigation-action size="m">Travel information</sbb-navigation-action>
-    <sbb-navigation-action size="m">Help & Contact</sbb-navigation-action>
+  <sbb-navigation-list style={style} {...args}>
+    {navigationActions}
   </sbb-navigation-list>
 );
 
 const SlottedLabelTemplate = (args) => (
-  <sbb-navigation-list {...args}>
+  <sbb-navigation-list style={style} {...args}>
     <span slot="label">Slotted label</span>
-    <sbb-navigation-action size="m">Tickets & Offers</sbb-navigation-action>
-    <sbb-navigation-action size="m">Vacations & Recreation</sbb-navigation-action>
-    <sbb-navigation-action size="m">Travel information</sbb-navigation-action>
-    <sbb-navigation-action size="m">Help & Contact</sbb-navigation-action>
+    {navigationActions}
   </sbb-navigation-list>
 );
 

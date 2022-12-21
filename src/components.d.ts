@@ -961,7 +961,7 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
-          * Opens the navigation on trigger click.
+          * Opens the navigation.
          */
         "open": () => Promise<void>;
         /**
