@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.1](https://github.com/lyne-design-system/lyne-components/compare/v0.20.0...v0.20.1) (2022-12-21)
+
+### Bug Fixes
+
+- **sbb-button:** fix active state and secondary colors ([#1507](https://github.com/lyne-design-system/lyne-components/issues/1507)) ([80a5c7f](https://github.com/lyne-design-system/lyne-components/commit/80a5c7f909dd12814fc3fc8845d053ac2a882c92)), closes [#1499](https://github.com/lyne-design-system/lyne-components/issues/1499)
+
 ## [0.20.0](https://github.com/lyne-design-system/lyne-components/compare/v0.19.7...v0.20.0) (2022-12-20)
 
 ### ⚠ BREAKING CHANGES
