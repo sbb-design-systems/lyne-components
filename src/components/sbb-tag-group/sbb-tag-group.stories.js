@@ -135,10 +135,17 @@ const tagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }) => (
 
 const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
   <sbb-tag-group aria-label="Select your desired filter">
-    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => {
+    {new Array(numberOfTagsInGroup).fill(0).map((e, i, array) => {
+      const labelNumbered = `${label} ${i + 1}`;
+      const ariaLabel = `Option ${i + 1} of ${array.length}`;
+
       return (
-        <sbb-tag {...args} onChange={(event) => uncheckOtherTags(event)}>
-          {label} {i + 1}
+        <sbb-tag
+          {...args}
+          onChange={(event) => uncheckOtherTags(event)}
+          accessibility-label={ariaLabel}
+        >
+          {labelNumbered}
           {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
         </sbb-tag>
       );

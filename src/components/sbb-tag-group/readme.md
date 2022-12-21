@@ -8,7 +8,10 @@ Once an `<sbb-tag>` has been focused, it's possible to move to the others in the
 ## Exclusive selection
 
 If you like a custom behavior, like an exclusive selection, you have to implement it yourself
-by unchecking all other tags than the selected one programmatically.
+by unchecking all other tags than the selected one programmatically. 
+To achieve a closer accessibility experience to the radio button, 
+you could set the `accessibility-label="Option 1 of 4"` accordingly for each `sbb-tag`. 
+If you would like to announce more specific messages, you could use an aria-live region and announce directly.
 
 ## Usage
 
