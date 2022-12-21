@@ -7,6 +7,7 @@
 :host {
   --sbb-navigation-section-column: 1 / 5;
   --sbb-navigation-section-position: fixed;
+  --sbb-navigation-section-pointer-events: none;
   --sbb-navigation-section-animation-duration: var(--sbb-animation-duration-3x);
   --sbb-navigation-section-animation-easing: ease-out;
   --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
@@ -17,6 +18,7 @@
   --sbb-navigation-section-width: 100%;
 
   display: none;
+  pointer-events: var(--sbb-navigation-section-pointer-events);
   position: var(--sbb-navigation-section-position);
   grid-column: var(--sbb-navigation-section-column);
   inset-inline-start: 0;
@@ -55,8 +57,17 @@
   }
 }
 
+:host(.sbb-navigation-section--opened) {
+  --sbb-navigation-section-pointer-events: all;
+}
+
 :host(.sbb-navigation-section--opening) {
   --sbb-navigation-section-position: absolute;
+}
+
+:host(.sbb-navigation-section--opening),
+:host(.sbb-navigation-section--closing) {
+  --sbb-navigation-section-pointer-events: none;
 }
 
 /* stylelint-disable-next-line plugin/stylelint-bem-namics */
@@ -73,7 +84,6 @@
   visibility: hidden;
   opacity: 0;
   border: none;
-  pointer-events: none;
   margin: 0;
   width: 100%;
   height: 100%;
@@ -85,8 +95,6 @@
   &[open] {
     visibility: visible;
     opacity: 1;
-    pointer-events: all;
-
     animation: {
       name: open;
       duration: var(--sbb-navigation-section-animation-duration);
@@ -95,7 +103,6 @@
   }
 
   :host(.sbb-navigation-section--closing) & {
-    pointer-events: none;
     animation-name: close;
   }
 
