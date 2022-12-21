@@ -117,7 +117,7 @@ export class SbbNavigationMarker implements ComponentInterface {
       <Host class={{ 'sbb-navigation-marker--visible': this._hasActiveAction }}>
         <ul class="sbb-navigation-marker__content">
           {this._actions.map((_, index) => (
-            <li>
+            <li class="sbb-navigation-marker__action">
               <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
             </li>
           ))}
