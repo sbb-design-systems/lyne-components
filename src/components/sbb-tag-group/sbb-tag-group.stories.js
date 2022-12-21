@@ -121,30 +121,20 @@ const tagTemplate = ({ label, ...args }, firstChecked = false) => (
 );
 
 const tagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => (
-  <sbb-tag-group>
+  <sbb-tag-group aria-label="Select your desired filter">
     {new Array(numberOfTagsInGroup).fill(0).map((e, i) => tagTemplate(args, i === 0))}
   </sbb-tag-group>
 );
 
 const tagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }) => (
-  <sbb-tag-group>
+  <sbb-tag-group aria-label="Select your desired filter">
     {tagTemplate({ ...args, label: longLabelText }, true)}
     {new Array(numberOfTagsInGroup - 1).fill(0).map(() => tagTemplate(args))}
   </sbb-tag-group>
 );
 
-const nestedGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
-  <sbb-tag-group>
-    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => tagTemplate(args, i === 0))}
-    {tagGroupTemplate({ numberOfTagsInGroup, ...args })}
-  </sbb-tag-group>,
-  <div style="padding-block: 2rem;">
-    Nested sbb-tag-group example. You should see an error in console.
-  </div>,
-];
-
 const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
-  <sbb-tag-group>
+  <sbb-tag-group aria-label="Select your desired filter">
     {new Array(numberOfTagsInGroup).fill(0).map((e, i) => {
       return (
         <sbb-tag {...args} onChange={(event) => uncheckOtherTags(event)}>
@@ -161,7 +151,7 @@ const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
 ];
 
 const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
-  <sbb-tag-group>
+  <sbb-tag-group aria-label="Select your desired filter">
     <sbb-tag id="all" {...args} onChange={() => uncheckTags()}>
       All
     </sbb-tag>
@@ -199,10 +189,6 @@ withAmountAndIcon.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123
 export const ellipsisLabel = tagGroupTemplateEllipsis.bind({});
 ellipsisLabel.argTypes = defaultArgTypes;
 ellipsisLabel.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123 };
-
-export const nestedGroup = nestedGroupTemplate.bind({});
-nestedGroup.argTypes = defaultArgTypes;
-nestedGroup.args = { ...defaultArgs };
 
 export const exclusiveTagGroup = exclusiveTagGroupTemplate.bind({});
 exclusiveTagGroup.argTypes = defaultArgTypes;

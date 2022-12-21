@@ -5,12 +5,17 @@ which are projected inside an unnamed slot.
 
 Once an `<sbb-tag>` has been focused, it's possible to move to the others in the group using the keyboard's arrows.
 
+## Exclusive selection
+
+If you like a custom behavior, like an exclusive selection, you have to implement it yourself
+by unchecking all other tags than the selected one programmatically.
+
 ## Usage
 
 Basic usage:
 
 ```html
-<sbb-tag-group>
+<sbb-tag-group aria-label="Select your desired device to filter it">
   <sbb-tag value="tag-1" checked="true">All</sbb-tag>
   <sbb-tag value="tag-2" disabled="true">Phones</sbb-tag>
   <sbb-tag value="tag-3">Computer</sbb-tag>

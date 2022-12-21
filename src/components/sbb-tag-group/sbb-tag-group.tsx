@@ -1,6 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen } from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
-import { hostContext } from '../../global/helpers/host-context';
 
 /**
  * @slot unnamed - Provide one or more 'sbb-tag' to add to the group.
@@ -13,8 +12,6 @@ import { hostContext } from '../../global/helpers/host-context';
 export class SbbTagGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
-  private _isNested: boolean;
-
   public tags: HTMLSbbTagElement[];
 
   private _getTags(): HTMLSbbTagElement[] {
@@ -23,10 +20,6 @@ export class SbbTagGroup implements ComponentInterface {
 
   private _onTagSlotChange(): void {
     this.tags = this._getTags();
-  }
-
-  public connectedCallback(): void {
-    this._isNested = !!hostContext('sbb-tag-group', this._element);
   }
 
   @Listen('keydown')
@@ -52,9 +45,6 @@ export class SbbTagGroup implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    if (this._isNested) {
-      throw new Error('Error: nested sbb-tag-group.');
-    }
     return (
       <div class="sbb-tag-group">
         <slot onSlotchange={() => this._onTagSlotChange()} />
