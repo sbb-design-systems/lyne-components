@@ -195,18 +195,14 @@ export class SbbTimetableRow {
                 {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
               </span>
             )}
-            {(occupancy?.firstClass || occupancy?.secondClass) && (
+            {((occupancy?.firstClass && occupancy?.firstClass !== "UNKNOWN") || (occupancy?.secondClass && occupancy.secondClass !== "UNKNOWN")) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
-                {occupancy?.firstClass && (
+                {(occupancy?.firstClass && occupancy.firstClass !== "UNKNOWN") && (
                   <li>
                     1.
                     <sbb-icon
                       class="sbb-occupancy__item"
-                      name={
-                        occupancy?.firstClass === 'UNKNOWN'
-                          ? 'utilization-none'
-                          : `utilization-` + occupancy?.firstClass?.toLowerCase()
-                      }
+                      name={`utilization-` + occupancy?.firstClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
                       {i18nClass.first[this._currentLanguage]}
@@ -217,16 +213,12 @@ export class SbbTimetableRow {
                     </span>
                   </li>
                 )}
-                {occupancy?.secondClass && (
+                {(occupancy?.secondClass && occupancy.secondClass !== "UNKNOWN") && (
                   <li>
                     2.
                     <sbb-icon
                       class="sbb-occupancy__item"
-                      name={
-                        occupancy?.secondClass === 'UNKNOWN'
-                          ? 'utilization-none'
-                          : `utilization-` + occupancy?.secondClass?.toLowerCase()
-                      }
+                      name={`utilization-` + occupancy?.secondClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
                       {i18nClass.second[this._currentLanguage]}
