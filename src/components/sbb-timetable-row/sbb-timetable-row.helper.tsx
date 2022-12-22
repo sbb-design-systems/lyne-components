@@ -211,8 +211,6 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
     'XP',
     'XR',
     'XT',
-    'R',
-    'RB',
   ];
 
   return notices.reduce((foundNotice, notice) => {
