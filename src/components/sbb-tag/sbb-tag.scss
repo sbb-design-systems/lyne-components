@@ -11,7 +11,12 @@
   --sbb-tag-border-width: var(--sbb-border-width-1x);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
+  --sbb-tag-height: #{sbb.px-to-rem-build(36)};
   --sbb-tag-inset: 0;
+
+  @include sbb.mq($from: medium) {
+    --sbb-tag-height: #{sbb.px-to-rem-build(40)};
+  }
 
   display: inline-block;
   max-width: 100%;
@@ -69,9 +74,9 @@
   margin: 0;
   display: flex;
   align-items: center;
+  height: var(--sbb-tag-height);
   gap: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-fixed-5x);
-  padding-block: var(--sbb-spacing-fixed-2x);
   cursor: pointer;
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
