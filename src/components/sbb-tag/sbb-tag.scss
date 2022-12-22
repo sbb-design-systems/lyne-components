@@ -26,17 +26,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* stylelint-disable plugin/stylelint-bem-namics */
-:host(:hover:not([disabled])) {
-  // If the the device can hover over elements with ease
-  @include sbb.hover-mq($hover: true) {
-    --sbb-tag-background-color: var(--sbb-color-milk-default);
-    --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
-    --sbb-tag-transition: translateY(calc(var(--sbb-border-width-1x) * -1));
-  }
-}
-/* stylelint-enable plugin/stylelint-bem-namics */
-
 // Active state
 :host([checked]) {
   --sbb-tag-border-color: var(--sbb-color-charcoal-default);
@@ -88,6 +77,7 @@
     --sbb-tag-background-color: var(--sbb-color-milk-default);
     --sbb-tag-border-color: var(--sbb-color-iron-default);
     --sbb-tag-border-width: var(--sbb-border-width-2x);
+    --sbb-tag-text-color: var(--sbb-color-iron-default);
   }
 
   &::before {
@@ -114,6 +104,17 @@
       @include sbb.absolute-center-y;
     }
   }
+
+  /* stylelint-disable plugin/stylelint-bem-namics */
+  :host(:not([disabled])) &:hover:not(:active) {
+    // If the the device can hover over elements with ease
+    @include sbb.hover-mq($hover: true) {
+      --sbb-tag-background-color: var(--sbb-color-milk-default);
+      --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
+      --sbb-tag-transition: translateY(calc(var(--sbb-border-width-1x) * -1));
+    }
+  }
+  /* stylelint-enable plugin/stylelint-bem-namics */
 }
 
 .sbb-tag__icon {
@@ -142,8 +143,6 @@ input[type='checkbox'] {
   @include sbb.invisible-container-overlay;
 }
 
-input[type='checkbox']:focus-visible + .sbb-tag {
+input[type='checkbox']:focus-visible + .sbb-tag::before {
   @include sbb.focus-outline;
-
-  outline-offset: var(--sbb-spacing-fixed-1x);
 }
