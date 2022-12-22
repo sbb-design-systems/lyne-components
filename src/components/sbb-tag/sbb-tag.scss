@@ -14,6 +14,8 @@
   --sbb-tag-height: #{sbb.px-to-rem-build(36)};
   --sbb-tag-inset: 0;
   --sbb-tag-transition: translateY(0);
+  --sbb-tag-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-tag-animation-easing: var(--sbb-animation-easing);
 
   @include sbb.mq($from: medium) {
     --sbb-tag-height: #{sbb.px-to-rem-build(40)};
@@ -79,7 +81,7 @@
   cursor: pointer;
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
-  transition: color var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
 
   // Pressed state
   &:active {
@@ -96,8 +98,8 @@
     background-color: var(--sbb-tag-background-color);
     border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
     border-radius: var(--sbb-tag-border-radius);
-    transition-duration: var(--sbb-animation-duration-4x);
-    transition-timing-function: var(--sbb-animation-easing);
+    transition-duration: var(--sbb-tag-animation-duration);
+    transition-timing-function: var(--sbb-tag-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
   }
 
@@ -131,7 +133,7 @@
 }
 
 .sbb-tag--shift {
-  transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: transform var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   transform: var(--sbb-tag-transition);
   will-change: transform;
 }
