@@ -14,7 +14,7 @@ describe('sbb-tag', () => {
           <label class="sbb-tag__wrapper">
             <input type="checkbox" value="all"/>
             <span class="sbb-tag">
-              <span class="sbb-tag__text">
+              <span class="sbb-tag__text sbb-tag--shift">
                 <slot></slot>
               </span>
             </span>
@@ -37,7 +37,7 @@ describe('sbb-tag', () => {
           <label class="sbb-tag__wrapper">
             <input type="checkbox" aria-checked="" checked=""/>
             <span class="sbb-tag">
-              <span class="sbb-tag__text">
+              <span class="sbb-tag__text sbb-tag--shift">
                 <slot></slot>
               </span>
             </span>
@@ -64,15 +64,15 @@ describe('sbb-tag', () => {
           <label class="sbb-tag__wrapper">
             <input type="checkbox" aria-disabled="" disabled=""/>
             <span class="sbb-tag">
-              <span class="sbb-tag__icon">
+              <span class="sbb-tag__icon sbb-tag--shift">
                 <slot name="icon">
                   <sbb-icon name="circle-information-small" />
                 </slot>
               </span>
-              <span class="sbb-tag__text">
+              <span class="sbb-tag__text sbb-tag--shift">
                 <slot></slot>
               </span>
-              <span class="sbb-tag__amount">
+              <span class="sbb-tag__amount sbb-tag--shift">
                 <slot name="amount">
                   123
                 </slot>
@@ -103,13 +103,13 @@ describe('sbb-tag', () => {
           <label class="sbb-tag__wrapper">
             <input type="checkbox"/>
             <span class="sbb-tag">
-              <span class="sbb-tag__icon">
+              <span class="sbb-tag__icon sbb-tag--shift">
                 <slot name="icon"></slot>
               </span>
-              <span class="sbb-tag__text">
+              <span class="sbb-tag__text sbb-tag--shift">
                 <slot></slot>
               </span>
-              <span class="sbb-tag__amount">
+              <span class="sbb-tag__amount sbb-tag--shift">
                 <slot name="amount"></slot>
               </span>
             </span>
