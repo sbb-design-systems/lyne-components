@@ -98,39 +98,39 @@ const Template = (args) => (
 
       <sbb-navigation-section title-content="Title one" trigger="nav-1">
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-button size="m" style="width: fit-content">
@@ -140,53 +140,53 @@ const Template = (args) => (
 
       <sbb-navigation-section title-content="Title two" trigger="nav-2">
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
       </sbb-navigation-section>
 
       <sbb-navigation-section title-content="Title three" trigger="nav-3">
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-navigation-list label="Label">
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
-          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
         </sbb-navigation-list>
 
         <sbb-button

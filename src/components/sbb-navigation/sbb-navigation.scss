@@ -25,7 +25,7 @@
   --sbb-navigation-inline-start: 0;
   --sbb-navigation-width: 100%;
   --sbb-navigation-expanded-width: 100%;
-  --sbb-navigation-content-transform: translateX(0%);
+  --sbb-navigation-content-transform: translateX(0);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   // TODO: try to refactor removing the style from the host element
@@ -38,8 +38,7 @@
   overflow: hidden;
   z-index: 10;
 
-  ::slotted(sbb-navigation-list:first-child),
-  ::slotted(sbb-navigation-marker:first-child) {
+  ::slotted(:first-child) {
     margin-block-start: var(--sbb-navigation-list-margin-block-start);
   }
 
