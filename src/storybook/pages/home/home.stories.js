@@ -45,7 +45,7 @@ const Template = (args) => (
     Header section
     ************************************************* */}
     <sbb-header>
-      <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
       <div class="spacer" />
@@ -61,6 +61,127 @@ const Template = (args) => (
         <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
       </sbb-menu>
     </sbb-header>
+
+    <sbb-navigation trigger="hamburger-menu" ref={(dialog) => onNavigationClose(dialog)}>
+      <sbb-navigation-marker id="nav-marker">
+        <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
+        <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
+        <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
+        <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/">
+          Help & Contact
+        </sbb-navigation-action>
+      </sbb-navigation-marker>
+
+      <sbb-navigation-marker size="s">
+        <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
+        <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
+        <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
+        <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+      </sbb-navigation-marker>
+
+      <sbb-navigation-section title-content="Title one" trigger="nav-1">
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-button size="m" style="width: fit-content">
+          All Tickets & Offers
+        </sbb-button>
+      </sbb-navigation-section>
+
+      <sbb-navigation-section title-content="Title two" trigger="nav-2">
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+      </sbb-navigation-section>
+
+      <sbb-navigation-section title-content="Title three" trigger="nav-3">
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+          <sbb-navigation-action size="m">Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-button
+          size="m"
+          variant="secondary"
+          icon-name="circle-information-small"
+          style="width: fit-content"
+        >
+          Travel Information
+        </sbb-button>
+      </sbb-navigation-section>
+    </sbb-navigation>
 
     {/* *************************************************
     Timetable input section
@@ -468,6 +589,12 @@ home.argTypes = defaultArgTypes;
 home.args = JSON.parse(JSON.stringify(defaultArgs));
 home.documentation = {
   title: 'Home 2.0',
+};
+
+const onNavigationClose = (dialog) => {
+  dialog.addEventListener('didClose', () => {
+    document.getElementById('nav-marker').reset();
+  });
 };
 
 /* ************************************************* */
