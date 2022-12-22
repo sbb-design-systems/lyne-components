@@ -430,6 +430,13 @@ export const i18nCloseDialog: any = {
   it: 'Chiudere la finestra sovrapposta',
 };
 
+export const i18nCloseNavigation: any = {
+  de: 'Navigation schliessen',
+  en: 'Close navigation',
+  fr: 'Fermer la navigation',
+  it: 'Chiudere la navigazione',
+};
+
 export const i18nCloseTooltip: any = {
   de: 'Hinweis schliessen',
   en: 'Close note',

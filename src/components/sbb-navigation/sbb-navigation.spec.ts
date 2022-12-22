@@ -23,7 +23,7 @@ describe('sbb-navigation', () => {
               <dialog class="sbb-navigation" id="sbb-navigation-dialog-id">
                 <div class="sbb-navigation__header">
                   <sbb-button 
-                    accessibility-label="Close secondary window" 
+                    accessibility-label="Close navigation" 
                     aria-controls="sbb-navigation-dialog-id" 
                     class="sbb-navigation__close" 
                     icon-name="cross-small" 

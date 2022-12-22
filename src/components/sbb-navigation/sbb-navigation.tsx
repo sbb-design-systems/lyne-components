@@ -13,13 +13,13 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
-import { i18nCloseDialog } from '../../global/i18n';
+import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
@@ -337,7 +337,9 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     const closeButton = (
       <sbb-button
         class="sbb-navigation__close"
-        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        accessibility-label={
+          this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]
+        }
         aria-controls="sbb-navigation-dialog-id"
         variant="transparent"
         negative={true}
