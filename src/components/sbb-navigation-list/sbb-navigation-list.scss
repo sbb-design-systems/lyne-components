@@ -17,7 +17,7 @@
 .sbb-navigation-list__label {
   @include sbb.text-xxs--bold;
 
-  display: inline-block;
+  display: block;
   color: var(--sbb-color-storm-default);
-  margin-block-end: var(--sbb-spacing-fixed-2x);
+  padding-block-end: var(--sbb-spacing-fixed-2x);
 }
