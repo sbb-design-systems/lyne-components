@@ -17,14 +17,14 @@ describe('sbb-navigation', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation trigger="nav-trigger">
+        <sbb-navigation trigger="nav-trigger" role="navigation">
           <mock:shadow-root>
             <div class="sbb-navigation__container">
               <dialog class="sbb-navigation" id="sbb-navigation-dialog-id">
                 <div class="sbb-navigation__header">
                   <sbb-button 
-                    accessibility-controls="sbb-navigation-dialog-id"
                     accessibility-label="Close secondary window" 
+                    aria-controls="sbb-navigation-dialog-id" 
                     class="sbb-navigation__close" 
                     icon-name="cross-small" 
                     negative=""

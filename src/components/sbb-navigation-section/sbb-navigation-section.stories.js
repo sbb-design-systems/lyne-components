@@ -40,7 +40,6 @@ const basicArgTypes = {
 
 const basicArgs = {
   'accessibility-label': undefined,
-  'accessibility-close-label': undefined,
   'disable-animation': isChromatic(),
 };
 
@@ -86,8 +85,8 @@ const DefaultTemplate = (args) => [
     data-testid="navigation"
     id="navigation"
     trigger="navigation-trigger-1"
+    disable-animation={args['disable-animation']}
     ref={(dialog) => onNavigationClose(dialog)}
-    {...args}
   >
     <sbb-navigation-marker id="nav-marker">{navigationActionsL}</sbb-navigation-marker>
 

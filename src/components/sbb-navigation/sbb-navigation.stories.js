@@ -149,7 +149,11 @@ const WithNavigationSectionTemplate = (args) => [
     <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
     <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
 
-    <sbb-navigation-section trigger="nav-1" title-content="Title one">
+    <sbb-navigation-section
+      trigger="nav-1"
+      title-content="Title one"
+      disable-animation={args['disable-animation']}
+    >
       {navigationList('Label')}
       {navigationList('Label')}
       {navigationList('Label')}
@@ -162,7 +166,11 @@ const WithNavigationSectionTemplate = (args) => [
       </sbb-button>
     </sbb-navigation-section>
 
-    <sbb-navigation-section trigger="nav-2" title-content="Title two">
+    <sbb-navigation-section
+      trigger="nav-2"
+      title-content="Title two"
+      disable-animation={args['disable-animation']}
+    >
       {navigationList('Label')}
       {navigationList('Label')}
       {navigationList('Label')}
@@ -170,7 +178,11 @@ const WithNavigationSectionTemplate = (args) => [
       {navigationList('Label')}
     </sbb-navigation-section>
 
-    <sbb-navigation-section trigger="nav-3" title-content="Title three">
+    <sbb-navigation-section
+      trigger="nav-3"
+      title-content="Title three"
+      disable-animation={args['disable-animation']}
+    >
       {navigationList('Label')}
       {navigationList('Label')}
       {navigationList('Label')}
