@@ -102,15 +102,15 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
         />
         <span class="sbb-tag">
           {(this.iconName || this._namedSlots['icon']) && (
-            <span class="sbb-tag__icon">
+            <span class="sbb-tag__icon sbb-tag--shift">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </span>
           )}
-          <span class="sbb-tag__text">
+          <span class="sbb-tag__text sbb-tag--shift">
             <slot></slot>
           </span>
           {(this.amount || this._namedSlots['amount']) && (
-            <span class="sbb-tag__amount">
+            <span class="sbb-tag__amount sbb-tag--shift">
               <slot name="amount">{this.amount}</slot>
             </span>
           )}
