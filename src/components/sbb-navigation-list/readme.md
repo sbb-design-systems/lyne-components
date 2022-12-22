@@ -10,9 +10,9 @@ Its intended use is inside a [sbb-navigation-section](../sbb-navigation-section/
 
 ```html
 <sbb-navigation-list label="Label 1.1">
-    <sbb-navigation-action size="m" href="...">Label 1.1.1</sbb-navigation-action>
-    <sbb-navigation-action size="m" href="...">Label 1.1.2</sbb-navigation-action>
-    <sbb-navigation-action size="m" href="...">Label 1.1.3</sbb-navigation-action>
+    <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
+    <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
+    <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
 </sbb-navigation-list>
 ```
 

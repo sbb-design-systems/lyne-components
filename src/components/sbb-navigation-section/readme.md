@@ -10,8 +10,8 @@ Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) compo
 ```html
 <sbb-navigation-section trigger="nav1" label="Title 1">
     <sbb-navigation-list label="Label 1.1">
-      <sbb-navigation-action size="m" href="...">Label 1.1.1</sbb-navigation-action>
-      <sbb-navigation-action size="m" href="...">Label 1.1.2</sbb-navigation-action>
+      <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
+      <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
       ...
     </sbb-navigation-list>
     <sbb-button>Something</sbb-button>

@@ -30,9 +30,9 @@ To display the navigation you can either provide a trigger element or call the `
     <span slot="label">Title 1</span>
     <sbb-navigation-list>
       <span slot="label">Label 1.1</span>
-      <sbb-navigation-action size="m" href="...">Label 1.1.1</sbb-navigation-action>
-      <sbb-navigation-action size="m" href="...">Label 1.1.2</sbb-navigation-action>
-      <sbb-navigation-action size="m" href="...">Label 1.1.3</sbb-navigation-action>
+      <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
+      <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
+      <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
     </sbb-navigation-list>
     ...
     <sbb-button>Something</sbb-button>
