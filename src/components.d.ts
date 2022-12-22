@@ -1527,7 +1527,7 @@ export namespace Components {
         /**
           * Label for the destination station of the train.
          */
-        "station": string;
+        "station"?: string;
     }
     interface SbbTrainFormation {
     }
@@ -3635,7 +3635,7 @@ declare namespace LocalJSX {
         /**
           * Label for the destination station of the train.
          */
-        "station": string;
+        "station"?: string;
     }
     interface SbbTrainFormation {
     }

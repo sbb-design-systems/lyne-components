@@ -11,6 +11,8 @@
 }
 
 .sbb-train-formation {
+  @include sbb.scrollbar-light;
+
   margin-block-end: var(--sbb-train-formation-padding);
   display: flex;
   gap: var(--sbb-train-formation-train-gap);

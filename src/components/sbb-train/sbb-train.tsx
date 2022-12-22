@@ -15,7 +15,7 @@ export class SbbTrain {
   @Prop() public directionLabel!: string;
 
   /** Label for the destination station of the train. */
-  @Prop() public station!: string;
+  @Prop() public station?: string;
 
   /** Accessibility label for additional information regarding the leaving direction of the train. */
   @Prop() public accessibilityLabel? = '';
@@ -28,7 +28,7 @@ export class SbbTrain {
    */
   private _getDirectionAriaLabel(): string {
     const text = `${this.directionLabel} ${this.station}.`;
-    return this.accessibilityLabel.length ? `${text} ${this.accessibilityLabel}.` : text;
+    return this.accessibilityLabel?.length ? `${text} ${this.accessibilityLabel}.` : text;
   }
 
   public render(): JSX.Element {
@@ -38,11 +38,11 @@ export class SbbTrain {
           <slot />
         </div>
 
-        {this.directionLabel && this.station && (
+        {this.directionLabel && (
           <div class="sbb-train__direction" aria-label={this._getDirectionAriaLabel()}>
             <h3 aria-hidden="true" class="sbb-train__direction-heading">
               <span class="sbb-train__direction-label">{this.directionLabel}</span>
-              <span class="sbb-train__direction-station">{this.station}</span>
+              {this.station && <span class="sbb-train__direction-station">{this.station}</span>}
             </h3>
             <div class="sbb-train__direction-indicator">
               <div class="sbb-train__sticky-wrapper">
