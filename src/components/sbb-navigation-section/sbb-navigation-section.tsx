@@ -168,6 +168,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     });
   }
 
+  // Check if the click was triggered on an element that should close the section.
   private _handleNavigationSectionClose = (event: Event): void => {
     const composedPathElements = event
       .composedPath()
