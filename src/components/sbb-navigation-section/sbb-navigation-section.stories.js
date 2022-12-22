@@ -1,7 +1,8 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 
 // Story interaction executed after the story renders
@@ -14,6 +15,18 @@ const playStory = async (trigger, canvasElement) => {
 
   const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
+  await waitFor(() =>
+    expect(
+      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
+    ).toBeTruthy()
+  );
+  await waitFor(() =>
+    expect(
+      canvas
+        .getByTestId('navigation-section')
+        .shadowRoot.querySelector('dialog.sbb-navigation-section')
+    ).toBeTruthy()
+  );
   const action = canvas.getByTestId(trigger);
   await userEvent.click(action);
 };
@@ -108,7 +121,6 @@ const DefaultTemplate = (args) => [
 
     <sbb-navigation-section
       title-content="Title two"
-      data-testid="navigation-section"
       id="navigation-section"
       trigger="nav-2"
       {...args}
@@ -135,12 +147,14 @@ const DefaultTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;
 Default.args = { ...basicArgs };
-Default.play = ({ canvasElement }) => playStory('navigation-section-trigger-1', canvasElement);
+Default.play = ({ canvasElement }) =>
+  isChromatic() && playStory('navigation-section-trigger-1', canvasElement);
 
 export const LongContent = DefaultTemplate.bind({});
 LongContent.argTypes = basicArgTypes;
 LongContent.args = { ...basicArgs };
-LongContent.play = ({ canvasElement }) => playStory('navigation-section-trigger-2', canvasElement);
+LongContent.play = ({ canvasElement }) =>
+  isChromatic() && playStory('navigation-section-trigger-2', canvasElement);
 
 export default {
   decorators: [

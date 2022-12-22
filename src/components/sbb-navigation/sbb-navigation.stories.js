@@ -2,7 +2,8 @@ import { h } from 'jsx-dom';
 import events from './sbb-navigation.events.ts';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 
 // Story interaction executed after the story renders
@@ -15,6 +16,18 @@ const playStory = async ({ canvasElement }) => {
 
   const button = canvas.getByTestId('navigation-trigger');
   await userEvent.click(button);
+  await waitFor(() =>
+    expect(
+      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
+    ).toBeTruthy()
+  );
+  await waitFor(() =>
+    expect(
+      canvas
+        .getByTestId('navigation-section')
+        .shadowRoot.querySelector('dialog.sbb-navigation-section')
+    ).toBeTruthy()
+  );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
   await userEvent.click(actionL);
   const actionS = canvas.getByTestId('navigation-section-trigger-2');
@@ -150,6 +163,7 @@ const WithNavigationSectionTemplate = (args) => [
     <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
 
     <sbb-navigation-section
+      data-testid="navigation-section"
       trigger="nav-1"
       title-content="Title one"
       disable-animation={args['disable-animation']}
@@ -201,17 +215,17 @@ const WithNavigationSectionTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;
 Default.args = { ...basicArgs };
-Default.play = playStory;
+Default.play = isChromatic() && playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = basicArgTypes;
 LongContent.args = { ...basicArgs };
-LongContent.play = playStory;
+LongContent.play = isChromatic() && playStory;
 
 export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
 WithNavigationSection.argTypes = basicArgTypes;
 WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = playStory;
+WithNavigationSection.play = isChromatic() && playStory;
 
 export default {
   decorators: [
