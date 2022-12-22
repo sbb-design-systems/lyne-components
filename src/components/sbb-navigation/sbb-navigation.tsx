@@ -134,6 +134,8 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     this._state = 'opening';
     this._navigation.show();
     this._setDialogFocus();
+    // Disable scrolling for content below the dialog
+    document.body.style.overflow = 'hidden';
   }
 
   /**
@@ -209,6 +211,8 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
+      // Enable scrolling for content below the dialog
+      document.body.style.overflow = 'auto';
     }
   }
 
@@ -338,6 +342,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     );
     return (
       <Host
+        role="navigation"
         class={{
           'sbb-navigation--opened': this._state === 'opened',
           'sbb-navigation--opening': this._state === 'opening',
