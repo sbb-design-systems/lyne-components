@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -9,17 +9,20 @@ import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core
   tag: 'sbb-tooltip-trigger',
 })
 export class SbbTooltipTrigger implements ComponentInterface {
+  /**
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/.
+   */
   @Prop() public iconName = 'circle-information-small';
-
-  @Prop({ reflect: true }) public id: string;
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <button class="sbb-tooltip-trigger" tabindex="0">
         <slot>
           <sbb-icon name={this.iconName} />
         </slot>
-      </Host>
+      </button>
     );
   }
 }

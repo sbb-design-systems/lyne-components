@@ -352,10 +352,12 @@ export class SbbTooltip implements ComponentInterface {
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
     this._prevFocusedElement = document.activeElement as HTMLElement;
-    this._firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY);
+    this._firstFocusable =
+      this._element.querySelector(IS_FOCUSABLE_QUERY) ||
+      this._element.shadowRoot.querySelector(IS_FOCUSABLE_QUERY);
 
     if (this._openedByKeyboard) {
-      this._firstFocusable.focus();
+      this._firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied

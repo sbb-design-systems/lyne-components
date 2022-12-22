@@ -5,10 +5,9 @@
 
 ## Properties
 
-| Property   | Attribute   | Description | Type     | Default                      |
-| ---------- | ----------- | ----------- | -------- | ---------------------------- |
-| `iconName` | `icon-name` |             | `string` | `'circle-information-small'` |
-| `id`       | `id`        |             | `string` | `undefined`                  |
+| Property   | Attribute   | Description                                                                                                                               | Type     | Default                      |
+| ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------- |
+| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string` | `'circle-information-small'` |
 
 
 ## Slots
