@@ -32,10 +32,21 @@ const tooltip = () => (
 );
 
 const Template = (args) => [<sbb-tooltip-trigger {...args}></sbb-tooltip-trigger>, tooltip()];
+const TemplateWithCustomContent = (args) => [
+  <sbb-tooltip-trigger {...args}>
+    Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore
+    et dolore magna aliqua.
+  </sbb-tooltip-trigger>,
+  tooltip(),
+];
 
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = defaultArgs;
+
+export const CustomContent = TemplateWithCustomContent.bind({});
+CustomContent.argTypes = defaultArgTypes;
+CustomContent.args = defaultArgs;
 
 export default {
   decorators: [
