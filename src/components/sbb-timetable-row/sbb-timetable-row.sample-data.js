@@ -559,7 +559,6 @@ export const walkTimeTrip = {
       quayChanged: false,
       __typename: 'TripStatus',
     },
-    boardingAlightingAccessibility: 'BOARDING_ALIGHTING_BY_NOTIFICATION',
     __typename: 'TripSummary',
   },
 };

@@ -1,10 +1,5 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import {
-  BoardingAlightingAccessibilityEnum,
-  HimCus,
-  Price,
-  Trip,
-} from './sbb-timetable-row.custom';
+import { Boarding, HimCus, Price, Trip } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
@@ -47,7 +42,7 @@ export class SbbTimetableRow {
   @Prop() public disableAnimation?: boolean;
 
   /** This will be forwarded to the notices section */
-  @Prop() public boardingAlightingAccessibility?: BoardingAlightingAccessibilityEnum;
+  @Prop() public boarding?: Boarding;
 
   /**
    * The loading state -
@@ -125,10 +120,6 @@ export class SbbTimetableRow {
 
     const { legs, id, notices } = this.trip || {};
 
-    const isBoardingAccessible =
-      this.boardingAlightingAccessibility &&
-      this.boardingAlightingAccessibility !== 'BOARDING_ALIGHTING_NOT_POSSIBLE';
-
     const {
       product,
       direction,
@@ -165,7 +156,7 @@ export class SbbTimetableRow {
                 <span class="sbb-timetable__row-transport-wrapper">
                   <sbb-icon
                     class="sbb-timetable__row-transport-icon"
-                    name={'picto:' + getTransportIcon(product.vehicleMode) + '-right'}
+                    name={'picto:' + getTransportIcon(product.vehicleMode)}
                   />
                   <span class="sbb-screenreaderonly">{product.vehicleMode}</span>
                 </span>
@@ -195,9 +186,10 @@ export class SbbTimetableRow {
                 {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
               </span>
             )}
-            {((occupancy?.firstClass && occupancy?.firstClass !== "UNKNOWN") || (occupancy?.secondClass && occupancy.secondClass !== "UNKNOWN")) && (
+            {((occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
+              (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
-                {(occupancy?.firstClass && occupancy.firstClass !== "UNKNOWN") && (
+                {occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN' && (
                   <li>
                     1.
                     <sbb-icon
@@ -213,7 +205,7 @@ export class SbbTimetableRow {
                     </span>
                   </li>
                 )}
-                {(occupancy?.secondClass && occupancy.secondClass !== "UNKNOWN") && (
+                {occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN' && (
                   <li>
                     2.
                     <sbb-icon
@@ -231,7 +223,7 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {((noticeAttributes && noticeAttributes.length) || isBoardingAccessible) && (
+            {((noticeAttributes && noticeAttributes.length) || this.boarding) && (
               <ul class="sbb-timetable__row-hints" role="list">
                 {notices &&
                   noticeAttributes?.map(
@@ -246,9 +238,14 @@ export class SbbTimetableRow {
                         </li>
                       )
                   )}
-                {isBoardingAccessible && (
+                {this.boarding && (
                   <li>
-                    <sbb-icon class="sbb-travel-hints__item" name="sa-rs" aria-hidden="false" />
+                    <sbb-icon
+                      class="sbb-travel-hints__item"
+                      name={this.boarding?.name}
+                      aria-label={this.boarding?.text}
+                      aria-hidden="false"
+                    />
                   </li>
                 )}
               </ul>

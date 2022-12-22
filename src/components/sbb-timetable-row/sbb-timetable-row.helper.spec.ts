@@ -26,7 +26,7 @@ describe('durationToTime', () => {
 
 describe('getTransportIcon', () => {
   it('should return schiff', () => {
-    expect(getTransportIcon('SHIP')).toBe('schiff');
+    expect(getTransportIcon('SHIP')).toBe('schiff-right');
   });
 
   it('should return empty string', () => {
