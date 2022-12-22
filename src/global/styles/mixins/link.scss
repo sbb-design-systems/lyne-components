@@ -15,14 +15,14 @@
   }
 }
 
-@mixin link-variables--negative() {
+@mixin link-variables--negative {
   --sbb-link-color-normal: var(--sbb-color-white-default);
   --sbb-link-color-hover: var(--sbb-color-cloud-default);
   --sbb-link-color-active: var(--sbb-color-silver-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-@mixin link-variables--inline() {
+@mixin link-variables--inline {
   --sbb-link-color-normal: inherit;
   --sbb-link-text-decoration: underline;
 }
