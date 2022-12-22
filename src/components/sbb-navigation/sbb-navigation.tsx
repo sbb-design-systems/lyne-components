@@ -198,11 +198,18 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     );
   }
 
+  private _trapFocusFilter = (el: HTMLElement): boolean => {
+    return (
+      el.nodeName === 'SBB-NAVIGATION-SECTION' &&
+      !el.classList.contains('sbb-navigation-section--opened')
+    );
+  };
+
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
       this._state = 'opened';
       this.didOpen.emit();
-      this._focusTrap.trap(this._element);
+      this._focusTrap.trap(this._element, this._trapFocusFilter);
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
       this._state = 'closed';
