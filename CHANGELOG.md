@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.2](https://github.com/lyne-design-system/lyne-components/compare/v0.20.1...v0.20.2) (2022-12-22)
+
+### Features
+
+- add link, legend, sub and sup mixins ([#1506](https://github.com/lyne-design-system/lyne-components/issues/1506)) ([e9e92a1](https://github.com/lyne-design-system/lyne-components/commit/e9e92a1d6dcb01240c6eaaebfe889e89ea670664)), closes [#1505](https://github.com/lyne-design-system/lyne-components/issues/1505)
+
+### Bug Fixes
+
+- **sbb-train-formation:** minor fixes ([#1512](https://github.com/lyne-design-system/lyne-components/issues/1512)) ([041b3c6](https://github.com/lyne-design-system/lyne-components/commit/041b3c63ac577f064493e2e21c2de9979e96a3e1))
+
 ### [0.20.1](https://github.com/lyne-design-system/lyne-components/compare/v0.20.0...v0.20.1) (2022-12-21)
 
 ### Bug Fixes
