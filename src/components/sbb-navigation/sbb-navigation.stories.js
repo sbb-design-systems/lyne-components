@@ -21,6 +21,12 @@ const playStory = async ({ canvasElement }) => {
       canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
     ).toBeTruthy()
   );
+};
+
+const playStoryWithSection = async ({ canvasElement }) => {
+  await playStory({ canvasElement });
+  const canvas = within(canvasElement);
+
   await waitFor(() =>
     expect(
       canvas
@@ -225,7 +231,7 @@ LongContent.play = isChromatic() && playStory;
 export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
 WithNavigationSection.argTypes = basicArgTypes;
 WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = isChromatic() && playStory;
+WithNavigationSection.play = isChromatic() && playStoryWithSection;
 
 export default {
   decorators: [
