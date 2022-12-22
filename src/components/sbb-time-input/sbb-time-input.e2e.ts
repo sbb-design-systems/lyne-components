@@ -5,7 +5,10 @@ describe('sbb-time-input', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-time-input></sbb-time-input>');
+    await page.setContent(`
+      <sbb-time-input></sbb-time-input>
+      <button id="trigger-change"></button>
+    `);
     element = await page.find('sbb-time-input');
   });
 
@@ -19,7 +22,7 @@ describe('sbb-time-input', () => {
     const input = await page.find('sbb-time-input >>> input');
     await input.focus();
     await input.press('1');
-    await element.click();
+    await page.click('#trigger-change');
     await page.waitForChanges();
     expect(changeSpy).toHaveReceivedEvent();
   });
