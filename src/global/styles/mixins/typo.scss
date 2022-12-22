@@ -208,3 +208,28 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $lines;
 }
+
+@mixin legend() {
+  @include text-xs--regular;
+
+  color: var(--sbb-color-granite-default);
+}
+
+%sub-sup {
+  font-size: 60%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+@mixin sub {
+  @extend %sub-sup;
+
+  bottom: -0.36em;
+}
+
+@mixin sup {
+  @extend %sub-sup;
+
+  top: -0.5em;
+}

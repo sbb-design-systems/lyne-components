@@ -1,4 +1,4 @@
-# Text styles
+## Text styles
 
 Every text size (xxs, xs, s, m, l and xl) is available as sass mixin or css class.
 It also includes line-height, letter-spacing and font-family.
@@ -20,3 +20,25 @@ to the defined paragraph spacing. Due to this there are no additional rules for 
 ```html
 <p class="sbb-text-m">Text</p>
 ```
+
+## Legend
+
+| sass mixin |
+| ---------- |
+| `legend`   |
+
+## Sub
+
+The `<sub>`-tag is also overridden globally as long as you include our global styles.
+
+| sass mixin |
+| ---------- |
+| `sub`      |
+
+## Sup
+
+The `<sup>`-tag is also overridden globally as long as you include our global styles.
+
+| sass mixin |
+| ---------- |
+| `sup`      |
