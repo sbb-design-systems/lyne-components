@@ -88,7 +88,9 @@ export class SbbWagon {
           ? `${text} ${i18nClass['first'][this._language]}.`
           : `${text} ${i18nClass['second'][this._language]}.`;
       // Occupancy text
-      text = `${text} ${i18nOccupancy[this.occupancy][this._language]}`;
+      text = `${text} ${
+        i18nOccupancy[this.occupancy] && i18nOccupancy[this.occupancy][this._language]
+      }`;
       // Blocked passage
       if (this.blockedPassage !== 'none') {
         text = `${text} ${i18nBlockedPassage[this.blockedPassage][this._language]}`;

@@ -60,4 +60,33 @@ describe('sbb-train', () => {
         </sbb-train>
       `);
   });
+
+  it('renders without station', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTrain],
+      html: '<sbb-train direction-label="Driving direction" station="" direction="right"/>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-train direction-label="Driving direction" station="" direction="right">
+        <mock:shadow-root>
+          <div class="sbb-train">
+            <div class="sbb-train__sectors">
+              <slot />
+            </div>
+              <div aria-label="Driving direction ." class="sbb-train__direction">
+                <h3 aria-hidden="true" class="sbb-train__direction-heading">
+                  <span class="sbb-train__direction-label">Driving direction</span>
+                </h3>
+                <div class="sbb-train__direction-indicator">
+                  <div class="sbb-train__sticky-wrapper">
+                    <sbb-icon class="sbb-train__direction-arrow" name="chevron-small-right-small"></sbb-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mock:shadow-root>
+        </sbb-train>
+      `);
+  });
 });

@@ -45,7 +45,7 @@ const occupancy = {
   control: {
     type: 'inline-radio',
   },
-  options: ['high', 'medium', 'low', 'none'],
+  options: ['high', 'medium', 'low', 'unknown'],
   table: {
     category: 'Wagon',
   },

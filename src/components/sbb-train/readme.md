@@ -25,7 +25,7 @@ It should refer to the section where the locomotive is placed.
 | `accessibilityLabel`          | `accessibility-label` | Accessibility label for additional information regarding the leaving direction of the train. | `string`            | `''`        |
 | `direction`                   | `direction`           | Controls the direction indicator to show the arrow left or right. Default is left.           | `"left" \| "right"` | `'left'`    |
 | `directionLabel` _(required)_ | `direction-label`     | General label for "driving direction".                                                       | `string`            | `undefined` |
-| `station` _(required)_        | `station`             | Label for the destination station of the train.                                              | `string`            | `undefined` |
+| `station`                     | `station`             | Label for the destination station of the train.                                              | `string`            | `undefined` |
 
 
 ## Slots

@@ -59,6 +59,10 @@ export const train = Template.bind({});
 train.argTypes = defaultArgTypes;
 train.args = defaultArgs;
 
+export const trainWithoutStation = Template.bind({});
+trainWithoutStation.argTypes = defaultArgTypes;
+trainWithoutStation.args = { ...defaultArgs, station: '' };
+
 export default {
   decorators: [
     (Story) => (
