@@ -22,9 +22,11 @@
   --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
   --sbb-navigation-backdrop-color: transparent;
   --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-inline-start: 0;
   --sbb-navigation-width: 100%;
+  --sbb-navigation-expanded-width: 100%;
+  --sbb-navigation-content-transform: translateX(0%);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   padding-inline: 0;
   position: var(--sbb-navigation-position);
@@ -91,6 +93,15 @@
   }
 }
 
+:host(.sbb-navigation--has-navigation-section) {
+  --sbb-navigation-content-transform: translateX(-100%);
+
+  @include sbb.mq($from: 'large') {
+    --sbb-navigation-expanded-width: 100vw;
+    --sbb-navigation-content-transform: translateX(0%);
+  }
+}
+
 :host([disable-animation]) {
   --sbb-navigation-animation-duration: 0s;
 }
@@ -123,15 +134,9 @@
 
     content: '';
     position: absolute;
-    width: 100%;
+    width: var(--sbb-navigation-expanded-width);
     height: 100%;
     background: var(--sbb-color-midnight-default);
-
-    @include sbb.mq($from: 'large') {
-      :host(.sbb-navigation--has-navigation-section) & {
-        width: 100vw;
-      }
-    }
   }
 
   &[open] {
@@ -166,14 +171,10 @@
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  width: 100%;
+  width: var(--sbb-navigation-expanded-width);
   pointer-events: none;
   padding: var(--sbb-spacing-responsive-xs);
   z-index: 11;
-
-  :host(.sbb-navigation--has-navigation-section) & {
-    width: 100vw;
-  }
 }
 
 .sbb-navigation__close {
@@ -193,16 +194,7 @@
   padding-block-start: var(--sbb-navigation-padding-block-start);
   padding-block-end: var(--sbb-navigation-padding-block-end);
   overflow-y: auto;
-
-  :host(.sbb-navigation--has-navigation-section) & {
-    transform: translateX(-100%);
-  }
-
-  @include sbb.mq($from: large) {
-    :host(.sbb-navigation--has-navigation-section) & {
-      transform: translateX(0%);
-    }
-  }
+  transform: var(--sbb-navigation-content-transform);
 }
 
 @keyframes open {
