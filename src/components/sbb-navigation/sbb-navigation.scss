@@ -16,7 +16,7 @@
   --sbb-navigation-grid-column: 1 / 5;
   --sbb-navigation-position: fixed;
   --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
-  --sbb-navigation-animation-easing: ease-out;
+  --sbb-navigation-animation-easing: ease-in;
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
   --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
@@ -49,7 +49,7 @@
 
   @include sbb.mq($from: large) {
     --sbb-navigation-grid-column: 1 / 5;
-    --sbb-navigation-animation-duration: var(--sbb-animation-duration-4x);
+    --sbb-navigation-animation-duration: var(--sbb-animation-duration-6x);
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
     --sbb-navigation-position: absolute;
@@ -93,6 +93,10 @@
       pointer-events: all;
     }
   }
+}
+
+:host(.sbb-navigation--opened) {
+  --sbb-navigation-animation-easing: ease-out;
 }
 
 :host(.sbb-navigation--has-navigation-section) {
