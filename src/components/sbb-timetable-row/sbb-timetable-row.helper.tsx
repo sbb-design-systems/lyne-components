@@ -40,27 +40,29 @@ export const durationToTime = (duration: number): string => {
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
     case 'BUS':
-      return 'bus';
+      return 'bus-right';
     case 'CABLEWAY':
-      return 'luftseilbahn';
+      return 'luftseilbahn-right';
     case 'CHAIRLIFT':
-      return 'sessellift';
+      return 'sessellift-right';
     case 'COG_RAILWAY':
-      return 'zahnradbahn';
+      return 'zahnradbahn-right';
     case 'GONDOLA':
-      return 'gondelbahn';
+      return 'gondelbahn-right';
     case 'METRO':
-      return 'metro';
+      return 'metro-right';
     case 'PLANE':
-      return 'flugzeug';
+      return 'flugzeug-right';
     case 'SHIP':
-      return 'schiff';
+      return 'schiff-right';
     case 'TAXI':
-      return 'taxi';
+      return 'taxi-right';
     case 'TRAIN':
-      return 'zug';
+      return 'zug-right';
     case 'TRAMWAY':
-      return 'tram';
+      return 'tram-right';
+    case 'ELEVATOR':
+      return 'lift';
     default:
       return '';
   }
@@ -211,8 +213,6 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
     'XP',
     'XR',
     'XT',
-    'R',
-    'RB',
   ];
 
   return notices.reduce((foundNotice, notice) => {

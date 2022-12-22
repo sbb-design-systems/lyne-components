@@ -50,21 +50,15 @@ const active = {
   },
 };
 
-const boarding = {
-  control: {
-    type: 'select',
-  },
-  options: [
-    'BOARDING_ALIGHTING_NOT_POSSIBLE',
-    'BOARDING_ALIGHTING_BY_CREW',
-    'BOARDING_ALIGHTING_BY_NOTIFICATION',
-    'BOARDING_ALIGHTING_SELF',
-  ],
-};
-
 const now = {
   control: {
     type: 'date',
+  },
+};
+
+const boarding = {
+  control: {
+    type: 'object',
   },
 };
 
@@ -75,7 +69,7 @@ const defaultArgTypes = {
   'loading-price': loadingPrice,
   active,
   'data-now': now,
-  'boarding-alighting-accessibility': boarding,
+  boarding,
 };
 
 const defaultArgs = {
@@ -85,7 +79,6 @@ const defaultArgs = {
   active: false,
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
-  'boarding-alighting-accessibility': boarding.options[0],
 };
 
 // TEMPLATES
@@ -272,6 +265,7 @@ Notices.argTypes = defaultArgTypes;
 Notices.args = {
   ...defaultArgs,
   trip: NoticesTrip,
+  boarding: { name: 'sa-rs', text: 'boarding' },
 };
 
 export default {

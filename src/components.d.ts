@@ -43,7 +43,7 @@ import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.cu
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-import { BoardingAlightingAccessibilityEnum, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+import { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
@@ -1376,7 +1376,7 @@ export namespace Components {
         /**
           * This will be forwarded to the notices section
          */
-        "boardingAlightingAccessibility"?: BoardingAlightingAccessibilityEnum;
+        "boarding"?: Boarding;
         /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
@@ -3522,7 +3522,7 @@ declare namespace LocalJSX {
         /**
           * This will be forwarded to the notices section
          */
-        "boardingAlightingAccessibility"?: BoardingAlightingAccessibilityEnum;
+        "boarding"?: Boarding;
         /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */

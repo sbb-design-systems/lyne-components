@@ -18,6 +18,12 @@ export interface HimCus {
   text: string;
 }
 
+/** Boarding icon interface for mapped icon name and text */
+export interface Boarding {
+  name: string;
+  text: string;
+}
+
 /** Occupancy for first and second class at StopPlace */
 export type OccupancyEnum = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
 
