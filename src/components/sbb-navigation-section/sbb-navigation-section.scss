@@ -17,6 +17,8 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-section-width: 100%;
 
+  // We need to handle here the placement within the grid, since the host is exposed to the parent's grid (sbb-navigation)
+
   display: none;
   pointer-events: var(--sbb-navigation-section-pointer-events);
   position: var(--sbb-navigation-section-position);

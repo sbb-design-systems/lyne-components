@@ -28,6 +28,8 @@
   --sbb-navigation-content-transform: translateX(0%);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
+  // TODO: try to refactor removing the style from the host element
+
   padding-inline: 0;
   position: var(--sbb-navigation-position);
   inset-inline-start: 0;
