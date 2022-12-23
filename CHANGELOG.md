@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.5](https://github.com/lyne-design-system/lyne-components/compare/v0.20.4...v0.20.5) (2022-12-23)
+
+### Features
+
+- **sbb-navigation:** introduce navigation component ([#1480](https://github.com/lyne-design-system/lyne-components/issues/1480)) ([953d0f4](https://github.com/lyne-design-system/lyne-components/commit/953d0f43ca51394471fffc1cbdd9336c786bb9c2))
+
 ### [0.20.4](https://github.com/lyne-design-system/lyne-components/compare/v0.20.3...v0.20.4) (2022-12-22)
 
 ### Bug Fixes
