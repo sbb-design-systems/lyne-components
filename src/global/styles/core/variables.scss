@@ -134,6 +134,9 @@
   @include mediaqueries.mq($from: wide) {
     --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-wide);
   }
+  @include mediaqueries.mq($from: ultra) {
+    --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-ultra);
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   ///

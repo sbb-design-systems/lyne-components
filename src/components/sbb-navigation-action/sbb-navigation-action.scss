@@ -1,0 +1,48 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-navigation-action-color: var(--sbb-color-cloud-default);
+}
+
+:host([active]) {
+  --sbb-navigation-action-color: var(--sbb-color-storm-default);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-navigation-action-color: var(--sbb-color-storm-default);
+  }
+}
+
+.sbb-navigation-action {
+  @include sbb.button-reset;
+  @include sbb.title-4($exclude-spacing: true);
+
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--sbb-animation-duration-3x) ease;
+  word-break: break-all;
+  text-align: left;
+  color: var(--sbb-navigation-action-color);
+
+  :host([size='m']) & {
+    @include sbb.text-s--bold;
+  }
+
+  :host([size='s']) & {
+    @include sbb.text-xxs--bold;
+  }
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}

@@ -943,6 +943,120 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbNavigation {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * Closes the navigation.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Opens the navigation.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
+    interface SbbNavigationAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls": string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup": PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * Whether the action is active.
+         */
+        "active": boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to (if it is not present, navigation action becomes a button).
+         */
+        "href": string | undefined;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Action size variant.
+         */
+        "size"?: 'l' | 'm' | 's';
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type": ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
+    }
+    interface SbbNavigationList {
+        "label"?: string;
+    }
+    interface SbbNavigationMarker {
+        "reset": () => Promise<void>;
+        /**
+          * Marker size variant.
+         */
+        "size"?: 'l' | 's';
+    }
+    interface SbbNavigationSection {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel": string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * Closes the navigation section.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Opens the navigation section on trigger click.
+         */
+        "open": () => Promise<void>;
+        "titleContent"?: string;
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger": string | HTMLElement;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -1612,6 +1726,10 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
 }
+export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbNavigationElement;
+}
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOverlayElement;
@@ -1830,6 +1948,36 @@ declare global {
     var HTMLSbbMenuActionElement: {
         prototype: HTMLSbbMenuActionElement;
         new (): HTMLSbbMenuActionElement;
+    };
+    interface HTMLSbbNavigationElement extends Components.SbbNavigation, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationElement: {
+        prototype: HTMLSbbNavigationElement;
+        new (): HTMLSbbNavigationElement;
+    };
+    interface HTMLSbbNavigationActionElement extends Components.SbbNavigationAction, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationActionElement: {
+        prototype: HTMLSbbNavigationActionElement;
+        new (): HTMLSbbNavigationActionElement;
+    };
+    interface HTMLSbbNavigationListElement extends Components.SbbNavigationList, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationListElement: {
+        prototype: HTMLSbbNavigationListElement;
+        new (): HTMLSbbNavigationListElement;
+    };
+    interface HTMLSbbNavigationMarkerElement extends Components.SbbNavigationMarker, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationMarkerElement: {
+        prototype: HTMLSbbNavigationMarkerElement;
+        new (): HTMLSbbNavigationMarkerElement;
+    };
+    interface HTMLSbbNavigationSectionElement extends Components.SbbNavigationSection, HTMLStencilElement {
+    }
+    var HTMLSbbNavigationSectionElement: {
+        prototype: HTMLSbbNavigationSectionElement;
+        new (): HTMLSbbNavigationSectionElement;
     };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
@@ -2109,6 +2257,11 @@ declare global {
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
+        "sbb-navigation": HTMLSbbNavigationElement;
+        "sbb-navigation-action": HTMLSbbNavigationActionElement;
+        "sbb-navigation-list": HTMLSbbNavigationListElement;
+        "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
+        "sbb-navigation-section": HTMLSbbNavigationSectionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -3084,6 +3237,119 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbNavigation {
+        /**
+          * This will be forwarded as aria-label to the close button element.
+         */
+        "accessibilityCloseLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Emits whenever the navigation is closed.
+         */
+        "onDidClose"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation is opened.
+         */
+        "onDidOpen"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation begins the closing transition.
+         */
+        "onWillClose"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the navigation begins the opening transition.
+         */
+        "onWillOpen"?: (event: SbbNavigationCustomEvent<void>) => void;
+        /**
+          * The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
+    interface SbbNavigationAction {
+        /**
+          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
+         */
+        "accessibilityControls"?: string | undefined;
+        /**
+          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
+         */
+        "accessibilityHaspopup"?: PopupType | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * Whether the action is active.
+         */
+        "active"?: boolean;
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to (if it is not present, navigation action becomes a button).
+         */
+        "href"?: string | undefined;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Action size variant.
+         */
+        "size"?: 'l' | 'm' | 's';
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+        /**
+          * The type attribute to use for the button.
+         */
+        "type"?: ButtonType | undefined;
+        /**
+          * The value attribute to use for the button.
+         */
+        "value"?: string;
+    }
+    interface SbbNavigationList {
+        "label"?: string;
+    }
+    interface SbbNavigationMarker {
+        /**
+          * Marker size variant.
+         */
+        "size"?: 'l' | 's';
+    }
+    interface SbbNavigationSection {
+        /**
+          * This will be forwarded as aria-label to the back button element.
+         */
+        "accessibilityBackLabel"?: string | undefined;
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        "titleContent"?: string;
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
+         */
+        "trigger"?: string | HTMLElement;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -3781,6 +4047,11 @@ declare namespace LocalJSX {
         "sbb-logo": SbbLogo;
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
+        "sbb-navigation": SbbNavigation;
+        "sbb-navigation-action": SbbNavigationAction;
+        "sbb-navigation-list": SbbNavigationList;
+        "sbb-navigation-marker": SbbNavigationMarker;
+        "sbb-navigation-section": SbbNavigationSection;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -3859,6 +4130,11 @@ declare module "@stencil/core" {
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
+            "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
+            "sbb-navigation-action": LocalJSX.SbbNavigationAction & JSXBase.HTMLAttributes<HTMLSbbNavigationActionElement>;
+            "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
+            "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
+            "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;

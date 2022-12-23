@@ -79,6 +79,8 @@ sbb-button {
 
  - [sbb-alert](../sbb-alert)
  - [sbb-dialog](../sbb-dialog)
+ - [sbb-navigation](../sbb-navigation)
+ - [sbb-navigation-section](../sbb-navigation-section)
  - [sbb-tooltip](../sbb-tooltip)
 
 ### Depends on
@@ -91,6 +93,8 @@ graph TD;
   sbb-button --> sbb-icon
   sbb-alert --> sbb-button
   sbb-dialog --> sbb-button
+  sbb-navigation --> sbb-button
+  sbb-navigation-section --> sbb-button
   sbb-tooltip --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
