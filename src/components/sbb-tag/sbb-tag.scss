@@ -55,6 +55,49 @@
 
 .sbb-tag__wrapper {
   position: relative;
+
+  // Pressed state
+  &:active {
+    --sbb-tag-background-color: var(--sbb-color-milk-default);
+    --sbb-tag-border-color: var(--sbb-color-iron-default);
+    --sbb-tag-border-width: var(--sbb-border-width-2x);
+    --sbb-tag-text-color: var(--sbb-color-iron-default);
+  }
+
+  :host([disabled]) & {
+    cursor: unset;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      inset: 50% var(--sbb-spacing-fixed-5x);
+      border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
+      @include sbb.absolute-center-y;
+    }
+  }
+
+  /* stylelint-disable plugin/stylelint-bem-namics */
+  :host(:not([disabled])) &:hover {
+    // If the the device can hover over elements with ease
+    @include sbb.hover-mq($hover: true) {
+      --sbb-tag-background-color: var(--sbb-color-milk-default);
+      --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
+      --sbb-tag-transition: translateY(calc(var(--sbb-border-width-1x) * -1));
+    }
+  }
+  /* stylelint-enable plugin/stylelint-bem-namics */
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: var(--sbb-tag-inset);
+    background-color: var(--sbb-tag-background-color);
+    border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
+    border-radius: var(--sbb-tag-border-radius);
+    transition-duration: var(--sbb-tag-animation-duration);
+    transition-timing-function: var(--sbb-tag-animation-easing);
+    transition-property: inset, background-color, border-color, box-shadow;
+  }
 }
 
 .sbb-tag {
@@ -71,50 +114,6 @@
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
-
-  // Pressed state
-  &:active {
-    --sbb-tag-background-color: var(--sbb-color-milk-default);
-    --sbb-tag-border-color: var(--sbb-color-iron-default);
-    --sbb-tag-border-width: var(--sbb-border-width-2x);
-    --sbb-tag-text-color: var(--sbb-color-iron-default);
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: var(--sbb-tag-inset);
-    background-color: var(--sbb-tag-background-color);
-    border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
-    border-radius: var(--sbb-tag-border-radius);
-    transition-duration: var(--sbb-tag-animation-duration);
-    transition-timing-function: var(--sbb-tag-animation-easing);
-    transition-property: inset, background-color, border-color, box-shadow;
-  }
-
-  :host([disabled]) & {
-    cursor: unset;
-    pointer-events: none;
-
-    &::after {
-      content: '';
-      inset: 50% var(--sbb-spacing-fixed-5x);
-      border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
-      @include sbb.absolute-center-y;
-    }
-  }
-
-  /* stylelint-disable plugin/stylelint-bem-namics */
-  :host(:not([disabled])) &:hover:not(:active) {
-    // If the the device can hover over elements with ease
-    @include sbb.hover-mq($hover: true) {
-      --sbb-tag-background-color: var(--sbb-color-milk-default);
-      --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
-      --sbb-tag-transition: translateY(calc(var(--sbb-border-width-1x) * -1));
-    }
-  }
-  /* stylelint-enable plugin/stylelint-bem-namics */
 }
 
 .sbb-tag__icon {
