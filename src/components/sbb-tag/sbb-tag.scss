@@ -55,6 +55,7 @@
 
 .sbb-tag__wrapper {
   position: relative;
+  user-select: none;
 
   // Pressed state
   &:active {
