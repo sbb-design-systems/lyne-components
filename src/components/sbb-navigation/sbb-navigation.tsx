@@ -18,6 +18,7 @@ import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
+import { ScrollHandler } from '../../global/helpers/scroll';
 import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -113,6 +114,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   private _navigationController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
+  private _scrollHandler = new ScrollHandler();
   private _openedByKeyboard = false;
   private _currentLanguage = getDocumentLang();
   private _isPointerDownEventOnDialog: boolean;
@@ -133,10 +135,11 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
 
     this.willOpen.emit();
     this._state = 'opening';
+
+    // Disable scrolling for content below the dialog
+    this._scrollHandler.disableScroll();
     this._navigation.show();
     this._setDialogFocus();
-    // Disable scrolling for content below the dialog
-    document.body.style.overflow = 'hidden';
   }
 
   /**
@@ -219,8 +222,9 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
+
       // Enable scrolling for content below the dialog
-      document.body.style.overflow = 'auto';
+      this._scrollHandler.enableScroll();
     }
   }
 

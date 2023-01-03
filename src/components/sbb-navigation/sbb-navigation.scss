@@ -14,7 +14,6 @@
 
 :host {
   --sbb-navigation-grid-column: 1 / 5;
-  --sbb-navigation-position: fixed;
   --sbb-navigation-animation-duration: var(--sbb-animation-duration-3x);
   --sbb-navigation-animation-easing: ease-in;
   --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive);
@@ -31,7 +30,7 @@
   // TODO: try to refactor removing the style from the host element
 
   padding-inline: 0;
-  position: var(--sbb-navigation-position);
+  position: fixed;
   inset-inline-start: 0;
   inset-block-start: 0;
   pointer-events: none;
@@ -51,7 +50,6 @@
     --sbb-navigation-animation-duration: var(--sbb-animation-duration-6x);
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
     --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
-    --sbb-navigation-position: absolute;
     --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
     --sbb-navigation-inline-start: calc(var(--sbb-layout-base-offset-responsive) * -1);
     --sbb-navigation-width: calc(100% + var(--sbb-layout-base-offset-responsive));
