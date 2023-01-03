@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.7](https://github.com/lyne-design-system/lyne-components/compare/v0.20.6...v0.20.7) (2023-01-03)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** enhance icon mapping ([#1517](https://github.com/lyne-design-system/lyne-components/issues/1517)) ([bafb4b6](https://github.com/lyne-design-system/lyne-components/commit/bafb4b6de067abed6c37b550f72dda76981cad79))
+
 ### [0.20.6](https://github.com/lyne-design-system/lyne-components/compare/v0.20.5...v0.20.6) (2023-01-03)
 
 ### Bug Fixes
