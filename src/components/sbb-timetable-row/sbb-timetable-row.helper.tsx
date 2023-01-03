@@ -42,7 +42,7 @@ export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
     case 'BUS':
       return 'bus-right';
     case 'CABLEWAY':
-      return 'luftseilbahn-right';
+      return 'standseilbahn-right';
     case 'CHAIRLIFT':
       return 'sessellift-right';
     case 'COG_RAILWAY':
@@ -89,6 +89,7 @@ export const isProductIcon = (transport: string): boolean => {
     'sn',
     'rgv',
     'vae',
+    'tgv',
   ];
 
   return possibleTransportTypes.includes(transport);
