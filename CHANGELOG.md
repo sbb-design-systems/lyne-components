@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.6](https://github.com/lyne-design-system/lyne-components/compare/v0.20.5...v0.20.6) (2023-01-03)
+
+### Bug Fixes
+
+- enhance timezone helper ([#1515](https://github.com/lyne-design-system/lyne-components/issues/1515)) ([c59f18e](https://github.com/lyne-design-system/lyne-components/commit/c59f18e886b361819441c9966de97e1f5f2493d6))
+
 ### [0.20.5](https://github.com/lyne-design-system/lyne-components/compare/v0.20.4...v0.20.5) (2022-12-23)
 
 ### Features
