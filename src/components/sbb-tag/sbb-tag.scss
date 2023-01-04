@@ -122,6 +122,7 @@
   display: flex;
   align-items: center;
   height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  flex-shrink: 0;
 }
 
 .sbb-tag__text {
