@@ -15,6 +15,12 @@ const negative = {
   },
 };
 
+const wide = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const accessibilityTitle = {
   control: {
     type: 'text',
@@ -24,12 +30,14 @@ const accessibilityTitle = {
 const defaultArgTypes = {
   variant,
   negative,
+  wide,
   'accessibility-title': accessibilityTitle,
 };
 
 const defaultArgs = {
   variant: variant.options[1],
   negative: false,
+  wide: false,
   'accessibility-title': 'Footer',
 };
 
@@ -204,34 +212,42 @@ const TemplateClockColumns = ({ ...args }) => (
 /* The Stories                                       */
 /* ************************************************* */
 
-export const footerClockColumns = TemplateClockColumns.bind({});
+export const FooterClockColumns = TemplateClockColumns.bind({});
+FooterClockColumns.argTypes = defaultArgTypes;
+FooterClockColumns.args = { ...defaultArgs };
 
-footerClockColumns.argTypes = defaultArgTypes;
-footerClockColumns.args = { ...defaultArgs };
-
-export const footerClockColumnsNegative = TemplateClockColumns.bind({});
-
-footerClockColumnsNegative.argTypes = defaultArgTypes;
-footerClockColumnsNegative.args = {
+export const FooterClockColumnsNegative = TemplateClockColumns.bind({});
+FooterClockColumnsNegative.argTypes = defaultArgTypes;
+FooterClockColumnsNegative.args = {
   ...defaultArgs,
   negative: true,
 };
 
-export const footerDefault = TemplateDefault.bind({});
+export const FooterClockColumnsWide = TemplateClockColumns.bind({});
+FooterClockColumnsWide.argTypes = defaultArgTypes;
+FooterClockColumnsWide.args = { ...defaultArgs, wide: true };
 
-footerDefault.argTypes = defaultArgTypes;
-footerDefault.args = {
+export const FooterDefault = TemplateDefault.bind({});
+FooterDefault.argTypes = defaultArgTypes;
+FooterDefault.args = {
   ...defaultArgs,
   variant: variant.options[0],
 };
 
-export const footerDefaultNegative = TemplateDefault.bind({});
-
-footerDefaultNegative.argTypes = defaultArgTypes;
-footerDefaultNegative.args = {
+export const FooterDefaultNegative = TemplateDefault.bind({});
+FooterDefaultNegative.argTypes = defaultArgTypes;
+FooterDefaultNegative.args = {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
+};
+
+export const FooterDefaultWide = TemplateDefault.bind({});
+FooterDefaultWide.argTypes = defaultArgTypes;
+FooterDefaultWide.args = {
+  ...defaultArgs,
+  variant: variant.options[0],
+  wide: true,
 };
 
 /* ************************************************* */

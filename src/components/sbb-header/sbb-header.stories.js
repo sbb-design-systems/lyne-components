@@ -84,18 +84,34 @@ const shadow = {
   },
 };
 
-const basicArgTypes = {
-  shadow,
+const wide = {
+  control: {
+    type: 'boolean',
+  },
 };
 
-export const basic = Template.bind({});
-basic.argTypes = basicArgTypes;
-basic.args = { shadow: false };
+const basicArgTypes = {
+  shadow,
+  wide,
+};
 
-export const withUserMenu = TemplateWithUserMenu.bind({});
-withUserMenu.argTypes = basicArgTypes;
-withUserMenu.args = { shadow: false };
-withUserMenu.play = playStory;
+const basicArgs = {
+  shadow: false,
+  wide: false,
+};
+
+export const Basic = Template.bind({});
+Basic.argTypes = basicArgTypes;
+Basic.args = { ...basicArgs };
+
+export const Wide = Template.bind({});
+Wide.argTypes = basicArgTypes;
+Wide.args = { ...basicArgs, wide: true };
+
+export const WithUserMenu = TemplateWithUserMenu.bind({});
+WithUserMenu.argTypes = basicArgTypes;
+WithUserMenu.args = { ...basicArgs };
+WithUserMenu.play = playStory;
 
 export default {
   decorators: [
