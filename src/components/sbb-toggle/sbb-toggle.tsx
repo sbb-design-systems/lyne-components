@@ -9,7 +9,6 @@ import {
   JSX,
   Listen,
   Prop,
-  State,
   Watch,
 } from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
@@ -52,11 +51,6 @@ export class SbbToggle implements ComponentInterface {
    * The value of the toggle.
    */
   @Prop({ mutable: true }) public value: any | null;
-
-  /**
-   * Whether the list has an active action.
-   */
-  @State() private _hasCheckedOption = false;
 
   /**
    * Whether the animation is enabled.
@@ -132,8 +126,6 @@ export class SbbToggle implements ComponentInterface {
     }
 
     this.disableAnimation = disableAnimation;
-    this._hasCheckedOption = true;
-
     const checkedIndex = options.findIndex((option) => option === checked);
     const pillLeft = checkedIndex === 0 ? '0px' : `${options[0].clientWidth}px`;
     const pillRigth =
@@ -188,7 +180,7 @@ export class SbbToggle implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host class={{ 'sbb-toggle--checked': this._hasCheckedOption }}>
+      <Host>
         <div
           class="sbb-toggle"
           tabIndex={this.disabled ? -1 : 0}
