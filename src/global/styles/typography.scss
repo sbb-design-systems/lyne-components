@@ -51,3 +51,7 @@ html {
 .sbb-legend {
   @include typo.legend;
 }
+
+.sbb-title + p {
+  margin-block-start: 0;
+}
