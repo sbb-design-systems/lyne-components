@@ -74,6 +74,7 @@ Variant clock-columns with wrapped link-list with button:
 | `accessibilityTitleLevel` | `accessibility-title-level` | Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.                                                                                              | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`       |
 | `negative`                | `negative`                  | Negative coloring variant flag.                                                                                                                                                                | `boolean`                                | `false`     |
 | `variant`                 | `variant`                   | Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints. | `"clock-columns" \| "default"`           | `'default'` |
+| `wide`                    | `wide`                      | Whether the footer should be stretched to full width.                                                                                                                                          | `boolean`                                | `false`     |
 
 
 ----------------------------------------------

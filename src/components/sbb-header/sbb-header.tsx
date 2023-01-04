@@ -14,6 +14,9 @@ export class SbbHeader {
   /** Used to display a box-shadow below the component on y-axis scroll whether set to true. */
   @Prop({ reflect: true }) public shadow = false;
 
+  /** Whether the header should be stretched to full width. */
+  @Prop({ reflect: true }) public wide = false;
+
   public render(): JSX.Element {
     return (
       <header class="sbb-header">

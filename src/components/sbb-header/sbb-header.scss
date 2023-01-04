@@ -17,6 +17,11 @@
   height: var(--sbb-header-height);
 }
 
+:host([wide]) {
+  --sbb-header-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-header-content-max-width: auto;
+}
+
 .sbb-header {
   display: block;
   position: fixed;

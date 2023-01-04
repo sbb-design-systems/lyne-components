@@ -18,6 +18,9 @@ export class SbbFooter {
   /** Negative coloring variant flag. */
   @Prop({ reflect: true }) public negative = false;
 
+  /** Whether the footer should be stretched to full width. */
+  @Prop({ reflect: true }) public wide = false;
+
   /** Footer title text, visually hidden, necessary for screen readers. */
   @Prop() public accessibilityTitle?: string;
 

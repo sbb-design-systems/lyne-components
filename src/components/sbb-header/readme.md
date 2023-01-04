@@ -77,17 +77,6 @@ Finally, the following custom CSS has been added*. The result can be seen in the
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 
-### Fullscreen width
-
-To display the header with fullscreen width, you can redefine padding and max-width as following:
-
-```css
-sbb-header {
-  --sbb-header-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-header-content-max-width: auto;
-}
-```
-
 ## Usage
 
 The examples below shows how to use the component (with shadow on).
@@ -113,6 +102,7 @@ The examples below shows how to use the component (with shadow on).
 | Property | Attribute | Description                                                                            | Type      | Default |
 | -------- | --------- | -------------------------------------------------------------------------------------- | --------- | ------- |
 | `shadow` | `shadow`  | Used to display a box-shadow below the component on y-axis scroll whether set to true. | `boolean` | `false` |
+| `wide`   | `wide`    | Whether the header should be stretched to full width.                                  | `boolean` | `false` |
 
 
 ## Slots
