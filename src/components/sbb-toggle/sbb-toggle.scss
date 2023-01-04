@@ -82,5 +82,13 @@
       timing-function: ease;
       property: opacity, inset-inline-end, inset-inline-start;
     }
+
+    @include sbb.if-forced-colors {
+      border-color: Highlight;
+    }
+  }
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
