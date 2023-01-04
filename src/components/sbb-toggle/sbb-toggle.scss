@@ -12,8 +12,12 @@
   --sbb-toggle-selected-option-background-color: var(--sbb-color-white-default);
   --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-toggle-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-toggle-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-toggle-height: #{sbb.px-to-rem-build(28)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-toggle-height: #{sbb.px-to-rem-build(32)};
+  }
 }
 
 :host([even]) {
@@ -31,7 +35,11 @@
 
 :host([size='m']) {
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-s);
-  --sbb-toggle-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-toggle-height: #{sbb.px-to-rem-build(44)};
+
+  @include sbb.mq($from: medium) {
+    --sbb-toggle-height: #{sbb.px-to-rem-build(52)};
+  }
 }
 
 :host([disable-animation]) {
@@ -47,6 +55,7 @@
   width: var(--sbb-toggle-width);
   max-width: 100%;
   min-width: calc(var(--sbb-toggle-min-width) * 2);
+  height: var(--sbb-toggle-height);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   background: var(--sbb-color-cloud-default);
@@ -73,11 +82,5 @@
       timing-function: ease;
       property: opacity, inset-inline-end, inset-inline-start;
     }
-  }
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-
-    --sbb-focus-outline-offset: #{sbb.px-to-rem-build(5)};
   }
 }

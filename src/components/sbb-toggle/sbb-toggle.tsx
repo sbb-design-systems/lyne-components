@@ -66,6 +66,7 @@ export class SbbToggle implements ComponentInterface {
   public valueChanged(value: any | undefined): void {
     for (const toggleOption of this._options) {
       toggleOption.checked = toggleOption.value === value;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
     this._setCheckedPillPosition(false);
     this.change.emit({ value });
@@ -76,6 +77,7 @@ export class SbbToggle implements ComponentInterface {
   public updateDisabled(): void {
     for (const toggleOption of this._options) {
       toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
   }
 
@@ -150,7 +152,12 @@ export class SbbToggle implements ComponentInterface {
     for (const toggleOption of options) {
       toggleOption.checked = toggleOption.value === value;
       toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
+      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
+  }
+
+  private _getOptionTabIndex(option: HTMLSbbToggleOptionElement): number {
+    return option.checked && !this.disabled ? 0 : -1;
   }
 
   @Listen('keydown')
@@ -180,10 +187,11 @@ export class SbbToggle implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <Host role="radiogroup">
         <div
           class="sbb-toggle"
-          tabIndex={this.disabled ? -1 : 0}
+          // tabIndex={this.disabled ? -1 : 0}
+          tabindex="-1"
           ref={(toggle) => (this._toggleElement = toggle)}
         >
           <slot onSlotchange={() => this._updateToggle()} />

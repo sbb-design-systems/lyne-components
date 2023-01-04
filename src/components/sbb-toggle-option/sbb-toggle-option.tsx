@@ -126,7 +126,6 @@ export class SbbToggleOption implements ComponentInterface {
         <label
           class={{
             'sbb-toggle-option': true,
-            'sbb-toggle-option--has-icon': !!(this.iconName || this._namedSlots.icon),
             'sbb-toggle-option--icon-only':
               !this._hasLabel && !!(this.iconName || this._namedSlots.icon),
           }}
