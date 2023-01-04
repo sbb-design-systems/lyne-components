@@ -27,7 +27,7 @@ export class SbbPearlChainVerticalItem {
         ? 'sbb-pearl-chain-vertical-item__bullet--past'
         : `sbb-pearl-chain-vertical-item__bullet--${bulletType}`;
     const animation = this.disableAnimation
-      ? '.sbb-pearl-chain-vertical-item__bullet--position-disable-animation'
+      ? 'sbb-pearl-chain-vertical-item__bullet--position-disable-animation'
       : '';
 
     return (
