@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.8](https://github.com/lyne-design-system/lyne-components/compare/v0.20.7...v0.20.8) (2023-01-04)
+
+### Bug Fixes
+
+- **sbb-pearl-chain-vertical:** fix possibility to disable animation ([#1520](https://github.com/lyne-design-system/lyne-components/issues/1520)) ([565248c](https://github.com/lyne-design-system/lyne-components/commit/565248cdf24ac025ca21c39bd0a4831e1e567314))
+
 ### [0.20.7](https://github.com/lyne-design-system/lyne-components/compare/v0.20.6...v0.20.7) (2023-01-03)
 
 ### Bug Fixes
