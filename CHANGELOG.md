@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.10](https://github.com/lyne-design-system/lyne-components/compare/v0.20.9...v0.20.10) (2023-01-04)
+
+### Features
+
+- **sbb-header, sbb-footer:** introduce wide / full width variant ([#1508](https://github.com/lyne-design-system/lyne-components/issues/1508)) ([6911ea9](https://github.com/lyne-design-system/lyne-components/commit/6911ea9d9c4e3865cf1318879388f45ee05df8ce)), closes [#1500](https://github.com/lyne-design-system/lyne-components/issues/1500)
+
 ### [0.20.9](https://github.com/lyne-design-system/lyne-components/compare/v0.20.8...v0.20.9) (2023-01-04)
 
 ### Bug Fixes
