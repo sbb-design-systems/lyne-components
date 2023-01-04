@@ -54,7 +54,7 @@
 }
 
 .sbb-tag__wrapper {
-  display: flex;
+  display: block;
   position: relative;
   user-select: none;
 
@@ -79,7 +79,7 @@
   }
 
   /* stylelint-disable plugin/stylelint-bem-namics */
-  :host(:not([disabled])) &:hover {
+  :host(:not([disabled])) &:hover:not(:active) {
     // If the the device can hover over elements with ease
     @include sbb.hover-mq($hover: true) {
       --sbb-tag-background-color: var(--sbb-color-milk-default);
@@ -144,6 +144,6 @@ input[type='checkbox'] {
   @include sbb.invisible-container-overlay;
 }
 
-input[type='checkbox']:focus-visible + .sbb-tag::before {
+input[type='checkbox']:focus-visible + .sbb-tag {
   @include sbb.focus-outline;
 }
