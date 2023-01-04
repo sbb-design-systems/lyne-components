@@ -51,14 +51,13 @@ Disabled `sbb-checkbox-group` with vertical orientation below `large` breakpoint
 
 ## Properties
 
-| Property          | Attribute           | Description                                                                    | Type                                                                       | Default                            |
-| ----------------- | ------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | ---------------------------------- |
-| `checkboxGroupId` | `checkbox-group-id` | Id of the checkbox group element.                                              | `string`                                                                   | ``sbb-checkbox-group-${++nextId}`` |
-| `disabled`        | `disabled`          | Whether the checkbox group is disabled.                                        | `boolean`                                                                  | `false`                            |
-| `horizontalFrom`  | `horizontal-from`   | Overrides the behaviour of `orientation` property.                             | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`                        |
-| `orientation`     | `orientation`       | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'`                     |
-| `required`        | `required`          | Whether the checkbox group is required.                                        | `boolean`                                                                  | `false`                            |
-| `size`            | `size`              | Size variant, either m or s.                                                   | `"m" \| "s"`                                                               | `'m'`                              |
+| Property         | Attribute         | Description                                                                    | Type                                                                       | Default        |
+| ---------------- | ----------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | -------------- |
+| `disabled`       | `disabled`        | Whether the checkbox group is disabled.                                        | `boolean`                                                                  | `false`        |
+| `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                             | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `undefined`    |
+| `orientation`    | `orientation`     | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
+| `required`       | `required`        | Whether the checkbox group is required.                                        | `boolean`                                                                  | `false`        |
+| `size`           | `size`            | Size variant, either m or s.                                                   | `"m" \| "s"`                                                               | `'m'`          |
 
 
 ## Slots

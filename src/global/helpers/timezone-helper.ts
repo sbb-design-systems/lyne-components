@@ -14,13 +14,23 @@ import { isValid, parseISO } from 'date-fns';
  * @param isoTime - the iso time with the timezone offset
  * @returns a new date with the local timezone with the local offset
  */
-export function removeTimezoneFromISOTimeString(isoTime: string): Date {
+export function removeTimezoneFromISOTimeString(isoTime: string): Date | undefined {
   const parsedDate = parseISO(isoTime);
 
   if (!isValid(parsedDate)) {
     return undefined;
   }
-  return isoTime.includes('+')
-    ? new Date(isoTime.substring(0, isoTime.indexOf('+')))
-    : new Date(isoTime);
+
+  if (isoTime.includes('Z')) {
+    return new Date(isoTime.replace('Z', ''));
+  }
+
+  if (isoTime.includes('T')) {
+    const dateTime = isoTime.split('T');
+
+    if (dateTime[1] && (dateTime[1].includes('+') || dateTime[1].includes('-'))) {
+      return new Date(`${dateTime[0]}T${dateTime[1].split(/[+-]/)[0]}`);
+    }
+  }
+  return new Date(isoTime);
 }

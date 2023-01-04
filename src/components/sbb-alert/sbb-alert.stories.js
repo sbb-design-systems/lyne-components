@@ -122,24 +122,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
 const defaultArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
@@ -153,8 +135,6 @@ const defaultArgTypes = {
   target,
   rel,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -171,8 +151,6 @@ const defaultArgs = {
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 export const defaultAlert = DefaultWithOtherContent.bind({});

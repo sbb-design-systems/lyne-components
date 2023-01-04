@@ -18,8 +18,6 @@ describe('getLinkButtonBaseAttributeList', () => {
   it('should return the parameter object', () => {
     const accessibilityProps: AccessibilityProperties = {
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: undefined,
-      accessibilityLabelledby: undefined,
     };
     const expectedObj = {
       dir: 'ltr',
@@ -41,8 +39,6 @@ describe('getLinkAttributeList', () => {
     const linkProperties: LinkProperties = {
       href: 'link',
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -57,8 +53,6 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: '_blank',
       accessibilityLabel: null,
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -75,8 +69,6 @@ describe('getLinkAttributeList', () => {
       target: '_blank',
       rel: 'custom',
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -93,8 +85,6 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: 'custom',
       accessibilityLabel: null,
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -109,15 +99,10 @@ describe('getLinkAttributeList', () => {
     const linkProperties: LinkProperties = {
       href: 'link',
       accessibilityLabel: null,
-      accessibilityDescribedby: null,
-      accessibilityLabelledby: null,
     };
     const buttonProperties: ButtonProperties = {
-      accessibilityDescribedby: undefined,
       accessibilityLabel: undefined,
-      accessibilityLabelledby: undefined,
       accessibilityHaspopup: undefined,
-      accessibilityControls: undefined,
       emitButtonClick: () => true,
       name: undefined,
       type: undefined,
@@ -143,10 +128,7 @@ describe('getButtonAttributeList', () => {
       value: 'value',
       form: 'formid',
       accessibilityHaspopup: 'true',
-      accessibilityControls: 'id',
       accessibilityLabel: 'Test',
-      accessibilityDescribedby: '',
-      accessibilityLabelledby: '',
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
@@ -156,7 +138,6 @@ describe('getButtonAttributeList', () => {
       type: 'submit',
       value: 'value',
       'aria-haspopup': 'true',
-      'aria-controls': 'id',
     };
 
     // jest can't compare functions as emitButtonClick, so objectContaining(...) API is used
@@ -168,9 +149,7 @@ describe('getLinkRenderVariables', () => {
   const linkButtonProperties: LinkButtonProperties = {
     href: 'link',
     target: '_blank',
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
-    accessibilityLabelledby: undefined,
     emitButtonClick: () => true,
     name: undefined,
     type: undefined,
@@ -217,9 +196,7 @@ describe('getLinkRenderVariables', () => {
 
 describe('getButtonRenderVariables', () => {
   const buttonProperties: ButtonProperties = {
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
-    accessibilityLabelledby: undefined,
     emitButtonClick: () => true,
     type: 'submit',
     name: 'name',
@@ -243,9 +220,7 @@ describe('getButtonRenderVariables', () => {
 
 describe('getLinkButtonStaticRenderVariables', () => {
   const accessibilityProperties: AccessibilityProperties = {
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
-    accessibilityLabelledby: undefined,
   };
   it('should return the correct variables', () => {
     const expectedObj = {
@@ -264,9 +239,7 @@ describe('resolveRenderVariables', () => {
   const linkButtonProperties: LinkButtonProperties = {
     href: 'link',
     target: undefined,
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
-    accessibilityLabelledby: undefined,
     emitButtonClick: () => undefined,
     type: undefined,
     name: undefined,
@@ -292,9 +265,7 @@ describe('resolveLinkRenderVariables', () => {
   const linkProperties: LinkProperties = {
     href: 'link',
     target: undefined,
-    accessibilityDescribedby: undefined,
     accessibilityLabel: undefined,
-    accessibilityLabelledby: undefined,
   };
 
   it('should return variables for the static case', () => {

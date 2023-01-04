@@ -60,6 +60,10 @@ export function getElementRectangle(el: HTMLElement): ElementRectangle {
  * Determines whether an event is fired on a specific element.
  */
 export function isEventOnElement(element: HTMLElement, event: MouseEvent | PointerEvent): boolean {
+  if (!element || !event) {
+    return;
+  }
+
   const rect = element.getBoundingClientRect();
   return (
     rect.top <= event.clientY &&

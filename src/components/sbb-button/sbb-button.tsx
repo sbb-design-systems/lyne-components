@@ -43,9 +43,6 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
    */
   @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
 
-  /** Pass in an id, if you need to identify the inner element. */
-  @Prop() public buttonId?: string;
-
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
@@ -81,13 +78,6 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
   @Prop() public form?: string;
 
   /**
-   * When an interaction of this button has an impact on another element(s) in the document, the id
-   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
-   * to the relevant nested element.
-   */
-  @Prop() public accessibilityControls: string | undefined;
-
-  /**
    * If you use the button to trigger another widget which itself is covering
    * the page, you must provide an according attribute for aria-haspopup.
    */
@@ -95,12 +85,6 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   @Element() private _element!: HTMLElement;
 
@@ -179,7 +163,6 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <TAG_NAME
-        id={this.buttonId}
         class={{ 'sbb-button': true, ['sbb-button--icon-only']: !this._hasText }}
         {...attributes}
         ref={(btn) => this.form && btn?.setAttribute('form', this.form)}

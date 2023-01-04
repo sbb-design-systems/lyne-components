@@ -92,12 +92,6 @@ const isStatic = {
   control: { type: 'boolean' },
 };
 
-const buttonId = {
-  control: {
-    type: 'text',
-  },
-};
-
 const iconName = {
   control: {
     type: 'text',
@@ -189,15 +183,6 @@ const form = {
   },
 };
 
-const accessibilityControls = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const accessibilityHaspopup = {
   control: {
     type: 'text',
@@ -213,25 +198,12 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   variant,
   negative,
   size,
   static: isStatic,
-  'button-id': buttonId,
   'icon-name': iconName,
   href,
   target,
@@ -242,11 +214,8 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-controls': accessibilityControls,
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
@@ -255,7 +224,6 @@ const defaultArgs = {
   negative: false,
   size: size.options[0],
   static: false,
-  'button-id': undefined,
   'icon-name': 'arrow-right-small',
   href: undefined,
   target: undefined,
@@ -266,11 +234,8 @@ const defaultArgs = {
   name: 'Button Name',
   value: undefined,
   form: undefined,
-  'accessibility-controls': undefined,
   'accessibility-haspopup': undefined,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
 };
 
 export const primary = Template.bind({});

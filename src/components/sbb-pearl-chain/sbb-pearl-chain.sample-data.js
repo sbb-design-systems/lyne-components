@@ -40,8 +40,30 @@ const unplannedStopService = {
 
 const redirectedService = {
   serviceAlteration: {
-    redirected: 'true',
+    redirected: true,
   },
+};
+
+const departureNotServiced = {
+  stopPoints: [
+    {
+      stopStatus: 'NOT_SERVICED',
+    },
+    {
+      stopStatus: 'PLANNED',
+    },
+  ],
+};
+
+const arrivalNotServiced = {
+  stopPoints: [
+    {
+      stopStatus: 'PLANNED',
+    },
+    {
+      stopStatus: 'NOT_SERVICED',
+    },
+  ],
 };
 
 export const futureLeg = {
@@ -132,7 +154,7 @@ export const unplannedStopLeg = {
   serviceJourney: unplannedStopService,
 };
 
-export const redirectedLeg = {
+export const redirectedOnDepartureLeg = {
   __typename: 'PTRideLeg',
   arrival: {
     time: future2,
@@ -140,5 +162,19 @@ export const redirectedLeg = {
   departure: {
     time: future,
   },
-  serviceJourney: redirectedService,
+  serviceJourney: {
+    ...redirectedService,
+    ...departureNotServiced,
+  },
+};
+
+export const redirectedOnArrivalLeg = {
+  __typename: 'PTRideLeg',
+  arrival: {
+    time: future2,
+  },
+  departure: {
+    time: future,
+  },
+  serviceJourney: { ...redirectedService, ...arrivalNotServiced },
 };

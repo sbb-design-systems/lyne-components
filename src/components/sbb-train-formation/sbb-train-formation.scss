@@ -1,0 +1,32 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-train-formation-padding: var(--sbb-spacing-fixed-4x);
+  --sbb-train-formation-train-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-train-formation-white-background-color: var(--sbb-color-white-default);
+}
+
+.sbb-train-formation {
+  @include sbb.scrollbar-light;
+
+  margin-block-end: var(--sbb-train-formation-padding);
+  display: flex;
+  gap: var(--sbb-train-formation-train-gap);
+  overflow-x: auto;
+  position: relative;
+  background-color: var(--sbb-train-formation-white-background-color);
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    flex-basis: 100%;
+    flex-shrink: 0;
+    max-width: calc(var(--sbb-train-formation-padding) - var(--sbb-train-formation-train-gap));
+    background-color: var(--sbb-train-formation-white-background-color);
+  }
+}

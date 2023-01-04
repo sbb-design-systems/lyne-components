@@ -21,14 +21,6 @@ export class SbbAccordion implements ComponentInterface {
    */
   @Prop() public onlyOneOpen? = false;
 
-  /**
-   * Use the aria-labelledby to reference to an id of a title outside of the
-   * accordion. That way we can improve the context for the screenreader users.
-   * When the first button in the accordion receives focus, the referenced
-   * title is also spoken out by the screenreader.
-   */
-  @Prop() public ariaLabelledby? = '';
-
   @Element() private _element: HTMLElement;
 
   private _eventIds = [];
@@ -84,10 +76,6 @@ export class SbbAccordion implements ComponentInterface {
     const attrs = {
       class: `accordion${nonWhite}`,
     };
-
-    if (this.ariaLabelledby && this.ariaLabelledby !== '') {
-      attrs['aria-Labelledby'] = this.ariaLabelledby;
-    }
 
     return (
       <div {...attrs} role="list">

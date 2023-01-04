@@ -13,6 +13,10 @@ import {
   ShipTrip,
   walkTimeTrip,
   NoticesTrip,
+  skippedDepartureStopTrip,
+  skippedArrivalStopTrip,
+  skippedFirstDepartureStopTrip,
+  skippedLastArrivalStopTrip,
 } from './sbb-timetable-row.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 
@@ -34,22 +38,16 @@ const loadingTrip = {
   },
 };
 
-const active = {
+const loadingPrice = {
   control: {
     type: 'boolean',
   },
 };
 
-const boarding = {
+const active = {
   control: {
-    type: 'select',
+    type: 'boolean',
   },
-  options: [
-    'BOARDING_ALIGHTING_NOT_POSSIBLE',
-    'BOARDING_ALIGHTING_BY_CREW',
-    'BOARDING_ALIGHTING_BY_NOTIFICATION',
-    'BOARDING_ALIGHTING_SELF',
-  ],
 };
 
 const now = {
@@ -58,23 +56,29 @@ const now = {
   },
 };
 
+const boarding = {
+  control: {
+    type: 'object',
+  },
+};
+
 const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
+  'loading-price': loadingPrice,
   active,
   'data-now': now,
-  'boarding-alighting-accessibility': boarding,
+  boarding,
 };
 
 const defaultArgs = {
-  'accessibility-label': 'Aria Label',
   'disable-animation': isChromatic(),
   'loading-trip': false,
+  'loading-price': false,
   active: false,
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
-  'boarding-alighting-accessibility': boarding.options[0],
 };
 
 // TEMPLATES
@@ -117,11 +121,28 @@ discountPrice.args = {
   price: { price: '39.90', text: 'ab CHF', isDiscount: true },
 };
 
+export const LoadingPrice = Template.bind({});
+LoadingPrice.argTypes = defaultArgTypes;
+LoadingPrice.args = {
+  ...defaultArgs,
+  'loading-price': true,
+  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+};
+
 export const LoadingTrip = Template.bind({});
 LoadingTrip.argTypes = defaultArgTypes;
 LoadingTrip.args = {
   ...defaultArgs,
   'loading-trip': true,
+};
+
+export const LoadingTripPrice = Template.bind({});
+LoadingTripPrice.argTypes = defaultArgTypes;
+LoadingTripPrice.args = {
+  ...defaultArgs,
+  'loading-trip': true,
+  'loading-price': true,
+  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
 };
 
 export const Position = Template.bind({});
@@ -171,6 +192,38 @@ Disturbance.args = {
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
 };
 
+export const SkippedDepartureStop = Template.bind({});
+SkippedDepartureStop.argTypes = defaultArgTypes;
+SkippedDepartureStop.args = {
+  ...defaultArgs,
+  trip: skippedDepartureStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedArrivalStop = Template.bind({});
+SkippedArrivalStop.argTypes = defaultArgTypes;
+SkippedArrivalStop.args = {
+  ...defaultArgs,
+  trip: skippedArrivalStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedLastArrivalStop = Template.bind({});
+SkippedLastArrivalStop.argTypes = defaultArgTypes;
+SkippedLastArrivalStop.args = {
+  ...defaultArgs,
+  trip: skippedLastArrivalStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
+export const SkippedFirstDepartureStop = Template.bind({});
+SkippedFirstDepartureStop.argTypes = defaultArgTypes;
+SkippedFirstDepartureStop.args = {
+  ...defaultArgs,
+  trip: skippedFirstDepartureStopTrip,
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+};
+
 export const QuayChanged = Template.bind({});
 QuayChanged.argTypes = defaultArgTypes;
 QuayChanged.args = {
@@ -212,6 +265,7 @@ Notices.argTypes = defaultArgTypes;
 Notices.args = {
   ...defaultArgs,
   trip: NoticesTrip,
+  boarding: { name: 'sa-rs', text: 'boarding' },
 };
 
 export default {

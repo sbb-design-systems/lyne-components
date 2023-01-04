@@ -2,6 +2,123 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.7](https://github.com/lyne-design-system/lyne-components/compare/v0.20.6...v0.20.7) (2023-01-03)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** enhance icon mapping ([#1517](https://github.com/lyne-design-system/lyne-components/issues/1517)) ([bafb4b6](https://github.com/lyne-design-system/lyne-components/commit/bafb4b6de067abed6c37b550f72dda76981cad79))
+
+### [0.20.6](https://github.com/lyne-design-system/lyne-components/compare/v0.20.5...v0.20.6) (2023-01-03)
+
+### Bug Fixes
+
+- enhance timezone helper ([#1515](https://github.com/lyne-design-system/lyne-components/issues/1515)) ([c59f18e](https://github.com/lyne-design-system/lyne-components/commit/c59f18e886b361819441c9966de97e1f5f2493d6))
+
+### [0.20.5](https://github.com/lyne-design-system/lyne-components/compare/v0.20.4...v0.20.5) (2022-12-23)
+
+### Features
+
+- **sbb-navigation:** introduce navigation component ([#1480](https://github.com/lyne-design-system/lyne-components/issues/1480)) ([953d0f4](https://github.com/lyne-design-system/lyne-components/commit/953d0f43ca51394471fffc1cbdd9336c786bb9c2))
+
+### [0.20.4](https://github.com/lyne-design-system/lyne-components/compare/v0.20.3...v0.20.4) (2022-12-22)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** improve notices ([#1513](https://github.com/lyne-design-system/lyne-components/issues/1513)) ([666aa54](https://github.com/lyne-design-system/lyne-components/commit/666aa54c4521c1e3004d77a128830f21b87da426))
+
+### [0.20.3](https://github.com/lyne-design-system/lyne-components/compare/v0.20.2...v0.20.3) (2022-12-22)
+
+### Features
+
+- **sbb-tag:** initial implementation ([#1494](https://github.com/lyne-design-system/lyne-components/issues/1494)) ([cad9b0a](https://github.com/lyne-design-system/lyne-components/commit/cad9b0a7f6007b90b2ae1894c0ea2d7676bb0d53)), closes [#1467](https://github.com/lyne-design-system/lyne-components/issues/1467)
+
+### [0.20.2](https://github.com/lyne-design-system/lyne-components/compare/v0.20.1...v0.20.2) (2022-12-22)
+
+### Features
+
+- add link, legend, sub and sup mixins ([#1506](https://github.com/lyne-design-system/lyne-components/issues/1506)) ([e9e92a1](https://github.com/lyne-design-system/lyne-components/commit/e9e92a1d6dcb01240c6eaaebfe889e89ea670664)), closes [#1505](https://github.com/lyne-design-system/lyne-components/issues/1505)
+
+### Bug Fixes
+
+- **sbb-train-formation:** minor fixes ([#1512](https://github.com/lyne-design-system/lyne-components/issues/1512)) ([041b3c6](https://github.com/lyne-design-system/lyne-components/commit/041b3c63ac577f064493e2e21c2de9979e96a3e1))
+
+### [0.20.1](https://github.com/lyne-design-system/lyne-components/compare/v0.20.0...v0.20.1) (2022-12-21)
+
+### Bug Fixes
+
+- **sbb-button:** fix active state and secondary colors ([#1507](https://github.com/lyne-design-system/lyne-components/issues/1507)) ([80a5c7f](https://github.com/lyne-design-system/lyne-components/commit/80a5c7f909dd12814fc3fc8845d053ac2a882c92)), closes [#1499](https://github.com/lyne-design-system/lyne-components/issues/1499)
+
+## [0.20.0](https://github.com/lyne-design-system/lyne-components/compare/v0.19.7...v0.20.0) (2022-12-20)
+
+### ⚠ BREAKING CHANGES
+
+- Title mixins and <sbb-title>-component now have a default margin block to meet design specs. In the mixin you can opt out by passing the flag $exclude-spacing with true (e.g. @include text-1($exclude-spacing: true)).
+  In the sbb-title component you can just set any margin from outside on the <sbb-title> itself, e.g. <sbb-title style='margin:0'>.
+
+### Features
+
+- add default title margins ([#1476](https://github.com/lyne-design-system/lyne-components/issues/1476)) ([78cb161](https://github.com/lyne-design-system/lyne-components/commit/78cb1618cd63711c1c7979e334de62df63e2e785))
+
+### [0.19.7](https://github.com/lyne-design-system/lyne-components/compare/v0.19.6...v0.19.7) (2022-12-20)
+
+### Bug Fixes
+
+- **sbb-train-formation:** fix colors, icon size and translations ([#1502](https://github.com/lyne-design-system/lyne-components/issues/1502)) ([c2a26bd](https://github.com/lyne-design-system/lyne-components/commit/c2a26bda728e1bf7a17e73eb23eb1cf381b30f44))
+
+### [0.19.6](https://github.com/lyne-design-system/lyne-components/compare/v0.19.5...v0.19.6) (2022-12-20)
+
+### Bug Fixes
+
+- **sbb-pearl-chain:** use min-width to prevent squeezing ([#1504](https://github.com/lyne-design-system/lyne-components/issues/1504)) ([80965d0](https://github.com/lyne-design-system/lyne-components/commit/80965d0a4117a9db80702c944cf21281fc9aaa31))
+
+### [0.19.5](https://github.com/lyne-design-system/lyne-components/compare/v0.19.4...v0.19.5) (2022-12-19)
+
+### [0.19.4](https://github.com/lyne-design-system/lyne-components/compare/v0.19.3...v0.19.4) (2022-12-19)
+
+### [0.19.3](https://github.com/lyne-design-system/lyne-components/compare/v0.19.2...v0.19.3) (2022-12-19)
+
+### [0.19.2](https://github.com/lyne-design-system/lyne-components/compare/v0.19.1...v0.19.2) (2022-12-15)
+
+### Bug Fixes
+
+- exclude chromatic stories for documentation ([#1498](https://github.com/lyne-design-system/lyne-components/issues/1498)) ([ee94370](https://github.com/lyne-design-system/lyne-components/commit/ee94370a3b8c424ed2b90f7b5435155b1675ade8))
+
+### [0.19.1](https://github.com/lyne-design-system/lyne-components/compare/v0.19.0...v0.19.1) (2022-12-15)
+
+### Features
+
+- **sbb-train-formation:** initial implementation ([#1462](https://github.com/lyne-design-system/lyne-components/issues/1462)) ([343f510](https://github.com/lyne-design-system/lyne-components/commit/343f510d3593860fbae0aba12a90b823c8c062a6)), closes [#1428](https://github.com/lyne-design-system/lyne-components/issues/1428)
+
+## [0.19.0](https://github.com/lyne-design-system/lyne-components/compare/v0.18.4...v0.19.0) (2022-12-15)
+
+### ⚠ BREAKING CHANGES
+
+- As it is not possible from shadow DOM to reach the light DOM by id values, we removed all id, accessibility-labelledby, accessibility-describedby and accessibility-controls properties because they were usless.
+
+Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
+
+### Bug Fixes
+
+- remove obsolete id references ([#1493](https://github.com/lyne-design-system/lyne-components/issues/1493)) ([f442283](https://github.com/lyne-design-system/lyne-components/commit/f4422830a74816fe76180394dc80561403746d47))
+
+### [0.18.4](https://github.com/lyne-design-system/lyne-components/compare/v0.18.3...v0.18.4) (2022-12-14)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** fix px-to-rem usage ([#1497](https://github.com/lyne-design-system/lyne-components/issues/1497)) ([4f53b70](https://github.com/lyne-design-system/lyne-components/commit/4f53b70e92f8cc611cc4122852f1cb704329ba2f))
+
+### [0.18.3](https://github.com/lyne-design-system/lyne-components/compare/v0.18.2...v0.18.3) (2022-12-14)
+
+### Bug Fixes
+
+- **sbb-form-field:** fix border radius for size L ([#1496](https://github.com/lyne-design-system/lyne-components/issues/1496)) ([120c507](https://github.com/lyne-design-system/lyne-components/commit/120c5076e1695abca07a52e1e46c5b96d3f40d70))
+
+### [0.18.2](https://github.com/lyne-design-system/lyne-components/compare/v0.18.1...v0.18.2) (2022-12-13)
+
+### Bug Fixes
+
+- **sbb-card:** stretch height to host ([#1495](https://github.com/lyne-design-system/lyne-components/issues/1495)) ([fdb0ba8](https://github.com/lyne-design-system/lyne-components/commit/fdb0ba86c862f3e64e7ddc77ae2d3da2406ba29d))
+
 ### [0.18.1](https://github.com/lyne-design-system/lyne-components/compare/v0.18.0...v0.18.1) (2022-12-12)
 
 ### Bug Fixes

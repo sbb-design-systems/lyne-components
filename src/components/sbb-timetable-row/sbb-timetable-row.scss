@@ -6,13 +6,15 @@
 
 :host {
   --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-timetable-row-loading-height: #{px-to-rem-build(24)};
+  --sbb-timetable-row-height: #{sbb.px-to-rem-build(25)};
+  --sbb-timetable-row-height-header: #{sbb.px-to-rem-build(20)};
+  --sbb-timetable-row-height-footer: #{sbb.px-to-rem-build(16)};
 }
 
 // override icons sizes
-.sbb-timetable__row-transport-type {
-  --sbb-icon-svg-width: #{px-to-rem-build(20)};
-  --sbb-icon-svg-height: #{px-to-rem-build(20)};
+.sbb-timetable__row-transport-icon {
+  --sbb-icon-svg-width: #{sbb.px-to-rem-build(20)};
+  --sbb-icon-svg-height: #{sbb.px-to-rem-build(20)};
 }
 
 // override icons sizes
@@ -20,7 +22,7 @@
   --sbb-icon-svg-height: #{sbb.px-to-rem-build(14)};
 }
 
-// Design spec: icon should have spesific size
+// Design spec: icon should have specific size
 .sbb-occupancy__item {
   --sbb-icon-svg-height: #{sbb.px-to-rem-build(12)};
 
@@ -74,6 +76,7 @@ li {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
   align-items: center;
+  line-height: var(--sbb-timetable-row-height-header);
 }
 
 .sbb-timetable__row-details,
@@ -95,6 +98,7 @@ li {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--sbb-spacing-fixed-2x);
+  line-height: var(--sbb-timetable-row-height-footer);
 
   > span {
     align-self: center;
@@ -119,6 +123,7 @@ li {
   color: var(--sbb-color-red-default);
 }
 
+.sbb-timetable__row-transport-wrapper,
 .sbb-timetable__row-warning {
   display: inline-flex;
 }
@@ -131,7 +136,16 @@ li {
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-2x);
-  padding-block-start: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-loading__row {
+  width: 100%;
+  border-radius: var(--sbb-border-radius-1x);
+  height: var(--sbb-timetable-row-height);
+
+  @include sbb.mq($from: medium) {
+    height: #{sbb.px-to-rem-build(28)};
+  }
 }
 
 .sbb-loading__row,
@@ -139,23 +153,13 @@ li {
   animation: skeleton-pulse 1800ms ease-out infinite;
 }
 
-.sbb-loading__row {
-  width: 100%;
-  height: var(--sbb-timetable-row-loading-height);
-  border-radius: var(--sbb-border-radius-1x);
-
-  @include sbb.mq($from: medium) {
-    --sbb-timetable-row-loading-height: #{px-to-rem-build(27)};
-  }
-}
-
 .sbb-loading__row:first-of-type {
+  height: var(--sbb-timetable-row-height-header);
   width: 50%;
-  height: #{sbb.px-to-rem-build(20)};
 }
 
 .sbb-loading__row:last-of-type {
-  height: #{sbb.px-to-rem-build(16)};
+  height: var(--sbb-timetable-row-height-footer);
 }
 
 .sbb-loading__badge {

@@ -4,7 +4,7 @@ import {
   getCus,
   getHimIcon,
   getTransportIcon,
-  handleNotices,
+  filterNotices,
   isProductIcon,
   sortSituation,
 } from './sbb-timetable-row.helper';
@@ -26,7 +26,7 @@ describe('durationToTime', () => {
 
 describe('getTransportIcon', () => {
   it('should return schiff', () => {
-    expect(getTransportIcon('SHIP')).toBe('schiff');
+    expect(getTransportIcon('SHIP')).toBe('schiff-right');
   });
 
   it('should return empty string', () => {
@@ -71,25 +71,25 @@ describe('getHimIcon', () => {
     const situation: PtSituation = {
       cause: 'TRAIN_REPLACEMENT_BY_BUS',
     };
-    expect(getHimIcon(situation)).toBe('replacementbus');
+    expect(getHimIcon(situation)).toStrictEqual({ name: 'replacementbus', text: '' });
   });
 
   it('should return info', () => {
     const situation: PtSituation = {
       cause: null,
     };
-    expect(getHimIcon(situation)).toBe('info');
+    expect(getHimIcon(situation)).toStrictEqual({ name: 'info', text: '' });
   });
 });
 
 describe('getCus', () => {
   it('should return cancellation', () => {
-    expect(getCus(partiallyCancelled)).toStrictEqual('cancellation');
+    expect(getCus(partiallyCancelled)).toStrictEqual({ name: 'cancellation', text: undefined });
   });
 });
 
-describe('handleNotices', () => {
+describe('filterNotices', () => {
   it('should return sa-rr', () => {
-    expect(handleNotices(walkTimeTrip?.notices)).toStrictEqual(['sa-rr']);
+    expect(filterNotices(walkTimeTrip?.notices)).toStrictEqual([]);
   });
 });

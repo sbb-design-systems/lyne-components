@@ -21,8 +21,6 @@ import {
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
-let nextId = 0;
-
 /**
  * @slot unnamed - Use this to provide radio buttons within the group.
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
@@ -34,11 +32,6 @@ let nextId = 0;
   tag: 'sbb-radio-button-group',
 })
 export class SbbRadioButtonGroup implements ComponentInterface {
-  /**
-   * Id of the radio group element.
-   */
-  @Prop() public radioButtonGroupId = `sbb-radio-button-group-${++nextId}`;
-
   /**
    * Whether the radios can be deselected.
    */

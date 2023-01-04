@@ -1,0 +1,91 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-wagon-width: var(--sbb-train-formation-wagon-width);
+  --sbb-wagon-height: var(--sbb-train-formation-wagon-height);
+  --sbb-wagon-inner-padding: var(--sbb-spacing-fixed-3x);
+  --sbb-wagon-shape-border-radius: var(--sbb-train-formation-wagon-border-radius);
+  --sbb-wagon-shape-outline-color: var(--sbb-color-charcoal-default);
+  --sbb-wagon-shape-outline-color-closed: var(--sbb-color-metal-default);
+  --sbb-wagon-shape-outline-width: var(--sbb-border-width-1x);
+  --sbb-wagon-icons-padding-block-start: var(--sbb-spacing-fixed-2x);
+  --sbb-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-wagon-icons-height: #{sbb.px-to-rem-build(14)};
+}
+
+.sbb-wagon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--sbb-wagon-width);
+
+  :host([type='wagon']) &,
+  :host([type='closed']) & {
+    width: var(--sbb-wagon-width);
+  }
+}
+
+.sbb-wagon__label {
+  @include sbb.text-s--regular;
+}
+
+.sbb-wagon__label-screenreader {
+  @include sbb.screen-reader-only;
+}
+
+.sbb-wagon__label-text {
+  display: inline-block;
+}
+
+.sbb-wagon__compartment {
+  height: var(--sbb-wagon-height);
+
+  :host([type='wagon']) &,
+  :host([type='closed']) & {
+    padding: 0 var(--sbb-wagon-inner-padding);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: var(--sbb-wagon-shape-border-radius);
+  }
+
+  :host([type='wagon']) & {
+    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color);
+  }
+
+  :host([type='closed']) & {
+    border: var(--sbb-wagon-shape-outline-width) solid var(--sbb-wagon-shape-outline-color-closed);
+  }
+}
+
+.sbb-wagon__class {
+  @include sbb.title-6($exclude-spacing: true);
+
+  margin-inline-start: auto;
+}
+
+.sbb-wagon__icons {
+  --sbb-icon-svg-height: var(--sbb-wagon-icons-height);
+
+  p {
+    @include sbb.screen-reader-only;
+  }
+
+  ul {
+    @include sbb.list-reset;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sbb-wagon-icons-gap);
+    justify-content: center;
+    padding-block-start: var(--sbb-wagon-icons-padding-block-start);
+  }
+
+  li {
+    display: inline-flex;
+  }
+}

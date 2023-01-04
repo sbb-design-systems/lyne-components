@@ -55,14 +55,6 @@ export interface ButtonProperties extends AccessibilityProperties {
   form?: string | undefined;
 
   /**
-   * The aria-controls property identifies the element (or elements)
-   * whose contents or presence are controlled by the element on which
-   * this attribute is set.
-   * The value is forwarded to the native button element.
-   */
-  accessibilityControls?: string | undefined;
-
-  /**
    * Indicates the availability and type of interactive popup element that can be triggered
    * by the element
    */
@@ -162,7 +154,6 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
     form: buttonProperties.form || undefined,
     disabled: buttonProperties.disabled ? 'true' : undefined,
     value: buttonProperties.value ?? undefined,
-    'aria-controls': buttonProperties?.accessibilityControls ?? undefined,
     'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
   });
 }

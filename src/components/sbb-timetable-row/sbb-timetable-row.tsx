@@ -1,5 +1,5 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { BoardingAlightingAccessibilityEnum, Price, Trip } from './sbb-timetable-row.custom';
+import { Boarding, HimCus, Price, Trip } from './sbb-timetable-row.custom';
 
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import {
@@ -12,10 +12,10 @@ import {
 } from '../../global/i18n';
 import {
   durationToTime,
+  handleNotices,
   getCus,
   getHimIcon,
   getTransportIcon,
-  handleNotices,
   isProductIcon,
   renderIconProduct,
   renderStringProduct,
@@ -42,13 +42,19 @@ export class SbbTimetableRow {
   @Prop() public disableAnimation?: boolean;
 
   /** This will be forwarded to the notices section */
-  @Prop() public boardingAlightingAccessibility?: BoardingAlightingAccessibilityEnum;
+  @Prop() public boarding?: Boarding;
 
   /**
    * The loading state -
    * when this is true it will be render skeleton with an idling animation
    */
   @Prop() public loadingTrip?: boolean;
+
+  /**
+   * The loading state -
+   * when this is true it will be render skeleton with an idling animation
+   */
+  @Prop() public loadingPrice?: boolean;
 
   /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public active?: boolean;
@@ -64,7 +70,7 @@ export class SbbTimetableRow {
   private _renderSkeleton(): JSX.Element {
     return (
       <sbb-card size="l" class="sbb-loading">
-        <sbb-card-badge slot="badge" class="sbb-loading__badge" />
+        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -102,21 +108,17 @@ export class SbbTimetableRow {
     );
   }
 
-  private _handleHimCus(trip: Trip): string | undefined {
+  private _handleHimCus(trip: Trip): HimCus | undefined {
     const situations = trip.situations && sortSituation(trip.situations);
     const cus = getCus(trip);
 
-    return cus ? cus : situations?.length && getHimIcon(situations[0]);
+    return Object.keys(cus)?.length ? cus : situations?.length && getHimIcon(situations[0]);
   }
 
   public render(): JSX.Element {
     if (this.loadingTrip) return this._renderSkeleton();
 
     const { legs, id, notices } = this.trip || {};
-
-    const isBoardingAccessible =
-      this.boardingAlightingAccessibility &&
-      this.boardingAlightingAccessibility !== 'BOARDING_ALIGHTING_NOT_POSSIBLE';
 
     const {
       product,
@@ -130,16 +132,16 @@ export class SbbTimetableRow {
     } = this.trip?.summary || {};
 
     const himCus = this.trip && this._handleHimCus(this.trip);
+    const hasHimCus = !!himCus && !!Object.keys(himCus).length;
+
+    const noticeAttributes = notices && handleNotices(notices);
 
     return (
-      <sbb-card
-        size="l"
-        active={this.active}
-        card-id={id}
-        accessibility-label={this.accessibilityLabel}
-      >
-        {this.price && (
+      <sbb-card size="l" active={this.active} id={id} role="rowgroup">
+        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
+        {this.price && !this.loadingPrice && (
           <sbb-card-badge
+            class="sbb-timetable__row-price"
             slot="badge"
             appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
             price={this.price.price}
@@ -147,14 +149,17 @@ export class SbbTimetableRow {
             isDiscount={this.price.isDiscount}
           />
         )}
-        <div class="sbb-timetable__row">
-          <div class="sbb-timetable__row-header">
+        <div class="sbb-timetable__row" role="row">
+          <div class="sbb-timetable__row-header" role="gridcell">
             <div class="sbb-timetable__row-details">
               {product && getTransportIcon(product.vehicleMode) && (
-                <sbb-icon
-                  class="sbb-timetable__row-transport-type"
-                  name={'picto:' + getTransportIcon(product.vehicleMode) + '-right'}
-                />
+                <span class="sbb-timetable__row-transport-wrapper">
+                  <sbb-icon
+                    class="sbb-timetable__row-transport-icon"
+                    name={'picto:' + getTransportIcon(product.vehicleMode)}
+                  />
+                  <span class="sbb-screenreaderonly">{product.vehicleMode}</span>
+                </span>
               )}
               {product &&
                 product.vehicleSubModeShortName &&
@@ -165,6 +170,7 @@ export class SbbTimetableRow {
             {direction && <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>}
           </div>
           <sbb-pearl-chain-time
+            role="gridcell"
             legs={legs}
             departureTime={departure?.time}
             arrivalTime={arrival?.time}
@@ -173,25 +179,22 @@ export class SbbTimetableRow {
             disableAnimation={this.disableAnimation}
             data-now={this._now()}
           ></sbb-pearl-chain-time>
-          <div class="sbb-timetable__row-footer">
+          <div class="sbb-timetable__row-footer" role="gridcell">
             {product && this._getQuayType(product.vehicleMode) && departure?.quayAimedName && (
               <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
                 {this._renderQuayType()}
                 {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
               </span>
             )}
-            {(occupancy?.firstClass || occupancy?.secondClass) && (
+            {((occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
+              (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')) && (
               <ul class="sbb-timetable__row-occupancy" role="list">
-                {occupancy?.firstClass && (
+                {occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN' && (
                   <li>
                     1.
                     <sbb-icon
                       class="sbb-occupancy__item"
-                      name={
-                        occupancy?.firstClass === 'UNKNOWN'
-                          ? 'utilization-none'
-                          : `utilization-` + occupancy?.firstClass?.toLowerCase()
-                      }
+                      name={`utilization-` + occupancy?.firstClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
                       {i18nClass.first[this._currentLanguage]}
@@ -202,16 +205,12 @@ export class SbbTimetableRow {
                     </span>
                   </li>
                 )}
-                {occupancy?.secondClass && (
+                {occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN' && (
                   <li>
                     2.
                     <sbb-icon
                       class="sbb-occupancy__item"
-                      name={
-                        occupancy?.secondClass === 'UNKNOWN'
-                          ? 'utilization-none'
-                          : `utilization-` + occupancy?.secondClass?.toLowerCase()
-                      }
+                      name={`utilization-` + occupancy?.secondClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
                       {i18nClass.second[this._currentLanguage]}
@@ -224,32 +223,37 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {((notices && handleNotices(notices)?.length) || isBoardingAccessible) && (
+            {((noticeAttributes && noticeAttributes.length) || this.boarding) && (
               <ul class="sbb-timetable__row-hints" role="list">
                 {notices &&
-                  handleNotices(notices)?.map(
+                  noticeAttributes?.map(
                     (notice, index) =>
                       index < 4 && (
                         <li>
                           <sbb-icon
                             class="sbb-travel-hints__item"
-                            name={notice}
-                            aria-hidden="false"
+                            name={'sa-' + notice.name.toLowerCase()}
                           />
+                          <span class="sbb-screenreaderonly">{notice.text}</span>
                         </li>
                       )
                   )}
-                {isBoardingAccessible && (
+                {this.boarding && (
                   <li>
-                    <sbb-icon class="sbb-travel-hints__item" name="sa-rs" aria-hidden="false" />
+                    <sbb-icon
+                      class="sbb-travel-hints__item"
+                      name={this.boarding?.name}
+                      aria-label={this.boarding?.text}
+                      aria-hidden="false"
+                    />
                   </li>
                 )}
               </ul>
             )}
-            {duration && duration > 0 && <time>{durationToTime(duration)}</time>}
-            {!!himCus && (
+            {duration > 0 && <time>{durationToTime(duration)}</time>}
+            {hasHimCus && (
               <span class="sbb-timetable__row-warning">
-                <sbb-icon name={himCus} aria-hidden="false" aria-label={himCus} />
+                <sbb-icon name={himCus.name} aria-hidden="false" aria-label={himCus.text} />
               </span>
             )}
           </div>

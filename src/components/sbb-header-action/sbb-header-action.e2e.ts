@@ -5,10 +5,14 @@ describe('sbb-header-action', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent(
-      '<sbb-header-action id="outer-id" header-action-id="inner-id">Action</sbb-header-action>'
-    );
+    await page.setContent('<sbb-header-action id="outer-id">Action</sbb-header-action>');
     await page.waitForChanges();
+
+    // Set id of the inner-button for later comparing of active element
+    await page.evaluate(
+      () =>
+        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
+    );
 
     element = await page.find('sbb-header-action');
   });

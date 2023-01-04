@@ -4,10 +4,24 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-pearl-chain-time-height: auto;
+
+  @include sbb.mq($from: small) {
+    --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(25)};
+  }
+
+  @include sbb.mq($from: medium) {
+    --sbb-pearl-chain-time-height: #{sbb.px-to-rem-build(28)};
+  }
+}
+
 .sbb-pearl-chain__time {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  height: var(--sbb-pearl-chain-time-height);
 }
 
 .sbb-pearl-chain__time-walktime {
@@ -18,11 +32,12 @@
 }
 
 .sbb-pearl-chain__time-walktime--left {
-  margin-inline-end: var(--sbb-spacing-fixed-2x);
+  transform: translateX(sbb.px-to-rem-build(-7));
+  margin-inline-end: calc(var(--sbb-spacing-fixed-2x) - sbb.px-to-rem-build(7));
 }
 
 .sbb-pearl-chain__time-walktime--right {
-  margin-inline-start: var(--sbb-spacing-fixed-2x);
+  margin-inline-start: calc(var(--sbb-spacing-fixed-2x) - sbb.px-to-rem-build(4));
 }
 
 .sbb-pearl-chain__time-chain {

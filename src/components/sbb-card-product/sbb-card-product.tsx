@@ -34,9 +34,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
   /** CardProduct layout */
   @Prop() public layout?: InterfaceCardProductAttributes['layout'] = 'standard';
 
-  /** The ID value you want to reference */
-  @Prop() public cardProductId?: string;
-
   /**
    * The text which gets exposed to screen reader users. The text should
    * reflect all the information which gets passed into the component's slots
@@ -46,12 +43,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
    * Ticket price starts at X.
    */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   /**
    * Check if accessibilityLabel is provided since it is a required prop,
@@ -175,13 +166,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
     let additionalCardAttributes = {};
     let ariaLabel = this.accessibilityLabel;
 
-    if (this.cardProductId) {
-      additionalCardAttributes = {
-        ...additionalCardAttributes,
-        id: this.cardProductId,
-      };
-    }
-
     // Check if hrefValue or isButton is set
     if (!this.isButton && !this.hrefValue) {
       // security exit, if no hrefValue nor isButton is provided
@@ -263,8 +247,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
     return (
       <TAGNAME
         aria-label={ariaLabel}
-        aria-describedby={this.accessibilityDescribedby}
-        aria-labelledby={this.accessibilityLabelledby}
         class={`card-product card-product--${this.appearance} card-product--${this.layout}
           ${cardSizeClass}`}
         {...additionalCardAttributes}

@@ -12,8 +12,8 @@ describe('sbb-checkbox', () => {
       <sbb-checkbox icon-placement="end" size="m">
         <mock:shadow-root>
           <span class="sbb-checkbox-wrapper">
-            <label class="sbb-checkbox" htmlfor="sbb-checkbox-1">
-              <input id="sbb-checkbox-1" type="checkbox"/>
+            <label class="sbb-checkbox">
+              <input type="checkbox"/>
               <span class="sbb-checkbox__inner">
                 <span class="sbb-checkbox__aligner">
                   <span class="sbb-checkbox__selection">
@@ -43,8 +43,8 @@ describe('sbb-checkbox', () => {
         <sbb-checkbox icon-name="tickets-class-small" icon-placement="start" size="s">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
-              <label class="sbb-checkbox" htmlfor="sbb-checkbox-2">
-                <input id="sbb-checkbox-2" type="checkbox"/>
+              <label class="sbb-checkbox">
+                <input type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">
@@ -80,8 +80,8 @@ describe('sbb-checkbox', () => {
         <sbb-checkbox checked="" icon-placement="end" size="m">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
-              <label class="sbb-checkbox" htmlfor="sbb-checkbox-3">
-                <input checked="" id="sbb-checkbox-3" type="checkbox"/>
+              <label class="sbb-checkbox">
+                <input checked="" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">
@@ -114,8 +114,8 @@ describe('sbb-checkbox', () => {
         <sbb-checkbox indeterminate="" icon-placement="end" size="m">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
-              <label class="sbb-checkbox" htmlfor="sbb-checkbox-4">
-                <input id="sbb-checkbox-4" type="checkbox">
+              <label class="sbb-checkbox">
+                <input type="checkbox">
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">
@@ -146,8 +146,8 @@ describe('sbb-checkbox', () => {
         <sbb-checkbox disabled="" icon-placement="end" size="m">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
-              <label class="sbb-checkbox" htmlfor="sbb-checkbox-5">
-                <input disabled aria-disabled="" id="sbb-checkbox-5" type="checkbox"/>
+              <label class="sbb-checkbox">
+                <input disabled aria-disabled="" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">

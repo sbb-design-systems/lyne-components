@@ -8,11 +8,10 @@ Example prop:
               pearlChainVerticalItemAttributes={{
                 lineType: 'standard',
                 lineColor: 'charcoal',
-                dotColor: 'charcoal',
                 minHeight: '89',
                 hideLine: false,
-                dotType: 'thick-bullet',
-                dotSize: 'small',
+                bulletType: 'thick-bullet',
+                bulletSize: 'small',
               }}
 
 ``` html
@@ -26,10 +25,10 @@ Example prop:
 
 ## Properties
 
-| Property                           | Attribute           | Description                                                              | Type                               | Default     |
-| ---------------------------------- | ------------------- | ------------------------------------------------------------------------ | ---------------------------------- | ----------- |
-| `disableAnimation`                 | `disable-animation` | If true the position won't be animated.                                  | `boolean`                          | `undefined` |
-| `pearlChainVerticalItemAttributes` | --                  | The pearlChainVerticalItemAttributes Prop for styling the dots and line. | `PearlChainVerticalItemAttributes` | `undefined` |
+| Property                                        | Attribute           | Description                                                                 | Type                               | Default     |
+| ----------------------------------------------- | ------------------- | --------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `disableAnimation`                              | `disable-animation` | If true the position won't be animated.                                     | `boolean`                          | `undefined` |
+| `pearlChainVerticalItemAttributes` _(required)_ | --                  | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. | `PearlChainVerticalItemAttributes` | `undefined` |
 
 
 ## Slots

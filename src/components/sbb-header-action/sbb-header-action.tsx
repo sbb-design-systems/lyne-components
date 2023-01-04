@@ -11,8 +11,6 @@ import {
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 
-let nextId = 0;
-
 /**
  * @slot icon - Slot used to render the action icon.
  * @slot unnamed - Slot used to render the action text.
@@ -24,9 +22,6 @@ let nextId = 0;
   tag: 'sbb-header-action',
 })
 export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties {
-  /** Action element's id. */
-  @Prop() public headerActionId = `sbb-header-action-${++nextId}`;
-
   /**
    * Used to set the minimum breakpoint from which the text is displayed.
    * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
@@ -67,13 +62,6 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
   @Prop() public form?: string;
 
   /**
-   * When an interaction of this button has an impact on another element(s) in the document, the id
-   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
-   * to the relevant nested element.
-   */
-  @Prop() public accessibilityControls: string | undefined;
-
-  /**
    * If you use the button to trigger another widget which itself is covering
    * the page, you must provide an according attribute for aria-haspopup.
    */
@@ -81,12 +69,6 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
 
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
 
   @Element() private _element: HTMLElement;
 
@@ -111,7 +93,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
       screenReaderNewWindowInfo,
     } = resolveRenderVariables(this);
     return (
-      <TAG_NAME id={this.headerActionId} class="sbb-header-action" {...attributes}>
+      <TAG_NAME class="sbb-header-action" {...attributes}>
         <span class="sbb-header-action__icon">
           <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </span>

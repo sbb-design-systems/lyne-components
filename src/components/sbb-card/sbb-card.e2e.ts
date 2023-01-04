@@ -65,7 +65,14 @@ describe('sbb-card', () => {
   describe('events', () => {
     beforeEach(async () => {
       page = await newE2EPage();
-      await page.setContent('<sbb-card id="outer-id" card-id="inner-id">Card</sbb-card>');
+      await page.setContent('<sbb-card id="outer-id">Card</sbb-card>');
+
+      // Set id of the inner-button for later comparing of active element
+      await page.evaluate(
+        () =>
+          (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
+      );
+
       element = await page.find('sbb-card');
     });
 

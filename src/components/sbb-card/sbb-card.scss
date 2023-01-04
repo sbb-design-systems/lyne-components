@@ -59,8 +59,11 @@
 }
 
 .sbb-card {
+  @include sbb.stretch(width);
+  @include sbb.stretch(height);
+
+  display: block;
   position: relative;
-  width: 100%;
   overflow: hidden;
   padding-inline: var(--sbb-card-padding-inline);
   padding-block-start: var(--sbb-card-padding-block-start);
@@ -69,6 +72,7 @@
   background-color: var(--sbb-card-background-color);
   transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
   color: inherit;
+  text-decoration: none;
 
   &::before {
     position: absolute;
@@ -80,11 +84,6 @@
 
   &:focus-visible {
     @include sbb.focus-outline;
-  }
-
-  :host([href]) & {
-    display: block;
-    text-decoration: none;
   }
 
   // stylelint-disable-next-line plugin/stylelint-bem-namics
@@ -109,6 +108,7 @@
 
 .sbb-card__content {
   display: block;
+  height: 100%;
   transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 
@@ -125,4 +125,10 @@
 
 .sbb-card__opens-in-new-window {
   @include sbb.screen-reader-only;
+}
+
+// We remove upper margin from all titles
+// as we do not expect multiple titles to be used inside a card.
+.sbb-card__content ::slotted(sbb-title) {
+  margin-block-start: 0;
 }

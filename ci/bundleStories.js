@@ -4,7 +4,7 @@ const fs = require('fs');
 const config = {
   bundleDir: './dist/collection/storybundle',
   componentsFile: 'components.json',
-  componentsGlob: './src/components/**/*.stories.js',
+  componentsGlob: './src/components/**/*[!.chromatic].stories.js',
   indexFile: 'index.js',
   storiesFileEnding: '.stories.js',
 };

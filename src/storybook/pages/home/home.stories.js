@@ -45,7 +45,7 @@ const Template = (args) => (
     Header section
     ************************************************* */}
     <sbb-header>
-      <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
       <div class="spacer" />
@@ -61,6 +61,125 @@ const Template = (args) => (
         <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
       </sbb-menu>
     </sbb-header>
+
+    <sbb-navigation trigger="hamburger-menu" ref={(dialog) => onNavigationClose(dialog)}>
+      <sbb-navigation-marker id="nav-marker">
+        <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
+        <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
+        <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
+        <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/">
+          Help & Contact
+        </sbb-navigation-action>
+      </sbb-navigation-marker>
+
+      <sbb-navigation-marker size="s">
+        <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
+        <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
+        <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
+        <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+      </sbb-navigation-marker>
+
+      <sbb-navigation-section title-content="Title one" trigger="nav-1">
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-button style="width: fit-content">All Tickets & Offers</sbb-button>
+      </sbb-navigation-section>
+
+      <sbb-navigation-section title-content="Title two" trigger="nav-2">
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+      </sbb-navigation-section>
+
+      <sbb-navigation-section title-content="Title three" trigger="nav-3">
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-navigation-list label="Label">
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+          <sbb-navigation-action>Label</sbb-navigation-action>
+        </sbb-navigation-list>
+
+        <sbb-button
+          size="m"
+          variant="secondary"
+          icon-name="circle-information-small"
+          style="width: fit-content"
+        >
+          Travel Information
+        </sbb-button>
+      </sbb-navigation-section>
+    </sbb-navigation>
 
     {/* *************************************************
     Timetable input section
@@ -146,11 +265,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Daily ticket
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Daily ticket
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -177,11 +294,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Bike day pass
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Bike day pass
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -208,11 +323,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Libero short distance ticket
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Libero short distance ticket
+            </sbb-title>
             <div slot="text">
               <span>Valid today</span>
             </div>
@@ -239,11 +352,9 @@ const Template = (args) => (
                 ></path>
               </svg>
             </div>
-            <div slot="title">
-              <sbb-title level="2" visual-level="6">
-                Route map
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="6">
+              Route map
+            </sbb-title>
             <div slot="text">
               <span>For regular trips</span>
             </div>
@@ -261,16 +372,12 @@ const Template = (args) => (
             layout="loose"
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
-            <div slot="title">
-              <sbb-title level="2" visual-level="1">
-                GA
-              </sbb-title>
-            </div>
-            <div slot="lead">
-              <sbb-title level="3" visual-level="6">
-                Enjoy unlimited travel with the GA travelcard.
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="1">
+              GA
+            </sbb-title>
+            <sbb-title slot="lead" level="3" visual-level="6">
+              Enjoy unlimited travel with the GA travelcard.
+            </sbb-title>
             <div slot="action">
               <sbb-button variant="secondary" static>
                 All GAs at a glance
@@ -285,16 +392,12 @@ const Template = (args) => (
             layout="loose"
             href-value="https://github.com/lyne-design-system/lyne-components"
           >
-            <div slot="title">
-              <sbb-title level="2" visual-level="1">
-                1/2
-              </sbb-title>
-            </div>
-            <div slot="lead">
-              <sbb-title level="3" visual-level="6">
-                Travel at half price with the Halbtax travelcard.
-              </sbb-title>
-            </div>
+            <sbb-title slot="title" level="2" visual-level="1">
+              1/2
+            </sbb-title>
+            <sbb-title slot="lead" level="3" visual-level="6">
+              Travel at half price with the Halbtax travelcard.
+            </sbb-title>
             <div slot="action">
               <sbb-button variant="secondary" static>
                 Ride at half price
@@ -484,6 +587,12 @@ home.argTypes = defaultArgTypes;
 home.args = JSON.parse(JSON.stringify(defaultArgs));
 home.documentation = {
   title: 'Home 2.0',
+};
+
+const onNavigationClose = (dialog) => {
+  dialog.addEventListener('didClose', () => {
+    document.getElementById('nav-marker').reset();
+  });
 };
 
 /* ************************************************* */

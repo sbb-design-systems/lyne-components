@@ -1,31 +1,28 @@
 @use '../../global/styles' as sbb;
 
+@mixin sbb-pearl-chain-dotted {
+  background-color: unset;
+  background-image: linear-gradient(to right, currentcolor 0%, currentcolor 50%, Canvas 50%);
+  background-repeat: repeat-x;
+  background-size: calc(2 * var(--sbb-pearl-chain-spacing-small)) var(--sbb-pearl-chain-height);
+  inset-inline-end: var(--sbb-pearl-chain-height);
+}
+
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-@mixin dot {
-  content: '';
-  position: absolute;
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 100%;
-}
-
 :host {
+  @include sbb.pearl-chain-bullet-variables;
+
   display: block;
 
-  --sbb-dot-size-large: #{sbb.px-to-rem-build(10)};
-  --sbb-dot-size-small: #{sbb.px-to-rem-build(8)};
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: var(--sbb-spacing-fixed-1x);
-  --color-white: var(--sbb-color-white-default);
-  --color-default: var(--sbb-color-black-default);
-  --color-current-location: var(--sbb-color-red-default);
-  --color-current-location-dark: var(--sbb-color-red150-default);
-  --color-cancellation: var(--sbb-color-red-default);
-  --color-past: var(--sbb-color-metal-default);
-  --leg-width: 100%;
+  --sbb-pearl-chain-color: var(--sbb-pearl-chain-bullet-color);
+  --sbb-pearl-chain-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
+  --sbb-pearl-chain-color-past: var(--sbb-pearl-chain-bullet-color-past);
+  --sbb-pearl-chain-leg-width: 100%;
 }
 
 .sbb-pearl-chain {
@@ -33,19 +30,24 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
-  color: var(--sbb-color-default);
+  color: var(--sbb-pearl-chain-color);
   width: 100%;
-  padding-block-start: calc((var(--sbb-dot-size-large) - var(--sbb-pearl-chain-height)) / 2);
-  padding-block-end: calc((var(--sbb-dot-size-large) - var(--sbb-pearl-chain-height)) / 2);
-  padding-inline-end: var(--sbb-dot-size-large);
+  padding-block-start: calc(
+    (var(--sbb-pearl-chain-bullet-size-start-end) - var(--sbb-pearl-chain-height)) / 2
+  );
+  padding-block-end: calc(
+    (var(--sbb-pearl-chain-bullet-size-start-end) - var(--sbb-pearl-chain-height)) / 2
+  );
+  padding-inline-end: var(--sbb-pearl-chain-bullet-size-start-end);
 }
 
-// first and last dot
-.sbb-pearl-chain::before,
-.sbb-pearl-chain::after {
-  --dot-size: var(--sbb-dot-size-large);
-  @include dot;
+// first and last bullet
+.sbb-pearl-chain__bullet {
+  @include sbb.pearl-chain-bullet;
+  @include sbb.pearl-chain-bullet-start-end;
 
+  content: '';
+  position: absolute;
   background-color: currentcolor;
   inset-block-start: 0;
   z-index: 3;
@@ -55,45 +57,12 @@
   }
 }
 
-.sbb-pearl-chain::before {
+.sbb-pearl-chain__bullet:first-of-type {
   inset-inline-start: 0;
 }
 
-.sbb-pearl-chain::after {
+.sbb-pearl-chain__bullet:last-of-type {
   inset-inline-end: 0;
-}
-
-.sbb-pearl-chain.sbb-pearl-chain--past::before,
-.sbb-pearl-chain.sbb-pearl-chain--past::after {
-  @include sbb.if-forced-colors {
-    background-color: GrayText;
-  }
-}
-
-.sbb-pearl-chain--departure-cancellation::before,
-.sbb-pearl-chain--arrival-cancellation::after {
-  color: var(--color-cancellation);
-
-  @include sbb.if-forced-colors {
-    background-color: ActiveText;
-  }
-}
-
-.sbb-pearl-chain--departure-cancellation.pearl-chain--past::before,
-.sbb-pearl-chain--arrival-cancellation.pearl-chain--past::after {
-  color: var(--color-past);
-
-  @include sbb.if-forced-colors {
-    color: GrayText;
-  }
-}
-
-.sbb-pearl-chain--past {
-  position: relative;
-
-  @include sbb.if-forced-colors {
-    color: GrayText;
-  }
 }
 
 .sbb-pearl-chain__leg {
@@ -103,7 +72,9 @@
   height: var(--sbb-pearl-chain-height);
   border-inline-end: var(--sbb-pearl-chain-spacing-small) solid Canvas;
   background-color: currentcolor;
-  width: var(--leg-width);
+  width: var(--sbb-pearl-chain-leg-width);
+  display: flex;
+  align-items: center;
 
   @include sbb.if-forced-colors {
     color: CanvasText;
@@ -114,31 +85,77 @@
   border: none;
 }
 
-.sbb-pearl-chain__leg--past,
-.sbb-pearl-chain--past,
-.sbb-pearl-chain__leg--progress::before,
-.sbb-pearl-chain--progress::before {
-  color: var(--color-past);
+// dot on leg
+.sbb-pearl-chain__stop {
+  @include sbb.pearl-chain-bullet;
+  @include sbb.pearl-chain-bullet-stop;
+
+  position: relative;
+  z-index: 2;
 }
 
-// dot on leg
-.sbb-pearl-chain__leg:not(:first-child) {
-  &::before {
-    --dot-size: var(--sbb-dot-size-small);
-    @include dot;
+.sbb-pearl-chain__leg--past,
+.sbb-pearl-chain--past,
+.sbb-pearl-chain__leg--progress::after,
+.sbb-pearl-chain__leg--progress .sbb-pearl-chain__stop,
+.sbb-pearl-chain--progress,
+.sbb-pearl-chain__bullet--past {
+  @include sbb.pearl-chain-bullet-past;
 
-    inset-block-start: calc(var(--dot-size) / -2 + var(--sbb-pearl-chain-height) / 2);
-    inset-inline-start: 0;
-    background-color: Canvas;
-    border: var(--sbb-pearl-chain-height) solid currentcolor;
-    z-index: 2;
+  color: var(--sbb-pearl-chain-color-past);
 
-    @include sbb.if-forced-colors {
-      .sbb-pearl-chain--past & {
-        border-color: GrayText;
-      }
-    }
+  @include sbb.if-forced-colors {
+    color: GrayText;
   }
+}
+
+.sbb-pearl-chain__bullet--progress {
+  @include sbb.pearl-chain-bullet-past;
+}
+
+.sbb-pearl-chain__bullet--departure-disruption,
+.sbb-pearl-chain--arrival-disruption,
+.sbb-pearl-chain--departure-disruption,
+.sbb-pearl-chain__leg--disruption {
+  @include sbb.pearl-chain-bullet-disruption;
+
+  color: var(--sbb-pearl-chain-color-disruption);
+
+  @include sbb.if-forced-colors {
+    background-color: ActiveText;
+  }
+}
+
+.sbb-pearl-chain__leg--disruption::after {
+  @include sbb-pearl-chain-dotted;
+}
+
+.sbb-pearl-chain__leg--skipped {
+  color: var(--sbb-pearl-chain-color-disruption);
+
+  &::after {
+    @include sbb-pearl-chain-dotted;
+  }
+}
+
+.sbb-pearl-chain__leg--disruption::after,
+.sbb-pearl-chain--past .sbb-pearl-chain__leg--disruption::after {
+  @include sbb.if-forced-colors {
+    background: none;
+    border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
+    transform: translateY(#{sbb.px-to-rem-build(1)});
+  }
+}
+
+.sbb-pearl-chain__stop--departure-skipped {
+  @include sbb.pearl-chain-bullet-skipped;
+  @include sbb.pearl-chain-bullet-stop;
+}
+
+.sbb-pearl-chain--arrival-skipped,
+.sbb-pearl-chain--departure-skipped {
+  @include sbb.pearl-chain-bullet-start-end;
+  @include sbb.pearl-chain-bullet-skipped;
 }
 
 // line on leg
@@ -166,48 +183,21 @@
 }
 
 .sbb-pearl-chain__leg--progress::after {
-  background-color: var(--color-past);
-  width: var(--leg-status);
-}
+  background-color: var(--sbb-pearl-chain-color-past);
 
-.sbb-pearl-chain__leg--cancellation {
-  color: var(--color-cancellation);
-
-  @include sbb.if-forced-colors {
-    color: ActiveText;
-  }
-}
-
-.sbb-pearl-chain__leg--cancellation::after {
-  background-color: unset;
-  background-image: linear-gradient(to right, currentcolor 0%, currentcolor 50%, Canvas 50%);
-  background-repeat: repeat-x;
-  background-size: calc(2 * var(--sbb-pearl-chain-spacing-small)) var(--sbb-pearl-chain-height);
-  inset-inline-end: var(--sbb-pearl-chain-height);
-}
-
-.sbb-pearl-chain__leg--cancellation::after,
-.sbb-pearl-chain--past .sbb-pearl-chain__leg--cancellation::after {
-  @include sbb.if-forced-colors {
-    background: none;
-    border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
-    transform: translateY(#{sbb.px-to-rem-build(1)});
-  }
+  // --sbb-pearl-chain-leg-status: defined in .tsx file
+  width: var(--sbb-pearl-chain-leg-status);
 }
 
 .sbb-pearl-chain__position {
+  @include sbb.pearl-chain-bullet-position;
+
   position: absolute;
-
-  --dot-size: var(--sbb-dot-size-large);
-  @include dot;
-
-  background-color: var(--color-current-location);
   inset-block-start: -200%;
   z-index: 4;
 
-  // --status-position: defined in .tsx file
-  inset-inline-start: var(--status-position);
-  animation: pulse 3s infinite;
+  // --sbb-pearl-chain-status-position: defined in .tsx file
+  inset-inline-start: var(--sbb-pearl-chain-status-position);
 
   @include sbb.if-forced-colors {
     background-color: ActiveText;
@@ -216,14 +206,4 @@
 
 .sbb-pearl-chain__position--no-animation {
   animation: unset;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--color-current-location-dark);
-  }
-
-  40% {
-    box-shadow: 0 0 0 #{sbb.px-to-rem-build(6)} transparent;
-  }
 }

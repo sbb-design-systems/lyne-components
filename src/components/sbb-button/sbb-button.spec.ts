@@ -10,17 +10,13 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          button-id="id"
           type="button"
           disabled
           name="name"
           value="value"
           form="formid"
-          accessibility-controls="id"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedby="id"
-          accessibility-labelledby="id"
         >
           Label Text
         </sbb-button>`,
@@ -31,33 +27,25 @@ describe('sbb-button', () => {
           variant="primary"
           negative
           size="m"
-          button-id="id"
           type="button"
           disabled
           name="name"
           value="value"
           form="formid"
-          accessibility-controls="id"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedby="id"
-          accessibility-labelledby="id"
         >
           <mock:shadow-root>
             <button
               class="sbb-button"
               dir="ltr"
-              id="id"
               type="button"
               disabled="true"
               name="name"
               value="value"
               form="formid"
-              aria-controls="id"
               aria-haspopup="true"
               aria-label="Travelcards &amp; tickets"
-              aria-describedby="id"
-              aria-labelledby="id"
              >
               <span class='sbb-button__label'><slot></slot></span>
             </button>

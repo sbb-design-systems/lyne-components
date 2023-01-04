@@ -24,8 +24,6 @@ import {
 import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 
-let nextId = 0;
-
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
   attributeFilter: ['data-group-required', 'data-group-disabled'],
@@ -41,9 +39,6 @@ const checkboxObserverConfig: MutationObserverInit = {
   tag: 'sbb-checkbox',
 })
 export class SbbCheckbox implements ComponentInterface, AccessibilityProperties {
-  /** Id of the internal input element - default id will be set automatically. */
-  @Prop() public checkboxId = `sbb-checkbox-${++nextId}`;
-
   /** Value of checkbox. */
   @Prop() public value?: string;
 
@@ -68,12 +63,6 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   /** The aria-label prop for the hidden input. */
   @Prop() public accessibilityLabel: string | undefined;
-
-  /** The aria-labelledby prop for the hidden input. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
-  /** The aria-describedby prop for the hidden input. */
-  @Prop() public accessibilityDescribedby: string | undefined;
 
   /** Whether the checkbox is checked. */
   @Prop({ mutable: true, reflect: true }) public checked: boolean;
@@ -157,11 +146,10 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   public render(): JSX.Element {
     return (
       <span class="sbb-checkbox-wrapper">
-        <label class="sbb-checkbox" htmlFor={this.checkboxId}>
+        <label class="sbb-checkbox">
           <input
             ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
             type="checkbox"
-            id={this.checkboxId}
             disabled={this.disabled || this._disabledFromGroup}
             aria-disabled={this.disabled || this._disabledFromGroup}
             required={this.required || this._requiredFromGroup}

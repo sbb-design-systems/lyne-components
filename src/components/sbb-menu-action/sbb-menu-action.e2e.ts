@@ -5,9 +5,14 @@ describe('sbb-menu-action', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent(
-      '<sbb-menu-action id="outer-id" menu-action-id="inner-id">Menu Action</sbb-menu-action>'
+    await page.setContent('<sbb-menu-action id="outer-id">Menu Action</sbb-menu-action>');
+
+    // Set id of the inner-button for later comparing of active element
+    await page.evaluate(
+      () =>
+        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
     );
+
     element = await page.find('sbb-menu-action');
   });
 

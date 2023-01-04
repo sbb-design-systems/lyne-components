@@ -4,6 +4,8 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
+  redirectedOnArrivalLeg,
+  redirectedOnDepartureLeg,
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 export const defaultTrip = {
@@ -116,6 +118,82 @@ export const pastTrip = {
     },
     tripStatus: {
       partiallyCancelled: false,
+    },
+  },
+};
+
+export const skippedLastArrivalStopTrip = {
+  legs: [pastLeg, progressLeg, futureLeg, redirectedOnArrivalLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+    },
+  },
+};
+
+export const skippedArrivalStopTrip = {
+  legs: [pastLeg, progressLeg, redirectedOnArrivalLeg, futureLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+    },
+  },
+};
+
+export const skippedDepartureStopTrip = {
+  legs: [pastLeg, progressLeg, redirectedOnDepartureLeg, futureLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
+    },
+  },
+};
+
+export const skippedFirstDepartureStopTrip = {
+  legs: [redirectedOnDepartureLeg, futureLeg],
+  summary: {
+    duration: 46,
+    arrival: {
+      time: '2022-11-30T18:30:00+01:00',
+    },
+    departure: {
+      time: '2022-11-30T17:44:00+01:00',
+    },
+    direction: 'Trimbach, Eisenbahn',
+    product: {
+      line: '502',
+      vehicleMode: 'BUS',
+      vehicleSubModeShortName: 'B',
     },
   },
 };
@@ -238,8 +316,8 @@ export const TrainTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,
@@ -268,8 +346,8 @@ export const BusTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,
@@ -301,8 +379,8 @@ export const ShipTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,
@@ -481,7 +559,6 @@ export const walkTimeTrip = {
       quayChanged: false,
       __typename: 'TripStatus',
     },
-    boardingAlightingAccessibility: 'BOARDING_ALIGHTING_BY_NOTIFICATION',
     __typename: 'TripSummary',
   },
 };
@@ -506,8 +583,8 @@ export const NoticesTrip = {
       text: 'Platzreservierung möglich',
     },
     {
-      name: 'SZ >deleteme<',
-      text: 'Platzreservierung möglich',
+      name: 'RM',
+      text: 'AAA möglich',
     },
     {
       name: 'SB >deleteme<',
@@ -529,8 +606,8 @@ export const NoticesTrip = {
   situations: [],
   summary: {
     duration: 41,
-    time: '2022-11-30T17:06:00+01:00',
     arrival: {
+      time: '2022-11-30T17:06:00+01:00',
       quayAimedName: '11',
     },
     arrivalWalk: 0,

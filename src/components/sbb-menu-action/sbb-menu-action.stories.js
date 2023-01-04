@@ -1,8 +1,8 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const getBasicTemplate = ({ text, 'menu-action-id': menuActionId, ...args }, id, iconSlot) => (
-  <sbb-menu-action {...args} menu-action-id={`${menuActionId}-${id}`}>
+const getBasicTemplate = ({ text, ...args }, id, iconSlot) => (
+  <sbb-menu-action {...args}>
     {text} {id}
     {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
   </sbb-menu-action>
@@ -31,12 +31,6 @@ const text = {
 };
 
 const amount = {
-  control: {
-    type: 'text',
-  },
-};
-
-const menuActionId = {
   control: {
     type: 'text',
   },
@@ -133,15 +127,6 @@ const form = {
   },
 };
 
-const accessibilityControls = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
 const accessibilityHaspopup = {
   control: {
     type: 'text',
@@ -157,22 +142,9 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   amount,
-  'menu-action-id': menuActionId,
   'icon-name': iconName,
   href,
   target,
@@ -183,17 +155,13 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-controls': accessibilityControls,
   'accessibility-haspopup': accessibilityHaspopup,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
 };
 
 const defaultArgs = {
   text: 'Details',
   amount: '99',
-  'menu-action-id': undefined,
   'icon-name': 'tick-small',
 
   href: 'https://www.sbb.ch/en',
@@ -205,11 +173,8 @@ const defaultArgs = {
   name: undefined,
   value: undefined,
   form: undefined,
-  'accessibility-controls': undefined,
   'accessibility-haspopup': undefined,
   'accessibility-label': 'Details',
-  'accessibility-describedby': '',
-  'accessibility-labelledby': '',
 };
 
 const buttonArgs = {

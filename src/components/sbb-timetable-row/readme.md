@@ -40,15 +40,16 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Property                         | Attribute                          | Description                                                                                       | Type                                                                                                                                     | Default     |
-| -------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `accessibilityLabel`             | `accessibility-label`              | This will be forwarded as aria-label to the relevant element.                                     | `string`                                                                                                                                 | `undefined` |
-| `active`                         | `active`                           | When this prop is true the sbb-card will be in the active state.                                  | `boolean`                                                                                                                                | `undefined` |
-| `boardingAlightingAccessibility` | `boarding-alighting-accessibility` | This will be forwarded to the notices section                                                     | `"BOARDING_ALIGHTING_BY_CREW" \| "BOARDING_ALIGHTING_BY_NOTIFICATION" \| "BOARDING_ALIGHTING_NOT_POSSIBLE" \| "BOARDING_ALIGHTING_SELF"` | `undefined` |
-| `disableAnimation`               | `disable-animation`                | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean`                                                                                                                                | `undefined` |
-| `loadingTrip`                    | `loading-trip`                     | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`                                                                                                                                | `undefined` |
-| `price`                          | --                                 | The price Prop, which consists of the data for the badge.                                         | `Price`                                                                                                                                  | `undefined` |
-| `trip` _(required)_              | --                                 | The trip Prop                                                                                     | `Trip`                                                                                                                                   | `undefined` |
+| Property             | Attribute             | Description                                                                                       | Type       | Default     |
+| -------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ---------- | ----------- |
+| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant element.                                     | `string`   | `undefined` |
+| `active`             | `active`              | When this prop is true the sbb-card will be in the active state.                                  | `boolean`  | `undefined` |
+| `boarding`           | --                    | This will be forwarded to the notices section                                                     | `Boarding` | `undefined` |
+| `disableAnimation`   | `disable-animation`   | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean`  | `undefined` |
+| `loadingPrice`       | `loading-price`       | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`  | `undefined` |
+| `loadingTrip`        | `loading-trip`        | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`  | `undefined` |
+| `price`              | --                    | The price Prop, which consists of the data for the badge.                                         | `Price`    | `undefined` |
+| `trip` _(required)_  | --                    | The trip Prop                                                                                     | `Trip`     | `undefined` |
 
 
 ## Dependencies

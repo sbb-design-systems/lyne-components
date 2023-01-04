@@ -1,18 +1,17 @@
 export type LineType = 'dotted' | 'standard' | 'thin';
 
-export type DotType = 'standard' | 'thick-bullet' | 'thin-bullet' | 'double-bullet';
+export type BulletType = 'default' | 'past' | 'irrelevant' | 'skipped';
 
-export type Color = 'red' | 'gray' | 'black' | 'sky';
+export type LineColor = 'default' | 'past' | 'disruption' | 'walk';
 
-export type DotSize = 'small' | 'medium' | 'large';
+export type BulletSize = 'start-end' | 'stop';
 
 export interface PearlChainVerticalItemAttributes {
   lineType: LineType;
-  lineColor: Color;
-  dotType?: DotType;
-  dotColor: Color;
+  lineColor: LineColor;
+  bulletType?: BulletType;
   minHeight: number;
   hideLine: boolean;
-  dotSize: DotSize;
+  bulletSize: BulletSize;
   position?: number;
 }

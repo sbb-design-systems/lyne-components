@@ -55,24 +55,6 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityDescribedby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
-const accessibilityLabelledby = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const accessibilityCloseLabel = {
   control: {
     type: 'text',
@@ -103,8 +85,6 @@ const basicArgTypes = {
   'title-back-button': titleBackButton,
   negative,
   'accessibility-label': accessibilityLabel,
-  'accessibility-describedby': accessibilityDescribedby,
-  'accessibility-labelledby': accessibilityLabelledby,
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
@@ -116,8 +96,6 @@ const basicArgs = {
   'title-back-button': true,
   negative: false,
   'accessibility-label': undefined,
-  'accessibility-describedby': undefined,
-  'accessibility-labelledby': undefined,
   'accessibility-close-label': undefined,
   'accessibility-back-label': undefined,
   'disable-animation': isChromatic(),
@@ -146,7 +124,6 @@ const triggerButton = (dialogId) => (
     data-testid="dialog-trigger"
     size="m"
     type="button"
-    accessibility-controls={dialogId}
     onClick={(event) => openDialog(event, dialogId)}
   >
     Open dialog
@@ -272,7 +249,7 @@ const FormTemplate = (args) => [
     {...args}
     ref={(dialog) => onFormDialogClose(dialog)}
   >
-    <div style={'margin-bottom: var(--sbb-spacing-fixed-4x)'}>
+    <div style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}>
       Submit the form below to close the dialog box using the
       <code style={codeStyle}>close(result?: any, target?: HTMLElement)</code>
       method and returning the form values to update the details.
@@ -311,7 +288,7 @@ const NoFooterTemplate = (args) => [
 const FullScreenTemplate = (args) => [
   triggerButton('my-dialog-6'),
   <sbb-dialog data-testid="dialog" id="my-dialog-6" {...args}>
-    <sbb-title visual-level="2" style={'margin-bottom: 1rem'} negative={args.negative}>
+    <sbb-title visual-level="2" negative={args.negative} style="margin-block-start:0">
       Many Meetings
     </sbb-title>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
@@ -336,7 +313,7 @@ const FullScreenTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.documentation = { title: 'Default Dialog' };
 Default.argTypes = basicArgTypes;
-Default.args = { ...basicArgs, 'accessibility-describedby': 'dialog-content-1' };
+Default.args = basicArgs;
 Default.play = playStory;
 
 export const Negative = DefaultTemplate.bind({});
@@ -344,7 +321,6 @@ Negative.documentation = { title: 'Negative Dialog' };
 Negative.argTypes = basicArgTypes;
 Negative.args = {
   ...basicArgs,
-  'accessibility-describedby': 'dialog-content-1',
   negative: true,
 };
 Negative.play = playStory;
@@ -356,7 +332,6 @@ SlottedTitle.args = {
   ...basicArgs,
   'title-content': undefined,
   'title-back-button': false,
-  'accessibility-describedby': 'dialog-content-2',
 };
 SlottedTitle.play = playStory;
 

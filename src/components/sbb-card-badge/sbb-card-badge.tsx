@@ -26,12 +26,6 @@ export class SbbCardBadge implements ComponentInterface, AccessibilityProperties
    */
   @Prop() public accessibilityLabel: string | undefined;
 
-  /** This will be forwarded as aria-describedby to the relevant nested element. */
-  @Prop() public accessibilityDescribedby: string | undefined;
-
-  /** This will be forwarded as aria-labelledby to the relevant nested element. */
-  @Prop() public accessibilityLabelledby: string | undefined;
-
   /** Badge appearance */
   @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'primary';
 
@@ -70,8 +64,6 @@ export class SbbCardBadge implements ComponentInterface, AccessibilityProperties
     return (
       <span
         aria-label={this.accessibilityLabel}
-        aria-describedby={this.accessibilityDescribedby}
-        aria-labelledby={this.accessibilityLabelledby}
         class={`card-badge
           ${appearanceClass}
           ${sizeClass}`}

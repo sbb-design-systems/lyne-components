@@ -11,9 +11,7 @@
   display: inline-block;
   color: inherit;
 
-  --sbb-link-color-normal: var(--sbb-color-granite-default);
-  --sbb-link-color-hover: var(--sbb-color-red125-default);
-  --sbb-link-color-active: var(--sbb-color-red150-default);
+  @include sbb.link-variables;
 }
 
 :host([variant='block']) {
@@ -21,29 +19,27 @@
 }
 
 :host([negative]) {
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-link-color-normal: var(--sbb-color-white-default);
-  --sbb-link-color-hover: var(--sbb-color-cloud-default);
-  --sbb-link-color-active: var(--sbb-color-silver-default);
+  @include sbb.link-variables--negative;
+}
+
+:host([variant='inline']) {
+  @include sbb.link-variables--inline;
 }
 
 :host([variant='inline'][negative]) {
-  --sbb-link-color-hover: var(--sbb-color-graphite-default);
-  --sbb-link-color-active: var(--sbb-color-metal-default);
+  @include sbb.link-variables--inline-negative;
 }
 
 // stylelint-disable plugin/stylelint-bem-namics
 .sbb-link {
   @include sbb.stretch(width);
+  @include sbb.link-base;
 
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
-  color: var(--sbb-link-color-normal);
-  text-decoration: none;
   word-break: break-word;
   cursor: pointer;
-  text-align: left;
 
   :host([text-size='xs']:not([variant='inline'])) & {
     @include sbb.text-xs--regular;
@@ -58,17 +54,10 @@
   }
 
   :host([variant='inline']) & {
-    @include sbb.text-inherit;
-
-    color: inherit;
-    text-decoration: underline;
+    @include sbb.link-inline-base;
   }
 
-  &:focus-visible {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
+  @include sbb.link-focus-visible;
 
   :host([disabled]) & {
     pointer-events: none;
@@ -76,28 +65,18 @@
   }
 
   :host(:not([disabled])) & {
-    @include sbb.hover-mq($hover: true) {
-      &:hover {
-        color: var(--sbb-link-color-hover);
-        text-decoration: underline;
-      }
-    }
+    @include sbb.link-hover;
 
     // Active definitions have to be after :hover definitions
-    &:active {
-      color: var(--sbb-link-color-active);
-    }
-  }
-
-  @include sbb.if-forced-colors {
-    text-decoration: underline;
-    text-decoration-skip-ink: auto; // -> read more about here https://bit.ly/3BHdTsE
+    @include sbb.link-active;
   }
 }
 // stylelint-enable plugin/stylelint-bem-namics
 
 button:where(.sbb-link) {
   @include sbb.button-reset;
+
+  text-align: left;
 }
 
 .sbb-link__icon {

@@ -28,6 +28,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   gap: var(--sbb-spacing-fixed-3x);
 }
 
+.sbb-link-list-title {
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
+
 .sbb-link-list {
   @include sbb.list-reset;
 

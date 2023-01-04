@@ -39,15 +39,74 @@ export const i18nClass: any = {
   first: {
     de: 'Erste Klasse',
     en: 'First Class',
-    fr: 'Première Classe',
+    fr: 'Première classe',
     it: 'Prima classe',
   },
   second: {
     de: 'Zweite Klasse',
     en: 'Second Class',
     fr: 'Deuxième classe',
-    it: 'Secondo Classe',
+    it: 'Seconda classe',
   },
+};
+
+export const i18nWagonLabel = (wagonNumber: number): any => ({
+  de: `Wagen mit der Nummer ${wagonNumber}.`,
+  en: `Train coach with the number ${wagonNumber}.`,
+  fr: `Wagon de train avec numéro ${wagonNumber}.`,
+  it: `Vagone del treno con il numero ${wagonNumber}.`,
+});
+
+export const i18nClosedCompartmentLabel = (wagonNumber: number): any => {
+  if (wagonNumber) {
+    return {
+      de: `Geschlossener Wagen mit der Nummer ${wagonNumber}.`,
+      en: `Closed train coach with the number ${wagonNumber}.`,
+      fr: `Wagon de train fermé avec le numéro ${wagonNumber}.`,
+      it: `Vagone del treno chiuso con il numero ${wagonNumber}.`,
+    };
+  }
+  return {
+    de: 'Geschlossener Zugwaggon.',
+    en: 'Closed train coach.',
+    fr: 'Wagon de train fermé.',
+    it: 'Vagone del treno chiuso.',
+  };
+};
+
+export const i18nLocomotiveLabel: any = {
+  de: 'Lokomotive',
+  en: 'Locomotive',
+  fr: 'Locomotive',
+  it: 'Locomotiva',
+};
+
+export const i18nBlockedPassage: any = {
+  previous: {
+    de: 'Kein Durchgang zum vorherigen Wagen.',
+    en: 'No passage to the previous train coach.',
+    fr: 'Pas de passage au wagon du train précédent.',
+    it: 'Nessun passaggio allo vagone del treno precedente.',
+  },
+  next: {
+    de: 'Kein Durchgang zum nächsten Wagen.',
+    en: 'No passage to the next train coach.',
+    fr: 'Pas de passage au wagon de train suivant.',
+    it: 'Nessun passaggio allo vagone del treno successivo.',
+  },
+  both: {
+    de: 'Kein Durchgang zum nächsten und vorherigen Wagen.',
+    en: 'No passage to the next and previous train coach.',
+    fr: 'Pas de passage au wagon de train suivant et précédent.',
+    it: 'Nessun passaggio allo vagone del treno successivo e precedente',
+  },
+};
+
+export const i18nAdditionalWagonInformationHeading: any = {
+  de: 'Zusätzliche Wageninformation',
+  en: 'Additional wagon information',
+  fr: 'Informations supplémentaires sur les wagons',
+  it: 'Informazioni aggiuntive sul vagone',
 };
 
 export const i18nConnectionsDepartOn: any = {
@@ -55,13 +114,6 @@ export const i18nConnectionsDepartOn: any = {
   en: 'Departures on',
   fr: 'Départs le',
   it: 'Partenze su',
-};
-
-export const i18nShowConnectionDetailsAndBuyOptions: any = {
-  de: 'Verbindungsdetails und Kaufoptionen',
-  en: 'Connection details and purchase options',
-  fr: "Détails de la connexion et options d'achat",
-  it: 'Dettagli di connessione e opzioni di acquisto',
 };
 
 export const i18nDayChange: any = {
@@ -76,13 +128,6 @@ export const i18nDeparture: any = {
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza',
-};
-
-export const i18nDeleteCurrentInput: any = {
-  de: 'Feld leeren',
-  en: 'Empty field',
-  fr: 'Videz le champ',
-  it: 'Svuotare il campo',
 };
 
 export const i18nDistance: any = {
@@ -112,7 +157,7 @@ export const i18nDistanceMeter: any = {
       de: 'Meter',
       en: 'Meters',
       fr: 'mètres',
-      it: 'Metros',
+      it: 'Metri',
     },
     short: {
       de: 'm',
@@ -159,7 +204,7 @@ export const i18nDurationMinute: any = {
     long: {
       de: 'Minute',
       en: 'Minute',
-      fr: 'minute',
+      fr: 'Minute',
       it: 'Minuto',
     },
     short: {
@@ -173,14 +218,14 @@ export const i18nDurationMinute: any = {
     long: {
       de: 'Minuten',
       en: 'Minutes',
-      fr: 'minutes',
+      fr: 'Minutes',
       it: 'Minuti',
     },
     short: {
-      de: 'min',
+      de: 'Min',
       en: 'min',
-      fr: 'min',
-      it: 'min',
+      fr: 'min.',
+      it: 'mins',
     },
   },
 };
@@ -194,10 +239,10 @@ export const i18nDurationHour: any = {
       it: 'Ora',
     },
     short: {
-      de: 'h',
+      de: 'Std.',
       en: 'h',
-      fr: 'h',
-      it: 'h',
+      fr: 'ore',
+      it: 'hrs',
     },
   },
   multiple: {
@@ -208,10 +253,10 @@ export const i18nDurationHour: any = {
       it: 'Ore',
     },
     short: {
-      de: 'h',
+      de: 'Std.',
       en: 'h',
-      fr: 'h',
-      it: 'h',
+      fr: 'ore',
+      it: 'hrs',
     },
   },
 };
@@ -275,13 +320,6 @@ export const i18nLaterConnections: any = {
   it: 'Collegamenti successivi',
 };
 
-export const i18nMandatoryField: any = {
-  de: 'Pflichtfeld, bitte ausfüllen.',
-  en: 'Mandatory field, please complete.',
-  fr: 'Champ obligatoire, veuillez compléter svp.',
-  it: 'Campo obbligatorio, si prega di compilare.',
-};
-
 export const i18nNone: any = {
   de: 'Keine',
   en: 'None',
@@ -324,7 +362,7 @@ export const i18nOptional: any = {
 };
 
 export const i18nShowOnMap: any = {
-  de: 'Karte anzeigen',
+  de: 'Auf der Karte anzeigen',
   en: 'Show on the map',
   fr: 'Indiquer sur la carte',
   it: 'Visualizzare sulla carta',
@@ -345,7 +383,7 @@ export const i18nXResultsAvailable = (resultsCount: number): any => ({
 });
 
 export const i18nUseArrowKeysToNavigate: any = {
-  de: 'Verwenden Sie nach oben und unten Pfeiltasten um zu navigieren.',
+  de: 'Verwenden Sie Pfeiltasten nach oben und unten, um zu navigieren.',
   en: 'Use up and down arrow keys to navigate.',
   fr: 'Utilisez les touches fléchées haut et bas pour naviguer.',
   it: 'Usa i tasti freccia su e giù per navigare.',
@@ -360,7 +398,7 @@ export const i18nWalk: any = {
 export const i18nWalkingDistanceArrival: any = {
   de: 'Minuten Fussweg nach Ankunft:',
   en: 'minutes of walking time after arrival:',
-  fr: 'minutes trajet à pied après l’arrivée:',
+  fr: 'minutes de trajet à pied après l’arrivée:',
   it: 'minuti a piedi all’arrivo:',
 };
 
@@ -386,17 +424,24 @@ export const i18nCloseAlert: any = {
 };
 
 export const i18nCloseDialog: any = {
-  de: 'Modal schliessen',
-  en: 'Close modal',
-  fr: 'Fermer la modale',
-  it: 'Chiudere la modale',
+  de: 'Übergelagertes Fenster schliessen',
+  en: 'Close secondary window',
+  fr: 'Fermer la fenêtre superposée',
+  it: 'Chiudere la finestra sovrapposta',
+};
+
+export const i18nCloseNavigation: any = {
+  de: 'Navigation schliessen',
+  en: 'Close navigation',
+  fr: 'Fermer la navigation',
+  it: 'Chiudere la navigazione',
 };
 
 export const i18nCloseTooltip: any = {
-  de: 'Tooltip schliessen',
-  en: 'Close tooltip',
-  fr: 'Fermer le tooltip',
-  it: 'Chiudere il tooltip',
+  de: 'Hinweis schliessen',
+  en: 'Close note',
+  fr: 'Fermer la note',
+  it: 'Chiudere la nota',
 };
 
 export const i18nGoBack: any = {

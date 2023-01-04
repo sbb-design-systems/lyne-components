@@ -10,10 +10,7 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
           download
-          link-id="id"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedbdy="id"
-          accessibility-labelledby="id"
           >
             Travelcards &amp; tickets.
           </sbb-link>
@@ -26,20 +23,15 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           text-size="m"
           download
-          link-id="id"
           accessibility-label="Travelcards & tickets"
-          accessibility-describedbdy="id"
-          accessibility-labelledby="id"
           >
           <mock:shadow-root>
             <a
               aria-label="Travelcards & tickets"
-              aria-labelledby="id"
               class="sbb-link"
               dir="ltr"
               download
               href="https://github.com/lyne-design-system/lyne-components"
-              id="id"
             >
               <slot></slot>
             </a>
@@ -61,7 +53,6 @@ describe('sbb-link', () => {
           type="submit"
           form="formid"
           disabled
-          accessibility-controls="id"
           accessibility-haspopup="true"
         >
           <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
@@ -79,7 +70,6 @@ describe('sbb-link', () => {
           type="submit"
           form="formid"
           disabled
-          accessibility-controls="id"
           accessibility-haspopup="true"
         >
           <mock:shadow-root>
@@ -90,7 +80,6 @@ describe('sbb-link', () => {
               form="formid"
               name="name"
               type="submit"
-              aria-controls="id"
               aria-haspopup="true"
             >
               <span class="sbb-link__icon">

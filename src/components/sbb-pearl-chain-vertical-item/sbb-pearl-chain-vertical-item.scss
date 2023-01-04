@@ -4,198 +4,26 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-@mixin dot {
-  border-radius: 100%;
-  border-color: var(--sbb-color-white-default);
-  position: relative;
-  z-index: 2;
-  height: var(--sbb-pearl-chain-vertical-item-dot-size);
-  width: var(--sbb-pearl-chain-vertical-item-dot-size);
-}
-
-@mixin dot--transfer {
-  @include dot;
-
-  background-color: transparent;
-  z-index: 2;
-
-  @include sbb.if-forced-colors {
-    .pearl-chain--past & {
-      border-color: GrayText;
-    }
-  }
-}
-
 :host {
+  @include sbb.pearl-chain-bullet-variables;
+
   display: table-row;
   position: relative;
 
   --sbb-pearl-chain-vertical-right-item-width: 100%;
-  --sbb-pearl-chain-vertical-item-dot-size-ultra: var(--sbb-spacing-fixed-3x);
-  --sbb-pearl-chain-vertical-item-dot-size-large: #{sbb.px-to-rem-build(10)};
-  --sbb-pearl-chain-vertical-item-dot-size-medium: var(--sbb-spacing-fixed-2x);
-  --sbb-pearl-chain-vertical-item-dot-size-small: #{sbb.px-to-rem-build(7)};
-  --sbb-pearl-chain-vertical-item-dot-size-extra-small: #{sbb.px-to-rem-build(6)};
-  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-small);
-  --sbb-pearl-chain-vertical-item-bullet-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-vertical-item-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
   --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
-  --sbb-pearl-chain-vertical-item-color-white: var(--sbb-color-white-default);
-  --sbb-pearl-chain-vertical-item-color-default: var(--sbb-color-charcoal-default);
-  --sbb-pearl-chain-vertical-item-color-red: var(--sbb-color-red-default);
-  --sbb-pearl-chain-vertical-item-color-red-dark: var(--sbb-color-red150-default);
-  --sbb-pearl-chain-vertical-item-color-metal: var(--sbb-color-metal-default);
-  --sbb-pearl-chain-vertical-item-color-sky: #0079c7;
+  --sbb-pearl-chain-vertical-item-color-default: var(--sbb-pearl-chain-bullet-color);
+  --sbb-pearl-chain-vertical-item-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
+  --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-bullet-color-past);
+  --sbb-pearl-chain-vertical-item-color-walk: var(--sbb-color-sky-default);
   --sbb-pearl-chain-vertical-item-inline-start: 50%;
   --sbb-pearl-chain-vertical-item-transform: translateX(-50%);
 }
 
-.sbb-pearl-chain-vertical-item-position__dot--disable-animation {
-  animation: unset !important;
-}
-
-.sbb-pearl-chain-vertical-item__dot-size--small {
-  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-small);
-
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-}
-
-.sbb-pearl-chain-vertical-item__dot-size--medium {
-  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-medium);
-
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-}
-
-.sbb-pearl-chain-vertical-item__dot-size--large {
-  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-large);
-
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-}
-
-.sbb-pearl-chain-vertical-item__dot-size--ultra {
-  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-ultra);
-}
-
-.sbb-pearl-chain-vertical-item__dot-size--extra-small {
-  margin-inline-start: calc(
-    var(--sbb-pearl-chain-vertical-item-dot-size-extra-small) / 2 -
-      var(--sbb-pearl-chain-vertical-item-bullet-border-width)
-  );
-  inset-block-start: calc(
-    var(--sbb-pearl-chain-vertical-item-dot-size-extra-small) / 2 -
-      var(--sbb-pearl-chain-vertical-item-bullet-border-width)
-  );
-
-  --sbb-pearl-chain-vertical-item-dot-size: var(
-    --sbb-pearl-chain-vertical-item-dot-size-extra-small
-  );
-}
-
-.sbb-pearl-chain-vertical-item__line {
-  position: absolute;
-  bottom: 0;
-  flex: 1 1 0%;
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-  width: var(--sbb-border-width-2x);
-  inset-block-start: var(--sbb-pearl-chain-vertical-item-dot-size);
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset-inline-start: 0;
-    inset-block-start: 0;
-    height: var(--sbb-pearl-chain-vertical-item-leg-status);
-    width: var(--sbb-pearl-chain-vertical-item-border-width);
-    background-color: var(--sbb-pearl-chain-vertical-item-color-metal);
-  }
-}
-
-.sbb-pearl-chain-vertical-item-position__dot {
-  @include dot;
-
-  --sbb-pearl-chain-vertical-item-dot-size: var(--sbb-pearl-chain-vertical-item-dot-size-large);
-
-  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
-  position: absolute;
-  animation: pulse 2800ms var(--sbb-animation-easing) infinite;
-  border: var(--sbb-pearl-chain-vertical-item-border-width) currentcolor;
-  border-color: var(--sbb-pearl-chain-vertical-item-color-red);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-red);
-  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
-  transform: var(--sbb-pearl-chain-vertical-item-transform);
-}
-
-.sbb-pearl-chain-vertical-item__line--dotted {
-  background-color: unset;
-  border-color: unset;
-  background-image: linear-gradient(
-    to bottom,
-    currentcolor 0%,
-    currentcolor 50%,
-    var(--sbb-pearl-chain-vertical-item-color-white) 50%
-  );
-  background-repeat: repeat-y;
-  background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
-    var(--sbb-pearl-chain-vertical-item-spacing-small);
-}
-
-.sbb-pearl-chain-vertical-item__line--thin {
-  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
-}
-
-.sbb-pearl-chain-vertical-item__dot--standard {
-  @include dot;
-
-  border: var(--sbb-pearl-chain-vertical-item-border-width) currentcolor;
-}
-
-.sbb-pearl-chain-vertical-item__dot--thick-bullet {
-  @include dot--transfer;
-
-  border: var(--sbb-pearl-chain-vertical-item-bullet-border-width) solid currentcolor;
-  background-color: var(--sbb-pearl-chain-vertical-item-color-white) !important;
-}
-
-.sbb-pearl-chain-vertical-item__dot--thin-bullet {
-  @include dot--transfer;
-
-  --sbb-pearl-chain-vertical-item-bullet-border-width: var(
-    --sbb-pearl-chain-vertical-item-border-width-thin
-  );
-
-  border: var(--sbb-pearl-chain-vertical-item-bullet-border-width) solid currentcolor;
-  background-color: var(--sbb-pearl-chain-vertical-item-color-white) !important;
-}
-
-.sbb-color--charcoal {
-  background-color: var(--sbb-pearl-chain-vertical-item-color-default);
-  border-color: var(--sbb-pearl-chain-vertical-item-color-default);
-  color: var(--sbb-pearl-chain-vertical-item-color-default);
-}
-
-.sbb-color--red {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-red);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-red);
-  color: var(--sbb-pearl-chain-vertical-item-color-red);
-}
-
-.sbb-color--metal {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-metal);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-metal);
-  color: var(--sbb-pearl-chain-vertical-item-color-metal);
-}
-
-.sbb-color--sky {
-  border-color: var(--sbb-pearl-chain-vertical-item-color-sky);
-  background-color: var(--sbb-pearl-chain-vertical-item-color-sky);
-  color: var(--sbb-pearl-chain-vertical-item-color-sky);
-}
+// layout stlyes
 
 .sbb-pearl-chain-vertical-item__column {
   display: table-cell;
@@ -208,10 +36,7 @@
 }
 
 .sbb-pearl-chain-vertical-item__column--middle {
-  width: var(
-    --sbb-pearl-chain-vertical-middle-item-width,
-    --sbb-pearl-chain-vertical-item-dot-size
-  );
+  width: var(--sbb-pearl-chain-vertical-middle-item-width, --sbb-pearl-chain-bullet-size-start-end);
 }
 
 slot[name='left']::slotted(*) {
@@ -229,30 +54,110 @@ slot[name='right']::slotted(*) {
   border-spacing: 0;
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--sbb-color-red);
-  }
+// line styles
 
-  50% {
-    box-shadow: 0 0 0 #{sbb.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
-  }
+.sbb-pearl-chain-vertical-item__line {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
+  width: var(--sbb-border-width-2x);
+  inset-block-start: calc(var(--sbb-pearl-chain-bullet-size-start-end) / 2);
 
-  100% {
-    box-shadow: 0 0 0 0 var(--sbb-color-red);
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    height: var(--sbb-pearl-chain-vertical-item-leg-status);
+    width: var(--sbb-pearl-chain-vertical-item-border-width);
+    background-color: var(--sbb-pearl-chain-vertical-item-color-past);
   }
 }
 
-@keyframes pulse-dot {
-  0% {
-    transform: scale(1);
-  }
+.sbb-pearl-chain-vertical-item__line--dotted {
+  background-color: unset;
+  border-color: unset;
+  background-image: linear-gradient(to bottom, currentcolor 0%, currentcolor 50%, Canvas 50%);
+  background-repeat: repeat-y;
+  background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
+    var(--sbb-pearl-chain-vertical-item-spacing-small);
+}
 
-  50% {
-    transform: scale(1.6);
-  }
+.sbb-pearl-chain-vertical-item__line--thin {
+  width: var(--sbb-pearl-chain-vertical-item-border-width-thin);
+}
 
-  100% {
-    transform: scale(1);
-  }
+.sbb-pearl-chain-vertical-item__line--default {
+  background-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  border-color: var(--sbb-pearl-chain-vertical-item-color-default);
+  color: var(--sbb-pearl-chain-vertical-item-color-default);
+}
+
+.sbb-pearl-chain-vertical-item__line--disruption {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+}
+
+.sbb-pearl-chain-vertical-item__line--past {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+  color: var(--sbb-pearl-chain-vertical-item-color-past);
+}
+
+.sbb-pearl-chain-vertical-item__line--walk {
+  border-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  background-color: var(--sbb-pearl-chain-vertical-item-color-walk);
+  color: var(--sbb-pearl-chain-vertical-item-color-walk);
+}
+
+// Bullet styles
+
+.sbb-pearl-chain-vertical-item__bullet {
+  @include sbb.pearl-chain-bullet;
+
+  position: relative;
+  inset-inline-start: var(--sbb-pearl-chain-vertical-item-inline-start);
+  transform: var(--sbb-pearl-chain-vertical-item-transform);
+}
+
+.sbb-pearl-chain-vertical-item__bullet--start-end {
+  @include sbb.pearl-chain-bullet-start-end;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop {
+  @include sbb.pearl-chain-bullet-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--disruption {
+  @include sbb.pearl-chain-bullet-disruption;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--irrelevant,
+.sbb-pearl-chain-vertical-item__bullet--past {
+  @include sbb.pearl-chain-bullet-past;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--irrelevant {
+  @include sbb.pearl-chain-bullet-irrelevant-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--start-end.sbb-pearl-chain-vertical-item__bullet--skipped {
+  @include sbb.pearl-chain-bullet-skipped;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--stop.sbb-pearl-chain-vertical-item__bullet--skipped {
+  @include sbb.pearl-chain-bullet-skipped-stop;
+}
+
+.sbb-pearl-chain-vertical-item__bullet--position {
+  @include sbb.pearl-chain-bullet-position;
+  @include sbb.absolute-center-x;
+
+  inset-block-start: var(--sbb-pearl-chain-vertical-item-position);
+}
+
+.sbb-pearl-chain-vertical-item__bullet--position-disable-animation {
+  animation: unset !important;
 }
