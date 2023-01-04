@@ -54,9 +54,24 @@
 }
 
 .sbb-tag__wrapper {
-  display: block;
   position: relative;
   user-select: none;
+}
+
+.sbb-tag {
+  @include sbb.text-xs--bold;
+
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: var(--sbb-tag-height);
+  gap: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-fixed-5x);
+  cursor: pointer;
+  border-radius: var(--sbb-tag-border-radius);
+  color: var(--sbb-tag-text-color);
+  transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
 
   // Pressed state
   &:active {
@@ -64,6 +79,18 @@
     --sbb-tag-border-color: var(--sbb-color-iron-default);
     --sbb-tag-border-width: var(--sbb-border-width-2x);
     --sbb-tag-text-color: var(--sbb-color-iron-default);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: var(--sbb-tag-inset);
+    background-color: var(--sbb-tag-background-color);
+    border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
+    border-radius: var(--sbb-tag-border-radius);
+    transition-duration: var(--sbb-tag-animation-duration);
+    transition-timing-function: var(--sbb-tag-animation-easing);
+    transition-property: inset, background-color, border-color, box-shadow;
   }
 
   :host([disabled]) & {
@@ -88,34 +115,6 @@
     }
   }
   /* stylelint-enable plugin/stylelint-bem-namics */
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: var(--sbb-tag-inset);
-    background-color: var(--sbb-tag-background-color);
-    border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
-    border-radius: var(--sbb-tag-border-radius);
-    transition-duration: var(--sbb-tag-animation-duration);
-    transition-timing-function: var(--sbb-tag-animation-easing);
-    transition-property: inset, background-color, border-color, box-shadow;
-  }
-}
-
-.sbb-tag {
-  @include sbb.text-xs--bold;
-
-  position: relative;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  height: var(--sbb-tag-height);
-  gap: var(--sbb-spacing-fixed-2x);
-  padding-inline: var(--sbb-spacing-fixed-5x);
-  cursor: pointer;
-  border-radius: var(--sbb-tag-border-radius);
-  color: var(--sbb-tag-text-color);
-  transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
 }
 
 .sbb-tag__icon {
@@ -145,6 +144,6 @@ input[type='checkbox'] {
   @include sbb.invisible-container-overlay;
 }
 
-input[type='checkbox']:focus-visible + .sbb-tag {
+input[type='checkbox']:focus-visible + .sbb-tag::before {
   @include sbb.focus-outline;
 }
