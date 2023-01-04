@@ -554,7 +554,7 @@ export namespace Components {
          */
         "variant": InterfaceFooterAttributes['variant'];
         /**
-          * Whether the footer should be stretched to full width.
+          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
          */
         "wide": boolean;
     }
@@ -598,7 +598,7 @@ export namespace Components {
          */
         "shadow": boolean;
         /**
-          * Whether the header should be stretched to full width.
+          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
          */
         "wide": boolean;
     }
@@ -2848,7 +2848,7 @@ declare namespace LocalJSX {
          */
         "variant"?: InterfaceFooterAttributes['variant'];
         /**
-          * Whether the footer should be stretched to full width.
+          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
          */
         "wide"?: boolean;
     }
@@ -2892,7 +2892,7 @@ declare namespace LocalJSX {
          */
         "shadow"?: boolean;
         /**
-          * Whether the header should be stretched to full width.
+          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
          */
         "wide"?: boolean;
     }
