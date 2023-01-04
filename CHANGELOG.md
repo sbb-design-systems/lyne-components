@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.9](https://github.com/lyne-design-system/lyne-components/compare/v0.20.8...v0.20.9) (2023-01-04)
+
+### Bug Fixes
+
+- **sbb-teaser:** fix focus visible border-radius ([#1519](https://github.com/lyne-design-system/lyne-components/issues/1519)) ([5b3f9a9](https://github.com/lyne-design-system/lyne-components/commit/5b3f9a9ff89d09042a9da8cf01b30d41d12dd58d))
+
 ### [0.20.8](https://github.com/lyne-design-system/lyne-components/compare/v0.20.7...v0.20.8) (2023-01-04)
 
 ### Bug Fixes
