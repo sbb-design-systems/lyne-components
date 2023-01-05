@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.12](https://github.com/lyne-design-system/lyne-components/compare/v0.20.11...v0.20.12) (2023-01-05)
+
+### Features
+
+- **typography:** expose legend style as css class ([#1521](https://github.com/lyne-design-system/lyne-components/issues/1521)) ([1d1a26f](https://github.com/lyne-design-system/lyne-components/commit/1d1a26f06b4433ad53f202655114304d4fa71f10))
+
 ### [0.20.11](https://github.com/lyne-design-system/lyne-components/compare/v0.20.10...v0.20.11) (2023-01-04)
 
 ### Bug Fixes
