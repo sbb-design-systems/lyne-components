@@ -71,7 +71,7 @@ export class SbbToggle implements ComponentInterface {
   @Watch('disabled')
   public updateDisabled(): void {
     for (const toggleOption of this._options) {
-      toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
+      toggleOption.disabled = this.disabled;
       toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
   }

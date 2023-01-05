@@ -18,7 +18,7 @@ describe('sbb-toggle-option', () => {
   it('selects the sbb-toggle-option on click', async () => {
     const didSelect = await page.spyOnEvent(events.didSelect);
 
-    await element.callMethod('select');
+    await element.click();
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
@@ -28,13 +28,15 @@ describe('sbb-toggle-option', () => {
   it('does not deselect sbb-toggle-option if already checked', async () => {
     const didSelect = await page.spyOnEvent(events.didSelect);
 
-    await element.callMethod('select');
+    await element.click();
     await page.waitForChanges();
+
     expect(element).toHaveAttribute('checked');
     expect(didSelect).toHaveReceivedEventTimes(1);
 
-    await element.callMethod('select');
+    await element.click();
     await page.waitForChanges();
+
     expect(element).toHaveAttribute('checked');
     expect(didSelect).toHaveReceivedEventTimes(2);
   });
