@@ -42,14 +42,11 @@ html {
 
 .sbb-list {
   @include lists.list;
+  @include lists.description-list;
 }
 
 .sbb-step-list {
   @include lists.step-list;
-}
-
-.sbb-description-list {
-  @include lists.description-list;
 }
 
 .sbb-legend {

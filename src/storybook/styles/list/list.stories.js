@@ -53,7 +53,7 @@ const StepsTemplate = () =>
   ]);
 
 const DescriptionListTemplate = () => (
-  <dl class="sbb-description-list">
+  <dl class="sbb-list">
     <dt>Label:</dt>
     <dd>Description of the label.</dd>
 
