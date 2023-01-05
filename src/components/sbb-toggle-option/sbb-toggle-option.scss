@@ -54,6 +54,8 @@ input[type='radio'] {
 .sbb-toggle-option__label {
   @include sbb.ellipsis;
 
+  // We need to use a ::before pseudo-element to show a single outline wrapping
+  // the entire toggle when a toggle option receives :focus-visible.
   :host(:focus-visible) & {
     ::before {
       content: '';

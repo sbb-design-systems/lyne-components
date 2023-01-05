@@ -138,7 +138,7 @@ export class SbbToggle implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._toggleResizeObserver.observe(this._element);
+    this._toggleResizeObserver.observe(this._element.firstElementChild);
   }
 
   public disconnectedCallback(): void {
@@ -188,12 +188,7 @@ export class SbbToggle implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host role="radiogroup">
-        <div
-          class="sbb-toggle"
-          // tabIndex={this.disabled ? -1 : 0}
-          tabindex="-1"
-          ref={(toggle) => (this._toggleElement = toggle)}
-        >
+        <div class="sbb-toggle" tabindex="-1" ref={(toggle) => (this._toggleElement = toggle)}>
           <slot onSlotchange={() => this._updateToggle()} />
         </div>
       </Host>

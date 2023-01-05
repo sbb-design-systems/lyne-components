@@ -109,8 +109,8 @@ export class SbbToggleOption implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host
-        // eslint-disable-next-line jsx-a11y/aria-proptypes
-        aria-checked={`${this.checked}`}
+        // The `aria-checked` attribute needs a string value to be correctly read by screen-readers
+        aria-checked={this.checked.toString()}
         aria-disabled={this.disabled}
         role="radio"
       >

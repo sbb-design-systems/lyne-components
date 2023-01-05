@@ -14,6 +14,8 @@
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-toggle-height: #{sbb.px-to-rem-build(28)};
+  --sbb-toggle-border-width: var(--sbb-border-width-1x);
+  --sbb-toggle-border-radius: var(--sbb-border-radius-16x);
 
   @include sbb.mq($from: medium) {
     --sbb-toggle-height: #{sbb.px-to-rem-build(32)};
@@ -59,7 +61,7 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   background: var(--sbb-color-cloud-default);
-  border-radius: var(--sbb-border-radius-16x);
+  border-radius: var(--sbb-toggle-border-radius);
 
   &::after {
     content: '';
@@ -67,14 +69,14 @@
     display: inline-block;
     opacity: 1;
     background-color: var(--sbb-toggle-selected-option-background-color);
-    border: var(--sbb-border-width-1x) solid var(--sbb-toggle-selected-option-border-color);
-    border-radius: var(--sbb-border-radius-16x);
+    border: var(--sbb-toggle-border-width) solid var(--sbb-toggle-selected-option-border-color);
+    border-radius: var(--sbb-toggle-border-radius);
     position: absolute;
     max-width: 100%;
     min-width: var(--sbb-toggle-min-width);
 
     // Selected option exceeds toggle dimensions by 2x border width
-    inset-block: calc(-2 * var(--sbb-border-width-1x));
+    inset-block: calc(-2 * var(--sbb-toggle-border-width));
     inset-inline-end: calc(var(--sbb-toggle-option-right) - #{sbb.px-to-rem-build(2)});
     inset-inline-start: calc(var(--sbb-toggle-option-left) - #{sbb.px-to-rem-build(2)});
     transition: {
@@ -84,11 +86,11 @@
     }
 
     @include sbb.if-forced-colors {
-      border-color: Highlight;
+      --sbb-toggle-selected-option-border-color: Highlight;
     }
   }
 
   @include sbb.if-forced-colors {
-    outline: var(--sbb-border-width-1x) solid CanvasText;
+    outline: var(--sbb-toggle-border-width) solid CanvasText;
   }
 }
