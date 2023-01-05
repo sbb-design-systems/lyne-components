@@ -14,6 +14,7 @@ import {
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 let nextId = 0;
 
@@ -48,14 +49,15 @@ export class SbbToggle implements ComponentInterface {
   @Prop({ reflect: true }) public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
-   * The value of the toggle.
+   * The value of the toggle. It needs to be mutable since it is updated whenever 
+   * a new option is selected (see the `onToggleOptionSelect()` method).
    */
   @Prop({ mutable: true }) public value: any | null;
 
   /**
    * Whether the animation is enabled.
    */
-  @Prop({ reflect: true, mutable: true }) public disableAnimation = false;
+  @Prop({ reflect: true }) public disableAnimation = false;
 
   @Element() private _element: HTMLElement;
 
@@ -115,7 +117,7 @@ export class SbbToggle implements ComponentInterface {
     this.value = event.detail;
   }
 
-  private _setCheckedPillPosition(disableAnimation: boolean): void {
+  private _setCheckedPillPosition(resizing: boolean): void {
     const options = this._options;
     const checked = this._checked;
 
@@ -123,11 +125,8 @@ export class SbbToggle implements ComponentInterface {
       return;
     }
 
-    if (!disableAnimation) {
-      this._element.removeAttribute('disable-animation');
-    }
+    toggleDatasetEntry(this._element, 'disableAnimationOnResizing', resizing);
 
-    this.disableAnimation = disableAnimation;
     const checkedIndex = options.findIndex((option) => option === checked);
     const pillLeft = checkedIndex === 0 ? '0px' : `${options[0].clientWidth}px`;
     const pillRigth =

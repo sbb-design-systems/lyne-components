@@ -44,7 +44,8 @@
   }
 }
 
-:host([disable-animation]) {
+:host([disable-animation]),
+:host([data-disable-animation-on-resizing]) {
   --sbb-toggle-animation-duration: 0s;
 }
 

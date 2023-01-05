@@ -19,14 +19,14 @@ The `<sbb-toggle-option>` component is used inside the toggle component to rende
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                              | Type         | Default                    |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------ | -------------------------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                                        | `boolean`    | `false`                    |
-| `disabled`         | `disabled`          | Whether the toggle is disabled.                                                                                          | `boolean`    | `false`                    |
-| `even`             | `even`              | If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option. | `boolean`    | `undefined`                |
-| `sbbToggleId`      | `sbb-toggle-id`     | Id of the toggle element.                                                                                                | `string`     | ``sbb-toggle-${++nextId}`` |
-| `size`             | `size`              | Size variant, either m or s.                                                                                             | `"m" \| "s"` | `'m'`                      |
-| `value`            | `value`             | The value of the toggle.                                                                                                 | `any`        | `undefined`                |
+| Property           | Attribute           | Description                                                                                                                                       | Type         | Default                    |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | -------------------------- |
+| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                                                                 | `boolean`    | `false`                    |
+| `disabled`         | `disabled`          | Whether the toggle is disabled.                                                                                                                   | `boolean`    | `false`                    |
+| `even`             | `even`              | If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.                          | `boolean`    | `undefined`                |
+| `sbbToggleId`      | `sbb-toggle-id`     | Id of the toggle element.                                                                                                                         | `string`     | ``sbb-toggle-${++nextId}`` |
+| `size`             | `size`              | Size variant, either m or s.                                                                                                                      | `"m" \| "s"` | `'m'`                      |
+| `value`            | `value`             | The value of the toggle. It needs to be mutable since it is updated whenever  a new option is selected (see the `onToggleOptionSelect()` method). | `any`        | `undefined`                |
 
 
 ## Events

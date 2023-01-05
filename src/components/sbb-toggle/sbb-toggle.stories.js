@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const disabled = {
   control: {
@@ -32,6 +33,15 @@ const size = {
 const value = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Toggle',
+  },
+};
+
+const disableAnimation = {
+  control: {
+    type: 'boolean',
   },
   table: {
     category: 'Toggle',
@@ -74,6 +84,7 @@ const defaultArgTypes = {
   label,
   labelTwo,
   iconName: iconName,
+  'disable-animation': disableAnimation,
 };
 
 const defaultArgs = {
@@ -84,6 +95,7 @@ const defaultArgs = {
   label: 'Bern',
   labelTwo: 'Zurich',
   iconName: undefined,
+  'disable-animation': isChromatic(),
 };
 
 const DefaultTemplate = ({ label, labelTwo, iconName, ...args }) => (

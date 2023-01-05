@@ -1608,7 +1608,7 @@ export namespace Components {
          */
         "size"?: InterfaceSbbToggleAttributes['size'];
         /**
-          * The value of the toggle.
+          * The value of the toggle. It needs to be mutable since it is updated whenever  a new option is selected (see the `onToggleOptionSelect()` method).
          */
         "value": any | null;
     }
@@ -3986,7 +3986,7 @@ declare namespace LocalJSX {
          */
         "size"?: InterfaceSbbToggleAttributes['size'];
         /**
-          * The value of the toggle.
+          * The value of the toggle. It needs to be mutable since it is updated whenever  a new option is selected (see the `onToggleOptionSelect()` method).
          */
         "value"?: any | null;
     }
