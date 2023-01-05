@@ -99,9 +99,10 @@ The examples below shows how to use the component (with shadow on).
 
 ## Properties
 
-| Property | Attribute | Description                                                                            | Type      | Default |
-| -------- | --------- | -------------------------------------------------------------------------------------- | --------- | ------- |
-| `shadow` | `shadow`  | Used to display a box-shadow below the component on y-axis scroll whether set to true. | `boolean` | `false` |
+| Property | Attribute | Description                                                                                                          | Type      | Default |
+| -------- | --------- | -------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `shadow` | `shadow`  | Used to display a box-shadow below the component on y-axis scroll whether set to true.                               | `boolean` | `false` |
+| `wide`   | `wide`    | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean` | `false` |
 
 
 ## Slots

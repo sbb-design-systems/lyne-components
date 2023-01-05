@@ -554,6 +554,10 @@ export namespace Components {
           * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
          */
         "variant": InterfaceFooterAttributes['variant'];
+        /**
+          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "wide": boolean;
     }
     interface SbbFormError {
     }
@@ -594,6 +598,10 @@ export namespace Components {
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */
         "shadow": boolean;
+        /**
+          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "wide": boolean;
     }
     interface SbbHeaderAction {
         /**
@@ -2903,6 +2911,10 @@ declare namespace LocalJSX {
           * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
          */
         "variant"?: InterfaceFooterAttributes['variant'];
+        /**
+          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "wide"?: boolean;
     }
     interface SbbFormError {
     }
@@ -2943,6 +2955,10 @@ declare namespace LocalJSX {
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */
         "shadow"?: boolean;
+        /**
+          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "wide"?: boolean;
     }
     interface SbbHeaderAction {
         /**

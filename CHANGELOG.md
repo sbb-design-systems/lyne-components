@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.13](https://github.com/lyne-design-system/lyne-components/compare/v0.20.12...v0.20.13) (2023-01-05)
+
+### Bug Fixes
+
+- **sbb-title:** fix spacing between sbb-title and paragraph ([#1522](https://github.com/lyne-design-system/lyne-components/issues/1522)) ([bb0bd68](https://github.com/lyne-design-system/lyne-components/commit/bb0bd68929f1ff0c4b5374a99d998d5eed2a321b))
+
+### [0.20.12](https://github.com/lyne-design-system/lyne-components/compare/v0.20.11...v0.20.12) (2023-01-05)
+
+### Features
+
+- **typography:** expose legend style as css class ([#1521](https://github.com/lyne-design-system/lyne-components/issues/1521)) ([1d1a26f](https://github.com/lyne-design-system/lyne-components/commit/1d1a26f06b4433ad53f202655114304d4fa71f10))
+
+### [0.20.11](https://github.com/lyne-design-system/lyne-components/compare/v0.20.10...v0.20.11) (2023-01-04)
+
+### Bug Fixes
+
+- **sbb-tag:** fix styles ([#1516](https://github.com/lyne-design-system/lyne-components/issues/1516)) ([83c9b86](https://github.com/lyne-design-system/lyne-components/commit/83c9b86cea1fe171053b6ee18d30d245a8382155))
+
+### [0.20.10](https://github.com/lyne-design-system/lyne-components/compare/v0.20.9...v0.20.10) (2023-01-04)
+
+### Features
+
+- **sbb-header, sbb-footer:** introduce wide / full width variant ([#1508](https://github.com/lyne-design-system/lyne-components/issues/1508)) ([6911ea9](https://github.com/lyne-design-system/lyne-components/commit/6911ea9d9c4e3865cf1318879388f45ee05df8ce)), closes [#1500](https://github.com/lyne-design-system/lyne-components/issues/1500)
+
+### [0.20.9](https://github.com/lyne-design-system/lyne-components/compare/v0.20.8...v0.20.9) (2023-01-04)
+
+### Bug Fixes
+
+- **sbb-teaser:** fix focus visible border-radius ([#1519](https://github.com/lyne-design-system/lyne-components/issues/1519)) ([5b3f9a9](https://github.com/lyne-design-system/lyne-components/commit/5b3f9a9ff89d09042a9da8cf01b30d41d12dd58d))
+
 ### [0.20.8](https://github.com/lyne-design-system/lyne-components/compare/v0.20.7...v0.20.8) (2023-01-04)
 
 ### Bug Fixes

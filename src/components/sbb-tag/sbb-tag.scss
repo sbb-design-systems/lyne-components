@@ -55,6 +55,7 @@
 
 .sbb-tag__wrapper {
   position: relative;
+  user-select: none;
 }
 
 .sbb-tag {
@@ -83,7 +84,6 @@
   &::before {
     content: '';
     position: absolute;
-    z-index: -1;
     inset: var(--sbb-tag-inset);
     background-color: var(--sbb-tag-background-color);
     border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
@@ -121,6 +121,7 @@
   display: flex;
   align-items: center;
   height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  flex-shrink: 0;
 }
 
 .sbb-tag__text {
