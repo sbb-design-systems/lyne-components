@@ -16,8 +16,6 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
-let nextId = 0;
-
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
  */
@@ -28,11 +26,6 @@ let nextId = 0;
   tag: 'sbb-toggle',
 })
 export class SbbToggle implements ComponentInterface {
-  /**
-   * Id of the toggle element.
-   */
-  @Prop() public sbbToggleId = `sbb-toggle-${++nextId}`;
-
   /**
    * Whether the toggle is disabled.
    */
@@ -49,7 +42,7 @@ export class SbbToggle implements ComponentInterface {
   @Prop({ reflect: true }) public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
-   * The value of the toggle. It needs to be mutable since it is updated whenever 
+   * The value of the toggle. It needs to be mutable since it is updated whenever
    * a new option is selected (see the `onToggleOptionSelect()` method).
    */
   @Prop({ mutable: true }) public value: any | null;

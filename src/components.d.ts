@@ -1600,10 +1600,6 @@ export namespace Components {
          */
         "even": boolean;
         /**
-          * Id of the toggle element.
-         */
-        "sbbToggleId": string;
-        /**
           * Size variant, either m or s.
          */
         "size"?: InterfaceSbbToggleAttributes['size'];
@@ -1660,10 +1656,6 @@ export namespace Components {
          */
         "iconName"?: string;
         "select": () => Promise<void>;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "toggleOptionId": string;
         /**
           * Value of toggle-option.
          */
@@ -3978,10 +3970,6 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbToggleCustomEvent<any>) => void;
         /**
-          * Id of the toggle element.
-         */
-        "sbbToggleId"?: string;
-        /**
           * Size variant, either m or s.
          */
         "size"?: InterfaceSbbToggleAttributes['size'];
@@ -4045,10 +4033,6 @@ declare namespace LocalJSX {
           * Emits whenever the toggle-option value changes.
          */
         "onDid-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
-        /**
-          * Id of the internal input element - default id will be set automatically.
-         */
-        "toggleOptionId"?: string;
         /**
           * Value of toggle-option.
          */

@@ -18,8 +18,6 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 
-let nextId = 0;
-
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
  * @slot icon - Slot used to render the `<sbb-icon>`.
@@ -31,11 +29,6 @@ let nextId = 0;
   tag: 'sbb-toggle-option',
 })
 export class SbbToggleOption implements ComponentInterface {
-  /**
-   * Id of the internal input element - default id will be set automatically.
-   */
-  @Prop() public toggleOptionId = `sbb-toggle-option-${++nextId}`;
-
   /**
    * Whether the toggle-option is checked.
    */
@@ -118,7 +111,7 @@ export class SbbToggleOption implements ComponentInterface {
           type="radio"
           aria-hidden="true"
           tabindex="-1"
-          id={this.toggleOptionId}
+          id="sbb-toggle-option-id"
           disabled={this.disabled}
           checked={this.checked}
           value={this.value}
@@ -129,7 +122,7 @@ export class SbbToggleOption implements ComponentInterface {
             'sbb-toggle-option--icon-only':
               !this._hasLabel && !!(this.iconName || this._namedSlots.icon),
           }}
-          htmlFor={this.toggleOptionId}
+          htmlFor="sbb-toggle-option-id"
         >
           {(this.iconName || this._namedSlots.icon) && (
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
