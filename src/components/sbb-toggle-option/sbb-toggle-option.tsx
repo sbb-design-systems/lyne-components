@@ -17,11 +17,18 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { hostContext } from '../../global/helpers/host-context';
 
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
  * @slot icon - Slot used to render the `<sbb-icon>`.
  */
+
+const toggleOptionObserverConfig: MutationObserverInit = {
+  attributeFilter: ['checked'],
+};
 
 @Component({
   shadow: true,
@@ -61,6 +68,8 @@ export class SbbToggleOption implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _toggleOptionAttributeObserver = new MutationObserver(() => this._onToggleOptionChange());
+
   /**
    * Emits whenever the toggle-option value changes.
    */
@@ -84,6 +93,22 @@ export class SbbToggleOption implements ComponentInterface {
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._toggleOptionAttributeObserver.observe(this._element, toggleOptionObserverConfig);
+  }
+
+  public disconnectedCallback(): void {
+    this._toggleOptionAttributeObserver.disconnect();
+  }
+
+  private _onToggleOptionChange(): void {
+    if (isValidAttribute(this._element, 'checked') && this._isUnselected()) {
+      this.select();
+    }
+  }
+
+  private _isUnselected(): boolean {
+    const toggle = hostContext('sbb-toggle', this._element) as HTMLSbbToggleElement;
+    return !!toggle && toggle?.value !== this.value;
   }
 
   @Method()
