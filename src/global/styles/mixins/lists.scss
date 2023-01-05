@@ -160,3 +160,22 @@
   }
 }
 /* stylelint-enable plugin/stylelint-bem-namics */
+
+@mixin description-list {
+  @include typo.text-s--regular;
+
+  margin: 0;
+  padding: 0;
+  display: grid;
+
+  // Ensure that description is always attached to the label
+  grid-template-columns: auto minmax(20%, 1fr);
+  gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-color-iron-default);
+
+  dt,
+  dd {
+    margin: 0;
+    padding: 0;
+  }
+}

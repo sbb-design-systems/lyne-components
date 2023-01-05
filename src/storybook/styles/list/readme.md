@@ -32,3 +32,21 @@ by using the predefined classes (e.g. `sbb-text-s`).
   <li>Content</li>
 </ol>
 ```
+
+## sbb-description-list
+
+| css class              | sass mixin         |
+| ---------------------- | ------------------ |
+| `sbb-description-list` | `description-list` |
+
+The description list is meant to be used with the native `<dl>`.
+
+```html
+<dl class="sbb-description-list">
+  <dt>Label:</dt>
+  <dd>Description of the label.</dd>
+
+  <dt>Other Label:</dt>
+  <dd>Description of the label which is longer than the other one.</dd>
+</dl>
+```

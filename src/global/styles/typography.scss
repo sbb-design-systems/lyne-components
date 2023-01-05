@@ -48,6 +48,10 @@ html {
   @include lists.step-list;
 }
 
+.sbb-description-list {
+  @include lists.description-list;
+}
+
 .sbb-legend {
   @include typo.legend;
 }
