@@ -23,9 +23,9 @@ to the defined paragraph spacing. Due to this there are no additional rules for 
 
 ## Legend
 
-| sass mixin |
-| ---------- |
-| `legend`   |
+| css class    | sass mixin |
+| ------------ | ---------- |
+| `sbb-legend` | `legend`   |
 
 ## Sub
 

@@ -47,3 +47,7 @@ html {
 .sbb-step-list {
   @include lists.step-list;
 }
+
+.sbb-legend {
+  @include typo.legend;
+}
