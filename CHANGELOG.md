@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.13](https://github.com/lyne-design-system/lyne-components/compare/v0.20.12...v0.20.13) (2023-01-05)
+
+### Bug Fixes
+
+- **sbb-title:** fix spacing between sbb-title and paragraph ([#1522](https://github.com/lyne-design-system/lyne-components/issues/1522)) ([bb0bd68](https://github.com/lyne-design-system/lyne-components/commit/bb0bd68929f1ff0c4b5374a99d998d5eed2a321b))
+
 ### [0.20.12](https://github.com/lyne-design-system/lyne-components/compare/v0.20.11...v0.20.12) (2023-01-05)
 
 ### Features
