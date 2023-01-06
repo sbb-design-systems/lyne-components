@@ -13,61 +13,66 @@
 }
 
 @mixin list {
-  --sbb-list-vertical-gap: 0.75em;
-  --sbb-list-padding-inline-start: 1.5em;
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  #{if(&, '&:where(ol, ul)', ':is(ol, ul)')} {
+    --sbb-list-vertical-gap: 0.75em;
+    --sbb-list-padding-inline-start: 1.5em;
 
-  &,
-  ul,
-  ol {
-    margin: 0;
-    padding: 0;
-    padding-inline-start: var(--sbb-list-padding-inline-start);
-    color: var(--sbb-color-iron-default);
+    &,
+    :is(ol, ul) {
+      margin: 0;
+      padding: 0;
+      padding-inline-start: var(--sbb-list-padding-inline-start);
+      color: var(--sbb-color-iron-default);
 
-    > li {
-      + li {
-        margin-block-start: var(--sbb-list-vertical-gap);
+      > li {
+        + li {
+          margin-block-start: var(--sbb-list-vertical-gap);
+        }
+
+        p {
+          margin-block: 0;
+        }
+
+        // P has to be redefined to be more specific
+        > :is(p, *) + * {
+          margin-block-start: var(--sbb-spacing-responsive-xxxs);
+        }
       }
+    }
 
-      p {
-        margin-block: 0;
-      }
-
-      // P has to be redefined to be more specific
-      > :is(p, *) + * {
-        margin-block-start: var(--sbb-spacing-responsive-xxxs);
-      }
+    :is(ul, ol),
+    .sbb-step-list & {
+      margin-block-start: var(--sbb-list-vertical-gap);
     }
   }
 
-  :is(ul, ol),
-  .sbb-step-list & {
-    margin-block-start: var(--sbb-list-vertical-gap);
-  }
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  #{if(&, '&:where(ul)', 'ul')} {
+    &,
+    ul {
+      list-style-type: none;
 
-  // Apply the following block only if ul tag is at selectors level.
-  // This is done by selector.unify which takes care of correct selector concatenation
-  @at-root #{selector.unify(&, 'ul')},
-    & ul {
-    list-style-type: none;
+      > li {
+        position: relative;
 
-    > li {
-      position: relative;
+        // Bullet point
+        &::before {
+          content: '\2022'; // •
+          position: absolute;
+          display: flex;
+          height: 1em;
+          width: 1em;
+          align-items: center;
+          justify-content: center;
+          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
+          inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
 
-      // Bullet point
-      &::before {
-        content: '\2022'; // •
-        position: absolute;
-        display: flex;
-        height: 1em;
-        width: 1em;
-        align-items: center;
-        justify-content: center;
-        inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
-        inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
-
-        // Scale 1.3 to match Figma specs.
-        transform: scale(1.3);
+          // Scale 1.3 to match Figma specs.
+          transform: scale(1.3);
+        }
       }
     }
   }
@@ -159,4 +164,27 @@
     }
   }
 }
+
+@mixin description-list {
+  // Support both top level usage (& is empty / falsy)
+  // and applied to a selector usage.
+  #{if(&, '&:where(dl)', 'dl')} {
+    @include typo.text-s--regular;
+
+    margin: 0;
+    padding: 0;
+    display: grid;
+
+    // Ensure that description is always attached to the label
+    grid-template-columns: auto minmax(20%, 1fr);
+    gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+    color: var(--sbb-color-iron-default);
+
+    :is(dt, dd) {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
 /* stylelint-enable plugin/stylelint-bem-namics */
