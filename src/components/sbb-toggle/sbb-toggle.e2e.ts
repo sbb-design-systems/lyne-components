@@ -31,6 +31,19 @@ describe('sbb-toggle', () => {
       expect(firstOption).not.toHaveAttribute('checked');
     });
 
+    it('selects option on checked attribute change', async () => {
+      const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
+      const secondOoption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
+
+      expect(firstOption).toHaveAttribute('checked');
+
+      secondOoption.setAttribute('checked', '');
+      await page.waitForChanges();
+
+      expect(secondOoption).toHaveAttribute('checked');
+      expect(firstOption).not.toHaveAttribute('checked');
+    });
+
     it('dispatches event on option change', async () => {
       const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
       const secondOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
