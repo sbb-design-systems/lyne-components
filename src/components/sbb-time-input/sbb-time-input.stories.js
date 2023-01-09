@@ -1,4 +1,3 @@
-import events from './sbb-time-input.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -189,6 +188,7 @@ const TemplateSbbTimeInputInFormField = ({
   iconStart,
   iconEnd,
   size,
+  errorClass,
   ...args
 }) => (
   <sbb-form-field
@@ -199,8 +199,9 @@ const TemplateSbbTimeInputInFormField = ({
     width="collapse"
   >
     {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
-    <sbb-time-input {...args}></sbb-time-input>
+    <sbb-time-input class={errorClass} {...args}></sbb-time-input>
     {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
+    {errorClass && <sbb-form-error>Error</sbb-form-error>}
   </sbb-form-field>
 );
 
@@ -237,6 +238,13 @@ sbbTimeInputInFormFieldReadonly.args = {
   readonly: true,
 };
 
+export const sbbTimeInputInFormFieldWithError = TemplateSbbTimeInputInFormField.bind({});
+sbbTimeInputInFormFieldWithError.argTypes = { ...formFieldBasicArgsTypes };
+sbbTimeInputInFormFieldWithError.args = {
+  ...formFieldBasicArgsWithIcons,
+  errorClass: 'sbb-invalid',
+};
+
 export default {
   decorators: [
     (Story) => (
@@ -247,7 +255,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change', events.didChange],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,
