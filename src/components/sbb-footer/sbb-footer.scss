@@ -5,15 +5,10 @@
 @include sbb.host-component-properties;
 
 :host {
-  // TODO: Remove once sbb-stack is refactored
-  // Contextual design for sbb-stack
-  --stack-text-color-normal: var(--sbb-color-granite-default);
   --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
   --sbb-footer-gap-vertical: var(--sbb-spacing-responsive-l);
   --sbb-footer-background-color: var(--sbb-color-milk-default);
   --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
-  --sbb-footer-padding-inline: var(--sbb-layout-base-offset-responsive);
-  --sbb-footer-content-max-width: var(--sbb-layout-base-page-max-width);
 
   @include sbb.mq($from: small) {
     --sbb-footer-clock-width: #{sbb.px-to-rem-build(112)};
@@ -24,15 +19,20 @@
   --sbb-footer-background-color: var(--sbb-color-charcoal-default);
 }
 
-:host([wide]:not([wide='false'])) {
-  --sbb-footer-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-footer-content-max-width: auto;
-}
-
 .sbb-footer {
   padding-block: var(--sbb-spacing-responsive-l);
-  padding-inline: var(--sbb-footer-padding-inline);
   background-color: var(--sbb-footer-background-color);
+}
+
+.sbb-footer-wrapper {
+  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+  :host(:not([wide]:not([wide='false']))) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([wide]:not([wide='false'])) & {
+    @include sbb.page-spacing-wide;
+  }
 }
 
 .sbb-footer__title {

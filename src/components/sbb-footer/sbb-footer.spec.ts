@@ -12,8 +12,10 @@ describe('sbb-footer', () => {
         <sbb-footer accessibility-title="Footer" variant="default">
           <mock:shadow-root>
             <footer class="sbb-footer">
-              <h1 class="sbb-footer__title">Footer</h1>
-              <slot></slot>
+              <div class="sbb-footer-wrapper">
+                <h1 class="sbb-footer__title">Footer</h1>
+                <slot></slot>
+              </div>
             </footer>
           </mock:shadow-root>
         </sbb-footer>

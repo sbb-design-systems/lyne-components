@@ -35,10 +35,12 @@ export class SbbFooter {
 
     return (
       <footer class="sbb-footer">
-        {this.accessibilityTitle && (
-          <TITLE_TAG_NAME class="sbb-footer__title">{this.accessibilityTitle}</TITLE_TAG_NAME>
-        )}
-        <slot />
+        <div class="sbb-footer-wrapper">
+          {this.accessibilityTitle && (
+            <TITLE_TAG_NAME class="sbb-footer__title">{this.accessibilityTitle}</TITLE_TAG_NAME>
+          )}
+          <slot />
+        </div>
       </footer>
     );
   }
