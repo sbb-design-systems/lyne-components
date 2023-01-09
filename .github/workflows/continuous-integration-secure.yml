@@ -19,16 +19,9 @@ jobs:
         )
       )
     env:
-      IMAGE_REPO: ghcr.io/lyne-design-system/lyne-components/storybook-preview
+      IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook-preview
       IMAGE_TAG: rev-${{ github.event.workflow_run.head_sha }}
-      ALLOWED_EXTENSIONS: css, gitignore, gitkeep, html, ico, jpg, js, json, png, scss, stackblitzrc, svg, ts
     steps:
-      - name: Login to GitHub Docker Repository
-        uses: azure/docker-login@v1
-        with:
-          login-server: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v3
       - name: Download artifacts
         uses: ./.github/actions/download-artifacts-from-workflow
@@ -37,26 +30,13 @@ jobs:
       - run: mkdir storybook-static
       - run: unzip storybook.zip -d storybook-static
       - name: Remove files with forbidden extensions
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            const allowedExtensions = process.env.ALLOWED_EXTENSIONS.split(/[, ]+/g).map(e => `.${e}`);
-            function clean(dir) {
-              fs.readdirSync(dir, { withFileTypes: true }).forEach((d) => {
-                if (d.isDirectory()) {
-                  clean(path.join(dir, d.name));
-                } else if (d.isFile() && allowedExtensions.includes(path.extname(d.name))) {
-                  fs.unlinkSync(path.join(dir, d.name));
-                }
-              })
-            }
-            clean(path.resolve('storybook-static'));
+        run: node ./ci/clean-storybook-files.js
 
-      - name: 'Docker: Build image'
+      - name: 'Container: Login to GitHub Container Repository'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+      - name: 'Container: Build image'
         run: docker build -t $IMAGE_REPO:$IMAGE_TAG .
-      - name: 'Docker: Publish image'
+      - name: 'Container: Publish image'
         run: docker push $IMAGE_REPO:$IMAGE_TAG
 
   codecov:
