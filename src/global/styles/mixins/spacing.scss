@@ -1,11 +1,11 @@
 @use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 @use '../core/mediaqueries';
 
-@mixin page-spacing() {
+@mixin page-spacing {
   padding-inline: var(--sbb-page-base-offset-responsive);
 }
 
-@mixin page-spacing__inner() {
+@mixin page-spacing__inner {
   @include mediaqueries.mq($from: wide) {
     width: calc(
       #{sbb-tokens.$sbb-breakpoint-wide-min} - (2 * var(--sbb-page-base-offset-responsive))
@@ -15,7 +15,7 @@
   }
 }
 
-@mixin page-spacing__inner--ultra-plus() {
+@mixin page-spacing__inner--ultra-plus {
   @include mediaqueries.mq($from: ultra) {
     width: sbb-tokens.$sbb-breakpoint-ultra-min;
     margin-inline-start: auto;

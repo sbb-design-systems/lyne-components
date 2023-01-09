@@ -1,0 +1,158 @@
+@use '../../../global/styles' as sbb;
+
+$timetable-margin-block: 7vh;
+
+section sbb-title {
+  margin: 0;
+}
+
+.navigation-button {
+  width: fit-content;
+}
+
+.timetable-section {
+  background-color: var(--sbb-color-red-default);
+}
+
+.timetable-placeholder {
+  @include sbb.shadow-level-5-hard;
+
+  background-color: var(--sbb-color-white-default);
+  border-radius: var(--sbb-border-radius-4x);
+  height: 21vh;
+  width: 100%;
+  margin-block: $timetable-margin-block (-$timetable-margin-block);
+}
+
+.alert-section {
+  padding-block: calc(var(--sbb-spacing-responsive-xxs) + $timetable-margin-block)
+    var(--sbb-spacing-responsive-xxs);
+}
+
+.top-products-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-m);
+  margin-block: var(--sbb-spacing-responsive-l);
+}
+
+.top-products-grid {
+  display: grid;
+  gap: var(--sbb-spacing-fixed-3x) var(--sbb-grid-base-gutter-responsive);
+
+  @include sbb.mq($from: medium) {
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.product-section-logged-in {
+  margin-block-end: var(--sbb-spacing-responsive-l);
+  background-color: var(--sbb-color-milk-default);
+}
+
+.logged-in-overview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-m);
+  margin-block: calc(var(--sbb-spacing-responsive-xl) + $timetable-margin-block)
+    var(--sbb-spacing-responsive-l);
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-4x) var(--sbb-spacing-fixed-6x);
+
+  @include sbb.mq($from: small) {
+    flex-direction: row;
+  }
+}
+
+.avatar-mock {
+  min-width: 72px;
+  width: 72px;
+  height: 72px;
+  background-color: var(--sbb-color-cloud-default);
+  border-radius: 50%;
+  display: flex;
+
+  @include sbb.mq($from: small) {
+    min-width: 80px;
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.current-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-s);
+}
+
+.current-tickets-list {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-4x);
+}
+
+.all-purchased-tickets-button {
+  margin-right: auto;
+}
+
+.tickets-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-m);
+  margin-block: var(--sbb-spacing-responsive-l);
+}
+
+.tickets {
+  display: grid;
+  gap: var(--sbb-spacing-responsive-m) var(--sbb-spacing-fixed-3x);
+
+  @include sbb.mq($from: medium) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.purchase-tickets-again,
+.your-subscriptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-3x);
+  height: fit-content;
+}
+
+.teaser-hero {
+  margin-block: var(--sbb-spacing-responsive-l);
+}
+
+/*
+  Common classes
+ */
+
+.grid-full-width {
+  grid-column: 1/-1;
+}
+
+.grid-reduced-width {
+  grid-column: 1/-1;
+
+  @include sbb.mq($from: large) {
+    grid-column: 2/-2;
+  }
+  @include sbb.mq($from: wide) {
+    grid-column: 3/-3;
+  }
+  @include sbb.mq($from: ultra) {
+    grid-column: 4/-4;
+  }
+}
+
+.grid-span-2 {
+  grid-area: span 2;
+}

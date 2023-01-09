@@ -109,7 +109,7 @@
 }
 
 .sbb-navigation__container {
-  @include sbb.grid-base;
+  @include sbb.grid-lean;
 }
 
 .sbb-navigation {

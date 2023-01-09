@@ -1,5 +1,6 @@
-@use './mixins/typo';
+@use './mixins/grid-layout';
 @use './mixins/lists';
+@use './mixins/typo';
 
 html {
   @include typo.text;
@@ -47,6 +48,14 @@ html {
 
 .sbb-step-list {
   @include lists.step-list;
+}
+
+.sbb-grid {
+  @include grid-layout.grid;
+}
+
+.sbb-grid-lean {
+  @include grid-layout.grid-lean;
 }
 
 .sbb-legend {
