@@ -52,9 +52,28 @@ const StepsTemplate = () =>
     </ol>,
   ]);
 
+const DescriptionListTemplate = () => (
+  <dl class="sbb-list">
+    <dt>Label:</dt>
+    <dd>Description of the label.</dd>
+
+    <dt>Longer Label:</dt>
+    <dd>Description of the label which is longer than the other one.</dd>
+
+    <dt>A very very very long label:</dt>
+    <dd>
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+      justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+      ipsum dolor sit amet.
+    </dd>
+  </dl>
+);
+
 export const UnorderedList = UnorderedListTemplate.bind({});
 export const OrderedList = OrderedListTemplate.bind({});
 export const StepList = StepsTemplate.bind({});
+export const DescriptionList = DescriptionListTemplate.bind({});
 
 export default {
   decorators: [

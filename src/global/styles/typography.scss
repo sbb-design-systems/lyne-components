@@ -42,6 +42,7 @@ html {
 
 .sbb-list {
   @include lists.list;
+  @include lists.description-list;
 }
 
 .sbb-step-list {

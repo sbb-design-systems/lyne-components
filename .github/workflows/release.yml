@@ -23,6 +23,8 @@ jobs:
         startsWith(github.event.workflow_run.head_commit.message, 'fix') ||
         startsWith(github.event.workflow_run.head_commit.message, 'refactor')
       )
+    env:
+      IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook
     steps:
       - name: Generate token
         id: generate_token
@@ -52,12 +54,7 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
       - name: 'Release: Create release with standard-version'
-        run: |
-          if [ -f CHANGELOG.md ]; then
-            yarn standard-version
-          else
-            yarn standard-version --first-release
-          fi
+        run: yarn standard-version
       - name: 'Release: Push release to repository'
         run: git push --follow-tags origin master
       - name: 'Release: Determine npm tag'
@@ -75,7 +72,7 @@ jobs:
         run: yarn publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: 'Download artifacts'
+      - name: 'Release: Assign current dependency version'
         uses: actions/github-script@v6
         with:
           script: |
@@ -100,6 +97,18 @@ jobs:
           storybookBuildDir: storybook-static
           autoAcceptChanges: true
           exitZeroOnChanges: true
+
+      - name: Remove files with forbidden extensions
+        run: node ./ci/clean-storybook-files.js
+
+      - name: 'Container: Login to GitHub Container Repository'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+      - name: 'Container: Build image'
+        run: docker build -t $IMAGE_REPO:${{ github.ref_name }} -t $IMAGE_REPO:latest .
+      - name: 'Container: Publish image'
+        run: docker push $IMAGE_REPO:${{ github.ref_name }}
+      - name: 'Container: Publish image as latest'
+        run: docker push $IMAGE_REPO:latest
 
       - name: Publish to netlify
         run: ./ci/netlify_deploy.sh
