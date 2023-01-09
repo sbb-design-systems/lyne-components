@@ -106,15 +106,6 @@
 
   //////////////////////////////////////////////////////////////////////////////
   ///
-  /// Responsive page offset
-  // TODO: Remove once no longer needed.
-  --sbb-page-base-offset-responsive: var(--sbb-layout-base-offset-responsive);
-  @include mediaqueries.mq($from: ultra) {
-    --sbb-page-base-offset-responsive: 0rem;
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-  ///
   /// Responsive base grid definition
 
   --sbb-grid-base-columns: var(--sbb-layout-base-grid-columns-zero);

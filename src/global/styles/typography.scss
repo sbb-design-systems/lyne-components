@@ -1,4 +1,4 @@
-@use './mixins/grid-layout';
+@use './mixins/layout';
 @use './mixins/lists';
 @use './mixins/typo';
 
@@ -51,11 +51,11 @@ html {
 }
 
 .sbb-grid {
-  @include grid-layout.grid;
+  @include layout.grid;
 }
 
-.sbb-grid-lean {
-  @include grid-layout.grid-lean;
+.sbb-grid-wide {
+  @include layout.grid-wide;
 }
 
 .sbb-legend {

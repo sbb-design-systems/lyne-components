@@ -5,7 +5,7 @@ Grid documentation.
 | css class       | sass mixin  |
 | --------------- | ----------- |
 | `sbb-grid`      | `grid`      |
-| `sbb-grid-lean` | `grid-lean` |
+| `sbb-grid-wide` | `grid-wide` |
 
 ### Usage
 

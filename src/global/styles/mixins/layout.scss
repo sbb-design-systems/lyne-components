@@ -1,0 +1,31 @@
+@use '../core/mediaqueries';
+
+@mixin page-spacing {
+  padding-inline: var(--sbb-layout-base-offset-responsive);
+  margin-inline: auto;
+
+  // Subtract padding to get real max-width
+  max-width: calc(
+    var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
+  );
+}
+
+@mixin page-spacing-wide {
+  padding-inline: var(--sbb-spacing-responsive-xs);
+}
+
+@mixin grid-base {
+  display: grid;
+  gap: var(--sbb-grid-base-gutter-responsive);
+  grid-template-columns: repeat(var(--sbb-grid-base-columns), 1fr);
+}
+
+@mixin grid {
+  @include grid-base;
+  @include page-spacing;
+}
+
+@mixin grid-wide {
+  @include grid-base;
+  @include page-spacing-wide;
+}
