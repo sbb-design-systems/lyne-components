@@ -1,7 +1,7 @@
 import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Slot to render the content.
  */
 @Component({
   shadow: true,

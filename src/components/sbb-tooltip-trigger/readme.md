@@ -1,4 +1,5 @@
 # sbb-tooltip-trigger
+The `sbb-tooltip-trigger` component is used to trigger a tooltip by pressing a button. By default is rendered a `sbb-icon`. It is possible to override the `sbb-icon` with custom contents.
 
 <!-- Auto Generated Below -->
 
@@ -12,9 +13,9 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                 |
+| ----------- | --------------------------- |
+| `"unnamed"` | Slot to render the content. |
 
 
 ## Dependencies
