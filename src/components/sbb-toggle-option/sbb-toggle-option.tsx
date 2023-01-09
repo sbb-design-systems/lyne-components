@@ -20,6 +20,7 @@ import {
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { hostContext } from '../../global/helpers/host-context';
+import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
@@ -35,7 +36,7 @@ const toggleOptionObserverConfig: MutationObserverInit = {
   styleUrl: 'sbb-toggle-option.scss',
   tag: 'sbb-toggle-option',
 })
-export class SbbToggleOption implements ComponentInterface {
+export class SbbToggleOption implements ComponentInterface, AccessibilityProperties {
   /**
    * Whether the toggle-option is checked.
    */
@@ -55,6 +56,11 @@ export class SbbToggleOption implements ComponentInterface {
    * Value of toggle-option.
    */
   @Prop() public value?: string;
+
+  /**
+   * This will be forwarded as aria-label to the relevant nested element.
+   */
+  @Prop() public accessibilityLabel: string | undefined;
 
   /**
    * Whether the toggle option has a label.
@@ -100,6 +106,8 @@ export class SbbToggleOption implements ComponentInterface {
     this._toggleOptionAttributeObserver.disconnect();
   }
 
+  // Check whether a `checked` attribute has been added to the DOM for an option
+  // and call the select() method accordingly.
   private _onToggleOptionChange(): void {
     if (isValidAttribute(this._element, 'checked') && this._isUnselected()) {
       this.select();
@@ -148,6 +156,7 @@ export class SbbToggleOption implements ComponentInterface {
               !this._hasLabel && !!(this.iconName || this._namedSlots.icon),
           }}
           htmlFor="sbb-toggle-option-id"
+          aria-label={this.accessibilityLabel}
         >
           {(this.iconName || this._namedSlots.icon) && (
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>

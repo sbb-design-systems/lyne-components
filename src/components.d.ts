@@ -1652,6 +1652,10 @@ export namespace Components {
     }
     interface SbbToggleOption {
         /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
           * Whether the toggle-option is checked.
          */
         "checked": boolean;
@@ -4033,6 +4037,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface SbbToggleOption {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the toggle-option is checked.
          */

@@ -130,7 +130,7 @@ export class SbbToggle implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._toggleResizeObserver.observe(this._element.firstElementChild);
+    this._toggleResizeObserver.observe(this._element.querySelector('sbb-toggle-option'));
   }
 
   public disconnectedCallback(): void {

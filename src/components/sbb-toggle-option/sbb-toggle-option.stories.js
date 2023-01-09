@@ -33,12 +33,22 @@ const value = {
   },
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
 const defaultArgTypes = {
   label,
   value,
   checked,
   disabled,
   'icon-name': iconName,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs = {
@@ -47,6 +57,7 @@ const defaultArgs = {
   checked: false,
   disabled: false,
   'icon-name': undefined,
+  'accessibility-label': undefined,
 };
 
 const DefaultTemplate = ({ label, ...args }) => (

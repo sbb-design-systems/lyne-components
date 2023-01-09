@@ -76,6 +76,15 @@ const iconName = {
   },
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
 const defaultArgTypes = {
   disabled,
   even,
@@ -85,6 +94,7 @@ const defaultArgTypes = {
   labelTwo,
   iconName: iconName,
   'disable-animation': disableAnimation,
+  accessibilityLabel: accessibilityLabel,
 };
 
 const defaultArgs = {
@@ -93,14 +103,19 @@ const defaultArgs = {
   size: size.options[0],
   value: 'Value 1',
   label: 'Bern',
-  labelTwo: 'Zurich',
+  labelTwo: 'Zürich',
   iconName: undefined,
   'disable-animation': isChromatic(),
+  accessibilityLabel: undefined,
 };
 
-const DefaultTemplate = ({ label, labelTwo, iconName, ...args }) => (
+const DefaultTemplate = ({ label, labelTwo, iconName, accessibilityLabel, ...args }) => (
   <sbb-toggle {...args}>
-    <sbb-toggle-option icon-name={iconName} value="Value 1">
+    <sbb-toggle-option
+      icon-name={iconName}
+      accessibility-label={accessibilityLabel}
+      value="Value 1"
+    >
       {label}
     </sbb-toggle-option>
     <sbb-toggle-option icon-name={iconName && 'arrows-right-left-small'} value="Value 2">
@@ -109,9 +124,9 @@ const DefaultTemplate = ({ label, labelTwo, iconName, ...args }) => (
   </sbb-toggle>
 );
 
-const SlottedIconTemplate = ({ label, labelTwo, iconName, ...args }) => (
+const SlottedIconTemplate = ({ label, labelTwo, iconName, accessibilityLabel, ...args }) => (
   <sbb-toggle {...args}>
-    <sbb-toggle-option value="Value 1">
+    <sbb-toggle-option value="Value 1" accessibility-label={accessibilityLabel}>
       <sbb-icon slot="icon" name={iconName}></sbb-icon>
       {label}
     </sbb-toggle-option>
@@ -191,7 +206,7 @@ export const DynamicWidth = DefaultTemplate.bind({});
 DynamicWidth.argTypes = { ...defaultArgTypes };
 DynamicWidth.args = {
   ...defaultArgs,
-  label: 'Zurich',
+  label: 'Zürich',
   labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
   iconName: iconName.options[1],
 };
@@ -201,7 +216,7 @@ DynamicWidthSizeS.argTypes = { ...defaultArgTypes };
 DynamicWidthSizeS.args = {
   ...defaultArgs,
   size: size.options[1],
-  label: 'Zurich',
+  label: 'Zürich',
   labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
   iconName: iconName.options[1],
 };
