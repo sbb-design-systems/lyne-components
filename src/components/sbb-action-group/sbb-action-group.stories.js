@@ -279,5 +279,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/layout/sbb-action-group',
+  title: 'components/sbb-action-group',
 };
