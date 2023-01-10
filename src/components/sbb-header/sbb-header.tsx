@@ -20,6 +20,18 @@ export class SbbHeader {
    */
   @Prop({ reflect: true }) public expanded = false;
 
+  /** Whether the header should hide and show on scroll. */
+  @Prop({ reflect: true }) public hideonscroll = false;
+
+  public componentDidLoad(): void {
+    document.addEventListener('scroll', () => {
+      console.log(this.hideonscroll);
+      if (this.hideonscroll = true) {
+        console.log('inside');
+      }
+    });
+  }
+
   public render(): JSX.Element {
     return (
       <header class="sbb-header">

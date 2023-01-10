@@ -582,6 +582,10 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
+          * Whether the header should hide and show on scroll.
+         */
+        "hideonscroll": boolean;
+        /**
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */
         "shadow": boolean;
@@ -2788,6 +2792,10 @@ declare namespace LocalJSX {
           * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
          */
         "expanded"?: boolean;
+        /**
+         * Whether the header should hide and show on scroll.
+         */
+        "hideonscroll"?: boolean;
         /**
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */

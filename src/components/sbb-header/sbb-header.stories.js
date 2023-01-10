@@ -32,6 +32,106 @@ const HeaderBasicTemplate = ({ children, ...args }) => [
     non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
     odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
     mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
+    <br />
+    <br />
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+    eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+    mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in malesuada.
+    Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit at dui
+    ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel, mattis
+    non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed eleifend
+    odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue ante,
+    mollis eu lorem id, commodo cursus risus.
   </div>,
 ];
 
@@ -90,14 +190,22 @@ const expanded = {
   },
 };
 
+const hideonscroll = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const basicArgTypes = {
   shadow,
   expanded,
+  hideonscroll,
 };
 
 const basicArgs = {
   shadow: false,
   expanded: false,
+  hideonscroll: false,
 };
 
 export const Basic = Template.bind({});
@@ -112,6 +220,14 @@ export const WithUserMenu = TemplateWithUserMenu.bind({});
 WithUserMenu.argTypes = basicArgTypes;
 WithUserMenu.args = { ...basicArgs };
 WithUserMenu.play = playStory;
+
+export const BasicScrollHide = Template.bind({});
+BasicScrollHide.argTypes = basicArgTypes;
+BasicScrollHide.args = { ...basicArgs, hideonscroll: true };
+
+export const WideScrollHide = Template.bind({});
+WideScrollHide.argTypes = basicArgTypes;
+WideScrollHide.args = { ...basicArgs, wide: true, hideonscroll: true };
 
 export default {
   decorators: [

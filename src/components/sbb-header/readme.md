@@ -112,6 +112,7 @@ Header with logo link and slotted sbb-logo:
 | Property   | Attribute  | Description                                                                                                          | Type      | Default |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
 | `expanded` | `expanded` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean` | `false` |
+| `hideonscroll` | `hideonscroll` | Whether the header should hide and show on scroll.                                                                   | `boolean` | `false` |
 | `shadow`   | `shadow`   | Used to display a box-shadow below the component on y-axis scroll whether set to true.                               | `boolean` | `false` |
 
 
