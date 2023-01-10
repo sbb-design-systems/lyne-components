@@ -7,33 +7,28 @@ const iconName = {
   },
 };
 
-const id = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   'icon-name': iconName,
-  id,
 };
 
 const defaultArgs = {
   'icon-name': 'circle-information-small',
-  id: 'tooltip-trigger',
 };
 
 const tooltip = () => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
-    <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s);'}>
+    <p id="tooltip-content" style={'margin: 0;'} class="sbb-text-s">
       Simple information tooltip with link.
     </p>
   </sbb-tooltip>
 );
 
-const Template = (args) => [<sbb-tooltip-trigger {...args}></sbb-tooltip-trigger>, tooltip()];
+const Template = (args) => [
+  <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>,
+  tooltip(),
+];
 const TemplateWithCustomContent = (args) => [
-  <sbb-tooltip-trigger {...args}>
+  <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
     Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore
     et dolore magna aliqua.
   </sbb-tooltip-trigger>,

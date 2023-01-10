@@ -18,10 +18,8 @@ export class SbbTooltipTrigger implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <button class="sbb-tooltip-trigger" tabindex="0">
-        <slot>
-          <sbb-icon name={this.iconName} />
-        </slot>
+      <button class="sbb-tooltip-trigger">
+        <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
       </button>
     );
   }
