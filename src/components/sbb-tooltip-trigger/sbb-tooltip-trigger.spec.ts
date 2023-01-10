@@ -11,7 +11,7 @@ describe('sbb-tooltip-trigger', () => {
     expect(root).toEqualHtml(`
         <sbb-tooltip-trigger>
           <mock:shadow-root>
-            <button class="sbb-tooltip-trigger" tabindex="0">
+            <button class="sbb-tooltip-trigger">
               <slot>
                 <sbb-icon name="circle-information-small"></sbb-icon>
               </slot>
@@ -30,7 +30,7 @@ describe('sbb-tooltip-trigger', () => {
     expect(root).toEqualHtml(`
         <sbb-tooltip-trigger>
           <mock:shadow-root>
-            <button class="sbb-tooltip-trigger" tabindex="0">
+            <button class="sbb-tooltip-trigger">
               <slot>
                 <sbb-icon name="circle-information-small"></sbb-icon>
               </slot>

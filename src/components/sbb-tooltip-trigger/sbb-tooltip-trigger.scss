@@ -5,22 +5,22 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-tooltip-background-hover: #444;
-  --sbb-tooltip-background-active: #5a5a5a;
+  --sbb-tooltip-background-hover: var(--sbb-color-iron-default);
+  --sbb-tooltip-background-active: var(--sbb-color-anthracite-default);
 
   display: inline-block;
 }
 
 .sbb-tooltip-trigger {
   @include sbb.button-reset;
+
+  cursor: pointer;
 }
 
 .sbb-tooltip-trigger:hover {
   color: var(--sbb-tooltip-background-hover);
-  cursor: pointer;
 }
 
 .sbb-tooltip-trigger:active {
   color: var(--sbb-tooltip-background-active);
-  cursor: pointer;
 }
