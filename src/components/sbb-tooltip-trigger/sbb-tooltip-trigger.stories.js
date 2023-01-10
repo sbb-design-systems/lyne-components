@@ -24,14 +24,20 @@ const tooltip = () => (
 );
 
 const Template = (args) => [
-  <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>,
+  <span>
+    This is a demo text.
+    <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>
+  </span>,
   tooltip(),
 ];
+
 const TemplateWithCustomContent = (args) => [
-  <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
-    Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore
-    et dolore magna aliqua.
-  </sbb-tooltip-trigger>,
+  <div style="font-size: 18px; color: red;">
+    <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
+      Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut
+      labore et dolore magna aliqua.
+    </sbb-tooltip-trigger>
+  </div>,
   tooltip(),
 ];
 
