@@ -12,15 +12,23 @@
 }
 
 .sbb-tooltip-trigger {
+  @include sbb.text-inherit;
   @include sbb.button-reset;
 
+  vertical-align: middle;
   cursor: pointer;
-}
 
-.sbb-tooltip-trigger:hover {
-  color: var(--sbb-tooltip-background-hover);
-}
+  &:focus-visible {
+    @include sbb.focus-outline;
+  }
 
-.sbb-tooltip-trigger:active {
-  color: var(--sbb-tooltip-background-active);
+  &:active {
+    color: var(--sbb-tooltip-background-active);
+  }
+
+  @include sbb.hover-mq($hover: true) {
+    &:hover {
+      color: var(--sbb-tooltip-background-hover);
+    }
+  }
 }
