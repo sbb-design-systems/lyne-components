@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.16](https://github.com/lyne-design-system/lyne-components/compare/v0.20.15...v0.20.16) (2023-01-10)
+
+### Bug Fixes
+
+- **sbb-card:** fix active style for badge ([#1530](https://github.com/lyne-design-system/lyne-components/issues/1530)) ([afd8c2b](https://github.com/lyne-design-system/lyne-components/commit/afd8c2ba65f6f12f19dca6ba27a029cac2efd910))
+
 ### [0.20.15](https://github.com/lyne-design-system/lyne-components/compare/v0.20.14...v0.20.15) (2023-01-10)
 
 ### Features
