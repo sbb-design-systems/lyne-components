@@ -23,7 +23,7 @@ See the table below for some formatting examples:
 
 | Input   | Output |
 |---------|--------|
-| 16:30   | 16:30  |
+| 12:34   | 12:34  |
 | 1       | 01:00  |
 | 12      | 12:00  |
 | 123     | 01:23  |
@@ -40,11 +40,18 @@ Basic usage:
 <sbb-time-input value='13:30'></sbb-time-input>
 ```
 
-Required and readonly inside a sbb-form-field:
+Required `sbb-time-input` inside a `sbb-form-field`:
 ```html
-<sbb-form-field size='m' label='My form' width='collapse'>
-  <sbb-time-input value='23:15' required='true' readonly='true' form='form'></sbb-time-input>
+<sbb-form-field label='My form' width='collapse'>
+  <sbb-time-input value='23:15' required='true' form='form'></sbb-time-input>
   <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
+
+Readonly `sbb-time-input` inside a `sbb-form-field`:
+```html
+<sbb-form-field size='l' label='My form' width='collapse'>
+  <sbb-time-input value='08:00' readonly='true' form='form'></sbb-time-input>
 </sbb-form-field>
 ```
 
@@ -61,7 +68,7 @@ Required and readonly inside a sbb-form-field:
 | `readonly`           | `readonly`            | Readonly state for the inner HTMLInputElement.                       | `boolean` | `false`     |
 | `required`           | `required`            | Required state for the inner HTMLInputElement.                       | `boolean` | `false`     |
 | `value`              | `value`               | Value for the inner HTMLInputElement.                                | `string`  | `''`        |
-| `valueAsDate`        | --                    | Date value with the given time for the inner HTMLInputElement.       | `Date`    | `undefined` |
+| `valueAsDate`        | --                    | Date value with the given time for the inner HTMLInputElement.       | `Date`    | `null`      |
 
 
 ## Events

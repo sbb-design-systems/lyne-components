@@ -28,7 +28,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   @Prop({ mutable: true }) public value?: string = '';
 
   /** Date value with the given time for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public valueAsDate?: Date;
+  @Prop({ mutable: true }) public valueAsDate?: Date = null;
 
   /** The <form> element to associate the inner HTMLInputElement with. */
   @Prop() public form?: string;
@@ -104,7 +104,8 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       return null;
     }
 
-    return new Date(new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0));
+    const dateAsNumber: number = new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0);
+    return new Date(dateAsNumber);
   }
 
   /** Validate input against the defined RegExps. */
@@ -121,13 +122,12 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
 
   /** Parse the hours with two chars. */
   private _parseHour(regGroupHours: string): string {
-    return regGroupHours.length > 1 ? regGroupHours : '0' + regGroupHours;
+    return regGroupHours.padStart(2, '0');
   }
 
   /** Parse the minutes with two chars. */
   private _parseMinute(regGroupMin: string): string {
-    regGroupMin = regGroupMin || '00';
-    return regGroupMin.length > 1 ? regGroupMin : '0' + regGroupMin;
+    return (regGroupMin || '').padStart(2, '0');
   }
 
   public connectedCallback(): void {
