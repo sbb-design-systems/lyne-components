@@ -74,7 +74,7 @@
   color: inherit;
   text-decoration: none;
 
-  &::before {
+  &::after {
     position: absolute;
     background-color: transparent;
     content: '';
@@ -101,7 +101,7 @@
 }
 
 :host([active]) {
-  .sbb-card::before {
+  .sbb-card::after {
     border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
   }
 }
