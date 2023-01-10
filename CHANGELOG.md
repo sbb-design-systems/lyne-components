@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.15](https://github.com/lyne-design-system/lyne-components/compare/v0.20.14...v0.20.15) (2023-01-10)
+
+### Features
+
+- **sbb-toggle:** introduce toggle component ([#1481](https://github.com/lyne-design-system/lyne-components/issues/1481)) ([8cfc53b](https://github.com/lyne-design-system/lyne-components/commit/8cfc53b8d27190dcdbf744381961cefd5f2303b1))
+
 ### [0.20.14](https://github.com/lyne-design-system/lyne-components/compare/v0.20.13...v0.20.14) (2023-01-06)
 
 ### Features
