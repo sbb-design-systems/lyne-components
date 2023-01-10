@@ -1,4 +1,3 @@
-import events from './sbb-radio-button-group.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -179,7 +178,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.didChange],
+      handles: ['change'],
     },
     backgrounds: {
       disable: true,

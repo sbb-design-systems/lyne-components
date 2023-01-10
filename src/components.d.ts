@@ -48,6 +48,7 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
+import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
@@ -1593,6 +1594,28 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToggle {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the toggle is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+         */
+        "even": boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleAttributes['size'];
+        /**
+          * The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method).
+         */
+        "value": any | null;
+    }
     interface SbbToggleCheck {
         /**
           * The aria-label prop for the hidden input.
@@ -1624,6 +1647,29 @@ export namespace Components {
         "required": boolean;
         /**
           * Value of toggle-check.
+         */
+        "value"?: string;
+    }
+    interface SbbToggleOption {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * Whether the toggle-option is checked.
+         */
+        "checked": boolean;
+        /**
+          * Whether the toggle option is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Name of the icon for `<sbb-icon>`.
+         */
+        "iconName"?: string;
+        "select": () => Promise<void>;
+        /**
+          * Value of toggle-option.
          */
         "value"?: string;
     }
@@ -1762,9 +1808,17 @@ export interface SbbTagCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTagElement;
 }
+export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleElement;
+}
 export interface SbbToggleCheckCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleCheckElement;
+}
+export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToggleOptionElement;
 }
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2197,11 +2251,23 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
+    interface HTMLSbbToggleElement extends Components.SbbToggle, HTMLStencilElement {
+    }
+    var HTMLSbbToggleElement: {
+        prototype: HTMLSbbToggleElement;
+        new (): HTMLSbbToggleElement;
+    };
     interface HTMLSbbToggleCheckElement extends Components.SbbToggleCheck, HTMLStencilElement {
     }
     var HTMLSbbToggleCheckElement: {
         prototype: HTMLSbbToggleCheckElement;
         new (): HTMLSbbToggleCheckElement;
+    };
+    interface HTMLSbbToggleOptionElement extends Components.SbbToggleOption, HTMLStencilElement {
+    }
+    var HTMLSbbToggleOptionElement: {
+        prototype: HTMLSbbToggleOptionElement;
+        new (): HTMLSbbToggleOptionElement;
     };
     interface HTMLSbbTooltipElement extends Components.SbbTooltip, HTMLStencilElement {
     }
@@ -2305,7 +2371,9 @@ declare global {
         "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
+        "sbb-toggle": HTMLSbbToggleElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
+        "sbb-toggle-option": HTMLSbbToggleOptionElement;
         "sbb-tooltip": HTMLSbbTooltipElement;
         "sbb-train": HTMLSbbTrainElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
@@ -3899,6 +3967,37 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToggle {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the toggle is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+         */
+        "even"?: boolean;
+        /**
+          * Emits whenever the radio group value changes.
+         */
+        "onChange"?: (event: SbbToggleCustomEvent<any>) => void;
+        /**
+          * Emits whenever the radio group value changes.
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbToggleCustomEvent<any>) => void;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceSbbToggleAttributes['size'];
+        /**
+          * The value of the toggle. It needs to be mutable since it is updated whenever a new option is selected (see the `onToggleOptionSelect()` method).
+         */
+        "value"?: any | null;
+    }
     interface SbbToggleCheck {
         /**
           * The aria-label prop for the hidden input.
@@ -3934,6 +4033,32 @@ declare namespace LocalJSX {
         "required"?: boolean;
         /**
           * Value of toggle-check.
+         */
+        "value"?: string;
+    }
+    interface SbbToggleOption {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * Whether the toggle-option is checked.
+         */
+        "checked"?: boolean;
+        /**
+          * Whether the toggle option is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Name of the icon for `<sbb-icon>`.
+         */
+        "iconName"?: string;
+        /**
+          * Emits whenever the toggle-option value changes.
+         */
+        "onDid-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
+        /**
+          * Value of toggle-option.
          */
         "value"?: string;
     }
@@ -4103,7 +4228,9 @@ declare namespace LocalJSX {
         "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
+        "sbb-toggle": SbbToggle;
         "sbb-toggle-check": SbbToggleCheck;
+        "sbb-toggle-option": SbbToggleOption;
         "sbb-tooltip": SbbTooltip;
         "sbb-train": SbbTrain;
         "sbb-train-formation": SbbTrainFormation;
@@ -4186,7 +4313,9 @@ declare module "@stencil/core" {
             "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
+            "sbb-toggle": LocalJSX.SbbToggle & JSXBase.HTMLAttributes<HTMLSbbToggleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
+            "sbb-toggle-option": LocalJSX.SbbToggleOption & JSXBase.HTMLAttributes<HTMLSbbToggleOptionElement>;
             "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
             "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
