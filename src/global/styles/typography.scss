@@ -50,6 +50,14 @@ html {
   @include lists.step-list;
 }
 
+.sbb-page-spacing {
+  @include layout.page-spacing;
+}
+
+.sbb-page-spacing-wide {
+  @include layout.page-spacing-wide;
+}
+
 .sbb-grid {
   @include layout.grid;
 }

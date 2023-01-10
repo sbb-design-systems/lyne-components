@@ -89,8 +89,8 @@ const Template = (args) => (
     {/* *************************************************
     Top products section
     ************************************************* */}
-    <section class="sbb-grid">
-      <div class="top-products-container grid-full-width">
+    <section class="sbb-page-spacing">
+      <div class="top-products-container">
         <sbb-title level="2" negative={args.negative}>
           Top Products.
         </sbb-title>

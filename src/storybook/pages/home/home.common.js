@@ -205,9 +205,9 @@ export const LiberoProduct = () => (
 );
 
 export const TeaserHero = () => (
-  <section class="sbb-grid">
+  <section class="sbb-page-spacing">
     <sbb-teaser-hero
-      class="teaser-hero grid-full-width"
+      class="teaser-hero"
       link-content="Learn more"
       image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
       href="https://www.sbb.ch"
