@@ -40,7 +40,6 @@
   --color-background-hover: var(--sbb-color-white-alpha-60);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 ::slotted(sbb-accordion-item:not(:first-child)) {
   margin-block-start: var(--item-margin-block);
 }

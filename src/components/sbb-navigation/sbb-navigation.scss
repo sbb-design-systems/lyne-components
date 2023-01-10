@@ -77,7 +77,6 @@
   }
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 :host(:not(.sbb-navigation-section--closed)) {
   inset: 0;
 }
@@ -107,7 +106,7 @@
   }
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-navigation-animation-duration: 0s;
 }
 

@@ -17,7 +17,7 @@
   height: var(--sbb-header-height);
 }
 
-:host([wide]) {
+:host([wide]:not([wide='false'])) {
   --sbb-header-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-header-content-max-width: auto;
 }
@@ -32,7 +32,7 @@
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   z-index: 10;
 
-  :host([shadow]) & {
+  :host([shadow]:not([shadow='false'])) & {
     @include sbb.shadow-level-9-soft;
   }
 }

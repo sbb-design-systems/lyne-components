@@ -61,7 +61,6 @@
   }
 }
 
-// stylelint-disable plugin/stylelint-bem-namics
 :host(:is(.sbb-dialog--opened, .sbb-dialog--opening)) {
   pointer-events: all;
 
@@ -74,7 +73,6 @@
     }
   }
 }
-// stylelint-enable plugin/stylelint-bem-namics
 
 :host(.sbb-dialog--full-screen) {
   --sbb-dialog-backdrop-color: transparent;
@@ -82,7 +80,7 @@
   --sbb-dialog-max-height: 100%;
 }
 
-:host([negative]) {
+:host([negative]:not([negative='false'])) {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
@@ -91,22 +89,21 @@
   --sbb-dialog-footer-border: none;
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-dialog-animation-duration: 0s;
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(.sbb-dialog--full-screen:not([negative])) {
+:host(.sbb-dialog--full-screen:not([negative]:not([negative='false']))) {
   --sbb-dialog-background-color: var(--sbb-color-milk-default);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 :host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen)) {
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) {
+:host(
+    .sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative]:not([negative='false']))
+  ) {
   --sbb-dialog-footer-border: none;
 }
 
@@ -217,13 +214,16 @@
   border-block-start: var(--sbb-dialog-footer-border);
 }
 
-// stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+// stylelint-disable selector-not-notation
 :is(.sbb-dialog__header, .sbb-dialog__footer) {
-  :host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) & {
+  :host(
+      .sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative]:not([negative='false']))
+    )
+    & {
     @include sbb.shadow-level-9-soft;
   }
 }
-// stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
+// stylelint-enable selector-not-notation
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter
 // the default `display: block` of the modal otherwise it causes several problems,

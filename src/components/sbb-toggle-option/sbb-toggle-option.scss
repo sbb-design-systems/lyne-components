@@ -20,11 +20,11 @@
   outline: none;
 }
 
-:host([checked]) {
+:host([checked]:not([checked='false'])) {
   --sbb-toggle-option-color: var(--sbb-color-charcoal-default);
 }
 
-:host([disabled]) {
+:host([disabled]:not([disabled='false'])) {
   --sbb-toggle-option-cursor: unset;
   --sbb-toggle-option-color: var(--sbb-color-graphite-default);
 }

@@ -14,7 +14,7 @@
   --sbb-card-animation-easing: var(--sbb-animation-easing);
 }
 
-:host([negative]) {
+:host([negative]:not([negative='false'])) {
   --sbb-card-background-color: var(--sbb-color-milk-default);
 }
 
@@ -86,7 +86,6 @@
     @include sbb.focus-outline;
   }
 
-  // stylelint-disable-next-line plugin/stylelint-bem-namics
   :host(:not([href])) & {
     @include sbb.text-inherit;
 
@@ -100,7 +99,7 @@
   }
 }
 
-:host([active]) {
+:host([active]:not([active='false'])) {
   .sbb-card::after {
     border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
   }
@@ -113,8 +112,8 @@
 }
 
 @include sbb.hover-mq($hover: true) {
-  // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
-  :host(:not([active]):hover) .sbb-card {
+  // stylelint-disable selector-not-notation
+  :host(:not([active]:not([active='false'])):hover) .sbb-card {
     @include sbb.shadow-level-9-hard;
 
     .sbb-card__content {

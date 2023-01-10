@@ -15,7 +15,6 @@
   gap: var(--sbb-alert-group-gap);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 :host(:focus-visible:not(.sbb-alert-group-empty)) {
   @include sbb.focus-outline;
 
