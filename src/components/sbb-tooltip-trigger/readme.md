@@ -1,11 +1,14 @@
 # sbb-tooltip-trigger
-The `sbb-tooltip-trigger` component is used to trigger a tooltip by pressing a button. By default it renders the `sbb-icon` `information-circle-small`. With the property `icon-name` it is possible to define a custom icon. Moreover, it is possible to override the `sbb-icon` with custom content by slotting it.
+
+The `sbb-tooltip-trigger` component is used to trigger a tooltip by pressing a button. 
+By default, it renders the `sbb-icon` `information-circle-small`; with the property `icon-name` it is possible to define a custom icon. 
+Moreover, it is possible to override the `sbb-icon` with custom content by slotting it.
 
 ## Usage
 
 The examples below shows how to use the component with the `<sbb-icon>` and custom content.
  
- ### Tooltip trigger with sbb-icon
+### Tooltip trigger with sbb-icon
 ```html
  <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
