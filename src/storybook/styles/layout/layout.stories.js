@@ -18,17 +18,37 @@ const GridContent = () => {
   return [...Array(16)].map(() => <div></div>);
 };
 
-const GridTemplate = () => (
-  <div class="sbb-grid visualized-grid">
-    <GridContent />
-  </div>
+const Warning = () => (
+  <span class="sbb-text-s">
+    This example only intends to visualize the grid and is not meant to be used as is.
+    <br />
+    <sbb-link
+      variant="inline"
+      href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
+    >
+      See docs on css grid
+    </sbb-link>
+    .
+  </span>
 );
 
-const GridWideTemplate = () => (
+const GridTemplate = () => [
+  <div class="sbb-grid visualized-grid">
+    <GridContent />
+  </div>,
+  <p class="sbb-page-spacing">
+    <Warning />
+  </p>,
+];
+
+const GridWideTemplate = () => [
   <div class="sbb-grid-wide visualized-grid">
     <GridContent />
-  </div>
-);
+  </div>,
+  <p class="sbb-page-spacing-wide">
+    <Warning />
+  </p>,
+];
 
 export const PageSpacing = PageSpacingTemplate.bind({});
 export const PageSpacingWide = PageSpacingWideTemplate.bind({});

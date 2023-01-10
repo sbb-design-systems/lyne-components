@@ -50,20 +50,19 @@ html {
   @include lists.step-list;
 }
 
+.sbb-grid,
 .sbb-page-spacing {
   @include layout.page-spacing;
 }
 
+.sbb-grid-wide,
 .sbb-page-spacing-wide {
   @include layout.page-spacing-wide;
 }
 
-.sbb-grid {
-  @include layout.grid;
-}
-
+.sbb-grid,
 .sbb-grid-wide {
-  @include layout.grid-wide;
+  @include layout.grid-base;
 }
 
 .sbb-legend {
