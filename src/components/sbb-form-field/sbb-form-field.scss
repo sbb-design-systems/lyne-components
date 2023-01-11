@@ -99,7 +99,6 @@
 }
 
 :host([width='collapse']) {
-  max-width: min(#{sbb.px-to-rem-build(300)}, 100%);
   min-width: auto;
   width: auto;
 }

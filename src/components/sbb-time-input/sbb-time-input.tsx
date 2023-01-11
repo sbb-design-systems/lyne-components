@@ -141,7 +141,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       disabled: this.disabled || null,
       readonly: this.readonly || null,
       required: this.required || null,
-      valueAsDate: this._formatValueAsDate(this.value) || null,
       value: this._formatValue(this.value) || null,
       placeholder: this._placeholder,
       ...getAccessibilityAttributeList(this),
