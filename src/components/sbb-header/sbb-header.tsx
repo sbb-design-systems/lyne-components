@@ -23,11 +23,14 @@ export class SbbHeader {
   /** Whether the header should hide and show on scroll. */
   @Prop({ reflect: true }) public hideonscroll = false;
 
+  private _headerElement: HTMLElement;
+
   public componentDidLoad(): void {
     document.addEventListener('scroll', () => {
-      console.log(this.hideonscroll);
-      if (this.hideonscroll = true) {
-        console.log('inside');
+      this._headerElement = document.querySelector('sbb-header');
+      //console.log(this.hideonscroll);
+      if (this.hideonscroll === true && document.documentElement.scrollTop > this._headerElement.offsetHeight) {
+        console.log('header hide/show');
       }
     });
   }
