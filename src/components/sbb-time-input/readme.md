@@ -2,8 +2,10 @@
 
 The `sbb-time-input` is a component that displays the typed value as a formatted time (HH:mm).
 
-If the typed value is numeric, possibly with a separator char like `.`, `:`, `,` or `-`, the component automatically 
-format it. __The `sbb-time-input` component does not apply any validation.  This is up to the consumer.__
+If the typed value is not numeric, the input is emptied. If it's numeric, possibly with a separator char 
+like `.`, `:`, `,` or `-`, the component automatically format it (see the "Format example" paragraph).
+The `sbb-time-input` also verifies the validity of the entered time; if the value is not real (e.g. 12:61 or 25:30) 
+the component does not update the `value` and empties the `valueAsDate` property.
 
 The initial value can be set using the `value` property (string). 
 The component has a `valueAsDate` attribute too, which is set this way: 

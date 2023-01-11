@@ -88,9 +88,12 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     if (!regGroups || regGroups.length <= 2) {
       return null;
     }
+    if (this._isTimeInvalid(regGroups)) {
+      return value;
+    }
 
-    const hours = this._parseHour(regGroups[1]);
-    const minutes = this._parseMinute(regGroups[2]);
+    const hours = regGroups[1].padStart(2, '0');
+    const minutes = (regGroups[2] || '').padStart(2, '0');
     return `${hours}:${minutes}`;
   }
 
@@ -100,12 +103,18 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
    */
   private _formatValueAsDate(value: string): Date {
     const regGroups = this._validateInput(value);
-    if (!regGroups || regGroups.length <= 2) {
+    if (!regGroups || regGroups.length <= 2 || this._isTimeInvalid(regGroups)) {
       return null;
     }
 
-    const dateAsNumber: number = new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0);
-    return new Date(dateAsNumber);
+    return new Date(new Date(0).setHours(+regGroups[1], +regGroups[2] || 0, 0, 0));
+  }
+
+  /** Checks if values of hours and minutes are possible, to avoid non-existent times. */
+  private _isTimeInvalid(regGroups: RegExpMatchArray): boolean {
+    const hours = +regGroups[1];
+    const minutes = +regGroups[2] || 0;
+    return hours >= 24 || minutes >= 60;
   }
 
   /** Validate input against the defined RegExps. */
@@ -118,16 +127,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     } else {
       return null;
     }
-  }
-
-  /** Parse the hours with two chars. */
-  private _parseHour(regGroupHours: string): string {
-    return regGroupHours.padStart(2, '0');
-  }
-
-  /** Parse the minutes with two chars. */
-  private _parseMinute(regGroupMin: string): string {
-    return (regGroupMin || '').padStart(2, '0');
   }
 
   public connectedCallback(): void {
