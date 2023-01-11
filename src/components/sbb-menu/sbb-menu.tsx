@@ -16,6 +16,7 @@ import {
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -231,7 +232,7 @@ export class SbbMenu implements ComponentInterface {
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
   private _closeOnInteractiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !target.hasAttribute('disabled')) {
+    if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !isValidAttribute(target, 'disabled')) {
       this.close();
     }
   }

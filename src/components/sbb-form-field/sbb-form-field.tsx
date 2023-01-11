@@ -9,6 +9,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import {isValidAttribute} from "../../global/helpers/is-valid-attribute";
 
 let nextId = 0;
 
@@ -137,8 +138,8 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _readInputState(): void {
-    toggleDatasetEntry(this._element, 'readonly', this._input.hasAttribute('readonly'));
-    toggleDatasetEntry(this._element, 'disabled', this._input.hasAttribute('disabled'));
+    toggleDatasetEntry(this._element, 'readonly', isValidAttribute(this._input, 'readonly'));
+    toggleDatasetEntry(this._element, 'disabled', isValidAttribute(this._input, 'disabled'));
     toggleDatasetEntry(
       this._element,
       'invalid',

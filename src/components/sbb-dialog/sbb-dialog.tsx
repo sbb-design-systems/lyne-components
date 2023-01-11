@@ -24,6 +24,7 @@ import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { hostContext } from '../../global/helpers/host-context';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -259,8 +260,8 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _closeOnSbbDialogCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
 
-    if (target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled')) {
-      // Check if the target is a submit element within a form and return the form, if present
+    if (target.hasAttribute('sbb-dialog-close') && !isValidAttribute(target, 'disabled')) {
+      // Check if the target is a submission element within a form and return the form, if present
       const closestForm =
         target.getAttribute('type') === 'submit'
           ? (hostContext('form', target) as HTMLFormElement)
