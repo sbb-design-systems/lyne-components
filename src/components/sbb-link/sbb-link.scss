@@ -18,7 +18,8 @@
   display: block;
 }
 
-:host([negative]:not([negative='false'])) {
+// Using :where to be not more specific than inline variant
+:host([negative]:where(:not([negative='false']))) {
   @include sbb.link-variables--negative;
 }
 

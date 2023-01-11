@@ -98,7 +98,7 @@ input[type='checkbox'] {
   background-color: var(--sbb-toggle-check-background);
   cursor: var(--sbb-toggle-check-cursor);
 
-  input[type='checkbox']:focus-visible + .toggle-check__container & {
+  input[type='checkbox']:focus-visible + .sbb-toggle-check__container & {
     @include sbb.focus-outline;
   }
 }
