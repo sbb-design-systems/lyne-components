@@ -9,7 +9,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import {isValidAttribute} from "../../global/helpers/is-valid-attribute";
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 let nextId = 0;
 

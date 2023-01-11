@@ -16,7 +16,7 @@ import { Alignment, getElementPosition, isEventOnElement } from '../../global/he
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
-import {isValidAttribute} from "../../global/helpers/is-valid-attribute";
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
