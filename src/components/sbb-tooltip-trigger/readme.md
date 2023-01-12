@@ -32,6 +32,14 @@ The examples below shows how to use the component with the `<sbb-icon>` and cust
 </sbb-tooltip>
 ```
 
+### Accessibility
+In order to make screen readers announce the type of the trigger when is focused, provide the `aria-label` attribute inside the `<sbb-tooltip-trigger>` as shown below:
+
+```html
+<sbb-tooltip-trigger aria-label="Custom label" id="tooltip-trigger">
+</sbb-tooltip-trigger>
+```
+
 <!-- Auto Generated Below -->
 
 

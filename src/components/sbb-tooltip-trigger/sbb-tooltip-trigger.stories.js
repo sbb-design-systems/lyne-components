@@ -1,6 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const iconName = {
   control: {
     type: 'text',
@@ -8,10 +14,12 @@ const iconName = {
 };
 
 const defaultArgTypes = {
+  'aria-label': ariaLabel,
   'icon-name': iconName,
 };
 
 const defaultArgs = {
+  'aria-label': undefined,
   'icon-name': 'circle-information-small',
 };
 
