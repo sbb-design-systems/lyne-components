@@ -55,19 +55,14 @@ jobs:
           git config --global user.email 'github-actions@github.com'
       - name: 'Release: Create release with standard-version'
         run: yarn standard-version
+      - name: 'Release: Read new version'
+        id: version
+        run: echo "value=$(jq --raw-output .version ./package.json)" >> $GITHUB_OUTPUT
       - name: 'Release: Push release to repository'
         run: git push --follow-tags origin master
       - name: 'Release: Determine npm tag'
         id: npm_tag
-        run: |
-          if [[ "$REF" == *"-"* ]]
-          then
-              echo "npm_tag=next" >> $GITHUB_OUTPUT
-          else
-              echo "npm_tag=latest" >> $GITHUB_OUTPUT
-          fi
-        env:
-          REF: ${{ github.ref }}
+        run: echo "npm_tag=$([[ "${{ steps.version.outputs.value }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
       - name: 'Release: Publish @sbb-esta/lyne-components'
         run: yarn publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
@@ -77,17 +72,16 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const version = require('./package.json').version;
             const path = `${process.env.GITHUB_WORKSPACE}/react-library/package.json`;
             const pkgJson = fs.readFileSync(path, 'utf8');
-            fs.writeFileSync(path, pkgJson.replace(/0.0.0-PLACEHOLDER/g, version), 'utf8');
+            fs.writeFileSync(path, pkgJson.replace(/0.0.0-PLACEHOLDER/g, '${{ steps.version.outputs.value }}'), 'utf8');
       - name: 'Release: Publish @sbb-esta/lyne-components-react'
         run: yarn publish react-library --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create versioned storybook
-        run: STORYBOOK_COMPONENTS_VERSION=$(cat package.json | jq --raw-output '.version') npm run build:storybook
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} npm run build:storybook
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
       - name: Publish to Chromatic
@@ -104,9 +98,9 @@ jobs:
       - name: 'Container: Login to GitHub Container Repository'
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
-        run: docker build -t $IMAGE_REPO:${{ github.ref_name }} -t $IMAGE_REPO:latest .
+        run: docker build -t $IMAGE_REPO:${{ steps.version.outputs.value }} -t $IMAGE_REPO:latest .
       - name: 'Container: Publish image'
-        run: docker push $IMAGE_REPO:${{ github.ref_name }}
+        run: docker push $IMAGE_REPO:${{ steps.version.outputs.value }}
       - name: 'Container: Publish image as latest'
         run: docker push $IMAGE_REPO:latest
 
