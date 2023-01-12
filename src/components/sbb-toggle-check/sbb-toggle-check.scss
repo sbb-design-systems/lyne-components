@@ -11,15 +11,14 @@
   --sbb-toggle-check-background: var(--sbb-color-smoke-default);
   --sbb-toggle-check-fill: var(--sbb-color-red-default);
   --sbb-toggle-check-circle-background: var(--sbb-color-white-default);
-  --sbb-toggle-check-circle-offset: var(--sbb-border-width-2x);
-  --sbb-toggle-check-circle-diameter: var(--sbb-size-icon-ui-small);
-  --sbb-toggle-check-height: calc(
-    var(--sbb-toggle-check-circle-diameter) + 2 * var(--sbb-toggle-check-circle-offset)
-  );
-  --sbb-toggle-check-circle-transform: translate(var(--sbb-toggle-check-circle-offset), -50%);
+  --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
+  --sbb-toggle-check-circle-transform: translate(0, -50%);
+  --sbb-toggle-check-height: #{sbb.px-to-rem-build(24)};
+  --sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
   --sbb-toggle-check-cursor: pointer;
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-icon-opacity: 0;
+  --sbb-toggle-check-vertical-align: start;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-circle-background: Canvas;
@@ -29,8 +28,12 @@
 
 :host([checked]:not([checked='false'])) {
   --sbb-toggle-check-background: var(--sbb-color-red-default);
+
+  // As the circle is greater than the slider below,
+  // we have to subtract the difference in order to not overshoot on the right side.
+  // 100% of circle (28px) - 2 * (100% (28px) - 0.5 * width (48px)) => 20px
   --sbb-toggle-check-circle-transform: translate(
-    calc(100% - var(--sbb-toggle-check-circle-offset)),
+    calc(100% - 2 * (100% - 0.5 * var(--sbb-toggle-check-width))),
     -50%
   );
   --sbb-toggle-check-icon-opacity: 1;
@@ -44,7 +47,7 @@
 :host([disabled]:not([disabled='false'])) {
   --sbb-toggle-check-color: var(--sbb-color-graphite-default);
   --sbb-toggle-check-background: var(--sbb-color-cloud-default);
-  --sbb-toggle-check-fill: var(--sbb-color-granite-default);
+  --sbb-toggle-check-fill: var(--sbb-color-smoke-default);
   --sbb-toggle-check-circle-background: var(--sbb-color-milk-default);
   --sbb-toggle-check-cursor: not-allowed;
 
@@ -52,6 +55,10 @@
     --sbb-toggle-check-fill: GrayText;
     --sbb-toggle-check-background: GrayText;
   }
+}
+
+:host([checked][disabled]) {
+  --sbb-toggle-check-circle-background: var(--sbb-color-white-default);
 }
 
 :host([label-position='before']) {
@@ -76,7 +83,7 @@
 }
 
 input[type='checkbox'] {
-  @include sbb.invisible-container-overlay;
+  @include sbb.screen-reader-only;
 }
 
 .sbb-toggle-check__container {
@@ -85,7 +92,7 @@ input[type='checkbox'] {
   display: flex;
   flex-direction: var(--sbb-toggle-check-flex-direction);
   gap: var(--sbb-spacing-fixed-3x);
-  align-items: start;
+  align-items: var(--sbb-toggle-check-vertical-align);
   width: 100%;
 }
 
@@ -99,12 +106,16 @@ input[type='checkbox'] {
 .sbb-toggle-check__slider {
   display: inline-block;
   position: relative;
-  overflow: hidden;
-  min-width: calc(2 * var(--sbb-toggle-check-circle-diameter));
+  min-width: var(--sbb-toggle-check-width);
   height: var(--sbb-toggle-check-height);
   border-radius: var(--sbb-toggle-check-height);
   background-color: var(--sbb-toggle-check-background);
   cursor: var(--sbb-toggle-check-cursor);
+
+  // Reserve space of overlapping circle
+  margin-block: calc(
+    0.5 * (var(--sbb-toggle-check-circle-diameter) - var(--sbb-toggle-check-height))
+  );
 }
 
 .sbb-toggle-check__circle {
@@ -113,7 +124,8 @@ input[type='checkbox'] {
 
   width: var(--sbb-toggle-check-circle-diameter);
   height: var(--sbb-toggle-check-circle-diameter);
-  border-radius: var(--sbb-toggle-check-height);
+  border: var(--sbb-border-width-1x) solid var(--sbb-toggle-check-background);
+  border-radius: 50%;
   background-color: var(--sbb-toggle-check-circle-background);
   color: var(--sbb-toggle-check-fill);
   will-change: transform;
@@ -121,8 +133,11 @@ input[type='checkbox'] {
   transition: transform ease var(--sbb-animation-duration-6x);
 }
 
-::slotted(sbb-icon),
-slot[name='icon'] sbb-icon {
+.sbb-toggle-check-icon {
+  @include sbb.absolute-center-x-y;
+
+  width: var(--sbb-size-icon-ui-small);
+  height: var(--sbb-size-icon-ui-small);
   opacity: var(--sbb-toggle-check-icon-opacity);
   transition: opacity ease var(--sbb-animation-duration-6x);
 }
