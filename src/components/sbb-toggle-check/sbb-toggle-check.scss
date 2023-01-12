@@ -100,7 +100,7 @@ input[type='checkbox'] {
 .sbb-toggle-check__label {
   flex-grow: 1;
   padding-block-start: calc(
-    (var(--sbb-toggle-check-height) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
+    (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
   );
 }
 
