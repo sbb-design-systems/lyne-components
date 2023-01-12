@@ -204,7 +204,7 @@ export const disturbanceTrip = {
     {
       name: 'R',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
       textArguments: [],
       type: 'ATTRIBUTE',
@@ -271,7 +271,7 @@ export const quayChangeTrip = {
     {
       name: 'R',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
       textArguments: [],
       type: 'ATTRIBUTE',
@@ -408,7 +408,7 @@ export const walkTimeTrip = {
     {
       name: 'NF',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
       textArguments: [],
       type: 'ATTRIBUTE',
@@ -417,7 +417,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'WR',
-      text: 'Restaurant',
+      text: {
+        template: 'Restaurant',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 1,
@@ -425,7 +427,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'FA',
-      text: 'Familienwagen mit Spielplatz',
+      text: {
+        template: 'Family wagon with playground',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -433,7 +437,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'BZ',
-      text: 'Businesszone in 1. Klasse',
+      text: {
+        template: 'Business zone in 1st class',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -441,7 +447,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'FS',
-      text: 'Gratis-Internet mit der App SBB FreeSurf',
+      text: {
+        template: 'Free internet with the SBB FreeSurf app',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -449,7 +457,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'RZ',
-      text: 'Ruhezone in 1. Klasse',
+      text: {
+        template: 'Quiet zone in 1st class',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -457,7 +467,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'R',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
@@ -575,55 +587,55 @@ export const NoticesTrip = {
     {
       name: 'XT',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'EXISTIERTNICHT',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'TG',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'VR',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'RM',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'SB >deleteme<',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'Z',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'Z',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
     {
       name: 'Z',
       text: {
-        template: 'Platzreservierung möglich',
+        template: 'Reservation possible',
       },
     },
   ],
