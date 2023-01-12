@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.17](https://github.com/lyne-design-system/lyne-components/compare/v0.20.16...v0.20.17) (2023-01-12)
+
+### Bug Fixes
+
+- boolean properties handling ([#1531](https://github.com/lyne-design-system/lyne-components/issues/1531)) ([2eee3b9](https://github.com/lyne-design-system/lyne-components/commit/2eee3b99ab02d59bebb738b02329c51f3a0d0c07))
+
 ### [0.20.16](https://github.com/lyne-design-system/lyne-components/compare/v0.20.15...v0.20.16) (2023-01-10)
 
 ### Bug Fixes
