@@ -7,58 +7,62 @@
 :host {
   display: inline-block;
 
-  --sbb-toggle-check-color: var(--sbb-color-charcoal-default);
-  --sbb-toggle-check-background: var(--sbb-color-smoke-default);
-  --sbb-toggle-check-fill: var(--sbb-color-red-default);
-  --sbb-toggle-check-circle-background: var(--sbb-color-white-default);
+  --sbb-toggle-check-font-color: var(--sbb-color-charcoal-default);
+  --sbb-toggle-check-checked-color: var(--sbb-color-red-default);
+  --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
+  --sbb-toggle-check-icon-color: var(--sbb-toggle-check-checked-color);
+  --sbb-toggle-check-icon-opacity: 0;
+  --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
+  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
   --sbb-toggle-check-circle-transform: translate(0, -50%);
   --sbb-toggle-check-height: #{sbb.px-to-rem-build(24)};
   --sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
   --sbb-toggle-check-cursor: pointer;
   --sbb-toggle-check-flex-direction: row-reverse;
-  --sbb-toggle-check-icon-opacity: 0;
-  --sbb-toggle-check-vertical-align: start;
+  --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
 
   @include sbb.if-forced-colors {
-    --sbb-toggle-check-circle-background: Canvas;
-    --sbb-toggle-check-background: CanvasText;
+    --sbb-toggle-check-background-color: CanvasText;
+    --sbb-toggle-check-circle-background-color: Canvas;
   }
 }
 
 :host([checked]:not([checked='false'])) {
-  --sbb-toggle-check-background: var(--sbb-color-red-default);
+  --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
+  --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
+  --sbb-toggle-check-icon-opacity: 1;
 
   // As the circle is greater than the slider below,
-  // we have to subtract the difference in order to not overshoot on the right side.
+  // we have to subtract the difference in order to not overshoot at the right side.
   // 100% of circle (28px) - 2 * (100% (28px) - 0.5 * width (48px)) => 20px
   --sbb-toggle-check-circle-transform: translate(
     calc(100% - 2 * (100% - 0.5 * var(--sbb-toggle-check-width))),
     -50%
   );
-  --sbb-toggle-check-icon-opacity: 1;
 
   @include sbb.if-forced-colors {
-    --sbb-toggle-check-fill: Highlight;
-    --sbb-toggle-check-background: Highlight;
+    --sbb-toggle-check-icon-color: Highlight;
+    --sbb-toggle-check-background-color: Highlight;
   }
 }
 
 :host([disabled]:not([disabled='false'])) {
-  --sbb-toggle-check-color: var(--sbb-color-graphite-default);
-  --sbb-toggle-check-background: var(--sbb-color-cloud-default);
-  --sbb-toggle-check-fill: var(--sbb-color-smoke-default);
-  --sbb-toggle-check-circle-background: var(--sbb-color-milk-default);
+  --sbb-toggle-check-font-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
+  --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
+  --sbb-toggle-check-circle-background-color: var(--sbb-color-milk-default);
+  --sbb-toggle-check-icon-color: var(--sbb-color-smoke-default);
   --sbb-toggle-check-cursor: default;
 
   @include sbb.if-forced-colors {
-    --sbb-toggle-check-fill: GrayText;
-    --sbb-toggle-check-background: GrayText;
+    --sbb-toggle-check-icon-color: GrayText;
+    --sbb-toggle-check-background-color: GrayText;
   }
 }
 
-:host([checked][disabled]) {
-  --sbb-toggle-check-circle-background: var(--sbb-color-white-default);
+:host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) {
+  --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
 }
 
 :host([label-position='before']) {
@@ -71,7 +75,7 @@
 
   position: relative;
   display: flex;
-  color: var(--sbb-toggle-check-color);
+  color: var(--sbb-toggle-check-font-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
@@ -92,8 +96,8 @@ input[type='checkbox'] {
 
   display: flex;
   flex-direction: var(--sbb-toggle-check-flex-direction);
-  gap: var(--sbb-spacing-fixed-3x);
-  align-items: var(--sbb-toggle-check-vertical-align);
+  gap: var(--sbb-toggle-check-gap);
+  align-items: start;
   width: 100%;
 }
 
@@ -110,7 +114,7 @@ input[type='checkbox'] {
   min-width: var(--sbb-toggle-check-width);
   height: var(--sbb-toggle-check-height);
   border-radius: var(--sbb-toggle-check-height);
-  background-color: var(--sbb-toggle-check-background);
+  background-color: var(--sbb-toggle-check-background-color);
 
   // Reserve space of overlapping circle
   margin-block: calc(
@@ -124,10 +128,10 @@ input[type='checkbox'] {
 
   width: var(--sbb-toggle-check-circle-diameter);
   height: var(--sbb-toggle-check-circle-diameter);
-  border: var(--sbb-border-width-1x) solid var(--sbb-toggle-check-background);
+  border: var(--sbb-border-width-1x) solid var(--sbb-toggle-check-circle-border-color);
   border-radius: 50%;
-  background-color: var(--sbb-toggle-check-circle-background);
-  color: var(--sbb-toggle-check-fill);
+  background-color: var(--sbb-toggle-check-circle-background-color);
+  color: var(--sbb-toggle-check-icon-color);
   will-change: transform;
   transform: var(--sbb-toggle-check-circle-transform);
   transition: transform ease var(--sbb-animation-duration-6x);
