@@ -31,7 +31,7 @@ import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { PTRideLeg } from "./global/interfaces/pearl-chain-properties";
+import { PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -1085,7 +1085,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": PTRideLeg[];
+        "legs": PtRideLeg[];
     }
     interface SbbPearlChainTime {
         /**
@@ -1111,7 +1111,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": PTRideLeg[];
+        "legs": PtRideLeg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -3449,7 +3449,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs"?: PTRideLeg[];
+        "legs"?: PtRideLeg[];
     }
     interface SbbPearlChainTime {
         /**
@@ -3475,7 +3475,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": PTRideLeg[];
+        "legs": PtRideLeg[];
     }
     interface SbbPearlChainVertical {
     }

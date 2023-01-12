@@ -203,7 +203,9 @@ export const disturbanceTrip = {
   notices: [
     {
       name: 'R',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
@@ -268,7 +270,9 @@ export const quayChangeTrip = {
   notices: [
     {
       name: 'R',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
@@ -403,7 +407,9 @@ export const walkTimeTrip = {
   notices: [
     {
       name: 'NF',
-      text: 'Niederflureinstieg',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 0,
@@ -568,39 +574,57 @@ export const NoticesTrip = {
   notices: [
     {
       name: 'XT',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'EXISTIERTNICHT',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'TG',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'VR',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'RM',
-      text: 'AAA möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'SB >deleteme<',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'Z',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'Z',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
     {
       name: 'Z',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Platzreservierung möglich',
+      },
     },
   ],
   situations: [],

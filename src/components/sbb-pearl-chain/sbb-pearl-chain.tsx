@@ -1,5 +1,5 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
 import { isRideLeg } from './sbb-pearl-chain.helper';
@@ -19,7 +19,7 @@ export class SbbPearlChain {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs: PTRideLeg[];
+  @Prop() public legs: PtRideLeg[];
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -34,7 +34,7 @@ export class SbbPearlChain {
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
-  private _getAllDuration(legs: PTRideLeg[]): number {
+  private _getAllDuration(legs: PtRideLeg[]): number {
     return legs?.reduce(
       (sum: number, leg) =>
         (sum += differenceInMinutes(
@@ -45,11 +45,11 @@ export class SbbPearlChain {
     );
   }
 
-  private _isAllCancelled(legs: PTRideLeg[]): boolean {
+  private _isAllCancelled(legs: PtRideLeg[]): boolean {
     return legs?.every((leg) => leg?.serviceJourney?.serviceAlteration?.cancelled);
   }
 
-  private _getRelativeDuration(legs: PTRideLeg[], leg: PTRideLeg): number {
+  private _getRelativeDuration(legs: PtRideLeg[], leg: PtRideLeg): number {
     const duration = differenceInMinutes(
       removeTimezoneFromISOTimeString(leg.arrival?.time),
       removeTimezoneFromISOTimeString(leg.departure?.time)
@@ -94,7 +94,7 @@ export class SbbPearlChain {
   }
 
   public render(): JSX.Element {
-    const rideLegs: PTRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg));
+    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg));
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
     const arrivalTime =
@@ -155,7 +155,7 @@ export class SbbPearlChain {
         <span
           class={`sbb-pearl-chain__bullet ${statusClassDeparture} ${departureNotServiced} ${departureCancelClass}`}
         ></span>
-        {rideLegs?.map((leg: PTRideLeg, index: number) => {
+        {rideLegs?.map((leg: PtRideLeg, index: number) => {
           const { stopPoints, serviceAlteration } = leg?.serviceJourney || {};
 
           const duration = this._getRelativeDuration(rideLegs, leg);

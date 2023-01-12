@@ -1,10 +1,10 @@
 import {
-  PTRideLeg,
+  PtRideLeg,
   ScheduledStopPointDetail,
 } from '../../global/interfaces/pearl-chain-properties';
 
 declare interface SummaryConfig {
-  legs: PTRideLeg[];
+  legs: PtRideLeg[];
   vias?: string[];
   origin: string;
   destination: string;
