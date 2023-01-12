@@ -9,7 +9,7 @@ import {
 } from 'date-fns';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
-import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
 
 export const durationToTime = (duration: number): string => {
@@ -111,25 +111,25 @@ export const renderStringProduct = (vehicleName: string, line?: string | null): 
   );
 };
 
-const isReachable = (legs: PTRideLeg[]): boolean => {
+const isReachable = (legs: PtRideLeg[]): boolean => {
   return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.reachable === true);
 };
 
-const getReachableText = (legs: PTRideLeg[]): string => {
+const getReachableText = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText !== '')
     .serviceJourney?.serviceAlteration?.reachableText;
 };
 
-const isRedirected = (legs: PTRideLeg[]): boolean => {
+const isRedirected = (legs: PtRideLeg[]): boolean => {
   return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.redirected === true);
 };
 
-const getRedirectedText = (legs: PTRideLeg[]): string => {
+const getRedirectedText = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.redirectedText !== '')
     .serviceJourney?.serviceAlteration?.redirectedText;
 };
 
-const getUnplannedStop = (legs: PTRideLeg[]): string => {
+const getUnplannedStop = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText !== '')
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
@@ -221,8 +221,8 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
     if (reservationNotice.includes(notice.name)) {
       return {
         name: 'RR',
-        text: notice.text,
-      };
+        text: notice.text?.template,
+      } as Notice;
     }
   }, undefined);
 };

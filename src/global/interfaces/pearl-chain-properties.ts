@@ -65,7 +65,7 @@ export interface ServiceJourney {
   stopPoints: ScheduledStopPoint[];
 }
 
-export interface PTRideLeg {
+export interface PtRideLeg {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   __typename?: 'PTRideLeg';
   /** arrival time and quay */

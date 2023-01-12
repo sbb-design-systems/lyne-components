@@ -1,7 +1,13 @@
 import {
-  PTRideLeg,
+  PtRideLeg,
   ScheduledStopPointDetail,
 } from '../../global/interfaces/pearl-chain-properties';
+
+/** Text template with optional formattable parameters. Useful to represent in UIs as clickable features like an e-Mail, phone or URL. */
+export type LinkedText = {
+  /** End-user text. */
+  template?: string;
+};
 
 /** travel hints for the transportation */
 export interface Notice {
@@ -9,7 +15,7 @@ export interface Notice {
   /** Priority - A lower priority value means a higher importance */
   priority?: number;
   /** Text format with linkable parameters */
-  text: string;
+  text?: LinkedText;
 }
 
 /** HimCus interface for mapped icon name and text */
@@ -59,13 +65,6 @@ export type PtSituationCauseEnum =
   | 'END_MESSAGE'
   | 'INFORMATION'
   | 'TRAIN_REPLACEMENT_BY_BUS';
-
-/** Most critical boarding/alighting accessibility */
-export type BoardingAlightingAccessibilityEnum =
-  | 'BOARDING_ALIGHTING_BY_CREW'
-  | 'BOARDING_ALIGHTING_BY_NOTIFICATION'
-  | 'BOARDING_ALIGHTING_NOT_POSSIBLE'
-  | 'BOARDING_ALIGHTING_SELF';
 
 /** A public transportation situation broadcast message affecting the planned PT operation */
 export interface PtSituationMessage {
@@ -131,7 +130,6 @@ export interface TripSummary {
   occupancy: Occupancy;
   product?: ServiceProduct | null;
   tripStatus: TripStatus | null;
-  boardingAlightingAccessibility?: BoardingAlightingAccessibilityEnum;
 }
 
 export interface Price {
@@ -142,7 +140,7 @@ export interface Price {
 
 export interface Trip {
   /** List of transfer points */
-  legs: PTRideLeg[];
+  legs: PtRideLeg[];
   /**
    * List of legs travel hints
    * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2

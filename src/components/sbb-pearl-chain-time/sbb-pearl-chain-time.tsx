@@ -8,7 +8,7 @@ import {
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
-import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 
 @Component({
   shadow: true,
@@ -26,7 +26,7 @@ export class SbbPearlChainTime {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: PTRideLeg[];
+  @Prop() public legs!: PtRideLeg[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
   @Prop() public departureTime?: string;

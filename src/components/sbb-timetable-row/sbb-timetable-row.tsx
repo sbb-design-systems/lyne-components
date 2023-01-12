@@ -234,7 +234,7 @@ export class SbbTimetableRow {
                             class="sbb-travel-hints__item"
                             name={'sa-' + notice.name.toLowerCase()}
                           />
-                          <span class="sbb-screenreaderonly">{notice.text}</span>
+                          <span class="sbb-screenreaderonly">{notice.text?.template}</span>
                         </li>
                       )
                   )}
