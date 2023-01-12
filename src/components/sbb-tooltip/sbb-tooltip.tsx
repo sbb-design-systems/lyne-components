@@ -354,7 +354,7 @@ export class SbbTooltip implements ComponentInterface {
     this._prevFocusedElement = document.activeElement as HTMLElement;
     this._firstFocusable =
       this._element.querySelector(IS_FOCUSABLE_QUERY) ||
-      this._element.shadowRoot.querySelector(IS_FOCUSABLE_QUERY);
+      this._element.shadowRoot.querySelector('[sbb-tooltip-close]');
 
     if (this._openedByKeyboard) {
       this._firstFocusable?.focus();
