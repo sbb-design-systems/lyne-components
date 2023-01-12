@@ -9,10 +9,12 @@ import {
   Prop,
   State,
   Host,
+  Listen,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
 
 @Component({
   shadow: true,
@@ -32,7 +34,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   @Prop() public name?: string;
 
   /** The svg name for the true state - default -> 'tick-small' */
-  @Prop() public icon = 'tick-small';
+  @Prop() public iconName = 'tick-small';
 
   /** The disabled prop for the disabled state. */
   @Prop({ reflect: true }) public disabled = false;
@@ -64,9 +66,17 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   }
 
   public connectedCallback(): void {
+    // Forward focus call to checkbox
+    this._element.focus = (options: FocusOptions) => this._checkbox?.focus(options);
+
     this._hasLabelText = Array.from(this._element.childNodes).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent
     );
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostEvent(event, this._element, this._checkbox);
   }
 
   private _onLabelSlotChange(event: Event): void {
@@ -100,7 +110,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
               <span class="sbb-toggle-check__circle">
                 <span class="sbb-toggle-check__icon">
                   <slot name="icon">
-                    <sbb-icon name={this.icon}></sbb-icon>
+                    {this.iconName && <sbb-icon name={this.iconName}></sbb-icon>}
                   </slot>
                 </span>
               </span>
