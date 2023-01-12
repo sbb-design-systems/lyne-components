@@ -98,7 +98,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
             </span>
             <span class="sbb-toggle-check__slider">
               <span class="sbb-toggle-check__circle">
-                <span class="sbb-toggle-check-icon">
+                <span class="sbb-toggle-check__icon">
                   <slot name="icon">
                     <sbb-icon name={this.icon}></sbb-icon>
                   </slot>

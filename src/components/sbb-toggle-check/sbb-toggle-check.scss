@@ -49,7 +49,7 @@
   --sbb-toggle-check-background: var(--sbb-color-cloud-default);
   --sbb-toggle-check-fill: var(--sbb-color-smoke-default);
   --sbb-toggle-check-circle-background: var(--sbb-color-milk-default);
-  --sbb-toggle-check-cursor: not-allowed;
+  --sbb-toggle-check-cursor: default;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-fill: GrayText;
@@ -74,6 +74,7 @@
   color: var(--sbb-toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  cursor: var(--sbb-toggle-check-cursor);
 
   input[type='checkbox']:focus-visible + & {
     @include sbb.focus-outline;
@@ -110,7 +111,6 @@ input[type='checkbox'] {
   height: var(--sbb-toggle-check-height);
   border-radius: var(--sbb-toggle-check-height);
   background-color: var(--sbb-toggle-check-background);
-  cursor: var(--sbb-toggle-check-cursor);
 
   // Reserve space of overlapping circle
   margin-block: calc(
@@ -133,7 +133,7 @@ input[type='checkbox'] {
   transition: transform ease var(--sbb-animation-duration-6x);
 }
 
-.sbb-toggle-check-icon {
+.sbb-toggle-check__icon {
   @include sbb.absolute-center-x-y;
 
   width: var(--sbb-size-icon-ui-small);
