@@ -33,7 +33,7 @@
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
   --sbb-toggle-check-icon-opacity: 1;
 
-  // As the circle is greater than the slider below,
+  // As the circle is greater than the track below,
   // we have to subtract the difference in order to not overshoot at the right side.
   // 100% of circle (28px) - 2 * (100% (28px) - 0.5 * width (48px)) => 20px
   --sbb-toggle-check-circle-transform: translate(
@@ -108,7 +108,7 @@ input[type='checkbox'] {
   );
 }
 
-.sbb-toggle-check__slider {
+.sbb-toggle-check__track {
   display: inline-block;
   position: relative;
   min-width: var(--sbb-toggle-check-width);

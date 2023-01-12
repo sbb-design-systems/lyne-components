@@ -17,7 +17,7 @@ describe('sbb-toggle-check', () => {
                 <span class="sbb-toggle-check__label" hidden="">
                   <slot></slot>
                 </span>
-                <span class="sbb-toggle-check__slider">
+                <span class="sbb-toggle-check__track">
                   <span class="sbb-toggle-check__circle">
                     <span class="sbb-toggle-check__icon">
                       <slot name="icon">
@@ -51,7 +51,7 @@ describe('sbb-toggle-check', () => {
                 <span class="sbb-toggle-check__label">
                   <slot></slot>
                 </span>
-                <span class="sbb-toggle-check__slider">
+                <span class="sbb-toggle-check__track">
                 <span class="sbb-toggle-check__circle">
                   <span class="sbb-toggle-check__icon">
                     <slot name="icon">
@@ -85,7 +85,7 @@ describe('sbb-toggle-check', () => {
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
                   </span>
-                  <span class="sbb-toggle-check__slider">
+                  <span class="sbb-toggle-check__track">
                     <span class="sbb-toggle-check__circle">
                       <span class="sbb-toggle-check__icon">
                         <slot name="icon">
@@ -118,7 +118,7 @@ describe('sbb-toggle-check', () => {
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
                   </span>
-                  <span class="sbb-toggle-check__slider">
+                  <span class="sbb-toggle-check__track">
                     <span class="sbb-toggle-check__circle">
                       <span class="sbb-toggle-check__icon">
                         <slot name="icon">
@@ -151,7 +151,7 @@ describe('sbb-toggle-check', () => {
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
                   </span>
-                  <span class="sbb-toggle-check__slider">
+                  <span class="sbb-toggle-check__track">
                     <span class="sbb-toggle-check__circle">
                       <span class="sbb-toggle-check__icon">
                         <slot name="icon">

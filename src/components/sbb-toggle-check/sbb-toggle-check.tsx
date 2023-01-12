@@ -96,7 +96,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
             <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
               <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
             </span>
-            <span class="sbb-toggle-check__slider">
+            <span class="sbb-toggle-check__track">
               <span class="sbb-toggle-check__circle">
                 <span class="sbb-toggle-check__icon">
                   <slot name="icon">
