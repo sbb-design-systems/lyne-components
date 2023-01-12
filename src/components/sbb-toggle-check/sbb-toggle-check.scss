@@ -67,6 +67,12 @@
   color: var(--sbb-toggle-check-color);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+
+  input[type='checkbox']:focus-visible + & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
 }
 
 input[type='checkbox'] {
@@ -80,9 +86,11 @@ input[type='checkbox'] {
   flex-direction: var(--sbb-toggle-check-flex-direction);
   gap: var(--sbb-spacing-fixed-3x);
   align-items: start;
+  width: 100%;
 }
 
 .sbb-toggle-check__label {
+  flex-grow: 1;
   padding-block-start: calc(
     (var(--sbb-toggle-check-height) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
   );
@@ -97,10 +105,6 @@ input[type='checkbox'] {
   border-radius: var(--sbb-toggle-check-height);
   background-color: var(--sbb-toggle-check-background);
   cursor: var(--sbb-toggle-check-cursor);
-
-  input[type='checkbox']:focus-visible + .sbb-toggle-check__container & {
-    @include sbb.focus-outline;
-  }
 }
 
 .sbb-toggle-check__circle {

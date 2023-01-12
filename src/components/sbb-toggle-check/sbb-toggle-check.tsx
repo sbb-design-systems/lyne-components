@@ -8,6 +8,7 @@ import {
   JSX,
   Prop,
   State,
+  Host,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
@@ -76,8 +77,9 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-toggle-check">
+      <Host>
         <input
+          id="sbb-toggle-check-input"
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
           name={this.name}
@@ -89,19 +91,21 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
           onChange={(event: Event): void => this.checkedChanged(event)}
           aria-label={this.accessibilityLabel}
         />
-        <span class="sbb-toggle-check__container">
-          <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
-            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
-          </span>
-          <span class="sbb-toggle-check__slider">
-            <span class="sbb-toggle-check__circle">
-              <slot name="icon">
-                <sbb-icon name={this.icon}></sbb-icon>
-              </slot>
+        <label class="sbb-toggle-check" htmlFor="sbb-toggle-check-input">
+          <span class="sbb-toggle-check__container">
+            <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
+              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+            </span>
+            <span class="sbb-toggle-check__slider">
+              <span class="sbb-toggle-check__circle">
+                <slot name="icon">
+                  <sbb-icon name={this.icon}></sbb-icon>
+                </slot>
+              </span>
             </span>
           </span>
-        </span>
-      </label>
+        </label>
+      </Host>
     );
   }
 }
