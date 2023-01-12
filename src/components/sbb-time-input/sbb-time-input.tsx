@@ -7,6 +7,7 @@ import {
   h,
   JSX,
   Prop,
+  Watch,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import {
@@ -132,6 +133,20 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   public connectedCallback(): void {
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
+  }
+
+  @Watch('value')
+  public watchValueChange(newValue: string): void {
+    this._updateValue(newValue);
+  }
+
+  @Watch('valueAsDate')
+  public watchValueAsDateChange(newValue: Date): void {
+    if (!(newValue instanceof Date)) {
+      newValue = new Date(newValue);
+    }
+    this.value = this._formatValue(`${newValue.getHours()}:${newValue.getMinutes()}`);
+    this._inputElement().value = this.value;
   }
 
   public render(): JSX.Element {

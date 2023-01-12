@@ -7,6 +7,16 @@ const changeEventHandler = (event) => {
   document.getElementById('container-value').append(div);
 };
 
+const setValueAsDate = () => {
+  const timeInput = document.getElementsByTagName('sbb-time-input')[0];
+  timeInput.valueAsDate = new Date();
+};
+
+const setValue = () => {
+  const timeInput = document.getElementsByTagName('sbb-time-input')[0];
+  timeInput.value = '0';
+};
+
 const value = {
   control: {
     type: 'text',
@@ -177,7 +187,11 @@ const formFieldBasicArgsWithIcons = {
 
 const TemplateSbbTimeInput = (args) => [
   <sbb-time-input {...args} onChange={(event) => changeEventHandler(event)}></sbb-time-input>,
-  <div style="margin-block-start: 1rem;">Change time:</div>,
+  <div style="display: flex; gap: 1em; margin-block-start: 1rem;">
+    <button onClick={() => setValueAsDate()}>Set valueAsDate to current datetime</button>
+    <button onClick={() => setValue()}>Set value to 0</button>
+  </div>,
+  <div style="margin-block-start: 1rem;">Change time in input:</div>,
   <div id="container-value"></div>,
 ];
 
