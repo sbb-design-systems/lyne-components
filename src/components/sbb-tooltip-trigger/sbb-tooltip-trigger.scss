@@ -15,11 +15,13 @@
   @include sbb.text-inherit;
   @include sbb.button-reset;
 
-  vertical-align: middle;
+  display: inline-flex;
   cursor: pointer;
 
   &:focus-visible {
     @include sbb.focus-outline;
+
+    outline-offset: 0;
   }
 
   &:active {
