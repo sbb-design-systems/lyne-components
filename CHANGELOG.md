@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.18](https://github.com/lyne-design-system/lyne-components/compare/v0.20.17...v0.20.18) (2023-01-12)
+
+### Bug Fixes
+
+- fix timetable interfaces ([#1533](https://github.com/lyne-design-system/lyne-components/issues/1533)) ([061e2a3](https://github.com/lyne-design-system/lyne-components/commit/061e2a33a5f2ee5311208eda8ec01769a8078524))
+
 ### [0.20.17](https://github.com/lyne-design-system/lyne-components/compare/v0.20.16...v0.20.17) (2023-01-12)
 
 ### Bug Fixes
