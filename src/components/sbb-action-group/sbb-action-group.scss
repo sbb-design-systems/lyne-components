@@ -25,7 +25,6 @@ $horizontal-orientations: (
 }
 
 @each $key, $value in $horizontal-orientations {
-  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
   :host([orientation='horizontal'][align-group='#{$key}']) {
     --sbb-action-group-justify-content: #{$value};
   }
@@ -37,7 +36,6 @@ $horizontal-orientations: (
 }
 
 @each $key, $value in $vertical-orientations {
-  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
   :host([orientation='vertical'][align-group='#{$key}']) {
     --sbb-action-group-align-items: #{$value};
   }

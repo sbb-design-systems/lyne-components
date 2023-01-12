@@ -5,7 +5,6 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Listen,
   Method,
@@ -24,6 +23,10 @@ import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
 import { hostContext } from '../../global/helpers/host-context';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
+
+type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -78,19 +81,19 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * The state of the dialog.
-   */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
-
-  /**
-   * Whether the dialog content has a visible scrollbar.
-   */
-  @State() private _overflows = false;
-
-  /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @State() private _namedSlots = createNamedSlotState('title', 'action-group');
+
+  @State() private _hasTitle = false;
+
+  /** The state of the dialog. */
+  private set _state(state: SbbDialogState) {
+    this._element.dataset.state = state;
+  }
+  private get _state(): SbbDialogState {
+    return this._element.dataset.state as SbbDialogState;
+  }
 
   /**
    * Emits whenever the dialog starts the opening transition.
@@ -152,7 +155,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _focusTrap = new FocusTrap();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
-  private _hasTitle = false;
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
   private _currentLanguage = getDocumentLang();
@@ -177,7 +179,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     this.willOpen.emit();
     this._state = 'opening';
     this._dialog.show();
-    this._overflows = this._hasScrollbar();
+    this._setOverflowAttribute();
     // Disable scrolling for content below the dialog
     document.body.style.overflow = 'hidden';
   }
@@ -211,10 +213,12 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   }
 
   public connectedCallback(): void {
+    this._state = 'closed';
     this._dialogController = new AbortController();
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
 
     this._hasTitle = !!this.titleContent || this._namedSlots['title'];
+    toggleDatasetEntry(this._element, 'fullscreen', !this._hasTitle);
     this._hasActionGroup = this._namedSlots['action-group'] && this._hasTitle;
 
     // Close dialog on backdrop click
@@ -237,7 +241,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
       signal: this._windowEventsController.signal,
     });
-    window.addEventListener('resize', () => (this._overflows = this._hasScrollbar()), {
+    window.addEventListener('resize', () => this._setOverflowAttribute(), {
       passive: true,
       signal: this._windowEventsController.signal,
     });
@@ -259,8 +263,8 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _closeOnSbbDialogCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
 
-    if (target.hasAttribute('sbb-dialog-close') && !target.hasAttribute('disabled')) {
-      // Check if the target is a submit element within a form and return the form, if present
+    if (target.hasAttribute('sbb-dialog-close') && !isValidAttribute(target, 'disabled')) {
+      // Check if the target is a submission element within a form and return the form, if present
       const closestForm =
         target.getAttribute('type') === 'submit'
           ? (hostContext('form', target) as HTMLFormElement)
@@ -311,8 +315,12 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     }
   }
 
-  private _hasScrollbar(): boolean {
-    return this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight;
+  private _setOverflowAttribute(): void {
+    toggleDatasetEntry(
+      this._element,
+      'overflows',
+      this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight
+    );
   }
 
   public render(): JSX.Element {
@@ -366,36 +374,28 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     );
 
     return (
-      <Host
-        class={{
-          [`sbb-dialog--${this._state}`]: true,
-          'sbb-dialog--full-screen': !this._hasTitle,
-          'sbb-dialog--has-scrollbar': this._overflows,
-        }}
+      <dialog
+        ref={(dialogRef) => (this._dialog = dialogRef)}
+        aria-label={this.accessibilityLabel}
+        onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
+        class="sbb-dialog"
       >
-        <dialog
-          ref={(dialogRef) => (this._dialog = dialogRef)}
-          aria-label={this.accessibilityLabel}
-          onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
-          class="sbb-dialog"
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <div
+          onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
+          ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
+          class="sbb-dialog__wrapper"
         >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+          {dialogHeader}
           <div
-            onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
-            ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
-            class="sbb-dialog__wrapper"
+            class="sbb-dialog__content"
+            ref={(dialogContent) => (this._dialogContentElement = dialogContent)}
           >
-            {dialogHeader}
-            <div
-              class="sbb-dialog__content"
-              ref={(dialogContent) => (this._dialogContentElement = dialogContent)}
-            >
-              <slot />
-            </div>
-            {this._hasActionGroup && dialogFooter}
+            <slot />
           </div>
-        </dialog>
-      </Host>
+          {this._hasActionGroup && dialogFooter}
+        </div>
+      </dialog>
     );
   }
 }

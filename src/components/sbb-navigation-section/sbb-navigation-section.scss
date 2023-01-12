@@ -72,13 +72,12 @@
   --sbb-navigation-section-pointer-events: none;
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 :host(:not(.sbb-navigation-section--closed)) {
   display: block;
   inset: 0;
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-navigation-section-animation-duration: 0s;
 }
 

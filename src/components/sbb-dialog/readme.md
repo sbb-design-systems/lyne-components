@@ -69,7 +69,7 @@ You can also set the property `titleBackButton` to display the back button in th
 </sbb-dialog>
 ```
 
-If the title is not provided, the dialog will be displayed in full-screen mode and the close button will be displayed 
+If the title is not provided, the dialog will be displayed in fullscreen mode and the close button will be displayed 
 in the content section along with the back button (if visible). 
 Also note that if the title is not present, but the footer is provided, the footer will not be displayed.
 

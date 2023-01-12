@@ -62,16 +62,14 @@
   }
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-menu-animation-duration: 0s;
 }
 
-// stylelint-disable plugin/stylelint-bem-namics
 ::slotted(:not(sbb-menu-action, sbb-divider)) {
   display: block;
   padding-inline: var(--sbb-spacing-fixed-5x);
 }
-// stylelint-enable plugin/stylelint-bem-namics
 
 ::slotted(sbb-divider) {
   --sbb-divider-color: var(--sbb-color-iron-default);

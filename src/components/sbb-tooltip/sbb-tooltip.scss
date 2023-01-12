@@ -23,7 +23,7 @@
   pointer-events: none;
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-tooltip-animation-duration: 0s;
 }
 

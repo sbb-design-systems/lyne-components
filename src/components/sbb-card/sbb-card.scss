@@ -12,9 +12,10 @@
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
+  --sbb-card-border-color: transparent;
 }
 
-:host([negative]) {
+:host([negative]:not([negative='false'])) {
   --sbb-card-background-color: var(--sbb-color-milk-default);
 }
 
@@ -58,6 +59,10 @@
   --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxs);
 }
 
+:host([active]:not([active='false'])) {
+  --sbb-card-border-color: var(--sbb-color-smoke-default);
+}
+
 .sbb-card {
   @include sbb.stretch(width);
   @include sbb.stretch(height);
@@ -79,6 +84,7 @@
     background-color: transparent;
     content: '';
     inset: 0;
+    border: var(--sbb-border-width-2x) solid var(--sbb-card-border-color);
     border-radius: var(--sbb-card-border-radius);
   }
 
@@ -86,7 +92,6 @@
     @include sbb.focus-outline;
   }
 
-  // stylelint-disable-next-line plugin/stylelint-bem-namics
   :host(:not([href])) & {
     @include sbb.text-inherit;
 
@@ -98,11 +103,11 @@
     -moz-appearance: none;
     -webkit-tap-highlight-color: transparent;
   }
-}
 
-:host([active]) {
-  .sbb-card::after {
-    border: var(--sbb-border-width-2x) solid var(--sbb-color-smoke-default);
+  @include sbb.hover-mq($hover: true) {
+    :host(:not([active]:not([active='false'])):hover) & {
+      @include sbb.shadow-level-9-hard;
+    }
   }
 }
 
@@ -110,14 +115,9 @@
   display: block;
   height: 100%;
   transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-}
 
-@include sbb.hover-mq($hover: true) {
-  // stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
-  :host(:not([active]):hover) .sbb-card {
-    @include sbb.shadow-level-9-hard;
-
-    .sbb-card__content {
+  @include sbb.hover-mq($hover: true) {
+    :host(:not([active]:not([active='false'])):hover) & {
       transform: translateY(#{sbb.px-to-rem-build(-2)});
     }
   }

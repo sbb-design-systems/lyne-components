@@ -8,7 +8,7 @@
   --sbb-navigation-action-color: var(--sbb-color-cloud-default);
 }
 
-:host([active]) {
+:host([active]:not([active='false'])) {
   --sbb-navigation-action-color: var(--sbb-color-storm-default);
 }
 

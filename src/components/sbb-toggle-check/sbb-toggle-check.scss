@@ -27,7 +27,7 @@
   }
 }
 
-:host([checked]) {
+:host([checked]:not([checked='false'])) {
   --sbb-toggle-check-background: var(--sbb-color-red-default);
   --sbb-toggle-check-circle-transform: translate(
     calc(100% - var(--sbb-toggle-check-circle-offset)),
@@ -41,7 +41,7 @@
   }
 }
 
-:host([disabled]) {
+:host([disabled]:not([disabled='false'])) {
   --sbb-toggle-check-color: var(--sbb-color-graphite-default);
   --sbb-toggle-check-background: var(--sbb-color-cloud-default);
   --sbb-toggle-check-fill: var(--sbb-color-granite-default);
@@ -98,7 +98,7 @@ input[type='checkbox'] {
   background-color: var(--sbb-toggle-check-background);
   cursor: var(--sbb-toggle-check-cursor);
 
-  input[type='checkbox']:focus-visible + .toggle-check__container & {
+  input[type='checkbox']:focus-visible + .sbb-toggle-check__container & {
     @include sbb.focus-outline;
   }
 }

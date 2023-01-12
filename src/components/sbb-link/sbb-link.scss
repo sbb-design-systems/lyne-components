@@ -18,7 +18,8 @@
   display: block;
 }
 
-:host([negative]) {
+// Using :where to be not more specific than inline variant
+:host([negative]:where(:not([negative='false']))) {
   @include sbb.link-variables--negative;
 }
 
@@ -26,11 +27,10 @@
   @include sbb.link-variables--inline;
 }
 
-:host([variant='inline'][negative]) {
+:host([variant='inline'][negative]:not([negative='false'])) {
   @include sbb.link-variables--inline-negative;
 }
 
-// stylelint-disable plugin/stylelint-bem-namics
 .sbb-link {
   @include sbb.stretch(width);
   @include sbb.link-base;
@@ -59,19 +59,18 @@
 
   @include sbb.link-focus-visible;
 
-  :host([disabled]) & {
+  :host([disabled]:not([disabled='false'])) & {
     pointer-events: none;
     cursor: default;
   }
 
-  :host(:not([disabled])) & {
+  :host(:not([disabled]:not([disabled='false']))) & {
     @include sbb.link-hover;
 
     // Active definitions have to be after :hover definitions
     @include sbb.link-active;
   }
 }
-// stylelint-enable plugin/stylelint-bem-namics
 
 button:where(.sbb-link) {
   @include sbb.button-reset;

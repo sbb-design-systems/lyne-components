@@ -16,6 +16,7 @@ import { Alignment, getElementPosition, isEventOnElement } from '../../global/he
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import getDocumentLang from '../../global/helpers/get-document-lang';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -283,7 +284,7 @@ export class SbbTooltip implements ComponentInterface {
   // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
   private _closeOnSbbTooltipCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (target.hasAttribute('sbb-tooltip-close') && !target.hasAttribute('disabled')) {
+    if (target.hasAttribute('sbb-tooltip-close') && !isValidAttribute(target, 'disabled')) {
       clearTimeout(this._closeTimeout);
       this.close(target);
     }

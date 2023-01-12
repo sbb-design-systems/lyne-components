@@ -18,6 +18,7 @@ import {
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
@@ -97,7 +98,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     const enabledCheckboxes: HTMLSbbCheckboxElement[] = this._checkboxes.filter(
-      (tag: HTMLSbbCheckboxElement) => !tag.hasAttribute('disabled')
+      (tag: HTMLSbbCheckboxElement) => !isValidAttribute(tag, 'disabled')
     );
 
     if (
