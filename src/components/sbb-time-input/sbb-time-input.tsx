@@ -130,6 +130,19 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
     }
   }
 
+  /**
+   *  Validate the typed input; if an invalid char is inserted (letters, special chars..), it's removed.
+   *  Using `REGEX_GROUPS_WITH_COLON` permits only to insert 4 numbers, possibly with a valid separator.
+   */
+  private _preventCharInsert(event): void {
+    const match = event.target.value.match(REGEX_GROUPS_WITH_COLON);
+    if (match) {
+      event.target.value = match[0];
+    } else {
+      event.target.value = null;
+    }
+  }
+
   public connectedCallback(): void {
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
@@ -166,6 +179,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       <input
         type="text"
         {...inputAttributes}
+        onInput={(event: Event) => this._preventCharInsert(event)}
         onChange={(event: Event) => this._updateValueAndEmitChange(event)}
       />
     );

@@ -2,15 +2,15 @@
 
 The `sbb-time-input` is a component that displays the typed value as a formatted time (HH:mm).
 
-If the typed value is not numeric, the input is emptied. If it's numeric, possibly with a separator char 
-like `.`, `:`, `,` or `-`, the component automatically format it (see the "Format example" paragraph).
-The `sbb-time-input` also verifies the validity of the entered time; if the value is not real (e.g. 12:61 or 25:30) 
-the component does not update the `value` but keeps the typed one, and empties the `valueAsDate` property.
+The component allows the insertion of up to 4 numbers, possibly with a separator char like `.`, `:`, `,` or `-`, 
+then automatically formats the value as time and displays it (see the "Format example" paragraph).
 
-The initial value can be set using the `value` property (string) or the `valueAsDate` property (Date). 
+The initial value can be set using the `value` property (string) or the `valueAsDate` property (Date).
 When the input changes, if it is valid, the component updates the `value`, while `valueAsDate` is changed this way: 
 the start date is set to 01.01.1970, 00:00:00 UTC, then the typed hours and minuted are added, 
 e.g.: with a value of `12:34`, the `valueAsDate` will be 01.01.1970, 12:34:00 UTC.
+If the value is invalid because not real (e.g. 12:61 or 25:30), the component does not format the `value`,
+and empties the `valueAsDate` property.
 
 It is possible to display the component in disabled or readonly state by using the self-named properties.
 The component can be used within a `<sbb-form-field>` component, and it has a `required` property, 
@@ -23,26 +23,20 @@ the current `value` can be read from `event.target.value` and the `valueAsDate` 
 
 See the table below for some formatting examples:
 
-| Input   | Output |
-|---------|--------|
-| 12:34   | 12:34  |
-| 1       | 01:00  |
-| 12      | 12:00  |
-| 123     | 01:23  |
-| 1234    | 12:34  |
-| 1234567 | 12:34  |
-| 1.23    | 01:23  |
-| 12,34   | 12:34  |
-| 12-34   | 12:34  |
-
-The next table shows some errors:
-
-| Input  | Output                                                                            |
-|--------|-----------------------------------------------------------------------------------|
-| abcd   | Invalid; input emptied.                                                           |
-| ab12cd | The number `12` is recognized by the parser and it's valid; formatted as `12:00`. |
-| ab99cd | The number `99` is recognized by the parser and it's invalid; not formatted.      |
-| 9876   | Invalid number (should be 98:76, which is a non-existent time); not formatted.    |
+| Input | Output |
+|-------|--------|
+| 12:34 | 12:34  |
+| 1     | 01:00  |
+| 12    | 12:00  |
+| 123   | 01:23  |
+| 1234  | 12:34  |
+| 1.    | 01:00  |
+| 1.2   | 01:02  |
+| 1.23  | 01:23  |
+| 12:   | 12:00  |
+| 12.3  | 12:03  |
+| 12,34 | 12:34  |
+| 12-34 | 12:34  |
 
 ### Usage
 
