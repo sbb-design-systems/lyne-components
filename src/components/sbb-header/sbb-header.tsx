@@ -23,16 +23,30 @@ export class SbbHeader {
   /** Whether the header should hide and show on scroll. */
   @Prop({ reflect: true }) public hideonscroll = false;
 
-  private _headerElement: HTMLElement;
+  private _headerContainer: HTMLElement;
 
   public componentDidLoad(): void {
-    document.addEventListener('scroll', () => {
-      this._headerElement = document.querySelector('sbb-header');
-      //console.log(this.hideonscroll);
-      if (this.hideonscroll === true && document.documentElement.scrollTop > this._headerElement.offsetHeight) {
-        console.log('header hide/show');
+
+    var lastScrollTop = 0;
+
+    document.addEventListener('scroll', () =>{
+      this._headerContainer = document.getElementsByTagName('sbb-header')[0];
+      if (this.hideonscroll === true && document.documentElement.scrollTop > this._headerContainer.offsetHeight) {
+        var st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st > lastScrollTop){
+          console.log('downscroll');
+          this._headerContainer.classList.add('hidden-header');
+          this._headerContainer.classList.remove('visible-header');
+        } else {
+          console.log('upscroll');
+          this._headerContainer.classList.add('visible-header');
+          this._headerContainer.classList.remove('hidden-header');
+        }
+        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
       }
+
     });
+
   }
 
   public render(): JSX.Element {
