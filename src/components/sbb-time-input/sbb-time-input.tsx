@@ -142,6 +142,9 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
 
   @Watch('valueAsDate')
   public watchValueAsDateChange(newValue: Date): void {
+    if (!newValue) {
+      return;
+    }
     if (!(newValue instanceof Date)) {
       newValue = new Date(newValue);
     }

@@ -5,10 +5,10 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-time-input-max-width: #{sbb.px-to-rem-build(42)};
+  --sbb-time-input-max-width: #{sbb.px-to-rem-build(58)};
 
   @include sbb.mq($from: medium) {
-    --sbb-time-input-max-width: #{sbb.px-to-rem-build(48)};
+    --sbb-time-input-max-width: #{sbb.px-to-rem-build(65)};
   }
 
   display: inline-block;

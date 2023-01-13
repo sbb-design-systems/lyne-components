@@ -26,15 +26,6 @@ const value = {
   },
 };
 
-const valueAsDate = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Time input attribute',
-  },
-};
-
 const form = {
   control: {
     type: 'text',
@@ -137,7 +128,6 @@ const iconEnd = {
 
 const basicArgTypes = {
   value,
-  'value-as-date': valueAsDate,
   form,
   disabled,
   readonly,
@@ -157,7 +147,6 @@ const formFieldBasicArgsTypes = {
 
 const basicArgs = {
   value: '12:00',
-  'value-as-date': new Date(new Date(0).setHours(12, 0, 0, 0)),
   form: undefined,
   disabled: false,
   readonly: false,

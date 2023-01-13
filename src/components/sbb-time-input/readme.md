@@ -5,10 +5,10 @@ The `sbb-time-input` is a component that displays the typed value as a formatted
 If the typed value is not numeric, the input is emptied. If it's numeric, possibly with a separator char 
 like `.`, `:`, `,` or `-`, the component automatically format it (see the "Format example" paragraph).
 The `sbb-time-input` also verifies the validity of the entered time; if the value is not real (e.g. 12:61 or 25:30) 
-the component does not update the `value` and empties the `valueAsDate` property.
+the component does not update the `value` but keeps the typed one, and empties the `valueAsDate` property.
 
-The initial value can be set using the `value` property (string). 
-The component has a `valueAsDate` attribute too, which is set this way: 
+The initial value can be set using the `value` property (string) or the `valueAsDate` property (Date). 
+When the input changes, if it is valid, the component updates the `value`, while `valueAsDate` is changed this way: 
 the start date is set to 01.01.1970, 00:00:00 UTC, then the typed hours and minuted are added, 
 e.g.: with a value of `12:34`, the `valueAsDate` will be 01.01.1970, 12:34:00 UTC.
 
@@ -34,6 +34,15 @@ See the table below for some formatting examples:
 | 1.23    | 01:23  |
 | 12,34   | 12:34  |
 | 12-34   | 12:34  |
+
+The next table shows some errors:
+
+| Input  | Output                                                                            |
+|--------|-----------------------------------------------------------------------------------|
+| abcd   | Invalid; input emptied.                                                           |
+| ab12cd | The number `12` is recognized by the parser and it's valid; formatted as `12:00`. |
+| ab99cd | The number `99` is recognized by the parser and it's invalid; not formatted.      |
+| 9876   | Invalid number (should be 98:76, which is a non-existent time); not formatted.    |
 
 ### Usage
 
