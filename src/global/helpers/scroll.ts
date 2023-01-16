@@ -18,7 +18,7 @@ export class ScrollHandler {
     // Save a reference to the document's current vertical scroll.
     this._documentScrollTop = document.documentElement.scrollTop;
 
-    // Save any pre-existing styles to reapply them when enabling the scroll again.
+    // Save any pre-existing styles to reapply them to the body when enabling the scroll again.
     this._top = document.body.style.top;
     this._position = document.body.style.position;
     this._overflowY = document.body.style.overflowY;
