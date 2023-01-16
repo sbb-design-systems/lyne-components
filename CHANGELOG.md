@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.20](https://github.com/lyne-design-system/lyne-components/compare/v0.20.19...v0.20.20) (2023-01-16)
+
+### Bug Fixes
+
+- container permission ([b5e8891](https://github.com/lyne-design-system/lyne-components/commit/b5e889159f4aa605af79d351b97d4928f483f4ba))
+
 ### [0.20.19](https://github.com/lyne-design-system/lyne-components/compare/v0.20.18...v0.20.19) (2023-01-12)
 
 ### Bug Fixes
