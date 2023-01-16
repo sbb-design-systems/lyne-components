@@ -99,6 +99,8 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
         run: docker build -t $IMAGE_REPO:${{ steps.version.outputs.value }} -t $IMAGE_REPO:latest .
+        env:
+          DOCKER_BUILDKIT: 1
       - name: 'Container: Publish image'
         run: docker push $IMAGE_REPO:${{ steps.version.outputs.value }}
       - name: 'Container: Publish image as latest'

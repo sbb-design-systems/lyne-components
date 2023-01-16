@@ -36,6 +36,8 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
         run: docker build -t $IMAGE_REPO:$IMAGE_TAG .
+        env:
+          DOCKER_BUILDKIT: 1
       - name: 'Container: Publish image'
         run: docker push $IMAGE_REPO:$IMAGE_TAG
 
