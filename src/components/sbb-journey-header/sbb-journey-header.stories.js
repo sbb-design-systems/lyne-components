@@ -2,171 +2,117 @@ import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-de
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-/* ************************************************* */
-/* Documentation platform container                  */
-/* ************************************************* */
-
-const documentationPlatformContainerStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return {};
-  }
-
-  return {
-    'background-color': SbbColorCharcoalDefault,
-  };
-};
-
-/* ************************************************* */
-/* Storybook component wrapper, used in Storybook    */
-/* ************************************************* */
-
 const wrapperStyle = (context) => {
-  const variantsOnDarkBg = ['primary-negative'];
-
-  if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${SbbColorWhiteDefault};`;
+  if (context.args.negative) {
+    return `background-color: ${SbbColorCharcoalDefault};`;
   }
 
-  return `background-color: ${SbbColorCharcoalDefault};`;
+  return `background-color: ${SbbColorWhiteDefault};`;
 };
 
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
+const destination = {
+  control: {
+    type: 'text',
+  },
+};
+const origin = {
+  control: {
+    type: 'text',
+  },
+};
 
-const markup = {
+const roundTrip = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const level = {
   control: {
     type: 'inline-radio',
   },
-  options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'],
-};
-
-const appearance = {
-  control: {
-    type: 'select',
-  },
-  options: ['primary', 'primary-negative'],
-  table: {
-    category: 'Appearance',
-  },
+  options: ['1', '2', '3', '4', '5', '6', 'span'],
 };
 
 const size = {
   control: {
     type: 'inline-radio',
   },
-  options: [4, 5],
+  options: ['m', 'l'],
+};
+
+const negative = {
+  control: {
+    type: 'boolean',
+  },
 };
 
 const defaultArgTypes = {
-  appearance,
-  markup,
+  destination,
+  origin,
+  'round-trip': roundTrip,
+  level,
   size,
+  negative,
 };
 
 const defaultArgs = {
-  appearance: appearance.options[0],
   destination: 'Loèche-les-Bains',
-  'is-round-trip': false,
-  markup: 'h1',
   origin: 'La Chaux de Fonds',
-  size: 5,
+  'round-trip': false,
+  level: '1',
+  size: 'm',
+  negative: false,
 };
-
-/* ************************************************* */
-/* Storybook template                                */
-/* ************************************************* */
 
 const Template = (args) => <sbb-journey-header {...args} />;
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
+export const span = Template.bind({});
+span.argTypes = defaultArgTypes;
+span.args = { ...defaultArgs, level: 'span' };
 
-/* --- Journey header as h1 ------------------------ */
 export const h1 = Template.bind({});
-
 h1.argTypes = defaultArgTypes;
-h1.args = JSON.parse(JSON.stringify(defaultArgs));
-h1.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Journey header as h1',
-};
+h1.args = { ...defaultArgs };
 
-/* --- Journey header as h2, h4 style -------------- */
-export const h2InH4Style = Template.bind({});
+export const h1RoundTrip = Template.bind({});
+h1RoundTrip.argTypes = defaultArgTypes;
+h1RoundTrip.args = { ...defaultArgs, 'round-trip': true };
 
-h2InH4Style.argTypes = defaultArgTypes;
-h2InH4Style.args = {
-  ...defaultArgs,
-  markup: 'h2',
-  size: 4,
-};
-h2InH4Style.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Journey header as h2, in h4 style',
-};
+export const h1SizeL = Template.bind({});
+h1SizeL.argTypes = defaultArgTypes;
+h1SizeL.args = { ...defaultArgs, size: 'l' };
 
-/* --- Journey header as h2, h4 style, round trip -- */
-export const h2InH4StyleRoundTrip = Template.bind({});
-
-h2InH4StyleRoundTrip.argTypes = defaultArgTypes;
-h2InH4StyleRoundTrip.args = {
-  ...defaultArgs,
-  'is-round-trip': true,
-  markup: 'h2',
-  size: 4,
-};
-h2InH4StyleRoundTrip.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Journey header as h2, in h4 style',
-};
-
-/* --- Journey header as h2, h4 style, round trip, short text -- */
-export const h2InH4StyleRoundTripShortText = Template.bind({});
-
-h2InH4StyleRoundTripShortText.argTypes = defaultArgTypes;
-h2InH4StyleRoundTripShortText.args = {
-  ...defaultArgs,
-  destination: 'Thun',
-  'is-round-trip': true,
-  markup: 'h2',
-  origin: 'Bern',
-  size: 4,
-};
-h2InH4StyleRoundTripShortText.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Journey header as h2, in h4 style',
-};
-
-/* --- Journey header negative as h1 --------------- */
 export const h1Negative = Template.bind({});
-
 h1Negative.argTypes = defaultArgTypes;
-h1Negative.args = {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-};
-h1Negative.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Journey header Negative as h1',
-};
+h1Negative.args = { ...defaultArgs, negative: true };
 
-/* ************************************************* */
-/* Render storybook section and stories              */
-/* ************************************************* */
+export const h2 = Template.bind({});
+h2.argTypes = defaultArgTypes;
+h2.args = { ...defaultArgs, level: '2' };
+
+export const h2RoundTrip = Template.bind({});
+h2RoundTrip.argTypes = defaultArgTypes;
+h2RoundTrip.args = { ...defaultArgs, level: '2', 'round-trip': true };
+
+export const h2SizeL = Template.bind({});
+h2SizeL.argTypes = defaultArgTypes;
+h2SizeL.args = { ...defaultArgs, level: '2', size: 'l' };
+
+export const h2Negative = Template.bind({});
+h2Negative.argTypes = defaultArgTypes;
+h2Negative.args = { ...defaultArgs, level: '2', negative: true };
+
+export const h2SizeLRoundTripShortText = Template.bind({});
+h2SizeLRoundTripShortText.argTypes = defaultArgTypes;
+h2SizeLRoundTripShortText.args = {
+  ...defaultArgs,
+  level: '2',
+  size: 'l',
+  'round-trip': true,
+  destination: 'Thun',
+  origin: 'Bern',
+};
 
 export default {
   decorators: [
@@ -181,5 +127,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-journey-header (Unfinished)',
+  title: 'components/timetable/sbb-journey-header',
 };

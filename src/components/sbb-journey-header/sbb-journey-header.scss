@@ -5,52 +5,22 @@
 @include sbb.host-component-properties;
 
 :host {
-  --_icon-spacing-inset: var(--sbb-spacing-fixed-1x);
   --sbb-title-text-color-normal: var(--sbb-color-charcoal-default);
+  --sbb-journey-header__icon-spacing-inset: var(--sbb-spacing-fixed-1x);
 }
 
-.journey-header[id] {
-  @include sbb.scroll-margin-block-start;
-}
-
-.journey-header {
-  @include sbb.font-smoothing;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: fit-content;
-  color: var(--sbb-title-text-color-normal);
-
-  // Right to left expression
-  &[dir='rtl'] {
-    .journey-header__icon {
-      transform: rotate(-180deg);
-    }
-  }
-}
-
-.journey-header--primary-negative {
+:host([negative]:not([negative='false'])) {
   @include sbb.title--negative;
 }
 
-.journey-header--size-4 {
-  @include sbb.title-4($exclude-spacing: true);
+.sbb-journey-header[id] {
+  @include sbb.scroll-margin-block-start;
 }
 
-.journey-header--size-5 {
-  @include sbb.title-5($exclude-spacing: true);
-}
-
-.connection--visually-hidden {
-  @include sbb.screen-reader-only;
-}
-
-.icon {
+.sbb-journey-header__icon {
   display: flex;
   align-items: center;
-  padding-inline: var(--_icon-spacing-inset);
+  padding-inline: var(--sbb-journey-header__icon-spacing-inset);
 
   svg {
     fill: currentcolor;
@@ -59,4 +29,30 @@
       fill: ButtonText;
     }
   }
+}
+
+.sbb-journey-header {
+  @include sbb.font-smoothing;
+  @include sbb.title-5($exclude-spacing: true);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: fit-content;
+  color: var(--sbb-title-text-color-normal);
+
+  :host([size='l']) & {
+    @include sbb.title-4($exclude-spacing: true);
+  }
+
+  // Right to left expression
+  &[dir='rtl'] {
+    .sbb-journey-header__icon {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+.sbb-journey-header__connection--visually-hidden {
+  @include sbb.screen-reader-only;
 }

@@ -471,4 +471,25 @@ export const i18nTomorrow: any = {
   fr: 'Demain',
   it: 'Domani',
 };
+
+export const i18nConnectionFrom: any = {
+  de: 'Verbindung von ',
+  en: 'Connection from ',
+  fr: 'Liaison de ',
+  it: 'Collegamento da ',
+};
+
+export const i18nConnectionTo: any = {
+  de: ' nach ',
+  en: ' to ',
+  fr: ' à ',
+  it: ' a ',
+};
+
+export const i18nConnectionRoundtrip = (returnCity: string): any => ({
+  de: ` und zurück nach ${returnCity}.`,
+  en: ` and back to ${returnCity}.`,
+  fr: ` et retour à ${returnCity}.`,
+  it: ` e ritorno a ${returnCity}.`,
+});
 /* eslint-enable sort-keys */

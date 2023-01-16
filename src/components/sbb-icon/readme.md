@@ -101,6 +101,7 @@ In the HTML, you can now use the icon as shown below:
  - [sbb-checkbox](../sbb-checkbox)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-header-action](../sbb-header-action)
+ - [sbb-journey-header](../sbb-journey-header)
  - [sbb-link](../sbb-link)
  - [sbb-menu-action](../sbb-menu-action)
  - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
@@ -120,6 +121,7 @@ graph TD;
   sbb-checkbox --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-header-action --> sbb-icon
+  sbb-journey-header --> sbb-icon
   sbb-link --> sbb-icon
   sbb-menu-action --> sbb-icon
   sbb-pearl-chain-time --> sbb-icon

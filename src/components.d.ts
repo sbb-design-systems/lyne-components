@@ -731,27 +731,27 @@ export namespace Components {
     }
     interface SbbJourneyHeader {
         /**
-          * Journey header appearance
-         */
-        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
-        /**
-          * Destination location for the journey header
+          * Destination location for the journey header.
          */
         "destination": string;
         /**
-          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
+          * Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics.
          */
-        "isRoundTrip"?: boolean;
+        "level"?: InterfaceJourneyHeaderAttributes['level'];
         /**
-          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
+          * Negative coloring variant flag.
          */
-        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
+        "negative": boolean;
         /**
-          * Origin location for the journey header
+          * Origin location for the journey header.
          */
         "origin": string;
         /**
-          * Journey header size
+          * Whether the journey is a round trip. If so, the icon changes to a round-trip one.
+         */
+        "roundTrip"?: boolean;
+        /**
+          * Journey header size.
          */
         "size"?: InterfaceJourneyHeaderAttributes['size'];
     }
@@ -3005,27 +3005,27 @@ declare namespace LocalJSX {
     }
     interface SbbJourneyHeader {
         /**
-          * Journey header appearance
-         */
-        "appearance"?: InterfaceJourneyHeaderAttributes['appearance'];
-        /**
-          * Destination location for the journey header
+          * Destination location for the journey header.
          */
         "destination": string;
         /**
-          * Is the journey a round trip. If so it gets indicated through a roundtrip icon
+          * Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics.
          */
-        "isRoundTrip"?: boolean;
+        "level"?: InterfaceJourneyHeaderAttributes['level'];
         /**
-          * Journey header markup: Depends on the context where the journey will be used but it is important to pick the correct markup element to match to correct semantics
+          * Negative coloring variant flag.
          */
-        "markup"?: InterfaceJourneyHeaderAttributes['markup'];
+        "negative"?: boolean;
         /**
-          * Origin location for the journey header
+          * Origin location for the journey header.
          */
         "origin": string;
         /**
-          * Journey header size
+          * Whether the journey is a round trip. If so, the icon changes to a round-trip one.
+         */
+        "roundTrip"?: boolean;
+        /**
+          * Journey header size.
          */
         "size"?: InterfaceJourneyHeaderAttributes['size'];
     }

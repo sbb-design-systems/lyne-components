@@ -1,5 +1,5 @@
 export interface InterfaceJourneyHeaderAttributes {
-  appearance: 'primary' | 'primary-negative';
   markup: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
-  size: '4' | '5';
+  level: '1' | '2' | '3' | '4' | '5' | '6' | 'span';
+  size: 'm' | 'l';
 }
