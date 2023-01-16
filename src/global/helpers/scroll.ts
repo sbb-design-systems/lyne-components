@@ -4,30 +4,39 @@
  */
 export class ScrollHandler {
   private _documentScrollTop: number;
+  private _top: string;
+  private _position: string;
+  private _overflowY: string;
+  private _inlineSize: string;
 
   public disableScroll(): void {
     if (!this._hasScrollbar()) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflowY = 'hidden';
       return;
     }
 
     // Save a reference to the document's current vertical scroll.
     this._documentScrollTop = document.documentElement.scrollTop;
 
+    // Save any pre-existing styles to reapply them when enabling the scroll again.
+    this._top = document.body.style.top;
+    this._position = document.body.style.position;
+    this._overflowY = document.body.style.overflowY;
+    this._inlineSize = document.body.style.inlineSize;
+
     // Set the page as fixed to the top and keep showing an "empty" scrollbar by setting "overflow-y" to "scroll".
     document.body.style.top = `-${this._documentScrollTop}px`;
     document.body.style.position = 'fixed';
     document.body.style.overflowY = 'scroll';
-    document.body.style.inlineSize = '100%';
+    document.body.style.inlineSize = this._inlineSize || '100%';
   }
 
   public enableScroll(): void {
     // Revert body inline styles.
-    document.body.style.top = null;
-    document.body.style.position = null;
-    document.body.style.overflowX = null;
-    document.body.style.overflowY = null;
-    document.body.style.inlineSize = null;
+    document.body.style.top = this._top || null;
+    document.body.style.position = this._position || null;
+    document.body.style.overflowY = this._overflowY || null;
+    document.body.style.inlineSize = this._inlineSize || null;
 
     // Scroll the page to the correct position.
     document.documentElement.scrollTo(0, this._documentScrollTop);
