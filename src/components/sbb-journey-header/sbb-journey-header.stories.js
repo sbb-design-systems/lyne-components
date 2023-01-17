@@ -31,7 +31,7 @@ const level = {
   control: {
     type: 'inline-radio',
   },
-  options: ['1', '2', '3', '4', '5', '6', 'span'],
+  options: ['1', '2', '3', '4', '5', '6', 'none'],
 };
 
 const size = {
@@ -65,6 +65,11 @@ const defaultArgs = {
   negative: false,
 };
 
+const defaultArgsLvl2 = {
+  ...defaultArgs,
+  level: '2',
+};
+
 const Template = (args) => <sbb-journey-header {...args} />;
 
 export const span = Template.bind({});
@@ -89,25 +94,24 @@ h1Negative.args = { ...defaultArgs, negative: true };
 
 export const h2 = Template.bind({});
 h2.argTypes = defaultArgTypes;
-h2.args = { ...defaultArgs, level: '2' };
+h2.args = { ...defaultArgsLvl2 };
 
 export const h2RoundTrip = Template.bind({});
 h2RoundTrip.argTypes = defaultArgTypes;
-h2RoundTrip.args = { ...defaultArgs, level: '2', 'round-trip': true };
+h2RoundTrip.args = { ...defaultArgsLvl2, 'round-trip': true };
 
 export const h2SizeL = Template.bind({});
 h2SizeL.argTypes = defaultArgTypes;
-h2SizeL.args = { ...defaultArgs, level: '2', size: 'l' };
+h2SizeL.args = { ...defaultArgsLvl2, size: 'l' };
 
 export const h2Negative = Template.bind({});
 h2Negative.argTypes = defaultArgTypes;
-h2Negative.args = { ...defaultArgs, level: '2', negative: true };
+h2Negative.args = { ...defaultArgsLvl2, negative: true };
 
 export const h2SizeLRoundTripShortText = Template.bind({});
 h2SizeLRoundTripShortText.argTypes = defaultArgTypes;
 h2SizeLRoundTripShortText.args = {
-  ...defaultArgs,
-  level: '2',
+  ...defaultArgsLvl2,
   size: 'l',
   'round-trip': true,
   destination: 'Thun',

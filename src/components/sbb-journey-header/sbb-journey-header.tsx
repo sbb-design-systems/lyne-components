@@ -23,7 +23,7 @@ export class SbbJourneyHeader {
    * Journey header markup: depending on the context where it will be used,
    * it is important to pick the correct markup element to match the correct semantics.
    */
-  @Prop() public level?: InterfaceJourneyHeaderAttributes['level'] = 'span';
+  @Prop() public level?: InterfaceJourneyHeaderAttributes['level'] = 'none';
 
   /** Negative coloring variant flag. */
   @Prop({ reflect: true }) public negative = false;
@@ -33,7 +33,7 @@ export class SbbJourneyHeader {
 
   public render(): JSX.Element {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const TAGNAME = this.level === 'span' ? this.level : `h${this.level}`;
+    const TAGNAME = this.level === 'none' ? 'span' : `h${this.level}`;
     const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
     const currentLanguage = getDocumentLang();
 
