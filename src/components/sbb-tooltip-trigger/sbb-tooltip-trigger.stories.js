@@ -32,8 +32,8 @@ const tooltip = () => (
 );
 
 const Template = (args) => [
-  <span class="sbb-text-s">
-    This is a demo text.
+  <span class="sbb-text-s" style="display: flex; align-items: center">
+    <span style="margin-inline-end: var(--sbb-spacing-fixed-1x)">This is a demo text.</span>
     <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>
   </span>,
   tooltip(),
@@ -49,9 +49,17 @@ const TemplateWithCustomContent = (args) => [
   tooltip(),
 ];
 
-export const Default = Template.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = defaultArgs;
+export const IconSizeS = Template.bind({});
+IconSizeS.argTypes = defaultArgTypes;
+IconSizeS.args = defaultArgs;
+
+export const IconSizeM = Template.bind({});
+IconSizeM.argTypes = defaultArgTypes;
+IconSizeM.args = { ...defaultArgs, 'icon-name': 'circle-information-medium' };
+
+export const IconSizeL = Template.bind({});
+IconSizeL.argTypes = defaultArgTypes;
+IconSizeL.args = { ...defaultArgs, 'icon-name': 'circle-information-large' };
 
 export const CustomContent = TemplateWithCustomContent.bind({});
 CustomContent.argTypes = defaultArgTypes;

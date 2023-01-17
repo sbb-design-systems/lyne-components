@@ -12,6 +12,7 @@
 }
 
 .sbb-tooltip-trigger {
+  @include sbb.zero-width-space;
   @include sbb.text-inherit;
   @include sbb.button-reset;
 
@@ -21,7 +22,7 @@
   &:focus-visible {
     @include sbb.focus-outline;
 
-    outline-offset: 0;
+    border-radius: var(--sbb-border-radius-4x);
   }
 
   &:active {
