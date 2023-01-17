@@ -25,14 +25,14 @@ const defaultArgs = {
 
 const tooltip = () => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
-    <p id="tooltip-content" style={'margin: 0;'} class="sbb-text-s">
+    <span id="tooltip-content" class="sbb-text-s">
       Simple information tooltip with link.
-    </p>
+    </span>
   </sbb-tooltip>
 );
 
 const Template = (args) => [
-  <span>
+  <span class="sbb-text-s">
     This is a demo text.
     <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>
   </span>,
@@ -40,7 +40,7 @@ const Template = (args) => [
 ];
 
 const TemplateWithCustomContent = (args) => [
-  <div style="font-size: 18px; color: red;">
+  <div class="sbb-text-xl" style="color: var(--sbb-color-sky-default);">
     <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
       Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut
       labore et dolore magna aliqua.

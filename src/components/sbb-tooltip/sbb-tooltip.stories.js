@@ -62,7 +62,6 @@ const tooltipTrigger = (position) => (
   <sbb-tooltip-trigger
     data-testid="tooltip-trigger"
     style={`margin-inline: 2rem; position: absolute; cursor: pointer; ${position};`}
-    iconName="circle-information-small"
     id="tooltip-trigger"
   ></sbb-tooltip-trigger>
 );
