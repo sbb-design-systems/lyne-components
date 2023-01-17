@@ -1,5 +1,5 @@
-import { PTRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 
 export interface InterfacePearlChainAttributes {
-  legs: PTRideLeg[];
+  legs: PtRideLeg[];
 }

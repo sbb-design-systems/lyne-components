@@ -22,7 +22,7 @@
   }
 }
 
-:host([negative]) {
+:host([negative]:not([negative='false'])) {
   --sbb-logo-word-mark-color: var(--sbb-color-white-default);
 }
 

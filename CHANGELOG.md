@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.20.21](https://github.com/lyne-design-system/lyne-components/compare/v0.20.20...v0.20.21) (2023-01-16)
+
+### Bug Fixes
+
+- clean correct file for container images ([d8ac165](https://github.com/lyne-design-system/lyne-components/commit/d8ac16503b8aba25f8b79508cd4a36b16b083235))
+
+### [0.20.20](https://github.com/lyne-design-system/lyne-components/compare/v0.20.19...v0.20.20) (2023-01-16)
+
+### Bug Fixes
+
+- container permission ([b5e8891](https://github.com/lyne-design-system/lyne-components/commit/b5e889159f4aa605af79d351b97d4928f483f4ba))
+
+### [0.20.19](https://github.com/lyne-design-system/lyne-components/compare/v0.20.18...v0.20.19) (2023-01-12)
+
+### Bug Fixes
+
+- use correct version for artifacts ([5826331](https://github.com/lyne-design-system/lyne-components/commit/5826331bed182f73bda71958ff63c0fad208098f))
+
+### [0.20.18](https://github.com/lyne-design-system/lyne-components/compare/v0.20.17...v0.20.18) (2023-01-12)
+
+### Bug Fixes
+
+- fix timetable interfaces ([#1533](https://github.com/lyne-design-system/lyne-components/issues/1533)) ([061e2a3](https://github.com/lyne-design-system/lyne-components/commit/061e2a33a5f2ee5311208eda8ec01769a8078524))
+
+### [0.20.17](https://github.com/lyne-design-system/lyne-components/compare/v0.20.16...v0.20.17) (2023-01-12)
+
+### Bug Fixes
+
+- boolean properties handling ([#1531](https://github.com/lyne-design-system/lyne-components/issues/1531)) ([2eee3b9](https://github.com/lyne-design-system/lyne-components/commit/2eee3b99ab02d59bebb738b02329c51f3a0d0c07))
+
 ### [0.20.16](https://github.com/lyne-design-system/lyne-components/compare/v0.20.15...v0.20.16) (2023-01-10)
 
 ### Bug Fixes

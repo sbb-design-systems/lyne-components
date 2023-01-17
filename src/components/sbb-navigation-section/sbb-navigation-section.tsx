@@ -19,6 +19,7 @@ import {
 import { i18nGoBack } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation section.
@@ -188,8 +189,9 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     return (
       isActionElement ||
       element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled')) ||
-      (element.hasAttribute('sbb-navigation-section-close') && !element.hasAttribute('disabled'))
+      (!isValidAttribute(element, 'disabled') &&
+        (element.hasAttribute('sbb-navigation-close') ||
+          element.hasAttribute('sbb-navigation-section-close')))
     );
   }
 

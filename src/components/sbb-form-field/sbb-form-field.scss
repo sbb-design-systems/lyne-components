@@ -81,13 +81,12 @@
   }
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
 :host(:not([data-has-error])) {
   --sbb-form-field-error-padding-block-start: 0;
 }
 
 // Should be after other definitions to override border style
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
+
 :host(:is([borderless], [data-input-type='sbb-slider'])) {
   --sbb-form-field-border-color: transparent;
 }
@@ -166,7 +165,7 @@ slot[name='label'] > span {
 }
 
 // Input
-/* stylelint-disable plugin/stylelint-bem-namics */
+
 .sbb-form-field__input ::slotted(:where(input, select)) {
   @include sbb.text-m--regular;
   @include sbb.placeholder;
@@ -188,7 +187,6 @@ slot[name='label'] > span {
   font-family: var(--sbb-typo-type-face-sbb-roman) !important;
   line-height: var(--sbb-typo-line-height-body-text) !important;
 }
-/* stylelint-enable plugin/stylelint-bem-namics */
 
 .sbb-form-field__input ::slotted(select) {
   padding-inline-end: var(--sbb-form-field-select-inline-padding-end);

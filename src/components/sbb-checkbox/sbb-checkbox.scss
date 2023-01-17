@@ -20,7 +20,7 @@
 }
 
 :host([data-group-disabled]),
-:host([disabled]) {
+:host([disabled]:not([disabled='false'])) {
   --sbb-checkbox-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-border-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);

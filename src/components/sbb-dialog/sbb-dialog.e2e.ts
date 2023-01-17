@@ -24,7 +24,7 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    expect(element).toHaveClass('sbb-dialog--opened');
+    expect(element).toEqualAttribute('data-state', 'opened');
     expect(dialog).toHaveAttribute('open');
   });
 
@@ -39,7 +39,7 @@ describe('sbb-dialog', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
-    expect(element).toHaveClass('sbb-dialog--closed');
+    expect(element).toEqualAttribute('data-state', 'closed');
     expect(dialog).not.toHaveAttribute('open');
   });
 
@@ -72,7 +72,7 @@ describe('sbb-dialog', () => {
     expect(dialog).not.toHaveAttribute('open');
   });
 
-  it('does not have full-screen class', async () => {
+  it('does not have the fullscreen attribute', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
 
     await element.callMethod('open');
@@ -81,10 +81,10 @@ describe('sbb-dialog', () => {
     expect(dialog).toHaveAttribute('open');
 
     await page.waitForChanges();
-    expect(element).not.toHaveClass('sbb-dialog--full-screen');
+    expect(element).not.toHaveAttribute('data-fullscreen');
   });
 
-  it('renders in full-scren mode if no title is provided', async () => {
+  it('renders in fullscreen mode if no title is provided', async () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-dialog id="my-dialog" title-back-button="true" disable-animation>
@@ -101,6 +101,6 @@ describe('sbb-dialog', () => {
     expect(dialog).toHaveAttribute('open');
 
     await page.waitForChanges();
-    expect(element).toHaveClass('sbb-dialog--full-screen');
+    expect(element).toHaveAttribute('data-fullscreen');
   });
 });

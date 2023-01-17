@@ -61,8 +61,7 @@
   }
 }
 
-// stylelint-disable plugin/stylelint-bem-namics
-:host(:is(.sbb-dialog--opened, .sbb-dialog--opening)) {
+:host(:is([data-state='opened'], [data-state='opening'])) {
   pointer-events: all;
 
   @include sbb.mq($from: medium) {
@@ -74,15 +73,14 @@
     }
   }
 }
-// stylelint-enable plugin/stylelint-bem-namics
 
-:host(.sbb-dialog--full-screen) {
+:host([data-fullscreen]) {
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-max-width: 100%;
   --sbb-dialog-max-height: 100%;
 }
 
-:host([negative]) {
+:host([negative]:not([negative='false'])) {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
@@ -91,22 +89,19 @@
   --sbb-dialog-footer-border: none;
 }
 
-:host([disable-animation]) {
+:host([disable-animation]:not([disable-animation='false'])) {
   --sbb-dialog-animation-duration: 0s;
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(.sbb-dialog--full-screen:not([negative])) {
+:host([data-fullscreen]:not([negative]:not([negative='false']))) {
   --sbb-dialog-background-color: var(--sbb-color-milk-default);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen)) {
+:host([data-overflows]:not([data-fullscreen])) {
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s);
 }
 
-/* stylelint-disable-next-line plugin/stylelint-bem-namics */
-:host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) {
+:host([data-overflows]:not([data-fullscreen], [negative]:not([negative='false']))) {
   --sbb-dialog-footer-border: none;
 }
 
@@ -129,12 +124,12 @@
     }
   }
 
-  :host(.sbb-dialog--closing) & {
+  :host([data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
   }
 
-  :host(.sbb-dialog--full-screen) & {
+  :host([data-fullscreen]) & {
     width: 100%;
     height: 100%;
     border-radius: 0;
@@ -173,7 +168,7 @@
   background-color: var(--sbb-dialog-background-color);
   z-index: 10;
 
-  :host(.sbb-dialog--full-screen) & {
+  :host([data-fullscreen]) & {
     position: fixed;
     width: 100%;
     background-color: transparent;
@@ -202,7 +197,7 @@
   padding-block: var(--sbb-dialog-padding-block);
   overflow: auto;
 
-  :host(.sbb-dialog--full-screen) & {
+  :host([data-fullscreen]) & {
     padding-block-start: var(--sbb-spacing-fixed-20x);
     padding-inline: var(--sbb-layout-base-offset-responsive);
     height: 100vh;
@@ -217,13 +212,13 @@
   border-block-start: var(--sbb-dialog-footer-border);
 }
 
-// stylelint-disable plugin/stylelint-bem-namics, selector-not-notation
+// stylelint-disable selector-not-notation
 :is(.sbb-dialog__header, .sbb-dialog__footer) {
-  :host(.sbb-dialog--has-scrollbar:not(.sbb-dialog--full-screen, [negative])) & {
+  :host([data-overflows]:not([data-fullscreen], [negative]:not([negative='false']))) & {
     @include sbb.shadow-level-9-soft;
   }
 }
-// stylelint-enable plugin/stylelint-bem-namics, selector-not-notation
+// stylelint-enable selector-not-notation
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter
 // the default `display: block` of the modal otherwise it causes several problems,

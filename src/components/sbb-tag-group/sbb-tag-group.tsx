@@ -1,5 +1,6 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen } from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Provide one or more 'sbb-tag' to add to the group.
@@ -25,7 +26,7 @@ export class SbbTagGroup implements ComponentInterface {
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     const enabledTags: HTMLSbbTagElement[] = this._getTags().filter(
-      (tag) => !tag.hasAttribute('disabled')
+      (tag) => !isValidAttribute(tag, 'disabled')
     );
 
     if (

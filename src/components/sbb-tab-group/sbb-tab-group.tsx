@@ -101,7 +101,7 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
-    return this.tabs.filter((t) => !t.hasAttribute('disabled'));
+    return this.tabs.filter((t) => !isValidAttribute(t, 'disabled'));
   }
 
   public connectedCallback(): void {
@@ -212,7 +212,7 @@ export class SbbTabGroup implements ComponentInterface {
         if (tab.disabled) {
           return;
         }
-        if (!tab.hasAttribute('disabled')) {
+        if (!isValidAttribute(tab, 'disabled')) {
           tab.setAttribute('disabled', '');
         }
         tab.disabled = true;
@@ -264,8 +264,8 @@ export class SbbTabGroup implements ComponentInterface {
       );
     }
     tab.tabIndex = -1;
-    tab.active = tab.hasAttribute('active') && !tab.hasAttribute('disabled');
-    tab.disabled = tab.hasAttribute('disabled');
+    tab.disabled = isValidAttribute(tab, 'disabled');
+    tab.active = isValidAttribute(tab, 'active') && !tab.disabled;
     tab.setAttribute('role', 'tab');
     tab.setAttribute('aria-controls', tab.relatedContent.id);
     tab.setAttribute('aria-selected', 'false');

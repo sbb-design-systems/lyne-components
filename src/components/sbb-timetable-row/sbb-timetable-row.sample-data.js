@@ -203,7 +203,9 @@ export const disturbanceTrip = {
   notices: [
     {
       name: 'R',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
@@ -268,7 +270,9 @@ export const quayChangeTrip = {
   notices: [
     {
       name: 'R',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
@@ -403,7 +407,9 @@ export const walkTimeTrip = {
   notices: [
     {
       name: 'NF',
-      text: 'Niederflureinstieg',
+      text: {
+        template: 'Reservation possible',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 0,
@@ -411,7 +417,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'WR',
-      text: 'Restaurant',
+      text: {
+        template: 'Restaurant',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 1,
@@ -419,7 +427,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'FA',
-      text: 'Familienwagen mit Spielplatz',
+      text: {
+        template: 'Family wagon with playground',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -427,7 +437,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'BZ',
-      text: 'Businesszone in 1. Klasse',
+      text: {
+        template: 'Business zone in 1st class',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -435,7 +447,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'FS',
-      text: 'Gratis-Internet mit der App SBB FreeSurf',
+      text: {
+        template: 'Free internet with the SBB FreeSurf app',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -443,7 +457,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'RZ',
-      text: 'Ruhezone in 1. Klasse',
+      text: {
+        template: 'Quiet zone in 1st class',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
@@ -451,7 +467,9 @@ export const walkTimeTrip = {
     },
     {
       name: 'R',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
       textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
@@ -568,39 +586,57 @@ export const NoticesTrip = {
   notices: [
     {
       name: 'XT',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'EXISTIERTNICHT',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'TG',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'VR',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'RM',
-      text: 'AAA möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'SB >deleteme<',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'Z',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'Z',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
     {
       name: 'Z',
-      text: 'Platzreservierung möglich',
+      text: {
+        template: 'Reservation possible',
+      },
     },
   ],
   situations: [],

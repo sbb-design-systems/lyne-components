@@ -20,11 +20,11 @@
   }
 }
 
-:host([negative]) {
+:host([negative]:not([negative='false'])) {
   --sbb-footer-background-color: var(--sbb-color-charcoal-default);
 }
 
-:host([wide]) {
+:host([wide]:not([wide='false'])) {
   --sbb-footer-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-footer-content-max-width: auto;
 }
@@ -66,7 +66,6 @@
     }
   }
 
-  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
   ::slotted(*:not(:last-child, sbb-divider)) {
     margin-block-end: var(--sbb-footer-gap-vertical);
   }
@@ -104,12 +103,10 @@
   }
 
   @include sbb.mq($from: small) {
-    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(-n + 2)) {
       grid-row: 1;
     }
 
-    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(3)),
     ::slotted(:nth-child(4)) {
       grid-row: 2;
@@ -127,7 +124,6 @@
   }
 
   @include sbb.mq($from: wide) {
-    /* stylelint-disable-next-line plugin/stylelint-bem-namics */
     ::slotted(:nth-child(-n + 4)) {
       grid-row: 1;
     }

@@ -20,6 +20,7 @@ import { AgnosticMutationObserver as MutationObserver } from '../../global/helpe
 import { isEventOnElement } from '../../global/helpers/position';
 import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
@@ -243,7 +244,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   private _isCloseElement(element: HTMLElement): boolean {
     return (
       element.nodeName === 'A' ||
-      (element.hasAttribute('sbb-navigation-close') && !element.hasAttribute('disabled'))
+      (element.hasAttribute('sbb-navigation-close') && !isValidAttribute(element, 'disabled'))
     );
   }
 
