@@ -10,7 +10,7 @@ describe('sbb-tooltip-trigger', () => {
       <sbb-tooltip-trigger data-testid="tooltip-trigger" id="tooltip-trigger"></sbb-tooltip-trigger>
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
         Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
-      </sbb-tooltip> 
+      </sbb-tooltip>
     `);
     element = await page.find('sbb-tooltip-trigger');
   });
@@ -39,6 +39,25 @@ describe('sbb-tooltip-trigger', () => {
     const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const changeSpy = await tooltipTrigger.spyOnEvent('focus');
+
+    await tooltipTrigger.focus();
+    await page.waitForChanges();
+    expect(changeSpy).toHaveReceivedEventTimes(1);
+
+    await page.keyboard.down('Enter');
+    await page.waitForChanges();
+
+    expect(dialog).toHaveAttribute('open');
+  });
+
+  it('shows tooltip on keyboard event with hover-trigger', async () => {
+    const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
+    const tooltip = await page.find('sbb-tooltip');
+    const dialog = await page.find('sbb-tooltip >>> dialog');
+    const changeSpy = await tooltipTrigger.spyOnEvent('focus');
+
+    tooltip.setProperty('hoverTrigger', true);
+    await page.waitForChanges();
 
     await tooltipTrigger.focus();
     await page.waitForChanges();

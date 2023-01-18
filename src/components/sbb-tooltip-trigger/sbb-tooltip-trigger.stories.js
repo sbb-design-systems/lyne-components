@@ -27,6 +27,15 @@ const tooltip = () => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
     <span id="tooltip-content" class="sbb-text-s">
       Simple information tooltip with link.
+      <sbb-link
+        text-size="s"
+        variant="block"
+        icon-name="chevron-small-right-small"
+        icon-placement="end"
+        sbb-tooltip-close
+      >
+        Learn More
+      </sbb-link>
     </span>
   </sbb-tooltip>
 );

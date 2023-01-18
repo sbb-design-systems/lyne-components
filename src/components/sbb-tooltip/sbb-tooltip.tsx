@@ -236,13 +236,17 @@ export class SbbTooltip implements ComponentInterface {
         signal: this._tooltipController.signal,
       });
 
-      this._triggerElement.addEventListener('keydown', (evt: KeyboardEvent) => {
-        if (evt.code === 'Space' || evt.code === 'Enter') {
-          this.open();
+      this._triggerElement.addEventListener(
+        'keydown',
+        (evt: KeyboardEvent) => {
+          if (evt.code === 'Space' || evt.code === 'Enter') {
+            this.open();
+          }
+        },
+        {
+          signal: this._tooltipController.signal,
         }
-      }, {
-        signal: this._tooltipController.signal,
-      });
+      );
     } else {
       this._triggerElement.addEventListener(
         'click',
