@@ -225,19 +225,18 @@ export class SbbTimetableRow {
             )}
             {((noticeAttributes && noticeAttributes.length) || this.boarding) && (
               <ul class="sbb-timetable__row-hints" role="list">
-                {notices &&
-                  noticeAttributes?.map(
-                    (notice, index) =>
-                      index < 4 && (
-                        <li>
-                          <sbb-icon
-                            class="sbb-travel-hints__item"
-                            name={'sa-' + notice.name.toLowerCase()}
-                          />
-                          <span class="sbb-screenreaderonly">{notice.text?.template}</span>
-                        </li>
-                      )
-                  )}
+                {noticeAttributes?.map(
+                  (notice, index) =>
+                    index < 4 && (
+                      <li>
+                        <sbb-icon
+                          class="sbb-travel-hints__item"
+                          name={'sa-' + notice.name?.toLowerCase()}
+                        />
+                        <span class="sbb-screenreaderonly">{notice.text?.template}</span>
+                      </li>
+                    )
+                )}
                 {this.boarding && (
                   <li>
                     <sbb-icon
