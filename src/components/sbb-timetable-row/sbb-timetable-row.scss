@@ -7,7 +7,6 @@
 :host {
   --sbb-timetable-row-gap: var(--sbb-spacing-fixed-2x);
   --sbb-timetable-row-height: #{sbb.px-to-rem-build(25)};
-  --sbb-timetable-row-height-badge: var(--sbb-card-badge-height);
   --sbb-timetable-row-height-header: #{sbb.px-to-rem-build(20)};
   --sbb-timetable-row-height-footer: #{sbb.px-to-rem-build(16)};
 }
@@ -175,7 +174,7 @@ li {
   right: calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: skew(16deg, 0deg);
   width: #{sbb.px-to-rem-build(115)};
-  height: var(--sbb-card-badge-height);
+  height: #{sbb.px-to-rem-build(20)};
 }
 
 @keyframes skeleton-pulse {

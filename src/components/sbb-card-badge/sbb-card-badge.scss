@@ -10,7 +10,6 @@
   --sbb-card-badge-background-color-primary: var(--sbb-color-black-default);
   --sbb-card-badge-background-color-primary-negative: var(--sbb-color-white-default);
   --sbb-card-badge-border-color-primary-negative: var(--sbb-color-aluminium-default);
-  --sbb-card-badge-height: #{sbb.px-to-rem-build(21)};
 
   @include sbb.if-forced-colors {
     border-inline-start: #{sbb.px-to-rem-build(1)} solid CanvasText;
@@ -24,7 +23,6 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-end: 0;
-  max-height: var(--sbb-card-badge-height);
   padding-inline-end: var(--sbb-spacing-fixed-6x);
   border-end-start-radius: var(--sbb-border-radius-4x);
   z-index: inherit;
