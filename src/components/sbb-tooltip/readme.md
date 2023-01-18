@@ -8,7 +8,7 @@ The tooltip can show a simple message and a close button (if the `hover-trigger`
 
 ```html
 <!-- Trigger element -->
-<sbb-icon id="tooltip-trigger" name="circle-information-small"/>
+<sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <!-- Tooltip component with custom content and a link -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
@@ -24,7 +24,7 @@ You can also indicate that the tooltip should be shown on hover with the propert
 
 ```html
 <!-- Trigger element -->
-<sbb-icon id="tooltip-trigger" name="circle-information-small"/>
+<sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <!-- Tooltip component with `hover-trigger` property -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
@@ -53,7 +53,7 @@ In order to make screen readers announce the tooltip content when the trigger is
 
 ```html
 <!-- Trigger element -->
-<button id="tooltip-trigger">Button with tooltip</button>
+<sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <!-- Tooltip component with `hover-trigger` property -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">

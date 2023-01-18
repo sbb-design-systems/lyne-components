@@ -235,6 +235,14 @@ export class SbbTooltip implements ComponentInterface {
       this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, {
         signal: this._tooltipController.signal,
       });
+
+      this._triggerElement.addEventListener('keydown', (evt: KeyboardEvent) => {
+        if (evt.code === 'Space' || evt.code === 'Enter') {
+          this.open();
+        }
+      }, {
+        signal: this._tooltipController.signal,
+      });
     } else {
       this._triggerElement.addEventListener(
         'click',

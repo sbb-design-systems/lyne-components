@@ -42,8 +42,8 @@ const Template = (args) => [
 const TemplateWithCustomContent = (args) => [
   <div class="sbb-text-xl" style="color: var(--sbb-color-sky-default);">
     <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
-      Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut
-      labore et dolore magna aliqua.
+      This is a long tooltip trigger text which should wrap at a certain viewport. It inherits all
+      the font styles from the parent element.
     </sbb-tooltip-trigger>
   </div>,
   tooltip(),

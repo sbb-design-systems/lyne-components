@@ -12,11 +12,10 @@
 }
 
 .sbb-tooltip-trigger {
-  @include sbb.zero-width-space;
   @include sbb.text-inherit;
   @include sbb.button-reset;
 
-  display: inline-flex;
+  display: flex;
   cursor: pointer;
 
   &:focus-visible {
