@@ -9,27 +9,7 @@ at the right end, and it can contain a logo, which by default is the [sbb-logo](
 
 The height of the header can be overridden by re-defining the css variable `--sbb-header-height`.
 
-A box-shadow appears under the component if the `shadow` variable is set to `true`;
-consumers could provide their own logic to set this variable to `true` when the page scrolls down,
-and to `false` when the scroll is at page's top.
-To achieve this in Storybook, these lines have been added in the configuration file called `preview-head.html`:
-
-```javascript
-<script>
-  const headerScrollHandler = () => {
-    const header = document.getElementsByTagName('sbb-header')[0];
-    if (header) {
-      if (window.scrollY === 0) {
-        header.removeAttribute('shadow');
-      } else {
-        header.setAttribute('shadow', '');
-      }
-    }
-  };
-  window.onload = () => document.addEventListener('scroll', headerScrollHandler);
-  window.onunload = () => document.removeEventListener('scroll', headerScrollHandler);
-</script>
-```
+A box-shadow appears under the component if the `shadow` variable is set to `true` (TBC).
 
 ## Style
 
@@ -112,7 +92,8 @@ Header with logo link and slotted sbb-logo:
 | Property   | Attribute  | Description                                                                                                          | Type      | Default |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
 | `expanded` | `expanded` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean` | `false` |
-| `hideonscroll` | `hideonscroll` | Whether the header should hide and show on scroll.                                                                   | `boolean` | `false` |
+| `hideOnScroll` | `hide-on-scroll` | Whether the header should hide and show on scroll.                                                                   | `boolean`                           | `false`    |
+| `scrollOrigin` | `scroll-origin`  | The element's id or the element on which the scroll listener is attached.                                            | `Document \| HTMLElement \| string` | `document` |
 | `shadow`   | `shadow`   | Used to display a box-shadow below the component on y-axis scroll whether set to true.                               | `boolean` | `false` |
 
 

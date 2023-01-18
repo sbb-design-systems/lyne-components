@@ -584,7 +584,11 @@ export namespace Components {
         /**
           * Whether the header should hide and show on scroll.
          */
-        "hideonscroll": boolean;
+        "hideOnScroll": boolean;
+        /**
+          * The element's id or the element on which the scroll listener is attached.
+         */
+        "scrollOrigin": string | HTMLElement | Document;
         /**
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */
@@ -2795,7 +2799,11 @@ declare namespace LocalJSX {
         /**
          * Whether the header should hide and show on scroll.
          */
-        "hideonscroll"?: boolean;
+        "hideOnScroll"?: boolean;
+        /**
+          * The element's id or the element on which the scroll listener is attached.
+         */
+        "scrollOrigin"?: string | HTMLElement | Document;
         /**
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */

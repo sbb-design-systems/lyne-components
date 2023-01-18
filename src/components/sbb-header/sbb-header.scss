@@ -30,8 +30,10 @@
   @include sbb.if-forced-colors {
     border-block-end: var(--sbb-border-width-1x) solid CanvasText;
   }
+}
 
-  :host([hideonscroll]) & {
+.sbb-header--hidden {
+  :host([hide-on-scroll]:not([hide-on-scroll='false'])) & {
     position: absolute;
   }
 }

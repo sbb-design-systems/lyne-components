@@ -178,34 +178,26 @@ const playStory = async ({ canvasElement }) => {
   await userEvent.click(button);
 };
 
-const shadow = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const expanded = {
   control: {
     type: 'boolean',
   },
 };
 
-const hideonscroll = {
+const hideOnScroll = {
   control: {
     type: 'boolean',
   },
 };
 
 const basicArgTypes = {
-  shadow,
   expanded,
-  hideonscroll,
+  'hide-on-scroll': hideOnScroll,
 };
 
 const basicArgs = {
-  shadow: false,
   expanded: false,
-  hideonscroll: false,
+  'hide-on-scroll': false,
 };
 
 export const Basic = Template.bind({});
@@ -223,11 +215,11 @@ WithUserMenu.play = playStory;
 
 export const BasicScrollHide = Template.bind({});
 BasicScrollHide.argTypes = basicArgTypes;
-BasicScrollHide.args = { ...basicArgs, hideonscroll: true };
+BasicScrollHide.args = { ...basicArgs, 'hide-on-scroll': true };
 
 export const WideScrollHide = Template.bind({});
 WideScrollHide.argTypes = basicArgTypes;
-WideScrollHide.args = { ...basicArgs, wide: true, hideonscroll: true };
+WideScrollHide.args = { ...basicArgs, wide: true, 'hide-on-scroll': true };
 
 export default {
   decorators: [

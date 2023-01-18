@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
@@ -20,33 +20,47 @@ export class SbbHeader {
    */
   @Prop({ reflect: true }) public expanded = false;
 
-  /** Whether the header should hide and show on scroll. */
-  @Prop({ reflect: true }) public hideonscroll = false;
+  /** The element's id or the element on which the scroll listener is attached. */
+  @Prop() public scrollOrigin: string | HTMLElement | Document = document;
 
-  private _headerContainer: HTMLElement;
+  /** Whether the header should hide and show on scroll. */
+  @Prop({ reflect: true }) public hideOnScroll = false;
+
+  @Element() private _element!: HTMLElement;
+
+  private _scrollElement: HTMLElement | Document;
+
+  private _lastScrollTop = 0;
 
   public componentDidLoad(): void {
-
-    var lastScrollTop = 0;
-
-    document.addEventListener('scroll', () =>{
-      this._headerContainer = document.getElementsByTagName('sbb-header')[0];
-      if (this.hideonscroll === true && document.documentElement.scrollTop > this._headerContainer.offsetHeight) {
-        var st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop){
-          console.log('downscroll');
-          this._headerContainer.classList.add('hidden-header');
-          this._headerContainer.classList.remove('visible-header');
-        } else {
-          console.log('upscroll');
-          this._headerContainer.classList.add('visible-header');
-          this._headerContainer.classList.remove('hidden-header');
-        }
-        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    if (typeof this.scrollOrigin === 'string') {
+      this._scrollElement = document.getElementById(this.scrollOrigin);
+      if (!this._scrollElement) {
+        return;
       }
+    } else {
+      this._scrollElement = this.scrollOrigin;
+    }
+    this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), { passive: true });
+  }
 
-    });
-
+  private _scrollListener(): void {
+    let scrollTop;
+    if (this._scrollElement instanceof window.HTMLElement) {
+      scrollTop = Math.round(this._scrollElement.scrollTop);
+    } else {
+      scrollTop = Math.round(document.documentElement.scrollTop);
+    }
+    this.shadow = scrollTop !== 0;
+    if (this.hideOnScroll && scrollTop > this._element.offsetHeight) {
+      const header = this._element.shadowRoot.firstElementChild;
+      if (scrollTop > this._lastScrollTop) {
+        header.classList.add('sbb-header--hidden');
+      } else {
+        header.classList.remove('sbb-header--hidden');
+      }
+      this._lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+    }
   }
 
   public render(): JSX.Element {
