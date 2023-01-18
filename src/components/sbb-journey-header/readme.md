@@ -1,5 +1,46 @@
 # sbb-journey-header
 
+The `sbb-journey-header` is a component used within the `sbb-journey-summary` to display the journey's details.
+
+It has two required property, named `source` (string) and `destination` (string) which are the two ends of the journey.
+An icon is placed between them: if the property `roundTrip` is set to false (default), the icon is 
+an arrow pointing to the `destination`, otherwise it is a double arrow to display the round-trip.
+
+The component has two `size`, named `m` (default) and `l`, and a `negative` background variant.
+The component's markup can be set using the `level` property: the default value is `none`, which renders a `<span>` tag;
+otherwise, a heading can be chosen using numbers from `1` to `6`.
+
+### Accessibility
+
+The component has some hidden elements in order to be correctly read from a screen-reader.
+
+The following example will be read as (locale: ENG): `Connection from Point A to Point B.`.
+```html
+<sbb-journey-header destination="Point A" origin="Point B" />
+```
+
+The following one will be read as (locale: ENG): `Connection from Point A to Point B and back to Point A.`.
+```html
+<sbb-journey-header destination="Point A" origin="Point B" round-trip="true"/>
+```
+
+### Usage
+
+Basic usage, rendered as `<span>`:
+```html
+<sbb-journey-header destination="Point A" origin="Point B"/>
+```
+
+Size `l`, rendered as `<h3>`:
+```html
+<sbb-journey-header destination="Point A" origin="Point B" size="l" level="3"/>
+```
+
+Negative variant, round-trip:
+```html
+<sbb-journey-header destination="Point A" origin="Point B" round-trip="true" negative="true"/>
+```
+
 <!-- Auto Generated Below -->
 
 
