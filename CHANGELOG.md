@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.22.0](https://github.com/lyne-design-system/lyne-components/compare/v0.21.1...v0.22.0) (2023-01-18)
+
+### ⚠ BREAKING CHANGES
+
+- **layout:** - `sbb-grid`, `sbb-section` and `sbb-stack` were removed. `sbb-stack` and `sbb-section` can easily be replaced by css flex or grid on consumer side. As replacement of the `sbb-grid` component there is now a css class and sass mixin. Additionally css classes and mixins for page-spacing were introduced.
+
+* Renamed `wide` property of `sbb-header` and `sbb-footer` to `expanded`.
+
+- **layout:** provide grid CSS classes and SCSS mixin and remove layout components ([#1526](https://github.com/lyne-design-system/lyne-components/issues/1526)) ([4bf6404](https://github.com/lyne-design-system/lyne-components/commit/4bf640442519be0c98be226d31c170c564ffdf3c))
+
 ### [0.21.1](https://github.com/lyne-design-system/lyne-components/compare/v0.21.0...v0.21.1) (2023-01-18)
 
 ### Features
