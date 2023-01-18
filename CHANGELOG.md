@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.21.1](https://github.com/lyne-design-system/lyne-components/compare/v0.21.0...v0.21.1) (2023-01-18)
+
+### Features
+
+- **sbb-navigation:** handle scrolling behaviour on navigation open ([#1537](https://github.com/lyne-design-system/lyne-components/issues/1537)) ([0f48761](https://github.com/lyne-design-system/lyne-components/commit/0f48761bd37c5c77e4f14e84bd47de0fc843c9a8))
+
 ## [0.21.0](https://github.com/lyne-design-system/lyne-components/compare/v0.20.21...v0.21.0) (2023-01-18)
 
 ### ⚠ BREAKING CHANGES
