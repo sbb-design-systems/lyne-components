@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.2](https://github.com/lyne-design-system/lyne-components/compare/v0.22.1...v0.22.2) (2023-01-18)
+
+### Bug Fixes
+
+- **sbb-card-badge:** fix height for negative variant ([#1543](https://github.com/lyne-design-system/lyne-components/issues/1543)) ([1031dcc](https://github.com/lyne-design-system/lyne-components/commit/1031dcc6fef4175dfe3b90ad020e43482cd0642a))
+
 ### [0.22.1](https://github.com/lyne-design-system/lyne-components/compare/v0.22.0...v0.22.1) (2023-01-18)
 
 ### Bug Fixes
