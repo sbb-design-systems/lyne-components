@@ -21,7 +21,6 @@ import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
-import { InterfaceGridAttributes } from "./components/sbb-grid/sbb-grid.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
@@ -35,9 +34,7 @@ import { PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
-import { InterfaceSectionAttributes } from "./components/sbb-section/sbb-section.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
-import { InterfaceStackAttributes } from "./components/sbb-stack/sbb-stack.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
@@ -547,6 +544,10 @@ export namespace Components {
          */
         "accessibilityTitleLevel": InterfaceTitleAttributes['level'];
         /**
+          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "expanded": boolean;
+        /**
           * Negative coloring variant flag.
          */
         "negative": boolean;
@@ -554,10 +555,6 @@ export namespace Components {
           * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
          */
         "variant": InterfaceFooterAttributes['variant'];
-        /**
-          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
-         */
-        "wide": boolean;
     }
     interface SbbFormError {
     }
@@ -583,25 +580,15 @@ export namespace Components {
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
     }
-    interface SbbGrid {
-        /**
-          * Section appearance
-         */
-        "appearance"?: InterfaceGridAttributes['appearance'];
-        /**
-          * Grid variant
-         */
-        "variant"?: InterfaceGridAttributes['variant'];
-    }
     interface SbbHeader {
+        /**
+          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "expanded": boolean;
         /**
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */
         "shadow": boolean;
-        /**
-          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
-         */
-        "wide": boolean;
     }
     interface SbbHeaderAction {
         /**
@@ -1182,16 +1169,6 @@ export namespace Components {
          */
         "value"?: any | null;
     }
-    interface SbbSection {
-        /**
-          * Section appearance
-         */
-        "appearance"?: InterfaceSectionAttributes['appearance'];
-        /**
-          * Section width
-         */
-        "width"?: InterfaceSectionAttributes['width'];
-    }
     interface SbbSector {
         /**
           * Label for the sector.
@@ -1249,52 +1226,6 @@ export namespace Components {
           * Numeric value for the inner HTMLInputElement.
          */
         "valueAsNumber"?: number;
-    }
-    interface SbbStack {
-        /**
-          * Stack appearance
-         */
-        "appearance"?: InterfaceStackAttributes['appearance'];
-        /**
-          * Collapse horizontal stack into vertical layout below a certain breakpoint. This has only an effect for horizontal appearances.
-         */
-        "collapseHorizontalBelow"?: InterfaceStackAttributes['collapseHorizontalBelow'];
-        /**
-          * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
-         */
-        "gapHorizontal"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Stack gap vertical, defines the space between each stack items in the horizontal direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
-         */
-        "gapVertical"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Render stack as placeholder
-         */
-        "isPlaceholder"?: boolean;
-        /**
-          * Render horizontal stack as non-wrapping stack
-         */
-        "noWrap"?: boolean;
-        /**
-          * Space before the stack
-         */
-        "spaceLeading"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Space before the stack
-         */
-        "spaceTrailing"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Stack height, reflects CSS property `height` and accepts all appropriate/valid CSS height values
-         */
-        "stackHeight"?: string;
-        /**
-          * Stack width, reflects CSS property `width` and accepts all appropriate/valid CSS width values
-         */
-        "stackWidth"?: string;
-        /**
-          * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
-         */
-        "tag"?: InterfaceStackAttributes['tag'];
     }
     interface SbbTabAmount {
     }
@@ -1939,12 +1870,6 @@ declare global {
         prototype: HTMLSbbFormFieldElement;
         new (): HTMLSbbFormFieldElement;
     };
-    interface HTMLSbbGridElement extends Components.SbbGrid, HTMLStencilElement {
-    }
-    var HTMLSbbGridElement: {
-        prototype: HTMLSbbGridElement;
-        new (): HTMLSbbGridElement;
-    };
     interface HTMLSbbHeaderElement extends Components.SbbHeader, HTMLStencilElement {
     }
     var HTMLSbbHeaderElement: {
@@ -2083,12 +2008,6 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
-    interface HTMLSbbSectionElement extends Components.SbbSection, HTMLStencilElement {
-    }
-    var HTMLSbbSectionElement: {
-        prototype: HTMLSbbSectionElement;
-        new (): HTMLSbbSectionElement;
-    };
     interface HTMLSbbSectorElement extends Components.SbbSector, HTMLStencilElement {
     }
     var HTMLSbbSectorElement: {
@@ -2106,12 +2025,6 @@ declare global {
     var HTMLSbbSliderElement: {
         prototype: HTMLSbbSliderElement;
         new (): HTMLSbbSliderElement;
-    };
-    interface HTMLSbbStackElement extends Components.SbbStack, HTMLStencilElement {
-    }
-    var HTMLSbbStackElement: {
-        prototype: HTMLSbbStackElement;
-        new (): HTMLSbbStackElement;
     };
     interface HTMLSbbTabAmountElement extends Components.SbbTabAmount, HTMLStencilElement {
     }
@@ -2319,7 +2232,6 @@ declare global {
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
-        "sbb-grid": HTMLSbbGridElement;
         "sbb-header": HTMLSbbHeaderElement;
         "sbb-header-action": HTMLSbbHeaderActionElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -2343,11 +2255,9 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
-        "sbb-section": HTMLSbbSectionElement;
         "sbb-sector": HTMLSbbSectorElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
-        "sbb-stack": HTMLSbbStackElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-tab-title": HTMLSbbTabTitleElement;
@@ -2908,6 +2818,10 @@ declare namespace LocalJSX {
          */
         "accessibilityTitleLevel"?: InterfaceTitleAttributes['level'];
         /**
+          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "expanded"?: boolean;
+        /**
           * Negative coloring variant flag.
          */
         "negative"?: boolean;
@@ -2915,10 +2829,6 @@ declare namespace LocalJSX {
           * Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a css-grid for displaying the content over different breakpoints.
          */
         "variant"?: InterfaceFooterAttributes['variant'];
-        /**
-          * Whether to allow the footer content to stretch to full width. By default, the content has the appropriate page size.
-         */
-        "wide"?: boolean;
     }
     interface SbbFormError {
     }
@@ -2944,25 +2854,15 @@ declare namespace LocalJSX {
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
     }
-    interface SbbGrid {
-        /**
-          * Section appearance
-         */
-        "appearance"?: InterfaceGridAttributes['appearance'];
-        /**
-          * Grid variant
-         */
-        "variant"?: InterfaceGridAttributes['variant'];
-    }
     interface SbbHeader {
+        /**
+          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
+         */
+        "expanded"?: boolean;
         /**
           * Used to display a box-shadow below the component on y-axis scroll whether set to true.
          */
         "shadow"?: boolean;
-        /**
-          * Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.
-         */
-        "wide"?: boolean;
     }
     interface SbbHeaderAction {
         /**
@@ -3558,16 +3458,6 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
-    interface SbbSection {
-        /**
-          * Section appearance
-         */
-        "appearance"?: InterfaceSectionAttributes['appearance'];
-        /**
-          * Section width
-         */
-        "width"?: InterfaceSectionAttributes['width'];
-    }
     interface SbbSector {
         /**
           * Label for the sector.
@@ -3629,52 +3519,6 @@ declare namespace LocalJSX {
           * Numeric value for the inner HTMLInputElement.
          */
         "valueAsNumber"?: number;
-    }
-    interface SbbStack {
-        /**
-          * Stack appearance
-         */
-        "appearance"?: InterfaceStackAttributes['appearance'];
-        /**
-          * Collapse horizontal stack into vertical layout below a certain breakpoint. This has only an effect for horizontal appearances.
-         */
-        "collapseHorizontalBelow"?: InterfaceStackAttributes['collapseHorizontalBelow'];
-        /**
-          * Stack gap horizontal, defines the space between each stack items in the vertical direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
-         */
-        "gapHorizontal"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Stack gap vertical, defines the space between each stack items in the horizontal direction. The spacing can be fixed or responsive (which then depends on the breakpoint). The `x` in the fixed spacing scale is a representation of the base spacing unit. E.g. `3 * base spacing unit`
-         */
-        "gapVertical"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Render stack as placeholder
-         */
-        "isPlaceholder"?: boolean;
-        /**
-          * Render horizontal stack as non-wrapping stack
-         */
-        "noWrap"?: boolean;
-        /**
-          * Space before the stack
-         */
-        "spaceLeading"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Space before the stack
-         */
-        "spaceTrailing"?: InterfaceStackAttributes['spacing'];
-        /**
-          * Stack height, reflects CSS property `height` and accepts all appropriate/valid CSS height values
-         */
-        "stackHeight"?: string;
-        /**
-          * Stack width, reflects CSS property `width` and accepts all appropriate/valid CSS width values
-         */
-        "stackWidth"?: string;
-        /**
-          * Stack tag / HTML representation of the stack. If the stack represents a list of items change the HTML representation to `ul` or `ol` tag. In this case the only allowed stack items are `li` elements.
-         */
-        "tag"?: InterfaceStackAttributes['tag'];
     }
     interface SbbTabAmount {
     }
@@ -4176,7 +4020,6 @@ declare namespace LocalJSX {
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
-        "sbb-grid": SbbGrid;
         "sbb-header": SbbHeader;
         "sbb-header-action": SbbHeaderAction;
         "sbb-icon": SbbIcon;
@@ -4200,11 +4043,9 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
-        "sbb-section": SbbSection;
         "sbb-sector": SbbSector;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
-        "sbb-stack": SbbStack;
         "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
         "sbb-tab-title": SbbTabTitle;
@@ -4261,7 +4102,6 @@ declare module "@stencil/core" {
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
-            "sbb-grid": LocalJSX.SbbGrid & JSXBase.HTMLAttributes<HTMLSbbGridElement>;
             "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
             "sbb-header-action": LocalJSX.SbbHeaderAction & JSXBase.HTMLAttributes<HTMLSbbHeaderActionElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
@@ -4285,11 +4125,9 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
-            "sbb-section": LocalJSX.SbbSection & JSXBase.HTMLAttributes<HTMLSbbSectionElement>;
             "sbb-sector": LocalJSX.SbbSector & JSXBase.HTMLAttributes<HTMLSbbSectorElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
-            "sbb-stack": LocalJSX.SbbStack & JSXBase.HTMLAttributes<HTMLSbbStackElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;

@@ -15,7 +15,7 @@ const negative = {
   },
 };
 
-const wide = {
+const expanded = {
   control: {
     type: 'boolean',
   },
@@ -30,14 +30,14 @@ const accessibilityTitle = {
 const defaultArgTypes = {
   variant,
   negative,
-  wide,
+  expanded,
   'accessibility-title': accessibilityTitle,
 };
 
 const defaultArgs = {
   variant: variant.options[1],
   negative: false,
-  wide: false,
+  expanded: false,
   'accessibility-title': 'Footer',
 };
 
@@ -223,9 +223,9 @@ FooterClockColumnsNegative.args = {
   negative: true,
 };
 
-export const FooterClockColumnsWide = TemplateClockColumns.bind({});
-FooterClockColumnsWide.argTypes = defaultArgTypes;
-FooterClockColumnsWide.args = { ...defaultArgs, wide: true };
+export const FooterClockColumnsExpanded = TemplateClockColumns.bind({});
+FooterClockColumnsExpanded.argTypes = defaultArgTypes;
+FooterClockColumnsExpanded.args = { ...defaultArgs, expanded: true };
 
 export const FooterDefault = TemplateDefault.bind({});
 FooterDefault.argTypes = defaultArgTypes;
@@ -242,12 +242,12 @@ FooterDefaultNegative.args = {
   negative: true,
 };
 
-export const FooterDefaultWide = TemplateDefault.bind({});
-FooterDefaultWide.argTypes = defaultArgTypes;
-FooterDefaultWide.args = {
+export const FooterDefaultExpanded = TemplateDefault.bind({});
+FooterDefaultExpanded.argTypes = defaultArgTypes;
+FooterDefaultExpanded.args = {
   ...defaultArgs,
   variant: variant.options[0],
-  wide: true,
+  expanded: true,
 };
 
 /* ************************************************* */

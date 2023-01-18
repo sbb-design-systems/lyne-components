@@ -1,4 +1,4 @@
-@mixin ellipsis() {
+@mixin ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -9,27 +9,27 @@
   #{$property}: stretch;
 }
 
-@mixin absolute-center-x-y() {
+@mixin absolute-center-x-y {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-@mixin absolute-center-x() {
+@mixin absolute-center-x {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
-@mixin absolute-center-y() {
+@mixin absolute-center-y {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
 /** This mixin can be used to avoid spacing problems by inserting an invisible space as pseudo element. */
-@mixin zero-width-space() {
+@mixin zero-width-space {
   &::before {
     content: '\200B';
     user-select: none;

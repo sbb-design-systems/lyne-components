@@ -84,7 +84,7 @@ const shadow = {
   },
 };
 
-const wide = {
+const expanded = {
   control: {
     type: 'boolean',
   },
@@ -92,21 +92,21 @@ const wide = {
 
 const basicArgTypes = {
   shadow,
-  wide,
+  expanded,
 };
 
 const basicArgs = {
   shadow: false,
-  wide: false,
+  expanded: false,
 };
 
 export const Basic = Template.bind({});
 Basic.argTypes = basicArgTypes;
 Basic.args = { ...basicArgs };
 
-export const Wide = Template.bind({});
-Wide.argTypes = basicArgTypes;
-Wide.args = { ...basicArgs, wide: true };
+export const Expanded = Template.bind({});
+Expanded.argTypes = basicArgTypes;
+Expanded.args = { ...basicArgs, expanded: true };
 
 export const WithUserMenu = TemplateWithUserMenu.bind({});
 WithUserMenu.argTypes = basicArgTypes;
