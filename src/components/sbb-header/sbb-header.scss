@@ -20,7 +20,8 @@
   position: fixed;
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
-  transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transform: translateY(0);
+  transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   z-index: 10;
 
   :host([shadow]:not([shadow='false'])) & {
@@ -34,7 +35,7 @@
 
 .sbb-header--hidden {
   :host([hide-on-scroll]:not([hide-on-scroll='false'])) & {
-    position: absolute;
+    transform: translateY(-100%);
   }
 }
 

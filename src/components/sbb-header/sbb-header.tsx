@@ -56,6 +56,7 @@ export class SbbHeader {
       const header = this._element.shadowRoot.firstElementChild;
       if (scrollTop > this._lastScrollTop) {
         header.classList.add('sbb-header--hidden');
+        (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
       } else {
         header.classList.remove('sbb-header--hidden');
       }
