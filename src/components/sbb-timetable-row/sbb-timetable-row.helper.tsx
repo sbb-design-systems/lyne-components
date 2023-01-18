@@ -246,10 +246,11 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
   if (reservationNotice === undefined) return filteredNotices;
   if (!filteredNotices.length) return [reservationNotice];
 
-  if (filteredNotices[0].name === 'Z') {
+  if (filteredNotices[0].name === 'Z' && filteredNotices[1]) {
     return [filteredNotices[0], reservationNotice, filteredNotices[1]].concat(
       filteredNotices.slice(2)
     );
   }
-  return filteredNotices.splice(0, 0, reservationNotice);
+
+  return [reservationNotice, ...filteredNotices];
 };
