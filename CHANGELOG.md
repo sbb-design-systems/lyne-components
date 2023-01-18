@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.21.0](https://github.com/lyne-design-system/lyne-components/compare/v0.20.21...v0.21.0) (2023-01-18)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-toggle-check:** Rename property `icon` to `icon-name` to be consistent with all other components.
+
+- **sbb-toggle-check:** introduce new design ([#1534](https://github.com/lyne-design-system/lyne-components/issues/1534)) ([50d389b](https://github.com/lyne-design-system/lyne-components/commit/50d389b2812ae42a91fdbe8d23c4fa0391c97d26))
+
 ### [0.20.21](https://github.com/lyne-design-system/lyne-components/compare/v0.20.20...v0.20.21) (2023-01-16)
 
 ### Bug Fixes
