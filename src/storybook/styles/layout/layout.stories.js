@@ -8,8 +8,8 @@ const PageSpacingTemplate = () => (
   </section>
 );
 
-const PageSpacingWideTemplate = () => (
-  <section class="sbb-page-spacing-wide visualized-page-spacing">
+const PageSpacingExpandedTemplate = () => (
+  <section class="sbb-page-spacing-expanded visualized-page-spacing">
     <div>Content</div>
   </section>
 );
@@ -41,19 +41,19 @@ const GridTemplate = () => [
   </p>,
 ];
 
-const GridWideTemplate = () => [
-  <div class="sbb-grid-wide visualized-grid">
+const GridExpandedTemplate = () => [
+  <div class="sbb-grid-expanded visualized-grid">
     <GridContent />
   </div>,
-  <p class="sbb-page-spacing-wide">
+  <p class="sbb-page-spacing-expanded">
     <Warning />
   </p>,
 ];
 
 export const PageSpacing = PageSpacingTemplate.bind({});
-export const PageSpacingWide = PageSpacingWideTemplate.bind({});
+export const PageSpacingExpanded = PageSpacingExpandedTemplate.bind({});
 export const Grid = GridTemplate.bind({});
-export const GridWide = GridWideTemplate.bind({});
+export const GridExpanded = GridExpandedTemplate.bind({});
 
 export default {
   decorators: [

@@ -34,12 +34,12 @@
   height: var(--sbb-header-height);
 
   /* stylelint-disable-next-line plugin/stylelint-bem-namics */
-  :host(:not([wide]:not([wide='false']))) & {
+  :host(:not([expanded]:not([expanded='false']))) & {
     @include sbb.page-spacing;
   }
 
-  :host([wide]:not([wide='false'])) & {
-    @include sbb.page-spacing-wide;
+  :host([expanded]:not([expanded='false'])) & {
+    @include sbb.page-spacing-expanded;
   }
 }
 

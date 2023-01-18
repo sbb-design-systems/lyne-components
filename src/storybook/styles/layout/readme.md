@@ -1,12 +1,12 @@
 ## Page Spacing
 
 The page spacing ensures inline margins and controls the max-width of the page.
-The `wide`-variant has a smaller inline spacing and no max-width.
+The `expanded`-variant has a smaller inline spacing and no max-width.
 
-| css class               | sass mixin          |
-| ----------------------- | ------------------- |
-| `sbb-page-spacing`      | `page-spacing`      |
-| `sbb-page-spacing-wide` | `page-spacing-wide` |
+| css class                   | sass mixin              |
+| --------------------------- | ----------------------- |
+| `sbb-page-spacing`          | `page-spacing`          |
+| `sbb-page-spacing-expanded` | `page-spacing-expanded` |
 
 ### Usage
 
@@ -18,13 +18,13 @@ The `wide`-variant has a smaller inline spacing and no max-width.
 
 The grid is available as css class or sass mixin.
 It provides the grid from the design specifications on which you can place your elements.
-The `wide`-variant has a smaller inline spacing and no max-width.
+The `expanded`-variant has a smaller inline spacing and no max-width.
 [See css grid docs for full documentation of all the possibilities of placing elements on a grid.](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 
-| css class       | sass mixin  |
-| --------------- | ----------- |
-| `sbb-grid`      | `grid`      |
-| `sbb-grid-wide` | `grid-wide` |
+| css class           | sass mixin      |
+| ------------------- | --------------- |
+| `sbb-grid`          | `grid`          |
+| `sbb-grid-expanded` | `grid-expanded` |
 
 ### Usage
 

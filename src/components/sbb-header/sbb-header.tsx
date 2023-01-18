@@ -18,7 +18,7 @@ export class SbbHeader {
    * Whether to allow the header content to stretch to full width.
    * By default, the content has the appropriate page size.
    */
-  @Prop({ reflect: true }) public wide = false;
+  @Prop({ reflect: true }) public expanded = false;
 
   public render(): JSX.Element {
     return (

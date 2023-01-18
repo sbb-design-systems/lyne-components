@@ -10,7 +10,7 @@
   );
 }
 
-@mixin page-spacing-wide {
+@mixin page-spacing-expanded {
   padding-inline: var(--sbb-spacing-responsive-xs);
 }
 
@@ -25,7 +25,7 @@
   @include page-spacing;
 }
 
-@mixin grid-wide {
+@mixin grid-expanded {
   @include grid-base;
-  @include page-spacing-wide;
+  @include page-spacing-expanded;
 }

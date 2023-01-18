@@ -22,7 +22,7 @@ export class SbbFooter {
    * Whether to allow the footer content to stretch to full width.
    * By default, the content has the appropriate page size.
    */
-  @Prop({ reflect: true }) public wide = false;
+  @Prop({ reflect: true }) public expanded = false;
 
   /** Footer title text, visually hidden, necessary for screen readers. */
   @Prop() public accessibilityTitle?: string;
