@@ -8,12 +8,13 @@
   display: inline-block;
 
   --sbb-teaser-scale-hover: 1.02;
-  --sbb-teaser-description-color: var(--sbb-color-metal-default);
+  --sbb-teaser-description-color: var(--sbb-color-granite-default);
   --sbb-teaser-flex-direction: row;
   --sbb-teaser-align-items: center;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
   --sbb-teaser-width: fit-content;
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
+  --sbb-teaser-brightness-hover: 1.075;
 }
 
 :host([is-stacked]:not([is-stacked='false'])) {
@@ -41,18 +42,23 @@
   flex-flow: var(--sbb-teaser-flex-direction) nowrap;
   align-items: var(--sbb-teaser-align-items);
   gap: var(--sbb-teaser-gap);
+  height: var(--sbb-teaser-container-height, auto);
 }
 
 ::slotted([slot='image']) {
+  will-change: transform;
   display: block;
   object-fit: cover;
   width: 100%;
+  filter: brightness(var(--sbb-teaser-brightness, 1));
   transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   aspect-ratio: 4 / 3;
 
   @include sbb.hover-mq($hover: true) {
     .sbb-teaser:hover & {
       transform: scale(var(--sbb-teaser-scale-hover));
+
+      --sbb-teaser-brightness: var(--sbb-teaser-brightness-hover);
     }
   }
 }
@@ -61,7 +67,7 @@
   min-width: var(--sbb-teaser-width);
   overflow: hidden;
   border-radius: var(--sbb-teaser-border-radius);
-  transition: var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+  transition: var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   @include sbb.hover-mq($hover: true) {
     .sbb-teaser:hover & {
