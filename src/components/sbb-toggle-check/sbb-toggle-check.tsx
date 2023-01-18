@@ -8,10 +8,13 @@ import {
   JSX,
   Prop,
   State,
+  Host,
+  Listen,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
 
 @Component({
   shadow: true,
@@ -31,7 +34,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   @Prop() public name?: string;
 
   /** The svg name for the true state - default -> 'tick-small' */
-  @Prop() public icon = 'tick-small';
+  @Prop() public iconName = 'tick-small';
 
   /** The disabled prop for the disabled state. */
   @Prop({ reflect: true }) public disabled = false;
@@ -63,9 +66,17 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   }
 
   public connectedCallback(): void {
+    // Forward focus call to checkbox
+    this._element.focus = (options: FocusOptions) => this._checkbox?.focus(options);
+
     this._hasLabelText = Array.from(this._element.childNodes).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent
     );
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostEvent(event, this._element, this._checkbox);
   }
 
   private _onLabelSlotChange(event: Event): void {
@@ -76,8 +87,9 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   public render(): JSX.Element {
     return (
-      <label class="sbb-toggle-check">
+      <Host>
         <input
+          id="sbb-toggle-check-input"
           ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
           name={this.name}
@@ -89,19 +101,23 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
           onChange={(event: Event): void => this.checkedChanged(event)}
           aria-label={this.accessibilityLabel}
         />
-        <span class="sbb-toggle-check__container">
-          <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
-            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
-          </span>
-          <span class="sbb-toggle-check__slider">
-            <span class="sbb-toggle-check__circle">
-              <slot name="icon">
-                <sbb-icon name={this.icon}></sbb-icon>
-              </slot>
+        <label class="sbb-toggle-check" htmlFor="sbb-toggle-check-input">
+          <span class="sbb-toggle-check__container">
+            <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
+              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+            </span>
+            <span class="sbb-toggle-check__track">
+              <span class="sbb-toggle-check__circle">
+                <span class="sbb-toggle-check__icon">
+                  <slot name="icon">
+                    {this.iconName && <sbb-icon name={this.iconName}></sbb-icon>}
+                  </slot>
+                </span>
+              </span>
             </span>
           </span>
-        </span>
-      </label>
+        </label>
+      </Host>
     );
   }
 }

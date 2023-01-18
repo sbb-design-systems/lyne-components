@@ -1632,7 +1632,7 @@ export namespace Components {
         /**
           * The svg name for the true state - default -> 'tick-small'
          */
-        "icon": string;
+        "iconName": string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
@@ -4014,7 +4014,7 @@ declare namespace LocalJSX {
         /**
           * The svg name for the true state - default -> 'tick-small'
          */
-        "icon"?: string;
+        "iconName"?: string;
         /**
           * The label position relative to the toggle. Defaults to 'after'
          */
