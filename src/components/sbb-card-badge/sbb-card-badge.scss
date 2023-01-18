@@ -58,8 +58,23 @@
   &--primary-negative {
     color: var(--sbb-card-badge-color-primary-negative);
     background-color: var(--sbb-card-badge-background-color-primary-negative);
-    border-block-end: solid 1px var(--sbb-card-badge-border-color-primary-negative);
-    border-inline-start: solid 1px var(--sbb-card-badge-border-color-primary-negative);
+    border-block-end: solid var(--sbb-border-width-1x)
+      var(--sbb-card-badge-border-color-primary-negative);
+    border-inline-start: solid var(--sbb-border-width-1x)
+      var(--sbb-card-badge-border-color-primary-negative);
+
+    // Set border inline to the badge
+    &::before {
+      content: '';
+      display: block;
+      inset: 0;
+      position: absolute;
+      border-block-end: solid var(--sbb-border-width-1x)
+        var(--card-badge-border-color-primary-negative);
+      border-inline-start: solid var(--sbb-border-width-1x)
+        var(--card-badge-border-color-primary-negative);
+      border-end-start-radius: var(--sbb-border-radius-4x);
+    }
   }
 
   &--regular {
