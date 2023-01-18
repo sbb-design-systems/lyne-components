@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.1](https://github.com/lyne-design-system/lyne-components/compare/v0.22.0...v0.22.1) (2023-01-18)
+
+### Bug Fixes
+
+- **sbb-teaser:** fix hover state ([#1541](https://github.com/lyne-design-system/lyne-components/issues/1541)) ([4c3b977](https://github.com/lyne-design-system/lyne-components/commit/4c3b977b4db5a7545f2fe39f1ff2da9de569b039))
+- **sbb-timetable-row:** fix notices issue ([#1542](https://github.com/lyne-design-system/lyne-components/issues/1542)) ([eddfa3b](https://github.com/lyne-design-system/lyne-components/commit/eddfa3b77b68d0a991d6878ad80239e8ac43b143))
+
 ## [0.22.0](https://github.com/lyne-design-system/lyne-components/compare/v0.21.1...v0.22.0) (2023-01-18)
 
 ### ⚠ BREAKING CHANGES
