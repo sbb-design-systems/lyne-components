@@ -2756,10 +2756,10 @@
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.22.1.tgz#dee491335024200abae8572661f78094a09973fe"
   integrity sha512-L4EsWLXYkg24BfrR3aS1df3BSkH0RFyza+Tu84MaYoF2csiKTJxDTZuFHSnJeF8UdgzV7CBfnsIEV6r3s0+h3g==
 
-"@stencil/react-output-target@0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@stencil/react-output-target/-/react-output-target-0.3.1.tgz#dc9cc2fea32d0e30474a87fcb2a447f90ab78696"
-  integrity sha512-6d9pPhyajFfdxkqU/pPP2SzI7wn+EklySQc4KXlI/xcdvC2H9BzLmhmR40fR1q2TQoJbJui/nvSWhbYqkE3OBQ==
+"@stencil/react-output-target@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@stencil/react-output-target/-/react-output-target-0.4.0.tgz#cb237541149a254898495e25d8c9e01f161c5e11"
+  integrity sha512-X7XW6aHSU7ZypkFj4wX/XL7ROj2GXcdTL+Emo1mKNg5laBcuTVtt8zPR4ERG/grq8ec8wav+FxBuSlQ3cH0qcg==
 
 "@stencil/sass@2.0.3":
   version "2.0.3"
