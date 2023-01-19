@@ -41,7 +41,9 @@ export class SbbHeader {
     } else {
       this._scrollElement = this.scrollOrigin;
     }
-    this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), { passive: true });
+    this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), {
+      passive: true,
+    });
   }
 
   private _scrollListener(): void {

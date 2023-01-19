@@ -2797,7 +2797,7 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-         * Whether the header should hide and show on scroll.
+          * Whether the header should hide and show on scroll.
          */
         "hideOnScroll"?: boolean;
         /**
