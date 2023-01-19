@@ -32,20 +32,28 @@ export class SbbHeader {
 
   private _lastScrollTop = 0;
 
+  /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public componentDidLoad(): void {
-    if (typeof this.scrollOrigin === 'string') {
-      this._scrollElement = document.getElementById(this.scrollOrigin);
-      if (!this._scrollElement) {
-        return;
+    if (this.hideOnScroll) {
+      if (typeof this.scrollOrigin === 'string') {
+        this._scrollElement = document.getElementById(this.scrollOrigin);
+        if (!this._scrollElement) {
+          return;
+        }
+      } else {
+        this._scrollElement = this.scrollOrigin;
       }
-    } else {
-      this._scrollElement = this.scrollOrigin;
+      this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), {
+        passive: true,
+      });
     }
-    this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), {
-      passive: true,
-    });
   }
 
+  /** Sets the correct value for `scrollTop`, then:
+   * - apply the shadow if the element/document has been scrolled down;
+   * - hides the header, remove the shadow and possibly close any open menu on the header if it is not visible anymore;
+   * - shows the header and re-apply the shadow if the element/document has been scrolled up.
+   */
   private _scrollListener(): void {
     let scrollTop;
     if (this._scrollElement instanceof window.HTMLElement) {
@@ -54,13 +62,15 @@ export class SbbHeader {
       scrollTop = Math.round(document.documentElement.scrollTop);
     }
     this.shadow = scrollTop !== 0;
-    if (this.hideOnScroll && scrollTop > this._element.offsetHeight) {
+    if (scrollTop > this._element.offsetHeight) {
       const header = this._element.shadowRoot.firstElementChild;
       if (scrollTop > this._lastScrollTop) {
         header.classList.add('sbb-header--hidden');
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
+        this.shadow = false;
       } else {
         header.classList.remove('sbb-header--hidden');
+        this.shadow = true;
       }
       this._lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
     }

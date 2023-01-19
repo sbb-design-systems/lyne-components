@@ -219,7 +219,7 @@ BasicScrollHide.args = { ...basicArgs, 'hide-on-scroll': true };
 
 export const WideScrollHide = Template.bind({});
 WideScrollHide.argTypes = basicArgTypes;
-WideScrollHide.args = { ...basicArgs, wide: true, 'hide-on-scroll': true };
+WideScrollHide.args = { ...basicArgs, expanded: true, 'hide-on-scroll': true };
 
 export default {
   decorators: [

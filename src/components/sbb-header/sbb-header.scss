@@ -36,6 +36,7 @@
 .sbb-header--hidden {
   :host([hide-on-scroll]:not([hide-on-scroll='false'])) & {
     transform: translateY(-100%);
+    pointer-events: none;
   }
 }
 
