@@ -24,7 +24,9 @@ describe('sbb-tooltip-trigger', () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
+    await page.waitForChanges();
     await element.click();
+
     await page.waitForChanges();
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
 
