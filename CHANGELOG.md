@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.4](https://github.com/lyne-design-system/lyne-components/compare/v0.22.3...v0.22.4) (2023-01-19)
+
+### Features
+
+- dynamically react to language change ([#1545](https://github.com/lyne-design-system/lyne-components/issues/1545)) ([ec67be2](https://github.com/lyne-design-system/lyne-components/commit/ec67be2b88d4a997f0cce0fa6122367786b0e12c))
+
 ### [0.22.3](https://github.com/lyne-design-system/lyne-components/compare/v0.22.2...v0.22.3) (2023-01-19)
 
 ### [0.22.2](https://github.com/lyne-design-system/lyne-components/compare/v0.22.1...v0.22.2) (2023-01-18)
