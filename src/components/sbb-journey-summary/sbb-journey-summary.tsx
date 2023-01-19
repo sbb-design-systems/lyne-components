@@ -1,9 +1,9 @@
-import { Component, h, JSX, Prop, Element, ComponentInterface } from '@stencil/core';
+import { Component, h, JSX, Prop, Element, ComponentInterface, State, Listen } from '@stencil/core';
 import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
 import { i18nDurationHour, i18nDurationMinute, i18nToday, i18nTomorrow } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
 
 @Component({
@@ -21,7 +21,7 @@ export class SbbJourneySummary implements ComponentInterface {
    */
   @Prop() public disableAnimation?: boolean;
 
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   @Element() private _hostElement: HTMLElement;
 
@@ -29,6 +29,11 @@ export class SbbJourneySummary implements ComponentInterface {
 
   public componentWillLoad(): void {
     this._hasContentSlot = Boolean(this._hostElement.querySelector('[slot="content"]'));
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   private _now(): number {

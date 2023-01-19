@@ -1,6 +1,6 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import icons from '../../global/icons/timetable.json';
 import { InterfaceTimetableParkAndRailAttributes } from './sbb-timetable-park-and-rail.custom';
 import {
@@ -15,7 +15,7 @@ import {
   tag: 'sbb-timetable-park-and-rail',
 })
 export class SbbTimetableParkAndRail {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * Set the desired appearance of
@@ -31,6 +31,11 @@ export class SbbTimetableParkAndRail {
    * structure.
    */
   @Prop() public config!: string;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);

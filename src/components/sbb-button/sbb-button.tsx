@@ -16,7 +16,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 /**
  * @slot unnamed - Button Content
@@ -93,6 +93,8 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
 
   @State() private _hasText = false;
 
+  @State() private _currentLanguage = documentLanguage();
+
   private _closestForm: HTMLFormElement | null;
 
   public connectedCallback(): void {
@@ -111,6 +113,11 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
 
   private _actionElement(): HTMLElement {
     return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -158,7 +165,11 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this, this.isStatic);
+    }: LinkButtonRenderVariables = resolveRenderVariables(
+      this,
+      this._currentLanguage,
+      this.isStatic
+    );
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
@@ -177,7 +188,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
           <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
           {screenReaderNewWindowInfo && (
             <span class="sbb-button__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>
           )}
         </span>

@@ -1,6 +1,6 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import icons from '../../global/icons/timetable.json';
 import { i18nBarrierFreeTravel } from '../../global/i18n';
 
@@ -10,8 +10,6 @@ import { i18nBarrierFreeTravel } from '../../global/i18n';
   tag: 'sbb-timetable-barrier-free',
 })
 export class SbbTimetableBarrierFree {
-  private _currentLanguage = getDocumentLang();
-
   /**
    * Stringified JSON which defines most of the
    * content of the component. Please check the
@@ -19,6 +17,13 @@ export class SbbTimetableBarrierFree {
    * structure.
    */
   @Prop() public config!: string;
+
+  @State() private _currentLanguage = documentLanguage();
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);

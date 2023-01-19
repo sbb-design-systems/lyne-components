@@ -1,5 +1,5 @@
 import { Component, h, JSX, Prop, State, ComponentInterface, Element, Listen } from '@stencil/core';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
@@ -73,7 +73,7 @@ export class SbbFormField implements ComponentInterface {
   /**
    * Get the document language; used for translations.
    */
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * It is used internally to get the `input` slot.
@@ -95,6 +95,11 @@ export class SbbFormField implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._formFieldAttributeObserver.disconnect();
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })

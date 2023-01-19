@@ -8,10 +8,12 @@ import {
   Prop,
   ComponentInterface,
   Fragment,
+  State,
+  Listen,
 } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
@@ -87,7 +89,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
 
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
   private _firstRenderingDone = false;
 
   public connectedCallback(): void {
@@ -106,6 +108,11 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
       this._present();
     }
     this._firstRenderingDone = true;
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   /** Requests dismissal of the alert. */

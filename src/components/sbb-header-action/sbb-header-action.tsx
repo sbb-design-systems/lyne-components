@@ -1,5 +1,5 @@
-import { Component, h, JSX, Prop, Element, Listen, ComponentInterface } from '@stencil/core';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { Component, h, JSX, Prop, Element, Listen, ComponentInterface, State } from '@stencil/core';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
@@ -70,6 +70,13 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
+  @State() private _currentLanguage = documentLanguage();
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
+
   @Element() private _element: HTMLElement;
 
   public connectedCallback(): void {
@@ -91,7 +98,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = resolveRenderVariables(this);
+    } = resolveRenderVariables(this, this._currentLanguage);
     return (
       <TAG_NAME class="sbb-header-action" {...attributes}>
         <span class="sbb-header-action__icon">
@@ -101,7 +108,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
           <slot />
           {screenReaderNewWindowInfo && (
             <span class="sbb-header-action__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>
           )}
         </span>

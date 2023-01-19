@@ -1,6 +1,6 @@
-import { Component, h, JSX, Host, Prop } from '@stencil/core';
+import { Component, h, JSX, Host, Prop, State, Listen } from '@stencil/core';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import icons from '../../global/icons/timetable.json';
 import { InterfaceTimetableCusHimAttributes } from './sbb-timetable-cus-him.custom';
 import { i18nNone } from '../../global/i18n';
@@ -11,7 +11,7 @@ import { i18nNone } from '../../global/i18n';
   tag: 'sbb-timetable-cus-him',
 })
 export class SbbTimetableCusHim {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * Stringified JSON which defines most of the
@@ -26,6 +26,11 @@ export class SbbTimetableCusHim {
    * the component.
    */
   @Prop() public appearance?: InterfaceTimetableCusHimAttributes['appearance'] = 'first-level-list';
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   private _renderAppearance(cusHimItems): JSX.Element {
     /**

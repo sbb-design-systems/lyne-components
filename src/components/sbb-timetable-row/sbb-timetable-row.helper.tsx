@@ -7,12 +7,15 @@ import {
   subHours,
   subDays,
 } from 'date-fns';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage } from '../../global/helpers/language';
 import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
 
-export const durationToTime = (duration: number): string => {
+export const durationToTime = (
+  duration: number,
+  currentLanguage: string = documentLanguage()
+): string => {
   const result = [];
   const now = 0;
   let future = addMinutes(now, duration);
@@ -25,13 +28,13 @@ export const durationToTime = (duration: number): string => {
 
   const hours = differenceInHours(future, now);
   if (hours > 0) {
-    result.push(`${hours} ${i18nDurationHour.multiple.short[getDocumentLang()]}`);
+    result.push(`${hours} ${i18nDurationHour.multiple.short[currentLanguage]}`);
     future = subHours(future, hours);
   }
 
   const minutes = differenceInMinutes(future, now);
   if (minutes > 0) {
-    result.push(`${minutes} ${i18nDurationMinute.multiple.short[getDocumentLang()]}`);
+    result.push(`${minutes} ${i18nDurationMinute.multiple.short[currentLanguage]}`);
   }
 
   return result.join(' ');

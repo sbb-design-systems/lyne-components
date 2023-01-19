@@ -1,7 +1,7 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 import { i18nClass, i18nOccupancy } from '../../global/i18n';
 
@@ -11,7 +11,7 @@ import { i18nClass, i18nOccupancy } from '../../global/i18n';
   tag: 'sbb-timetable-occupancy',
 })
 export class SbbTimetableOccupancy {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * Stringified JSON which defines most of the
@@ -20,6 +20,11 @@ export class SbbTimetableOccupancy {
    * structure.
    */
   @Prop() public config!: string;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
     const { occupancyItems } = JSON.parse(this.config);

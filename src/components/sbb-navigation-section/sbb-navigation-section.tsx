@@ -5,13 +5,14 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -72,15 +73,21 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
    */
   @State() private _namedSlots = createNamedSlotState('title');
 
+  @State() private _currentLanguage = documentLanguage();
+
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionWrapperElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
   private _hasTitle = false;
-  private _currentLanguage = getDocumentLang();
 
   @Element() private _element: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   /**
    * Opens the navigation section on trigger click.

@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
 import { ScrollHandler } from '../../global/helpers/scroll';
@@ -70,6 +70,8 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
    */
   @State() private _activeNavigationSection: HTMLElement;
 
+  @State() private _currentLanguage = documentLanguage();
+
   /**
    * Emits whenever the navigation begins the opening transition.
    */
@@ -116,13 +118,17 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _openedByKeyboard = false;
-  private _currentLanguage = getDocumentLang();
   private _isPointerDownEventOnDialog: boolean;
   private _navigationObserver = new MutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList)
   );
 
   @Element() private _element: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   /**
    * Opens the navigation.

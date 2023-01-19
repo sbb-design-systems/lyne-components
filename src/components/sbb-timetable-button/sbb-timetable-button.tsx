@@ -1,7 +1,17 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  JSX,
+  Listen,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import chevronIcon from 'lyne-icons/dist/icons/chevron-small-right-small.svg';
 import events from './sbb-timetable-button.events';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceTimetableButtonAttributes } from './sbb-timetable-button.custom';
 import { i18nEarlierConnections, i18nLaterConnections, i18nShowOnMap } from '../../global/i18n';
@@ -12,8 +22,9 @@ import { i18nEarlierConnections, i18nLaterConnections, i18nShowOnMap } from '../
   tag: 'sbb-timetable-button',
 })
 export class SbbTimetableButton implements ComponentInterface {
+  @State() private _currentLanguage = documentLanguage();
+
   private _button!: HTMLElement;
-  private _currentLanguage = getDocumentLang();
   private _ctaText!: string;
 
   /** The reference to the button */
@@ -57,6 +68,11 @@ export class SbbTimetableButton implements ComponentInterface {
 
   /** The name attribute to use for the button */
   @Prop() public name?: string;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   @Watch('expanded')
   public watchStateHandler(newValue: boolean): void {

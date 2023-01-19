@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  JSX,
+  Listen,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 import {
   forwardHostEvent,
@@ -7,7 +17,7 @@ import {
   resolveLinkRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 /**
  * @slot image - Slot used to render the image
@@ -54,7 +64,14 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
    */
   @Prop() public accessibilityLabel!: string;
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element!: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   /**
    * Check if accessibilityLabel is provided since it is a required prop,
@@ -94,7 +111,7 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = resolveLinkRenderVariables(this);
+    } = resolveLinkRenderVariables(this, this._currentLanguage);
 
     return (
       <TAG_NAME class="sbb-teaser" {...attributes}>
@@ -111,7 +128,7 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
             </span>
             {screenReaderNewWindowInfo && (
               <span class="sbb-teaser__opens-in-new-window">
-                . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
               </span>
             )}
           </span>

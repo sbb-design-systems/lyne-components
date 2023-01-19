@@ -1,8 +1,8 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 import icons from '../../global/icons/timetable.json';
 import { InterfaceTimetableTransportationWalkAttributes } from './sbb-timetable-transportation-walk.custom';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 import {
   i18nDistance,
@@ -18,7 +18,7 @@ import {
   tag: 'sbb-timetable-transportation-walk',
 })
 export class SbbTimetableTransportationWalk {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * Set the desired appearance of
@@ -34,6 +34,11 @@ export class SbbTimetableTransportationWalk {
    * structure.
    */
   @Prop() public config!: string;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);

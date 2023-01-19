@@ -7,6 +7,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -15,7 +16,7 @@ import {
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 const VERTICAL_OFFSET = 16;
@@ -71,6 +72,8 @@ export class SbbTooltip implements ComponentInterface {
    */
   @State() private _alignment: Alignment;
 
+  @State() private _currentLanguage = documentLanguage();
+
   /**
    * Emits whenever the tooltip starts the opening transition.
    */
@@ -125,9 +128,13 @@ export class SbbTooltip implements ComponentInterface {
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
-  private _currentLanguage = getDocumentLang();
 
   @Element() private _element!: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   /**
    * Opens the tooltip on trigger click.

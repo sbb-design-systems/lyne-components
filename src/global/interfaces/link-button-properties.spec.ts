@@ -13,6 +13,7 @@ import {
   resolveLinkRenderVariables,
   resolveRenderVariables,
 } from './link-button-properties';
+import { documentLanguage } from '../helpers/language';
 
 describe('getLinkButtonBaseAttributeList', () => {
   it('should return the parameter object', () => {
@@ -114,7 +115,9 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
 
-    expect(getLinkAttributeList(linkProperties, buttonProperties)).toEqual(expectedObj);
+    expect(getLinkAttributeList(linkProperties, documentLanguage(), buttonProperties)).toEqual(
+      expectedObj
+    );
   });
 });
 
@@ -168,7 +171,9 @@ describe('getLinkRenderVariables', () => {
       },
       screenReaderNewWindowInfo: true,
     };
-    expect(getLinkRenderVariables(linkButtonProperties, linkButtonProperties)).toEqual(expectedObj);
+    expect(
+      getLinkRenderVariables(linkButtonProperties, documentLanguage(), linkButtonProperties)
+    ).toEqual(expectedObj);
   });
 
   it('should return the correct variables with screenReaderNewWindowInfo false', () => {
@@ -189,7 +194,11 @@ describe('getLinkRenderVariables', () => {
       screenReaderNewWindowInfo: false,
     };
     expect(
-      getLinkRenderVariables(linkButtonPropertiesNoScreenReader, linkButtonPropertiesNoScreenReader)
+      getLinkRenderVariables(
+        linkButtonPropertiesNoScreenReader,
+        documentLanguage(),
+        linkButtonPropertiesNoScreenReader
+      )
     ).toEqual(expectedObj);
   });
 });
@@ -246,7 +255,7 @@ describe('resolveRenderVariables', () => {
   };
 
   it('should return variables for the static case', () => {
-    const retObj = resolveRenderVariables(linkButtonProperties, true);
+    const retObj = resolveRenderVariables(linkButtonProperties, documentLanguage(), true);
     expect(retObj.tagName).toEqual('span');
   });
 

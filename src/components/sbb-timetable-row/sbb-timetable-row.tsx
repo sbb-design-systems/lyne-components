@@ -1,7 +1,7 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import { Boarding, HimCus, Price, Trip } from './sbb-timetable-row.custom';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nClass,
   i18nDirection,
@@ -27,7 +27,7 @@ import {
   tag: 'sbb-timetable-row',
 })
 export class SbbTimetableRow {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /** The trip Prop */
   @Prop() public trip!: Trip;
@@ -60,6 +60,11 @@ export class SbbTimetableRow {
   @Prop() public active?: boolean;
 
   @Element() private _element: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   private _now(): number {
     const dataNow = +this._element.dataset?.now;
@@ -249,7 +254,7 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {duration > 0 && <time>{durationToTime(duration)}</time>}
+            {duration > 0 && <time>{durationToTime(duration, this._currentLanguage)}</time>}
             {hasHimCus && (
               <span class="sbb-timetable__row-warning">
                 <sbb-icon name={himCus.name} aria-hidden="false" aria-label={himCus.text} />

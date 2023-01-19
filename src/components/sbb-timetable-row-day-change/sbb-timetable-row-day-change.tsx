@@ -1,6 +1,6 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../../global/i18n';
 
@@ -10,7 +10,7 @@ import { i18nAttention, i18nConnectionsDepartOn, i18nDayChange } from '../../glo
   tag: 'sbb-timetable-row-day-change',
 })
 export class SbbTimetableRowDayChange {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * Stringified JSON which defines most of the
@@ -19,6 +19,11 @@ export class SbbTimetableRowDayChange {
    * structure.
    */
   @Prop() public config!: string;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);

@@ -1,10 +1,10 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 import { i18nUseArrowKeysToNavigate, i18nXResultsAvailable } from '../../global/i18n';
 
 import events from './sbb-autocomplete.events';
 import itemsDataHelper from './sbb-autocomplete.helper';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 @Component({
   shadow: true,
@@ -83,15 +83,20 @@ export class SbbAutocomplete implements ComponentInterface {
   @State() private _inputValue: string;
   @State() private _isVisible = false;
   @State() private _selectedAutocompleteItemIndex = -1;
+  @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element: HTMLElement;
 
   private _inputElement!: HTMLSbbFormFieldElement;
   private _list!: HTMLUListElement;
   private _dataItems!: [any];
-  private _currentLanguage = getDocumentLang();
   private _userDidManipulateInputValue = false;
   private _initialInputValue = '';
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   /**
    * ---------

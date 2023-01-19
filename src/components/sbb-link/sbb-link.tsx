@@ -11,7 +11,7 @@ import {
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
@@ -96,6 +96,8 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element!: HTMLElement;
 
   private _closestForm: HTMLFormElement | null;
@@ -109,6 +111,11 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
 
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   private _actionElement(): HTMLElement {
@@ -154,7 +161,11 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this, this.isStatic);
+    }: LinkButtonRenderVariables = resolveRenderVariables(
+      this,
+      this._currentLanguage,
+      this.isStatic
+    );
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
@@ -171,7 +182,7 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
         <slot />
         {screenReaderNewWindowInfo && (
           <span class="sbb-link__opens-in-new-window">
-            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+            . {i18nTargetOpensInNewWindow[this._currentLanguage]}
           </span>
         )}
       </TAG_NAME>
