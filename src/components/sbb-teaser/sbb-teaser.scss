@@ -33,7 +33,7 @@
   &:focus-visible {
     @include sbb.focus-outline;
 
-    border-radius: calc(var(--sbb-teaser-border-radius));
+    border-radius: var(--sbb-teaser-border-radius);
   }
 }
 
