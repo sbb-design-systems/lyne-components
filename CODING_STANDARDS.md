@@ -94,6 +94,23 @@ class ActionElement implements LinkButtonProperties {
 }
 ```
 
+#### I18N
+
+If using strings in components they have to be provided in English, French, German and Italian.
+As the language can be changed dynamically, you have to listen to the `sbbLanguageChange`
+event and re-render the view. This can be done by marking the field with `@State` (see code below).
+
+```ts
+export class Component {
+  @State() private _lang = documentLanguage();
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._lang = event.detail;
+  }
+}
+```
+
 ### API Design
 
 #### Boolean arguments
