@@ -6,9 +6,9 @@ The component has two required properties, named `origin` and `destination`, whi
 An icon is placed between them: if the property `roundTrip` is set to false (default), the icon is 
 an arrow pointing to the `destination`, otherwise it is a double arrow to display the round-trip.
 
-The component has two sizes, named `m` (default) and `l`, and a `negative` background variant.
-The component's markup can be set using the `level` property: the default value is `none`, which renders a `<span>` tag;
-otherwise, a heading can be chosen using numbers from `1` to `6`.
+The component has a `level` property, which is passed to its inner `sbb-title` component; 
+it is rendered as a heading from `h1` to `h6`. Default `level` is `3`. 
+The component also has two sizes, named `m` (default) and `l`, and a `negative` background variant.
 
 ### Accessibility
 
@@ -26,14 +26,14 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 
 ### Usage
 
-Basic usage, rendered as `<span>`:
+Basic usage, rendered as `<h3>`:
 ```html
 <sbb-journey-header origin="Point A" destination="Point B"/>
 ```
 
-Size `l`, rendered as `<h3>`:
+Size `l`, rendered as `<h1>`:
 ```html
-<sbb-journey-header origin="Point A" destination="Point B" size="l" level="3"/>
+<sbb-journey-header origin="Point A" destination="Point B" size="l" level="1"/>
 ```
 
 Negative variant, round-trip:
@@ -46,14 +46,14 @@ Negative variant, round-trip:
 
 ## Properties
 
-| Property                   | Attribute     | Description                                                                                                                                               | Type                                               | Default     |
-| -------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
-| `destination` _(required)_ | `destination` | Destination location for the journey header.                                                                                                              | `string`                                           | `undefined` |
-| `level`                    | `level`       | Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6" \| "none"` | `'none'`    |
-| `negative`                 | `negative`    | Negative coloring variant flag.                                                                                                                           | `boolean`                                          | `false`     |
-| `origin` _(required)_      | `origin`      | Origin location for the journey header.                                                                                                                   | `string`                                           | `undefined` |
-| `roundTrip`                | `round-trip`  | Whether the journey is a round trip. If so, the icon changes to a round-trip one.                                                                         | `boolean`                                          | `undefined` |
-| `size`                     | `size`        | Journey header size.                                                                                                                                      | `"l" \| "m"`                                       | `'m'`       |
+| Property                   | Attribute     | Description                                                                                                                                               | Type                                     | Default     |
+| -------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `destination` _(required)_ | `destination` | Destination location for the journey header.                                                                                                              | `string`                                 | `undefined` |
+| `level`                    | `level`       | Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
+| `negative`                 | `negative`    | Negative coloring variant flag.                                                                                                                           | `boolean`                                | `false`     |
+| `origin` _(required)_      | `origin`      | Origin location for the journey header.                                                                                                                   | `string`                                 | `undefined` |
+| `roundTrip`                | `round-trip`  | Whether the journey is a round trip. If so, the icon changes to a round-trip one.                                                                         | `boolean`                                | `undefined` |
+| `size`                     | `size`        | Journey header size.                                                                                                                                      | `"l" \| "m"`                             | `'m'`       |
 
 
 ## Dependencies
@@ -64,11 +64,13 @@ Negative variant, round-trip:
 
 ### Depends on
 
+- [sbb-title](../sbb-title)
 - [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-journey-header --> sbb-title
   sbb-journey-header --> sbb-icon
   sbb-journey-summary --> sbb-journey-header
   style sbb-journey-header fill:#f9f,stroke:#333,stroke-width:4px

@@ -27,6 +27,7 @@ via simple CSS rules.
 
  - [sbb-alert](../sbb-alert)
  - [sbb-dialog](../sbb-dialog)
+ - [sbb-journey-header](../sbb-journey-header)
  - [sbb-link-list](../sbb-link-list)
  - [sbb-teaser](../sbb-teaser)
 
@@ -35,6 +36,7 @@ via simple CSS rules.
 graph TD;
   sbb-alert --> sbb-title
   sbb-dialog --> sbb-title
+  sbb-journey-header --> sbb-title
   sbb-link-list --> sbb-title
   sbb-teaser --> sbb-title
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px

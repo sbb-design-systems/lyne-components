@@ -23,7 +23,7 @@ export class SbbJourneyHeader {
    * Journey header markup: depending on the context where it will be used,
    * it is important to pick the correct markup element to match the correct semantics.
    */
-  @Prop() public level?: InterfaceJourneyHeaderAttributes['level'] = 'none';
+  @Prop() public level?: InterfaceJourneyHeaderAttributes['level'] = '3';
 
   /** Negative coloring variant flag. */
   @Prop({ reflect: true }) public negative = false;
@@ -32,32 +32,32 @@ export class SbbJourneyHeader {
   @Prop({ reflect: true }) public size?: InterfaceJourneyHeaderAttributes['size'] = 'm';
 
   public render(): JSX.Element {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const TAGNAME = this.level === 'none' ? 'span' : `h${this.level}`;
     const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
     const currentLanguage = getDocumentLang();
 
     return (
-      <TAGNAME class="sbb-journey-header" dir={getDocumentWritingMode()}>
-        <span class="sbb-journey-header__origin">
-          <span class="sbb-journey-header__connection--visually-hidden">
-            {i18nConnectionFrom[currentLanguage]}
-          </span>
-          {this.origin}
-        </span>
-        <sbb-icon name={iconName} />
-        <span class="sbb-journey-header__destination">
-          <span class="sbb-journey-header__connection--visually-hidden">
-            {i18nConnectionTo[currentLanguage]}
-          </span>
-          {this.destination}
-          {this.roundTrip && (
+      <sbb-title level={this.level} negative={this.negative}>
+        <span class="sbb-journey-header" dir={getDocumentWritingMode()}>
+          <span class="sbb-journey-header__origin">
             <span class="sbb-journey-header__connection--visually-hidden">
-              {i18nConnectionRoundtrip(this.origin)[currentLanguage]}
+              {i18nConnectionFrom[currentLanguage]}
             </span>
-          )}
+            {this.origin}
+          </span>
+          <sbb-icon name={iconName} />
+          <span class="sbb-journey-header__destination">
+            <span class="sbb-journey-header__connection--visually-hidden">
+              {i18nConnectionTo[currentLanguage]}
+            </span>
+            {this.destination}
+            {this.roundTrip && (
+              <span class="sbb-journey-header__connection--visually-hidden">
+                {i18nConnectionRoundtrip(this.origin)[currentLanguage]}
+              </span>
+            )}
+          </span>
         </span>
-      </TAGNAME>
+      </sbb-title>
     );
   }
 }
