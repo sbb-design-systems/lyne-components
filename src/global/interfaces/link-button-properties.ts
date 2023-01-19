@@ -109,7 +109,7 @@ export function getLinkButtonBaseAttributeList(
 /**
  * Lists all attributes for a link; undefined/null properties are not set.
  * @param linkProperties link properties
- * @param currentLanguage language for accessibility strings.
+ * @param currentLanguage language for accessibility texts.
  * @param buttonProperties? (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
  */
 export function getLinkAttributeList(
@@ -163,7 +163,7 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
 /**
  * Set default render variables for link case.
  * @param linkProperties used to set the 'attributes' property.
- * @param currentLanguage language for accessibility strings.
+ * @param currentLanguage language for accessibility texts.
  * @param buttonProperties? (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
  */
 export function getLinkRenderVariables(
@@ -208,7 +208,7 @@ export function getLinkButtonStaticRenderVariables(
 /**
  * Set default render variables based on the 'default' condition, checking first `isStatic` parameter, then the `href`.
  * @param linkButtonProperties used to set the 'attributes' property and to check for `href` value.
- * @param currentLanguage language for accessibility strings.
+ * @param currentLanguage language for accessibility texts.
  * @param isStatic renders the default static variable whether is true.
  */
 export function resolveRenderVariables(
@@ -227,7 +227,7 @@ export function resolveRenderVariables(
 /**
  * Returns the link render variables or static variables if there is no href property.
  * @param linkProperties used to set variables and to check if href property is set.
- * @param currentLanguage language for accessibility strings.
+ * @param currentLanguage language for accessibility texts.
  */
 export function resolveLinkRenderVariables(
   linkProperties: LinkProperties,
