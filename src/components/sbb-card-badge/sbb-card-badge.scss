@@ -5,11 +5,11 @@
 @include sbb.host-component-properties;
 
 :host {
-  --card-badge-color-primary: var(--sbb-color-white-default);
-  --card-badge-color-primary-negative: var(--sbb-color-black-default);
-  --card-badge-background-color-primary: var(--sbb-color-black-default);
-  --card-badge-background-color-primary-negative: var(--sbb-color-white-default);
-  --card-badge-border-color-primary-negative: var(--sbb-color-aluminium-default);
+  --sbb-card-badge-color-primary: var(--sbb-color-white-default);
+  --sbb-card-badge-color-primary-negative: var(--sbb-color-black-default);
+  --sbb-card-badge-background-color-primary: var(--sbb-color-black-default);
+  --sbb-card-badge-background-color-primary-negative: var(--sbb-color-white-default);
+  --sbb-card-badge-border-color-primary-negative: var(--sbb-color-aluminium-default);
 
   @include sbb.if-forced-colors {
     border-inline-start: #{sbb.px-to-rem-build(1)} solid CanvasText;
@@ -51,15 +51,30 @@
   // Variants
   // *************************************************
   &--primary {
-    color: var(--card-badge-color-primary);
-    background-color: var(--card-badge-background-color-primary);
+    color: var(--sbb-card-badge-color-primary);
+    background-color: var(--sbb-card-badge-background-color-primary);
   }
 
   &--primary-negative {
-    color: var(--card-badge-color-primary-negative);
-    background-color: var(--card-badge-background-color-primary-negative);
-    border-block-end: solid 1px var(--card-badge-border-color-primary-negative);
-    border-inline-start: solid 1px var(--card-badge-border-color-primary-negative);
+    color: var(--sbb-card-badge-color-primary-negative);
+    background-color: var(--sbb-card-badge-background-color-primary-negative);
+    border-block-end: solid var(--sbb-border-width-1x)
+      var(--sbb-card-badge-border-color-primary-negative);
+    border-inline-start: solid var(--sbb-border-width-1x)
+      var(--sbb-card-badge-border-color-primary-negative);
+
+    // Set border inline to the badge
+    &::before {
+      content: '';
+      display: block;
+      inset: 0;
+      position: absolute;
+      border-block-end: solid var(--sbb-border-width-1x)
+        var(--card-badge-border-color-primary-negative);
+      border-inline-start: solid var(--sbb-border-width-1x)
+        var(--card-badge-border-color-primary-negative);
+      border-end-start-radius: var(--sbb-border-radius-4x);
+    }
   }
 
   &--regular {

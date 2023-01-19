@@ -6,8 +6,6 @@
 
 :host {
   --sbb-header-logo-height: #{sbb.px-to-rem-build(16)};
-  --sbb-header-padding-inline: var(--sbb-page-base-offset-responsive);
-  --sbb-header-content-max-width: var(--sbb-layout-base-page-max-width);
 
   @include sbb.mq($from: medium) {
     --sbb-header-logo-height: #{sbb.px-to-rem-build(20)};
@@ -17,17 +15,9 @@
   height: var(--sbb-header-height);
 }
 
-:host([wide]:not([wide='false'])) {
-  --sbb-header-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-header-content-max-width: auto;
-}
-
 .sbb-header {
-  display: block;
   position: fixed;
   inset: 0 0 auto;
-  padding-block: 0;
-  padding-inline: var(--sbb-header-padding-inline);
   background: var(--sbb-color-white-default);
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   z-index: 10;
@@ -39,14 +29,18 @@
 
 .sbb-header__wrapper {
   display: flex;
-  flex: 0 1 auto;
   align-items: center;
   justify-content: flex-start;
-  padding: 0;
-  margin-inline: auto;
   height: var(--sbb-header-height);
-  width: 100%;
-  max-width: var(--sbb-header-content-max-width);
+
+  /* stylelint-disable-next-line plugin/stylelint-bem-namics */
+  :host(:not([expanded]:not([expanded='false']))) & {
+    @include sbb.page-spacing;
+  }
+
+  :host([expanded]:not([expanded='false'])) & {
+    @include sbb.page-spacing-expanded;
+  }
 }
 
 .sbb-header__logo {

@@ -1,11 +1,11 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-toggle-check', () => {
-  let element, page;
+  let element: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-toggle-check></sbb-toggle-check>');
+    await page.setContent('<sbb-toggle-check id="outer-id"></sbb-toggle-check>');
     element = await page.find('sbb-toggle-check');
   });
 
@@ -22,6 +22,33 @@ describe('sbb-toggle-check', () => {
 
       await toggle.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('should forward host click to input element', async () => {
+      const input = await page.find('sbb-toggle-check >>> input');
+      const changeSpy = await input.spyOnEvent('click');
+
+      element.triggerEvent('click');
+      await page.waitForChanges();
+
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('should forward host focus event to the input element', async () => {
+      const input = await page.find('sbb-toggle-check >>> input');
+
+      const changeSpy = await input.spyOnEvent('focus');
+
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+
+      // Although the inner native button receives the focus, the active element is the host
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
+      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
+        'sbb-toggle-check-input'
+      );
     });
   });
 });

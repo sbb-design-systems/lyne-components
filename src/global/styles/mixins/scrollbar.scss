@@ -1,6 +1,6 @@
 @use '../core/functions';
 
-@mixin scrollbar() {
+@mixin scrollbar {
   --sbb-scrollbar-width: var(--sbb-spacing-fixed-4x);
   --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(2)};
   --sbb-scrollbar-thumb-width-hover: #{functions.px-to-rem-build(4)};
@@ -37,14 +37,14 @@
     transparent;
 }
 
-@mixin scrollbar-dark() {
+@mixin scrollbar-dark {
   @include scrollbar;
 
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
 }
 
-@mixin scrollbar-light() {
+@mixin scrollbar-light {
   @include scrollbar;
 
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);

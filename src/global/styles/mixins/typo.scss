@@ -186,17 +186,17 @@
  * }
  */
 
-@mixin font-smoothing() {
+@mixin font-smoothing {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@mixin font-smoothing-reset() {
+@mixin font-smoothing-reset {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
 }
 
-@mixin placeholder() {
+@mixin placeholder {
   &::placeholder {
     color: var(--sbb-color-metal-default);
   }
@@ -209,7 +209,7 @@
   -webkit-line-clamp: $lines;
 }
 
-@mixin legend() {
+@mixin legend {
   @include text-xs--regular;
 
   color: var(--sbb-color-granite-default);

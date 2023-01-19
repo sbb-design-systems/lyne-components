@@ -11,18 +11,20 @@ describe('sbb-toggle-check', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle-check label-position="after">
           <mock:shadow-root>
-            <label class="sbb-toggle-check">
-              <input type="checkbox"/>
-                <span class="sbb-toggle-check__container">
-                  <span class="sbb-toggle-check__label" hidden="">
-                    <slot></slot>
-                  </span>
-                  <span class="sbb-toggle-check__slider">
-                    <span class="sbb-toggle-check__circle">
+            <input type="checkbox" id="sbb-toggle-check-input"/>
+            <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+              <span class="sbb-toggle-check__container">
+                <span class="sbb-toggle-check__label" hidden="">
+                  <slot></slot>
+                </span>
+                <span class="sbb-toggle-check__track">
+                  <span class="sbb-toggle-check__circle">
+                    <span class="sbb-toggle-check__icon">
                       <slot name="icon">
                         <sbb-icon name="tick-small"></sbb-icon>
                       </slot>
                     </span>
+                  </span>
                 </span>
               </span>
             </label>
@@ -43,14 +45,15 @@ describe('sbb-toggle-check', () => {
       expect(root).toEqualHtml(`
         <sbb-toggle-check label-position="before">
           <mock:shadow-root>
-            <label class="sbb-toggle-check">
-              <input type="checkbox"/>
-                <span class="sbb-toggle-check__container">
-                  <span class="sbb-toggle-check__label">
-                    <slot></slot>
-                  </span>
-                  <span class="sbb-toggle-check__slider">
-                  <span class="sbb-toggle-check__circle">
+            <input type="checkbox" id="sbb-toggle-check-input"/>
+            <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+              <span class="sbb-toggle-check__container">
+                <span class="sbb-toggle-check__label">
+                  <slot></slot>
+                </span>
+                <span class="sbb-toggle-check__track">
+                <span class="sbb-toggle-check__circle">
+                  <span class="sbb-toggle-check__icon">
                     <slot name="icon">
                       <sbb-icon name="tick-small"></sbb-icon>
                     </slot>
@@ -76,17 +79,19 @@ describe('sbb-toggle-check', () => {
         expect(root).toEqualHtml(`
           <sbb-toggle-check checked label-position="after">
             <mock:shadow-root>
-              <label class="sbb-toggle-check">
-                <input checked="" type="checkbox"/>
+              <input checked="" type="checkbox" id="sbb-toggle-check-input"/>
+              <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
                 <span class="sbb-toggle-check__container">
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
                   </span>
-                  <span class="sbb-toggle-check__slider">
+                  <span class="sbb-toggle-check__track">
                     <span class="sbb-toggle-check__circle">
-                      <slot name="icon">
-                        <sbb-icon name="tick-small"></sbb-icon>
-                      </slot>
+                      <span class="sbb-toggle-check__icon">
+                        <slot name="icon">
+                          <sbb-icon name="tick-small"></sbb-icon>
+                        </slot>
+                      </span>
                     </span>
                   </span>
                 </span>
@@ -107,18 +112,20 @@ describe('sbb-toggle-check', () => {
         expect(root).toEqualHtml(`
           <sbb-toggle-check disabled label-position="after">
             <mock:shadow-root>
-              <label class="sbb-toggle-check">
-                <input disabled="" aria-disabled="" type="checkbox">
-                  <span class="sbb-toggle-check__container">
+              <input disabled="" aria-disabled="" type="checkbox" id="sbb-toggle-check-input">
+              <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+                <span class="sbb-toggle-check__container">
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
                   </span>
-                  <span class="sbb-toggle-check__slider">
+                  <span class="sbb-toggle-check__track">
                     <span class="sbb-toggle-check__circle">
-                     <slot name="icon">
-                       <sbb-icon name="tick-small"></sbb-icon>
-                     </slot>
-                   </span>
+                      <span class="sbb-toggle-check__icon">
+                        <slot name="icon">
+                          <sbb-icon name="tick-small"></sbb-icon>
+                        </slot>
+                      </span>
+                    </span>
                   </span>
                 </span>
               </label>
@@ -138,17 +145,19 @@ describe('sbb-toggle-check', () => {
         expect(root).toEqualHtml(`
           <sbb-toggle-check checked disabled label-position="after">
             <mock:shadow-root>
-              <label class="sbb-toggle-check">
-                <input checked="" type="checkbox" disabled aria-disabled=""/>
+              <input checked="" type="checkbox" disabled aria-disabled="" id="sbb-toggle-check-input"/>
+              <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
                 <span class="sbb-toggle-check__container">
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
                   </span>
-                  <span class="sbb-toggle-check__slider">
+                  <span class="sbb-toggle-check__track">
                     <span class="sbb-toggle-check__circle">
-                      <slot name="icon">
-                        <sbb-icon name="tick-small"></sbb-icon>
-                      </slot>
+                      <span class="sbb-toggle-check__icon">
+                        <slot name="icon">
+                          <sbb-icon name="tick-small"></sbb-icon>
+                        </slot>
+                      </span>
                     </span>
                   </span>
                 </span>

@@ -28,6 +28,6 @@
   width: 1px;
 }
 
-@mixin scroll-margin-block-start() {
+@mixin scroll-margin-block-start {
   scroll-margin-block-start: var(--sbb-spacing-fixed-10x);
 }

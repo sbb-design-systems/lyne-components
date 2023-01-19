@@ -1,9 +1,5 @@
 @use '../../../global/styles' as sbb;
 
-.sbb-legend {
-  @include sbb.legend;
-}
-
 .sbb-link-inline {
   @include sbb.link-inline;
 }

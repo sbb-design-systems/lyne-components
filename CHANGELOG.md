@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.3](https://github.com/lyne-design-system/lyne-components/compare/v0.22.2...v0.22.3) (2023-01-19)
+
+### [0.22.2](https://github.com/lyne-design-system/lyne-components/compare/v0.22.1...v0.22.2) (2023-01-18)
+
+### Bug Fixes
+
+- **sbb-card-badge:** fix height for negative variant ([#1543](https://github.com/lyne-design-system/lyne-components/issues/1543)) ([1031dcc](https://github.com/lyne-design-system/lyne-components/commit/1031dcc6fef4175dfe3b90ad020e43482cd0642a))
+
+### [0.22.1](https://github.com/lyne-design-system/lyne-components/compare/v0.22.0...v0.22.1) (2023-01-18)
+
+### Bug Fixes
+
+- **sbb-teaser:** fix hover state ([#1541](https://github.com/lyne-design-system/lyne-components/issues/1541)) ([4c3b977](https://github.com/lyne-design-system/lyne-components/commit/4c3b977b4db5a7545f2fe39f1ff2da9de569b039))
+- **sbb-timetable-row:** fix notices issue ([#1542](https://github.com/lyne-design-system/lyne-components/issues/1542)) ([eddfa3b](https://github.com/lyne-design-system/lyne-components/commit/eddfa3b77b68d0a991d6878ad80239e8ac43b143))
+
+## [0.22.0](https://github.com/lyne-design-system/lyne-components/compare/v0.21.1...v0.22.0) (2023-01-18)
+
+### ⚠ BREAKING CHANGES
+
+- **layout:** - `sbb-grid`, `sbb-section` and `sbb-stack` were removed. `sbb-stack` and `sbb-section` can easily be replaced by css flex or grid on consumer side. As replacement of the `sbb-grid` component there is now a css class and sass mixin. Additionally css classes and mixins for page-spacing were introduced.
+
+* Renamed `wide` property of `sbb-header` and `sbb-footer` to `expanded`.
+
+- **layout:** provide grid CSS classes and SCSS mixin and remove layout components ([#1526](https://github.com/lyne-design-system/lyne-components/issues/1526)) ([4bf6404](https://github.com/lyne-design-system/lyne-components/commit/4bf640442519be0c98be226d31c170c564ffdf3c))
+
+### [0.21.1](https://github.com/lyne-design-system/lyne-components/compare/v0.21.0...v0.21.1) (2023-01-18)
+
+### Features
+
+- **sbb-navigation:** handle scrolling behaviour on navigation open ([#1537](https://github.com/lyne-design-system/lyne-components/issues/1537)) ([0f48761](https://github.com/lyne-design-system/lyne-components/commit/0f48761bd37c5c77e4f14e84bd47de0fc843c9a8))
+
+## [0.21.0](https://github.com/lyne-design-system/lyne-components/compare/v0.20.21...v0.21.0) (2023-01-18)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-toggle-check:** Rename property `icon` to `icon-name` to be consistent with all other components.
+
+- **sbb-toggle-check:** introduce new design ([#1534](https://github.com/lyne-design-system/lyne-components/issues/1534)) ([50d389b](https://github.com/lyne-design-system/lyne-components/commit/50d389b2812ae42a91fdbe8d23c4fa0391c97d26))
+
 ### [0.20.21](https://github.com/lyne-design-system/lyne-components/compare/v0.20.20...v0.20.21) (2023-01-16)
 
 ### Bug Fixes
