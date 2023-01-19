@@ -1,11 +1,11 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
   i18nDeparture,
   i18nArrival,
   i18nWalkingDistanceDeparture,
   i18nWalkingDistanceArrival,
 } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
@@ -16,8 +16,6 @@ import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
   tag: 'sbb-pearl-chain-time',
 })
 export class SbbPearlChainTime {
-  private _currentLanguage = getDocumentLang();
-
   /**
    * define the legs of the pearl-chain.
    * Format:
@@ -46,7 +44,14 @@ export class SbbPearlChainTime {
    */
   @Prop() public disableAnimation?: boolean;
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   private _now(): number {
     const dataNow = +this._element.dataset?.now;
@@ -68,7 +73,7 @@ export class SbbPearlChainTime {
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.departureWalk + 'M'}>
               <span class="sbb-screenreaderonly">
-                {i18nWalkingDistanceDeparture[getDocumentLang()]}
+                {i18nWalkingDistanceDeparture[this._currentLanguage]}
               </span>
               {this.departureWalk}
               <span aria-hidden="true">'</span>
@@ -98,7 +103,7 @@ export class SbbPearlChainTime {
             <sbb-icon name="walk-small"></sbb-icon>
             <time dateTime={this.arrivalWalk + 'M'}>
               <span class="sbb-screenreaderonly">
-                {i18nWalkingDistanceArrival[getDocumentLang()]}
+                {i18nWalkingDistanceArrival[this._currentLanguage]}
               </span>
               {this.arrivalWalk}
               <span aria-hidden="true">'</span>

@@ -9,7 +9,7 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
@@ -70,6 +70,8 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
@@ -79,6 +81,11 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   private _actionElement(): HTMLElement {
     return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   @Listen('click')
@@ -100,7 +107,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this);
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage);
 
     return (
       <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
@@ -121,7 +128,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
             <slot />
             {screenReaderNewWindowInfo && (
               <span class="sbb-card__opens-in-new-window">
-                . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
               </span>
             )}
           </span>

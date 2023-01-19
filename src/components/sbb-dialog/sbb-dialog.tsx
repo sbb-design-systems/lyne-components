@@ -21,7 +21,7 @@ import {
 } from '../../global/helpers/observe-named-slot-changes';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
@@ -86,6 +86,8 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   @State() private _namedSlots = createNamedSlotState('title', 'action-group');
 
   @State() private _hasTitle = false;
+
+  @State() private _currentLanguage = documentLanguage();
 
   /** The state of the dialog. */
   private set _state(state: SbbDialogState) {
@@ -157,9 +159,13 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _isPointerDownEventOnDialog: boolean;
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
-  private _currentLanguage = getDocumentLang();
 
   @Element() private _element!: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {

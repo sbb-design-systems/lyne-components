@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
   forwardHostEvent,
   LinkProperties,
@@ -6,7 +6,7 @@ import {
   resolveLinkRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 /**
  * @slot unnamed - text content of panel
@@ -41,7 +41,14 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
   /** Image alt text will be passed to `sbb-image`. */
   @Prop() public imageAlt?: string;
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element!: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   @Listen('click')
   public handleClick(event: Event): void {
@@ -64,7 +71,7 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
       tagName: TAG_NAME,
       attributes,
       screenReaderNewWindowInfo,
-    } = resolveLinkRenderVariables(this);
+    } = resolveLinkRenderVariables(this, this._currentLanguage);
 
     return (
       <TAG_NAME class="sbb-teaser-hero" {...attributes}>
@@ -89,7 +96,7 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
         </slot>
         {screenReaderNewWindowInfo && (
           <span class="sbb-teaser-hero__opens-in-new-window">
-            . {i18nTargetOpensInNewWindow[getDocumentLang()]}
+            . {i18nTargetOpensInNewWindow[this._currentLanguage]}
           </span>
         )}
       </TAG_NAME>

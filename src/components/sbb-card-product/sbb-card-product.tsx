@@ -1,6 +1,16 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  JSX,
+  Listen,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import events from './sbb-card-product.events';
 import { InterfaceCardProductAttributes } from './sbb-card-product.custom';
@@ -102,8 +112,15 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
    * ----------------------------------------------------------------
    */
 
+  @State() private _currentLanguage = documentLanguage();
+
   /** Host element */
   @Element() private _hostElement: HTMLElement;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   /** Defines click event handler if product card is served as a button */
   private _buttonClick = (): void => {
@@ -146,7 +163,6 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
   }
 
   public render(): JSX.Element {
-    const currentLanguage = getDocumentLang();
     let TAGNAME;
 
     /**
@@ -233,7 +249,7 @@ export class SbbCardProduct implements ComponentInterface, AccessibilityProperti
           rel: 'external noopener nofollow',
           target: '_blank',
         };
-        ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
+        ariaLabel += `. ${i18nTargetOpensInNewWindow[this._currentLanguage]}`;
       }
 
       if (this.hrefValue) {

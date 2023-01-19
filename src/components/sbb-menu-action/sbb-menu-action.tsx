@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
   ButtonType,
   forwardHostEvent,
@@ -8,6 +8,7 @@ import {
   PopupType,
   resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
@@ -65,6 +66,8 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   /** This will be forwarded as aria-label to the relevant nested element. */
   @Prop() public accessibilityLabel: string | undefined;
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element: HTMLElement;
 
   public connectedCallback(): void {
@@ -74,6 +77,11 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
 
   private _actionElement(): HTMLElement {
     return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   @Listen('click')
@@ -89,6 +97,7 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   public render(): JSX.Element {
     const { tagName: TAG_NAME, attributes }: LinkButtonRenderVariables = resolveRenderVariables(
       this,
+      this._currentLanguage,
       false
     );
 

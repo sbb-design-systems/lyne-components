@@ -1,4 +1,4 @@
-import getDocumentLang from '../helpers/get-document-lang';
+import { documentLanguage } from '../helpers/language';
 import getDocumentWritingMode from '../helpers/get-document-writing-mode';
 import { i18nTargetOpensInNewWindow } from '../i18n';
 import { AccessibilityProperties, getAccessibilityAttributeList } from './accessibility-properties';
@@ -109,10 +109,12 @@ export function getLinkButtonBaseAttributeList(
 /**
  * Lists all attributes for a link; undefined/null properties are not set.
  * @param linkProperties link properties
- * @param buttonProperties (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
+ * @param currentLanguage language for accessibility strings.
+ * @param buttonProperties? (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
  */
 export function getLinkAttributeList(
   linkProperties: LinkProperties,
+  currentLanguage: string = documentLanguage(),
   buttonProperties?: ButtonProperties
 ): Record<string, string> {
   const baseAttributeList = getLinkButtonBaseAttributeList(linkProperties);
@@ -123,7 +125,7 @@ export function getLinkAttributeList(
 
   let ariaLabel = baseAttributeList['aria-label'];
   if (ariaLabel && linkProperties.target === '_blank') {
-    ariaLabel += `. ${i18nTargetOpensInNewWindow[getDocumentLang()]}`;
+    ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
   }
 
   return Object.assign(baseAttributeList, {
@@ -161,15 +163,17 @@ export function getButtonAttributeList(buttonProperties: ButtonProperties): Reco
 /**
  * Set default render variables for link case.
  * @param linkProperties used to set the 'attributes' property.
- * @param buttonProperties (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
+ * @param currentLanguage language for accessibility strings.
+ * @param buttonProperties? (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
  */
 export function getLinkRenderVariables(
   linkProperties: LinkProperties,
+  currentLanguage: string = documentLanguage(),
   buttonProperties?: ButtonProperties
 ): LinkButtonRenderVariables {
   return {
     tagName: 'a',
-    attributes: getLinkAttributeList(linkProperties, buttonProperties),
+    attributes: getLinkAttributeList(linkProperties, currentLanguage, buttonProperties),
     screenReaderNewWindowInfo:
       !linkProperties.accessibilityLabel && linkProperties.target === '_blank',
   };
@@ -204,16 +208,18 @@ export function getLinkButtonStaticRenderVariables(
 /**
  * Set default render variables based on the 'default' condition, checking first `isStatic` parameter, then the `href`.
  * @param linkButtonProperties used to set the 'attributes' property and to check for `href` value.
+ * @param currentLanguage language for accessibility strings.
  * @param isStatic renders the default static variable whether is true.
  */
 export function resolveRenderVariables(
   linkButtonProperties: LinkButtonProperties,
+  currentLanguage: string = documentLanguage(),
   isStatic = false
 ): LinkButtonRenderVariables {
   if (isStatic) {
     return getLinkButtonStaticRenderVariables(linkButtonProperties);
   } else if (linkButtonProperties.href) {
-    return getLinkRenderVariables(linkButtonProperties, linkButtonProperties);
+    return getLinkRenderVariables(linkButtonProperties, currentLanguage, linkButtonProperties);
   }
   return getButtonRenderVariables(linkButtonProperties);
 }
@@ -221,12 +227,14 @@ export function resolveRenderVariables(
 /**
  * Returns the link render variables or static variables if there is no href property.
  * @param linkProperties used to set variables and to check if href property is set.
+ * @param currentLanguage language for accessibility strings.
  */
 export function resolveLinkRenderVariables(
-  linkProperties: LinkProperties
+  linkProperties: LinkProperties,
+  currentLanguage: string = documentLanguage()
 ): LinkButtonRenderVariables {
   if (linkProperties.href) {
-    return getLinkRenderVariables(linkProperties);
+    return getLinkRenderVariables(linkProperties, currentLanguage);
   }
   return getLinkButtonStaticRenderVariables(linkProperties);
 }

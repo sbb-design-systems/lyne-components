@@ -1,6 +1,6 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { InterfaceTimetableTransportationTimeAttributes } from './sbb-timetable-transportation-time.custom';
 
 import { i18nArrival, i18nDeparture } from '../../global/i18n';
@@ -11,7 +11,7 @@ import { i18nArrival, i18nDeparture } from '../../global/i18n';
   tag: 'sbb-timetable-transportation-time',
 })
 export class SbbTimetableTransportationTime {
-  private _currentLanguage = getDocumentLang();
+  @State() private _currentLanguage = documentLanguage();
 
   /**
    * Set the desired appearance of
@@ -27,6 +27,11 @@ export class SbbTimetableTransportationTime {
    * structure.
    */
   @Prop() public config!: string;
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
     const config = JSON.parse(this.config);

@@ -1,6 +1,6 @@
-import { Component, Element, Fragment, h, JSX, Prop, State } from '@stencil/core';
+import { Component, Element, Fragment, h, JSX, Listen, Prop, State } from '@stencil/core';
 import { InterfaceSbbWagonAttributes } from './sbb-wagon.custom.d';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nWagonLabel,
   i18nClass,
@@ -48,12 +48,15 @@ export class SbbWagon {
   /** Host element. */
   @Element() private _element!: HTMLElement;
 
-  /** Current document language */
-  private _language: string;
+  @State() private _currentLanguage = documentLanguage();
 
   public connectedCallback(): void {
-    this._language = getDocumentLang();
     this._readSlottedIcons();
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   /**
@@ -76,24 +79,24 @@ export class SbbWagon {
 
     let text = '';
     if (this.type === 'locomotive') {
-      text = `${i18nLocomotiveLabel[this._language]}.`;
+      text = `${i18nLocomotiveLabel[this._currentLanguage]}.`;
     } else if (this.type === 'closed') {
-      text = i18nClosedCompartmentLabel(parseInt(this.label))[this._language];
+      text = i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage];
     } else {
       // Wagon type text
-      text = `${i18nWagonLabel(parseInt(this.label))[this._language]}`;
+      text = `${i18nWagonLabel(parseInt(this.label))[this._currentLanguage]}`;
       // Class text
       text =
         this.wagonClass === '1'
-          ? `${text} ${i18nClass['first'][this._language]}.`
-          : `${text} ${i18nClass['second'][this._language]}.`;
+          ? `${text} ${i18nClass['first'][this._currentLanguage]}.`
+          : `${text} ${i18nClass['second'][this._currentLanguage]}.`;
       // Occupancy text
       text = `${text} ${
-        i18nOccupancy[this.occupancy] && i18nOccupancy[this.occupancy][this._language]
+        i18nOccupancy[this.occupancy] && i18nOccupancy[this.occupancy][this._currentLanguage]
       }`;
       // Blocked passage
       if (this.blockedPassage !== 'none') {
-        text = `${text} ${i18nBlockedPassage[this.blockedPassage][this._language]}`;
+        text = `${text} ${i18nBlockedPassage[this.blockedPassage][this._currentLanguage]}`;
       }
     }
     // Additional text like e.g. "Top/End of the train"-hint
@@ -146,7 +149,7 @@ export class SbbWagon {
         {this.type === 'wagon' && (
           <div class="sbb-wagon__icons">
             <p aria-hidden="true" id="sbb-wagon__list-title">
-              {i18nAdditionalWagonInformationHeading[this._language]}
+              {i18nAdditionalWagonInformationHeading[this._currentLanguage]}
             </p>
             <ul aria-labelledby="sbb-wagon__list-title">
               {this._icons.map((_, index) => (
