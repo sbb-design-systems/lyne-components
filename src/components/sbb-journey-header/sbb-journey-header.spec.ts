@@ -18,9 +18,7 @@ describe('sbb-journey-header', () => {
               </span>
               A
             </span>
-            <span class="sbb-journey-header__icon">
-              <sbb-icon name="arrow-long-right-small"></sbb-icon>
-            </span>
+            <sbb-icon name="arrow-long-right-small"></sbb-icon>
             <span class="sbb-journey-header__destination">
               <span class="sbb-journey-header__connection--visually-hidden">
                 to
@@ -49,9 +47,7 @@ describe('sbb-journey-header', () => {
               </span>
               B
             </span>
-            <span class="sbb-journey-header__icon">
-              <sbb-icon name="arrows-left-right-small"></sbb-icon>
-            </span>
+            <sbb-icon name="arrows-left-right-small"></sbb-icon>
             <span class="sbb-journey-header__destination">
               <span class="sbb-journey-header__connection--visually-hidden">
                 to
