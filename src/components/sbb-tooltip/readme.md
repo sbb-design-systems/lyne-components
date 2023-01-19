@@ -49,6 +49,19 @@ The tooltip automatically calculates where it should place itself, based on avai
 
 ### Accessibility
 
+In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below. Note that it will not work with a custom element such as `sbb-tooltip-trigger`, therefore please use, for example, a native `button` as a trigger:
+
+```html
+<!-- Trigger element -->
+<button id="tooltip-trigger" aria-describedby="tooltip-content">Button with tooltip</button>
+
+<!-- Tooltip component with `hover-trigger` property -->
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
+    <p id="tooltip-content">
+      Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+    </p>
+</sbb-tooltip>
+```
 
 As the tooltip opens, the focus will automatically be set to the first focusable item within the component.
 
