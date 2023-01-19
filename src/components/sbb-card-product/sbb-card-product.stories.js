@@ -235,11 +235,10 @@ const SlotSbbTitleTemplate = (args) => (
 );
 
 const sbbJourneyHeaderArgs = {
-  destination: 'Loèche-les-Bains',
-  'is-round-trip': true,
-  markup: 'h2',
   origin: 'La Chaux de Fonds',
-  size: 5,
+  destination: 'Loèche-les-Bains',
+  'round-trip': true,
+  level: '2',
 };
 
 const SlotSbbJourneyHeaderTemplate = (args) => <sbb-journey-header {...args} />;

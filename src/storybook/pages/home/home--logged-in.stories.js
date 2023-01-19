@@ -114,11 +114,10 @@ const Template = (args) => (
                     GA
                   </sbb-title>
                   <sbb-journey-header
-                    destination="Loèche-les-Bains"
-                    is-round-trip=""
-                    markup="h2"
                     origin="La Chaux de Fonds"
-                    size="5"
+                    destination="Loèche-les-Bains"
+                    round-trip=""
+                    level="2"
                   ></sbb-journey-header>
                 </div>
                 <sbb-title slot="lead" level="3" visual-level="6">
@@ -187,11 +186,10 @@ const Template = (args) => (
                 href-value="https://github.com/lyne-design-system/lyne-components"
               >
                 <sbb-journey-header
-                  destination="Loèche-les-Bains"
-                  is-round-trip=""
-                  markup="h2"
                   origin="La Chaux de Fonds"
-                  size="5"
+                  destination="Loèche-les-Bains"
+                  round-trip=""
+                  level="2"
                   slot="title"
                 ></sbb-journey-header>
                 <div slot="text">

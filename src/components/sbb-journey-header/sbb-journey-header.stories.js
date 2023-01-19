@@ -4,18 +4,19 @@ import readme from './readme.md';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    return `background-color: ${SbbColorCharcoalDefault};`;
+    return `background-color: var(--sbb-color-charcoal-default);`;
   }
 
-  return `background-color: ${SbbColorWhiteDefault};`;
+  return `background-color:  var(--sbb-color-white-default);`;
 };
 
-const destination = {
+const origin = {
   control: {
     type: 'text',
   },
 };
-const origin = {
+
+const destination = {
   control: {
     type: 'text',
   },
@@ -48,8 +49,8 @@ const negative = {
 };
 
 const defaultArgTypes = {
-  destination,
   origin,
+  destination,
   'round-trip': roundTrip,
   level,
   size,
@@ -57,8 +58,8 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  destination: 'Loèche-les-Bains',
   origin: 'La Chaux de Fonds',
+  destination: 'Loèche-les-Bains',
   'round-trip': false,
   level: '1',
   size: 'm',
@@ -72,50 +73,50 @@ const defaultArgsLvl2 = {
 
 const Template = (args) => <sbb-journey-header {...args} />;
 
-export const span = Template.bind({});
-span.argTypes = defaultArgTypes;
-span.args = { ...defaultArgs, level: 'span' };
+export const Span = Template.bind({});
+Span.argTypes = defaultArgTypes;
+Span.args = { ...defaultArgs, level: 'none' };
 
-export const h1 = Template.bind({});
-h1.argTypes = defaultArgTypes;
-h1.args = { ...defaultArgs };
+export const H1 = Template.bind({});
+H1.argTypes = defaultArgTypes;
+H1.args = { ...defaultArgs };
 
-export const h1RoundTrip = Template.bind({});
-h1RoundTrip.argTypes = defaultArgTypes;
-h1RoundTrip.args = { ...defaultArgs, 'round-trip': true };
+export const H1RoundTrip = Template.bind({});
+H1RoundTrip.argTypes = defaultArgTypes;
+H1RoundTrip.args = { ...defaultArgs, 'round-trip': true };
 
-export const h1SizeL = Template.bind({});
-h1SizeL.argTypes = defaultArgTypes;
-h1SizeL.args = { ...defaultArgs, size: 'l' };
+export const H1SizeL = Template.bind({});
+H1SizeL.argTypes = defaultArgTypes;
+H1SizeL.args = { ...defaultArgs, size: 'l' };
 
-export const h1Negative = Template.bind({});
-h1Negative.argTypes = defaultArgTypes;
-h1Negative.args = { ...defaultArgs, negative: true };
+export const H1Negative = Template.bind({});
+H1Negative.argTypes = defaultArgTypes;
+H1Negative.args = { ...defaultArgs, negative: true };
 
-export const h2 = Template.bind({});
-h2.argTypes = defaultArgTypes;
-h2.args = { ...defaultArgsLvl2 };
+export const H2 = Template.bind({});
+H2.argTypes = defaultArgTypes;
+H2.args = { ...defaultArgsLvl2 };
 
-export const h2RoundTrip = Template.bind({});
-h2RoundTrip.argTypes = defaultArgTypes;
-h2RoundTrip.args = { ...defaultArgsLvl2, 'round-trip': true };
+export const H2RoundTrip = Template.bind({});
+H2RoundTrip.argTypes = defaultArgTypes;
+H2RoundTrip.args = { ...defaultArgsLvl2, 'round-trip': true };
 
-export const h2SizeL = Template.bind({});
-h2SizeL.argTypes = defaultArgTypes;
-h2SizeL.args = { ...defaultArgsLvl2, size: 'l' };
+export const H2SizeL = Template.bind({});
+H2SizeL.argTypes = defaultArgTypes;
+H2SizeL.args = { ...defaultArgsLvl2, size: 'l' };
 
-export const h2Negative = Template.bind({});
-h2Negative.argTypes = defaultArgTypes;
-h2Negative.args = { ...defaultArgsLvl2, negative: true };
+export const H2Negative = Template.bind({});
+H2Negative.argTypes = defaultArgTypes;
+H2Negative.args = { ...defaultArgsLvl2, negative: true };
 
-export const h2SizeLRoundTripShortText = Template.bind({});
-h2SizeLRoundTripShortText.argTypes = defaultArgTypes;
-h2SizeLRoundTripShortText.args = {
+export const H2SizeLRoundTripShortText = Template.bind({});
+H2SizeLRoundTripShortText.argTypes = defaultArgTypes;
+H2SizeLRoundTripShortText.args = {
   ...defaultArgsLvl2,
-  size: 'l',
-  'round-trip': true,
-  destination: 'Thun',
   origin: 'Bern',
+  destination: 'Thun',
+  'round-trip': true,
+  size: 'l',
 };
 
 export default {

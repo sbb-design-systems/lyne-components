@@ -45,20 +45,16 @@ export class SbbJourneyHeader {
           </span>
           {this.origin}
         </span>
-        <span class="sbb-journey-header__icon">
-          <sbb-icon name={iconName} />
-        </span>
+        <sbb-icon name={iconName} />
         <span class="sbb-journey-header__destination">
           <span class="sbb-journey-header__connection--visually-hidden">
             {i18nConnectionTo[currentLanguage]}
           </span>
           {this.destination}
-          {this.roundTrip ? (
+          {this.roundTrip && (
             <span class="sbb-journey-header__connection--visually-hidden">
               {i18nConnectionRoundtrip(this.origin)[currentLanguage]}
             </span>
-          ) : (
-            ''
           )}
         </span>
       </TAGNAME>

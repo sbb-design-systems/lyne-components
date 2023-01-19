@@ -6,7 +6,7 @@
 
 :host {
   --sbb-title-text-color-normal: var(--sbb-color-charcoal-default);
-  --sbb-journey-header__icon-spacing-inset: var(--sbb-spacing-fixed-1x);
+  --sbb-journey-header-gap: var(--sbb-spacing-fixed-1x);
 }
 
 :host([negative]:not([negative='false'])) {
@@ -17,20 +17,6 @@
   @include sbb.scroll-margin-block-start;
 }
 
-.sbb-journey-header__icon {
-  display: flex;
-  align-items: center;
-  padding-inline: var(--sbb-journey-header__icon-spacing-inset);
-
-  svg {
-    fill: currentcolor;
-
-    @include sbb.if-forced-colors {
-      fill: ButtonText;
-    }
-  }
-}
-
 .sbb-journey-header {
   @include sbb.font-smoothing;
   @include sbb.title-5($exclude-spacing: true);
@@ -38,18 +24,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: var(--sbb-journey-header-gap);
   width: fit-content;
   color: var(--sbb-title-text-color-normal);
 
   :host([size='l']) & {
     @include sbb.title-4($exclude-spacing: true);
-  }
-
-  // Right to left expression
-  &[dir='rtl'] {
-    .sbb-journey-header__icon {
-      transform: rotate(-180deg);
-    }
   }
 }
 
