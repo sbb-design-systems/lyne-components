@@ -49,14 +49,24 @@ The tooltip automatically calculates where it should place itself, based on avai
 
 ### Accessibility
 
-In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below. Note that it will not work with a custom element such as `sbb-tooltip-trigger`, therefore please use, for example, a native `button` as a trigger:
+In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below. If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it, since the `aria-describedby` attribute can be used with semantic HTML elements and with elements that have an ARIA `role`.
 
 ```html
 <!-- Trigger element -->
 <button id="tooltip-trigger" aria-describedby="tooltip-content">Button with tooltip</button>
 
-<!-- Tooltip component with `hover-trigger` property -->
-<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
+<!-- Tooltip component -->
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger">
+    <p id="tooltip-content">
+      Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
+    </p>
+</sbb-tooltip>
+
+<!-- Tooltip trigger component -->
+<sbb-tooltip-trigger role="button" aria-describedby="tooltip-content" id="tooltip-trigger"></sbb-tooltip-trigger>
+
+<!-- Tooltip component -->
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger">
     <p id="tooltip-content">
       Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
     </p>
