@@ -168,5 +168,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-journey-header',
+  title: 'components/sbb-journey-header',
 };
