@@ -13434,10 +13434,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@12.8.0:
-  version "12.8.0"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.8.0.tgz#84fe8646bc169486c4597260d55f99ac0961f7a2"
-  integrity sha512-SfcLc8EGSBOmX4RUCC75GqwAc8q5W2Ti3wOoZc0j9Xcz+QUG9xRq8LRL8MzChW1jsd/ONTBaL3Q53IIwa/nRTg==
+netlify-cli@12.9.0:
+  version "12.9.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.9.0.tgz#a1da12ae5becec3dad14b1dcae1905d5ceb6f530"
+  integrity sha512-WPIhQ4vyyfR72k939gssO/RsjJPvipnkTiiF+RRY+XQxu0yqhQc2aDu53uMKBsJD0oGpKOQrKCLbN1RJzJSQhg==
   dependencies:
     "@fastify/static" "^6.6.0"
     "@netlify/build" "^29.5.1"
@@ -13511,7 +13511,7 @@ netlify-cli@12.8.0:
     netlify-headers-parser "^7.1.1"
     netlify-onegraph-internal "0.10.1"
     netlify-redirect-parser "^14.1.1"
-    netlify-redirector "^0.3.1"
+    netlify-redirector "^0.4.0"
     node-fetch "^2.6.0"
     node-version-alias "^1.0.1"
     ora "^5.0.0"
@@ -13577,10 +13577,10 @@ netlify-redirect-parser@^14.1.1:
     path-exists "^5.0.0"
     toml "^3.0.0"
 
-netlify-redirector@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/netlify-redirector/-/netlify-redirector-0.3.1.tgz#27f99427dfd4bec482ecb0d68941bab68be9fb75"
-  integrity sha512-+8x07Ukx8vgKkGqTDq1GrkuCRR0DqheZ9fF5PXk6VbIChp9Qi8+psmwBV3hjocoyUvUGH7CIHLUk05aVwLN3wA==
+netlify-redirector@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/netlify-redirector/-/netlify-redirector-0.4.0.tgz#821f23b7b51884710304c9497532f00996cb6958"
+  integrity sha512-ssD+V9o2DD9VnilOYC+34i07IrlY8XDsh5mN+qLYA4MxCpdALKXFICcz1KzsHZabuIS5XsF1VP/HzDyx5ubJ2g==
 
 netlify@^13.1.1:
   version "13.1.1"
