@@ -1,7 +1,7 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
-import getDocumentLang from '../../global/helpers/get-document-lang';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
 import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
 
 @Component({
@@ -31,28 +31,34 @@ export class SbbJourneyHeader {
   /** Journey header size. */
   @Prop({ reflect: true }) public size?: InterfaceJourneyHeaderAttributes['size'] = 'm';
 
+  @State() private _currentLanguage = documentLanguage();
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
+
   public render(): JSX.Element {
     const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
-    const currentLanguage = getDocumentLang();
 
     return (
       <sbb-title level={this.level} negative={this.negative}>
         <span class="sbb-journey-header" dir={getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
             <span class="sbb-journey-header__connection--visually-hidden">
-              {i18nConnectionFrom[currentLanguage]}
+              {i18nConnectionFrom[this._currentLanguage]}
             </span>
             {this.origin}
           </span>
           <sbb-icon name={iconName} />
           <span class="sbb-journey-header__destination">
             <span class="sbb-journey-header__connection--visually-hidden">
-              {i18nConnectionTo[currentLanguage]}
+              {i18nConnectionTo[this._currentLanguage]}
             </span>
             {this.destination}
             {this.roundTrip && (
               <span class="sbb-journey-header__connection--visually-hidden">
-                {i18nConnectionRoundtrip(this.origin)[currentLanguage]}
+                {i18nConnectionRoundtrip(this.origin)[this._currentLanguage]}
               </span>
             )}
           </span>
