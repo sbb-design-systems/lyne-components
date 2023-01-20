@@ -33,10 +33,19 @@
   }
 }
 
-.sbb-header--hidden {
-  :host([hide-on-scroll]:not([hide-on-scroll='false'])) & {
-    transform: translateY(-100%);
-    pointer-events: none;
+:host([hide-on-scroll]:not([hide-on-scroll='false'])) {
+  .sbb-header {
+    position: absolute;
+
+    &.sbb-header--visible {
+      position: fixed;
+    }
+
+    &.sbb-header--hidden {
+      position: fixed;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
   }
 }
 

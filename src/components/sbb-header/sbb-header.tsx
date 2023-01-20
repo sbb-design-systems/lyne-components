@@ -62,17 +62,24 @@ export class SbbHeader {
       scrollTop = Math.round(document.documentElement.scrollTop);
     }
     this.shadow = scrollTop !== 0;
+    const header = this._element.shadowRoot.firstElementChild;
+    // check if original header position has been scrolled out
     if (scrollTop > this._element.offsetHeight) {
-      const header = this._element.shadowRoot.firstElementChild;
       if (scrollTop > this._lastScrollTop) {
         header.classList.add('sbb-header--hidden');
+        header.classList.remove('sbb-header--visible');
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
         this.shadow = false;
       } else {
+        header.classList.add('sbb-header--visible');
         header.classList.remove('sbb-header--hidden');
         this.shadow = true;
       }
       this._lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+    } else {
+      if (scrollTop > this._lastScrollTop || scrollTop == 0) {
+        header.classList.remove('sbb-header--visible');
+      }
     }
   }
 
