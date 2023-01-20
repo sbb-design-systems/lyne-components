@@ -13,7 +13,7 @@
   @include sbb.title--negative;
 }
 
-.sbb-journey-header[id] {
+:host([id]) {
   @include sbb.scroll-margin-block-start;
 }
 
