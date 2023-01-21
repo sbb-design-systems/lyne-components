@@ -13434,10 +13434,10 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@12.9.0:
-  version "12.9.0"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.9.0.tgz#a1da12ae5becec3dad14b1dcae1905d5ceb6f530"
-  integrity sha512-WPIhQ4vyyfR72k939gssO/RsjJPvipnkTiiF+RRY+XQxu0yqhQc2aDu53uMKBsJD0oGpKOQrKCLbN1RJzJSQhg==
+netlify-cli@12.9.1:
+  version "12.9.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.9.1.tgz#5bf480849e370b54c13891a20e4797094081a46b"
+  integrity sha512-m8rvEobEK4k1SnpZPK7Nc/84qSJbaX2bApFhjsBoeW7rQN0yKcUoNntEbwWsNN6o5NYa1gdlLRCEtQsaJYTA0g==
   dependencies:
     "@fastify/static" "^6.6.0"
     "@netlify/build" "^29.5.1"
