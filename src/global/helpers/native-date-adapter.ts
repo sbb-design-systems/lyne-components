@@ -16,8 +16,8 @@ export class NativeDateAdapter {
   }
 
   /** Calculate the first week offset. */
-  public calcFirstWeekOffset(d: Date): number {
-    const firstOfMonth = this.createDate(this.getYear(d), this.getMonth(d), 1);
+  public getFirstWeekOffset(year: number, month: number): number {
+    const firstOfMonth = this.createDate(year, month, 1);
     return (
       (NativeDateAdapter.DAYS_PER_WEEK +
         this.getDayOfWeek(firstOfMonth) -
@@ -66,9 +66,9 @@ export class NativeDateAdapter {
     return 1;
   }
 
-  public getNumDaysInMonth(date: Date): number {
+  public getNumDaysInMonth(year: number, month: number): number {
     const lastDayOfMonth = new Date(0);
-    lastDayOfMonth.setFullYear(date.getFullYear(), date.getMonth() + 1, 0);
+    lastDayOfMonth.setFullYear(year, month + 1, 0);
     lastDayOfMonth.setHours(0, 0, 0, 0);
     return lastDayOfMonth.getDate();
   }
@@ -157,7 +157,10 @@ export class NativeDateAdapter {
     const dateWithCorrectMonth = new Date(0);
     dateWithCorrectMonth.setFullYear(date.getFullYear(), targetMonth, 1);
     dateWithCorrectMonth.setHours(0, 0, 0, 0);
-    const daysInMonth = this.getNumDaysInMonth(dateWithCorrectMonth);
+    const daysInMonth = this.getNumDaysInMonth(
+      this.getYear(dateWithCorrectMonth),
+      this.getMonth(dateWithCorrectMonth)
+    );
     const newDate = this.clone(date);
     // Adapt last day of month for shorter months
     newDate.setMonth(targetMonth, Math.min(daysInMonth, date.getDate()));
