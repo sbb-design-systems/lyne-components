@@ -32,17 +32,17 @@
   text-align: left;
   color: var(--sbb-navigation-action-color);
 
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+
   :host([size='m']) & {
     @include sbb.text-s--bold;
   }
 
   :host([size='s']) & {
     @include sbb.text-xxs--bold;
-  }
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
