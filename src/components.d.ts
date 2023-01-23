@@ -735,9 +735,9 @@ export namespace Components {
          */
         "destination": string;
         /**
-          * Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics.
+          * Heading level of the journey header element (e.g. h1-h6).
          */
-        "level"?: InterfaceJourneyHeaderAttributes['level'];
+        "level"?: InterfaceTitleAttributes['level'];
         /**
           * Negative coloring variant flag.
          */
@@ -3009,9 +3009,9 @@ declare namespace LocalJSX {
          */
         "destination": string;
         /**
-          * Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics.
+          * Heading level of the journey header element (e.g. h1-h6).
          */
-        "level"?: InterfaceJourneyHeaderAttributes['level'];
+        "level"?: InterfaceTitleAttributes['level'];
         /**
           * Negative coloring variant flag.
          */

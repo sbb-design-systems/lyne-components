@@ -46,14 +46,14 @@ Negative variant, round-trip:
 
 ## Properties
 
-| Property                   | Attribute     | Description                                                                                                                                               | Type                                     | Default     |
-| -------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `destination` _(required)_ | `destination` | Destination location for the journey header.                                                                                                              | `string`                                 | `undefined` |
-| `level`                    | `level`       | Journey header markup: depending on the context where it will be used, it is important to pick the correct markup element to match the correct semantics. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
-| `negative`                 | `negative`    | Negative coloring variant flag.                                                                                                                           | `boolean`                                | `false`     |
-| `origin` _(required)_      | `origin`      | Origin location for the journey header.                                                                                                                   | `string`                                 | `undefined` |
-| `roundTrip`                | `round-trip`  | Whether the journey is a round trip. If so, the icon changes to a round-trip one.                                                                         | `boolean`                                | `undefined` |
-| `size`                     | `size`        | Journey header size.                                                                                                                                      | `"l" \| "m"`                             | `'m'`       |
+| Property                   | Attribute     | Description                                                                       | Type                                     | Default     |
+| -------------------------- | ------------- | --------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `destination` _(required)_ | `destination` | Destination location for the journey header.                                      | `string`                                 | `undefined` |
+| `level`                    | `level`       | Heading level of the journey header element (e.g. h1-h6).                         | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
+| `negative`                 | `negative`    | Negative coloring variant flag.                                                   | `boolean`                                | `false`     |
+| `origin` _(required)_      | `origin`      | Origin location for the journey header.                                           | `string`                                 | `undefined` |
+| `roundTrip`                | `round-trip`  | Whether the journey is a round trip. If so, the icon changes to a round-trip one. | `boolean`                                | `undefined` |
+| `size`                     | `size`        | Journey header size.                                                              | `"l" \| "m"`                             | `'m'`       |
 
 
 ## Dependencies

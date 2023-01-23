@@ -2,6 +2,7 @@ import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
+import { InterfaceTitleAttributes } from "../sbb-title/sbb-title.custom";
 import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
 
 @Component({
@@ -19,11 +20,8 @@ export class SbbJourneyHeader {
   /** Whether the journey is a round trip. If so, the icon changes to a round-trip one. */
   @Prop() public roundTrip?: boolean;
 
-  /**
-   * Journey header markup: depending on the context where it will be used,
-   * it is important to pick the correct markup element to match the correct semantics.
-   */
-  @Prop() public level?: InterfaceJourneyHeaderAttributes['level'] = '3';
+  /** Heading level of the journey header element (e.g. h1-h6). */
+  @Prop() public level?: InterfaceTitleAttributes['level'] = '3';
 
   /** Negative coloring variant flag. */
   @Prop({ reflect: true }) public negative = false;
@@ -42,7 +40,7 @@ export class SbbJourneyHeader {
     const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
 
     return (
-      <sbb-title level={this.level} negative={this.negative}>
+      <sbb-title level={this.level} negative={this.negative} visual-level={this.size === 'l' ? '3' : '5'}>
         <span class="sbb-journey-header" dir={getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
             <span class="sbb-journey-header__connection--visually-hidden">
