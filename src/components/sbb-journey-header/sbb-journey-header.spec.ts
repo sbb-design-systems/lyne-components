@@ -11,7 +11,7 @@ describe('sbb-journey-header', () => {
     expect(root).toEqualHtml(`
       <sbb-journey-header origin="A" destination="B" size="m">
         <mock:shadow-root>
-          <sbb-title level="3">
+          <sbb-title level="3" visual-level="5">
             <span class="sbb-journey-header" dir="ltr">
               <span class="sbb-journey-header__origin">
                 <span class="sbb-journey-header__connection--visually-hidden">
@@ -40,9 +40,9 @@ describe('sbb-journey-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-journey-header level="1" size="l" round-trip="true" origin="B" destination="C" negative="">
+      <sbb-journey-header level="1"size="l" round-trip="true" origin="B" destination="C" negative="">
         <mock:shadow-root>
-          <sbb-title level="1" negative="">
+          <sbb-title level="1" visual-level="4" negative="">
             <span class="sbb-journey-header" dir="ltr">
               <span class="sbb-journey-header__origin">
                 <span class="sbb-journey-header__connection--visually-hidden">
