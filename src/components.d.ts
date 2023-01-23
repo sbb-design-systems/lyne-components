@@ -36,7 +36,6 @@ import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
-import { InterfaceTeaserAttributes } from "./components/sbb-teaser/sbb-teaser.custom";
 import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
 import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
@@ -1316,7 +1315,7 @@ export namespace Components {
         /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
-        "titleLevel": InterfaceTeaserAttributes['titleLevel'];
+        "titleLevel": InterfaceTitleAttributes['level'];
     }
     interface SbbTeaserHero {
         /**
@@ -3615,7 +3614,7 @@ declare namespace LocalJSX {
         /**
           * Heading level of the sbb-title element (e.g. h1-h6).
          */
-        "titleLevel"?: InterfaceTeaserAttributes['titleLevel'];
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbTeaserHero {
         /**

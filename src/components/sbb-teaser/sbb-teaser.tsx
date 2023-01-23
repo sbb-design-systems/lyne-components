@@ -9,7 +9,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { InterfaceTeaserAttributes } from './sbb-teaser.custom';
 import {
   forwardHostEvent,
   LinkProperties,
@@ -18,6 +17,7 @@ import {
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
  * @slot image - Slot used to render the image
@@ -44,7 +44,7 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
   /**
    * Heading level of the sbb-title element (e.g. h1-h6).
    */
-  @Prop() public titleLevel: InterfaceTeaserAttributes['titleLevel'] = '5';
+  @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '5';
 
   /** The href value you want to link to. */
   @Prop() public href: string | undefined;
