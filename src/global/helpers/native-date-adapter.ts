@@ -15,6 +15,17 @@ export class NativeDateAdapter {
     return valuesArray;
   }
 
+  /** Calculate the first week offset. */
+  public calcFirstWeekOffset(d: Date): number {
+    const firstOfMonth = this.createDate(this.getYear(d), this.getMonth(d), 1);
+    return (
+      (NativeDateAdapter.DAYS_PER_WEEK +
+        this.getDayOfWeek(firstOfMonth) -
+        this.getFirstDayOfWeek()) %
+      NativeDateAdapter.DAYS_PER_WEEK
+    );
+  }
+
   public getYear(date: Date): number {
     return date.getFullYear();
   }
@@ -123,5 +134,63 @@ export class NativeDateAdapter {
       this.getMonth(d1) === this.getMonth(d2) &&
       this.getYear(d1) === this.getYear(d2)
     );
+  }
+
+  public isDateInstance(obj: any): boolean {
+    return obj instanceof Date;
+  }
+
+  public isValid(date: Date): boolean {
+    return !!date && !isNaN(date.valueOf());
+  }
+
+  public invalid(): Date {
+    return new Date(NaN);
+  }
+
+  public clone(date: Date): Date {
+    return new Date(date.valueOf());
+  }
+
+  public addCalendarMonths(date: Date, months: number): Date {
+    const targetMonth = date.getMonth() + months;
+    const dateWithCorrectMonth = new Date(0);
+    dateWithCorrectMonth.setFullYear(date.getFullYear(), targetMonth, 1);
+    dateWithCorrectMonth.setHours(0, 0, 0, 0);
+    const daysInMonth = this.getNumDaysInMonth(dateWithCorrectMonth);
+    const newDate = this.clone(date);
+    // Adapt last day of month for shorter months
+    newDate.setMonth(targetMonth, Math.min(daysInMonth, date.getDate()));
+    return newDate;
+  }
+
+  /**
+   * Compares two dates.
+   * @param first The first date to compare.
+   * @param second The second date to compare.
+   * @returns 0 if the dates are equal, a number less than 0 if the first date is earlier,
+   *     a number greater than 0 if the first date is later.
+   */
+  public compareDate(first: Date, second: Date): number {
+    return (
+      this.getYear(first) - this.getYear(second) ||
+      this.getMonth(first) - this.getMonth(second) ||
+      this.getDate(first) - this.getDate(second)
+    );
+  }
+
+  public deserializeDate(date: Date | string | number): Date | null {
+    if (typeof date === 'string') {
+      if (!Number.isNaN(+date)) {
+        return new Date(+date * 1000);
+      }
+      return new Date(date);
+    } else if (typeof date === 'number') {
+      return new Date(date * 1000);
+    }
+    if (date == null || (this.isDateInstance(date) && this.isValid(date))) {
+      return date;
+    }
+    return this.invalid();
   }
 }
