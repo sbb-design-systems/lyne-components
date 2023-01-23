@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.5](https://github.com/lyne-design-system/lyne-components/compare/v0.22.4...v0.22.5) (2023-01-23)
+
+### Features
+
+- **sbb-tooltip:** add sbb-tooltip-trigger ([#1528](https://github.com/lyne-design-system/lyne-components/issues/1528)) ([758ac49](https://github.com/lyne-design-system/lyne-components/commit/758ac490425feca88e6221cd26fd3dbcfa1e3d75))
+
 ### [0.22.4](https://github.com/lyne-design-system/lyne-components/compare/v0.22.3...v0.22.4) (2023-01-19)
 
 ### Features
