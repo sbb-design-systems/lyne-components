@@ -174,17 +174,7 @@ const formFieldBasicArgsWithIcons = {
   iconEnd: 'circle-information-small',
 };
 
-const TemplateSbbTimeInput = (args) => [
-  <sbb-time-input {...args} onChange={(event) => changeEventHandler(event)}></sbb-time-input>,
-  <div style="display: flex; gap: 1em; margin-block-start: 1rem;">
-    <button onClick={() => setValueAsDate()}>Set valueAsDate to current datetime</button>
-    <button onClick={() => setValue()}>Set value to 0</button>
-  </div>,
-  <div style="margin-block-start: 1rem;">Change time in input:</div>,
-  <div id="container-value"></div>,
-];
-
-const TemplateSbbTimeInputInFormField = ({
+const TemplateSbbTimeInput = ({
   label,
   optional,
   borderless,
@@ -193,7 +183,7 @@ const TemplateSbbTimeInputInFormField = ({
   size,
   errorClass,
   ...args
-}) => (
+}) => [
   <sbb-form-field
     size={size}
     label={label}
@@ -202,48 +192,54 @@ const TemplateSbbTimeInputInFormField = ({
     width="collapse"
   >
     {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
-    <sbb-time-input class={errorClass} {...args}></sbb-time-input>
+    <sbb-time-input
+      class={errorClass}
+      {...args}
+      onChange={(event) => changeEventHandler(event)}
+    ></sbb-time-input>
     {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
     {errorClass && <sbb-form-error>Error</sbb-form-error>}
-  </sbb-form-field>
-);
+  </sbb-form-field>,
+  <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
+    <button onClick={() => setValueAsDate()}>Set valueAsDate to current datetime</button>
+    <button onClick={() => setValue()}>Set value to 0</button>
+  </div>,
+  <div style="margin-block-start: 1rem;">Change time in input:</div>,
+  <div id="container-value"></div>,
+];
 
-export const sbbTimeInput = TemplateSbbTimeInput.bind({});
-sbbTimeInput.argTypes = { ...basicArgTypes };
-sbbTimeInput.args = { ...basicArgs };
+export const SbbTimeInput = TemplateSbbTimeInput.bind({});
+SbbTimeInput.argTypes = { ...formFieldBasicArgsTypes };
+SbbTimeInput.args = { ...formFieldBasicArgs };
 
-export const sbbTimeInputInFormField = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormField.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormField.args = { ...formFieldBasicArgs };
+export const SbbTimeInputWithIcons = TemplateSbbTimeInput.bind({});
+SbbTimeInputWithIcons.argTypes = { ...formFieldBasicArgsTypes };
+SbbTimeInputWithIcons.args = { ...formFieldBasicArgsWithIcons };
 
-export const sbbTimeInputInFormFieldWithIcons = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormFieldWithIcons.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFieldWithIcons.args = { ...formFieldBasicArgsWithIcons };
-
-export const sbbTimeInputInFormFieldBorderless = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFieldBorderless.args = {
+export const SbbTimeInputBorderless = TemplateSbbTimeInput.bind({});
+SbbTimeInputBorderless.argTypes = { ...formFieldBasicArgsTypes };
+SbbTimeInputBorderless.args = {
   ...formFieldBasicArgsWithIcons,
   borderless: true,
 };
 
-export const sbbTimeInputInFormFieldDisabled = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFieldDisabled.args = {
+export const SbbTimeInputDisabled = TemplateSbbTimeInput.bind({});
+SbbTimeInputDisabled.argTypes = { ...formFieldBasicArgsTypes };
+SbbTimeInputDisabled.args = {
   ...formFieldBasicArgsWithIcons,
   disabled: true,
 };
 
-export const sbbTimeInputInFormFieldReadonly = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormFieldReadonly.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFieldReadonly.args = {
+export const SbbTimeInputReadonly = TemplateSbbTimeInput.bind({});
+SbbTimeInputReadonly.argTypes = { ...formFieldBasicArgsTypes };
+SbbTimeInputReadonly.args = {
   ...formFieldBasicArgsWithIcons,
   readonly: true,
 };
 
-export const sbbTimeInputInFormFieldWithError = TemplateSbbTimeInputInFormField.bind({});
-sbbTimeInputInFormFieldWithError.argTypes = { ...formFieldBasicArgsTypes };
-sbbTimeInputInFormFieldWithError.args = {
+export const SbbTimeInputWithError = TemplateSbbTimeInput.bind({});
+SbbTimeInputWithError.argTypes = { ...formFieldBasicArgsTypes };
+SbbTimeInputWithError.args = {
   ...formFieldBasicArgsWithIcons,
   errorClass: 'sbb-invalid',
 };

@@ -333,10 +333,6 @@ export const InputWithoutBorder = TemplateInput.bind({});
 InputWithoutBorder.argTypes = basicArgTypes;
 InputWithoutBorder.args = { ...basicArgs, borderless: true };
 
-export const InputCollapsedWidth = TemplateInput.bind({});
-InputCollapsedWidth.argTypes = basicArgTypes;
-InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
-
 export const InputDisabled = TemplateInput.bind({});
 InputDisabled.argTypes = basicArgTypes;
 InputDisabled.args = { ...basicArgs, disabled: true };
@@ -378,6 +374,10 @@ SelectErrorSpace.args = { ...basicArgs, 'error-space': 'reserve', class: 'sbb-in
 export const SelectOptionalAndIcons = TemplateSelectWithIcons.bind({});
 SelectOptionalAndIcons.argTypes = basicArgTypes;
 SelectOptionalAndIcons.args = { ...basicArgs, optional: true };
+
+export const InputCollapsedWidth = TemplateInput.bind({});
+InputCollapsedWidth.argTypes = basicArgTypes;
+InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
 
 export default {
   decorators: [
