@@ -25,6 +25,7 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
 import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { ScrollHandler } from '../../global/helpers/scroll';
 
 type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -155,6 +156,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _dialogController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
+  private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
   private _hasActionGroup = false;
@@ -187,7 +189,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     this._dialog.show();
     this._setOverflowAttribute();
     // Disable scrolling for content below the dialog
-    document.body.style.overflow = 'hidden';
+    this._scrollHandler.disableScroll();
   }
 
   /**
@@ -295,7 +297,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
       // Enable scrolling for content below the dialog
-      document.body.style.overflow = 'auto';
+      this._scrollHandler.enableScroll();
     }
   }
 
