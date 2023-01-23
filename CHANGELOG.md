@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.1](https://github.com/lyne-design-system/lyne-components/compare/v0.23.0...v0.23.1) (2023-01-23)
+
+### Bug Fixes
+
+- **sbb-dialog:** stabilize dialog content position ([#1554](https://github.com/lyne-design-system/lyne-components/issues/1554)) ([5c51fe9](https://github.com/lyne-design-system/lyne-components/commit/5c51fe9d37e0e5af39f87cfdcddd59096fc6e0d1))
+- **sbb-title:** fix scroll spacing if an id is set ([#1552](https://github.com/lyne-design-system/lyne-components/issues/1552)) ([9add9a0](https://github.com/lyne-design-system/lyne-components/commit/9add9a09203bba101e57348ef7202600f6aa66ee))
+
 ## [0.23.0](https://github.com/lyne-design-system/lyne-components/compare/v0.22.6...v0.23.0) (2023-01-23)
 
 ### ⚠ BREAKING CHANGES
