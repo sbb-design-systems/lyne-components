@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.6](https://github.com/lyne-design-system/lyne-components/compare/v0.22.5...v0.22.6) (2023-01-23)
+
+### Bug Fixes
+
+- **layout:** use xxs token for expanded page spacing ([#1551](https://github.com/lyne-design-system/lyne-components/issues/1551)) ([3a80943](https://github.com/lyne-design-system/lyne-components/commit/3a809437778cc00696a6efd1fb72decbfbb49d46))
+
 ### [0.22.5](https://github.com/lyne-design-system/lyne-components/compare/v0.22.4...v0.22.5) (2023-01-23)
 
 ### Features
