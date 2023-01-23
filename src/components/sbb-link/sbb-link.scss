@@ -41,6 +41,10 @@
   word-break: break-word;
   cursor: pointer;
 
+  :host([variant='inline']) & {
+    @include sbb.link-inline-base;
+  }
+
   :host([text-size='xs']:not([variant='inline'])) & {
     @include sbb.text-xs--regular;
   }
@@ -51,10 +55,6 @@
 
   :host([text-size='m']:not([variant='inline'])) & {
     @include sbb.text-m--regular;
-  }
-
-  :host([variant='inline']) & {
-    @include sbb.link-inline-base;
   }
 
   @include sbb.link-focus-visible;
