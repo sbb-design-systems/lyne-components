@@ -15,10 +15,12 @@
 }
 
 input {
+  @include sbb.text-m--regular;
+  @include sbb.placeholder;
   @include sbb.input-reset;
 
   max-width: var(--sbb-time-input-max-width);
-  font-size: var(--sbb-font-size-text-m);
-  line-height: var(--sbb-typo-line-height-body-text);
+
+  // Inherit color from sbb-form-field context as there is no standalone usage planned.
   color: var(--sbb-form-field-text-color);
 }
