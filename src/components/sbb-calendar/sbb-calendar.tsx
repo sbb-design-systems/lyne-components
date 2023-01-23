@@ -78,7 +78,7 @@ export class SbbCalendar implements ComponentInterface {
   /** The currently active date. */
   @State() private _activeDate: Date;
 
-  /** The selected date. */
+  /** The selected date as ISOString. */
   @State() private _selected: string;
 
   /** The current width */

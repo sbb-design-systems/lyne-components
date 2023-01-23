@@ -72,7 +72,7 @@ export class SbbDatepicker {
           this._openedByKeyboard && this._calendarElement.focus();
         }}
         trigger={this._trigger}
-        hide-close-button={true}
+        data-hide-close-button
       >
         <sbb-calendar
           {...args}
