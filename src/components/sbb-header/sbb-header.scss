@@ -39,11 +39,13 @@
 
     &.sbb-header--visible {
       position: fixed;
+      top: calc(-1 * var(--sbb-header-height));
+      transform: translateY(100%);
     }
 
     &.sbb-header--hidden {
       position: fixed;
-      transform: translateY(-100%);
+      top: calc(-1 * var(--sbb-header-height));
       pointer-events: none;
     }
   }

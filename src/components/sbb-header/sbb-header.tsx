@@ -30,7 +30,7 @@ export class SbbHeader {
 
   private _scrollElement: HTMLElement | Document;
 
-  private _lastScrollTop = 0;
+  private _lastScroll = 0;
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public componentDidLoad(): void {
@@ -55,29 +55,28 @@ export class SbbHeader {
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
    */
   private _scrollListener(): void {
-    let scrollTop;
-    if (this._scrollElement instanceof window.HTMLElement) {
-      scrollTop = Math.round(this._scrollElement.scrollTop);
-    } else {
-      scrollTop = Math.round(document.documentElement.scrollTop);
-    }
-    this.shadow = scrollTop !== 0;
+
+    let currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
+    this.shadow = currentScroll !== 0;
     const header = this._element.shadowRoot.firstElementChild;
     // check if original header position has been scrolled out
-    if (scrollTop > this._element.offsetHeight) {
-      if (scrollTop > this._lastScrollTop) {
+    if (currentScroll > this._element.offsetHeight) {
+      if (currentScroll > 0 && this._lastScroll <= currentScroll){
+        this._lastScroll = currentScroll;
         header.classList.add('sbb-header--hidden');
         header.classList.remove('sbb-header--visible');
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
         this.shadow = false;
       } else {
+        this._lastScroll = currentScroll;
         header.classList.add('sbb-header--visible');
         header.classList.remove('sbb-header--hidden');
         this.shadow = true;
       }
-      this._lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
     } else {
-      if (scrollTop > this._lastScrollTop || scrollTop == 0) {
+      this.shadow = false;
+      if (currentScroll > this._lastScroll || currentScroll == 0) {
         header.classList.remove('sbb-header--visible');
       }
     }
