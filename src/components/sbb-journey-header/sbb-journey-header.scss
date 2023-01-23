@@ -26,7 +26,7 @@ sbb-icon {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--sbb-journey-header-gap);
+  column-gap: var(--sbb-journey-header-gap);
   width: fit-content;
 
   &[dir='rtl'] {
