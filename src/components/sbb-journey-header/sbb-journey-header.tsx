@@ -2,7 +2,7 @@ import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
-import { InterfaceTitleAttributes } from "../sbb-title/sbb-title.custom";
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
 
 @Component({
@@ -40,7 +40,11 @@ export class SbbJourneyHeader {
     const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
 
     return (
-      <sbb-title level={this.level} negative={this.negative} visual-level={this.size === 'l' ? '3' : '5'}>
+      <sbb-title
+        level={this.level}
+        negative={this.negative}
+        visual-level={this.size === 'l' ? '4' : '5'}
+      >
         <span class="sbb-journey-header" dir={getDocumentWritingMode()}>
           <span class="sbb-journey-header__origin">
             <span class="sbb-journey-header__connection--visually-hidden">
