@@ -75,6 +75,10 @@
   @include sbb.title--negative;
 }
 
+:host([id]) {
+  @include sbb.scroll-margin-block-start;
+}
+
 .sbb-title {
   @include sbb.font-smoothing;
 
@@ -82,10 +86,6 @@
 
   :host([visually-hidden]:not([visually-hidden='false'])) & {
     @include sbb.screen-reader-only;
-  }
-
-  &[id] {
-    @include sbb.scroll-margin-block-start;
   }
 
   :host(:is([level='1']:not([visual-level]), [visual-level='1'])) & {
