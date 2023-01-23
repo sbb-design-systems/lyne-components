@@ -242,6 +242,18 @@ export class SbbTooltip implements ComponentInterface {
       this._triggerElement.addEventListener('mouseleave', this._onTriggerMouseLeave, {
         signal: this._tooltipController.signal,
       });
+
+      this._triggerElement.addEventListener(
+        'keydown',
+        (evt: KeyboardEvent) => {
+          if (evt.code === 'Space' || evt.code === 'Enter') {
+            this.open();
+          }
+        },
+        {
+          signal: this._tooltipController.signal,
+        }
+      );
     } else {
       this._triggerElement.addEventListener(
         'click',
@@ -360,10 +372,12 @@ export class SbbTooltip implements ComponentInterface {
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
     this._prevFocusedElement = document.activeElement as HTMLElement;
-    this._firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY);
+    this._firstFocusable =
+      this._element.querySelector(IS_FOCUSABLE_QUERY) ||
+      this._element.shadowRoot.querySelector('[sbb-tooltip-close]');
 
     if (this._openedByKeyboard) {
-      this._firstFocusable.focus();
+      this._firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied

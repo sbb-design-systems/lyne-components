@@ -1,0 +1,36 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-tooltip-background-hover: var(--sbb-color-iron-default);
+  --sbb-tooltip-background-active: var(--sbb-color-anthracite-default);
+
+  display: inline-block;
+}
+
+.sbb-tooltip-trigger {
+  @include sbb.text-inherit;
+  @include sbb.button-reset;
+
+  display: flex;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-4x);
+  }
+
+  &:active {
+    color: var(--sbb-tooltip-background-active);
+  }
+
+  @include sbb.hover-mq($hover: true) {
+    &:hover {
+      color: var(--sbb-tooltip-background-hover);
+    }
+  }
+}
