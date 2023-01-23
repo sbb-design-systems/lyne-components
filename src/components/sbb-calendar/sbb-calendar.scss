@@ -2,15 +2,21 @@
 
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
-// FIXME draft, to be checked
 @include sbb.host-component-properties;
 
 :host {
   display: inline-block;
+
+  --sbb-calendar-day-size: #{sbb.px-to-rem-build(40)};
+  --sbb-calendar-day-padding: #{sbb.px-to-rem-build(2)};
+
+  @include sbb.mq($from: micro) {
+    --sbb-calendar-day-size: #{sbb.px-to-rem-build(44)};
+  }
 }
 
 .sbb-calendar__wrapper {
-  width: 280px;
+  width: max-content;
   display: block;
 }
 
@@ -23,27 +29,43 @@
 }
 
 .sbb-calendar__controls-month {
+  @include sbb.text-s--regular;
+
   width: 100%;
-  text-align: center;
+  display: flex;
+  gap: var(--sbb-spacing-fixed-10x);
+
+  .sbb-calendar__controls-month-label {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.sbb-calendar__table-container {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-10x);
 }
 
 .sbb-calendar__table {
   @include sbb.stretch(width);
-}
 
-// FIXME trick for spacing between thead and tbody
-tbody::before {
-  width: 100%;
-  display: block;
-  content: '\200C';
-  line-height: var(--sbb-spacing-fixed-4x);
+  border-collapse: collapse;
+  height: max-content;
 }
 
 th {
   @include sbb.text-xs--regular; // fixme for medium
 
+  color: var(--sbb-color-granite-default);
+  width: var(--sbb-calendar-day-size);
   padding: 0;
-  min-width: 40px;
+  padding-block-end: var(--sbb-spacing-fixed-4x);
+}
+
+td {
+  padding: var(--sbb-calendar-day-padding);
+  height: var(--sbb-calendar-day-size);
+  width: var(--sbb-calendar-day-size);
 }
 
 td > button {
@@ -51,6 +73,29 @@ td > button {
   @include sbb.button-reset;
   @include sbb.stretch(width);
   @include sbb.stretch(height);
+
+  border-radius: 50%;
+  color: var(--sbb-color-charcoal-default);
+  position: relative;
+
+  &:disabled {
+    color: var(--sbb-color-granite-default);
+  }
+
+  &.sbb-datepicker__crossed-out::before {
+    content: '';
+    height: 1.5px;
+    width: 25.5px;
+    position: absolute;
+    background-color: var(--sbb-color-granite-default);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+  }
 }
 
 .sbb-datepicker__day-today {
@@ -58,7 +103,10 @@ td > button {
 }
 
 .sbb-datepicker__day-selected {
-  border: 1px solid black; // fixme
+  color: var(--sbb-color-white-default);
+  background-color: var(--sbb-color-charcoal-default);
+
+  // box-shadow: inset 0 0 0 2px var(--sbb-color-charcoal-default); // fixme
 }
 
 .visually-hidden {

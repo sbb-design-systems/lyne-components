@@ -5,10 +5,14 @@ import {
   EventEmitter,
   h,
   JSX,
+  Method,
   Prop,
   State,
+  Watch,
 } from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
+import { JSXElement } from '@babel/types';
 
 @Component({
   shadow: true,
@@ -20,16 +24,16 @@ export class SbbCalendar implements ComponentInterface {
   @Prop() public wide = false;
 
   /** The minimum valid date. */
-  @Prop() public min: Date;
+  @Prop() public min: Date | string | number;
 
   /** The maximum valid date. */
-  @Prop() public max: Date;
+  @Prop() public max: Date | string | number;
 
   /** A function used to filter out dates. */
-  @Prop() public dateFilter: (date: Date | null) => boolean;
+  @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
   /** The selected date. */
-  @Prop() public selectedDate: Date;
+  @Prop({ attribute: 'selected-date' }) public selectedDate: Date;
 
   /** Event emitted on date selection. */
   @Event({
@@ -37,41 +41,99 @@ export class SbbCalendar implements ComponentInterface {
   })
   public dateSelected: EventEmitter<Date>;
 
+  @Watch('min')
+  public convertMinDate(newMin: Date | string | number): void {
+    this._min = this._nativeDateAdapter.deserializeDate(newMin);
+  }
+
+  @Watch('max')
+  public convertMaxDate(newMax: Date | string | number): void {
+    this._max = this._nativeDateAdapter.deserializeDate(newMax);
+  }
+
+  @Watch('wide')
+  public changeWidthConfiguration(): void {
+    this._setCalendarWidth();
+  }
+
+  @Watch('selectedDate')
+  public selectedDateChanged(newDate: Date): void {
+    if (!this._disableDay(newDate.toISOString()) || this.dateFilter(newDate)) {
+      this._selected = newDate.toISOString();
+    }
+  }
+
+  @Method()
+  public focus(): void {
+    console.log('focus now');
+  }
+
+  public connectedCallback(): void {
+    this.convertMinDate(this.min);
+    this.convertMaxDate(this.max);
+
+    window.addEventListener('resize', () => this._init(), {
+      passive: true,
+    });
+
+    this._setDates();
+    this._init();
+  }
+
+  /** The currently active date. */
+  @State() private _activeDate: Date;
+
+  /** The selected date. */
+  @State() private _selected: string;
+
+  /** The current width */
+  @State() private _wide: boolean;
+
+  /** Min and Max values converted to date */
+  @State() private _min: Date;
+  @State() private _max: Date;
+
   /** Date adapter. */
   private _nativeDateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
   /** A list of the day of the week, in two format (long and single char). */
   private _weekdays: { long: string; narrow: string }[];
 
-  /** The currently active date. */
-  private _activeDate: Date;
-
-  /** The selected date. */
-  @State() private _selected: number;
-
-  /** The date of the current day. */
-  private _today: number;
-
   /** The name of the displayed month. */
-  private _monthLabel: string;
+  //private _monthLabel: string;
 
   /** The number of blank cells in the first row before the 1st of the month. */
-  private _firstWeekOffset: number;
+  //private _firstWeekOffset: number;
 
   /** Grid of calendar cells representing the dates of the month. */
-  private _weeks: { value: number; displayValue: string }[][];
-
-  public connectedCallback(): void {
-    this._init();
-  }
+  private _weeks: { value: string; displayValue: string }[][];
+  private _nextMonthWeeks: { value: string; displayValue: string }[][];
 
   /** Initialize the component. */
   private _init(): void {
+    this._setCalendarWidth();
     this._setWeekdays();
-    this._setDates();
-    this._setMonthLabel();
-    this._setFirstWeekOffset();
-    this._createWeekRows();
+    //this._setMonthLabel();
+    //this._firstWeekOffset = this._nativeDateAdapter.calcFirstWeekOffset(this._activeDate);
+    this._weeks = this._createWeekRows(this._activeDate.getMonth(), this._activeDate.getFullYear());
+    this._nextMonthWeeks = this._wide
+      ? this._createWeekRows(this._activeDate.getMonth() + 1, this._activeDate.getFullYear())
+      : [[]];
+  }
+
+  /** Sets the date variables. */
+  private _setDates(): void {
+    this._activeDate = this._nativeDateAdapter.today();
+    if (
+      (!!this.selectedDate && !this._disableDay(this.selectedDate.toISOString())) ||
+      this.dateFilter(this.selectedDate)
+    ) {
+      this._selected = this.selectedDate ? this.selectedDate.toISOString() : undefined;
+    }
+  }
+
+  private _setCalendarWidth(): void {
+    this._wide = isBreakpoint('medium') && this.wide;
   }
 
   /** Creates the array of weekdays. */
@@ -85,53 +147,49 @@ export class SbbCalendar implements ComponentInterface {
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
   }
 
-  /** Sets the date variables. */
-  private _setDates(): void {
-    this._activeDate = this._nativeDateAdapter.today();
-    this._selected = this._nativeDateAdapter.getDateInCurrentMonth(
-      this.selectedDate,
-      this._activeDate
-    );
-    this._today = this._nativeDateAdapter.getDateInCurrentMonth(
-      this._nativeDateAdapter.today(),
-      this._activeDate
-    );
-  }
+  // /** Sets the label for the displayed month. */
+  // private _setMonthLabel(): void {
+  //   this._monthLabel =
+  //     this._nativeDateAdapter.getMonthNames('long')[
+  //       this._nativeDateAdapter.getMonth(this._activeDate)
+  //     ];
+  // }
 
-  /** Sets the label for the displayed month. */
-  private _setMonthLabel(): void {
-    this._monthLabel =
-      this._nativeDateAdapter.getMonthNames('long')[
-        this._nativeDateAdapter.getMonth(this._activeDate)
-      ];
-  }
-
-  /** Sets the first week offset. */
-  private _setFirstWeekOffset(): void {
-    const firstOfMonth = this._nativeDateAdapter.createDate(
-      this._nativeDateAdapter.getYear(this._activeDate),
-      this._nativeDateAdapter.getMonth(this._activeDate),
-      1
-    );
-    this._firstWeekOffset =
-      (NativeDateAdapter.DAYS_PER_WEEK +
-        this._nativeDateAdapter.getDayOfWeek(firstOfMonth) -
-        this._nativeDateAdapter.getFirstDayOfWeek()) %
-      NativeDateAdapter.DAYS_PER_WEEK;
+  private _getMonthLabel(i: number): string {
+    return this._nativeDateAdapter.getMonthNames('long')[i];
   }
 
   /** Create the rows for each week. */
-  private _createWeekRows(): void {
-    const daysInMonth = this._nativeDateAdapter.getNumDaysInMonth(this._activeDate);
+  private _createWeekRows(
+    month: number,
+    year: number
+  ): { value: string; displayValue: string }[][] {
+    const daysInMonth = this._nativeDateAdapter.getNumDaysInMonth(new Date(year, month, 1));
     const dateNames = this._nativeDateAdapter.getDateNames();
-    this._weeks = [[]];
-    for (let i = 0, cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+    const weeks = [[]];
+    const weekOffset = this._nativeDateAdapter.calcFirstWeekOffset(new Date(year, month, 1));
+    for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === NativeDateAdapter.DAYS_PER_WEEK) {
-        this._weeks.push([]);
+        weeks.push([]);
         cell = 0;
       }
-      this._weeks[this._weeks.length - 1].push({ value: i + 1, displayValue: dateNames[i] });
+      weeks[weeks.length - 1].push({
+        value: new Date(year, month, i + 1).toISOString(),
+        displayValue: dateNames[i],
+      });
     }
+    return weeks;
+  }
+
+  private _createTable(weeks: { value: string; displayValue: string }[][]): JSXElement {
+    return (
+      <table class="sbb-calendar__table">
+        <thead class="sbb-calendar__table-header">
+          <tr class="sbb-calendar__table-header-row">{this._createTableHeader()}</tr>
+        </thead>
+        <tbody class="sbb-calendar__table-body">{this._createTableBody(weeks)}</tbody>
+      </table>
+    );
   }
 
   /** Creates the table header with the months header cells. */
@@ -145,8 +203,8 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Create the table body with the days cells. */
-  private _createTableBody(): JSX.Element {
-    return this._weeks.map((week: { value: number; displayValue: string }[], rowIndex: number) => {
+  private _createTableBody(weeks: { value: string; displayValue: string }[][]): JSX.Element {
+    return weeks.map((week: { value: string; displayValue: string }[], rowIndex: number) => {
       const firstRowOffset = NativeDateAdapter.DAYS_PER_WEEK - week.length;
       if (rowIndex === 0 && firstRowOffset) {
         return (
@@ -160,44 +218,65 @@ export class SbbCalendar implements ComponentInterface {
     });
   }
 
-  /**
-   * Create the cells for the days.
-   * FIXME: check selected and active states.
-   */
+  /** Create the cells for the days. */
   private _createDayCells(
-    week: { value: number; displayValue: string }[],
+    week: { value: string; displayValue: string }[],
     rowIndex: number,
     firstRowOffset?: number
   ): JSX.Element {
-    return week.map((day: { value: number; displayValue: string }, colIndex: number) => (
-      <td>
-        <button
-          class={{
-            'sbb-datepicker__day-today': day.value === this._today,
-            'sbb-datepicker__day-selected': day.value === this._selected,
-            'sbb-datepicker__day-active': this._isActiveCell(rowIndex, colIndex, firstRowOffset),
-          }}
-          onClick={() => this._selectDate(day.value)}
-        >
-          {day.displayValue}
-        </button>
-      </td>
-    ));
+    const today = this._nativeDateAdapter.today().toISOString();
+    return week.map((day: { value: string; displayValue: string }, colIndex: number) => {
+      const isOutOfRange = !this._disableDay(day.value);
+      const selected = this._selected && day.value === this._selected;
+      return (
+        <td>
+          <button
+            class={{
+              'sbb-datepicker__day-today': day.value === today,
+              'sbb-datepicker__day-selected': selected,
+              'sbb-datepicker__crossed-out': !isOutOfRange && !this.dateFilter(new Date(day.value)),
+              'sbb-datepicker__day-active': this._isActiveCell(rowIndex, colIndex, firstRowOffset),
+            }}
+            onClick={() => this._selectDate(day.value)}
+            disabled={isOutOfRange || !this.dateFilter(new Date(day.value))}
+            aria-label={this._getAriaLabel(day.value)}
+            aria-pressed={selected ? 'true' : 'false'}
+            aria-disabled={isOutOfRange || !this.dateFilter(new Date(day.value)) ? 'true' : 'false'}
+            tabindex="-1"
+          >
+            {day.displayValue}
+          </button>
+        </td>
+      );
+    });
+  }
+
+  private _getAriaLabel(day: string): string {
+    const dateObj = new Date(day);
+    return `${dateObj.getDate()} ${dateObj.getMonth() + 1} ${dateObj.getFullYear()}`;
+  }
+
+  private _disableDay(date: string): boolean {
+    if (
+      (this._nativeDateAdapter.isValid(this._min) &&
+        this._nativeDateAdapter.compareDate(this._min, new Date(date)) > 0) ||
+      (this._nativeDateAdapter.isValid(this._max) &&
+        this._nativeDateAdapter.compareDate(this._max, new Date(date)) < 0)
+    ) {
+      return false;
+    }
+    return true;
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(day: number): void {
+  private _selectDate(day: string): void {
     if (this._selected !== day) {
       this._selected = day;
-      const selectedDate = this._nativeDateAdapter.getDateFromDayOfMonth(day, this._activeDate);
-      this.dateSelected.emit(selectedDate);
+      this.dateSelected.emit(new Date(day));
     }
   }
 
-  /**
-   * Sets the active date.
-   * FIXME: check it, not working as expected.
-   * */
+  /** Sets the active date. */
   private _isActiveCell(rowIndex: number, colIndex: number, firstRowOffset?: number): boolean {
     let cellNumber = rowIndex * NativeDateAdapter.DAYS_PER_WEEK + colIndex;
 
@@ -209,20 +288,71 @@ export class SbbCalendar implements ComponentInterface {
     return cellNumber === this._nativeDateAdapter.getDate(this._activeDate) - 1;
   }
 
+  private _nextMonth(): void {
+    const newActiveDate = this._nativeDateAdapter.addCalendarMonths(
+      this._activeDate,
+      this._wide ? 2 : 1
+    );
+    this._assignActiveDate(newActiveDate);
+    this._init();
+  }
+
+  private _previousMonth(): void {
+    const newActiveDate = this._nativeDateAdapter.addCalendarMonths(
+      this._activeDate,
+      this._wide ? -2 : -1
+    );
+    this._assignActiveDate(newActiveDate);
+    this._init();
+  }
+
+  private _assignActiveDate(date: Date): void {
+    if (
+      this._nativeDateAdapter.isValid(this._min) &&
+      this._nativeDateAdapter.compareDate(this._min, date) > 0
+    ) {
+      this._activeDate = this._min;
+    } else if (
+      this._nativeDateAdapter.isValid(this._max) &&
+      this._nativeDateAdapter.compareDate(this._max, date) < 0
+    ) {
+      this._activeDate = this._max;
+    } else {
+      this._activeDate = date;
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-calendar__wrapper">
         <div class="sbb-calendar__controls">
-          <sbb-button variant="secondary" iconName="chevron-left-small"></sbb-button>
-          <span class="sbb-calendar__controls-month">{this._monthLabel}</span>
-          <sbb-button variant="secondary" iconName="chevron-right-small"></sbb-button>
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-left-small"
+            size="m"
+            onClick={() => this._previousMonth()}
+          ></sbb-button>
+          <div class="sbb-calendar__controls-month">
+            <span class="sbb-calendar__controls-month-label">
+              {this._getMonthLabel(this._nativeDateAdapter.getMonth(this._activeDate))}
+            </span>
+            {this._wide && (
+              <span class="sbb-calendar__controls-month-label">
+                {this._getMonthLabel(this._nativeDateAdapter.getMonth(this._activeDate) + 1)}
+              </span>
+            )}
+          </div>
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-right-small"
+            size="m"
+            onClick={() => this._nextMonth()}
+          ></sbb-button>
         </div>
-        <table class="sbb-calendar__table">
-          <thead class="sbb-calendar__table-header">
-            <tr class="sbb-calendar__table-header-row">{this._createTableHeader()}</tr>
-          </thead>
-          <tbody class="sbb-calendar__table-body">{this._createTableBody()}</tbody>
-        </table>
+        <div class="sbb-calendar__table-container">
+          {this._createTable(this._weeks)}
+          {this._wide && this._createTable(this._nextMonthWeeks)}
+        </div>
       </div>
     );
   }

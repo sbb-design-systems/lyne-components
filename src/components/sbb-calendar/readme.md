@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property       | Attribute | Description                              | Type                      | Default     |
-| -------------- | --------- | ---------------------------------------- | ------------------------- | ----------- |
-| `dateFilter`   | --        | A function used to filter out dates.     | `(date: Date) => boolean` | `undefined` |
-| `max`          | --        | The maximum valid date.                  | `Date`                    | `undefined` |
-| `min`          | --        | The minimum valid date.                  | `Date`                    | `undefined` |
-| `selectedDate` | --        | The selected date.                       | `Date`                    | `undefined` |
-| `wide`         | `wide`    | If set to true, two months are displayed | `boolean`                 | `false`     |
+| Property       | Attribute | Description                              | Type                       | Default      |
+| -------------- | --------- | ---------------------------------------- | -------------------------- | ------------ |
+| `dateFilter`   | --        | A function used to filter out dates.     | `(date: Date) => boolean`  | `() => true` |
+| `max`          | `max`     | The maximum valid date.                  | `Date \| number \| string` | `undefined`  |
+| `min`          | `min`     | The minimum valid date.                  | `Date \| number \| string` | `undefined`  |
+| `selectedDate` | --        | The selected date.                       | `Date`                     | `undefined`  |
+| `wide`         | `wide`    | If set to true, two months are displayed | `boolean`                  | `false`      |
 
 
 ## Events
@@ -21,7 +21,24 @@
 | `date-selected` | Event emitted on date selection. | `CustomEvent<Date>` |
 
 
+## Methods
+
+### `focus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
+
+### Used by
+
+ - [sbb-datepicker](../sbb-datepicker)
 
 ### Depends on
 
@@ -32,6 +49,7 @@
 graph TD;
   sbb-calendar --> sbb-button
   sbb-button --> sbb-icon
+  sbb-datepicker --> sbb-calendar
   style sbb-calendar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
