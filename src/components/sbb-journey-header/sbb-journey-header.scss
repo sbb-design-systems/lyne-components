@@ -17,6 +17,11 @@ sbb-title {
   margin: 0;
 }
 
+sbb-icon {
+  // Avoid layout shift after loading the icon
+  min-width: var(--sbb-size-icon-ui-small);
+}
+
 .sbb-journey-header {
   display: flex;
   flex-wrap: wrap;
