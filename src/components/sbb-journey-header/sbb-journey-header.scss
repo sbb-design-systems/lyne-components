@@ -18,8 +18,6 @@ sbb-title {
 }
 
 .sbb-journey-header {
-  @include sbb.font-smoothing;
-
   display: flex;
   flex-wrap: wrap;
   align-items: center;
