@@ -14,9 +14,9 @@ describe('sbb-toggle', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle role="radiogroup" size="m">
           <mock:shadow-root>
-            <div class="sbb-toggle" tabindex="-1">
+            <div class="sbb-toggle">
               <slot></slot>
-            </div>  
+            </div>
           </mock:shadow-root>
         </sbb-toggle>
       `);
