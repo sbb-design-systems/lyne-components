@@ -23,6 +23,7 @@ import {
 } from '../../global/interfaces/accessibility-properties';
 import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
+import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -129,6 +130,11 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   public disconnectedCallback(): void {
     this._checkboxAttributeObserver.disconnect();
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostEvent(event, this._element, this._checkbox);
   }
 
   /** Method triggered on checkbox change. If not indeterminate, inverts the value; otherwise sets checked to true. */
