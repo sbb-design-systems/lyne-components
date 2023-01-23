@@ -1,7 +1,8 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import iconOneWay from 'lyne-icons/dist/icons/arrow-long-right-small.svg';
-import iconRoundTrip from 'lyne-icons/dist/icons/arrows-left-right-small.svg';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
 
 @Component({
@@ -10,75 +11,61 @@ import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
   tag: 'sbb-journey-header',
 })
 export class SbbJourneyHeader {
-  /** Origin location for the journey header */
+  /** Origin location for the journey header. */
   @Prop() public origin!: string;
 
-  /** Destination location for the journey header */
+  /** Destination location for the journey header. */
   @Prop() public destination!: string;
 
-  /**
-   * Is the journey a round trip. If so it gets indicated through a roundtrip
-   * icon
-   */
-  @Prop() public isRoundTrip?: boolean;
+  /** Whether the journey is a round trip. If so, the icon changes to a round-trip one. */
+  @Prop() public roundTrip?: boolean;
 
-  /**
-   * Journey header markup:
-   * Depends on the context where the journey will be used but it is important
-   * to pick the correct markup element to match to correct semantics
-   */
-  @Prop() public markup?: InterfaceJourneyHeaderAttributes['markup'] = 'span';
+  /** Heading level of the journey header element (e.g. h1-h6). */
+  @Prop() public level?: InterfaceTitleAttributes['level'] = '3';
 
-  /** Journey header appearance */
-  @Prop() public appearance?: InterfaceJourneyHeaderAttributes['appearance'] = 'primary';
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
 
-  /** Journey header size */
-  @Prop() public size?: InterfaceJourneyHeaderAttributes['size'] = '5';
+  /** Journey header size. */
+  @Prop({ reflect: true }) public size?: InterfaceJourneyHeaderAttributes['size'] = 'm';
+
+  @State() private _currentLanguage = documentLanguage();
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
 
   public render(): JSX.Element {
-    const journeyIcon = this.isRoundTrip ? iconRoundTrip : iconOneWay;
-
-    /*
-     * Connection text
-     * @Todo i18n handling
-     * @Todo Check if anybody did think about `via` connections yet? Or will
-     * this component never show any `via` connections?
-     */
-    const connectionTextOrigin = 'Connection from';
-    const connectionTextDestination = 'to';
-    const connectionTextRoundtrip = this.isRoundTrip ? `and back to ${this.origin}` : '';
-
-    const TAGNAME = `${this.markup}`; // eslint-disable-line @typescript-eslint/no-unused-vars
-
-    const className = `journey-header journey-header--${this.appearance} journey-header--size-${this.size}`;
-
-    const currentWritingMode = getDocumentWritingMode();
-
-    const attrs = {
-      class: className,
-    };
+    const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
 
     return (
-      <TAGNAME {...attrs} dir={currentWritingMode}>
-        <span class="connection-text-origin connection--visually-hidden">
-          {connectionTextOrigin}
-        </span>
-        <span class="origin">{this.origin}</span>
-        <span class="icon" innerHTML={journeyIcon}>
-          <span class="connection-text-destination connection--visually-hidden">
-            {connectionTextDestination}
+      <sbb-title
+        level={this.level}
+        negative={this.negative}
+        visual-level={this.size === 'l' ? '4' : '5'}
+      >
+        <span class="sbb-journey-header" dir={getDocumentWritingMode()}>
+          <span class="sbb-journey-header__origin">
+            <span class="sbb-journey-header__connection--visually-hidden">
+              {i18nConnectionFrom[this._currentLanguage]}
+            </span>
+            {this.origin}
+          </span>
+          <sbb-icon name={iconName} />
+          <span class="sbb-journey-header__destination">
+            <span class="sbb-journey-header__connection--visually-hidden">
+              {i18nConnectionTo[this._currentLanguage]}
+            </span>
+            {this.destination}
+            {this.roundTrip && (
+              <span class="sbb-journey-header__connection--visually-hidden">
+                {i18nConnectionRoundtrip(this.origin)[this._currentLanguage]}
+              </span>
+            )}
           </span>
         </span>
-        <span class="destination">{this.destination}</span>
-        {this.isRoundTrip ? (
-          <span class="connection-text-roundtrip connection--visually-hidden">
-            {' '}
-            {connectionTextRoundtrip}
-          </span>
-        ) : (
-          ''
-        )}
-      </TAGNAME>
+      </sbb-title>
     );
   }
 }
