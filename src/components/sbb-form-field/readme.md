@@ -58,7 +58,8 @@ the `prefix` and `suffix` slots.
 
 By default, the component has a defined width and min-width. However, this behavior can be overridden by setting 
 the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.
-This is useful, for example, for the `sbb-time-input` component. 
+This is useful, for example, for the `sbb-time-input` component. However, as the width-styles are exposed to the host, 
+it's possible to apply any desired width by setting just the `width` and `min-width` CSS properties.
 
 ## Accessibility
 
