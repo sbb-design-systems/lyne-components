@@ -176,14 +176,11 @@ slot[name='label'] > span {
   @include sbb.text-m--regular;
   @include sbb.placeholder;
   @include sbb.ellipsis;
+  @include sbb.input-reset;
 
   overflow: var(--sbb-form-field-overflow);
-  -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;
-  border: none;
-  outline: none;
-  padding: 0;
   color: var(--sbb-form-field-text-color);
   background-color: var(--sbb-form-field-background-color);
 
