@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.23.0](https://github.com/lyne-design-system/lyne-components/compare/v0.22.6...v0.23.0) (2023-01-23)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-journey-header:** - 'appearance' prop has been removed;
+
+* 'isRoundTrip' prop has been renamed to 'roundTrip';
+* 'markup' prop has been renamed to 'level' and values has been changed;
+* 'negative' prop has been added;
+* 'size' has now 'm' and 'l' as values instead then '5' and '4'.
+
+### Features
+
+- **sbb-journey-header:** component refactoring ([#1539](https://github.com/lyne-design-system/lyne-components/issues/1539)) ([be4082f](https://github.com/lyne-design-system/lyne-components/commit/be4082f22c4ca59194a333419ed8161e8599f6e2))
+
 ### [0.22.6](https://github.com/lyne-design-system/lyne-components/compare/v0.22.5...v0.22.6) (2023-01-23)
 
 ### Bug Fixes
