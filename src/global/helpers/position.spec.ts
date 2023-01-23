@@ -14,8 +14,8 @@ describe('getElementPosition', () => {
     Object.defineProperty(HTMLElement.prototype, 'clientHeight', { configurable: true, value: 80 });
 
     // Set window dimension
-    window.innerWidth = 1080;
-    window.innerHeight = 720;
+    Object.defineProperty(document.documentElement, 'clientWidth', { value: 1080 });
+    Object.defineProperty(document.documentElement, 'clientHeight', { value: 720 });
   });
 
   it('returns the correct element coordinates', () => {
@@ -112,14 +112,14 @@ describe('getElementPosition', () => {
 
   it('changes horizontal alignment to center', () => {
     jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
-      x: 48,
+      x: 64,
       y: 48,
       width: 80,
       height: 48,
       top: 48,
       right: 952,
       bottom: 624,
-      left: 48,
+      left: 64,
       toJSON: () => {},
     });
 
@@ -127,7 +127,7 @@ describe('getElementPosition', () => {
 
     expect(elementPosition).toEqual({
       top: 96,
-      left: 8,
+      left: 24,
       maxHeight: '624px',
       alignment: { horizontal: 'center', vertical: 'below' },
     });

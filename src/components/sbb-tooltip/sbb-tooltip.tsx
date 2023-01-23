@@ -402,6 +402,7 @@ export class SbbTooltip implements ComponentInterface {
       verticalOffset: VERTICAL_OFFSET,
       horizontalOffset: HORIZONTAL_OFFSET,
       centered: true,
+      responsiveHeight: true,
     });
 
     this._alignment = tooltipPosition.alignment;
