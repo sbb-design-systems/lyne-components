@@ -1,4 +1,3 @@
-import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import events from './sbb-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
@@ -36,8 +35,8 @@ export const Default = Template.bind({});
 Default.documentation = {
   container: {
     styles: {
-      'background-color': SbbColorWhiteDefault,
-      border: `2px solid ${SbbColorMilkDefault}`,
+      'background-color': 'var(--sbb-color-white-default);',
+      border: '2px solid var(--sbb-color-milk-default);',
     },
   },
   title: 'Default Accordion Item',

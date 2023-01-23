@@ -1,5 +1,4 @@
 import images from '../../global/images';
-import { SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -14,7 +13,7 @@ const wrapperStyle = (context) => {
   if (context.args.variant === 'translucent') {
     return `background: url('${images[1]}');background-size: cover;`;
   }
-  return `background-color: ${SbbColorWhiteDefault};`;
+  return 'background-color: var(--sbb-color-white-default);';
 };
 
 const focusStyle = (context) => {
