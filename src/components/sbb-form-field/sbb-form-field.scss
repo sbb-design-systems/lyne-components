@@ -27,6 +27,9 @@
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
   display: inline-block;
+}
+
+:host(:where(:not([width='collapse']))) {
   min-width: #{sbb.px-to-rem-build(150)};
   width: min(#{sbb.px-to-rem-build(300)}, 100%);
 }
@@ -96,11 +99,6 @@
 :host([data-input-type='sbb-slider']) {
   --sbb-form-field-overflow: visible;
   --sbb-form-field-background-color: var(--sbb-color-white-default);
-}
-
-:host([width='collapse']) {
-  min-width: auto;
-  width: auto;
 }
 
 .sbb-form-field__space-wrapper {
