@@ -20,6 +20,7 @@ import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
+import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
 
 /**
  * @slot unnamed - This slot will show the provided tag label.
@@ -61,6 +62,11 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
+
+  @Listen('click')
+  public handleClick(event: Event): void {
+    forwardHostEvent(event, this._element, this._checkbox);
   }
 
   /**
