@@ -1,4 +1,4 @@
-import getDocumentLang from './get-document-lang';
+import { documentLanguage } from './language';
 
 // FIXME for missing utils, see:
 //  https://github.com/sbb-design-systems/sbb-angular/blob/main/src/angular/core/datetime/native-date-adapter.ts
@@ -43,12 +43,12 @@ export class NativeDateAdapter {
   }
 
   public getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
-    const formatter = new Intl.DateTimeFormat(getDocumentLang(), { month: style });
+    const formatter = new Intl.DateTimeFormat(documentLanguage(), { month: style });
     return this._range(12, (i) => formatter.format(new Date(2017, i, 1)));
   }
 
   public getDateNames(): string[] {
-    const formatter = new Intl.DateTimeFormat(getDocumentLang(), { day: 'numeric' });
+    const formatter = new Intl.DateTimeFormat(documentLanguage(), { day: 'numeric' });
     return this._range(31, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 
@@ -57,7 +57,7 @@ export class NativeDateAdapter {
    * @param style - 'long' for full name, 'short' for short name, 'narrow' for single letter.
    */
   public getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
-    const formatter = new Intl.DateTimeFormat(getDocumentLang(), { weekday: style });
+    const formatter = new Intl.DateTimeFormat(documentLanguage(), { weekday: style });
     return this._range(7, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 

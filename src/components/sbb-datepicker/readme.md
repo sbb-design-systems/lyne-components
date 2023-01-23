@@ -17,18 +17,19 @@
 
 ### Depends on
 
-- [sbb-button](../sbb-button)
+- [sbb-tooltip-trigger](../sbb-tooltip-trigger)
 - [sbb-tooltip](../sbb-tooltip)
 - [sbb-calendar](../sbb-calendar)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-datepicker --> sbb-button
+  sbb-datepicker --> sbb-tooltip-trigger
   sbb-datepicker --> sbb-tooltip
   sbb-datepicker --> sbb-calendar
-  sbb-button --> sbb-icon
+  sbb-tooltip-trigger --> sbb-icon
   sbb-tooltip --> sbb-button
+  sbb-button --> sbb-icon
   sbb-calendar --> sbb-button
   style sbb-datepicker fill:#f9f,stroke:#333,stroke-width:4px
 ```

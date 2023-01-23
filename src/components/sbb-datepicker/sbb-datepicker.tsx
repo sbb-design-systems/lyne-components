@@ -58,14 +58,12 @@ export class SbbDatepicker {
     const args = this._resolveArgs();
 
     return [
-      <sbb-button
-        variant="transparent"
+      <sbb-tooltip-trigger
         ref={(el) => {
           this._registerTrigger(el);
         }}
         iconName="calendar-small"
-      >
-      </sbb-button>,
+      ></sbb-tooltip-trigger>,
       <sbb-tooltip
         onDid-close={() => {
           this._openedByKeyboard = false;
