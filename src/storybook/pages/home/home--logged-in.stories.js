@@ -213,12 +213,43 @@ const Template = (args) => (
             </li>
           </ul>
           <sbb-button
-            href="https://github.com/lyne-design-system/lyne-components"
             variant="secondary"
             class="all-purchased-tickets-button"
+            onClick={(event) => document.getElementById('my-dialog').open(event)}
           >
             All purchased tickets
           </sbb-button>
+
+          <sbb-dialog id="my-dialog" title-content="My Dialog" title-back-button>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            <sbb-action-group
+              slot="action-group"
+              align-group="stretch"
+              orientation="vertical"
+              horizontal-from="medium"
+            >
+              <sbb-link
+                variant="block"
+                text-size="s"
+                align-self="start"
+                icon-name="chevron-small-left-small"
+                icon-placement="start"
+                href="https://www.sbb.ch/en/"
+                sbb-dialog-close
+              >
+                Link
+              </sbb-link>
+              <sbb-button size="m" variant="secondary" sbb-dialog-close>
+                Cancel
+              </sbb-button>
+              <sbb-button size="m" variant="primary" sbb-dialog-close>
+                Button
+              </sbb-button>
+            </sbb-action-group>
+          </sbb-dialog>
         </div>
       </div>
     </section>

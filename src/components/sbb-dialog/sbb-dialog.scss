@@ -152,6 +152,8 @@
   height: 100%;
   max-height: var(--sbb-dialog-max-height);
   outline: none;
+  position: sticky;
+  inset-block-start: 0;
 
   @include sbb.mq($from: medium) {
     height: auto;
@@ -188,6 +190,10 @@
 
   // Overwrite sbb-title default margin
   margin: 0;
+}
+
+.sbb-dialog__close {
+  margin-inline-start: auto;
 }
 
 .sbb-dialog__content {
