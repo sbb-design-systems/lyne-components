@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.5](https://github.com/lyne-design-system/lyne-components/compare/v0.23.4...v0.23.5) (2023-01-23)
+
+### Bug Fixes
+
+- **sbb-toggle, sbb-checkbox:** add missing click handlers ([#1555](https://github.com/lyne-design-system/lyne-components/issues/1555)) ([8203dd0](https://github.com/lyne-design-system/lyne-components/commit/8203dd0d4aff8b21029c3458c09a202ee3bf7963))
+
 ### [0.23.4](https://github.com/lyne-design-system/lyne-components/compare/v0.23.3...v0.23.4) (2023-01-23)
 
 ### [0.23.3](https://github.com/lyne-design-system/lyne-components/compare/v0.23.2...v0.23.3) (2023-01-23)
