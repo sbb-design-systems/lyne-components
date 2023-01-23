@@ -180,7 +180,7 @@ export class SbbToggle implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host role="radiogroup">
-        <div class="sbb-toggle" tabindex="-1" ref={(toggle) => (this._toggleElement = toggle)}>
+        <div class="sbb-toggle" ref={(toggle) => (this._toggleElement = toggle)}>
           <slot onSlotchange={() => this._updateToggle()} />
         </div>
       </Host>
