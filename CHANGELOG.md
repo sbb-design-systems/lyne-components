@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.7](https://github.com/lyne-design-system/lyne-components/compare/v0.23.6...v0.23.7) (2023-01-23)
+
+### Bug Fixes
+
+- **sbb-dialog:** avoid unwanted scroll on mobile ([#1558](https://github.com/lyne-design-system/lyne-components/issues/1558)) ([757cb2d](https://github.com/lyne-design-system/lyne-components/commit/757cb2d0b13de1610684a6be24029ba957d227c3))
+
 ### [0.23.6](https://github.com/lyne-design-system/lyne-components/compare/v0.23.5...v0.23.6) (2023-01-23)
 
 ### [0.23.5](https://github.com/lyne-design-system/lyne-components/compare/v0.23.4...v0.23.5) (2023-01-23)
