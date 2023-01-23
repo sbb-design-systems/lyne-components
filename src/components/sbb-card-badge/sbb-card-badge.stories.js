@@ -1,4 +1,3 @@
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
@@ -10,10 +9,10 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${SbbColorWhiteDefault};`;
+    return 'background-color: var(--sbb-color-white-default);';
   }
 
-  return `background-color: ${SbbColorCharcoalDefault};`;
+  return 'background-color: var(--sbb-color-charcoal-default);';
 };
 
 /* ************************************************* */

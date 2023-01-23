@@ -1,4 +1,3 @@
-import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import events from '../sbb-accordion-item/sbb-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 
@@ -47,8 +46,8 @@ export const OnlyOneOpen = Template.bind();
 Default.documentation = {
   container: {
     styles: {
-      'background-color': SbbColorWhiteDefault,
-      border: `2px solid ${SbbColorMilkDefault}`,
+      'background-color': 'var(--sbb-color-white-default);',
+      border: '2px solid var(--sbb-color-milk-default);',
     },
   },
   title: 'Default Accordion',
@@ -57,7 +56,7 @@ Default.documentation = {
 NonWhiteBackground.documentation = {
   container: {
     styles: {
-      'background-color': SbbColorMilkDefault,
+      'background-color': 'var(--sbb-color-milk-default);',
     },
   },
   title: 'Accordion on non-white background',
@@ -66,8 +65,8 @@ NonWhiteBackground.documentation = {
 OnlyOneOpen.documentation = {
   container: {
     styles: {
-      'background-color': SbbColorWhiteDefault,
-      border: `2px solid ${SbbColorMilkDefault}`,
+      'background-color': 'var(--sbb-color-white-default);',
+      border: '2px solid var(--sbb-color-milk-default);',
     },
   },
   title: 'Only one item open at a time',

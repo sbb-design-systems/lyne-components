@@ -1,4 +1,3 @@
-import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import { futureLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
@@ -14,13 +13,13 @@ const documentationPlatformContainerStyle = (context) => {
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
     return {
-      'background-color': SbbColorWhiteDefault,
-      border: `1px solid ${SbbColorMilkDefault}`,
+      'background-color': 'var(--sbb-color-white-default);',
+      border: '1px solid var(--sbb-color-milk-default);',
     };
   }
 
   return {
-    'background-color': SbbColorMilkDefault,
+    'background-color': 'var(--sbb-color-milk-default);',
   };
 };
 
@@ -32,10 +31,10 @@ const wrapperStyle = (context) => {
   const variantsOnDarkBg = ['primary-negative'];
 
   if (variantsOnDarkBg.indexOf(context.args.appearance) === -1) {
-    return `background-color: ${SbbColorWhiteDefault};`;
+    return 'background-color: var(--sbb-color-white-default);';
   }
 
-  return `background-color: ${SbbColorMilkDefault};`;
+  return 'background-color: var(--sbb-color-milk-default);';
 };
 
 /* ************************************************* */

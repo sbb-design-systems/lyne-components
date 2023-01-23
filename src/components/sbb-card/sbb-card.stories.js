@@ -1,13 +1,12 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { SbbColorMilkDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const wrapperStyle = (context) => {
   if (context.args.negative === true) {
-    return `background-color: ${SbbColorWhiteDefault};`;
+    return 'background-color: var(--sbb-color-white-default);';
   }
 
-  return `background-color: ${SbbColorMilkDefault};`;
+  return 'background-color: var(--sbb-color-milk-default);';
 };
 
 const ContentText =

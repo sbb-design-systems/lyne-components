@@ -1,21 +1,20 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 
 const documentationPlatformContainerStyle = (context) => {
   if (context.args.negative) {
     return {};
   }
 
-  return `background-color: ${SbbColorWhiteDefault};`;
+  return 'background-color: var(--sbb-color-white-default);';
 };
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    return `background-color: ${SbbColorCharcoalDefault};`;
+    return 'background-color: var(--sbb-color-charcoal-default);';
   }
 
-  return `background-color: ${SbbColorWhiteDefault};`;
+  return 'background-color: var(--sbb-color-white-default);';
 };
 
 const Template = (args) => (

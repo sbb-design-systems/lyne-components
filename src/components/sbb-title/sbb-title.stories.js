@@ -1,13 +1,12 @@
-import { SbbColorCharcoalDefault, SbbColorWhiteDefault } from '@sbb-esta/lyne-design-tokens';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    return `background-color: ${SbbColorCharcoalDefault};`;
+    return 'background-color: var(--sbb-color-charcoal-default);';
   }
 
-  return `background-color: ${SbbColorWhiteDefault};`;
+  return 'background-color: var(--sbb-color-white-default);';
 };
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
