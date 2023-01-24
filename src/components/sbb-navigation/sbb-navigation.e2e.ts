@@ -104,6 +104,9 @@ describe('sbb-navigation', () => {
 
     expect(dialog).toHaveAttribute('open');
 
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
+
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
@@ -254,6 +257,9 @@ describe('sbb-navigation', () => {
 
     expect(dialog).toHaveAttribute('open');
     expect(sectionDialog).toHaveAttribute('open');
+
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
 
     await page.keyboard.down('Escape');
     await page.waitForChanges();

@@ -133,6 +133,9 @@ describe('sbb-tooltip', () => {
 
     expect(dialog).toHaveAttribute('open');
 
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
+
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
