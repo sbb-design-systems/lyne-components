@@ -38,7 +38,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   @Prop() public readonly?: boolean = false;
 
   /** Disabled state for the inner HTMLInputElement. */
-  @Prop() public disabled?: boolean = false;
+  @Prop({ reflect: true }) public disabled?: boolean = false;
 
   /** Required state for the inner HTMLInputElement. */
   @Prop() public required?: boolean = false;
