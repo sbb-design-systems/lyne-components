@@ -49,6 +49,7 @@ calendar.argTypes = {
 calendar.args = {
   ...defaultArgs,
   min: 1672757742,
+  max: 1689907742,
 };
 
 calendarUnixTimestamp.argTypes = {

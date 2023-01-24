@@ -290,7 +290,7 @@ export class SbbCalendar implements ComponentInterface {
     if (!this._min) {
       return false;
     }
-    const prevMonth = this._dateAdapter.cloneDate(this._activeDate);
+    const prevMonth = this._dateAdapter.clone(this._activeDate);
     prevMonth.setDate(0);
     return this._dateAdapter.compareDate(prevMonth, this._min) < 0;
   }
@@ -300,6 +300,7 @@ export class SbbCalendar implements ComponentInterface {
       return false;
     }
     const nextMonth = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
+    nextMonth.setDate(1);
     return this._dateAdapter.compareDate(nextMonth, this._max) > 0;
   }
 
@@ -315,7 +316,13 @@ export class SbbCalendar implements ComponentInterface {
       this._dateAdapter.isValid(this._max) &&
       this._dateAdapter.compareDate(this._max, date) < 0
     ) {
-      this._activeDate = this._max;
+      this._activeDate = this._wide ? this._dateAdapter.addCalendarMonths(date, -1) : this._max;
+      return;
+    }
+    const nextMonth = this._dateAdapter.addCalendarMonths(date, 1);
+    nextMonth.setDate(1);
+    if (this._wide && this._dateAdapter.compareDate(this._max, nextMonth) < 0) {
+      this._activeDate = this._dateAdapter.addCalendarMonths(date, -1);
       return;
     }
 
