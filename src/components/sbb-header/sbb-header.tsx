@@ -34,16 +34,20 @@ export class SbbHeader {
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public componentDidLoad(): void {
-    if (this.hideOnScroll) {
-      if (typeof this.scrollOrigin === 'string') {
-        this._scrollElement = document.getElementById(this.scrollOrigin);
-        if (!this._scrollElement) {
-          return;
-        }
-      } else {
-        this._scrollElement = this.scrollOrigin;
+    if (typeof this.scrollOrigin === 'string') {
+      this._scrollElement = document.getElementById(this.scrollOrigin);
+      if (!this._scrollElement) {
+        return;
       }
+    } else {
+      this._scrollElement = this.scrollOrigin;
+    }
+    if (this.hideOnScroll) {
       this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), {
+        passive: true,
+      });
+    } else {
+      this._scrollElement.addEventListener('scroll', this._scrollShadowListener.bind(this), {
         passive: true,
       });
     }
@@ -85,6 +89,17 @@ export class SbbHeader {
         );
         header.classList.remove('sbb-header--animated');
       }
+    }
+  }
+
+  /** Sets the correct value for `scrollTop`, then apply the shadow if the element/document has been scrolled down; */
+  private _scrollShadowListener(): void {
+    const currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
+    this.shadow = currentScroll !== 0;
+    if (currentScroll == 0) {
+      this.shadow = false;
+    } else {
+      this.shadow = true;
     }
   }
 
