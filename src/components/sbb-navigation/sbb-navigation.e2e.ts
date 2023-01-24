@@ -1,3 +1,4 @@
+import events from './sbb-navigation.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-navigation', () => {
@@ -32,9 +33,13 @@ describe('sbb-navigation', () => {
   });
 
   it('opens the navigation', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-navigation >>> dialog');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(element).toHaveClass('sbb-navigation--opened');
@@ -42,9 +47,14 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-navigation >>> dialog');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -52,14 +62,22 @@ describe('sbb-navigation', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes the navigation on close button click', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-navigation >>> dialog');
     const closeButton = await page.find('sbb-navigation >>> .sbb-navigation__close');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -67,13 +85,21 @@ describe('sbb-navigation', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes the navigation on Esc key press', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-navigation >>> dialog');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -81,10 +107,15 @@ describe('sbb-navigation', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes navigation with sbb-navigation-close', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
@@ -97,13 +128,19 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    await action.triggerEvent('click');
+    action.triggerEvent('click');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
     expect(sectionDialog).toHaveAttribute('open');
 
-    await closeEl.triggerEvent('click');
+    closeEl.triggerEvent('click');
+    await page.waitForChanges();
+
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
@@ -111,6 +148,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens navigation and opens section', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const navDialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
@@ -120,10 +158,13 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(navDialog).toHaveAttribute('open');
     expect(sectionDialog).not.toHaveAttribute('open');
 
-    await action.triggerEvent('click');
+    action.triggerEvent('click');
     await page.waitForChanges();
 
     expect(navDialog).toHaveAttribute('open');
@@ -131,6 +172,7 @@ describe('sbb-navigation', () => {
   });
 
   it('opens navigation and toggles sections', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const navDialog = await page.find('sbb-navigation >>> dialog');
     const firstSectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const secondSectionDialog = await page.find('sbb-navigation-section#second-section >>> dialog');
@@ -140,17 +182,20 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(navDialog).toHaveAttribute('open');
     expect(firstSectionDialog).not.toHaveAttribute('open');
     expect(secondSectionDialog).not.toHaveAttribute('open');
 
-    await firstAction.triggerEvent('click');
+    firstAction.triggerEvent('click');
     await page.waitForChanges();
 
     expect(firstSectionDialog).toHaveAttribute('open');
     expect(secondSectionDialog).not.toHaveAttribute('open');
 
-    await secondAction.triggerEvent('click');
+    secondAction.triggerEvent('click');
     await page.waitForChanges();
 
     expect(firstSectionDialog).not.toHaveAttribute('open');
@@ -158,6 +203,8 @@ describe('sbb-navigation', () => {
   });
 
   it('closes the navigation and the section on close button click', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
@@ -168,7 +215,10 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    await action.triggerEvent('click');
+    action.triggerEvent('click');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -177,11 +227,16 @@ describe('sbb-navigation', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
     expect(sectionDialog).not.toHaveAttribute('open');
   });
 
   it('closes the navigation and the section on Esc key press', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
@@ -191,7 +246,10 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    await action.triggerEvent('click');
+    action.triggerEvent('click');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -200,11 +258,15 @@ describe('sbb-navigation', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
     expect(sectionDialog).not.toHaveAttribute('open');
   });
 
   it('closes section with sbb-navigation-section-close', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
@@ -217,7 +279,10 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    await action.triggerEvent('click');
+    action.triggerEvent('click');
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
