@@ -578,6 +578,10 @@ export namespace Components {
           * Size variant, either l or m.
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
+        /**
+          * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
+         */
+        "width": 'default' | 'collapse';
     }
     interface SbbHeader {
         /**
@@ -1347,6 +1351,36 @@ export namespace Components {
          */
         "target"?: LinkTargetType | string | undefined;
     }
+    interface SbbTimeInput {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
+        "disabled"?: boolean;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
+          * Readonly state for the inner HTMLInputElement.
+         */
+        "readonly"?: boolean;
+        /**
+          * Required state for the inner HTMLInputElement.
+         */
+        "required"?: boolean;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
+        "value"?: string;
+        /**
+          * Date value with the given time for the inner HTMLInputElement.
+         */
+        "valueAsDate"?: Date;
+    }
     interface SbbTimetable {
     }
     interface SbbTimetableBarrierFree {
@@ -1744,6 +1778,10 @@ export interface SbbTagCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTagElement;
 }
+export interface SbbTimeInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTimeInputElement;
+}
 export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbToggleElement;
@@ -2073,6 +2111,12 @@ declare global {
         prototype: HTMLSbbTeaserHeroElement;
         new (): HTMLSbbTeaserHeroElement;
     };
+    interface HTMLSbbTimeInputElement extends Components.SbbTimeInput, HTMLStencilElement {
+    }
+    var HTMLSbbTimeInputElement: {
+        prototype: HTMLSbbTimeInputElement;
+        new (): HTMLSbbTimeInputElement;
+    };
     interface HTMLSbbTimetableElement extends Components.SbbTimetable, HTMLStencilElement {
     }
     var HTMLSbbTimetableElement: {
@@ -2276,6 +2320,7 @@ declare global {
         "sbb-tag-group": HTMLSbbTagGroupElement;
         "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
+        "sbb-time-input": HTMLSbbTimeInputElement;
         "sbb-timetable": HTMLSbbTimetableElement;
         "sbb-timetable-barrier-free": HTMLSbbTimetableBarrierFreeElement;
         "sbb-timetable-button": HTMLSbbTimetableButtonElement;
@@ -2865,6 +2910,10 @@ declare namespace LocalJSX {
           * Size variant, either l or m.
          */
         "size"?: InterfaceSbbFormFieldAttributes['size'];
+        /**
+          * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
+         */
+        "width"?: 'default' | 'collapse';
     }
     interface SbbHeader {
         /**
@@ -3646,6 +3695,40 @@ declare namespace LocalJSX {
          */
         "target"?: LinkTargetType | string | undefined;
     }
+    interface SbbTimeInput {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * Disabled state for the inner HTMLInputElement.
+         */
+        "disabled"?: boolean;
+        /**
+          * The <form> element to associate the inner HTMLInputElement with.
+         */
+        "form"?: string;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbTimeInputCustomEvent<any>) => void;
+        /**
+          * Readonly state for the inner HTMLInputElement.
+         */
+        "readonly"?: boolean;
+        /**
+          * Required state for the inner HTMLInputElement.
+         */
+        "required"?: boolean;
+        /**
+          * Value for the inner HTMLInputElement.
+         */
+        "value"?: string;
+        /**
+          * Date value with the given time for the inner HTMLInputElement.
+         */
+        "valueAsDate"?: Date;
+    }
     interface SbbTimetable {
     }
     interface SbbTimetableBarrierFree {
@@ -4071,6 +4154,7 @@ declare namespace LocalJSX {
         "sbb-tag-group": SbbTagGroup;
         "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
+        "sbb-time-input": SbbTimeInput;
         "sbb-timetable": SbbTimetable;
         "sbb-timetable-barrier-free": SbbTimetableBarrierFree;
         "sbb-timetable-button": SbbTimetableButton;
@@ -4154,6 +4238,7 @@ declare module "@stencil/core" {
             "sbb-tag-group": LocalJSX.SbbTagGroup & JSXBase.HTMLAttributes<HTMLSbbTagGroupElement>;
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
+            "sbb-time-input": LocalJSX.SbbTimeInput & JSXBase.HTMLAttributes<HTMLSbbTimeInputElement>;
             "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
             "sbb-timetable-barrier-free": LocalJSX.SbbTimetableBarrierFree & JSXBase.HTMLAttributes<HTMLSbbTimetableBarrierFreeElement>;
             "sbb-timetable-button": LocalJSX.SbbTimetableButton & JSXBase.HTMLAttributes<HTMLSbbTimetableButtonElement>;

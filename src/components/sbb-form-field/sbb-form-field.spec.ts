@@ -13,7 +13,7 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field error-space="none" size="m" label="Fill input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
@@ -55,7 +55,7 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field error-space="none" size="m">
+      <sbb-form-field error-space="none" size="m" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
@@ -95,7 +95,7 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field error-space="none" size="m" label="Fill input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
@@ -137,7 +137,7 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field error-space="none" size="m" label="Fill input">
+      <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
@@ -183,7 +183,7 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field error-space="none" size="m">
+      <sbb-form-field error-space="none" size="m" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
@@ -223,7 +223,7 @@ describe('sbb-form-field', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-form-field error-space="none" size="m" label="Select option:" optional="true" borderless="">
+      <sbb-form-field error-space="none" size="m" label="Select option:" optional="true" borderless="" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">

@@ -60,6 +60,7 @@ export const SbbTag = /*@__PURE__*/createReactComponent<JSX.SbbTag, HTMLSbbTagEl
 export const SbbTagGroup = /*@__PURE__*/createReactComponent<JSX.SbbTagGroup, HTMLSbbTagGroupElement>('sbb-tag-group');
 export const SbbTeaser = /*@__PURE__*/createReactComponent<JSX.SbbTeaser, HTMLSbbTeaserElement>('sbb-teaser');
 export const SbbTeaserHero = /*@__PURE__*/createReactComponent<JSX.SbbTeaserHero, HTMLSbbTeaserHeroElement>('sbb-teaser-hero');
+export const SbbTimeInput = /*@__PURE__*/createReactComponent<JSX.SbbTimeInput, HTMLSbbTimeInputElement>('sbb-time-input');
 export const SbbTimetable = /*@__PURE__*/createReactComponent<JSX.SbbTimetable, HTMLSbbTimetableElement>('sbb-timetable');
 export const SbbTimetableBarrierFree = /*@__PURE__*/createReactComponent<JSX.SbbTimetableBarrierFree, HTMLSbbTimetableBarrierFreeElement>('sbb-timetable-barrier-free');
 export const SbbTimetableButton = /*@__PURE__*/createReactComponent<JSX.SbbTimetableButton, HTMLSbbTimetableButtonElement>('sbb-timetable-button');

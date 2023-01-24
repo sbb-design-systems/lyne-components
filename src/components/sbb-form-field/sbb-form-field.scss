@@ -27,6 +27,9 @@
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
   display: inline-block;
+}
+
+:host(:where(:not([width='collapse']))) {
   min-width: #{sbb.px-to-rem-build(150)};
   width: min(#{sbb.px-to-rem-build(300)}, 100%);
 }
@@ -58,6 +61,7 @@
     --sbb-form-field-label-color: GrayText;
     --sbb-form-field-prefix-color: GrayText;
     --sbb-form-field-text-color: GrayText;
+    --sbb-form-field-border-color: GrayText;
   }
 }
 
@@ -121,16 +125,16 @@
   display: flex;
 }
 
+::slotted(*[slot='prefix']) {
+  color: var(--sbb-form-field-prefix-color);
+}
+
 .sbb-form-field__select-input-icon {
   @include sbb.absolute-center-y;
 
   inset-inline-end: 0;
   position: absolute;
   pointer-events: none;
-}
-
-::slotted(*[slot='prefix']) {
-  color: var(--sbb-form-field-prefix-color);
 }
 
 .sbb-form-field__input-container {
@@ -170,14 +174,11 @@ slot[name='label'] > span {
   @include sbb.text-m--regular;
   @include sbb.placeholder;
   @include sbb.ellipsis;
+  @include sbb.input-reset;
 
   overflow: var(--sbb-form-field-overflow);
-  -webkit-appearance: none;
   width: 100%;
   box-sizing: border-box;
-  border: none;
-  outline: none;
-  padding: 0;
   color: var(--sbb-form-field-text-color);
   background-color: var(--sbb-form-field-background-color);
 

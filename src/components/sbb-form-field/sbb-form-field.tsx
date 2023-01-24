@@ -27,7 +27,7 @@ let nextId = 0;
 })
 export class SbbFormField implements ComponentInterface {
   // List of supported element selectors in unnamed slot
-  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER'];
+  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER', 'SBB-TIME-INPUT'];
 
   /**
    * Whether to reserve space for an error message.
@@ -56,6 +56,11 @@ export class SbbFormField implements ComponentInterface {
    * Whether to display the form field without a border.
    */
   @Prop({ reflect: true }) public borderless = false;
+
+  /** Defines the width of the component:
+   * - `default`: the component has defined width and min-width;
+   * - `collapse`: the component adapts itself to its inner input content. */
+  @Prop({ reflect: true }) public width: 'default' | 'collapse' = 'default';
 
   /**
    * It is used internally to get the `error` slot.
