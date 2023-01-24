@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import events from './sbb-dialog.events';
 
 describe('sbb-dialog', () => {
   let element: E2EElement, page: E2EPage;
@@ -12,6 +13,7 @@ describe('sbb-dialog', () => {
       </sbb-dialog>
     `);
     element = await page.find('sbb-dialog');
+    await page.waitForChanges();
   });
 
   it('renders', () => {
@@ -20,8 +22,12 @@ describe('sbb-dialog', () => {
 
   it('opens the dialog', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const didOpen = await page.spyOnEvent(events.didOpen);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
@@ -30,13 +36,21 @@ describe('sbb-dialog', () => {
 
   it('closes the dialog', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const didOpen = await page.spyOnEvent(events.didOpen);
+    const didClose = await page.spyOnEvent(events.didClose);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
 
     await element.callMethod('close');
+    await page.waitForChanges();
+
+    expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
@@ -46,8 +60,13 @@ describe('sbb-dialog', () => {
   it('closes the dialog on close button click', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
     const closeButton = await page.find('sbb-dialog >>> .sbb-dialog__close');
+    const didOpen = await page.spyOnEvent(events.didOpen);
+    const didClose = await page.spyOnEvent(events.didClose);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -55,13 +74,21 @@ describe('sbb-dialog', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    expect(didClose).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes the dialog on Esc key press', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const didOpen = await page.spyOnEvent(events.didOpen);
+    const didClose = await page.spyOnEvent(events.didClose);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -69,13 +96,20 @@ describe('sbb-dialog', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    expect(didClose).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('does not have the fullscreen attribute', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const didOpen = await page.spyOnEvent(events.didOpen);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -95,7 +129,12 @@ describe('sbb-dialog', () => {
     element = await page.find('sbb-dialog');
 
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const didOpen = await page.spyOnEvent(events.didOpen);
+
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
