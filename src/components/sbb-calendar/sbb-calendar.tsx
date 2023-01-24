@@ -9,6 +9,7 @@ import {
   Prop,
   State,
   Watch,
+  Element,
 } from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
@@ -60,9 +61,20 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
+  /* Focuses on a day cell*/
   @Method()
   public focus(): void {
-    console.log('focus now');
+    let toFocus = this._element.shadowRoot.querySelector('.sbb-datepicker__day-selected');
+    if (!toFocus) {
+      toFocus = this._element.shadowRoot.querySelector('.sbb-datepicker__day-today');
+    }
+    if (!toFocus) {
+      toFocus = Array.from(this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')).find(
+        (e) => !(e as HTMLButtonElement).disabled
+      );
+    }
+
+    (toFocus as HTMLElement).focus();
   }
 
   public connectedCallback(): void {
@@ -74,6 +86,8 @@ export class SbbCalendar implements ComponentInterface {
     this._setDates();
     this._init();
   }
+
+  @Element() private _element: HTMLElement;
 
   /** The currently active date. */
   @State() private _activeDate: Date;
@@ -203,6 +217,7 @@ export class SbbCalendar implements ComponentInterface {
         <td>
           <button
             class={{
+              'sbb-datepicker__day': true,
               'sbb-datepicker__day-today': day.value === today,
               'sbb-datepicker__day-selected': selected,
               'sbb-datepicker__crossed-out': !isOutOfRange && !this.dateFilter(new Date(day.value)),
@@ -221,10 +236,12 @@ export class SbbCalendar implements ComponentInterface {
     });
   }
 
-  private _createMonthLabel(i: number): JSXElement {
+  private _createMonthLabel(d: Date): JSXElement {
+    const month = this._dateAdapter.getMonth(d);
+    const year = this._dateAdapter.getYear(d);
     return (
       <span class="sbb-calendar__controls-month-label">
-        {this._dateAdapter.getMonthNames('long')[i]}
+        {this._dateAdapter.getMonthNames('long')[month]} {year}
       </span>
     );
   }
@@ -299,8 +316,9 @@ export class SbbCalendar implements ComponentInterface {
             onClick={() => this._previousMonth()}
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
-            {this._createMonthLabel(this._dateAdapter.getMonth(this._activeDate))}
-            {this._wide && this._createMonthLabel(this._dateAdapter.getMonth(this._activeDate) + 1)}
+            {this._createMonthLabel(this._activeDate)}
+            {this._wide &&
+              this._createMonthLabel(this._dateAdapter.addCalendarMonths(this._activeDate, 1))}
           </div>
           <sbb-button
             variant="secondary"
