@@ -79,6 +79,11 @@ export class NativeDateAdapter {
     return date;
   }
 
+  public cloneDate(d: Date): Date {
+    const clone = this.createDate(d.getFullYear(), d.getMonth(), d.getDate());
+    return clone;
+  }
+
   public createDate(year: number, month: number, date: number): Date {
     // Check for invalid month and date (except upper bound on date which we have to check after creating the Date).
     if (month < 0 || month > 11) {

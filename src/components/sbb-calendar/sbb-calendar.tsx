@@ -286,6 +286,23 @@ export class SbbCalendar implements ComponentInterface {
     this._init();
   }
 
+  private _disablePrev(): boolean {
+    if (!this._min) {
+      return false;
+    }
+    const prevMonth = this._dateAdapter.cloneDate(this._activeDate);
+    prevMonth.setDate(0);
+    return this._dateAdapter.compareDate(prevMonth, this._min) < 0;
+  }
+
+  private _disableNext(): boolean {
+    if (!this._max) {
+      return false;
+    }
+    const nextMonth = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
+    return this._dateAdapter.compareDate(nextMonth, this._activeDate) > 0;
+  }
+
   private _assignActiveDate(date: Date): void {
     if (
       this._dateAdapter.isValid(this._min) &&
@@ -314,6 +331,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-left-small"
             size="m"
             onClick={() => this._previousMonth()}
+            disabled={this._disablePrev()}
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
             {this._createMonthLabel(this._activeDate)}
@@ -325,6 +343,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-right-small"
             size="m"
             onClick={() => this._nextMonth()}
+            disabled={this._disableNext()}
           ></sbb-button>
         </div>
         <div class="sbb-calendar__table-container">
