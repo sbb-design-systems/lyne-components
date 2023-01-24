@@ -55,29 +55,34 @@ export class SbbHeader {
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
    */
   private _scrollListener(): void {
-
-    let currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
+    const currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
     this.shadow = currentScroll !== 0;
     const header = this._element.shadowRoot.firstElementChild;
     // check if original header position has been scrolled out
     if (currentScroll > this._element.offsetHeight) {
-      if (currentScroll > 0 && this._lastScroll <= currentScroll){
+      if (currentScroll > 0 && this._lastScroll <= currentScroll) {
         this._lastScroll = currentScroll;
-        (header as HTMLElement).style.setProperty('transform', 'translateY(-'+this._element.offsetHeight+'px)');   
         this.shadow = false;
+        (header as HTMLElement).style.setProperty(
+          'transform',
+          'translateY(-' + this._element.offsetHeight + 'px)'
+        );
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
       } else {
         this._lastScroll = currentScroll;
-        (header as HTMLElement).style.setProperty('transform', 'translateY(0)');
         this.shadow = true;
+        (header as HTMLElement).style.setProperty('transform', 'translateY(0)');
         header.classList.add('sbb-header--animated');
       }
       this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
     } else {
       if (currentScroll > this._lastScroll || currentScroll == 0) {
         this._lastScroll = currentScroll;
-        (header as HTMLElement).style.setProperty('transform', 'translateY(-'+currentScroll+'px)');
         this.shadow = false;
+        (header as HTMLElement).style.setProperty(
+          'transform',
+          'translateY(-' + currentScroll + 'px)'
+        );
         header.classList.remove('sbb-header--animated');
       }
     }
