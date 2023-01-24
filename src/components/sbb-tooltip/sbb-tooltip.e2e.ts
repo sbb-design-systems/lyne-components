@@ -21,34 +21,53 @@ describe('sbb-tooltip', () => {
   });
 
   it('shows the tooltip', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
   });
 
   it('shows on trigger click', async () => {
-    const dialog = await page.find('sbb-tooltip >>> dialog');
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await trigger.click();
     await page.waitForChanges();
+
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-
     await page.waitForChanges();
+
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-
     await page.waitForChanges();
+
     expect(dialog).toHaveAttribute('open');
   });
 
   it('closes the tooltip', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -56,14 +75,30 @@ describe('sbb-tooltip', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes the dialog on close button click', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const closeButton = await page.find('sbb-tooltip >>> .sbb-tooltip__close');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
@@ -71,23 +106,48 @@ describe('sbb-tooltip', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes on Esc keypress', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await trigger.click();
     await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).toHaveAttribute('open');
 
     await page.keyboard.down('Escape');
+    await page.waitForChanges();
+
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('closes on interactive element click', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
@@ -95,24 +155,44 @@ describe('sbb-tooltip', () => {
 
     await trigger.click();
     await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).toHaveAttribute('open');
     expect(tooltipLink).not.toBeNull();
 
     await tooltipLink.click();
     await page.waitForChanges();
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
 
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).not.toHaveAttribute('open');
   });
 
   it('is correctly positioned on screen', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+
     page.setViewport({ width: 1200, height: 800 });
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await trigger.click();
     await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).toHaveAttribute('open');
 
     const buttonHeight = await page.evaluate(() =>
@@ -143,10 +223,19 @@ describe('sbb-tooltip', () => {
   });
 
   it('sets the focus on the dialog content when the tooltip is opened by click', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await trigger.click();
     await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(dialog).toHaveAttribute('open');
 
     await page.waitForChanges();
@@ -163,12 +252,20 @@ describe('sbb-tooltip', () => {
   });
 
   it('sets the focus to the first focusable element when the tooltip is opened by keyboard', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     await page.keyboard.down('Tab');
     await page.waitForChanges();
 
     await page.keyboard.down('Enter');
+    await page.waitForChanges();
+
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
