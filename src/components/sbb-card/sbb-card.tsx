@@ -20,6 +20,11 @@ import {
   resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -39,9 +44,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   /** Used to set the component's active state. */
   @Prop({ reflect: true }) public active = false;
-
-  /* @internal */
-  @State() private _hasBadge = false;
 
   /** The href value you want to link to. */
   @Prop({ reflect: true }) public href: string | undefined;
@@ -74,9 +76,21 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   @Element() private _element!: HTMLElement;
 
+  /**
+   * State of listed named slots, by indicating whether any element for a named slot is defined.
+   */
+  @State() private _namedSlots = createNamedSlotState('badge');
+
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
+
   public connectedCallback(): void {
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   private _actionElement(): HTMLElement {
@@ -109,29 +123,24 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
       screenReaderNewWindowInfo,
     }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage);
 
+    const hostAttributes = {
+      'data-has-badge': this._showSBBBadge() && this._namedSlots['badge'],
+    };
+
     return (
-      <Host class={{ 'sbb-card--has-badge': this._showSBBBadge() && this._hasBadge }}>
+      <Host {...hostAttributes}>
         <TAG_NAME
           class="sbb-card"
           {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
-          {this._showSBBBadge() && (
-            <slot
-              name="badge"
-              onSlotchange={(event) =>
-                (this._hasBadge = (event.target as HTMLSlotElement).assignedElements().length > 0)
-              }
-            />
+          {this._showSBBBadge() && <slot name="badge" />}
+          <slot />
+          {screenReaderNewWindowInfo && (
+            <span class="sbb-card__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+            </span>
           )}
-          <span class="sbb-card__content">
-            <slot />
-            {screenReaderNewWindowInfo && (
-              <span class="sbb-card__opens-in-new-window">
-                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-              </span>
-            )}
-          </span>
         </TAG_NAME>
       </Host>
     );
