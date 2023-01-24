@@ -21,8 +21,11 @@
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
   transform: translateY(0);
-  transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   z-index: 10;
+
+  &.sbb-header--animated {
+    transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  }
 
   :host([shadow]:not([shadow='false'])) & {
     @include sbb.shadow-level-9-soft;
@@ -33,22 +36,8 @@
   }
 }
 
-:host([hide-on-scroll]:not([hide-on-scroll='false'])) {
-  .sbb-header {
-    position: absolute;
-
-    &.sbb-header--visible {
-      position: fixed;
-      top: calc(-1 * var(--sbb-header-height));
-      transform: translateY(100%);
-    }
-
-    &.sbb-header--hidden {
-      position: fixed;
-      top: calc(-1 * var(--sbb-header-height));
-      pointer-events: none;
-    }
-  }
+:host([hide-on-scroll]:not([hide-on-scroll='false'])) .sbb-header {
+  position: fixed;
 }
 
 .sbb-header__wrapper {

@@ -63,21 +63,22 @@ export class SbbHeader {
     if (currentScroll > this._element.offsetHeight) {
       if (currentScroll > 0 && this._lastScroll <= currentScroll){
         this._lastScroll = currentScroll;
-        header.classList.add('sbb-header--hidden');
-        header.classList.remove('sbb-header--visible');
-        (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
+        (header as HTMLElement).style.setProperty('transform', 'translateY(-'+this._element.offsetHeight+'px)');   
         this.shadow = false;
+        (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
       } else {
         this._lastScroll = currentScroll;
-        header.classList.add('sbb-header--visible');
-        header.classList.remove('sbb-header--hidden');
+        (header as HTMLElement).style.setProperty('transform', 'translateY(0)');
         this.shadow = true;
+        header.classList.add('sbb-header--animated');
       }
       this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
     } else {
-      this.shadow = false;
       if (currentScroll > this._lastScroll || currentScroll == 0) {
-        header.classList.remove('sbb-header--visible');
+        this._lastScroll = currentScroll;
+        (header as HTMLElement).style.setProperty('transform', 'translateY(-'+currentScroll+'px)');
+        this.shadow = false;
+        header.classList.remove('sbb-header--animated');
       }
     }
   }
