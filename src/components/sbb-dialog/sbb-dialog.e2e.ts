@@ -22,9 +22,13 @@ describe('sbb-dialog', () => {
 
   it('opens the dialog', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
@@ -35,11 +39,16 @@ describe('sbb-dialog', () => {
   });
 
   it('closes the dialog', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
+    const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
+    const dialog = await page.find('sbb-dialog >>> dialog');
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
@@ -48,6 +57,9 @@ describe('sbb-dialog', () => {
     expect(dialog).toHaveAttribute('open');
 
     await element.callMethod('close');
+    await page.waitForChanges();
+
+    expect(willClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didClose).toHaveReceivedEventTimes(1);
@@ -60,10 +72,15 @@ describe('sbb-dialog', () => {
   it('closes the dialog on close button click', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
     const closeButton = await page.find('sbb-dialog >>> .sbb-dialog__close');
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
+    const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
@@ -74,6 +91,9 @@ describe('sbb-dialog', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    expect(willClose).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -82,10 +102,15 @@ describe('sbb-dialog', () => {
 
   it('closes the dialog on Esc key press', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
+    const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
@@ -99,6 +124,9 @@ describe('sbb-dialog', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    expect(willClose).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -107,9 +135,13 @@ describe('sbb-dialog', () => {
 
   it('does not have the fullscreen attribute', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
@@ -132,9 +164,13 @@ describe('sbb-dialog', () => {
     element = await page.find('sbb-dialog');
 
     const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
 
     await element.callMethod('open');
+    await page.waitForChanges();
+
+    expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
