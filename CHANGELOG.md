@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.9](https://github.com/lyne-design-system/lyne-components/compare/v0.23.8...v0.23.9) (2023-01-24)
+
+### Features
+
+- **sbb-time-input:** add sbb-time-input component ([#1527](https://github.com/lyne-design-system/lyne-components/issues/1527)) ([1f1b1ff](https://github.com/lyne-design-system/lyne-components/commit/1f1b1ff4d4300a9e9d0c40da6d1f378112a85765))
+
 ### [0.23.8](https://github.com/lyne-design-system/lyne-components/compare/v0.23.7...v0.23.8) (2023-01-24)
 
 ### Bug Fixes
