@@ -7,12 +7,13 @@ describe('sbb-tooltip-trigger', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <sbb-tooltip-trigger data-testid="tooltip-trigger" id="tooltip-trigger"></sbb-tooltip-trigger>
+      <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
         Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
     `);
     element = await page.find('sbb-tooltip-trigger');
+    await page.waitForChanges();
   });
 
   it('renders', () => {
