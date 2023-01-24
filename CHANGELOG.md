@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.8](https://github.com/lyne-design-system/lyne-components/compare/v0.23.7...v0.23.8) (2023-01-24)
+
+### Bug Fixes
+
+- **sbb-footer:** align clock to right on wide and ultra breakpoints ([#1561](https://github.com/lyne-design-system/lyne-components/issues/1561)) ([ac04bf8](https://github.com/lyne-design-system/lyne-components/commit/ac04bf8eeee2d8066276b88b73de871a4c9a1746))
+
 ### [0.23.7](https://github.com/lyne-design-system/lyne-components/compare/v0.23.6...v0.23.7) (2023-01-23)
 
 ### Bug Fixes
