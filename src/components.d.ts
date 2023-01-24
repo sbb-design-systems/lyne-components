@@ -17,7 +17,6 @@ import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-ca
 import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
-import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
@@ -473,14 +472,6 @@ export namespace Components {
         "size": InterfaceSbbCheckboxGroupAttributes['size'];
     }
     interface SbbClock {
-        /**
-          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
-         */
-        "initialTime"?: Time;
-        /**
-          * If set to true, the clock will be paused.
-         */
-        "paused"?: boolean;
     }
     interface SbbDialog {
         /**
@@ -2810,14 +2801,6 @@ declare namespace LocalJSX {
         "size"?: InterfaceSbbCheckboxGroupAttributes['size'];
     }
     interface SbbClock {
-        /**
-          * initialTime accepts a string following a ${number}:${number}:${number} pattern. If left empty or the string 'now' is used we will set the current time the client has on its device.
-         */
-        "initialTime"?: Time;
-        /**
-          * If set to true, the clock will be paused.
-         */
-        "paused"?: boolean;
     }
     interface SbbDialog {
         /**

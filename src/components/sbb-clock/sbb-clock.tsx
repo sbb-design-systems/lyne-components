@@ -1,20 +1,9 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, State } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
-
-import { Time } from './sbb-clock.custom';
-
-let moveHoursHand;
-let moveMinutesHand;
-let handMovement;
-
-const eventListenerOptions = {
-  once: true,
-  passive: true,
-};
 
 @Component({
   shadow: true,
@@ -22,48 +11,38 @@ const eventListenerOptions = {
   tag: 'sbb-clock',
 })
 export class SbbClock implements ComponentInterface {
-  @Element() private _element: HTMLElement;
-
-  /**
-   * We use _isInitialized to hide the hands of
-   * the clock till the calculations are ready
-   */
+  /** Whether is true, the clock's hands are hidden; it's set to true when calculations are ready. */
   @State() private _isInitialized = false;
 
-  /** If set to true, the clock will be paused. */
-  @Prop() public paused? = false;
-
-  /**
-   * initialTime accepts a string following
-   * a ${number}:${number}:${number} pattern.
-   * If left empty or the string 'now' is used
-   * we will set the current time the client
-   * has on its device.
-   */
-  @Prop() public initialTime?: Time;
+  @Element() private _element: HTMLElement;
 
   private _clockHandHours: HTMLElement;
   private _clockHandMinutes: HTMLElement;
   private _clockHandSeconds: HTMLElement;
 
+  private _handMovement: ReturnType<typeof setInterval>;
+
   private _hours: number;
   private _minutes: number;
   private _seconds: number;
-
-  private _defaultHoursAnimationDuration = 24;
-  private _defaultMinutesAnimationDuration = 60;
-  private _defaultSecondsAnimationDuration = 60;
-  private _initialTimeOutDuration = 50;
   private _remainingHours: number;
   private _remainingMinutes: number;
   private _remainingSeconds: number;
-  private _hoursAngle: number;
-  private _minutesAngle: number;
+
+  private readonly _defaultHoursAnimationDuration = 24;
+  private readonly _defaultMinutesAnimationDuration = 60;
+  private readonly _defaultSecondsAnimationDuration = 60;
+  private readonly _initialTimeOutDuration = 50;
+
+  private readonly _eventListenerOptions: AddEventListenerOptions = {
+    once: true,
+    passive: true,
+  };
 
   private _handlePageVisibilityChange(): void {
     if (document.visibilityState === 'hidden') {
       this._stopClock();
-    } else if (!this.paused) {
+    } else if (!this._hasDataNow()) {
       this._startClock();
     }
   }
@@ -82,9 +61,9 @@ export class SbbClock implements ComponentInterface {
       this._handlePageVisibilityChange.bind(this),
       false
     );
-    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
-    clearInterval(handMovement);
+    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHand.bind(this));
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHand.bind(this));
+    clearInterval(this._handMovement);
   }
 
   private _removeHoursAnimationStyles(): void {
@@ -101,44 +80,28 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _getCurrentTime(): void {
-    const predefinedTime = this.initialTime.split(':');
-
-    if (predefinedTime[0] === 'now') {
-      const date = new Date();
-
-      this._hours = date.getHours();
-      this._minutes = date.getMinutes();
-      this._seconds = date.getSeconds();
-    } else {
-      this._hours = Number(predefinedTime[0]);
-      this._minutes = Number(predefinedTime[1]);
-      this._seconds = Number(predefinedTime[2]);
-    }
-
+    const date = this._now();
+    this._hours = date.getHours();
+    this._minutes = date.getMinutes();
+    this._seconds = date.getSeconds();
     this._remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
     this._remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
     this._remainingHours = this._defaultHoursAnimationDuration - this._hours;
   }
 
-  private _moveHandsInitially(): void {
+  private _setHandsStartingPosition(): void {
     this._getCurrentTime();
 
     let hoursAnimationDuration = 0;
-
-    if (this._remainingSeconds > 0) {
-      hoursAnimationDuration = this._remainingSeconds;
-    }
-
-    if (this._remainingMinutes > 0 && this._remainingSeconds > 0) {
-      hoursAnimationDuration += (this._remainingMinutes - 1) * 60;
-    } else if (this._remainingMinutes > 0) {
-      hoursAnimationDuration += this._remainingMinutes * 60;
-    }
-
-    if (this._remainingHours > 0 && (this._remainingMinutes > 0 || this._remainingSeconds > 0)) {
-      hoursAnimationDuration += (this._remainingHours - 1) * 3600;
+    if (this._remainingSeconds > 0 && this._remainingMinutes > 0 && this._remainingHours > 0) {
+      hoursAnimationDuration =
+        this._remainingSeconds +
+        (this._remainingMinutes - 1) * 60 +
+        (this._remainingHours - 1) * 3600;
+    } else if (this._remainingMinutes > 0 && this._remainingHours > 0) {
+      hoursAnimationDuration = this._remainingMinutes * 60 + (this._remainingHours - 1) * 3600;
     } else if (this._remainingHours > 0) {
-      hoursAnimationDuration += this._remainingHours * 3600;
+      hoursAnimationDuration = this._remainingHours * 3600;
     }
 
     if (this._clockHandSeconds) {
@@ -172,49 +135,45 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _setMinutesHand(): void {
-    this._minutesAngle = this._minutes * 6;
     this._clockHandMinutes?.style.setProperty(
       'transform',
-      `rotateZ(${Math.ceil(this._minutesAngle)}deg)`
+      `rotateZ(${Math.ceil(this._minutes * 6)}deg)`
     );
   }
 
   private _moveHoursHand(): void {
     this._removeHoursAnimationStyles();
 
-    this._hoursAngle = Math.ceil(this._hours * 30 + this._minutes / 2);
+    let hoursAngle = Math.ceil(this._hours * 30 + this._minutes / 2);
 
-    if (this._hoursAngle === 720) {
-      this._hoursAngle = 0;
-    } else if (this._hoursAngle > 360) {
-      this._hoursAngle -= 360;
+    if (hoursAngle === 720) {
+      hoursAngle = 0;
+    } else if (hoursAngle > 360) {
+      hoursAngle -= 360;
     }
 
-    this._clockHandHours?.style.setProperty(
-      'transform',
-      `rotateZ(${Math.ceil(this._hoursAngle)}deg)`
-    );
+    this._clockHandHours?.style.setProperty('transform', `rotateZ(${Math.ceil(hoursAngle)}deg)`);
   }
 
   private _moveMinutesHand(): void {
-    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHand.bind(this));
 
     this._removeSecondsAnimationStyles();
 
     this._minutes++;
     this._setMinutesHand();
 
-    handMovement = setInterval(() => {
+    this._handMovement = setInterval(() => {
       this._minutes++;
       this._setMinutesHand();
     }, this._defaultSecondsAnimationDuration * 1000);
   }
 
   private _stopClock(): void {
-    clearInterval(handMovement);
+    clearInterval(this._handMovement);
 
-    if (this.paused) {
-      this._moveHandsInitially();
+    if (this._hasDataNow()) {
+      this._setHandsStartingPosition();
       this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
       this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
@@ -222,8 +181,8 @@ export class SbbClock implements ComponentInterface {
       this._removeHoursAnimationStyles();
     }
 
-    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHand.bind(this));
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHand.bind(this));
 
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
@@ -231,25 +190,46 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _startClock(): void {
-    moveHoursHand = (): void => this._moveHoursHand();
-    moveMinutesHand = (): void => this._moveMinutesHand();
-
-    this._clockHandHours?.addEventListener('animationend', moveHoursHand, eventListenerOptions);
-    this._clockHandSeconds?.addEventListener('animationend', moveMinutesHand, eventListenerOptions);
+    this._clockHandHours?.addEventListener(
+      'animationend',
+      this._moveHoursHand.bind(this),
+      this._eventListenerOptions
+    );
+    this._clockHandSeconds?.addEventListener(
+      'animationend',
+      this._moveMinutesHand.bind(this),
+      this._eventListenerOptions
+    );
 
     setTimeout(() => {
-      this._moveHandsInitially();
+      this._setHandsStartingPosition();
     }, this._initialTimeOutDuration);
+  }
+
+  private _hasDataNow(): boolean {
+    const dataNow = +this._element.dataset?.now;
+    return !isNaN(dataNow);
+  }
+
+  private _now(): Date {
+    if (this._hasDataNow()) {
+      return new Date(+this._element.dataset?.now);
+    }
+    return new Date();
   }
 
   public componentDidLoad(): void {
     this._addEventListeners();
 
-    if (this.paused) {
+    if (this._hasDataNow()) {
       this._stopClock();
     } else {
       this._startClock();
     }
+  }
+
+  public disconnectedCallback(): void {
+    this._removeEventListeners();
   }
 
   public render(): JSX.Element {
@@ -281,9 +261,5 @@ export class SbbClock implements ComponentInterface {
         />
       </div>
     );
-  }
-
-  public disconnectedCallback(): void {
-    this._removeEventListeners();
   }
 }
