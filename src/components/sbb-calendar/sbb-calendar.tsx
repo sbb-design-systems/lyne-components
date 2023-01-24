@@ -300,7 +300,7 @@ export class SbbCalendar implements ComponentInterface {
       return false;
     }
     const nextMonth = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
-    return this._dateAdapter.compareDate(nextMonth, this._activeDate) > 0;
+    return this._dateAdapter.compareDate(nextMonth, this._max) > 0;
   }
 
   private _assignActiveDate(date: Date): void {
