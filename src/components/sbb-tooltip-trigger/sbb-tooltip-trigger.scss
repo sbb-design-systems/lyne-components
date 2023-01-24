@@ -16,6 +16,8 @@
   @include sbb.button-reset;
 
   display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
   cursor: pointer;
 
   &:focus-visible {
