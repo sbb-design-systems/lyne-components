@@ -5,23 +5,21 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-time-input-color: var(--sbb-color-charcoal-default);
   --sbb-time-input-max-width: #{sbb.px-to-rem-build(58)};
 
   @include sbb.mq($from: medium) {
     --sbb-time-input-max-width: #{sbb.px-to-rem-build(65)};
   }
 
-  // Color is inherited from sbb-form-field, if the sbb-time-input is used within it.
-  --sbb-time-input-color: var(--sbb-form-field-text-color, var(--sbb-color-charcoal-default));
-
   display: inline-block;
 }
 
 :host([disabled]:not([disabled='false'])) {
-  --sbb-time-input-color: var(--sbb-form-field-text-color, var(--sbb-color-graphite-default));
+  --sbb-time-input-color: var(--sbb-color-graphite-default);
 
   @include sbb.if-forced-colors {
-    --sbb-time-input-color: var(--sbb-form-field-text-color, GrayText);
+    --sbb-time-input-color: GrayText;
   }
 }
 
@@ -31,5 +29,7 @@ input {
   @include sbb.input-reset;
 
   max-width: var(--sbb-time-input-max-width);
-  color: var(--sbb-time-input-color);
+
+  // Color is inherited from sbb-form-field, if the sbb-time-input is used within it.
+  color: var(--sbb-form-field-text-color, var(--sbb-time-input-color));
 }

@@ -54,7 +54,7 @@ describe('sbb-time-input', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-time-input disabled="true" value="123" form="myForm">
+      <sbb-time-input disabled="" value="123" form="myForm">
         <mock:shadow-root>
           <input placeholder="HH:MM" type="text" disabled="" value="01:23" form="myForm">
         </mock:shadow-root>
