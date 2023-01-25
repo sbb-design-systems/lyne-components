@@ -100,7 +100,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     if (this._hasActiveAction) {
       this._element?.style.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${this._activeNavigationAction?.offsetTop - this._element?.offsetTop}px`
+        `${(this._element.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`
       );
     }
   }
@@ -110,8 +110,8 @@ export class SbbNavigationMarker implements ComponentInterface {
     return (
       <Host data-has-active-action={this._hasActiveAction}>
         <ul class="sbb-navigation-marker">
-          {this._actions.map((_, index) => (
-            <li class="sbb-navigation-marker__action">
+          {this._actions.map((action, index) => (
+            <li class="sbb-navigation-marker__action" data-active={action.active}>
               <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
             </li>
           ))}
