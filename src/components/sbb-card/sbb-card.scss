@@ -129,6 +129,11 @@
   }
 }
 
+slot:not([name]) {
+  display: block;
+  height: 100%;
+}
+
 .sbb-card__opens-in-new-window {
   @include sbb.screen-reader-only;
 }
