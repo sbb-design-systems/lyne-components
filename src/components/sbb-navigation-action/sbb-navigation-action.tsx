@@ -13,13 +13,13 @@ import { hostContext } from '../../global/helpers/host-context';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
-/**
- * @slot unnamed - Use this slot to provide the navigation action label.
- */
-
 const navigationActionObserverConfig: MutationObserverInit = {
   attributeFilter: ['active'],
 };
+
+/**
+ * @slot unnamed - Use this slot to provide the navigation action label.
+ */
 
 @Component({
   shadow: true,

@@ -49,6 +49,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     }
 
     this._hasActiveAction = !!this._activeNavigationAction;
+    this._currentActiveAction = this._activeNavigationAction;
     this._setMarkerPosition();
   }
 
@@ -107,13 +108,8 @@ export class SbbNavigationMarker implements ComponentInterface {
   public render(): JSX.Element {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     return (
-      <Host>
-        <ul
-          class={{
-            'sbb-navigation-marker': true,
-            'sbb-navigation-marker--visible': this._hasActiveAction,
-          }}
-        >
+      <Host data-has-active-action={this._hasActiveAction}>
+        <ul class="sbb-navigation-marker">
           {this._actions.map((_, index) => (
             <li class="sbb-navigation-marker__action">
               <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />

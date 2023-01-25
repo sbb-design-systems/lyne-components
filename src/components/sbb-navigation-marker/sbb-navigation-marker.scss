@@ -43,10 +43,6 @@
   gap: var(--sbb-navigation-action-gap);
   padding-inline-start: var(--sbb-navigation-marker-padding-inline-start);
 
-  :host([size='s']) & {
-    @include sbb.text-xxs--bold;
-  }
-
   &::before {
     content: '';
     position: absolute;
@@ -67,8 +63,14 @@
     }
   }
 
-  &.sbb-navigation-marker--visible::before {
-    opacity: 1;
+  :host([data-has-active-action]) & {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  :host([size='s']) & {
+    @include sbb.text-xxs--bold;
   }
 }
 
