@@ -1,41 +1,39 @@
-/* eslint-disable sort-keys */
-
-export const i18nDirection: any = {
+export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
   en: 'Direction',
   fr: 'Direction',
   it: 'Direzione',
 };
 
-export const i18nArrival: any = {
+export const i18nArrival: Record<string, string> = {
   de: 'Ankunft',
   en: 'Arrival',
   fr: 'Arrivée',
   it: 'Arrivo',
 };
 
-export const i18nAttention: any = {
+export const i18nAttention: Record<string, string> = {
   de: 'Achtung',
   en: 'Attention',
   fr: 'Attention',
   it: 'Attenzione',
 };
 
-export const i18nAvailableAtDepartingStation: any = {
+export const i18nAvailableAtDepartingStation: Record<string, string> = {
   de: 'am Abfahrtsbahnhof verfügbar.',
   en: 'available at departure station.',
   fr: 'disponible à la gare de départ.',
   it: 'disponibile alla stazione di partenza.',
 };
 
-export const i18nBarrierFreeTravel: any = {
+export const i18nBarrierFreeTravel: Record<string, string> = {
   de: 'Barrierefreies Reisen.',
   en: 'Barrier-free travel.',
   fr: 'Déplacements sans obstacles.',
   it: 'Viaggio senza barriere.',
 };
 
-export const i18nClass: any = {
+export const i18nClass: Record<string, Record<string, string>> = {
   first: {
     de: 'Erste Klasse',
     en: 'First Class',
@@ -50,14 +48,14 @@ export const i18nClass: any = {
   },
 };
 
-export const i18nWagonLabel = (wagonNumber: number): any => ({
+export const i18nWagonLabel = (wagonNumber: number): Record<string, string> => ({
   de: `Wagen mit der Nummer ${wagonNumber}.`,
   en: `Train coach with the number ${wagonNumber}.`,
   fr: `Wagon de train avec numéro ${wagonNumber}.`,
   it: `Vagone del treno con il numero ${wagonNumber}.`,
 });
 
-export const i18nClosedCompartmentLabel = (wagonNumber: number): any => {
+export const i18nClosedCompartmentLabel = (wagonNumber: number): Record<string, string> => {
   if (wagonNumber) {
     return {
       de: `Geschlossener Wagen mit der Nummer ${wagonNumber}.`,
@@ -74,14 +72,14 @@ export const i18nClosedCompartmentLabel = (wagonNumber: number): any => {
   };
 };
 
-export const i18nLocomotiveLabel: any = {
+export const i18nLocomotiveLabel: Record<string, string> = {
   de: 'Lokomotive',
   en: 'Locomotive',
   fr: 'Locomotive',
   it: 'Locomotiva',
 };
 
-export const i18nBlockedPassage: any = {
+export const i18nBlockedPassage: Record<string, Record<string, string>> = {
   previous: {
     de: 'Kein Durchgang zum vorherigen Wagen.',
     en: 'No passage to the previous train coach.',
@@ -102,42 +100,42 @@ export const i18nBlockedPassage: any = {
   },
 };
 
-export const i18nAdditionalWagonInformationHeading: any = {
+export const i18nAdditionalWagonInformationHeading: Record<string, string> = {
   de: 'Zusätzliche Wageninformation',
   en: 'Additional wagon information',
   fr: 'Informations supplémentaires sur les wagons',
   it: 'Informazioni aggiuntive sul vagone',
 };
 
-export const i18nConnectionsDepartOn: any = {
+export const i18nConnectionsDepartOn: Record<string, string> = {
   de: 'Abfahrten am',
   en: 'Departures on',
   fr: 'Départs le',
   it: 'Partenze su',
 };
 
-export const i18nDayChange: any = {
+export const i18nDayChange: Record<string, string> = {
   de: 'Tageswechsel',
   en: 'Change of day',
   fr: 'changement de jour',
   it: 'Cambio giorno',
 };
 
-export const i18nDeparture: any = {
+export const i18nDeparture: Record<string, string> = {
   de: 'Abfahrt',
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza',
 };
 
-export const i18nDistance: any = {
+export const i18nDistance: Record<string, string> = {
   de: 'Distanz',
   en: 'Distance',
   fr: 'Distance',
   it: 'Distanza',
 };
 
-export const i18nDistanceMeter: any = {
+export const i18nDistanceMeter: Record<string, Record<string, Record<string, string>>> = {
   single: {
     long: {
       de: 'Meter',
@@ -168,38 +166,7 @@ export const i18nDistanceMeter: any = {
   },
 };
 
-export const i18nDurationSecond: any = {
-  single: {
-    long: {
-      de: 'Sekunde',
-      en: 'Second',
-      fr: 'Seconde',
-      it: 'Seconda',
-    },
-    short: {
-      de: 's',
-      en: 's',
-      fr: 's',
-      it: 's',
-    },
-  },
-  multiple: {
-    long: {
-      de: 'Sekunden',
-      en: 'Seconds',
-      fr: 'Secondes',
-      it: 'Secondi',
-    },
-    short: {
-      de: 's',
-      en: 's',
-      fr: 's',
-      it: 's',
-    },
-  },
-};
-
-export const i18nDurationMinute: any = {
+export const i18nDurationMinute: Record<string, Record<string, Record<string, string>>> = {
   single: {
     long: {
       de: 'Minute',
@@ -230,7 +197,7 @@ export const i18nDurationMinute: any = {
   },
 };
 
-export const i18nDurationHour: any = {
+export const i18nDurationHour: Record<string, Record<string, Record<string, string>>> = {
   single: {
     long: {
       de: 'Stunde',
@@ -261,14 +228,7 @@ export const i18nDurationHour: any = {
   },
 };
 
-export const i18nEarlierConnections: any = {
-  de: 'Frühere Verbindungen',
-  en: 'Earlier connections',
-  fr: 'Connexions antérieures',
-  it: 'Collegamenti precedenti',
-};
-
-export const i18nFromPlatform: any = {
+export const i18nFromPlatform: Record<string, Record<string, string>> = {
   long: {
     de: 'Von Gleis',
     en: 'from platform',
@@ -283,7 +243,7 @@ export const i18nFromPlatform: any = {
   },
 };
 
-export const i18nFromStand: any = {
+export const i18nFromStand: Record<string, Record<string, string>> = {
   long: {
     de: 'Von Kante',
     en: 'from Stand',
@@ -298,7 +258,7 @@ export const i18nFromStand: any = {
   },
 };
 
-export const i18nFromPier: any = {
+export const i18nFromPier: Record<string, Record<string, string>> = {
   long: {
     de: 'Von Steg',
     en: 'from Pier',
@@ -313,21 +273,14 @@ export const i18nFromPier: any = {
   },
 };
 
-export const i18nLaterConnections: any = {
-  de: 'Spätere Verbindungen',
-  en: 'Later connections',
-  fr: 'Connexions ultérieures',
-  it: 'Collegamenti successivi',
-};
-
-export const i18nNone: any = {
+export const i18nNone: Record<string, string> = {
   de: 'Keine',
   en: 'None',
   fr: 'aucun',
   it: 'nessuno',
 };
 
-export const i18nOccupancy: any = {
+export const i18nOccupancy: Record<string, Record<string, string>> = {
   unknown: {
     de: 'Keine Belegungsprognose verfügbar.',
     en: 'No occupancy forecast available.',
@@ -354,142 +307,134 @@ export const i18nOccupancy: any = {
   },
 };
 
-export const i18nOptional: any = {
+export const i18nOptional: Record<string, string> = {
   de: '(optional)',
   en: '(optional)',
   fr: '(facultatif)',
   it: '(facoltativo)',
 };
 
-export const i18nShowOnMap: any = {
-  de: 'Auf der Karte anzeigen',
-  en: 'Show on the map',
-  fr: 'Indiquer sur la carte',
-  it: 'Visualizzare sulla carta',
-};
-
-export const i18nTargetOpensInNewWindow: any = {
+export const i18nTargetOpensInNewWindow: Record<string, string> = {
   de: 'Linkziel öffnet in neuem Fenster.',
   en: 'Link target opens in new window.',
   fr: "Le lien s'ouvre dans une nouvelle fenêtre.",
   it: "L'obiettivo del link si apre in una nuova finestra.",
 };
 
-export const i18nXResultsAvailable = (resultsCount: number): any => ({
+export const i18nXResultsAvailable = (resultsCount: number): Record<string, string> => ({
   de: `${resultsCount} Resultate verfügbar.`,
   en: `${resultsCount} results available.`,
   fr: `${resultsCount} résultats disponibles.`,
   it: `${resultsCount} sarà disponibile.`,
 });
 
-export const i18nUseArrowKeysToNavigate: any = {
+export const i18nUseArrowKeysToNavigate: Record<string, string> = {
   de: 'Verwenden Sie Pfeiltasten nach oben und unten, um zu navigieren.',
   en: 'Use up and down arrow keys to navigate.',
   fr: 'Utilisez les touches fléchées haut et bas pour naviguer.',
   it: 'Usa i tasti freccia su e giù per navigare.',
 };
-export const i18nWalk: any = {
+export const i18nWalk: Record<string, string> = {
   de: 'Fussweg',
   en: 'Walk',
   fr: 'Parcours à pied',
   it: 'Percorso a piedi',
 };
 
-export const i18nWalkingDistanceArrival: any = {
+export const i18nWalkingDistanceArrival: Record<string, string> = {
   de: 'Minuten Fussweg nach Ankunft:',
   en: 'minutes of walking time after arrival:',
   fr: 'minutes de trajet à pied après l’arrivée:',
   it: 'minuti a piedi all’arrivo:',
 };
 
-export const i18nWalkingDistanceDeparture: any = {
+export const i18nWalkingDistanceDeparture: Record<string, string> = {
   de: 'Minuten Fussweg vor Abfahrt:',
   en: 'minutes of walking time before departure:',
   fr: 'minutes trajet à pied avant le départ:',
   it: 'minuti a piedi prima della partenza:',
 };
 
-export const i18nWalkingDistanceToDepartureStation: any = {
+export const i18nWalkingDistanceToDepartureStation: Record<string, string> = {
   de: 'Fussweg zum Abfahrtsbahnhof.',
   en: 'of walking distance to departing station.',
   fr: 'de distance à pied de la gare de départ.',
   it: 'di distanza a piedi dalla stazione di partenza.',
 };
 
-export const i18nCloseAlert: any = {
+export const i18nCloseAlert: Record<string, string> = {
   de: 'Meldung schliessen',
   en: 'Close message',
   fr: 'Fermer message',
   it: 'Chiudere il messaggio',
 };
 
-export const i18nCloseDialog: any = {
+export const i18nCloseDialog: Record<string, string> = {
   de: 'Übergelagertes Fenster schliessen',
   en: 'Close secondary window',
   fr: 'Fermer la fenêtre superposée',
   it: 'Chiudere la finestra sovrapposta',
 };
 
-export const i18nCloseNavigation: any = {
+export const i18nCloseNavigation: Record<string, string> = {
   de: 'Navigation schliessen',
   en: 'Close navigation',
   fr: 'Fermer la navigation',
   it: 'Chiudere la navigazione',
 };
 
-export const i18nCloseTooltip: any = {
+export const i18nCloseTooltip: Record<string, string> = {
   de: 'Hinweis schliessen',
   en: 'Close note',
   fr: 'Fermer la note',
   it: 'Chiudere la nota',
 };
 
-export const i18nGoBack: any = {
+export const i18nGoBack: Record<string, string> = {
   de: 'Zurück',
   en: 'Go back',
   fr: 'Retourner',
   it: 'Vai indietro',
 };
 
-export const i18nFindOutMore: any = {
+export const i18nFindOutMore: Record<string, string> = {
   de: 'Mehr erfahren',
   en: 'Find out more',
   fr: 'En savoir plus',
   it: 'Per saperne di più',
 };
 
-export const i18nToday: any = {
+export const i18nToday: Record<string, string> = {
   de: 'Heute',
   en: 'Today',
   fr: 'Aujourd’hui',
   it: 'Oggi',
 };
 
-export const i18nTomorrow: any = {
+export const i18nTomorrow: Record<string, string> = {
   de: 'Morgen',
   en: 'Tomorrow',
   fr: 'Demain',
   it: 'Domani',
 };
 
-export const i18nConnectionFrom: any = {
+export const i18nConnectionFrom: Record<string, string> = {
   de: 'Verbindung von',
   en: 'Connection from',
   fr: 'Liaison de',
   it: 'Collegamento da',
 };
 
-export const i18nConnectionTo: any = {
+export const i18nConnectionTo: Record<string, string> = {
   de: 'nach',
   en: 'to',
   fr: 'à',
   it: 'a',
 };
 
-export const i18nConnectionRoundtrip = (returnCity: string): any => ({
+export const i18nConnectionRoundtrip = (returnCity: string): Record<string, string> => ({
   de: `und zurück nach ${returnCity}.`,
   en: `and back to ${returnCity}.`,
   fr: `et retour à ${returnCity}.`,
   it: `e ritorno a ${returnCity}.`,
 });
-/* eslint-enable sort-keys */
