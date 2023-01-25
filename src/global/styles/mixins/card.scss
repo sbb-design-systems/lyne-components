@@ -1,194 +1,130 @@
 @use '../core/functions';
 @use '../core/mediaqueries';
 @use './a11y';
+@use './buttons';
 @use './shadows';
+@use './typo';
 
 // -----------------------------------------------------------------------------
 // Card: Mixins & CSS custom properties
 // -----------------------------------------------------------------------------
 
-@mixin card-host-properties {
-  --card-border-radius: var(--sbb-border-radius-4x);
-  --card-padding-top: ;
-  --card-padding-right: ;
-  --card-padding-bottom: ;
-  --card-padding-left: ;
-
-  // Todo: Design tokens need to be defined globally
-  --card-hover-shift: 2px;
-  --card-hover-animation: 0.03s all ease-out;
-
-  // Needed to fully span on grids e.g. home/products
-  height: 100%;
+@mixin card-variables {
+  --sbb-card-background-color: var(--sbb-color-white-default);
+  --sbb-card-border-radius: var(--sbb-border-radius-4x);
+  --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
+  --sbb-card-animation-easing: var(--sbb-animation-easing);
+  --sbb-card-border-color: transparent;
+  --sbb-card-hover-shift: #{functions.px-to-rem-build(2)};
 }
 
-@mixin card {
-  display: block;
-
-  // Needed to fully span on grids e.g. home/products
-  height: 100%;
-  padding-block-start: var(--card-padding-top);
-  padding-inline-end: var(--card-padding-right);
-  padding-block-end: var(--card-padding-bottom);
-  padding-inline-start: var(--card-padding-left);
-  border-radius: var(--card-border-radius);
-  background-color: var(--card-background-color);
-  position: relative;
-  overflow: hidden;
-  user-select: text;
-  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
-  transition: var(--card-hover-animation);
-
-  &:focus {
-    @include card--shadow;
-
-    @include a11y.focus-outline;
-  }
-
-  // If the the device can hover over elements with ease
-  @include mediaqueries.hover-mq($hover: true) {
-    &:hover {
-      @include card--shadow;
-    }
-  }
-
-  @include a11y.if-forced-colors {
-    border: #{functions.px-to-rem-build(1)} solid ButtonText;
-
-    &:disabled {
-      border-color: GrayText;
-    }
-  }
+@mixin card-variables--milk {
+  --sbb-card-background-color: var(--sbb-color-milk-default);
 }
 
-// Card appearance
-@mixin card--primary {
-  --card-background-color: var(--sbb-color-milk-default);
-}
-
-@mixin card--primary-negative {
-  --card-background-color: var(--sbb-color-white-default);
+@mixin card-variables--active {
+  --sbb-card-border-color: var(--sbb-color-smoke-default);
 }
 
 // Card sizing
-@mixin card--xs {
-  --card-padding-top: var(--sbb-spacing-fixed-3x);
-  --card-padding-right: var(--sbb-spacing-responsive-xxs);
-  --card-padding-bottom: var(--sbb-spacing-fixed-3);
-  --card-padding-left: var(--sbb-spacing-responsive-xxs);
-
-  // @include spacing-responsive-xxs('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-left');
-  // --card-padding-top: #{pxToRem(var(--spacing-fixed-3x))};
-  // --card-padding-bottom: #{pxToRem(var(--spacing-fixed-3x))};
+@mixin card-variables--xs {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
-@mixin card--s {
-  --card-padding-top: var(--sbb-spacing-responsive-xxxs);
-  --card-padding-right: var(--sbb-spacing-responsive-xxs);
-  --card-padding-bottom: var(--sbb-spacing-responsive-xxxs);
-  --card-padding-left: var(--sbb-spacing-responsive-xxs);
-
-  // @include spacing-responsive-xxxs('--card-padding-top');
-  // @include spacing-responsive-xxs('--card-padding-right');
-  // @include spacing-responsive-xxxs('--card-padding-bottom');
-  // @include spacing-responsive-xxs('--card-padding-left');
+@mixin card-variables--s {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
-@mixin card--m {
-  --card-padding-top: var(--sbb-spacing-fixed-4x);
-  --card-padding-right: var(--sbb-spacing-responsive-xxs);
-  --card-padding-bottom: var(--sbb-spacing-fixed-4x);
-  --card-padding-left: var(--sbb-spacing-responsive-xxs);
-
-  // @include spacing-responsive-xxs('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-left');
-  // --card-padding-top: #{pxToRem(var(--spacing-fixed-4x))};
-  // --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+@mixin card-variables--m {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
-@mixin card--m-tall {
-  --card-padding-top: var(--sbb-spacing-fixed-6x);
-  --card-padding-right: var(--sbb-spacing-responsive-xxs);
-  --card-padding-bottom: var(--sbb-spacing-fixed-4x);
-  --card-padding-left: var(--sbb-spacing-responsive-xxs);
-
-  // @include spacing-responsive-xxs('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-left');
-  // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
-  // --card-padding-bottom: #{pxToRem(var(--spacing-fixed-4x))};
+@mixin card-variables--m-has-badge {
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x);
+  --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs);
 }
 
-@mixin card--l {
-  --card-padding-top: var(--sbb-spacing-responsive-xxs);
-  --card-padding-right: var(--sbb-spacing-responsive-xxs);
-  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
-  --card-padding-left: var(--sbb-spacing-responsive-xxs);
-
-  // @include spacing-responsive-xxs('--card-padding-top');
-  // @include spacing-responsive-xxs('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-bottom');
-  // @include spacing-responsive-xxs('--card-padding-left');
+@mixin card-variables--l {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-4x);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
-@mixin card--l-tall {
-  --card-padding-top: var(--sbb-spacing-fixed-6x);
-  --card-padding-right: var(--sbb-spacing-responsive-xxs);
-  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
-  --card-padding-left: var(--sbb-spacing-responsive-xxs);
-
-  // @include spacing-responsive-xxs('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-bottom');
-  // @include spacing-responsive-xxs('--card-padding-left');
-  // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+@mixin card-variables--l-has-badge {
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x);
+  --sbb-card-padding-block-end: var(--sbb-spacing-fixed-4x);
 }
 
-@mixin card--xl {
-  --card-padding-top: var(--sbb-spacing-responsive-xxs);
-  --card-padding-right: var(--sbb-spacing-responsive-s);
-  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
-  --card-padding-left: var(--sbb-spacing-responsive-s);
-
-  // @include spacing-responsive-xxs('--card-padding-top');
-  // @include spacing-responsive-s('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-bottom');
-  // @include spacing-responsive-s('--card-padding-left');
+@mixin card-variables--xl {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxs);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
-@mixin card--xl-tall {
-  --card-padding-top: var(--sbb-spacing-fixed-6x);
-  --card-padding-right: var(--sbb-spacing-responsive-s);
-  --card-padding-bottom: var(--sbb-spacing-responsive-xxs);
-  --card-padding-left: var(--sbb-spacing-responsive-s);
-
-  // @include spacing-responsive-s('--card-padding-right');
-  // @include spacing-responsive-xxs('--card-padding-bottom');
-  // @include spacing-responsive-s('--card-padding-left');
-  // --card-padding-top: #{pxToRem(var(--spacing-fixed-6x))};
+@mixin card-variables--xl-has-badge {
+  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x);
+  --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin card--xxl {
-  --card-padding-top: var(--sbb-spacing-responsive-s);
-  --card-padding-right: var(--sbb-spacing-responsive-s);
-  --card-padding-bottom: var(--sbb-spacing-responsive-s);
-  --card-padding-left: var(--sbb-spacing-responsive-s);
-
-  // @include spacing-responsive-s('--card-padding-top');
-  // @include spacing-responsive-s('--card-padding-right');
-  // @include spacing-responsive-s('--card-padding-bottom');
-  // @include spacing-responsive-s('--card-padding-left');
+@mixin card-variables--xxl {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-s);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
-@mixin card--xxl-tall {
-  @include card--xxl;
+@mixin card {
+  @include typo.text-inherit;
+  @include buttons.button-reset;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+  padding-inline: var(--sbb-card-padding-inline);
+  padding-block-start: var(--sbb-card-padding-block-start);
+  padding-block-end: var(--sbb-card-padding-block-end);
+  border-radius: var(--sbb-card-border-radius);
+  background-color: var(--sbb-card-background-color);
+  transition: {
+    duration: var(--sbb-card-animation-duration);
+    timing-function: var(--sbb-card-animation-easing);
+    property: box-shadow, padding;
+  }
+
+  text-decoration: none;
+  user-select: text;
+
+  &::after {
+    position: absolute;
+    background-color: transparent;
+    content: '';
+    inset: 0;
+    border: var(--sbb-border-width-2x) solid var(--sbb-card-border-color);
+    border-radius: var(--sbb-card-border-radius);
+  }
+
+  &:focus-visible {
+    @include a11y.focus-outline;
+  }
+
+  @include a11y.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid ButtonText;
+  }
 }
 
-@mixin card--shadow {
-  &:not(:disabled) {
+@mixin card--hover {
+  @include mediaqueries.hover-mq($hover: true) {
     @include shadows.shadow-level-9-hard;
 
-    padding-top: calc(var(--card-padding-top) - var(--card-hover-shift));
-    padding-bottom: calc(var(--card-padding-bottom) + var(--card-hover-shift));
     cursor: pointer;
+    padding-block-start: calc(var(--sbb-card-padding-block-start) - var(--sbb-card-hover-shift));
+    padding-block-end: calc(var(--sbb-card-padding-block-end) + var(--sbb-card-hover-shift));
   }
 }

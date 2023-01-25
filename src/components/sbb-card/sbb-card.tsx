@@ -40,7 +40,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   @Prop({ reflect: true }) public size?: InterfaceSbbCardAttributes['size'] = 'm';
 
   /** Option to set the component background color. */
-  @Prop({ reflect: true }) public negative: boolean;
+  @Prop({ reflect: true }) public color: InterfaceSbbCardAttributes['color'] = 'white';
 
   /** Used to set the component's active state. */
   @Prop({ reflect: true }) public active = false;
