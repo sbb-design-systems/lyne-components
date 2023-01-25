@@ -68,15 +68,15 @@ export class SbbClock implements ComponentInterface {
 
   private _removeHoursAnimationStyles(): void {
     this._clockHandHours?.classList.remove('sbb-clock__hand-hours--initial-hour');
-    this._element.style.removeProperty('--clock-hours-animation-start-angle');
-    this._element.style.removeProperty('--clock-hours-animation-duration');
+    this._element.style.removeProperty('--sbb-clock-hours-animation-start-angle');
+    this._element.style.removeProperty('--sbb-clock-hours-animation-duration');
   }
 
   private _removeSecondsAnimationStyles(): void {
     this._clockHandSeconds?.classList.remove('sbb-clock__hand-seconds--initial-minute');
     this._clockHandMinutes?.classList.remove('sbb-clock__hand-minutes--no-transition');
-    this._element.style.removeProperty('--clock-seconds-animation-start-angle');
-    this._element.style.removeProperty('--clock-seconds-animation-duration');
+    this._element.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
+    this._element.style.removeProperty('--sbb-clock-seconds-animation-duration');
   }
 
   private _getCurrentTime(): void {
@@ -109,19 +109,19 @@ export class SbbClock implements ComponentInterface {
     }
 
     this._element.style.setProperty(
-      '--clock-hours-animation-start-angle',
+      '--sbb-clock-hours-animation-start-angle',
       `${Math.ceil(this._hours * 30 + this._minutes / 2)}deg`
     );
     this._element.style.setProperty(
-      '--clock-hours-animation-duration',
+      '--sbb-clock-hours-animation-duration',
       `${hoursAnimationDuration}s`
     );
     this._element.style.setProperty(
-      '--clock-seconds-animation-start-angle',
+      '--sbb-clock-seconds-animation-start-angle',
       `${Math.ceil(this._seconds * (360 / 58.5))}deg`
     );
     this._element.style.setProperty(
-      '--clock-seconds-animation-duration',
+      '--sbb-clock-seconds-animation-duration',
       `${this._remainingSeconds}s`
     );
 
@@ -129,7 +129,7 @@ export class SbbClock implements ComponentInterface {
 
     this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
-    this._element.style.setProperty('--clock-animation-play-state', 'running');
+    this._element.style.setProperty('--sbb-clock-animation-play-state', 'running');
 
     this._isInitialized = true;
   }
@@ -186,7 +186,7 @@ export class SbbClock implements ComponentInterface {
 
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
-    this._element.style.setProperty('--clock-animation-play-state', 'paused');
+    this._element.style.setProperty('--sbb-clock-animation-play-state', 'paused');
   }
 
   private _startClock(): void {
