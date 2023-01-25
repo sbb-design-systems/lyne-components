@@ -4,7 +4,7 @@ import readme from './readme.md';
 
 const dataNow = {
   control: {
-    type: 'number',
+    type: 'date',
   },
 };
 
@@ -19,7 +19,7 @@ Default.documentation = {
 
 export const Paused = Template.bind({});
 Paused.argTypes = { 'data-now': dataNow };
-Paused.args = { 'data-now': 1677273030000 };
+Paused.args = { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() };
 Paused.documentation = {
   title: 'Paused',
 };
