@@ -13,10 +13,10 @@ The Example below shows how to render the component with a button in the slot. T
 
 ## Properties
 
-| Property              | Attribute           | Description                                                                                                    | Type            | Default     |
-| --------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | --------------- | ----------- |
-| `config` _(required)_ | --                  | The config prop                                                                                                | `SummaryConfig` | `undefined` |
-| `disableAnimation`    | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`       | `undefined` |
+| Property                     | Attribute           | Description                                                                                                    | Type                                   | Default     |
+| ---------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------- |
+| `disableAnimation`           | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`                              | `undefined` |
+| `summaryConfig` _(required)_ | --                  | The config prop                                                                                                | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
 
 
 ## Dependencies
