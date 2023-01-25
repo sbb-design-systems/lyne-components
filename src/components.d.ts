@@ -1023,6 +1023,7 @@ export namespace Components {
     }
     interface SbbNavigationMarker {
         "reset": () => Promise<void>;
+        "select": (action: HTMLSbbNavigationActionElement) => Promise<void>;
         /**
           * Marker size variant.
          */
@@ -1050,7 +1051,6 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         "titleContent"?: string;
-        "titleLevel"?: InterfaceTitleAttributes['level'];
         /**
           * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
          */
@@ -3389,7 +3389,6 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         "titleContent"?: string;
-        "titleLevel"?: InterfaceTitleAttributes['level'];
         /**
           * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
          */

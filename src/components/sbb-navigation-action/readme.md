@@ -25,13 +25,6 @@ As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a but
 | `value`                 | `value`                  | The value attribute to use for the button.                                                                                                                                                                                      | `string`                                                        | `undefined` |
 
 
-## Slots
-
-| Slot        | Description                                           |
-| ----------- | ----------------------------------------------------- |
-| `"unnamed"` | Use this slot to provide the navigation action label. |
-
-
 ----------------------------------------------
 
 

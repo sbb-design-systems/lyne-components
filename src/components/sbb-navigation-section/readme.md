@@ -23,14 +23,13 @@ Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) compo
 
 ## Properties
 
-| Property                 | Attribute                  | Description                                                                                                        | Type                                     | Default     |
-| ------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- | ----------- |
-| `accessibilityBackLabel` | `accessibility-back-label` | This will be forwarded as aria-label to the back button element.                                                   | `string`                                 | `undefined` |
-| `accessibilityLabel`     | `accessibility-label`      | This will be forwarded as aria-label to the relevant nested element.                                               | `string`                                 | `undefined` |
-| `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                                  | `boolean`                                | `false`     |
-| `titleContent`           | `title-content`            |                                                                                                                    | `string`                                 | `undefined` |
-| `titleLevel`             | `title-level`              |                                                                                                                    | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'2'`       |
-| `trigger`                | `trigger`                  | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string`                  | `undefined` |
+| Property                 | Attribute                  | Description                                                                                                        | Type                    | Default     |
+| ------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------- | ----------- |
+| `accessibilityBackLabel` | `accessibility-back-label` | This will be forwarded as aria-label to the back button element.                                                   | `string`                | `undefined` |
+| `accessibilityLabel`     | `accessibility-label`      | This will be forwarded as aria-label to the relevant nested element.                                               | `string`                | `undefined` |
+| `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                                  | `boolean`               | `false`     |
+| `titleContent`           | `title-content`            |                                                                                                                    | `string`                | `undefined` |
+| `trigger`                | `trigger`                  | The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 
 ## Methods

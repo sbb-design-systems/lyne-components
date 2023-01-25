@@ -5,7 +5,6 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
@@ -38,6 +37,7 @@ export class SbbNavigationMarker implements ComponentInterface {
    */
   @State() private _actions: HTMLSbbNavigationActionElement[];
 
+  private _currentActiveAction: HTMLSbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new ResizeObserver(() => this._setMarkerPosition());
 
   @Element() private _element: HTMLElement;
@@ -61,18 +61,11 @@ export class SbbNavigationMarker implements ComponentInterface {
     this._navigationMarkerResizeObserver.disconnect();
   }
 
-  /**
-   * Handles click and checks if its target is an sbb-navigation-action.
-   */
-  @Listen('click')
-  public async onClick(event: Event): Promise<void> {
-    const action = event.target as HTMLSbbNavigationActionElement | undefined;
-    if (action?.tagName !== 'SBB-NAVIGATION-ACTION') {
-      return;
-    }
-
+  @Method()
+  public async select(action: HTMLSbbNavigationActionElement): Promise<void> {
     await this.reset();
     action.active = true;
+    this._currentActiveAction = action;
     this._hasActiveAction = true;
     this._setMarkerPosition();
   }
@@ -82,7 +75,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     if (!this._hasActiveAction) {
       return;
     }
-    this._activeNavigationAction.active = false;
+    this._currentActiveAction.active = false;
     this._hasActiveAction = false;
   }
 

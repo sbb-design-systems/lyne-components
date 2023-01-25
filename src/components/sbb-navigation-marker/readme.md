@@ -36,6 +36,16 @@ Type: `Promise<void>`
 
 
 
+### `select(action: HTMLSbbNavigationActionElement) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Slots
 

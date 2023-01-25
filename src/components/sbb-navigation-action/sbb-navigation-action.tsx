@@ -9,10 +9,17 @@ import {
   resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { hostContext } from '../../global/helpers/host-context';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Use this slot to provide the navigation action label.
  */
+
+const navigationActionObserverConfig: MutationObserverInit = {
+  attributeFilter: ['active'],
+};
 
 @Component({
   shadow: true,
@@ -85,15 +92,40 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element: HTMLSbbNavigationActionElement;
+
+  private _navigationMarker: HTMLSbbNavigationMarkerElement;
+  private _navigationActionAttributeObserver = new MutationObserver(() =>
+    this._onActiveActionChange()
+  );
 
   public connectedCallback(): void {
+    this._navigationActionAttributeObserver.observe(this._element, navigationActionObserverConfig);
+
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+    
+    // Check if the current element is nested inside a navigation marker.
+    this._navigationMarker = hostContext(
+      'sbb-navigation-marker',
+      this._element
+    ) as HTMLSbbNavigationMarkerElement;
+  }
+
+  public disconnectedCallback(): void {
+    this._navigationActionAttributeObserver.disconnect();
   }
 
   private _actionElement(): HTMLElement {
     return this._element.shadowRoot.firstElementChild as HTMLElement;
+  }
+
+  private _onActiveActionChange(): void {
+    if (isValidAttribute(this._element, 'active')) {
+      this._navigationMarker?.select(this._element);
+    } else {
+      this._navigationMarker?.reset();
+    }
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -104,6 +136,10 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   @Listen('click')
   public handleClick(event: Event): void {
     forwardHostEvent(event, this._element, this._actionElement());
+
+    if (!this.active) {
+      this._navigationMarker?.select(this._element);
+    }
   }
 
   public render(): JSX.Element {
