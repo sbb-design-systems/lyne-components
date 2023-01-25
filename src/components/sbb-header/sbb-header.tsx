@@ -42,15 +42,11 @@ export class SbbHeader {
     } else {
       this._scrollElement = this.scrollOrigin;
     }
-    if (this.hideOnScroll) {
-      this._scrollElement.addEventListener('scroll', this._scrollListener.bind(this), {
-        passive: true,
-      });
-    } else {
-      this._scrollElement.addEventListener('scroll', this._scrollShadowListener.bind(this), {
-        passive: true,
-      });
-    }
+
+    const scrollFn: () => void = this.hideOnScroll
+      ? this._scrollListener
+      : this._scrollShadowListener;
+    this._scrollElement.addEventListener('scroll', scrollFn.bind(this), { passive: true });
   }
 
   /** Sets the correct value for `scrollTop`, then:
@@ -61,34 +57,24 @@ export class SbbHeader {
   private _scrollListener(): void {
     const currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
     this.shadow = currentScroll !== 0;
-    const header = this._element.shadowRoot.firstElementChild;
+    const header = this._element.shadowRoot.firstElementChild as HTMLSbbHeaderElement;
     // check if original header position has been scrolled out
     if (currentScroll > this._element.offsetHeight) {
       if (currentScroll > 0 && this._lastScroll <= currentScroll) {
-        this._lastScroll = currentScroll;
         this.shadow = false;
-        (header as HTMLElement).style.setProperty(
-          'transform',
-          'translateY(-' + this._element.offsetHeight + 'px)'
-        );
+        header.style.setProperty('transform', 'translateY(-' + this._element.offsetHeight + 'px)');
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
       } else {
-        this._lastScroll = currentScroll;
         this.shadow = true;
-        (header as HTMLElement).style.setProperty('transform', 'translateY(0)');
+        header.style.setProperty('transform', 'translateY(0)');
         header.classList.add('sbb-header--animated');
       }
       this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
-    } else {
-      if (currentScroll > this._lastScroll || currentScroll == 0) {
-        this._lastScroll = currentScroll;
-        this.shadow = false;
-        (header as HTMLElement).style.setProperty(
-          'transform',
-          'translateY(-' + currentScroll + 'px)'
-        );
-        header.classList.remove('sbb-header--animated');
-      }
+    } else if (currentScroll > this._lastScroll || currentScroll == 0) {
+      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+      this.shadow = false;
+      header.style.setProperty('transform', 'translateY(-' + currentScroll + 'px)');
+      header.classList.remove('sbb-header--animated');
     }
   }
 
@@ -96,11 +82,6 @@ export class SbbHeader {
   private _scrollShadowListener(): void {
     const currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
     this.shadow = currentScroll !== 0;
-    if (currentScroll == 0) {
-      this.shadow = false;
-    } else {
-      this.shadow = true;
-    }
   }
 
   public render(): JSX.Element {
