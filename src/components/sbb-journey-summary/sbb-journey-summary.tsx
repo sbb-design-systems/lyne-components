@@ -1,5 +1,5 @@
 import { Component, h, JSX, Prop, Element, ComponentInterface, State, Listen } from '@stencil/core';
-import { InterfaceJourneySummaryAttributes } from './sbb-journey-summary.custom';
+import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
 import { i18nDurationHour, i18nDurationMinute, i18nToday, i18nTomorrow } from '../../global/i18n';
@@ -13,7 +13,7 @@ import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-h
 })
 export class SbbJourneySummary implements ComponentInterface {
   /**  The config prop */
-  @Prop() public config!: InterfaceJourneySummaryAttributes['config'];
+  @Prop() public config!: InterfaceSbbJourneySummaryAttributes;
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -68,16 +68,18 @@ export class SbbJourneySummary implements ComponentInterface {
 
   /**  renders the date of the journey or if it is the current or next day */
   private _renderJourneyStart(departureTime: Date, dur: number): JSX.Element {
-    const duration: Duration = this._convertDuration(dur);
+    const duration: Duration | undefined = dur > 0 ? this._convertDuration(dur) : undefined;
 
     if (isTomorrow(departureTime) || isToday(departureTime)) {
       return isTomorrow(departureTime) ? (
         <span>
-          {i18nTomorrow[this._currentLanguage]}, {this._formatTime(duration)}
+          {i18nTomorrow[this._currentLanguage]},{' '}
+          {duration && <span>, {this._formatTime(duration)}</span>}
         </span>
       ) : (
         <span>
-          {i18nToday[this._currentLanguage]}, {this._formatTime(duration)}
+          {i18nToday[this._currentLanguage]}{' '}
+          {duration && <span>, {this._formatTime(duration)}</span>}
         </span>
       );
     }
@@ -85,9 +87,9 @@ export class SbbJourneySummary implements ComponentInterface {
       return (
         <span>
           <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
-            {format(departureTime, 'dd.MM, ')}
+            {format(departureTime, 'dd.MM')}
           </time>
-          {this._formatTime(duration)}
+          {duration && <span>, {this._formatTime(duration)}</span>}
         </span>
       );
   }
@@ -125,26 +127,31 @@ export class SbbJourneySummary implements ComponentInterface {
     return (
       <div class="sbb-journey-summary">
         {origin && (
-          <sbb-journey-header origin={origin} destination={destination}></sbb-journey-header>
+          <sbb-journey-header
+            size="l"
+            level="4"
+            origin={origin}
+            destination={destination}
+          ></sbb-journey-header>
         )}
         {vias?.length > 0 && this._renderJourneyVias(vias)}
-        <div class="sbb-journey-summary__body">
-          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure?.time), duration)}
-          <sbb-pearl-chain-time
-            arrivalTime={arrival?.time}
-            departureTime={departure?.time}
-            departureWalk={departureWalk}
-            arrivalWalk={arrivalWalk}
-            legs={legs}
-            disableAnimation={this.disableAnimation}
-            data-now={this._now()}
-          />
-          {this._hasContentSlot && (
-            <div class="sbb-journey-summary__slot">
-              <slot name="content" />
-            </div>
-          )}
-        </div>
+        <span class="sbb-journey-summary__date">
+          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure), duration)}
+        </span>
+        <sbb-pearl-chain-time
+          arrivalTime={arrival}
+          departureTime={departure}
+          departureWalk={departureWalk}
+          arrivalWalk={arrivalWalk}
+          legs={legs}
+          disableAnimation={this.disableAnimation}
+          data-now={this._now()}
+        />
+        {this._hasContentSlot && (
+          <div class="sbb-journey-summary__slot">
+            <slot name="content" />
+          </div>
+        )}
       </div>
     );
   }

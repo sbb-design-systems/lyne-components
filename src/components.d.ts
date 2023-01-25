@@ -24,7 +24,7 @@ import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
-import { InterfaceJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
+import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
@@ -762,7 +762,7 @@ export namespace Components {
         /**
           * The config prop
          */
-        "config": InterfaceJourneySummaryAttributes['config'];
+        "config": InterfaceSbbJourneySummaryAttributes;
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
@@ -3094,7 +3094,7 @@ declare namespace LocalJSX {
         /**
           * The config prop
          */
-        "config": InterfaceJourneySummaryAttributes['config'];
+        "config": InterfaceSbbJourneySummaryAttributes;
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */

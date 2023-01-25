@@ -71,8 +71,8 @@ summaryNoSlot.args = {
   legs: [futureLeg, longFutureLeg, futureLeg],
   origin: 'Station',
   destination: 'Station',
-  departure: { time: '2022-08-29T20:30:00+02:00' },
-  arrival: { time: '2022-08-29T20:35:00+02:00' },
+  departure: '2022-08-29T20:30:00+02:00',
+  arrival: '2022-08-29T20:35:00+02:00',
   duration: 60,
 };
 
@@ -83,8 +83,8 @@ summary.args = {
   legs: [futureLeg, longFutureLeg, futureLeg],
   origin: 'Station',
   destination: 'Station',
-  departure: { time: '2022-08-29T20:30:00+02:00' },
-  arrival: { time: '2022-08-29T20:35:00+02:00' },
+  departure: '2022-08-29T20:30:00+02:00',
+  arrival: '2022-08-29T20:35:00+02:00',
   duration: 120,
 };
 
@@ -96,8 +96,8 @@ summaryNoVias.args = {
   legs: [futureLeg, longFutureLeg, futureLeg],
   arrivalWalk: 10,
   departureWalk: 5,
-  departure: { time: '2022-08-29T20:30:00+02:00' },
-  arrival: { time: '2022-08-29T22:30:00+02:00' },
+  departure: '2022-08-29T20:30:00+02:00',
+  arrival: '2022-08-29T22:30:00+02:00',
   duration: 120,
 };
 
@@ -108,8 +108,8 @@ summaryNoArrivalWalk.args = {
   destination: 'Station',
   legs: [futureLeg, longFutureLeg, futureLeg],
   departureWalk: 5,
-  departure: { time: '2022-08-30T20:30:00+02:00' },
-  arrival: { time: '2022-08-29T22:30:00+02:00' },
+  departure: '2022-08-30T20:30:00+02:00',
+  arrival: '2022-08-29T22:30:00+02:00',
   duration: 120,
 };
 
@@ -120,8 +120,8 @@ summaryPosition.args = {
   legs: [pastLeg, progressLeg, futureLeg],
   origin: 'Station',
   destination: 'Station',
-  departure: { time: '2022-09-19T20:30:00+02:00' },
-  arrival: { time: '2022-09-19T22:30:00+02:00' },
+  departure: '2022-09-19T20:30:00+02:00',
+  arrival: '2022-09-19T22:30:00+02:00',
   duration: 120,
 };
 
