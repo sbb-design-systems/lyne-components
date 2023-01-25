@@ -31,7 +31,7 @@ const defaultArgs = {
 };
 
 const Template = ({ 'disable-animation': disableAnimation, 'data-now': dataNow, ...args }) => (
-  <sbb-journey-summary disable-animation={disableAnimation} data-now={dataNow} summaryConfig={args}>
+  <sbb-journey-summary disable-animation={disableAnimation} data-now={dataNow} config={args}>
     <div
       style={{
         display: 'flex',
@@ -54,7 +54,7 @@ const TemplateNoSlot = ({
   <sbb-journey-summary
     disable-animation={disableAnimation}
     data-now={dataNow}
-    summaryConfig={args}
+    config={args}
   ></sbb-journey-summary>
 );
 

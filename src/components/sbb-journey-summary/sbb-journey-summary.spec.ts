@@ -34,7 +34,7 @@ describe('sbb-journey-summary', () => {
       components: [SbbJourneySummary],
       html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
     });
-    page.rootInstance.summaryConfig = data;
+    page.rootInstance.config = data;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">
@@ -78,7 +78,7 @@ describe('sbb-journey-summary', () => {
       components: [SbbJourneySummary],
       html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
     });
-    page.rootInstance.summaryConfig = dataWithoutVia;
+    page.rootInstance.config = dataWithoutVia;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">

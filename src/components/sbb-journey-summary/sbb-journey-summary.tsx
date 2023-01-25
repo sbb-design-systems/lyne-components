@@ -13,7 +13,7 @@ import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-h
 })
 export class SbbJourneySummary implements ComponentInterface {
   /**  The config prop */
-  @Prop() public summaryConfig!: InterfaceSbbJourneySummaryAttributes;
+  @Prop() public config!: InterfaceSbbJourneySummaryAttributes;
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -122,7 +122,7 @@ export class SbbJourneySummary implements ComponentInterface {
       arrivalWalk,
       arrival,
       legs,
-    } = this.summaryConfig || {};
+    } = this.config || {};
 
     return (
       <div class="sbb-journey-summary">
