@@ -11,7 +11,7 @@ describe('sbb-navigation-marker', () => {
     expect(root).toEqualHtml(`
       <sbb-navigation-marker size="l">
         <mock:shadow-root>
-          <ul class="sbb-navigation-marker__content"></ul>
+          <ul class="sbb-navigation-marker"></ul>
           <span hidden="">
             <slot></slot>
           </span>

@@ -99,7 +99,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     if (this._hasActiveAction) {
       this._element?.style.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${this._activeNavigationAction?.offsetTop}px`
+        `${this._activeNavigationAction?.offsetTop - this._element?.offsetTop}px`
       );
     }
   }
@@ -107,8 +107,13 @@ export class SbbNavigationMarker implements ComponentInterface {
   public render(): JSX.Element {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     return (
-      <Host class={{ 'sbb-navigation-marker--visible': this._hasActiveAction }}>
-        <ul class="sbb-navigation-marker__content">
+      <Host>
+        <ul
+          class={{
+            'sbb-navigation-marker': true,
+            'sbb-navigation-marker--visible': this._hasActiveAction,
+          }}
+        >
           {this._actions.map((_, index) => (
             <li class="sbb-navigation-marker__action">
               <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />

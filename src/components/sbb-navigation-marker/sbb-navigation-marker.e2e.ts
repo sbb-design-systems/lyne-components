@@ -38,7 +38,7 @@ describe('sbb-navigation-marker', () => {
 
   it('automatic list generation', async () => {
     const list = await page.find('sbb-navigation-marker >>> ul');
-    expect(list.className).toBe('sbb-navigation-marker__content');
+    expect(list.className).toBe('sbb-navigation-marker');
 
     const listItem = await list.find('li');
 

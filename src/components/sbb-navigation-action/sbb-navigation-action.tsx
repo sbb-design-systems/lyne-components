@@ -104,7 +104,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
     // Forward focus call to action element
     this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
-    
+
     // Check if the current element is nested inside a navigation marker.
     this._navigationMarker = hostContext(
       'sbb-navigation-marker',

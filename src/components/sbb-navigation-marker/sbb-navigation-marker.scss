@@ -5,8 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.title-4($exclude-spacing: true);
-
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
   --sbb-navigation-marker-position-y: unset;
@@ -19,11 +17,35 @@
     1em * var(--sbb-navigation-marker-typo-line-height) / 2 - var(--sbb-navigation-marker-border) /
       2
   );
+}
 
-  // TODO: try to refactor removing the style from the host element
+:host([size='s']) {
+  --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-navigation-marker-width: #{sbb.px-to-rem-build(8)};
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
+  --sbb-navigation-marker-position-x: calc(
+    var(--sbb-navigation-marker-padding-inline-start) - var(--sbb-spacing-fixed-2x)
+  );
+  --sbb-navigation-marker-padding-inline-start: calc(
+    var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-1x)
+  );
+}
+
+.sbb-navigation-marker {
+  @include sbb.list-reset;
+  @include sbb.title-4($exclude-spacing: true);
 
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sbb-navigation-action-gap);
   padding-inline-start: var(--sbb-navigation-marker-padding-inline-start);
+
+  :host([size='s']) & {
+    @include sbb.text-xxs--bold;
+  }
 
   &::before {
     content: '';
@@ -44,34 +66,10 @@
       border-color: CanvasText;
     }
   }
-}
 
-:host(.sbb-navigation-marker--visible)::before {
-  opacity: 1;
-}
-
-:host([size='s']) {
-  @include sbb.text-xxs--bold;
-
-  --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-navigation-marker-width: #{sbb.px-to-rem-build(8)};
-  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-body-text);
-  --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
-  --sbb-navigation-marker-position-x: calc(
-    var(--sbb-navigation-marker-padding-inline-start) - var(--sbb-spacing-fixed-2x)
-  );
-  --sbb-navigation-marker-padding-inline-start: calc(
-    var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-1x)
-  );
-}
-
-.sbb-navigation-marker__content {
-  @include sbb.list-reset;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--sbb-navigation-action-gap);
+  &.sbb-navigation-marker--visible::before {
+    opacity: 1;
+  }
 }
 
 ::slotted(sbb-navigation-action) {
