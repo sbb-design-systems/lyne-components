@@ -167,11 +167,7 @@ const TemplateClockColumns = ({ ...args }) => (
         Subscribe
       </sbb-button>
     </div>
-    <sbb-clock
-      {...(isChromatic()
-        ? { 'initial-time': '01:59:27', paused: true }
-        : { 'initial-time': 'now' })}
-    ></sbb-clock>
+    <sbb-clock {...(isChromatic() ? { 'data-now': 1677200367000 } : {})}></sbb-clock>
     <sbb-divider negative={args.negative} />
     <sbb-link-list horizontal-from="large" negative={args.negative}>
       <sbb-link
