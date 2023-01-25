@@ -271,22 +271,19 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  private _nextMonth(): void {
+  private _nextMonthClicked(): void {
     const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
     this._assignActiveDate(newActiveDate);
     this._init();
   }
 
-  private _previousMonth(): void {
-    const newActiveDate = this._dateAdapter.addCalendarMonths(
-      this._activeDate,
-      this._wide ? -2 : -1
-    );
+  private _previousMonthClicked(): void {
+    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? -2 : -1);
     this._assignActiveDate(newActiveDate);
     this._init();
   }
 
-  private _disablePrev(): boolean {
+  private _previousMonthEnabled(): boolean {
     if (!this._min) {
       return false;
     }
@@ -295,7 +292,7 @@ export class SbbCalendar implements ComponentInterface {
     return this._dateAdapter.compareDate(prevMonth, this._min) < 0;
   }
 
-  private _disableNext(): boolean {
+  private _nextMonthEnabled(): boolean {
     if (!this._max) {
       return false;
     }
@@ -305,23 +302,17 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _assignActiveDate(date: Date): void {
-    if (
-      this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.compareDate(this._min, date) > 0
-    ) {
+    if (this._min && this._dateAdapter.compareDate(this._min, date) > 0) {
       this._activeDate = this._min;
       return;
     }
-    if (
-      this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.compareDate(this._max, date) < 0
-    ) {
+    if (this._max && this._dateAdapter.compareDate(this._max, date) < 0) {
       this._activeDate = this._wide ? this._dateAdapter.addCalendarMonths(date, -1) : this._max;
       return;
     }
     const nextMonth = this._dateAdapter.addCalendarMonths(date, 1);
     nextMonth.setDate(1);
-    if (this._wide && this._dateAdapter.compareDate(this._max, nextMonth) < 0) {
+    if (this._wide && this._max && this._dateAdapter.compareDate(this._max, nextMonth) < 0) {
       this._activeDate = this._dateAdapter.addCalendarMonths(date, -1);
       return;
     }
@@ -337,8 +328,8 @@ export class SbbCalendar implements ComponentInterface {
             variant="secondary"
             iconName="chevron-small-left-small"
             size="m"
-            onClick={() => this._previousMonth()}
-            disabled={this._disablePrev()}
+            onClick={() => this._previousMonthClicked()}
+            disabled={this._previousMonthEnabled()}
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
             {this._createMonthLabel(this._activeDate)}
@@ -349,8 +340,8 @@ export class SbbCalendar implements ComponentInterface {
             variant="secondary"
             iconName="chevron-small-right-small"
             size="m"
-            onClick={() => this._nextMonth()}
-            disabled={this._disableNext()}
+            onClick={() => this._nextMonthClicked()}
+            disabled={this._nextMonthEnabled()}
           ></sbb-button>
         </div>
         <div class="sbb-calendar__table-container">
