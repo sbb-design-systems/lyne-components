@@ -5,6 +5,10 @@ import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
 
+let moveHoursHand;
+let moveMinutesHand;
+let handMovement;
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-clock.scss',
@@ -19,8 +23,6 @@ export class SbbClock implements ComponentInterface {
   private _clockHandHours: HTMLElement;
   private _clockHandMinutes: HTMLElement;
   private _clockHandSeconds: HTMLElement;
-
-  private _handMovement: ReturnType<typeof setInterval>;
 
   private _hours: number;
   private _minutes: number;
@@ -61,9 +63,9 @@ export class SbbClock implements ComponentInterface {
       this._handlePageVisibilityChange.bind(this),
       false
     );
-    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHand.bind(this));
-    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHand.bind(this));
-    clearInterval(this._handMovement);
+    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
+    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
+    clearInterval(handMovement);
   }
 
   private _removeHoursAnimationStyles(): void {
@@ -156,21 +158,25 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _moveMinutesHand(): void {
-    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHand.bind(this));
+    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
 
     this._removeSecondsAnimationStyles();
 
+    this._addMinutesAndSetHands();
+
+    handMovement = setInterval(
+      this._addMinutesAndSetHands.bind(this),
+      this._defaultSecondsAnimationDuration * 1000
+    );
+  }
+
+  private _addMinutesAndSetHands(): void {
     this._minutes++;
     this._setMinutesHand();
-
-    this._handMovement = setInterval(() => {
-      this._minutes++;
-      this._setMinutesHand();
-    }, this._defaultSecondsAnimationDuration * 1000);
   }
 
   private _stopClock(): void {
-    clearInterval(this._handMovement);
+    clearInterval(handMovement);
 
     if (this._hasDataNow()) {
       this._setHandsStartingPosition();
@@ -181,8 +187,8 @@ export class SbbClock implements ComponentInterface {
       this._removeHoursAnimationStyles();
     }
 
-    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHand.bind(this));
-    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHand.bind(this));
+    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
+    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
 
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
@@ -190,14 +196,17 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _startClock(): void {
+    moveHoursHand = (): void => this._moveHoursHand();
+    moveMinutesHand = (): void => this._moveMinutesHand();
+
     this._clockHandHours?.addEventListener(
       'animationend',
-      this._moveHoursHand.bind(this),
+      moveHoursHand,
       this._eventListenerOptions
     );
     this._clockHandSeconds?.addEventListener(
       'animationend',
-      this._moveMinutesHand.bind(this),
+      moveMinutesHand,
       this._eventListenerOptions
     );
 
