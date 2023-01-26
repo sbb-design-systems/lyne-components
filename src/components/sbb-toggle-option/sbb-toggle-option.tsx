@@ -23,7 +23,7 @@ import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 // This approach allows us to just check whether an attribute has been added or removed
-// from the DOM, instead of a `Watch()` decorator that would check the value change 
+// from the DOM, instead of a `Watch()` decorator that would check the value change
 // and get us into a loop.
 const toggleOptionObserverConfig: MutationObserverInit = {
   attributeFilter: ['checked'],
