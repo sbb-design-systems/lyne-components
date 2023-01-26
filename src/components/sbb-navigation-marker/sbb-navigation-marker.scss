@@ -58,14 +58,12 @@
       property: opacity, inset-block-start;
     }
 
+    :host([data-has-active-action]) & {
+      opacity: 1;
+    }
+
     @include sbb.if-forced-colors {
       border-color: CanvasText;
-    }
-  }
-
-  :host([data-has-active-action]) & {
-    &::before {
-      opacity: 1;
     }
   }
 

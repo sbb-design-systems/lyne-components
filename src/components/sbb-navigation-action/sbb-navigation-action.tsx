@@ -120,6 +120,8 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
     return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
+  // Check whether the `active` attribute has been added or removed from the DOM
+  // and call the `select()` or `reset()` method accordingly.
   private _onActiveActionChange(): void {
     if (isValidAttribute(this._element, 'active')) {
       this._navigationMarker?.select(this._element);
