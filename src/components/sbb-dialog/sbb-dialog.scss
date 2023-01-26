@@ -13,37 +13,19 @@
   --sbb-dialog-max-width: 100%;
   --sbb-dialog-max-width-default: #{sbb.px-to-rem-build(892)};
   --sbb-dialog-max-height: 100%;
+  --sbb-dialog-inset: 0 auto auto 0;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
   --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
   --sbb-dialog-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-dialog-animation-easing: ease;
+  --sbb-dialog-pointer-events: none;
+  --sbb-dialog-backdrop-visibility: hidden;
+  --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
-
-  position: fixed;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  inset: 0;
-  z-index: 10;
-
-  // Backdrop
-  &::before {
-    content: '';
-    visibility: hidden;
-    pointer-events: none;
-    position: fixed;
-    inset: 0;
-    background-color: var(--sbb-dialog-backdrop-color);
-    transition: {
-      duration: var(--sbb-dialog-animation-duration);
-      timing-function: var(--sbb-dialog-animation-easing);
-      property: background-color, visibility;
-    }
-  }
 
   @include sbb.mq($from: micro) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
@@ -64,15 +46,12 @@
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
-  pointer-events: all;
+  --sbb-dialog-pointer-events: all;
 
   @include sbb.mq($from: medium) {
+    --sbb-dialog-backdrop-visibility: visible;
+    --sbb-dialog-backdrop-pointer-events: all;
     --sbb-dialog-backdrop-color: var(--sbb-color-milk-default);
-
-    &::before {
-      visibility: visible;
-      pointer-events: all;
-    }
   }
 }
 
@@ -105,6 +84,34 @@
 
 :host([data-overflows]:not([data-fullscreen], [negative]:not([negative='false']))) {
   --sbb-dialog-footer-border: none;
+}
+
+:host(:not([data-state='closed'])) {
+  --sbb-dialog-inset: 0;
+}
+
+.sbb-dialog__container {
+  position: fixed;
+  pointer-events: var(--sbb-dialog-pointer-events);
+  display: flex;
+  align-items: center;
+  inset: var(--sbb-dialog-inset);
+  z-index: 10;
+
+  // Dialog backdrop (not visible on mobile)
+  &::before {
+    content: '';
+    visibility: var(--sbb-dialog-backdrop-visibility);
+    pointer-events: var(--sbb-dialog-backdrop-pointer-events);
+    position: fixed;
+    inset: var(--sbb-dialog-inset);
+    background-color: var(--sbb-dialog-backdrop-color);
+    transition: {
+      duration: var(--sbb-dialog-animation-duration);
+      timing-function: var(--sbb-dialog-animation-easing);
+      property: background-color, visibility;
+    }
+  }
 }
 
 .sbb-dialog {
