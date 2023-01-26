@@ -64,17 +64,8 @@ export class SbbCalendar implements ComponentInterface {
   /* Focuses on a day cell*/
   @Method()
   public focus(): void {
-    let toFocus = this._element.shadowRoot.querySelector('.sbb-datepicker__day-selected');
-    if (!toFocus) {
-      toFocus = this._element.shadowRoot.querySelector('.sbb-datepicker__day-today');
-    }
-    if (!toFocus) {
-      toFocus = Array.from(this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')).find(
-        (e) => !(e as HTMLButtonElement).disabled
-      );
-    }
-
-    (toFocus as HTMLElement).focus();
+    const toFocus = this._getFirstFocusable();
+    toFocus?.focus();
   }
 
   public connectedCallback(): void {
@@ -85,6 +76,10 @@ export class SbbCalendar implements ComponentInterface {
 
     this._setDates();
     this._init();
+  }
+
+  public componentDidRender(): void {
+    this._setTabIndex();
   }
 
   @Element() private _element: HTMLElement;
@@ -318,6 +313,30 @@ export class SbbCalendar implements ComponentInterface {
     }
 
     this._activeDate = date;
+  }
+
+  private _getFirstFocusable(): HTMLButtonElement {
+    let firstFocusable = this._element.shadowRoot.querySelector('.sbb-datepicker__day-selected');
+    if (!firstFocusable) {
+      firstFocusable = this._element.shadowRoot.querySelector('.sbb-datepicker__day-today');
+    }
+    if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
+      firstFocusable = Array.from(
+        this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')
+      ).find((e) => !(e as HTMLButtonElement).disabled);
+    }
+    return (firstFocusable as HTMLButtonElement) || null;
+  }
+
+  private _setTabIndex(): void {
+    const currentlyActive = Array.from(
+      this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day[tabindex="0"]')
+    );
+    for (const day of currentlyActive) {
+      (day as HTMLElement).tabIndex = -1;
+    }
+    const fistFocusable = this._getFirstFocusable();
+    fistFocusable.tabIndex = 0;
   }
 
   public render(): JSX.Element {
