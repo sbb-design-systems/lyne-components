@@ -108,6 +108,7 @@
     inset: 0;
     border: var(--sbb-border-width-2x) solid var(--sbb-card-border-color);
     border-radius: var(--sbb-card-border-radius);
+    pointer-events: none;
   }
 
   &:focus-visible {
