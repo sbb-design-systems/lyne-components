@@ -1,0 +1,55 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  @include sbb.group-variables;
+}
+
+:host([color='white']) {
+  @include sbb.group-variables--white;
+}
+
+:host([color='milk']) {
+  @include sbb.group-variables--milk;
+}
+
+:host([color='transparent']) {
+  @include sbb.group-variables--transparent;
+}
+
+:host([padding='3X-XXS']) {
+  @include sbb.group-variables--3X-XXS;
+}
+
+:host([padding='XXXS-XXS']) {
+  @include sbb.group-variables--XXXS-XXS;
+}
+
+:host([padding='4X-XXS']) {
+  @include sbb.group-variables--4X-XXS;
+}
+
+:host([padding='XXS-XXS']) {
+  @include sbb.group-variables--XXS-XXS;
+}
+
+:host([padding='XXXS-S']) {
+  @include sbb.group-variables--XXXS-S;
+}
+
+:host([padding='S-S']) {
+  @include sbb.group-variables--S-S;
+}
+
+:host([padding='L-L']) {
+  @include sbb.group-variables--L-L;
+}
+
+.sbb-group {
+  @include sbb.stretch(height);
+  @include sbb.stretch(width);
+  @include sbb.group;
+}
