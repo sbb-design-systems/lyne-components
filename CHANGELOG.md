@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.11](https://github.com/lyne-design-system/lyne-components/compare/v0.23.10...v0.23.11) (2023-01-26)
+
+### Features
+
+- **sbb-navigation:** handle `active` attr change on navigation actions ([#1566](https://github.com/lyne-design-system/lyne-components/issues/1566)) ([52dcb5f](https://github.com/lyne-design-system/lyne-components/commit/52dcb5f80f3e05c022f64245bce6593515b7aacf))
+
 ### [0.23.10](https://github.com/lyne-design-system/lyne-components/compare/v0.23.9...v0.23.10) (2023-01-25)
 
 ### Bug Fixes
