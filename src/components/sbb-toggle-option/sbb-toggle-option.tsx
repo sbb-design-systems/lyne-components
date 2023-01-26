@@ -22,14 +22,17 @@ import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
+// This approach allows us to just check whether an attribute has been added or removed
+// from the DOM, instead of a `Watch()` decorator that would check the value change
+// and get us into a loop.
+const toggleOptionObserverConfig: MutationObserverInit = {
+  attributeFilter: ['checked'],
+};
+
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
  * @slot icon - Slot used to render the `<sbb-icon>`.
  */
-
-const toggleOptionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['checked'],
-};
 
 @Component({
   shadow: true,

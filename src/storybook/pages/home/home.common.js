@@ -30,7 +30,9 @@ export const Navigation = () => (
       <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
       <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
       <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
-      <sbb-navigation-action id="nav-8">English</sbb-navigation-action>
+      <sbb-navigation-action id="nav-8" active>
+        English
+      </sbb-navigation-action>
     </sbb-navigation-marker>
 
     <sbb-navigation-section title-content="Title one" trigger="nav-1">

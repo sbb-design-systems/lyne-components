@@ -23,15 +23,15 @@ import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
-/**
- * @slot unnamed - Use this to project any content inside the navigation.
- */
-
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
   subtree: true,
   attributeFilter: ['class'],
 };
+
+/**
+ * @slot unnamed - Use this to project any content inside the navigation.
+ */
 
 @Component({
   shadow: true,

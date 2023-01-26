@@ -19,7 +19,6 @@ import {
 } from '../../global/helpers/observe-named-slot-changes';
 import { i18nGoBack } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
@@ -36,11 +35,6 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
    * The label to be shown before the action list.
    */
   @Prop() public titleContent?: string;
-
-  /*
-   * The semantic level of the title, e.g. 2 = h2.
-   */
-  @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
   /**
    * The element that will trigger the navigation section.

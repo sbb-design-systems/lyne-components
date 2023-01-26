@@ -19,6 +19,14 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import { hostContext } from '../../global/helpers/host-context';
 import throttle from '../../global/helpers/throttle';
 
+const tabObserverConfig: MutationObserverInit = {
+  attributeFilter: ['active', 'disabled'],
+};
+
+const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'];
+
+let nextId = 0;
+
 /**
  * @slot tab-bar - When you provide the `sbb-tab-title` tag through the unnamed slot,
  * it will be automatically moved to this slot. You do not need to use it directly.
@@ -27,14 +35,6 @@ import throttle from '../../global/helpers/throttle';
  * This is correct: `<div>Some text <p>Some other text</p></div>`
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  */
-
-const tabObserverConfig: MutationObserverInit = {
-  attributeFilter: ['active', 'disabled'],
-};
-
-const SUPPORTED_CONTENT_WRAPPERS = ['ARTICLE', 'DIV', 'SECTION', 'SBB-TAB-GROUP'];
-
-let nextId = 0;
 
 @Component({
   shadow: true,

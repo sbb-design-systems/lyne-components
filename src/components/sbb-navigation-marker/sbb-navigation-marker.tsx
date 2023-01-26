@@ -5,7 +5,6 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
@@ -38,6 +37,7 @@ export class SbbNavigationMarker implements ComponentInterface {
    */
   @State() private _actions: HTMLSbbNavigationActionElement[];
 
+  private _currentActiveAction: HTMLSbbNavigationActionElement;
   private _navigationMarkerResizeObserver = new ResizeObserver(() => this._setMarkerPosition());
 
   @Element() private _element: HTMLElement;
@@ -49,6 +49,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     }
 
     this._hasActiveAction = !!this._activeNavigationAction;
+    this._currentActiveAction = this._activeNavigationAction;
     this._setMarkerPosition();
   }
 
@@ -61,18 +62,11 @@ export class SbbNavigationMarker implements ComponentInterface {
     this._navigationMarkerResizeObserver.disconnect();
   }
 
-  /**
-   * Handles click and checks if its target is an sbb-navigation-action.
-   */
-  @Listen('click')
-  public async onClick(event: Event): Promise<void> {
-    const action = event.target as HTMLSbbNavigationActionElement | undefined;
-    if (action?.tagName !== 'SBB-NAVIGATION-ACTION') {
-      return;
-    }
-
+  @Method()
+  public async select(action: HTMLSbbNavigationActionElement): Promise<void> {
     await this.reset();
     action.active = true;
+    this._currentActiveAction = action;
     this._hasActiveAction = true;
     this._setMarkerPosition();
   }
@@ -82,7 +76,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     if (!this._hasActiveAction) {
       return;
     }
-    this._activeNavigationAction.active = false;
+    this._currentActiveAction.active = false;
     this._hasActiveAction = false;
   }
 
@@ -106,7 +100,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     if (this._hasActiveAction) {
       this._element?.style.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${this._activeNavigationAction?.offsetTop}px`
+        `${(this._element.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`
       );
     }
   }
@@ -114,10 +108,10 @@ export class SbbNavigationMarker implements ComponentInterface {
   public render(): JSX.Element {
     this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
     return (
-      <Host class={{ 'sbb-navigation-marker--visible': this._hasActiveAction }}>
-        <ul class="sbb-navigation-marker__content">
-          {this._actions.map((_, index) => (
-            <li class="sbb-navigation-marker__action">
+      <Host data-has-active-action={this._hasActiveAction}>
+        <ul class="sbb-navigation-marker">
+          {this._actions.map((action, index) => (
+            <li class="sbb-navigation-marker__action" data-active={action.active}>
               <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
             </li>
           ))}
