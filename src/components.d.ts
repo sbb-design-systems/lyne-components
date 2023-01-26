@@ -295,7 +295,7 @@ export namespace Components {
          */
         "active": boolean;
         /**
-          * Option to set the component background color.
+          * Option to set the component's background color.
          */
         "color": InterfaceSbbCardAttributes['color'];
         /**
@@ -2487,7 +2487,7 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
-          * Option to set the component background color.
+          * Option to set the component's background color.
          */
         "color"?: InterfaceSbbCardAttributes['color'];
         /**

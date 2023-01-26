@@ -36,7 +36,7 @@ In the first one, the `sbb-card` will be internally rendered as a button, in the
 | -------------------- | --------------------- | ------------------------------------------------------------------------------- | -------------------------------------------- | ----------- |
 | `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant nested element.            | `string`                                     | `undefined` |
 | `active`             | `active`              | Used to set the component's active state.                                       | `boolean`                                    | `false`     |
-| `color`              | `color`               | Option to set the component background color.                                   | `"milk" \| "white"`                          | `'white'`   |
+| `color`              | `color`               | Option to set the component's background color.                                 | `"milk" \| "white"`                          | `'white'`   |
 | `download`           | `download`            | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |
 | `form`               | `form`                | The <form> element to associate the button with.                                | `string`                                     | `undefined` |
 | `href`               | `href`                | The href value you want to link to.                                             | `string`                                     | `undefined` |

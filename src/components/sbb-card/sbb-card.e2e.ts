@@ -15,7 +15,7 @@ describe('sbb-card', () => {
 
     element = await page.find('sbb-card');
     expect(element).toEqualHtml(`
-      <sbb-card class='hydrated' data-has-badge size="xl" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+      <sbb-card color="white" class='hydrated' data-has-badge size="xl" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
         <mock:shadow-root>
           <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
             <slot name="badge"></slot>
@@ -44,7 +44,7 @@ describe('sbb-card', () => {
 
     element = await page.find('sbb-card');
     expect(element).toEqualHtml(`
-      <sbb-card class='hydrated' data-has-badge size="xl" name="button" form="form" value="value">
+      <sbb-card color="white" class='hydrated' data-has-badge size="xl" name="button" form="form" value="value">
         <mock:shadow-root>
           <button class="sbb-card" dir="ltr" type='button' name="button" form="form" value="value">
             <slot name="badge"></slot>
