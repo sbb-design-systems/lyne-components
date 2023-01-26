@@ -87,6 +87,13 @@ Type: `Promise<void>`
 
 
 
+## Slots
+
+| Slot        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `"unnamed"` | Use this to project any content inside the navigation. |
+
+
 ## Dependencies
 
 ### Depends on

@@ -13,6 +13,9 @@ import { hostContext } from '../../global/helpers/host-context';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
+// This approach allows us to just check whether an attribute has been added or removed
+// from the DOM, instead of a `Watch()` decorator that would check the value change 
+// and get us into a loop.
 const navigationActionObserverConfig: MutationObserverInit = {
   attributeFilter: ['active'],
 };

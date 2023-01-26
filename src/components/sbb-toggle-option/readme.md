@@ -46,6 +46,14 @@ Type: `Promise<void>`
 
 
 
+## Slots
+
+| Slot        | Description                                         |
+| ----------- | --------------------------------------------------- |
+| `"icon"`    | Slot used to render the `<sbb-icon>`.               |
+| `"unnamed"` | Slot used to render the label of the toggle option. |
+
+
 ## Dependencies
 
 ### Depends on
