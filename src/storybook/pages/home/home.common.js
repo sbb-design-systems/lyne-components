@@ -141,69 +141,69 @@ export const Navigation = () => (
 );
 
 export const DailyTicketProduct = () => (
-  <sbb-card-product
-    appearance="primary"
+  <sbb-card
     accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    layout="standard"
-    href-value="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/lyne-design-system/lyne-components"
+    color="milk"
+    size="s"
   >
-    <sbb-icon name="ticket-route-medium" slot="icon"></sbb-icon>
-    <sbb-title slot="title" level="2" visual-level="6">
-      Daily ticket
-    </sbb-title>
-    <div slot="text">
-      <span>Valid today</span>
-    </div>
-    <div slot="action">
-      <sbb-button size="m" variant="secondary" static>
+    <span class="card-product">
+      <sbb-icon name="ticket-route-medium"></sbb-icon>
+      <span class="content">
+        <sbb-title level="2" visual-level="6">
+          Daily ticket
+        </sbb-title>
+        <span class="sbb-text-s card-description">Valid today</span>
+      </span>
+      <sbb-button size="m" variant="secondary">
         Buy
       </sbb-button>
-    </div>
-  </sbb-card-product>
+    </span>
+  </sbb-card>
 );
 
 export const BikeProduct = () => (
-  <sbb-card-product
-    appearance="primary"
+  <sbb-card
     accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    layout="standard"
-    href-value="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/lyne-design-system/lyne-components"
+    color="milk"
+    size="s"
   >
-    <sbb-icon name="bicycle-medium" slot="icon"></sbb-icon>
-    <sbb-title slot="title" level="2" visual-level="6">
-      Bike day pass
-    </sbb-title>
-    <div slot="text">
-      <span>Valid today</span>
-    </div>
-    <div slot="action">
-      <sbb-button size="m" variant="secondary" static>
+    <span class="card-product">
+      <sbb-icon name="bicycle-medium"></sbb-icon>
+      <span class="content">
+        <sbb-title level="2" visual-level="6">
+          Bike day pass
+        </sbb-title>
+        <span class="sbb-text-s card-description">Valid today</span>
+      </span>
+      <sbb-button size="m" variant="secondary">
         Buy
       </sbb-button>
-    </div>
-  </sbb-card-product>
+    </span>
+  </sbb-card>
 );
 
 export const LiberoProduct = () => (
-  <sbb-card-product
-    appearance="primary"
+  <sbb-card
     accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    layout="standard"
-    href-value="https://github.com/lyne-design-system/lyne-components"
+    href="https://github.com/lyne-design-system/lyne-components"
+    color="milk"
+    size="s"
   >
-    <sbb-icon name="ticket-route-medium" slot="icon"></sbb-icon>
-    <sbb-title slot="title" level="2" visual-level="6">
-      Libero short distance ticket
-    </sbb-title>
-    <div slot="text">
-      <span>Valid today</span>
-    </div>
-    <div slot="action">
-      <sbb-button size="m" variant="secondary" static>
+    <span class="card-product">
+      <sbb-icon name="ticket-route-medium"></sbb-icon>
+      <span class="content">
+        <sbb-title level="2" visual-level="6">
+          Libero short distance ticket
+        </sbb-title>
+        <span class="sbb-text-s card-description">Valid today</span>
+      </span>
+      <sbb-button size="m" variant="secondary">
         Buy
       </sbb-button>
-    </div>
-  </sbb-card-product>
+    </span>
+  </sbb-card>
 );
 
 export const TeaserHero = () => (

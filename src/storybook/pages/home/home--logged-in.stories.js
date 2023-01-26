@@ -99,115 +99,98 @@ const Template = (args) => (
           </sbb-title>
           <ul class="current-tickets-list">
             <li>
-              <sbb-card-product
-                appearance="primary-negative"
+              <sbb-card
                 accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-                layout="standard"
-                href-value="https://github.com/lyne-design-system/lyne-components"
+                href="https://github.com/lyne-design-system/lyne-components"
               >
-                <sbb-icon name="ticket-route-medium" slot="icon"></sbb-icon>
-                <div slot="category">
-                  <span>Saver ticket</span>
-                </div>
-                <div slot="title">
-                  <sbb-title level="2" visual-level="1">
-                    GA
-                  </sbb-title>
-                  <sbb-journey-header
-                    origin="La Chaux de Fonds"
-                    destination="Loèche-les-Bains"
-                    round-trip=""
-                    level="2"
-                  ></sbb-journey-header>
-                </div>
-                <sbb-title slot="lead" level="3" visual-level="6">
-                  Generalabonnement
-                </sbb-title>
-                <div slot="text">
-                  <span>2nd class, valid until 30.11.2022</span>
-                </div>
-                <div slot="details">
-                  <sbb-pearl-chain
-                    legs={[pastLeg, futureLeg]}
-                    data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                    disable-animation={isChromatic()}
-                  />
-                </div>
-                <div slot="card-badge">
-                  <sbb-card-badge
-                    is-discount=""
-                    price="92.50"
-                    slotgeneric='<span>on <time datetime="2021-11-25">Black Friday</time></span>'
-                    text="from CHF"
-                  >
-                    <span slot="generic">
-                      <span>
-                        on <time datetime="2021-11-25">Black Friday</time>
-                      </span>
+                <sbb-card-badge
+                  is-discount
+                  price="92.50"
+                  slotgeneric='<span>on <time datetime="2021-11-25">Black Friday</time></span>'
+                  text="from CHF"
+                  slot="badge"
+                >
+                  <span slot="generic">
+                    on <time dateTime="2021-11-25">Black Friday</time>
+                  </span>
+                </sbb-card-badge>
+
+                <span class="card-product">
+                  <sbb-icon name="ticket-route-medium"></sbb-icon>
+                  <span class="content">
+                    <span class="sbb-text-s card-description">Saver ticket</span>
+                    <sbb-title level="2" visual-level="1">
+                      GA
+                    </sbb-title>
+                    <sbb-journey-header
+                      origin="La Chaux de Fonds"
+                      destination="Loèche-les-Bains"
+                      round-trip
+                      level="2"
+                    ></sbb-journey-header>
+                    <sbb-title level="3" visual-level="6">
+                      Generalabonnement
+                    </sbb-title>
+                    <span class="sbb-text-s card-description">
+                      2nd class, valid until 30.11.2022
                     </span>
-                  </sbb-card-badge>
-                </div>
-                <div slot="action">
-                  <sbb-button variant="secondary" static icon-name="qrcode-small">
+                    <sbb-pearl-chain
+                      legs={[pastLeg, futureLeg]}
+                      data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
+                      disable-animation={isChromatic()}
+                    />
+                  </span>
+                  <sbb-button variant="secondary" icon-name="qrcode-small">
                     Ticket
                   </sbb-button>
-                </div>
-              </sbb-card-product>
+                </span>
+              </sbb-card>
             </li>
             <li>
-              <sbb-card-product
-                appearance="primary-negative"
+              <sbb-card
                 accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-                layout="standard"
-                href-value="https://github.com/lyne-design-system/lyne-components"
+                href="https://github.com/lyne-design-system/lyne-components"
               >
-                <sbb-icon name="ticket-route-medium" slot="icon"></sbb-icon>
-                <div slot="category">
-                  <span>Saver ticket</span>
-                </div>
-                <sbb-title slot="title" level="2" visual-level="6">
-                  Libero day ticket: All zones
-                </sbb-title>
-                <div slot="text">
-                  <span>Today, Valid 24 hours</span>
-                </div>
-                <div slot="action">
-                  <sbb-button variant="secondary" static icon-name="qrcode-small">
+                <span class="card-product">
+                  <sbb-icon name="ticket-route-medium"></sbb-icon>
+                  <span class="content">
+                    <span class="sbb-text-s card-description">Saver ticket</span>
+                    <sbb-title level="2" visual-level="6">
+                      Libero day ticket: All zones
+                    </sbb-title>
+                    <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
+                  </span>
+                  <sbb-button variant="secondary" icon-name="qrcode-small">
                     Ticket
                   </sbb-button>
-                </div>
-              </sbb-card-product>
+                </span>
+              </sbb-card>
             </li>
             <li>
-              <sbb-card-product
-                appearance="primary-negative"
+              <sbb-card
                 accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-                layout="standard"
-                href-value="https://github.com/lyne-design-system/lyne-components"
+                href="https://github.com/lyne-design-system/lyne-components"
               >
-                <sbb-journey-header
-                  origin="La Chaux de Fonds"
-                  destination="Loèche-les-Bains"
-                  round-trip=""
-                  level="2"
-                  slot="title"
-                ></sbb-journey-header>
-                <div slot="text">
-                  <span>Saturday, 21.02.2021, 1 h 26 min</span>
-                </div>
-                <div slot="details">
-                  <sbb-pearl-chain
-                    legs={[pastLeg, futureLeg]}
-                    data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
-                    disable-animation={isChromatic()}
-                  />
-                </div>
-                <div slot="action">
-                  <sbb-button variant="secondary" static>
-                    Details
-                  </sbb-button>
-                </div>
-              </sbb-card-product>
+                <span class="card-product">
+                  <span class="content">
+                    <sbb-journey-header
+                      origin="La Chaux de Fonds"
+                      destination="Loèche-les-Bains"
+                      round-trip=""
+                      level="2"
+                    ></sbb-journey-header>
+                    <span class="sbb-text-s card-description">
+                      Saturday, 21.02.2021, 1 h 26 min
+                    </span>
+                    <sbb-pearl-chain
+                      legs={[pastLeg, futureLeg]}
+                      data-now={new Date('2021-12-08T12:11:00+01:00').valueOf()}
+                      disable-animation={isChromatic()}
+                    />
+                  </span>
+                  <sbb-button variant="secondary">Details</sbb-button>
+                </span>
+              </sbb-card>
             </li>
           </ul>
           <sbb-button
@@ -273,27 +256,25 @@ const Template = (args) => (
             <sbb-title level="3" visual-level="4" negative={args.negative}>
               Your subscriptions.
             </sbb-title>
-            <sbb-card-product
-              appearance="primary"
+            <sbb-card
               accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-              layout="loose"
-              href-value="https://github.com/lyne-design-system/lyne-components"
+              href="https://github.com/lyne-design-system/lyne-components"
+              color="milk"
+              size="s"
             >
-              <sbb-title slot="title" level="2" visual-level="1">
-                GA
-              </sbb-title>
-              <sbb-title slot="lead" level="3" visual-level="6">
-                Generalabonnement
-              </sbb-title>
-              <div slot="text">
-                <span>2nd class, valid until 30.11.2022</span>
-              </div>
-              <div slot="action">
-                <sbb-button variant="secondary" static>
-                  Edit subscription
-                </sbb-button>
-              </div>
-            </sbb-card-product>
+              <span class="card-product-big">
+                <span class="content">
+                  <sbb-title level="2" visual-level="1">
+                    GA
+                  </sbb-title>
+                  <sbb-title level="3" visual-level="6">
+                    Generalabonnement
+                  </sbb-title>
+                  <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
+                </span>
+                <sbb-button variant="secondary">Edit subscription</sbb-button>
+              </span>
+            </sbb-card>
           </div>
         </div>
       </div>

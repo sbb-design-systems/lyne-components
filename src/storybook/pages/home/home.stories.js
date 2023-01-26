@@ -98,63 +98,65 @@ const Template = (args) => (
           <DailyTicketProduct />
           <BikeProduct />
           <LiberoProduct />
-          <sbb-card-product
-            appearance="primary"
+          <sbb-card
             accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-            layout="standard"
-            href-value="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/lyne-design-system/lyne-components"
+            color="milk"
+            size="s"
           >
-            <sbb-icon name="ticket-route-medium" slot="icon"></sbb-icon>
-            <sbb-title slot="title" level="2" visual-level="6">
-              Route map
-            </sbb-title>
-            <div slot="text">
-              <span>For regular trips</span>
-            </div>
-            <div slot="action">
-              <sbb-button size="m" variant="secondary" static>
+            <span class="card-product">
+              <sbb-icon name="ticket-route-medium"></sbb-icon>
+              <span class="content">
+                <sbb-title level="2" visual-level="6">
+                  Route map
+                </sbb-title>
+                <span class="sbb-text-s card-description">For regular trips</span>
+              </span>
+              <sbb-button size="m" variant="secondary">
                 Buy
               </sbb-button>
-            </div>
-          </sbb-card-product>
-          <sbb-card-product
-            appearance="primary"
+            </span>
+          </sbb-card>
+
+          <sbb-card
             accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-            layout="loose"
-            href-value="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/lyne-design-system/lyne-components"
+            color="milk"
+            size="s"
             class="grid-span-2"
           >
-            <sbb-title slot="title" level="2" visual-level="1">
-              GA
-            </sbb-title>
-            <sbb-title slot="lead" level="3" visual-level="6">
-              Enjoy unlimited travel with the GA travel card.
-            </sbb-title>
-            <div slot="action">
-              <sbb-button variant="secondary" static>
-                All GAs at a glance
-              </sbb-button>
-            </div>
-          </sbb-card-product>
-          <sbb-card-product
-            appearance="primary"
+            <span class="card-product-big">
+              <span class="content">
+                <sbb-title level="2" visual-level="1">
+                  GA
+                </sbb-title>
+                <sbb-title level="3" visual-level="6">
+                  Enjoy unlimited travel with the GA travel card.
+                </sbb-title>
+              </span>
+              <sbb-button variant="secondary">All GAs at a glance</sbb-button>
+            </span>
+          </sbb-card>
+
+          <sbb-card
             accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-            layout="loose"
-            href-value="https://github.com/lyne-design-system/lyne-components"
+            href="https://github.com/lyne-design-system/lyne-components"
             class="grid-span-2"
+            color="milk"
+            size="s"
           >
-            <sbb-title slot="title" level="2" visual-level="1">
-              1/2
-            </sbb-title>
-            <sbb-title slot="lead" level="3" visual-level="6">
-              Travel at half price with the half-fare travel card.
-            </sbb-title>
-            <div slot="action">
-              <sbb-button variant="secondary" static>
-                Ride at half price
-              </sbb-button>
-            </div>
-          </sbb-card-product>
+            <span class="card-product-big">
+              <span class="content">
+                <sbb-title level="2" visual-level="1">
+                  1/2
+                </sbb-title>
+                <sbb-title level="3" visual-level="6">
+                  Travel at half price with the half-fare travel card.
+                </sbb-title>
+              </span>
+              <sbb-button variant="secondary">Ride at half price</sbb-button>
+            </span>
+          </sbb-card>
         </div>
         <sbb-action-group orientation="vertical" horizontal-from="small">
           <sbb-button

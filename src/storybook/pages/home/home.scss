@@ -47,6 +47,76 @@ section sbb-title {
   }
 }
 
+.card-product {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: var(--sbb-spacing-responsive-xxxs);
+
+  sbb-icon {
+    display: none;
+
+    @include sbb.mq($from: small) {
+      display: block;
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+
+  sbb-pearl-chain {
+    margin-block-start: var(--sbb-spacing-fixed-2x);
+  }
+
+  sbb-button {
+    width: fit-content;
+  }
+
+  @include sbb.mq($from: small) {
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+.card-product-big {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  column-gap: var(--sbb-spacing-responsive-xxxs);
+
+  sbb-button {
+    align-self: start;
+    margin-block-start: 1rem;
+  }
+
+  @mixin card-expanded {
+    flex-direction: row;
+
+    .content {
+      flex-grow: 1;
+    }
+
+    sbb-button {
+      align-self: end;
+    }
+  }
+
+  @include sbb.mq($from: small, $to: medium) {
+    @include card-expanded;
+  }
+
+  @include sbb.mq($from: wide) {
+    @include card-expanded;
+  }
+}
+
+.card-description {
+  color: var(--sbb-color-granite-default);
+}
+
 .product-section-logged-in {
   margin-block-end: var(--sbb-spacing-responsive-l);
   background-color: var(--sbb-color-milk-default);
