@@ -17,7 +17,7 @@ describe('sbb-navigation', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation trigger="nav-trigger" role="navigation">
+        <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed">
           <mock:shadow-root>
             <div class="sbb-navigation__container">
               <dialog class="sbb-navigation" id="sbb-navigation-dialog-id">

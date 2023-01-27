@@ -15,17 +15,16 @@ const playStory = async ({ canvasElement }) => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
-  await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
-    ).toBeTruthy()
-  );
+  userEvent.click(button);
 };
 
 const playStoryWithSection = async ({ canvasElement }) => {
   await playStory({ canvasElement });
   const canvas = within(canvasElement);
+
+  await waitFor(() =>
+    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy()
+  );
 
   await waitFor(() =>
     expect(
@@ -35,9 +34,9 @@ const playStoryWithSection = async ({ canvasElement }) => {
     ).toBeTruthy()
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  await userEvent.click(actionL);
+  userEvent.click(actionL);
   const actionS = canvas.getByTestId('navigation-section-trigger-2');
-  await userEvent.click(actionS);
+  userEvent.click(actionS);
 };
 
 const accessibilityLabel = {
@@ -221,7 +220,7 @@ const WithNavigationSectionTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;
 Default.args = { ...basicArgs };
-Default.play = isChromatic() && playStory;
+Default.play = playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = basicArgTypes;

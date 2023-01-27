@@ -23,6 +23,8 @@ import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
+type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
+
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
   subtree: true,
@@ -63,7 +65,12 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   /**
    * The state of the navigation.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  private set _state(state: SbbNavigationState) {
+    this._element.dataset.state = state;
+  }
+  private get _state(): SbbNavigationState {
+    return this._element.dataset.state as SbbNavigationState;
+  }
 
   /**
    * Whether a navigation section is displayed.
@@ -325,6 +332,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._state = 'closed';
 
     // Close navigation on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
@@ -361,15 +369,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       ></sbb-button>
     );
     return (
-      <Host
-        role="navigation"
-        class={{
-          'sbb-navigation--opened': this._state === 'opened',
-          'sbb-navigation--opening': this._state === 'opening',
-          'sbb-navigation--closing': this._state === 'closing',
-          'sbb-navigation--has-navigation-section': !!this._activeNavigationSection,
-        }}
-      >
+      <Host role="navigation" data-has-navigation-section={!!this._activeNavigationSection}>
         <div class="sbb-navigation__container">
           <dialog
             ref={(navigationRef) => (this._navigation = navigationRef)}
