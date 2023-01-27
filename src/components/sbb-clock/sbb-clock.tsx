@@ -39,15 +39,6 @@ export class SbbClock implements ComponentInterface {
   /** Seconds value for the current date. */
   private _seconds: number;
 
-  /** Hours left to arrive at the next midnight. */
-  private _remainingHours: number;
-
-  /** Minutes left to arrive at the next midnight. */
-  private _remainingMinutes: number;
-
-  /** Seconds left to arrive at the next midnight. */
-  private _remainingSeconds: number;
-
   /** Duration of the animation of the hour hand. */
   private readonly _defaultHoursAnimationDuration = 24;
 
@@ -129,30 +120,30 @@ export class SbbClock implements ComponentInterface {
     this._hours = date.getHours();
     this._minutes = date.getMinutes();
     this._seconds = date.getSeconds();
-    this._remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
-    this._remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
-    this._remainingHours = this._defaultHoursAnimationDuration - this._hours;
   }
 
   /** Set the starting position for the three hands on the clock face. */
   private _setHandsStartingPosition(): void {
     this._getCurrentTime();
+    const remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
+    const remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
+    const remainingHours = this._defaultHoursAnimationDuration - this._hours;
 
     let hoursAnimationDuration = 0;
     let hasRemainingMinutesOrSeconds = 0;
 
-    if (this._remainingSeconds > 0) {
-      hoursAnimationDuration += this._remainingSeconds;
+    if (remainingSeconds > 0) {
+      hoursAnimationDuration += remainingSeconds;
       hasRemainingMinutesOrSeconds = 1;
     }
 
-    if (this._remainingMinutes > 0) {
-      hoursAnimationDuration += (this._remainingMinutes - hasRemainingMinutesOrSeconds) * this._secondsInAMinute;
+    if (remainingMinutes > 0) {
+      hoursAnimationDuration += (remainingMinutes - hasRemainingMinutesOrSeconds) * this._secondsInAMinute;
       hasRemainingMinutesOrSeconds = 1;
     }
 
-    if (this._remainingHours > 0) {
-      hoursAnimationDuration += (this._remainingHours - hasRemainingMinutesOrSeconds) * this._secondsInAnHour;
+    if (remainingHours > 0) {
+      hoursAnimationDuration += (remainingHours - hasRemainingMinutesOrSeconds) * this._secondsInAnHour;
     }
 
     if (this._clockHandSeconds) {
@@ -173,7 +164,7 @@ export class SbbClock implements ComponentInterface {
     );
     this._element.style.setProperty(
       '--sbb-clock-seconds-animation-duration',
-      `${this._remainingSeconds}s`
+      `${remainingSeconds}s`
     );
 
     this._setMinutesHand();
