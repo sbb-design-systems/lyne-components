@@ -204,20 +204,7 @@ export const getCus = (trip: Trip): HimCus => {
 };
 
 const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
-  const reservationNotice = [
-    'RR',
-    'RK',
-    'RC',
-    'RL',
-    'RM',
-    'RN',
-    'RS',
-    'RT',
-    'RU',
-    'XP',
-    'XR',
-    'XT',
-  ];
+  const reservationNotice = ['RR', 'RK', 'RC', 'RL', 'RM', 'RS', 'RU', 'XP', 'XR', 'XT'];
 
   return notices.reduce((foundNotice, notice) => {
     if (foundNotice) return foundNotice;
