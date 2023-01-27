@@ -60,7 +60,7 @@ export class SbbClock implements ComponentInterface {
   /** Angle between two consecutive minutes: 360/60, means a full rotation / number of minutes in one hour. */
   private readonly _minutesAngle = 6;
 
-  /** Angle between two consecutive minutes for SBB clock custom behavior. */
+  /** Angle between two consecutive seconds for SBB clock custom behavior. */
   private readonly _sbbSecondsAngle = 360 / 58.5;
 
   /** Number of seconds in a minute. */
@@ -138,12 +138,14 @@ export class SbbClock implements ComponentInterface {
     }
 
     if (remainingMinutes > 0) {
-      hoursAnimationDuration += (remainingMinutes - hasRemainingMinutesOrSeconds) * this._secondsInAMinute;
+      hoursAnimationDuration +=
+        (remainingMinutes - hasRemainingMinutesOrSeconds) * this._secondsInAMinute;
       hasRemainingMinutesOrSeconds = 1;
     }
 
     if (remainingHours > 0) {
-      hoursAnimationDuration += (remainingHours - hasRemainingMinutesOrSeconds) * this._secondsInAnHour;
+      hoursAnimationDuration +=
+        (remainingHours - hasRemainingMinutesOrSeconds) * this._secondsInAnHour;
     }
 
     if (this._clockHandSeconds) {
@@ -190,7 +192,7 @@ export class SbbClock implements ComponentInterface {
 
     let hoursAngle = Math.ceil(this._hours * this._hoursAngle + this._minutes / 2);
 
-    if (hoursAngle === (2 * this._fullAngle)) {
+    if (hoursAngle === 2 * this._fullAngle) {
       hoursAngle = 0;
     } else if (hoursAngle > this._fullAngle) {
       hoursAngle -= 360;

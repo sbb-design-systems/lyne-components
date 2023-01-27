@@ -308,7 +308,9 @@ export const Footer = (args) => (
         Subscribe
       </sbb-button>
     </div>
-    <sbb-clock {...(isChromatic() ? { 'data-now': 1677203967000 } : {})}></sbb-clock>
+    <sbb-clock
+      {...(isChromatic() ? { 'data-now': new Date('2023-01-24T01:59:27+01:00').valueOf() } : {})}
+    ></sbb-clock>
     <sbb-divider negative={args.negative} />
     <sbb-link-list horizontal-from="large" negative={args.negative}>
       <sbb-link
