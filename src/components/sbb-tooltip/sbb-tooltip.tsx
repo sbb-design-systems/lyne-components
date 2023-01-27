@@ -19,6 +19,8 @@ import { i18nCloseTooltip } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
+type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
+
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
 
@@ -65,7 +67,12 @@ export class SbbTooltip implements ComponentInterface {
   /**
    * The state of the tooltip.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  private set _state(state: SbbTooltipState) {
+    this._element.dataset.state = state;
+  }
+  private get _state(): SbbTooltipState {
+    return this._element.dataset.state as SbbTooltipState;
+  }
 
   /**
    * The alignment of the tooltip relative to the trigger.
@@ -195,6 +202,7 @@ export class SbbTooltip implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._state = 'closed';
   }
 
   public componentDidLoad(): void {
@@ -435,29 +443,26 @@ export class SbbTooltip implements ComponentInterface {
     );
 
     return (
-      <Host
-        class={{
-          'sbb-tooltip--closing': this._state === 'closing',
-          'sbb-tooltip--above': this._alignment?.vertical === 'above',
-        }}
-      >
-        <dialog
-          onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
-          ref={(dialogRef) => (this._dialog = dialogRef)}
-          class="sbb-tooltip"
-        >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div
-            onClick={(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
-            ref={(tooltipContentRef) => (this._tooltipContentElement = tooltipContentRef)}
-            class="sbb-tooltip__content"
+      <Host data-position={this._alignment?.vertical}>
+        <div class="sbb-tooltip__container">
+          <dialog
+            onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
+            ref={(dialogRef) => (this._dialog = dialogRef)}
+            class="sbb-tooltip"
           >
-            <span>
-              <slot>No content</slot>
-            </span>
-            {!this._hoverTrigger && closeButton}
-          </div>
-        </dialog>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+            <div
+              onClick={(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
+              ref={(tooltipContentRef) => (this._tooltipContentElement = tooltipContentRef)}
+              class="sbb-tooltip__content"
+            >
+              <span>
+                <slot>No content</slot>
+              </span>
+              {!this._hoverTrigger && closeButton}
+            </div>
+          </dialog>
+        </div>
       </Host>
     );
   }
