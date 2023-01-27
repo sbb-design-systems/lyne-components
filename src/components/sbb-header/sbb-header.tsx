@@ -65,14 +65,16 @@ export class SbbHeader {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll <= currentScroll) {
         this.shadow = false;
-        this._element.style.setProperty('--sbb-header-position', '-' + this._element.offsetHeight + 'px');
+        this._element.style.setProperty(
+          '--sbb-header-position',
+          '-' + this._element.offsetHeight + 'px'
+        );
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
       } else {
         this.shadow = true;
         this._element.style.setProperty('--sbb-header-position', '0');
         header.classList.add('sbb-header--animated');
       }
-      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
     } else {
       if (currentScroll == 0) {
         this._headerOnTop = true;
@@ -81,9 +83,9 @@ export class SbbHeader {
         this.shadow = false;
         this._element.style.setProperty('--sbb-header-position', '-' + currentScroll + 'px');
         header.classList.remove('sbb-header--animated');
-      }   
-      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+      }
     }
+    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
   }
 
   /** Sets the correct value for `scrollTop`, then apply the shadow if the element/document has been scrolled down; */
