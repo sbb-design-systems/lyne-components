@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
@@ -25,6 +25,8 @@ export class SbbHeader {
 
   /** Whether the header should hide and show on scroll. */
   @Prop({ reflect: true }) public hideOnScroll = false;
+
+  @State() private _headerOnTop = true;
 
   @Element() private _element!: HTMLElement;
 
@@ -60,21 +62,27 @@ export class SbbHeader {
     const header = this._element.shadowRoot.firstElementChild as HTMLSbbHeaderElement;
     // check if original header position has been scrolled out
     if (currentScroll > this._element.offsetHeight) {
+      this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll <= currentScroll) {
         this.shadow = false;
-        header.style.setProperty('transform', 'translateY(-' + this._element.offsetHeight + 'px)');
+        this._element.style.setProperty('--sbb-header-position', '-' + this._element.offsetHeight + 'px');
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
       } else {
         this.shadow = true;
-        header.style.setProperty('transform', 'translateY(0)');
+        this._element.style.setProperty('--sbb-header-position', '0');
         header.classList.add('sbb-header--animated');
       }
       this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
-    } else if (currentScroll > this._lastScroll || currentScroll == 0) {
+    } else {
+      if (currentScroll == 0) {
+        this._headerOnTop = true;
+      }
+      if (this._headerOnTop) {
+        this.shadow = false;
+        this._element.style.setProperty('--sbb-header-position', '-' + currentScroll + 'px');
+        header.classList.remove('sbb-header--animated');
+      }   
       this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
-      this.shadow = false;
-      header.style.setProperty('transform', 'translateY(-' + currentScroll + 'px)');
-      header.classList.remove('sbb-header--animated');
     }
   }
 
