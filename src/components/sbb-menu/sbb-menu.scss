@@ -13,11 +13,14 @@
   --sbb-menu-transform: translateY(100%);
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
+  --sbb-menu-inset: 0 auto auto 0;
 
   // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-menu-min-height: #{sbb.px-to-rem-build(120)};
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
+  --sbb-menu-visibility: hidden;
+  --sbb-menu-pointer-events: none;
   --sbb-menu-backdrop-color: transparent;
 
   @include sbb.mq($from: medium) {
@@ -26,40 +29,20 @@
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
   }
-
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10;
-
-  // Menu backdrop (only visible on mobile)
-  &::before {
-    content: '';
-    visibility: hidden;
-    pointer-events: none;
-    position: fixed;
-    inset: 0;
-    background-color: var(--sbb-menu-backdrop-color);
-    transition: {
-      duration: var(--sbb-menu-animation-duration);
-      timing-function: var(--sbb-menu-animation-easing);
-      property: background-color, visibility;
-    }
-  }
 }
 
-:host(.sbb-menu--opened),
-:host(.sbb-menu--opening) {
+:host(:is([data-state='opened'], [data-state='opening'])) {
+  --sbb-menu-visibility: visible;
+  --sbb-menu-pointer-events: all;
   --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
 
   @include sbb.mq($from: medium) {
     --sbb-menu-backdrop-color: transparent;
   }
+}
 
-  &::before {
-    visibility: visible;
-    pointer-events: all;
-  }
+:host(:not([data-state='closed'])) {
+  --sbb-menu-inset: 0;
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
@@ -77,6 +60,27 @@
   margin-block: var(--sbb-spacing-fixed-2x);
 }
 
+.sbb-menu__container {
+  position: fixed;
+  inset: var(--sbb-menu-inset);
+  z-index: 10;
+
+  // Menu backdrop (only visible on mobile)
+  &::before {
+    content: '';
+    visibility: var(--sbb-menu-visibility);
+    pointer-events: var(--sbb-menu-pointer-events);
+    position: fixed;
+    inset: var(--sbb-menu-inset);
+    background-color: var(--sbb-menu-backdrop-color);
+    transition: {
+      duration: var(--sbb-menu-animation-duration);
+      timing-function: var(--sbb-menu-animation-easing);
+      property: background-color, visibility;
+    }
+  }
+}
+
 .sbb-menu {
   display: block;
   visibility: hidden;
@@ -86,10 +90,10 @@
   min-width: var(--sbb-menu-min-width);
   text-align: start;
   position: var(--sbb-menu-position);
-  left: 0;
-  bottom: 0;
-  top: unset;
-  right: unset;
+  inset-inline-start: 0;
+  inset-block-start: unset;
+  inset-block-end: 0;
+  inset-inline-end: unset;
   color: var(--sbb-color-white-default);
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
@@ -108,7 +112,7 @@
     }
   }
 
-  :host(.sbb-menu--closing) & {
+  :host([data-state='closing']) & {
     pointer-events: none;
     animation-name: close;
   }
@@ -118,16 +122,16 @@
   }
 
   @include sbb.mq($from: medium) {
-    top: 0;
-    left: 0;
-    right: unset;
-    bottom: unset;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: unset;
+    inset-block-end: unset;
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
     &[open] {
-      top: var(--sbb-menu-position-y);
-      left: var(--sbb-menu-position-x);
+      inset-block-start: var(--sbb-menu-position-y);
+      inset-inline-start: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }

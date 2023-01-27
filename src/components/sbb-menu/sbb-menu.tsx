@@ -5,18 +5,18 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Listen,
   Method,
   Prop,
-  State,
   Watch,
 } from '@stencil/core';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+
+type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -44,7 +44,12 @@ export class SbbMenu implements ComponentInterface {
   /**
    * The state of the menu.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  private set _state(state: SbbMenuState) {
+    this._element.dataset.state = state;
+  }
+  private get _state(): SbbMenuState {
+    return this._element.dataset.state as SbbMenuState;
+  }
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -165,6 +170,7 @@ export class SbbMenu implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._state = 'closed';
   }
 
   public disconnectedCallback(): void {
@@ -307,13 +313,7 @@ export class SbbMenu implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host
-        class={{
-          'sbb-menu--opened': this._state === 'opened',
-          'sbb-menu--opening': this._state === 'opening',
-          'sbb-menu--closing': this._state === 'closing',
-        }}
-      >
+      <div class="sbb-menu__container">
         <dialog
           onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
           ref={(dialogRef) => (this._dialog = dialogRef)}
@@ -328,7 +328,7 @@ export class SbbMenu implements ComponentInterface {
             <slot />
           </div>
         </dialog>
-      </Host>
+      </div>
     );
   }
 }
