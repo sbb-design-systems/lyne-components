@@ -39,14 +39,14 @@ export class SbbClock implements ComponentInterface {
   /** Seconds value for the current date. */
   private _seconds: number;
 
-  /** Duration of the animation of the hour hand. */
-  private readonly _defaultHoursAnimationDuration = 24;
+  /** Number of hours on the clock face. */
+  private readonly _totalHoursOnClockFace = 12;
 
-  /** Duration of the animation of the minute hand. */
-  private readonly _defaultMinutesAnimationDuration = 60;
+  /** Number of minutes on the clock face. */
+  private readonly _totalMinutesOnClockFace = 60;
 
-  /** Duration of the animation of the second hand. */
-  private readonly _defaultSecondsAnimationDuration = 60;
+  /** Number of seconds on the clock face. */
+  private readonly _totalSecondsOnClockFace = 60;
 
   /** Timeout for the clock start. */
   private readonly _initialTimeOutDuration = 50;
@@ -117,7 +117,7 @@ export class SbbClock implements ComponentInterface {
   /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
   private _getCurrentTime(): void {
     const date = this._now();
-    this._hours = date.getHours();
+    this._hours = date.getHours() % 12;
     this._minutes = date.getMinutes();
     this._seconds = date.getSeconds();
   }
@@ -125,9 +125,9 @@ export class SbbClock implements ComponentInterface {
   /** Set the starting position for the three hands on the clock face. */
   private _setHandsStartingPosition(): void {
     this._getCurrentTime();
-    const remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
-    const remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
-    const remainingHours = this._defaultHoursAnimationDuration - this._hours;
+    const remainingSeconds = this._totalSecondsOnClockFace - this._seconds;
+    const remainingMinutes = this._totalMinutesOnClockFace - this._minutes;
+    const remainingHours = this._totalHoursOnClockFace - this._hours;
 
     let hoursAnimationDuration = 0;
     let hasRemainingMinutesOrSeconds = 0;
@@ -192,10 +192,8 @@ export class SbbClock implements ComponentInterface {
 
     let hoursAngle = Math.ceil(this._hours * this._hoursAngle + this._minutes / 2);
 
-    if (hoursAngle === 2 * this._fullAngle) {
-      hoursAngle = 0;
-    } else if (hoursAngle > this._fullAngle) {
-      hoursAngle -= 360;
+    if (hoursAngle >= this._fullAngle) {
+      hoursAngle -= this._fullAngle;
     }
 
     this._clockHandHours?.style.setProperty('transform', `rotateZ(${hoursAngle}deg)`);
@@ -211,7 +209,7 @@ export class SbbClock implements ComponentInterface {
 
     handMovement = setInterval(
       this._addMinutesAndSetHands.bind(this),
-      this._defaultSecondsAnimationDuration * 1000
+      this._totalSecondsOnClockFace * 1000
     );
   }
 

@@ -168,7 +168,7 @@ const TemplateClockColumns = ({ ...args }) => (
       </sbb-button>
     </div>
     <sbb-clock
-      {...(isChromatic() ? { 'data-now': new Date('2023-01-24T01:59:27+01:00').valueOf() } : {})}
+      {...(isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {})}
     ></sbb-clock>
     <sbb-divider negative={args.negative} />
     <sbb-link-list horizontal-from="large" negative={args.negative}>
