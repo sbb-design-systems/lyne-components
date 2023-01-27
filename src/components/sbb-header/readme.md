@@ -1,6 +1,6 @@
 # sbb-header
 
-The `sbb-header` component is a container for actions and logo, and it is displayed sticky at page's top.
+The `sbb-header` component is a container for actions and logo, and it is displayed at page's top.
 
 It has two slots: 
 the first one can contain one or more [sbb-header-action](../sbb-header-action/readme.md) or other action items
@@ -9,7 +9,12 @@ at the right end, and it can contain a logo, which by default is the [sbb-logo](
 
 The height of the header can be overridden by re-defining the css variable `--sbb-header-height`.
 
-A box-shadow appears under the component if the `shadow` variable is set to `true` (TBC).
+By default, the `sbb-header` has a fixed position at the top of the page; 
+when the page is scrolled down, a box-shadow appears below it and the component remains visible.
+It's possible to change this behavior by setting the `hideOnScroll` property to true: in this case, the box-shadow is 
+still set, but the component disappears when the page is scrolled down and then reappears as soon as it's scrolled up.
+It's also possible to bind this behaviour to something other than the `document`, 
+using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of the element to search for.
 
 ## Style
 
