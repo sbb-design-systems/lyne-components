@@ -1,19 +1,13 @@
-import {
-  Component,
-  ComponentInterface,
-  Event,
-  EventEmitter,
-  h,
-  JSX,
-  Method,
-  Prop,
-  State,
-  Watch,
-  Element,
-} from '@stencil/core';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { JSXElement } from '@babel/types';
+import {
+  Component, ComponentInterface,
+  Element, Event,
+  EventEmitter, h, JSX, Method,
+  Prop, State, Watch
+} from '@stencil/core';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
+import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { handleKeyboardEvent } from './sbb-calendar.helper';
 
 @Component({
   shadow: true,
@@ -69,20 +63,22 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    window.addEventListener('resize', () => this._init(), { passive: true });
     this.convertMinDate(this.min);
     this.convertMaxDate(this.max);
-
-    window.addEventListener('resize', () => this._init(), { passive: true });
-
     this._setDates();
     this._init();
   }
 
   public componentDidRender(): void {
     this._setTabIndex();
+    this._days = Array.from(
+      this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')
+    ) as HTMLButtonElement[];
   }
 
   @Element() private _element: HTMLElement;
+  private _days: HTMLButtonElement[];
 
   /** The currently active date. */
   @State() private _activeDate: Date;
@@ -223,6 +219,7 @@ export class SbbCalendar implements ComponentInterface {
             aria-pressed={selected ? 'true' : 'false'}
             aria-disabled={isOutOfRange || !this.dateFilter(new Date(day.value)) ? 'true' : 'false'}
             tabindex="-1"
+            onKeyDown={(evt: KeyboardEvent) => handleKeyboardEvent(evt, this._days)}
           >
             {day.displayValue}
           </button>
@@ -267,13 +264,13 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _nextMonthClicked(): void {
-    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
+    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
     this._assignActiveDate(newActiveDate);
     this._init();
   }
 
   private _previousMonthClicked(): void {
-    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? -2 : -1);
+    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
     this._assignActiveDate(newActiveDate);
     this._init();
   }
@@ -302,16 +299,9 @@ export class SbbCalendar implements ComponentInterface {
       return;
     }
     if (this._max && this._dateAdapter.compareDate(this._max, date) < 0) {
-      this._activeDate = this._wide ? this._dateAdapter.addCalendarMonths(date, -1) : this._max;
+      this._activeDate = this._max;
       return;
     }
-    const nextMonth = this._dateAdapter.addCalendarMonths(date, 1);
-    nextMonth.setDate(1);
-    if (this._wide && this._max && this._dateAdapter.compareDate(this._max, nextMonth) < 0) {
-      this._activeDate = this._dateAdapter.addCalendarMonths(date, -1);
-      return;
-    }
-
     this._activeDate = date;
   }
 
