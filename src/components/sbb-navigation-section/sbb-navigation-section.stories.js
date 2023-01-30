@@ -135,7 +135,6 @@ const DefaultTemplate = (args) => [
 
       {navigationList('Label')}
       {navigationList('Label')}
-      {navigationList('Label')}
 
       <sbb-button size="m" variant="secondary" style="width: fit-content" sbb-navigation-close>
         Close navigation
