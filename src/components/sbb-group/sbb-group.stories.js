@@ -32,7 +32,7 @@ const padding = {
   control: {
     type: 'inline-radio',
   },
-  options: ['3X-XXS', 'XXXS-XXS', '4X-XXS', 'XXS-XXS', 'XXXS-S', 'S-S', 'L-L'],
+  options: ['3x-xxs', 'xxxs-xxs', '4x-xxs', 'xxs-xxs', 'xxxs-s', 's-s', 'l-l'],
 };
 const defaultArgTypes = {
   color,

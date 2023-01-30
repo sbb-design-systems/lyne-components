@@ -1,4 +1,4 @@
 export interface InterfaceSbbGroupAttributes {
   color: 'white' | 'milk' | 'transparent';
-  padding: '3X-XXS' | 'XXXS-XXS' | '4X-XXS' | 'XXS-XXS' | 'XXXS-S' | 'S-S' | 'L-L';
+  padding: '3x-xxs' | 'xxxs-xxs' | '4x-xxs' | 'xxs-xxs' | 'xxxs-s' | 's-s' | 'l-l';
 }

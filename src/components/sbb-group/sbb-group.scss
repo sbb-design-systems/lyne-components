@@ -20,32 +20,32 @@
   @include sbb.group-variables--transparent;
 }
 
-:host([padding='3X-XXS']) {
-  @include sbb.group-variables--3X-XXS;
+:host([padding='3x-xxs']) {
+  @include sbb.group-variables--3x-xxs;
 }
 
-:host([padding='XXXS-XXS']) {
-  @include sbb.group-variables--XXXS-XXS;
+:host([padding='xxxs-xxs']) {
+  @include sbb.group-variables--xxxs-xxs;
 }
 
-:host([padding='4X-XXS']) {
-  @include sbb.group-variables--4X-XXS;
+:host([padding='4x-xxs']) {
+  @include sbb.group-variables--4x-xxs;
 }
 
-:host([padding='XXS-XXS']) {
-  @include sbb.group-variables--XXS-XXS;
+:host([padding='xxs-xxs']) {
+  @include sbb.group-variables--xxs-xxs;
 }
 
-:host([padding='XXXS-S']) {
-  @include sbb.group-variables--XXXS-S;
+:host([padding='xxxs-s']) {
+  @include sbb.group-variables--xxxs-s;
 }
 
-:host([padding='S-S']) {
-  @include sbb.group-variables--S-S;
+:host([padding='s-s']) {
+  @include sbb.group-variables--s-s;
 }
 
-:host([padding='L-L']) {
-  @include sbb.group-variables--L-L;
+:host([padding='l-l']) {
+  @include sbb.group-variables--l-l;
 }
 
 .sbb-group {

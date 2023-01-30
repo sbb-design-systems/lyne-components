@@ -17,31 +17,31 @@
   --sbb-group-border-color: var(--sbb-color-cloud-default);
 }
 
-@mixin group-variables--3X-XXS {
+@mixin group-variables--3x-xxs {
   --sbb-group-padding: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin group-variables--XXXS-XXS {
+@mixin group-variables--xxxs-xxs {
   --sbb-group-padding: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin group-variables--4X-XXS {
+@mixin group-variables--4x-xxs {
   --sbb-group-padding: var(--sbb-spacing-fixed-4x) var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin group-variables--XXS-XXS {
+@mixin group-variables--xxs-xxs {
   --sbb-group-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin group-variables--XXXS-S {
+@mixin group-variables--xxxs-s {
   --sbb-group-padding: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-s);
 }
 
-@mixin group-variables--S-S {
+@mixin group-variables--s-s {
   --sbb-group-padding: var(--sbb-spacing-responsive-s) var(--sbb-spacing-responsive-s);
 }
 
-@mixin group-variables--L-L {
+@mixin group-variables--l-l {
   --sbb-group-padding: var(--sbb-spacing-responsive-l) var(--sbb-spacing-responsive-l);
 }
 

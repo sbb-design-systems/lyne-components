@@ -16,7 +16,7 @@ export class SbbGroup implements ComponentInterface {
 
   /** Padding variant of the group. */
   @Prop({ reflect: true })
-  public padding: InterfaceSbbGroupAttributes['padding'] = 'XXS-XXS';
+  public padding: InterfaceSbbGroupAttributes['padding'] = 'xxs-xxs';
 
   public render(): JSX.Element {
     return (

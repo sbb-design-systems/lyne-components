@@ -9,7 +9,7 @@ describe('sbb-group', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-group color="white" padding="XXS-XXS">
+        <sbb-group color="white" padding="xxs-xxs">
           <mock:shadow-root>
             <div class="sbb-group">
               <slot></slot>
