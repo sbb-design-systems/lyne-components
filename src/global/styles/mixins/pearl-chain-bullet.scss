@@ -91,28 +91,28 @@
   @include pearl-chain-bullet-start-end;
   @include pearl-chain-bullet-disruption;
 
+  @keyframes pearl-chain-bullet-position-pulse {
+    0% {
+      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
+    }
+
+    25% {
+      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
+    }
+
+    50% {
+      box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
+    }
+
+    75% {
+      box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
+    }
+  }
+
   animation: pearl-chain-bullet-position-pulse var(--sbb-pearl-chain-bullet-animation-duration)
     var(--sbb-pearl-chain-bullet-animation-easing) infinite;
-}
-
-@keyframes pearl-chain-bullet-position-pulse {
-  0% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
-  }
-
-  25% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
-  }
-
-  50% {
-    box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
-  }
-
-  75% {
-    box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
-  }
 }
