@@ -9,6 +9,41 @@ let moveHoursHand;
 let moveMinutesHand;
 let handMovement;
 
+/** Number of hours on the clock face. */
+const TOTAL_HOURS_ON_CLOCK_FACE = 12;
+
+/** Number of minutes on the clock face. */
+const TOTAL_MINUTES_ON_CLOCK_FACE = 60;
+
+/** Number of seconds on the clock face. */
+const TOTAL_SECONDS_ON_CLOCK_FACE = 60;
+
+/** Timeout for the clock start. */
+const INITIAL_TIMEOUT_DURATION = 50;
+
+/** Angle in a single rotation. */
+const FULL_ANGLE = 360;
+
+/** Angle between two consecutive hours: 360/12, means a full rotation / number of hours in a rotation. */
+const HOURS_ANGLE = 30;
+
+/** Angle between two consecutive minutes: 360/60, means a full rotation / number of minutes in one hour. */
+const MINUTES_ANGLE = 6;
+
+/** Angle between two consecutive seconds for SBB clock custom behavior. */
+const SBB_SECONDS_ANGLE = 360 / 58.5;
+
+/** Number of seconds in a minute. */
+const SECONDS_IN_A_MINUTE = 60;
+
+/** Number of seconds in an hour. */
+const SECONDS_IN_AN_HOUR = 3600;
+
+const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
+  once: true,
+  passive: true,
+};
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-clock.scss',
@@ -38,41 +73,6 @@ export class SbbClock implements ComponentInterface {
 
   /** Seconds value for the current date. */
   private _seconds: number;
-
-  /** Number of hours on the clock face. */
-  private readonly _totalHoursOnClockFace = 12;
-
-  /** Number of minutes on the clock face. */
-  private readonly _totalMinutesOnClockFace = 60;
-
-  /** Number of seconds on the clock face. */
-  private readonly _totalSecondsOnClockFace = 60;
-
-  /** Timeout for the clock start. */
-  private readonly _initialTimeOutDuration = 50;
-
-  /** Angle in a single rotation. */
-  private readonly _fullAngle = 360;
-
-  /** Angle between two consecutive hours: 360/12, means a full rotation / number of hours in a rotation. */
-  private readonly _hoursAngle = 30;
-
-  /** Angle between two consecutive minutes: 360/60, means a full rotation / number of minutes in one hour. */
-  private readonly _minutesAngle = 6;
-
-  /** Angle between two consecutive seconds for SBB clock custom behavior. */
-  private readonly _sbbSecondsAngle = 360 / 58.5;
-
-  /** Number of seconds in a minute. */
-  private readonly _secondsInAMinute = 60;
-
-  /** Number of seconds in an hour. */
-  private readonly _secondsInAnHour = 3600;
-
-  private readonly _eventListenerOptions: AddEventListenerOptions = {
-    once: true,
-    passive: true,
-  };
 
   private _handlePageVisibilityChange(): void {
     if (document.visibilityState === 'hidden') {
@@ -121,9 +121,9 @@ export class SbbClock implements ComponentInterface {
   /** Set the starting position for the three hands on the clock face. */
   private _setHandsStartingPosition(): void {
     this._assignCurrentTime();
-    const remainingSeconds = this._totalSecondsOnClockFace - this._seconds;
-    const remainingMinutes = this._totalMinutesOnClockFace - this._minutes;
-    const remainingHours = this._totalHoursOnClockFace - this._hours;
+    const remainingSeconds = TOTAL_SECONDS_ON_CLOCK_FACE - this._seconds;
+    const remainingMinutes = TOTAL_MINUTES_ON_CLOCK_FACE - this._minutes;
+    const remainingHours = TOTAL_HOURS_ON_CLOCK_FACE - this._hours;
 
     let hoursAnimationDuration = 0;
     let hasRemainingMinutesOrSeconds = 0;
@@ -135,13 +135,13 @@ export class SbbClock implements ComponentInterface {
 
     if (remainingMinutes > 0) {
       hoursAnimationDuration +=
-        (remainingMinutes - hasRemainingMinutesOrSeconds) * this._secondsInAMinute;
+        (remainingMinutes - hasRemainingMinutesOrSeconds) * SECONDS_IN_A_MINUTE;
       hasRemainingMinutesOrSeconds = 1;
     }
 
     if (remainingHours > 0) {
       hoursAnimationDuration +=
-        (remainingHours - hasRemainingMinutesOrSeconds) * this._secondsInAnHour;
+        (remainingHours - hasRemainingMinutesOrSeconds) * SECONDS_IN_AN_HOUR;
     }
 
     if (this._clockHandSeconds) {
@@ -150,7 +150,7 @@ export class SbbClock implements ComponentInterface {
 
     this._element.style.setProperty(
       '--sbb-clock-hours-animation-start-angle',
-      `${Math.ceil(this._hours * this._hoursAngle + this._minutes / 2)}deg`
+      `${Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2)}deg`
     );
     this._element.style.setProperty(
       '--sbb-clock-hours-animation-duration',
@@ -158,7 +158,7 @@ export class SbbClock implements ComponentInterface {
     );
     this._element.style.setProperty(
       '--sbb-clock-seconds-animation-start-angle',
-      `${Math.ceil(this._seconds * this._sbbSecondsAngle)}deg`
+      `${Math.ceil(this._seconds * SBB_SECONDS_ANGLE)}deg`
     );
     this._element.style.setProperty(
       '--sbb-clock-seconds-animation-duration',
@@ -178,7 +178,7 @@ export class SbbClock implements ComponentInterface {
   private _setMinutesHand(): void {
     this._clockHandMinutes?.style.setProperty(
       'transform',
-      `rotateZ(${Math.ceil(this._minutes * this._minutesAngle)}deg)`
+      `rotateZ(${Math.ceil(this._minutes * MINUTES_ANGLE)}deg)`
     );
   }
 
@@ -186,10 +186,10 @@ export class SbbClock implements ComponentInterface {
   private _moveHoursHand(): void {
     this._removeHoursAnimationStyles();
 
-    let hoursAngle = Math.ceil(this._hours * this._hoursAngle + this._minutes / 2);
+    let hoursAngle = Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2);
 
-    if (hoursAngle >= this._fullAngle) {
-      hoursAngle -= this._fullAngle;
+    if (hoursAngle >= FULL_ANGLE) {
+      hoursAngle -= FULL_ANGLE;
     }
 
     this._clockHandHours?.style.setProperty('transform', `rotateZ(${hoursAngle}deg)`);
@@ -205,7 +205,7 @@ export class SbbClock implements ComponentInterface {
 
     handMovement = setInterval(
       () => this._addMinutesAndSetHands(),
-      this._totalSecondsOnClockFace * 1000
+      TOTAL_SECONDS_ON_CLOCK_FACE * 1000
     );
   }
 
@@ -243,17 +243,15 @@ export class SbbClock implements ComponentInterface {
     this._clockHandHours?.addEventListener(
       'animationend',
       moveHoursHand,
-      this._eventListenerOptions
+      ADD_EVENT_LISTENER_OPTIONS
     );
     this._clockHandSeconds?.addEventListener(
       'animationend',
       moveMinutesHand,
-      this._eventListenerOptions
+      ADD_EVENT_LISTENER_OPTIONS
     );
 
-    setTimeout(() => {
-      this._setHandsStartingPosition();
-    }, this._initialTimeOutDuration);
+    setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION);
   }
 
   private _hasDataNow(): boolean {
@@ -283,7 +281,7 @@ export class SbbClock implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    const hostAttributes = { dataInitialized: this._isInitialized };
+    const hostAttributes = { 'data-initialized': this._isInitialized };
     return (
       <Host {...hostAttributes}>
         <div class="sbb-clock">
