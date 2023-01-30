@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.13](https://github.com/lyne-design-system/lyne-components/compare/v0.23.12...v0.23.13) (2023-01-30)
+
+### Bug Fixes
+
+- prevent redefining css in all components ([#1576](https://github.com/lyne-design-system/lyne-components/issues/1576)) ([5f83130](https://github.com/lyne-design-system/lyne-components/commit/5f83130de71a13a4f6c74289c2323adc33b3a89c))
+
 ### [0.23.12](https://github.com/lyne-design-system/lyne-components/compare/v0.23.11...v0.23.12) (2023-01-27)
 
 ### Bug Fixes
