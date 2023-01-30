@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.14](https://github.com/lyne-design-system/lyne-components/compare/v0.23.13...v0.23.14) (2023-01-30)
+
+### Bug Fixes
+
+- **sbb-journey-summary:** remove unnecessary commas ([#1579](https://github.com/lyne-design-system/lyne-components/issues/1579)) ([00521a3](https://github.com/lyne-design-system/lyne-components/commit/00521a387312d79088c76e2b4da9d877b39fb1e0))
+
 ### [0.23.13](https://github.com/lyne-design-system/lyne-components/compare/v0.23.12...v0.23.13) (2023-01-30)
 
 ### Bug Fixes
