@@ -79,10 +79,10 @@
   animation-iteration-count: 1;
 }
 
-.sbb-clock--not-initialized .sbb-clock__hand-hours,
-.sbb-clock--not-initialized .sbb-clock__hand-minutes,
-.sbb-clock--not-initialized .sbb-clock__hand-seconds {
-  display: none;
+:is(.sbb-clock__hand-hours, .sbb-clock__hand-minutes, .sbb-clock__hand-seconds) {
+  :host(:not([data-initialized])) & {
+    display: none;
+  }
 }
 
 @keyframes rotate {

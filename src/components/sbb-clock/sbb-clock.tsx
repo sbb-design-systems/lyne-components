@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, h, JSX, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, State } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
@@ -283,33 +283,34 @@ export class SbbClock implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    const initClass = this._isInitialized ? '' : ' sbb-clock--not-initialized';
-
+    const hostAttributes = { dataInitialized: this._isInitialized };
     return (
-      <div class={`sbb-clock${initClass}`}>
-        <span class="sbb-clock__face" innerHTML={clockFaceSVG} />
-        <span
-          class="sbb-clock__hand-hours"
-          innerHTML={clockHandleHoursSVG}
-          ref={(el): void => {
-            this._clockHandHours = el;
-          }}
-        />
-        <span
-          class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
-          innerHTML={clockHandleMinutesSVG}
-          ref={(el): void => {
-            this._clockHandMinutes = el;
-          }}
-        />
-        <span
-          class="sbb-clock__hand-seconds"
-          innerHTML={clockHandleSecondsSVG}
-          ref={(el): void => {
-            this._clockHandSeconds = el;
-          }}
-        />
-      </div>
+      <Host {...hostAttributes}>
+        <div class="sbb-clock">
+          <span class="sbb-clock__face" innerHTML={clockFaceSVG} />
+          <span
+            class="sbb-clock__hand-hours"
+            innerHTML={clockHandleHoursSVG}
+            ref={(el): void => {
+              this._clockHandHours = el;
+            }}
+          />
+          <span
+            class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
+            innerHTML={clockHandleMinutesSVG}
+            ref={(el): void => {
+              this._clockHandMinutes = el;
+            }}
+          />
+          <span
+            class="sbb-clock__hand-seconds"
+            innerHTML={clockHandleSecondsSVG}
+            ref={(el): void => {
+              this._clockHandSeconds = el;
+            }}
+          />
+        </div>
+      </Host>
     );
   }
 }
