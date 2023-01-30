@@ -29,7 +29,7 @@ describe('sbb-navigation-section', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    expect(element).toHaveClass('sbb-navigation-section--opened');
+    expect(element).toEqualAttribute('data-state', 'opened');
     expect(dialog).toHaveAttribute('open');
   });
 
@@ -44,7 +44,7 @@ describe('sbb-navigation-section', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
-    expect(element).toHaveClass('sbb-navigation-section--closed');
+    expect(element).toEqualAttribute('data-state', 'closed');
     expect(dialog).not.toHaveAttribute('open');
   });
 });
