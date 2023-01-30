@@ -112,8 +112,11 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
    *
    * @returns True whether size is equal to m, l, xl or xxl.
    */
-  private _showSBBBadge(): boolean {
-    return this.size === 'm' || this.size === 'l' || this.size === 'xl' || this.size === 'xxl';
+  private _hasBadge(): boolean {
+    return (
+      this._namedSlots['badge'] &&
+      (this.size === 'm' || this.size === 'l' || this.size === 'xl' || this.size === 'xxl')
+    );
   }
 
   public render(): JSX.Element {
@@ -124,7 +127,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
     }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage);
 
     const hostAttributes = {
-      'data-has-badge': this._showSBBBadge() && this._namedSlots['badge'],
+      'data-has-badge': this._hasBadge(),
     };
 
     return (
@@ -134,7 +137,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
           {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
-          {this._showSBBBadge() && <slot name="badge" />}
+          {this._hasBadge() && <slot name="badge" />}
           <slot />
           {screenReaderNewWindowInfo && (
             <span class="sbb-card__opens-in-new-window">
