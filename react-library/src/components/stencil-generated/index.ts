@@ -27,6 +27,7 @@ export const SbbDivider = /*@__PURE__*/createReactComponent<JSX.SbbDivider, HTML
 export const SbbFooter = /*@__PURE__*/createReactComponent<JSX.SbbFooter, HTMLSbbFooterElement>('sbb-footer');
 export const SbbFormError = /*@__PURE__*/createReactComponent<JSX.SbbFormError, HTMLSbbFormErrorElement>('sbb-form-error');
 export const SbbFormField = /*@__PURE__*/createReactComponent<JSX.SbbFormField, HTMLSbbFormFieldElement>('sbb-form-field');
+export const SbbGroup = /*@__PURE__*/createReactComponent<JSX.SbbGroup, HTMLSbbGroupElement>('sbb-group');
 export const SbbHeader = /*@__PURE__*/createReactComponent<JSX.SbbHeader, HTMLSbbHeaderElement>('sbb-header');
 export const SbbHeaderAction = /*@__PURE__*/createReactComponent<JSX.SbbHeaderAction, HTMLSbbHeaderActionElement>('sbb-header-action');
 export const SbbIcon = /*@__PURE__*/createReactComponent<JSX.SbbIcon, HTMLSbbIconElement>('sbb-icon');

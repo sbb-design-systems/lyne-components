@@ -21,6 +21,7 @@ import { Time } from "./components/sbb-clock/sbb-clock.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
+import { InterfaceSbbGroupAttributes } from "./components/sbb-group/sbb-group.custom.d";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
@@ -582,6 +583,16 @@ export namespace Components {
           * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
          */
         "width": 'default' | 'collapse';
+    }
+    interface SbbGroup {
+        /**
+          * Background color of the group.
+         */
+        "color": InterfaceSbbGroupAttributes['color'];
+        /**
+          * Padding variant of the group.
+         */
+        "padding": InterfaceSbbGroupAttributes['padding'];
     }
     interface SbbHeader {
         /**
@@ -1913,6 +1924,12 @@ declare global {
         prototype: HTMLSbbFormFieldElement;
         new (): HTMLSbbFormFieldElement;
     };
+    interface HTMLSbbGroupElement extends Components.SbbGroup, HTMLStencilElement {
+    }
+    var HTMLSbbGroupElement: {
+        prototype: HTMLSbbGroupElement;
+        new (): HTMLSbbGroupElement;
+    };
     interface HTMLSbbHeaderElement extends Components.SbbHeader, HTMLStencilElement {
     }
     var HTMLSbbHeaderElement: {
@@ -2287,6 +2304,7 @@ declare global {
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
+        "sbb-group": HTMLSbbGroupElement;
         "sbb-header": HTMLSbbHeaderElement;
         "sbb-header-action": HTMLSbbHeaderActionElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -2914,6 +2932,16 @@ declare namespace LocalJSX {
           * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
          */
         "width"?: 'default' | 'collapse';
+    }
+    interface SbbGroup {
+        /**
+          * Background color of the group.
+         */
+        "color"?: InterfaceSbbGroupAttributes['color'];
+        /**
+          * Padding variant of the group.
+         */
+        "padding"?: InterfaceSbbGroupAttributes['padding'];
     }
     interface SbbHeader {
         /**
@@ -4120,6 +4148,7 @@ declare namespace LocalJSX {
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
+        "sbb-group": SbbGroup;
         "sbb-header": SbbHeader;
         "sbb-header-action": SbbHeaderAction;
         "sbb-icon": SbbIcon;
@@ -4204,6 +4233,7 @@ declare module "@stencil/core" {
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
+            "sbb-group": LocalJSX.SbbGroup & JSXBase.HTMLAttributes<HTMLSbbGroupElement>;
             "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
             "sbb-header-action": LocalJSX.SbbHeaderAction & JSXBase.HTMLAttributes<HTMLSbbHeaderActionElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;
