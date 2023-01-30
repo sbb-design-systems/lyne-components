@@ -6,6 +6,8 @@
 
 @mixin stretch($property) {
   #{$property}: 100%;
+  #{$property}: -webkit-fill-available;
+  #{$property}: -moz-available;
   #{$property}: stretch;
 }
 
