@@ -11,7 +11,7 @@ describe('sbb-clock', () => {
     expect(root).toEqualHtml(`
       <sbb-clock>
         <mock:shadow-root>
-          <div class="sbb-clock sbb-clock--not-initialized">
+          <div class="sbb-clock">
             <span class="sbb-clock__face"></span>
             <span class="sbb-clock__hand-hours"></span>
             <span class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"></span>

@@ -10,7 +10,7 @@ describe('sbb-clock', () => {
     element = await page.find('sbb-clock');
 
     expect(element).toEqualHtml(`
-      <sbb-clock class="hydrated" data-now="1674732600000">
+      <sbb-clock class="hydrated" data-now="1674732600000" data-initialized="">
         <mock:shadow-root>
           <div class="sbb-clock">
             <span class="sbb-clock__face">
