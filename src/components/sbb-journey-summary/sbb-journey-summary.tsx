@@ -73,12 +73,12 @@ export class SbbJourneySummary implements ComponentInterface {
     if (isTomorrow(departureTime) || isToday(departureTime)) {
       return isTomorrow(departureTime) ? (
         <span>
-          {i18nTomorrow[this._currentLanguage]},{' '}
+          {i18nTomorrow[this._currentLanguage]}
           {duration && <span>, {this._formatTime(duration)}</span>}
         </span>
       ) : (
         <span>
-          {i18nToday[this._currentLanguage]}{' '}
+          {i18nToday[this._currentLanguage]}
           {duration && <span>, {this._formatTime(duration)}</span>}
         </span>
       );
