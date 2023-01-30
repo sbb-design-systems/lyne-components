@@ -15,7 +15,7 @@ let handMovement;
   tag: 'sbb-clock',
 })
 export class SbbClock implements ComponentInterface {
-  /** Whether is true, the clock's hands are hidden; it's set to true when calculations are ready. */
+  /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
   @State() private _isInitialized = false;
 
   /** Reference to the host element. */
@@ -83,17 +83,13 @@ export class SbbClock implements ComponentInterface {
   }
 
   private _addEventListeners(): void {
-    document.addEventListener(
-      'visibilitychange',
-      this._handlePageVisibilityChange.bind(this),
-      false
-    );
+    document.addEventListener('visibilitychange', () => this._handlePageVisibilityChange(), false);
   }
 
   private _removeEventListeners(): void {
     document.removeEventListener(
       'visibilitychange',
-      this._handlePageVisibilityChange.bind(this),
+      () => this._handlePageVisibilityChange(),
       false
     );
     this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
@@ -115,7 +111,7 @@ export class SbbClock implements ComponentInterface {
   }
 
   /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
-  private _getCurrentTime(): void {
+  private _assignCurrentTime(): void {
     const date = this._now();
     this._hours = date.getHours() % 12;
     this._minutes = date.getMinutes();
@@ -124,7 +120,7 @@ export class SbbClock implements ComponentInterface {
 
   /** Set the starting position for the three hands on the clock face. */
   private _setHandsStartingPosition(): void {
-    this._getCurrentTime();
+    this._assignCurrentTime();
     const remainingSeconds = this._totalSecondsOnClockFace - this._seconds;
     const remainingMinutes = this._totalMinutesOnClockFace - this._minutes;
     const remainingHours = this._totalHoursOnClockFace - this._hours;
@@ -208,7 +204,7 @@ export class SbbClock implements ComponentInterface {
     this._addMinutesAndSetHands();
 
     handMovement = setInterval(
-      this._addMinutesAndSetHands.bind(this),
+      () => this._addMinutesAndSetHands(),
       this._totalSecondsOnClockFace * 1000
     );
   }
