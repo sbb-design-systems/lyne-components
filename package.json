@@ -152,7 +152,7 @@
       },
       {
         "type": "refactor",
-        "hidden": "Refactor"
+        "section": "Refactorings"
       },
       {
         "type": "perf",
