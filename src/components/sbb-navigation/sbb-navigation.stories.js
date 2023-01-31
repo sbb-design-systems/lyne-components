@@ -23,9 +23,9 @@ const playStory = async ({ canvasElement }) => {
   );
 };
 
-const playStoryWithSection = async ({ canvasElement }) => {
-  await playStory({ canvasElement });
-  const canvas = within(canvasElement);
+const playStoryWithSection = async (args) => {
+  await playStory(args);
+  const canvas = within(args.canvasElement);
 
   await waitFor(() =>
     expect(
@@ -231,7 +231,7 @@ LongContent.play = isChromatic() && playStory;
 export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
 WithNavigationSection.argTypes = basicArgTypes;
 WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = isChromatic() && playStoryWithSection;
+WithNavigationSection.play = playStoryWithSection;
 
 export default {
   decorators: [
