@@ -18,6 +18,9 @@
   --sbb-tooltip-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-2x));
+
+  position: absolute;
+  inset: 0 auto auto 0;
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {

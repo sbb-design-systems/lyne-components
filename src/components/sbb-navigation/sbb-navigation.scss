@@ -32,6 +32,9 @@
   --sbb-navigation-content-transform: translateX(0);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
+  position: absolute;
+  inset: 0 auto auto 0;
+
   @include sbb.mq($from: medium) {
     --sbb-navigation-grid-column: 1 / 9;
   }

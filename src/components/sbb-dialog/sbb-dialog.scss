@@ -27,6 +27,9 @@
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
 
+  position: absolute;
+  inset: 0 auto auto 0;
+
   @include sbb.mq($from: micro) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
   }

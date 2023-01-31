@@ -23,6 +23,9 @@
   --sbb-menu-pointer-events: none;
   --sbb-menu-backdrop-color: transparent;
 
+  position: absolute;
+  inset: 0 auto auto 0;
+
   @include sbb.mq($from: medium) {
     --sbb-menu-position: absolute;
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
