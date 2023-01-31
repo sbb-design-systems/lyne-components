@@ -47,7 +47,7 @@ export class SbbPearlChainVerticalItem {
           {position > 0 && (
             <div
               style={{ '--sbb-pearl-chain-vertical-item-position': `${position}%` }}
-              class={`sbb-pearl-chain-vertical-item__bullet--position`}
+              class="sbb-pearl-chain-vertical-item__bullet--position"
             ></div>
           )}
         </div>
