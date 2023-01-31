@@ -179,7 +179,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       <input
         type="text"
         {...inputAttributes}
-        onInput={(event: Event) => this._preventCharInsert(event)}
+        onInput={(event: InputEvent) => this._preventCharInsert(event)}
         onChange={(event: Event) => this._updateValueAndEmitChange(event)}
       />
     );
