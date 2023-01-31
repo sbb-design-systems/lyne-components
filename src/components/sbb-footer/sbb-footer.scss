@@ -71,7 +71,7 @@
   }
 
   ::slotted(sbb-clock) {
-    max-width: var(--sbb-footer-clock-width);
+    width: var(--sbb-footer-clock-width);
     grid-row: 1;
 
     @include sbb.mq($from: small) {
@@ -82,7 +82,6 @@
     @include sbb.mq($from: wide) {
       grid-row: 1;
       grid-column: 4 / 5;
-      width: 100%;
       justify-self: end;
     }
   }

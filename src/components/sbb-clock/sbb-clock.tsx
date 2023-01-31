@@ -1,17 +1,41 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, State } from '@stencil/core';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg';
 
-import { Time } from './sbb-clock.custom';
+/** Number of hours on the clock face. */
+const TOTAL_HOURS_ON_CLOCK_FACE = 12;
 
-let moveHoursHand;
-let moveMinutesHand;
-let handMovement;
+/** Number of minutes on the clock face. */
+const TOTAL_MINUTES_ON_CLOCK_FACE = 60;
 
-const eventListenerOptions = {
+/** Number of seconds on the clock face. */
+const TOTAL_SECONDS_ON_CLOCK_FACE = 60;
+
+/** Timeout for the clock start. */
+const INITIAL_TIMEOUT_DURATION = 50;
+
+/** Angle in a single rotation. */
+const FULL_ANGLE = 360;
+
+/** Angle between two consecutive hours: 360/12, means a full rotation / number of hours in a rotation. */
+const HOURS_ANGLE = 30;
+
+/** Angle between two consecutive minutes: 360/60, means a full rotation / number of minutes in one hour. */
+const MINUTES_ANGLE = 6;
+
+/** Angle between two consecutive seconds for SBB clock custom behavior. */
+const SBB_SECONDS_ANGLE = 360 / 58.5;
+
+/** Number of seconds in a minute. */
+const SECONDS_IN_A_MINUTE = 60;
+
+/** Number of seconds in an hour. */
+const SECONDS_IN_AN_HOUR = 3600;
+
+const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
   once: true,
   passive: true,
 };
@@ -22,123 +46,107 @@ const eventListenerOptions = {
   tag: 'sbb-clock',
 })
 export class SbbClock implements ComponentInterface {
-  @Element() private _element: HTMLElement;
-
-  /**
-   * We use _isInitialized to hide the hands of
-   * the clock till the calculations are ready
-   */
+  /** If it's false, the clock's hands are hidden; it's set to true when calculations are ready. */
   @State() private _isInitialized = false;
 
-  /** If set to true, the clock will be paused. */
-  @Prop() public paused? = false;
+  /** Reference to the host element. */
+  @Element() private _element: HTMLElement;
 
-  /**
-   * initialTime accepts a string following
-   * a ${number}:${number}:${number} pattern.
-   * If left empty or the string 'now' is used
-   * we will set the current time the client
-   * has on its device.
-   */
-  @Prop() public initialTime?: Time;
-
+  /** Reference to the hour hand. */
   private _clockHandHours: HTMLElement;
+
+  /** Reference to the minute hand. */
   private _clockHandMinutes: HTMLElement;
+
+  /** Reference to the second hand. */
   private _clockHandSeconds: HTMLElement;
 
+  /** Hours value for the current date. */
   private _hours: number;
+
+  /** Minutes value for the current date. */
   private _minutes: number;
+
+  /** Seconds value for the current date. */
   private _seconds: number;
 
-  private _defaultHoursAnimationDuration = 24;
-  private _defaultMinutesAnimationDuration = 60;
-  private _defaultSecondsAnimationDuration = 60;
-  private _initialTimeOutDuration = 50;
-  private _remainingHours: number;
-  private _remainingMinutes: number;
-  private _remainingSeconds: number;
-  private _hoursAngle: number;
-  private _minutesAngle: number;
+  /** Callback function for hours hand. */
+  private _moveHoursHandFn = (): void => this._moveHoursHand();
+
+  /** Callback function for minutes hand. */
+  private _moveMinutesHandFn = (): void => this._moveMinutesHand();
+
+  /** Move the minutes hand every minute. */
+  private _handMovement: ReturnType<typeof setInterval>;
 
   private _handlePageVisibilityChange(): void {
     if (document.visibilityState === 'hidden') {
       this._stopClock();
-    } else if (!this.paused) {
+    } else if (!this._hasDataNow()) {
       this._startClock();
     }
   }
 
   private _addEventListeners(): void {
-    document.addEventListener(
-      'visibilitychange',
-      this._handlePageVisibilityChange.bind(this),
-      false
-    );
+    document.addEventListener('visibilitychange', () => this._handlePageVisibilityChange(), false);
   }
 
   private _removeEventListeners(): void {
     document.removeEventListener(
       'visibilitychange',
-      this._handlePageVisibilityChange.bind(this),
+      () => this._handlePageVisibilityChange(),
       false
     );
-    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
-    clearInterval(handMovement);
+    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
+    clearInterval(this._handMovement);
   }
 
   private _removeHoursAnimationStyles(): void {
     this._clockHandHours?.classList.remove('sbb-clock__hand-hours--initial-hour');
-    this._element.style.removeProperty('--clock-hours-animation-start-angle');
-    this._element.style.removeProperty('--clock-hours-animation-duration');
+    this._element.style.removeProperty('--sbb-clock-hours-animation-start-angle');
+    this._element.style.removeProperty('--sbb-clock-hours-animation-duration');
   }
 
   private _removeSecondsAnimationStyles(): void {
     this._clockHandSeconds?.classList.remove('sbb-clock__hand-seconds--initial-minute');
     this._clockHandMinutes?.classList.remove('sbb-clock__hand-minutes--no-transition');
-    this._element.style.removeProperty('--clock-seconds-animation-start-angle');
-    this._element.style.removeProperty('--clock-seconds-animation-duration');
+    this._element.style.removeProperty('--sbb-clock-seconds-animation-start-angle');
+    this._element.style.removeProperty('--sbb-clock-seconds-animation-duration');
   }
 
-  private _getCurrentTime(): void {
-    const predefinedTime = this.initialTime.split(':');
-
-    if (predefinedTime[0] === 'now') {
-      const date = new Date();
-
-      this._hours = date.getHours();
-      this._minutes = date.getMinutes();
-      this._seconds = date.getSeconds();
-    } else {
-      this._hours = Number(predefinedTime[0]);
-      this._minutes = Number(predefinedTime[1]);
-      this._seconds = Number(predefinedTime[2]);
-    }
-
-    this._remainingSeconds = this._defaultSecondsAnimationDuration - this._seconds;
-    this._remainingMinutes = this._defaultMinutesAnimationDuration - this._minutes;
-    this._remainingHours = this._defaultHoursAnimationDuration - this._hours;
+  /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */
+  private _assignCurrentTime(): void {
+    const date = this._now();
+    this._hours = date.getHours() % 12;
+    this._minutes = date.getMinutes();
+    this._seconds = date.getSeconds();
   }
 
-  private _moveHandsInitially(): void {
-    this._getCurrentTime();
+  /** Set the starting position for the three hands on the clock face. */
+  private _setHandsStartingPosition(): void {
+    this._assignCurrentTime();
+    const remainingSeconds = TOTAL_SECONDS_ON_CLOCK_FACE - this._seconds;
+    const remainingMinutes = TOTAL_MINUTES_ON_CLOCK_FACE - this._minutes;
+    const remainingHours = TOTAL_HOURS_ON_CLOCK_FACE - this._hours;
 
     let hoursAnimationDuration = 0;
+    let hasRemainingMinutesOrSeconds = 0;
 
-    if (this._remainingSeconds > 0) {
-      hoursAnimationDuration = this._remainingSeconds;
+    if (remainingSeconds > 0) {
+      hoursAnimationDuration += remainingSeconds;
+      hasRemainingMinutesOrSeconds = 1;
     }
 
-    if (this._remainingMinutes > 0 && this._remainingSeconds > 0) {
-      hoursAnimationDuration += (this._remainingMinutes - 1) * 60;
-    } else if (this._remainingMinutes > 0) {
-      hoursAnimationDuration += this._remainingMinutes * 60;
+    if (remainingMinutes > 0) {
+      hoursAnimationDuration +=
+        (remainingMinutes - hasRemainingMinutesOrSeconds) * SECONDS_IN_A_MINUTE;
+      hasRemainingMinutesOrSeconds = 1;
     }
 
-    if (this._remainingHours > 0 && (this._remainingMinutes > 0 || this._remainingSeconds > 0)) {
-      hoursAnimationDuration += (this._remainingHours - 1) * 3600;
-    } else if (this._remainingHours > 0) {
-      hoursAnimationDuration += this._remainingHours * 3600;
+    if (remainingHours > 0) {
+      hoursAnimationDuration +=
+        (remainingHours - hasRemainingMinutesOrSeconds) * SECONDS_IN_AN_HOUR;
     }
 
     if (this._clockHandSeconds) {
@@ -146,75 +154,77 @@ export class SbbClock implements ComponentInterface {
     }
 
     this._element.style.setProperty(
-      '--clock-hours-animation-start-angle',
-      `${Math.ceil(this._hours * 30 + this._minutes / 2)}deg`
+      '--sbb-clock-hours-animation-start-angle',
+      `${Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2)}deg`
     );
     this._element.style.setProperty(
-      '--clock-hours-animation-duration',
+      '--sbb-clock-hours-animation-duration',
       `${hoursAnimationDuration}s`
     );
     this._element.style.setProperty(
-      '--clock-seconds-animation-start-angle',
-      `${Math.ceil(this._seconds * (360 / 58.5))}deg`
+      '--sbb-clock-seconds-animation-start-angle',
+      `${Math.ceil(this._seconds * SBB_SECONDS_ANGLE)}deg`
     );
     this._element.style.setProperty(
-      '--clock-seconds-animation-duration',
-      `${this._remainingSeconds}s`
+      '--sbb-clock-seconds-animation-duration',
+      `${remainingSeconds}s`
     );
 
     this._setMinutesHand();
 
     this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
-    this._element.style.setProperty('--clock-animation-play-state', 'running');
+    this._element.style.setProperty('--sbb-clock-animation-play-state', 'running');
 
     this._isInitialized = true;
   }
 
+  /** Set the starting position for the minutes hand. */
   private _setMinutesHand(): void {
-    this._minutesAngle = this._minutes * 6;
     this._clockHandMinutes?.style.setProperty(
       'transform',
-      `rotateZ(${Math.ceil(this._minutesAngle)}deg)`
+      `rotateZ(${Math.ceil(this._minutes * MINUTES_ANGLE)}deg)`
     );
   }
 
+  /** Move the hours hand to the next value. */
   private _moveHoursHand(): void {
     this._removeHoursAnimationStyles();
 
-    this._hoursAngle = Math.ceil(this._hours * 30 + this._minutes / 2);
+    let hoursAngle = Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2);
 
-    if (this._hoursAngle === 720) {
-      this._hoursAngle = 0;
-    } else if (this._hoursAngle > 360) {
-      this._hoursAngle -= 360;
+    if (hoursAngle >= FULL_ANGLE) {
+      hoursAngle -= FULL_ANGLE;
     }
 
-    this._clockHandHours?.style.setProperty(
-      'transform',
-      `rotateZ(${Math.ceil(this._hoursAngle)}deg)`
-    );
+    this._clockHandHours?.style.setProperty('transform', `rotateZ(${hoursAngle}deg)`);
   }
 
+  /** Move the minutes hand to the next value. */
   private _moveMinutesHand(): void {
-    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
 
     this._removeSecondsAnimationStyles();
 
-    this._minutes++;
-    this._setMinutesHand();
+    this._addMinutesAndSetHands();
 
-    handMovement = setInterval(() => {
-      this._minutes++;
-      this._setMinutesHand();
-    }, this._defaultSecondsAnimationDuration * 1000);
+    this._handMovement = setInterval(
+      () => this._addMinutesAndSetHands(),
+      TOTAL_SECONDS_ON_CLOCK_FACE * 1000
+    );
   }
 
-  private _stopClock(): void {
-    clearInterval(handMovement);
+  private _addMinutesAndSetHands(): void {
+    this._minutes++;
+    this._setMinutesHand();
+  }
 
-    if (this.paused) {
-      this._moveHandsInitially();
+  /** Stops the clock by removing all the animations. */
+  private _stopClock(): void {
+    clearInterval(this._handMovement);
+
+    if (this._hasDataNow()) {
+      this._setHandsStartingPosition();
       this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
       this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
     } else {
@@ -222,68 +232,85 @@ export class SbbClock implements ComponentInterface {
       this._removeHoursAnimationStyles();
     }
 
-    this._clockHandHours?.removeEventListener('animationend', moveHoursHand);
-    this._clockHandSeconds?.removeEventListener('animationend', moveMinutesHand);
+    this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
+    this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
 
     this._clockHandMinutes?.classList.add('sbb-clock__hand-minutes--no-transition');
 
-    this._element.style.setProperty('--clock-animation-play-state', 'paused');
+    this._element.style.setProperty('--sbb-clock-animation-play-state', 'paused');
   }
 
+  /** Starts the clock by defining the hands starting position then starting the animations. */
   private _startClock(): void {
-    moveHoursHand = (): void => this._moveHoursHand();
-    moveMinutesHand = (): void => this._moveMinutesHand();
+    this._clockHandHours?.addEventListener(
+      'animationend',
+      this._moveHoursHandFn,
+      ADD_EVENT_LISTENER_OPTIONS
+    );
+    this._clockHandSeconds?.addEventListener(
+      'animationend',
+      this._moveMinutesHandFn,
+      ADD_EVENT_LISTENER_OPTIONS
+    );
 
-    this._clockHandHours?.addEventListener('animationend', moveHoursHand, eventListenerOptions);
-    this._clockHandSeconds?.addEventListener('animationend', moveMinutesHand, eventListenerOptions);
+    setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION);
+  }
 
-    setTimeout(() => {
-      this._moveHandsInitially();
-    }, this._initialTimeOutDuration);
+  private _hasDataNow(): boolean {
+    const dataNow = +this._element.dataset?.now;
+    return !isNaN(dataNow);
+  }
+
+  private _now(): Date {
+    if (this._hasDataNow()) {
+      return new Date(+this._element.dataset?.now);
+    }
+    return new Date();
   }
 
   public componentDidLoad(): void {
     this._addEventListeners();
 
-    if (this.paused) {
+    if (this._hasDataNow()) {
       this._stopClock();
     } else {
       this._startClock();
     }
   }
 
-  public render(): JSX.Element {
-    const initClass = this._isInitialized ? '' : ' sbb-clock--not-initialized';
-
-    return (
-      <div class={`sbb-clock${initClass}`}>
-        <span class="sbb-clock__face" innerHTML={clockFaceSVG} />
-        <span
-          class="sbb-clock__hand-hours"
-          innerHTML={clockHandleHoursSVG}
-          ref={(el): void => {
-            this._clockHandHours = el;
-          }}
-        />
-        <span
-          class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
-          innerHTML={clockHandleMinutesSVG}
-          ref={(el): void => {
-            this._clockHandMinutes = el;
-          }}
-        />
-        <span
-          class="sbb-clock__hand-seconds"
-          innerHTML={clockHandleSecondsSVG}
-          ref={(el): void => {
-            this._clockHandSeconds = el;
-          }}
-        />
-      </div>
-    );
-  }
-
   public disconnectedCallback(): void {
     this._removeEventListeners();
+  }
+
+  public render(): JSX.Element {
+    const hostAttributes = { 'data-initialized': this._isInitialized };
+    return (
+      <Host {...hostAttributes}>
+        <div class="sbb-clock">
+          <span class="sbb-clock__face" innerHTML={clockFaceSVG} />
+          <span
+            class="sbb-clock__hand-hours"
+            innerHTML={clockHandleHoursSVG}
+            ref={(el): void => {
+              this._clockHandHours = el;
+            }}
+          />
+          <span
+            class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
+            innerHTML={clockHandleMinutesSVG}
+            ref={(el): void => {
+              this._clockHandMinutes = el;
+            }}
+          />
+          <span
+            class="sbb-clock__hand-seconds"
+            innerHTML={clockHandleSecondsSVG}
+            ref={(el): void => {
+              this._clockHandSeconds = el;
+            }}
+          />
+        </div>
+      </Host>
+    );
   }
 }

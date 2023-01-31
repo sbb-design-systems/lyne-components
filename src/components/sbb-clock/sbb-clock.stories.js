@@ -2,63 +2,26 @@ import { h } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
 
+const dataNow = {
+  control: {
+    type: 'date',
+  },
+};
+
 const Template = (args) => <sbb-clock {...args} />;
 
-const times = {
-  control: {
-    type: 'select',
-  },
-  options: [
-    'now',
-    '01:59:27',
-    '05:39:12',
-    '09:48:13',
-    '11:59:13',
-    '13:30:41',
-    '16:50:00',
-    '20:03:21',
-    '23:59:39',
-  ],
-};
-
-const defaultArgTypes = {
-  'initial-time': times,
-};
-
 export const Default = Template.bind({});
-
-Default.argTypes = defaultArgTypes;
-Default.args = {
-  'initial-time': times.options[0],
-  paused: false,
-};
-
+Default.argTypes = { 'data-now': dataNow };
+Default.args = { 'data-now': undefined };
 Default.documentation = {
   title: 'Default',
 };
 
 export const Paused = Template.bind({});
-
-Paused.argTypes = defaultArgTypes;
-Paused.args = {
-  'initial-time': times.options[1],
-  paused: true,
-};
-
+Paused.argTypes = { 'data-now': dataNow };
+Paused.args = { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() };
 Paused.documentation = {
   title: 'Paused',
-};
-
-export const InitialTime = Template.bind({});
-
-InitialTime.argTypes = defaultArgTypes;
-InitialTime.args = {
-  'initial-time': times.options[1],
-  paused: false,
-};
-
-InitialTime.documentation = {
-  title: `Initial time set to ${times.options[1]}`,
 };
 
 /**
@@ -67,12 +30,7 @@ InitialTime.documentation = {
  */
 if (isChromatic()) {
   Default.args = {
-    'initial-time': times.options[1],
-    paused: true,
-  };
-
-  InitialTime.args = {
-    paused: true,
+    'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf(),
   };
 }
 
