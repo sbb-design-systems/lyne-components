@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.19](https://github.com/lyne-design-system/lyne-components/compare/v0.23.18...v0.23.19) (2023-01-31)
+
+### Bug Fixes
+
+- **layout:** ensure 100% width of page-spacing ([#1582](https://github.com/lyne-design-system/lyne-components/issues/1582)) ([ac131dc](https://github.com/lyne-design-system/lyne-components/commit/ac131dc57dfa0bea7fe9aad138243c4655c4e166))
+
 ### [0.23.18](https://github.com/lyne-design-system/lyne-components/compare/v0.23.17...v0.23.18) (2023-01-31)
 
 ### Documentation
