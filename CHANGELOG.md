@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.25.0](https://github.com/lyne-design-system/lyne-components/compare/v0.24.2...v0.25.0) (2023-01-31)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-card:** - The `negative` property was replaced by the new color property.
+  To migrate you should replace `negative` with `color="milk"`.
+  This change had to be done as the negative property is not correct in this context.
+
+* The components `sbb-card-product`, `sbb-timetable`, `sbb-timetable-button`,
+  `sbb-timetable-cus-him` and `sbb-timetable-transportation-walk` were removed.
+
+### Refactorings
+
+- **sbb-card:** refactor structure ([#1562](https://github.com/lyne-design-system/lyne-components/issues/1562)) ([98c2d73](https://github.com/lyne-design-system/lyne-components/commit/98c2d73f12d341783691cb4f1488ed95697af843))
+
 ### [0.24.2](https://github.com/lyne-design-system/lyne-components/compare/v0.24.1...v0.24.2) (2023-01-31)
 
 ### Bug Fixes
