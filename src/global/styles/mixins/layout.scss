@@ -4,6 +4,10 @@
   padding-inline: var(--sbb-layout-base-offset-responsive);
   margin-inline: auto;
 
+  // If using page-spacing in flex context,
+  // we would like to ensure it matches the width of the parent (should be full width).
+  width: 100%;
+
   // Subtract padding to get real max-width
   max-width: calc(
     var(--sbb-layout-base-page-max-width) + 2 * var(--sbb-layout-base-offset-responsive)
