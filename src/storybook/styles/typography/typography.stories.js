@@ -18,7 +18,7 @@ const TextBoldTemplate = () =>
     <sbb-title level={sizes.length - index}>
       Titel Level {sizes.length - index} / Text size {textSize}
     </sbb-title>,
-    <p class={`sbb-text-${textSize} sbb-text-bold`}>{text}</p>,
+    <p class={`sbb-text-${textSize} sbb-text--bold`}>{text}</p>,
   ]);
 
 const LegendSubSupTemplate = () => [
