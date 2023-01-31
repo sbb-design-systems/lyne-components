@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
@@ -10,7 +10,7 @@ import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
   styleUrl: 'sbb-header.scss',
   tag: 'sbb-header',
 })
-export class SbbHeader {
+export class SbbHeader implements ComponentInterface {
   /** Used to display a box-shadow below the component on y-axis scroll whether set to true. */
   @Prop({ reflect: true }) public shadow = false;
 
@@ -46,9 +46,9 @@ export class SbbHeader {
     }
 
     const scrollFn: () => void = this.hideOnScroll
-      ? this._scrollListener
-      : this._scrollShadowListener;
-    this._scrollElement.addEventListener('scroll', scrollFn.bind(this), { passive: true });
+      ? this._scrollListener.bind(this)
+      : this._scrollShadowListener.bind(this);
+    this._scrollElement.addEventListener('scroll', () => scrollFn(), { passive: true });
   }
 
   /** Sets the correct value for `scrollTop`, then:
@@ -57,7 +57,7 @@ export class SbbHeader {
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
    */
   private _scrollListener(): void {
-    const currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
+    const currentScroll = this._getCurrentScroll();
     this.shadow = currentScroll !== 0;
     const header = this._element.shadowRoot.firstElementChild as HTMLSbbHeaderElement;
     // check if original header position has been scrolled out
@@ -90,8 +90,14 @@ export class SbbHeader {
 
   /** Sets the correct value for `scrollTop`, then apply the shadow if the element/document has been scrolled down; */
   private _scrollShadowListener(): void {
-    const currentScroll = document.documentElement.scrollTop || document.body.scrollTop; // Get current scroll value
-    this.shadow = currentScroll !== 0;
+    this.shadow = this._getCurrentScroll() !== 0;
+  }
+
+  private _getCurrentScroll(): number {
+    if (this._scrollElement instanceof Document) {
+      return this._scrollElement.documentElement.scrollTop || this._scrollElement.body.scrollTop;
+    }
+    return this._scrollElement.scrollTop;
   }
 
   public render(): JSX.Element {
