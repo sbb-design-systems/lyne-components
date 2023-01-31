@@ -201,8 +201,12 @@ const TemplateSbbTimeInput = ({
     {errorClass && <sbb-form-error>Error</sbb-form-error>}
   </sbb-form-field>,
   <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-    <button onClick={() => setValueAsDate()}>Set valueAsDate to current datetime</button>
-    <button onClick={() => setValue()}>Set value to 0</button>
+    <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
+      Set valueAsDate to current datetime
+    </sbb-button>
+    <sbb-button variant="secondary" size="m" onClick={() => setValue()}>
+      Set value to 0
+    </sbb-button>
   </div>,
   <div style="margin-block-start: 1rem;">Change time in input:</div>,
   <div id="container-value"></div>,
