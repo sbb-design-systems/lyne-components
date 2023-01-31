@@ -23,9 +23,20 @@ const playStory = async ({ canvasElement }) => {
   );
 };
 
-const playStoryWithSection = async (args) => {
-  await playStory(args);
-  const canvas = within(args.canvasElement);
+const playStoryWithSection = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation')
+  );
+
+  const button = canvas.getByTestId('navigation-trigger');
+  await userEvent.click(button);
+  await waitFor(() =>
+    expect(
+      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
+    ).toBeTruthy()
+  );
 
   await waitFor(() =>
     expect(
