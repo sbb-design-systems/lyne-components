@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.17](https://github.com/lyne-design-system/lyne-components/compare/v0.23.16...v0.23.17) (2023-01-31)
+
+### Refactorings
+
+- remove SASS mixin `stretch` ([#1581](https://github.com/lyne-design-system/lyne-components/issues/1581)) ([de66409](https://github.com/lyne-design-system/lyne-components/commit/de6640927515f2614d108d2aba78dee65a884733))
+
 ### [0.23.16](https://github.com/lyne-design-system/lyne-components/compare/v0.23.15...v0.23.16) (2023-01-30)
 
 ### Bug Fixes
