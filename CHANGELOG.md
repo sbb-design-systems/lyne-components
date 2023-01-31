@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.24.0](https://github.com/lyne-design-system/lyne-components/compare/v0.23.19...v0.24.0) (2023-01-31)
+
+### ⚠ BREAKING CHANGES
+
+- **typography:** Renamed CSS class `sbb-text-bold` to `sbb-text--bold` to match BEM naming.
+
+### Bug Fixes
+
+- **typography:** fix name of `sbb-text--bold` CSS class ([#1583](https://github.com/lyne-design-system/lyne-components/issues/1583)) ([b0fb6fa](https://github.com/lyne-design-system/lyne-components/commit/b0fb6fa3332579857cfb25fc8d54c24c7f5e3570))
+
 ### [0.23.19](https://github.com/lyne-design-system/lyne-components/compare/v0.23.18...v0.23.19) (2023-01-31)
 
 ### Bug Fixes
