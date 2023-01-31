@@ -25,7 +25,7 @@
   transform: translateY(var(--sbb-header-position));
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
-  &.sbb-header--animated {
+  :host([data-animated]) & {
     transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
   }
 

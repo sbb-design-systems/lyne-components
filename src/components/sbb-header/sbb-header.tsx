@@ -1,4 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
@@ -59,7 +60,6 @@ export class SbbHeader implements ComponentInterface {
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
     this.shadow = currentScroll !== 0;
-    const header = this._element.shadowRoot.firstElementChild as HTMLSbbHeaderElement;
     // check if original header position has been scrolled out
     if (currentScroll > this._element.offsetHeight) {
       this._headerOnTop = false;
@@ -73,16 +73,16 @@ export class SbbHeader implements ComponentInterface {
       } else {
         this.shadow = true;
         this._element.style.setProperty('--sbb-header-position', '0');
-        header.classList.add('sbb-header--animated');
+        toggleDatasetEntry(this._element, 'animated', true);
       }
     } else {
-      if (currentScroll == 0) {
+      if (currentScroll === 0) {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
         this.shadow = false;
         this._element.style.setProperty('--sbb-header-position', '-' + currentScroll + 'px');
-        header.classList.remove('sbb-header--animated');
+        toggleDatasetEntry(this._element, 'animated', false);
       }
     }
     this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
