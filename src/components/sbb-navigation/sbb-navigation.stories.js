@@ -15,7 +15,7 @@ const playStory = async ({ canvasElement }) => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
+  userEvent.click(button);
   await waitFor(() =>
     expect(
       canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
@@ -35,9 +35,9 @@ const playStoryWithSection = async ({ canvasElement }) => {
     ).toBeTruthy()
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  await userEvent.click(actionL);
+  userEvent.click(actionL);
   const actionS = canvas.getByTestId('navigation-section-trigger-2');
-  await userEvent.click(actionS);
+  userEvent.click(actionS);
 };
 
 const accessibilityLabel = {
@@ -231,7 +231,7 @@ LongContent.play = isChromatic() && playStory;
 export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
 WithNavigationSection.argTypes = basicArgTypes;
 WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = isChromatic() && playStory;
+WithNavigationSection.play = playStoryWithSection;
 
 export default {
   decorators: [
