@@ -23,6 +23,7 @@
   background: var(--sbb-color-white-default);
   z-index: 10;
   transform: translateY(var(--sbb-header-position));
+  transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   &.sbb-header--animated {
     transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
@@ -35,10 +36,6 @@
   @include sbb.if-forced-colors {
     border-block-end: var(--sbb-border-width-1x) solid CanvasText;
   }
-}
-
-:host([hide-on-scroll]:not([hide-on-scroll='false'])) .sbb-header {
-  position: fixed;
 }
 
 .sbb-header__wrapper {
