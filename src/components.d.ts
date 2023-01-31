@@ -14,7 +14,6 @@ import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/s
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-import { InterfaceCardProductAttributes } from "./components/sbb-card-product/sbb-card-product.custom";
 import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
@@ -36,13 +35,10 @@ import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
-import { InterfaceTimetableButtonAttributes } from "./components/sbb-timetable-button/sbb-timetable-button.custom";
-import { InterfaceTimetableCusHimAttributes } from "./components/sbb-timetable-cus-him/sbb-timetable-cus-him.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
-import { InterfaceTimetableTransportationWalkAttributes } from "./components/sbb-timetable-transportation-walk/sbb-timetable-transportation-walk.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
@@ -299,6 +295,10 @@ export namespace Components {
          */
         "active": boolean;
         /**
+          * Option to set the component's background color.
+         */
+        "color": InterfaceSbbCardAttributes['color'];
+        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
@@ -314,10 +314,6 @@ export namespace Components {
           * The name of the button.
          */
         "name": string | undefined;
-        /**
-          * Option to set the component background color.
-         */
-        "negative": boolean;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
@@ -364,52 +360,6 @@ export namespace Components {
           * From/above price text
          */
         "text"?: string;
-    }
-    interface SbbCardProduct {
-        /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
-          * CardProduct appearance
-         */
-        "appearance"?: InterfaceCardProductAttributes['appearance'];
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
-        /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
-          * The href value you want to link to
-         */
-        "hrefValue"?: string;
-        /**
-          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
-         */
-        "isButton"?: boolean;
-        /**
-          * Set to true to get a disabled button
-         */
-        "isDisabled"?: boolean;
-        /**
-          * CardProduct layout
-         */
-        "layout"?: InterfaceCardProductAttributes['layout'];
-        /**
-          * The name attribute to use for the button
-         */
-        "name"?: string;
-        /**
-          * The type attribute to use for the button
-         */
-        "type"?: InterfaceCardProductAttributes['type'];
-        /**
-          * The value attribute to use for the button
-         */
-        "value"?: string;
     }
     interface SbbCheckbox {
         /**
@@ -1383,49 +1333,7 @@ export namespace Components {
          */
         "valueAsDate"?: Date;
     }
-    interface SbbTimetable {
-    }
     interface SbbTimetableBarrierFree {
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
-    }
-    interface SbbTimetableButton {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetableButtonAttributes['appearance'];
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "ariaHaspopup"?: InterfaceTimetableButtonAttributes['popup'];
-        /**
-          * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
-         */
-        "config"?: string;
-        /**
-          * Set to true to get a disabled button
-         */
-        "disabled"?: boolean;
-        /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
-          * Set to true to initially show the state, which would get set by pressing the button.
-         */
-        "expanded"?: boolean;
-        /**
-          * The name attribute to use for the button
-         */
-        "name"?: string;
-    }
-    interface SbbTimetableCusHim {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetableCusHimAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
@@ -1517,16 +1425,6 @@ export namespace Components {
           * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceTimetableTransportationTimeAttributes['appearance'];
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
-    }
-    interface SbbTimetableTransportationWalk {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetableTransportationWalkAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
@@ -1861,12 +1759,6 @@ declare global {
         prototype: HTMLSbbCardBadgeElement;
         new (): HTMLSbbCardBadgeElement;
     };
-    interface HTMLSbbCardProductElement extends Components.SbbCardProduct, HTMLStencilElement {
-    }
-    var HTMLSbbCardProductElement: {
-        prototype: HTMLSbbCardProductElement;
-        new (): HTMLSbbCardProductElement;
-    };
     interface HTMLSbbCheckboxElement extends Components.SbbCheckbox, HTMLStencilElement {
     }
     var HTMLSbbCheckboxElement: {
@@ -2125,29 +2017,11 @@ declare global {
         prototype: HTMLSbbTimeInputElement;
         new (): HTMLSbbTimeInputElement;
     };
-    interface HTMLSbbTimetableElement extends Components.SbbTimetable, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableElement: {
-        prototype: HTMLSbbTimetableElement;
-        new (): HTMLSbbTimetableElement;
-    };
     interface HTMLSbbTimetableBarrierFreeElement extends Components.SbbTimetableBarrierFree, HTMLStencilElement {
     }
     var HTMLSbbTimetableBarrierFreeElement: {
         prototype: HTMLSbbTimetableBarrierFreeElement;
         new (): HTMLSbbTimetableBarrierFreeElement;
-    };
-    interface HTMLSbbTimetableButtonElement extends Components.SbbTimetableButton, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableButtonElement: {
-        prototype: HTMLSbbTimetableButtonElement;
-        new (): HTMLSbbTimetableButtonElement;
-    };
-    interface HTMLSbbTimetableCusHimElement extends Components.SbbTimetableCusHim, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableCusHimElement: {
-        prototype: HTMLSbbTimetableCusHimElement;
-        new (): HTMLSbbTimetableCusHimElement;
     };
     interface HTMLSbbTimetableDurationElement extends Components.SbbTimetableDuration, HTMLStencilElement {
     }
@@ -2202,12 +2076,6 @@ declare global {
     var HTMLSbbTimetableTransportationTimeElement: {
         prototype: HTMLSbbTimetableTransportationTimeElement;
         new (): HTMLSbbTimetableTransportationTimeElement;
-    };
-    interface HTMLSbbTimetableTransportationWalkElement extends Components.SbbTimetableTransportationWalk, HTMLStencilElement {
-    }
-    var HTMLSbbTimetableTransportationWalkElement: {
-        prototype: HTMLSbbTimetableTransportationWalkElement;
-        new (): HTMLSbbTimetableTransportationWalkElement;
     };
     interface HTMLSbbTimetableTravelHintsElement extends Components.SbbTimetableTravelHints, HTMLStencilElement {
     }
@@ -2286,7 +2154,6 @@ declare global {
         "sbb-button": HTMLSbbButtonElement;
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
-        "sbb-card-product": HTMLSbbCardProductElement;
         "sbb-checkbox": HTMLSbbCheckboxElement;
         "sbb-checkbox-group": HTMLSbbCheckboxGroupElement;
         "sbb-clock": HTMLSbbClockElement;
@@ -2330,10 +2197,7 @@ declare global {
         "sbb-teaser": HTMLSbbTeaserElement;
         "sbb-teaser-hero": HTMLSbbTeaserHeroElement;
         "sbb-time-input": HTMLSbbTimeInputElement;
-        "sbb-timetable": HTMLSbbTimetableElement;
         "sbb-timetable-barrier-free": HTMLSbbTimetableBarrierFreeElement;
-        "sbb-timetable-button": HTMLSbbTimetableButtonElement;
-        "sbb-timetable-cus-him": HTMLSbbTimetableCusHimElement;
         "sbb-timetable-duration": HTMLSbbTimetableDurationElement;
         "sbb-timetable-occupancy": HTMLSbbTimetableOccupancyElement;
         "sbb-timetable-park-and-rail": HTMLSbbTimetableParkAndRailElement;
@@ -2343,7 +2207,6 @@ declare global {
         "sbb-timetable-row-header": HTMLSbbTimetableRowHeaderElement;
         "sbb-timetable-transportation-number": HTMLSbbTimetableTransportationNumberElement;
         "sbb-timetable-transportation-time": HTMLSbbTimetableTransportationTimeElement;
-        "sbb-timetable-transportation-walk": HTMLSbbTimetableTransportationWalkElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
         "sbb-toggle": HTMLSbbToggleElement;
@@ -2624,6 +2487,10 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * Option to set the component's background color.
+         */
+        "color"?: InterfaceSbbCardAttributes['color'];
+        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
@@ -2639,10 +2506,6 @@ declare namespace LocalJSX {
           * The name of the button.
          */
         "name"?: string | undefined;
-        /**
-          * Option to set the component background color.
-         */
-        "negative"?: boolean;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
@@ -2689,52 +2552,6 @@ declare namespace LocalJSX {
           * From/above price text
          */
         "text"?: string;
-    }
-    interface SbbCardProduct {
-        /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the component's slots and which is visible in the card, either through text or iconography.  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
-          * CardProduct appearance
-         */
-        "appearance"?: InterfaceCardProductAttributes['appearance'];
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "ariaHaspopup"?: InterfaceCardProductAttributes['popup'];
-        /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
-          * The href value you want to link to
-         */
-        "hrefValue"?: string;
-        /**
-          * Defines if the card behaves like a HTML button. Needs to be set true if the card does not point to a URL.
-         */
-        "isButton"?: boolean;
-        /**
-          * Set to true to get a disabled button
-         */
-        "isDisabled"?: boolean;
-        /**
-          * CardProduct layout
-         */
-        "layout"?: InterfaceCardProductAttributes['layout'];
-        /**
-          * The name attribute to use for the button
-         */
-        "name"?: string;
-        /**
-          * The type attribute to use for the button
-         */
-        "type"?: InterfaceCardProductAttributes['type'];
-        /**
-          * The value attribute to use for the button
-         */
-        "value"?: string;
     }
     interface SbbCheckbox {
         /**
@@ -3739,49 +3556,7 @@ declare namespace LocalJSX {
          */
         "valueAsDate"?: Date;
     }
-    interface SbbTimetable {
-    }
     interface SbbTimetableBarrierFree {
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
-    }
-    interface SbbTimetableButton {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetableButtonAttributes['appearance'];
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "ariaHaspopup"?: InterfaceTimetableButtonAttributes['popup'];
-        /**
-          * If appearance is set to 'cus-him' or 'walk', we need to provide a config to popultate the nested web component.
-         */
-        "config"?: string;
-        /**
-          * Set to true to get a disabled button
-         */
-        "disabled"?: boolean;
-        /**
-          * Id which is sent in the click event payload
-         */
-        "eventId"?: string;
-        /**
-          * Set to true to initially show the state, which would get set by pressing the button.
-         */
-        "expanded"?: boolean;
-        /**
-          * The name attribute to use for the button
-         */
-        "name"?: string;
-    }
-    interface SbbTimetableCusHim {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetableCusHimAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
@@ -3873,16 +3648,6 @@ declare namespace LocalJSX {
           * Set the desired appearance of the component.
          */
         "appearance"?: InterfaceTimetableTransportationTimeAttributes['appearance'];
-        /**
-          * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
-         */
-        "config": string;
-    }
-    interface SbbTimetableTransportationWalk {
-        /**
-          * Set the desired appearance of the component.
-         */
-        "appearance"?: InterfaceTimetableTransportationWalkAttributes['appearance'];
         /**
           * Stringified JSON which defines most of the content of the component. Please check the individual stories to get an idea of the structure.
          */
@@ -4122,7 +3887,6 @@ declare namespace LocalJSX {
         "sbb-button": SbbButton;
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
-        "sbb-card-product": SbbCardProduct;
         "sbb-checkbox": SbbCheckbox;
         "sbb-checkbox-group": SbbCheckboxGroup;
         "sbb-clock": SbbClock;
@@ -4166,10 +3930,7 @@ declare namespace LocalJSX {
         "sbb-teaser": SbbTeaser;
         "sbb-teaser-hero": SbbTeaserHero;
         "sbb-time-input": SbbTimeInput;
-        "sbb-timetable": SbbTimetable;
         "sbb-timetable-barrier-free": SbbTimetableBarrierFree;
-        "sbb-timetable-button": SbbTimetableButton;
-        "sbb-timetable-cus-him": SbbTimetableCusHim;
         "sbb-timetable-duration": SbbTimetableDuration;
         "sbb-timetable-occupancy": SbbTimetableOccupancy;
         "sbb-timetable-park-and-rail": SbbTimetableParkAndRail;
@@ -4179,7 +3940,6 @@ declare namespace LocalJSX {
         "sbb-timetable-row-header": SbbTimetableRowHeader;
         "sbb-timetable-transportation-number": SbbTimetableTransportationNumber;
         "sbb-timetable-transportation-time": SbbTimetableTransportationTime;
-        "sbb-timetable-transportation-walk": SbbTimetableTransportationWalk;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
         "sbb-toggle": SbbToggle;
@@ -4207,7 +3967,6 @@ declare module "@stencil/core" {
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
-            "sbb-card-product": LocalJSX.SbbCardProduct & JSXBase.HTMLAttributes<HTMLSbbCardProductElement>;
             "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
             "sbb-checkbox-group": LocalJSX.SbbCheckboxGroup & JSXBase.HTMLAttributes<HTMLSbbCheckboxGroupElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
@@ -4251,10 +4010,7 @@ declare module "@stencil/core" {
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-time-input": LocalJSX.SbbTimeInput & JSXBase.HTMLAttributes<HTMLSbbTimeInputElement>;
-            "sbb-timetable": LocalJSX.SbbTimetable & JSXBase.HTMLAttributes<HTMLSbbTimetableElement>;
             "sbb-timetable-barrier-free": LocalJSX.SbbTimetableBarrierFree & JSXBase.HTMLAttributes<HTMLSbbTimetableBarrierFreeElement>;
-            "sbb-timetable-button": LocalJSX.SbbTimetableButton & JSXBase.HTMLAttributes<HTMLSbbTimetableButtonElement>;
-            "sbb-timetable-cus-him": LocalJSX.SbbTimetableCusHim & JSXBase.HTMLAttributes<HTMLSbbTimetableCusHimElement>;
             "sbb-timetable-duration": LocalJSX.SbbTimetableDuration & JSXBase.HTMLAttributes<HTMLSbbTimetableDurationElement>;
             "sbb-timetable-occupancy": LocalJSX.SbbTimetableOccupancy & JSXBase.HTMLAttributes<HTMLSbbTimetableOccupancyElement>;
             "sbb-timetable-park-and-rail": LocalJSX.SbbTimetableParkAndRail & JSXBase.HTMLAttributes<HTMLSbbTimetableParkAndRailElement>;
@@ -4264,7 +4020,6 @@ declare module "@stencil/core" {
             "sbb-timetable-row-header": LocalJSX.SbbTimetableRowHeader & JSXBase.HTMLAttributes<HTMLSbbTimetableRowHeaderElement>;
             "sbb-timetable-transportation-number": LocalJSX.SbbTimetableTransportationNumber & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationNumberElement>;
             "sbb-timetable-transportation-time": LocalJSX.SbbTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationTimeElement>;
-            "sbb-timetable-transportation-walk": LocalJSX.SbbTimetableTransportationWalk & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationWalkElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
             "sbb-toggle": LocalJSX.SbbToggle & JSXBase.HTMLAttributes<HTMLSbbToggleElement>;

@@ -5,121 +5,67 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-card-background-color: var(--sbb-color-white-default);
-  --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-3x);
-  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
-  --sbb-card-border-radius: var(--sbb-border-radius-4x);
-  --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
-  --sbb-card-animation-easing: var(--sbb-animation-easing);
-  --sbb-card-border-color: transparent;
+  @include sbb.card-variables;
 }
 
-:host([negative]:not([negative='false'])) {
-  --sbb-card-background-color: var(--sbb-color-milk-default);
-}
-
-:host([size='s']) {
-  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host([size='m']) {
-  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
-  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host([size='l']) {
-  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-4x);
-}
-
-:host([size='xl']) {
-  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-xxs);
-}
-
-:host([size='xxl']) {
-  --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
-  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-s);
-}
-
-:host(.sbb-card--has-badge[size='m']),
-:host(.sbb-card--has-badge[size='l']),
-:host(.sbb-card--has-badge[size='xl']) {
-  --sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x);
-}
-
-:host(.sbb-card--has-badge[size='m']) {
-  --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host(.sbb-card--has-badge[size='l']) {
-  --sbb-card-padding-block-end: var(--sbb-spacing-fixed-4x);
-}
-
-:host(.sbb-card--has-badge[size='xl']) {
-  --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxs);
+:host([color='milk']) {
+  @include sbb.card-variables--milk;
 }
 
 :host([active]:not([active='false'])) {
-  --sbb-card-border-color: var(--sbb-color-smoke-default);
+  @include sbb.card-variables--active;
+}
+
+:host([size='xs']) {
+  @include sbb.card-variables--xs;
+}
+
+:host([size='s']) {
+  @include sbb.card-variables--s;
+}
+
+:host([size='m']) {
+  @include sbb.card-variables--m;
+}
+
+:host([size='m'][data-has-badge]) {
+  @include sbb.card-variables--m-has-badge;
+}
+
+:host([size='l']) {
+  @include sbb.card-variables--l;
+}
+
+:host([size='l'][data-has-badge]) {
+  @include sbb.card-variables--l-has-badge;
+}
+
+:host([size='xl']) {
+  @include sbb.card-variables--xl;
+}
+
+:host([size='xl'][data-has-badge]) {
+  @include sbb.card-variables--xl-has-badge;
+}
+
+:host([size='xxl']) {
+  @include sbb.card-variables--xxl;
 }
 
 .sbb-card {
-  display: block;
-  position: relative;
-  overflow: hidden;
+  @include sbb.card;
+
   width: 100%;
   height: 100%;
-  padding-inline: var(--sbb-card-padding-inline);
-  padding-block-start: var(--sbb-card-padding-block-start);
-  padding-block-end: var(--sbb-card-padding-block-end);
-  border-radius: var(--sbb-card-border-radius);
-  background-color: var(--sbb-card-background-color);
-  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-  color: inherit;
-  text-decoration: none;
 
-  &::after {
-    position: absolute;
-    background-color: transparent;
-    content: '';
-    inset: 0;
-    border: var(--sbb-border-width-2x) solid var(--sbb-card-border-color);
-    border-radius: var(--sbb-card-border-radius);
-  }
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-  }
-
-  :host(:not([href])) & {
-    @include sbb.text-inherit;
-
-    cursor: pointer;
-
-    // can't use @include sbb.button-reset because overrides paddings, backgrounds..., only basic rules added
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  @include sbb.hover-mq($hover: true) {
-    :host(:not([active]:not([active='false'])):hover) & {
-      @include sbb.shadow-level-9-hard;
-    }
+  :host(:not([active]:not([active='false'])):hover) & {
+    @include sbb.card--hover;
   }
 }
 
-.sbb-card__content {
+slot:not([name]) {
   display: block;
   height: 100%;
-  transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-
-  @include sbb.hover-mq($hover: true) {
-    :host(:not([active]:not([active='false'])):hover) & {
-      transform: translateY(#{sbb.px-to-rem-build(-2)});
-    }
-  }
 }
 
 .sbb-card__opens-in-new-window {
@@ -128,6 +74,6 @@
 
 // We remove upper margin from all titles
 // as we do not expect multiple titles to be used inside a card.
-.sbb-card__content ::slotted(sbb-title) {
+::slotted(sbb-title) {
   margin-block-start: 0;
 }

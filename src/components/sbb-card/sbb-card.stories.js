@@ -2,11 +2,11 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const wrapperStyle = (context) => {
-  if (context.args.negative === true) {
-    return 'background-color: var(--sbb-color-white-default);';
+  if (context.args.color === 'white') {
+    return 'background-color: var(--sbb-color-milk-default);';
   }
 
-  return 'background-color: var(--sbb-color-milk-default);';
+  return 'background-color: var(--sbb-color-white-default);';
 };
 
 const ContentText =
@@ -53,10 +53,11 @@ const active = {
   },
 };
 
-const negative = {
+const color = {
   control: {
-    type: 'boolean',
+    type: 'inline-radio',
   },
+  options: ['white', 'milk'],
 };
 
 const href = {
@@ -140,7 +141,7 @@ const value = {
 const basicArgTypes = {
   size,
   active,
-  negative,
+  color,
   href,
   download,
   target,
@@ -155,7 +156,7 @@ const basicArgTypes = {
 const basicArgs = {
   size: 'm',
   active: false,
-  negative: false,
+  color: color.options[0],
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
   target: '_blank',
@@ -167,9 +168,9 @@ const basicArgs = {
   value: undefined,
 };
 
-const basicArgsNegative = {
+const basicArgsMilk = {
   ...basicArgs,
-  negative: true,
+  color: color.options[1],
 };
 
 const basicArgsButton = {
@@ -183,58 +184,58 @@ const basicArgsButton = {
   value: 'Value',
 };
 
-const basicArgsButtonNegative = {
+const basicArgsButtonMilk = {
   ...basicArgsButton,
-  negative: true,
+  color: color.options[1],
 };
 
 export const sbbCardLink = Template.bind({});
 sbbCardLink.argTypes = basicArgTypes;
 sbbCardLink.args = { ...basicArgs };
 
-export const sbbCardLinkNegative = Template.bind({});
-sbbCardLinkNegative.argTypes = basicArgTypes;
-sbbCardLinkNegative.args = { ...basicArgsNegative };
+export const sbbCardLinkMilk = Template.bind({});
+sbbCardLinkMilk.argTypes = basicArgTypes;
+sbbCardLinkMilk.args = { ...basicArgsMilk };
 
 export const sbbCardButton = Template.bind({});
 sbbCardButton.argTypes = basicArgTypes;
 sbbCardButton.args = { ...basicArgsButton };
 
-export const sbbCardButtonNegative = Template.bind({});
-sbbCardButtonNegative.argTypes = basicArgTypes;
-sbbCardButtonNegative.args = { ...basicArgsButtonNegative };
+export const sbbCardButtonMilk = Template.bind({});
+sbbCardButtonMilk.argTypes = basicArgTypes;
+sbbCardButtonMilk.args = { ...basicArgsButtonMilk };
 
 export const sbbCardButtonActive = Template.bind({});
 sbbCardButtonActive.argTypes = basicArgTypes;
 sbbCardButtonActive.args = { ...basicArgsButton, active: true };
 
-export const sbbCardButtonActiveNegative = Template.bind({});
-sbbCardButtonActiveNegative.argTypes = basicArgTypes;
-sbbCardButtonActiveNegative.args = { ...basicArgsButtonNegative, active: true };
+export const sbbCardButtonActiveMilk = Template.bind({});
+sbbCardButtonActiveMilk.argTypes = basicArgTypes;
+sbbCardButtonActiveMilk.args = { ...basicArgsButtonMilk, active: true };
 
 export const sbbCardWithSbbBadgeLink = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLink.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLink.args = { ...basicArgs };
 
-export const sbbCardWithSbbBadgeLinkNegative = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeLinkNegative.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeLinkNegative.args = { ...basicArgsNegative };
+export const sbbCardWithSbbBadgeLinkMilk = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeLinkMilk.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeLinkMilk.args = { ...basicArgsMilk };
 
 export const sbbCardWithSbbBadgeButton = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeButton.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeButton.args = { ...basicArgsButton };
 
-export const sbbCardWithSbbBadgeButtonNegative = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeButtonNegative.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeButtonNegative.args = { ...basicArgsButtonNegative };
+export const sbbCardWithSbbBadgeButtonMilk = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeButtonMilk.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeButtonMilk.args = { ...basicArgsButtonMilk };
 
 export const sbbCardWithSbbBadgeLinkActive = TemplateWithBadge.bind({});
 sbbCardWithSbbBadgeLinkActive.argTypes = basicArgTypes;
 sbbCardWithSbbBadgeLinkActive.args = { ...basicArgs, active: true };
 
-export const sbbCardWithSbbBadgeLinkActiveNegative = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeLinkActiveNegative.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeLinkActiveNegative.args = { ...basicArgsNegative, active: true };
+export const sbbCardWithSbbBadgeLinkActiveMilk = TemplateWithBadge.bind({});
+sbbCardWithSbbBadgeLinkActiveMilk.argTypes = basicArgTypes;
+sbbCardWithSbbBadgeLinkActiveMilk.args = { ...basicArgsMilk, active: true };
 
 export const sbbCardFixedHeight = TemplateFixedHeight.bind({});
 sbbCardFixedHeight.argTypes = basicArgTypes;
@@ -244,9 +245,9 @@ export const sbbCardMultiple = TemplateMultipleCards.bind({});
 sbbCardMultiple.argTypes = basicArgTypes;
 sbbCardMultiple.args = { ...basicArgs };
 
-export const sbbCardMultipleNegative = TemplateMultipleCards.bind({});
-sbbCardMultipleNegative.argTypes = basicArgTypes;
-sbbCardMultipleNegative.args = { ...basicArgsNegative };
+export const sbbCardMultipleMilk = TemplateMultipleCards.bind({});
+sbbCardMultipleMilk.argTypes = basicArgTypes;
+sbbCardMultipleMilk.args = { ...basicArgsMilk };
 
 export default {
   decorators: [
