@@ -16,7 +16,7 @@ export class SbbPearlChainVerticalItem {
   @Prop() public pearlChainVerticalItemAttributes!: PearlChainVerticalItemAttributes;
 
   /** If true the position won't be animated. */
-  @Prop() public disableAnimation?: boolean;
+  @Prop({ reflect: true }) public disableAnimation?: boolean;
 
   public render(): JSX.Element {
     const { bulletType, lineType, lineColor, hideLine, minHeight, bulletSize, position } =
@@ -26,9 +26,6 @@ export class SbbPearlChainVerticalItem {
       position > 0 && position <= 100
         ? 'sbb-pearl-chain-vertical-item__bullet--past'
         : `sbb-pearl-chain-vertical-item__bullet--${bulletType}`;
-    const animation = this.disableAnimation
-      ? 'sbb-pearl-chain-vertical-item__bullet--position-disable-animation'
-      : '';
 
     return (
       <Host>
@@ -50,7 +47,7 @@ export class SbbPearlChainVerticalItem {
           {position > 0 && (
             <div
               style={{ '--sbb-pearl-chain-vertical-item-position': `${position}%` }}
-              class={`sbb-pearl-chain-vertical-item__bullet--position ${animation}`}
+              class="sbb-pearl-chain-vertical-item__bullet--position"
             ></div>
           )}
         </div>
