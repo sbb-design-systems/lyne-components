@@ -8,6 +8,7 @@ import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-co
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -24,19 +25,8 @@ const playStory = async ({ canvasElement }) => {
 };
 
 const playStoryWithSection = async ({ canvasElement }) => {
+  await playStory({ canvasElement });
   const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation')
-  );
-
-  const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
-  await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
-    ).toBeTruthy()
-  );
 
   await waitFor(() =>
     expect(
@@ -242,7 +232,7 @@ LongContent.play = isChromatic() && playStory;
 export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
 WithNavigationSection.argTypes = basicArgTypes;
 WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = playStoryWithSection;
+WithNavigationSection.play = isChromatic() && playStoryWithSection;
 
 export default {
   decorators: [
