@@ -32,13 +32,13 @@
 }
 
 .sbb-link {
-  @include sbb.stretch(width);
   @include sbb.link-base;
 
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
   word-break: break-word;
+  width: 100%;
   cursor: pointer;
 
   :host([variant='inline']) & {

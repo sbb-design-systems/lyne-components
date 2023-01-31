@@ -45,11 +45,11 @@
 
   position: relative;
   display: block;
+  width: 100%;
   color: var(--sbb-checkbox-label-color);
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  @include sbb.stretch('width');
 
   :host([size='m']) & {
     @include sbb.text-m--regular;

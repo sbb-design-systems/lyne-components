@@ -42,8 +42,8 @@
   justify-content: center;
   background-color: var(--sbb-logo-background-color);
   aspect-ratio: var(--sbb-logo-aspect-ratio);
-  @include sbb.stretch('height');
-  @include sbb.stretch('width');
+  height: 100%;
+  width: 100%;
 }
 
 .sbb-logo .sbb-logo__svg-container {

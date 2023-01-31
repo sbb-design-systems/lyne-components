@@ -4,13 +4,6 @@
   text-overflow: ellipsis;
 }
 
-@mixin stretch($property) {
-  #{$property}: 100%;
-  #{$property}: -webkit-fill-available;
-  #{$property}: -moz-available;
-  #{$property}: stretch;
-}
-
 @mixin absolute-center-x-y {
   position: absolute;
   top: 50%;

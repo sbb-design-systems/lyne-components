@@ -64,12 +64,11 @@
 }
 
 .sbb-card {
-  @include sbb.stretch(width);
-  @include sbb.stretch(height);
-
   display: block;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
   padding-inline: var(--sbb-card-padding-inline);
   padding-block-start: var(--sbb-card-padding-block-start);
   padding-block-end: var(--sbb-card-padding-block-end);
