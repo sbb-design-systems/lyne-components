@@ -8,7 +8,6 @@ import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-co
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -232,7 +231,7 @@ LongContent.play = isChromatic() && playStory;
 export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
 WithNavigationSection.argTypes = basicArgTypes;
 WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = isChromatic() && playStoryWithSection;
+WithNavigationSection.play = isChromatic() && playStory;
 
 export default {
   decorators: [
