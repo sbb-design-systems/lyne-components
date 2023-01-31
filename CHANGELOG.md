@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.23.18](https://github.com/lyne-design-system/lyne-components/compare/v0.23.17...v0.23.18) (2023-01-31)
+
+### Documentation
+
+- **sbb-time-input:** use sbb-button instead of native button ([#1584](https://github.com/lyne-design-system/lyne-components/issues/1584)) ([9baff36](https://github.com/lyne-design-system/lyne-components/commit/9baff36bc0bd791730a9d52dbad007f54a48b08a))
+
 ### [0.23.17](https://github.com/lyne-design-system/lyne-components/compare/v0.23.16...v0.23.17) (2023-01-31)
 
 ### Refactorings
