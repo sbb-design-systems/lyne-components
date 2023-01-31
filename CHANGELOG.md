@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.1](https://github.com/lyne-design-system/lyne-components/compare/v0.24.0...v0.24.1) (2023-01-31)
+
+### Features
+
+- **sbb-clock:** component refactoring ([#1567](https://github.com/lyne-design-system/lyne-components/issues/1567)) ([8932688](https://github.com/lyne-design-system/lyne-components/commit/89326888517eadab39835b40bc27756b25f3ed85))
+
 ## [0.24.0](https://github.com/lyne-design-system/lyne-components/compare/v0.23.19...v0.24.0) (2023-01-31)
 
 ### ⚠ BREAKING CHANGES
