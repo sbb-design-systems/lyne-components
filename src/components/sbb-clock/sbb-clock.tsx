@@ -242,7 +242,6 @@ export class SbbClock implements ComponentInterface {
 
   /** Starts the clock by defining the hands starting position then starting the animations. */
   private _startClock(): void {
-
     this._clockHandHours?.addEventListener(
       'animationend',
       this._moveHoursHandFn,
