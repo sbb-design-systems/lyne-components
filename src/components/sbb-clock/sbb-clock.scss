@@ -13,9 +13,6 @@
 }
 
 .sbb-clock {
-  @include sbb.stretch('width');
-  @include sbb.stretch('height');
-
   position: relative;
   width: 100%;
   height: 100%;
