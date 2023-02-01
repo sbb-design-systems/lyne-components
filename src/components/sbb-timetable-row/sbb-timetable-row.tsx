@@ -121,7 +121,9 @@ export class SbbTimetableRow {
   }
 
   public render(): JSX.Element {
-    if (this.loadingTrip) return this._renderSkeleton();
+    if (this.loadingTrip) {
+      return this._renderSkeleton();
+    }
 
     const { legs, id, notices } = this.trip || {};
 

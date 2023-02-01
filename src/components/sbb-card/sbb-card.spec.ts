@@ -78,6 +78,7 @@ describe('sbb-card', () => {
       <sbb-card color="white" size="s" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
         <mock:shadow-root>
           <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
+            <slot name="badge"></slot>
             <slot></slot>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
@@ -105,6 +106,7 @@ describe('sbb-card', () => {
       <sbb-card color="white" size="s" name="button" form="form" value="value" active="">
         <mock:shadow-root>
           <button class="sbb-card" dir="ltr" type="button" name="button" form="form" value="value">
+            <slot name="badge"></slot>
             <slot></slot>
           </button>
         </mock:shadow-root>
