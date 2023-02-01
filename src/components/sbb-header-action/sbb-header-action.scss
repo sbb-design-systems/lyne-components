@@ -46,7 +46,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 @include sbb.hover-mq($hover: true) {
-  :host(:hover:not(:active)) {
+  :host(:hover:not(:active, [data-menu-open])) {
     --sbb-header-action-background-color: var(--sbb-color-milk-default);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
   }
