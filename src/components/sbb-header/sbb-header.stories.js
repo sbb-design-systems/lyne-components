@@ -19,7 +19,7 @@ const LoremIpsumTemplate = () => [
   <br />,
 ];
 
-const HeaderBasicTemplate = ({ children, ...args }) => [
+const HeaderBasicTemplate = ({ children, attributes, ...args }) => [
   <sbb-header {...args}>
     <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
@@ -37,7 +37,7 @@ const HeaderBasicTemplate = ({ children, ...args }) => [
       <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
     </sbb-menu>
   </sbb-header>,
-  <div>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
+  <div {...attributes}>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
 ];
 
 const Template = (args) => (
@@ -95,14 +95,22 @@ const hideOnScroll = {
   },
 };
 
+const scrollOrigin = {
+  control: {
+    type: 'text',
+  },
+};
+
 const basicArgTypes = {
   expanded,
   'hide-on-scroll': hideOnScroll,
+  'scroll-origin': scrollOrigin,
 };
 
 const basicArgs = {
   expanded: false,
   'hide-on-scroll': false,
+  'scroll-origin': undefined,
 };
 
 export const Basic = Template.bind({});
@@ -125,6 +133,15 @@ BasicScrollHide.args = { ...basicArgs, 'hide-on-scroll': true };
 export const ExpandedScrollHide = Template.bind({});
 ExpandedScrollHide.argTypes = basicArgTypes;
 ExpandedScrollHide.args = { ...basicArgs, expanded: true, 'hide-on-scroll': true };
+
+export const TestScrollHide = Template.bind({});
+TestScrollHide.argTypes = basicArgTypes;
+TestScrollHide.args = {
+  ...basicArgs,
+  'hide-on-scroll': true,
+  'scroll-origin': 'container',
+  attributes: { style: 'height: 200px; overflow: auto;', id: 'container' },
+};
 
 export default {
   decorators: [
