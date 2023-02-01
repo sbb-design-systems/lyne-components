@@ -111,16 +111,18 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
     return (
       <Host {...hostAttributes}>
         <TAG_NAME class="sbb-header-action" {...attributes}>
-          <span class="sbb-header-action__icon">
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-          </span>
-          <span class="sbb-header-action__text">
-            <slot />
-            {screenReaderNewWindowInfo && (
-              <span class="sbb-header-action__opens-in-new-window">
-                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-              </span>
-            )}
+          <span class="sbb-header-action__wrapper">
+            <span class="sbb-header-action__icon">
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            </span>
+            <span class="sbb-header-action__text">
+              <slot />
+              {screenReaderNewWindowInfo && (
+                <span class="sbb-header-action__opens-in-new-window">
+                  . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+                </span>
+              )}
+            </span>
           </span>
         </TAG_NAME>
       </Host>

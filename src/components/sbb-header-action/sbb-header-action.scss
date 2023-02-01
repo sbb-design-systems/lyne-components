@@ -61,10 +61,6 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
   color: var(--sbb-color-black-default);
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
   background-color: var(--sbb-header-action-background-color);
   min-height: var(--sbb-header-action-min-height);
   min-width: var(--sbb-header-action-min-width);
@@ -72,17 +68,21 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   border-radius: var(--sbb-border-radius-16x);
   transition: background-color var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
   cursor: pointer;
-  gap: var(--sbb-spacing-fixed-2x);
 
   &:focus-visible {
     @include sbb.focus-outline;
   }
 }
 
-.sbb-header-action__icon,
-.sbb-header-action__text {
+.sbb-header-action__wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-2x);
+  justify-content: center;
+  white-space: nowrap;
   transform: translateY(var(--sbb-header-action-translate-y));
   transition: transform var(--sbb-animation-duration-6x) var(--sbb-animation-easing);
+  will-change: transform;
 }
 
 .sbb-header-action__icon {
