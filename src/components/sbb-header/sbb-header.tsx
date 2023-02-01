@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
@@ -33,23 +33,43 @@ export class SbbHeader implements ComponentInterface {
 
   private _scrollElement: HTMLElement | Document;
 
+  private _scrollFunction: () => void;
+
   private _lastScroll = 0;
+
+  @Watch('scrollOrigin')
+  public watchScrollOrigin(
+    newValue: string | HTMLElement | Document,
+    oldValue: string | HTMLElement | Document
+  ): void {
+    this._getScrollElement(oldValue)?.removeEventListener('scroll', this._scrollFunction);
+    this._setListenerOnScrollElement(newValue);
+    const currentScroll = this._getCurrentScroll();
+    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+  }
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public componentDidLoad(): void {
-    if (typeof this.scrollOrigin === 'string') {
-      this._scrollElement = document.getElementById(this.scrollOrigin);
-      if (!this._scrollElement) {
-        return;
-      }
-    } else {
-      this._scrollElement = this.scrollOrigin;
-    }
+    this._setListenerOnScrollElement(this.scrollOrigin);
+  }
 
-    const scrollFn: () => void = this.hideOnScroll
-      ? this._scrollListener.bind(this)
-      : this._scrollShadowListener.bind(this);
-    this._scrollElement.addEventListener('scroll', () => scrollFn(), { passive: true });
+  private _setListenerOnScrollElement(scrollOrigin): void {
+    this._scrollElement = this._getScrollElement(scrollOrigin);
+    this._scrollFunction = this._getScrollFunction.bind(this);
+    this._scrollElement?.addEventListener('scroll', this._scrollFunction, { passive: true });
+  }
+
+  private _getScrollElement(scrollOrigin: string | HTMLElement | Document): HTMLElement | Document {
+    if (typeof scrollOrigin === 'string') {
+      return document.getElementById(scrollOrigin);
+    }
+    return scrollOrigin || document;
+  }
+
+  private _getScrollFunction(): void {
+    return this.hideOnScroll
+      ? this._scrollListener()
+      : this._scrollShadowListener();
   }
 
   /** Sets the correct value for `scrollTop`, then:
