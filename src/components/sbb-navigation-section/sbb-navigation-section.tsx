@@ -21,8 +21,6 @@ import { i18nGoBack } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
-type SbbNavigationSectionState = 'closed' | 'opening' | 'opened' | 'closing';
-
 /**
  * @slot unnamed - Use this to project any content inside the navigation section.
  */
@@ -62,12 +60,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
   /**
    * The state of the navigation section.
    */
-  private set _state(state: SbbNavigationSectionState) {
-    this._element.dataset.state = state;
-  }
-  private get _state(): SbbNavigationSectionState {
-    return this._element.dataset.state as SbbNavigationSectionState;
-  }
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -219,7 +212,6 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._state = 'closed';
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._hasTitle = !!this.titleContent || this._namedSlots['label'];
   }
@@ -252,7 +244,12 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       </div>
     );
     return (
-      <Host slot="navigation-section">
+      <Host
+        class={{
+          [`sbb-navigation-section--${this._state}`]: true,
+        }}
+        slot="navigation-section"
+      >
         <dialog
           ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
           aria-label={this.accessibilityLabel}

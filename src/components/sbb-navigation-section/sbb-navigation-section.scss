@@ -55,19 +55,20 @@
   }
 }
 
-:host([data-state='opened']) {
+:host(.sbb-navigation-section--opened) {
   --sbb-navigation-section-pointer-events: all;
 }
 
-:host([data-state='opening']) {
+:host(.sbb-navigation-section--opening) {
   --sbb-navigation-section-position: absolute;
 }
 
-:host(:is([data-state='opening'], [data-state='closing'])) {
+:host(.sbb-navigation-section--opening),
+:host(.sbb-navigation-section--closing) {
   --sbb-navigation-section-pointer-events: none;
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(.sbb-navigation-section--closed)) {
   display: block;
   inset: 0;
 }
@@ -107,7 +108,7 @@
     }
   }
 
-  :host([data-state='closing']) & {
+  :host(.sbb-navigation-section--closing) & {
     animation-name: close;
   }
 
@@ -124,7 +125,8 @@
   outline: none;
   overflow-y: auto;
 
-  :host(:is([data-state='opening'], [data-state='closing'])) & {
+  :host(.sbb-navigation-section--opening) &,
+  :host(.sbb-navigation-section--closing) & {
     --sbb-scrollbar-color: transparent;
 
     scrollbar-color: transparent transparent;
@@ -182,7 +184,7 @@
       property: opacity, transform;
     }
 
-    :host([data-state='opened']) & {
+    :host(.sbb-navigation-section--opened) & {
       opacity: 1;
       transform: translateY(0);
     }
@@ -193,7 +195,7 @@
     border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   }
 
-  :host([data-state='closing']) & {
+  :host(.sbb-navigation-section--closing) & {
     transition-delay: 0s;
   }
 }

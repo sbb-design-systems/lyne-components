@@ -28,7 +28,7 @@ type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
   subtree: true,
-  attributeFilter: ['data-state'],
+  attributeFilter: ['class'],
 };
 
 /**
@@ -216,7 +216,10 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   }
 
   private _trapFocusFilter = (el: HTMLElement): boolean => {
-    return el.nodeName === 'SBB-NAVIGATION-SECTION' && el.getAttribute('data-state') !== 'opened';
+    return (
+      el.nodeName === 'SBB-NAVIGATION-SECTION' &&
+      !el.classList.contains('sbb-navigation-section--opened')
+    );
   };
 
   private _onAnimationEnd(event: AnimationEvent): void {
@@ -297,7 +300,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       isEventOnElement(this._navigation, event) ||
       isEventOnElement(
         this._element
-          .querySelector('sbb-navigation-section[data-state="opened"]')
+          .querySelector('.sbb-navigation-section--opened')
           ?.shadowRoot.querySelector('dialog') as HTMLElement,
         event
       );
@@ -310,12 +313,12 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     }
   };
 
-  // Observe changes on navigation section data-state.
+  // Observe changes on navigation section class list.
   private _onNavigationSectionChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if ((mutation.target as HTMLElement).nodeName === 'SBB-NAVIGATION-SECTION') {
         this._activeNavigationSection = this._element.querySelector(
-          'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]'
+          '.sbb-navigation-section--opening, .sbb-navigation-section--opened'
         );
         if (!isBreakpoint('zero', 'large')) {
           (
