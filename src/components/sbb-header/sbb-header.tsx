@@ -67,9 +67,7 @@ export class SbbHeader implements ComponentInterface {
   }
 
   private _getScrollFunction(): void {
-    return this.hideOnScroll
-      ? this._scrollListener()
-      : this._scrollShadowListener();
+    return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();
   }
 
   /** Sets the correct value for `scrollTop`, then:
