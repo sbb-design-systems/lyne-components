@@ -134,9 +134,9 @@ export const ExpandedScrollHide = Template.bind({});
 ExpandedScrollHide.argTypes = basicArgTypes;
 ExpandedScrollHide.args = { ...basicArgs, expanded: true, 'hide-on-scroll': true };
 
-export const TestScrollHide = Template.bind({});
-TestScrollHide.argTypes = basicArgTypes;
-TestScrollHide.args = {
+export const ContainerScrollOriginScrollHide = Template.bind({});
+ContainerScrollOriginScrollHide.argTypes = basicArgTypes;
+ContainerScrollOriginScrollHide.args = {
   ...basicArgs,
   'hide-on-scroll': true,
   'scroll-origin': 'container',
