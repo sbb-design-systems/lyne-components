@@ -16,15 +16,15 @@ const playStory = async ({ canvasElement }) => {
 
   const button = canvas.getByTestId('navigation-trigger');
   userEvent.click(button);
+
+  await waitFor(() =>
+    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy()
+  );
 };
 
 const playStoryWithSection = async ({ canvasElement }) => {
   await playStory({ canvasElement });
   const canvas = within(canvasElement);
-
-  await waitFor(() =>
-    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy()
-  );
 
   await waitFor(() =>
     expect(
@@ -220,7 +220,7 @@ const WithNavigationSectionTemplate = (args) => [
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;
 Default.args = { ...basicArgs };
-Default.play = playStory;
+Default.play = isChromatic() && playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = basicArgTypes;
