@@ -37,7 +37,9 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }) => [
       <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
     </sbb-menu>
   </sbb-header>,
-  <div {...attributes}>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
+  <div class="sbb-page-spacing" {...attributes}>
+    {new Array(12).fill(null).map(LoremIpsumTemplate)}
+  </div>,
 ];
 
 const Template = (args) => (
@@ -164,6 +166,7 @@ export default {
       iframeHeight: '250px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/header/sbb-header',
 };
