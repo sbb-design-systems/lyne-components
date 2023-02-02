@@ -7,7 +7,6 @@
 :host {
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
-  --sbb-header-position: 0;
 
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
@@ -18,15 +17,23 @@
 }
 
 .sbb-header {
-  position: fixed;
+  position: absolute;
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
   z-index: 10;
-  transform: translateY(var(--sbb-header-position));
   transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 
   :host([data-animated]) & {
     transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  }
+
+  :host([data-fixed-header]) & {
+    position: fixed;
+    transform: translateY(-100%);
+  }
+
+  :host([data-fixed-header][data-visible-header]) & {
+    transform: translateY(0);
   }
 
   :host([shadow]:not([shadow='false'])) & {

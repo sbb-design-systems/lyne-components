@@ -82,29 +82,27 @@ export class SbbHeader implements ComponentInterface {
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
     this.shadow = currentScroll !== 0;
-    // check if original header position has been scrolled out
-    if (currentScroll > this._element.offsetHeight) {
+    if (currentScroll > this._element.offsetHeight) { // header is scrolled out
       this._headerOnTop = false;
-      if (currentScroll > 0 && this._lastScroll <= currentScroll) {
+      if (currentScroll > 0 && this._lastScroll < currentScroll) { // scrolling down
         this.shadow = false;
-        this._element.style.setProperty(
-          '--sbb-header-position',
-          '-' + this._element.offsetHeight + 'px'
-        );
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
-      } else {
+        toggleDatasetEntry(this._element, 'fixedHeader', true);
+        toggleDatasetEntry(this._element, 'visibleHeader', false);
+      } else { // scrolling up
         this.shadow = true;
-        this._element.style.setProperty('--sbb-header-position', '0');
         toggleDatasetEntry(this._element, 'animated', true);
+        toggleDatasetEntry(this._element, 'visibleHeader', true);
       }
-    } else {
-      if (currentScroll === 0) {
+    } else { // header in its original position
+      if (currentScroll === 0) { // reset on scrollposition = 0
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
         this.shadow = false;
-        this._element.style.setProperty('--sbb-header-position', '-' + currentScroll + 'px');
-        toggleDatasetEntry(this._element, 'animated', false);
+        toggleDatasetEntry(this._element, 'animated', false); 
+        toggleDatasetEntry(this._element, 'fixedHeader', false);
+        toggleDatasetEntry(this._element, 'visibleHeader', false);
       }
     }
     this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
