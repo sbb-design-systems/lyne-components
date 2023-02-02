@@ -138,7 +138,9 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
           <slot name="badge" />
-          <slot />
+          <span class="sbb-card__wrapper">
+            <slot />
+          </span>
           {screenReaderNewWindowInfo && (
             <span class="sbb-card__opens-in-new-window">
               . {i18nTargetOpensInNewWindow[this._currentLanguage]}

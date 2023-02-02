@@ -21,7 +21,9 @@ describe('sbb-card', () => {
         <mock:shadow-root>
           <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
             <slot name="badge"></slot>
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
             </span>
@@ -53,7 +55,9 @@ describe('sbb-card', () => {
         <mock:shadow-root>
           <button class="sbb-card" dir="ltr" type='button' name="button" form="form" value="value">
             <slot name="badge"></slot>
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
           </button>
         </mock:shadow-root>
         <h2>Title</h2>
@@ -79,7 +83,9 @@ describe('sbb-card', () => {
         <mock:shadow-root>
           <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
             <slot name="badge"></slot>
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
             </span>
@@ -107,7 +113,9 @@ describe('sbb-card', () => {
         <mock:shadow-root>
           <button class="sbb-card" dir="ltr" type="button" name="button" form="form" value="value">
             <slot name="badge"></slot>
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
           </button>
         </mock:shadow-root>
         <h2>Title</h2>
