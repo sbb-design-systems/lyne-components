@@ -53,16 +53,19 @@ export class SbbHeader implements ComponentInterface {
     this._setListenerOnScrollElement(this.scrollOrigin);
   }
 
+  /** Removes the scroll listener, if previously attached. */
   public disconnectedCallback(): void {
     this._scrollElement?.removeEventListener('scroll', this._scrollFunction);
   }
 
+  /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
   private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
     this._scrollElement = this._getScrollElement(scrollOrigin);
     this._scrollFunction = this._getScrollFunction.bind(this);
     this._scrollElement?.addEventListener('scroll', this._scrollFunction, { passive: true });
   }
 
+  /** Returns the element to attach the listener to. */
   private _getScrollElement(scrollOrigin: string | HTMLElement | Document): HTMLElement | Document {
     if (typeof scrollOrigin === 'string') {
       return document.getElementById(scrollOrigin);
@@ -70,6 +73,7 @@ export class SbbHeader implements ComponentInterface {
     return scrollOrigin || document;
   }
 
+  /** Returns the correct function to attach on scroll. */
   private _getScrollFunction(): void {
     return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();
   }
@@ -118,6 +122,7 @@ export class SbbHeader implements ComponentInterface {
     this.shadow = this._getCurrentScroll() !== 0;
   }
 
+  /** Calculates the correct scrollTop based on the value of `_scrollElement`. */
   private _getCurrentScroll(): number {
     if (this._scrollElement instanceof Document) {
       return this._scrollElement.documentElement.scrollTop || this._scrollElement.body.scrollTop;
