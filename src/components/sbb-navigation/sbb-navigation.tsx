@@ -65,12 +65,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   /**
    * The state of the navigation.
    */
-  private set _state(state: SbbNavigationState) {
-    this._element.dataset.state = state;
-  }
-  private get _state(): SbbNavigationState {
-    return this._element.dataset.state as SbbNavigationState;
-  }
+  @State() private _state: SbbNavigationState = 'closed';
 
   /**
    * Whether a navigation section is displayed.
@@ -329,7 +324,6 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._state = 'closed';
 
     // Close navigation on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
@@ -366,7 +360,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       ></sbb-button>
     );
     return (
-      <Host role="navigation" data-has-navigation-section={!!this._activeNavigationSection}>
+      <Host role="navigation" data-has-navigation-section={!!this._activeNavigationSection} data-state={this._state}>
         <div class="sbb-navigation__container">
           <dialog
             ref={(navigationRef) => (this._navigation = navigationRef)}

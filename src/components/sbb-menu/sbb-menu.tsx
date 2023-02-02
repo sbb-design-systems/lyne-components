@@ -5,10 +5,12 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Listen,
   Method,
   Prop,
+  State,
   Watch,
 } from '@stencil/core';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
@@ -44,12 +46,7 @@ export class SbbMenu implements ComponentInterface {
   /**
    * The state of the menu.
    */
-  private set _state(state: SbbMenuState) {
-    this._element.dataset.state = state;
-  }
-  private get _state(): SbbMenuState {
-    return this._element.dataset.state as SbbMenuState;
-  }
+  @State() private _state: SbbMenuState = 'closed';
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -170,7 +167,6 @@ export class SbbMenu implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._state = 'closed';
   }
 
   public disconnectedCallback(): void {
@@ -313,22 +309,24 @@ export class SbbMenu implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <div class="sbb-menu__container">
-        <dialog
-          onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
-          ref={(dialogRef) => (this._dialog = dialogRef)}
-          class="sbb-menu"
-        >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div
-            onClick={(event: Event) => this._closeOnInteractiveElementClick(event)}
-            ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
-            class="sbb-menu__content"
+      <Host data-state={this._state}>
+        <div class="sbb-menu__container">
+          <dialog
+            onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
+            ref={(dialogRef) => (this._dialog = dialogRef)}
+            class="sbb-menu"
           >
-            <slot />
-          </div>
-        </dialog>
-      </div>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+            <div
+              onClick={(event: Event) => this._closeOnInteractiveElementClick(event)}
+              ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
+              class="sbb-menu__content"
+            >
+              <slot />
+            </div>
+          </dialog>
+        </div>
+      </Host>
     );
   }
 }
