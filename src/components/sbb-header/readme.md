@@ -99,7 +99,6 @@ Header with logo link and slotted sbb-logo:
 | `expanded`     | `expanded`       | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean`                           | `false`    |
 | `hideOnScroll` | `hide-on-scroll` | Whether the header should hide and show on scroll.                                                                   | `boolean`                           | `false`    |
 | `scrollOrigin` | `scroll-origin`  | The element's id or the element on which the scroll listener is attached.                                            | `Document \| HTMLElement \| string` | `document` |
-| `shadow`       | `shadow`         | Used to display a box-shadow below the component on y-axis scroll whether set to true.                               | `boolean`                           | `false`    |
 
 
 ## Slots

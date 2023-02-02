@@ -12,9 +12,6 @@ import { toggleDatasetEntry } from '../../global/helpers/dataset';
   tag: 'sbb-header',
 })
 export class SbbHeader implements ComponentInterface {
-  /** Used to display a box-shadow below the component on y-axis scroll whether set to true. */
-  @Prop({ reflect: true }) public shadow = false;
-
   /**
    * Whether to allow the header content to stretch to full width.
    * By default, the content has the appropriate page size.
@@ -85,19 +82,19 @@ export class SbbHeader implements ComponentInterface {
    */
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
-    this.shadow = currentScroll !== 0;
+    toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0);
     /** Check if header is scrolled out of sight, scroll position > header height */
     if (currentScroll > this._element.offsetHeight) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // scrolling down
-        this.shadow = false;
+        toggleDatasetEntry(this._element, 'shadow', false);
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
         toggleDatasetEntry(this._element, 'fixedHeader', true);
         toggleDatasetEntry(this._element, 'visibleHeader', false);
       } else {
         // scrolling up
-        this.shadow = true;
+        toggleDatasetEntry(this._element, 'shadow', true);
         toggleDatasetEntry(this._element, 'animated', true);
         toggleDatasetEntry(this._element, 'visibleHeader', true);
       }
@@ -109,7 +106,7 @@ export class SbbHeader implements ComponentInterface {
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
-        this.shadow = false;
+        toggleDatasetEntry(this._element, 'shadow', false);
         toggleDatasetEntry(this._element, 'animated', false);
         toggleDatasetEntry(this._element, 'fixedHeader', false);
         toggleDatasetEntry(this._element, 'visibleHeader', false);
@@ -121,7 +118,7 @@ export class SbbHeader implements ComponentInterface {
 
   /** Sets the correct value for `scrollTop`, then apply the shadow if the element/document has been scrolled down; */
   private _scrollShadowListener(): void {
-    this.shadow = this._getCurrentScroll() !== 0;
+    toggleDatasetEntry(this._element, 'shadow', this._getCurrentScroll() !== 0);
   }
 
   /** Calculates the correct scrollTop based on the value of `_scrollElement`. */

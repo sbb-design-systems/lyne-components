@@ -589,10 +589,6 @@ export namespace Components {
           * The element's id or the element on which the scroll listener is attached.
          */
         "scrollOrigin": string | HTMLElement | Document;
-        /**
-          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
-         */
-        "shadow": boolean;
     }
     interface SbbHeaderAction {
         /**
@@ -2804,10 +2800,6 @@ declare namespace LocalJSX {
           * The element's id or the element on which the scroll listener is attached.
          */
         "scrollOrigin"?: string | HTMLElement | Document;
-        /**
-          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
-         */
-        "shadow"?: boolean;
     }
     interface SbbHeaderAction {
         /**

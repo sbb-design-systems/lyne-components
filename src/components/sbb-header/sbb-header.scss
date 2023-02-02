@@ -31,7 +31,7 @@
     --sbb-header-position: absolute;
   }
 
-  :host([shadow]:not([shadow='false'])) & {
+  :host([data-shadow]) & {
     @include sbb.shadow-level-9-soft;
   }
 
