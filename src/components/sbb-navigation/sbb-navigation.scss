@@ -32,8 +32,7 @@
   --sbb-navigation-content-transform: translateX(0);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-  position: absolute;
-  inset: 0 auto auto 0;
+  display: contents;
 
   @include sbb.mq($from: medium) {
     --sbb-navigation-grid-column: 1 / 9;
@@ -53,6 +52,10 @@
     --sbb-navigation-grid-column: 1 / 6;
     --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   }
+}
+
+:host(:not(.hydrated)) {
+  display: none;
 }
 
 :host([data-state='opened']) {

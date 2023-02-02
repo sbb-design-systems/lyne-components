@@ -48,6 +48,10 @@
   }
 }
 
+:host(:not(.hydrated)) {
+  display: none;
+}
+
 :host([data-state='opened']) {
   --sbb-navigation-section-pointer-events: all;
 }
