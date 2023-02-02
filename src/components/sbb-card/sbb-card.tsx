@@ -109,7 +109,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   /**
    * It is used internally to show the `<sbb-card-badge>`.
-   *
    * @returns True whether size is equal to m, l, xl or xxl.
    */
   private _hasBadge(): boolean {
