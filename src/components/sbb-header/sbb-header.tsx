@@ -49,11 +49,15 @@ export class SbbHeader implements ComponentInterface {
   }
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
-  public componentDidLoad(): void {
+  public connectedCallback(): void {
     this._setListenerOnScrollElement(this.scrollOrigin);
   }
 
-  private _setListenerOnScrollElement(scrollOrigin): void {
+  public disconnectedCallback(): void {
+    this._scrollElement?.removeEventListener('scroll', this._scrollFunction);
+  }
+
+  private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
     this._scrollElement = this._getScrollElement(scrollOrigin);
     this._scrollFunction = this._getScrollFunction.bind(this);
     this._scrollElement?.addEventListener('scroll', this._scrollFunction, { passive: true });
