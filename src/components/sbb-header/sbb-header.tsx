@@ -102,8 +102,8 @@ export class SbbHeader implements ComponentInterface {
         toggleDatasetEntry(this._element, 'visibleHeader', true);
       }
     } else {
-      /** Check if header in its original position, scroll position < header height (~96px) */ 
-      
+      /** Check if header in its original position, scroll position < header height (~96px) */
+
       /** Reset header behaviour when scroll hits top of the page, on scroll position = 0 */
       if (currentScroll === 0) {
         this._headerOnTop = true;

@@ -37,9 +37,7 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }) => [
       <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
     </sbb-menu>
   </sbb-header>,
-  <div class="sbb-page-spacing" {...attributes}>
-    {new Array(12).fill(null).map(LoremIpsumTemplate)}
-  </div>,
+  <div {...attributes}>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
 ];
 
 const Template = (args) => (
@@ -89,17 +87,26 @@ const expanded = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Header attribute',
+  },
 };
 
 const hideOnScroll = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Header attribute',
+  },
 };
 
 const scrollOrigin = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'Header attribute',
   },
 };
 
@@ -113,6 +120,7 @@ const basicArgs = {
   expanded: false,
   'hide-on-scroll': false,
   'scroll-origin': undefined,
+  attributes: { class: 'sbb-page-spacing' },
 };
 
 export const Basic = Template.bind({});
@@ -121,7 +129,11 @@ Basic.args = { ...basicArgs };
 
 export const Expanded = Template.bind({});
 Expanded.argTypes = basicArgTypes;
-Expanded.args = { ...basicArgs, expanded: true };
+Expanded.args = {
+  ...basicArgs,
+  expanded: true,
+  attributes: { class: 'sbb-page-spacing-expanded' },
+};
 
 export const WithUserMenu = TemplateWithUserMenu.bind({});
 WithUserMenu.argTypes = basicArgTypes;
@@ -134,7 +146,12 @@ BasicScrollHide.args = { ...basicArgs, 'hide-on-scroll': true };
 
 export const ExpandedScrollHide = Template.bind({});
 ExpandedScrollHide.argTypes = basicArgTypes;
-ExpandedScrollHide.args = { ...basicArgs, expanded: true, 'hide-on-scroll': true };
+ExpandedScrollHide.args = {
+  ...basicArgs,
+  expanded: true,
+  'hide-on-scroll': true,
+  attributes: { class: 'sbb-page-spacing-expanded' },
+};
 
 export const ContainerScrollOriginScrollHide = Template.bind({});
 ContainerScrollOriginScrollHide.argTypes = basicArgTypes;
@@ -142,7 +159,11 @@ ContainerScrollOriginScrollHide.args = {
   ...basicArgs,
   'hide-on-scroll': true,
   'scroll-origin': 'container',
-  attributes: { style: 'height: 200px; overflow: auto;', id: 'container' },
+  attributes: {
+    id: 'container',
+    class: 'sbb-page-spacing',
+    style: 'height: 200px; overflow: auto;',
+  },
 };
 
 export default {
