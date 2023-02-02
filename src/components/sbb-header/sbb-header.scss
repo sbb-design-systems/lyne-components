@@ -7,6 +7,9 @@
 :host {
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
+  --sbb-header-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-header-position: fixed;
+  --sbb-header-translate-y: 0;
 
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
@@ -17,23 +20,15 @@
 }
 
 .sbb-header {
-  position: absolute;
+  position: var(--sbb-header-position);
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
   z-index: 10;
-  transition: box-shadow var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  transition: box-shadow var(--sbb-header-animation-duration) var(--sbb-animation-easing);
+  transform: translateY(var(--sbb-header-translate-y));
 
-  :host([data-animated]) & {
-    transition: all var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
-  }
-
-  :host([data-fixed-header]) & {
-    position: fixed;
-    transform: translateY(-100%);
-  }
-
-  :host([data-fixed-header][data-visible-header]) & {
-    transform: translateY(0);
+  :host([hide-on-scroll]) & {
+    --sbb-header-position: absolute;
   }
 
   :host([shadow]:not([shadow='false'])) & {
@@ -42,6 +37,19 @@
 
   @include sbb.if-forced-colors {
     border-block-end: var(--sbb-border-width-1x) solid CanvasText;
+  }
+
+  :host([hide-on-scroll][data-animated]) & {
+    transition: all var(--sbb-header-animation-duration) var(--sbb-animation-easing);
+  }
+
+  :host([hide-on-scroll][data-fixed-header]) & {
+    --sbb-header-position: fixed;
+    --sbb-header-translate-y: -100%;
+  }
+
+  :host([hide-on-scroll][data-fixed-header][data-visible-header]) & {
+    --sbb-header-translate-y: 0;
   }
 }
 
