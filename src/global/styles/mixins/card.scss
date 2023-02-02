@@ -15,7 +15,7 @@
   --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
   --sbb-card-border-color: transparent;
-  --sbb-card-hover-shift: #{functions.px-to-rem-build(2)};
+  --sbb-card-hover-shift: 0;
 }
 
 @mixin card-variables--milk {
@@ -82,9 +82,7 @@
   @include typo.text-inherit;
   @include buttons.button-reset;
 
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: block;
   position: relative;
   overflow: hidden;
   padding-inline: var(--sbb-card-padding-inline);
@@ -92,12 +90,8 @@
   padding-block-end: var(--sbb-card-padding-block-end);
   border-radius: var(--sbb-card-border-radius);
   background-color: var(--sbb-card-background-color);
-  transition: {
-    duration: var(--sbb-card-animation-duration);
-    timing-function: var(--sbb-card-animation-easing);
-    property: box-shadow, padding;
-  }
-
+  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  cursor: pointer;
   text-decoration: none;
   user-select: text;
 
@@ -120,12 +114,19 @@
   }
 }
 
-@mixin card--hover {
+@mixin card--hover($cardSelector) {
   @include mediaqueries.hover-mq($hover: true) {
-    @include shadows.shadow-level-9-hard;
+    --sbb-card-hover-shift: #{functions.px-to-rem-build(-2)};
 
-    cursor: pointer;
-    padding-block-start: calc(var(--sbb-card-padding-block-start) - var(--sbb-card-hover-shift));
-    padding-block-end: calc(var(--sbb-card-padding-block-end) + var(--sbb-card-hover-shift));
+    #{$cardSelector} {
+      @include shadows.shadow-level-9-hard;
+    }
   }
+}
+
+@mixin card--wrapper {
+  display: block;
+  height: 100%;
+  transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  transform: translateY(var(--sbb-card-hover-shift));
 }

@@ -21,7 +21,9 @@ describe('sbb-card', () => {
         <mock:shadow-root>
           <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
             <slot name="badge"></slot>
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
             </span>
@@ -53,7 +55,9 @@ describe('sbb-card', () => {
         <mock:shadow-root>
           <button class="sbb-card" dir="ltr" type='button' name="button" form="form" value="value">
             <slot name="badge"></slot>
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
           </button>
         </mock:shadow-root>
         <h2>Title</h2>
@@ -67,7 +71,7 @@ describe('sbb-card', () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
       html: `
-        <sbb-card size="s" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+        <sbb-card size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
           <h2>Title</h2>
           Content text
         </sbb-card>
@@ -75,10 +79,12 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card color="white" size="s" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+      <sbb-card color="white" size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
         <mock:shadow-root>
           <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
             </span>
@@ -90,11 +96,12 @@ describe('sbb-card', () => {
     `);
   });
 
-  it('renders active sbb-card as button without sbb-card-badge', async () => {
+  it('renders active sbb-card as button without sbb-card-badge because of size s', async () => {
     const { root } = await newSpecPage({
       components: [SbbCard],
       html: `
         <sbb-card size="s" name="button" form="form" value="value" active="true">
+          <span slot="badge">Badge not to render</span>
           <h2>Title</h2>
           Content text
         </sbb-card>
@@ -105,9 +112,12 @@ describe('sbb-card', () => {
       <sbb-card color="white" size="s" name="button" form="form" value="value" active="">
         <mock:shadow-root>
           <button class="sbb-card" dir="ltr" type="button" name="button" form="form" value="value">
-            <slot></slot>
+            <span class="sbb-card__wrapper">
+              <slot></slot>
+            </span>
           </button>
         </mock:shadow-root>
+        <span slot="badge">Badge not to render</span>
         <h2>Title</h2>
         Content text
       </sbb-card>
