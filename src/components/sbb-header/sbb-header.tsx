@@ -86,8 +86,8 @@ export class SbbHeader implements ComponentInterface {
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
     this.shadow = currentScroll !== 0;
+    /** Check if header is scrolled out of sight, scroll position > header height */
     if (currentScroll > this._element.offsetHeight) {
-      // header is scrolled out
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // scrolling down
@@ -102,9 +102,10 @@ export class SbbHeader implements ComponentInterface {
         toggleDatasetEntry(this._element, 'visibleHeader', true);
       }
     } else {
-      // header in its original position
+      /** Check if header in its original position, scroll position < header height (~96px) */ 
+      
+      /** Reset header behaviour when scroll hits top of the page, on scroll position = 0 */
       if (currentScroll === 0) {
-        // reset on scrollposition = 0
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
@@ -114,7 +115,8 @@ export class SbbHeader implements ComponentInterface {
         toggleDatasetEntry(this._element, 'visibleHeader', false);
       }
     }
-    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    /** For mobile or negative scrolling */
+    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   }
 
   /** Sets the correct value for `scrollTop`, then apply the shadow if the element/document has been scrolled down; */
