@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.1](https://github.com/lyne-design-system/lyne-components/compare/v0.25.0...v0.25.1) (2023-02-02)
+
+### Bug Fixes
+
+- **sbb-card:** fix main slot not being rendered and animation on windows ([#1588](https://github.com/lyne-design-system/lyne-components/issues/1588)) ([a4597d1](https://github.com/lyne-design-system/lyne-components/commit/a4597d1464c0e7a853d143324a3bc7e1edaab082))
+
 ## [0.25.0](https://github.com/lyne-design-system/lyne-components/compare/v0.24.2...v0.25.0) (2023-01-31)
 
 ### ⚠ BREAKING CHANGES
