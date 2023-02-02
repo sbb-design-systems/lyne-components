@@ -249,10 +249,6 @@ export const sbbCardMultipleMilk = TemplateMultipleCards.bind({});
 sbbCardMultipleMilk.argTypes = basicArgTypes;
 sbbCardMultipleMilk.args = { ...basicArgsMilk };
 
-export const sbbCardXSWithInvisibleSbbBadge = TemplateWithBadge.bind({});
-sbbCardXSWithInvisibleSbbBadge.argTypes = basicArgTypes;
-sbbCardXSWithInvisibleSbbBadge.args = { ...basicArgs, size: 'xs' };
-
 export default {
   decorators: [
     (Story, context) => (
