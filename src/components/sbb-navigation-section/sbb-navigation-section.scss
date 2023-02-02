@@ -5,6 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-navigation-section-display: none;
   --sbb-navigation-section-column: 1 / 5;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
@@ -15,18 +16,10 @@
   --sbb-navigation-section-transform: translateX(100%);
   --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-navigation-section-width: 100%;
+  --sbb-navigation-section-width: 100vw;
+  --sbb-navigation-section-height: 100vh;
 
-  // We need to handle here the placement and styling within the grid, since the host
-  // is exposed to the parent's grid (sbb-navigation)
-  display: none;
-  pointer-events: var(--sbb-navigation-section-pointer-events);
-  position: var(--sbb-navigation-section-position);
-  grid-column: var(--sbb-navigation-section-column);
-  inset-inline-start: 0;
-  inset-block-start: 0;
-  width: var(--sbb-navigation-section-width);
-  z-index: 10;
+  display: contents;
 
   @include sbb.mq($from: large) {
     --sbb-navigation-section-column: 5 / 9;
@@ -69,8 +62,7 @@
 }
 
 :host(:not(.sbb-navigation-section--closed)) {
-  display: block;
-  inset: 0;
+  --sbb-navigation-section-display: block;
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
@@ -84,6 +76,22 @@
 // Always place the sbb-button on a new row
 ::slotted(sbb-button) {
   grid-column-start: 1;
+}
+
+.sbb-navigation-section__container {
+  display: var(--sbb-navigation-section-display);
+  pointer-events: var(--sbb-navigation-section-pointer-events);
+  position: var(--sbb-navigation-section-position);
+  grid-column: var(--sbb-navigation-section-column);
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: var(--sbb-navigation-section-width);
+  height: var(--sbb-navigation-section-height);
+  z-index: 10;
+
+  @include sbb.mq($from: large) {
+    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
+  }
 }
 
 .sbb-navigation-section {

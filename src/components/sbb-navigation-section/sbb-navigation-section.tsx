@@ -250,24 +250,26 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
         }}
         slot="navigation-section"
       >
-        <dialog
-          ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
-          aria-label={this.accessibilityLabel}
-          onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-          class="sbb-navigation-section"
-        >
-          <div
-            ref={(navigationSectionWrapperRef) =>
-              (this._navigationSectionWrapperElement = navigationSectionWrapperRef)
-            }
-            class="sbb-navigation-section__wrapper"
+        <div class="sbb-navigation-section__container">
+          <dialog
+            ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
+            aria-label={this.accessibilityLabel}
+            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
+            class="sbb-navigation-section"
           >
-            <div class="sbb-navigation-section__content">
-              {this._hasTitle && labelElement}
-              <slot />
+            <div
+              ref={(navigationSectionWrapperRef) =>
+                (this._navigationSectionWrapperElement = navigationSectionWrapperRef)
+              }
+              class="sbb-navigation-section__wrapper"
+            >
+              <div class="sbb-navigation-section__content">
+                {this._hasTitle && labelElement}
+                <slot />
+              </div>
             </div>
-          </div>
-        </dialog>
+          </dialog>
+        </div>
       </Host>
     );
   }
