@@ -21,6 +21,8 @@ import { i18nGoBack } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
+type SbbNavigationSectionState = 'closed' | 'opening' | 'opened' | 'closing';
+
 /**
  * @slot unnamed - Use this to project any content inside the navigation section.
  */
@@ -60,7 +62,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
   /**
    * The state of the navigation section.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  @State() private _state: SbbNavigationSectionState = 'closed';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -244,12 +246,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       </div>
     );
     return (
-      <Host
-        class={{
-          [`sbb-navigation-section--${this._state}`]: true,
-        }}
-        slot="navigation-section"
-      >
+      <Host slot="navigation-section" data-state={this._state}>
         <div class="sbb-navigation-section__container">
           <dialog
             ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}

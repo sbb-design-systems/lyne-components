@@ -48,20 +48,19 @@
   }
 }
 
-:host(.sbb-navigation-section--opened) {
+:host([data-state='opened']) {
   --sbb-navigation-section-pointer-events: all;
 }
 
-:host(.sbb-navigation-section--opening) {
+:host([data-state='opening']) {
   --sbb-navigation-section-position: absolute;
 }
 
-:host(.sbb-navigation-section--opening),
-:host(.sbb-navigation-section--closing) {
+:host(:is([data-state='opening'], [data-state='closing'])) {
   --sbb-navigation-section-pointer-events: none;
 }
 
-:host(:not(.sbb-navigation-section--closed)) {
+:host(:not([data-state='closed'])) {
   --sbb-navigation-section-display: block;
 }
 
@@ -116,7 +115,7 @@
     }
   }
 
-  :host(.sbb-navigation-section--closing) & {
+  :host([data-state='closing']) & {
     animation-name: close;
   }
 
@@ -133,8 +132,7 @@
   outline: none;
   overflow-y: auto;
 
-  :host(.sbb-navigation-section--opening) &,
-  :host(.sbb-navigation-section--closing) & {
+  :host(:is([data-state='opening'], [data-state='closing'])) & {
     --sbb-scrollbar-color: transparent;
 
     scrollbar-color: transparent transparent;
@@ -192,7 +190,7 @@
       property: opacity, transform;
     }
 
-    :host(.sbb-navigation-section--opened) & {
+    :host([data-state='opened']) & {
       opacity: 1;
       transform: translateY(0);
     }
@@ -203,7 +201,7 @@
     border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   }
 
-  :host(.sbb-navigation-section--closing) & {
+  :host([data-state='closing']) & {
     transition-delay: 0s;
   }
 }
