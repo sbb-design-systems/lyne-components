@@ -137,7 +137,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
           {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
-          <slot name="badge" />
+          {this._hasBadge() ? <slot name="badge" /> : ''}
           <span class="sbb-card__wrapper">
             <slot />
           </span>
