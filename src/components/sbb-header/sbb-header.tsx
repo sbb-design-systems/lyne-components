@@ -82,25 +82,30 @@ export class SbbHeader implements ComponentInterface {
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
     this.shadow = currentScroll !== 0;
-    if (currentScroll > this._element.offsetHeight) { // header is scrolled out
+    if (currentScroll > this._element.offsetHeight) {
+      // header is scrolled out
       this._headerOnTop = false;
-      if (currentScroll > 0 && this._lastScroll < currentScroll) { // scrolling down
+      if (currentScroll > 0 && this._lastScroll < currentScroll) {
+        // scrolling down
         this.shadow = false;
         (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
         toggleDatasetEntry(this._element, 'fixedHeader', true);
         toggleDatasetEntry(this._element, 'visibleHeader', false);
-      } else { // scrolling up
+      } else {
+        // scrolling up
         this.shadow = true;
         toggleDatasetEntry(this._element, 'animated', true);
         toggleDatasetEntry(this._element, 'visibleHeader', true);
       }
-    } else { // header in its original position
-      if (currentScroll === 0) { // reset on scrollposition = 0
+    } else {
+      // header in its original position
+      if (currentScroll === 0) {
+        // reset on scrollposition = 0
         this._headerOnTop = true;
       }
       if (this._headerOnTop) {
         this.shadow = false;
-        toggleDatasetEntry(this._element, 'animated', false); 
+        toggleDatasetEntry(this._element, 'animated', false);
         toggleDatasetEntry(this._element, 'fixedHeader', false);
         toggleDatasetEntry(this._element, 'visibleHeader', false);
       }
