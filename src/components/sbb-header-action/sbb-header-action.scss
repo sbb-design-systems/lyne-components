@@ -14,6 +14,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
   --sbb-header-action-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-header-action-inset: 0;
   --sbb-header-action-translate-y: 0;
 
   // The variable is assigned to the property in the sbb-header component if it is
@@ -49,6 +50,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   :host(:hover:not(:active, [data-menu-open])) {
     --sbb-header-action-background-color: var(--sbb-color-milk-default);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
+    --sbb-header-action-inset: calc(var(--sbb-border-width-2x) * -1);
   }
 }
 
@@ -61,21 +63,29 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   @include sbb.text-inherit;
 
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   color: var(--sbb-color-black-default);
   text-decoration: none;
-  background-color: var(--sbb-header-action-background-color);
   min-height: var(--sbb-header-action-min-height);
   min-width: var(--sbb-header-action-min-width);
   padding-inline: var(--sbb-header-action-padding-inline);
-  border-radius: var(--sbb-border-radius-16x);
-  transition: background-color var(--sbb-header-action-animation-duration)
-    var(--sbb-animation-easing);
   cursor: pointer;
 
   &:focus-visible {
     @include sbb.focus-outline;
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    inset: var(--sbb-header-action-inset);
+    border-radius: var(--sbb-border-radius-16x);
+    background-color: var(--sbb-header-action-background-color);
+    transition-duration: var(--sbb-header-action-animation-duration);
+    transition-timing-function: var(--sbb-animation-easing);
+    transition-property: inset, background-color;
   }
 }
 
