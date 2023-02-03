@@ -8,26 +8,17 @@ import {
   Host,
   JSX,
   Listen,
-  Method,
   Prop,
   State,
+  Watch,
 } from '@stencil/core';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { hostContext } from '../../global/helpers/host-context';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-
-// This approach allows us to just check whether an attribute has been added or removed
-// from the DOM, instead of a `Watch()` decorator that would check the value change
-// and get us into a loop.
-const toggleOptionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['checked'],
-};
+import { StateChange } from './sbb-toggle-option.custom';
 
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
@@ -77,7 +68,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
 
   @Element() private _element!: HTMLElement;
 
-  private _toggleOptionAttributeObserver = new MutationObserver(() => this._onToggleOptionChange());
+  private _toggle?: HTMLSbbToggleElement;
 
   /**
    * Emits whenever the toggle-option value changes.
@@ -89,10 +80,51 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   })
   public didSelect: EventEmitter<any>;
 
+  /**
+   * Internal event that emits whenever the state of the toggle option
+   * in relation to the parent toggle changes.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'state-change',
+  })
+  public stateChange: EventEmitter<StateChange>;
+
+  @Watch('checked')
+  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'checked', checked: currentValue });
+    }
+  }
+
+  @Watch('value')
+  public handleValueChange(currentValue: string, previousValue: string): void {
+    if (this.checked && currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'value', value: currentValue });
+    }
+  }
+
+  @Watch('disabled')
+  public handleDisabledChange(currentValue: boolean): void {
+    // Enforce disabled state from parent.
+    if (!this._toggle) {
+      // Ignore illegal state. Our expecation is that a sbb-toggle-option
+      // always has a parent sbb-toggle.
+    } else if (this._toggle.disabled && !currentValue) {
+      this.disabled = true;
+    } else if (!this._toggle.disabled && currentValue) {
+      this.disabled = false;
+    }
+  }
+
   @Listen('click')
-  public handleClick(event: Event): void {
-    this.select();
-    event.preventDefault();
+  public handleClick(): void {
+    if (this.checked || this.disabled) {
+      return;
+    }
+
+    this.checked = true;
+    this.didSelect.emit();
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -101,38 +133,9 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   }
 
   public connectedCallback(): void {
+    // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
+    this._toggle = this._element.closest('sbb-toggle');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._toggleOptionAttributeObserver.observe(this._element, toggleOptionObserverConfig);
-  }
-
-  public disconnectedCallback(): void {
-    this._toggleOptionAttributeObserver.disconnect();
-  }
-
-  // Check whether a `checked` attribute has been added to the DOM for an option
-  // and call the select() method accordingly.
-  private _onToggleOptionChange(): void {
-    if (isValidAttribute(this._element, 'checked') && this._isUnselected()) {
-      this.select();
-    }
-  }
-
-  private _isUnselected(): boolean {
-    const toggle = hostContext('sbb-toggle', this._element) as HTMLSbbToggleElement;
-    return !!toggle && toggle?.value !== this.value;
-  }
-
-  @Method()
-  public async select(): Promise<void> {
-    if (this.disabled) {
-      return;
-    }
-
-    if (!this.checked) {
-      this.checked = true;
-    }
-
-    this.didSelect.emit(this.value);
   }
 
   public render(): JSX.Element {

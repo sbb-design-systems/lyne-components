@@ -38,6 +38,6 @@ describe('sbb-toggle-option', () => {
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
-    expect(didSelect).toHaveReceivedEventTimes(2);
+    expect(didSelect).toHaveReceivedEventTimes(1);
   });
 });

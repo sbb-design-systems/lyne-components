@@ -34,7 +34,7 @@ describe('sbb-toggle', () => {
     });
     option = page.doc.querySelector('#sbb-toggle-option-2');
 
-    await option.select();
+    option.checked = true;
     await page.waitForChanges();
 
     expect(option).toHaveAttribute('checked');
