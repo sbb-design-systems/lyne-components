@@ -34,6 +34,7 @@ describe('sbb-button', () => {
           form="formid"
           accessibility-haspopup="true"
           accessibility-label="Travelcards & tickets"
+          role="button"
         >
           <mock:shadow-root>
             <button
@@ -62,7 +63,7 @@ describe('sbb-button', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-button size='l' variant='primary'>
+        <sbb-button size='l' variant='primary' role="button">
           <mock:shadow-root>
             <button class='sbb-button' dir="ltr" type="button">
               <span class='sbb-button__icon'>
@@ -99,6 +100,7 @@ describe('sbb-button', () => {
           target="_blank"
           rel="noopener"
           download
+          role="link"
         >
           <mock:shadow-root>
             <a

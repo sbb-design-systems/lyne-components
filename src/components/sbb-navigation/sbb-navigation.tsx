@@ -360,7 +360,11 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       ></sbb-button>
     );
     return (
-      <Host role="navigation" data-has-navigation-section={!!this._activeNavigationSection} data-state={this._state}>
+      <Host
+        role="navigation"
+        data-has-navigation-section={!!this._activeNavigationSection}
+        data-state={this._state}
+      >
         <div class="sbb-navigation__container">
           <dialog
             ref={(navigationRef) => (this._navigation = navigationRef)}
