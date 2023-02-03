@@ -17,11 +17,14 @@ import { getElementPosition, isEventOnElement } from '../../global/helpers/posit
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
 
 type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
@@ -96,6 +99,7 @@ export class SbbMenu implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
+  private _menuId = `sbb-menu-${++nextId}`;
 
   @Element() private _element!: HTMLElement;
 
@@ -112,6 +116,7 @@ export class SbbMenu implements ComponentInterface {
     this._state = 'opening';
     this._setMenuPosition();
     this._dialog.show();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -126,6 +131,7 @@ export class SbbMenu implements ComponentInterface {
     this.willClose.emit();
     this._state = 'closing';
     this._openedByKeyboard = false;
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   /**
@@ -177,6 +183,12 @@ export class SbbMenu implements ComponentInterface {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    if (this._triggerElement) {
+      this._triggerElement.removeAttribute('aria-haspopup');
+      this._triggerElement.removeAttribute('aria-controls');
+      this._triggerElement.removeAttribute('aria-expanded');
+    }
+
     if (!trigger) {
       return;
     }
@@ -192,6 +204,13 @@ export class SbbMenu implements ComponentInterface {
     if (!this._triggerElement) {
       return;
     }
+
+    this._triggerElement.setAttribute('aria-haspopup', 'menu');
+    this._triggerElement.setAttribute('aria-controls', this._element.id || this._menuId);
+    this._triggerElement.setAttribute(
+      'aria-expanded',
+      `${this._state === 'opening' || this._state === 'opened'}`
+    );
 
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -309,7 +328,7 @@ export class SbbMenu implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host data-state={this._state}>
+      <Host data-state={this._state} ref={assignId(() => this._menuId)}>
         <div class="sbb-menu__container">
           <dialog
             onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}

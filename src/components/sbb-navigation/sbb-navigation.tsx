@@ -22,6 +22,7 @@ import { ScrollHandler } from '../../global/helpers/scroll';
 import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
 
 type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -30,6 +31,8 @@ const navigationObserverConfig: MutationObserverInit = {
   subtree: true,
   attributeFilter: ['data-state'],
 };
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
@@ -124,6 +127,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   private _navigationObserver = new MutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList)
   );
+  private _navigationId = `sbb-navigation-${++nextId}`;
 
   @Element() private _element: HTMLElement;
 
@@ -148,6 +152,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     this._scrollHandler.disableScroll();
     this._navigation.show();
     this._setDialogFocus();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -162,6 +167,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     this.willClose.emit();
     this._state = 'closing';
     this._openedByKeyboard = false;
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Removes trigger click listener on trigger change.
@@ -179,6 +185,12 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    if (this._triggerElement) {
+      this._triggerElement.removeAttribute('aria-haspopup');
+      this._triggerElement.removeAttribute('aria-controls');
+      this._triggerElement.removeAttribute('aria-expanded');
+    }
+
     if (!trigger) {
       return;
     }
@@ -194,6 +206,13 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     if (!this._triggerElement) {
       return;
     }
+
+    this._triggerElement.setAttribute('aria-haspopup', 'menu');
+    this._triggerElement.setAttribute('aria-controls', this._element.id || this._navigationId);
+    this._triggerElement.setAttribute(
+      'aria-expanded',
+      `${this._state === 'opening' || this._state === 'opened'}`
+    );
 
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -364,6 +383,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
         role="navigation"
         data-has-navigation-section={!!this._activeNavigationSection}
         data-state={this._state}
+        ref={assignId(() => this._navigationId)}
       >
         <div class="sbb-navigation__container">
           <dialog

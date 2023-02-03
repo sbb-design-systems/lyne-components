@@ -23,7 +23,7 @@ describe('sbb-menu', () => {
 
   it('renders', async () => {
     expect(page.root).toEqualHtml(`
-      <sbb-menu trigger="menu-trigger" data-state="closed">
+      <sbb-menu trigger="menu-trigger" data-state="closed" id="sbb-menu-1">
         <mock:shadow-root>
           <div class="sbb-menu__container">
             <dialog class="sbb-menu">

@@ -10,7 +10,7 @@ describe('sbb-tooltip', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-tooltip data-state="closed">
+        <sbb-tooltip data-state="closed" id="sbb-tooltip-1">
           <mock:shadow-root>
             <div class="sbb-tooltip__container">
               <dialog class="sbb-tooltip">

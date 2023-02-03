@@ -18,11 +18,14 @@ import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
 
 type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the tooltip.
@@ -135,6 +138,7 @@ export class SbbTooltip implements ComponentInterface {
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
+  private _tooltipId = `sbb-tooltip-${++nextId}`;
 
   @Element() private _element!: HTMLElement;
 
@@ -156,6 +160,7 @@ export class SbbTooltip implements ComponentInterface {
     this._state = 'opening';
     this._setTooltipPosition();
     this._dialog.show();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -172,6 +177,7 @@ export class SbbTooltip implements ComponentInterface {
     this._state = 'closing';
     this._openedByKeyboard = false;
     this._prevFocusedElement?.focus();
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
@@ -220,6 +226,12 @@ export class SbbTooltip implements ComponentInterface {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    if (this._triggerElement) {
+      this._triggerElement.removeAttribute('aria-haspopup');
+      this._triggerElement.removeAttribute('aria-controls');
+      this._triggerElement.removeAttribute('aria-expanded');
+    }
+
     if (!trigger) {
       return;
     }
@@ -235,6 +247,13 @@ export class SbbTooltip implements ComponentInterface {
     if (!this._triggerElement) {
       return;
     }
+
+    this._triggerElement.setAttribute('aria-haspopup', 'dialog');
+    this._triggerElement.setAttribute('aria-controls', this._element.id || this._tooltipId);
+    this._triggerElement.setAttribute(
+      'aria-expanded',
+      `${this._state === 'opening' || this._state === 'opened'}`
+    );
 
     // Check whether the trigger can be hovered. Some diveces might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
@@ -443,7 +462,7 @@ export class SbbTooltip implements ComponentInterface {
     );
 
     return (
-      <Host data-position={this._alignment?.vertical}>
+      <Host data-position={this._alignment?.vertical} ref={assignId(() => this._tooltipId)}>
         <div class="sbb-tooltip__container">
           <dialog
             onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}

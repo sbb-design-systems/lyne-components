@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -18,9 +18,11 @@ export class SbbTooltipTrigger implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <button class="sbb-tooltip-trigger">
-        <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-      </button>
+      <Host role="button">
+        <button class="sbb-tooltip-trigger">
+          <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+        </button>
+      </Host>
     );
   }
 }
