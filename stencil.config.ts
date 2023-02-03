@@ -10,7 +10,6 @@ import ts from 'typescript';
 export const config: Config = {
   globalStyle: 'src/global/styles/global.scss',
   namespace: 'lyne-components',
-  sourceMap: true,
   outputTargets: [
     {
       type: 'dist-hydrate-script',
@@ -20,7 +19,8 @@ export const config: Config = {
       type: 'dist',
     },
     {
-      type: 'dist-custom-elements-bundle',
+      type: 'dist-custom-elements',
+      customElementsExportBehavior: 'bundle',
     },
     {
       footer: '',
