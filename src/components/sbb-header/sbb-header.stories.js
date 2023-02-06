@@ -30,13 +30,13 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }) => [
     <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
       English
     </sbb-header-action>
-    <sbb-menu trigger="language-menu-trigger" disable-animation={isChromatic()}>
-      <sbb-menu-action>Deutsch</sbb-menu-action>
-      <sbb-menu-action>Français</sbb-menu-action>
-      <sbb-menu-action>Italiano</sbb-menu-action>
-      <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
-    </sbb-menu>
   </sbb-header>,
+  <sbb-menu trigger="language-menu-trigger" disable-animation={isChromatic()}>
+    <sbb-menu-action>Deutsch</sbb-menu-action>
+    <sbb-menu-action>Français</sbb-menu-action>
+    <sbb-menu-action>Italiano</sbb-menu-action>
+    <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
+  </sbb-menu>,
   <div {...attributes}>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
 ];
 
@@ -46,7 +46,7 @@ const Template = (args) => (
   </HeaderBasicTemplate>
 );
 
-const TemplateWithUserMenu = (args) => (
+const TemplateWithUserMenu = (args) => [
   <HeaderBasicTemplate {...args}>
     <sbb-header-action
       icon-name="user-small"
@@ -55,19 +55,19 @@ const TemplateWithUserMenu = (args) => (
     >
       Christina Müller
     </sbb-header-action>
-    <sbb-menu trigger="user-menu-trigger" disable-animation={isChromatic()} data-testid="user-menu">
-      <sbb-menu-action icon-name="user-small" href="/">
-        Account
-      </sbb-menu-action>
-      <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
-      <sbb-menu-action icon-name="shopping-cart-small" amount="1">
-        Shopping cart
-      </sbb-menu-action>
-      <sbb-divider />
-      <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
-    </sbb-menu>
-  </HeaderBasicTemplate>
-);
+  </HeaderBasicTemplate>,
+  <sbb-menu trigger="user-menu-trigger" disable-animation={isChromatic()} data-testid="user-menu">
+    <sbb-menu-action icon-name="user-small" href="/">
+      Account
+    </sbb-menu-action>
+    <sbb-menu-action icon-name="tickets-class-small">Tickets</sbb-menu-action>
+    <sbb-menu-action icon-name="shopping-cart-small" amount="1">
+      Shopping cart
+    </sbb-menu-action>
+    <sbb-divider />
+    <sbb-menu-action icon-name="exit-small">Sign out</sbb-menu-action>
+  </sbb-menu>,
+];
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
