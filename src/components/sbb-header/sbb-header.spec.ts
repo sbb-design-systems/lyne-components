@@ -30,7 +30,7 @@ describe('sbb-header', () => {
     const { root } = await newSpecPage({
       components: [SbbHeader],
       html: `
-        <sbb-header shadow="true">
+        <sbb-header>
           <sbb-header-action
             icon-name="hamburger-menu-small"
             href="https://github.com/lyne-design-system/lyne-components"
@@ -43,7 +43,7 @@ describe('sbb-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-header shadow="">
+      <sbb-header>
         <mock:shadow-root>
           <header class="sbb-header">
             <div class="sbb-header__wrapper">
