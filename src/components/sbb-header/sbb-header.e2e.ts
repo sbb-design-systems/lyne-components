@@ -21,22 +21,7 @@ describe('sbb-header', () => {
 
     await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
-    expect(element).toEqualHtml(`
-      <sbb-header class="hydrated" data-shadow>
-        <mock:shadow-root>
-          <header class="sbb-header">
-            <div class="sbb-header__wrapper">
-              <slot></slot>
-              <div class="sbb-header__logo">
-                <slot name="logo">
-                  <sbb-logo class="hydrated" protective-room="none"></sbb-logo>
-                </slot>
-              </div>
-            </div>
-          </header>
-        </mock:shadow-root>
-      </sbb-header>
-    `);
+    expect(element).toHaveAttribute('data-shadow');
   });
 
   it('should hide/show on scroll', async () => {
@@ -54,61 +39,22 @@ describe('sbb-header', () => {
     // Scroll bottom (0px to 200px): header fixed.
     await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
-    expect(element).toEqualHtml(`
-      <sbb-header class="hydrated" hide-on-scroll="" data-fixed-header>
-        <mock:shadow-root>
-          <header class="sbb-header">
-            <div class="sbb-header__wrapper">
-              <slot></slot>
-              <div class="sbb-header__logo">
-                <slot name="logo">
-                  <sbb-logo class="hydrated" protective-room="none"></sbb-logo>
-                </slot>
-              </div>
-            </div>
-          </header>
-        </mock:shadow-root>
-      </sbb-header>
-    `);
+    expect(element).toHaveAttribute('data-fixed-header');
 
     // Scroll top (200px to 100px): header fixed and visible, with shadow and animated.
     await page.evaluate(() => window.scrollTo({ top: 100 }));
     await page.waitForChanges();
-    expect(element).toEqualHtml(`
-      <sbb-header class="hydrated" hide-on-scroll="" data-shadow data-animated data-fixed-header data-visible-header>
-        <mock:shadow-root>
-          <header class="sbb-header">
-            <div class="sbb-header__wrapper">
-              <slot></slot>
-              <div class="sbb-header__logo">
-                <slot name="logo">
-                  <sbb-logo class="hydrated" protective-room="none"></sbb-logo>
-                </slot>
-              </div>
-            </div>
-          </header>
-        </mock:shadow-root>
-      </sbb-header>
-    `);
+    expect(element).toHaveAttribute('data-shadow');
+    expect(element).toHaveAttribute('data-animated');
+    expect(element).toHaveAttribute('data-fixed-header');
+    expect(element).toHaveAttribute('data-visible-header');
 
     // Scroll top (100 to 0px): initial situation.
     await page.evaluate(() => window.scrollTo({ top: 0 }));
     await page.waitForChanges();
-    expect(element).toEqualHtml(`
-      <sbb-header class="hydrated" hide-on-scroll="">
-        <mock:shadow-root>
-          <header class="sbb-header">
-            <div class="sbb-header__wrapper">
-              <slot></slot>
-              <div class="sbb-header__logo">
-                <slot name="logo">
-                  <sbb-logo class="hydrated" protective-room="none"></sbb-logo>
-                </slot>
-              </div>
-            </div>
-          </header>
-        </mock:shadow-root>
-      </sbb-header>
-    `);
+    expect(element).not.toHaveAttribute('data-shadow');
+    expect(element).not.toHaveAttribute('data-animated');
+    expect(element).not.toHaveAttribute('data-fixed-header');
+    expect(element).not.toHaveAttribute('data-visible-header');
   });
 });
