@@ -1,4 +1,14 @@
-import { Component, h, Element, JSX, Prop, Listen, ComponentInterface, State } from '@stencil/core';
+import {
+  Component,
+  h,
+  Element,
+  JSX,
+  Prop,
+  Listen,
+  ComponentInterface,
+  State,
+  Host,
+} from '@stencil/core';
 import {
   actionElement,
   ButtonType,
@@ -146,15 +156,17 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   }
 
   public render(): JSX.Element {
-    const { tagName: TAG_NAME, attributes }: LinkButtonRenderVariables = resolveRenderVariables(
-      this,
-      this._currentLanguage,
-      false
-    );
+    const {
+      tagName: TAG_NAME,
+      hostAttributes,
+      attributes,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage, false);
     return (
-      <TAG_NAME class="sbb-navigation-action" {...attributes}>
-        <slot />
-      </TAG_NAME>
+      <Host {...hostAttributes}>
+        <TAG_NAME class="sbb-navigation-action" {...attributes}>
+          <slot />
+        </TAG_NAME>
+      </Host>
     );
   }
 }

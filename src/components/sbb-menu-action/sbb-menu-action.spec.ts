@@ -13,7 +13,7 @@ describe('sbb-menu-action', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-menu-action form="formid" name="name" type="submit" accessibility-haspopup="true">
+        <sbb-menu-action form="formid" name="name" type="submit" accessibility-haspopup="true" role="button">
           <mock:shadow-root>
             <button aria-haspopup="true" class="sbb-menu-action" dir="ltr" form="formid" name="name" type="submit">
               <span class="sbb-menu-action__content">
@@ -42,7 +42,7 @@ describe('sbb-menu-action', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-menu-action amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+        <sbb-menu-action amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link">
           <mock:shadow-root>
             <a class="sbb-menu-action" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
               <span class="sbb-menu-action__content">

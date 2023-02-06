@@ -1,4 +1,14 @@
-import { Component, h, JSX, Prop, Element, Listen, ComponentInterface, State } from '@stencil/core';
+import {
+  Component,
+  h,
+  JSX,
+  Prop,
+  Element,
+  Listen,
+  ComponentInterface,
+  State,
+  Host,
+} from '@stencil/core';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
@@ -95,22 +105,25 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
     const {
       tagName: TAG_NAME,
       attributes,
+      hostAttributes,
       screenReaderNewWindowInfo,
     } = resolveRenderVariables(this, this._currentLanguage);
     return (
-      <TAG_NAME class="sbb-header-action" {...attributes}>
-        <span class="sbb-header-action__icon">
-          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-        </span>
-        <span class="sbb-header-action__text">
-          <slot />
-          {screenReaderNewWindowInfo && (
-            <span class="sbb-header-action__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-            </span>
-          )}
-        </span>
-      </TAG_NAME>
+      <Host {...hostAttributes}>
+        <TAG_NAME class="sbb-header-action" {...attributes}>
+          <span class="sbb-header-action__icon">
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          </span>
+          <span class="sbb-header-action__text">
+            <slot />
+            {screenReaderNewWindowInfo && (
+              <span class="sbb-header-action__opens-in-new-window">
+                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+              </span>
+            )}
+          </span>
+        </TAG_NAME>
+      </Host>
     );
   }
 }
