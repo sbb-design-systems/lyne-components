@@ -45,7 +45,7 @@
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
   z-index: 10;
-  transition: box-shadow var(--sbb-header-animation-duration) var(--sbb-animation-easing);
+  transition: box-shadow var(--sbb-header-animation-duration) cubic-bezier(0.4, 0, 1, 1);
   transform: translateY(var(--sbb-header-translate-y));
 
   @include sbb.if-forced-colors {
