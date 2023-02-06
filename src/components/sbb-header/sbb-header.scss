@@ -10,6 +10,7 @@
   --sbb-header-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-header-position: fixed;
   --sbb-header-translate-y: 0;
+  --sbb-header-transition-property: box-shadow;
 
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
@@ -28,7 +29,7 @@
 }
 
 :host([hide-on-scroll][data-animated]) {
-  transition: all var(--sbb-header-animation-duration) var(--sbb-animation-easing);
+  --sbb-header-transition-property: all;
 }
 
 :host([hide-on-scroll][data-fixed-header]) {
@@ -45,7 +46,9 @@
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
   z-index: 10;
-  transition: box-shadow var(--sbb-header-animation-duration) cubic-bezier(0.4, 0, 1, 1);
+  transition-property: var(--sbb-header-transition-property);
+  transition-duration: var(--sbb-header-animation-duration);
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
   transform: translateY(var(--sbb-header-translate-y));
 
   @include sbb.if-forced-colors {
