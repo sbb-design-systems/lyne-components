@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.5](https://github.com/lyne-design-system/lyne-components/compare/v0.25.4...v0.25.5) (2023-02-07)
+
+### Bug Fixes
+
+- **sbb-teaser-hero:** add min-height to reserve space if there is no image loaded ([#1598](https://github.com/lyne-design-system/lyne-components/issues/1598)) ([6fd129d](https://github.com/lyne-design-system/lyne-components/commit/6fd129dd04dc427d207461759307101912651887))
+
 ### [0.25.4](https://github.com/lyne-design-system/lyne-components/compare/v0.25.3...v0.25.4) (2023-02-07)
 
 ### Refactorings
