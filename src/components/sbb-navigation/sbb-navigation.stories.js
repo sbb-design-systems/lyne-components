@@ -235,7 +235,7 @@ WithNavigationSection.play = isChromatic() && playStoryWithSection;
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; width: calc(100vw - 2rem); height: 500px'}>
         <Story />
       </div>
     ),
