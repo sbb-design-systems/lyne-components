@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.3](https://github.com/lyne-design-system/lyne-components/compare/v0.25.2...v0.25.3) (2023-02-07)
+
+### Bug Fixes
+
+- **sbb-footer, sbb-header:** display divider to content on windows high contrast mode ([#1597](https://github.com/lyne-design-system/lyne-components/issues/1597)) ([dd87a6c](https://github.com/lyne-design-system/lyne-components/commit/dd87a6c5284d8dabb126a19a0e07115f19c91658))
+
 ### [0.25.2](https://github.com/lyne-design-system/lyne-components/compare/v0.25.1...v0.25.2) (2023-02-03)
 
 ### Bug Fixes
