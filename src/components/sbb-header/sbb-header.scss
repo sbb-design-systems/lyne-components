@@ -25,6 +25,10 @@
   :host([shadow]:not([shadow='false'])) & {
     @include sbb.shadow-level-9-soft;
   }
+
+  @include sbb.if-forced-colors {
+    border-block-end: var(--sbb-border-width-1x) solid CanvasText;
+  }
 }
 
 .sbb-header__wrapper {
