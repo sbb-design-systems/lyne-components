@@ -14,6 +14,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
   --sbb-header-action-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-header-action-border-color: transparent;
   --sbb-header-action-inset: 0;
   --sbb-header-action-translate-y: 0;
 
@@ -52,6 +53,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-inset: calc(var(--sbb-border-width-2x) * -1);
   }
+
+  @include sbb.if-forced-colors {
+    --sbb-header-action-border-color: Highlight;
+  }
 }
 
 :host(:active) {
@@ -82,6 +87,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     transition-duration: var(--sbb-header-action-animation-duration);
     transition-timing-function: var(--sbb-animation-easing);
     transition-property: inset, background-color;
+    border: var(--sbb-border-width-1x) solid var(--sbb-header-action-border-color);
+
+    @include sbb.if-forced-colors {
+      --sbb-header-action-border-color: windowText;
+    }
   }
 
   &:focus-visible::before {
