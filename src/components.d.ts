@@ -1070,7 +1070,10 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
-        "preserveIconSpace"?: boolean;
+        /**
+          * Wheter the icon space is preserved when no icon is set
+         */
+        "preserveIconSpace": boolean;
         "selected"?: boolean;
     }
     interface SbbOverlay {
@@ -3386,6 +3389,9 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
+        /**
+          * Wheter the icon space is preserved when no icon is set
+         */
         "preserveIconSpace"?: boolean;
         "selected"?: boolean;
     }

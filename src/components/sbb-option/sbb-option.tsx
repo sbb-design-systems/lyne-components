@@ -1,4 +1,4 @@
-import {Component, ComponentInterface, h, Host, JSX, Prop} from '@stencil/core';
+import {Component, ComponentInterface, Element, h, Host, JSX, Prop} from '@stencil/core';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -19,17 +19,32 @@ export class SbbOption implements ComponentInterface {
 
   @Prop() public selected?: boolean;
 
-  @Prop({reflect: true}) public preserveIconSpace? = true;
+  /**
+   * Wheter the icon space is preserved when no icon is set
+   */
+  @Prop({ reflect: true }) public preserveIconSpace = true;
+
+  @Element() private _element: HTMLElement;
+
+  private _hasIconSlot: boolean;
+
+  public componentWillLoad(): void {
+      this._hasIconSlot = !!this._element.querySelector('[slot="icon"]');
+  }
 
   public render(): JSX.Element {
     return (
-      <Host class={{'preserve-icon-space': this.preserveIconSpace}}>
+      <Host>
         <div class="sbb-option"
             role="option"
             aria-selected={this.selected}>
-          <span class="sbb-option__icon">
+          <span 
+            class={{
+              'sbb-option__icon': true, 
+              'sbb-option__icon--hidden': !this.preserveIconSpace && !this._hasIconSlot && !this.iconName
+            }}>
             <slot name="icon">
-              {this.iconName && <sbb-icon name={this.iconName} />}
+              {this.iconName && <sbb-icon slot='icon' name={this.iconName} />}
             </slot>
           </span>
           <span>
