@@ -73,19 +73,19 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   padding-inline: var(--sbb-header-action-padding-inline);
   cursor: pointer;
 
-  &:focus-visible {
-    @include sbb.focus-outline;
-  }
-
   &::before {
     position: absolute;
     content: '';
     inset: var(--sbb-header-action-inset);
-    border-radius: var(--sbb-border-radius-16x);
+    border-radius: var(--sbb-header-action-min-height);
     background-color: var(--sbb-header-action-background-color);
     transition-duration: var(--sbb-header-action-animation-duration);
     transition-timing-function: var(--sbb-animation-easing);
     transition-property: inset, background-color;
+  }
+
+  &:focus-visible::before {
+    @include sbb.focus-outline;
   }
 }
 
