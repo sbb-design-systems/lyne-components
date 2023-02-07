@@ -386,6 +386,7 @@ export default {
       iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/sbb-dialog',
 };

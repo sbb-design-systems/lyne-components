@@ -156,7 +156,7 @@ LongContent.play = ({ canvasElement }) =>
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; height: 100vh'}>
         <Story />
       </div>
     ),
@@ -171,6 +171,7 @@ export default {
       iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/navigation/sbb-navigation-section',
 };

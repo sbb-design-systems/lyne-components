@@ -185,6 +185,7 @@ export default {
       iframeHeight: '250px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/sbb-tooltip',
 };
