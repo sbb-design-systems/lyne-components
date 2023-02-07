@@ -21,6 +21,7 @@ import {
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
 import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
+import { focusInputElement } from '../../global/helpers/input-element';
 
 /**
  * @slot unnamed - This slot will show the provided tag label.
@@ -76,13 +77,10 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
 
   private _checkbox: HTMLInputElement;
 
-  private _inputElement(): HTMLElement {
-    return this._element.shadowRoot.querySelector('input');
-  }
-
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
+    // Forward focus call to input element
+    this._element.focus = focusInputElement;
   }
 
   /** Method triggered on checkbox change. Inverts the checked value and emits events. */

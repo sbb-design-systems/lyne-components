@@ -1,6 +1,8 @@
 import { Component, h, Element, JSX, Prop, Listen, ComponentInterface, State } from '@stencil/core';
 import {
+  actionElement,
   ButtonType,
+  focusActionElement,
   forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
@@ -106,7 +108,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
     this._navigationActionAttributeObserver.observe(this._element, navigationActionObserverConfig);
 
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+    this._element.focus = focusActionElement;
 
     // Check if the current element is nested inside a navigation marker.
     this._navigationMarker = hostContext(
@@ -117,10 +119,6 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   public disconnectedCallback(): void {
     this._navigationActionAttributeObserver.disconnect();
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
   // Check whether the `active` attribute has been added or removed from the DOM
@@ -140,7 +138,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, this._actionElement());
+    forwardHostEvent(event, this._element, actionElement(this._element));
 
     if (!this.active) {
       this._navigationMarker?.select(this._element);

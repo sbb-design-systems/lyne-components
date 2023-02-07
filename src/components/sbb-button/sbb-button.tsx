@@ -1,13 +1,15 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
+  actionElement,
   ButtonType,
+  focusActionElement,
   forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
-  resolveRenderVariables,
+  resolveRenderVariables
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
@@ -108,11 +110,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
 
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
+    this._element.focus = focusActionElement;
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -150,7 +148,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (!this.isStatic) {
-      forwardHostEvent(event, this._element, this._actionElement());
+      forwardHostEvent(event, this._element, actionElement(this._element));
     }
   }
 

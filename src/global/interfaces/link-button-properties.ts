@@ -274,3 +274,20 @@ export function forwardHostEvent(
 
   nestedActionElement.dispatchEvent(copiedEvent);
 }
+
+/**
+ * Resolves the first anchor or button tag inside the shadow DOM of the given element.
+ */
+export function actionElement(element: HTMLElement): HTMLElement {
+  return element.shadowRoot.querySelector('a,button') as HTMLElement;
+}
+
+/**
+ * Resolves the first anchor or button tag inside the shadow DOM and calls the focus method if found.
+ * Due to the `this` context handling with Safari when overwriting a method,
+ * we need to specifically use a primitive function instead of a lexically bound arrow functions.
+ * The `this` inside the function will be bound to the context of the overwritten method.
+ */
+export function focusActionElement(options: FocusOptions): void {
+  actionElement(this)?.focus(options);
+}

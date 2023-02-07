@@ -10,6 +10,8 @@ import {
   Watch,
 } from '@stencil/core';
 import {
+  actionElement,
+  focusActionElement,
   forwardHostEvent,
   LinkProperties,
   LinkTargetType,
@@ -88,17 +90,13 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
   @Listen('click')
   public handleClick(event: Event): void {
     if (this.href) {
-      forwardHostEvent(event, this._element, this._actionElement());
+      forwardHostEvent(event, this._element, actionElement(this._element));
     }
   }
 
   public connectedCallback(): void {
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
+    this._element.focus = focusActionElement;
   }
 
   public componentWillLoad(): void {
