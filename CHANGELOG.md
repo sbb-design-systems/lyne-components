@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.4](https://github.com/lyne-design-system/lyne-components/compare/v0.25.3...v0.25.4) (2023-02-07)
+
+### Refactorings
+
+- **sbb-toggle:** optimize event handling ([#1591](https://github.com/lyne-design-system/lyne-components/issues/1591)) ([78cb167](https://github.com/lyne-design-system/lyne-components/commit/78cb167c37d5cc236b3e207e1d4d49f74ca576e6))
+
 ### [0.25.3](https://github.com/lyne-design-system/lyne-components/compare/v0.25.2...v0.25.3) (2023-02-07)
 
 ### Bug Fixes
