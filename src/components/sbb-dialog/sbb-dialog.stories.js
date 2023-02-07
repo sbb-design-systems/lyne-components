@@ -314,7 +314,7 @@ export const Default = DefaultTemplate.bind({});
 Default.documentation = { title: 'Default Dialog' };
 Default.argTypes = basicArgTypes;
 Default.args = basicArgs;
-Default.play = playStory;
+Default.play = isChromatic() && playStory;
 
 export const Negative = DefaultTemplate.bind({});
 Negative.documentation = { title: 'Negative Dialog' };
@@ -323,7 +323,7 @@ Negative.args = {
   ...basicArgs,
   negative: true,
 };
-Negative.play = playStory;
+Negative.play = isChromatic() && playStory;
 
 export const SlottedTitle = SlottedTitleTemplate.bind({});
 SlottedTitle.documentation = { title: 'Slotted title' };
@@ -333,31 +333,31 @@ SlottedTitle.args = {
   'title-content': undefined,
   'title-back-button': false,
 };
-SlottedTitle.play = playStory;
+SlottedTitle.play = isChromatic() && playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.documentation = { title: 'Long content' };
 LongContent.argTypes = basicArgTypes;
 LongContent.args = { ...basicArgs };
-LongContent.play = playStory;
+LongContent.play = isChromatic() && playStory;
 
 export const Form = FormTemplate.bind({});
 Form.documentation = { title: 'Dialog with form' };
 Form.argTypes = basicArgTypes;
 Form.args = { ...basicArgs };
-Form.play = playStory;
+Form.play = isChromatic() && playStory;
 
 export const NoFooter = NoFooterTemplate.bind({});
 NoFooter.documentation = { title: 'Without footer' };
 NoFooter.argTypes = basicArgTypes;
 NoFooter.args = { ...basicArgs };
-NoFooter.play = playStory;
+NoFooter.play = isChromatic() && playStory;
 
 export const FullScreen = FullScreenTemplate.bind({});
 FullScreen.documentation = { title: 'Full screen dialog' };
 FullScreen.argTypes = basicArgTypes;
 FullScreen.args = { ...basicArgs, 'title-content': undefined };
-FullScreen.play = playStory;
+FullScreen.play = isChromatic() && playStory;
 
 export default {
   decorators: [
