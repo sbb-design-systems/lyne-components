@@ -278,8 +278,8 @@ export function forwardHostEvent(
 /**
  * Resolves the first anchor or button tag inside the shadow DOM of the given element.
  */
-export function actionElement(element: HTMLElement): HTMLElement {
-  return element.shadowRoot.querySelector('a,button') as HTMLElement;
+export function actionElement(element: HTMLElement): HTMLElement | null {
+  return element.shadowRoot.querySelector('a,button');
 }
 
 /**

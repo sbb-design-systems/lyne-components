@@ -1,8 +1,8 @@
 /**
  * Resolves the input element inside the shadow DOM of the given element.
  */
-export function inputElement(element: HTMLElement): HTMLInputElement {
-  return element.shadowRoot.querySelector('input') as HTMLInputElement;
+export function inputElement(element: HTMLElement): HTMLInputElement | null {
+  return element.shadowRoot.querySelector('input');
 }
 
 /**

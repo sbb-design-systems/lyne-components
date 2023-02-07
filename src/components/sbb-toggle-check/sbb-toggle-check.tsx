@@ -59,7 +59,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   /** Method triggered on toggle change. */
   public checkedChanged(event: Event): void {
-    this.checked = inputElement(this._element).checked;
+    this.checked = inputElement(this._element)?.checked;
     forwardEventToHost(event, this._element);
     this.didChange.emit();
   }
