@@ -15,6 +15,7 @@ import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
+import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
 @Component({
   shadow: true,
@@ -22,8 +23,6 @@ import { forwardHostEvent } from '../../global/interfaces/link-button-properties
   tag: 'sbb-toggle-check',
 })
 export class SbbToggleCheck implements ComponentInterface, AccessibilityProperties {
-  private _checkbox: HTMLInputElement;
-
   /** Whether the toggle-check is checked. */
   @Prop({ mutable: true, reflect: true }) public checked = false;
 
@@ -60,14 +59,14 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   /** Method triggered on toggle change. */
   public checkedChanged(event: Event): void {
-    this.checked = this._checkbox?.checked;
+    this.checked = inputElement(this._element)?.checked;
     forwardEventToHost(event, this._element);
     this.didChange.emit();
   }
 
   public connectedCallback(): void {
-    // Forward focus call to checkbox
-    this._element.focus = (options: FocusOptions) => this._checkbox?.focus(options);
+    // Forward focus call to input element
+    this._element.focus = focusInputElement;
 
     this._hasLabelText = Array.from(this._element.childNodes).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent
@@ -76,7 +75,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, this._checkbox);
+    forwardHostEvent(event, this._element, inputElement(this._element));
   }
 
   private _onLabelSlotChange(event: Event): void {
@@ -90,7 +89,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
       <Host>
         <input
           id="sbb-toggle-check-input"
-          ref={(checkbox: HTMLInputElement): HTMLInputElement => (this._checkbox = checkbox)}
           type="checkbox"
           name={this.name}
           disabled={this.disabled}

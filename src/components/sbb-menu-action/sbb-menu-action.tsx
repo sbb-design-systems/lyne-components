@@ -1,6 +1,8 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
+  actionElement,
   ButtonType,
+  focusActionElement,
   forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
@@ -72,11 +74,7 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
 
   public connectedCallback(): void {
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
+    this._element.focus = focusActionElement;
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -90,7 +88,7 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else {
-      forwardHostEvent(event, this._element, this._actionElement());
+      forwardHostEvent(event, this._element, actionElement(this._element));
     }
   }
 

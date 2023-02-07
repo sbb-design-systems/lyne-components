@@ -1,5 +1,7 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
+  actionElement,
+  focusActionElement,
   forwardHostEvent,
   LinkProperties,
   LinkTargetType,
@@ -53,17 +55,13 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
   @Listen('click')
   public handleClick(event: Event): void {
     if (this.href) {
-      forwardHostEvent(event, this._element, this._actionElement());
+      forwardHostEvent(event, this._element, actionElement(this._element));
     }
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
   public connectedCallback(): void {
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+    this._element.focus = focusActionElement;
   }
 
   public render(): JSX.Element {

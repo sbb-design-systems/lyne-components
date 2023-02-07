@@ -12,7 +12,9 @@ import {
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
+  actionElement,
   ButtonType,
+  focusActionElement,
   forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
@@ -88,13 +90,9 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   public connectedCallback(): void {
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
+    this._element.focus = focusActionElement;
 
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -104,7 +102,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, this._actionElement());
+    forwardHostEvent(event, this._element, actionElement(this._element));
   }
 
   /**

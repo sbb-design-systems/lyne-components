@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import { focusInputElement } from '../../global/helpers/input-element';
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.
@@ -77,13 +78,9 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   private _rangeInput!: HTMLInputElement;
 
   public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
+    // Forward focus call to input element
+    this._element.focus = focusInputElement;
     this._handleChange();
-  }
-
-  private _inputElement(): HTMLElement {
-    return this._element.shadowRoot.querySelector('input');
   }
 
   @Watch('value')

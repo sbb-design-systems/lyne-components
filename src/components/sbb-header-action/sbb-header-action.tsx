@@ -2,7 +2,9 @@ import { Component, h, JSX, Prop, Element, Listen, ComponentInterface, State } f
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
+  actionElement,
   ButtonType,
+  focusActionElement,
   forwardHostEvent,
   LinkButtonProperties,
   LinkTargetType,
@@ -81,16 +83,12 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
 
   public connectedCallback(): void {
     // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._actionElement().focus(options);
-  }
-
-  private _actionElement(): HTMLElement {
-    return this._element.shadowRoot.firstElementChild as HTMLElement;
+    this._element.focus = focusActionElement;
   }
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, this._actionElement());
+    forwardHostEvent(event, this._element, actionElement(this._element));
   }
 
   public render(): JSX.Element {

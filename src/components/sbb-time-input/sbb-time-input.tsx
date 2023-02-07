@@ -14,6 +14,7 @@ import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
+import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
 const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})[.:,\-;_hH]?([0-9]{1,2})?/;
@@ -57,10 +58,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'HH:MM';
 
-  private _inputElement(): HTMLInputElement {
-    return this._element.shadowRoot.querySelector('input');
-  }
-
   /** Applies the correct format to values and triggers event dispatch. */
   private _updateValueAndEmitChange(event): void {
     this._updateValue(event.target.value);
@@ -74,7 +71,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   private _updateValue(value: string): void {
     this.value = this._formatValue(value);
     this.valueAsDate = this._formatValueAsDate(value);
-    this._inputElement().value = this.value;
+    inputElement(this._element).value = this.value;
   }
 
   /** Emits the change event. */
@@ -144,8 +141,8 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   }
 
   public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
+    // Forward focus call to input element
+    this._element.focus = focusInputElement;
   }
 
   @Watch('value')
@@ -162,7 +159,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       newValue = new Date(newValue);
     }
     this.value = this._formatValue(`${newValue.getHours()}:${newValue.getMinutes()}`);
-    this._inputElement().value = this.value;
+    inputElement(this._element).value = this.value;
   }
 
   public render(): JSX.Element {
