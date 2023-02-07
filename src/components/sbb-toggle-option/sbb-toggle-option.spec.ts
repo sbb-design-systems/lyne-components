@@ -9,7 +9,7 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-toggle-option aria-checked="true" checked="" role="radio" value="Option 1">
+      <sbb-toggle-option aria-checked="true" checked="" role="radio" tabindex="0" value="Option 1">
         <mock:shadow-root>
           <input aria-hidden="true" checked id="sbb-toggle-option-id" tabindex="-1" type="radio" value="Option 1">
           <label class="sbb-toggle-option" htmlfor="sbb-toggle-option-id">
@@ -29,7 +29,7 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-toggle-option aria-checked="true" checked="" icon-name="arrow-right-small" role="radio">
+      <sbb-toggle-option aria-checked="true" checked="" icon-name="arrow-right-small" role="radio" tabindex="0">
         <mock:shadow-root>
           <input aria-hidden="true" checked id="sbb-toggle-option-id" tabindex="-1" type="radio">
           <label class="sbb-toggle-option sbb-toggle-option--icon-only" htmlfor="sbb-toggle-option-id">

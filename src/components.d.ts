@@ -42,6 +42,7 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
+import { StateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
@@ -81,6 +82,7 @@ export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
+export { StateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {
@@ -1570,7 +1572,6 @@ export namespace Components {
           * Name of the icon for `<sbb-icon>`.
          */
         "iconName"?: string;
-        "select": () => Promise<void>;
         /**
           * Value of toggle-option.
          */
@@ -3810,6 +3811,10 @@ declare namespace LocalJSX {
           * Emits whenever the toggle-option value changes.
          */
         "onDid-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
+        /**
+          * Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes.
+         */
+        "onState-change"?: (event: SbbToggleOptionCustomEvent<StateChange>) => void;
         /**
           * Value of toggle-option.
          */

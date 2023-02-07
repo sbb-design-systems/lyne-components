@@ -15,6 +15,7 @@ import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { StateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
@@ -59,20 +60,24 @@ export class SbbToggle implements ComponentInterface {
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
-    for (const toggleOption of this._options) {
-      toggleOption.checked = toggleOption.value === value;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
+    const selectedOption = this._options.find((o) => o.value === value) ?? this._options[0];
+    if (!selectedOption) {
+      console.warn(`sbb-toggle: No available options! (${this._element.id || 'No id'})`);
+      return;
     }
+    if (!selectedOption.checked) {
+      selectedOption.checked = true;
+    }
+    this._options
+      .filter((o) => o !== selectedOption && o.checked)
+      .forEach((o) => (o.checked = false));
     this._setCheckedPillPosition(false);
-    this.change.emit({ value });
-    this.didChange.emit({ value });
   }
 
   @Watch('disabled')
   public updateDisabled(): void {
     for (const toggleOption of this._options) {
       toggleOption.disabled = this.disabled;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
   }
 
@@ -101,29 +106,50 @@ export class SbbToggle implements ComponentInterface {
     ) as HTMLSbbToggleOptionElement[];
   }
 
-  private get _checked(): HTMLSbbToggleOptionElement {
-    return this._options.find((toggle) => toggle.checked) ?? this._options[0];
+  @Listen('did-select', { passive: true })
+  public onToggleOptionSelect(): void {
+    this._emitChange();
   }
 
-  @Listen('did-select', { passive: true })
-  public onToggleOptionSelect(event: CustomEvent): void {
-    this.value = event.detail;
+  @Listen('state-change', { passive: true })
+  public handleStateChange(event: CustomEvent<StateChange>): void {
+    const target: HTMLSbbToggleOptionElement = event.target as HTMLSbbToggleOptionElement;
+    event.stopPropagation();
+    if (event.detail.type === 'value') {
+      this.value = event.detail.value;
+      // We emit in this case, as when the value of an option changes
+      // also the value of the toggle itself changes.
+      // This is an exception, as we don't normally emit on programmatic changes.
+      this._emitChange();
+      return;
+    } else if (event.detail.type !== 'checked') {
+      return;
+    }
+
+    if (event.detail.checked) {
+      this.value = target.value;
+    } else if (this._options.every((o) => !o.checked)) {
+      // If no option is currently checked, we select the first option, as per requirement
+      // there must always be a checked option. We also need to emit in order for listeners
+      // to register the change.
+      this.value = this._options[0].value;
+      this._emitChange();
+    }
   }
 
   private _setCheckedPillPosition(resizing: boolean): void {
-    const options = this._options;
-    const checked = this._checked;
-
-    if (!checked) {
+    if (this._options.every((o) => !o.checked) || !this._toggleElement) {
       return;
     }
 
     toggleDatasetEntry(this._element, 'disableAnimationOnResizing', resizing);
 
-    const checkedIndex = options.findIndex((option) => option === checked);
-    const pillLeft = checkedIndex === 0 ? '0px' : `${options[0].clientWidth}px`;
-    const pillRigth =
-      checkedIndex === 0 ? `${this._toggleElement.clientWidth - options[0].clientWidth}px` : '0px';
+    const firstOption = this._options[0];
+    const isFirstChecked = firstOption.checked;
+    const pillLeft = firstOption.checked ? '0px' : `${firstOption.clientWidth}px`;
+    const pillRigth = isFirstChecked
+      ? `${this._toggleElement.clientWidth - firstOption.clientWidth}px`
+      : '0px';
 
     this._element.style.setProperty('--sbb-toggle-option-left', pillLeft);
     this._element.style.setProperty('--sbb-toggle-option-right', pillRigth);
@@ -131,6 +157,7 @@ export class SbbToggle implements ComponentInterface {
 
   public connectedCallback(): void {
     this._toggleResizeObserver.observe(this._element.querySelector('sbb-toggle-option'));
+    this._updateToggle();
   }
 
   public disconnectedCallback(): void {
@@ -138,18 +165,13 @@ export class SbbToggle implements ComponentInterface {
   }
 
   private _updateToggle(): void {
-    const options = this._options;
-    const value = this.value ?? this._checked?.value;
-
-    for (const toggleOption of options) {
-      toggleOption.checked = toggleOption.value === value;
-      toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
-    }
+    this.valueChanged(this.value);
+    this.updateDisabled();
   }
 
-  private _getOptionTabIndex(option: HTMLSbbToggleOptionElement): number {
-    return option.checked && !this.disabled ? 0 : -1;
+  private _emitChange(): void {
+    this.change.emit();
+    this.didChange.emit();
   }
 
   @Listen('keydown')
@@ -171,8 +193,10 @@ export class SbbToggle implements ComponentInterface {
       );
       const current: number = checked !== -1 ? checked : 0;
       const nextIndex: number = getNextElementIndex(evt, current, enabledToggleOptions.length);
-      enabledToggleOptions[nextIndex].select();
-      enabledToggleOptions[nextIndex].focus();
+      if (!enabledToggleOptions[nextIndex].checked) {
+        enabledToggleOptions[nextIndex].checked = true;
+        enabledToggleOptions[nextIndex].focus();
+      }
       evt.preventDefault();
     }
   }
