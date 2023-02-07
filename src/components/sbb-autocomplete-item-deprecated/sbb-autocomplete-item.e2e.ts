@@ -1,13 +1,13 @@
-// import { newE2EPage } from '@stencil/core/testing';
+import { newE2EPage } from '@stencil/core/testing';
 
-// describe('sbb-autocomplete-item', () => {
-//   let element, page;
+describe('sbb-autocomplete-item-deprecated', () => {
+  let element, page;
 
-//   it('renders', async () => {
-//     page = await newE2EPage();
-//     await page.setContent('<sbb-autocomplete-item></sbb-autocomplete-item>');
+  it('renders', async () => {
+    page = await newE2EPage();
+    await page.setContent('<sbb-autocomplete-item-deprecated></sbb-autocomplete-item-deprecated>');
 
-//     element = await page.find('sbb-autocomplete-item');
-//     expect(element).toHaveClass('hydrated');
-//   });
-// });
+    element = await page.find('sbb-autocomplete-item-deprecated');
+    expect(element).toHaveClass('hydrated');
+  });
+});
