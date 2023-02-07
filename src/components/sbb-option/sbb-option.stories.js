@@ -14,9 +14,8 @@ const value = {
 };
 
 const preserveIconSpace = {
-  control: {
-    type: 'boolean',
-  },
+  control: 'inline-radio',
+  options: ['true', 'false'],
 };
 
 const defaultArgTypes = {
@@ -28,7 +27,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   value: 'First value',
   'icon-name': 'clock-small',
-  'preserve-icon-space': true,
+  'preserve-icon-space': 'true',
 };
 
 const Template = ({ value, ...args }) => (

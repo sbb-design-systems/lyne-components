@@ -8,7 +8,7 @@
 | Property            | Attribute             | Description                                                                                                                               | Type      | Default     |
 | ------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `iconName`          | `icon-name`           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `undefined` |
-| `preserveIconSpace` | `preserve-icon-space` |                                                                                                                                           | `boolean` | `true`      |
+| `preserveIconSpace` | `preserve-icon-space` | Wheter the icon space is preserved when no icon is set                                                                                    | `boolean` | `true`      |
 | `selected`          | `selected`            |                                                                                                                                           | `boolean` | `undefined` |
 
 
