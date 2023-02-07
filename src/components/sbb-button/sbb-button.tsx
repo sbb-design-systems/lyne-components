@@ -9,7 +9,7 @@ import {
   LinkButtonRenderVariables,
   LinkTargetType,
   PopupType,
-  resolveRenderVariables
+  resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import {
