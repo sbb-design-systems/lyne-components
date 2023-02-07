@@ -60,13 +60,17 @@ export class SbbToggle implements ComponentInterface {
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {
-    for (const option of this._options) {
-      const optionChecked = option.value === value;
-      if (option.checked !== optionChecked) {
-        option.checked = optionChecked;
-      }
-      option.tabIndex = this._getOptionTabIndex(option);
+    const selectedOption = this._options.find((o) => o.value === value) ?? this._options[0];
+    if (!selectedOption) {
+      console.warn(`sbb-toggle: No available options! (${this._element.id || 'No id'})`);
+      return;
     }
+    if (!selectedOption.checked) {
+      selectedOption.checked = true;
+    }
+    this._options
+      .filter((o) => o !== selectedOption && o.checked)
+      .forEach((o) => (o.checked = false));
     this._setCheckedPillPosition(false);
   }
 
@@ -74,7 +78,6 @@ export class SbbToggle implements ComponentInterface {
   public updateDisabled(): void {
     for (const toggleOption of this._options) {
       toggleOption.disabled = this.disabled;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
     }
   }
 
@@ -103,26 +106,14 @@ export class SbbToggle implements ComponentInterface {
     ) as HTMLSbbToggleOptionElement[];
   }
 
-  private get _checked(): HTMLSbbToggleOptionElement {
-    return this._options.find((toggle) => toggle.checked) ?? this._options[0];
-  }
-
   @Listen('did-select', { passive: true })
-  public onToggleOptionSelect(event: CustomEvent): void {
-    const target = event.target as HTMLSbbToggleOptionElement;
-    if (target.tagName !== 'SBB-TOGGLE-OPTION') {
-      return;
-    }
+  public onToggleOptionSelect(): void {
     this._emitChange();
   }
 
   @Listen('state-change', { passive: true })
   public handleStateChange(event: CustomEvent<StateChange>): void {
-    const target = event.target as HTMLSbbToggleOptionElement;
-    if (target.tagName !== 'SBB-TOGGLE-OPTION') {
-      return;
-    }
-
+    const target: HTMLSbbToggleOptionElement = event.target as HTMLSbbToggleOptionElement;
     event.stopPropagation();
     if (event.detail.type === 'value') {
       this.value = event.detail.value;
@@ -147,19 +138,18 @@ export class SbbToggle implements ComponentInterface {
   }
 
   private _setCheckedPillPosition(resizing: boolean): void {
-    const options = this._options;
-    const checked = this._checked;
-
-    if (!checked) {
+    if (this._options.every((o) => !o.checked) || !this._toggleElement) {
       return;
     }
 
     toggleDatasetEntry(this._element, 'disableAnimationOnResizing', resizing);
 
-    const checkedIndex = options.findIndex((option) => option === checked);
-    const pillLeft = checkedIndex === 0 ? '0px' : `${options[0].clientWidth}px`;
-    const pillRigth =
-      checkedIndex === 0 ? `${this._toggleElement.clientWidth - options[0].clientWidth}px` : '0px';
+    const firstOption = this._options[0];
+    const isFirstChecked = firstOption.checked;
+    const pillLeft = firstOption.checked ? '0px' : `${firstOption.clientWidth}px`;
+    const pillRigth = isFirstChecked
+      ? `${this._toggleElement.clientWidth - firstOption.clientWidth}px`
+      : '0px';
 
     this._element.style.setProperty('--sbb-toggle-option-left', pillLeft);
     this._element.style.setProperty('--sbb-toggle-option-right', pillRigth);
@@ -167,6 +157,7 @@ export class SbbToggle implements ComponentInterface {
 
   public connectedCallback(): void {
     this._toggleResizeObserver.observe(this._element.querySelector('sbb-toggle-option'));
+    this._updateToggle();
   }
 
   public disconnectedCallback(): void {
@@ -174,18 +165,8 @@ export class SbbToggle implements ComponentInterface {
   }
 
   private _updateToggle(): void {
-    const options = this._options;
-    const value = this.value ?? this._checked?.value;
-
-    for (const toggleOption of options) {
-      toggleOption.checked = toggleOption.value === value;
-      toggleOption.disabled = toggleOption.disabled ? toggleOption.disabled : this.disabled;
-      toggleOption.tabIndex = this._getOptionTabIndex(toggleOption);
-    }
-  }
-
-  private _getOptionTabIndex(option: HTMLSbbToggleOptionElement): number {
-    return option.checked && !this.disabled ? 0 : -1;
+    this.valueChanged(this.value);
+    this.updateDisabled();
   }
 
   private _emitChange(): void {

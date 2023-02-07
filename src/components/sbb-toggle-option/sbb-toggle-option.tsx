@@ -39,7 +39,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   /**
    * Whether the toggle option is disabled.
    */
-  @Prop({ reflect: true }) public disabled = false;
+  @Prop({ mutable: true, reflect: true }) public disabled = false;
 
   /**
    * Name of the icon for `<sbb-icon>`.
@@ -94,6 +94,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
+      this._verifyTabindex();
     }
   }
 
@@ -108,13 +109,14 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   public handleDisabledChange(currentValue: boolean): void {
     // Enforce disabled state from parent.
     if (!this._toggle) {
-      // Ignore illegal state. Our expecation is that a sbb-toggle-option
+      // Ignore illegal state. Our expectation  is that a sbb-toggle-option
       // always has a parent sbb-toggle.
     } else if (this._toggle.disabled && !currentValue) {
       this.disabled = true;
     } else if (!this._toggle.disabled && currentValue) {
       this.disabled = false;
     }
+    this._verifyTabindex();
   }
 
   @Listen('click')
@@ -136,6 +138,11 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this._element.closest('sbb-toggle');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._verifyTabindex();
+  }
+
+  private _verifyTabindex(): void {
+    this._element.tabIndex = this.checked && !this.disabled ? 0 : -1;
   }
 
   public render(): JSX.Element {

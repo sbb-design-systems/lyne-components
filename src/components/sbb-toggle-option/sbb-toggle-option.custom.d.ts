@@ -1,11 +1,11 @@
 export type StateChange = StateChangeChecked | StateChangeValue;
 
-interface StateChangeValue {
+export interface StateChangeValue {
   type: 'value';
   value: string;
 }
 
-interface StateChangeChecked {
+export interface StateChangeChecked {
   type: 'checked';
   checked: boolean;
 }
