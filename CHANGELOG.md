@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.6](https://github.com/lyne-design-system/lyne-components/compare/v0.25.5...v0.25.6) (2023-02-07)
+
+### Bug Fixes
+
+- fix focus forwarding in Safari ([#1601](https://github.com/lyne-design-system/lyne-components/issues/1601)) ([5679d0a](https://github.com/lyne-design-system/lyne-components/commit/5679d0a58461f739b38108ec5e7805fa79e63a63))
+
 ### [0.25.5](https://github.com/lyne-design-system/lyne-components/compare/v0.25.4...v0.25.5) (2023-02-07)
 
 ### Bug Fixes
