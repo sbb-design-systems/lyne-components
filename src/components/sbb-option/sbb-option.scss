@@ -1,0 +1,25 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+.sbb-option {
+  display: flex;
+  align-items: center;
+  padding-block: var(--sbb-spacing-fixed-1x);
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+}
+
+.sbb-option__icon {
+  display: flex;
+  margin-right: var(--sbb-spacing-responsive-xxxs);
+}
+
+// TODO Define how to parametrize the space preservation (prop, attribute or class)
+:host(.preserve-icon-space) {
+  .sbb-option__icon {
+    min-width: var(--sbb-size-icon-ui-small);
+    min-height: var(--sbb-size-icon-ui-small);
+  }
+}
