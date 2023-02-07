@@ -7,22 +7,23 @@
 :host {
   @include sbb.panel-variables;
 
-  --teaser-hero-brightness-hover: 1.075;
+  --sbb-teaser-hero-brightness-hover: 1.075;
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-panel-background-color: var(--sbb-panel-background-color-hover);
+    --sbb-teaser-hero-brightness: var(--sbb-teaser-hero-brightness-hover);
+  }
 }
 
 .sbb-teaser-hero {
   position: relative;
   display: block;
+  min-height: var(--sbb-panel-height);
 
   &:focus-visible {
     @include sbb.focus-outline;
-  }
-
-  @include sbb.hover-mq($hover: true) {
-    &:hover {
-      --panel-background-color: var(--panel-background-color-hover);
-      --teaser-hero-brightness: var(--teaser-hero-brightness-hover);
-    }
   }
 }
 
@@ -48,6 +49,6 @@
 ::slotted([slot='image']),
 sbb-image {
   will-change: filter;
-  filter: brightness(var(--teaser-hero-brightness, 1));
-  transition: filter var(--panel-animation-duration) var(--panel-animation-easing);
+  filter: brightness(var(--sbb-teaser-hero-brightness, 1));
+  transition: filter var(--sbb-panel-animation-duration) var(--sbb-panel-animation-easing);
 }
