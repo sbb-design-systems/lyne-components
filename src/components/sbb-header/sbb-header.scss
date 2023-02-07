@@ -7,10 +7,11 @@
 :host {
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
-  --sbb-header-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-header-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-header-position: fixed;
   --sbb-header-translate-y: 0;
   --sbb-header-transition-property: box-shadow;
+  --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
@@ -48,7 +49,7 @@
   z-index: 10;
   transition-property: var(--sbb-header-transition-property);
   transition-duration: var(--sbb-header-animation-duration);
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-timing-function: var(--sbb-header-transition-timing);
   transform: translateY(var(--sbb-header-translate-y));
 
   @include sbb.if-forced-colors {
