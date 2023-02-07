@@ -21,10 +21,6 @@
   height: var(--sbb-header-height);
 }
 
-:host([data-shadow]) {
-  @include sbb.shadow-level-9-soft;
-}
-
 :host([hide-on-scroll]) {
   --sbb-header-position: absolute;
 }
@@ -51,6 +47,10 @@
   transition-duration: var(--sbb-header-transition-duration);
   transition-timing-function: var(--sbb-header-transition-timing);
   transform: translateY(var(--sbb-header-translate-y));
+
+  :host([data-shadow]) & {
+    @include sbb.shadow-level-9-soft;
+  }
 
   @include sbb.if-forced-colors {
     border-block-end: var(--sbb-border-width-1x) solid CanvasText;
