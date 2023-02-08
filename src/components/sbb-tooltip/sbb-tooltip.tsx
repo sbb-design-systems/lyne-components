@@ -19,6 +19,10 @@ import { i18nCloseTooltip } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
 
 type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -226,11 +230,7 @@ export class SbbTooltip implements ComponentInterface {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
-    if (this._triggerElement) {
-      this._triggerElement.removeAttribute('aria-haspopup');
-      this._triggerElement.removeAttribute('aria-controls');
-      this._triggerElement.removeAttribute('aria-expanded');
-    }
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
       return;
@@ -248,11 +248,11 @@ export class SbbTooltip implements ComponentInterface {
       return;
     }
 
-    this._triggerElement.setAttribute('aria-haspopup', 'dialog');
-    this._triggerElement.setAttribute('aria-controls', this._element.id || this._tooltipId);
-    this._triggerElement.setAttribute(
-      'aria-expanded',
-      `${this._state === 'opening' || this._state === 'opened'}`
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'dialog',
+      this._element.id || this._tooltipId,
+      this._state
     );
 
     // Check whether the trigger can be hovered. Some diveces might interpret the media query (hover: hover) differently,

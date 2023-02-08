@@ -21,6 +21,10 @@ import { i18nGoBack } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
 
 type SbbNavigationSectionState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -132,11 +136,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
-    if (this._triggerElement) {
-      this._triggerElement.removeAttribute('aria-haspopup');
-      this._triggerElement.removeAttribute('aria-controls');
-      this._triggerElement.removeAttribute('aria-expanded');
-    }
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
       return;
@@ -154,16 +154,12 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       return;
     }
 
-    this._triggerElement.setAttribute('aria-haspopup', 'menu');
-    this._triggerElement.setAttribute(
-      'aria-controls',
-      this._element.id || this._navigationSectionId
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'menu',
+      this._element.id || this._navigationSectionId,
+      this._state
     );
-    this._triggerElement.setAttribute(
-      'aria-expanded',
-      `${this._state === 'opening' || this._state === 'opened'}`
-    );
-
     this._navigationSectionController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,

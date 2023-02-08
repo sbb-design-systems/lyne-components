@@ -27,6 +27,9 @@
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
 
+  // We use this rule to make the inner container element to appear as if it were a
+  // direct child of the host's parent element. This is useful because the host
+  // should be ignored when using CSS grid or similar layout techniques.
   display: contents;
 
   @include sbb.mq($from: micro) {

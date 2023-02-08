@@ -18,6 +18,10 @@ import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
 
 type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -183,11 +187,7 @@ export class SbbMenu implements ComponentInterface {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
-    if (this._triggerElement) {
-      this._triggerElement.removeAttribute('aria-haspopup');
-      this._triggerElement.removeAttribute('aria-controls');
-      this._triggerElement.removeAttribute('aria-expanded');
-    }
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
 
     if (!trigger) {
       return;
@@ -205,13 +205,12 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
-    this._triggerElement.setAttribute('aria-haspopup', 'menu');
-    this._triggerElement.setAttribute('aria-controls', this._element.id || this._menuId);
-    this._triggerElement.setAttribute(
-      'aria-expanded',
-      `${this._state === 'opening' || this._state === 'opened'}`
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'menu',
+      this._element.id || this._menuId,
+      this._state
     );
-
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._menuController.signal,

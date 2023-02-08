@@ -23,6 +23,9 @@
   --sbb-menu-pointer-events: none;
   --sbb-menu-backdrop-color: transparent;
 
+  // We use this rule to make the inner container element to appear as if it were a
+  // direct child of the host's parent element. This is useful because the host
+  // should be ignored when using CSS grid or similar layout techniques.
   display: contents;
 
   @include sbb.mq($from: medium) {
