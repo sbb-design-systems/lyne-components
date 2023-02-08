@@ -33,4 +33,35 @@ describe('sbb-checkbox', () => {
       expect(changeSpy).toHaveReceivedEvent();
     });
   });
+
+  describe('indeterminate', () => {
+    it('should set indeterminate to false after checked', async () => {
+      page = await newE2EPage();
+      await page.setContent('<sbb-checkbox indeterminate>Label</sbb-checkbox>');
+      element = await page.find('sbb-checkbox');
+      await page.waitForChanges();
+      const input = await page.find('sbb-checkbox >>> input');
+
+      expect(await input.getProperty('checked')).toBe(false);
+      expect(await input.getProperty('indeterminate')).toBe(true);
+
+      await element.click();
+      await page.waitForChanges();
+
+      expect(await input.getProperty('checked')).toBe(true);
+      expect(await input.getProperty('indeterminate')).toBeFalsy();
+    });
+
+    it('should update indeterminate state of input', async () => {
+      await page.waitForChanges();
+
+      const input = await page.find('sbb-checkbox >>> input');
+      expect(await input.getProperty('indeterminate')).toBeFalsy();
+
+      element.setProperty('indeterminate', true);
+      await page.waitForChanges();
+
+      expect(await input.getProperty('indeterminate')).toBe(true);
+    });
+  });
 });
