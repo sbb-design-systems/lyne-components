@@ -1,11 +1,52 @@
-import { Component, h, JSX, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Host,
+  JSX,
+  Prop,
+  Watch,
+} from '@stencil/core';
+import {
+  AccessibilityProperties,
+  getAccessibilityAttributeList,
+} from '../../global/interfaces/accessibility-properties';
+
+const REGEX_PATTERN = /[0-9.,\\/-\s]{1,10}/;
+const REGEX = /(^0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.?(\d{1,4}$)/;
+const REGEX_EDIT =
+  /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/-\s](0?[1-9]?|1?[0-2]?)?[.,\\/-\s](\d{1,4}$)?/;
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-datepicker.scss',
   tag: 'sbb-datepicker',
 })
-export class SbbDatepicker {
+export class SbbDatepicker implements ComponentInterface, AccessibilityProperties {
+  /** Value for the inner HTMLInputElement. */
+  @Prop({ mutable: true }) public value?: string = null;
+
+  /** Date value with the given time for the inner HTMLInputElement. */
+  @Prop({ mutable: true }) public valueAsDate?: Date = null;
+
+  /** The <form> element to associate the inner HTMLInputElement with. */
+  @Prop() public form?: string;
+
+  /** Readonly state for the inner HTMLInputElement. */
+  @Prop() public readonly?: boolean = false;
+
+  /** Disabled state for the inner HTMLInputElement. */
+  @Prop({ reflect: true }) public disabled?: boolean = false;
+
+  /** Required state for the inner HTMLInputElement. */
+  @Prop() public required?: boolean = false;
+
+  /** This will be forwarded as aria-label to the relevant nested element. */
+  @Prop() public accessibilityLabel: string | undefined;
+
   /** If set to true, two months are displayed */
   @Prop() public wide = false;
 
@@ -18,67 +59,126 @@ export class SbbDatepicker {
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
-  public connectedCallback(): void {
-    this._datePickerController = new AbortController();
+  /**
+   * @deprecated only used for React. Will probably be removed once React 19 is available.
+   */
+  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+
+  @Event({ bubbles: true, cancelable: true }) public change: EventEmitter;
+
+  @Watch('value')
+  public watchValueChange(newValue: string): void {
+    if (newValue !== this.value) {
+      this._updateValue(newValue);
+    }
   }
 
-  private _registerTrigger(el: HTMLElement): void {
-    this._trigger = el;
-    this._trigger.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._datePickerController.signal }
+  @Watch('valueAsDate')
+  public watchValueAsDateChange(newValue: Date): void {
+    if (!newValue) {
+      return;
+    }
+    if (!(newValue instanceof Date)) {
+      newValue = new Date(newValue);
+    }
+    this.value = this._formatValue(
+      `${newValue.getDate()}.${newValue.getMonth() + 1}.${newValue.getFullYear()}`
     );
+    this._inputElement().value = this.value;
+    this._emitChange();
   }
 
-  public disconnectedCallback(): void {
-    this._datePickerController.abort();
+  /** Host element */
+  @Element() private _element!: HTMLElement;
+
+  /** Placeholder for the inner HTMLInputElement.*/
+  private _placeholder = 'DD.MM.YYYY';
+
+  private _inputElement(): HTMLInputElement {
+    return this._element.shadowRoot.querySelector('input');
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  private _resolveArgs() {
-    return {
-      min: this.min,
-      max: this.max,
-      wide: this.wide,
-      dateFilter: this.dateFilter,
-    };
+  private _formatValue(value: string): string {
+    const match = value.match(REGEX_EDIT);
+    if (match) {
+      const day = match[1].padStart(2, '0');
+      const month = match[2].padStart(2, '0');
+      const year = match[3];
+      return `${day}.${month}.${year}`;
+    }
+    return value;
   }
 
-  @State() private _trigger: HTMLElement;
-  private _calendarElement: HTMLSbbCalendarElement;
-  private _openedByKeyboard = false;
-  private _datePickerController: AbortController;
+  /**
+   * Returns the right format for the `valueAsDate` property:
+   * sets the start date at 01.01.1970, then adds the typed hours/minutes.
+   */
+  private _formatValueAsDate(value: string): Date {
+    const formattedValue = this._formatValue(value);
+    const match = formattedValue.match(REGEX);
+    if (match) {
+      const day = +match[1];
+      const month = +match[2] - 1;
+      const year = +match[3];
+      return new Date(year, month, day);
+    }
+    return undefined;
+  }
+
+  /** Applies the correct format to values and triggers event dispatch. */
+  private _formatAndUpdateValue(event): void {
+    const newValue = this._formatValue(event.target.value);
+    this._updateValue(newValue);
+  }
+
+  /**
+   * Updates `value` and `valueAsDate`. The direct update on the `_inputElement` is required
+   * to force the input change when the typed value is the same of the current one.
+   */
+  private _updateValue(value: string): void {
+    this.value = this._formatValue(value);
+    this.valueAsDate = this._formatValueAsDate(value);
+    this._inputElement().value = this.value;
+  }
+
+  /** Emits the change event. */
+  private _emitChange(): void {
+    this.change.emit();
+    this.didChange.emit();
+  }
+
+  private _preventCharInsert(event): void {
+    const match = event.target.value.match(REGEX_PATTERN);
+    if (match) {
+      event.target.value = match[0];
+    } else {
+      event.target.value = null;
+    }
+  }
 
   public render(): JSX.Element {
-    const args = this._resolveArgs();
+    const inputAttributes = {
+      form: this.form || null,
+      disabled: this.disabled || null,
+      readonly: this.readonly || null,
+      required: this.required || null,
+      value: this.value ? this._formatValue(this.value) : null,
+      placeholder: this._placeholder,
+      ...getAccessibilityAttributeList(this),
+    };
 
-    return [
-      <sbb-tooltip-trigger
-        ref={(el) => {
-          this._registerTrigger(el);
-        }}
-        iconName="calendar-small"
-      ></sbb-tooltip-trigger>,
-      <sbb-tooltip
-        onDid-close={() => {
-          this._openedByKeyboard = false;
-        }}
-        onDid-open={() => {
-          this._openedByKeyboard && this._calendarElement.focus();
-        }}
-        trigger={this._trigger}
-        data-hide-close-button
-      >
-        <sbb-calendar
-          {...args}
-          ref={(calendar: HTMLSbbCalendarElement) => (this._calendarElement = calendar)}
-        ></sbb-calendar>
-      </sbb-tooltip>,
-    ];
+    return (
+      <Host>
+        <input
+          type="text"
+          maxlength="10"
+          {...inputAttributes}
+          onInput={(event) => this._preventCharInsert(event)}
+          onChange={(event) => {
+            this._formatAndUpdateValue(event);
+          }}
+        />
+      </Host>
+    );
   }
 }

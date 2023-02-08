@@ -1,7 +1,21 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => [<sbb-datepicker {...args}></sbb-datepicker>];
+const Template = (args) => [
+  <sbb-form-field size="m" label="Label" optional={false} borderless={false} width="collapse">
+    <sbb-datepicker-previous-day />
+    <sbb-datepicker-next-day />
+    <sbb-datepicker-toggle />
+    <sbb-datepicker {...args} onChange={(event) => changeEventHandler(event)}></sbb-datepicker>
+  </sbb-form-field>,
+  <div id="container-value"></div>,
+];
+
+const changeEventHandler = (event) => {
+  const div = document.createElement('div');
+  div.innerText = `value is: ${event.target.value}; valueAsDate is: ${event.target.valueAsDate}.`;
+  document.getElementById('container-value').append(div);
+};
 
 export const Default = Template.bind({});
 

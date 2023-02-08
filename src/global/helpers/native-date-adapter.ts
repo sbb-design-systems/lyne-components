@@ -1,7 +1,5 @@
 import { documentLanguage } from './language';
 
-// FIXME for missing utils, see:
-//  https://github.com/sbb-design-systems/sbb-angular/blob/main/src/angular/core/datetime/native-date-adapter.ts
 export class NativeDateAdapter {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public static readonly DAYS_PER_WEEK = 7;
@@ -165,6 +163,14 @@ export class NativeDateAdapter {
     // Adapt last day of month for shorter months
     newDate.setMonth(targetMonth, Math.min(daysInMonth, date.getDate()));
     return newDate;
+  }
+
+  public addCalendarDays(date: Date, days: number): Date {
+    const targetDay = date.getDate() + days;
+    const dateWithCorrectDay = new Date(0);
+    dateWithCorrectDay.setFullYear(date.getFullYear(), date.getMonth(), targetDay);
+    dateWithCorrectDay.setHours(0, 0, 0, 0);
+    return dateWithCorrectDay;
   }
 
   /**

@@ -77,7 +77,7 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 ### Used by
 
- - [sbb-datepicker](../sbb-datepicker)
+ - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
 
 ### Depends on
 
@@ -87,7 +87,7 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 ```mermaid
 graph TD;
   sbb-tooltip-trigger --> sbb-icon
-  sbb-datepicker --> sbb-tooltip-trigger
+  sbb-datepicker-toggle --> sbb-tooltip-trigger
   style sbb-tooltip-trigger fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
