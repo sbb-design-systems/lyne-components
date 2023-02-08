@@ -35,6 +35,16 @@
 
     border-radius: var(--sbb-teaser-border-radius);
   }
+
+  @include sbb.if-forced-colors {
+    outline-offset: var(--sbb-focus-outline-offset);
+    outline: CanvasText solid var(--sbb-focus-outline-width);
+    border-radius: var(--sbb-teaser-border-radius);
+
+    &:hover {
+      outline-color: Highlight;
+    }
+  }
 }
 
 .sbb-teaser__container {
