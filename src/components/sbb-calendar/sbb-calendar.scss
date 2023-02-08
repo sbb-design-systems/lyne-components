@@ -46,8 +46,7 @@
 }
 
 .sbb-calendar__table {
-  @include sbb.stretch(width);
-
+  width: 100%;
   border-collapse: collapse;
   height: max-content;
 }
@@ -70,9 +69,9 @@ td {
 td > button {
   @include sbb.text-s--regular;
   @include sbb.button-reset;
-  @include sbb.stretch(width);
-  @include sbb.stretch(height);
 
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   color: var(--sbb-color-charcoal-default);
   position: relative;
