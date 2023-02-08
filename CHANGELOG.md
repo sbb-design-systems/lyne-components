@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.9](https://github.com/lyne-design-system/lyne-components/compare/v0.25.8...v0.25.9) (2023-02-08)
+
+### Documentation
+
+- expose input event in storybook ([#1603](https://github.com/lyne-design-system/lyne-components/issues/1603)) ([63aafb0](https://github.com/lyne-design-system/lyne-components/commit/63aafb0a2cbe8109a6194c3645f0560c065129f3))
+
 ### [0.25.8](https://github.com/lyne-design-system/lyne-components/compare/v0.25.7...v0.25.8) (2023-02-08)
 
 ### Refactorings
