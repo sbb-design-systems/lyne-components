@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.10](https://github.com/lyne-design-system/lyne-components/compare/v0.25.9...v0.25.10) (2023-02-08)
+
+### Refactorings
+
+- **sbb-button:** use data attribute instead of classes ([#1600](https://github.com/lyne-design-system/lyne-components/issues/1600)) ([f78a838](https://github.com/lyne-design-system/lyne-components/commit/f78a838b16f767d4ddf432aa6b7b0751cf96047b))
+
 ### [0.25.9](https://github.com/lyne-design-system/lyne-components/compare/v0.25.8...v0.25.9) (2023-02-08)
 
 ### Documentation
