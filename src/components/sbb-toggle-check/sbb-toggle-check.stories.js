@@ -168,7 +168,7 @@ export default {
       disable: true,
     },
     actions: {
-      handles: ['change'],
+      handles: ['change', 'input'],
     },
     docs: {
       extractComponentDescription: () => readme,

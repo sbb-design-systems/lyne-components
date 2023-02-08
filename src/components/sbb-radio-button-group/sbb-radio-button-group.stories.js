@@ -178,7 +178,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change'],
+      handles: ['change', 'input'],
     },
     backgrounds: {
       disable: true,

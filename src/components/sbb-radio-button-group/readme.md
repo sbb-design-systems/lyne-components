@@ -69,6 +69,7 @@ In order to ensure readability for screen-readers, please provide an `aria-label
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `change`    | Emits whenever the radio group value changes.                                                                                                                                    | `CustomEvent<any>` |
 | `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/>Emits whenever the radio group value changes. | `CustomEvent<any>` |
+| `input`     | Emits whenever the radio group value changes.                                                                                                                                    | `CustomEvent<any>` |
 
 
 ## Slots
