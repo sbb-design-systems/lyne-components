@@ -22,6 +22,7 @@ import {
   setAriaOverlayTriggerAttributes,
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
+import { ScrollHandler } from '../../global/helpers/scroll';
 
 type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -102,6 +103,7 @@ export class SbbMenu implements ComponentInterface {
   private _menuController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
+  private _scrollHandler = new ScrollHandler();
   private _openedByKeyboard = false;
   private _menuId = `sbb-menu-${++nextId}`;
 
@@ -121,6 +123,11 @@ export class SbbMenu implements ComponentInterface {
     this._setMenuPosition();
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    // Starting from breakpoint medium, disable scroll
+    if (!isBreakpoint('medium')) {
+      this._scrollHandler.disableScroll();
+    }
   }
 
   /**
@@ -226,10 +233,10 @@ export class SbbMenu implements ComponentInterface {
     );
 
     // Close menu on backdrop click
-    this._element.addEventListener('pointerdown', this._pointerDownListener, {
+    this._element.addEventListener('mousedown', this._pointerDownListener, {
       signal: this._menuController.signal,
     });
-    this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
+    this._element.addEventListener('mouseup', this._closeOnBackdropClick, {
       signal: this._menuController.signal,
     });
   }
@@ -285,6 +292,11 @@ export class SbbMenu implements ComponentInterface {
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
+      
+      // Starting from breakpoint medium, enable scroll
+      if (!isBreakpoint('medium')) {
+        this._scrollHandler.enableScroll();
+      }
     }
   }
 
