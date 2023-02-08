@@ -13,6 +13,12 @@ const value = {
   },
 };
 
+const selected = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const preserveIconSpace = {
   control: 'inline-radio',
   options: ['true', 'false'],
@@ -21,17 +27,19 @@ const preserveIconSpace = {
 const defaultArgTypes = {
   value,
   'icon-name': iconName,
+  selected,
   'preserve-icon-space': preserveIconSpace,
 };
 
 const defaultArgs = {
   value: 'First value',
   'icon-name': 'clock-small',
+  selected: false,
   'preserve-icon-space': 'true',
 };
 
 const Template = ({ value, ...args }) => (
-  <div style="border: 1px solid">
+  <div style="border: 1px solid cyan">
     <sbb-option {...args}>{value}</sbb-option>
   </div>
 );
@@ -39,6 +47,10 @@ const Template = ({ value, ...args }) => (
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
+
+export const NoIcon = Template.bind({});
+NoIcon.argTypes = defaultArgTypes;
+NoIcon.args = { ...defaultArgs, 'icon-name': '' };
 
 export default {
   decorators: [

@@ -1,7 +1,23 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Use this to provide the option label.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, an sbb-icon will be used.
  */
 @Component({
   shadow: true,
@@ -23,23 +39,30 @@ export class SbbOption implements ComponentInterface {
    */
   @Prop({ reflect: true }) public preserveIconSpace = true;
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon');
+
   @Element() private _element: HTMLElement;
 
-  private _hasIconSlot: boolean;
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  }
 
-  public componentWillLoad(): void {
-    this._hasIconSlot = !!this._element.querySelector('[slot="icon"]');
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   public render(): JSX.Element {
     return (
-      <Host>
-        <div class="sbb-option" role="option" aria-selected={this.selected}>
+      <Host role="option" aria-selected={this.selected}>
+        <div class="sbb-option">
           <span
             class={{
               'sbb-option__icon': true,
+              //TODO check if needed to change to data-*
               'sbb-option__icon--hidden':
-                !this.preserveIconSpace && !this._hasIconSlot && !this.iconName,
+                !this.preserveIconSpace && !this._namedSlots.icon && !this.iconName,
             }}
           >
             <slot name="icon">
