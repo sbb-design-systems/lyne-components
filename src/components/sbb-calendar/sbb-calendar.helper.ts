@@ -6,10 +6,10 @@ export function handleKeyboardEvent(evt: KeyboardEvent, days: HTMLButtonElement[
   const index = days.findIndex((e) => e === evt.target);
   const findNext = (increment: number): HTMLButtonElement => {
     let newIndex = index + increment;
-    while (newIndex < days.length && days[newIndex].disabled) {
+    while (newIndex < days.length && days[newIndex]?.disabled) {
       newIndex += increment;
     }
-    return days[newIndex];
+    return days[newIndex] ?? days[index];
   };
 
   switch (evt.key) {

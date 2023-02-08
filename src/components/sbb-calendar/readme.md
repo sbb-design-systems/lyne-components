@@ -38,7 +38,7 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [sbb-datepicker](../sbb-datepicker)
+ - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
 
 ### Depends on
 
@@ -49,7 +49,7 @@ Type: `Promise<void>`
 graph TD;
   sbb-calendar --> sbb-button
   sbb-button --> sbb-icon
-  sbb-datepicker --> sbb-calendar
+  sbb-datepicker-toggle --> sbb-calendar
   style sbb-calendar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
