@@ -212,6 +212,12 @@ export namespace Components {
          */
         "role": InterfaceSbbAlertGroupAttributes['role'];
     }
+    interface SbbAutocomplete {
+        /**
+          * Documentation for someProp
+         */
+        "someProp"?: InterfaceSbbAutocompleteAttributes['someInterface'];
+    }
     interface SbbButton {
         /**
           * Whether the button is disabled.
@@ -1815,6 +1821,12 @@ declare global {
         prototype: HTMLSbbAlertGroupElement;
         new (): HTMLSbbAlertGroupElement;
     };
+    interface HTMLSbbAutocompleteElement extends Components.SbbAutocomplete, HTMLStencilElement {
+    }
+    var HTMLSbbAutocompleteElement: {
+        prototype: HTMLSbbAutocompleteElement;
+        new (): HTMLSbbAutocompleteElement;
+    };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
     var HTMLSbbButtonElement: {
@@ -2268,6 +2280,7 @@ declare global {
         "sbb-action-group": HTMLSbbActionGroupElement;
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
+        "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-calendar": HTMLSbbCalendarElement;
         "sbb-card": HTMLSbbCardElement;
@@ -2478,6 +2491,12 @@ declare namespace LocalJSX {
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
         "role"?: InterfaceSbbAlertGroupAttributes['role'];
+    }
+    interface SbbAutocomplete {
+      /**
+        * Documentation for someProp
+       */
+      "someProp"?: InterfaceSbbAutocompleteAttributes['someInterface'];
     }
     interface SbbButton {
         /**
@@ -4051,6 +4070,7 @@ declare namespace LocalJSX {
         "sbb-action-group": SbbActionGroup;
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
+        "sbb-autocomplete": SbbAutocomplete;
         "sbb-button": SbbButton;
         "sbb-calendar": SbbCalendar;
         "sbb-card": SbbCard;
@@ -4136,6 +4156,7 @@ declare module "@stencil/core" {
             "sbb-action-group": LocalJSX.SbbActionGroup & JSXBase.HTMLAttributes<HTMLSbbActionGroupElement>;
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
+            "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-calendar": LocalJSX.SbbCalendar & JSXBase.HTMLAttributes<HTMLSbbCalendarElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;

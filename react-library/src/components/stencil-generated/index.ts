@@ -13,6 +13,7 @@ export const SbbAccordionItem = /*@__PURE__*/createReactComponent<JSX.SbbAccordi
 export const SbbActionGroup = /*@__PURE__*/createReactComponent<JSX.SbbActionGroup, HTMLSbbActionGroupElement>('sbb-action-group');
 export const SbbAlert = /*@__PURE__*/createReactComponent<JSX.SbbAlert, HTMLSbbAlertElement>('sbb-alert');
 export const SbbAlertGroup = /*@__PURE__*/createReactComponent<JSX.SbbAlertGroup, HTMLSbbAlertGroupElement>('sbb-alert-group');
+export const SbbAutocomplete = /*@__PURE__*/createReactComponent<JSX.SbbAutocomplete, HTMLSbbAutocompleteElement>('sbb-autocomplete');
 export const SbbButton = /*@__PURE__*/createReactComponent<JSX.SbbButton, HTMLSbbButtonElement>('sbb-button');
 export const SbbCalendar = /*@__PURE__*/createReactComponent<JSX.SbbCalendar, HTMLSbbCalendarElement>('sbb-calendar');
 export const SbbCard = /*@__PURE__*/createReactComponent<JSX.SbbCard, HTMLSbbCardElement>('sbb-card');
