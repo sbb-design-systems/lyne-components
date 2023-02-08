@@ -156,7 +156,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
           <input
             ref={(checkbox: HTMLInputElement) => {
               this._checkbox = checkbox;
-              // Forward indeterminate state to native input. As it is only a property we have to set it this way.
+              // Forward indeterminate state to native input. As it is only a property, we have to set it programatically.
               this._checkbox.indeterminate = this.indeterminate;
             }}
             type="checkbox"
