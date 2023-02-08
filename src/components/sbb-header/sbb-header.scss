@@ -58,8 +58,8 @@
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 
-// Apply padding and outline to possible slotted link
-::slotted(a) {
+// Apply padding and outline to possible slotted link in logo slot
+::slotted(a[slot='logo']) {
   display: block;
   padding-block: var(--sbb-spacing-fixed-3x);
   position: relative;
@@ -67,14 +67,14 @@
 }
 
 // To show the correct outline, we need to span a hidden element filling the link but without the outline-offset.
-::slotted(a)::before {
+::slotted(a[slot='logo'])::before {
   content: '';
   display: block;
   position: absolute;
   inset: var(--sbb-spacing-fixed-3x) 0;
 }
 
-::slotted(a:focus-visible)::before {
+::slotted(a[slot='logo']:focus-visible)::before {
   @include sbb.focus-outline;
 
   outline-offset: var(--sbb-spacing-fixed-3x);
