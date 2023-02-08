@@ -48,7 +48,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 @include sbb.hover-mq($hover: true) {
-  :host(:hover:not(:active, [data-menu-open])) {
+  :host(:hover:not(:active, [aria-expanded='true'])) {
     --sbb-header-action-background-color: var(--sbb-color-milk-default);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-inset: calc(var(--sbb-border-width-2x) * -1);
