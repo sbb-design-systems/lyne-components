@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.7](https://github.com/lyne-design-system/lyne-components/compare/v0.25.6...v0.25.7) (2023-02-08)
+
+### Bug Fixes
+
+- **sbb-teaser:** add outline for windows high contrast mode ([#1599](https://github.com/lyne-design-system/lyne-components/issues/1599)) ([e11d303](https://github.com/lyne-design-system/lyne-components/commit/e11d303310308822da1cd224531f889f9068e609))
+
 ### [0.25.6](https://github.com/lyne-design-system/lyne-components/compare/v0.25.5...v0.25.6) (2023-02-07)
 
 ### Bug Fixes
