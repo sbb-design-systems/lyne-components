@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.8](https://github.com/lyne-design-system/lyne-components/compare/v0.25.7...v0.25.8) (2023-02-08)
+
+### Refactorings
+
+- improve overlay components styles and state handling ([#1574](https://github.com/lyne-design-system/lyne-components/issues/1574)) ([e48cc73](https://github.com/lyne-design-system/lyne-components/commit/e48cc738cee624a92450d7578d50a29f0e064c20))
+
 ### [0.25.7](https://github.com/lyne-design-system/lyne-components/compare/v0.25.6...v0.25.7) (2023-02-08)
 
 ### Bug Fixes
