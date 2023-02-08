@@ -52,7 +52,9 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     --sbb-header-action-background-color: var(--sbb-color-milk-default);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-inset: calc(var(--sbb-border-width-2x) * -1);
+  }
 
+  .sbb-header-action::before {
     @include sbb.if-forced-colors {
       --sbb-header-action-border-color: Highlight;
     }
