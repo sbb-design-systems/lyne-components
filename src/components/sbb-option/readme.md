@@ -14,9 +14,10 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                                                        |
+| ----------- | ---------------------------------------------------------------------------------- |
+| `"icon"`    | Use this slot to provide an icon. If `icon-name` is set, an sbb-icon will be used. |
+| `"unnamed"` | Use this to provide the option label.                                              |
 
 
 ## Dependencies
