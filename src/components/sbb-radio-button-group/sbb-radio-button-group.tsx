@@ -84,6 +84,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     }
     this._setFocusableRadio();
     this.change.emit({ value });
+    this.input.emit({ value });
     this.didChange.emit({ value });
   }
 
@@ -135,6 +136,15 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     composed: true,
   })
   public change: EventEmitter;
+
+  /**
+   * Emits whenever the radio group value changes.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+  })
+  public input: EventEmitter;
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);

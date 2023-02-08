@@ -37,9 +37,11 @@ describe('sbb-radio-button-group', () => {
       const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
       const checkedRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
       const changeSpy = await page.spyOnEvent('change');
+      const inputSpy = await page.spyOnEvent('input');
 
       await checkedRadio.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstRadio.click();
       expect(firstRadio).toHaveAttribute('checked');

@@ -3370,6 +3370,10 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
         /**
+          * Emits whenever the radio group value changes.
+         */
+        "onInput"?: (event: SbbRadioButtonGroupCustomEvent<any>) => void;
+        /**
           * Radio group's orientation, either horizontal or vertical.
          */
         "orientation"?: InterfaceSbbRadioButtonGroupAttributes['orientation'];

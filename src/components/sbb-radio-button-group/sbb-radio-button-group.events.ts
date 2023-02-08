@@ -5,4 +5,5 @@
 export default {
   change: 'change',
   didChange: 'didChange',
+  input: 'input',
 };
