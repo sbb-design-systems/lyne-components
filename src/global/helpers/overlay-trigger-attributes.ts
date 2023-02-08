@@ -1,11 +1,11 @@
 /**
  * Add meaningful aria attributes to trigger elements that are connected to
- * popup elements such as menus and dialogs.
+ * overlay elements such as menus and dialogs.
  */
 export function setAriaOverlayTriggerAttributes(
   trigger: HTMLElement,
   popupType: 'menu' | 'dialog',
-  popupId: string,
+  overlayId: string,
   state: string
 ): void {
   if (!trigger) {
@@ -13,7 +13,7 @@ export function setAriaOverlayTriggerAttributes(
   }
 
   trigger.setAttribute('aria-haspopup', popupType);
-  trigger.setAttribute('aria-controls', popupId);
+  trigger.setAttribute('aria-controls', overlayId);
   trigger.setAttribute('aria-expanded', `${state === 'opening' || state === 'opened'}`);
 }
 
