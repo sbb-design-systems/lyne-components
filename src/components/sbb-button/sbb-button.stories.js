@@ -243,18 +243,12 @@ primary.args = {
   ...defaultArgs,
   variant: variant.options[0],
 };
-primary.documentation = {
-  title: 'Primary',
-};
 
 export const secondary = Template.bind({});
 secondary.argTypes = defaultArgTypes;
 secondary.args = {
   ...defaultArgs,
   variant: variant.options[1],
-};
-secondary.documentation = {
-  title: 'Secondary',
 };
 
 export const translucent = Template.bind({});
@@ -263,18 +257,12 @@ translucent.args = {
   ...defaultArgs,
   variant: variant.options[2],
 };
-translucent.documentation = {
-  title: 'Translucent',
-};
 
 export const transparent = Template.bind({});
 transparent.argTypes = defaultArgTypes;
 transparent.args = {
   ...defaultArgs,
   variant: variant.options[3],
-};
-transparent.documentation = {
-  title: 'Transparent',
 };
 
 export const primaryNegative = Template.bind({});
@@ -284,9 +272,6 @@ primaryNegative.args = {
   variant: variant.options[0],
   negative: true,
 };
-primaryNegative.documentation = {
-  title: 'Primary Negative',
-};
 
 export const secondaryNegative = Template.bind({});
 secondaryNegative.argTypes = defaultArgTypes;
@@ -294,9 +279,6 @@ secondaryNegative.args = {
   ...defaultArgs,
   variant: variant.options[1],
   negative: true,
-};
-secondaryNegative.documentation = {
-  title: 'Secondary Negative',
 };
 
 export const translucentNegative = Template.bind({});
@@ -306,9 +288,6 @@ translucentNegative.args = {
   variant: variant.options[2],
   negative: true,
 };
-translucentNegative.documentation = {
-  title: 'Translucent Negative',
-};
 
 export const transparentNegative = Template.bind({});
 transparentNegative.argTypes = defaultArgTypes;
@@ -316,9 +295,6 @@ transparentNegative.args = {
   ...defaultArgs,
   variant: variant.options[3],
   negative: true,
-};
-transparentNegative.documentation = {
-  title: 'Transparent Negative',
 };
 
 export const iconOnly = Template.bind({});
@@ -328,9 +304,6 @@ iconOnly.args = {
   'icon-name': 'arrow-right-small',
   text: undefined,
 };
-iconOnly.documentation = {
-  title: 'Icon only',
-};
 
 export const primaryDisabled = Template.bind({});
 primaryDisabled.argTypes = defaultArgTypes;
@@ -338,9 +311,6 @@ primaryDisabled.args = {
   ...defaultArgs,
   variant: variant.options[0],
   disabled: true,
-};
-primaryDisabled.documentation = {
-  title: 'Primary Disabled',
 };
 
 export const secondaryDisabled = Template.bind({});
@@ -350,9 +320,6 @@ secondaryDisabled.args = {
   variant: variant.options[1],
   disabled: true,
 };
-secondaryDisabled.documentation = {
-  title: 'Secondary Disabled',
-};
 
 export const translucentDisabled = Template.bind({});
 translucentDisabled.argTypes = defaultArgTypes;
@@ -361,9 +328,6 @@ translucentDisabled.args = {
   variant: variant.options[2],
   disabled: true,
 };
-translucentDisabled.documentation = {
-  title: 'Translucent Disabled',
-};
 
 export const transparentDisabled = Template.bind({});
 transparentDisabled.argTypes = defaultArgTypes;
@@ -371,9 +335,6 @@ transparentDisabled.args = {
   ...defaultArgs,
   variant: variant.options[3],
   disabled: true,
-};
-transparentDisabled.documentation = {
-  title: 'Transparent Disabled',
 };
 
 export const primaryNegativeDisabled = Template.bind({});
@@ -384,9 +345,6 @@ primaryNegativeDisabled.args = {
   negative: true,
   disabled: true,
 };
-primaryNegativeDisabled.documentation = {
-  title: 'Primary Negative Disabled',
-};
 
 export const secondaryNegativeDisabled = Template.bind({});
 secondaryNegativeDisabled.argTypes = defaultArgTypes;
@@ -395,9 +353,6 @@ secondaryNegativeDisabled.args = {
   variant: variant.options[1],
   negative: true,
   disabled: true,
-};
-secondaryNegativeDisabled.documentation = {
-  title: 'Secondary Negative Disabled',
 };
 
 export const translucentNegativeDisabled = Template.bind({});
@@ -408,9 +363,6 @@ translucentNegativeDisabled.args = {
   negative: true,
   disabled: true,
 };
-translucentNegativeDisabled.documentation = {
-  title: 'Translucent Negative Disabled',
-};
 
 export const transparentNegativeDisabled = Template.bind({});
 transparentNegativeDisabled.argTypes = defaultArgTypes;
@@ -419,9 +371,6 @@ transparentNegativeDisabled.args = {
   variant: variant.options[3],
   negative: true,
   disabled: true,
-};
-transparentNegativeDisabled.documentation = {
-  title: 'Transparent Negative Disabled',
 };
 
 export const iconOnlyDisabled = Template.bind({});
@@ -432,25 +381,16 @@ iconOnlyDisabled.args = {
   text: undefined,
   disabled: true,
 };
-iconOnlyDisabled.documentation = {
-  title: 'Icon only Disabled',
-};
 
 export const noIcon = Template.bind({});
 noIcon.argTypes = defaultArgTypes;
 noIcon.args = { ...defaultArgs, 'icon-name': undefined };
-noIcon.documentation = {
-  title: 'No Icon',
-};
 
 export const sizeM = Template.bind({});
 sizeM.argTypes = defaultArgTypes;
 sizeM.args = {
   ...defaultArgs,
   size: size.options[1],
-};
-sizeM.documentation = {
-  title: 'M size',
 };
 
 export const fixedWidth = FixedWidthTemplate.bind({});
@@ -460,18 +400,12 @@ fixedWidth.args = {
   text: 'Button with long text',
   'icon-name': 'arrow-right-small',
 };
-fixedWidth.documentation = {
-  title: 'Fixed width with overflow',
-};
 
 export const withSlottedIcon = IconSlotTemplate.bind({});
 withSlottedIcon.argTypes = defaultArgTypes;
 withSlottedIcon.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
-};
-withSlottedIcon.documentation = {
-  title: 'With slotted icon',
 };
 
 export const linkOpensInNewWindow = IconSlotTemplate.bind({});
@@ -482,9 +416,6 @@ linkOpensInNewWindow.args = {
   'icon-name': 'chevron-small-right-small',
   target: '_blank',
   'accessibility-label': undefined,
-};
-linkOpensInNewWindow.documentation = {
-  title: 'Link opened in new window',
 };
 
 export default {

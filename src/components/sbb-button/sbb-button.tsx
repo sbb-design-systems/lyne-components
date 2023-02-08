@@ -182,9 +182,9 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <Host {...hostAttributes}>
+      <Host {...hostAttributes} data-icon-only={!this._hasText}>
         <TAG_NAME
-          class={{ 'sbb-button': true, ['sbb-button--icon-only']: !this._hasText }}
+          class="sbb-button"
           {...attributes}
           ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
         >
@@ -194,7 +194,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
             </span>
           )}
 
-          <span class={{ 'sbb-button__label': true, 'sbb-button__label--hidden': !this._hasText }}>
+          <span class="sbb-button__label">
             <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
             {screenReaderNewWindowInfo && (
               <span class="sbb-button__opens-in-new-window">
