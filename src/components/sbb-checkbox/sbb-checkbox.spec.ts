@@ -107,8 +107,11 @@ describe('sbb-checkbox', () => {
     it('indeterminate', async () => {
       const { root } = await newSpecPage({
         components: [SbbCheckbox],
-        html: '<sbb-checkbox indeterminate="true">Label</sbb-checkbox>',
+        html: '<sbb-checkbox indeterminate>Label</sbb-checkbox>',
       });
+
+      const input = root.shadowRoot.querySelector('input');
+      expect(input.indeterminate).toBe(true);
 
       expect(root).toEqualHtml(`
         <sbb-checkbox indeterminate="" icon-placement="end" size="m">

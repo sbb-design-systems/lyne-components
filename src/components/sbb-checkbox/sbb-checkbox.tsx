@@ -50,7 +50,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   @Prop() public required = false;
 
   /** Whether the checkbox is indeterminate. */
-  @Prop({ reflect: true }) public indeterminate = false;
+  @Prop({ reflect: true, mutable: true }) public indeterminate = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants from the ui-icons category
@@ -154,7 +154,11 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
       <span class="sbb-checkbox-wrapper">
         <label class="sbb-checkbox">
           <input
-            ref={(checkbox: HTMLInputElement) => (this._checkbox = checkbox)}
+            ref={(checkbox: HTMLInputElement) => {
+              this._checkbox = checkbox;
+              // Forward indeterminate state to native input. As it is only a property, we have to set it programatically.
+              this._checkbox.indeterminate = this.indeterminate;
+            }}
             type="checkbox"
             disabled={this.disabled || this._disabledFromGroup}
             aria-disabled={this.disabled || this._disabledFromGroup}
