@@ -5,6 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-navigation-section-display: none;
   --sbb-navigation-section-column: 1 / 5;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
@@ -15,27 +16,13 @@
   --sbb-navigation-section-transform: translateX(100%);
   --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-navigation-section-width: 100%;
+  --sbb-navigation-section-width: 100vw;
+  --sbb-navigation-section-height: 100vh;
 
-  // We need to handle here the placement within the grid, since the host is exposed to the parent's grid (sbb-navigation)
-
-  display: none;
-  pointer-events: var(--sbb-navigation-section-pointer-events);
-  position: var(--sbb-navigation-section-position);
-  grid-column: var(--sbb-navigation-section-column);
-  inset-inline-start: 0;
-  inset-block-start: 0;
-  width: var(--sbb-navigation-section-width);
-  z-index: 10;
-
-  ::slotted(*) {
-    padding-inline-start: var(--sbb-navigation-section-content-padding-inline-start);
-  }
-
-  // Always place the sbb-button on a new row
-  ::slotted(sbb-button) {
-    grid-column-start: 1;
-  }
+  // We use this rule to make the inner container element to appear as if it were a
+  // direct child of the host's parent element. This is useful because the host
+  // should be ignored when using CSS grid or similar layout techniques.
+  display: contents;
 
   @include sbb.mq($from: large) {
     --sbb-navigation-section-column: 5 / 9;
@@ -64,26 +51,53 @@
   }
 }
 
-:host(.sbb-navigation-section--opened) {
+:host(:not(.hydrated)) {
+  display: none;
+}
+
+:host([data-state='opened']) {
   --sbb-navigation-section-pointer-events: all;
 }
 
-:host(.sbb-navigation-section--opening) {
+:host([data-state='opening']) {
   --sbb-navigation-section-position: absolute;
 }
 
-:host(.sbb-navigation-section--opening),
-:host(.sbb-navigation-section--closing) {
+:host(:is([data-state='opening'], [data-state='closing'])) {
   --sbb-navigation-section-pointer-events: none;
 }
 
-:host(:not(.sbb-navigation-section--closed)) {
-  display: block;
-  inset: 0;
+:host(:not([data-state='closed'])) {
+  --sbb-navigation-section-display: block;
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
   --sbb-navigation-section-animation-duration: 0s;
+}
+
+::slotted(*) {
+  padding-inline-start: var(--sbb-navigation-section-content-padding-inline-start);
+}
+
+// Always place the sbb-button on a new row
+::slotted(sbb-button) {
+  grid-column-start: 1;
+}
+
+.sbb-navigation-section__container {
+  display: var(--sbb-navigation-section-display);
+  pointer-events: var(--sbb-navigation-section-pointer-events);
+  position: var(--sbb-navigation-section-position);
+  grid-column: var(--sbb-navigation-section-column);
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: var(--sbb-navigation-section-width);
+  height: var(--sbb-navigation-section-height);
+  z-index: 10;
+
+  @include sbb.mq($from: large) {
+    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
+  }
 }
 
 .sbb-navigation-section {
@@ -108,7 +122,7 @@
     }
   }
 
-  :host(.sbb-navigation-section--closing) & {
+  :host([data-state='closing']) & {
     animation-name: close;
   }
 
@@ -125,8 +139,7 @@
   outline: none;
   overflow-y: auto;
 
-  :host(.sbb-navigation-section--opening) &,
-  :host(.sbb-navigation-section--closing) & {
+  :host(:is([data-state='opening'], [data-state='closing'])) & {
     --sbb-scrollbar-color: transparent;
 
     scrollbar-color: transparent transparent;
@@ -184,7 +197,7 @@
       property: opacity, transform;
     }
 
-    :host(.sbb-navigation-section--opened) & {
+    :host([data-state='opened']) & {
       opacity: 1;
       transform: translateY(0);
     }
@@ -195,7 +208,7 @@
     border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   }
 
-  :host(.sbb-navigation-section--closing) & {
+  :host([data-state='closing']) & {
     transition-delay: 0s;
   }
 }

@@ -22,12 +22,21 @@ import { ScrollHandler } from '../../global/helpers/scroll';
 import { i18nCloseNavigation } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
+
+type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
   subtree: true,
-  attributeFilter: ['class'],
+  attributeFilter: ['data-state'],
 };
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation.
@@ -63,7 +72,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   /**
    * The state of the navigation.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  @State() private _state: SbbNavigationState = 'closed';
 
   /**
    * Whether a navigation section is displayed.
@@ -122,6 +131,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   private _navigationObserver = new MutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList)
   );
+  private _navigationId = `sbb-navigation-${++nextId}`;
 
   @Element() private _element: HTMLElement;
 
@@ -146,6 +156,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     this._scrollHandler.disableScroll();
     this._navigation.show();
     this._setDialogFocus();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -160,6 +171,10 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     this.willClose.emit();
     this._state = 'closing';
     this._openedByKeyboard = false;
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
+
+    // Enable scrolling for content below the dialog
+    this._scrollHandler.enableScroll();
   }
 
   // Removes trigger click listener on trigger change.
@@ -177,6 +192,8 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
     if (!trigger) {
       return;
     }
@@ -193,6 +210,12 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       return;
     }
 
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'menu',
+      this._element.id || this._navigationId,
+      this._state
+    );
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationController.signal,
@@ -209,10 +232,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   }
 
   private _trapFocusFilter = (el: HTMLElement): boolean => {
-    return (
-      el.nodeName === 'SBB-NAVIGATION-SECTION' &&
-      !el.classList.contains('sbb-navigation-section--opened')
-    );
+    return el.nodeName === 'SBB-NAVIGATION-SECTION' && el.getAttribute('data-state') !== 'opened';
   };
 
   private _onAnimationEnd(event: AnimationEvent): void {
@@ -228,9 +248,6 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
-
-      // Enable scrolling for content below the dialog
-      this._scrollHandler.enableScroll();
     }
   }
 
@@ -293,7 +310,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       isEventOnElement(this._navigation, event) ||
       isEventOnElement(
         this._element
-          .querySelector('.sbb-navigation-section--opened')
+          .querySelector('sbb-navigation-section[data-state="opened"]')
           ?.shadowRoot.querySelector('dialog') as HTMLElement,
         event
       );
@@ -306,12 +323,12 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     }
   };
 
-  // Observe changes on navigation section class list.
+  // Observe changes on navigation section data-state.
   private _onNavigationSectionChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if ((mutation.target as HTMLElement).nodeName === 'SBB-NAVIGATION-SECTION') {
         this._activeNavigationSection = this._element.querySelector(
-          '.sbb-navigation-section--opening, .sbb-navigation-section--opened'
+          'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]'
         );
         if (!isBreakpoint('zero', 'large')) {
           (
@@ -363,12 +380,9 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     return (
       <Host
         role="navigation"
-        class={{
-          'sbb-navigation--opened': this._state === 'opened',
-          'sbb-navigation--opening': this._state === 'opening',
-          'sbb-navigation--closing': this._state === 'closing',
-          'sbb-navigation--has-navigation-section': !!this._activeNavigationSection,
-        }}
+        data-has-navigation-section={!!this._activeNavigationSection}
+        data-state={this._state}
+        ref={assignId(() => this._navigationId)}
       >
         <div class="sbb-navigation__container">
           <dialog

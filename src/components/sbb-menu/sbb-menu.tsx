@@ -17,9 +17,18 @@ import { getElementPosition, isEventOnElement } from '../../global/helpers/posit
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
+
+type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the dialog.
@@ -44,7 +53,7 @@ export class SbbMenu implements ComponentInterface {
   /**
    * The state of the menu.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  @State() private _state: SbbMenuState = 'closed';
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -94,6 +103,7 @@ export class SbbMenu implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
+  private _menuId = `sbb-menu-${++nextId}`;
 
   @Element() private _element!: HTMLElement;
 
@@ -110,6 +120,7 @@ export class SbbMenu implements ComponentInterface {
     this._state = 'opening';
     this._setMenuPosition();
     this._dialog.show();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -124,6 +135,7 @@ export class SbbMenu implements ComponentInterface {
     this.willClose.emit();
     this._state = 'closing';
     this._openedByKeyboard = false;
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   /**
@@ -175,6 +187,8 @@ export class SbbMenu implements ComponentInterface {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
     if (!trigger) {
       return;
     }
@@ -191,6 +205,12 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'menu',
+      this._element.id || this._menuId,
+      this._state
+    );
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._menuController.signal,
@@ -307,27 +327,23 @@ export class SbbMenu implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host
-        class={{
-          'sbb-menu--opened': this._state === 'opened',
-          'sbb-menu--opening': this._state === 'opening',
-          'sbb-menu--closing': this._state === 'closing',
-        }}
-      >
-        <dialog
-          onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
-          ref={(dialogRef) => (this._dialog = dialogRef)}
-          class="sbb-menu"
-        >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div
-            onClick={(event: Event) => this._closeOnInteractiveElementClick(event)}
-            ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
-            class="sbb-menu__content"
+      <Host data-state={this._state} ref={assignId(() => this._menuId)}>
+        <div class="sbb-menu__container">
+          <dialog
+            onAnimationEnd={(event: AnimationEvent) => this._onMenuAnimationEnd(event)}
+            ref={(dialogRef) => (this._dialog = dialogRef)}
+            class="sbb-menu"
           >
-            <slot />
-          </div>
-        </dialog>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+            <div
+              onClick={(event: Event) => this._closeOnInteractiveElementClick(event)}
+              ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
+              class="sbb-menu__content"
+            >
+              <slot />
+            </div>
+          </dialog>
+        </div>
       </Host>
     );
   }

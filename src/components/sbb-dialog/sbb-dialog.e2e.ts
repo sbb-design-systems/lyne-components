@@ -71,7 +71,7 @@ describe('sbb-dialog', () => {
 
   it('closes the dialog on close button click', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
-    const closeButton = await page.find('sbb-dialog >>> .sbb-dialog__close');
+    const closeButton = await page.find('sbb-dialog >>> [sbb-dialog-close]');
     const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
     const willClose = await page.spyOnEvent(events.willClose);
@@ -88,7 +88,7 @@ describe('sbb-dialog', () => {
 
     expect(dialog).toHaveAttribute('open');
 
-    await closeButton.click();
+    closeButton.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willClose).toHaveReceivedEventTimes(1);

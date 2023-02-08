@@ -23,13 +23,15 @@ describe('sbb-menu', () => {
 
   it('renders', async () => {
     expect(page.root).toEqualHtml(`
-      <sbb-menu trigger="menu-trigger">
+      <sbb-menu trigger="menu-trigger" data-state="closed" id="sbb-menu-1">
         <mock:shadow-root>
-          <dialog class="sbb-menu">
-            <div class="sbb-menu__content">
-              <slot></slot>
-            </div>
-          </dialog>
+          <div class="sbb-menu__container">
+            <dialog class="sbb-menu">
+              <div class="sbb-menu__content">
+                <slot></slot>
+              </div>
+            </dialog>
+          </div>
         </mock:shadow-root>
         <sbb-link href="https://www.sbb.ch/en" variant="block">
           Profile

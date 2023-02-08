@@ -169,6 +169,9 @@ describe('getLinkRenderVariables', () => {
         rel: 'external noopener nofollow',
         tabIndex: '-1',
       },
+      hostAttributes: {
+        role: 'link',
+      },
       screenReaderNewWindowInfo: true,
     };
     expect(
@@ -190,6 +193,9 @@ describe('getLinkRenderVariables', () => {
         target: 'custom',
         'aria-label': 'accessibilityLabel',
         tabIndex: '-1',
+      },
+      hostAttributes: {
+        role: 'link',
       },
       screenReaderNewWindowInfo: false,
     };
@@ -218,6 +224,9 @@ describe('getButtonRenderVariables', () => {
         dir: 'ltr',
         name: 'name',
         type: 'submit',
+      },
+      hostAttributes: {
+        role: 'button',
       },
     };
 

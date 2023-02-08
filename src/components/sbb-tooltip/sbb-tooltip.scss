@@ -11,6 +11,7 @@
   --sbb-tooltip-arrow-size: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-arrow-position-x: 0;
   --sbb-tooltip-max-width: calc(100% - var(--sbb-spacing-fixed-8x));
+  --sbb-tooltip-inset: 0 auto auto 0;
   --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
   --sbb-tooltip-padding: var(--sbb-spacing-fixed-4x);
   --sbb-tooltip-background: var(--sbb-color-white-default);
@@ -18,17 +19,26 @@
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-2x));
 
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
+  // We use this rule to make the inner container element to appear as if it were a
+  // direct child of the host's parent element. This is useful because the host
+  // should be ignored when using CSS grid or similar layout techniques.
+  display: contents;
+}
+
+:host(:not(.hydrated)) {
+  display: none;
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
   --sbb-tooltip-animation-duration: 0s;
 }
 
-:host(.sbb-tooltip--above) {
+:host([data-position='above']) {
   --sbb-tooltip-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
+}
+
+:host(:not([data-state='closed'])) {
+  --sbb-tooltip-inset: 0;
 }
 
 // Tooltip arrow and arrow top cover
@@ -44,6 +54,12 @@
   background-color: var(--sbb-tooltip-background);
   border-radius: #{sbb.px-to-rem-build(4)} 0;
   transform: rotate(45deg);
+}
+
+.sbb-tooltip__container {
+  position: fixed;
+  inset: var(--sbb-tooltip-inset);
+  pointer-events: none;
 }
 
 .sbb-tooltip {
@@ -79,17 +95,15 @@
     }
 
     z-index: -1;
-  }
 
-  :host(.sbb-tooltip--closing) & {
-    pointer-events: none;
-    animation-name: close;
-  }
-
-  :host(.sbb-tooltip--above) & {
-    &::after {
+    :host([data-position='above']) & {
       top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
     }
+  }
+
+  :host([data-state='closing']) & {
+    pointer-events: none;
+    animation-name: close;
   }
 
   @include sbb.if-forced-colors {
@@ -112,7 +126,7 @@
   background-color: var(--sbb-tooltip-background);
   overflow: hidden;
 
-  :host(.sbb-tooltip--above) & {
+  :host([data-position='above']) & {
     &::before {
       top: calc(100% - calc(var(--sbb-tooltip-arrow-size) / 2));
     }

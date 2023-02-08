@@ -14,11 +14,9 @@ const playStory = async (trigger, canvasElement) => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
+  userEvent.click(button);
   await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
-    ).toBeTruthy()
+    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy()
   );
   await waitFor(() =>
     expect(
@@ -28,7 +26,7 @@ const playStory = async (trigger, canvasElement) => {
     ).toBeTruthy()
   );
   const action = canvas.getByTestId(trigger);
-  await userEvent.click(action);
+  userEvent.click(action);
 };
 
 const accessibilityLabel = {
@@ -158,7 +156,7 @@ LongContent.play = ({ canvasElement }) =>
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; height: 100vh'}>
         <Story />
       </div>
     ),
@@ -173,6 +171,7 @@ export default {
       iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/navigation/sbb-navigation-section',
 };

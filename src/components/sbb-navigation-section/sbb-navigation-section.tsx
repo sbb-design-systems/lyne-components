@@ -20,6 +20,15 @@ import {
 import { i18nGoBack } from '../../global/i18n';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
+
+type SbbNavigationSectionState = 'closed' | 'opening' | 'opened' | 'closing';
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this to project any content inside the navigation section.
@@ -60,7 +69,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
   /**
    * The state of the navigation section.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  @State() private _state: SbbNavigationSectionState = 'closed';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -75,6 +84,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
   private _hasTitle = false;
+  private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
   @Element() private _element: HTMLElement;
 
@@ -94,6 +104,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
 
     this._state = 'opening';
     this._navigationSection.show();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -107,6 +118,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
 
     this._resetMarker();
     this._state = 'closing';
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Removes trigger click listener on trigger change.
@@ -124,6 +136,8 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
     if (!trigger) {
       return;
     }
@@ -140,6 +154,12 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
       return;
     }
 
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'menu',
+      this._element.id || this._navigationSectionId,
+      this._state
+    );
     this._navigationSectionController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
@@ -245,29 +265,30 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     );
     return (
       <Host
-        class={{
-          [`sbb-navigation-section--${this._state}`]: true,
-        }}
         slot="navigation-section"
+        data-state={this._state}
+        ref={assignId(() => this._navigationSectionId)}
       >
-        <dialog
-          ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
-          aria-label={this.accessibilityLabel}
-          onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
-          class="sbb-navigation-section"
-        >
-          <div
-            ref={(navigationSectionWrapperRef) =>
-              (this._navigationSectionWrapperElement = navigationSectionWrapperRef)
-            }
-            class="sbb-navigation-section__wrapper"
+        <div class="sbb-navigation-section__container">
+          <dialog
+            ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
+            aria-label={this.accessibilityLabel}
+            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
+            class="sbb-navigation-section"
           >
-            <div class="sbb-navigation-section__content">
-              {this._hasTitle && labelElement}
-              <slot />
+            <div
+              ref={(navigationSectionWrapperRef) =>
+                (this._navigationSectionWrapperElement = navigationSectionWrapperRef)
+              }
+              class="sbb-navigation-section__wrapper"
+            >
+              <div class="sbb-navigation-section__content">
+                {this._hasTitle && labelElement}
+                <slot />
+              </div>
             </div>
-          </div>
-        </dialog>
+          </dialog>
+        </div>
       </Host>
     );
   }

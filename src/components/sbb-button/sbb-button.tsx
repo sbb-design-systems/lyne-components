@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   actionElement,
@@ -162,6 +172,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
     const {
       tagName: TAG_NAME,
       attributes,
+      hostAttributes,
       screenReaderNewWindowInfo,
     }: LinkButtonRenderVariables = resolveRenderVariables(
       this,
@@ -171,26 +182,28 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME
-        class={{ 'sbb-button': true, ['sbb-button--icon-only']: !this._hasText }}
-        {...attributes}
-        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
-      >
-        {(this.iconName || this._namedSlots.icon) && (
-          <span class="sbb-button__icon">
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-          </span>
-        )}
-
-        <span class={{ 'sbb-button__label': true, 'sbb-button__label--hidden': !this._hasText }}>
-          <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
-          {screenReaderNewWindowInfo && (
-            <span class="sbb-button__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+      <Host {...hostAttributes}>
+        <TAG_NAME
+          class={{ 'sbb-button': true, ['sbb-button--icon-only']: !this._hasText }}
+          {...attributes}
+          ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+        >
+          {(this.iconName || this._namedSlots.icon) && (
+            <span class="sbb-button__icon">
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </span>
           )}
-        </span>
-      </TAG_NAME>
+
+          <span class={{ 'sbb-button__label': true, 'sbb-button__label--hidden': !this._hasText }}>
+            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
+            {screenReaderNewWindowInfo && (
+              <span class="sbb-button__opens-in-new-window">
+                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+              </span>
+            )}
+          </span>
+        </TAG_NAME>
+      </Host>
     );
   }
 }

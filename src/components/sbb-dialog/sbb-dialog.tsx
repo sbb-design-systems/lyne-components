@@ -382,28 +382,30 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     );
 
     return (
-      <dialog
-        ref={(dialogRef) => (this._dialog = dialogRef)}
-        aria-label={this.accessibilityLabel}
-        onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
-        class="sbb-dialog"
-      >
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-        <div
-          onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
-          ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
-          class="sbb-dialog__wrapper"
+      <div class="sbb-dialog__container">
+        <dialog
+          ref={(dialogRef) => (this._dialog = dialogRef)}
+          aria-label={this.accessibilityLabel}
+          onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
+          class="sbb-dialog"
         >
-          {dialogHeader}
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            class="sbb-dialog__content"
-            ref={(dialogContent) => (this._dialogContentElement = dialogContent)}
+            onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
+            ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
+            class="sbb-dialog__wrapper"
           >
-            <slot />
+            {dialogHeader}
+            <div
+              class="sbb-dialog__content"
+              ref={(dialogContent) => (this._dialogContentElement = dialogContent)}
+            >
+              <slot />
+            </div>
+            {this._hasActionGroup && dialogFooter}
           </div>
-          {this._hasActionGroup && dialogFooter}
-        </div>
-      </dialog>
+        </dialog>
+      </div>
     );
   }
 }

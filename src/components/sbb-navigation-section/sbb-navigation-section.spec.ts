@@ -9,15 +9,17 @@ describe('sbb-navigation-section', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-navigation-section class="sbb-navigation-section--closed" slot="navigation-section">
+        <sbb-navigation-section slot="navigation-section" data-state="closed" id="sbb-navigation-section-1">
           <mock:shadow-root>
-            <dialog class="sbb-navigation-section">
-              <div class="sbb-navigation-section__wrapper">
-                <div class="sbb-navigation-section__content">
-                  <slot></slot>
+            <div class="sbb-navigation-section__container">
+              <dialog class="sbb-navigation-section">
+                <div class="sbb-navigation-section__wrapper">
+                  <div class="sbb-navigation-section__content">
+                    <slot></slot>
+                  </div>
                 </div>
-              </div>
-            </dialog>
+              </dialog>
+            </div>
           </mock:shadow-root>
         </sbb-navigation-section>
       `);

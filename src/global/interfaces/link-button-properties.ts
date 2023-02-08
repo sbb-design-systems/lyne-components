@@ -80,6 +80,11 @@ export interface LinkButtonRenderVariables {
   attributes: Record<string, string>;
 
   /**
+   * The host's attributes.
+   */
+  hostAttributes?: Record<string, string>;
+
+  /**
    * Indicates whether the screen reader has to announce that the link will open in a new window.
    */
   screenReaderNewWindowInfo?: boolean;
@@ -174,6 +179,7 @@ export function getLinkRenderVariables(
   return {
     tagName: 'a',
     attributes: getLinkAttributeList(linkProperties, currentLanguage, buttonProperties),
+    hostAttributes: { role: 'link' },
     screenReaderNewWindowInfo:
       !linkProperties.accessibilityLabel && linkProperties.target === '_blank',
   };
@@ -189,6 +195,7 @@ export function getButtonRenderVariables(
   return {
     tagName: 'button',
     attributes: getButtonAttributeList(buttonProperties),
+    hostAttributes: { role: 'button' },
   };
 }
 

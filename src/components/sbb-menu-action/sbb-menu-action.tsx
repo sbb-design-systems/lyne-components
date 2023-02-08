@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
 import {
   actionElement,
   ButtonType,
@@ -93,31 +103,33 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   }
 
   public render(): JSX.Element {
-    const { tagName: TAG_NAME, attributes }: LinkButtonRenderVariables = resolveRenderVariables(
-      this,
-      this._currentLanguage,
-      false
-    );
+    const {
+      tagName: TAG_NAME,
+      hostAttributes,
+      attributes,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage, false);
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME
-        class="sbb-menu-action"
-        {...attributes}
-        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
-      >
-        <span class="sbb-menu-action__content">
-          <span class="sbb-menu-action__icon">
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+      <Host {...hostAttributes}>
+        <TAG_NAME
+          class="sbb-menu-action"
+          {...attributes}
+          ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
+        >
+          <span class="sbb-menu-action__content">
+            <span class="sbb-menu-action__icon">
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            </span>
+            <span class="sbb-menu-action__label">
+              <slot />
+            </span>
+            {this.amount && !this.disabled && (
+              <span class="sbb-menu-action__amount">{this.amount}</span>
+            )}
           </span>
-          <span class="sbb-menu-action__label">
-            <slot />
-          </span>
-          {this.amount && !this.disabled && (
-            <span class="sbb-menu-action__amount">{this.amount}</span>
-          )}
-        </span>
-      </TAG_NAME>
+        </TAG_NAME>
+      </Host>
     );
   }
 }

@@ -115,43 +115,43 @@ export const StartBelow = StartBelowTemplate.bind({});
 StartBelow.argTypes = defaultArgTypes;
 StartBelow.args = { ...defaultArgs };
 StartBelow.documentation = { title: 'Start Below' };
-StartBelow.play = playStory;
+StartBelow.play = isChromatic() && playStory;
 
 export const CenterBelow = CenterBelowTemplate.bind({});
 CenterBelow.argTypes = defaultArgTypes;
 CenterBelow.args = { ...defaultArgs };
 CenterBelow.documentation = { title: 'Center Below' };
-CenterBelow.play = playStory;
+CenterBelow.play = isChromatic() && playStory;
 
 export const EndBelow = EndBelowTemplate.bind({});
 EndBelow.argTypes = defaultArgTypes;
 EndBelow.args = { ...defaultArgs };
 EndBelow.documentation = { title: 'End Below' };
-EndBelow.play = playStory;
+EndBelow.play = isChromatic() && playStory;
 
 export const StartAbove = StartAboveTemplate.bind({});
 StartAbove.argTypes = defaultArgTypes;
 StartAbove.args = { ...defaultArgs };
 StartAbove.documentation = { title: 'Start Above' };
-StartAbove.play = playStory;
+StartAbove.play = isChromatic() && playStory;
 
 export const CenterAbove = CenterAboveTemplate.bind({});
 CenterAbove.argTypes = defaultArgTypes;
 CenterAbove.args = { ...defaultArgs };
 CenterAbove.documentation = { title: 'Center Above' };
-CenterAbove.play = playStory;
+CenterAbove.play = isChromatic() && playStory;
 
 export const EndAbove = EndAboveTemplate.bind({});
 EndAbove.argTypes = defaultArgTypes;
 EndAbove.args = { ...defaultArgs };
 EndAbove.documentation = { title: 'End Above' };
-EndAbove.play = playStory;
+EndAbove.play = isChromatic() && playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = defaultArgTypes;
 LongContent.args = { ...defaultArgs };
 LongContent.documentation = { title: 'Long Content' };
-LongContent.play = playStory;
+LongContent.play = isChromatic() && playStory;
 
 export const HoverTrigger = HoverTriggerTemplate.bind({});
 HoverTrigger.argTypes = defaultArgTypes;
@@ -162,7 +162,7 @@ HoverTrigger.args = {
   'close-delay': 0,
 };
 HoverTrigger.documentation = { title: 'Hover Trigger' };
-HoverTrigger.play = playStory;
+HoverTrigger.play = isChromatic() && playStory;
 
 export default {
   decorators: [
@@ -185,6 +185,7 @@ export default {
       iframeHeight: '250px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/sbb-tooltip',
 };

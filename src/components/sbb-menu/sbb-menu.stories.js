@@ -200,25 +200,25 @@ export const Default = DefaultTemplate.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs, disabled: true };
 Default.documentation = { title: 'Default' };
-Default.play = playStory;
+Default.play = isChromatic() && playStory;
 
 export const CustomContent = CustomContentTemplate.bind({});
 CustomContent.argTypes = defaultArgTypes;
 CustomContent.args = { ...defaultArgs, amount: '2' };
 CustomContent.documentation = { title: 'Custom Content' };
-CustomContent.play = playStory;
+CustomContent.play = isChromatic() && playStory;
 
 export const LongContent = LongContentTemplate.bind({});
 LongContent.argTypes = defaultArgTypes;
 LongContent.args = { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined };
 LongContent.documentation = { title: 'Long Content' };
-LongContent.play = playStory;
+LongContent.play = isChromatic() && playStory;
 
 export const Ellipsis = EllipsisTemplate.bind({});
 Ellipsis.argTypes = defaultArgTypes;
 Ellipsis.args = { ...defaultArgs };
 Ellipsis.documentation = { title: 'Ellipsis' };
-Ellipsis.play = playStory;
+Ellipsis.play = isChromatic() && playStory;
 
 export default {
   decorators: [

@@ -42,7 +42,7 @@ describe('sbb-navigation', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(element).toHaveClass('sbb-navigation--opened');
+    expect(element).toEqualAttribute('data-state', 'opened');
     expect(dialog).toHaveAttribute('open');
   });
 

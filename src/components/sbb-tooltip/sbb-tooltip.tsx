@@ -18,9 +18,18 @@ import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { assignId } from '../../global/helpers/assign-id';
+import {
+  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
+
+type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to project any content inside the tooltip.
@@ -65,7 +74,12 @@ export class SbbTooltip implements ComponentInterface {
   /**
    * The state of the tooltip.
    */
-  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'closed';
+  private set _state(state: SbbTooltipState) {
+    this._element.dataset.state = state;
+  }
+  private get _state(): SbbTooltipState {
+    return this._element.dataset.state as SbbTooltipState;
+  }
 
   /**
    * The alignment of the tooltip relative to the trigger.
@@ -128,6 +142,7 @@ export class SbbTooltip implements ComponentInterface {
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
+  private _tooltipId = `sbb-tooltip-${++nextId}`;
 
   @Element() private _element!: HTMLElement;
 
@@ -149,6 +164,7 @@ export class SbbTooltip implements ComponentInterface {
     this._state = 'opening';
     this._setTooltipPosition();
     this._dialog.show();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
   /**
@@ -165,6 +181,7 @@ export class SbbTooltip implements ComponentInterface {
     this._state = 'closing';
     this._openedByKeyboard = false;
     this._prevFocusedElement?.focus();
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
@@ -195,6 +212,7 @@ export class SbbTooltip implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._state = 'closed';
   }
 
   public componentDidLoad(): void {
@@ -212,6 +230,8 @@ export class SbbTooltip implements ComponentInterface {
 
   // Check if the trigger is valid and attach click event listeners.
   private _configure(trigger: string | HTMLElement): void {
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
     if (!trigger) {
       return;
     }
@@ -227,6 +247,13 @@ export class SbbTooltip implements ComponentInterface {
     if (!this._triggerElement) {
       return;
     }
+
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'dialog',
+      this._element.id || this._tooltipId,
+      this._state
+    );
 
     // Check whether the trigger can be hovered. Some diveces might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
@@ -435,29 +462,26 @@ export class SbbTooltip implements ComponentInterface {
     );
 
     return (
-      <Host
-        class={{
-          'sbb-tooltip--closing': this._state === 'closing',
-          'sbb-tooltip--above': this._alignment?.vertical === 'above',
-        }}
-      >
-        <dialog
-          onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
-          ref={(dialogRef) => (this._dialog = dialogRef)}
-          class="sbb-tooltip"
-        >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div
-            onClick={(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
-            ref={(tooltipContentRef) => (this._tooltipContentElement = tooltipContentRef)}
-            class="sbb-tooltip__content"
+      <Host data-position={this._alignment?.vertical} ref={assignId(() => this._tooltipId)}>
+        <div class="sbb-tooltip__container">
+          <dialog
+            onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
+            ref={(dialogRef) => (this._dialog = dialogRef)}
+            class="sbb-tooltip"
           >
-            <span>
-              <slot>No content</slot>
-            </span>
-            {!this._hoverTrigger && closeButton}
-          </div>
-        </dialog>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+            <div
+              onClick={(event: Event) => this._closeOnSbbTooltipCloseClick(event)}
+              ref={(tooltipContentRef) => (this._tooltipContentElement = tooltipContentRef)}
+              class="sbb-tooltip__content"
+            >
+              <span>
+                <slot>No content</slot>
+              </span>
+              {!this._hoverTrigger && closeButton}
+            </div>
+          </dialog>
+        </div>
       </Host>
     );
   }

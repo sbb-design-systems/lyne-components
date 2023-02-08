@@ -30,7 +30,7 @@ describe('sbb-menu', () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
 
@@ -48,7 +48,7 @@ describe('sbb-menu', () => {
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-menu >>> dialog');
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -82,7 +82,7 @@ describe('sbb-menu', () => {
     const dialog = await page.find('sbb-menu >>> dialog');
     const menuAction = await page.find('sbb-menu > sbb-menu-action');
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -94,7 +94,7 @@ describe('sbb-menu', () => {
     expect(dialog).toHaveAttribute('open');
     expect(menuAction).not.toBeNull();
 
-    await menuAction.click();
+    menuAction.triggerEvent('click');
     await page.waitForChanges();
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
 
@@ -113,7 +113,7 @@ describe('sbb-menu', () => {
     const dialog = await page.find('sbb-menu >>> dialog');
     const menuLink = await page.find('sbb-menu > sbb-link');
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -125,7 +125,7 @@ describe('sbb-menu', () => {
     expect(dialog).toHaveAttribute('open');
     expect(menuLink).not.toBeNull();
 
-    await menuLink.click();
+    menuLink.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
@@ -143,7 +143,7 @@ describe('sbb-menu', () => {
     page.setViewport({ width: 1200, height: 800 });
     const dialog = await page.find('sbb-menu >>> dialog');
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -188,7 +188,7 @@ describe('sbb-menu', () => {
     page.setViewport({ width: 800, height: 600 });
     const dialog = await page.find('sbb-menu >>> dialog');
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -215,7 +215,7 @@ describe('sbb-menu', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-menu >>> dialog');
 
-    await trigger.click();
+    trigger.triggerEvent('click');
     await page.waitForChanges();
 
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);

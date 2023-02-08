@@ -15,11 +15,10 @@ const playStory = async ({ canvasElement }) => {
   );
 
   const button = canvas.getByTestId('navigation-trigger');
-  await userEvent.click(button);
+  userEvent.click(button);
+
   await waitFor(() =>
-    expect(
-      canvas.getByTestId('navigation').classList.contains('sbb-navigation--opened')
-    ).toBeTruthy()
+    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy()
   );
 };
 
@@ -35,9 +34,9 @@ const playStoryWithSection = async ({ canvasElement }) => {
     ).toBeTruthy()
   );
   const actionL = canvas.getByTestId('navigation-section-trigger-1');
-  await userEvent.click(actionL);
+  userEvent.click(actionL);
   const actionS = canvas.getByTestId('navigation-section-trigger-2');
-  await userEvent.click(actionS);
+  userEvent.click(actionS);
 };
 
 const accessibilityLabel = {
@@ -236,7 +235,7 @@ WithNavigationSection.play = isChromatic() && playStoryWithSection;
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; height: 100vh'}>
         <Story />
       </div>
     ),
@@ -254,6 +253,7 @@ export default {
       iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/navigation/sbb-navigation',
 };
