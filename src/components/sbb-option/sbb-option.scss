@@ -4,11 +4,33 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  @include sbb.text-s--regular;
+
+  --sbb-option-bg-color: inherit;
+  --sbb-option-min-height: var(--sbb-size-button-m-min-height);
+}
+
+:host([aria-selected]:not([aria-selected='false'])) {
+  @include sbb.focus-outline;
+
+  --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
+
+  border-radius: var(--sbb-border-radius-4x);
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-option-bg-color: var(--sbb-color-milk-default);
+  }
+}
+
 .sbb-option {
   display: flex;
   align-items: center;
-  padding-block: var(--sbb-spacing-fixed-1x);
   padding-inline: var(--sbb-spacing-responsive-xxxs);
+  background-color: var(--sbb-option-bg-color);
+  min-height: var(--sbb-option-min-height);
 }
 
 .sbb-option__icon {

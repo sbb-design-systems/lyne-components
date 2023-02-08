@@ -8,6 +8,6 @@ describe('sbb-option', () => {
     await page.setContent('<sbb-option></sbb-option>');
 
     element = await page.find('sbb-option');
-    expect(element).toHaveClass('hydrated');
+    expect(element).toHaveClass('hydrated'); // TODO Write tests
   });
 });
