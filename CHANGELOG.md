@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.11](https://github.com/lyne-design-system/lyne-components/compare/v0.25.10...v0.25.11) (2023-02-08)
+
+### Bug Fixes
+
+- **sbb-checkbox:** sync indeterminate state to native input ([#1604](https://github.com/lyne-design-system/lyne-components/issues/1604)) ([34d7024](https://github.com/lyne-design-system/lyne-components/commit/34d7024f739a7aa216d8ad2c13a946d2604dc69d))
+
 ### [0.25.10](https://github.com/lyne-design-system/lyne-components/compare/v0.25.9...v0.25.10) (2023-02-08)
 
 ### Refactorings
