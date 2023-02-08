@@ -5,10 +5,11 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-header-logo-height: #{sbb.px-to-rem-build(16)};
+  // Overwrites logo in slotted and default case
+  --sbb-logo-height: #{sbb.px-to-rem-build(16)};
 
   @include sbb.mq($from: medium) {
-    --sbb-header-logo-height: #{sbb.px-to-rem-build(20)};
+    --sbb-logo-height: #{sbb.px-to-rem-build(20)};
   }
 
   // Setting the height here reserves the space for the header which will else be lost with fixed position.
@@ -49,15 +50,35 @@
 
 .sbb-header__logo {
   margin-inline-start: auto;
-
-  // Only apply height to standard logo. If slotted, no styles will be applied.
-  sbb-logo {
-    height: var(--sbb-header-logo-height);
-  }
 }
 
 // Fix left offset if first element of the header is a sbb-header-action.
 // The value of the offset is calculated inside sbb-header-action styles.
 .sbb-header__wrapper > ::slotted(sbb-header-action:first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
+}
+
+// Apply padding and outline to possible slotted link
+::slotted(a) {
+  display: block;
+  padding-block: var(--sbb-spacing-fixed-3x);
+  position: relative;
+  outline: none;
+}
+
+// To show the correct outline, we need to span a hidden element filling the link but without the outline-offset.
+::slotted(a)::before {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: var(--sbb-spacing-fixed-3x) 0;
+}
+
+::slotted(a:focus-visible)::before {
+  @include sbb.focus-outline;
+
+  outline-offset: var(--sbb-spacing-fixed-3x);
+
+  // As if the outline has an offset, the border radius increases, we set it to the smallest possible border-radius.
+  border-radius: 0.1px;
 }

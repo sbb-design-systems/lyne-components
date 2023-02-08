@@ -55,6 +55,9 @@ const Template = (args) => (
         <sbb-menu-action>Italiano</sbb-menu-action>
         <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
       </sbb-menu>
+      <a href="https://www.sbb.ch" slot="logo">
+        <sbb-logo protective-room="none"></sbb-logo>
+      </a>
     </sbb-header>
 
     <Navigation />

@@ -89,8 +89,18 @@ The examples below shows how to use the component (with shadow on).
     target="_blank"
   >
     Menu
-  </sbb-header-action>,
-  <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>,
+  </sbb-header-action>
+  <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+</sbb-header>
+```
+
+Header with logo link and slotted sbb-logo:
+```html
+<sbb-header shadow="true">
+  <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+  <a href="https://www.sbb.ch" slot="logo">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
 </sbb-header>
 ```
 
