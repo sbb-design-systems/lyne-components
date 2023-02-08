@@ -39,6 +39,8 @@ with an optional result as a payload. You can also indicate that an element with
 the dialog when clicked by marking it with the `sbb-dialog-close` attribute.
 
 ### Usage notes
+The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`. 
+
 The dialog title can be provided via the `titleContent` property and via slot `name="title"` 
 (e.g. `<span slot="title">My dialog title</span>`). 
 You can also set the property `titleBackButton` to display the back button in the title section 

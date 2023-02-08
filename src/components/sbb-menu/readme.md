@@ -46,6 +46,8 @@ You can also provide custom content inside the `sbb-menu`:
 </sbb-menu>
 ```
 
+The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-menu-z-index`. 
+
 Clicking in the backdrop or pressing the `ESC` key closes the menu.
 
 ### Accessibility

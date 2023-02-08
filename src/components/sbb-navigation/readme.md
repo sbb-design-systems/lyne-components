@@ -14,6 +14,8 @@ Some of its features are:
 
 To display the navigation you can either provide a trigger element or call the `open()` method on the `sbb-navigation` component.
 
+The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-navigation-z-index`. 
+
 ```html
 <!-- Trigger element -->
 <sbb-button id="nav-trigger">Navigation trigger</sbb-button>

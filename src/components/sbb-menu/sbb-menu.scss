@@ -72,7 +72,7 @@
 .sbb-menu__container {
   position: fixed;
   inset: var(--sbb-menu-inset);
-  z-index: 10;
+  z-index: var(--sbb-menu-z-index, 1000);
 
   // Menu backdrop (only visible on mobile)
   &::before {

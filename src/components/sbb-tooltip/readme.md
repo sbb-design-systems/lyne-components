@@ -36,6 +36,8 @@ You can also indicate that the tooltip should be shown on hover with the propert
 
 The tooltip will automatically disappear after the hiding delay if neither the trigger element nor the tooltip are on hover or if another action is performed on the page.
 
+The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-tooltip-z-index`. 
+
 ### Placement
 
 The tooltip automatically calculates where it should place itself, based on available space. Default is below and center.
