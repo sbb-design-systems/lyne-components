@@ -30,6 +30,8 @@ export class SbbHeader implements ComponentInterface {
 
   private _scrollElement: HTMLElement | Document;
 
+  private _scrollEventsController: AbortController;
+
   private _scrollFunction: () => void;
 
   private _lastScroll = 0;
@@ -39,10 +41,13 @@ export class SbbHeader implements ComponentInterface {
     newValue: string | HTMLElement | Document,
     oldValue: string | HTMLElement | Document
   ): void {
-    this._getScrollElement(oldValue)?.removeEventListener('scroll', this._scrollFunction);
-    this._setListenerOnScrollElement(newValue);
-    const currentScroll = this._getCurrentScroll();
-    this._lastScroll = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    if (newValue !== oldValue) {
+      this._scrollEventsController?.abort();
+      this._setListenerOnScrollElement(newValue);
+      const currentScroll = this._getCurrentScroll();
+      // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
+      this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+    }
   }
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
@@ -52,14 +57,18 @@ export class SbbHeader implements ComponentInterface {
 
   /** Removes the scroll listener, if previously attached. */
   public disconnectedCallback(): void {
-    this._scrollElement?.removeEventListener('scroll', this._scrollFunction);
+    this._scrollEventsController?.abort();
   }
 
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
   private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
+    this._scrollEventsController = new AbortController();
     this._scrollElement = this._getScrollElement(scrollOrigin);
     this._scrollFunction = this._getScrollFunction.bind(this);
-    this._scrollElement?.addEventListener('scroll', this._scrollFunction, { passive: true });
+    this._scrollElement?.addEventListener('scroll', this._scrollFunction, {
+      passive: true,
+      signal: this._scrollEventsController.signal,
+    });
   }
 
   /** Returns the element to attach the listener to. */
@@ -83,7 +92,7 @@ export class SbbHeader implements ComponentInterface {
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
     toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0);
-    /** Check if header is scrolled out of sight, scroll position > header height */
+    // Check if header is scrolled out of sight, scroll position > header height.
     if (currentScroll > this._element.offsetHeight) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
@@ -99,9 +108,8 @@ export class SbbHeader implements ComponentInterface {
         toggleDatasetEntry(this._element, 'visibleHeader', true);
       }
     } else {
-      /** Check if header in its original position, scroll position < header height. */
-
-      /** Reset header behaviour when scroll hits top of the page, on scroll position = 0 */
+      // Check if header in its original position, scroll position < header height.
+      // Reset header behaviour when scroll hits top of the page, on scroll position = 0.
       if (currentScroll === 0) {
         this._headerOnTop = true;
       }
@@ -112,16 +120,16 @@ export class SbbHeader implements ComponentInterface {
         toggleDatasetEntry(this._element, 'visibleHeader', false);
       }
     }
-    /** For mobile or negative scrolling */
+    // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
     this._lastScroll = currentScroll <= 0 ? 0 : currentScroll;
   }
 
-  /** Sets the correct value for `scrollTop`, then apply the shadow if the element/document has been scrolled down; */
+  /** Apply the shadow if the element/document has been scrolled down. */
   private _scrollShadowListener(): void {
     toggleDatasetEntry(this._element, 'shadow', this._getCurrentScroll() !== 0);
   }
 
-  /** Calculates the correct scrollTop based on the value of `_scrollElement`. */
+  /** Calculates the correct scrollTop value based on the value of `_scrollElement`. */
   private _getCurrentScroll(): number {
     if (this._scrollElement instanceof Document) {
       return this._scrollElement.documentElement.scrollTop || this._scrollElement.body.scrollTop;
