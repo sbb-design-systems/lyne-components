@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.12](https://github.com/lyne-design-system/lyne-components/compare/v0.25.11...v0.25.12) (2023-02-09)
+
+### Features
+
+- **sbb-header:** style slotted link of sbb-logo ([#1605](https://github.com/lyne-design-system/lyne-components/issues/1605)) ([95fd652](https://github.com/lyne-design-system/lyne-components/commit/95fd652f4931e7c295b979a06f07e68118ac33dd))
+
 ### [0.25.11](https://github.com/lyne-design-system/lyne-components/compare/v0.25.10...v0.25.11) (2023-02-08)
 
 ### Bug Fixes
