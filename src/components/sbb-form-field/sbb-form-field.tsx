@@ -38,7 +38,7 @@ let nextId = 0;
 })
 export class SbbFormField implements ComponentInterface {
   // List of supported element selectors in unnamed slot
-  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER', 'SBB-TIME-INPUT'];
+  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER', 'SBB-TIME-INPUT', 'SBB-DATEPICKER'];
 
   /**
    * Whether to reserve space for an error message.
