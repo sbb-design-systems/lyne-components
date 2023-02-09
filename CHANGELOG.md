@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.13](https://github.com/lyne-design-system/lyne-components/compare/v0.25.12...v0.25.13) (2023-02-09)
+
+### Bug Fixes
+
+- **sbb-header:** header action animation on hover ([#1585](https://github.com/lyne-design-system/lyne-components/issues/1585)) ([7138127](https://github.com/lyne-design-system/lyne-components/commit/7138127d6584b0497920c37d511e1c5f7dfc3b89))
+
 ### [0.25.12](https://github.com/lyne-design-system/lyne-components/compare/v0.25.11...v0.25.12) (2023-02-09)
 
 ### Features
