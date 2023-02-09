@@ -60,6 +60,7 @@
   position: fixed;
   inset: var(--sbb-tooltip-inset);
   pointer-events: none;
+  z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-z-index));
 }
 
 .sbb-tooltip {

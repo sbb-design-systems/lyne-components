@@ -105,7 +105,7 @@
   display: flex;
   align-items: center;
   inset: var(--sbb-dialog-inset);
-  z-index: 10;
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
 
   // Dialog backdrop (not visible on mobile)
   &::before {
@@ -188,7 +188,7 @@
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-header-padding-block);
   background-color: var(--sbb-dialog-background-color);
-  z-index: 10;
+  z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
 
   :host([data-fullscreen]) & {
     position: fixed;

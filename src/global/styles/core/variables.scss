@@ -59,6 +59,9 @@
   // Header
   --sbb-header-height: var(--sbb-spacing-fixed-14x);
 
+  // Overlay
+  --sbb-overlay-z-index: 1000;
+
   @include mediaqueries.mq($from: micro) {
     // Layout
     --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);
