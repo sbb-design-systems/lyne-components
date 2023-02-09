@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.14](https://github.com/lyne-design-system/lyne-components/compare/v0.25.13...v0.25.14) (2023-02-09)
+
+### Bug Fixes
+
+- provide CSS variables to set `z-index` for overlay components ([#1606](https://github.com/lyne-design-system/lyne-components/issues/1606)) ([803f634](https://github.com/lyne-design-system/lyne-components/commit/803f6343d094e8cf6d4920747594a42cdce9535d))
+
 ### [0.25.13](https://github.com/lyne-design-system/lyne-components/compare/v0.25.12...v0.25.13) (2023-02-09)
 
 ### Bug Fixes
