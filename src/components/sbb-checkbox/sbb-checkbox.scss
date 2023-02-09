@@ -33,7 +33,9 @@
 }
 
 :host([indeterminate]:not([indeterminate='false'])) {
-  --sbb-checkbox-selection-color: ButtonBorder;
+  @include sbb.if-forced-colors {
+    --sbb-checkbox-selection-color: ButtonBorder;
+  }
 }
 
 :host(
@@ -42,7 +44,9 @@
         [disabled]:not([disabled='false'])
       )
   ) {
-  --sbb-checkbox-selection-color: GrayText;
+  @include sbb.if-forced-colors {
+    --sbb-checkbox-selection-color: GrayText;
+  }
 }
 
 .sbb-checkbox-wrapper {
