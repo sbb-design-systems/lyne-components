@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import events from '../sbb-menu/sbb-menu.events';
 
 describe('sbb-header', () => {
   let element: E2EElement, page: E2EPage;
@@ -56,5 +57,61 @@ describe('sbb-header', () => {
     expect(element).not.toHaveAttribute('data-animated');
     expect(element).not.toHaveAttribute('data-fixed-header');
     expect(element).not.toHaveAttribute('data-visible-header');
+  });
+
+  it('should close menu on scroll', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+        <sbb-header hide-on-scroll="true">
+          <sbb-header-action id="language-menu-trigger">
+          English
+        </sbb-header-action>
+        <sbb-menu trigger="language-menu-trigger">
+          <sbb-menu-action>Deutsch</sbb-menu-action>
+          <sbb-menu-action>Français</sbb-menu-action>
+        </sbb-menu>
+        </sbb-header>
+        <div style="height: 2000px;"></div>
+    `);
+
+    element = await page.find('sbb-header');
+
+    // Scroll down a little bit
+    await page.evaluate(() => window.scrollTo({ top: 200 }));
+    await page.waitForChanges();
+    expect(element).toHaveAttribute('data-fixed-header');
+
+    // Scroll up to show header
+    await page.evaluate(() => window.scrollTo({ top: 190 }));
+    await page.waitForChanges();
+    expect(element).toHaveAttribute('data-visible-header');
+
+    // Open menu
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const menuTrigger = await page.find('sbb-header-action');
+    await menuTrigger.click();
+    await page.waitForChanges();
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    const menuId = menuTrigger.getAttribute('aria-controls');
+    const menu = await page.find(`#${menuId}`);
+
+    // Assert menu opened
+    expect(menuTrigger).toHaveAttribute('aria-controls');
+    expect(menuTrigger).toEqualAttribute('aria-expanded', 'true');
+    expect(menu).toEqualAttribute('data-state', 'opened');
+
+    // Scroll down to hide header.
+    await page.evaluate(() => window.scrollTo({ top: 200 }));
+    await page.waitForChanges();
+    await page.waitForChanges();
+
+    // Assert menu closed
+    expect(element).not.toHaveAttribute('data-visible-header');
+    expect(menu).not.toEqualAttribute('data-state', 'opened');
+    expect(menuTrigger).toEqualAttribute('aria-expanded', 'false');
   });
 });

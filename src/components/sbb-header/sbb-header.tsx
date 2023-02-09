@@ -1,6 +1,8 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
+const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
+
 /**
  * @slot unnamed - Slot used to render the actions on the left side.
  * @slot logo - Slot used to render the logo on the right side (sbb-logo as default).
@@ -98,9 +100,9 @@ export class SbbHeader implements ComponentInterface {
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // scrolling down
         toggleDatasetEntry(this._element, 'shadow', false);
-        (this._element.querySelector('sbb-menu') as HTMLSbbMenuElement)?.close();
         toggleDatasetEntry(this._element, 'fixedHeader', true);
         toggleDatasetEntry(this._element, 'visibleHeader', false);
+        this._closeOpenOverlays();
       } else {
         // scrolling up
         toggleDatasetEntry(this._element, 'shadow', true);
@@ -135,6 +137,19 @@ export class SbbHeader implements ComponentInterface {
       return this._scrollElement.documentElement.scrollTop || this._scrollElement.body.scrollTop;
     }
     return this._scrollElement.scrollTop;
+  }
+
+  private _closeOpenOverlays(): void {
+    const overlayTriggers: HTMLElement[] = Array.from(
+      this._element.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>
+    );
+    for (const overlayTrigger of overlayTriggers) {
+      const overlayId: string = overlayTrigger.getAttribute('aria-controls');
+      const overlay = document.getElementById(overlayId) as HTMLElement & { close: () => void };
+      if (typeof overlay?.close === 'function') {
+        overlay.close();
+      }
+    }
   }
 
   public render(): JSX.Element {

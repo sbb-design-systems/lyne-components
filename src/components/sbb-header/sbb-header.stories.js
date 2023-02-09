@@ -138,7 +138,7 @@ Expanded.args = {
 export const WithUserMenu = TemplateWithUserMenu.bind({});
 WithUserMenu.argTypes = basicArgTypes;
 WithUserMenu.args = { ...basicArgs };
-WithUserMenu.play = playStory;
+WithUserMenu.play = isChromatic() && playStory;
 
 export const BasicScrollHide = Template.bind({});
 BasicScrollHide.argTypes = basicArgTypes;

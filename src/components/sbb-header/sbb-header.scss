@@ -8,7 +8,7 @@
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-position: fixed;
-  --sbb-header-translate-y: 0;
+  --sbb-header-inset-block-start: 0;
   --sbb-header-transition-duration: var(--sbb-animation-duration-6x);
   --sbb-header-transition-property: box-shadow;
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
@@ -31,22 +31,22 @@
 
 :host([hide-on-scroll][data-fixed-header]) {
   --sbb-header-position: fixed;
-  --sbb-header-translate-y: -100%;
+  --sbb-header-inset-block-start: calc(var(--sbb-header-height) * -1);
 }
 
 :host([hide-on-scroll][data-fixed-header][data-visible-header]) {
-  --sbb-header-translate-y: 0;
+  --sbb-header-inset-block-start: 0;
 }
 
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 0 auto;
+  inset-block-start: var(--sbb-header-inset-block-start);
   background: var(--sbb-color-white-default);
   z-index: 10;
   transition-property: var(--sbb-header-transition-property);
   transition-duration: var(--sbb-header-transition-duration);
   transition-timing-function: var(--sbb-header-transition-timing);
-  transform: translateY(var(--sbb-header-translate-y));
 
   :host([data-shadow]) & {
     @include sbb.shadow-level-9-soft;
