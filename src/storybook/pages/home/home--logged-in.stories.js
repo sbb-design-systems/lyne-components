@@ -49,7 +49,9 @@ const Template = (args) => (
         Menu
       </sbb-header-action>
       <div class="spacer" />
-      <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
+      <sbb-header-action icon-name="magnifying-glass-small" href="/">
+        Search
+      </sbb-header-action>
       <sbb-header-action icon-name="user-small" id="user-menu-trigger">
         Christina Müller
       </sbb-header-action>

@@ -13,10 +13,12 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
-  --sbb-header-action-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-header-action-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-header-action-transition-easing: var(--sbb-animation-easing);
   --sbb-header-action-border-color: transparent;
-  --sbb-header-action-inset: 0;
+  --sbb-header-action-background-inset: 0;
   --sbb-header-action-translate-y: 0;
+  --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
 
   // The variable is assigned to the property in the sbb-header component if it is
   // the first element in the header and needs left offset correction (see sbb-header.scss).
@@ -51,7 +53,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   :host(:hover:not(:active, [aria-expanded='true'])) {
     --sbb-header-action-background-color: var(--sbb-color-milk-default);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
-    --sbb-header-action-inset: calc(var(--sbb-border-width-2x) * -1);
+    --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
 
     .sbb-header-action::before {
       @include sbb.if-forced-colors {
@@ -83,16 +85,16 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   &::before {
     position: absolute;
     content: '';
-    inset: var(--sbb-header-action-inset);
+    inset: var(--sbb-header-action-background-inset);
     border-radius: var(--sbb-header-action-min-height);
     background-color: var(--sbb-header-action-background-color);
-    transition-duration: var(--sbb-header-action-animation-duration);
-    transition-timing-function: var(--sbb-animation-easing);
+    transition-duration: var(--sbb-header-action-transition-duration);
+    transition-timing-function: var(--sbb-header-action-transition-easing);
     transition-property: inset, background-color;
     border: var(--sbb-border-width-1x) solid var(--sbb-header-action-border-color);
 
     @include sbb.if-forced-colors {
-      --sbb-header-action-border-color: windowText;
+      --sbb-header-action-border-color: CanvasText;
     }
   }
 
@@ -104,10 +106,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 .sbb-header-action__wrapper {
   display: flex;
   align-items: center;
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-header-action-gap);
   white-space: nowrap;
   transform: translateY(var(--sbb-header-action-translate-y));
-  transition: transform var(--sbb-header-action-animation-duration) var(--sbb-animation-easing);
+  transition: transform var(--sbb-header-action-transition-duration)
+    var(--sbb-header-action-transition-easing);
   will-change: transform;
 }
 

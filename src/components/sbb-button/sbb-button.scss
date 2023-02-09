@@ -207,7 +207,7 @@
     transition-property: inset, background-color, border-color, box-shadow;
 
     @include sbb.if-forced-colors {
-      border: #{sbb.px-to-rem-build(1)} solid windowText;
+      border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
 
@@ -303,10 +303,6 @@
           var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
           var(--sbb-button-shadow-1-color);
     }
-  }
-
-  @include sbb.if-forced-colors {
-    color: ButtonText;
   }
 }
 
