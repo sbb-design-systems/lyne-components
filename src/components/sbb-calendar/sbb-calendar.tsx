@@ -123,7 +123,7 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Sets the date variables. */
   private _setDates(): void {
-    this._activeDate = this._dateAdapter.today();
+    this._activeDate = this.selectedDate ?? this._dateAdapter.today();
     if (
       (!!this.selectedDate && !this._disableDay(this.selectedDate.toISOString())) ||
       this.dateFilter(this.selectedDate)

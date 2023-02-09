@@ -107,7 +107,10 @@ export class SbbDatepickerToggle implements ComponentInterface {
         >
           <sbb-calendar
             {...this._resolveArgs()}
-            ref={(calendar: HTMLSbbCalendarElement) => (this._calendarElement = calendar)}
+            ref={(calendar: HTMLSbbCalendarElement) => {
+              this._calendarElement = calendar;
+              this._calendarElement.selectedDate = this._datePicker.valueAsDate;
+            }}
             onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {
               this._datePicker.valueAsDate = d.detail;
             }}

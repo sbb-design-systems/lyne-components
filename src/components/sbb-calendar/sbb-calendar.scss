@@ -52,7 +52,7 @@
 }
 
 th {
-  @include sbb.text-xs--regular; // fixme for medium
+  @include sbb.text-xs--regular;
 
   color: var(--sbb-color-granite-default);
   width: var(--sbb-calendar-day-size);

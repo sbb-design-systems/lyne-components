@@ -16,8 +16,7 @@ import {
 } from '../../global/interfaces/accessibility-properties';
 
 const REGEX_PATTERN = /[0-9.,\\/\-\s]{1,10}/;
-const REGEX = /(^0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.?(\d{1,4}$)/;
-const REGEX_EDIT =
+const REGEX =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
 @Component({
@@ -94,13 +93,17 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'DD.MM.YYYY';
 
+  public connectedCallback(): void {
+    this._updateValue(this._formatValue(this.value));
+  }
+
   private _inputElement(): HTMLInputElement {
     return this._element.shadowRoot.querySelector('input');
   }
 
   private _formatValue(value: string): string {
-    const match = value.match(REGEX_EDIT);
-    if (match) {
+    const match = value.match(REGEX);
+    if (match && match[1] && match[2] && match[3]) {
       const day = match[1].padStart(2, '0');
       const month = match[2].padStart(2, '0');
       const year = match[3];
@@ -110,16 +113,15 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   }
 
   /**
-   * Returns the right format for the `valueAsDate` property:
-   * sets the start date at 01.01.1970, then adds the typed hours/minutes.
+   * Returns the right format for the `valueAsDate` property
    */
   private _formatValueAsDate(value: string): Date {
     const formattedValue = this._formatValue(value);
-    const match = formattedValue.match(REGEX);
+    const match = formattedValue.split('.');
     if (match) {
-      const day = +match[1];
-      const month = +match[2] - 1;
-      const year = +match[3];
+      const day = +match[0];
+      const month = +match[1] - 1;
+      const year = +match[2];
       return new Date(year, month, day);
     }
     return undefined;
