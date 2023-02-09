@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
-import { hostContext } from '../../global/helpers/host-context';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
   shadow: true,
@@ -11,7 +11,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   /** Datepicker reference */
   @Prop() public datePicker?: string | HTMLElement;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element: HTMLSbbDatepickerNextDayElement;
 
   private _datePicker: HTMLSbbDatepickerElement;
 
@@ -29,18 +29,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   }
 
   private _init(trigger?: string | HTMLElement): void {
-    if (!trigger) {
-      const parent = hostContext('sbb-form-field', this._element);
-      this._datePicker = parent.querySelector('sbb-datepicker') as HTMLSbbDatepickerElement;
-      return;
-    }
-
-    // Check whether it's a string or an HTMLElement
-    if (typeof trigger === 'string') {
-      this._datePicker = document.getElementById(trigger) as HTMLSbbDatepickerElement;
-    } else if (trigger instanceof window.Element) {
-      this._datePicker = trigger as HTMLSbbDatepickerElement;
-    }
+    this._datePicker = getDatePicker(this._element, trigger);
   }
 
   private _handleClick(): void {
