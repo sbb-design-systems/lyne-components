@@ -93,9 +93,6 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'DD.MM.YYYY';
 
-  public connectedCallback(): void {
-    this._updateValue(this._formatValue(this.value));
-  }
 
   private _inputElement(): HTMLInputElement {
     return this._element.shadowRoot.querySelector('input');
@@ -116,12 +113,11 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
    * Returns the right format for the `valueAsDate` property
    */
   private _formatValueAsDate(value: string): Date {
-    const formattedValue = this._formatValue(value);
-    const match = formattedValue.split('.');
-    if (match) {
-      const day = +match[0];
-      const month = +match[1] - 1;
-      const year = +match[2];
+    const values = value.split('.');
+    if (values && values[0] && values[1] && values[2]) {
+      const day = +values[0];
+      const month = +values[1] - 1;
+      const year = +values[2];
       return new Date(year, month, day);
     }
     return undefined;
@@ -139,7 +135,7 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
    */
   private _updateValue(value: string): void {
     this.value = this._formatValue(value);
-    this.valueAsDate = this._formatValueAsDate(value);
+    this.valueAsDate = this._formatValueAsDate(this.value);
     this._inputElement().value = this.value;
   }
 

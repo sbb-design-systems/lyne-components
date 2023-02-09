@@ -40,7 +40,10 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host slot="prefix">
-        <button onClick={() => this._handleClick()}>
+        <button
+          disabled={this._datePicker?.disabled || this._datePicker?.readonly}
+          onClick={() => this._handleClick()}
+        >
           <sbb-icon name="chevron-small-left-small" />
         </button>
       </Host>
