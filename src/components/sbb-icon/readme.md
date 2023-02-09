@@ -55,6 +55,7 @@ In thinking about accessibility, it is useful to place icon use into one of thre
  - [sbb-checkbox](../sbb-checkbox)
  - [sbb-datepicker-next-day](../sbb-datepicker-next-day)
  - [sbb-datepicker-previous-day](../sbb-datepicker-previous-day)
+ - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
  - [sbb-form-field](../sbb-form-field)
  - [sbb-header-action](../sbb-header-action)
  - [sbb-journey-header](../sbb-journey-header)
@@ -78,6 +79,7 @@ graph TD;
   sbb-checkbox --> sbb-icon
   sbb-datepicker-next-day --> sbb-icon
   sbb-datepicker-previous-day --> sbb-icon
+  sbb-datepicker-toggle --> sbb-icon
   sbb-form-field --> sbb-icon
   sbb-header-action --> sbb-icon
   sbb-journey-header --> sbb-icon

@@ -92,9 +92,14 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const plainIcon = <sbb-icon name="calendar-small" />;
+    const tooltipTrigger = (
+      <sbb-tooltip-trigger ref={(e) => this._registerTrigger(e)} iconName="calendar-small" />
+    );
     return (
       <Host slot="prefix">
-        <sbb-tooltip-trigger ref={(e) => this._registerTrigger(e)} iconName="calendar-small" />
+        {this._datePicker?.disabled || this._datePicker?.readonly ? plainIcon : tooltipTrigger}
+
         <sbb-tooltip
           onDid-close={() => {
             this._openedByKeyboard = false;

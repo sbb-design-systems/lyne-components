@@ -14,6 +14,7 @@
 
 ### Depends on
 
+- [sbb-icon](../sbb-icon)
 - [sbb-tooltip-trigger](../sbb-tooltip-trigger)
 - [sbb-tooltip](../sbb-tooltip)
 - [sbb-calendar](../sbb-calendar)
@@ -21,6 +22,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  sbb-datepicker-toggle --> sbb-icon
   sbb-datepicker-toggle --> sbb-tooltip-trigger
   sbb-datepicker-toggle --> sbb-tooltip
   sbb-datepicker-toggle --> sbb-calendar
