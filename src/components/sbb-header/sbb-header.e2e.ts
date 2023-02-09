@@ -40,23 +40,23 @@ describe('sbb-header', () => {
     // Scroll bottom (0px to 200px): header fixed.
     await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
-    expect(element).toHaveAttribute('data-fixed-header');
+    expect(element).toHaveAttribute('data-fixed');
 
     // Scroll top (200px to 100px): header fixed and visible, with shadow and animated.
     await page.evaluate(() => window.scrollTo({ top: 100 }));
     await page.waitForChanges();
     expect(element).toHaveAttribute('data-shadow');
     expect(element).toHaveAttribute('data-animated');
-    expect(element).toHaveAttribute('data-fixed-header');
-    expect(element).toHaveAttribute('data-visible-header');
+    expect(element).toHaveAttribute('data-fixed');
+    expect(element).toHaveAttribute('data-visible');
 
     // Scroll top (100 to 0px): initial situation.
     await page.evaluate(() => window.scrollTo({ top: 0 }));
     await page.waitForChanges();
     expect(element).not.toHaveAttribute('data-shadow');
     expect(element).not.toHaveAttribute('data-animated');
-    expect(element).not.toHaveAttribute('data-fixed-header');
-    expect(element).not.toHaveAttribute('data-visible-header');
+    expect(element).not.toHaveAttribute('data-fixed');
+    expect(element).not.toHaveAttribute('data-visible');
   });
 
   it('should close menu on scroll', async () => {
@@ -79,12 +79,12 @@ describe('sbb-header', () => {
     // Scroll down a little bit
     await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
-    expect(element).toHaveAttribute('data-fixed-header');
+    expect(element).toHaveAttribute('data-fixed');
 
     // Scroll up to show header
     await page.evaluate(() => window.scrollTo({ top: 190 }));
     await page.waitForChanges();
-    expect(element).toHaveAttribute('data-visible-header');
+    expect(element).toHaveAttribute('data-visible');
 
     // Open menu
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
@@ -110,7 +110,7 @@ describe('sbb-header', () => {
     await page.waitForChanges();
 
     // Assert menu closed
-    expect(element).not.toHaveAttribute('data-visible-header');
+    expect(element).not.toHaveAttribute('data-visible');
     expect(menu).not.toEqualAttribute('data-state', 'opened');
     expect(menuTrigger).toEqualAttribute('aria-expanded', 'false');
   });

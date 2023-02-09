@@ -29,12 +29,12 @@
   --sbb-header-transition-property: all;
 }
 
-:host([hide-on-scroll][data-fixed-header]) {
+:host([hide-on-scroll][data-fixed]) {
   --sbb-header-position: fixed;
   --sbb-header-inset-block-start: calc(var(--sbb-header-height) * -1);
 }
 
-:host([hide-on-scroll][data-fixed-header][data-visible-header]) {
+:host([hide-on-scroll][data-fixed][data-visible]) {
   --sbb-header-inset-block-start: 0;
 }
 

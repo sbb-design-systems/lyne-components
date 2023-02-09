@@ -86,10 +86,14 @@ export class SbbHeader implements ComponentInterface {
     return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();
   }
 
-  /** Sets the correct value for `scrollTop`, then:
+  /**
+   * Sets the correct value for `scrollTop`, then:
    * - apply the shadow if the element/document has been scrolled down;
    * - hides the header, remove the shadow and possibly close any open menu on the header if it is not visible anymore;
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
+   *
+   * As soon the header is not in its static context anymore, the data-fixed attribute has to be set.
+   * This is needed to enable the transition when the header is becoming visible. Otherwise, it would jump.
    */
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
@@ -98,16 +102,16 @@ export class SbbHeader implements ComponentInterface {
     if (currentScroll > this._element.offsetHeight) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
-        // scrolling down
+        // Scrolling down
         toggleDatasetEntry(this._element, 'shadow', false);
-        toggleDatasetEntry(this._element, 'fixedHeader', true);
-        toggleDatasetEntry(this._element, 'visibleHeader', false);
+        toggleDatasetEntry(this._element, 'fixed', true);
+        toggleDatasetEntry(this._element, 'visible', false);
         this._closeOpenOverlays();
       } else {
-        // scrolling up
+        // Scrolling up
         toggleDatasetEntry(this._element, 'shadow', true);
         toggleDatasetEntry(this._element, 'animated', true);
-        toggleDatasetEntry(this._element, 'visibleHeader', true);
+        toggleDatasetEntry(this._element, 'visible', true);
       }
     } else {
       // Check if header in its original position, scroll position < header height.
@@ -118,8 +122,8 @@ export class SbbHeader implements ComponentInterface {
       if (this._headerOnTop) {
         toggleDatasetEntry(this._element, 'shadow', false);
         toggleDatasetEntry(this._element, 'animated', false);
-        toggleDatasetEntry(this._element, 'fixedHeader', false);
-        toggleDatasetEntry(this._element, 'visibleHeader', false);
+        toggleDatasetEntry(this._element, 'fixed', false);
+        toggleDatasetEntry(this._element, 'visible', false);
       }
     }
     // `currentScroll` can be negative, e.g. on mobile; this is not allowed.
