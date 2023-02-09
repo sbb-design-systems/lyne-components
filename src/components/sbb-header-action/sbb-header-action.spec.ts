@@ -16,13 +16,15 @@ describe('sbb-header-action', () => {
       <sbb-header-action icon-name='pie-small' expand-from="medium" name="test" type="reset" value="value" accessibility-haspopup="dialog" role="button">
         <mock:shadow-root>
           <button aria-haspopup="dialog" class="sbb-header-action" dir="ltr" name="test" type="reset" value="value">
-            <span class="sbb-header-action__icon">
-              <slot name="icon">
-                <sbb-icon name="pie-small"></sbb-icon>
-              </slot>
-            </span>
-            <span class="sbb-header-action__text">
-              <slot></slot>
+            <span class="sbb-header-action__wrapper">
+              <span class="sbb-header-action__icon">
+                <slot name="icon">
+                  <sbb-icon name="pie-small"></sbb-icon>
+                </slot>
+              </span>
+              <span class="sbb-header-action__text">
+                <slot></slot>
+              </span>
             </span>
           </button>
         </mock:shadow-root>
@@ -41,13 +43,15 @@ describe('sbb-header-action', () => {
       <sbb-header-action expand-from="small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link">
         <mock:shadow-root>
           <a class="sbb-header-action" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank">
-            <span class="sbb-header-action__icon">
-              <slot name="icon"/>
-            </span>
-            <span class="sbb-header-action__text">
-              <slot></slot>
-              <span class="sbb-header-action__opens-in-new-window">
-                . Link target opens in new window.
+            <span class="sbb-header-action__wrapper">
+              <span class="sbb-header-action__icon">
+                <slot name="icon"/>
+              </span>
+              <span class="sbb-header-action__text">
+                <slot></slot>
+                <span class="sbb-header-action__opens-in-new-window">
+                  . Link target opens in new window.
+                </span>
               </span>
             </span>
           </a>
