@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.26.0](https://github.com/lyne-design-system/lyne-components/compare/v0.25.15...v0.26.0) (2023-02-09)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-header:** - The shadow property has been removed, and the component now applies automatically the box-shadow on scroll;
+  any open overlay (menu, dialog..) with trigger in the header will be automatically closed on scroll.
+
+Co-authored-by: Davide Mininni <davide.mininni@finconsgroup.com>
+Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
+
+### Features
+
+- **sbb-header:** hide on scroll behavior ([#1580](https://github.com/lyne-design-system/lyne-components/issues/1580)) ([542204c](https://github.com/lyne-design-system/lyne-components/commit/542204cfd3e8e617492b70510787e741d38c03ca)), closes [#1518](https://github.com/lyne-design-system/lyne-components/issues/1518)
+
 ### [0.25.15](https://github.com/lyne-design-system/lyne-components/compare/v0.25.14...v0.25.15) (2023-02-09)
 
 ### Bug Fixes
