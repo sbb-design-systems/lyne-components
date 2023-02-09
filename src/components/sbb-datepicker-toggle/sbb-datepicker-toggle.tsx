@@ -10,7 +10,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
-import { hostContext } from '../../global/helpers/host-context';
+import { getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
   shadow: true,
@@ -21,7 +21,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
   /** Datepicker reference */
   @Prop() public datePicker?: string | HTMLElement;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element: HTMLSbbDatepickerToggleElement;
 
   @State() private _triggerElement: HTMLElement;
 
@@ -41,8 +41,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._init(this.datePicker);
     this._datePickerController = new AbortController();
+    this._init(this.datePicker);
   }
 
   public disconnectedCallback(): void {
@@ -50,31 +50,24 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   private _init(trigger?: string | HTMLElement): void {
-    if (!trigger) {
-      const parent = hostContext('sbb-form-field', this._element);
-      this._datePicker = parent.querySelector('sbb-datepicker') as HTMLSbbDatepickerElement;
-    } else {
-      // Check whether it's a string or an HTMLElement
-      if (typeof trigger === 'string') {
-        this._datePicker = document.getElementById(trigger) as HTMLSbbDatepickerElement;
-      } else if (trigger instanceof window.Element) {
-        this._datePicker = trigger as HTMLSbbDatepickerElement;
-      }
-    }
-
-    this._datePicker.addEventListener('change', () => {
-      if (this._datePicker.valueAsDate !== this._calendarElement.selectedDate) {
-        this._calendarElement.selectedDate = this._datePicker.valueAsDate;
-      }
-    });
+    this._datePicker = getDatePicker(this._element, trigger);
+    this._datePicker?.addEventListener(
+      'change',
+      () => {
+        if (this._datePicker.valueAsDate !== this._calendarElement.selectedDate) {
+          this._calendarElement.selectedDate = this._datePicker.valueAsDate;
+        }
+      },
+      { signal: this._datePickerController.signal }
+    );
   }
 
   private _resolveArgs(): Record<string, any> {
     return {
-      min: this._datePicker.min,
-      max: this._datePicker.max,
-      wide: this._datePicker.wide,
-      dateFilter: this._datePicker.dateFilter,
+      min: this._datePicker?.min,
+      max: this._datePicker?.max,
+      wide: this._datePicker?.wide,
+      dateFilter: this._datePicker?.dateFilter,
     };
   }
 
@@ -98,8 +91,9 @@ export class SbbDatepickerToggle implements ComponentInterface {
     );
     return (
       <Host slot="prefix">
-        {this._datePicker?.disabled || this._datePicker?.readonly ? plainIcon : tooltipTrigger}
-
+        {!this._datePicker || this._datePicker.disabled || this._datePicker.readonly
+          ? plainIcon
+          : tooltipTrigger}
         <sbb-tooltip
           onDid-close={() => {
             this._openedByKeyboard = false;
@@ -114,7 +108,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
             {...this._resolveArgs()}
             ref={(calendar: HTMLSbbCalendarElement) => {
               this._calendarElement = calendar;
-              this._calendarElement.selectedDate = this._datePicker.valueAsDate;
+              this._calendarElement.selectedDate = this._datePicker?.valueAsDate;
             }}
             onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {
               this._datePicker.valueAsDate = d.detail;

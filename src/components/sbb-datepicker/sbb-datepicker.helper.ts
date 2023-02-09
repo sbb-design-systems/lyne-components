@@ -4,7 +4,10 @@ import { hostContext } from '../../global/helpers/host-context';
  * Given a SbbDatepickerPreviousDay or a SbbDatepickerNextDay component, returns the related SbbDatepicker reference.
  */
 export function getDatePicker(
-  element: HTMLSbbDatepickerPreviousDayElement | HTMLSbbDatepickerNextDayElement,
+  element:
+    | HTMLSbbDatepickerPreviousDayElement
+    | HTMLSbbDatepickerNextDayElement
+    | HTMLSbbDatepickerToggleElement,
   trigger?: string | HTMLElement
 ): HTMLSbbDatepickerElement {
   if (!trigger) {

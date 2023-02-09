@@ -5,7 +5,6 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Prop,
   Watch,
@@ -93,7 +92,6 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'DD.MM.YYYY';
 
-
   private _inputElement(): HTMLInputElement {
     return this._element.shadowRoot.querySelector('input');
   }
@@ -166,15 +164,13 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
     };
 
     return (
-      <Host>
-        <input
-          type="text"
-          maxlength="10"
-          {...inputAttributes}
-          onInput={(event) => this._preventCharInsert(event)}
-          onChange={(event) => this._formatAndUpdateValue(event)}
-        />
-      </Host>
+      <input
+        type="text"
+        maxlength="10"
+        {...inputAttributes}
+        onInput={(event) => this._preventCharInsert(event)}
+        onChange={(event) => this._formatAndUpdateValue(event)}
+      />
     );
   }
 }
