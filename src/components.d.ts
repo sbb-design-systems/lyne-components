@@ -582,9 +582,13 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
-          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+          * Whether the header should hide and show on scroll.
          */
-        "shadow": boolean;
+        "hideOnScroll": boolean;
+        /**
+          * The element's id or the element on which the scroll listener is attached.
+         */
+        "scrollOrigin": string | HTMLElement | Document;
     }
     interface SbbHeaderAction {
         /**
@@ -2789,9 +2793,13 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Used to display a box-shadow below the component on y-axis scroll whether set to true.
+          * Whether the header should hide and show on scroll.
          */
-        "shadow"?: boolean;
+        "hideOnScroll"?: boolean;
+        /**
+          * The element's id or the element on which the scroll listener is attached.
+         */
+        "scrollOrigin"?: string | HTMLElement | Document;
     }
     interface SbbHeaderAction {
         /**

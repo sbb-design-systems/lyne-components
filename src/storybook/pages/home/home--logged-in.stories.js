@@ -44,7 +44,7 @@ const Template = (args) => (
     {/* *************************************************
     Header section
     ************************************************* */}
-    <sbb-header>
+    <sbb-header hide-on-scroll="true">
       <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>

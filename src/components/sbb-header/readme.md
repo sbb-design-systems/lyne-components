@@ -1,6 +1,6 @@
 # sbb-header
 
-The `sbb-header` component is a container for actions and logo, and it is displayed sticky at page's top.
+The `sbb-header` component is a container for actions and a logo, and it is displayed at the top of the page.
 
 It has two slots: 
 the first one can contain one or more [sbb-header-action](../sbb-header-action/readme.md) or other action items
@@ -9,27 +9,12 @@ at the right end, and it can contain a logo, which by default is the [sbb-logo](
 
 The height of the header can be overridden by re-defining the css variable `--sbb-header-height`.
 
-A box-shadow appears under the component if the `shadow` variable is set to `true`;
-consumers could provide their own logic to set this variable to `true` when the page scrolls down,
-and to `false` when the scroll is at page's top.
-To achieve this in Storybook, these lines have been added in the configuration file called `preview-head.html`:
-
-```javascript
-<script>
-  const headerScrollHandler = () => {
-    const header = document.getElementsByTagName('sbb-header')[0];
-    if (header) {
-      if (window.scrollY === 0) {
-        header.removeAttribute('shadow');
-      } else {
-        header.setAttribute('shadow', '');
-      }
-    }
-  };
-  window.onload = () => document.addEventListener('scroll', headerScrollHandler);
-  window.onunload = () => document.removeEventListener('scroll', headerScrollHandler);
-</script>
-```
+By default, the `sbb-header` has a fixed position at the top of the page; 
+when the page is scrolled down, a box-shadow appears below it and the component remains visible.
+It's possible to change this behavior by setting the `hideOnScroll` property to `true`, or adding the `hide-on-scroll`
+attribute: in this case, the box-shadow is still set, but the component disappears when the page is scrolled down and 
+then reappears as soon as it's scrolled up. It's also possible to bind this behaviour to something other than the `document`, 
+using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of the element to search for.
 
 ## Style
 
@@ -109,10 +94,11 @@ Header with logo link and slotted sbb-logo:
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                          | Type      | Default |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
-| `expanded` | `expanded` | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean` | `false` |
-| `shadow`   | `shadow`   | Used to display a box-shadow below the component on y-axis scroll whether set to true.                               | `boolean` | `false` |
+| Property       | Attribute        | Description                                                                                                          | Type                                | Default    |
+| -------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------- |
+| `expanded`     | `expanded`       | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. | `boolean`                           | `false`    |
+| `hideOnScroll` | `hide-on-scroll` | Whether the header should hide and show on scroll.                                                                   | `boolean`                           | `false`    |
+| `scrollOrigin` | `scroll-origin`  | The element's id or the element on which the scroll listener is attached.                                            | `Document \| HTMLElement \| string` | `document` |
 
 
 ## Slots
