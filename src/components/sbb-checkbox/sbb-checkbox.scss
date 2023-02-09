@@ -13,7 +13,7 @@
   --sbb-checkbox-cursor: pointer;
 
   @include sbb.if-forced-colors {
-    --sbb-checkbox-selection-color: CanvasText;
+    --sbb-checkbox-selection-color: Canvas;
   }
 
   display: inline-block;
@@ -28,10 +28,21 @@
   --sbb-checkbox-cursor: default;
 
   @include sbb.if-forced-colors {
-    --sbb-checkbox-color: GrayText;
-    --sbb-checkbox-label-color: GrayText;
-    --sbb-checkbox-selection-color: GrayText;
+    --sbb-checkbox-selection-color: Canvas;
   }
+}
+
+:host([indeterminate]:not([indeterminate='false'])) {
+  --sbb-checkbox-selection-color: ButtonBorder;
+}
+
+:host(
+    [indeterminate]:not([indeterminate='false']):is(
+        [data-group-disabled],
+        [disabled]:not([disabled='false'])
+      )
+  ) {
+  --sbb-checkbox-selection-color: GrayText;
 }
 
 .sbb-checkbox-wrapper {
@@ -87,6 +98,24 @@ input[type='checkbox'] {
   border-radius: var(--sbb-border-radius-2x);
   box-shadow: var(--sbb-checkbox-border-color) 0 0 0 var(--sbb-checkbox-border-width) inset;
   background-color: var(--sbb-color-white-default);
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-2x) solid ButtonBorder;
+    outline-offset: calc(-1 * var(--sbb-border-width-2x));
+
+    :host([checked]:not([checked='false'])) & {
+      background-color: HighLight;
+      outline: none;
+    }
+
+    :host([disabled]:not([disabled='false'])) & {
+      outline-color: GrayText;
+    }
+
+    :host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) & {
+      background-color: GrayText;
+    }
+  }
 }
 
 .sbb-checkbox__icon {
