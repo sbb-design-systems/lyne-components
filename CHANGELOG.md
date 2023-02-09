@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.25.15](https://github.com/lyne-design-system/lyne-components/compare/v0.25.14...v0.25.15) (2023-02-09)
+
+### Bug Fixes
+
+- **sbb-checkbox, sbb-radio-button:** fix windows high contrast styles ([#1607](https://github.com/lyne-design-system/lyne-components/issues/1607)) ([91c27ed](https://github.com/lyne-design-system/lyne-components/commit/91c27edcb2f610033659a4526f890c513ae455af))
+
 ### [0.25.14](https://github.com/lyne-design-system/lyne-components/compare/v0.25.13...v0.25.14) (2023-02-09)
 
 ### Bug Fixes
