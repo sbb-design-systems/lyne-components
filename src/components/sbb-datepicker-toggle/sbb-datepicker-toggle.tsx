@@ -19,22 +19,18 @@ import { hostContext } from '../../global/helpers/host-context';
 })
 export class SbbDatepickerToggle implements ComponentInterface {
   /** Datepicker reference */
-  @Prop()
-  public datePicker?: string | HTMLElement;
+  @Prop() public datePicker?: string | HTMLElement;
 
-  public connectedCallback(): void {
-    this._init(this.datePicker);
-    this._datePickerController = new AbortController();
-  }
-
-  public disconnectedCallback(): void {
-    this._datePickerController.abort();
-  }
+  @Element() private _element: HTMLElement;
 
   @State() private _triggerElement: HTMLElement;
 
+  private _datePicker: HTMLSbbDatepickerElement;
+
   private _calendarElement: HTMLSbbCalendarElement;
+
   private _openedByKeyboard = false;
+
   private _datePickerController: AbortController;
 
   @Watch('datePicker')
@@ -44,8 +40,14 @@ export class SbbDatepickerToggle implements ComponentInterface {
     }
   }
 
-  @Element() private _element: HTMLElement;
-  private _datePicker: HTMLSbbDatepickerElement;
+  public connectedCallback(): void {
+    this._init(this.datePicker);
+    this._datePickerController = new AbortController();
+  }
+
+  public disconnectedCallback(): void {
+    this._datePickerController.abort();
+  }
 
   private _init(trigger?: string | HTMLElement): void {
     if (!trigger) {
@@ -67,8 +69,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  private _resolveArgs() {
+  private _resolveArgs(): Record<string, any> {
     return {
       min: this._datePicker.min,
       max: this._datePicker.max,

@@ -9,8 +9,13 @@ import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 })
 export class SbbDatepickerPreviousDay implements ComponentInterface {
   /** Datepicker reference */
-  @Prop()
-  public datePicker?: string | HTMLElement;
+  @Prop() public datePicker?: string | HTMLElement;
+
+  @Element() private _element: HTMLElement;
+
+  private _datePicker: HTMLSbbDatepickerElement;
+
+  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
@@ -22,10 +27,6 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   public connectedCallback(): void {
     this._init(this.datePicker);
   }
-
-  @Element() private _element: HTMLElement;
-  private _datePicker: HTMLSbbDatepickerElement;
-  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
   private _init(trigger?: string | HTMLElement): void {
     if (!trigger) {

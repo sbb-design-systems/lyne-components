@@ -15,10 +15,10 @@ import {
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
 
-const REGEX_PATTERN = /[0-9.,\\/-\s]{1,10}/;
+const REGEX_PATTERN = /[0-9.,\\/\-\s]{1,10}/;
 const REGEX = /(^0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.?(\d{1,4}$)/;
 const REGEX_EDIT =
-  /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/-\s](0?[1-9]?|1?[0-2]?)?[.,\\/-\s](\d{1,4}$)?/;
+  /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
 @Component({
   shadow: true,
@@ -59,6 +59,9 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
+  /** Host element */
+  @Element() private _element!: HTMLElement;
+
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
@@ -87,9 +90,6 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
     this._inputElement().value = this.value;
     this._emitChange();
   }
-
-  /** Host element */
-  @Element() private _element!: HTMLElement;
 
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'DD.MM.YYYY';
@@ -174,9 +174,7 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
           maxlength="10"
           {...inputAttributes}
           onInput={(event) => this._preventCharInsert(event)}
-          onChange={(event) => {
-            this._formatAndUpdateValue(event);
-          }}
+          onChange={(event) => this._formatAndUpdateValue(event)}
         />
       </Host>
     );

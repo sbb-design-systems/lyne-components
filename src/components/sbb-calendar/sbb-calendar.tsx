@@ -1,9 +1,16 @@
 import { JSXElement } from '@babel/types';
 import {
-  Component, ComponentInterface,
-  Element, Event,
-  EventEmitter, h, JSX, Method,
-  Prop, State, Watch
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  JSX,
+  Method,
+  Prop,
+  State,
+  Watch,
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
@@ -32,6 +39,33 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Event emitted on date selection. */
   @Event({ eventName: 'date-selected' }) public dateSelected: EventEmitter<Date>;
+
+  /** The currently active date. */
+  @State() private _activeDate: Date;
+
+  /** The selected date as ISOString. */
+  @State() private _selected: string;
+
+  /** The current width */
+  @State() private _wide: boolean;
+
+  /** Min and Max values converted to date */
+  @State() private _min: Date;
+  @State() private _max: Date;
+
+  @Element() private _element: HTMLElement;
+
+  /** Date adapter. */
+  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
+
+  private _days: HTMLButtonElement[];
+
+  /** A list of the day of the week, in two format (long and single char). */
+  private _weekdays: { long: string; narrow: string }[];
+
+  /** Grid of calendar cells representing the dates of the month. */
+  private _weeks: { value: string; displayValue: string }[][];
+  private _nextMonthWeeks: { value: string; displayValue: string }[][];
 
   @Watch('min')
   public convertMinDate(newMin: Date | string | number): void {
@@ -76,32 +110,6 @@ export class SbbCalendar implements ComponentInterface {
       this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')
     ) as HTMLButtonElement[];
   }
-
-  @Element() private _element: HTMLElement;
-  private _days: HTMLButtonElement[];
-
-  /** The currently active date. */
-  @State() private _activeDate: Date;
-
-  /** The selected date as ISOString. */
-  @State() private _selected: string;
-
-  /** The current width */
-  @State() private _wide: boolean;
-
-  /** Min and Max values converted to date */
-  @State() private _min: Date;
-  @State() private _max: Date;
-
-  /** Date adapter. */
-  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
-
-  /** A list of the day of the week, in two format (long and single char). */
-  private _weekdays: { long: string; narrow: string }[];
-
-  /** Grid of calendar cells representing the dates of the month. */
-  private _weeks: { value: string; displayValue: string }[][];
-  private _nextMonthWeeks: { value: string; displayValue: string }[][];
 
   /** Initialize the component. */
   private _init(): void {
