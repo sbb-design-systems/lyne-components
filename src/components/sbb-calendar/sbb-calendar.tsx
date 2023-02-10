@@ -336,9 +336,9 @@ export class SbbCalendar implements ComponentInterface {
     for (const day of currentlyActive) {
       (day as HTMLElement).tabIndex = -1;
     }
-    const fistFocusable = this._getFirstFocusable();
-    if (fistFocusable) {
-      fistFocusable.tabIndex = 0;
+    const firstFocusable = this._getFirstFocusable();
+    if (firstFocusable) {
+      firstFocusable.tabIndex = 0;
     }
   }
 

@@ -5,11 +5,11 @@ describe('sbb-calendar', () => {
   it('renders', async () => {
     const page = await newSpecPage({
       components: [SbbCalendar],
-      html: `<sbb-calendar selected-date='1674172800'/>`,
+      html: "<sbb-calendar selected-date='2023-01-20T00:00:00'/>",
     });
 
     expect(page.root).toEqualHtml(`
-      <sbb-calendar selected-date="1674172800">
+      <sbb-calendar selected-date="2023-01-20T00:00:00">
         <mock:shadow-root>
           <div class="sbb-calendar__wrapper">
             <div class="sbb-calendar__controls">
@@ -57,7 +57,7 @@ describe('sbb-calendar', () => {
                   <tr>
                     <td colspan="6" data-day="0 1 2023"></td>
                     <td>
-                      <button aria-disabled="false" aria-label="1 1 2023" aria-pressed="false" class="sbb-datepicker__day" data-day="1 1 2023" tabindex="0">
+                      <button aria-disabled="false" aria-label="1 1 2023" aria-pressed="false" class="sbb-datepicker__day" data-day="1 1 2023" tabindex="-1">
                         1
                       </button>
                     </td>
@@ -158,7 +158,7 @@ describe('sbb-calendar', () => {
                       </button>
                     </td>
                     <td>
-                      <button aria-disabled="false" aria-label="20 1 2023" aria-pressed="false" class="sbb-datepicker__day" data-day="20 1 2023" tabindex="-1">
+                      <button aria-disabled="false" aria-label="20 1 2023" aria-pressed="true" class="sbb-datepicker__day sbb-datepicker__day-selected" data-day="20 1 2023" tabindex="0">
                         20
                       </button>
                     </td>
@@ -234,7 +234,7 @@ describe('sbb-calendar', () => {
   it('renders with min and max', async () => {
     const page = await newSpecPage({
       components: [SbbCalendar],
-      html: `<sbb-calendar selected-date='1674172800' min="1673222400" max="1674950400"/>`,
+      html: "<sbb-calendar selected-date='2023-01-20T00:00:00' min='2023-01-09T00:00:00' max='2023-01-29T00:00:00'/>",
     });
 
     const buttonPrevDay = page.root.shadowRoot.querySelector(
