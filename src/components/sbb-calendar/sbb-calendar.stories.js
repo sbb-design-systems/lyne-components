@@ -36,20 +36,20 @@ calendar.argTypes = {
   ...defaultArgTypes,
   min: {
     control: {
-      type: 'number',
+      type: 'date',
     },
   },
   max: {
     control: {
-      type: 'number',
+      type: 'date',
     },
   },
 };
 
 calendar.args = {
   ...defaultArgs,
-  min: 1672757742,
-  max: 1689907742,
+  min: new Date(2023, 0, 9),
+  max: new Date(2023, 0, 29),
 };
 
 calendarUnixTimestamp.argTypes = {
@@ -68,8 +68,8 @@ calendarUnixTimestamp.argTypes = {
 
 calendarUnixTimestamp.args = {
   ...defaultArgs,
-  min: '1672757742',
-  max: '1674805731',
+  min: new Date(2023, 0, 8),
+  max: new Date(2023, 0, 29),
 };
 
 calendarISOString.args = {
@@ -90,7 +90,6 @@ export default {
     actions: {
       handles: [events.dateSelected],
     },
-    handles: [events.dateSelected],
   },
   backgrounds: {
     disable: true,

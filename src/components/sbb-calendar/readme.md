@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property       | Attribute | Description                              | Type                       | Default      |
-| -------------- | --------- | ---------------------------------------- | -------------------------- | ------------ |
-| `dateFilter`   | --        | A function used to filter out dates.     | `(date: Date) => boolean`  | `() => true` |
-| `max`          | `max`     | The maximum valid date.                  | `Date \| number \| string` | `undefined`  |
-| `min`          | `min`     | The minimum valid date.                  | `Date \| number \| string` | `undefined`  |
-| `selectedDate` | --        | The selected date.                       | `Date`                     | `undefined`  |
-| `wide`         | `wide`    | If set to true, two months are displayed | `boolean`                  | `false`      |
+| Property       | Attribute       | Description                              | Type                       | Default      |
+| -------------- | --------------- | ---------------------------------------- | -------------------------- | ------------ |
+| `dateFilter`   | --              | A function used to filter out dates.     | `(date: Date) => boolean`  | `() => true` |
+| `max`          | `max`           | The maximum valid date.                  | `Date \| number \| string` | `undefined`  |
+| `min`          | `min`           | The minimum valid date.                  | `Date \| number \| string` | `undefined`  |
+| `selectedDate` | `selected-date` | The selected date.                       | `Date \| number \| string` | `undefined`  |
+| `wide`         | `wide`          | If set to true, two months are displayed | `boolean`                  | `false`      |
 
 
 ## Events

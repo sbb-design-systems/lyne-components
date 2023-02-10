@@ -33,8 +33,10 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   }
 
   private _handleClick(): void {
-    const date = this._datePicker.valueAsDate ?? this._dateAdapter.today();
-    this._datePicker.valueAsDate = this._dateAdapter.addCalendarDays(date, 1);
+    if (this._datePicker) {
+      const date = this._datePicker.valueAsDate ?? this._dateAdapter.today();
+      this._datePicker.valueAsDate = this._dateAdapter.addCalendarDays(date, 1);
+    }
   }
 
   public render(): JSX.Element {

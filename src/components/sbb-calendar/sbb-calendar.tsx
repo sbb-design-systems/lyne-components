@@ -35,7 +35,7 @@ export class SbbCalendar implements ComponentInterface {
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
   /** The selected date. */
-  @Prop({ attribute: 'selected-date' }) public selectedDate: Date;
+  @Prop({ attribute: 'selected-date' }) public selectedDate: Date | string | number;
 
   /** Event emitted on date selection. */
   @Event({ eventName: 'date-selected' }) public dateSelected: EventEmitter<Date>;
@@ -126,12 +126,13 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Sets the date variables. */
   private _setDates(): void {
-    this._activeDate = this.selectedDate ?? this._dateAdapter.today();
+    const selectedDate = this._dateAdapter.deserializeDate(this.selectedDate);
+    this._activeDate = selectedDate ?? this._dateAdapter.today();
     if (
-      (!!this.selectedDate && !this._disableDay(this.selectedDate.toISOString())) ||
-      this.dateFilter(this.selectedDate)
+      (!!selectedDate && !this._disableDay(selectedDate.toISOString())) ||
+      this.dateFilter(selectedDate)
     ) {
-      this._selected = this.selectedDate ? this.selectedDate.toISOString() : undefined;
+      this._selected = selectedDate ? selectedDate.toISOString() : undefined;
     }
   }
 
@@ -200,7 +201,7 @@ export class SbbCalendar implements ComponentInterface {
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
-            <td colSpan={firstRowOffset}></td>
+            <td colSpan={firstRowOffset} data-day="0"></td>
             {this._createDayCells(week)}
           </tr>
         );
@@ -229,6 +230,7 @@ export class SbbCalendar implements ComponentInterface {
             aria-label={this._getAriaLabel(day.value)}
             aria-pressed={selected ? 'true' : 'false'}
             aria-disabled={isOutOfRange || !this.dateFilter(new Date(day.value)) ? 'true' : 'false'}
+            data-day={day.displayValue}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => handleKeyboardEvent(evt, this._days)}
           >

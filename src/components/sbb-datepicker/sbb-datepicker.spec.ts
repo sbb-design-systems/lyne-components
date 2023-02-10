@@ -9,11 +9,11 @@ describe('sbb-datepicker', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-datepicker>
-          <mock:shadow-root>
-            <button class="some-class">A</button>
-          </mock:shadow-root>
-        </sbb-datepicker>
-      `);
+      <sbb-datepicker>
+        <mock:shadow-root>
+          <input maxlength="10" placeholder="DD.MM.YYYY" type="text">
+        </mock:shadow-root>
+      </sbb-datepicker>
+    `);
   });
 });

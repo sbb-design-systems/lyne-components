@@ -23,22 +23,16 @@ describe('sbb-datepicker-toggle', () => {
   });
 
   describe('renders in form-field', () => {
-    const createSpecPage: (args?: Record<string, any>) => Promise<SpecPage> = async (
-      args?: Record<string, any>
-    ) => {
-      return await newSpecPage({
+    it('renders in form-field', async () => {
+      const page: SpecPage = await newSpecPage({
         components: [SbbFormField, SbbDatepicker, SbbDatepickerToggle],
         html: `
           <sbb-form-field>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
-            <sbb-datepicker min=${args?.min} max=${args?.max} wide=${args?.wide} disabled=${args?.disabled} readonly=${args?.readonly}></sbb-datepicker>
+            <sbb-datepicker></sbb-datepicker>
           </sbb-form-field>
         `,
       });
-    };
-
-    it('renders in form-field', async () => {
-      const page: SpecPage = await createSpecPage();
       const element: HTMLSbbDatepickerToggleElement =
         page.doc.querySelector('sbb-datepicker-toggle');
       expect(element).toEqualHtml(`
@@ -54,7 +48,15 @@ describe('sbb-datepicker-toggle', () => {
     });
 
     it('renders in disabled form-field', async () => {
-      const page = await createSpecPage({ disabled: true });
+      const page = await newSpecPage({
+        components: [SbbFormField, SbbDatepicker, SbbDatepickerToggle],
+        html: `
+          <sbb-form-field>
+            <sbb-datepicker-toggle></sbb-datepicker-toggle>
+            <sbb-datepicker disabled='true'></sbb-datepicker>
+          </sbb-form-field>
+        `,
+      });
       const element: HTMLSbbDatepickerToggleElement =
         page.doc.querySelector('sbb-datepicker-toggle');
       expect(element).toEqualHtml(`
@@ -70,7 +72,15 @@ describe('sbb-datepicker-toggle', () => {
     });
 
     it('renders in form-field with calendar parameters', async () => {
-      const page = await createSpecPage({ min: '1600000000', max: '1700000000', wide: 'true' });
+      const page = await newSpecPage({
+        components: [SbbFormField, SbbDatepicker, SbbDatepickerToggle],
+        html: `
+          <sbb-form-field>
+            <sbb-datepicker-toggle></sbb-datepicker-toggle>
+            <sbb-datepicker min="1600000000" max="1700000000" wide="true"></sbb-datepicker>
+          </sbb-form-field>
+        `,
+      });
       const element: HTMLSbbDatepickerToggleElement =
         page.doc.querySelector('sbb-datepicker-toggle');
       expect(element).toEqualHtml(`
