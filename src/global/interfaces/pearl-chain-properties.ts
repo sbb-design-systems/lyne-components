@@ -27,6 +27,7 @@ export interface ServiceAlteration {
 
   /** true: journey is redirected */
   redirected: boolean;
+  redirectedFormatted?: string;
   redirectedText: string;
 
   /**

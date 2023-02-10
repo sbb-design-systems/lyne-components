@@ -2,7 +2,7 @@ import { Component, h, JSX, Prop, Element, ComponentInterface, State, Listen } f
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
-import { i18nDurationHour, i18nDurationMinute, i18nToday, i18nTomorrow } from '../../global/i18n';
+import { i18nDurationMinute, i18nToday, i18nTomorrow } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
 
@@ -48,11 +48,11 @@ export class SbbJourneySummary implements ComponentInterface {
         {duration.hours > 0 && (
           <span>
             {duration.hours}
-            {i18nDurationHour.single.short[this._currentLanguage] + ' '}
+            {' ' + 'h' + ' '}
           </span>
         )}
         {duration.minutes}
-        {i18nDurationMinute.multiple.short[this._currentLanguage]}
+        {' ' + i18nDurationMinute.multiple.short[this._currentLanguage]}
       </time>
     );
   }

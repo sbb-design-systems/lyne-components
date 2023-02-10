@@ -148,7 +148,6 @@ export class SbbTimetableRow {
         {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         {this.price && !this.loadingPrice && (
           <sbb-card-badge
-            class="sbb-timetable__row-price"
             slot="badge"
             appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
             price={this.price.price}

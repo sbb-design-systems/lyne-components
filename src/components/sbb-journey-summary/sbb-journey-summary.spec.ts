@@ -59,9 +59,9 @@ describe('sbb-journey-summary', () => {
                    ,
                    <time datetime="1 0">
                      <span>
-                       1h
+                       1 h
                      </span>
-                     0min
+                     0 min
                    </time>
                  </span>
                </span>
@@ -93,9 +93,9 @@ describe('sbb-journey-summary', () => {
                    ,
                    <time datetime="1 40">
                      <span>
-                       1h
+                       1 h
                      </span>
-                     40min
+                     40 min
                    </time>
                  </span>
                </span>

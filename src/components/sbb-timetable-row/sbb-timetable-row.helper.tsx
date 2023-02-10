@@ -8,7 +8,7 @@ import {
   subDays,
 } from 'date-fns';
 import { documentLanguage } from '../../global/helpers/language';
-import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
+import { i18nDurationMinute } from '../../global/i18n';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
 
@@ -28,7 +28,7 @@ export const durationToTime = (
 
   const hours = differenceInHours(future, now);
   if (hours > 0) {
-    result.push(`${hours} ${i18nDurationHour.multiple.short[currentLanguage]}`);
+    result.push(`${hours} h`);
     future = subHours(future, hours);
   }
 
@@ -119,21 +119,17 @@ const isReachable = (legs: PtRideLeg[]): boolean => {
 };
 
 const getReachableText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText !== '')
-    .serviceJourney?.serviceAlteration?.reachableText;
-};
-
-const isRedirected = (legs: PtRideLeg[]): boolean => {
-  return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.redirected === true);
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
+    ?.serviceAlteration?.reachableText;
 };
 
 const getRedirectedText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.redirectedText !== '')
-    .serviceJourney?.serviceAlteration?.redirectedText;
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedFormatted)
+    ?.serviceJourney?.serviceAlteration?.redirectedFormatted;
 };
 
 const getUnplannedStop = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText !== '')
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
 
@@ -195,7 +191,7 @@ export const getCus = (trip: Trip): HimCus => {
     return { name: 'cancellation', text: tripStatus?.cancelledText };
   if (!isReachable(legs)) return { name: 'missed-connection', text: getReachableText(legs) };
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
-  if (isRedirected(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
+  if (getRedirectedText(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
   if (getUnplannedStop(legs)) return { name: 'add-stop', text: getUnplannedStop(legs) };
   if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
   if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
