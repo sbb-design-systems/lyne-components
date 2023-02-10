@@ -28,6 +28,7 @@
 .sbb-option {
   display: flex;
   align-items: center;
+  column-gap: var(--sbb-spacing-responsive-xxxs);
   padding-inline: var(--sbb-spacing-responsive-xxxs);
   background-color: var(--sbb-option-bg-color);
   min-height: var(--sbb-option-min-height);
@@ -35,7 +36,6 @@
 
 .sbb-option__icon {
   display: flex;
-  margin-right: var(--sbb-spacing-responsive-xxxs);
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
 }
