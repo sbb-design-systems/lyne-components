@@ -14,7 +14,7 @@ import {
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { handleKeyboardEvent } from './sbb-calendar.helper';
+import { Day, handleKeyboardEvent } from './sbb-calendar.helper';
 
 @Component({
   shadow: true,
@@ -64,8 +64,8 @@ export class SbbCalendar implements ComponentInterface {
   private _weekdays: { long: string; narrow: string }[];
 
   /** Grid of calendar cells representing the dates of the month. */
-  private _weeks: { value: string; displayValue: string }[][];
-  private _nextMonthWeeks: { value: string; displayValue: string }[][];
+  private _weeks: Day[][];
+  private _nextMonthWeeks: Day[][];
 
   @Watch('min')
   public convertMinDate(newMin: Date | string | number): void {
@@ -152,10 +152,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Create the rows for each week. */
-  private _createWeekRows(
-    month: number,
-    year: number
-  ): { value: string; displayValue: string }[][] {
+  private _createWeekRows(month: number, year: number): Day[][] {
     const daysInMonth = this._dateAdapter.getNumDaysInMonth(year, month);
     const dateNames = this._dateAdapter.getDateNames();
     const weeks = [[]];
@@ -167,13 +164,15 @@ export class SbbCalendar implements ComponentInterface {
       }
       weeks[weeks.length - 1].push({
         value: new Date(year, month, i + 1).toISOString(),
-        displayValue: dateNames[i],
+        dayValue: dateNames[i],
+        monthValue: month + 1,
+        yearValue: year
       });
     }
     return weeks;
   }
 
-  private _createTable(weeks: { value: string; displayValue: string }[][]): JSXElement {
+  private _createTable(weeks: Day[][]): JSXElement {
     return (
       <table class="sbb-calendar__table">
         <thead class="sbb-calendar__table-header">
@@ -195,13 +194,13 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Create the table body with the days cells. */
-  private _createTableBody(weeks: { value: string; displayValue: string }[][]): JSX.Element {
-    return weeks.map((week: { value: string; displayValue: string }[], rowIndex: number) => {
+  private _createTableBody(weeks: Day[][]): JSX.Element {
+    return weeks.map((week: Day[], rowIndex: number) => {
       const firstRowOffset = NativeDateAdapter.DAYS_PER_WEEK - week.length;
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
-            <td colSpan={firstRowOffset} data-day="0"></td>
+            <td colSpan={firstRowOffset} data-day={`0 ${week[rowIndex].monthValue} ${week[rowIndex].yearValue}`}></td>
             {this._createDayCells(week)}
           </tr>
         );
@@ -211,9 +210,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Create the cells for the days. */
-  private _createDayCells(week: { value: string; displayValue: string }[]): JSX.Element {
+  private _createDayCells(week: Day[]): JSX.Element {
     const today = this._dateAdapter.today().toISOString();
-    return week.map((day: { value: string; displayValue: string }) => {
+    return week.map((day: Day) => {
       const isOutOfRange = !this._disableDay(day.value);
       const selected = this._selected && day.value === this._selected;
       return (
@@ -227,14 +226,14 @@ export class SbbCalendar implements ComponentInterface {
             }}
             onClick={() => this._selectDate(day.value)}
             disabled={isOutOfRange || !this.dateFilter(new Date(day.value))}
-            aria-label={this._getAriaLabel(day.value)}
+            aria-label={`${day.dayValue} ${day.monthValue} ${day.yearValue}`}
             aria-pressed={selected ? 'true' : 'false'}
             aria-disabled={isOutOfRange || !this.dateFilter(new Date(day.value)) ? 'true' : 'false'}
-            data-day={day.displayValue}
+            data-day={`${day.dayValue} ${day.monthValue} ${day.yearValue}`}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => handleKeyboardEvent(evt, this._days)}
           >
-            {day.displayValue}
+            {day.dayValue}
           </button>
         </td>
       );
@@ -249,11 +248,6 @@ export class SbbCalendar implements ComponentInterface {
         {this._dateAdapter.getMonthNames('long')[month]} {year}
       </span>
     );
-  }
-
-  private _getAriaLabel(day: string): string {
-    const dateObj = new Date(day);
-    return `${dateObj.getDate()} ${dateObj.getMonth() + 1} ${dateObj.getFullYear()}`;
   }
 
   private _disableDay(date: string): boolean {
@@ -339,7 +333,9 @@ export class SbbCalendar implements ComponentInterface {
       (day as HTMLElement).tabIndex = -1;
     }
     const fistFocusable = this._getFirstFocusable();
-    fistFocusable.tabIndex = 0;
+    if (fistFocusable) {
+      fistFocusable.tabIndex = 0;
+    }
   }
 
   public render(): JSX.Element {

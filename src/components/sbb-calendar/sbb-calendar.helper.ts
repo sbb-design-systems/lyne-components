@@ -1,3 +1,10 @@
+export interface Day {
+  value: string;
+  dayValue: string;
+  monthValue: string;
+  yearValue: string;
+}
+
 export function handleKeyboardEvent(evt: KeyboardEvent, days: HTMLButtonElement[]): void {
   const arrowsKeys = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'];
   if (arrowsKeys.includes(evt.key)) {
