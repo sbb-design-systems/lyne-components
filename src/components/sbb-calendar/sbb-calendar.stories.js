@@ -2,13 +2,25 @@ import events from './sbb-calendar.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-calendar {...args}></sbb-calendar>;
-
-/*
-  ref={(calendarRef) => {
+const Template = ({ min, max, selectedDate, ...args }) => (
+  <sbb-calendar
+    min={new Date(min)}
+    max={new Date(max)}
+    selectedDate={new Date(selectedDate)}
+    {...args}
+  ></sbb-calendar>
+);
+const TemplateUnixTimestamp = ({ min, max, selectedDate, ...args }) => (
+  <sbb-calendar min={min} max={max} selected-date={selectedDate} {...args}></sbb-calendar>
+);
+const TemplateFilterFunction = (args) => (
+  <sbb-calendar
+    ref={(calendarRef) => {
       calendarRef.dateFilter = (d) => d.getDay() !== 6 && d.getDay() !== 0;
     }}
-*/
+    {...args}
+  ></sbb-calendar>
+);
 
 const defaultArgs = {
   wide: false,
@@ -29,8 +41,10 @@ const defaultArgTypes = {
 };
 
 export const calendar = Template.bind({});
-export const calendarUnixTimestamp = Template.bind({});
+export const calendarUnixTimestamp = TemplateUnixTimestamp.bind({});
 export const calendarISOString = Template.bind({});
+export const calendarWide = Template.bind({});
+export const calendarFilterFunction = TemplateFilterFunction.bind({});
 
 calendar.argTypes = {
   ...defaultArgTypes,
@@ -64,18 +78,41 @@ calendarUnixTimestamp.argTypes = {
       type: 'text',
     },
   },
+  selectedDate: {
+    control: {
+      type: 'text',
+    },
+  },
 };
 
 calendarUnixTimestamp.args = {
   ...defaultArgs,
-  min: new Date(2023, 0, 8),
-  max: new Date(2023, 0, 29),
+  min: '1672873200',
+  max: '1674946800',
+  selectedDate: '1673996400',
 };
 
 calendarISOString.args = {
   ...defaultArgs,
   min: new Date('2023-01-02T23:00:00.000Z'),
   max: new Date('2023-01-24T23:00:00.000Z'),
+};
+
+calendarWide.argTypes = {
+  ...defaultArgTypes,
+};
+
+calendarWide.args = {
+  ...defaultArgs,
+  wide: true,
+};
+
+calendarFilterFunction.argTypes = {
+  ...defaultArgTypes,
+};
+
+calendarFilterFunction.args = {
+  ...defaultArgs,
 };
 
 export default {

@@ -83,12 +83,13 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   @Watch('selectedDate')
-  public selectedDateChanged(newDate: Date): void {
+  public selectedDateChanged(newDate: Date | string | number): void {
+    const selectedDate = this._dateAdapter.deserializeDate(newDate);
     if (
-      this._dateAdapter.isValid(newDate) &&
-      (!this._disableDay(newDate.toISOString()) || this.dateFilter(newDate))
+      this._dateAdapter.isValid(selectedDate) &&
+      (!this._disableDay(selectedDate.toISOString()) || this.dateFilter(selectedDate))
     ) {
-      this._selected = newDate.toISOString();
+      this._selected = selectedDate.toISOString();
     }
   }
 
