@@ -167,7 +167,7 @@ export class SbbCalendar implements ComponentInterface {
         value: new Date(year, month, i + 1).toISOString(),
         dayValue: dateNames[i],
         monthValue: month + 1,
-        yearValue: year
+        yearValue: year,
       });
     }
     return weeks;
@@ -201,7 +201,10 @@ export class SbbCalendar implements ComponentInterface {
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
-            <td colSpan={firstRowOffset} data-day={`0 ${week[rowIndex].monthValue} ${week[rowIndex].yearValue}`}></td>
+            <td
+              colSpan={firstRowOffset}
+              data-day={`0 ${week[rowIndex].monthValue} ${week[rowIndex].yearValue}`}
+            ></td>
             {this._createDayCells(week)}
           </tr>
         );
