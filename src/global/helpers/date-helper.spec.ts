@@ -1,4 +1,4 @@
-import { removeTimezoneFromISOTimeString } from './timezone-helper';
+import { removeTimezoneFromISOTimeString, durationToTime } from './date-helper';
 
 describe('removeTimezoneFromDate', () => {
   it('returns date in local timezone', () => {
@@ -26,5 +26,19 @@ describe('removeTimezoneFromDate', () => {
     expect(removeTimezoneFromISOTimeString('2022-10-28T21:16:00')).toStrictEqual(
       new Date('2022-10-28T21:16:00')
     );
+  });
+});
+
+describe('durationToTime', () => {
+  it('should return only minutes', () => {
+    expect(durationToTime(40)).toBe('40 min');
+  });
+
+  it('should return day with hours', () => {
+    expect(durationToTime(3000)).toBe('2 d 2 h');
+  });
+
+  it('should return hours', () => {
+    expect(durationToTime(60)).toBe('1 h');
   });
 });

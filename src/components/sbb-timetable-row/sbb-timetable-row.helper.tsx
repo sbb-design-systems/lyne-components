@@ -1,44 +1,6 @@
 import { h, JSX } from '@stencil/core';
-import {
-  differenceInDays,
-  differenceInHours,
-  differenceInMinutes,
-  addMinutes,
-  subHours,
-  subDays,
-} from 'date-fns';
-import { documentLanguage } from '../../global/helpers/language';
-import { i18nDurationMinute } from '../../global/i18n';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
-
-export const durationToTime = (
-  duration: number,
-  currentLanguage: string = documentLanguage()
-): string => {
-  const result = [];
-  const now = 0;
-  let future = addMinutes(now, duration);
-
-  const days = differenceInDays(future, now);
-  if (days > 0) {
-    result.push(`${days} d`);
-    future = subDays(future, days);
-  }
-
-  const hours = differenceInHours(future, now);
-  if (hours > 0) {
-    result.push(`${hours} h`);
-    future = subHours(future, hours);
-  }
-
-  const minutes = differenceInMinutes(future, now);
-  if (minutes > 0) {
-    result.push(`${minutes} ${i18nDurationMinute.multiple.short[currentLanguage]}`);
-  }
-
-  return result.join(' ');
-};
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {

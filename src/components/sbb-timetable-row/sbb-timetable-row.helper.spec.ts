@@ -1,6 +1,5 @@
 import { PtSituation } from './sbb-timetable-row.custom';
 import {
-  durationToTime,
   getCus,
   getHimIcon,
   getTransportIcon,
@@ -9,20 +8,6 @@ import {
   sortSituation,
 } from './sbb-timetable-row.helper';
 import { walkTimeTrip, partiallyCancelled } from './sbb-timetable-row.sample-data';
-
-describe('durationToTime', () => {
-  it('should return only minutes', () => {
-    expect(durationToTime(40)).toBe('40 min');
-  });
-
-  it('should return day with hours', () => {
-    expect(durationToTime(3000)).toBe('2 d 2 h');
-  });
-
-  it('should return hours', () => {
-    expect(durationToTime(60)).toBe('1 h');
-  });
-});
 
 describe('getTransportIcon', () => {
   it('should return schiff', () => {

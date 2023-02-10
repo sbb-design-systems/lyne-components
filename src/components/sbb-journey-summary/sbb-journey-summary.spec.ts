@@ -38,38 +38,35 @@ describe('sbb-journey-summary', () => {
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">
-         <mock:shadow-root>
-           <div class="sbb-journey-summary">
-             <div class="sbb-journey-summary__via-block">
-               <span class="sbb-journey-summary__via-text">
-                 Via
-               </span>
-               <ul class="sbb-journey-summary__vias">
-                 <li class="sbb-journey-summary__via">
-                   via
-                 </li>
-               </ul>
-             </div>
-             <span class="sbb-journey-summary__date">
-               <span>
-                 <time datetime="29 8">
-                   29.08
-                 </time>
-                 <span>
-                   ,
-                   <time datetime="1 0">
-                     <span>
-                       1 h
-                     </span>
-                     0 min
-                   </time>
-                 </span>
-               </span>
-             </span>
-             <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
-           </div>
-         </mock:shadow-root>
-       </sbb-journey-summary>`
+        <mock:shadow-root>
+          <div class="sbb-journey-summary">
+            <div class="sbb-journey-summary__via-block">
+              <span class="sbb-journey-summary__via-text">
+                Via
+              </span>
+              <ul class="sbb-journey-summary__vias">
+                <li class="sbb-journey-summary__via">
+                  via
+                </li>
+              </ul>
+            </div>
+            <span class="sbb-journey-summary__date">
+              <span>
+                <time datetime="29 8">
+                  29.08
+                </time>
+              </span>
+              <span>
+                ,
+                <time>
+                  1 h
+                </time>
+              </span>
+            </span>
+            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+          </div>
+        </mock:shadow-root>
+      </sbb-journey-summary>`
     );
   });
 
@@ -82,28 +79,25 @@ describe('sbb-journey-summary', () => {
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">
-         <mock:shadow-root>
-           <div class="sbb-journey-summary">
-             <span class="sbb-journey-summary__date">
-               <span>
-                 <time datetime="29 8">
-                   29.08
-                 </time>
-                 <span>
-                   ,
-                   <time datetime="1 40">
-                     <span>
-                       1 h
-                     </span>
-                     40 min
-                   </time>
-                 </span>
-               </span>
-             </span>
-             <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
-           </div>
-         </mock:shadow-root>
-       </sbb-journey-summary>`
+        <mock:shadow-root>
+          <div class="sbb-journey-summary">
+            <span class="sbb-journey-summary__date">
+              <span>
+                <time datetime="29 8">
+                  29.08
+                </time>
+              </span>
+              <span>
+                ,
+                <time>
+                  1 h 40 min
+                </time>
+              </span>
+            </span>
+            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+          </div>
+        </mock:shadow-root>
+      </sbb-journey-summary>`
     );
   });
 });
