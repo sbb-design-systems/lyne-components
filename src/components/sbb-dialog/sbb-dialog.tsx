@@ -230,10 +230,10 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     this._hasActionGroup = this._namedSlots['action-group'] && this._hasTitle;
 
     // Close dialog on backdrop click
-    this._element.addEventListener('pointerdown', this._pointerDownListener, {
+    this._element.addEventListener('mousedown', this._mouseDownListener, {
       signal: this._dialogController.signal,
     });
-    this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
+    this._element.addEventListener('mouseup', this._closeOnBackdropClick, {
       signal: this._dialogController.signal,
     });
   }
@@ -256,7 +256,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   }
 
   // Check if the pointerdown event target is triggered on the dialog.
-  private _pointerDownListener = (event: PointerEvent): void => {
+  private _mouseDownListener = (event: PointerEvent): void => {
     this._isPointerDownEventOnDialog = isEventOnElement(this._dialog, event);
   };
 

@@ -233,7 +233,7 @@ export class SbbMenu implements ComponentInterface {
     );
 
     // Close menu on backdrop click
-    this._element.addEventListener('mousedown', this._pointerDownListener, {
+    this._element.addEventListener('mousedown', this._mouseDownListener, {
       signal: this._menuController.signal,
     });
     this._element.addEventListener('mouseup', this._closeOnBackdropClick, {
@@ -265,7 +265,7 @@ export class SbbMenu implements ComponentInterface {
   }
 
   // Check if the pointerdown event target is triggered on the menu.
-  private _pointerDownListener = (event: PointerEvent): void => {
+  private _mouseDownListener = (event: PointerEvent): void => {
     this._isPointerDownEventOnMenu = isEventOnElement(this._dialog, event);
   };
 
@@ -292,7 +292,7 @@ export class SbbMenu implements ComponentInterface {
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
-      
+
       // Starting from breakpoint medium, enable scroll
       if (!isBreakpoint('medium')) {
         this._scrollHandler.enableScroll();
