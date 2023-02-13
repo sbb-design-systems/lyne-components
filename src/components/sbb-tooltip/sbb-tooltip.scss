@@ -25,10 +25,6 @@
   display: contents;
 }
 
-:host(:not(.hydrated)) {
-  display: none;
-}
-
 :host([disable-animation]:not([disable-animation='false'])) {
   --sbb-tooltip-animation-duration: 0s;
 }
