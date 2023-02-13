@@ -12,7 +12,7 @@ const wide = {
 
 const min = {
   control: {
-    type: 'number',
+    type: 'date',
   },
   table: {
     category: 'Datepicker attribute',
@@ -21,7 +21,7 @@ const min = {
 
 const max = {
   control: {
-    type: 'number',
+    type: 'date',
   },
   table: {
     category: 'Datepicker attribute',
@@ -159,7 +159,7 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const Template = ({ label, optional, borderless, size, ...args }) => [
+const Template = ({ label, optional, borderless, size, min, max, ...args }) => [
   <sbb-form-field
     size={size}
     label={label}
@@ -170,7 +170,15 @@ const Template = ({ label, optional, borderless, size, ...args }) => [
     <sbb-datepicker-previous-day />
     <sbb-datepicker-next-day />
     <sbb-datepicker-toggle />
-    <sbb-datepicker {...args} onChange={(event) => changeEventHandler(event)}></sbb-datepicker>
+    <sbb-datepicker
+      min={new Date(min)}
+      max={new Date(max)}
+      ref={(calendarRef) => {
+        calendarRef.dateFilter = (d) => d?.getDay() !== 6 && d?.getDay() !== 0;
+      }}
+      {...args}
+      onChange={(event) => changeEventHandler(event)}
+    ></sbb-datepicker>
   </sbb-form-field>,
   <div id="container-value"></div>,
 ];
