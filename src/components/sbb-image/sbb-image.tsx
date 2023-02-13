@@ -30,7 +30,7 @@ export class SbbImage implements ComponentInterface {
 
   @Element() public el!: HTMLElement;
 
-  @State() private _loadedClass = '';
+  @State() private _loaded = false;
 
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
@@ -416,7 +416,7 @@ export class SbbImage implements ComponentInterface {
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
           [`image__figure--no-radius`]: !this.borderRadius || this._variantTeaserHero,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
-          [`${this._loadedClass}`]: true,
+          [`image__figure--loaded`]: this._loaded,
         }}
         {...attributes}
       >
@@ -491,7 +491,7 @@ export class SbbImage implements ComponentInterface {
       'load',
       () => {
         this._logPerformanceMarks();
-        this._loadedClass = ' image__figure--loaded';
+        this._loaded = true;
       },
       eventListenerOptions
     );

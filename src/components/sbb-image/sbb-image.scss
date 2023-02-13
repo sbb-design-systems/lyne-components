@@ -24,13 +24,21 @@
   inset: 0;
 }
 
+.image__figure .image__img,
+.image__figure .image__blur-hash {
+  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+}
+
 .image__figure .image__img {
   opacity: 0.000001;
-  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
 }
 
 .image__figure--loaded .image__img {
   opacity: 0.999999;
+}
+
+.image__figure--loaded .image__blur-hash {
+  opacity: 0;
 }
 
 .image__wrapper {
