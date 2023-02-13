@@ -16,7 +16,7 @@ html {
   color: var(--sbb-color-metal-default);
 }
 
-// Hide components as long as they are instantiated
+// Hiding components until they are instantiated
 :is(sbb-dialog, sbb-navigation, sbb-menu, sbb-navigation-section, sbb-tooltip):not(.hydrated) {
   display: none;
 }
