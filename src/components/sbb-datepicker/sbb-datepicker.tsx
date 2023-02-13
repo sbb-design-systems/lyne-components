@@ -9,6 +9,7 @@ import {
   Prop,
   Watch,
 } from '@stencil/core';
+import { inputElement } from '../../global/helpers/input-element';
 import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
@@ -76,36 +77,40 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   }
 
   @Watch('valueAsDate')
-  public watchValueAsDateChange(newValue: Date): void {
-    if (!newValue) {
+  public watchValueAsDateChange(newDateValue: Date, oldDateValue: Date): void {
+    if (!newDateValue || newDateValue?.getTime() === oldDateValue?.getTime()) {
       return;
     }
-    if (!(newValue instanceof Date)) {
-      newValue = new Date(newValue);
+    if (!(newDateValue instanceof Date)) {
+      newDateValue = new Date(newDateValue);
     }
-    this.value = this._formatValue(
-      `${newValue.getDate()}.${newValue.getMonth() + 1}.${newValue.getFullYear()}`
+    const newValue = this._formatValue(
+      `${newDateValue.getDate()}.${newDateValue.getMonth() + 1}.${newDateValue.getFullYear()}`
     );
-    this._inputElement().value = this.value;
+
+    if (newValue !== this.value) {
+      this.value = newValue;
+    }
   }
 
-  public componentDidLoad(): void {
-    this.valueAsDate = this._formatValueAsDate(this.value);
+  public componentWillLoad(): void {
+    if (this.value) {
+      this.valueAsDate = this._formatValueAsDate(this._formatValue(this.value));
+    }
   }
 
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'DD.MM.YYYY';
-
-  private _inputElement(): HTMLInputElement {
-    return this._element.shadowRoot.querySelector('input');
-  }
 
   private _formatValue(value: string): string {
     const match = value.match(REGEX);
     if (match && match[1] && match[2] && match[3]) {
       const day = match[1].padStart(2, '0');
       const month = match[2].padStart(2, '0');
-      const year = match[3];
+      let year = +match[3];
+      if (year < 100 && year >= 0) {
+        year += 1900;
+      }
       return `${day}.${month}.${year}`;
     }
     return value;
@@ -128,7 +133,7 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   /** Applies the correct format to values and triggers event dispatch. */
   private _formatAndUpdateValue(event): void {
     const newValue = this._formatValue(event.target.value);
-    this._updateValue(newValue);
+    this.value = newValue;
   }
 
   /**
@@ -137,8 +142,13 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
    */
   private _updateValue(value: string): void {
     this.value = this._formatValue(value);
-    this.valueAsDate = this._formatValueAsDate(this.value);
-    this._inputElement().value = this.value;
+    const newValueAsDate = this._formatValueAsDate(this.value);
+    if (newValueAsDate?.getTime() !== this.valueAsDate?.getTime()) {
+      this.valueAsDate = newValueAsDate;
+    }
+    if (inputElement(this._element)) {
+      inputElement(this._element).value = this.value;
+    }
   }
 
   /** Emits the change event. */
