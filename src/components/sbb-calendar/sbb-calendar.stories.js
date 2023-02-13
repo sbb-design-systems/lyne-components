@@ -25,6 +25,8 @@ const TemplateFilterFunction = (args) => (
 const defaultArgs = {
   wide: false,
   selectedDate: new Date(2023, 0, 20),
+  min: new Date(2023, 0, 9),
+  max: new Date(2023, 0, 29),
 };
 
 const defaultArgTypes = {
@@ -38,16 +40,6 @@ const defaultArgTypes = {
       type: 'date',
     },
   },
-};
-
-export const calendar = Template.bind({});
-export const calendarUnixTimestamp = TemplateUnixTimestamp.bind({});
-export const calendarISOString = Template.bind({});
-export const calendarWide = Template.bind({});
-export const calendarFilterFunction = TemplateFilterFunction.bind({});
-
-calendar.argTypes = {
-  ...defaultArgTypes,
   min: {
     control: {
       type: 'date',
@@ -60,10 +52,17 @@ calendar.argTypes = {
   },
 };
 
+export const calendar = Template.bind({});
+export const calendarUnixTimestamp = TemplateUnixTimestamp.bind({});
+export const calendarWide = Template.bind({});
+export const calendarFilterFunction = TemplateFilterFunction.bind({});
+
+calendar.argTypes = {
+  ...defaultArgTypes,
+};
+
 calendar.args = {
   ...defaultArgs,
-  min: new Date(2023, 0, 9),
-  max: new Date(2023, 0, 29),
 };
 
 calendarUnixTimestamp.argTypes = {
@@ -90,12 +89,6 @@ calendarUnixTimestamp.args = {
   min: '1672873200',
   max: '1674946800',
   selectedDate: '1673996400',
-};
-
-calendarISOString.args = {
-  ...defaultArgs,
-  min: new Date('2023-01-02T23:00:00.000Z'),
-  max: new Date('2023-01-24T23:00:00.000Z'),
 };
 
 calendarWide.argTypes = {
