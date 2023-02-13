@@ -16,6 +16,11 @@ html {
   color: var(--sbb-color-metal-default);
 }
 
+// Hiding components until they are instantiated
+:is(sbb-dialog, sbb-navigation, sbb-menu, sbb-navigation-section, sbb-tooltip):not(.hydrated) {
+  display: none;
+}
+
 .sbb-text-xxs {
   @include typo.text-xxs--regular;
 }

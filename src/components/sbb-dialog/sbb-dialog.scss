@@ -50,10 +50,6 @@
   }
 }
 
-:host(:not(.hydrated)) {
-  display: none;
-}
-
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-dialog-pointer-events: all;
 
