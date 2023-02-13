@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
 
@@ -12,6 +22,8 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   @Prop() public datePicker?: string | HTMLElement;
 
   @Element() private _element: HTMLSbbDatepickerNextDayElement;
+
+  @State() private _max: Date = undefined;
 
   private _datePicker: HTMLSbbDatepickerElement;
 
@@ -30,13 +42,30 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
+    this._max = this._dateAdapter.deserializeDate(this._datePicker.max);
   }
 
   private _handleClick(): void {
-    if (this._datePicker) {
-      const date = this._datePicker.valueAsDate ?? this._dateAdapter.today();
-      this._datePicker.valueAsDate = this._dateAdapter.addCalendarDays(date, 1);
+    if (!this._datePicker) {
+      return;
     }
+    const date = this._findNextAvailableDate(
+      this._datePicker.valueAsDate ?? this._dateAdapter.today()
+    );
+    if (
+      !this._dateAdapter.isValid(this._max) ||
+      (this._dateAdapter.isValid(this._max) && this._dateAdapter.compareDate(date, this._max) >= 0)
+    ) {
+      this._datePicker.valueAsDate = date;
+    }
+  }
+
+  private _findNextAvailableDate(date: Date): Date {
+    let newDate = this._dateAdapter.addCalendarDays(date, 1);
+    while (!this._datePicker.dateFilter(newDate)) {
+      newDate = this._dateAdapter.addCalendarDays(newDate, 1);
+    }
+    return newDate;
   }
 
   public render(): JSX.Element {
