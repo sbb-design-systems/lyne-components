@@ -10,7 +10,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
+import { findNextAvailableDate, getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
   shadow: true,
@@ -49,8 +49,10 @@ export class SbbDatepickerNextDay implements ComponentInterface {
     if (!this._datePicker) {
       return;
     }
-    const date = this._findNextAvailableDate(
-      this._datePicker.valueAsDate ?? this._dateAdapter.today()
+    const date = findNextAvailableDate(
+      this._datePicker.valueAsDate ?? this._dateAdapter.today(),
+      1,
+      this._datePicker
     );
     if (
       !this._dateAdapter.isValid(this._max) ||
@@ -58,14 +60,6 @@ export class SbbDatepickerNextDay implements ComponentInterface {
     ) {
       this._datePicker.valueAsDate = date;
     }
-  }
-
-  private _findNextAvailableDate(date: Date): Date {
-    let newDate = this._dateAdapter.addCalendarDays(date, 1);
-    while (!this._datePicker.dateFilter(newDate)) {
-      newDate = this._dateAdapter.addCalendarDays(newDate, 1);
-    }
-    return newDate;
   }
 
   public render(): JSX.Element {

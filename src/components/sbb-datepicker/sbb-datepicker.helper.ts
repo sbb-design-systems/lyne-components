@@ -1,4 +1,5 @@
 import { hostContext } from '../../global/helpers/host-context';
+import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 
 /**
  * Given a SbbDatepickerPreviousDay or a SbbDatepickerNextDay component, returns the related SbbDatepicker reference.
@@ -22,4 +23,17 @@ export function getDatePicker(
     return trigger as HTMLSbbDatepickerElement;
   }
   return null;
+}
+
+export function findNextAvailableDate(
+  date: Date,
+  increment: number,
+  datePicker: HTMLSbbDatepickerElement
+): Date {
+  const dateAdapter = new NativeDateAdapter();
+  let newDate = dateAdapter.addCalendarDays(date, increment);
+  while (!datePicker.dateFilter(newDate)) {
+    newDate = dateAdapter.addCalendarDays(newDate, increment);
+  }
+  return newDate;
 }
