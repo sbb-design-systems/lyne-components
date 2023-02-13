@@ -53,7 +53,7 @@
     "@commitlint/cli": "17.4.3",
     "@commitlint/config-conventional": "17.4.3",
     "@sbb-esta/lyne-design-tokens": "0.3.4",
-    "@stencil/core": "3.0.0",
+    "@stencil/core": "3.0.1",
     "@stencil/react-output-target": "0.4.0",
     "@stencil/sass": "2.0.3",
     "@storybook/addon-a11y": "6.5.16",
