@@ -159,6 +159,7 @@ TransparentImage.argTypes = defaultArgTypes;
 TransparentImage.args = {
   ...defaultArgs,
   'image-src': imageSrc.options[9],
+  caption: '',
 };
 
 export default {
