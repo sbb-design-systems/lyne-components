@@ -34,11 +34,14 @@
 }
 
 :host([hide-on-scroll][data-fixed][data-animated]) {
+  // Hide transition
   --sbb-header-transition-timing: cubic-bezier(0.4, 0, 1, 1);
 }
 
 :host([hide-on-scroll][data-fixed][data-visible]) {
   --sbb-header-inset-block-start: 0;
+
+  // Show transition
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
 
