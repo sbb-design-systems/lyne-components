@@ -1,3 +1,5 @@
+import { toggleDatasetEntry } from './dataset';
+
 /**
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
  * content shift caused by the disappearance/appearance of the scrollbar.
@@ -29,6 +31,7 @@ export class ScrollHandler {
     document.body.style.position = 'fixed';
     document.body.style.overflowY = 'scroll';
     document.body.style.inlineSize = this._inlineSize || '100%';
+    toggleDatasetEntry(document.body, 'scrollDisabled', true);
   }
 
   public enableScroll(): void {
@@ -40,6 +43,7 @@ export class ScrollHandler {
 
     // Scroll the page to the correct position.
     document.documentElement.scrollTo(0, this._documentScrollTop);
+    toggleDatasetEntry(document.body, 'scrollDisabled', false);
   }
 
   private _hasScrollbar(): boolean {
