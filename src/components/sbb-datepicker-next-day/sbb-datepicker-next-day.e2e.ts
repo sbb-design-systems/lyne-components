@@ -32,4 +32,24 @@ describe('sbb-datepicker-next-day', () => {
 
     expect(await picker.getProperty('value')).toEqual('22.01.2023');
   });
+
+  it('disabled', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+      <sbb-form-field>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
+        <sbb-datepicker value="20-01-2023" max="1674172800"></sbb-datepicker>
+      </sbb-form-field>
+    `);
+    picker = await page.find('sbb-datepicker');
+    button = await page.find('sbb-datepicker-next-day >>> button');
+
+    await page.waitForChanges();
+
+    expect(await picker.getProperty('value')).toEqual('20.01.2023');
+    expect(button).toHaveAttribute('disabled');
+    await button.click();
+    await page.waitForChanges();
+    expect(await picker.getProperty('value')).toEqual('20.01.2023');
+  });
 });

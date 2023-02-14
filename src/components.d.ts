@@ -2679,6 +2679,7 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
+        "onDidRender"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
           * Readonly state for the inner HTMLInputElement.
          */

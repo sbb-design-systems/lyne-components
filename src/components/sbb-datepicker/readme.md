@@ -26,6 +26,7 @@
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `change`    |                                                                                                                                     | `CustomEvent<any>` |
 | `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+| `didRender` |                                                                                                                                     | `CustomEvent<any>` |
 
 
 ----------------------------------------------

@@ -25,25 +25,47 @@ export function getDatePicker(
   return null;
 }
 
+export function getAvailableDate(
+  date: Date,
+  delta: number,
+  datePicker: HTMLSbbDatepickerElement,
+  dateAdapter: NativeDateAdapter
+): Date {
+  let availableDate = dateAdapter.addCalendarDays(date, delta);
+
+  if (datePicker.dateFilter) {
+    while (!datePicker.dateFilter(availableDate)) {
+      availableDate = dateAdapter.addCalendarDays(availableDate, delta);
+    }
+  }
+
+  return availableDate;
+}
+
+export function findPreviousAvailableDate(
+  date: Date,
+  datePicker: HTMLSbbDatepickerElement,
+  dateAdapter: NativeDateAdapter
+): Date {
+  const previousDate = getAvailableDate(date, -1, datePicker, dateAdapter);
+  const min: Date = dateAdapter.deserializeDate(datePicker.min);
+
+  if (!min || (dateAdapter.isValid(min) && dateAdapter.compareDate(previousDate, min) >= 0)) {
+    return previousDate;
+  }
+  return date;
+}
+
 export function findNextAvailableDate(
   date: Date,
-  increment: number,
-  datePicker: HTMLSbbDatepickerElement
+  datePicker: HTMLSbbDatepickerElement,
+  dateAdapter: NativeDateAdapter
 ): Date {
-  const dateAdapter = new NativeDateAdapter();
-  const min: Date = dateAdapter.deserializeDate(datePicker.min);
+  const nextDate = getAvailableDate(date, 1, datePicker, dateAdapter);
   const max: Date = dateAdapter.deserializeDate(datePicker.max);
-  let newDate = dateAdapter.addCalendarDays(date, increment);
-  while (!datePicker.dateFilter(newDate)) {
-    newDate = dateAdapter.addCalendarDays(newDate, increment);
-  }
 
-  if (
-    (!dateAdapter.isValid(min) || dateAdapter.compareDate(min, newDate) <= 0) &&
-    (!dateAdapter.isValid(max) || dateAdapter.compareDate(max, newDate) >= 0)
-  ) {
-    return newDate;
+  if (!max || (dateAdapter.isValid(max) && dateAdapter.compareDate(nextDate, max) <= 0)) {
+    return nextDate;
   }
-
   return date;
 }

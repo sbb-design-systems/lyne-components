@@ -29,6 +29,8 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
+  private _datePickerController: AbortController;
+
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
@@ -37,16 +39,30 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._datePickerController = new AbortController();
     this._init(this.datePicker);
+  }
+
+  public disconnectedCallback(): void {
+    this._datePickerController.abort();
   }
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
-    this._datePicker?.addEventListener('change', (event) => {
-      const newValue = (event.target as HTMLSbbDatepickerElement)?.valueAsDate;
-      const date = findNextAvailableDate(newValue, 1, this._datePicker);
-      this._disabled = this._dateAdapter.compareDate(date, newValue) === 0;
-    });
+    this._datePicker?.addEventListener(
+      'didRender',
+      (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      { signal: this._datePickerController.signal }
+    );
+  }
+
+  private _setDisabledState(datepicker: HTMLSbbDatepickerElement): void {
+    const pickerValue = datepicker.valueAsDate;
+    const previousDate = findNextAvailableDate(pickerValue, this._datePicker, this._dateAdapter);
+    this._disabled =
+      this._dateAdapter.compareDate(previousDate, pickerValue) === 0 ||
+      this._datePicker?.disabled ||
+      this._datePicker?.readonly;
   }
 
   private _handleClick(): void {
@@ -54,7 +70,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
       return;
     }
     const startingDate = this._datePicker.valueAsDate ?? this._dateAdapter.today();
-    const date = findNextAvailableDate(startingDate, 1, this._datePicker);
+    const date = findNextAvailableDate(startingDate, this._datePicker, this._dateAdapter);
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       this._datePicker.valueAsDate = date;
     }

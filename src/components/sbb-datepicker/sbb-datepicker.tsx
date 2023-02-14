@@ -68,6 +68,8 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
 
   @Event({ bubbles: true, cancelable: true }) public change: EventEmitter;
 
+  @Event() public didRender: EventEmitter;
+
   @Watch('value')
   public watchValueChange(newValue: string, oldValue: string): void {
     if (newValue !== this._formatValue(oldValue)) {
@@ -97,6 +99,10 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
     if (this.value) {
       this.valueAsDate = this._formatValueAsDate(this._formatValue(this.value));
     }
+  }
+
+  public componentDidRender(): void {
+    this.didRender.emit();
   }
 
   /** Placeholder for the inner HTMLInputElement.*/
