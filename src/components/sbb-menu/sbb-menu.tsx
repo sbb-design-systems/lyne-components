@@ -294,9 +294,7 @@ export class SbbMenu implements ComponentInterface {
       this._focusTrap.disconnect();
 
       // Starting from breakpoint medium, enable scroll
-      if (!isBreakpoint('medium')) {
-        this._scrollHandler.enableScroll();
-      }
+      this._scrollHandler.enableScroll();
     }
   }
 
