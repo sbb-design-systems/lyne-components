@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { pageScrollDisabled } from '../../global/helpers/scroll';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -98,10 +98,9 @@ export class SbbHeader implements ComponentInterface {
    */
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
-    const pageScrollDisabled = isValidAttribute(document.body, 'data-scroll-disabled');
-    toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0 || pageScrollDisabled);
+    toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0 || pageScrollDisabled());
 
-    if (pageScrollDisabled) {
+    if (pageScrollDisabled()) {
       return;
     }
     // Close open overlays when scrolling down if the header is scrolled out of sight.

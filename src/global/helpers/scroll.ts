@@ -1,4 +1,9 @@
 import { toggleDatasetEntry } from './dataset';
+import { isValidAttribute } from './is-valid-attribute';
+
+export function pageScrollDisabled(): boolean {
+  return isValidAttribute(document.body, 'data-sbb-scroll-disabled');
+}
 
 /**
  * Handle the page scroll, allowing to disable/enable the window scroll avoiding a potential
@@ -12,6 +17,10 @@ export class ScrollHandler {
   private _inlineSize: string;
 
   public disableScroll(): void {
+    if (pageScrollDisabled()) {
+      return;
+    }
+
     if (!this._hasScrollbar()) {
       document.body.style.overflowY = 'hidden';
       return;
@@ -31,10 +40,14 @@ export class ScrollHandler {
     document.body.style.position = 'fixed';
     document.body.style.overflowY = 'scroll';
     document.body.style.inlineSize = this._inlineSize || '100%';
-    toggleDatasetEntry(document.body, 'scrollDisabled', true);
+    toggleDatasetEntry(document.body, 'sbbScrollDisabled', true);
   }
 
   public enableScroll(): void {
+    if (!pageScrollDisabled()) {
+      return;
+    }
+
     // Revert body inline styles.
     document.body.style.top = this._top || null;
     document.body.style.position = this._position || null;
@@ -43,7 +56,7 @@ export class ScrollHandler {
 
     // Scroll the page to the correct position.
     document.documentElement.scrollTo(0, this._documentScrollTop);
-    toggleDatasetEntry(document.body, 'scrollDisabled', false);
+    toggleDatasetEntry(document.body, 'sbbScrollDisabled', false);
   }
 
   private _hasScrollbar(): boolean {
