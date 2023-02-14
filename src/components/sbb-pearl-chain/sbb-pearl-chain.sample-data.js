@@ -8,8 +8,6 @@ const defaultService = {
     cancelled: false,
     delayText: 'string',
     reachable: true,
-    redirected: false,
-    reachableText: '',
     unplannedStopPointsText: '',
   },
 };
@@ -40,7 +38,7 @@ const unplannedStopService = {
 
 const redirectedService = {
   serviceAlteration: {
-    redirected: true,
+    redirectedFormatted: 'Ausnahmsweise kein Halt',
   },
 };
 

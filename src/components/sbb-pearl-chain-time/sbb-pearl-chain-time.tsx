@@ -7,7 +7,7 @@ import {
 } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
+import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 
 @Component({

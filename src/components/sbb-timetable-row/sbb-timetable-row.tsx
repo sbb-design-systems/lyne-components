@@ -11,7 +11,6 @@ import {
   i18nOccupancy,
 } from '../../global/i18n';
 import {
-  durationToTime,
   handleNotices,
   getCus,
   getHimIcon,
@@ -21,6 +20,7 @@ import {
   renderStringProduct,
   sortSituation,
 } from './sbb-timetable-row.helper';
+import { durationToTime } from '../../global/helpers/date-helper';
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
@@ -148,7 +148,6 @@ export class SbbTimetableRow {
         {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         {this.price && !this.loadingPrice && (
           <sbb-card-badge
-            class="sbb-timetable__row-price"
             slot="badge"
             appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
             price={this.price.price}
@@ -256,7 +255,7 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {duration > 0 && <time>{durationToTime(duration, this._currentLanguage)}</time>}
+            {duration > 0 && <time>{durationToTime(duration)}</time>}
             {hasHimCus && (
               <span class="sbb-timetable__row-warning">
                 <sbb-icon name={himCus.name} aria-hidden="false" aria-label={himCus.text} />

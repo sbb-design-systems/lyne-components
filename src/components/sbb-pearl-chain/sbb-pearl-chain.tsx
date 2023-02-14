@@ -1,7 +1,7 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
+import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 import { isRideLeg } from './sbb-pearl-chain.helper';
 
 type Status = 'progress' | 'future' | 'past';

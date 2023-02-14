@@ -101,11 +101,7 @@
     }
 
     50% {
-      box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
-    }
-
-    75% {
-      box-shadow: 0 0 0 #{functions.px-to-rem-build(4)} var(--sbb-color-red-alpha-20);
+      box-shadow: 0 0 0 #{functions.px-to-rem-build(3)} var(--sbb-color-red-alpha-20);
     }
 
     100% {

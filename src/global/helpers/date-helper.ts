@@ -1,4 +1,12 @@
 import { isValid, parseISO } from 'date-fns';
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  addMinutes,
+  subHours,
+  subDays,
+} from 'date-fns';
 
 /**
  * This function removes the offset of a ISO date string. This needs to be done to make sure that the offset is ignored.
@@ -34,3 +42,35 @@ export function removeTimezoneFromISOTimeString(isoTime: string): Date | undefin
   }
   return new Date(isoTime);
 }
+
+/**
+ * This function converts a duration number to date string with specific format
+ *
+ * @param duration - duration in minutes
+ * @returns a new date string in the format "dd hh mm"
+ * */
+
+export const durationToTime = (duration: number): string => {
+  const result = [];
+  const now = 0;
+  let future = addMinutes(now, duration);
+
+  const days = differenceInDays(future, now);
+  if (days > 0) {
+    result.push(`${days} d`);
+    future = subDays(future, days);
+  }
+
+  const hours = differenceInHours(future, now);
+  if (hours > 0) {
+    result.push(`${hours} h`);
+    future = subHours(future, hours);
+  }
+
+  const minutes = differenceInMinutes(future, now);
+  if (minutes > 0) {
+    result.push(`${minutes} min`);
+  }
+
+  return result.join(' ');
+};

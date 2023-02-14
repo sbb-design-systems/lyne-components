@@ -2,9 +2,9 @@ import { Component, h, JSX, Prop, Element, ComponentInterface, State, Listen } f
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
-import { i18nDurationHour, i18nDurationMinute, i18nToday, i18nTomorrow } from '../../global/i18n';
+import { i18nToday, i18nTomorrow } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-import { removeTimezoneFromISOTimeString } from '../../global/helpers/timezone-helper';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 
 @Component({
   shadow: true,
@@ -41,46 +41,13 @@ export class SbbJourneySummary implements ComponentInterface {
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
-  /**  formats the duration of the journey */
-  private _formatTime(duration: Duration): JSX.Element {
-    return (
-      <time dateTime={duration.hours + ' ' + duration.minutes}>
-        {duration.hours > 0 && (
-          <span>
-            {duration.hours}
-            {i18nDurationHour.single.short[this._currentLanguage] + ' '}
-          </span>
-        )}
-        {duration.minutes}
-        {i18nDurationMinute.multiple.short[this._currentLanguage]}
-      </time>
-    );
-  }
-
-  private _convertDuration(duration: number): Duration {
-    const hours = duration / 60;
-    const rhours = Math.floor(hours);
-    const minutes = (hours - rhours) * 60;
-    const rminutes = Math.round(minutes);
-    const dur: Duration = { hours: rhours, minutes: rminutes };
-    return dur;
-  }
-
   /**  renders the date of the journey or if it is the current or next day */
-  private _renderJourneyStart(departureTime: Date, dur: number): JSX.Element {
-    const duration: Duration | undefined = dur > 0 ? this._convertDuration(dur) : undefined;
-
+  private _renderJourneyStart(departureTime: Date): JSX.Element {
     if (isTomorrow(departureTime) || isToday(departureTime)) {
       return isTomorrow(departureTime) ? (
-        <span>
-          {i18nTomorrow[this._currentLanguage]}
-          {duration && <span>, {this._formatTime(duration)}</span>}
-        </span>
+        <span>{i18nTomorrow[this._currentLanguage]}</span>
       ) : (
-        <span>
-          {i18nToday[this._currentLanguage]}
-          {duration && <span>, {this._formatTime(duration)}</span>}
-        </span>
+        <span>{i18nToday[this._currentLanguage]}</span>
       );
     }
     if (isValid(departureTime))
@@ -89,7 +56,6 @@ export class SbbJourneySummary implements ComponentInterface {
           <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
             {format(departureTime, 'dd.MM')}
           </time>
-          {duration && <span>, {this._formatTime(duration)}</span>}
         </span>
       );
   }
@@ -136,7 +102,12 @@ export class SbbJourneySummary implements ComponentInterface {
         )}
         {vias?.length > 0 && this._renderJourneyVias(vias)}
         <span class="sbb-journey-summary__date">
-          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure), duration)}
+          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
+          {duration > 0 && (
+            <span>
+              , <time>{durationToTime(duration)}</time>
+            </span>
+          )}
         </span>
         <sbb-pearl-chain-time
           arrivalTime={arrival}

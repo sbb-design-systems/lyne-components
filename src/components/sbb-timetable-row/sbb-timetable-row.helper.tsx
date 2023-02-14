@@ -1,44 +1,6 @@
 import { h, JSX } from '@stencil/core';
-import {
-  differenceInDays,
-  differenceInHours,
-  differenceInMinutes,
-  addMinutes,
-  subHours,
-  subDays,
-} from 'date-fns';
-import { documentLanguage } from '../../global/helpers/language';
-import { i18nDurationMinute, i18nDurationHour } from '../../global/i18n';
 import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
-
-export const durationToTime = (
-  duration: number,
-  currentLanguage: string = documentLanguage()
-): string => {
-  const result = [];
-  const now = 0;
-  let future = addMinutes(now, duration);
-
-  const days = differenceInDays(future, now);
-  if (days > 0) {
-    result.push(`${days} d`);
-    future = subDays(future, days);
-  }
-
-  const hours = differenceInHours(future, now);
-  if (hours > 0) {
-    result.push(`${hours} ${i18nDurationHour.multiple.short[currentLanguage]}`);
-    future = subHours(future, hours);
-  }
-
-  const minutes = differenceInMinutes(future, now);
-  if (minutes > 0) {
-    result.push(`${minutes} ${i18nDurationMinute.multiple.short[currentLanguage]}`);
-  }
-
-  return result.join(' ');
-};
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
@@ -119,21 +81,17 @@ const isReachable = (legs: PtRideLeg[]): boolean => {
 };
 
 const getReachableText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText !== '')
-    .serviceJourney?.serviceAlteration?.reachableText;
-};
-
-const isRedirected = (legs: PtRideLeg[]): boolean => {
-  return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.redirected === true);
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
+    ?.serviceAlteration?.reachableText;
 };
 
 const getRedirectedText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.redirectedText !== '')
-    .serviceJourney?.serviceAlteration?.redirectedText;
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedFormatted)
+    ?.serviceJourney?.serviceAlteration?.redirectedFormatted;
 };
 
 const getUnplannedStop = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText !== '')
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
 
@@ -195,7 +153,7 @@ export const getCus = (trip: Trip): HimCus => {
     return { name: 'cancellation', text: tripStatus?.cancelledText };
   if (!isReachable(legs)) return { name: 'missed-connection', text: getReachableText(legs) };
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
-  if (isRedirected(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
+  if (getRedirectedText(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
   if (getUnplannedStop(legs)) return { name: 'add-stop', text: getUnplannedStop(legs) };
   if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
   if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
