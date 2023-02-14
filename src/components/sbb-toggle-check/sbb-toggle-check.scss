@@ -113,7 +113,7 @@ input[type='checkbox'] {
   position: relative;
   min-width: var(--sbb-toggle-check-width);
   height: var(--sbb-toggle-check-height);
-  border-radius: var(--sbb-toggle-check-height);
+  border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-toggle-check-background-color);
 
   // Reserve space of overlapping circle

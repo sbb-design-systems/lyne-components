@@ -15,7 +15,7 @@
   --sbb-toggle-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-toggle-height: #{sbb.px-to-rem-build(28)};
   --sbb-toggle-border-width: var(--sbb-border-width-1x);
-  --sbb-toggle-border-radius: var(--sbb-border-radius-16x);
+  --sbb-toggle-border-radius: var(--sbb-border-radius-infinity);
 
   @include sbb.mq($from: medium) {
     --sbb-toggle-height: #{sbb.px-to-rem-build(32)};

@@ -6,7 +6,7 @@
 
 :host {
   --sbb-tab-title-height: #{sbb.px-to-rem-build(40)};
-  --sbb-tab-title-border-radius: var(--sbb-tab-title-height);
+  --sbb-tab-title-border-radius: var(--sbb-border-radius-infinity);
 
   display: inline-block;
   max-width: 100%;

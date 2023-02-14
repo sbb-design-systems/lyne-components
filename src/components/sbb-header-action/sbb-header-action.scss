@@ -86,7 +86,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     position: absolute;
     content: '';
     inset: var(--sbb-header-action-background-inset);
-    border-radius: var(--sbb-header-action-min-height);
+    border-radius: var(--sbb-border-radius-infinity);
     background-color: var(--sbb-header-action-background-color);
     transition-duration: var(--sbb-header-action-transition-duration);
     transition-timing-function: var(--sbb-header-action-transition-easing);
