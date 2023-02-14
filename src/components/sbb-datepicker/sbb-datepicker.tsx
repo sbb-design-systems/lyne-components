@@ -103,6 +103,9 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   private _placeholder = 'DD.MM.YYYY';
 
   private _formatValue(value: string): string {
+    if (!value) {
+      return null;
+    }
     const match = value.match(REGEX);
     if (match && match[1] && match[2] && match[3]) {
       const day = match[1].padStart(2, '0');
@@ -120,6 +123,9 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
    * Returns the right format for the `valueAsDate` property
    */
   private _formatValueAsDate(value: string): Date {
+    if (!value) {
+      return null;
+    }
     const values = value.split('.');
     if (values && values[0] && values[1] && values[2]) {
       const day = +values[0];

@@ -42,7 +42,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
-    this._min = this._dateAdapter.deserializeDate(this._datePicker.min);
+    this._min = this._dateAdapter.deserializeDate(this._datePicker?.min);
   }
 
   private _handleClick(): void {

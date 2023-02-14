@@ -42,7 +42,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
-    this._max = this._dateAdapter.deserializeDate(this._datePicker.max);
+    this._max = this._dateAdapter.deserializeDate(this._datePicker?.max);
   }
 
   private _handleClick(): void {
