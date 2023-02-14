@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.4](https://github.com/lyne-design-system/lyne-components/compare/v0.26.3...v0.26.4) (2023-02-14)
+
+### Bug Fixes
+
+- **sbb-button:** support transparent picture with lqip ([#1617](https://github.com/lyne-design-system/lyne-components/issues/1617)) ([3ddbdf7](https://github.com/lyne-design-system/lyne-components/commit/3ddbdf773249475ca63dc8ab3557ca774f80da2c)), closes [#1546](https://github.com/lyne-design-system/lyne-components/issues/1546)
+
 ### [0.26.3](https://github.com/lyne-design-system/lyne-components/compare/v0.26.2...v0.26.3) (2023-02-14)
 
 ### Bug Fixes
