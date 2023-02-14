@@ -23,7 +23,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   @Element() private _element: HTMLSbbDatepickerNextDayElement;
 
-  @State() private _max: Date = undefined;
+  @State() private _disabled = false;
 
   private _datePicker: HTMLSbbDatepickerElement;
 
@@ -42,22 +42,20 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
-    this._max = this._dateAdapter.deserializeDate(this._datePicker?.max);
+    this._datePicker.addEventListener('change', (event) => {
+      const newValue = (event.target as HTMLSbbDatepickerElement)?.valueAsDate;
+      const date = findNextAvailableDate(newValue, 1, this._datePicker);
+      this._disabled = this._dateAdapter.compareDate(date, newValue) === 0;
+    });
   }
 
   private _handleClick(): void {
     if (!this._datePicker) {
       return;
     }
-    const date = findNextAvailableDate(
-      this._datePicker.valueAsDate ?? this._dateAdapter.today(),
-      1,
-      this._datePicker
-    );
-    if (
-      !this._dateAdapter.isValid(this._max) ||
-      (this._dateAdapter.isValid(this._max) && this._dateAdapter.compareDate(date, this._max) >= 0)
-    ) {
+    const startingDate = this._datePicker.valueAsDate ?? this._dateAdapter.today();
+    const date = findNextAvailableDate(startingDate, 1, this._datePicker);
+    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       this._datePicker.valueAsDate = date;
     }
   }
@@ -66,7 +64,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
     return (
       <Host slot="suffix">
         <button
-          disabled={this._datePicker?.disabled || this._datePicker?.readonly}
+          disabled={this._datePicker?.disabled || this._datePicker?.readonly || this._disabled}
           onClick={() => this._handleClick()}
         >
           <sbb-icon name="chevron-small-right-small" />

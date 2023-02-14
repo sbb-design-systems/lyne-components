@@ -93,7 +93,7 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
     }
   }
 
-  public componentWillLoad(): void {
+  public connectedCallback(): void {
     if (this.value) {
       this.valueAsDate = this._formatValueAsDate(this._formatValue(this.value));
     }

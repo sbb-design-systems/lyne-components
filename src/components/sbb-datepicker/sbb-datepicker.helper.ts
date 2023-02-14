@@ -31,9 +31,19 @@ export function findNextAvailableDate(
   datePicker: HTMLSbbDatepickerElement
 ): Date {
   const dateAdapter = new NativeDateAdapter();
+  const min: Date = dateAdapter.deserializeDate(datePicker.min);
+  const max: Date = dateAdapter.deserializeDate(datePicker.max);
   let newDate = dateAdapter.addCalendarDays(date, increment);
   while (!datePicker.dateFilter(newDate)) {
     newDate = dateAdapter.addCalendarDays(newDate, increment);
   }
-  return newDate;
+
+  if (
+    (!dateAdapter.isValid(min) || dateAdapter.compareDate(min, newDate) <= 0) &&
+    (!dateAdapter.isValid(max) || dateAdapter.compareDate(max, newDate) >= 0)
+  ) {
+    return newDate;
+  }
+
+  return date;
 }
