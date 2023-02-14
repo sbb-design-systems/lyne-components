@@ -13,6 +13,7 @@ import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custo
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
+import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
@@ -214,9 +215,21 @@ export namespace Components {
     }
     interface SbbAutocomplete {
         /**
-          * Documentation for someProp
+          * Closes the autocomplete.
          */
-        "someProp"?: InterfaceSbbAutocompleteAttributes['someInterface'];
+        "close": () => Promise<void>;
+        /**
+          * Opens the autocomplete on trigger click.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'sbb-form-field' ancestor
+         */
+        "origin": string | HTMLElement;
+        /**
+          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'input' child of 'origin'
+         */
+        "trigger": string | HTMLElement;
     }
     interface SbbButton {
         /**
@@ -1714,6 +1727,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbAutocompleteCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbAutocompleteElement;
+}
 export interface SbbCalendarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbCalendarElement;
@@ -2493,10 +2510,94 @@ declare namespace LocalJSX {
         "role"?: InterfaceSbbAlertGroupAttributes['role'];
     }
     interface SbbAutocomplete {
-      /**
-        * Documentation for someProp
-       */
-      "someProp"?: InterfaceSbbAutocompleteAttributes['someInterface'];
+        /**
+          * Emits whenever the menu is closed.
+         */
+        "onDid-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu is opened.
+         */
+        "onDid-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * Emits whenever the menu starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'sbb-form-field' ancestor
+         */
+        "origin"?: string | HTMLElement;
+        /**
+          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'input' child of 'origin'
+         */
+        "trigger"?: string | HTMLElement;
+    }
+    interface SbbAutocompleteDeprecated {
+        /**
+          * Id which is sent as the id in the eventDetail payload when a value is selected
+         */
+        "eventId"?: string;
+        /**
+          * Define if borderless variant of autocomplete input should be used. See documentation of sbb-text-input for details.
+         */
+        "inputBorderless"?: boolean;
+        /**
+          * Debounce timeout to use for the input. See documentation of sbb-text-input for details.
+         */
+        "inputDebounceTimeout"?: number;
+        /**
+          * Label attribute for the input element. See sbb-text-input for details.
+         */
+        "inputLabel": string;
+        /**
+          * Determine if the input label should be visible. See sbb-text-input for details.
+         */
+        "inputLabelVisible"?: boolean;
+        /**
+          * Name attribute for the input element. See sbb-text-input for details.
+         */
+        "inputName": string;
+        /**
+          * Placeholder attribute for the input element. See sbb-text-input for details.
+         */
+        "inputPlaceholder"?: string;
+        /**
+          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
+         */
+        "items"?: string;
+        /**
+          * Define how many chars a user must type into the input field for the autocomplete list to show up.
+         */
+        "minChars"?: number;
+        /**
+          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
+         */
+        "value"?: string;
+    }
+    interface SbbAutocompleteItemDeprecated {
+        /**
+          * The aria-posinset attribute for the list element
+         */
+        "ariaPosinset"?: number;
+        /**
+          * The aira-setsize attribute for the list element
+         */
+        "ariaSetsize"?: number;
+        /**
+          * The text to highlight within the string property
+         */
+        "highlight"?: string;
+        /**
+          * Mark the item as selected, which will change it's appearance and the according aria attributes.
+         */
+        "selected"?: boolean;
+        /**
+          * Text to show as content of the autocomplete item
+         */
+        "text": string;
     }
     interface SbbButton {
         /**
