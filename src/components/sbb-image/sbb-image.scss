@@ -24,6 +24,9 @@
   inset: 0;
 }
 
+// After successful loading an image, the loaded image is faded in over the blurred lqip image with a short transition.
+// To support transparent images, we need also to fade out the blurred lqip image.
+// This is not perfect in the case of a non transparent image, but does not look that obviously bad.
 .image__figure .image__img,
 .image__figure .image__blur-hash {
   transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
