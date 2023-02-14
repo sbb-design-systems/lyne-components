@@ -5,9 +5,42 @@
 @include sbb.host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --sbb-overlay-position-x: 0;
+  --sbb-overlay-position-y: 0;
+  --sbb-overlay-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  --sbb-overlay-min-height: #{sbb.px-to-rem-build(120)};
+  --sbb-overlay-width: fit-content;
 }
 
-.some-class {
-  color: var(--some-color-var);
+:host(:not([data-state='closed'])) {
+  --sbb-menu-inset: 0;
+}
+
+::slotted(sbb-divider) {
+  margin-block: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-autocomplete__container {
+  position: fixed;
+  pointer-events: none;
+  inset: var(--sbb-menu-inset, unset);
+  z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+}
+
+.sbb-autocomplete__panel {
+  display: block;
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+  border: none;
+  top: var(--sbb-overlay-position-y);
+  left: var(--sbb-overlay-position-x);
+  width: var(--sbb-overlay-width);
+  max-height: var(--sbb-overlay-max-height);
+  min-height: var(--sbb-overlay-min-height);
+
+  &[open] {
+    visibility: visible;
+    pointer-events: all;
+  }
 }
