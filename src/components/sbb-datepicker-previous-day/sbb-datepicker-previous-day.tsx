@@ -42,7 +42,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
-    this._datePicker.addEventListener('change', (event) => {
+    this._datePicker?.addEventListener('change', (event) => {
       const newValue = (event.target as HTMLSbbDatepickerElement)?.valueAsDate;
       const date = findNextAvailableDate(newValue, -1, this._datePicker);
       this._disabled = this._dateAdapter.compareDate(date, newValue) === 0;
