@@ -1,14 +1,51 @@
-import events from './sbb-autocomplete.events.ts';
 import { h } from 'jsx-dom';
+import events from './sbb-autocomplete.events.ts';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-autocomplete {...args}></sbb-autocomplete>;
-
-export const story1 = Template.bind({});
-
-story1.args = {
-  'some-prop': 'opt1',
+const value = {
+  control: {
+    type: 'text',
+  },
 };
+
+const defaultArgTypes = {
+  value,
+};
+
+const defaultArgs = {
+  value: 'test',
+};
+
+// TODO parametrize template
+// const TemplateInputField = (args, autocomplete) => (
+//   <sbb-form-field label="Label">
+//     <input placeholder="Placeholder"/>
+//     {autocomplete(args)}
+//   </sbb-form-field>
+// );
+
+const Template = (args) => [
+  <sbb-form-field label="Label">
+    <input placeholder="Placeholder" />
+
+    <sbb-autocomplete {...args}>
+      <sbb-option icon-name="clock-small">Option 1</sbb-option>
+      <sbb-option icon-name="clock-small">Option 2</sbb-option>
+      <sbb-divider />
+      <sbb-option icon-name="clock-small">Option 3</sbb-option>
+      <sbb-divider />
+      <sbb-option>Option 4</sbb-option>
+      <sbb-option>Option 5</sbb-option>
+    </sbb-autocomplete>
+  </sbb-form-field>,
+  <div style={'margin-top: 200px'}>
+    <button>Test</button>
+  </div>,
+];
+
+export const Basic = Template.bind({});
+Basic.argTypes = defaultArgTypes;
+Basic.args = { ...defaultArgs };
 
 export default {
   decorators: [
@@ -20,7 +57,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.click],
+      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
     },
     backgrounds: {
       disable: true,
