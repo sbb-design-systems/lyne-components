@@ -8,7 +8,7 @@
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-position: fixed;
-  --sbb-header-inset-block-start: 0;
+  --sbb-header-transform-y: translateY(0);
   --sbb-header-transition-duration: var(--sbb-animation-duration-6x);
   --sbb-header-transition-property: box-shadow;
 
@@ -48,7 +48,7 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 0 auto;
-  inset-block-start: var(--sbb-header-inset-block-start);
+  transform: var(--sbb-header-transform-y);
   background: var(--sbb-color-white-default);
   z-index: 10;
   transition-property: var(--sbb-header-transition-property);
