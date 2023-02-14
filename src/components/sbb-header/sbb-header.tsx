@@ -104,17 +104,24 @@ export class SbbHeader implements ComponentInterface {
     if (pageScrollDisabled) {
       return;
     }
-    // Check if header is scrolled out of sight, scroll position > header height.
-    if (currentScroll > this._element.offsetHeight) {
+    // Close open overlays when scrolling down if the header is scrolled out of sight.
+    if (
+      currentScroll > this._element.offsetHeight &&
+      currentScroll > 0 &&
+      this._lastScroll < currentScroll
+    ) {
+      this._closeOpenOverlays();
+    }
+    // Check if header is scrolled out of sight, scroll position > header height * 2.
+    if (currentScroll > this._element.offsetHeight * 2) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
         toggleDatasetEntry(this._element, 'shadow', false);
-        toggleDatasetEntry(this._element, 'fixed', true);
         toggleDatasetEntry(this._element, 'visible', false);
-        this._closeOpenOverlays();
       } else {
         // Scrolling up
+        toggleDatasetEntry(this._element, 'fixed', true);
         toggleDatasetEntry(this._element, 'shadow', true);
         toggleDatasetEntry(this._element, 'animated', true);
         toggleDatasetEntry(this._element, 'visible', true);

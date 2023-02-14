@@ -8,7 +8,6 @@
   // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-position: fixed;
-  --sbb-header-transform-y: translateY(0);
   --sbb-header-transition-duration: var(--sbb-animation-duration-6x);
   --sbb-header-transition-property: box-shadow;
 
@@ -24,13 +23,8 @@
   --sbb-header-position: absolute;
 }
 
-:host([hide-on-scroll][data-animated]) {
-  --sbb-header-transition-property: all;
-}
-
 :host([hide-on-scroll][data-fixed]) {
   --sbb-header-position: fixed;
-  --sbb-header-transform-y: translateY(-100%);
 }
 
 :host([hide-on-scroll][data-fixed][data-animated]) {
@@ -39,8 +33,6 @@
 }
 
 :host([hide-on-scroll][data-fixed][data-visible]) {
-  --sbb-header-transform-y: translateY(0);
-
   // Show transition
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
@@ -48,15 +40,30 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 0 auto;
-  transform: var(--sbb-header-transform-y);
   background: var(--sbb-color-white-default);
   z-index: 10;
-  transition-property: var(--sbb-header-transition-property);
-  transition-duration: var(--sbb-header-transition-duration);
-  transition-timing-function: var(--sbb-header-transition-timing);
+  transition: {
+    property: var(--sbb-header-transition-property);
+    duration: var(--sbb-header-transition-duration);
+    timing-function: var(--sbb-header-transition-timing);
+  }
+  animation: {
+    duration: var(--sbb-header-transition-duration);
+    timing-function: var(--sbb-header-transition-timing);
+  }
 
   :host([data-shadow]) & {
     @include sbb.shadow-level-9-soft;
+  }
+
+  :host([hide-on-scroll][data-fixed]) & {
+    animation-name: hide;
+    transform: translate3d(0, -100%, 0);
+  }
+
+  :host([hide-on-scroll][data-fixed][data-visible]) & {
+    animation-name: show;
+    transform: translate3d(0, 0, 0);
   }
 
   @include sbb.if-forced-colors {
@@ -112,4 +119,24 @@
 
   // As if the outline has an offset, the border radius increases, we set it to the smallest possible border-radius.
   border-radius: 0.1px;
+}
+
+@keyframes show {
+  from {
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hide {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, -100%, 0);
+  }
 }
