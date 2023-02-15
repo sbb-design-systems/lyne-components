@@ -68,20 +68,6 @@ describe('sbb-tooltip-trigger', () => {
     expect(dialog).toHaveAttribute('open');
   });
 
-  it("doesn't show tooltip on keyboard event when disabled", async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
-    const dialog = await page.find('sbb-tooltip >>> dialog');
-    element.setProperty('disabled', true);
-
-    await tooltipTrigger.focus();
-    await page.waitForChanges();
-
-    await page.keyboard.down('Enter');
-    await page.waitForChanges();
-
-    expect(dialog).not.toHaveAttribute('open');
-  });
-
   it('shows tooltip on keyboard event with hover-trigger', async () => {
     const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
     const tooltip = await page.find('sbb-tooltip');
@@ -101,7 +87,7 @@ describe('sbb-tooltip-trigger', () => {
     expect(dialog).toHaveAttribute('open');
   });
 
-  it("doesn't show tooltip on keyboard event with hover-trigger when disabled", async () => {
+  it("doesn't focus tooltip-trigger on keyboard event when disabled", async () => {
     const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
     const tooltip = await page.find('sbb-tooltip');
     const dialog = await page.find('sbb-tooltip >>> dialog');
@@ -109,14 +95,12 @@ describe('sbb-tooltip-trigger', () => {
 
     element.setProperty('disabled', true);
     tooltip.setProperty('hoverTrigger', true);
+    await page.waitForChanges();
 
     await tooltipTrigger.focus();
     await page.waitForChanges();
-    expect(changeSpy).toHaveReceivedEventTimes(1);
 
-    await page.keyboard.down('Enter');
-    await page.waitForChanges();
-
+    expect(changeSpy).not.toHaveReceivedEvent();
     expect(dialog).not.toHaveAttribute('open');
   });
 });
