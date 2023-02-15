@@ -15,6 +15,10 @@ export class SbbTooltipTrigger implements ComponentInterface {
    * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public iconName = 'circle-information-small';
+
+  /**
+   * Whether the tooltip-trigger is disabled
+   */
   @Prop() public disabled = false;
 
   public render(): JSX.Element {
