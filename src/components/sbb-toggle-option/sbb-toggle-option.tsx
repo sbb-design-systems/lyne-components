@@ -19,6 +19,7 @@ import {
 } from '../../global/helpers/observe-named-slot-changes';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { StateChange } from './sbb-toggle-option.custom';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
@@ -111,11 +112,22 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
 
   @Listen('click')
   public handleClick(): void {
-    if (this.checked || this.disabled) {
+    if (this.disabled) {
       return;
     }
-
-    this.checked = true;
+    if (!this.checked) {
+      this.checked = true;
+    } else if (isValidAttribute(this._toggle, 'data-full-click-target')) {
+      const options = Array.from(this._toggle.querySelectorAll('sbb-toggle-option'));
+      if (options.length !== 2) {
+        return;
+      }
+      const otherOption = options.find((option) => option !== this._element);
+      otherOption.checked = true;
+      otherOption.dispatchEvent(
+        new InputEvent('input', { bubbles: true, composed: true, cancelable: true })
+      );
+    }
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })

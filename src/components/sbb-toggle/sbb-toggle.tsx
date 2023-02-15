@@ -16,6 +16,9 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { StateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
+import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
+
+const MAX_WIDTH_FOR_FULL_CLICK_TARGET = tokens['sbb-size-button-m-min-height-zero'];
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
@@ -139,6 +142,12 @@ export class SbbToggle implements ComponentInterface {
 
   private _setCheckedPillPosition(resizing: boolean): void {
     const options = this._options;
+
+    toggleDatasetEntry(
+      this._element,
+      'fullClickTarget',
+      options.some((option) => option.clientWidth < MAX_WIDTH_FOR_FULL_CLICK_TARGET)
+    );
 
     if (options.every((o) => !o.checked) || !this._toggleElement) {
       return;
