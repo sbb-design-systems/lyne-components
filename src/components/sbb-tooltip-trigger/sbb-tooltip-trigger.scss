@@ -5,10 +5,25 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-tooltip-background-hover: var(--sbb-color-iron-default);
-  --sbb-tooltip-background-active: var(--sbb-color-anthracite-default);
+  --sbb-tooltip-color: inherit;
 
   display: inline-block;
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-tooltip-color: var(--sbb-color-iron-default);
+  }
+}
+
+:host(:active) {
+  --sbb-tooltip-color: var(--sbb-color-anthracite-default);
+}
+
+:host([disabled]:not([disabled='false'])) {
+  --sbb-tooltip-color: var(--sbb-color-graphite-default);
+
+  pointer-events: none;
 }
 
 .sbb-tooltip-trigger {
@@ -17,21 +32,12 @@
 
   display: flex;
   cursor: pointer;
+  color: var(--sbb-tooltip-color);
 
   &:focus-visible {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-4x);
-  }
-
-  &:active {
-    color: var(--sbb-tooltip-background-active);
-  }
-
-  @include sbb.hover-mq($hover: true) {
-    &:hover {
-      color: var(--sbb-tooltip-background-hover);
-    }
   }
 }
 

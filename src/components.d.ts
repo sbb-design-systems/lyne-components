@@ -1616,6 +1616,7 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbTooltipTrigger {
+        "disabled": boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -3875,6 +3876,7 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbTooltipTrigger {
+        "disabled"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
