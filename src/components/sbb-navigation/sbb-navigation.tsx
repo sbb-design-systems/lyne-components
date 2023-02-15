@@ -345,10 +345,10 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
 
     // Close navigation on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this._navigationController.signal,
+      signal: this._navigationController?.signal,
     });
     this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this._navigationController.signal,
+      signal: this._navigationController?.signal,
     });
 
     this._navigationObserver.observe(this._element, navigationObserverConfig);
