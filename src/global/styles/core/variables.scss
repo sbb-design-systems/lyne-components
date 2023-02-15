@@ -62,6 +62,10 @@
   // Overlay
   --sbb-overlay-z-index: 1000;
 
+  // Infinity border radius, can be used to achieve rounded border on start and end
+  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
+  --sbb-border-radius-infinity: 10000000em;
+
   @include mediaqueries.mq($from: micro) {
     // Layout
     --sbb-layout-base-offset-responsive: var(--sbb-layout-base-offset-responsive-micro);

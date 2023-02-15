@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-menu-action-border-radius: var(--sbb-border-radius-8x);
+  --sbb-menu-action-border-radius: var(--sbb-border-radius-infinity);
   --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
   --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
 }
@@ -74,4 +74,8 @@
 
 .sbb-menu-action__amount {
   @include sbb.badge;
+
+  margin-inline-start: auto;
+  width: var(--sbb-spacing-fixed-4x);
+  max-height: var(--sbb-spacing-fixed-4x);
 }

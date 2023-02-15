@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-tag-border-radius: var(--sbb-border-radius-16x);
+  --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
   --sbb-tag-background-color: var(--sbb-color-white-default);
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
   --sbb-tag-border-width: var(--sbb-border-width-1x);
