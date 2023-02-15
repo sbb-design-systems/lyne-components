@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.5](https://github.com/lyne-design-system/lyne-components/compare/v0.26.4...v0.26.5) (2023-02-15)
+
+### Refactorings
+
+- use more descriptive border radius for infinity border-radius ([#1620](https://github.com/lyne-design-system/lyne-components/issues/1620)) ([aa503cd](https://github.com/lyne-design-system/lyne-components/commit/aa503cdb39d865c15d4147dd3108f73001380a7d))
+
 ### [0.26.4](https://github.com/lyne-design-system/lyne-components/compare/v0.26.3...v0.26.4) (2023-02-14)
 
 ### Bug Fixes
