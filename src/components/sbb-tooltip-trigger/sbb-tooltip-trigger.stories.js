@@ -82,6 +82,10 @@ export const CustomContent = TemplateWithCustomContent.bind({});
 CustomContent.argTypes = defaultArgTypes;
 CustomContent.args = defaultArgs;
 
+export const Disabled = Template.bind({});
+Disabled.argTypes = defaultArgTypes;
+Disabled.args = { ...defaultArgs, disabled: true };
+
 export default {
   decorators: [
     (Story) => (
