@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.6](https://github.com/lyne-design-system/lyne-components/compare/v0.26.5...v0.26.6) (2023-02-15)
+
+### Bug Fixes
+
+- **sbb-header:** fix hiding transition ([#1619](https://github.com/lyne-design-system/lyne-components/issues/1619)) ([529a266](https://github.com/lyne-design-system/lyne-components/commit/529a26691bb78f20a77148fe000d59679541f19c))
+
 ### [0.26.5](https://github.com/lyne-design-system/lyne-components/compare/v0.26.4...v0.26.5) (2023-02-15)
 
 ### Refactorings
