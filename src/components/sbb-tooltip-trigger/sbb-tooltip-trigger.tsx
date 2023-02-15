@@ -19,7 +19,7 @@ export class SbbTooltipTrigger implements ComponentInterface {
   /**
    * Whether the tooltip-trigger is disabled
    */
-  @Prop() public disabled = false;
+  @Prop({ reflect: true }) public disabled = false;
 
   public render(): JSX.Element {
     return (

@@ -41,7 +41,7 @@ describe('sbb-tooltip-trigger', () => {
   it("doesn't show tooltip on disabled tooltip-trigger click", async () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    element.setAttribute('disabled', true);
+    element.setProperty('disabled', true);
 
     await page.waitForChanges();
     await element.click();
@@ -71,7 +71,7 @@ describe('sbb-tooltip-trigger', () => {
   it("doesn't show tooltip on keyboard event when disabled", async () => {
     const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
     const dialog = await page.find('sbb-tooltip >>> dialog');
-    element.setAttribute('disabled', true);
+    element.setProperty('disabled', true);
 
     await tooltipTrigger.focus();
     await page.waitForChanges();
@@ -107,7 +107,7 @@ describe('sbb-tooltip-trigger', () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const changeSpy = await tooltipTrigger.spyOnEvent('focus');
 
-    element.setAttribute('disabled', true);
+    element.setProperty('disabled', true);
     tooltip.setProperty('hoverTrigger', true);
 
     await tooltipTrigger.focus();
