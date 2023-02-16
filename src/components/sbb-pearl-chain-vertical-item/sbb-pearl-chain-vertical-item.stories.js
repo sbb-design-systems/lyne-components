@@ -57,5 +57,5 @@ export default {
       control: { type: 'select' },
     },
   },
-  title: 'components/timetable/pearl-chains/sbb-pearl-chain-vertical-item',
+  title: 'components/timetable/sbb-pearl-chain-vertical-item',
 };

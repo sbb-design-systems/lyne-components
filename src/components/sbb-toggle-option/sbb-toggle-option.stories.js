@@ -110,5 +110,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/toggle/sbb-toggle-option',
+  title: 'components/form elements/sbb-toggle-option',
 };

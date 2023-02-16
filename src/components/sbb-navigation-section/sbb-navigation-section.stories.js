@@ -173,5 +173,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/navigation/sbb-navigation-section',
+  title: 'components/sbb-navigation-section',
 };

@@ -242,5 +242,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/menu/sbb-menu',
+  title: 'components/sbb-menu',
 };

@@ -187,5 +187,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/radio/sbb-radio-button-group',
+  title: 'components/form elements/sbb-radio-button-group',
 };

@@ -204,5 +204,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/alert/sbb-alert',
+  title: 'components/sbb-alert',
 };

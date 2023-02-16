@@ -189,5 +189,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/header/sbb-header',
+  title: 'components/sbb-header',
 };

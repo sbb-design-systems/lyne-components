@@ -208,5 +208,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/header/sbb-header-action',
+  title: 'components/sbb-header-action',
 };

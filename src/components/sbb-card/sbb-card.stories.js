@@ -265,5 +265,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/cards/sbb-card',
+  title: 'components/sbb-card',
 };
