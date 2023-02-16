@@ -38,7 +38,7 @@ const Template = (args) => [
       <sbb-option>Option 5</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>,
-  <div style={'margin-top: 200px'}>
+  <div>
     <button>Test</button>
   </div>,
 ];
@@ -50,7 +50,7 @@ Basic.args = { ...defaultArgs };
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
         <Story />
       </div>
     ),
