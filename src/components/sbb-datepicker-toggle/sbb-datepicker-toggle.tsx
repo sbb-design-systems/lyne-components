@@ -45,6 +45,18 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._init(this.datePicker);
   }
 
+  public componentDidLoad(): void {
+    this._triggerElement.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (event.code === 'Enter' || event.code === 'Space') {
+          this._openedByKeyboard = true;
+        }
+      },
+      { signal: this._datePickerController.signal }
+    );
+  }
+
   public disconnectedCallback(): void {
     this._datePickerController.abort();
   }
@@ -71,29 +83,15 @@ export class SbbDatepickerToggle implements ComponentInterface {
     };
   }
 
-  private _registerTrigger(el: HTMLElement): void {
-    this._triggerElement = el;
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._datePickerController.signal }
-    );
-  }
-
   public render(): JSX.Element {
-    const plainIcon = <sbb-icon name="calendar-small" />;
-    const tooltipTrigger = (
-      <sbb-tooltip-trigger ref={(e) => this._registerTrigger(e)} iconName="calendar-small" />
-    );
+    const disabled = !this._datePicker || this._datePicker.disabled || this._datePicker.readonly;
     return (
       <Host slot="prefix">
-        {!this._datePicker || this._datePicker.disabled || this._datePicker.readonly
-          ? plainIcon
-          : tooltipTrigger}
+        <sbb-tooltip-trigger
+          ref={(el) => (this._triggerElement = el)}
+          iconName="calendar-small"
+          disabled={disabled}
+        />
         <sbb-tooltip
           onDid-close={() => {
             this._openedByKeyboard = false;

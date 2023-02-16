@@ -24,9 +24,7 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
    */
   @Prop() public iconName = 'circle-information-small';
 
-  /**
-   * Whether the tooltip-trigger is disabled
-   */
+  /** Whether the tooltip-trigger is disabled. */
   @Prop({ reflect: true }) public disabled = false;
 
   @Element() private _element!: HTMLElement;

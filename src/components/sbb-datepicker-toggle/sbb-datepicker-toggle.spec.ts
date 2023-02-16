@@ -13,7 +13,7 @@ describe('sbb-datepicker-toggle', () => {
     expect(page.root).toEqualHtml(`
       <sbb-datepicker-toggle slot="prefix">
         <mock:shadow-root>
-          <sbb-icon name="calendar-small"></sbb-icon>
+          <sbb-tooltip-trigger iconName="calendar-small" disabled=""></sbb-tooltip-trigger>
           <sbb-tooltip data-hide-close-button="">
             <sbb-calendar></sbb-calendar>
           </sbb-tooltip>
@@ -62,7 +62,7 @@ describe('sbb-datepicker-toggle', () => {
       expect(element).toEqualHtml(`
         <sbb-datepicker-toggle slot="prefix">
           <mock:shadow-root>
-            <sbb-icon name="calendar-small"></sbb-icon>
+            <sbb-tooltip-trigger iconName="calendar-small" disabled=""></sbb-tooltip-trigger>
             <sbb-tooltip data-hide-close-button="">
               <sbb-calendar></sbb-calendar>
             </sbb-tooltip>
