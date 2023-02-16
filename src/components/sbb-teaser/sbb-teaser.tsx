@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  JSX,
-  Listen,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
   actionElement,
   focusActionElement,
@@ -64,7 +54,7 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
    * Example text: Connection from X to Y, via Z, on date X.
    * Ticket price starts at X.
    */
-  @Prop() public accessibilityLabel!: string;
+  @Prop() public accessibilityLabel: string;
 
   @State() private _currentLanguage = documentLanguage();
 
@@ -73,18 +63,6 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
-  }
-
-  /**
-   * Check if accessibilityLabel is provided since it is a required prop,
-   * otherwise throw an error.
-   */
-  @Watch('accessibilityLabel')
-  private _validateAccessibilityLabel(newValue: string): void {
-    const isBlank = typeof newValue !== 'string' || newValue === '';
-    if (isBlank) {
-      throw new Error('accessibilityLabel: required');
-    }
   }
 
   @Listen('click')
@@ -97,11 +75,6 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
   public connectedCallback(): void {
     // Forward focus call to action element
     this._element.focus = focusActionElement;
-  }
-
-  public componentWillLoad(): void {
-    // Validate props
-    this._validateAccessibilityLabel(this.accessibilityLabel);
   }
 
   public render(): JSX.Element {

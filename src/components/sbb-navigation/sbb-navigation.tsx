@@ -342,15 +342,6 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-
-    // Close navigation on backdrop click
-    this._element.addEventListener('pointerdown', this._pointerDownListener, {
-      signal: this._navigationController.signal,
-    });
-    this._element.addEventListener('pointerup', this._closeOnBackdropClick, {
-      signal: this._navigationController.signal,
-    });
-
     this._navigationObserver.observe(this._element, navigationObserverConfig);
   }
 
@@ -383,6 +374,8 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
         data-has-navigation-section={!!this._activeNavigationSection}
         data-state={this._state}
         ref={assignId(() => this._navigationId)}
+        onPointerUp={(event) => this._closeOnBackdropClick(event)}
+        onPointerDown={(event) => this._pointerDownListener(event)}
       >
         <div class="sbb-navigation__container">
           <dialog

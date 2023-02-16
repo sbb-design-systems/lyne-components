@@ -3522,7 +3522,7 @@ declare namespace LocalJSX {
         /**
           * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
          */
-        "accessibilityLabel": string;
+        "accessibilityLabel"?: string;
         /**
           * The href value you want to link to.
          */
