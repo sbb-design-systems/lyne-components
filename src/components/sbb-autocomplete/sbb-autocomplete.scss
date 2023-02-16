@@ -30,6 +30,7 @@
 
 .sbb-autocomplete__panel {
   display: block;
+  position: absolute;
   visibility: hidden;
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: 0;
@@ -42,7 +43,7 @@
   max-height: var(--sbb-overlay-max-height);
   min-height: var(--sbb-overlay-min-height);
 
-  &[open] {
+  &[data-open]:not([data-open='false']) {
     visibility: visible;
     pointer-events: all;
   }
