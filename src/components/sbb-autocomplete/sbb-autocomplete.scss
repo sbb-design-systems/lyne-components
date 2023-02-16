@@ -10,6 +10,7 @@
   --sbb-overlay-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-overlay-min-height: #{sbb.px-to-rem-build(120)};
   --sbb-overlay-width: fit-content;
+  --sbb-overlay-border-radius: var(--sbb-border-radius-4x);
 }
 
 :host(:not([data-state='closed'])) {
@@ -30,9 +31,11 @@
 .sbb-autocomplete__panel {
   display: block;
   visibility: hidden;
-  padding: 0;
+  padding-block: var(--sbb-spacing-fixed-3x);
+  padding-inline: 0;
   margin: 0;
   border: none;
+  border-radius: var(--sbb-overlay-border-radius);
   top: var(--sbb-overlay-position-y);
   left: var(--sbb-overlay-position-x);
   width: var(--sbb-overlay-width);
