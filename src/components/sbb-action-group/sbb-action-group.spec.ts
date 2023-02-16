@@ -1,6 +1,7 @@
 import { SbbActionGroup } from './sbb-action-group';
 import { newSpecPage } from '@stencil/core/testing';
 import { AnyHTMLElement } from '@stencil/core/internal';
+import { patchSlotchangeEvent } from '../../global/helpers/testing/patch-slotchange-events';
 
 describe('sbb-action-group', () => {
   it('renders', async () => {
@@ -22,7 +23,7 @@ describe('sbb-action-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-action-group align="start" orientation="horizontal" align-group="start" horizontal-from="medium">
+      <sbb-action-group align="start" orientation="horizontal" align-group="start" horizontal-from="medium" size="l">
         <mock:shadow-root>
           <div class="sbb-action-group">
             <slot></slot>
@@ -64,6 +65,7 @@ describe('sbb-action-group', () => {
           </sbb-action-group>
         `,
       });
+      patchSlotchangeEvent(root);
 
       expect(assertButtons(root, (b) => b.size === 'l')).toBeTruthy();
     });
@@ -85,6 +87,7 @@ describe('sbb-action-group', () => {
           </sbb-action-group>
         `,
       });
+      patchSlotchangeEvent(root);
 
       expect(assertButtons(root, (b) => b.size === 'm')).toBeTruthy();
     });
@@ -104,6 +107,7 @@ describe('sbb-action-group', () => {
           </sbb-action-group>
         `,
       });
+      patchSlotchangeEvent(root);
 
       expect(
         Array.from(root.querySelectorAll('sbb-link')).every((l) => l.variant === 'block')
