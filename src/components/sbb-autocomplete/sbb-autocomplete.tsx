@@ -1,8 +1,12 @@
-import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, JSX, Method, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, JSX, Method, Prop, State, Watch } from '@stencil/core';
+import { assignId } from '../../global/helpers/assign-id';
 import { hostContext } from '../../global/helpers/host-context';
-import { getElementPosition } from '../../global/helpers/position';
+import { removeAriaOverlayTriggerAttributes, setAriaOverlayTriggerAttributes } from '../../global/helpers/overlay-trigger-attributes';
+import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 
 type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -80,20 +84,27 @@ export class SbbAutocomplete implements ComponentInterface {
   private _originElement: HTMLElement;
   private _triggerElement: HTMLElement;
   // private _contentElement: HTMLElement;
+  private _triggerEventsController: AbortController;
+  private _windowEventsController: AbortController;
+  private _overlayId = `sbb-autocomplete-${++nextId}`;
 
   /**
-   * Opens the autocomplete on trigger click.
+   * Opens the autocomplete.
    */
   @Method()
   public async open(): Promise<void> {
-    // if (this._state === 'closing' || !this._dialog) {
-    //   return;
-    // }
+    console.log('Open autocomplete');
+    if (this._state !== 'closed' || !this._dialog) {
+      return;
+    }
 
     this.willOpen.emit();
-    this._state = 'opened';
     this._setOverlayPosition();
     this._dialog.show();
+    this._state = 'opened';
+    this._attachWindowEvents();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this.didOpen.emit(); // TODO should be emitted on animation end
   }
 
   /**
@@ -101,18 +112,39 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   @Method()
   public async close(): Promise<void> {
-    // if (this._state === 'opening') {
-    //   return;
-    // }
+    console.log('Close autocomplete');
+    if (this._state !== 'opened') {
+      return;
+    }
 
     this.willClose.emit();
-    // this._state = 'closed';
-    // this._dialog.close();
-    // this._openedByKeyboard = false;
+    this._windowEventsController.abort();
+    this._dialog.close();
+    this._state = 'closed';
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    this.didClose.emit(); // TODO should be emitted on animation end
+  }
+
+  // Removes trigger click listener on trigger change.
+  @Watch('origin')
+  public removeTriggerClickListener(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+    if (newValue !== oldValue) {
+      this._setUp();
+    }
   }
   
   public connectedCallback(): void {
-    // TODO watch for pros change
+    this._setUp();
+  }
+
+  public disconnectedCallback(): void {
+    this._windowEventsController.abort();
+  }
+
+  private _setUp(): void {
+    this._triggerEventsController?.abort();
+    this._windowEventsController?.abort();
+
     this._attachTo(this._getOriginElement());
     this._bindTo(this._getTriggerElement());
   }
@@ -156,11 +188,22 @@ export class SbbAutocomplete implements ComponentInterface {
     if (!triggerElem) {
       return;
     }
+    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
     this._triggerElement = triggerElem;
+
+    setAriaOverlayTriggerAttributes(
+      this._triggerElement,
+      'listbox',
+      this._element.id || this._overlayId,
+      this._state
+    );
     
     // TODO listen to events on the trigger (open, valuechange, etc.)
-    this._triggerElement.addEventListener('focus', (ev) => {console.log('open', ev); this.open();});
-    this._triggerElement.addEventListener('blur', (ev) => console.log('close', ev));
+    this._triggerEventsController = new AbortController();
+    this._triggerElement.addEventListener('focus', () => this.open(), { 
+      signal: this._triggerEventsController.signal 
+    });
   }
 
   // Set overlay position, width and max height
@@ -180,11 +223,38 @@ export class SbbAutocomplete implements ComponentInterface {
     this._element.style.setProperty('--sbb-overlay-max-height', panelPosition.maxHeight);
   }
 
+  private _attachWindowEvents(): void {
+    this._windowEventsController = new AbortController();
+    document.addEventListener('scroll', () => this._setOverlayPosition(), {
+      passive: true,
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('resize', () => this._setOverlayPosition(), {
+      passive: true,
+      signal: this._windowEventsController.signal,
+    });
+
+    window.addEventListener('click', this._onBackdropClick, {
+      signal: this._windowEventsController.signal,
+    });
+
+    // TODO keyboard interaction
+    // window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
+    //   signal: this._windowEventsController.signal,
+    // });
+  }
+
+  private _onBackdropClick = (event: PointerEvent): void => {
+    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._triggerElement, event)) { //TODO shoul be trigger or origin?
+      this.close();
+    }
+  };
+
   public render(): JSX.Element {
     return (
-      <Host data-state={this._state}>
+      <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
         <div class="sbb-autocomplete__container">
-          <dialog
+          <dialog 
             ref={(dialogRef) => (this._dialog = dialogRef)}
             class="sbb-autocomplete__panel">
             <div

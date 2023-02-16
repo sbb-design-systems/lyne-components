@@ -4,7 +4,7 @@
  */
 export function setAriaOverlayTriggerAttributes(
   trigger: HTMLElement,
-  popupType: 'menu' | 'dialog',
+  popupType: 'menu' | 'dialog' | 'listbox',
   overlayId: string,
   state: string
 ): void {
