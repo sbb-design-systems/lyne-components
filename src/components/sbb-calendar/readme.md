@@ -23,7 +23,7 @@
 
 ## Methods
 
-### `focus() => Promise<void>`
+### `focusCell() => Promise<void>`
 
 
 

@@ -93,9 +93,9 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  /* Focuses on a day cell*/
+  /* Focuses on a day cell. */
   @Method()
-  public focus(): void {
+  public focusCell(): void {
     const toFocus = this._getFirstFocusable();
     toFocus?.focus();
   }
