@@ -1,12 +1,29 @@
+import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-datepicker-toggle {...args}></sbb-datepicker-toggle>;
+const StandaloneTemplate = (picker = null) => (
+  <sbb-datepicker-toggle date-picker={picker}></sbb-datepicker-toggle>
+);
 
-export const story1 = Template.bind({});
+const PickerAndButtonTemplate = () => (
+  <div style="display: flex; gap: 1em;">
+    {StandaloneTemplate('datepicker')}
+    <sbb-datepicker id="datepicker"></sbb-datepicker>
+  </div>
+);
 
-story1.args = {
-  'some-prop': 'opt1',
-};
+const FormFieldTemplate = () => (
+  <sbb-form-field>
+    <sbb-datepicker></sbb-datepicker>
+    {StandaloneTemplate()}
+  </sbb-form-field>
+);
+
+export const Standalone = StandaloneTemplate.bind({});
+
+export const WithPicker = PickerAndButtonTemplate.bind({});
+
+export const FormField = FormFieldTemplate.bind({});
 
 export default {
   decorators: [
@@ -25,5 +42,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-datepicker-toggle',
+  title: 'components/form elements/datepicker/sbb-datepicker-toggle',
 };

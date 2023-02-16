@@ -58,11 +58,13 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   private _setDisabledState(datepicker: HTMLSbbDatepickerElement): void {
     const pickerValue = datepicker.valueAsDate;
-    const previousDate = findNextAvailableDate(pickerValue, this._datePicker, this._dateAdapter);
-    this._disabled =
-      this._dateAdapter.compareDate(previousDate, pickerValue) === 0 ||
-      this._datePicker?.disabled ||
-      this._datePicker?.readonly;
+    if (pickerValue) {
+      const previousDate = findNextAvailableDate(pickerValue, datepicker, this._dateAdapter);
+      this._disabled =
+        this._dateAdapter.compareDate(previousDate, pickerValue) === 0 ||
+        datepicker.disabled ||
+        datepicker.readonly;
+    }
   }
 
   private _handleClick(): void {
