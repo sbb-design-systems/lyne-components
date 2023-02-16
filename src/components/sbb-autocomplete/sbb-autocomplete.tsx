@@ -28,6 +28,7 @@ export class SbbAutocomplete implements ComponentInterface {
   /**
    * The element that will trigger the autocomplete opening.
    * Accepts both a string (id of an element) or an HTML element.
+   * By default, the autocomplete will open on focus of the 'trigger' element.
    * 
    * If not setted, will search for the first 'input' child of 'origin'
    */
@@ -185,18 +186,13 @@ export class SbbAutocomplete implements ComponentInterface {
     if (!triggerElem) {
       return;
     }
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
+    // Reset aria attributes to the old trigger and add them to the new one
+    this._removeAriaAttributes(this._triggerElement);
+    this._setAriaAttributes(triggerElem);
 
     this._triggerElement = triggerElem;
-
-    setAriaOverlayTriggerAttributes(
-      this._triggerElement,
-      'listbox',
-      this._element.id || this._overlayId,
-      this._state
-    );
     
-    // TODO listen to events on the trigger (open, valuechange, etc.)
     this._triggerEventsController = new AbortController();
     this._triggerElement.addEventListener('focus', () => this.open(), { 
       signal: this._triggerEventsController.signal 
@@ -239,13 +235,30 @@ export class SbbAutocomplete implements ComponentInterface {
     // window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
     //   signal: this._windowEventsController.signal,
     // });
-  }
+    }
 
   private _onBackdropClick = (event: PointerEvent): void => {
     if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._triggerElement, event)) { //TODO shoul be trigger or origin?
       this.close();
     }
   };
+
+  private _setAriaAttributes(element: HTMLElement): void {
+    setAriaOverlayTriggerAttributes(
+      element,
+      'listbox',
+      this._element.id || this._overlayId,
+      this._state
+    );
+    element.setAttribute('role', 'combobox');
+    element.setAttribute('aria-autocomplete', 'list');
+  }
+
+  private _removeAriaAttributes(element: HTMLElement): void {
+    removeAriaOverlayTriggerAttributes(element);
+    element?.removeAttribute('role');
+    element?.removeAttribute('aria-autocomplete');
+  }
 
   public render(): JSX.Element {
     return (

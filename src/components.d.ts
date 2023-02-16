@@ -227,7 +227,7 @@ export namespace Components {
          */
         "origin": string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'input' child of 'origin'
+          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not setted, will search for the first 'input' child of 'origin'
          */
         "trigger": string | HTMLElement;
     }
@@ -1087,6 +1087,7 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbOption {
+        "active"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -2531,7 +2532,7 @@ declare namespace LocalJSX {
          */
         "origin"?: string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'input' child of 'origin'
+          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not setted, will search for the first 'input' child of 'origin'
          */
         "trigger"?: string | HTMLElement;
     }
@@ -3482,6 +3483,7 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbOption {
+        "active"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */

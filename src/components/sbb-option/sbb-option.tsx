@@ -9,11 +9,14 @@ import {
   Prop,
   State,
 } from '@stencil/core';
+import { assignId } from '../../global/helpers/assign-id';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this to provide the option label.
@@ -31,18 +34,22 @@ export class SbbOption implements ComponentInterface {
    * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public iconName?: string;
+  
+  /**
+   * Wheter the icon space is preserved when no icon is set
+  */
+  @Prop({ reflect: true }) public preserveIconSpace = true;
 
   @Prop() public selected?: boolean;
 
-  /**
-   * Wheter the icon space is preserved when no icon is set
-   */
-  @Prop({ reflect: true }) public preserveIconSpace = true;
+  @Prop() public active?: boolean;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
   @Element() private _element: HTMLElement;
+
+  private _optionId = `sbb-option-${++nextId}`;
 
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
@@ -55,7 +62,7 @@ export class SbbOption implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="option" aria-selected={this.selected}>
+      <Host role="option" aria-selected={this.selected} ref={assignId(() => this._optionId)}>
         <div class="sbb-option">
           <span
             class={{
