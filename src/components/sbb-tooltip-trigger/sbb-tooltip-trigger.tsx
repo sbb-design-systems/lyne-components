@@ -16,10 +16,15 @@ export class SbbTooltipTrigger implements ComponentInterface {
    */
   @Prop() public iconName = 'circle-information-small';
 
+  /**
+   * Whether the tooltip-trigger is disabled
+   */
+  @Prop({ reflect: true }) public disabled = false;
+
   public render(): JSX.Element {
     return (
-      <Host role="button">
-        <button class="sbb-tooltip-trigger">
+      <Host role="button" aria-disabled={this.disabled}>
+        <button class="sbb-tooltip-trigger" disabled={this.disabled}>
           <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </button>
       </Host>

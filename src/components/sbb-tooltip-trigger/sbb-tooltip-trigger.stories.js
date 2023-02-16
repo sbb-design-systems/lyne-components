@@ -13,14 +13,22 @@ const iconName = {
   },
 };
 
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes = {
   'aria-label': ariaLabel,
   'icon-name': iconName,
+  disabled: disabled,
 };
 
 const defaultArgs = {
   'aria-label': undefined,
   'icon-name': 'circle-information-small',
+  disabled: false,
 };
 
 const tooltip = () => (
@@ -73,6 +81,10 @@ IconSizeL.args = { ...defaultArgs, 'icon-name': 'circle-information-large' };
 export const CustomContent = TemplateWithCustomContent.bind({});
 CustomContent.argTypes = defaultArgTypes;
 CustomContent.args = defaultArgs;
+
+export const Disabled = Template.bind({});
+Disabled.argTypes = defaultArgTypes;
+Disabled.args = { ...defaultArgs, disabled: true };
 
 export default {
   decorators: [
