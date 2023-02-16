@@ -80,10 +80,9 @@ export class SbbAutocomplete implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  private _dialog: HTMLDialogElement;
+  private _dialog: HTMLElement;
   private _originElement: HTMLElement;
   private _triggerElement: HTMLElement;
-  // private _contentElement: HTMLElement;
   private _triggerEventsController: AbortController;
   private _windowEventsController: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
@@ -100,7 +99,6 @@ export class SbbAutocomplete implements ComponentInterface {
 
     this.willOpen.emit();
     this._setOverlayPosition();
-    this._dialog.show();
     this._state = 'opened';
     this._attachWindowEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -119,7 +117,6 @@ export class SbbAutocomplete implements ComponentInterface {
 
     this.willClose.emit();
     this._windowEventsController.abort();
-    this._dialog.close();
     this._state = 'closed';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this.didClose.emit(); // TODO should be emitted on animation end
@@ -254,15 +251,14 @@ export class SbbAutocomplete implements ComponentInterface {
     return (
       <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
         <div class="sbb-autocomplete__container">
-          <dialog 
+          <div class="sbb-autocomplete__panel" 
+            data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
-            class="sbb-autocomplete__panel">
-            <div
-              // ref={(menuContentRef) => (this._contentElement = menuContentRef)}
-            >
+          >
+            <div> {/* TODO This div might not be necessary */}
               <slot />
             </div>
-          </dialog>
+          </div>
         </div>
       </Host>
     );
