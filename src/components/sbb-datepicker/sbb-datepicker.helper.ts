@@ -69,3 +69,18 @@ export function findNextAvailableDate(
   }
   return date;
 }
+
+export function isDateAvailable(date: Date, datePicker: HTMLSbbDatepickerElement): boolean {
+  const dateAdapter = new NativeDateAdapter();
+  const min: Date = dateAdapter.deserializeDate(datePicker.min);
+  const max: Date = dateAdapter.deserializeDate(datePicker.max);
+
+  if (!!min && dateAdapter.isValid(min) && dateAdapter.compareDate(date, min) < 0) {
+    return false;
+  }
+  if (!!max && dateAdapter.isValid(max) && dateAdapter.compareDate(date, max) > 0) {
+    return false;
+  }
+
+  return datePicker.dateFilter(date);
+}

@@ -5,6 +5,7 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Prop,
   Watch,
@@ -14,6 +15,7 @@ import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
+import { isDateAvailable } from './sbb-datepicker.helper';
 
 const REGEX_PATTERN = /[0-9.,\\/\-\s]{1,10}/;
 const REGEX =
@@ -152,8 +154,12 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
   private _updateValue(value: string): void {
     this.value = this._formatValue(value);
     const newValueAsDate = this._formatValueAsDate(this.value);
-    if (newValueAsDate?.getTime() !== this.valueAsDate?.getTime()) {
+    const isDateValid = isDateAvailable(newValueAsDate, this._element as HTMLSbbDatepickerElement);
+    if (isDateValid && newValueAsDate?.getTime() !== this.valueAsDate?.getTime()) {
       this.valueAsDate = newValueAsDate;
+    }
+    if (!isDateValid) {
+      this.valueAsDate = undefined;
     }
     if (inputElement(this._element)) {
       inputElement(this._element).value = this.value;
@@ -187,13 +193,15 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
     };
 
     return (
-      <input
-        type="text"
-        maxlength="10"
-        {...inputAttributes}
-        onInput={(event) => this._preventCharInsert(event)}
-        onChange={(event) => this._formatAndUpdateValue(event)}
-      />
+      <Host class={{ 'sbb-invalid': !!this.value && !this.valueAsDate }}>
+        <input
+          type="text"
+          maxlength="10"
+          {...inputAttributes}
+          onInput={(event) => this._preventCharInsert(event)}
+          onChange={(event) => this._formatAndUpdateValue(event)}
+        />
+      </Host>
     );
   }
 }

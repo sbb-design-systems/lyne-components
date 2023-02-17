@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
 import { getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
+import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 
 @Component({
   shadow: true,
@@ -34,6 +35,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
   private _openedByKeyboard = false;
 
   private _datePickerController: AbortController;
+
+  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
@@ -71,7 +74,21 @@ export class SbbDatepickerToggle implements ComponentInterface {
         const datepicker = event.target as HTMLSbbDatepickerElement;
         this._datePicker = datepicker;
         this._setDisabledState(this._datePicker);
-        if (datepicker.valueAsDate !== this._calendarElement.selectedDate) {
+      },
+      { signal: this._datePickerController.signal }
+    );
+    this._datePicker?.addEventListener(
+      'change',
+      (event: Event) => {
+        const datepicker = event.target as HTMLSbbDatepickerElement;
+        const calendarDate = this._dateAdapter.deserializeDate(this._calendarElement.selectedDate);
+        if (datepicker.valueAsDate?.getTime() !== calendarDate?.getTime()) {
+          if (
+            this._dateAdapter.getMonth(datepicker.valueAsDate) !==
+            this._dateAdapter.getMonth(calendarDate)
+          ) {
+            this._calendarElement.resetPosition();
+          }
           this._calendarElement.selectedDate = datepicker.valueAsDate;
         }
       },
