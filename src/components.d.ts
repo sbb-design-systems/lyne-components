@@ -219,7 +219,7 @@ export namespace Components {
          */
         "close": () => Promise<void>;
         /**
-          * Opens the autocomplete on trigger click.
+          * Opens the autocomplete.
          */
         "open": () => Promise<void>;
         /**
