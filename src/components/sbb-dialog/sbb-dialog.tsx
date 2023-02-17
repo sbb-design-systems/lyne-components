@@ -331,6 +331,14 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     );
   }
 
+  private _setActionGroupSize(): void {
+    this._element
+      .querySelectorAll(
+        'sbb-action-group[slot="action-group"],[slot="action-group"] > sbb-action-group'
+      )
+      .forEach((element: HTMLSbbActionGroupElement) => (element.size = 'm'));
+  }
+
   public render(): JSX.Element {
     const closeButton = (
       <sbb-button
@@ -377,7 +385,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
 
     const dialogFooter = (
       <div class="sbb-dialog__footer">
-        <slot name="action-group" />
+        <slot name="action-group" onSlotchange={() => this._setActionGroupSize()} />
       </div>
     );
 
