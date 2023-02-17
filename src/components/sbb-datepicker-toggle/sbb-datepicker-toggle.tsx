@@ -109,7 +109,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
               this._calendarElement.selectedDate = this._datePicker?.valueAsDate;
             }}
             onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {
-              this._datePicker.valueAsDate = d.detail;
+              this._datePicker.valueAsDate = new Date(d.detail);
             }}
           ></sbb-calendar>
         </sbb-tooltip>

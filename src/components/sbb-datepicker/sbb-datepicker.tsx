@@ -83,9 +83,7 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
     if (!newDateValue || newDateValue?.getTime() === oldDateValue?.getTime()) {
       return;
     }
-    if (!(newDateValue instanceof Date)) {
-      newDateValue = new Date(newDateValue);
-    }
+
     const newValue = this._formatValue(
       `${newDateValue.getDate()}.${newDateValue.getMonth() + 1}.${newDateValue.getFullYear()}`
     );
@@ -144,8 +142,7 @@ export class SbbDatepicker implements ComponentInterface, AccessibilityPropertie
 
   /** Applies the correct format to values and triggers event dispatch. */
   private _formatAndUpdateValue(event): void {
-    const newValue = this._formatValue(event.target.value);
-    this.value = newValue;
+    this.value = this._formatValue(event.target.value);
   }
 
   /**
