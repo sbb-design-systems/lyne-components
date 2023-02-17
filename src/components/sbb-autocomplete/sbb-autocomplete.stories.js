@@ -25,7 +25,26 @@ const defaultArgs = {
 // );
 
 const Template = (args) => [
-  <sbb-form-field label="Label">
+  <sbb-form-field data-autocomplete-origin data-autocomplete-open label="Label">
+    <input placeholder="Placeholder" />
+
+    <sbb-autocomplete {...args}>
+      <sbb-option icon-name="clock-small">Option 1</sbb-option>
+      <sbb-option icon-name="clock-small">Option 2</sbb-option>
+      <sbb-divider />
+      <sbb-option icon-name="clock-small">Option 3</sbb-option>
+      <sbb-divider />
+      <sbb-option>Option 4</sbb-option>
+      <sbb-option>Option 5</sbb-option>
+    </sbb-autocomplete>
+  </sbb-form-field>,
+  <div>
+    <button>Test</button>
+  </div>,
+];
+
+const BorderlessTemplate = (args) => [
+  <sbb-form-field borderless data-autocomplete-origin data-autocomplete-open label="Label">
     <input placeholder="Placeholder" />
 
     <sbb-autocomplete {...args}>
@@ -46,6 +65,10 @@ const Template = (args) => [
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
+
+export const Borderless = BorderlessTemplate.bind({});
+Borderless.argTypes = defaultArgTypes;
+Borderless.args = { ...defaultArgs };
 
 export default {
   decorators: [

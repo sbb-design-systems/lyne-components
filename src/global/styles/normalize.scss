@@ -230,3 +230,30 @@ Add the correct display in Chrome and Safari.
 summary {
   display: list-item;
 }
+
+/*
+Add global styles for the origin of autocomplete dropdown
+*/
+
+*[data-autocomplete-origin] {
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+    background-color: white;
+    top: calc(100% - var(--sbb-border-radius-4x));
+    left: 0;
+    width: 100%;
+    height: calc(2 * var(--sbb-border-radius-4x));
+    pointer-events: none;
+  }
+
+  &[data-autocomplete-open]::before {
+    visibility: visible;
+  }
+}
