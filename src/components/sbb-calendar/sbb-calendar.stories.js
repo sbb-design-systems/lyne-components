@@ -16,7 +16,7 @@ const TemplateUnixTimestamp = ({ min, max, selectedDate, ...args }) => (
 const TemplateFilterFunction = (args) => (
   <sbb-calendar
     ref={(calendarRef) => {
-      calendarRef.dateFilter = (d) => d.getDay() !== 6 && d.getDay() !== 0;
+      calendarRef.dateFilter = (d) => d?.getDay() !== 6 && d?.getDay() !== 0;
     }}
     {...args}
   ></sbb-calendar>

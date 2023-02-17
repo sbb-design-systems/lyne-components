@@ -33,6 +33,16 @@ Type: `Promise<void>`
 
 
 
+### `resetPosition() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 

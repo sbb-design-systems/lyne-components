@@ -90,6 +90,8 @@ export class SbbCalendar implements ComponentInterface {
       (!this._disableDay(selectedDate.toISOString()) || this.dateFilter(selectedDate))
     ) {
       this._selected = selectedDate.toISOString();
+    } else {
+      this._selected = undefined;
     }
   }
 
@@ -98,6 +100,13 @@ export class SbbCalendar implements ComponentInterface {
   public focusCell(): void {
     const toFocus = this._getFirstFocusable();
     toFocus?.focus();
+  }
+
+  /* Resets the active month according to the new state of the calendar. */
+  @Method()
+  public resetPosition(): void {
+    this._setDates();
+    this._init();
   }
 
   public connectedCallback(): void {
