@@ -25,6 +25,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   @State() private _triggerElement: HTMLElement;
 
+  @State() private _disabled = false;
+
   private _datePicker: HTMLSbbDatepickerElement;
 
   private _calendarElement: HTMLSbbCalendarElement;
@@ -64,10 +66,13 @@ export class SbbDatepickerToggle implements ComponentInterface {
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
     this._datePicker?.addEventListener(
-      'change',
-      () => {
-        if (this._datePicker.valueAsDate !== this._calendarElement.selectedDate) {
-          this._calendarElement.selectedDate = this._datePicker.valueAsDate;
+      'didRender',
+      (event: Event) => {
+        const datepicker = event.target as HTMLSbbDatepickerElement;
+        this._datePicker = datepicker;
+        this._setDisabledState(this._datePicker);
+        if (datepicker.valueAsDate !== this._calendarElement.selectedDate) {
+          this._calendarElement.selectedDate = datepicker.valueAsDate;
         }
       },
       { signal: this._datePickerController.signal }
@@ -83,14 +88,17 @@ export class SbbDatepickerToggle implements ComponentInterface {
     };
   }
 
+  private _setDisabledState(datepicker: HTMLSbbDatepickerElement): void {
+    this._disabled = datepicker.disabled || datepicker.readonly;
+  }
+
   public render(): JSX.Element {
-    const disabled = !this._datePicker || this._datePicker.disabled || this._datePicker.readonly;
     return (
       <Host slot="prefix">
         <sbb-tooltip-trigger
           ref={(el) => (this._triggerElement = el)}
           iconName="calendar-small"
-          disabled={disabled}
+          disabled={this._disabled}
         />
         <sbb-tooltip
           onDid-close={() => {
