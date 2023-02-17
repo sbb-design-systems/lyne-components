@@ -5,11 +5,10 @@
 
 ## Properties
 
-| Property   | Attribute | Description                                                                                                                                                                              | Type                    | Default     |
-| ---------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `document` | --        |                                                                                                                                                                                          | `Document`              | `document`  |
-| `origin`   | `origin`  | The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'sbb-form-field' ancestor         | `HTMLElement \| string` | `undefined` |
-| `trigger`  | `trigger` | The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'input' child of 'origin' | `HTMLElement \| string` | `undefined` |
+| Property  | Attribute | Description                                                                                                                                                                              | Type                    | Default     |
+| --------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `origin`  | `origin`  | The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'sbb-form-field' ancestor         | `HTMLElement \| string` | `undefined` |
+| `trigger` | `trigger` | The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'input' child of 'origin' | `HTMLElement \| string` | `undefined` |
 
 
 ## Events
