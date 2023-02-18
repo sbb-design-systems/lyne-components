@@ -2146,10 +2146,37 @@
     validate-npm-package-name "^4.0.0"
     yargs "^17.6.0"
 
-"@netlify/edge-bundler@8.6.0", "@netlify/edge-bundler@^8.6.0":
+"@netlify/edge-bundler@8.6.0":
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/@netlify/edge-bundler/-/edge-bundler-8.6.0.tgz#9b698e9aba472cc31346a22dd8f92ee04b711930"
   integrity sha512-DZd4V+LTY7OxELE3yypohErctPCfSD+m1mDlPU+IBJ55O6l4DU+03L2PD/SXk7GMJMG59yp6W5wp7+GQ2I8avg==
+  dependencies:
+    "@import-maps/resolve" "^1.0.1"
+    ajv "^8.11.2"
+    ajv-errors "^3.0.0"
+    better-ajv-errors "^1.2.0"
+    common-path-prefix "^3.0.0"
+    del "^7.0.0"
+    env-paths "^3.0.0"
+    execa "^6.0.0"
+    find-up "^6.3.0"
+    get-port "^6.1.2"
+    glob-to-regexp "^0.4.1"
+    jsonc-parser "^3.2.0"
+    node-fetch "^3.1.1"
+    node-stream-zip "^1.15.0"
+    p-retry "^5.1.1"
+    p-wait-for "^4.1.0"
+    path-key "^4.0.0"
+    regexp-tree "^0.1.24"
+    semver "^7.3.5"
+    tmp-promise "^3.0.3"
+    uuid "^9.0.0"
+
+"@netlify/edge-bundler@^8.7.0":
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/@netlify/edge-bundler/-/edge-bundler-8.7.0.tgz#508461b4ab754f421dac1a17c1822ef34208de2e"
+  integrity sha512-HWVI0ji8YWduX8pl9H2PkW/InvXwRqzVrVv6XnBj3FkqRQYTnroJQh6THP/LB2oJG942vklkF/1jEyiTU6LEeA==
   dependencies:
     "@import-maps/resolve" "^1.0.1"
     ajv "^8.11.2"
@@ -2435,6 +2462,43 @@
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/@netlify/zip-it-and-ship-it/-/zip-it-and-ship-it-8.6.0.tgz#807a2fe342ba2e30fe1e7174703c14f0d9a9f10f"
   integrity sha512-k1bykwO5h9nerPjFwjPe3dvL8XplnySxjL4BfPTOLMpfWnWurdpiFTpSY3nICz5jBvBzTjnaTGVe4mZOBNMViA==
+  dependencies:
+    "@babel/parser" "7.16.8"
+    "@netlify/binary-info" "^1.0.0"
+    "@netlify/esbuild" "0.14.39"
+    "@vercel/nft" "^0.22.0"
+    archiver "^5.3.0"
+    common-path-prefix "^3.0.0"
+    cp-file "^10.0.0"
+    del "^7.0.0"
+    end-of-stream "^1.4.4"
+    es-module-lexer "^1.0.0"
+    execa "^6.0.0"
+    filter-obj "^5.0.0"
+    find-up "^6.0.0"
+    glob "^8.0.3"
+    is-builtin-module "^3.1.0"
+    is-path-inside "^4.0.0"
+    junk "^4.0.0"
+    locate-path "^7.0.0"
+    merge-options "^3.0.4"
+    minimatch "^6.0.0"
+    normalize-path "^3.0.0"
+    p-map "^5.0.0"
+    path-exists "^5.0.0"
+    precinct "^9.0.1"
+    require-package-name "^2.0.1"
+    resolve "^2.0.0-next.1"
+    semver "^7.0.0"
+    tmp-promise "^3.0.2"
+    toml "^3.0.0"
+    unixify "^1.0.0"
+    yargs "^17.0.0"
+
+"@netlify/zip-it-and-ship-it@^8.7.0":
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/@netlify/zip-it-and-ship-it/-/zip-it-and-ship-it-8.7.0.tgz#9eb49fc17e454f6f681548d67cddfc0ed4ea5a17"
+  integrity sha512-YPcftbNoWohCp84mwngFUdJfDV2LguOgq9yZhs3fjVw8KJmngYH9V4xpedygbXRtlQuFjHjnnau+UwxQRYDCNg==
   dependencies:
     "@babel/parser" "7.16.8"
     "@netlify/binary-info" "^1.0.0"
@@ -13314,18 +13378,18 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@12.12.1:
-  version "12.12.1"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.12.1.tgz#f0649fe605c9cc427eecd02d53c9349ed8ba75a6"
-  integrity sha512-2lXdjEyhtPJqodRc/QAq8pLqWrxRRksM5TR4rPFESjZ2nqsBN7efkJtYVEOpanYk/xm6yohHDOPlG2s18PjtyQ==
+netlify-cli@12.13.1:
+  version "12.13.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.13.1.tgz#3a33f4d3883d0ced39a0f85db1127c94eaecb0ab"
+  integrity sha512-xqjPqT4bDCdauJvf75kcS6Z/55rz/R91FpC7wKYSIIfWnvLVRY4uik2lw9aOORNruEfVPDs0TjB9sTI4dDRTFA==
   dependencies:
     "@fastify/static" "^6.6.0"
     "@netlify/build" "^29.5.7"
     "@netlify/config" "^20.3.3"
-    "@netlify/edge-bundler" "^8.6.0"
+    "@netlify/edge-bundler" "^8.7.0"
     "@netlify/framework-info" "^9.8.1"
     "@netlify/local-functions-proxy" "^1.1.1"
-    "@netlify/zip-it-and-ship-it" "^8.6.0"
+    "@netlify/zip-it-and-ship-it" "^8.7.0"
     "@octokit/rest" "^19.0.0"
     ansi-escapes "^5.0.0"
     ansi-styles "^5.0.0"
