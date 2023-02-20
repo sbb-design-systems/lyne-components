@@ -9,7 +9,6 @@
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-position: fixed;
   --sbb-header-transition-duration: var(--sbb-animation-duration-6x);
-  --sbb-header-transition-property: box-shadow;
 
   @include sbb.mq($from: medium) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
@@ -25,6 +24,8 @@
 
 :host([hide-on-scroll][data-fixed]) {
   --sbb-header-position: fixed;
+  --sbb-header-animation-name: hide;
+  --sbb-header-transform: translate3d(0, -100%, 0);
 }
 
 :host([hide-on-scroll][data-fixed][data-animated]) {
@@ -33,6 +34,9 @@
 }
 
 :host([hide-on-scroll][data-fixed][data-visible]) {
+  --sbb-header-animation-name: show;
+  --sbb-header-transform: translate3d(0, 0, 0);
+
   // Show transition
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
@@ -42,28 +46,20 @@
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
   z-index: 10;
+  transform: var(--sbb-header-transform);
   transition: {
-    property: var(--sbb-header-transition-property);
+    property: box-shadow;
     duration: var(--sbb-header-transition-duration);
     timing-function: var(--sbb-header-transition-timing);
   }
   animation: {
+    name: var(--sbb-header-animation-name);
     duration: var(--sbb-header-transition-duration);
     timing-function: var(--sbb-header-transition-timing);
   }
 
   :host([data-shadow]) & {
     @include sbb.shadow-level-9-soft;
-  }
-
-  :host([hide-on-scroll][data-fixed]) & {
-    animation-name: hide;
-    transform: translate3d(0, -100%, 0);
-  }
-
-  :host([hide-on-scroll][data-fixed][data-visible]) & {
-    animation-name: show;
-    transform: translate3d(0, 0, 0);
   }
 
   @include sbb.if-forced-colors {
