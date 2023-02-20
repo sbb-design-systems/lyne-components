@@ -16,16 +16,8 @@ const defaultArgs = {
   value: 'test',
 };
 
-// TODO parametrize template
-// const TemplateInputField = (args, autocomplete) => (
-//   <sbb-form-field label="Label">
-//     <input placeholder="Placeholder"/>
-//     {autocomplete(args)}
-//   </sbb-form-field>
-// );
-
 const Template = (args) => [
-  <sbb-form-field data-autocomplete-origin data-autocomplete-open label="Label">
+  <sbb-form-field label="Label">
     <input placeholder="Placeholder" />
 
     <sbb-autocomplete {...args}>
@@ -41,7 +33,7 @@ const Template = (args) => [
 ];
 
 const BorderlessTemplate = (args) => [
-  <sbb-form-field borderless data-autocomplete-origin data-autocomplete-open label="Label">
+  <sbb-form-field borderless label="Label">
     <input placeholder="Placeholder" />
 
     <sbb-autocomplete {...args}>
