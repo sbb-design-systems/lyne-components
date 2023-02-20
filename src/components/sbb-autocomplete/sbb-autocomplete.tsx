@@ -1,8 +1,24 @@
-import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, JSX, Method, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Event,
+  EventEmitter,
+  h,
+  Host,
+  JSX,
+  Method,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { assignId } from '../../global/helpers/assign-id';
 import { hostContext } from '../../global/helpers/host-context';
-import { removeAriaOverlayTriggerAttributes, setAriaOverlayTriggerAttributes } from '../../global/helpers/overlay-trigger-attributes';
+import {
+  removeAriaOverlayTriggerAttributes,
+  setAriaOverlayTriggerAttributes,
+} from '../../global/helpers/overlay-trigger-attributes';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 
 type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
@@ -21,7 +37,7 @@ export class SbbAutocomplete implements ComponentInterface {
   /**
    * The element where the autocomplete will attach.
    * Accepts both a string (id of an element) or an HTML element.
-   * 
+   *
    * If not setted, will search for the first 'sbb-form-field' ancestor
    */
   @Prop() public origin: string | HTMLElement;
@@ -30,7 +46,7 @@ export class SbbAutocomplete implements ComponentInterface {
    * The element that will trigger the autocomplete opening.
    * Accepts both a string (id of an element) or an HTML element.
    * By default, the autocomplete will open on focus of the 'trigger' element.
-   * 
+   *
    * If not setted, will search for the first 'input' child of 'origin'
    */
   @Prop() public trigger: string | HTMLElement;
@@ -40,7 +56,7 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   @State() private _state: SbbAutocompleteState = 'closed';
 
-    /**
+  /**
    * Emits whenever the menu starts the opening transition.
    */
   @Event({
@@ -134,12 +150,15 @@ export class SbbAutocomplete implements ComponentInterface {
 
   // Removes trigger click listener on trigger change.
   @Watch('origin')
-  public removeTriggerClickListener(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+  public removeTriggerClickListener(
+    newValue: string | HTMLElement,
+    oldValue: string | HTMLElement
+  ): void {
     if (newValue !== oldValue) {
       this._setUp();
     }
   }
-  
+
   public connectedCallback(): void {
     this._setUp();
   }
@@ -165,9 +184,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return hostContext('sbb-form-field', this._element) as HTMLSbbFormFieldElement;
     }
 
-    return typeof this.origin === 'string'
-      ? document.getElementById(this.origin)
-      : this.origin;
+    return typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
   }
 
   /**
@@ -179,9 +196,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return this._originElement?.querySelector('input') as HTMLInputElement;
     }
 
-    return typeof this.trigger === 'string'
-      ? document.getElementById(this.trigger)
-      : this.trigger;
+    return typeof this.trigger === 'string' ? document.getElementById(this.trigger) : this.trigger;
   }
 
   private _attachTo(anchorElem: HTMLElement): void {
@@ -204,10 +219,10 @@ export class SbbAutocomplete implements ComponentInterface {
     this._setAriaAttributes(triggerElem);
 
     this._triggerElement = triggerElem;
-    
+
     this._triggerEventsController = new AbortController();
-    this._triggerElement.addEventListener('focus', () => this.open(), { 
-      signal: this._triggerEventsController.signal 
+    this._triggerElement.addEventListener('focus', () => this.open(), {
+      signal: this._triggerEventsController.signal,
     });
   }
 
@@ -245,7 +260,10 @@ export class SbbAutocomplete implements ComponentInterface {
     this._element.style.setProperty('--sbb-overlay-position-x', `${panelPosition.left}px`);
     this._element.style.setProperty('--sbb-overlay-position-y', `${panelPosition.top}px`);
     this._element.style.setProperty('--sbb-overlay-max-height', panelPosition.maxHeight);
-    this._originElement.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
+    this._originElement.setAttribute(
+      'data-autocomplete-position',
+      panelPosition.alignment.vertical
+    );
   }
 
   private _attachWindowEvents(): void {
@@ -285,7 +303,8 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _onBackdropClick = (event: PointerEvent): void => {
-    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._triggerElement, event)) { //TODO shoul be trigger or origin?
+    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._triggerElement, event)) {
+      //TODO shoul be trigger or origin?
       this.close();
     }
   };
@@ -297,7 +316,7 @@ export class SbbAutocomplete implements ComponentInterface {
     const lastActiveOption = options[last];
     const next = getNextElementIndex(event, this._activeItemIndex, options.length);
     const nextActiveOption = options[next];
-    
+
     nextActiveOption.active = true;
     this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
 
@@ -321,11 +340,14 @@ export class SbbAutocomplete implements ComponentInterface {
     return (
       <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
         <div class="sbb-autocomplete__container">
-          <div class="sbb-autocomplete__panel" 
+          <div
+            class="sbb-autocomplete__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
-            <div> {/* TODO This div might not be necessary */}
+            <div>
+              {' '}
+              {/* TODO This div might not be necessary */}
               <slot />
             </div>
           </div>
