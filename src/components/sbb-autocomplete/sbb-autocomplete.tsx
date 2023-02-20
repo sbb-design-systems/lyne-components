@@ -109,6 +109,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opened';
     this._attachWindowEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._originElement?.setAttribute('data-autocomplete-open', 'true');
     this.didOpen.emit(); // TODO should be emitted on animation end
   }
 
@@ -126,6 +127,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._windowEventsController.abort();
     this._state = 'closed';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
+    this._originElement?.setAttribute('data-autocomplete-open', 'false');
     this._resetActiveElement();
     this.didClose.emit(); // TODO should be emitted on animation end
   }
@@ -187,6 +189,9 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
     this._originElement = anchorElem;
+    this._originElement.setAttribute('data-autocomplete-origin', 'true');
+    // Set position attribute
+    this._originElement.setAttribute('data-autocomplete-open', 'false');
   }
 
   private _bindTo(triggerElem: HTMLElement): void {
@@ -240,6 +245,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._element.style.setProperty('--sbb-overlay-position-x', `${panelPosition.left}px`);
     this._element.style.setProperty('--sbb-overlay-position-y', `${panelPosition.top}px`);
     this._element.style.setProperty('--sbb-overlay-max-height', panelPosition.maxHeight);
+    this._originElement.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
   }
 
   private _attachWindowEvents(): void {
