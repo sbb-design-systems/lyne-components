@@ -218,11 +218,9 @@ const Template = (args) => (
               horizontal-from="medium"
             >
               <sbb-link
-                variant="block"
-                text-size="s"
+                size="s"
                 align-self="start"
                 icon-name="chevron-small-left-small"
-                icon-placement="start"
                 href="https://www.sbb.ch/en/"
                 sbb-dialog-close
               >

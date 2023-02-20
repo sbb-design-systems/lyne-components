@@ -113,7 +113,7 @@ const CustomContentTemplate = (args) => [
   >
     <div style={userNameStyle}>Christina Müller</div>
     <span style={userInfoStyle}>UIS9057</span>
-    <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
+    <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">
       Profile
     </sbb-link>
     <sbb-divider />
@@ -177,7 +177,7 @@ const EllipsisTemplate = (args) => [
   >
     <div style={userNameStyle}>Christina Müller</div>
     <span style={userInfoStyle}>UIS9057</span>
-    <sbb-link href="https://www.sbb.ch/en" negative text-size="xs" variant="block">
+    <sbb-link href="https://www.sbb.ch/en" negative size="xs" variant="block">
       Profile
     </sbb-link>
     <sbb-divider />

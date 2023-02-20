@@ -8,7 +8,7 @@ describe('sbb-link', () => {
       html: `
         <sbb-link
           href="https://github.com/lyne-design-system/lyne-components"
-          text-size="m"
+          size="m"
           download
           accessibility-label="Travelcards & tickets"
           >
@@ -21,7 +21,7 @@ describe('sbb-link', () => {
         <sbb-link
           variant="block"
           href="https://github.com/lyne-design-system/lyne-components"
-          text-size="m"
+          size="m"
           download
           accessibility-label="Travelcards & tickets"
           >
@@ -47,7 +47,7 @@ describe('sbb-link', () => {
       html: `
         <sbb-link
           icon-placement="end"
-          text-size="m"
+          size="m"
           negative
           name="name"
           type="submit"
@@ -64,7 +64,7 @@ describe('sbb-link', () => {
         <sbb-link
           variant="block"
           icon-placement="end"
-          text-size="m"
+          size="m"
           negative
           name="name"
           type="submit"
@@ -99,7 +99,7 @@ describe('sbb-link', () => {
       components: [SbbLink],
       html: `
       <a>
-        <sbb-link icon-placement="end" icon-name="chevron-small-right-small" text-size="m">
+        <sbb-link icon-placement="end" icon-name="chevron-small-right-small" size="m">
           Travelcards &amp; tickets.
         </sbb-link>
       </a>`,
@@ -109,7 +109,7 @@ describe('sbb-link', () => {
         <sbb-link
             icon-placement="end"
             icon-name="chevron-small-right-small"
-            text-size="m"
+            size="m"
             variant="block"
             static>
           <mock:shadow-root>
@@ -138,7 +138,7 @@ describe('sbb-link', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link variant="block" static text-size="s">
+        <sbb-link variant="block" static size="s">
           <mock:shadow-root>
             <span class="sbb-link" dir="ltr">
               <slot></slot>
@@ -153,14 +153,14 @@ describe('sbb-link', () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link variant="inline" text-size="m" href="#link" target="_blank">
+        <sbb-link variant="inline" size="m" href="#link" target="_blank">
           Travelcards &amp; tickets.
         </sbb-link>`,
     });
 
     expect(root).toEqualHtml(`
         <sbb-link
-            text-size="m"
+            size="m"
             variant="inline"
             href="#link"
             target="_blank"

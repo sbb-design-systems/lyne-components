@@ -1,15 +1,13 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const firstButtonTemplate = (alignSelf) => (
+const secondaryButtonTemplate = (alignSelf) => (
   <sbb-button align-self={alignSelf} variant="secondary">
     Button 1
   </sbb-button>
 );
 
-const secondButtonTemplate = (alignSelf) => (
-  <sbb-button align-self={alignSelf}>Button 2</sbb-button>
-);
+const buttonTemplate = (alignSelf) => <sbb-button align-self={alignSelf}>Button 2</sbb-button>;
 
 const linkTemplate = (alignSelf) => (
   <sbb-link
@@ -22,8 +20,8 @@ const linkTemplate = (alignSelf) => (
 );
 
 const TemplateTwoElements = (alignSelfFirst, alignSelfSecond) => [
-  firstButtonTemplate(alignSelfFirst),
-  secondButtonTemplate(alignSelfSecond),
+  secondaryButtonTemplate(alignSelfFirst),
+  buttonTemplate(alignSelfSecond),
 ];
 
 const TemplateThreeElements = (alignSelfFirst, alignSelfSecond, alignSelfThird) => [

@@ -22,7 +22,7 @@ describe('sbb-link-list', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link-list title-level="2" orientation="vertical" text-size="s">
+        <sbb-link-list title-level="2" orientation="vertical" size="s">
           <mock:shadow-root>
             <div class="sbb-link-list-wrapper">
               <sbb-title id="sbb-link-list-title-id" level="2" visual-level="5" class="sbb-link-list-title">
@@ -64,7 +64,7 @@ describe('sbb-link-list', () => {
             title-level="2"
             title-content="Help &amp; Contact"
             orientation="vertical"
-            text-size="s"
+            size="s"
           >
           <mock:shadow-root>
             <div class="sbb-link-list-wrapper">
@@ -103,7 +103,7 @@ describe('sbb-link-list', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link-list orientation="vertical" text-size="s">
+        <sbb-link-list orientation="vertical" size="s">
           <mock:shadow-root>
             <div class="sbb-link-list-wrapper">
               <ul class="sbb-link-list">
@@ -133,7 +133,7 @@ describe('sbb-link-list', () => {
       assertion: (link: HTMLSbbLinkElement) => boolean
     ): boolean => Array.from(root.querySelectorAll('sbb-link')).every(assertion);
 
-    it('should render all sbb-link instances with defaults (variant="block", text-size="s", no negative)', async () => {
+    it('should render all sbb-link instances with defaults (variant="block", size="s", no negative)', async () => {
       const { root } = await newSpecPage({
         components: [SbbLinkList],
         html: `
@@ -143,20 +143,20 @@ describe('sbb-link-list', () => {
       });
 
       expect(
-        assertLinks(root, (l) => l.variant === 'block' && l.textSize === 's' && !l.negative)
+        assertLinks(root, (l) => l.variant === 'block' && l.size === 's' && !l.negative)
       ).toBeTruthy();
     });
 
-    it('should render all sbb-link instances with text-size="m"', async () => {
+    it('should render all sbb-link instances with size="m"', async () => {
       const { root } = await newSpecPage({
         components: [SbbLinkList],
         html: `
-          <sbb-link-list text-size="m">
+          <sbb-link-list size="m">
             ${sbbLinkSnippet}
           </sbb-link-list>`,
       });
 
-      expect(assertLinks(root, (l) => l.textSize === 'm')).toBeTruthy();
+      expect(assertLinks(root, (l) => l.size === 'm')).toBeTruthy();
     });
 
     it('should render all sbb-link instances with negative', async () => {

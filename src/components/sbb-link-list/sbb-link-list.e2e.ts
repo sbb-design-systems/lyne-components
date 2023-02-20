@@ -29,18 +29,18 @@ describe('sbb-link-list', () => {
       expect(
         links.every(
           (l) =>
-            l.getAttribute('text-size') === 's' &&
+            l.getAttribute('size') === 's' &&
             l.getAttribute('variant') === 'block' &&
             l.getAttribute('negative') === null
         )
       ).toBeTruthy();
     });
 
-    it('should update attributes with text-size m', async () => {
-      element.setAttribute('text-size', 'm');
+    it('should update attributes with size m', async () => {
+      element.setAttribute('size', 'm');
       await page.waitForChanges();
       const links = await page.findAll('sbb-link-list sbb-link');
-      expect(links.every((l) => l.getAttribute('text-size') === 'm')).toBeTruthy();
+      expect(links.every((l) => l.getAttribute('size') === 'm')).toBeTruthy();
     });
 
     it('should update attributes with negative', async () => {

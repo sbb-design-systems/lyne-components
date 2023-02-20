@@ -30,7 +30,7 @@ describe('sbb-action-group', () => {
       expect(links.every((l) => l.getAttribute('size') === 'l')).toBeTruthy();
     });
 
-    it('should update attributes with negative', async () => {
+    it('should update attributes with size="m"', async () => {
       element.setAttribute('size', 'm');
       await page.waitForChanges();
       const links = await page.findAll('sbb-action-group sbb-button');

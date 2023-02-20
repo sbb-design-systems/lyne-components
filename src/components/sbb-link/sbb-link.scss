@@ -45,15 +45,15 @@
     @include sbb.link-inline-base;
   }
 
-  :host([text-size='xs']:not([variant='inline'])) & {
+  :host([size='xs']:not([variant='inline'])) & {
     @include sbb.text-xs--regular;
   }
 
-  :host([text-size='s']:not([variant='inline'])) & {
+  :host([size='s']:not([variant='inline'])) & {
     @include sbb.text-s--regular;
   }
 
-  :host([text-size='m']:not([variant='inline'])) & {
+  :host([size='m']:not([variant='inline'])) & {
     @include sbb.text-m--regular;
   }
 

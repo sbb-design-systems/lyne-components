@@ -332,9 +332,10 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   }
 
   private _setActionGroupSize(): void {
+    // TODO: Discuss with mcilurzo
     this._element
       .querySelectorAll(
-        'sbb-action-group[slot="action-group"],[slot="action-group"] > sbb-action-group'
+        'sbb-action-group[slot="action-group"],[slot="action-group"] sbb-action-group'
       )
       .forEach((element: HTMLSbbActionGroupElement) => (element.size = 'm'));
   }

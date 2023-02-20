@@ -31,10 +31,10 @@ export class SbbLinkList implements ComponentInterface {
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
   /**
-   * Text size of the nested sbb-link instances. This will overwrite the text-size attribute of
+   * Text size of the nested sbb-link instances. This will overwrite the size attribute of
    * nested sbb-link instances.
    */
-  @Prop({ reflect: true }) public textSize: InterfaceLinkAttributes['textSize'] = 's';
+  @Prop({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
 
   /**
    * Whether to render the link list and nested sbb-link instances as negative. This will overwrite
@@ -59,12 +59,12 @@ export class SbbLinkList implements ComponentInterface {
   /** Host element */
   @Element() private _element!: HTMLElement;
 
-  @Watch('textSize')
+  @Watch('size')
   @Watch('negative')
   public syncLinks(): void {
     this._element.querySelectorAll('sbb-link').forEach((link) => {
       link.negative = this.negative;
-      link.textSize = this.textSize;
+      link.size = this.size;
       link.variant = 'block';
     });
   }
@@ -101,7 +101,7 @@ export class SbbLinkList implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    let ariaLabelledByAttribute = {};
+    let ariaLabelledByAttribute: Record<string, string> = {};
 
     if (this._namedSlots.title || this.titleContent) {
       ariaLabelledByAttribute = {

@@ -40,7 +40,7 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
    * Text size, the link should get in the non-button variation.
    * With inline variant, the text size adapts to where it is used.
    */
-  @Prop({ reflect: true }) public textSize: InterfaceLinkAttributes['textSize'] = 's';
+  @Prop({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
 
   /**
    * Set this property to true if you want only a visual representation of a

@@ -36,7 +36,7 @@ const tooltip = () => (
     <span id="tooltip-content" class="sbb-text-s">
       Simple information tooltip with link.
       <sbb-link
-        text-size="s"
+        size="s"
         variant="block"
         icon-name="chevron-small-right-small"
         icon-placement="end"

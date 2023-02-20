@@ -819,13 +819,13 @@ export namespace Components {
          */
         "rel"?: string | undefined;
         /**
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
+         */
+        "size": InterfaceLinkAttributes['size'];
+        /**
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
-         */
-        "textSize": InterfaceLinkAttributes['textSize'];
         /**
           * The type attribute to use for the button.
          */
@@ -853,9 +853,9 @@ export namespace Components {
          */
         "orientation": InterfaceLinkListAttributes['orientation'];
         /**
-          * Text size of the nested sbb-link instances. This will overwrite the text-size attribute of nested sbb-link instances.
+          * Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
          */
-        "textSize": InterfaceLinkAttributes['textSize'];
+        "size": InterfaceLinkAttributes['size'];
         /**
           * The title text we want to show before the list.
          */
@@ -3042,13 +3042,13 @@ declare namespace LocalJSX {
          */
         "rel"?: string | undefined;
         /**
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
+         */
+        "size"?: InterfaceLinkAttributes['size'];
+        /**
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
-         */
-        "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
           * The type attribute to use for the button.
          */
@@ -3076,9 +3076,9 @@ declare namespace LocalJSX {
          */
         "orientation"?: InterfaceLinkListAttributes['orientation'];
         /**
-          * Text size of the nested sbb-link instances. This will overwrite the text-size attribute of nested sbb-link instances.
+          * Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
          */
-        "textSize"?: InterfaceLinkAttributes['textSize'];
+        "size"?: InterfaceLinkAttributes['size'];
         /**
           * The title text we want to show before the list.
          */

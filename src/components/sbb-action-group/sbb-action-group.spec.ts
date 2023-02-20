@@ -1,7 +1,7 @@
 import { SbbActionGroup } from './sbb-action-group';
 import { newSpecPage } from '@stencil/core/testing';
 import { AnyHTMLElement } from '@stencil/core/internal';
-import { patchSlotchangeEvent } from '../../global/helpers/testing/patch-slotchange-events';
+import { patchSlotchangeEvent } from '../../global/helpers/testing/slotchange-events';
 
 describe('sbb-action-group', () => {
   it('renders', async () => {
@@ -11,10 +11,7 @@ describe('sbb-action-group', () => {
         <sbb-action-group align="start" orientation="horizontal">
           <sbb-button variant="secondary">Button</sbb-button>
           <sbb-link
-            variant="block"
-            text-size="s"
             icon-name="chevron-small-left-small"
-            icon-placement="start"
             href="https://github.com/lyne-design-system/lyne-components">
             Link
           </sbb-link>
@@ -31,10 +28,7 @@ describe('sbb-action-group', () => {
         </mock:shadow-root>
         <sbb-button variant="secondary">Button</sbb-button>
         <sbb-link
-          variant="block"
-          text-size="s"
           icon-name="chevron-small-left-small"
-          icon-placement="start"
           href="https://github.com/lyne-design-system/lyne-components">
           Link
         </sbb-link>
@@ -55,10 +49,7 @@ describe('sbb-action-group', () => {
           <sbb-action-group align="start" orientation="horizontal">
             <sbb-button variant="secondary">Button</sbb-button>
             <sbb-link
-              variant="block"
-              text-size="s"
               icon-name="chevron-small-left-small"
-              icon-placement="start"
               href="https://github.com/lyne-design-system/lyne-components">
               Link
             </sbb-link>
@@ -77,10 +68,7 @@ describe('sbb-action-group', () => {
           <sbb-action-group align="start" orientation="horizontal" size="m">
             <sbb-button variant="secondary">Button</sbb-button>
             <sbb-link
-              variant="block"
-              text-size="s"
               icon-name="chevron-small-left-small"
-              icon-placement="start"
               href="https://github.com/lyne-design-system/lyne-components">
               Link
             </sbb-link>
@@ -100,7 +88,6 @@ describe('sbb-action-group', () => {
             <sbb-button variant="secondary">Button</sbb-button>
             <sbb-link
               icon-name="chevron-small-left-small"
-              icon-placement="start"
               href="https://github.com/lyne-design-system/lyne-components">
               Link
             </sbb-link>

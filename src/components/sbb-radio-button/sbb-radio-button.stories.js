@@ -31,7 +31,7 @@ const defaultArgTypes = {
   value,
   checked,
   disabled,
-  size: size,
+  size,
 };
 
 const defaultArgs = {
