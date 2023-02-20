@@ -11,7 +11,7 @@
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
 }
 
-:host([aria-selected]:not([aria-selected='false'])) {
+:host([data-active]:not([data-active='false'])) {
   @include sbb.focus-outline;
 
   --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
