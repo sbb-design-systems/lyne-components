@@ -98,7 +98,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
         <sbb-tooltip-trigger
           ref={(el) => (this._triggerElement = el)}
           iconName="calendar-small"
-          disabled={this._disabled}
+          disabled={!this._datePicker || this._disabled}
         />
         <sbb-tooltip
           onDid-close={() => {
