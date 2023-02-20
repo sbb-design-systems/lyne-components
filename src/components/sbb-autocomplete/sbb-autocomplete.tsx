@@ -1,4 +1,5 @@
 import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, JSX, Method, Prop, State, Watch } from '@stencil/core';
+import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { assignId } from '../../global/helpers/assign-id';
 import { hostContext } from '../../global/helpers/host-context';
 import { removeAriaOverlayTriggerAttributes, setAriaOverlayTriggerAttributes } from '../../global/helpers/overlay-trigger-attributes';
@@ -87,6 +88,11 @@ export class SbbAutocomplete implements ComponentInterface {
   private _triggerEventsController: AbortController;
   private _windowEventsController: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
+  private _activeItemIndex = -1;
+
+  private get _options(): HTMLSbbOptionElement[] {
+    return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
+  }
 
   /**
    * Opens the autocomplete.
@@ -94,7 +100,7 @@ export class SbbAutocomplete implements ComponentInterface {
   @Method()
   public async open(): Promise<void> {
     console.log('Open autocomplete');
-    if (this._state !== 'closed' || !this._dialog) {
+    if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
       return;
     }
 
@@ -120,6 +126,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._windowEventsController.abort();
     this._state = 'closed';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
+    this._resetActiveElement();
     this.didClose.emit(); // TODO should be emitted on animation end
   }
 
@@ -199,6 +206,25 @@ export class SbbAutocomplete implements ComponentInterface {
     });
   }
 
+  private _setAriaAttributes(element: HTMLElement): void {
+    setAriaOverlayTriggerAttributes(
+      element,
+      'listbox',
+      this._element.id || this._overlayId,
+      this._state
+    );
+    element?.setAttribute('role', 'combobox');
+    element?.setAttribute('aria-autocomplete', 'list');
+    element?.setAttribute('autocomplete', 'off');
+  }
+
+  private _removeAriaAttributes(element: HTMLElement): void {
+    removeAriaOverlayTriggerAttributes(element);
+    element?.removeAttribute('role');
+    element?.removeAttribute('aria-autocomplete');
+    element?.removeAttribute('autocomplete');
+  }
+
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
     if (!this._dialog || !this._originElement) {
@@ -231,11 +257,26 @@ export class SbbAutocomplete implements ComponentInterface {
       signal: this._windowEventsController.signal,
     });
 
-    // TODO keyboard interaction
-    // window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-    //   signal: this._windowEventsController.signal,
-    // });
+    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
+      signal: this._windowEventsController.signal,
+    });
+  }
+
+  // Closes the menu on "Esc" key pressed and traps focus within the menu.
+  private _onKeydownEvent(event: KeyboardEvent): void {
+    if (this._state !== 'opened') {
+      return;
     }
+
+    if (event.key === 'Escape') {
+      this.close();
+      return;
+    }
+
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      this._setNextActiveOption(event);
+    }
+  }
 
   private _onBackdropClick = (event: PointerEvent): void => {
     if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._triggerElement, event)) { //TODO shoul be trigger or origin?
@@ -243,21 +284,31 @@ export class SbbAutocomplete implements ComponentInterface {
     }
   };
 
-  private _setAriaAttributes(element: HTMLElement): void {
-    setAriaOverlayTriggerAttributes(
-      element,
-      'listbox',
-      this._element.id || this._overlayId,
-      this._state
-    );
-    element.setAttribute('role', 'combobox');
-    element.setAttribute('aria-autocomplete', 'list');
+  private _setNextActiveOption(event: KeyboardEvent): void {
+    const options: HTMLSbbOptionElement[] = this._options;
+
+    const last = this._activeItemIndex;
+    const lastActiveOption = options[last];
+    const next = getNextElementIndex(event, this._activeItemIndex, options.length);
+    const nextActiveOption = options[next];
+    
+    nextActiveOption.active = true;
+    this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+
+    if (lastActiveOption) {
+      lastActiveOption.active = false;
+    }
+
+    this._activeItemIndex = next;
   }
 
-  private _removeAriaAttributes(element: HTMLElement): void {
-    removeAriaOverlayTriggerAttributes(element);
-    element?.removeAttribute('role');
-    element?.removeAttribute('aria-autocomplete');
+  private _resetActiveElement(): void {
+    const activeElement = this._options[this._activeItemIndex];
+
+    if (activeElement) {
+      activeElement.active = false;
+    }
+    this._activeItemIndex = -1;
   }
 
   public render(): JSX.Element {

@@ -38,9 +38,6 @@ const Template = (args) => [
       <sbb-option>Option 5</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>,
-  <div>
-    <button>Test</button>
-  </div>,
 ];
 
 const BorderlessTemplate = (args) => [
@@ -57,9 +54,6 @@ const BorderlessTemplate = (args) => [
       <sbb-option>Option 5</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>,
-  <div>
-    <button>Test</button>
-  </div>,
 ];
 
 export const Basic = Template.bind({});

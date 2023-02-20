@@ -34,10 +34,10 @@ export class SbbOption implements ComponentInterface {
    * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public iconName?: string;
-  
+
   /**
    * Wheter the icon space is preserved when no icon is set
-  */
+   */
   @Prop({ reflect: true }) public preserveIconSpace = true;
 
   @Prop() public selected?: boolean;
@@ -62,7 +62,12 @@ export class SbbOption implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="option" aria-selected={this.selected} ref={assignId(() => this._optionId)}>
+      <Host
+        role="option"
+        data-active={this.active}
+        aria-selected={this.selected}
+        ref={assignId(() => this._optionId)}
+      >
         <div class="sbb-option">
           <span
             class={{
