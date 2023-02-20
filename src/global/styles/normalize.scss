@@ -253,7 +253,7 @@ Add global styles for the origin of autocomplete dropdown
     pointer-events: none;
   }
 
-  &[data-autocomplete-open]::before {
+  &[data-autocomplete-open]:not([data-autocomplete-open='false'])::before {
     visibility: visible;
   }
 }
