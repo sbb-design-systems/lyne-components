@@ -51,19 +51,49 @@ const BorderlessTemplate = (args) => [
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
+Basic.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+      <Story />
+    </div>
+  ),
+];
+
+export const BasicOpenAbove = Template.bind({});
+BasicOpenAbove.argTypes = defaultArgTypes;
+BasicOpenAbove.args = { ...defaultArgs };
+BasicOpenAbove.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Story />
+    </div>
+  ),
+];
 
 export const Borderless = BorderlessTemplate.bind({});
 Borderless.argTypes = defaultArgTypes;
 Borderless.args = { ...defaultArgs };
+Borderless.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+      <Story />
+    </div>
+  ),
+];
 
 export default {
-  decorators: [
-    (Story) => (
-      <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
-        <Story />
-      </div>
-    ),
-  ],
   parameters: {
     actions: {
       handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
