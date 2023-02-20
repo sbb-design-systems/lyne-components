@@ -105,9 +105,6 @@ export class SbbHeader implements ComponentInterface {
    * - apply the shadow if the element/document has been scrolled down;
    * - hides the header, remove the shadow and possibly close any open menu on the header if it is not visible anymore;
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
-   *
-   * As soon the header is not in its static context anymore, the data-fixed attribute has to be set.
-   * This is needed to enable the transition when the header is becoming visible. Otherwise, it would jump.
    */
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
