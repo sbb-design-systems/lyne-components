@@ -2049,7 +2049,7 @@
   resolved "https://registry.yarnpkg.com/@netlify/binary-info/-/binary-info-1.0.0.tgz#cd0d86fb783fb03e52067f0cd284865e57be86c8"
   integrity sha512-4wMPu9iN3/HL97QblBsBay3E1etIciR84izI3U+4iALY+JHCrI+a2jO0qbAZ/nxKoegypYEaiiqWXylm+/zfrw==
 
-"@netlify/build@^29.5.7":
+"@netlify/build@^29.5.8":
   version "29.5.8"
   resolved "https://registry.yarnpkg.com/@netlify/build/-/build-29.5.8.tgz#ea040f83cacbf99a092f89799ce120a8fcb6897a"
   integrity sha512-bZQ38RY4yB+rvGG9JLr1vCvGFcT15IOkAUy+vhyPFNnT1XTkRZHW7KzwG0U+fyqADHR21FhQE9MGeja4o6ranQ==
@@ -2304,7 +2304,7 @@
     "@netlify/esbuild-windows-64" "0.14.39"
     "@netlify/esbuild-windows-arm64" "0.14.39"
 
-"@netlify/framework-info@^9.8.1":
+"@netlify/framework-info@^9.8.2":
   version "9.8.2"
   resolved "https://registry.yarnpkg.com/@netlify/framework-info/-/framework-info-9.8.2.tgz#eacbcaca3fa04a174118903fb052fa4083db7e66"
   integrity sha512-SWmtgJk5itD2mC1oHssHllHeSVY432dJtzSaANy6Euq7V/y7HeW+P39h/5jQ1i+sIyhmu0jOStfHkqPJVxg1iA==
@@ -13272,16 +13272,16 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@12.13.1:
-  version "12.13.1"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.13.1.tgz#3a33f4d3883d0ced39a0f85db1127c94eaecb0ab"
-  integrity sha512-xqjPqT4bDCdauJvf75kcS6Z/55rz/R91FpC7wKYSIIfWnvLVRY4uik2lw9aOORNruEfVPDs0TjB9sTI4dDRTFA==
+netlify-cli@12.14.0:
+  version "12.14.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-12.14.0.tgz#59945190c1681962536e20295068c9c16e7e0b08"
+  integrity sha512-zQ9eB3eWe8ae5G8Dr76IXADarKXrI08idGwSzJfYdvdgSRvc42R+7H/V2XAkJouZOkt5/YKPmRl3Sj8OzsP4CQ==
   dependencies:
     "@fastify/static" "^6.6.0"
-    "@netlify/build" "^29.5.7"
+    "@netlify/build" "^29.5.8"
     "@netlify/config" "^20.3.3"
     "@netlify/edge-bundler" "^8.7.0"
-    "@netlify/framework-info" "^9.8.1"
+    "@netlify/framework-info" "^9.8.2"
     "@netlify/local-functions-proxy" "^1.1.1"
     "@netlify/zip-it-and-ship-it" "^8.7.0"
     "@octokit/rest" "^19.0.0"
