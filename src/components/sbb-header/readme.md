@@ -18,6 +18,9 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 
 ## Style
 
+The default `z-index` of the component is set to `10`; to specify a custom stack order, the `z-index` can
+be changed by defining the CSS variable `--sbb-header-z-index`.
+
 Users can customize position and behaviour of actions inside the `sbb-header` component 
 by adding classes to `sbb-header-action` elements and then defining their own style rules.
 
@@ -123,5 +126,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
