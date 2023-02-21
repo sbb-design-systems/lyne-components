@@ -319,10 +319,10 @@ export class SbbTooltip implements ComponentInterface {
     });
 
     // Close tooltip on backdrop click
-    window.addEventListener('mousedown', this._mouseDownListener, {
+    window.addEventListener('pointerdown', this._pointerDownListener, {
       signal: this._windowEventsController.signal,
     });
-    window.addEventListener('mouseup', this._closeOnBackdropClick, {
+    window.addEventListener('pointerup', this._closeOnBackdropClick, {
       signal: this._windowEventsController.signal,
     });
   }
@@ -337,7 +337,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   // Check if the pointerdown event target is triggered on the tooltip.
-  private _mouseDownListener = (event: PointerEvent): void => {
+  private _pointerDownListener = (event: PointerEvent): void => {
     this._isPointerDownEventOnTooltip = isEventOnElement(this._dialog, event);
   };
 

@@ -231,14 +231,6 @@ export class SbbMenu implements ComponentInterface {
       },
       { signal: this._menuController.signal }
     );
-
-    // Close menu on backdrop click
-    this._element.addEventListener('mousedown', this._mouseDownListener, {
-      signal: this._menuController.signal,
-    });
-    this._element.addEventListener('mouseup', this._closeOnBackdropClick, {
-      signal: this._menuController.signal,
-    });
   }
 
   private _attachWindowEvents(): void {
@@ -254,6 +246,14 @@ export class SbbMenu implements ComponentInterface {
     window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
       signal: this._windowEventsController.signal,
     });
+
+    // Close menu on backdrop click
+    window.addEventListener('pointerdown', this._pointerDownListener, {
+      signal: this._windowEventsController.signal,
+    });
+    window.addEventListener('pointerup', this._closeOnBackdropClick, {
+      signal: this._windowEventsController.signal,
+    });
   }
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
@@ -265,7 +265,7 @@ export class SbbMenu implements ComponentInterface {
   }
 
   // Check if the pointerdown event target is triggered on the menu.
-  private _mouseDownListener = (event: PointerEvent): void => {
+  private _pointerDownListener = (event: PointerEvent): void => {
     this._isPointerDownEventOnMenu = isEventOnElement(this._dialog, event);
   };
 
