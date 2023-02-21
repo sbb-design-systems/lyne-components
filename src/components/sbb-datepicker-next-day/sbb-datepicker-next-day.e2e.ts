@@ -49,7 +49,6 @@ describe('sbb-datepicker-next-day', () => {
 
       element = await page.find('sbb-datepicker-next-day');
       picker = await page.find('sbb-datepicker');
-      button = await page.find('sbb-datepicker-next-day >>> button');
       await page.waitForChanges();
     });
 
@@ -58,6 +57,7 @@ describe('sbb-datepicker-next-day', () => {
     });
 
     it('click', async () => {
+      button = await page.find('sbb-datepicker-next-day >>> button');
       expect(await picker.getProperty('value')).toEqual('21.01.2023');
 
       const changeSpy = await page.spyOnEvent('click');
@@ -69,43 +69,29 @@ describe('sbb-datepicker-next-day', () => {
     });
 
     it('disabled due max value equals to value', async () => {
-      page = await newE2EPage();
-      await page.setContent(`
-        <sbb-form-field>
-          <sbb-datepicker-next-day></sbb-datepicker-next-day>
-          <sbb-datepicker value="20-01-2023" max="1674172800"></sbb-datepicker>
-        </sbb-form-field>
-      `);
-      picker = await page.find('sbb-datepicker');
       button = await page.find('sbb-datepicker-next-day >>> button');
 
+      picker.setAttribute('max', 1674255600);
       await page.waitForChanges();
 
-      expect(await picker.getProperty('value')).toEqual('20.01.2023');
+      expect(await picker.getProperty('value')).toEqual('21.01.2023');
       expect(button).toHaveAttribute('disabled');
       await button.click();
       await page.waitForChanges();
-      expect(await picker.getProperty('value')).toEqual('20.01.2023');
+      expect(await picker.getProperty('value')).toEqual('21.01.2023');
     });
 
     it('disabled due disabled picker', async () => {
-      page = await newE2EPage({
-        html: `
-          <sbb-form-field>
-            <sbb-datepicker-next-day></sbb-datepicker-next-day>
-            <sbb-datepicker value="01-01-2023" disabled="true"></sbb-datepicker>
-          </sbb-form-field>
-        `,
-      });
-      picker = await page.find('sbb-datepicker');
       button = await page.find('sbb-datepicker-next-day >>> button');
+
+      picker.setAttribute('disabled', true);
       await page.waitForChanges();
 
-      expect(await picker.getProperty('value')).toEqual('01.01.2023');
+      expect(await picker.getProperty('value')).toEqual('21.01.2023');
       expect(button).toHaveAttribute('disabled');
       await button.click();
       await page.waitForChanges();
-      expect(await picker.getProperty('value')).toEqual('01.01.2023');
+      expect(await picker.getProperty('value')).toEqual('21.01.2023');
     });
   });
 });

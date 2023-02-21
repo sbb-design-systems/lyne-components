@@ -24,7 +24,7 @@ describe('sbb-datepicker', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-datepicker disabled="" required="true" value="10-02-2023">
+      <sbb-datepicker disabled="" required="true" value="10.02.2023">
         <mock:shadow-root>
           <input maxlength="10" disabled="" required="" value="10.02.2023" placeholder="DD.MM.YYYY" type="text">
         </mock:shadow-root>

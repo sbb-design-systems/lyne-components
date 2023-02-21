@@ -25,6 +25,27 @@ export function getDatePicker(
   return null;
 }
 
+/**
+ * Given a SbbDatepicker component, returns the related input reference.
+ */
+export function getInput(
+  element: HTMLSbbDatepickerElement,
+  trigger?: string | HTMLElement
+): HTMLInputElement {
+  if (!trigger) {
+    const parent = hostContext('sbb-form-field', element);
+    return parent?.querySelector('input') as HTMLInputElement;
+  }
+
+  // Check whether it's a string or an HTMLElement
+  if (typeof trigger === 'string') {
+    return document.getElementById(trigger) as HTMLInputElement;
+  } else if (trigger instanceof window.Element) {
+    return trigger as HTMLInputElement;
+  }
+  return null;
+}
+
 export function getAvailableDate(
   date: Date,
   delta: number,
@@ -83,4 +104,9 @@ export function isDateAvailable(date: Date, datePicker: HTMLSbbDatepickerElement
   }
 
   return datePicker.dateFilter(date);
+}
+
+export interface InputUpdateEvent {
+  disabled: boolean;
+  readonly: boolean;
 }

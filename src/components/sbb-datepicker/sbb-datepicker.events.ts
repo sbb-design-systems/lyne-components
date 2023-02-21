@@ -4,6 +4,7 @@
  */
 export default {
   change: 'change',
+  datePickerUpdated: 'datePickerUpdated',
   didChange: 'didChange',
-  didRender: 'didRender',
+  inputUpdated: 'inputUpdated',
 };

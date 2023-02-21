@@ -78,8 +78,8 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   @Watch('wide')
-  public changeWidthConfiguration(): void {
-    this._setCalendarWidth();
+  public changeWidthConfiguration(newValue: boolean): void {
+    this._setCalendarWidth(newValue);
   }
 
   @Watch('selectedDate')
@@ -126,12 +126,17 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Initialize the component. */
   private _init(): void {
-    this._setCalendarWidth();
+    this._setCalendarWidth(this.wide);
     this._setWeekdays();
     this._weeks = this._createWeekRows(this._activeDate.getMonth(), this._activeDate.getFullYear());
-    this._nextMonthWeeks = this._wide
-      ? this._createWeekRows(this._activeDate.getMonth() + 1, this._activeDate.getFullYear())
-      : [[]];
+    this._nextMonthWeeks = [[]];
+    if (this._wide) {
+      const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+      this._nextMonthWeeks = this._createWeekRows(
+        nextMonthDate.getMonth(),
+        nextMonthDate.getFullYear()
+      );
+    }
   }
 
   /** Sets the date variables. */
@@ -146,8 +151,8 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  private _setCalendarWidth(): void {
-    this._wide = isBreakpoint('medium') && this.wide;
+  private _setCalendarWidth(value: boolean): void {
+    this._wide = isBreakpoint('medium') && value;
   }
 
   /** Creates the array of weekdays. */
@@ -173,7 +178,7 @@ export class SbbCalendar implements ComponentInterface {
         cell = 0;
       }
       weeks[weeks.length - 1].push({
-        value: new Date(year, month, i + 1).toISOString(),
+        value: new Date(year, month, i + (1 % 12)).toISOString(),
         dayValue: dateNames[i],
         monthValue: month + 1,
         yearValue: year,

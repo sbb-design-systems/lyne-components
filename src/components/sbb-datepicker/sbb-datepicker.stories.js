@@ -159,8 +159,8 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const Template = ({ label, optional, borderless, size, min, max, ...args }) => {
-  let attr = {};
+const Template = ({ label, optional, borderless, size, min, max, wide, ...args }) => {
+  let attr = { wide };
   if (min) {
     attr.min = new Date(min);
   }
@@ -179,12 +179,12 @@ const Template = ({ label, optional, borderless, size, min, max, ...args }) => {
       <sbb-datepicker-previous-day />
       <sbb-datepicker-next-day />
       <sbb-datepicker-toggle />
+      <input value="22.02.2023" {...args} />
       <sbb-datepicker
         ref={(calendarRef) => {
           calendarRef.dateFilter = (d) => d?.getDay() !== 6 && d?.getDay() !== 0;
         }}
         {...attr}
-        {...args}
         onChange={(event) => changeEventHandler(event)}
       ></sbb-datepicker>
     </sbb-form-field>,
@@ -192,9 +192,9 @@ const Template = ({ label, optional, borderless, size, min, max, ...args }) => {
   ];
 };
 
-const changeEventHandler = (event) => {
+const changeEventHandler = async (event) => {
   const div = document.createElement('div');
-  div.innerText = `value is: ${event.target.value}; valueAsDate is: ${event.target.valueAsDate}.`;
+  div.innerText = `value is: ${await event.target.getValueAsDate()}.`;
   document.getElementById('container-value').append(div);
 };
 

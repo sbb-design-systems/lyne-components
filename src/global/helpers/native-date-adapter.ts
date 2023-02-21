@@ -109,7 +109,7 @@ export class NativeDateAdapter {
    * Returns null if the given Date is in another month.
    */
   public getDateInCurrentMonth(date: Date | null, activeDate: Date | null): number | null {
-    return date && this._hasSameMonthAndYear(date, activeDate) ? this.getDate(date) : null;
+    return date && this.hasSameMonthAndYear(date, activeDate) ? this.getDate(date) : null;
   }
 
   /** Creates a date but allows the month and date to overflow. */
@@ -125,7 +125,7 @@ export class NativeDateAdapter {
   }
 
   /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
-  private _hasSameMonthAndYear(d1: Date | null, d2: Date | null): boolean {
+  public hasSameMonthAndYear(d1: Date | null, d2: Date | null): boolean {
     return !!(
       d1 &&
       d2 &&
@@ -201,5 +201,22 @@ export class NativeDateAdapter {
       return date;
     }
     return this.invalid();
+  }
+
+  /**
+   * Returns the right format for the `valueAsDate` property
+   */
+  public formatValueAsDate(value: string): Date {
+    if (!value) {
+      return null;
+    }
+    const values = value.split('.');
+    if (values && values[0] && values[1] && values[2]) {
+      const day = +values[0];
+      const month = +values[1] - 1;
+      const year = +values[2];
+      return new Date(year, month, day);
+    }
+    return undefined;
   }
 }

@@ -10,8 +10,8 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
-import { getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { getDatePicker, InputUpdateEvent } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
   shadow: true,
@@ -51,71 +51,79 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._datePickerController.signal }
-    );
+    this._triggerElement = this._element.shadowRoot.querySelector('sbb-tooltip-trigger');
   }
 
   public disconnectedCallback(): void {
     this._datePickerController.abort();
   }
 
-  private _init(trigger?: string | HTMLElement): void {
+  private async _init(trigger?: string | HTMLElement): Promise<void> {
     this._datePicker = getDatePicker(this._element, trigger);
     this._datePicker?.addEventListener(
-      'didRender',
-      (event: Event) => {
+      'inputUpdated',
+      (event: CustomEvent<InputUpdateEvent>) => {
         const datepicker = event.target as HTMLSbbDatepickerElement;
         this._datePicker = datepicker;
-        this._setDisabledState(this._datePicker);
+        this._disabled = event.detail.disabled || event.detail.readonly;
       },
       { signal: this._datePickerController.signal }
     );
+    this._datePicker?.addEventListener('change', (event: Event) => this._datePickerChanged(event), {
+      signal: this._datePickerController.signal,
+    });
+
     this._datePicker?.addEventListener(
-      'change',
-      (event: Event) => {
-        const datepicker = event.target as HTMLSbbDatepickerElement;
-        const calendarDate = this._dateAdapter.deserializeDate(this._calendarElement.selectedDate);
-        if (datepicker.valueAsDate?.getTime() !== calendarDate?.getTime()) {
-          if (
-            this._dateAdapter.getMonth(datepicker.valueAsDate) !==
-            this._dateAdapter.getMonth(calendarDate)
-          ) {
-            this._calendarElement.resetPosition();
-          }
-          this._calendarElement.selectedDate = datepicker.valueAsDate;
-        }
-      },
-      { signal: this._datePickerController.signal }
+      'datePickerUpdated',
+      (event: Event) =>
+        this._configureCalendar(this._calendarElement, event.target as HTMLSbbDatepickerElement),
+      {
+        signal: this._datePickerController.signal,
+      }
     );
   }
 
-  private _resolveArgs(): Record<string, any> {
-    return {
-      min: this._datePicker?.min,
-      max: this._datePicker?.max,
-      wide: this._datePicker?.wide,
-      dateFilter: this._datePicker?.dateFilter,
-    };
+  private _configureCalendar(
+    calendar: HTMLSbbCalendarElement,
+    datepicker: HTMLSbbDatepickerElement
+  ): void {
+    calendar.min = datepicker?.min;
+    calendar.max = datepicker?.max;
+    calendar.wide = datepicker?.wide;
+    calendar.dateFilter = datepicker?.dateFilter;
   }
 
-  private _setDisabledState(datepicker: HTMLSbbDatepickerElement): void {
-    this._disabled = datepicker.disabled || datepicker.readonly;
+  private async _datePickerChanged(event: Event): Promise<void> {
+    const datepicker = event.target as HTMLSbbDatepickerElement;
+    const datepickerDate = await datepicker.getValueAsDate();
+    const calendarDate = this._dateAdapter.deserializeDate(this._calendarElement.selectedDate);
+    if (datepickerDate.getTime() !== calendarDate?.getTime()) {
+      this._calendarElement.selectedDate = datepickerDate;
+
+      if (!this._dateAdapter.hasSameMonthAndYear(datepickerDate, calendarDate)) {
+        this._calendarElement.resetPosition();
+      }
+    }
+  }
+
+  private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
+    this._calendarElement = calendar;
+    const d = await this._datePicker.getValueAsDate();
+    this._calendarElement.selectedDate = d;
+    this._configureCalendar(this._calendarElement, this._datePicker);
   }
 
   public render(): JSX.Element {
     return (
       <Host slot="prefix">
         <sbb-tooltip-trigger
-          ref={(el) => (this._triggerElement = el)}
           iconName="calendar-small"
           disabled={!this._datePicker || this._disabled}
+          onKeyDown={(event: KeyboardEvent) => {
+            if (event.code === 'Enter' || event.code === 'Space') {
+              this._openedByKeyboard = true;
+            }
+          }}
         />
         <sbb-tooltip
           onDid-close={() => {
@@ -128,13 +136,15 @@ export class SbbDatepickerToggle implements ComponentInterface {
           data-hide-close-button
         >
           <sbb-calendar
-            {...this._resolveArgs()}
-            ref={(calendar: HTMLSbbCalendarElement) => {
-              this._calendarElement = calendar;
-              this._calendarElement.selectedDate = this._datePicker?.valueAsDate;
-            }}
+            ref={async (calendar: HTMLSbbCalendarElement) => this._assignCalendar(calendar)}
+            min={this._datePicker.min}
+            max={this._datePicker.max}
+            wide={this._datePicker.wide}
+            dateFilter={this._datePicker.dateFilter}
             onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {
-              this._datePicker.valueAsDate = new Date(d.detail);
+              const newDate = new Date(d.detail);
+              this._calendarElement.selectedDate = newDate;
+              this._datePicker.setValueAsDate(newDate);
             }}
           ></sbb-calendar>
         </sbb-tooltip>

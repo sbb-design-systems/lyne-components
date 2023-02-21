@@ -88,7 +88,7 @@ describe('sbb-datepicker-toggle', () => {
           <mock:shadow-root>
             <sbb-tooltip-trigger iconName="calendar-small"></sbb-tooltip-trigger>
             <sbb-tooltip data-hide-close-button="">
-              <sbb-calendar min="1600000000" max="1700000000" wide=""></sbb-calendar>
+              <sbb-calendar></sbb-calendar>
             </sbb-tooltip>
           </mock:shadow-root>
         </sbb-datepicker-toggle>

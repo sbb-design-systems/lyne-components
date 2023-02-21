@@ -48,7 +48,6 @@ describe('sbb-datepicker-previous-day', () => {
       `);
       element = await page.find('sbb-datepicker-previous-day');
       picker = await page.find('sbb-datepicker');
-      button = await page.find('sbb-datepicker-previous-day >>> button');
       await page.waitForChanges();
     });
 
@@ -58,6 +57,7 @@ describe('sbb-datepicker-previous-day', () => {
 
     it('click', async () => {
       expect(await picker.getProperty('value')).toEqual('20.01.2023');
+      button = await page.find('sbb-datepicker-previous-day >>> button');
 
       const changeSpy = await page.spyOnEvent('click');
       await button.click();
@@ -68,16 +68,9 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     it('disabled due min value equals to value', async () => {
-      page = await newE2EPage({
-        html: `
-          <sbb-form-field>
-            <sbb-datepicker value="20-01-2023" min="1674172800"></sbb-datepicker>
-            <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-          </sbb-form-field>
-        `,
-      });
-      picker = await page.find('sbb-datepicker');
       button = await page.find('sbb-datepicker-previous-day >>> button');
+
+      picker.setAttribute('min', 1674172800);
       await page.waitForChanges();
 
       expect(await picker.getProperty('value')).toEqual('20.01.2023');
@@ -88,23 +81,16 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     it('disabled due disabled picker', async () => {
-      page = await newE2EPage({
-        html: `
-          <sbb-form-field>
-            <sbb-datepicker value="15-01-2023" disabled="true"></sbb-datepicker>
-            <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-          </sbb-form-field>
-        `,
-      });
-      picker = await page.find('sbb-datepicker');
       button = await page.find('sbb-datepicker-previous-day >>> button');
+
+      picker.setAttribute('disabled', true);
       await page.waitForChanges();
 
-      expect(await picker.getProperty('value')).toEqual('15.01.2023');
+      expect(await picker.getProperty('value')).toEqual('20.01.2023');
       expect(button).toHaveAttribute('disabled');
       await button.click();
       await page.waitForChanges();
-      expect(await picker.getProperty('value')).toEqual('15.01.2023');
+      expect(await picker.getProperty('value')).toEqual('20.01.2023');
     });
   });
 });

@@ -1,16 +1,10 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, Prop, State, Watch } from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { findPreviousAvailableDate, getDatePicker } from '../sbb-datepicker/sbb-datepicker.helper';
+import {
+  findPreviousAvailableDate,
+  getDatePicker,
+  InputUpdateEvent,
+} from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
   shadow: true,
@@ -24,6 +18,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   @Element() private _element: HTMLSbbDatepickerPreviousDayElement;
 
   @State() private _disabled = false;
+  @State() private _inputDisabled = false;
 
   private _datePicker: HTMLSbbDatepickerElement;
 
@@ -49,32 +44,44 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   private _init(picker?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, picker);
+    this._setDisabledState(this._datePicker);
+
     this._datePicker?.addEventListener(
-      'didRender',
-      (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      'change',
+      (event: CustomEvent<InputUpdateEvent>) =>
+        this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      { signal: this._datePickerController.signal }
+    );
+    this._datePicker?.addEventListener(
+      'datePickerUpdated',
+      (event: CustomEvent<InputUpdateEvent>) =>
+        this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      { signal: this._datePickerController.signal }
+    );
+    this._datePicker?.addEventListener(
+      'inputUpdated',
+      (event: CustomEvent<InputUpdateEvent>) =>
+        (this._inputDisabled = event.detail.disabled || event.detail.readonly),
       { signal: this._datePickerController.signal }
     );
   }
 
-  private _setDisabledState(datepicker: HTMLSbbDatepickerElement): void {
-    const pickerValue = datepicker.valueAsDate;
+  private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {
+    const pickerValue = await datepicker.getValueAsDate();
     if (pickerValue) {
       const previousDate = findPreviousAvailableDate(pickerValue, datepicker, this._dateAdapter);
-      this._disabled =
-        this._dateAdapter.compareDate(previousDate, pickerValue) === 0 ||
-        datepicker.disabled ||
-        datepicker.readonly;
+      this._disabled = this._dateAdapter.compareDate(previousDate, pickerValue) === 0;
     }
   }
 
-  private _handleClick(): void {
+  private async _handleClick(): Promise<void> {
     if (!this._datePicker) {
       return;
     }
-    const startingDate = this._datePicker.valueAsDate ?? this._dateAdapter.today();
+    const startingDate = (await this._datePicker.getValueAsDate()) ?? this._dateAdapter.today();
     const date = findPreviousAvailableDate(startingDate, this._datePicker, this._dateAdapter);
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      this._datePicker.valueAsDate = date;
+      this._datePicker.setValueAsDate(date);
     }
   }
 
@@ -82,7 +89,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     return (
       <Host slot="prefix">
         <button
-          disabled={this._datePicker?.disabled || this._datePicker?.readonly || this._disabled}
+          disabled={this._disabled || this._inputDisabled}
           onClick={() => this._handleClick()}
         >
           <sbb-icon name="chevron-small-left-small" />

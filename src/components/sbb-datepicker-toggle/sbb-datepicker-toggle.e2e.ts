@@ -35,8 +35,7 @@ describe('sbb-datepicker-toggle', () => {
     expect(tooltip).toEqualAttribute('data-state', 'opened');
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  it.skip('renders in form field, open calendar and change date', async () => {
+  it('renders in form field, open calendar and change date', async () => {
     const page: E2EPage = await newE2EPage();
     await page.setContent(`
         <sbb-form-field>
