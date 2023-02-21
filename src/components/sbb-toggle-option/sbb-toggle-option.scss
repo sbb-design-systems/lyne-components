@@ -14,6 +14,10 @@
   display: inline-block;
   overflow: hidden;
   z-index: 1;
+
+  // TODO: Check impact better
+  min-width: var(--sbb-toggle-min-width);
+  padding-inline: var(--sbb-toggle-padding-inline);
 }
 
 :host(:focus-visible) {
@@ -43,8 +47,6 @@ input[type='radio'] {
   justify-content: center;
   align-items: center;
   height: var(--sbb-toggle-height);
-  min-width: var(--sbb-toggle-min-width);
-  padding-inline: var(--sbb-toggle-padding-inline);
   border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
 }
