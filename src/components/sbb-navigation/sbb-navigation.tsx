@@ -172,9 +172,6 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     this._state = 'closing';
     this._openedByKeyboard = false;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
-
-    // Enable scrolling for content below the dialog
-    this._scrollHandler.enableScroll();
   }
 
   // Removes trigger click listener on trigger change.
@@ -248,6 +245,9 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
+
+      // Enable scrolling for content below the dialog
+      this._scrollHandler.enableScroll();
     }
   }
 

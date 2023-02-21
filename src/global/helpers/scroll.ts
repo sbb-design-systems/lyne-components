@@ -10,36 +10,27 @@ export function pageScrollDisabled(): boolean {
  * content shift caused by the disappearance/appearance of the scrollbar.
  */
 export class ScrollHandler {
-  private _documentScrollTop: number;
-  private _top: string;
   private _position: string;
-  private _overflowY: string;
-  private _inlineSize: string;
+  private _overflow: string;
+  private _marginInlineEnd: string;
 
   public disableScroll(): void {
     if (pageScrollDisabled()) {
       return;
     }
 
-    if (!this._hasScrollbar()) {
-      document.body.style.overflowY = 'hidden';
-      return;
-    }
-
-    // Save a reference to the document's current vertical scroll.
-    this._documentScrollTop = document.documentElement.scrollTop;
-
     // Save any pre-existing styles to reapply them to the body when enabling the scroll again.
-    this._top = document.body.style.top;
     this._position = document.body.style.position;
-    this._overflowY = document.body.style.overflowY;
-    this._inlineSize = document.body.style.inlineSize;
+    this._overflow = document.body.style.overflow;
+    this._marginInlineEnd = document.body.style.marginInlineEnd;
 
-    // Set the page as fixed to the top and keep showing an "empty" scrollbar by setting "overflow-y" to "scroll".
-    document.body.style.top = `-${this._documentScrollTop}px`;
-    document.body.style.position = 'fixed';
-    document.body.style.overflowY = 'scroll';
-    document.body.style.inlineSize = this._inlineSize || '100%';
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'relative';
+    document.body.style.marginInlineEnd = `${scrollbarWidth}px`;
+    document.body.style.setProperty('--sbb-scrollbar-width', `${scrollbarWidth}px`);
+
     toggleDatasetEntry(document.body, 'sbbScrollDisabled', true);
   }
 
@@ -49,17 +40,11 @@ export class ScrollHandler {
     }
 
     // Revert body inline styles.
-    document.body.style.top = this._top || null;
     document.body.style.position = this._position || null;
-    document.body.style.overflowY = this._overflowY || null;
-    document.body.style.inlineSize = this._inlineSize || null;
+    document.body.style.overflow = this._overflow || null;
+    document.body.style.marginInlineEnd = this._marginInlineEnd || null;
+    document.body.style.setProperty('--sbb-scrollbar-width', '0');
 
-    // Scroll the page to the correct position.
-    document.documentElement.scrollTo(0, this._documentScrollTop);
     toggleDatasetEntry(document.body, 'sbbScrollDisabled', false);
-  }
-
-  private _hasScrollbar(): boolean {
-    return document.documentElement.scrollHeight > document.documentElement.clientHeight;
   }
 }
