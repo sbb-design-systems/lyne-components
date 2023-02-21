@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.8](https://github.com/lyne-design-system/lyne-components/compare/v0.26.7...v0.26.8) (2023-02-21)
+
+### Bug Fixes
+
+- **sbb-header:** prevent unwanted hiding and use transform for the animation ([#1621](https://github.com/lyne-design-system/lyne-components/issues/1621)) ([85b4ebd](https://github.com/lyne-design-system/lyne-components/commit/85b4ebd147dff81fda8a3df486b806c1a6f55d5d))
+
 ### [0.26.7](https://github.com/lyne-design-system/lyne-components/compare/v0.26.6...v0.26.7) (2023-02-16)
 
 ### Features
