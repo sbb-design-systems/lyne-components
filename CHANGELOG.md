@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.10](https://github.com/lyne-design-system/lyne-components/compare/v0.26.9...v0.26.10) (2023-02-21)
+
+### Bug Fixes
+
+- **sbb-header:** allow z-index to be configured by CSS var ([#1631](https://github.com/lyne-design-system/lyne-components/issues/1631)) ([9b87f60](https://github.com/lyne-design-system/lyne-components/commit/9b87f60cb120fcf19899d43601c9f86e01a4da23))
+
 ### [0.26.9](https://github.com/lyne-design-system/lyne-components/compare/v0.26.8...v0.26.9) (2023-02-21)
 
 ### Bug Fixes
