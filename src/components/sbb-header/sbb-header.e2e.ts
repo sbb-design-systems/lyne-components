@@ -4,8 +4,12 @@ import events from '../sbb-menu/sbb-menu.events';
 describe('sbb-header', () => {
   let element: E2EElement, page: E2EPage;
 
-  it('renders', async () => {
+  beforeEach(async () => {
     page = await newE2EPage();
+    page.setViewport({ width: 1200, height: 600 });
+  });
+
+  it('renders', async () => {
     await page.setContent('<sbb-header></sbb-header>');
 
     element = await page.find('sbb-header');
@@ -13,7 +17,6 @@ describe('sbb-header', () => {
   });
 
   it('should be fixed on scroll', async () => {
-    page = await newE2EPage();
     await page.setContent(`
         <sbb-header></sbb-header>
         <div style="height: 2000px;"></div>
@@ -26,7 +29,6 @@ describe('sbb-header', () => {
   });
 
   it('should hide/show on scroll', async () => {
-    page = await newE2EPage();
     await page.setContent(`
         <sbb-header hide-on-scroll="true"></sbb-header>
         <div style="height: 2000px;"></div>
@@ -34,8 +36,8 @@ describe('sbb-header', () => {
 
     element = await page.find('sbb-header');
     expect(await element.getProperty('scrollOrigin')).not.toBeUndefined();
-    expect(await page.evaluate(() => document.querySelector('sbb-header').offsetHeight)).toBe(56);
-    expect(await page.evaluate(() => document.documentElement.offsetHeight)).toBe(2056);
+    expect(await page.evaluate(() => document.querySelector('sbb-header').offsetHeight)).toBe(96);
+    expect(await page.evaluate(() => document.documentElement.offsetHeight)).toBe(2096);
 
     // Scroll bottom (0px to 400px): header fixed.
     await page.evaluate(() => window.scrollTo({ top: 400 }));
@@ -59,7 +61,6 @@ describe('sbb-header', () => {
   });
 
   it('should close menu on scroll', async () => {
-    page = await newE2EPage();
     await page.setContent(`
         <sbb-header hide-on-scroll="true">
           <sbb-header-action id="language-menu-trigger">
@@ -76,11 +77,11 @@ describe('sbb-header', () => {
     element = await page.find('sbb-header');
 
     // Scroll down a little bit
-    await page.evaluate(() => window.scrollTo({ top: 200 }));
+    await page.evaluate(() => window.scrollTo({ top: 250 }));
     await page.waitForChanges();
 
     // Scroll up to show header
-    await page.evaluate(() => window.scrollTo({ top: 190 }));
+    await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
     expect(element).toHaveAttribute('data-visible');
 
@@ -103,8 +104,7 @@ describe('sbb-header', () => {
     expect(menu).toEqualAttribute('data-state', 'opened');
 
     // Scroll down to hide header.
-    await page.evaluate(() => window.scrollTo({ top: 200 }));
-    await page.waitForChanges();
+    await page.evaluate(() => window.scrollTo({ top: 250 }));
     await page.waitForChanges();
 
     // Assert menu closed
