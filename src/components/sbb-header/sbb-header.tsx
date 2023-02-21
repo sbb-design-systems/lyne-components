@@ -117,7 +117,7 @@ export class SbbHeader implements ComponentInterface {
       return;
     }
 
-    toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0 || pageScrollDisabled());
+    toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0);
 
     // Close open overlays when scrolling down if the header is scrolled out of sight.
     if (
