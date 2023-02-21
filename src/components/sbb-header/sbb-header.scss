@@ -45,7 +45,7 @@
   position: var(--sbb-header-position);
   inset: 0 0 auto;
   background: var(--sbb-color-white-default);
-  z-index: 10;
+  z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
   transition: {
     property: box-shadow;
