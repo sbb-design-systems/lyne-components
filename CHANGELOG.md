@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.11](https://github.com/lyne-design-system/lyne-components/compare/v0.26.10...v0.26.11) (2023-02-21)
+
+### Bug Fixes
+
+- **badge:** set color of badge ([#1632](https://github.com/lyne-design-system/lyne-components/issues/1632)) ([8955517](https://github.com/lyne-design-system/lyne-components/commit/8955517c7fdb318068e8c0759aa73541ea192693))
+
 ### [0.26.10](https://github.com/lyne-design-system/lyne-components/compare/v0.26.9...v0.26.10) (2023-02-21)
 
 ### Bug Fixes
