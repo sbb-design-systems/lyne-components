@@ -77,11 +77,11 @@ describe('sbb-header', () => {
     element = await page.find('sbb-header');
 
     // Scroll down a little bit
-    await page.evaluate(() => window.scrollTo({ top: 200 }));
+    await page.evaluate(() => window.scrollTo({ top: 250 }));
     await page.waitForChanges();
 
     // Scroll up to show header
-    await page.evaluate(() => window.scrollTo({ top: 190 }));
+    await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
     expect(element).toHaveAttribute('data-visible');
 
@@ -104,8 +104,7 @@ describe('sbb-header', () => {
     expect(menu).toEqualAttribute('data-state', 'opened');
 
     // Scroll down to hide header.
-    await page.evaluate(() => window.scrollTo({ top: 200 }));
-    await page.waitForChanges();
+    await page.evaluate(() => window.scrollTo({ top: 250 }));
     await page.waitForChanges();
 
     // Assert menu closed
