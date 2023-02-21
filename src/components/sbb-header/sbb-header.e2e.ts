@@ -37,13 +37,12 @@ describe('sbb-header', () => {
     expect(await page.evaluate(() => document.querySelector('sbb-header').offsetHeight)).toBe(56);
     expect(await page.evaluate(() => document.documentElement.offsetHeight)).toBe(2056);
 
-    // Scroll bottom (0px to 200px): header fixed.
-    await page.evaluate(() => window.scrollTo({ top: 200 }));
+    // Scroll bottom (0px to 400px): header fixed.
+    await page.evaluate(() => window.scrollTo({ top: 400 }));
     await page.waitForChanges();
-    expect(element).toHaveAttribute('data-fixed');
 
-    // Scroll top (200px to 100px): header fixed and visible, with shadow and animated.
-    await page.evaluate(() => window.scrollTo({ top: 100 }));
+    // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
+    await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
     expect(element).toHaveAttribute('data-shadow');
     expect(element).toHaveAttribute('data-animated');
@@ -79,7 +78,6 @@ describe('sbb-header', () => {
     // Scroll down a little bit
     await page.evaluate(() => window.scrollTo({ top: 200 }));
     await page.waitForChanges();
-    expect(element).toHaveAttribute('data-fixed');
 
     // Scroll up to show header
     await page.evaluate(() => window.scrollTo({ top: 190 }));

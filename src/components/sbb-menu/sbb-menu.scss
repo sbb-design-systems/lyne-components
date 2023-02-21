@@ -5,7 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-menu-position: fixed;
   --sbb-menu-position-x: 0;
   --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(--sbb-animation-duration-6x);
@@ -29,7 +28,6 @@
   display: contents;
 
   @include sbb.mq($from: medium) {
-    --sbb-menu-position: absolute;
     --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
@@ -67,7 +65,9 @@
 
 .sbb-menu__container {
   position: fixed;
+  pointer-events: none;
   inset: var(--sbb-menu-inset);
+  height: 100dvh;
   z-index: var(--sbb-menu-z-index, var(--sbb-overlay-z-index));
 
   // Menu backdrop (only visible on mobile)
@@ -77,6 +77,7 @@
     pointer-events: var(--sbb-menu-pointer-events);
     position: fixed;
     inset: var(--sbb-menu-inset);
+    height: 100dvh;
     background-color: var(--sbb-menu-backdrop-color);
     transition: {
       duration: var(--sbb-menu-animation-duration);
@@ -94,7 +95,7 @@
   max-width: var(--sbb-menu-max-width);
   min-width: var(--sbb-menu-min-width);
   text-align: start;
-  position: var(--sbb-menu-position);
+  position: absolute;
   inset-inline-start: 0;
   inset-block-start: unset;
   inset-block-end: 0;

@@ -312,7 +312,12 @@ export class SbbMenu implements ComponentInterface {
   // Set menu position and max height if the breakpoint is medium-ultra.
   private _setMenuPosition(): void {
     // Starting from breakpoint medium
-    if (!isBreakpoint('medium') || !this._dialog || !this._triggerElement) {
+    if (
+      !isBreakpoint('medium') ||
+      !this._dialog ||
+      !this._triggerElement ||
+      this._state === 'closing'
+    ) {
       return;
     }
 

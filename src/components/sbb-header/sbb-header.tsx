@@ -1,5 +1,6 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { pageScrollDisabled } from '../../global/helpers/scroll';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -86,29 +87,56 @@ export class SbbHeader implements ComponentInterface {
     return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();
   }
 
+  /** Return the correct scroll element. */
+  private _getScrollDocumentElement(): HTMLElement {
+    if (this._scrollElement instanceof Document) {
+      return this._scrollElement.documentElement || this._scrollElement.body;
+    }
+    return this._scrollElement;
+  }
+
+  /** Calculates the correct scrollTop value based on the value of `_scrollElement`. */
+  private _getCurrentScroll(): number {
+    return this._getScrollDocumentElement().scrollTop;
+  }
+
   /**
    * Sets the correct value for `scrollTop`, then:
    * - apply the shadow if the element/document has been scrolled down;
    * - hides the header, remove the shadow and possibly close any open menu on the header if it is not visible anymore;
    * - shows the header and re-apply the shadow if the element/document has been scrolled up.
-   *
-   * As soon the header is not in its static context anymore, the data-fixed attribute has to be set.
-   * This is needed to enable the transition when the header is becoming visible. Otherwise, it would jump.
    */
   private _scrollListener(): void {
     const currentScroll = this._getCurrentScroll();
+
+    // Whether the scroll view is bouncing past the edge of content and back again.
+    const isBouncing =
+      this._getScrollDocumentElement().scrollHeight - window.innerHeight - currentScroll <= 0;
+
+    if (isBouncing || pageScrollDisabled()) {
+      return;
+    }
+
     toggleDatasetEntry(this._element, 'shadow', currentScroll !== 0);
-    // Check if header is scrolled out of sight, scroll position > header height.
-    if (currentScroll > this._element.offsetHeight) {
+
+    // Close open overlays when scrolling down if the header is scrolled out of sight.
+    if (
+      currentScroll > this._element.offsetHeight &&
+      currentScroll > 0 &&
+      this._lastScroll < currentScroll
+    ) {
+      this._closeOpenOverlays();
+    }
+    // Check if header is scrolled out of sight, scroll position > header height * 2.
+    if (currentScroll > this._element.offsetHeight * 2) {
       this._headerOnTop = false;
       if (currentScroll > 0 && this._lastScroll < currentScroll) {
         // Scrolling down
         toggleDatasetEntry(this._element, 'shadow', false);
-        toggleDatasetEntry(this._element, 'fixed', true);
         toggleDatasetEntry(this._element, 'visible', false);
-        this._closeOpenOverlays();
       } else {
         // Scrolling up
+        toggleDatasetEntry(this._element, 'fixed', true);
         toggleDatasetEntry(this._element, 'shadow', true);
         toggleDatasetEntry(this._element, 'animated', true);
         toggleDatasetEntry(this._element, 'visible', true);
@@ -133,14 +161,6 @@ export class SbbHeader implements ComponentInterface {
   /** Apply the shadow if the element/document has been scrolled down. */
   private _scrollShadowListener(): void {
     toggleDatasetEntry(this._element, 'shadow', this._getCurrentScroll() !== 0);
-  }
-
-  /** Calculates the correct scrollTop value based on the value of `_scrollElement`. */
-  private _getCurrentScroll(): number {
-    if (this._scrollElement instanceof Document) {
-      return this._scrollElement.documentElement.scrollTop || this._scrollElement.body.scrollTop;
-    }
-    return this._scrollElement.scrollTop;
   }
 
   private _closeOpenOverlays(): void {
