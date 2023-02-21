@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.9](https://github.com/lyne-design-system/lyne-components/compare/v0.26.8...v0.26.9) (2023-02-21)
+
+### Bug Fixes
+
+- **sbb-menu:** disable page scroll on mobile ([#1614](https://github.com/lyne-design-system/lyne-components/issues/1614)) ([dc7e48c](https://github.com/lyne-design-system/lyne-components/commit/dc7e48c094e6e1ccab89fd56a9cfad2d58e3c465))
+
 ### [0.26.8](https://github.com/lyne-design-system/lyne-components/compare/v0.26.7...v0.26.8) (2023-02-21)
 
 ### Bug Fixes
