@@ -72,6 +72,12 @@ li {
   gap: var(--sbb-timetable-row-gap);
 }
 
+.sbb-timetable__row-header,
+.sbb-timetable__row-footer {
+  // Due to a bug in Safari which displays skeleton animation even on loaded content, we need to manually disable animation.
+  animation: none;
+}
+
 .sbb-timetable__row-header {
   display: flex;
   gap: var(--sbb-spacing-fixed-2x);
