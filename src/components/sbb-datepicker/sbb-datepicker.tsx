@@ -94,7 +94,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   @Method() public async getValueAsDate(): Promise<Date> {
-    return this._dateAdapter.formatValueAsDate(this._input.value);
+    return this._dateAdapter.formatValueAsDate(this._input?.value);
   }
 
   @Method() public async setValueAsDate(date: Date): Promise<void> {
@@ -110,7 +110,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    this.inputUpdated.emit({ disabled: this._input.disabled, readonly: this._input.readOnly });
+    this.inputUpdated.emit({ disabled: this._input?.disabled, readonly: this._input?.readOnly });
   }
 
   public disconnectedCallback(): void {

@@ -108,6 +108,9 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
     this._calendarElement = calendar;
+    if (!this.datePicker) {
+      return;
+    }
     const d = await this._datePicker.getValueAsDate();
     this._calendarElement.selectedDate = d;
     this._configureCalendar(this._calendarElement, this._datePicker);
@@ -137,10 +140,10 @@ export class SbbDatepickerToggle implements ComponentInterface {
         >
           <sbb-calendar
             ref={async (calendar: HTMLSbbCalendarElement) => this._assignCalendar(calendar)}
-            min={this._datePicker.min}
-            max={this._datePicker.max}
-            wide={this._datePicker.wide}
-            dateFilter={this._datePicker.dateFilter}
+            min={this._datePicker?.min}
+            max={this._datePicker?.max}
+            wide={this._datePicker?.wide}
+            dateFilter={this._datePicker?.dateFilter}
             onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {
               const newDate = new Date(d.detail);
               this._calendarElement.selectedDate = newDate;

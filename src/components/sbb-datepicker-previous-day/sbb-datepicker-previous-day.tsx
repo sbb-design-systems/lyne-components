@@ -44,6 +44,9 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   private _init(picker?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, picker);
+    if (!this._datePicker) {
+      return;
+    }
     this._setDisabledState(this._datePicker);
 
     this._datePicker?.addEventListener(

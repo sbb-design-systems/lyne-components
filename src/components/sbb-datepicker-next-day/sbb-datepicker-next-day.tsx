@@ -54,6 +54,9 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   private _init(trigger?: string | HTMLElement): void {
     this._datePicker = getDatePicker(this._element, trigger);
+    if (!this._datePicker) {
+      return;
+    }
     this._setDisabledState(this._datePicker);
 
     this._datePicker?.addEventListener(
