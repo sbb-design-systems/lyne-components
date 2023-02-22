@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.12](https://github.com/lyne-design-system/lyne-components/compare/v0.26.11...v0.26.12) (2023-02-22)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** fix skeleton animation on content on Safari ([#1635](https://github.com/lyne-design-system/lyne-components/issues/1635)) ([afe0503](https://github.com/lyne-design-system/lyne-components/commit/afe0503e41d4e2548da5063b3fe87e3417370790))
+
 ### [0.26.11](https://github.com/lyne-design-system/lyne-components/compare/v0.26.10...v0.26.11) (2023-02-21)
 
 ### Bug Fixes
