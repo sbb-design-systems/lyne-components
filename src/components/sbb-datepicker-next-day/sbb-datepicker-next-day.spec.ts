@@ -21,12 +21,13 @@ describe('sbb-datepicker-next-day', () => {
     `);
   });
 
-  it('renders disabled with datepicker disabled', async () => {
+  it('renders with datepicker and input disabled', async () => {
     const page: SpecPage = await newSpecPage({
       components: [SbbFormField, SbbDatepicker, SbbDatepickerNextDay],
       html: `
         <sbb-form-field>
-          <sbb-datepicker disabled="true"></sbb-datepicker>
+          <input disabled="">
+          <sbb-datepicker></sbb-datepicker>
           <sbb-datepicker-next-day></sbb-datepicker-next-day>
         </sbb-form-field>
       `,
@@ -38,12 +39,13 @@ describe('sbb-datepicker-next-day', () => {
     expect(button).toHaveAttribute('disabled');
   });
 
-  it('renders disabled with datepicker readonly', async () => {
+  it('renders with datepicker and input readonly', async () => {
     const page: SpecPage = await newSpecPage({
       components: [SbbFormField, SbbDatepicker, SbbDatepickerNextDay],
       html: `
         <sbb-form-field>
-          <sbb-datepicker readonly="true"></sbb-datepicker>
+          <input readonly="">
+          <sbb-datepicker></sbb-datepicker>
           <sbb-datepicker-next-day></sbb-datepicker-next-day>
         </sbb-form-field>
       `,

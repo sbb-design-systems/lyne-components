@@ -14,6 +14,7 @@ import {
 } from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 
 const REGEX_PATTERN = /[0-9.,\\/\-\s]{1,10}/;
 const REGEX =
@@ -37,6 +38,7 @@ export class SbbDatepicker implements ComponentInterface {
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
+  /** Reference of the native input connected to the datepicker. */
   @Prop() public input?: string | HTMLElement;
 
   /** Host element */
@@ -53,12 +55,12 @@ export class SbbDatepicker implements ComponentInterface {
 
   @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
 
-  @State() private _input: HTMLInputElement;
+  @State() private _inputElement: HTMLInputElement;
 
   @Watch('input')
   public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      this._input = getInput(this._element, this.input);
+      this._inputElement = getInput(this._element, this.input);
     }
   }
 
@@ -72,50 +74,42 @@ export class SbbDatepicker implements ComponentInterface {
     }
   }
 
-  @Watch('_input')
+  @Watch('_inputElement')
   public registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
     if (newValue !== oldValue) {
-      this._inputObserver?.disconnect();
       this._datePickerController?.abort();
-      this._input.type = 'text';
-      this._input.placeholder = this._placeholder;
-
       this._datePickerController = new AbortController();
 
-      this._input.addEventListener('input', (event) => this._preventCharInsert(event), {
-        signal: this._datePickerController.signal,
-      });
-      this._input.addEventListener('change', (event) => this._valueChanged(event), {
-        signal: this._datePickerController.signal,
+      this._inputObserver?.disconnect();
+      this._inputObserver.observe(this._inputElement, {
+        attributeFilter: ['disabled', 'readonly'],
       });
 
-      this._inputObserver.observe(this._input, { attributeFilter: ['disabled', 'readonly'] });
+      this._inputElement.type = 'text';
+      this._inputElement.placeholder = this._placeholder;
+
+      this._inputElement.addEventListener(
+        'input',
+        (event: Event) => this._preventCharInsert(event),
+        {
+          signal: this._datePickerController.signal,
+        }
+      );
+      this._inputElement.addEventListener('change', (event: Event) => this._valueChanged(event), {
+        signal: this._datePickerController.signal,
+      });
     }
   }
 
   @Method() public async getValueAsDate(): Promise<Date> {
-    return this._dateAdapter.formatValueAsDate(this._input?.value);
+    return this._dateAdapter.formatValueAsDate(this._formatValue(this._inputElement?.value));
   }
 
   @Method() public async setValueAsDate(date: Date): Promise<void> {
-    const newValue = this._formatValue(
+    const newValue: string = this._formatValue(
       `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
     );
-
-    this._formatAndUpdateValue(newValue);
-  }
-
-  public connectedCallback(): void {
-    this._input = getInput(this._element, this.input);
-  }
-
-  public componentDidLoad(): void {
-    this.inputUpdated.emit({ disabled: this._input?.disabled, readonly: this._input?.readOnly });
-  }
-
-  public disconnectedCallback(): void {
-    this._inputObserver.disconnect();
-    this._datePickerController.abort();
+    await this._formatAndUpdateValue(newValue);
   }
 
   /** Placeholder for the inner HTMLInputElement.*/
@@ -127,15 +121,31 @@ export class SbbDatepicker implements ComponentInterface {
   private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
   private _dateAdapter = new NativeDateAdapter();
 
+  public connectedCallback(): void {
+    this._inputElement = getInput(this._element, this.input);
+  }
+
+  public componentDidLoad(): void {
+    this.inputUpdated.emit({
+      disabled: this._inputElement?.disabled,
+      readonly: this._inputElement?.readOnly,
+    });
+  }
+
+  public disconnectedCallback(): void {
+    this._inputObserver?.disconnect();
+    this._datePickerController?.abort();
+  }
+
   private _formatValue(value: string): string {
     if (!value) {
       return null;
     }
-    const match = value.match(REGEX);
+    const match: RegExpMatchArray = value.match(REGEX);
     if (match && match[1] && match[2] && match[3]) {
-      const day = match[1].padStart(2, '0');
-      const month = match[2].padStart(2, '0');
-      let year = +match[3];
+      const day: string = match[1].padStart(2, '0');
+      const month: string = match[2].padStart(2, '0');
+      let year: number = +match[3];
       if (year < 100 && year >= 0) {
         year += 1900;
       }
@@ -151,12 +161,12 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     const newValue = this._formatValue(value);
-    if (this._input) {
-      this._input.classList.remove('sbb-invalid');
-      this._input.value = newValue;
-      const newValueAsDate = await this.getValueAsDate();
+    if (this._inputElement) {
+      this._inputElement.classList.remove('sbb-invalid');
+      this._inputElement.value = newValue;
+      const newValueAsDate: Date = await this.getValueAsDate();
       this._isDateValid = isDateAvailable(newValueAsDate, this._element);
-      !this._isDateValid && this._input.classList.add('sbb-invalid');
+      !this._isDateValid && this._inputElement.classList.add('sbb-invalid');
       this._emitChange();
     }
   }
@@ -168,7 +178,10 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   private _onInputPropertiesChange(): void {
-    this.inputUpdated.emit({ disabled: this._input.disabled, readonly: this._input.readOnly });
+    this.inputUpdated.emit({
+      disabled: this._inputElement.disabled,
+      readonly: this._inputElement.readOnly,
+    });
   }
 
   private _preventCharInsert(event): void {

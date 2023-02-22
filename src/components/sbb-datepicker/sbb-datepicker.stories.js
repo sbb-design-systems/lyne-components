@@ -179,7 +179,7 @@ const Template = ({ label, optional, borderless, size, min, max, wide, ...args }
       <sbb-datepicker-previous-day />
       <sbb-datepicker-next-day />
       <sbb-datepicker-toggle />
-      <input value="22.02.2023" {...args} />
+      <input {...args} />
       <sbb-datepicker
         ref={(calendarRef) => {
           calendarRef.dateFilter = (d) => d?.getDay() !== 6 && d?.getDay() !== 0;

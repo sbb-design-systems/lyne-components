@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, Host, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import {
   findPreviousAvailableDate,
@@ -18,9 +28,10 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   @Element() private _element: HTMLSbbDatepickerPreviousDayElement;
 
   @State() private _disabled = false;
+
   @State() private _inputDisabled = false;
 
-  private _datePicker: HTMLSbbDatepickerElement;
+  private _datePickerElement: HTMLSbbDatepickerElement;
 
   private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
@@ -43,25 +54,23 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   }
 
   private _init(picker?: string | HTMLElement): void {
-    this._datePicker = getDatePicker(this._element, picker);
-    if (!this._datePicker) {
+    this._datePickerElement = getDatePicker(this._element, picker);
+    if (!this._datePickerElement) {
       return;
     }
-    this._setDisabledState(this._datePicker);
+    this._setDisabledState(this._datePickerElement);
 
-    this._datePicker?.addEventListener(
+    this._datePickerElement.addEventListener(
       'change',
-      (event: CustomEvent<InputUpdateEvent>) =>
-        this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
       { signal: this._datePickerController.signal }
     );
-    this._datePicker?.addEventListener(
+    this._datePickerElement.addEventListener(
       'datePickerUpdated',
-      (event: CustomEvent<InputUpdateEvent>) =>
-        this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
       { signal: this._datePickerController.signal }
     );
-    this._datePicker?.addEventListener(
+    this._datePickerElement.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) =>
         (this._inputDisabled = event.detail.disabled || event.detail.readonly),
@@ -70,21 +79,30 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   }
 
   private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {
-    const pickerValue = await datepicker.getValueAsDate();
-    if (pickerValue) {
-      const previousDate = findPreviousAvailableDate(pickerValue, datepicker, this._dateAdapter);
-      this._disabled = this._dateAdapter.compareDate(previousDate, pickerValue) === 0;
+    const pickerValueAsDate: Date = await datepicker.getValueAsDate();
+    if (pickerValueAsDate) {
+      const previousDate: Date = findPreviousAvailableDate(
+        pickerValueAsDate,
+        datepicker,
+        this._dateAdapter
+      );
+      this._disabled = this._dateAdapter.compareDate(previousDate, pickerValueAsDate) === 0;
     }
   }
 
   private async _handleClick(): Promise<void> {
-    if (!this._datePicker) {
+    if (!this._datePickerElement) {
       return;
     }
-    const startingDate = (await this._datePicker.getValueAsDate()) ?? this._dateAdapter.today();
-    const date = findPreviousAvailableDate(startingDate, this._datePicker, this._dateAdapter);
+    const startingDate: Date =
+      (await this._datePickerElement.getValueAsDate()) ?? this._dateAdapter.today();
+    const date: Date = findPreviousAvailableDate(
+      startingDate,
+      this._datePickerElement,
+      this._dateAdapter
+    );
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      this._datePicker.setValueAsDate(date);
+      await this._datePickerElement.setValueAsDate(date);
     }
   }
 

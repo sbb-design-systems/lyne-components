@@ -422,6 +422,9 @@ export namespace Components {
          */
         "dateFilter": (date: Date | null) => boolean;
         "getValueAsDate": () => Promise<Date>;
+        /**
+          * Reference of the native input connected to the datepicker.
+         */
         "input"?: string | HTMLElement;
         /**
           * The maximum valid date.
@@ -2632,6 +2635,9 @@ declare namespace LocalJSX {
           * A function used to filter out dates.
          */
         "dateFilter"?: (date: Date | null) => boolean;
+        /**
+          * Reference of the native input connected to the datepicker.
+         */
         "input"?: string | HTMLElement;
         /**
           * The maximum valid date.

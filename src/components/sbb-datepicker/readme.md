@@ -5,13 +5,13 @@
 
 ## Properties
 
-| Property     | Attribute | Description                              | Type                       | Default      |
-| ------------ | --------- | ---------------------------------------- | -------------------------- | ------------ |
-| `dateFilter` | --        | A function used to filter out dates.     | `(date: Date) => boolean`  | `() => true` |
-| `input`      | `input`   |                                          | `HTMLElement \| string`    | `undefined`  |
-| `max`        | `max`     | The maximum valid date.                  | `Date \| number \| string` | `undefined`  |
-| `min`        | `min`     | The minimum valid date.                  | `Date \| number \| string` | `undefined`  |
-| `wide`       | `wide`    | If set to true, two months are displayed | `boolean`                  | `false`      |
+| Property     | Attribute | Description                                                | Type                       | Default      |
+| ------------ | --------- | ---------------------------------------------------------- | -------------------------- | ------------ |
+| `dateFilter` | --        | A function used to filter out dates.                       | `(date: Date) => boolean`  | `() => true` |
+| `input`      | `input`   | Reference of the native input connected to the datepicker. | `HTMLElement \| string`    | `undefined`  |
+| `max`        | `max`     | The maximum valid date.                                    | `Date \| number \| string` | `undefined`  |
+| `min`        | `min`     | The minimum valid date.                                    | `Date \| number \| string` | `undefined`  |
+| `wide`       | `wide`    | If set to true, two months are displayed                   | `boolean`                  | `false`      |
 
 
 ## Events
