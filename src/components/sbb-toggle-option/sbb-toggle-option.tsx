@@ -152,6 +152,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
         aria-checked={this.checked.toString()}
         aria-disabled={this.disabled}
         role="radio"
+        data-icon-only={!this._hasLabel && !!(this.iconName || this._namedSlots.icon)}
       >
         <input
           type="radio"
@@ -163,11 +164,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
           value={this.value}
         />
         <label
-          class={{
-            'sbb-toggle-option': true,
-            'sbb-toggle-option--icon-only':
-              !this._hasLabel && !!(this.iconName || this._namedSlots.icon),
-          }}
+          class="sbb-toggle-option"
           htmlFor="sbb-toggle-option-id"
           aria-label={this.accessibilityLabel}
         >

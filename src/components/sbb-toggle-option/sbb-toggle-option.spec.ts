@@ -29,10 +29,17 @@ describe('sbb-toggle-option', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-toggle-option aria-checked="true" checked="" icon-name="arrow-right-small" role="radio" tabindex="0">
+      <sbb-toggle-option
+        aria-checked="true"
+        checked=""
+        icon-name="arrow-right-small"
+        role="radio"
+        tabindex="0"
+        data-icon-only
+      >
         <mock:shadow-root>
           <input aria-hidden="true" checked id="sbb-toggle-option-id" tabindex="-1" type="radio">
-          <label class="sbb-toggle-option sbb-toggle-option--icon-only" htmlfor="sbb-toggle-option-id">
+          <label class="sbb-toggle-option" htmlfor="sbb-toggle-option-id">
             <slot name="icon">
               <sbb-icon name="arrow-right-small"></sbb-icon>
             </slot>
