@@ -91,9 +91,7 @@ export class SbbDatepicker implements ComponentInterface {
       this._inputElement.addEventListener(
         'input',
         (event: Event) => this._preventCharInsert(event),
-        {
-          signal: this._datePickerController.signal,
-        }
+        { signal: this._datePickerController.signal }
       );
       this._inputElement.addEventListener('change', (event: Event) => this._valueChanged(event), {
         signal: this._datePickerController.signal,
@@ -118,7 +116,9 @@ export class SbbDatepicker implements ComponentInterface {
   private _isDateValid = true;
 
   private _datePickerController: AbortController;
+
   private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
+
   private _dateAdapter = new NativeDateAdapter();
 
   public connectedCallback(): void {
