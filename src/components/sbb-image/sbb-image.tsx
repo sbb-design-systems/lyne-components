@@ -5,16 +5,6 @@ import {
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
-import {
-  SbbBreakpointLargeMin,
-  SbbBreakpointMediumMin,
-  SbbBreakpointMicroMin,
-  SbbBreakpointSmallMin,
-  SbbBreakpointUltraMin,
-  SbbBreakpointWideMin,
-  SbbBreakpointZeroMin,
-  SbbTypoScaleDefault,
-} from '@sbb-esta/lyne-design-tokens';
 import { hostContext } from '../../global/helpers/host-context';
 
 const eventListenerOptions = {
@@ -251,25 +241,11 @@ export class SbbImage implements ComponentInterface {
   }
 
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    let breakpointSizeNameValue = SbbTypoScaleDefault;
+    const breakpointSizeNameValue = parseFloat(
+      getComputedStyle(this.el).getPropertyValue(`--${breakpointSizeName}`)
+    );
 
-    if (breakpointSizeName === 'sbb-breakpoint-zero-min') {
-      breakpointSizeNameValue = SbbBreakpointZeroMin;
-    } else if (breakpointSizeName === 'sbb-breakpoint-micro-min') {
-      breakpointSizeNameValue = SbbBreakpointMicroMin;
-    } else if (breakpointSizeName === 'sbb-breakpoint-small-min') {
-      breakpointSizeNameValue = SbbBreakpointSmallMin;
-    } else if (breakpointSizeName === 'sbb-breakpoint-medium-min') {
-      breakpointSizeNameValue = SbbBreakpointMediumMin;
-    } else if (breakpointSizeName === 'sbb-breakpoint-large-min') {
-      breakpointSizeNameValue = SbbBreakpointLargeMin;
-    } else if (breakpointSizeName === 'sbb-breakpoint-wide-min') {
-      breakpointSizeNameValue = SbbBreakpointWideMin;
-    } else if (breakpointSizeName === 'sbb-breakpoint-ultra-min') {
-      breakpointSizeNameValue = SbbBreakpointUltraMin;
-    }
-
-    return `${breakpointSizeNameValue / SbbTypoScaleDefault}rem`;
+    return `${breakpointSizeNameValue}rem`;
   }
 
   private _addFocusAbilityToLinksInCaption(): void {
