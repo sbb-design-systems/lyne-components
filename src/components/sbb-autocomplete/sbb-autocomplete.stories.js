@@ -16,6 +16,34 @@ const defaultArgs = {
   value: 'test',
 };
 
+const defaultDecorator = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+      <Story />
+    </div>
+  ),
+];
+
+const aboveDecorator = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Story />
+    </div>
+  ),
+];
+
 const Template = (args) => [
   <sbb-form-field label="Label">
     <input placeholder="Placeholder" />
@@ -51,70 +79,22 @@ const BorderlessTemplate = (args) => [
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
-Basic.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
-      <Story />
-    </div>
-  ),
-];
+Basic.decorators = defaultDecorator;
 
 export const BasicOpenAbove = Template.bind({});
 BasicOpenAbove.argTypes = defaultArgTypes;
 BasicOpenAbove.args = { ...defaultArgs };
-BasicOpenAbove.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Story />
-    </div>
-  ),
-];
+BasicOpenAbove.decorators = aboveDecorator;
 
 export const Borderless = BorderlessTemplate.bind({});
 Borderless.argTypes = defaultArgTypes;
 Borderless.args = { ...defaultArgs };
-Borderless.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
-      <Story />
-    </div>
-  ),
-];
+Borderless.decorators = defaultDecorator;
 
 export const BorderlessOpenAbove = BorderlessTemplate.bind({});
 BorderlessOpenAbove.argTypes = defaultArgTypes;
 BorderlessOpenAbove.args = { ...defaultArgs };
-BorderlessOpenAbove.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Story />
-    </div>
-  ),
-];
+BorderlessOpenAbove.decorators = aboveDecorator;
 
 export default {
   parameters: {
