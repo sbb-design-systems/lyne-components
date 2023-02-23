@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.19](https://github.com/lyne-design-system/lyne-components/compare/v0.26.18...v0.26.19) (2023-02-23)
+
+### Documentation
+
+- change storybook components to a flat structure ([#1628](https://github.com/lyne-design-system/lyne-components/issues/1628)) ([7ad5558](https://github.com/lyne-design-system/lyne-components/commit/7ad55582ebb17ccafcf2bee5d0609e99ac9d3d7d))
+
 ### [0.26.18](https://github.com/lyne-design-system/lyne-components/compare/v0.26.17...v0.26.18) (2023-02-23)
 
 ### Bug Fixes
