@@ -7414,7 +7414,7 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-csstype@^3.0.2, csstype@^3.1.0:
+csstype@^3.0.2, csstype@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
@@ -12076,12 +12076,12 @@ jstransform@^11.0.3:
     array-includes "^3.1.5"
     object.assign "^4.1.3"
 
-jsx-dom@8.0.4:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/jsx-dom/-/jsx-dom-8.0.4.tgz#5b54be02e50ce23917256e417147f43ef93b06d8"
-  integrity sha512-0Hi3w0YwsWTf5qTzoxl9yixREe1h3MzANVg8KUXbm0XinNXqWFqUlXqFm18r+Zr9zplAlbryYma4iGR60Fv4yQ==
+jsx-dom@8.0.5:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/jsx-dom/-/jsx-dom-8.0.5.tgz#63b45ae2c583bec37c4e1003e608e5658c2b0f32"
+  integrity sha512-Dt4PLuFFm16Qj1TH0GSx6LdrfnrPSh5lEHG87Hd4lv9nDWGD3ZtUdp5RXH7GyEWI0E+19eoUDFcyO5dnJQ/4IQ==
   dependencies:
-    csstype "^3.1.0"
+    csstype "^3.1.1"
 
 jsx-transform@2.4.1:
   version "2.4.1"
