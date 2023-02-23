@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.16](https://github.com/lyne-design-system/lyne-components/compare/v0.26.15...v0.26.16) (2023-02-23)
+
+### Refactorings
+
+- improve scroll handling mechanism ([#1634](https://github.com/lyne-design-system/lyne-components/issues/1634)) ([7222c56](https://github.com/lyne-design-system/lyne-components/commit/7222c56c1cc34a252692f0a70306e1ec74bd9a77))
+
 ### [0.26.15](https://github.com/lyne-design-system/lyne-components/compare/v0.26.14...v0.26.15) (2023-02-23)
 
 ### Features
