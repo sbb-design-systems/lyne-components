@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.13](https://github.com/lyne-design-system/lyne-components/compare/v0.26.12...v0.26.13) (2023-02-23)
+
+### Refactorings
+
+- **sbb-link:** expose gap as CSS var ([#1640](https://github.com/lyne-design-system/lyne-components/issues/1640)) ([82327e6](https://github.com/lyne-design-system/lyne-components/commit/82327e60df81de70128bd0cd97d71a5dfb9f8eba))
+
 ### [0.26.12](https://github.com/lyne-design-system/lyne-components/compare/v0.26.11...v0.26.12) (2023-02-22)
 
 ### Bug Fixes
