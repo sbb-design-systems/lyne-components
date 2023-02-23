@@ -87,19 +87,19 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   public render(): JSX.Element {
     return (
       <Host>
-        <input
-          id="sbb-toggle-check-input"
-          type="checkbox"
-          name={this.name}
-          disabled={this.disabled}
-          aria-disabled={this.disabled}
-          required={this.required}
-          checked={this.checked}
-          value={this.value}
-          onChange={(event: Event): void => this.checkedChanged(event)}
-          aria-label={this.accessibilityLabel}
-        />
-        <label class="sbb-toggle-check" htmlFor="sbb-toggle-check-input">
+        <label class="sbb-toggle-check">
+          <input
+            id="sbb-toggle-check-input"
+            type="checkbox"
+            name={this.name}
+            disabled={this.disabled}
+            aria-disabled={this.disabled}
+            required={this.required}
+            checked={this.checked}
+            value={this.value}
+            onChange={(event: Event): void => this.checkedChanged(event)}
+            aria-label={this.accessibilityLabel}
+          />
           <span class="sbb-toggle-check__container">
             <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
               <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
