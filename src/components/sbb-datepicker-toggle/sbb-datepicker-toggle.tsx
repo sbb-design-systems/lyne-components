@@ -55,7 +55,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    this._datePickerController.abort();
+    this._datePickerController?.abort();
   }
 
   private async _init(trigger?: string | HTMLElement): Promise<void> {

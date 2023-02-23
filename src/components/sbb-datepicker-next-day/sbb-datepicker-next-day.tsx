@@ -50,7 +50,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    this._datePickerController.abort();
+    this._datePickerController?.abort();
   }
 
   private _init(trigger?: string | HTMLElement): void {

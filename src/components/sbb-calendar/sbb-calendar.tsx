@@ -366,6 +366,7 @@ export class SbbCalendar implements ComponentInterface {
             size="m"
             onClick={() => this._previousMonthClicked()}
             disabled={this._previousMonthEnabled()}
+            id="sbb-calendar__controls-previous"
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
             {this._createMonthLabel(this._activeDate)}
@@ -378,6 +379,7 @@ export class SbbCalendar implements ComponentInterface {
             size="m"
             onClick={() => this._nextMonthClicked()}
             disabled={this._nextMonthEnabled()}
+            id="sbb-calendar__controls-next"
           ></sbb-button>
         </div>
         <div class="sbb-calendar__table-container">

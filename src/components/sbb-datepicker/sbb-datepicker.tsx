@@ -80,6 +80,10 @@ export class SbbDatepicker implements ComponentInterface {
       this._datePickerController?.abort();
       this._datePickerController = new AbortController();
 
+      if (!this._inputElement) {
+        return;
+      }
+      
       this._inputObserver?.disconnect();
       this._inputObserver.observe(this._inputElement, {
         attributeFilter: ['disabled', 'readonly'],
