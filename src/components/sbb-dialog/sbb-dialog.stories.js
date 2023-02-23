@@ -193,10 +193,7 @@ const SlottedTitleTemplate = (args) => [
   triggerButton('my-dialog-2'),
   <sbb-dialog data-testid="dialog" id="my-dialog-2" {...args}>
     <span slot="title">
-      <sbb-icon
-        name="book-medium"
-        style={'vertical-align: sub; margin-inline-end: 0.5rem;'}
-      ></sbb-icon>
+      <sbb-icon name="book-medium" style={'margin-inline-end: 0.5rem;'}></sbb-icon>
       The Catcher in the Rye
     </span>
     <p id="dialog-content-2" style={'margin: 0'}>
