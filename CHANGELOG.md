@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.15](https://github.com/lyne-design-system/lyne-components/compare/v0.26.14...v0.26.15) (2023-02-23)
+
+### Features
+
+- **sbb-icon:** reserve dimensions for default icons during loading ([#1636](https://github.com/lyne-design-system/lyne-components/issues/1636)) ([a6e8aee](https://github.com/lyne-design-system/lyne-components/commit/a6e8aee3eac1064bad5d80776c60ca4f405d2a8a))
+
 ### [0.26.14](https://github.com/lyne-design-system/lyne-components/compare/v0.26.13...v0.26.14) (2023-02-23)
 
 ### Bug Fixes
