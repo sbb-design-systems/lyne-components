@@ -199,7 +199,7 @@ export class SbbToggle implements ComponentInterface {
         enabledToggleOptions[nextIndex].checked = true;
         enabledToggleOptions[nextIndex].focus();
         enabledToggleOptions[nextIndex].dispatchEvent(
-          new InputEvent('input', { bubbles: true, composed: true})
+          new InputEvent('input', { bubbles: true, composed: true })
         );
       }
       evt.preventDefault();
