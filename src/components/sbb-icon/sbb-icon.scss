@@ -7,14 +7,24 @@
 :host {
   display: inline-block;
   line-height: 0;
-  margin-inline: var(--sbb-icon-margin-inline);
-  margin-block: var(--sbb-icon-margin-block);
   -webkit-tap-highlight-color: transparent;
 }
 
+:host([data-empty][data-namespace='default'][name$='-small']) {
+  --sbb-icon-default-dimension: var(--sbb-size-icon-ui-small);
+}
+
+:host([data-empty][data-namespace='default'][name$='-medium']) {
+  --sbb-icon-default-dimension: var(--sbb-size-icon-ui-medium);
+}
+
+:host([data-empty][data-namespace='default'][name$='-large']) {
+  --sbb-icon-default-dimension: var(--sbb-size-icon-ui-large);
+}
+
 svg {
-  width: var(--sbb-icon-svg-width);
-  height: var(--sbb-icon-svg-height);
+  width: var(--sbb-icon-svg-width, var(--sbb-icon-default-dimension));
+  height: var(--sbb-icon-svg-height, var(--sbb-icon-default-dimension));
   stroke: var(--sbb-icon-svg-stroke-color);
   stroke-width: var(--sbb-icon-svg-stroke-width);
 

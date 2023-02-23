@@ -31,7 +31,7 @@ describe('sbb-slider', () => {
           <div class="sbb-slider__height-container">
             <div class="sbb-slider__wrapper">
               <slot name="prefix">
-                <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-slow-small" name="walk-slow-small" role="img"></sbb-icon>
+                <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="walk-slow-small" role="img"></sbb-icon>
               </slot>
               <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.75;">
                 <input class="sbb-slider__range-input" max="500" min="100" type="range">
@@ -41,7 +41,7 @@ describe('sbb-slider', () => {
                 <div class="sbb-slider__knob"></div>
               </div>
               <slot name="suffix">
-                <sbb-icon aria-hidden="true" class="hydrated sbb-icon walk-fast-small" name="walk-fast-small" role="img"></sbb-icon>
+                <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="walk-fast-small" role="img"></sbb-icon>
               </slot>
             </div>
           </div>

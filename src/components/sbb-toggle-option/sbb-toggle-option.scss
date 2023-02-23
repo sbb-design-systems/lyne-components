@@ -45,10 +45,6 @@ input[type='radio'] {
   padding-inline: var(--sbb-toggle-padding-inline);
   border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
-
-  &:not(.sbb-toggle-option--icon-only) {
-    --sbb-icon-margin-inline: 0 var(--sbb-spacing-fixed-1x);
-  }
 }
 
 .sbb-toggle-option__label {
@@ -72,4 +68,8 @@ sbb-icon,
 ::slotted(sbb-icon) {
   min-width: var(--sbb-toggle-option-icon-min-size);
   min-height: var(--sbb-toggle-option-icon-min-size);
+
+  :host(:not([data-icon-only])) & {
+    margin-inline: 0 var(--sbb-spacing-fixed-1x);
+  }
 }

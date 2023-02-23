@@ -19,7 +19,8 @@ import { validateContent } from './validate';
 })
 export class SbbIcon implements ComponentInterface {
   private _svgName: string;
-  private _svgNamespace = 'default';
+
+  @State() private _svgNamespace = 'default';
 
   @Element() private _element!: HTMLElement;
 
@@ -135,11 +136,14 @@ export class SbbIcon implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="img" class={`sbb-icon ${this._svgName ?? ''}`}>
+      <Host role="img" data-namespace={this._svgNamespace} data-empty={!this._svgIcon}>
         {this._svgIcon ? (
           <span class="sbb-icon-inner" innerHTML={this._svgIcon}></span>
         ) : (
-          <span class="sbb-icon-inner"></span>
+          <span class="sbb-icon-inner">
+            {/* To reserve space, we need an empty svg to apply dimension to. */}
+            <svg width="0" height="0"></svg>
+          </span>
         )}
       </Host>
     );
