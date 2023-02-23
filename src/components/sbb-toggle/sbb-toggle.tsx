@@ -106,8 +106,8 @@ export class SbbToggle implements ComponentInterface {
     ) as HTMLSbbToggleOptionElement[];
   }
 
-  @Listen('did-select', { passive: true })
-  public onToggleOptionSelect(): void {
+  @Listen('input', { passive: true })
+  public handleInput(): void {
     this._emitChange();
   }
 
@@ -138,25 +138,27 @@ export class SbbToggle implements ComponentInterface {
   }
 
   private _setCheckedPillPosition(resizing: boolean): void {
-    if (this._options.every((o) => !o.checked) || !this._toggleElement) {
+    const options = this._options;
+
+    if (options.every((o) => !o.checked) || !this._toggleElement) {
       return;
     }
 
     toggleDatasetEntry(this._element, 'disableAnimationOnResizing', resizing);
 
-    const firstOption = this._options[0];
+    const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
     const pillLeft = firstOption.checked ? '0px' : `${firstOption.clientWidth}px`;
-    const pillRigth = isFirstChecked
+    const pillRight = isFirstChecked
       ? `${this._toggleElement.clientWidth - firstOption.clientWidth}px`
       : '0px';
 
     this._element.style.setProperty('--sbb-toggle-option-left', pillLeft);
-    this._element.style.setProperty('--sbb-toggle-option-right', pillRigth);
+    this._element.style.setProperty('--sbb-toggle-option-right', pillRight);
   }
 
   public connectedCallback(): void {
-    this._toggleResizeObserver.observe(this._element.querySelector('sbb-toggle-option'));
+    this._options.forEach((option) => this._toggleResizeObserver.observe(option));
     this._updateToggle();
   }
 
@@ -194,8 +196,11 @@ export class SbbToggle implements ComponentInterface {
       const current: number = checked !== -1 ? checked : 0;
       const nextIndex: number = getNextElementIndex(evt, current, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {
+        enabledToggleOptions[nextIndex].checked = true;
         enabledToggleOptions[nextIndex].focus();
-        enabledToggleOptions[nextIndex].shadowRoot.querySelector('input').click();
+        enabledToggleOptions[nextIndex].dispatchEvent(
+          new InputEvent('input', { bubbles: true, composed: true})
+        );
       }
       evt.preventDefault();
     }

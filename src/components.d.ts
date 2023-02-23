@@ -3824,10 +3824,6 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Emits whenever the toggle-option value changes.
-         */
-        "onDid-select"?: (event: SbbToggleOptionCustomEvent<any>) => void;
-        /**
           * Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes.
          */
         "onState-change"?: (event: SbbToggleOptionCustomEvent<StateChange>) => void;

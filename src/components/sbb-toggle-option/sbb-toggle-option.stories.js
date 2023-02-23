@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-toggle-option.events';
 
 const label = {
   control: {
@@ -101,7 +100,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.didSelect],
+      handles: ['input'],
     },
     backgrounds: {
       disable: true,
