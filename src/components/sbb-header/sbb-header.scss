@@ -99,7 +99,10 @@
   display: block;
   padding-block: var(--sbb-spacing-fixed-3x);
   position: relative;
-  outline: none;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
 
 // To show the correct outline, we need to span a hidden element filling the link but without the outline-offset.
