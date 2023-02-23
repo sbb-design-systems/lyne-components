@@ -3,7 +3,7 @@ import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './sbb-accordion-item.events';
 import { guid } from './guid';
 import { InterfaceAccordionItemAttributes } from './sbb-accordion-item.custom';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
+import { SbbTypoScaleDefault } from '@sbb-esta/lyne-design-tokens';
 
 const iconSlotName = 'icon';
 
@@ -141,8 +141,7 @@ export class SbbAccordionItem implements ComponentInterface {
       this._accordionBody.style.setProperty('display', 'block');
       this._accordionBody.style.setProperty('opacity', '0');
 
-      newHeight =
-        this._accordionBody.getBoundingClientRect().height / tokens['sbb-typo-scale-default'];
+      newHeight = this._accordionBody.getBoundingClientRect().height / SbbTypoScaleDefault;
 
       newOpacity = '1';
 

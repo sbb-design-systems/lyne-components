@@ -5,7 +5,6 @@ import {
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
 import { hostContext } from '../../global/helpers/host-context';
 
 const eventListenerOptions = {
@@ -242,9 +241,7 @@ export class SbbImage implements ComponentInterface {
   }
 
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    const breakpointSizeNameValue = tokens[breakpointSizeName];
-
-    return `${breakpointSizeNameValue / tokens['sbb-typo-scale-default']}rem`;
+    return getComputedStyle(this.el).getPropertyValue(`--${breakpointSizeName}`)?.trim();
   }
 
   private _addFocusAbilityToLinksInCaption(): void {
