@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.17](https://github.com/lyne-design-system/lyne-components/compare/v0.26.16...v0.26.17) (2023-02-23)
+
+### Bug Fixes
+
+- **sbb-toggle-check:** scroll into view when focused via tab key ([#1643](https://github.com/lyne-design-system/lyne-components/issues/1643)) ([4f073d0](https://github.com/lyne-design-system/lyne-components/commit/4f073d09304023ef1a76e853f44be10d70180fd3))
+- **sbb-toggle:** send event on keyboard selection ([#1642](https://github.com/lyne-design-system/lyne-components/issues/1642)) ([df85046](https://github.com/lyne-design-system/lyne-components/commit/df85046d40245ebbdd2cf196c6bebd4c1fa4600a)), closes [#1641](https://github.com/lyne-design-system/lyne-components/issues/1641)
+
 ### [0.26.16](https://github.com/lyne-design-system/lyne-components/compare/v0.26.15...v0.26.16) (2023-02-23)
 
 ### Refactorings
