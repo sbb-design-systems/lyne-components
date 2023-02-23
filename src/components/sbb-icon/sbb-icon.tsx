@@ -138,9 +138,9 @@ export class SbbIcon implements ComponentInterface {
     return (
       <Host role="img" data-namespace={this._svgNamespace} data-empty={!this._svgIcon}>
         {this._svgIcon ? (
-          <span class="sbb-icon-inner" innerHTML={this._svgIcon}></span>
+          <span class="sbb-icon__container" innerHTML={this._svgIcon}></span>
         ) : (
-          <span class="sbb-icon-inner">
+          <span class="sbb-icon__container">
             {/* To reserve space, we need an empty svg to apply dimension to. */}
             <svg width="0" height="0"></svg>
           </span>

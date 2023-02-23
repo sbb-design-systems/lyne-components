@@ -6,7 +6,6 @@
 
 :host {
   display: inline-block;
-  line-height: 0;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -20,6 +19,11 @@
 
 :host([data-empty][data-namespace='default'][name$='-large']) {
   --sbb-icon-default-dimension: var(--sbb-size-icon-ui-large);
+}
+
+.sbb-icon__container {
+  display: flex;
+  @include sbb.zero-width-space;
 }
 
 svg {
