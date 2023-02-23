@@ -1,5 +1,4 @@
 @use './mixins/helpers';
-@use './mixins/typo';
 
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -101,18 +100,6 @@ Add the correct font size in all browsers.
 
 small {
   font-size: 80%;
-}
-
-/**
-Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
-*/
-
-sub {
-  @include typo.sub;
-}
-
-sup {
-  @include typo.sup;
 }
 
 /*
