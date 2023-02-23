@@ -25,7 +25,7 @@ import {
   focusActionElement,
   forwardHostEvent,
 } from '../../global/interfaces/link-button-properties';
-import { StateChange } from './sbb-tag.custom';
+import { TagStateChange } from './sbb-tag.custom';
 
 /**
  * @slot unnamed - This slot will show the provided tag label.
@@ -86,7 +86,7 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
     bubbles: true,
     eventName: 'state-change',
   })
-  public stateChange: EventEmitter<StateChange>;
+  public stateChange: EventEmitter<TagStateChange>;
 
   /** Input event emitter */
   @Event({ bubbles: true, composed: true }) public input: EventEmitter;

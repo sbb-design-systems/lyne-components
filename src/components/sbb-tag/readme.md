@@ -61,12 +61,12 @@ This internal checkbox receives focus and is automatically labelled by the text 
 
 ## Events
 
-| Event          | Description                                                                                                                         | Type                                                  |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `change`       | Change event emitter                                                                                                                | `CustomEvent<any>`                                    |
-| `didChange`    | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                                    |
-| `input`        | Input event emitter                                                                                                                 | `CustomEvent<any>`                                    |
-| `state-change` | Internal event that emits whenever the state of the tag in relation to the parent toggle changes.                                   | `CustomEvent<StateChangeChecked \| StateChangeValue>` |
+| Event          | Description                                                                                                                         | Type                                                        |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `change`       | Change event emitter                                                                                                                | `CustomEvent<any>`                                          |
+| `didChange`    | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                                          |
+| `input`        | Input event emitter                                                                                                                 | `CustomEvent<any>`                                          |
+| `state-change` | Internal event that emits whenever the state of the tag in relation to the parent toggle changes.                                   | `CustomEvent<TagStateChangeChecked \| TagStateChangeValue>` |
 
 
 ## Slots

@@ -9,7 +9,7 @@ import {
   Prop,
   Watch,
 } from '@stencil/core';
-import { StateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
+import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
 
 /**
  * @slot unnamed - Provide one or more 'sbb-tag' to add to the group.
@@ -22,8 +22,19 @@ import { StateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
 export class SbbTagGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
+  /**
+   * If set multiple to false, the selection is exclusive and the value is a string (or null).
+   * If set multiple to true, the selection can have multiple values and therefore value is an array.
+   *
+   * Changing multiple during run time is not supported.
+   */
   @Prop() public multiple = false;
 
+  /**
+   * Value of the sbb-tag-group.
+   * If set multiple to false, the value is a string (or null).
+   * If set multiple to true, the value is an array.
+   */
   @Prop({ mutable: true }) public value: string | string[] | null = null;
 
   @Watch('value')
@@ -70,7 +81,7 @@ export class SbbTagGroup implements ComponentInterface {
   }
 
   @Listen('state-change', { passive: true })
-  public handleStateChange(event: CustomEvent<StateChange>): void {
+  public handleStateChange(event: CustomEvent<TagStateChange>): void {
     const target: HTMLSbbTagElement = event.target as HTMLSbbTagElement;
     event.stopPropagation();
 

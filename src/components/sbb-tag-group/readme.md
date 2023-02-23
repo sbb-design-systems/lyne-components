@@ -33,10 +33,10 @@ Basic usage:
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                 | Default |
-| ---------- | ---------- | ----------- | -------------------- | ------- |
-| `multiple` | `multiple` |             | `boolean`            | `false` |
-| `value`    | `value`    |             | `string \| string[]` | `null`  |
+| Property   | Attribute  | Description                                                                                                                                                                                                                                     | Type                 | Default |
+| ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------- |
+| `multiple` | `multiple` | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array.  Changing multiple during run time is not supported. | `boolean`            | `false` |
+| `value`    | `value`    | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                          | `string \| string[]` | `null`  |
 
 
 ## Slots

@@ -28,9 +28,9 @@ The `<sbb-toggle-option>` component is used inside the `<sbb-toggle>` in order t
 
 ## Events
 
-| Event          | Description                                                                                                 | Type                                                  |
-| -------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `state-change` | Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes. | `CustomEvent<StateChangeChecked \| StateChangeValue>` |
+| Event          | Description                                                                                                 | Type                                                                          |
+| -------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `state-change` | Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes. | `CustomEvent<ToggleOptionStateChangeChecked \| ToggleOptionStateChangeValue>` |
 
 
 ## Slots

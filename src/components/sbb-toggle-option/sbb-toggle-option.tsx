@@ -18,7 +18,7 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { StateChange } from './sbb-toggle-option.custom';
+import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
 
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.
@@ -78,7 +78,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
     bubbles: true,
     eventName: 'state-change',
   })
-  public stateChange: EventEmitter<StateChange>;
+  public stateChange: EventEmitter<ToggleOptionStateChange>;
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {

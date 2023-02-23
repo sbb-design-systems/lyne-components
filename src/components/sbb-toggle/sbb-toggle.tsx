@@ -15,7 +15,7 @@ import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { StateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
+import { ToggleOptionStateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
@@ -112,7 +112,7 @@ export class SbbToggle implements ComponentInterface {
   }
 
   @Listen('state-change', { passive: true })
-  public handleStateChange(event: CustomEvent<StateChange>): void {
+  public handleStateChange(event: CustomEvent<ToggleOptionStateChange>): void {
     const target: HTMLSbbToggleOptionElement = event.target as HTMLSbbToggleOptionElement;
     event.stopPropagation();
     if (event.detail.type === 'value') {

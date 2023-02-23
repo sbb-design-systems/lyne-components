@@ -1,11 +1,11 @@
-export type StateChange = StateChangeChecked | StateChangeValue;
+export type TagStateChange = TagStateChangeChecked | TagStateChangeValue;
 
-export interface StateChangeValue {
+export interface TagStateChangeValue {
   type: 'value';
   value: string;
 }
 
-export interface StateChangeChecked {
+export interface TagStateChangeChecked {
   type: 'checked';
   checked: boolean;
 }
