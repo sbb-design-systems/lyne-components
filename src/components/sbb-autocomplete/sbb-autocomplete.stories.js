@@ -49,13 +49,19 @@ const Template = (args) => [
     <input placeholder="Placeholder" />
 
     <sbb-autocomplete {...args}>
-      <sbb-option icon-name="clock-small">Option 1</sbb-option>
-      <sbb-option icon-name="clock-small">Option 2</sbb-option>
+      <sbb-option icon-name="clock-small" value="Option 1">
+        Option 1
+      </sbb-option>
+      <sbb-option icon-name="clock-small" value="Option 2">
+        Option 2
+      </sbb-option>
       <sbb-divider />
-      <sbb-option icon-name="clock-small">Option 3</sbb-option>
+      <sbb-option icon-name="clock-small" value="Option 3">
+        Option 3
+      </sbb-option>
       <sbb-divider />
-      <sbb-option>Option 4</sbb-option>
-      <sbb-option>Option 5</sbb-option>
+      <sbb-option value="Option 4">Option 4</sbb-option>
+      <sbb-option value="Option 5">Option 5</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>,
 ];
