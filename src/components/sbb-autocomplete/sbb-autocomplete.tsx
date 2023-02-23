@@ -214,6 +214,12 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
+    if (this._originElement.hasAttribute('borderless')) {
+      this._element.setAttribute('data-autocomplete-origin-borderless', 'true');
+    } else {
+      this._element.setAttribute('data-autocomplete-origin-borderless', 'false');
+    }
+
     // Reset aria attributes to the old trigger and add them to the new one
     this._removeAriaAttributes(this._triggerElement);
     this._setAriaAttributes(triggerElem);
