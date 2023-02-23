@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.18](https://github.com/lyne-design-system/lyne-components/compare/v0.26.17...v0.26.18) (2023-02-23)
+
+### Bug Fixes
+
+- fix CSS specificity of `outline: none` ([#1644](https://github.com/lyne-design-system/lyne-components/issues/1644)) ([f362d71](https://github.com/lyne-design-system/lyne-components/commit/f362d71eea8397dbd4cc7d5529d85c62cdf4f7da))
+
 ### [0.26.17](https://github.com/lyne-design-system/lyne-components/compare/v0.26.16...v0.26.17) (2023-02-23)
 
 ### Bug Fixes
