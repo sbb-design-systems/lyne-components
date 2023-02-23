@@ -71,16 +71,6 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   private _toggle?: HTMLSbbToggleElement;
 
   /**
-   * Emits whenever the toggle-option value changes.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-select',
-  })
-  public didSelect: EventEmitter<any>;
-
-  /**
    * Internal event that emits whenever the state of the toggle option
    * in relation to the parent toggle changes.
    */
@@ -126,7 +116,6 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
     }
 
     this.checked = true;
-    this.didSelect.emit();
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -162,6 +151,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
           disabled={this.disabled}
           checked={this.checked}
           value={this.value}
+          onClick={(event) => event.stopPropagation()}
         />
         <label
           class="sbb-toggle-option"

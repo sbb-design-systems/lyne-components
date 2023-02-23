@@ -1,5 +1,4 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-toggle-option.events';
 
 describe('sbb-toggle-option', () => {
   let element: E2EElement, page: E2EPage;
@@ -16,28 +15,28 @@ describe('sbb-toggle-option', () => {
   });
 
   it('selects the sbb-toggle-option on click', async () => {
-    const didSelect = await page.spyOnEvent(events.didSelect);
+    const onInput = await page.spyOnEvent('input');
 
     await element.click();
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    expect(onInput).toHaveReceivedEventTimes(1);
   });
 
   it('does not deselect sbb-toggle-option if already checked', async () => {
-    const didSelect = await page.spyOnEvent(events.didSelect);
+    const onInput = await page.spyOnEvent('input');
 
     await element.click();
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    expect(onInput).toHaveReceivedEventTimes(1);
 
     await element.click();
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    expect(onInput).toHaveReceivedEventTimes(1);
   });
 });

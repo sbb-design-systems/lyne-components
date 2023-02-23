@@ -30,7 +30,6 @@ The `<sbb-toggle-option>` component is used inside the `<sbb-toggle>` in order t
 
 | Event          | Description                                                                                                 | Type                                                  |
 | -------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| `did-select`   | Emits whenever the toggle-option value changes.                                                             | `CustomEvent<any>`                                    |
 | `state-change` | Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes. | `CustomEvent<StateChangeChecked \| StateChangeValue>` |
 
 

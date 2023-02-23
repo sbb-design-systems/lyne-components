@@ -21,26 +21,26 @@ describe('sbb-toggle', () => {
   describe('events', () => {
     it('selects option on click', async () => {
       const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
-      const secondOoption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
+      const secondOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
 
       expect(firstOption).toHaveAttribute('checked');
 
-      await secondOoption.click();
+      await secondOption.click();
 
-      expect(secondOoption).toHaveAttribute('checked');
+      expect(secondOption).toHaveAttribute('checked');
       expect(firstOption).not.toHaveAttribute('checked');
     });
 
     it('selects option on checked attribute change', async () => {
       const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
-      const secondOoption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
+      const secondOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
 
       expect(firstOption).toHaveAttribute('checked');
 
-      secondOoption.setAttribute('checked', '');
+      secondOption.setAttribute('checked', '');
       await page.waitForChanges();
 
-      expect(secondOoption).toHaveAttribute('checked');
+      expect(secondOption).toHaveAttribute('checked');
       expect(firstOption).not.toHaveAttribute('checked');
     });
 
@@ -48,9 +48,11 @@ describe('sbb-toggle', () => {
       const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
       const secondOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
       const changeSpy = await page.spyOnEvent('change');
+      const inputSpy = await page.spyOnEvent('input');
 
       await secondOption.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstOption.click();
       expect(firstOption).toHaveAttribute('checked');
@@ -78,15 +80,18 @@ describe('sbb-toggle', () => {
     });
 
     it('selects option on left arrow key pressed', async () => {
+      const changeSpy = await page.spyOnEvent('change');
+      const inputSpy = await page.spyOnEvent('input');
       const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
+      const secondOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
 
       await firstOption.click();
       await page.keyboard.down('ArrowLeft');
-
       await page.waitForChanges();
-      const secondOoption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
 
-      expect(secondOoption).toHaveAttribute('checked');
+      expect(secondOption).toHaveAttribute('checked');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstOption.click();
       await page.waitForChanges();
@@ -95,15 +100,18 @@ describe('sbb-toggle', () => {
     });
 
     it('selects option on right arrow key pressed', async () => {
+      const changeSpy = await page.spyOnEvent('change');
+      const inputSpy = await page.spyOnEvent('input');
       const firstOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-1');
+      const secondOption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
 
       await firstOption.click();
       await page.keyboard.down('ArrowRight');
-
       await page.waitForChanges();
-      const secondOoption = await page.find('sbb-toggle > sbb-toggle-option#sbb-toggle-option-2');
 
-      expect(secondOoption).toHaveAttribute('checked');
+      expect(secondOption).toHaveAttribute('checked');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstOption.click();
       await page.waitForChanges();
