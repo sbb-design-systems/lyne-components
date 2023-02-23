@@ -46,9 +46,6 @@ describe('sbb-toggle-check', () => {
 
       // Although the inner native button receives the focus, the active element is the host
       expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-        'sbb-toggle-check-input'
-      );
     });
   });
 });

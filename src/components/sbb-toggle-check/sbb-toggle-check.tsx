@@ -13,7 +13,10 @@ import {
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+import {
+  AccessibilityProperties,
+  getAccessibilityAttributeList,
+} from '../../global/interfaces/accessibility-properties';
 import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
 import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
@@ -89,7 +92,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
       <Host>
         <label class="sbb-toggle-check">
           <input
-            id="sbb-toggle-check-input"
             type="checkbox"
             name={this.name}
             disabled={this.disabled}
@@ -98,7 +100,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
             checked={this.checked}
             value={this.value}
             onChange={(event: Event): void => this.checkedChanged(event)}
-            aria-label={this.accessibilityLabel}
+            {...getAccessibilityAttributeList(this)}
           />
           <span class="sbb-toggle-check__container">
             <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
