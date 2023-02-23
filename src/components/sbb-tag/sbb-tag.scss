@@ -23,7 +23,6 @@
 
   display: inline-block;
   max-width: 100%;
-  -webkit-tap-highlight-color: transparent;
 }
 
 // Active state
@@ -53,25 +52,22 @@
   --sbb-tag-border-color: var(--sbb-color-platinum-default);
 }
 
-.sbb-tag__wrapper {
-  position: relative;
-  user-select: none;
-}
-
 .sbb-tag {
+  @include sbb.button-reset;
   @include sbb.text-xs--bold;
 
   position: relative;
-  margin: 0;
   display: flex;
   align-items: center;
   height: var(--sbb-tag-height);
+  max-width: 100%;
   gap: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-fixed-5x);
   cursor: pointer;
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
+  -webkit-tap-highlight-color: transparent;
 
   // Pressed state
   &:active {
@@ -91,6 +87,10 @@
     transition-duration: var(--sbb-tag-animation-duration);
     transition-timing-function: var(--sbb-tag-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
+  }
+
+  &:focus-visible::before {
+    @include sbb.focus-outline;
   }
 
   :host([disabled]:not([disabled='false'])) & {
@@ -136,12 +136,4 @@
   transition: transform var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   transform: var(--sbb-tag-transition);
   will-change: transform;
-}
-
-input[type='checkbox'] {
-  @include sbb.invisible-container-overlay;
-}
-
-input[type='checkbox']:focus-visible + .sbb-tag::before {
-  @include sbb.focus-outline;
 }

@@ -137,7 +137,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change'],
+      handles: ['input', 'change'],
     },
     docs: {
       extractComponentDescription: () => readme,

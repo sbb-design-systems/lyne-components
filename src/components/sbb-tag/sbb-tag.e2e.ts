@@ -5,7 +5,7 @@ describe('sbb-tag', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-tag>Tag</sbb-tag>');
+    await page.setContent('<sbb-tag value="tag">Tag</sbb-tag>');
     element = await page.find('sbb-tag');
   });
 
@@ -13,22 +13,47 @@ describe('sbb-tag', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('checked on click', async () => {
+  it('should be checked after click', async () => {
     expect(element).toEqualAttribute('checked', null);
     const changeSpy: EventSpy = await page.spyOnEvent('change');
+    const inputSpy: EventSpy = await page.spyOnEvent('input');
+
     await element.click();
+
     await page.waitForChanges();
     expect(changeSpy).toHaveReceivedEvent();
+    expect(inputSpy).toHaveReceivedEvent();
     expect(element).toEqualAttribute('checked', '');
   });
 
-  it('checked on "Space" keypress', async () => {
+  it('should be checked after "Space" keypress', async () => {
     expect(element).toEqualAttribute('checked', null);
     const changeSpy: EventSpy = await page.spyOnEvent('change');
+    const inputSpy: EventSpy = await page.spyOnEvent('input');
+
     await element.focus();
     await element.press('Space');
+
     await page.waitForChanges();
     expect(changeSpy).toHaveReceivedEvent();
+    expect(inputSpy).toHaveReceivedEvent();
     expect(element).toEqualAttribute('checked', '');
+  });
+
+  it('should be unchecked after "Space" keypress', async () => {
+    page = await newE2EPage();
+    await page.setContent('<sbb-tag value="tag" checked>Tag</sbb-tag>');
+    element = await page.find('sbb-tag');
+
+    const changeSpy: EventSpy = await page.spyOnEvent('change');
+    const inputSpy: EventSpy = await page.spyOnEvent('input');
+
+    await element.focus();
+    await element.press('Space');
+
+    await page.waitForChanges();
+    expect(changeSpy).toHaveReceivedEvent();
+    expect(inputSpy).toHaveReceivedEvent();
+    expect(element).toEqualAttribute('checked', null);
   });
 });

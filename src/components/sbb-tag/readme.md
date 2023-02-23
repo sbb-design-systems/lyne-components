@@ -51,19 +51,22 @@ This internal checkbox receives focus and is automatically labelled by the text 
 
 | Property             | Attribute             | Description                                                                                                                                         | Type      | Default     |
 | -------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | The aria-label prop for the hidden input.                                                                                                           | `string`  | `undefined` |
+| `accessibilityLabel` | `accessibility-label` | The aria-label prop for tag action element.                                                                                                         | `string`  | `undefined` |
 | `amount`             | `amount`              | Amount displayed inside the tag.                                                                                                                    | `string`  | `undefined` |
-| `checked`            | `checked`             | Whether the internal hidden checkbox is checked.                                                                                                    | `boolean` | `undefined` |
-| `disabled`           | `disabled`            | Whether the internal hidden checkbox is disabled.                                                                                                   | `boolean` | `false`     |
+| `checked`            | `checked`             | Whether the toggle is checked.                                                                                                                      | `boolean` | `false`     |
+| `disabled`           | `disabled`            | Whether the tag is disabled.                                                                                                                        | `boolean` | `false`     |
 | `iconName`           | `icon-name`           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined` |
-| `value`              | `value`               | Value of internal hidden checkbox.                                                                                                                  | `string`  | `undefined` |
+| `value`              | `value`               | Value of the tag.                                                                                                                                   | `string`  | `undefined` |
 
 
 ## Events
 
-| Event       | Description                                                                                                                         | Type               |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+| Event          | Description                                                                                                                         | Type                                                  |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `change`       | Change event emitter                                                                                                                | `CustomEvent<any>`                                    |
+| `didChange`    | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                                    |
+| `input`        | Input event emitter                                                                                                                 | `CustomEvent<any>`                                    |
+| `state-change` | Internal event that emits whenever the state of the tag in relation to the parent toggle changes.                                   | `CustomEvent<StateChangeChecked \| StateChangeValue>` |
 
 
 ## Slots

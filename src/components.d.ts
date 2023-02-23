@@ -35,6 +35,7 @@ import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
+import { StateChange } from "./components/sbb-tag/sbb-tag.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
@@ -42,7 +43,7 @@ import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
-import { StateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+import { StateChange as StateChange1 } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
@@ -75,6 +76,7 @@ export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
+export { StateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 export { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
@@ -82,7 +84,7 @@ export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
-export { StateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+export { StateChange as StateChange1 } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {
@@ -1266,7 +1268,7 @@ export namespace Components {
     }
     interface SbbTag {
         /**
-          * The aria-label prop for the hidden input.
+          * The aria-label prop for tag action element.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -1274,11 +1276,11 @@ export namespace Components {
          */
         "amount"?: string;
         /**
-          * Whether the internal hidden checkbox is checked.
+          * Whether the toggle is checked.
          */
         "checked": boolean;
         /**
-          * Whether the internal hidden checkbox is disabled.
+          * Whether the tag is disabled.
          */
         "disabled": boolean;
         /**
@@ -1286,11 +1288,13 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * Value of internal hidden checkbox.
+          * Value of the tag.
          */
         "value"?: string;
     }
     interface SbbTagGroup {
+        "multiple": boolean;
+        "value": string | string[] | null;
     }
     interface SbbTeaser {
         /**
@@ -3492,7 +3496,7 @@ declare namespace LocalJSX {
     }
     interface SbbTag {
         /**
-          * The aria-label prop for the hidden input.
+          * The aria-label prop for tag action element.
          */
         "accessibilityLabel"?: string | undefined;
         /**
@@ -3500,11 +3504,11 @@ declare namespace LocalJSX {
          */
         "amount"?: string;
         /**
-          * Whether the internal hidden checkbox is checked.
+          * Whether the toggle is checked.
          */
         "checked"?: boolean;
         /**
-          * Whether the internal hidden checkbox is disabled.
+          * Whether the tag is disabled.
          */
         "disabled"?: boolean;
         /**
@@ -3512,15 +3516,29 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
+          * Change event emitter
+         */
+        "onChange"?: (event: SbbTagCustomEvent<any>) => void;
+        /**
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbTagCustomEvent<any>) => void;
         /**
-          * Value of internal hidden checkbox.
+          * Input event emitter
+         */
+        "onInput"?: (event: SbbTagCustomEvent<any>) => void;
+        /**
+          * Internal event that emits whenever the state of the tag in relation to the parent toggle changes.
+         */
+        "onState-change"?: (event: SbbTagCustomEvent<StateChange>) => void;
+        /**
+          * Value of the tag.
          */
         "value"?: string;
     }
     interface SbbTagGroup {
+        "multiple"?: boolean;
+        "value"?: string | string[] | null;
     }
     interface SbbTeaser {
         /**
@@ -3826,7 +3844,7 @@ declare namespace LocalJSX {
         /**
           * Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes.
          */
-        "onState-change"?: (event: SbbToggleOptionCustomEvent<StateChange>) => void;
+        "onState-change"?: (event: SbbToggleOptionCustomEvent<StateChange1>) => void;
         /**
           * Value of toggle-option.
          */

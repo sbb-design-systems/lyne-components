@@ -15,7 +15,7 @@ describe('sbb-tag-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-tag-group>
+      <sbb-tag-group role="group">
         <mock:shadow-root>
           <div class="sbb-tag-group">
             <slot />

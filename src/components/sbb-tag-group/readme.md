@@ -7,6 +7,8 @@ Once an `<sbb-tag>` has been focused, it's possible to move to the others in the
 
 ## Exclusive selection
 
+To achieve an exclusive selection, set the `multiple` property to false. 
+
 If you like a custom behavior, like an exclusive selection, you have to implement it yourself
 by unchecking all other tags than the selected one programmatically. 
 To achieve a closer accessibility experience to the radio button, 
@@ -27,6 +29,14 @@ Basic usage:
 ```
 
 <!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property   | Attribute  | Description | Type                 | Default |
+| ---------- | ---------- | ----------- | -------------------- | ------- |
+| `multiple` | `multiple` |             | `boolean`            | `false` |
+| `value`    | `value`    |             | `string \| string[]` | `null`  |
 
 
 ## Slots
