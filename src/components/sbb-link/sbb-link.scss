@@ -12,6 +12,8 @@
   color: inherit;
 
   @include sbb.link-variables;
+
+  --sbb-link-gap: var(--sbb-spacing-fixed-1x);
 }
 
 :host([variant='block']) {
@@ -36,7 +38,7 @@
 
   display: flex;
   align-items: center;
-  gap: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-link-gap);
   word-break: break-word;
   width: 100%;
   cursor: pointer;
