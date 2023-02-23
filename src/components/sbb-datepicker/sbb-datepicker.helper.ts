@@ -71,14 +71,10 @@ export function findPreviousAvailableDate(
   const previousDate = getAvailableDate(date, -1, datePicker, dateAdapter);
   const min: Date = dateAdapter.deserializeDate(datePicker.min);
 
-  if (
-    !dateAdapter.isValid(min) ||
-    (dateAdapter.isValid(min) && dateAdapter.compareDate(previousDate, min) >= 0)
-  ) {
+  if (!min || (dateAdapter.isValid(min) && dateAdapter.compareDate(previousDate, min) >= 0)) {
     return previousDate;
   }
-
-  return dateAdapter.clone(date);
+  return date;
 }
 
 export function findNextAvailableDate(
@@ -89,13 +85,10 @@ export function findNextAvailableDate(
   const nextDate = getAvailableDate(date, 1, datePicker, dateAdapter);
   const max: Date = dateAdapter.deserializeDate(datePicker.max);
 
-  if (
-    !dateAdapter.isValid(max) ||
-    (dateAdapter.isValid(max) && dateAdapter.compareDate(nextDate, max) <= 0)
-  ) {
+  if (!max || (dateAdapter.isValid(max) && dateAdapter.compareDate(nextDate, max) <= 0)) {
     return nextDate;
   }
-  return dateAdapter.clone(date);
+  return date;
 }
 
 export function isDateAvailable(date: Date, datePicker: HTMLSbbDatepickerElement): boolean {
@@ -103,10 +96,10 @@ export function isDateAvailable(date: Date, datePicker: HTMLSbbDatepickerElement
   const min: Date = dateAdapter.deserializeDate(datePicker.min);
   const max: Date = dateAdapter.deserializeDate(datePicker.max);
 
-  if (dateAdapter.isValid(min) && dateAdapter.compareDate(date, min) < 0) {
+  if (!!min && dateAdapter.isValid(min) && dateAdapter.compareDate(date, min) < 0) {
     return false;
   }
-  if (dateAdapter.isValid(max) && dateAdapter.compareDate(date, max) > 0) {
+  if (!!max && dateAdapter.isValid(max) && dateAdapter.compareDate(date, max) > 0) {
     return false;
   }
 
