@@ -17,7 +17,8 @@ describe('sbb-datepicker-toggle', () => {
     const page: E2EPage = await newE2EPage({
       html: `
           <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
-          <sbb-datepicker id='datepicker' value="01-01-2023"></sbb-datepicker>
+          <sbb-datepicker input='datepicker-input' id='datepicker' value="01-01-2023"></sbb-datepicker>
+          <input id="datepicker-input">
         `,
     });
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
@@ -38,11 +39,12 @@ describe('sbb-datepicker-toggle', () => {
   it('renders in form field, open calendar and change date', async () => {
     const page: E2EPage = await newE2EPage();
     await page.setContent(`
-        <sbb-form-field>
-          <sbb-datepicker-toggle></sbb-datepicker-toggle>
-          <sbb-datepicker></sbb-datepicker>
-        </sbb-form-field>
-      `);
+      <sbb-form-field>
+        <sbb-datepicker-toggle></sbb-datepicker-toggle>
+        <sbb-datepicker></sbb-datepicker>
+        <input/>
+      </sbb-form-field>
+    `);
     await page.waitForChanges();
     const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
     expect(tooltip).toEqualAttribute('data-state', 'closed');
@@ -56,13 +58,13 @@ describe('sbb-datepicker-toggle', () => {
     await page.waitForChanges();
     expect(tooltip).toEqualAttribute('data-state', 'opened');
 
-    const calendar = await page.find('sbb-datepicker-toggle >>> sbb-calendar');
+    const calendar: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-calendar');
     await calendar.triggerEvent('date-selected', {
       detail: new Date('2022-01-01'),
     });
     await page.waitForChanges();
 
-    const picker = await page.find('sbb-datepicker');
-    expect(await picker.getProperty('value')).toEqual('01.01.2022');
+    const input: E2EElement = await page.find('input');
+    expect(await input.getProperty('value')).toEqual('01.01.2022');
   });
 });

@@ -63,8 +63,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._datePicker?.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
-        const datepicker = event.target as HTMLSbbDatepickerElement;
-        this._datePicker = datepicker;
+        this._datePicker = event.target as HTMLSbbDatepickerElement;
         this._disabled = event.detail.disabled || event.detail.readonly;
       },
       { signal: this._datePickerController.signal }
@@ -77,9 +76,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
       'datePickerUpdated',
       (event: Event) =>
         this._configureCalendar(this._calendarElement, event.target as HTMLSbbDatepickerElement),
-      {
-        signal: this._datePickerController.signal,
-      }
+      { signal: this._datePickerController.signal }
     );
   }
 
@@ -111,8 +108,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     if (!this._datePicker) {
       return;
     }
-    const d = await this._datePicker.getValueAsDate();
-    this._calendarElement.selectedDate = d;
+    this._calendarElement.selectedDate = await this._datePicker.getValueAsDate();
     this._configureCalendar(this._calendarElement, this._datePicker);
   }
 
