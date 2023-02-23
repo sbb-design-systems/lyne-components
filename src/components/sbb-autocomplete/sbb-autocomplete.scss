@@ -29,13 +29,14 @@
 }
 
 .sbb-autocomplete__panel {
+  @include sbb.shadow-level-5-hard;
+
   display: block;
   position: absolute;
   visibility: hidden;
-  padding-block: var(--sbb-spacing-fixed-3x);
-  padding-inline: 0;
+  padding: 0;
   margin: 0;
-  background-color: var(--sbb-color-white-default);
+  background-color: transparent;
   border: none;
   border-radius: var(--sbb-overlay-border-radius);
   top: var(--sbb-overlay-position-y);
@@ -44,8 +45,49 @@
   max-height: var(--sbb-overlay-max-height);
   min-height: var(--sbb-overlay-min-height);
 
+  .sbb-autocomplete__options {
+    background-color: var(--sbb-color-white-default);
+    padding-block: var(--sbb-spacing-fixed-3x);
+    padding-inline: 0;
+    border-radius: var(--sbb-overlay-border-radius);
+  }
+
   &[data-open]:not([data-open='false']) {
     visibility: visible;
     pointer-events: all;
+  }
+
+  :host([data-autocomplete-position='below']) & {
+    transform: translateY(calc(-1 * var(--sbb-overlay-origin-height)));
+
+    &::before {
+      @include sbb.shadow-level-5-hard; // TODO only for borderless variant
+
+      content: '';
+      display: block;
+      position: relative;
+      width: 100%;
+      height: var(--sbb-overlay-origin-height);
+      background-color: transparent;
+      border-radius: var(--sbb-overlay-border-radius);
+      pointer-events: none;
+    }
+  }
+
+  :host([data-autocomplete-position='above']) & {
+    transform: translateY(var(--sbb-overlay-origin-height));
+
+    &::after {
+      @include sbb.shadow-level-5-hard; // TODO only for borderless variant
+
+      content: '';
+      display: block;
+      position: relative;
+      width: 100%;
+      height: var(--sbb-overlay-origin-height);
+      background-color: transparent;
+      border-radius: var(--sbb-overlay-border-radius);
+      pointer-events: none;
+    }
   }
 }
