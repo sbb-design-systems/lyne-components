@@ -7,6 +7,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -20,6 +21,7 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
+import { SbbOptionSelectionChange } from './sbb-autocomplete.custom';
 
 type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -49,7 +51,7 @@ export class SbbAutocomplete implements ComponentInterface {
    *
    * If not setted, will search for the first 'input' child of 'origin'
    */
-  @Prop() public trigger: string | HTMLElement;
+  @Prop() public trigger: string | HTMLInputElement;
 
   /**
    * The state of the menu.
@@ -100,7 +102,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _dialog: HTMLElement;
   private _originElement: HTMLElement;
-  private _triggerElement: HTMLElement;
+  private _triggerElement: HTMLInputElement;
   private _triggerEventsController: AbortController;
   private _windowEventsController: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
@@ -120,13 +122,12 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
+    this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-    this._state = 'opened';
-    this._attachWindowEvents();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
-    this._originElement?.setAttribute('data-autocomplete-open', 'true');
-    this.didOpen.emit(); // TODO should be emitted on animation end
+
+    // TODO Temporary until the animation si implemented
+    setTimeout(() => this._onOpenAnimationEnd());
   }
 
   /**
@@ -139,13 +140,12 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
+    this._state = 'closing';
     this.willClose.emit();
     this._windowEventsController.abort();
-    this._state = 'closed';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
-    this._originElement?.setAttribute('data-autocomplete-open', 'false');
-    this._resetActiveElement();
-    this.didClose.emit(); // TODO should be emitted on animation end
+
+    // TODO Temporary until the animation si implemented
+    setTimeout(() => this._onCloseAnimationEnd());
   }
 
   // Removes trigger click listener on trigger change.
@@ -157,6 +157,24 @@ export class SbbAutocomplete implements ComponentInterface {
     if (newValue !== oldValue) {
       this._setUp();
     }
+  }
+
+  /**
+   * When an option is selected, update the input value and close the autocomplete
+   */
+  @Listen('option-did-select')
+  public onOptionSelected(event: CustomEvent<SbbOptionSelectionChange>): void {
+    const selectedOptionId = event.detail.id;
+
+    // Deselect the previous options
+    this._options
+      .filter((option) => option.id !== selectedOptionId)
+      .forEach((option) => option.deselect());
+
+    // Set the option value
+    this._triggerElement.value = event.detail.value;
+
+    this.close();
   }
 
   public connectedCallback(): void {
@@ -191,12 +209,14 @@ export class SbbAutocomplete implements ComponentInterface {
    * Retrieve the element that will trigger the autocomplete opening
    * @returns 'trigger' or the first 'input' inside the origin element
    */
-  private _getTriggerElement(): HTMLElement {
+  private _getTriggerElement(): HTMLInputElement {
     if (!this.trigger) {
       return this._originElement?.querySelector('input') as HTMLInputElement;
     }
 
-    return typeof this.trigger === 'string' ? document.getElementById(this.trigger) : this.trigger;
+    return typeof this.trigger === 'string'
+      ? (document.getElementById(this.trigger) as HTMLInputElement)
+      : this.trigger;
   }
 
   private _attachTo(anchorElem: HTMLElement): void {
@@ -209,7 +229,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._originElement.setAttribute('data-autocomplete-open', 'false');
   }
 
-  private _bindTo(triggerElem: HTMLElement): void {
+  private _bindTo(triggerElem: HTMLInputElement): void {
     if (!triggerElem) {
       return;
     }
@@ -232,25 +252,6 @@ export class SbbAutocomplete implements ComponentInterface {
     });
   }
 
-  private _setAriaAttributes(element: HTMLElement): void {
-    setAriaOverlayTriggerAttributes(
-      element,
-      'listbox',
-      this._element.id || this._overlayId,
-      this._state
-    );
-    element?.setAttribute('role', 'combobox');
-    element?.setAttribute('aria-autocomplete', 'list');
-    element?.setAttribute('autocomplete', 'off');
-  }
-
-  private _removeAriaAttributes(element: HTMLElement): void {
-    removeAriaOverlayTriggerAttributes(element);
-    element?.removeAttribute('role');
-    element?.removeAttribute('aria-autocomplete');
-    element?.removeAttribute('autocomplete');
-  }
-
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
     if (!this._dialog || !this._originElement) {
@@ -261,7 +262,10 @@ export class SbbAutocomplete implements ComponentInterface {
     this._element.style.setProperty('--sbb-overlay-width', `${this._originElement.offsetWidth}px`);
 
     // Get the origin height
-    this._element.style.setProperty('--sbb-overlay-origin-height', `${this._originElement.offsetHeight}px`);
+    this._element.style.setProperty(
+      '--sbb-overlay-origin-height',
+      `${this._originElement.offsetHeight}px`
+    );
 
     // Calculate and set the position
     const panelPosition = getElementPosition(this._dialog, this._originElement);
@@ -269,8 +273,27 @@ export class SbbAutocomplete implements ComponentInterface {
     this._element.style.setProperty('--sbb-overlay-position-x', `${panelPosition.left}px`);
     this._element.style.setProperty('--sbb-overlay-position-y', `${panelPosition.top}px`);
     this._element.style.setProperty('--sbb-overlay-max-height', panelPosition.maxHeight);
-    this._element.setAttribute('data-autocomplete-position',panelPosition.alignment.vertical);
-    this._originElement.setAttribute('data-autocomplete-position',panelPosition.alignment.vertical);
+    this._element.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
+    this._originElement.setAttribute(
+      'data-autocomplete-position',
+      panelPosition.alignment.vertical
+    );
+  }
+
+  private _onOpenAnimationEnd(): void {
+    this._state = 'opened';
+    this._attachWindowEvents();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._originElement?.setAttribute('data-autocomplete-open', 'true');
+    this.didOpen.emit();
+  }
+
+  private _onCloseAnimationEnd(): void {
+    this._state = 'closed';
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    this._originElement?.setAttribute('data-autocomplete-open', 'false');
+    this._resetActiveElement();
+    this.didClose.emit();
   }
 
   private _attachWindowEvents(): void {
@@ -293,28 +316,44 @@ export class SbbAutocomplete implements ComponentInterface {
     });
   }
 
+  private _onBackdropClick = (event: PointerEvent): void => {
+    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
+      this.close();
+    }
+  };
+
   // Closes the menu on "Esc" key pressed and traps focus within the menu.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
     }
 
-    if (event.key === 'Escape') {
-      this.close();
-      return;
-    }
+    switch (event.key) {
+      case 'Escape':
+        this.close();
+        break;
 
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-      this._setNextActiveOption(event);
+      case 'Enter':
+        this._selectByKeyboard();
+        break;
+
+      case 'ArrowDown':
+      case 'ArrowUp':
+        this._setNextActiveOption(event);
+        break;
+
+      default:
+        break;
     }
   }
 
-  private _onBackdropClick = (event: PointerEvent): void => {
-    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._triggerElement, event)) {
-      //TODO shoul be trigger or origin?
-      this.close();
+  private _selectByKeyboard(): void {
+    const activeOption = this._options[this._activeItemIndex];
+
+    if (activeOption) {
+      activeOption.select();
     }
-  };
+  }
 
   private _setNextActiveOption(event: KeyboardEvent): void {
     const options: HTMLSbbOptionElement[] = this._options;
@@ -341,6 +380,25 @@ export class SbbAutocomplete implements ComponentInterface {
       activeElement.active = false;
     }
     this._activeItemIndex = -1;
+  }
+
+  private _setAriaAttributes(element: HTMLInputElement): void {
+    setAriaOverlayTriggerAttributes(
+      element,
+      'listbox',
+      this._element.id || this._overlayId,
+      this._state
+    );
+    element?.setAttribute('role', 'combobox');
+    element?.setAttribute('aria-autocomplete', 'list');
+    element?.setAttribute('autocomplete', 'off');
+  }
+
+  private _removeAriaAttributes(element: HTMLInputElement): void {
+    removeAriaOverlayTriggerAttributes(element);
+    element?.removeAttribute('role');
+    element?.removeAttribute('aria-autocomplete');
+    element?.removeAttribute('autocomplete');
   }
 
   public render(): JSX.Element {

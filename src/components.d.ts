@@ -31,6 +31,7 @@ import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+import { SbbOptionSelectionChange } from "./components/sbb-autocomplete/sbb-autocomplete.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -227,7 +228,7 @@ export namespace Components {
         /**
           * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not setted, will search for the first 'input' child of 'origin'
          */
-        "trigger": string | HTMLElement;
+        "trigger": string | HTMLInputElement;
     }
     interface SbbButton {
         /**
@@ -1085,16 +1086,33 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbOption {
+        /**
+          * Whether or not the option is currently active.
+         */
         "active"?: boolean;
+        "deselect": () => Promise<void>;
+        /**
+          * Whether or not the option is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether or not the option is currently selected.
+         */
+        "getId": () => Promise<boolean>;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
+        "isSelected": () => Promise<boolean>;
         /**
           * Wheter the icon space is preserved when no icon is set
          */
         "preserveIconSpace": boolean;
-        "selected"?: boolean;
+        "select": () => Promise<void>;
+        /**
+          * Value of the option.
+         */
+        "value"?: string;
     }
     interface SbbOverlay {
         /**
@@ -1769,6 +1787,10 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
 export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbNavigationElement;
+}
+export interface SbbOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbOptionElement;
 }
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2552,7 +2574,7 @@ declare namespace LocalJSX {
         /**
           * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not setted, will search for the first 'input' child of 'origin'
          */
-        "trigger"?: string | HTMLElement;
+        "trigger"?: string | HTMLInputElement;
     }
     interface SbbAutocompleteDeprecated {
         /**
@@ -3502,16 +3524,34 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbOption {
+        /**
+          * Whether or not the option is currently active.
+         */
         "active"?: boolean;
+        /**
+          * Whether or not the option is disabled.
+         */
+        "disabled"?: boolean;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
         /**
+          * Emits whenever the menu is closed.
+         */
+        "onOption-did-deselect"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
+        /**
+          * Emits whenever the menu is closed.
+         */
+        "onOption-did-select"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
+        /**
           * Wheter the icon space is preserved when no icon is set
          */
         "preserveIconSpace"?: boolean;
-        "selected"?: boolean;
+        /**
+          * Value of the option.
+         */
+        "value"?: string;
     }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;

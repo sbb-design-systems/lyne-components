@@ -7,10 +7,62 @@
 
 | Property            | Attribute             | Description                                                                                                                               | Type      | Default     |
 | ------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `active`            | `active`              |                                                                                                                                           | `boolean` | `undefined` |
+| `active`            | `active`              | Whether or not the option is currently active.                                                                                            | `boolean` | `undefined` |
+| `disabled`          | `disabled`            | Whether or not the option is disabled.                                                                                                    | `boolean` | `undefined` |
 | `iconName`          | `icon-name`           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `undefined` |
 | `preserveIconSpace` | `preserve-icon-space` | Wheter the icon space is preserved when no icon is set                                                                                    | `boolean` | `true`      |
-| `selected`          | `selected`            |                                                                                                                                           | `boolean` | `undefined` |
+| `value`             | `value`               | Value of the option.                                                                                                                      | `string`  | `undefined` |
+
+
+## Events
+
+| Event                 | Description                        | Type                                    |
+| --------------------- | ---------------------------------- | --------------------------------------- |
+| `option-did-deselect` | Emits whenever the menu is closed. | `CustomEvent<SbbOptionSelectionChange>` |
+| `option-did-select`   | Emits whenever the menu is closed. | `CustomEvent<SbbOptionSelectionChange>` |
+
+
+## Methods
+
+### `deselect() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `getId() => Promise<boolean>`
+
+Whether or not the option is currently selected.
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
+
+### `isSelected() => Promise<boolean>`
+
+
+
+#### Returns
+
+Type: `Promise<boolean>`
+
+
+
+### `select() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ## Slots
