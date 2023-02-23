@@ -93,6 +93,29 @@ Borderless.decorators = [
   ),
 ];
 
+export const BorderlessOpenAbove = BorderlessTemplate.bind({});
+BorderlessOpenAbove.argTypes = defaultArgTypes;
+BorderlessOpenAbove.args = { ...defaultArgs };
+BorderlessOpenAbove.decorators = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Story />
+    </div>
+  ),
+];
+
 export default {
   parameters: {
     actions: {

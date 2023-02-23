@@ -254,16 +254,17 @@ export class SbbAutocomplete implements ComponentInterface {
     // Set the width to match the trigger element
     this._element.style.setProperty('--sbb-overlay-width', `${this._originElement.offsetWidth}px`);
 
+    // Get the origin height
+    this._element.style.setProperty('--sbb-overlay-origin-height', `${this._originElement.offsetHeight}px`);
+
     // Calculate and set the position
     const panelPosition = getElementPosition(this._dialog, this._originElement);
 
     this._element.style.setProperty('--sbb-overlay-position-x', `${panelPosition.left}px`);
     this._element.style.setProperty('--sbb-overlay-position-y', `${panelPosition.top}px`);
     this._element.style.setProperty('--sbb-overlay-max-height', panelPosition.maxHeight);
-    this._originElement.setAttribute(
-      'data-autocomplete-position',
-      panelPosition.alignment.vertical
-    );
+    this._element.setAttribute('data-autocomplete-position',panelPosition.alignment.vertical);
+    this._originElement.setAttribute('data-autocomplete-position',panelPosition.alignment.vertical);
   }
 
   private _attachWindowEvents(): void {
@@ -345,9 +346,8 @@ export class SbbAutocomplete implements ComponentInterface {
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
-            <div>
+            <div class="sbb-autocomplete__options">
               {' '}
-              {/* TODO This div might not be necessary */}
               <slot />
             </div>
           </div>
