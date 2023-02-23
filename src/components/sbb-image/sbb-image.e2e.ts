@@ -11,10 +11,12 @@ describe('sbb-image', () => {
     element = await page.find('sbb-image');
     expect(element).toHaveClass('hydrated');
 
+    await page.waitForChanges();
+
     expect(element).toEqualHtml(`
         <sbb-image image-src="${images[0]}" class="hydrated">
           <mock:shadow-root>
-            <figure class="image__figure image__figure--ratio-16-9">
+            <figure class="image__figure image__figure--loaded image__figure--ratio-16-9">
               <div class="image__wrapper">
                 <img alt="" class="image__blur-hash" decoding="auto" height="562" loading="eager" src="${images[0]}?blur=100&amp;w=100&amp;h=56" width="1000">
                 <picture>

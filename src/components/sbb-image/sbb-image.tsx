@@ -241,11 +241,7 @@ export class SbbImage implements ComponentInterface {
   }
 
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    const breakpointSizeNameValue = parseFloat(
-      getComputedStyle(this.el).getPropertyValue(`--${breakpointSizeName}`)
-    );
-
-    return `${breakpointSizeNameValue}rem`;
+    return getComputedStyle(this.el).getPropertyValue(`--${breakpointSizeName}`)?.trim();
   }
 
   private _addFocusAbilityToLinksInCaption(): void {
