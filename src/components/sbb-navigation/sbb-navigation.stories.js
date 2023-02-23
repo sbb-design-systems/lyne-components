@@ -255,5 +255,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'components/navigation/sbb-navigation',
+  title: 'components/sbb-navigation',
 };

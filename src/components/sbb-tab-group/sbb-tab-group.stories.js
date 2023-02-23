@@ -359,5 +359,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/tabs/sbb-tab-group',
+  title: 'components/sbb-tab-group',
 };

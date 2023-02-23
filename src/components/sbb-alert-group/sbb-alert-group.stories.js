@@ -82,5 +82,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/alert/sbb-alert-group',
+  title: 'components/sbb-alert-group',
 };

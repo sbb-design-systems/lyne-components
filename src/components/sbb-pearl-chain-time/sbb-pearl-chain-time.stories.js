@@ -103,5 +103,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/pearl-chains/sbb-pearl-chain-time',
+  title: 'components/timetable/sbb-pearl-chain-time',
 };

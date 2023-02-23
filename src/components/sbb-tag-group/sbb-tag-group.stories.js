@@ -221,5 +221,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/tag/sbb-tag-group',
+  title: 'components/sbb-tag-group',
 };

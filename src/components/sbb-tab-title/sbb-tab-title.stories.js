@@ -87,5 +87,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/tabs/sbb-tab-title',
+  title: 'components/sbb-tab-title',
 };

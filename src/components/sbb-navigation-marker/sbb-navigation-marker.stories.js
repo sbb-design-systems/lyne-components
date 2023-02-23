@@ -89,5 +89,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/navigation/sbb-navigation-marker',
+  title: 'components/sbb-navigation-marker',
 };

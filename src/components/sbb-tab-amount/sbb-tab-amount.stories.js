@@ -29,5 +29,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/tabs/sbb-tab-amount',
+  title: 'components/sbb-tab-amount',
 };

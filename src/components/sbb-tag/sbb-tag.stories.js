@@ -143,5 +143,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/tag/sbb-tag',
+  title: 'components/sbb-tag',
 };

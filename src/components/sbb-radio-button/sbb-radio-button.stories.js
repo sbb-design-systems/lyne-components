@@ -99,5 +99,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/radio/sbb-radio-button',
+  title: 'components/form elements/sbb-radio-button',
 };

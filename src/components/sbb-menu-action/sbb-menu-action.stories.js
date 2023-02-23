@@ -254,5 +254,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/menu/sbb-menu-action',
+  title: 'components/sbb-menu-action',
 };
