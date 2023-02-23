@@ -61,8 +61,6 @@
     transform: translateY(calc(-1 * var(--sbb-overlay-origin-height)));
 
     &::before {
-      @include sbb.shadow-level-5-hard; // TODO only for borderless variant
-
       content: '';
       display: block;
       position: relative;
@@ -74,12 +72,15 @@
     }
   }
 
+  :host([data-autocomplete-origin-borderless='true'][data-autocomplete-position='below'])
+    &::before {
+    @include sbb.shadow-level-5-hard;
+  }
+
   :host([data-autocomplete-position='above']) & {
     transform: translateY(var(--sbb-overlay-origin-height));
 
     &::after {
-      @include sbb.shadow-level-5-hard; // TODO only for borderless variant
-
       content: '';
       display: block;
       position: relative;
@@ -89,5 +90,9 @@
       border-radius: var(--sbb-overlay-border-radius);
       pointer-events: none;
     }
+  }
+
+  :host([data-autocomplete-origin-borderless='true'][data-autocomplete-position='above']) &::after {
+    @include sbb.shadow-level-5-hard;
   }
 }
