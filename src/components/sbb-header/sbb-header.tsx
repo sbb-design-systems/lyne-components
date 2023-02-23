@@ -1,6 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { pageScrollDisabled } from '../../global/helpers/scroll';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -110,10 +109,7 @@ export class SbbHeader implements ComponentInterface {
     const currentScroll = this._getCurrentScroll();
 
     // Whether the scroll view is bouncing past the edge of content and back again.
-    const isBouncing =
-      this._getScrollDocumentElement().scrollHeight - window.innerHeight - currentScroll <= 0;
-
-    if (isBouncing || pageScrollDisabled()) {
+    if (this._getScrollDocumentElement().scrollHeight - window.innerHeight - currentScroll <= 0) {
       return;
     }
 
