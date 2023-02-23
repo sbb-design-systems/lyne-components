@@ -1,3 +1,4 @@
-export interface InterfaceSbbAutocompleteAttributes {
-  someInterface: 'opt1' | 'opt2';
+export interface SbbOptionSelectionChange {
+  id: string;
+  value: any;
 }
