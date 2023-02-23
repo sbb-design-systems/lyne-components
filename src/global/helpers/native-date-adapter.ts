@@ -147,7 +147,7 @@ export class NativeDateAdapter {
   }
 
   public clone(date: Date): Date {
-    return new Date(date.valueOf());
+    return new Date(date.setHours(0, 0, 0, 0).valueOf());
   }
 
   public addCalendarMonths(date: Date, months: number): Date {
@@ -189,17 +189,23 @@ export class NativeDateAdapter {
   }
 
   public deserializeDate(date: Date | string | number): Date | null {
+    if (!date) {
+      return;
+    }
+
     if (typeof date === 'string') {
       if (!Number.isNaN(+date)) {
-        return new Date(+date * 1000);
+        return this.clone(new Date(+date * 1000));
       }
-      return new Date(date);
+      return this.clone(new Date(date));
     } else if (typeof date === 'number') {
-      return new Date(date * 1000);
+      return this.clone(new Date(+date * 1000));
     }
-    if (date == null || (this.isDateInstance(date) && this.isValid(date))) {
-      return date;
+
+    if (this.isDateInstance(date) && this.isValid(date)) {
+      return this.clone(date);
     }
+
     return this.invalid();
   }
 
