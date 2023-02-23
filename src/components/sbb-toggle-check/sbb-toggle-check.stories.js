@@ -39,12 +39,19 @@ const labelPosition = {
   options: ['before', 'after'],
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   checked,
   disabled,
   'label-position': labelPosition,
   label,
   'icon-name': iconName,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs = {
@@ -53,6 +60,7 @@ const defaultArgs = {
   'label-position': labelPosition.options[1],
   label: 'Label',
   'icon-name': undefined,
+  'accessibility-label': undefined,
 };
 
 /* ************************************************* */

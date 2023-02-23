@@ -11,8 +11,8 @@ describe('sbb-toggle-check', () => {
     expect(root).toEqualHtml(`
         <sbb-toggle-check label-position="after">
           <mock:shadow-root>
-            <input type="checkbox" id="sbb-toggle-check-input"/>
-            <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+            <label class="sbb-toggle-check">
+              <input type="checkbox"/>
               <span class="sbb-toggle-check__container">
                 <span class="sbb-toggle-check__label" hidden="">
                   <slot></slot>
@@ -45,8 +45,8 @@ describe('sbb-toggle-check', () => {
       expect(root).toEqualHtml(`
         <sbb-toggle-check label-position="before">
           <mock:shadow-root>
-            <input type="checkbox" id="sbb-toggle-check-input"/>
-            <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+            <label class="sbb-toggle-check">
+              <input type="checkbox"/>
               <span class="sbb-toggle-check__container">
                 <span class="sbb-toggle-check__label">
                   <slot></slot>
@@ -79,8 +79,8 @@ describe('sbb-toggle-check', () => {
         expect(root).toEqualHtml(`
           <sbb-toggle-check checked label-position="after">
             <mock:shadow-root>
-              <input checked="" type="checkbox" id="sbb-toggle-check-input"/>
-              <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+              <label class="sbb-toggle-check">
+                <input checked="" type="checkbox"/>
                 <span class="sbb-toggle-check__container">
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
@@ -112,8 +112,8 @@ describe('sbb-toggle-check', () => {
         expect(root).toEqualHtml(`
           <sbb-toggle-check disabled label-position="after">
             <mock:shadow-root>
-              <input disabled="" aria-disabled="" type="checkbox" id="sbb-toggle-check-input">
-              <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+              <label class="sbb-toggle-check">
+                <input disabled="" aria-disabled="" type="checkbox">
                 <span class="sbb-toggle-check__container">
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
@@ -145,8 +145,8 @@ describe('sbb-toggle-check', () => {
         expect(root).toEqualHtml(`
           <sbb-toggle-check checked disabled label-position="after">
             <mock:shadow-root>
-              <input checked="" type="checkbox" disabled aria-disabled="" id="sbb-toggle-check-input"/>
-              <label class="sbb-toggle-check" htmlfor="sbb-toggle-check-input">
+              <label class="sbb-toggle-check">
+                <input checked="" type="checkbox" disabled aria-disabled=""/>
                 <span class="sbb-toggle-check__container">
                   <span class="sbb-toggle-check__label" hidden="">
                     <slot></slot>
