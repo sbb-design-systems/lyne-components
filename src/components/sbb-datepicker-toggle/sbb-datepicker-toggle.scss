@@ -11,6 +11,9 @@
 
 sbb-tooltip-trigger {
   color: var(--sbb-datepicker-control-color);
+  height: var(--sbb-form-field-height);
+  display: flex;
+  align-items: center;
 }
 
 sbb-icon {

@@ -30,6 +30,7 @@ describe('sbb-datepicker-toggle', () => {
           <sbb-form-field>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker></sbb-datepicker>
+            <input/>
           </sbb-form-field>
         `,
       });
@@ -53,7 +54,8 @@ describe('sbb-datepicker-toggle', () => {
         html: `
           <sbb-form-field>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
-            <sbb-datepicker disabled='true'></sbb-datepicker>
+            <sbb-datepicker></sbb-datepicker>
+            <input disabled/>
           </sbb-form-field>
         `,
       });
@@ -78,6 +80,7 @@ describe('sbb-datepicker-toggle', () => {
           <sbb-form-field>
             <sbb-datepicker-toggle></sbb-datepicker-toggle>
             <sbb-datepicker min="1600000000" max="1700000000" wide="true"></sbb-datepicker>
+            <input/>
           </sbb-form-field>
         `,
       });
@@ -88,7 +91,7 @@ describe('sbb-datepicker-toggle', () => {
           <mock:shadow-root>
             <sbb-tooltip-trigger iconName="calendar-small"></sbb-tooltip-trigger>
             <sbb-tooltip data-hide-close-button="">
-              <sbb-calendar></sbb-calendar>
+              <sbb-calendar min="1600000000" max="1700000000" wide=""></sbb-calendar>
             </sbb-tooltip>
           </mock:shadow-root>
         </sbb-datepicker-toggle>

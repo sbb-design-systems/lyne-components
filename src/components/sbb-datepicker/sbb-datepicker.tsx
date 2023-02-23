@@ -83,7 +83,7 @@ export class SbbDatepicker implements ComponentInterface {
       if (!this._inputElement) {
         return;
       }
-      
+
       this._inputObserver?.disconnect();
       this._inputObserver.observe(this._inputElement, {
         attributeFilter: ['disabled', 'readonly'],

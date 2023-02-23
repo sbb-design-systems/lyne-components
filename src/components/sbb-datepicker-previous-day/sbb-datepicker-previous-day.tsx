@@ -109,12 +109,14 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host slot="prefix">
-        <button
-          disabled={this._disabled || this._inputDisabled}
-          onClick={() => this._handleClick()}
-        >
-          <sbb-icon name="chevron-small-left-small" />
-        </button>
+        <div id="sbb-datepicker-previous-day">
+          <button
+            disabled={this._disabled || this._inputDisabled}
+            onClick={() => this._handleClick()}
+          >
+            <sbb-icon name="chevron-small-left-small" />
+          </button>
+        </div>
       </Host>
     );
   }

@@ -9,6 +9,12 @@
   --sbb-datepicker-control-color: var(--sbb-color-black-default);
 }
 
+#sbb-datepicker-previous-day {
+  height: var(--sbb-form-field-height);
+  display: flex;
+  align-items: center;
+}
+
 button {
   @include sbb.button-reset;
 

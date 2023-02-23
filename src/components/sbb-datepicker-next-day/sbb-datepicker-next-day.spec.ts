@@ -13,9 +13,11 @@ describe('sbb-datepicker-next-day', () => {
     expect(page.root).toEqualHtml(`
       <sbb-datepicker-next-day slot="suffix">
         <mock:shadow-root>
-          <button>
-            <sbb-icon name="chevron-small-right-small" />
-          </button>
+          <div id="sbb-datepicker-next-day">
+            <button>
+              <sbb-icon name="chevron-small-right-small" />
+            </button>
+          </div>
         </mock:shadow-root>
       </sbb-datepicker-next-day>
     `);

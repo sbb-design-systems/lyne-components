@@ -109,12 +109,14 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host slot="suffix">
-        <button
-          disabled={this._disabled || this._inputDisabled}
-          onClick={() => this._handleClick()}
-        >
-          <sbb-icon name="chevron-small-right-small" />
-        </button>
+        <div id="sbb-datepicker-next-day">
+          <button
+            disabled={this._disabled || this._inputDisabled}
+            onClick={() => this._handleClick()}
+          >
+            <sbb-icon name="chevron-small-right-small" />
+          </button>
+        </div>
       </Host>
     );
   }
