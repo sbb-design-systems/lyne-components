@@ -1,11 +1,12 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-calendar', () => {
+  const selected = new Date(2023, 0, 15).getTime() / 1000;
   let element: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage({
-      html: `<sbb-calendar selected-date="1673737200"></sbb-calendar>`,
+      html: `<sbb-calendar selected-date="${selected}"></sbb-calendar>`,
     });
     element = await page.find('sbb-calendar');
   });
