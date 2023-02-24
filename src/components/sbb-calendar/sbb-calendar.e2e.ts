@@ -84,9 +84,10 @@ describe('sbb-calendar', () => {
 
   it('selects a different date', async () => {
     const selectedSpy = await page.spyOnEvent('date-selected');
+    await page.waitForChanges();
 
-    const selectedDate = await page.find('sbb-calendar >>> .sbb-datepicker__day-selected');
-    expect(await selectedDate.getAttribute('data-day')).toEqual('15 1 2023');
+    const selectedDate = await page.find('sbb-calendar >>> button[data-day="15 1 2023"]');
+    expect(selectedDate).toHaveClass('sbb-datepicker__day-selected');
 
     const newSelectedDate = await page.find('sbb-calendar >>> button[data-day="18 1 2023"]');
     expect(newSelectedDate).not.toHaveClass('sbb-datepicker__day-selected');

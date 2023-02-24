@@ -271,7 +271,7 @@ export namespace Components {
           * A function used to filter out dates.
          */
         "dateFilter": (date: Date | null) => boolean;
-        "focusCell": () => Promise<void>;
+        "focusCell": () => void;
         /**
           * The maximum valid date.
          */
@@ -280,7 +280,7 @@ export namespace Components {
           * The minimum valid date.
          */
         "min": Date | string | number;
-        "resetPosition": () => Promise<void>;
+        "resetPosition": () => void;
         /**
           * The selected date.
          */
