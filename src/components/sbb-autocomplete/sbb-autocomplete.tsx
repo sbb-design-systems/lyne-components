@@ -127,12 +127,13 @@ export class SbbAutocomplete implements ComponentInterface {
     this._setOverlayPosition();
 
     // TODO Temporary until the animation si implemented
-    setTimeout(() => this._onOpenAnimationEnd());
+    //setTimeout(() => this._onOpenAnimationEnd());
   }
 
   /**
    * Closes the autocomplete.
    */
+  
   @Method()
   public async close(): Promise<void> {
     console.log('Close autocomplete');
@@ -145,7 +146,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._windowEventsController.abort();
 
     // TODO Temporary until the animation si implemented
-    setTimeout(() => this._onCloseAnimationEnd());
+    //setTimeout(() => this._onCloseAnimationEnd());
   }
 
   // Removes trigger click listener on trigger change.
@@ -280,20 +281,24 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
-  private _onOpenAnimationEnd(): void {
-    this._state = 'opened';
-    this._attachWindowEvents();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
-    this._originElement?.setAttribute('data-autocomplete-open', 'true');
-    this.didOpen.emit();
-  }
-
-  private _onCloseAnimationEnd(): void {
-    this._state = 'closed';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
-    this._originElement?.setAttribute('data-autocomplete-open', 'false');
-    this._resetActiveElement();
-    this.didClose.emit();
+  // First set the autocomplete position, then keep animation related to the visible autocomplete position
+  // Reset autocomplete position only when the closing animation is completed
+  private _onAutocompleteAnimationEnd(event: AnimationEvent): void {
+    if (event.animationName === 'open') {
+      this._state = 'opened';
+      this._attachWindowEvents();
+      this._triggerElement?.setAttribute('aria-expanded', 'true');
+      this._originElement?.setAttribute('data-autocomplete-open', 'true');
+      this.didOpen.emit();
+      console.log('on autocomplete animation open');
+    } else if (event.animationName === 'close') {
+      this._state = 'closed';
+      this._triggerElement?.setAttribute('aria-expanded', 'false');
+      this._originElement?.setAttribute('data-autocomplete-open', 'false');
+      this._resetActiveElement();
+      this.didClose.emit();
+      console.log('on autocomplete animation close');
+    }
   }
 
   private _attachWindowEvents(): void {
@@ -406,6 +411,7 @@ export class SbbAutocomplete implements ComponentInterface {
       <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
         <div class="sbb-autocomplete__container">
           <div
+            onAnimationEnd={(event: AnimationEvent) => this._onAutocompleteAnimationEnd(event)}
             class="sbb-autocomplete__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
