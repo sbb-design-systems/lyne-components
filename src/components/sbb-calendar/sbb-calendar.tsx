@@ -84,15 +84,7 @@ export class SbbCalendar implements ComponentInterface {
 
   @Watch('selectedDate')
   public selectedDateChanged(newDate: Date | string | number): void {
-    const selectedDate = this._dateAdapter.deserializeDate(newDate);
-    if (
-      this._dateAdapter.isValid(selectedDate) &&
-      (!this._disableDay(selectedDate.toISOString()) || this.dateFilter(selectedDate))
-    ) {
-      this._selected = selectedDate.toISOString();
-    } else {
-      this._selected = undefined;
-    }
+    this._setSelectedDate(this._dateAdapter.deserializeDate(newDate));
   }
 
   /* Focuses on a day cell. */
@@ -143,11 +135,17 @@ export class SbbCalendar implements ComponentInterface {
   private _setDates(): void {
     const selectedDate = this._dateAdapter.deserializeDate(this.selectedDate);
     this._activeDate = selectedDate ?? this._dateAdapter.today();
+    this._setSelectedDate(selectedDate);
+  }
+
+  private _setSelectedDate(selectedDate: Date | null): void {
     if (
-      (!!selectedDate && !this._disableDay(selectedDate.toISOString())) ||
-      this.dateFilter(selectedDate)
+      !!selectedDate &&
+      (!this._disableDay(selectedDate.toISOString()) || this.dateFilter(selectedDate))
     ) {
-      this._selected = selectedDate ? selectedDate.toISOString() : undefined;
+      this._selected = new Date(selectedDate.setHours(0, 0, 0, 0)).toISOString();
+    } else {
+      this._selected = undefined;
     }
   }
 

@@ -9,6 +9,7 @@ describe('sbb-calendar', () => {
       html: `<sbb-calendar selected-date="${selected}"></sbb-calendar>`,
     });
     element = await page.find('sbb-calendar');
+    await page.waitForChanges();
   });
 
   it('renders', async () => {
@@ -21,7 +22,6 @@ describe('sbb-calendar', () => {
     });
 
     const today = new Date();
-
     const currentDay = `${today.getDate()} ${today.getMonth() + 1} ${today.getFullYear()}`;
     const currentDayButton = await page.find(`sbb-calendar >>> button[data-day="${currentDay}"]`);
     expect(currentDayButton).toHaveClass('sbb-datepicker__day-today');
@@ -32,7 +32,7 @@ describe('sbb-calendar', () => {
     expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-next');
-    nextMonthButton.click();
+    await nextMonthButton.click();
     await page.waitForChanges();
 
     days = await page.findAll('sbb-calendar >>> .sbb-datepicker__day');
@@ -44,7 +44,7 @@ describe('sbb-calendar', () => {
     expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-previous');
-    nextMonthButton.click();
+    await nextMonthButton.click();
     await page.waitForChanges();
 
     days = await page.findAll('sbb-calendar >>> .sbb-datepicker__day');
@@ -60,7 +60,7 @@ describe('sbb-calendar', () => {
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-next');
     expect(nextMonthButton).toHaveAttribute('disabled');
-    nextMonthButton.click();
+    await nextMonthButton.click();
     await page.waitForChanges();
 
     days = await page.findAll('sbb-calendar >>> .sbb-datepicker__day');
@@ -76,7 +76,7 @@ describe('sbb-calendar', () => {
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-previous');
     expect(nextMonthButton).toHaveAttribute('disabled');
-    nextMonthButton.click();
+    await nextMonthButton.click();
     await page.waitForChanges();
 
     days = await page.findAll('sbb-calendar >>> .sbb-datepicker__day');
@@ -92,7 +92,7 @@ describe('sbb-calendar', () => {
 
     const newSelectedDate = await page.find('sbb-calendar >>> button[data-day="18 1 2023"]');
     expect(newSelectedDate).not.toHaveClass('sbb-datepicker__day-selected');
-    newSelectedDate.click();
+    await newSelectedDate.click();
     await page.waitForChanges();
 
     expect(selectedDate).not.toHaveClass('sbb-datepicker__day-selected');
@@ -109,7 +109,7 @@ describe('sbb-calendar', () => {
     const day = await page.find('sbb-calendar >>> button[data-day="30 1 2023"]');
     expect(day).toHaveAttribute('disabled');
     expect(day).not.toHaveClass('sbb-datepicker__day-selected');
-    day.click();
+    await day.click();
     await page.waitForChanges();
 
     expect(day).not.toHaveClass('sbb-datepicker__day-selected');

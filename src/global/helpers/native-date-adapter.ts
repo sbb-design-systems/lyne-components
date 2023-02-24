@@ -200,7 +200,7 @@ export class NativeDateAdapter {
     if (date == null || (this.isDateInstance(date) && this.isValid(date))) {
       return date;
     }
-    return this.invalid();
+    return null;
   }
 
   /**
