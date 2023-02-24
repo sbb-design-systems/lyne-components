@@ -56,6 +56,27 @@ const wide = {
   },
 };
 
+const filterFunctions = [
+  () => true,
+  (d) => d.getDay() !== 6 && d.getDay() !== 0,
+  (d) => d.getDate() % 2 === 1,
+];
+const dateFilter = {
+  options: Object.keys(filterFunctions),
+  mapping: filterFunctions,
+  control: {
+    type: 'select',
+    labels: {
+      0: 'No dateFilter function.',
+      1: 'The dateFilter function includes only working days.',
+      2: 'The dateFilter function excludes even days.',
+    },
+  },
+  table: {
+    category: 'Datepicker attribute',
+  },
+};
+
 const min = {
   control: {
     type: 'date',
@@ -129,6 +150,7 @@ const basicArgTypes = {
   min,
   max,
   wide,
+  dateFilter,
   'accessibility-label': accessibilityLabel,
 };
 
@@ -141,6 +163,7 @@ const basicArgs = {
   min: undefined,
   max: undefined,
   wide: false,
+  dateFilter: dateFilter.options[0],
   'accessibility-label': undefined,
 };
 
@@ -171,7 +194,7 @@ const getDatepickerAttr = (min, max, wide) => {
   return attr;
 };
 
-const Template = ({ min, max, wide, ...args }) => {
+const Template = ({ min, max, wide, dateFilter, ...args }) => {
   return (
     <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker" />
@@ -181,7 +204,7 @@ const Template = ({ min, max, wide, ...args }) => {
         id="datepicker"
         input="datepicker-input"
         ref={(calendarRef) => {
-          calendarRef.dateFilter = (d) => d?.getDay() !== 6 && d?.getDay() !== 0;
+          calendarRef.dateFilter = dateFilter;
         }}
         {...getDatepickerAttr(wide, min, max)}
         onChange={(event) => changeEventHandler(event)}
@@ -191,7 +214,17 @@ const Template = ({ min, max, wide, ...args }) => {
   );
 };
 
-const TemplateFormField = ({ label, optional, borderless, size, min, max, wide, ...args }) => {
+const TemplateFormField = ({
+  label,
+  optional,
+  borderless,
+  size,
+  min,
+  max,
+  wide,
+  dateFilter,
+  ...args
+}) => {
   return [
     <sbb-form-field
       size={size}
@@ -206,7 +239,7 @@ const TemplateFormField = ({ label, optional, borderless, size, min, max, wide, 
       <input {...args} />
       <sbb-datepicker
         ref={(calendarRef) => {
-          calendarRef.dateFilter = (d) => d?.getDay() !== 6 && d?.getDay() !== 0;
+          calendarRef.dateFilter = dateFilter;
         }}
         {...getDatepickerAttr(wide, min, max)}
         onChange={(event) => changeEventHandler(event)}
