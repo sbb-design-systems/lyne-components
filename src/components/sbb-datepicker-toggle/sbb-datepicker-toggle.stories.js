@@ -7,6 +7,7 @@ const StandaloneTemplate = (picker = null) => (
 
 const PickerAndButtonTemplate = () => (
   <div style="display: flex; gap: 1em;">
+    <input id="datepicker-input" />
     {StandaloneTemplate('datepicker')}
     <sbb-datepicker id="datepicker"></sbb-datepicker>
   </div>
@@ -14,6 +15,7 @@ const PickerAndButtonTemplate = () => (
 
 const FormFieldTemplate = () => (
   <sbb-form-field>
+    <input />
     <sbb-datepicker></sbb-datepicker>
     {StandaloneTemplate()}
   </sbb-form-field>
@@ -23,7 +25,7 @@ export const Standalone = StandaloneTemplate.bind({});
 
 export const WithPicker = PickerAndButtonTemplate.bind({});
 
-export const FormField = FormFieldTemplate.bind({});
+export const InFormField = FormFieldTemplate.bind({});
 
 export default {
   decorators: [
@@ -34,7 +36,9 @@ export default {
     ),
   ],
   parameters: {
-    actions: {},
+    actions: {
+      handles: ['click'],
+    },
     backgrounds: {
       disable: true,
     },
@@ -42,5 +46,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/datepicker/sbb-datepicker-toggle',
+  title: 'components/form elements/sbb-datepicker-toggle',
 };

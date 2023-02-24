@@ -127,5 +127,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/datepicker/sbb-calendar',
+  title: 'components/form elements/sbb-calendar',
 };

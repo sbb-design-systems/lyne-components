@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-datepicker.events';
 
 const wide = {
   control: {
@@ -217,7 +218,9 @@ export default {
     ),
   ],
   parameters: {
-    actions: {},
+    actions: {
+      handles: [events.inputUpdated, events.datePickerUpdated, events.change],
+    },
     backgrounds: {
       disable: true,
     },
@@ -225,5 +228,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/datepicker/sbb-datepicker',
+  title: 'components/form elements/sbb-datepicker',
 };
