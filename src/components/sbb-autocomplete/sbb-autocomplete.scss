@@ -33,7 +33,6 @@
 
   display: block;
   position: absolute;
-  visibility: hidden;
   padding: 0;
   margin: 0;
   background-color: transparent;
@@ -44,6 +43,13 @@
   width: var(--sbb-overlay-width);
   max-height: var(--sbb-overlay-max-height);
   min-height: var(--sbb-overlay-min-height);
+  visibility: hidden;
+  overflow: hidden;
+  animation: {
+    name: close;
+    duration: 0.5s;
+    timing-function: ease;
+  }
 
   .sbb-autocomplete__options {
     background-color: var(--sbb-color-white-default);
@@ -53,8 +59,13 @@
   }
 
   &[data-open]:not([data-open='false']) {
-    visibility: visible;
     pointer-events: all;
+    visibility: visible;
+    animation: {
+      name: open;
+      duration: 0.5s;
+      timing-function: ease;
+    }
   }
 
   :host([data-autocomplete-position='below']) & {
@@ -94,5 +105,29 @@
 
   :host([data-autocomplete-origin-borderless='true'][data-autocomplete-position='above']) &::after {
     @include sbb.shadow-level-5-hard;
+  }
+}
+
+@keyframes open {
+  from {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  from {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
   }
 }
