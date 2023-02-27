@@ -74,6 +74,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private async _init(trigger?: string | HTMLElement): Promise<void> {
     this._datePicker = getDatePicker(this._element, trigger);
+
     this._datePicker?.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
@@ -87,7 +88,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._datePicker?.addEventListener('change', (event: Event) => this._datePickerChanged(event), {
       signal: this._datePickerController.signal,
     });
-
     this._datePicker?.addEventListener(
       'datePickerUpdated',
       (event: Event) =>

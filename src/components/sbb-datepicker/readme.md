@@ -1,5 +1,57 @@
 # sbb-datepicker
 
+The `sbb-datepicker` component can be used together with a native input element to display the typed value 
+as a formatted date (dd.MM.yyyy). 
+
+The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, ` `, `,` or `/`, 
+then automatically formats the value as date and displays it. It also exposes methods to get/set the value formatted as Date.
+
+If the `sbb-datepicker` is used within a `sbb-form-field` with a native input, they are automatically linked; otherwise,
+they can be connected using the `input` property, which accepts the id of the native input, or directly its reference.
+
+When the two are linked, the component sets the input placeholder, and the input's type as `text`, then reads 
+the `disabled`, `readonly`, `min` and `max` attributes from the input and emits then as payload of the `inputUpdated` event.
+If the input's value changes, it is formatted then a `change` event is emitted with the new value. If it's an invalid
+date, the `sbb-invalid` class is added to the input. The component also listens for changes in its two properties, 
+ `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
+
+
+## Usage
+
+Without `sbb-form-field`:
+```html
+    <input id="datepicker-input" />
+    <sbb-datepicker input="datepicker-input"></sbb-datepicker>
+```
+
+Without `sbb-form-field`, with all related components:
+```html
+    <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
+    <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
+    <input id="datepicker-input" />
+    <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
+    <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+```
+
+With `sbb-form-field`, and input params set:
+```html
+    <sbb-form-field>
+      <input min="1600000000" max="1700000000" value="01.01.2023" readonly=""/>
+      <sbb-datepicker></sbb-datepicker>
+    </sbb-form-field>
+```
+
+With `sbb-form-field` and all related components, input's value set, `wide` set to true:
+```html
+    <sbb-form-field>
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+      <sbb-datepicker-toggle></sbb-datepicker-toggle>
+      <input value="01.01.2023"/>
+      <sbb-datepicker wide="true"></sbb-datepicker>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
+    </sbb-form-field>
+```
+
 <!-- Auto Generated Below -->
 
 
