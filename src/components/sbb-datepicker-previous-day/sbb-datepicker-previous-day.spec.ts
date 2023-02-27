@@ -14,7 +14,7 @@ describe('sbb-datepicker-previous-day', () => {
       <sbb-datepicker-previous-day slot="prefix">
         <mock:shadow-root>
           <div id="sbb-datepicker-previous-day">
-            <button>
+            <button aria-label="Previous day">
               <sbb-icon name="chevron-small-left-small" />
             </button>
           </div>

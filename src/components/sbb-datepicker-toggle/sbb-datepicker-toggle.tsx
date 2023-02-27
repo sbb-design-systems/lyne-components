@@ -5,12 +5,15 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { i18nShowCalendar } from '../../global/i18n';
 import { getDatePicker, InputUpdateEvent } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
@@ -32,6 +35,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   @State() private _max: string | number;
 
+  @State() private _currentLanguage = documentLanguage();
+
   private _datePicker: HTMLSbbDatepickerElement;
 
   private _calendarElement: HTMLSbbCalendarElement;
@@ -47,6 +52,11 @@ export class SbbDatepickerToggle implements ComponentInterface {
     if (newValue !== oldValue) {
       this._init(this.datePicker);
     }
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   public connectedCallback(): void {
@@ -120,11 +130,12 @@ export class SbbDatepickerToggle implements ComponentInterface {
     return (
       <Host slot="prefix">
         <sbb-tooltip-trigger
+          aria-label={i18nShowCalendar[this._currentLanguage]}
           iconName="calendar-small"
           disabled={!this._datePicker || this._disabled}
           onKeyDown={(event: KeyboardEvent) => {
             if (event.code === 'Enter' || event.code === 'Space') {
-              this._openedByKeyboard = true;
+              //this._openedByKeyboard = true;
             }
           }}
         />
@@ -149,7 +160,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
               this._calendarElement.selectedDate = newDate;
               this._datePicker.setValueAsDate(newDate);
             }}
-          ></sbb-calendar>
+          />
         </sbb-tooltip>
       </Host>
     );

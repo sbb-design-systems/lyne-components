@@ -5,15 +5,18 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Prop,
   State,
-  Watch,
+  Watch
 } from '@stencil/core';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { i18nNextDay } from '../../global/i18n';
 import {
   findNextAvailableDate,
   getDatePicker,
-  InputUpdateEvent,
+  InputUpdateEvent
 } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
@@ -33,6 +36,8 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   @State() private _max: string | number;
 
+  @State() private _currentLanguage = documentLanguage();
+
   private _datePickerElement: HTMLSbbDatepickerElement;
 
   private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
@@ -44,6 +49,11 @@ export class SbbDatepickerNextDay implements ComponentInterface {
     if (newValue !== oldValue) {
       this._init(this.datePicker);
     }
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   public connectedCallback(): void {
@@ -117,6 +127,8 @@ export class SbbDatepickerNextDay implements ComponentInterface {
       <Host slot="suffix">
         <div id="sbb-datepicker-next-day">
           <button
+            aria-label={i18nNextDay[this._currentLanguage]}
+            aria-disabled={this._disabled || this._inputDisabled}
             disabled={this._disabled || this._inputDisabled}
             onClick={() => this._handleClick()}
           >

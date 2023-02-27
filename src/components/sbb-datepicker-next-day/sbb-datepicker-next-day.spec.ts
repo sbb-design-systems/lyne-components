@@ -14,7 +14,7 @@ describe('sbb-datepicker-next-day', () => {
       <sbb-datepicker-next-day slot="suffix">
         <mock:shadow-root>
           <div id="sbb-datepicker-next-day">
-            <button>
+            <button  aria-label="Next day">
               <sbb-icon name="chevron-small-right-small" />
             </button>
           </div>

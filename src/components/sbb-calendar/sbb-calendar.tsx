@@ -7,6 +7,7 @@ import {
   EventEmitter,
   h,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -15,6 +16,9 @@ import {
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { Day, handleKeyboardEvent } from './sbb-calendar.helper';
+import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+
 
 @Component({
   shadow: true,
@@ -52,6 +56,8 @@ export class SbbCalendar implements ComponentInterface {
   /** Min and Max values converted to date */
   @State() private _min: Date;
   @State() private _max: Date;
+
+  @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element: HTMLElement;
 
@@ -99,6 +105,11 @@ export class SbbCalendar implements ComponentInterface {
   public resetPosition(): void {
     this._setDates();
     this._init();
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   public connectedCallback(): void {
@@ -362,6 +373,7 @@ export class SbbCalendar implements ComponentInterface {
             variant="secondary"
             iconName="chevron-small-left-small"
             size="m"
+            accessibility-label={i18nPreviousMonth[this._currentLanguage]}
             onClick={() => this._previousMonthClicked()}
             disabled={this._previousMonthEnabled()}
             id="sbb-calendar__controls-previous"
@@ -375,6 +387,7 @@ export class SbbCalendar implements ComponentInterface {
             variant="secondary"
             iconName="chevron-small-right-small"
             size="m"
+            accessibility-label={i18nNextMonth[this._currentLanguage]}
             onClick={() => this._nextMonthClicked()}
             disabled={this._nextMonthEnabled()}
             id="sbb-calendar__controls-next"
