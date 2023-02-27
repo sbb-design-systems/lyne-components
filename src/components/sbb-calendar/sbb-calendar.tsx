@@ -19,7 +19,6 @@ import { Day, handleKeyboardEvent } from './sbb-calendar.helper';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-calendar.scss',

@@ -8,7 +8,7 @@ import {
   Listen,
   Prop,
   State,
-  Watch
+  Watch,
 } from '@stencil/core';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
@@ -16,7 +16,7 @@ import { i18nNextDay } from '../../global/i18n';
 import {
   findNextAvailableDate,
   getDatePicker,
-  InputUpdateEvent
+  InputUpdateEvent,
 } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
