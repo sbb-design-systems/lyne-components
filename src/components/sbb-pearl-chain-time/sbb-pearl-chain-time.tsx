@@ -83,7 +83,11 @@ export class SbbPearlChainTime {
   }
 
   public render(): JSX.Element {
-    const legs = this.legs && this.legs.filter((leg) => leg.__typename === "PTConnectionLeg" || leg.__typename === "PTRideLeg");
+    const legs =
+      this.legs &&
+      this.legs.filter(
+        (leg) => leg.__typename === 'PTConnectionLeg' || leg.__typename === 'PTRideLeg'
+      );
     const lastLeg = legs && legs[legs.length - 1];
 
     const departure: Date | undefined = this.departureTime
@@ -98,7 +102,7 @@ export class SbbPearlChainTime {
       legs && legs[0] && legs[0].__typename === 'PTRideLeg'
         ? legs[0]?.serviceJourney?.notices?.filter((notice) => ['CI'].includes(notice.name))[0]
         : undefined;
-        
+
     const extendedLastLeg =
       lastLeg && lastLeg?.__typename === 'PTRideLeg'
         ? lastLeg?.serviceJourney?.notices?.filter((notice) => ['CO'].includes(notice.name))[0]
