@@ -183,13 +183,13 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const getDatepickerAttr = (min, max, wide) => {
-  let attr = { wide };
+const getDatepickerAttr = (min, max) => {
+  let attr = {};
   if (min) {
-    attr.min = new Date(min);
+    attr.min = new Date(min).getTime() / 1000;
   }
   if (max) {
-    attr.max = new Date(max);
+    attr.max = new Date(max).getTime() / 1000;
   }
   return attr;
 };
@@ -199,14 +199,14 @@ const Template = ({ min, max, wide, dateFilter, ...args }) => {
     <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker" />
       <sbb-datepicker-toggle date-picker="datepicker" />
-      <input {...args} id="datepicker-input" />
+      <input {...args} id="datepicker-input" {...getDatepickerAttr(min, max)} />
       <sbb-datepicker
         id="datepicker"
         input="datepicker-input"
         ref={(calendarRef) => {
           calendarRef.dateFilter = dateFilter;
         }}
-        {...getDatepickerAttr(wide, min, max)}
+        wide={wide}
         onChange={(event) => changeEventHandler(event)}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker" />
@@ -215,12 +215,12 @@ const Template = ({ min, max, wide, dateFilter, ...args }) => {
 };
 
 const TemplateFormField = ({
+  min,
+  max,
   label,
   optional,
   borderless,
   size,
-  min,
-  max,
   wide,
   dateFilter,
   ...args
@@ -236,12 +236,12 @@ const TemplateFormField = ({
       <sbb-datepicker-previous-day />
       <sbb-datepicker-next-day />
       <sbb-datepicker-toggle />
-      <input {...args} />
+      <input {...args} {...getDatepickerAttr(min, max)} />
       <sbb-datepicker
         ref={(calendarRef) => {
           calendarRef.dateFilter = dateFilter;
         }}
-        {...getDatepickerAttr(wide, min, max)}
+        wide={wide}
         onChange={(event) => changeEventHandler(event)}
       ></sbb-datepicker>
     </sbb-form-field>,

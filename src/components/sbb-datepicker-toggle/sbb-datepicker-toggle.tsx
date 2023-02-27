@@ -28,6 +28,10 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   @State() private _disabled = false;
 
+  @State() private _min: string | number;
+
+  @State() private _max: string | number;
+
   private _datePicker: HTMLSbbDatepickerElement;
 
   private _calendarElement: HTMLSbbCalendarElement;
@@ -65,6 +69,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
       (event: CustomEvent<InputUpdateEvent>) => {
         this._datePicker = event.target as HTMLSbbDatepickerElement;
         this._disabled = event.detail.disabled || event.detail.readonly;
+        this._min = event.detail.min;
+        this._max = event.detail.max;
       },
       { signal: this._datePickerController.signal }
     );
@@ -84,8 +90,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
     calendar: HTMLSbbCalendarElement,
     datepicker: HTMLSbbDatepickerElement
   ): void {
-    calendar.min = datepicker?.min;
-    calendar.max = datepicker?.max;
     calendar.wide = datepicker?.wide;
     calendar.dateFilter = datepicker?.dateFilter;
   }
@@ -136,8 +140,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
         >
           <sbb-calendar
             ref={async (calendar: HTMLSbbCalendarElement) => this._assignCalendar(calendar)}
-            min={this._datePicker?.min}
-            max={this._datePicker?.max}
+            min={this._min}
+            max={this._max}
             wide={this._datePicker?.wide}
             dateFilter={this._datePicker?.dateFilter}
             onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {

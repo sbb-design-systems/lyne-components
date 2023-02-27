@@ -31,6 +31,8 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   @State() private _inputDisabled = false;
 
+  @State() private _min: string | number;
+
   private _datePickerElement: HTMLSbbDatepickerElement;
 
   private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
@@ -72,8 +74,10 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     );
     this._datePickerElement.addEventListener(
       'inputUpdated',
-      (event: CustomEvent<InputUpdateEvent>) =>
-        (this._inputDisabled = event.detail.disabled || event.detail.readonly),
+      (event: CustomEvent<InputUpdateEvent>) => {
+        this._inputDisabled = event.detail.disabled || event.detail.readonly;
+        this._min = event.detail.min;
+      },
       { signal: this._datePickerController.signal }
     );
   }
@@ -84,7 +88,8 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
       const previousDate: Date = findPreviousAvailableDate(
         pickerValueAsDate,
         datepicker,
-        this._dateAdapter
+        this._dateAdapter,
+        this._min
       );
       this._disabled = this._dateAdapter.compareDate(previousDate, pickerValueAsDate) === 0;
     }
@@ -99,7 +104,8 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     const date: Date = findPreviousAvailableDate(
       startingDate,
       this._datePickerElement,
-      this._dateAdapter
+      this._dateAdapter,
+      this._min
     );
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       await this._datePickerElement.setValueAsDate(date);

@@ -66,12 +66,16 @@ export function getAvailableDate(
 export function findPreviousAvailableDate(
   date: Date,
   datePicker: HTMLSbbDatepickerElement,
-  dateAdapter: NativeDateAdapter
+  dateAdapter: NativeDateAdapter,
+  min: string | number
 ): Date {
   const previousDate = getAvailableDate(date, -1, datePicker, dateAdapter);
-  const min: Date = dateAdapter.deserializeDate(datePicker.min);
+  const dateMin: Date = dateAdapter.deserializeDate(min);
 
-  if (!min || (dateAdapter.isValid(min) && dateAdapter.compareDate(previousDate, min) >= 0)) {
+  if (
+    !dateMin ||
+    (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(previousDate, dateMin) >= 0)
+  ) {
     return previousDate;
   }
   return date;
@@ -80,26 +84,35 @@ export function findPreviousAvailableDate(
 export function findNextAvailableDate(
   date: Date,
   datePicker: HTMLSbbDatepickerElement,
-  dateAdapter: NativeDateAdapter
+  dateAdapter: NativeDateAdapter,
+  max: string | number
 ): Date {
   const nextDate = getAvailableDate(date, 1, datePicker, dateAdapter);
-  const max: Date = dateAdapter.deserializeDate(datePicker.max);
+  const dateMax: Date = dateAdapter.deserializeDate(max);
 
-  if (!max || (dateAdapter.isValid(max) && dateAdapter.compareDate(nextDate, max) <= 0)) {
+  if (
+    !dateMax ||
+    (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(nextDate, dateMax) <= 0)
+  ) {
     return nextDate;
   }
   return date;
 }
 
-export function isDateAvailable(date: Date, datePicker: HTMLSbbDatepickerElement): boolean {
+export function isDateAvailable(
+  date: Date,
+  datePicker: HTMLSbbDatepickerElement,
+  min: string | number,
+  max: string | number
+): boolean {
   const dateAdapter = new NativeDateAdapter();
-  const min: Date = dateAdapter.deserializeDate(datePicker.min);
-  const max: Date = dateAdapter.deserializeDate(datePicker.max);
+  const dateMin: Date = dateAdapter.deserializeDate(min);
+  const dateMax: Date = dateAdapter.deserializeDate(max);
 
-  if (!!min && dateAdapter.isValid(min) && dateAdapter.compareDate(date, min) < 0) {
+  if (!!dateMin && dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin) < 0) {
     return false;
   }
-  if (!!max && dateAdapter.isValid(max) && dateAdapter.compareDate(date, max) > 0) {
+  if (!!dateMax && dateAdapter.isValid(dateMax) && dateAdapter.compareDate(date, dateMax) > 0) {
     return false;
   }
 
@@ -109,4 +122,6 @@ export function isDateAvailable(date: Date, datePicker: HTMLSbbDatepickerElement
 export interface InputUpdateEvent {
   disabled: boolean;
   readonly: boolean;
+  min: string | number;
+  max: string | number;
 }

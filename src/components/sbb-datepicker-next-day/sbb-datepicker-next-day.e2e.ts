@@ -68,9 +68,19 @@ describe('sbb-datepicker-next-day', () => {
     });
 
     it('disabled due max value equals to value', async () => {
+      page = await newE2EPage();
+      await page.setContent(`
+        <sbb-form-field>
+          <input value="21-01-2023" max="1674255600"/>
+          <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-datepicker></sbb-datepicker>
+        </sbb-form-field>
+      `);
+      input = await page.find('input');
+      button = await page.find('sbb-datepicker-next-day >>> button');
+      await page.waitForChanges();
+
       expect(await input.getProperty('value')).toEqual('21-01-2023');
-      const picker = await page.find('sbb-datepicker');
-      picker.setAttribute('max', 1674255600);
       await page.waitForChanges();
 
       expect(button).toHaveAttribute('disabled');

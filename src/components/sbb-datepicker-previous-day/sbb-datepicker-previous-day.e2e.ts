@@ -68,10 +68,19 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     it('disabled due min equals to value', async () => {
-      expect(await input.getProperty('value')).toEqual('20-01-2023');
-      const picker = await page.find('sbb-datepicker');
-      picker.setAttribute('min', 1674172800);
+      page = await newE2EPage();
+      await page.setContent(`
+        <sbb-form-field>
+          <input value="20-01-2023" min="1674172800"/>
+          <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+          <sbb-datepicker></sbb-datepicker>
+        </sbb-form-field>
+      `);
+      input = await page.find('input');
+      button = await page.find('sbb-datepicker-previous-day >>> button');
       await page.waitForChanges();
+
+      expect(await input.getProperty('value')).toEqual('20-01-2023');
 
       expect(button).toHaveAttribute('disabled');
       await button.click();

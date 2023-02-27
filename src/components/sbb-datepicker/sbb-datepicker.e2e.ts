@@ -48,18 +48,12 @@ describe('sbb-datepicker', () => {
     it('renders and emits event when input parameter changes', async () => {
       const datePickerUpdatedSpy = await page.spyOnEvent('datePickerUpdated');
       const picker = await page.find('sbb-datepicker');
-      picker.setProperty('min', '1');
-      await page.waitForChanges();
-      expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(1);
-      picker.setProperty('max', '20000000');
-      await page.waitForChanges();
-      expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(2);
       picker.setProperty('wide', true);
       await page.waitForChanges();
-      expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(3);
+      expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(1);
       picker.setProperty('dateFilter', () => null);
       await page.waitForChanges();
-      expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(4);
+      expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(2);
     });
   });
 });

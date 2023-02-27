@@ -29,12 +29,6 @@ export class SbbDatepicker implements ComponentInterface {
   /** If set to true, two months are displayed */
   @Prop() public wide = false;
 
-  /** The minimum valid date. */
-  @Prop() public min: Date | string | number;
-
-  /** The maximum valid date. */
-  @Prop() public max: Date | string | number;
-
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
@@ -64,8 +58,6 @@ export class SbbDatepicker implements ComponentInterface {
     }
   }
 
-  @Watch('min')
-  @Watch('max')
   @Watch('wide')
   @Watch('dateFilter')
   public somePropChanged(newValue: any, oldValue: any): void {
@@ -86,7 +78,7 @@ export class SbbDatepicker implements ComponentInterface {
 
       this._inputObserver?.disconnect();
       this._inputObserver.observe(this._inputElement, {
-        attributeFilter: ['disabled', 'readonly'],
+        attributeFilter: ['disabled', 'readonly', 'min', 'max'],
       });
 
       this._inputElement.type = 'text';
@@ -133,6 +125,8 @@ export class SbbDatepicker implements ComponentInterface {
     this.inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
+      min: this._inputElement?.min,
+      max: this._inputElement?.max,
     });
   }
 
@@ -169,7 +163,12 @@ export class SbbDatepicker implements ComponentInterface {
       this._inputElement.classList.remove('sbb-invalid');
       this._inputElement.value = newValue;
       const newValueAsDate: Date = await this.getValueAsDate();
-      this._isDateValid = isDateAvailable(newValueAsDate, this._element);
+      this._isDateValid = isDateAvailable(
+        newValueAsDate,
+        this._element,
+        this._inputElement?.min,
+        this._inputElement?.max
+      );
       !this._isDateValid && this._inputElement.classList.add('sbb-invalid');
       this._emitChange();
     }
@@ -185,6 +184,8 @@ export class SbbDatepicker implements ComponentInterface {
     this.inputUpdated.emit({
       disabled: this._inputElement.disabled,
       readonly: this._inputElement.readOnly,
+      min: this._inputElement?.min,
+      max: this._inputElement?.max,
     });
   }
 

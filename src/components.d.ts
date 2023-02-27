@@ -426,14 +426,6 @@ export namespace Components {
           * Reference of the native input connected to the datepicker.
          */
         "input"?: string | HTMLElement;
-        /**
-          * The maximum valid date.
-         */
-        "max": Date | string | number;
-        /**
-          * The minimum valid date.
-         */
-        "min": Date | string | number;
         "setValueAsDate": (date: Date) => Promise<void>;
         /**
           * If set to true, two months are displayed
@@ -2639,14 +2631,6 @@ declare namespace LocalJSX {
           * Reference of the native input connected to the datepicker.
          */
         "input"?: string | HTMLElement;
-        /**
-          * The maximum valid date.
-         */
-        "max"?: Date | string | number;
-        /**
-          * The minimum valid date.
-         */
-        "min"?: Date | string | number;
         "onChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
         "onDatePickerUpdated"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**

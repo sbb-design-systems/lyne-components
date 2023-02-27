@@ -189,6 +189,9 @@ export class NativeDateAdapter {
   }
 
   public deserializeDate(date: Date | string | number): Date | null {
+    if (!date) {
+      return null;
+    }
     if (typeof date === 'string') {
       if (!Number.isNaN(+date)) {
         return new Date(+date * 1000);
