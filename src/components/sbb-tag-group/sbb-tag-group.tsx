@@ -67,7 +67,6 @@ export class SbbTagGroup implements ComponentInterface {
     }
   }
 
-  @Watch('multiple')
   private _ensureOnlyOneTagSelected(): void {
     if (this.multiple) {
       return;
