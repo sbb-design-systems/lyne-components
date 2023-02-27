@@ -585,7 +585,7 @@ export const i18nShowCalendar: Record<string, string> = {
 
 export const i18nConnectionFrom: Record<string, string> = {
   de: 'Verbindung von',
-  en: 'Connection from1',
+  en: 'Connection from',
   fr: 'Liaison de',
   it: 'Collegamento da',
 };
