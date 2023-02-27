@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import { progressLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
+import { extendedLeg, progressLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
 const departureWalk = {
   control: {
@@ -84,10 +84,20 @@ export const maximal = Template.bind({});
 maximal.argTypes = defaultArgTypes;
 maximal.args = {
   ...defaultArgs,
-  'departure-walk': '10',
+  'departure-walk': '0',
   'arrival-walk': '5',
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   legs: [progressLeg],
+};
+
+export const extendedEnter = Template.bind({});
+extendedEnter.argTypes = defaultArgTypes;
+extendedEnter.args = {
+  ...defaultArgs,
+  'departure-walk': '10',
+  'arrival-walk': '5',
+  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  legs: [extendedLeg],
 };
 
 export default {

@@ -75,6 +75,27 @@ export const futureLeg = {
   serviceJourney: defaultService,
 };
 
+export const extendedLeg = {
+  __typename: 'PTRideLeg',
+  arrival: {
+    time: future2,
+  },
+  departure: {
+    time: future,
+  },
+  serviceJourney: {
+    ...defaultService,
+    notices: [
+      {
+        name: 'CI',
+        text: {
+          template: "Verlängerte Einsteigezeit (45')",
+        },
+      },
+    ],
+  },
+};
+
 export const longFutureLeg = {
   __typename: 'PTRideLeg',
   arrival: {

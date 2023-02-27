@@ -30,7 +30,7 @@ export class SbbTimetableRow {
   @State() private _currentLanguage = documentLanguage();
 
   /** The trip Prop */
-  @Prop() public trip!: Trip;
+  @Prop() public trip: Trip;
 
   /** The price Prop, which consists of the data for the badge. */
   @Prop() public price?: Price;

@@ -1,5 +1,5 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 import { isRideLeg } from './sbb-pearl-chain.helper';
@@ -19,7 +19,7 @@ export class SbbPearlChain {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs: PtRideLeg[];
+  @Prop() public legs: (PtRideLeg & PtConnectionLeg)[];
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -69,7 +69,7 @@ export class SbbPearlChain {
   }
 
   private _getStatus(end: Date, start?: Date): Status {
-    if (isBefore(start, this._now()) && isAfter(end, this._now())) {
+    if (start && isBefore(start, this._now()) && isAfter(end, this._now())) {
       return 'progress';
     } else if (isBefore(end, this._now())) {
       return 'past';
@@ -94,7 +94,7 @@ export class SbbPearlChain {
   }
 
   public render(): JSX.Element {
-    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg));
+    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
     const arrivalTime =
