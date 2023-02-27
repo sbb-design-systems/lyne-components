@@ -195,7 +195,7 @@ const getDatepickerAttr = (min, max) => {
 };
 
 const Template = ({ min, max, wide, dateFilter, ...args }) => {
-  return (
+  return [
     <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker" />
       <sbb-datepicker-toggle date-picker="datepicker" />
@@ -210,8 +210,11 @@ const Template = ({ min, max, wide, dateFilter, ...args }) => {
         onChange={(event) => changeEventHandler(event)}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker" />
-    </div>
-  );
+    </div>,
+    <div id="container-value" style="margin-block-start: 1rem;">
+      Change date to get the latest value:
+    </div>,
+  ];
 };
 
 const TemplateFormField = ({
@@ -245,7 +248,9 @@ const TemplateFormField = ({
         onChange={(event) => changeEventHandler(event)}
       ></sbb-datepicker>
     </sbb-form-field>,
-    <div id="container-value"></div>,
+    <div id="container-value" style="margin-block-start: 1rem;">
+      Change date to get the latest value:
+    </div>,
   ];
 };
 
@@ -255,13 +260,49 @@ const changeEventHandler = async (event) => {
   document.getElementById('container-value').append(div);
 };
 
-export const Default = Template.bind({});
-Default.argTypes = { ...basicArgTypes };
-Default.args = { ...basicArgs };
+export const WithoutFormField = Template.bind({});
+WithoutFormField.argTypes = { ...basicArgTypes };
+WithoutFormField.args = { ...basicArgs };
 
 export const InFormField = TemplateFormField.bind({});
 InFormField.argTypes = { ...formFieldBasicArgsTypes };
 InFormField.args = { ...formFieldBasicArgs };
+
+export const InFormFieldDisabled = TemplateFormField.bind({});
+InFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldDisabled.args = { ...formFieldBasicArgs, disabled: true };
+
+export const InFormFieldReadonly = TemplateFormField.bind({});
+InFormFieldReadonly.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldReadonly.args = { ...formFieldBasicArgs, readonly: true };
+
+export const InFormFieldWide = TemplateFormField.bind({});
+InFormFieldWide.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldWide.args = { ...formFieldBasicArgs, wide: true };
+
+export const InFormFieldWithMinAndMax = TemplateFormField.bind({});
+InFormFieldWithMinAndMax.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldWithMinAndMax.args = {
+  ...formFieldBasicArgs,
+  min: new Date(1675814400000),
+  max: new Date(1677024000000),
+};
+
+export const InFormFieldWithDateFilter = TemplateFormField.bind({});
+InFormFieldWithDateFilter.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldWithDateFilter.args = { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] };
+
+export const InFormFieldLarge = TemplateFormField.bind({});
+InFormFieldLarge.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldLarge.args = { ...formFieldBasicArgs, size: size.options[1] };
+
+export const InFormFieldOptional = TemplateFormField.bind({});
+InFormFieldOptional.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldOptional.args = { ...formFieldBasicArgs, optional: true };
+
+export const InFormFieldBorderless = TemplateFormField.bind({});
+InFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
+InFormFieldBorderless.args = { ...formFieldBasicArgs, borderless: true };
 
 export default {
   decorators: [

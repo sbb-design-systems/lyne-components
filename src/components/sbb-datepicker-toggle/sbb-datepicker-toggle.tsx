@@ -98,7 +98,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     const datepicker = event.target as HTMLSbbDatepickerElement;
     const datepickerDate = await datepicker.getValueAsDate();
     const calendarDate = this._dateAdapter.deserializeDate(this._calendarElement.selectedDate);
-    if (datepickerDate.getTime() !== calendarDate?.getTime()) {
+    if (datepickerDate?.getTime() !== calendarDate?.getTime()) {
       this._calendarElement.selectedDate = datepickerDate;
 
       if (!this._dateAdapter.hasSameMonthAndYear(datepickerDate, calendarDate)) {
