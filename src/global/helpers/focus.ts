@@ -18,8 +18,11 @@ export function getFocusableElements(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
           filterFunc
         );
-      } else if (!filterFunc?.(el) && Array.from(el.children).length) {
-        getFocusables(Array.from(el.children) as HTMLElement[], filterFunc);
+      } else if (!filterFunc?.(el) && (el.children.length || el.shadowRoot?.children.length)) {
+        const children = Array.from(el.children).length
+          ? (Array.from(el.children) as HTMLElement[])
+          : (Array.from(el.shadowRoot.children) as HTMLElement[]);
+        getFocusables(children, filterFunc);
       }
     }
   }
@@ -49,7 +52,10 @@ export class FocusTrap {
           ? [firstFocusable, lastFocusable]
           : [lastFocusable, firstFocusable];
 
-        if (element.shadowRoot?.activeElement === pivot || document.activeElement === pivot) {
+        if (
+          (firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
+          (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot
+        ) {
           next.focus();
           event.preventDefault();
         }

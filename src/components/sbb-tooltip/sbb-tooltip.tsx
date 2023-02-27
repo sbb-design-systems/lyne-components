@@ -52,6 +52,11 @@ export class SbbTooltip implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
+   * Whether the close button should be hidden.
+   */
+  @Prop() public hideCloseButton?: boolean = false;
+
+  /**
    * Whether the tooltip should be triggered on hover.
    */
   @Prop() public hoverTrigger?: boolean = false;
@@ -514,7 +519,7 @@ export class SbbTooltip implements ComponentInterface {
               <span>
                 <slot>No content</slot>
               </span>
-              {!this._hoverTrigger && closeButton}
+              {!this.hideCloseButton && !this._hoverTrigger && closeButton}
             </div>
           </dialog>
         </div>

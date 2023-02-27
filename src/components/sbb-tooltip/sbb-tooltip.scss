@@ -108,12 +108,6 @@
   }
 }
 
-.sbb-tooltip__close {
-  :host([data-hide-close-button]) & {
-    display: none;
-  }
-}
-
 .sbb-tooltip__content {
   display: flex;
   gap: var(--sbb-spacing-fixed-4x);

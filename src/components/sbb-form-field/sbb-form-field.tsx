@@ -239,6 +239,22 @@ export class SbbFormField implements ComponentInterface {
     this._input?.setAttribute('aria-describedby', value);
   }
 
+  private _setInputFocus(event: Event): void {
+    const composedPathElements = event
+      .composedPath()
+      .filter((el) => el instanceof window.HTMLElement);
+
+    const isPopup = composedPathElements.some(
+      (el) =>
+        isValidAttribute(el as HTMLElement, 'aria-haspopup') ||
+        (el as HTMLElement).tagName === 'SBB-TOOLTIP'
+    );
+
+    if (!isPopup) {
+      this._input?.focus();
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
