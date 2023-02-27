@@ -19,8 +19,11 @@
   --sbb-navigation-section-width: 100vw;
   --sbb-navigation-section-height: 100vh;
 
-  @supports (height: 100dvh) {
+  @supports (width: 100dvw) {
     --sbb-navigation-section-width: 100dvw;
+  }
+
+  @supports (height: 100dvh) {
     --sbb-navigation-section-height: 100dvh;
   }
 
