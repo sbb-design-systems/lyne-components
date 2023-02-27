@@ -250,6 +250,7 @@ Add global styles for the origin of autocomplete dropdown
     width: 100%;
     height: calc(2 * var(--sbb-border-radius-4x));
     pointer-events: none;
+    transition: visibility var(--sbb-animation-duration-1x) var(--sbb-animation-easing);
   }
 
   &[data-autocomplete-position='below']::before {
