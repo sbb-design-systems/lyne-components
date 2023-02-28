@@ -130,7 +130,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     return (
       <Host slot="prefix">
         <sbb-tooltip-trigger
-          aria-label={i18nShowCalendar[this._currentLanguage]}
+          accessibilityLabel={i18nShowCalendar[this._currentLanguage]}
           iconName="calendar-small"
           disabled={!this._datePicker || this._disabled}
           onKeyDown={(event: KeyboardEvent) => {

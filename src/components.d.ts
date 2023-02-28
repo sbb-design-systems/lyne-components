@@ -271,7 +271,7 @@ export namespace Components {
           * A function used to filter out dates.
          */
         "dateFilter": (date: Date | null) => boolean;
-        "focusCell": () => Promise<void>;
+        "focusCell": () => void;
         /**
           * The maximum valid date.
          */
@@ -280,7 +280,7 @@ export namespace Components {
           * The minimum valid date.
          */
         "min": Date | string | number;
-        "resetPosition": () => Promise<void>;
+        "resetPosition": () => void;
         /**
           * The selected date.
          */
@@ -1573,6 +1573,10 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbTooltipTrigger {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel": string | undefined;
         /**
           * Whether the tooltip-trigger is disabled.
          */
@@ -3852,6 +3856,10 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbTooltipTrigger {
+        /**
+          * This will be forwarded as aria-label to the relevant nested element.
+         */
+        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the tooltip-trigger is disabled.
          */
