@@ -117,7 +117,6 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   @Method()
   public async open(): Promise<void> {
-    console.log('Open autocomplete');
     if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
       return;
     }
@@ -133,7 +132,6 @@ export class SbbAutocomplete implements ComponentInterface {
 
   @Method()
   public async close(): Promise<void> {
-    console.log('Close autocomplete');
     if (this._state !== 'opened') {
       return;
     }
@@ -254,6 +252,15 @@ export class SbbAutocomplete implements ComponentInterface {
       (event: KeyboardEvent) => {
         if (event.key === 'ArrowDown') this.open();
       },
+      {
+        signal: this._triggerEventsController.signal,
+      }
+    );
+
+    // On input change, highlight the options
+    this._triggerElement.addEventListener(
+      'input',
+      (ev) => this._highlightOptions((ev.target as HTMLInputElement).value),
       {
         signal: this._triggerEventsController.signal,
       }
@@ -417,6 +424,10 @@ export class SbbAutocomplete implements ComponentInterface {
     element?.removeAttribute('autocomplete');
   }
 
+  private _highlightOptions(searchTerm: string): void {
+    this._options.forEach((option) => (option.highlightString = searchTerm));
+  }
+
   public render(): JSX.Element {
     return (
       <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
@@ -428,7 +439,6 @@ export class SbbAutocomplete implements ComponentInterface {
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
             <div class="sbb-autocomplete__options">
-              {' '}
               <slot />
             </div>
           </div>

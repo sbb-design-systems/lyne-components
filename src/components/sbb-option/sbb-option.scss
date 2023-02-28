@@ -25,6 +25,12 @@
   }
 }
 
+:host(:not([disable-label-highlight]:not([disable-label-highlight='false']))) {
+  .sbb-option__label slot {
+    display: none;
+  }
+}
+
 .sbb-option {
   display: flex;
   align-items: center;
@@ -42,4 +48,8 @@
 
 .sbb-option__icon--hidden {
   display: none;
+}
+
+.sbb-option__label--highlight {
+  @include sbb.text--bold;
 }

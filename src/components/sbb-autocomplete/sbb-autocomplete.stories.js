@@ -50,6 +50,7 @@ const Template = (args) => [
 
     <sbb-autocomplete {...args}>
       <sbb-option icon-name="clock-small" value="Option 1">
+        <sbb-icon slot="icon" name="clock-small" />
         Option 1
       </sbb-option>
       <sbb-option icon-name="clock-small" value="Option 2">
