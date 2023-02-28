@@ -94,14 +94,14 @@ export class SbbCalendar implements ComponentInterface {
 
   /* Focuses on a day cell. */
   @Method()
-  public focusCell(): void {
+  public async focusCell(): Promise<void> {
     const toFocus = this._getFirstFocusable();
     toFocus?.focus();
   }
 
   /* Resets the active month according to the new state of the calendar. */
   @Method()
-  public resetPosition(): void {
+  public async resetPosition(): Promise<void> {
     this._setDates();
     this._init();
   }
