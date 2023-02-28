@@ -1,4 +1,4 @@
-import { isValid } from './validate';
+import { isValid } from './sbb-icon-validate';
 
 describe('isValid', () => {
   it('invalid onload attr', () => {

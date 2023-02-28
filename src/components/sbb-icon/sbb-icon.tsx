@@ -9,8 +9,7 @@ import {
   Watch,
   ComponentInterface,
 } from '@stencil/core';
-import { getSvgContent, iconNamespaces, registeredIcons } from './request';
-import { validateContent } from './validate';
+import { getSvgContent } from './sbb-icon-request';
 
 @Component({
   shadow: true,
@@ -91,18 +90,7 @@ export class SbbIcon implements ComponentInterface {
       this.ariaLabel = `Icon ${this._svgName.replace(/-/g, ' ')}`;
     }
 
-    // try to load SVG from registered icons
-    this._svgIcon = this._loadRegisteredIcon();
-
-    if (this._svgIcon) {
-      return;
-    }
-
-    const url = this._resolveSvgUrl();
-
-    if (url) {
-      this._svgIcon = await getSvgContent(url, this.sanitize);
-    }
+    this._svgIcon = await getSvgContent(this._svgNamespace, this._svgName, this.sanitize);
   }
 
   private _splitIconName(iconName: string): [string, string] {
@@ -120,20 +108,6 @@ export class SbbIcon implements ComponentInterface {
     }
   }
 
-  private _loadRegisteredIcon(): string {
-    return registeredIcons.get(this.name);
-  }
-
-  private _resolveSvgUrl(): string {
-    if (iconNamespaces.has(this._svgNamespace)) {
-      return `${iconNamespaces.get(this._svgNamespace)}${this._svgName}.svg`;
-    } else {
-      throw Error(
-        `Unable to find the namespace "${this._svgNamespace}". Please register your custom namespace through the icon registry API.`
-      );
-    }
-  }
-
   public render(): JSX.Element {
     return (
       <Host role="img" data-namespace={this._svgNamespace} data-empty={!this._svgIcon}>
@@ -147,37 +121,5 @@ export class SbbIcon implements ComponentInterface {
         )}
       </Host>
     );
-  }
-
-  /**
-   * Registers a new custom namespace.
-   * @param namespace The namespace to register runtime.
-   * @param path The url from which to retrieve the icons.
-   */
-  public static registerNamespace(namespace: string, path: string): void {
-    if (namespace && path) {
-      iconNamespaces.set(namespace, path);
-    }
-  }
-
-  /**
-   * Registers a new custom icon.
-   * @param namespace The namespace to register runtime.
-   * @param name The custom icon name.
-   * @param svg The icon svg content: "<svg>...</svg>".
-   * @param options The properties for the svg icon (optional).
-   * @param options.sanitize Sanitizes the svg element (optional).
-   * @param options.colorImmutable Adds the class "color-immutable" to prevent changing the icon color (optional).
-   */
-  public static registerIcon(
-    namespace: string,
-    name: string,
-    svg: string,
-    options?: { sanitize?: boolean; colorImmutable?: boolean }
-  ): void {
-    if (name && namespace && svg) {
-      const svgContent = validateContent(svg, options?.sanitize, options?.colorImmutable);
-      registeredIcons.set(`${namespace}:${name}`, svgContent);
-    }
   }
 }
