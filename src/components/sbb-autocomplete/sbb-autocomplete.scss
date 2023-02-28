@@ -34,7 +34,7 @@
   margin-block: var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-autocomplete__container {
+.sbb-autocomplete__backdrop {
   position: fixed;
   pointer-events: none;
   inset: var(--sbb-menu-inset, unset);
@@ -52,10 +52,7 @@
   top: var(--sbb-overlay-position-y);
   left: var(--sbb-overlay-position-x);
   width: var(--sbb-overlay-width);
-  max-height: var(--sbb-overlay-max-height);
-  min-height: var(--sbb-overlay-min-height);
   visibility: visible;
-  overflow: hidden;
   transition: box-shadow var(--sbb-overlay-transition-duration) var(--sbb-animation-easing);
 
   &[data-open]:not([data-open='false']) {
@@ -131,6 +128,9 @@
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: 0;
   border-radius: var(--sbb-overlay-border-radius);
+  max-height: var(--sbb-overlay-max-height);
+  min-height: var(--sbb-overlay-min-height);
+  overflow-y: auto;
 }
 
 @keyframes open {
