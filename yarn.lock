@@ -2752,10 +2752,10 @@
     lodash.union "^4.6.0"
     lodash.values "^4.3.0"
 
-"@stencil/core@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-3.0.1.tgz#34eb18baecc7da5475f9add581659bbbfafda38d"
-  integrity sha512-9QLWpv7b/kMu+cM9mPCATEZavDOEglBB/amhviIlTMUwLdwoGDNHohvpoxkoJN/VPHdmwT1XA6hDeT2lSnXV/Q==
+"@stencil/core@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-3.1.0.tgz#a1320516ebeda056f5f20000628c3488656a4435"
+  integrity sha512-Zfe+evaw9m2L/HkTO97Hu8go2ThXrObyWkVqa7V3HjTnq+8TUd/nwld9PC0bOItC/eyMRXsWHdEDCpJAZ1tEVQ==
 
 "@stencil/react-output-target@0.4.0":
   version "0.4.0"
