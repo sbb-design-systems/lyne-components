@@ -1,3 +1,5 @@
+# sbb-icon
+
 The `sbb-icon` component provides a solid way of rendering registered and named icons. 
 The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon. 
 The icon components are not tied to specific icon sets; you can register custom namespaces
@@ -30,6 +32,8 @@ In thinking about accessibility, it is useful to place icon use into one of thre
    This includes using the icon in place of text inside of a larger message.
 
 <!-- TODO: add icon configuration documentation -->
+
+<!-- Auto Generated Below -->
 
 
 ## Properties
@@ -88,3 +92,5 @@ graph TD;
 ```
 
 ----------------------------------------------
+
+
