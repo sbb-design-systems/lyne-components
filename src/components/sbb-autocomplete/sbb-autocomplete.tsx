@@ -125,15 +125,12 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-
-    // TODO Temporary until the animation si implemented
-    //setTimeout(() => this._onOpenAnimationEnd());
   }
 
   /**
    * Closes the autocomplete.
    */
-  
+
   @Method()
   public async close(): Promise<void> {
     console.log('Close autocomplete');
@@ -144,9 +141,6 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'closing';
     this.willClose.emit();
     this._windowEventsController.abort();
-
-    // TODO Temporary until the animation si implemented
-    //setTimeout(() => this._onCloseAnimationEnd());
   }
 
   // Removes trigger click listener on trigger change.
@@ -183,7 +177,7 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    this._windowEventsController.abort();
+    this._windowEventsController?.abort();
   }
 
   private _setUp(): void {
@@ -225,8 +219,9 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
     this._originElement = anchorElem;
+
+    // This attributes are used to handle the visual attachment effect
     this._originElement.setAttribute('data-autocomplete-origin', 'true');
-    // Set position attribute
     this._originElement.setAttribute('data-autocomplete-open', 'false');
   }
 
@@ -235,11 +230,10 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    if (this._originElement.hasAttribute('borderless')) {
-      this._element.setAttribute('data-autocomplete-origin-borderless', 'true');
-    } else {
-      this._element.setAttribute('data-autocomplete-origin-borderless', 'false');
-    }
+    this._element.setAttribute(
+      'data-autocomplete-origin-borderless',
+      `${this._originElement.hasAttribute('borderless')}`
+    );
 
     // Reset aria attributes to the old trigger and add them to the new one
     this._removeAriaAttributes(this._triggerElement);
@@ -247,10 +241,23 @@ export class SbbAutocomplete implements ComponentInterface {
 
     this._triggerElement = triggerElem;
 
+    // Open the overlay on focus, input and arrow down event
     this._triggerEventsController = new AbortController();
     this._triggerElement.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
+    this._triggerElement.addEventListener('input', () => this.open(), {
+      signal: this._triggerEventsController.signal,
+    });
+    this._triggerElement.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (event.key === 'ArrowDown') this.open();
+      },
+      {
+        signal: this._triggerEventsController.signal,
+      }
+    );
   }
 
   // Set overlay position, width and max height
@@ -262,7 +269,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Set the width to match the trigger element
     this._element.style.setProperty('--sbb-overlay-width', `${this._originElement.offsetWidth}px`);
 
-    // Get the origin height
+    // Set the origin height
     this._element.style.setProperty(
       '--sbb-overlay-origin-height',
       `${this._originElement.offsetHeight}px`
@@ -281,24 +288,28 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
-  // First set the autocomplete position, then keep animation related to the visible autocomplete position
-  // Reset autocomplete position only when the closing animation is completed
-  private _onAutocompleteAnimationEnd(event: AnimationEvent): void {
+  private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
-      this._state = 'opened';
-      this._attachWindowEvents();
-      this._triggerElement?.setAttribute('aria-expanded', 'true');
-      this._originElement?.setAttribute('data-autocomplete-open', 'true');
-      this.didOpen.emit();
-      console.log('on autocomplete animation open');
+      this._onOpenAnimatinoEnd();
     } else if (event.animationName === 'close') {
-      this._state = 'closed';
-      this._triggerElement?.setAttribute('aria-expanded', 'false');
-      this._originElement?.setAttribute('data-autocomplete-open', 'false');
-      this._resetActiveElement();
-      this.didClose.emit();
-      console.log('on autocomplete animation close');
+      this._onCloseAnimationEnd();
     }
+  }
+
+  private _onOpenAnimatinoEnd(): void {
+    this._state = 'opened';
+    this._attachWindowEvents();
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._originElement?.setAttribute('data-autocomplete-open', 'true');
+    this.didOpen.emit();
+  }
+
+  private _onCloseAnimationEnd(): void {
+    this._state = 'closed';
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    this._originElement?.setAttribute('data-autocomplete-open', 'false');
+    this._resetActiveElement();
+    this.didClose.emit();
   }
 
   private _attachWindowEvents(): void {
@@ -409,9 +420,9 @@ export class SbbAutocomplete implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
-        <div class="sbb-autocomplete__container">
+        <div class="sbb-autocomplete__backdrop">
           <div
-            onAnimationEnd={(event: AnimationEvent) => this._onAutocompleteAnimationEnd(event)}
+            onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-autocomplete__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
