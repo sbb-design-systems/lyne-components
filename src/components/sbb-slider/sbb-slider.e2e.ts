@@ -23,6 +23,9 @@ describe('sbb-slider', () => {
   // NOTE: value at line 37 is not reflected; probably related to bug https://github.com/ionic-team/stencil/issues/2946
   it('renders', async () => {
     expect(element).toHaveClass('hydrated');
+
+    // Wait five seconds in hope the icons will successfully be loaded
+    await new Promise((res) => setTimeout(res, 5000));
     await page.waitForChanges();
 
     expect(element).toEqualHtml(`
