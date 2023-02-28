@@ -135,7 +135,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           disabled={!this._datePicker || this._disabled}
           onKeyDown={(event: KeyboardEvent) => {
             if (event.code === 'Enter' || event.code === 'Space') {
-              //this._openedByKeyboard = true;
+              this._openedByKeyboard = true;
             }
           }}
         />

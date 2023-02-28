@@ -250,7 +250,7 @@ export class SbbCalendar implements ComponentInterface {
               'sbb-datepicker__day-selected': selected,
               'sbb-datepicker__crossed-out': !isOutOfRange && !this.dateFilter(new Date(day.value)),
             }}
-            onClick={() => this._selectDate(day.value)}
+            onClick={(event) => this._selectDate(day.value, event)}
             disabled={isOutOfRange || !this.dateFilter(new Date(day.value))}
             aria-label={`${day.dayValue} ${day.monthValue} ${day.yearValue}`}
             aria-pressed={selected ? 'true' : 'false'}
@@ -289,20 +289,23 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(day: string): void {
+  private _selectDate(day: string, event: Event): void {
+    event.stopImmediatePropagation();
     if (this._selected !== day) {
       this._selected = day;
       this.dateSelected.emit(new Date(day));
     }
   }
 
-  private _nextMonthClicked(): void {
+  private _nextMonthClicked(event: Event): void {
+    event.stopImmediatePropagation();
     const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
     this._assignActiveDate(newActiveDate);
     this._init();
   }
 
-  private _previousMonthClicked(): void {
+  private _previousMonthClicked(event: Event): void {
+    event.stopImmediatePropagation();
     const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
     this._assignActiveDate(newActiveDate);
     this._init();
@@ -373,7 +376,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-left-small"
             size="m"
             accessibility-label={i18nPreviousMonth[this._currentLanguage]}
-            onClick={() => this._previousMonthClicked()}
+            onClick={(event) => this._previousMonthClicked(event)}
             disabled={this._previousMonthEnabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
@@ -387,7 +390,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-right-small"
             size="m"
             accessibility-label={i18nNextMonth[this._currentLanguage]}
-            onClick={() => this._nextMonthClicked()}
+            onClick={(event) => this._nextMonthClicked(event)}
             disabled={this._nextMonthEnabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>
