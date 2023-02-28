@@ -98,11 +98,7 @@ export class SbbIcon implements ComponentInterface {
       return;
     }
 
-    const url = this._resolveSvgUrl();
-
-    if (url) {
-      this._svgIcon = await getSvgContent(url, this.sanitize);
-    }
+    this._svgIcon = await getSvgContent(this._svgNamespace, this._svgName, this.sanitize);
   }
 
   private _splitIconName(iconName: string): [string, string] {
@@ -122,16 +118,6 @@ export class SbbIcon implements ComponentInterface {
 
   private _loadRegisteredIcon(): string {
     return registeredIcons.get(this.name);
-  }
-
-  private _resolveSvgUrl(): string {
-    if (iconNamespaces.has(this._svgNamespace)) {
-      return `${iconNamespaces.get(this._svgNamespace)}${this._svgName}.svg`;
-    } else {
-      throw Error(
-        `Unable to find the namespace "${this._svgNamespace}". Please register your custom namespace through the icon registry API.`
-      );
-    }
   }
 
   public render(): JSX.Element {

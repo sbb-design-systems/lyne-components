@@ -1,5 +1,4 @@
 import { inlineSvg } from 'stencil-inline-svg';
-import jestConfig from './.jest.config.js';
 import { sass } from '@stencil/sass';
 import { Config } from '@stencil/core';
 import { reactOutputTarget as react } from '@stencil/react-output-target';
@@ -46,7 +45,28 @@ export const config: Config = {
     // eslint-disable-next-line
     before: [eventSync()],
   },
-  testing: jestConfig as any,
+  testing: {
+    collectCoverageFrom: ['src/**/*.tsx'],
+    coverageThreshold: {
+      global: {
+        // Example: setting functions threshold to 50, and after test we reach
+        // 30, the build will break
+        branches: 0,
+        functions: 0,
+        lines: 0,
+        statements: 0,
+      },
+    },
+    modulePaths: ['src', '/node_modules/'],
+    moduleNameMapper: {
+      '\\.svg$': '<rootDir>/jestAssetsTransformer.js',
+    },
+    roots: ['<rootDir>/src'],
+    transform: {
+      '^.+\\.(ts|tsx|js|jsx|css)$': '@stencil/core/testing/jest-preprocessor',
+    },
+    setupFilesAfterEnv: ['<rootDir>/src/global/helpers/testing/jest-setup.ts'],
+  },
 };
 
 /* eslint-disable */

@@ -24,9 +24,9 @@ describe('sbb-icon', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-icon name="app-icon-medium" aria-hidden="true" role="img" data-namespace="default" data-empty>
+      <sbb-icon name="app-icon-medium" aria-hidden="true" role="img" data-namespace="default">
         <mock:shadow-root>
-          <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
+          <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
         </mock:shadow-root>
       </sbb-icon>
     `);
@@ -39,9 +39,9 @@ describe('sbb-icon', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default" data-empty>
+      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default">
         <mock:shadow-root>
-          <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
+          <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
         </mock:shadow-root>
       </sbb-icon>
     `);
@@ -54,9 +54,9 @@ describe('sbb-icon', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Custom label" role="img" data-namespace="default" data-empty>
+      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Custom label" role="img" data-namespace="default">
         <mock:shadow-root>
-          <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
+          <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
         </mock:shadow-root>
       </sbb-icon>
     `);
@@ -71,9 +71,9 @@ describe('sbb-icon', () => {
     const icon = page.root;
 
     expect(icon).toEqualHtml(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default" data-empty>
+      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default">
         <mock:shadow-root>
-          <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
+          <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
         </mock:shadow-root>
       </sbb-icon>
     `);
@@ -82,9 +82,9 @@ describe('sbb-icon', () => {
     await page.waitForChanges();
 
     expect(icon).toEqualHtml(`
-      <sbb-icon name="pie-medium" aria-hidden="false" aria-label="Icon pie medium" role="img" data-namespace="default" data-empty>
+      <sbb-icon name="pie-medium" aria-hidden="false" aria-label="Icon pie medium" role="img" data-namespace="default">
         <mock:shadow-root>
-          <span class="sbb-icon-inner"><svg height="0" width="0"></svg></span>
+          <span class="sbb-icon-inner"><svg height="36" width="36"></svg></span>
         </mock:shadow-root>
       </sbb-icon>
     `);
