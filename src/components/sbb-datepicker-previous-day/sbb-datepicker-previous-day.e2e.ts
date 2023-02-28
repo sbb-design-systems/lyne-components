@@ -27,7 +27,7 @@ describe('sbb-datepicker-previous-day', () => {
       expect(element).toHaveClass('hydrated');
       expect(await input.getProperty('value')).toEqual('01-01-2023');
 
-      const changeSpy = await page.spyOnEvent('click');
+      const changeSpy = await page.spyOnEvent('change');
       await button.click();
       await page.waitForChanges();
       expect(changeSpy).toHaveReceivedEventTimes(1);
@@ -60,7 +60,7 @@ describe('sbb-datepicker-previous-day', () => {
 
     it('click', async () => {
       expect(await input.getProperty('value')).toEqual('20-01-2023');
-      const changeSpy = await page.spyOnEvent('click');
+      const changeSpy = await page.spyOnEvent('change');
       await button.click();
       await page.waitForChanges();
       expect(changeSpy).toHaveReceivedEventTimes(1);
