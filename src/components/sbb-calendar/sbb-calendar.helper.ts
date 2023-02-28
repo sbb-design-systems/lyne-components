@@ -8,7 +8,7 @@ export interface Day {
 export function handleKeyboardEvent(evt: KeyboardEvent, days: HTMLButtonElement[]): void {
   const arrowsKeys = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'];
   if (arrowsKeys.includes(evt.key)) {
-    evt.stopPropagation();
+    evt.preventDefault();
   }
   const index = days.findIndex((e) => e === evt.target);
   const findNext = (increment: number): HTMLButtonElement => {
