@@ -1,11 +1,10 @@
-import { validateContent } from './validate';
+import { validateContent } from './sbb-icon-validate';
 import { readConfig, SbbIconConfig } from '../../global/helpers/config';
 
 const iconCdn = 'https://d1s1onrtynjaa8.cloudfront.net/';
-export const iconNamespaces = new Map<string, string>()
+const iconNamespaces = new Map<string, string>()
   .set('default', `${iconCdn}icons/`)
   .set('picto', `${iconCdn}pictograms/`);
-export const registeredIcons = new Map<string, string>();
 const requests = new Map<string, Promise<any>>();
 
 /** Fetches icon svg content from providers and asserts only one request per icon is made. */
@@ -14,10 +13,12 @@ export const getSvgContent = (
   name: string,
   sanitize: boolean
 ): Promise<string> => {
-  const resolvedNamespace = iconNamespaces.get(namespace);
+  const config: SbbIconConfig = readConfig().icon ?? {};
+
+  const resolvedNamespace = config.namespaces?.get(namespace) ?? iconNamespaces.get(namespace);
   if (resolvedNamespace === undefined) {
     throw Error(
-      `Unable to find the namespace "${namespace}". Please register your custom namespace through the icon registry API.`
+      `Unable to find the namespace "${namespace}". Please register your custom namespace.`
     );
   }
   const url = `${resolvedNamespace}${name}.svg`;
@@ -27,7 +28,6 @@ export const getSvgContent = (
 
   if (!req) {
     if (typeof fetch !== 'undefined' && typeof document !== 'undefined') {
-      const config: SbbIconConfig = readConfig().icon ?? {};
       const interceptor = config.interceptor ?? ((i) => i.request());
 
       req = interceptor({

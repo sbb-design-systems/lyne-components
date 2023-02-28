@@ -14,6 +14,7 @@ describe('sbb-image', () => {
 
     await page.waitForChanges();
     // Wait five seconds in hope the image will successfully be loaded
+    // TODO: Find more reliable solution
     await new Promise((res) => setTimeout(res, 5000));
     await page.waitForChanges();
 

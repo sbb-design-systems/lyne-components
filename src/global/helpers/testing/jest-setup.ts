@@ -1,6 +1,6 @@
 import { mergeConfig, SbbIconConfig } from '../config';
 
-beforeAll(() => {
+beforeEach(() => {
   const icon: SbbIconConfig = {
     interceptor: ({ namespace, name, request }) => {
       if (namespace === 'default') {

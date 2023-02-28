@@ -5,6 +5,7 @@ export interface SbbIconConfig {
     url: string;
     request: () => Promise<string>;
   }) => Promise<string>;
+  namespaces?: Map<string, string>;
 }
 
 export interface SbbConfig {
