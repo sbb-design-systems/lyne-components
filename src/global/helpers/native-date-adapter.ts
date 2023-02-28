@@ -4,7 +4,11 @@ export class NativeDateAdapter {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public static readonly DAYS_PER_WEEK = 7;
 
-  /** Creates an array and fills it with values. */
+  /**
+   * Creates an array with the given length and fills it by mapping with the provided function.
+   * @param length The length of the array to be created.
+   * @param valueFunction The function of array's index used to fill the array.
+   */
   private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
     const valuesArray = Array(length);
     for (let i = 0; i < length; i++) {
@@ -13,7 +17,20 @@ export class NativeDateAdapter {
     return valuesArray;
   }
 
-  /** Calculate the first week offset. */
+  /** Creates a date but allows the month and date to overflow. */
+  private _createDateWithOverflow(year: number, month: number, date: number): Date {
+    const result = new Date(year, month, date);
+    // We need to correct for the fact that JS native Date treats years in range [0, 99] as
+    // abbreviations for 19xx.
+    if (year >= 0 && year < 100) {
+      result.setFullYear(this.getYear(result) - 1900);
+    }
+    return result;
+  }
+
+  /**
+   * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
+   */
   public getFirstWeekOffset(year: number, month: number): number {
     const firstOfMonth = this.createDate(year, month, 1);
     return (
@@ -24,59 +41,68 @@ export class NativeDateAdapter {
     );
   }
 
+  /** Gets the year of the input date. */
   public getYear(date: Date): number {
     return date.getFullYear();
   }
 
+  /** Gets the month of the input date. */
   public getMonth(date: Date): number {
     return date.getMonth();
   }
 
+  /** Gets the day of the input date. */
   public getDate(date: Date): number {
     return date.getDate();
   }
 
+  /** Gets the day of the week of the input date. */
   public getDayOfWeek(date: Date): number {
     return date.getDay();
   }
 
+  /**
+   * Creates an array of strings with length = 12, filled with the name of the months starting from January, in the document language.
+   * @param style See `month` in `DateTimeFormatOptions`: `long` for full name, `short` for short name, `narrow` for single letter,
+   * E.g., with January in en-gb: `long` returns "January", `short` returns "Jan", `narrow` returns "J".
+   */
   public getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
     const formatter = new Intl.DateTimeFormat(documentLanguage(), { month: style });
     return this._range(12, (i) => formatter.format(new Date(2017, i, 1)));
   }
 
+  /** Creates a string array with length = 31, filled with the days in a month, starting from 1. */
   public getDateNames(): string[] {
     const formatter = new Intl.DateTimeFormat(documentLanguage(), { day: 'numeric' });
     return this._range(31, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 
   /**
-   * Creates an array of days starting from Sunday in the given format.
-   * @param style - 'long' for full name, 'short' for short name, 'narrow' for single letter.
+   * Creates a string array with length = 7, filled with the name of the days in a week starting from Sunday, in the document language.
+   * @param style See `weekday` in `DateTimeFormatOptions` - 'long' for full name, 'short' for short name, 'narrow' for single letter;
+   * E.g., with Monday in en-gb: `long` returns "Monday", `short` returns "Mon", `narrow` returns "M".
    */
   public getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
     const formatter = new Intl.DateTimeFormat(documentLanguage(), { weekday: style });
     return this._range(7, (i) => formatter.format(new Date(2017, 0, i + 1)));
   }
 
-  /* Define which is the first day of the week (0: sunday; 1: monday; etc.)*/
+  /* Defines which is the first day of the week (0: sunday; 1: monday; etc.). */
   public getFirstDayOfWeek(): number {
     return 1;
   }
 
+  /** Calculates the number of days in a month given the year and the month. */
   public getNumDaysInMonth(year: number, month: number): number {
-    const lastDayOfMonth = new Date(0);
-    lastDayOfMonth.setFullYear(year, month + 1, 0);
-    lastDayOfMonth.setHours(0, 0, 0, 0);
-    return lastDayOfMonth.getDate();
+    return new Date(year, month + 1, 0, 0, 0, 0, 0).getDate();
   }
 
+  /** Creates today's date. */
   public today(): Date {
-    const date = new Date();
-    date.setHours(0, 0, 0, 0);
-    return date;
+    return new Date(new Date().setHours(0, 0, 0, 0));
   }
 
+  /** Creates a new date, given day, month and year; the method doesn't allow date's overflow. */
   public createDate(year: number, month: number, date: number): Date {
     // Check for invalid month and date (except upper bound on date which we have to check after creating the Date).
     if (month < 0 || month > 11) {
@@ -96,35 +122,7 @@ export class NativeDateAdapter {
     return result;
   }
 
-  /**
-   * Takes a day of the month and returns a new date in the same month and year as the currently
-   *  active date. The returned date will have the same day of the month as the argument date.
-   */
-  public getDateFromDayOfMonth(dayOfMonth: number, activeDate: Date): Date {
-    return this.createDate(this.getYear(activeDate), this.getMonth(activeDate), dayOfMonth);
-  }
-
-  /**
-   * Gets the date in this month that the given Date falls on.
-   * Returns null if the given Date is in another month.
-   */
-  public getDateInCurrentMonth(date: Date | null, activeDate: Date | null): number | null {
-    return date && this.hasSameMonthAndYear(date, activeDate) ? this.getDate(date) : null;
-  }
-
-  /** Creates a date but allows the month and date to overflow. */
-  private _createDateWithOverflow(year: number, month: number, date: number): Date {
-    const result = new Date(year, month, date);
-
-    // We need to correct for the fact that JS native Date treats years in range [0, 99] as
-    // abbreviations for 19xx.
-    if (year >= 0 && year < 100) {
-      result.setFullYear(this.getYear(result) - 1900);
-    }
-    return result;
-  }
-
-  /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
+  /** Checks whether the 2 dates are non-null and are in the same month of the same year. */
   public hasSameMonthAndYear(d1: Date | null, d2: Date | null): boolean {
     return !!(
       d1 &&
@@ -134,43 +132,41 @@ export class NativeDateAdapter {
     );
   }
 
+  /** Checks whether the given `obj` is a Date. */
   public isDateInstance(obj: any): boolean {
     return obj instanceof Date;
   }
 
+  /** Checks whether the given `date` is a valid Date. */
   public isValid(date: Date): boolean {
     return !!date && !isNaN(date.valueOf());
   }
 
-  public invalid(): Date {
-    return new Date(NaN);
-  }
-
+  /** Creates a new date by cloning the given one. */
   public clone(date: Date): Date {
     return new Date(date.valueOf());
   }
 
+  /**
+   * Creates a new date adding the number of provided `months` to the provided `date`.
+   * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
+   * E.g. with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
+   */
   public addCalendarMonths(date: Date, months: number): Date {
     const targetMonth = date.getMonth() + months;
-    const dateWithCorrectMonth = new Date(0);
-    dateWithCorrectMonth.setFullYear(date.getFullYear(), targetMonth, 1);
-    dateWithCorrectMonth.setHours(0, 0, 0, 0);
+    const dateWithCorrectMonth = new Date(date.getFullYear(), targetMonth, 1, 0, 0, 0, 0);
     const daysInMonth = this.getNumDaysInMonth(
       this.getYear(dateWithCorrectMonth),
       this.getMonth(dateWithCorrectMonth)
     );
-    const newDate = this.clone(date);
     // Adapt last day of month for shorter months
-    newDate.setMonth(targetMonth, Math.min(daysInMonth, date.getDate()));
-    return newDate;
+    return new Date(this.clone(date).setMonth(targetMonth, Math.min(daysInMonth, date.getDate())));
   }
 
+  /** Creates a new date by adding the number of provided `days` to the provided `date`. */
   public addCalendarDays(date: Date, days: number): Date {
     const targetDay = date.getDate() + days;
-    const dateWithCorrectDay = new Date(0);
-    dateWithCorrectDay.setFullYear(date.getFullYear(), date.getMonth(), targetDay);
-    dateWithCorrectDay.setHours(0, 0, 0, 0);
-    return dateWithCorrectDay;
+    return new Date(date.getFullYear(), date.getMonth(), targetDay, 0, 0, 0, 0);
   }
 
   /**
@@ -188,6 +184,7 @@ export class NativeDateAdapter {
     );
   }
 
+  /** Creates a Date from a valid input (Date, string or number in seconds). */
   public deserializeDate(date: Date | string | number): Date | null {
     if (!date) {
       return null;
@@ -200,15 +197,13 @@ export class NativeDateAdapter {
     } else if (typeof date === 'number') {
       return new Date(date * 1000);
     }
-    if (date == null || (this.isDateInstance(date) && this.isValid(date))) {
+    if (this.isDateInstance(date) && this.isValid(date)) {
       return date;
     }
     return null;
   }
 
-  /**
-   * Returns the right format for the `valueAsDate` property
-   */
+  /** Returns the right format for the `valueAsDate` property. */
   public formatValueAsDate(value: string): Date {
     if (!value) {
       return null;
