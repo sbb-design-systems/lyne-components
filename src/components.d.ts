@@ -1082,6 +1082,10 @@ export namespace Components {
         "active"?: boolean;
         "deselect": () => Promise<void>;
         /**
+          * Disable the highlight of the label
+         */
+        "disableLabelHighlight": boolean;
+        /**
           * Whether or not the option is disabled.
          */
         "disabled"?: boolean;
@@ -1089,6 +1093,10 @@ export namespace Components {
           * Whether or not the option is currently selected.
          */
         "getId": () => Promise<boolean>;
+        /**
+          * The portion of the highlighted label
+         */
+        "highlightString": string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -3477,9 +3485,17 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * Disable the highlight of the label
+         */
+        "disableLabelHighlight"?: boolean;
+        /**
           * Whether or not the option is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * The portion of the highlighted label
+         */
+        "highlightString"?: string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */

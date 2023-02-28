@@ -60,6 +60,16 @@ export class SbbOption implements ComponentInterface {
   @Prop() public disabled?: boolean;
 
   /**
+   * The portion of the highlighted label
+   */
+  @Prop() public highlightString: string;
+
+  /**
+   * Disable the highlight of the label
+   */
+  @Prop({ reflect: true }) public disableLabelHighlight: boolean;
+
+  /**
    * Emits whenever the menu is closed.
    */
   @Event({
@@ -89,9 +99,12 @@ export class SbbOption implements ComponentInterface {
    */
   @State() private _selected: boolean;
 
+  @State() private _label: string;
+
   @Element() private _element: HTMLElement;
 
   private _optionId = `sbb-option-${++nextId}`;
+  private _labelSlot: HTMLSlotElement;
 
   @Method()
   public async isSelected(): Promise<boolean> {
@@ -144,6 +157,26 @@ export class SbbOption implements ComponentInterface {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
+  public componentDidLoad(): void {
+    this._setupHighlightHandler();
+  }
+
+  private _setupHighlightHandler(): void {
+    if (this.disableLabelHighlight) {
+      return;
+    }
+
+    const labelNode = this._labelSlot
+      .assignedNodes()
+      .filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
+
+    if (!labelNode) {
+      this.disableLabelHighlight = true;
+      return;
+    }
+    this._label = labelNode.wholeText;
+  }
+
   public render(): JSX.Element {
     return (
       <Host
@@ -164,11 +197,38 @@ export class SbbOption implements ComponentInterface {
               {this.iconName && <sbb-icon slot="icon" name={this.iconName} />}
             </slot>
           </span>
-          <span>
-            <slot></slot>
+          <span class="sbb-option__label">
+            <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
+            {this._getHighlightedLabel()}
           </span>
         </div>
       </Host>
     );
+  }
+
+  private _getHighlightedLabel(): JSX.Element {
+    if (!this._label || this.disableLabelHighlight) {
+      return;
+    }
+
+    if (!this.highlightString || !this.highlightString.trim()) {
+      return this._label;
+    }
+
+    const matchIndex = this._label.toLowerCase().indexOf(this.highlightString.toLowerCase());
+
+    if (matchIndex === -1) {
+      return this._label;
+    }
+
+    const prefix = this._label.substring(0, matchIndex);
+    const highlighted = this._label.substring(matchIndex, matchIndex + this.highlightString.length);
+    const postfix = this._label.substring(matchIndex + this.highlightString.length);
+
+    return [
+      <span class="sbb-option__label--highlight">{prefix}</span>,
+      <span>{highlighted}</span>,
+      <span class="sbb-option__label--highlight">{postfix}</span>,
+    ];
   }
 }
