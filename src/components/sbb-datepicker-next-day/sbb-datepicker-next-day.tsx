@@ -97,7 +97,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
     if (pickerValueAsDate) {
       const nextDate: Date = findNextAvailableDate(
         pickerValueAsDate,
-        datepicker,
+        datepicker.dateFilter,
         this._dateAdapter,
         this._max
       );
@@ -114,7 +114,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
       (await this._datePickerElement.getValueAsDate()) ?? this._dateAdapter.today();
     const date: Date = findNextAvailableDate(
       startingDate,
-      this._datePickerElement,
+      this._datePickerElement.dateFilter,
       this._dateAdapter,
       this._max
     );

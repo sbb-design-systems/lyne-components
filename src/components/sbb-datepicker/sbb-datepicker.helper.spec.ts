@@ -77,166 +77,147 @@ describe('getInput', () => {
 });
 
 describe('getAvailableDate', () => {
-  // It seems not to be possible to add the filter as datepicker prop, even in e2e tests.
-  it('datepicker without dateFilter', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input"/>
-        <sbb-datepicker/>
-      `,
-    });
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
+  it('with dateFilter', async () => {
     const availableDate: Date = getAvailableDate(
-      new Date('2024-01-01'),
+      new Date(2024, 0, 1, 0, 0, 0, 0),
       1,
-      picker,
+      (d: Date) => d.getDay() === 1,
       new NativeDateAdapter()
     );
-    const nextDate: number = new Date('2024-01-02').setHours(0, 0, 0, 0);
-    expect(availableDate.getTime()).toEqual(nextDate);
+    expect(availableDate.getTime()).toEqual(new Date(2024, 0, 8, 0, 0, 0, 0).getTime());
+  });
+
+  it('without dateFilter', async () => {
+    const availableDate: Date = getAvailableDate(
+      new Date(2024, 0, 1, 0, 0, 0, 0),
+      1,
+      () => true,
+      new NativeDateAdapter()
+    );
+    expect(availableDate.getTime()).toEqual(new Date(2024, 0, 2, 0, 0, 0, 0).getTime());
   });
 });
 
 describe('findPreviousAvailableDate', () => {
-  it('get date without min', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input"/>
-        <sbb-datepicker/>
-      `,
-    });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const min: string = input.getAttribute('min');
+  it('get date without dateFilter and without min', async () => {
     const availableDate: Date = findPreviousAvailableDate(
-      new Date('2023-02-26'),
-      picker,
+      new Date(2023, 1, 26, 0, 0, 0, 0),
+      null,
       new NativeDateAdapter(),
-      min
+      null
     );
-    const nextDate: number = new Date('2023-02-25').setHours(0, 0, 0, 0);
-    expect(availableDate.getTime()).toEqual(nextDate);
+    expect(availableDate.getTime()).toEqual(new Date(2023, 1, 25, 0, 0, 0, 0).getTime());
   });
 
-  it('get date with current date equal to min date', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input" min="1677369600"/>
-        <sbb-datepicker/>
-      `,
-    });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const min: string = input.getAttribute('min');
+  it('get date without dateFilter and with current date equal to min date', async () => {
+    const date = new Date(2023, 1, 26, 0, 0, 0, 0);
     const availableDate: Date = findPreviousAvailableDate(
-      new Date('2023-02-26'),
-      picker,
+      date,
+      null,
       new NativeDateAdapter(),
-      min
+      date.valueOf() / 1000
     );
-    const nextDate: Date = new Date('2023-02-26');
-    expect(availableDate.getTime()).toEqual(nextDate.getTime());
+    expect(availableDate.getTime()).toEqual(date.getTime());
+  });
+
+  it('get date with dateFilter and min', async () => {
+    const minDate = new Date(2023, 1, 26, 0, 0, 0, 0);
+    const availableDate: Date = findPreviousAvailableDate(
+      new Date(2023, 1, 28, 0, 0, 0, 0),
+      (d: Date) => d.getDate() !== 27,
+      new NativeDateAdapter(),
+      minDate.valueOf() / 1000
+    );
+    expect(availableDate.getTime()).toEqual(minDate.getTime());
   });
 });
 
 describe('findNextAvailableDate', () => {
-  it('get date without max', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input"/>
-        <sbb-datepicker/>
-      `,
-    });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const max: string = input.getAttribute('max');
+  it('get date without max and without dateFilter', async () => {
     const availableDate: Date = findNextAvailableDate(
-      new Date('2023-02-26'),
-      picker,
+      new Date(2023, 1, 26, 0, 0, 0, 0),
+      null,
       new NativeDateAdapter(),
-      max
+      null
     );
-    const nextDate: number = new Date('2023-02-27').setHours(0, 0, 0, 0);
-    expect(availableDate.getTime()).toEqual(nextDate);
+    expect(availableDate.getTime()).toEqual(new Date(2023, 1, 27, 0, 0, 0, 0).getTime());
   });
 
-  it('get date with current date equal to max date', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input" max="1677369600"/>
-        <sbb-datepicker/>
-      `,
-    });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const max: string = input.getAttribute('max');
+  it('get date without dateFilter with current date equal to max date', async () => {
+    const date: Date = new Date(2023, 1, 26, 0, 0, 0, 0);
     const availableDate: Date = findNextAvailableDate(
-      new Date('2023-02-26'),
-      picker,
+      date,
+      null,
       new NativeDateAdapter(),
-      max
+      date.valueOf() / 1000
     );
-    const nextDate: Date = new Date('2023-02-26');
-    expect(availableDate.getTime()).toEqual(nextDate.getTime());
+    expect(availableDate.getTime()).toEqual(date.getTime());
+  });
+
+  it('get date with dateFilter and max', async () => {
+    const maxDate = new Date(2023, 1, 28, 0, 0, 0, 0);
+    const availableDate: Date = findNextAvailableDate(
+      new Date(2023, 1, 26, 0, 0, 0, 0),
+      (d: Date) => d.getDate() !== 27,
+      new NativeDateAdapter(),
+      maxDate.valueOf() / 1000
+    );
+    expect(availableDate.getTime()).toEqual(maxDate.getTime());
   });
 });
 
-// It is not possible to test with dateFilter set on sbb-datepicker.
 describe('isDateAvailable', () => {
-  it('get valid date without min and max', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input"/>
-        <sbb-datepicker/>
-      `,
+  describe('invalid', () => {
+    it('get invalid date with min', async () => {
+      expect(
+        isDateAvailable(new Date('2023-02-20'), null, new Date('2023-02-26').valueOf() / 1000, null)
+      ).toBeFalsy();
     });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const min: string = input.getAttribute('min');
-    const max: string = input.getAttribute('max');
-    expect(isDateAvailable(new Date('2023-02-25'), picker, min, max)).toBeTruthy();
+
+    it('get invalid date with max', async () => {
+      expect(
+        isDateAvailable(new Date('2023-02-28'), null, null, new Date('2023-02-26').valueOf() / 1000)
+      ).toBeFalsy();
+    });
+
+    it('get invalid date with dateFilter', async () => {
+      expect(
+        isDateAvailable(
+          new Date('2023-02-28'),
+          (d: Date) => d.getTime() > new Date('2024-12-31').valueOf(),
+          null,
+          null
+        )
+      ).toBeFalsy();
+    });
   });
 
-  it('get invalid date with min', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input" min="1677369600"/>
-        <sbb-datepicker/>
-      `,
+  describe('valid', function () {
+    it('get valid date without dateFilter, min and max', async () => {
+      expect(isDateAvailable(new Date('2023-02-25'), null, null, null)).toBeTruthy();
     });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const min: string = input.getAttribute('min');
-    const max: string = input.getAttribute('max');
-    expect(isDateAvailable(new Date('2023-02-20'), picker, min, max)).toBeFalsy();
-  });
 
-  it('get invalid date with max', async () => {
-    const page: SpecPage = await newSpecPage({
-      components: [SbbDatepicker],
-      html: `
-        <input id="input" max="1677366000"/>
-        <sbb-datepicker/>
-      `,
+    it('get valid date with min', async () => {
+      expect(
+        isDateAvailable(new Date('2023-02-20'), null, new Date('2023-02-01').valueOf() / 1000, null)
+      ).toBeTruthy();
     });
-    await page.waitForChanges();
-    const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input: HTMLInputElement = await page.doc.querySelector('input');
-    const min: string = input.getAttribute('min');
-    const max: string = input.getAttribute('max');
-    expect(isDateAvailable(new Date('2023-02-28'), picker, min, max)).toBeFalsy();
+
+    it('get valid date with max', async () => {
+      expect(
+        isDateAvailable(new Date('2023-02-28'), null, null, new Date('2023-03-31').valueOf() / 1000)
+      ).toBeTruthy();
+    });
+
+    it('get invalid date with dateFilter', async () => {
+      expect(
+        isDateAvailable(
+          new Date('2023-02-28'),
+          (d: Date) => d.getTime() > new Date('2022-01-01').valueOf(),
+          null,
+          null
+        )
+      ).toBeTruthy();
+    });
   });
 });

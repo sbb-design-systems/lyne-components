@@ -97,7 +97,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     if (pickerValueAsDate) {
       const previousDate: Date = findPreviousAvailableDate(
         pickerValueAsDate,
-        datepicker,
+        datepicker.dateFilter,
         this._dateAdapter,
         this._min
       );
@@ -114,7 +114,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
       (await this._datePickerElement.getValueAsDate()) ?? this._dateAdapter.today();
     const date: Date = findPreviousAvailableDate(
       startingDate,
-      this._datePickerElement,
+      this._datePickerElement.dateFilter,
       this._dateAdapter,
       this._min
     );

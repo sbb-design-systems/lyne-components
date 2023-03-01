@@ -163,7 +163,7 @@ export class SbbDatepicker implements ComponentInterface {
       if (
         !isDateAvailable(
           newValueAsDate,
-          this._element,
+          this._element.dateFilter,
           this._inputElement?.min,
           this._inputElement?.max
         )
