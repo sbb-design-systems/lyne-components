@@ -154,11 +154,19 @@ const TemplateClockColumns = ({ ...args }) => (
       </sbb-link>
     </sbb-link-list>
     <div class="sbb-link-list-button-group">
-      <sbb-link-list title-level="2" title-content="Newsletter." negative={args.negative}>
-        <sbb-link negative={args.negative}>
+      <span>
+        <sbb-title
+          level="2"
+          visual-level="5"
+          negative={args.negative}
+          style="margin:0 0 var(--sbb-spacing-fixed-3x)"
+        >
+          Newsletter.
+        </sbb-title>
+        <p style="margin:0">
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
-        </sbb-link>
-      </sbb-link-list>
+        </p>
+      </span>
       <sbb-button
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         variant="secondary"
