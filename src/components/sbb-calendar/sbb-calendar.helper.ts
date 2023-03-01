@@ -23,11 +23,11 @@ export function handleKeyboardEvent<T extends { disabled: boolean }>(
   days: T[]
 ): T {
   const findNext = (increment: number): T => {
-    let newIndex = index + increment;
-    while (newIndex < days.length && days[newIndex]?.disabled) {
-      newIndex += increment;
+    let nextIndex = index + increment;
+    while (nextIndex < days.length && days[nextIndex]?.disabled) {
+      nextIndex += increment;
     }
-    return days[newIndex] ?? days[index];
+    return days[nextIndex] ?? days[index];
   };
 
   const findLastOnColumn = (): T => {
@@ -46,6 +46,22 @@ export function handleKeyboardEvent<T extends { disabled: boolean }>(
     return days[nextIndex] ?? days[index];
   };
 
+  const findFirst = (): T => {
+    let nextIndex = 0;
+    while (nextIndex < index && days[nextIndex]?.disabled) {
+      nextIndex += 1;
+    }
+    return days[nextIndex] ?? days[index];
+  };
+
+  const findLast = (): T => {
+    let nextIndex = days.length - 1;
+    while (nextIndex > index && days[nextIndex]?.disabled) {
+      nextIndex -= 1;
+    }
+    return days[nextIndex] ?? days[index];
+  };
+
   switch (evt.key) {
     case 'ArrowUp':
       return findNext(-7);
@@ -60,8 +76,8 @@ export function handleKeyboardEvent<T extends { disabled: boolean }>(
     case 'PageUp':
       return findFirstOnColumn();
     case 'Home':
-      return findNext(-index);
+      return findFirst();
     case 'End':
-      return findNext(days.length - index - 1);
+      return findLast();
   }
 }

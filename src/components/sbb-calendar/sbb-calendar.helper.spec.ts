@@ -7,6 +7,10 @@ describe('SbbCalendarHelper', () => {
       const eventRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
       const eventDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
       const eventLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+      const eventPageUp = new KeyboardEvent('keydown', { key: 'PageUp' });
+      const eventPageDown = new KeyboardEvent('keydown', { key: 'PageDown' });
+      const eventHome = new KeyboardEvent('keydown', { key: 'Home' });
+      const eventEnd = new KeyboardEvent('keydown', { key: 'End' });
 
       // Even values smaller than 20 are disabled.
       const days = new Array(31)
@@ -46,6 +50,33 @@ describe('SbbCalendarHelper', () => {
       // Start is at index = 21; eventUp means -7, so index = 22.
       const twentyTwo = handleKeyboardEvent(eventUp, 29, days);
       expect(twentyTwo.value).toEqual(22);
+
+      // Start is at index = 23; eventHome means go to first cell, which is index = 0; since it's even/disabled, it goes to 0 + 1 = 1.
+      const oneFromHome = handleKeyboardEvent(eventHome, 23, days);
+      expect(oneFromHome.value).toEqual(1);
+
+      // Start is at index = 4; eventHome means go to last cell, which is index = 30.
+      const thirtyFromEnd = handleKeyboardEvent(eventEnd, 4, days);
+      expect(thirtyFromEnd.value).toEqual(30);
+
+      // Start is at index = 20; eventPageUp means go to the first in the same column;
+      //  since 20 - 14 = 6 is disabled, it goes to 20 - 7 = 13.
+      const fourteen = handleKeyboardEvent(eventPageUp, 20, days);
+      expect(fourteen.value).toEqual(13);
+
+      // Start is at index = 13; eventPageDown means go to the last in the same column, so 13 + 14 = 27.
+      const twentySeven = handleKeyboardEvent(eventPageDown, 13, days);
+      expect(twentySeven.value).toEqual(27);
+
+      // Start is at index = 0; eventPageUp means go to the first in the same column;
+      //  since there's nothing before, it stays at the same point.
+      const zero = handleKeyboardEvent(eventPageUp, 0, days);
+      expect(zero.value).toEqual(0);
+
+      // Start is at index = 30; eventPageDown means go to the last in the same column;
+      //  since there's nothing after, it stays at the same point.
+      const thirtyFromPageDown = handleKeyboardEvent(eventPageDown, 30, days);
+      expect(thirtyFromPageDown.value).toEqual(30);
     });
   });
 });
