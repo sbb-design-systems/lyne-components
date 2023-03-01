@@ -404,7 +404,6 @@ describe('sbb-tag-group', () => {
 
         await tag3.click();
         await page.waitForChanges();
-        await page.waitForChanges();
 
         expect(tag3).toHaveAttribute('checked');
         expect(tag2).not.toHaveAttribute('checked');
@@ -413,6 +412,25 @@ describe('sbb-tag-group', () => {
         expect(inputSpy).toHaveReceivedEventTimes(1);
         expect(changeSpy).toHaveReceivedEventTimes(1);
         expect(await element.getProperty('value')).toEqual('tag3');
+        expect((await page.findAll('sbb-tag[checked]')).length).toBe(1);
+      });
+
+      it('should select another tag (before) manually and uncheck others', async () => {
+        const changeSpy = await page.spyOnEvent('change');
+        const inputSpy = await page.spyOnEvent('input');
+        const tag1 = await page.find('sbb-tag#sbb-tag-1');
+        const tag2 = await page.find('sbb-tag#sbb-tag-2');
+
+        await tag1.click();
+        await page.waitForChanges();
+
+        expect(tag1).toHaveAttribute('checked');
+        expect(tag2).not.toHaveAttribute('checked');
+        expect(await tag2.getProperty('checked')).toBe(false);
+        expect(await tag1.getProperty('checked')).toBe(true);
+        expect(inputSpy).toHaveReceivedEventTimes(1);
+        expect(changeSpy).toHaveReceivedEventTimes(1);
+        expect(await element.getProperty('value')).toEqual('tag1');
         expect((await page.findAll('sbb-tag[checked]')).length).toBe(1);
       });
 

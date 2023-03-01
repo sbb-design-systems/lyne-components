@@ -60,7 +60,7 @@ export class SbbTagGroup implements ComponentInterface {
 
     const tags = this._tags();
 
-    if (Array.isArray(value)) {
+    if (this.multiple) {
       tags.forEach((tag) => (tag.checked = value.includes(tag.value)));
     } else {
       tags.forEach((tag) => (tag.checked = tag.value === value));
@@ -84,14 +84,15 @@ export class SbbTagGroup implements ComponentInterface {
     const target: HTMLSbbTagElement = event.target as HTMLSbbTagElement;
     event.stopPropagation();
 
-    if (this.multiple) {
+    // If multiple or if value was unchecked, read state from toggles
+    if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
       this._updateValueByReadingTags();
+      // If a value has changed in exclusive mode (only checked are reported), directly assign it.
     } else if (event.detail.type === 'value') {
       this.value = event.detail.value;
+      // If a value was checked in exclusive mode, assign this value directly.
     } else if (event.detail.type === 'checked' && event.detail.checked) {
       this.value = target.value;
-    } else if (event.detail.type === 'checked' && !event.detail.checked) {
-      this.value = null;
     }
   }
 
