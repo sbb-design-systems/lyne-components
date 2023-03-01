@@ -46,7 +46,7 @@ export const config: Config = {
     before: [eventSync()],
   },
   testing: {
-    collectCoverageFrom: ['src/**/*.tsx'],
+    collectCoverageFrom: ['src/**/*.tsx', 'src/**/*.ts'],
     coverageThreshold: {
       global: {
         // Example: setting functions threshold to 50, and after test we reach
