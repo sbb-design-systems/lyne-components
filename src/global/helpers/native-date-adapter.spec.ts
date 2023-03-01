@@ -59,12 +59,12 @@ describe('NativeDateAdapter', () => {
 
     expect(nativeDateAdapter.getMonthNames('long')).toEqual(longMonths);
     expect(nativeDateAdapter.getMonthNames('short')).toEqual(shortMonths);
-
     expect(nativeDateAdapter.getMonthNames('narrow')).toEqual(narrowMonths);
+
     expect(nativeDateAdapter.getDayOfWeekNames('long')).toEqual(longWeek);
     expect(nativeDateAdapter.getDayOfWeekNames('short')).toEqual(shortWeek);
-
     expect(nativeDateAdapter.getDayOfWeekNames('narrow')).toEqual(narrowWeek);
+
     expect(nativeDateAdapter.getDateNames()).toEqual(datesArray);
   });
 
