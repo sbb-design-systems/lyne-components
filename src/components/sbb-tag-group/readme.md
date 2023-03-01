@@ -15,7 +15,7 @@ In this mode the value of the `<sbb-tag-group>` is an array containing all value
 ## Changing multiple property during run time
 
 There is no support for changing multiple mode during run time (e.g. update value automatically).
-So this flag should be provided at components instantiation.
+So this flag should be provided at component's instantiation time.
 
 ## Accessibility
 
