@@ -69,9 +69,9 @@ With `sbb-form-field` and all related components, input's value set, `wide` set 
 | Event               | Description                                                                                                                         | Type                            |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
 | `change`            |                                                                                                                                     | `CustomEvent<any>`              |
-| `datePickerUpdated` |                                                                                                                                     | `CustomEvent<any>`              |
+| `datePickerUpdated` | Notifies that the attributes of the datepicker has changes.                                                                         | `CustomEvent<any>`              |
 | `didChange`         | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`              |
-| `inputUpdated`      |                                                                                                                                     | `CustomEvent<InputUpdateEvent>` |
+| `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker has changes.                                                  | `CustomEvent<InputUpdateEvent>` |
 
 
 ## Methods

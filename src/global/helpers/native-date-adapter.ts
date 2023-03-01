@@ -205,16 +205,10 @@ export class NativeDateAdapter {
 
   /** Returns the right format for the `valueAsDate` property. */
   public formatValueAsDate(value: string): Date {
-    if (!value) {
-      return null;
+    const values = value?.split('.');
+    if (!values || values.length <= 2) {
+      return undefined;
     }
-    const values = value.split('.');
-    if (values && values[0] && values[1] && values[2]) {
-      const day = +values[0];
-      const month = +values[1] - 1;
-      const year = +values[2];
-      return new Date(year, month, day);
-    }
-    return undefined;
+    return new Date(+values[2], +values[1] - 1, +values[0]);
   }
 }

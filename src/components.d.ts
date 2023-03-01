@@ -2636,11 +2636,17 @@ declare namespace LocalJSX {
          */
         "input"?: string | HTMLElement;
         "onChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
+        /**
+          * Notifies that the attributes of the datepicker has changes.
+         */
         "onDatePickerUpdated"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
+        /**
+          * Notifies that the attributes of the input connected to the datepicker has changes.
+         */
         "onInputUpdated"?: (event: SbbDatepickerCustomEvent<InputUpdateEvent>) => void;
         /**
           * If set to true, two months are displayed

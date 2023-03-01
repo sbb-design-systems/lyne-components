@@ -1,8 +1,16 @@
 import { hostContext } from '../../global/helpers/host-context';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 
+export interface InputUpdateEvent {
+  disabled: boolean;
+  readonly: boolean;
+  min: string | number;
+  max: string | number;
+}
+
 /**
- * Given a SbbDatepickerPreviousDay or a SbbDatepickerNextDay component, returns the related SbbDatepicker reference.
+ * Given a SbbDatepickerPreviousDay, a SbbDatepickerNextDay or a SbbDatepickerToggle component,
+ * it returns the related SbbDatepicker reference, if exists.
  */
 export function getDatePicker(
   element:
@@ -26,7 +34,7 @@ export function getDatePicker(
 }
 
 /**
- * Given a SbbDatepicker component, returns the related input reference.
+ * Given a SbbDatepicker component, returns the related input reference, if it exists.
  */
 export function getInput(
   element: HTMLSbbDatepickerElement,
@@ -46,6 +54,13 @@ export function getInput(
   return null;
 }
 
+/**
+ * Returns the first available date before or after a given one, considering the SbbDatepicker `dateFilter` property.
+ * @param date The starting date for calculations.
+ * @param delta The number of days to add/subtract from the starting one.
+ * @param datePicker The SbbDatepicker instance to get the dateFilter from.
+ * @param dateAdapter The adapter class.
+ */
 export function getAvailableDate(
   date: Date,
   delta: number,
@@ -63,6 +78,14 @@ export function getAvailableDate(
   return availableDate;
 }
 
+/**
+ * Calculates the first available date before the given one,
+ * considering the SbbDatepicker `dateFilter` property and `min` parameter (e.g. from the self-named input's attribute).
+ * @param date The starting date for calculations.
+ * @param datePicker The SbbDatepicker instance to get the dateFilter from.
+ * @param dateAdapter The adapter class.
+ * @param min The minimum value to consider in calculations.
+ */
 export function findPreviousAvailableDate(
   date: Date,
   datePicker: HTMLSbbDatepickerElement,
@@ -81,6 +104,14 @@ export function findPreviousAvailableDate(
   return date;
 }
 
+/**
+ * Calculates the first available date after the given one,
+ * considering the SbbDatepicker `dateFilter` property and `max` parameter (e.g. from the self-named input's attribute).
+ * @param date The starting date for calculations.
+ * @param datePicker The SbbDatepicker instance to get the dateFilter from.
+ * @param dateAdapter The adapter class.
+ * @param max The maximum value to consider in calculations.
+ */
 export function findNextAvailableDate(
   date: Date,
   datePicker: HTMLSbbDatepickerElement,
@@ -99,6 +130,14 @@ export function findNextAvailableDate(
   return date;
 }
 
+/**
+ * Checks if the provided date is a valid one, considering the SbbDatepicker `dateFilter` property
+ * and `min` and `max` parameters (e.g. from the self-named input's attributes).
+ * @param date The starting date for calculations.
+ * @param datePicker The SbbDatepicker instance to get the dateFilter from.
+ * @param min The minimum value to consider in calculations.
+ * @param max The maximum value to consider in calculations.
+ */
 export function isDateAvailable(
   date: Date,
   datePicker: HTMLSbbDatepickerElement,
@@ -117,11 +156,4 @@ export function isDateAvailable(
   }
 
   return datePicker.dateFilter(date);
-}
-
-export interface InputUpdateEvent {
-  disabled: boolean;
-  readonly: boolean;
-  min: string | number;
-  max: string | number;
 }

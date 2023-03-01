@@ -201,7 +201,7 @@ describe('NativeDateAdapter', () => {
   });
 
   it('formatValueAsDate should return the correct value', function () {
-    expect(nativeDateAdapter.formatValueAsDate(null)).toBeNull();
+    expect(nativeDateAdapter.formatValueAsDate(null)).toBeUndefined();
     expect(nativeDateAdapter.formatValueAsDate('Test')).toBeUndefined();
     expect(nativeDateAdapter.formatValueAsDate('1.1')).toBeUndefined();
     expect(nativeDateAdapter.formatValueAsDate('1/1/2000')).toBeUndefined();

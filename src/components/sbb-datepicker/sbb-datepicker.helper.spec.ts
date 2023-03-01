@@ -1,5 +1,5 @@
 import { SbbDatepicker } from './sbb-datepicker';
-import { newSpecPage } from '@stencil/core/testing';
+import { newSpecPage, SpecPage } from '@stencil/core/testing';
 import {
   findNextAvailableDate,
   findPreviousAvailableDate,
@@ -12,7 +12,7 @@ import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 
 describe('getDatePicker', () => {
   it('returns the datepicker if no trigger', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <sbb-form-field>
@@ -29,7 +29,7 @@ describe('getDatePicker', () => {
   });
 
   it('returns the datepicker if its id is passed as trigger', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input/>
@@ -47,7 +47,7 @@ describe('getDatePicker', () => {
 
 describe('getInput', () => {
   it('returns the input if no trigger', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <sbb-form-field>
@@ -62,7 +62,7 @@ describe('getInput', () => {
   });
 
   it('returns the input if its id is passed as trigger', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input"/>
@@ -79,7 +79,7 @@ describe('getInput', () => {
 describe('getAvailableDate', () => {
   // It seems not to be possible to add the filter as datepicker prop, even in e2e tests.
   it('datepicker without dateFilter', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input"/>
@@ -100,7 +100,7 @@ describe('getAvailableDate', () => {
 
 describe('findPreviousAvailableDate', () => {
   it('get date without min', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input"/>
@@ -109,8 +109,8 @@ describe('findPreviousAvailableDate', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const min = input.getAttribute('min');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const min: string = input.getAttribute('min');
     const availableDate: Date = findPreviousAvailableDate(
       new Date('2023-02-26'),
       picker,
@@ -122,7 +122,7 @@ describe('findPreviousAvailableDate', () => {
   });
 
   it('get date with current date equal to min date', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input" min="1677369600"/>
@@ -131,8 +131,8 @@ describe('findPreviousAvailableDate', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const min = input.getAttribute('min');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const min: string = input.getAttribute('min');
     const availableDate: Date = findPreviousAvailableDate(
       new Date('2023-02-26'),
       picker,
@@ -146,7 +146,7 @@ describe('findPreviousAvailableDate', () => {
 
 describe('findNextAvailableDate', () => {
   it('get date without max', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input"/>
@@ -155,8 +155,8 @@ describe('findNextAvailableDate', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const max = input.getAttribute('max');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const max: string = input.getAttribute('max');
     const availableDate: Date = findNextAvailableDate(
       new Date('2023-02-26'),
       picker,
@@ -168,7 +168,7 @@ describe('findNextAvailableDate', () => {
   });
 
   it('get date with current date equal to max date', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input" max="1677369600"/>
@@ -177,8 +177,8 @@ describe('findNextAvailableDate', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const max = input.getAttribute('max');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const max: string = input.getAttribute('max');
     const availableDate: Date = findNextAvailableDate(
       new Date('2023-02-26'),
       picker,
@@ -193,7 +193,7 @@ describe('findNextAvailableDate', () => {
 // It is not possible to test with dateFilter set on sbb-datepicker.
 describe('isDateAvailable', () => {
   it('get valid date without min and max', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input"/>
@@ -202,14 +202,14 @@ describe('isDateAvailable', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const min = input.getAttribute('min');
-    const max = input.getAttribute('max');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const min: string = input.getAttribute('min');
+    const max: string = input.getAttribute('max');
     expect(isDateAvailable(new Date('2023-02-25'), picker, min, max)).toBeTruthy();
   });
 
   it('get invalid date with min', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input" min="1677369600"/>
@@ -218,14 +218,14 @@ describe('isDateAvailable', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const min = input.getAttribute('min');
-    const max = input.getAttribute('max');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const min: string = input.getAttribute('min');
+    const max: string = input.getAttribute('max');
     expect(isDateAvailable(new Date('2023-02-20'), picker, min, max)).toBeFalsy();
   });
 
   it('get invalid date with max', async () => {
-    const page = await newSpecPage({
+    const page: SpecPage = await newSpecPage({
       components: [SbbDatepicker],
       html: `
         <input id="input" max="1677366000"/>
@@ -234,9 +234,9 @@ describe('isDateAvailable', () => {
     });
     await page.waitForChanges();
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
-    const input = await page.doc.querySelector('input');
-    const min = input.getAttribute('min');
-    const max = input.getAttribute('max');
+    const input: HTMLInputElement = await page.doc.querySelector('input');
+    const min: string = input.getAttribute('min');
+    const max: string = input.getAttribute('max');
     expect(isDateAvailable(new Date('2023-02-28'), picker, min, max)).toBeFalsy();
   });
 });

@@ -47,6 +47,24 @@ const form = {
   },
 };
 
+const min = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Input datepicker attribute',
+  },
+};
+
+const max = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Input datepicker attribute',
+  },
+};
+
 const wide = {
   control: {
     type: 'boolean',
@@ -71,24 +89,6 @@ const dateFilter = {
       1: 'The dateFilter function includes only working days.',
       2: 'The dateFilter function excludes even days.',
     },
-  },
-  table: {
-    category: 'Datepicker attribute',
-  },
-};
-
-const min = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Datepicker attribute',
-  },
-};
-
-const max = {
-  control: {
-    type: 'date',
   },
   table: {
     category: 'Datepicker attribute',
@@ -183,7 +183,7 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const getDatepickerAttr = (min, max) => {
+const getInputAttributes = (min, max) => {
   let attr = {};
   if (min) {
     attr.min = new Date(min).getTime() / 1000;
@@ -199,7 +199,7 @@ const Template = ({ min, max, wide, dateFilter, ...args }) => {
     <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker" />
       <sbb-datepicker-toggle date-picker="datepicker" />
-      <input {...args} id="datepicker-input" {...getDatepickerAttr(min, max)} />
+      <input {...args} id="datepicker-input" {...getInputAttributes(min, max)} />
       <sbb-datepicker
         id="datepicker"
         input="datepicker-input"
@@ -239,7 +239,7 @@ const TemplateFormField = ({
       <sbb-datepicker-previous-day />
       <sbb-datepicker-next-day />
       <sbb-datepicker-toggle />
-      <input {...args} {...getDatepickerAttr(min, max)} />
+      <input {...args} {...getInputAttributes(min, max)} />
       <sbb-datepicker
         ref={(calendarRef) => {
           calendarRef.dateFilter = dateFilter;
@@ -256,7 +256,7 @@ const TemplateFormField = ({
 
 const changeEventHandler = async (event) => {
   const div = document.createElement('div');
-  div.innerText = `value is: ${await event.target.getValueAsDate()}.`;
+  div.innerText = `valueAsDate is: ${await event.target.getValueAsDate()}.`;
   document.getElementById('container-value').append(div);
 };
 

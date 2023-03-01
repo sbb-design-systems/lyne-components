@@ -16,7 +16,7 @@ import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 
-const REGEX_PATTERN = /[0-9.,\\/\-\s]{1,10}/;
+const REGEX_PATTERN = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const REGEX =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
@@ -45,8 +45,10 @@ export class SbbDatepicker implements ComponentInterface {
 
   @Event({ bubbles: true, cancelable: true }) public change: EventEmitter;
 
+  /** Notifies that the attributes of the input connected to the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public inputUpdated: EventEmitter<InputUpdateEvent>;
 
+  /** Notifies that the attributes of the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
 
   @State() private _inputElement: HTMLInputElement;
@@ -60,7 +62,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   @Watch('wide')
   @Watch('dateFilter')
-  public somePropChanged(newValue: any, oldValue: any): void {
+  public datepickerPropChanged(newValue: any, oldValue: any): void {
     if (newValue !== oldValue) {
       this.datePickerUpdated.emit();
     }
@@ -109,8 +111,6 @@ export class SbbDatepicker implements ComponentInterface {
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'DD.MM.YYYY';
 
-  private _isDateValid = true;
-
   private _datePickerController: AbortController;
 
   private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
@@ -136,20 +136,18 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   private _formatValue(value: string): string {
-    if (!value) {
-      return null;
+    const match: RegExpMatchArray = value?.match(REGEX);
+    if (!match || match.length <= 2) {
+      return value;
     }
-    const match: RegExpMatchArray = value.match(REGEX);
-    if (match && match[1] && match[2] && match[3]) {
-      const day: string = match[1].padStart(2, '0');
-      const month: string = match[2].padStart(2, '0');
-      let year: number = +match[3];
-      if (year < 100 && year >= 0) {
-        year += 1900;
-      }
-      return `${day}.${month}.${year}`;
+
+    const day: string = match[1].padStart(2, '0');
+    const month: string = match[2].padStart(2, '0');
+    let year: number = +match[3];
+    if (year < 100 && year >= 0) {
+      year += 1900;
     }
-    return value;
+    return `${day}.${month}.${year}`;
   }
 
   private _valueChanged(event): void {
@@ -158,18 +156,20 @@ export class SbbDatepicker implements ComponentInterface {
 
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
-    const newValue = this._formatValue(value);
     if (this._inputElement) {
       this._inputElement.classList.remove('sbb-invalid');
-      this._inputElement.value = newValue;
+      this._inputElement.value = this._formatValue(value);
       const newValueAsDate: Date = await this.getValueAsDate();
-      this._isDateValid = isDateAvailable(
-        newValueAsDate,
-        this._element,
-        this._inputElement?.min,
-        this._inputElement?.max
-      );
-      !this._isDateValid && this._inputElement.classList.add('sbb-invalid');
+      if (
+        !isDateAvailable(
+          newValueAsDate,
+          this._element,
+          this._inputElement?.min,
+          this._inputElement?.max
+        )
+      ) {
+        this._inputElement.classList.add('sbb-invalid');
+      }
       this._emitChange();
     }
   }
@@ -182,8 +182,8 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _onInputPropertiesChange(): void {
     this.inputUpdated.emit({
-      disabled: this._inputElement.disabled,
-      readonly: this._inputElement.readOnly,
+      disabled: this._inputElement?.disabled,
+      readonly: this._inputElement?.readOnly,
       min: this._inputElement?.min,
       max: this._inputElement?.max,
     });
@@ -191,11 +191,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _preventCharInsert(event): void {
     const match = event.target.value.match(REGEX_PATTERN);
-    if (match) {
-      event.target.value = match[0];
-    } else {
-      event.target.value = null;
-    }
+    event.target.value = match?.[0] ?? null;
   }
 
   public render(): JSX.Element {
