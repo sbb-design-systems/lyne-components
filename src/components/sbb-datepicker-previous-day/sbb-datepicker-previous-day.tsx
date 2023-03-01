@@ -30,10 +30,13 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   @Element() private _element: HTMLSbbDatepickerPreviousDayElement;
 
+  /** Whether the component is disabled due date equals to min date. */
   @State() private _disabled = false;
 
+  /** Whether the component is disabled due date-picker's input disabled. */
   @State() private _inputDisabled = false;
 
+  /** The minimum date as set in the date-picker's input. */
   @State() private _min: string | number;
 
   @State() private _currentLanguage = documentLanguage();

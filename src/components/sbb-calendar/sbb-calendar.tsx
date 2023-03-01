@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { Day, handleKeyboardEvent } from './sbb-calendar.helper';
+import { Day, handleKeyboardEvent, Weekday } from './sbb-calendar.helper';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
@@ -52,24 +52,28 @@ export class SbbCalendar implements ComponentInterface {
   /** The current width */
   @State() private _wide: boolean;
 
-  /** Min and Max values converted to date */
+  /** Minimum value converted to date */
   @State() private _min: Date;
+
+  /** Maximum value converted to date */
   @State() private _max: Date;
 
   @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element: HTMLElement;
 
-  /** Date adapter. */
   private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
+  /** A list of buttons corresponding to the days of the month. */
   private _days: HTMLButtonElement[];
 
   /** A list of the day of the week, in two format (long and single char). */
-  private _weekdays: { long: string; narrow: string }[];
+  private _weekdays: Weekday[];
 
   /** Grid of calendar cells representing the dates of the month. */
   private _weeks: Day[][];
+
+  /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks: Day[][];
 
   @Watch('min')
@@ -92,14 +96,14 @@ export class SbbCalendar implements ComponentInterface {
     this._setSelectedDate(this._dateAdapter.deserializeDate(newDate));
   }
 
-  /* Focuses on a day cell. */
+  /** Focuses on a day cell. */
   @Method()
   public async focusCell(): Promise<void> {
     const toFocus = this._getFirstFocusable();
     toFocus?.focus();
   }
 
-  /* Resets the active month according to the new state of the calendar. */
+  /** Resets the active month according to the new state of the calendar. */
   @Method()
   public async resetPosition(): Promise<void> {
     this._setDates();
@@ -126,7 +130,7 @@ export class SbbCalendar implements ComponentInterface {
     ) as HTMLButtonElement[];
   }
 
-  /** Initialize the component. */
+  /** Initializes the component. */
   private _init(): void {
     this._setCalendarWidth(this.wide);
     this._setWeekdays();
@@ -143,15 +147,16 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Sets the date variables. */
   private _setDates(): void {
-    const selectedDate = this._dateAdapter.deserializeDate(this.selectedDate);
+    const selectedDate: Date = this._dateAdapter.deserializeDate(this.selectedDate);
     this._activeDate = selectedDate ?? this._dateAdapter.today();
     this._setSelectedDate(selectedDate);
   }
 
+  /** Sets the selected date. */
   private _setSelectedDate(selectedDate: Date | null): void {
     if (
       !!selectedDate &&
-      (!this._disableDay(selectedDate.toISOString()) || this.dateFilter(selectedDate))
+      (!this._isDayInRange(selectedDate.toISOString()) || this.dateFilter(selectedDate))
     ) {
       this._selected = new Date(selectedDate.setHours(0, 0, 0, 0)).toISOString();
     } else {
@@ -165,20 +170,23 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the array of weekdays. */
   private _setWeekdays(): void {
-    const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-    const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-    const weekdays = longWeekdays.map((long, i) => ({ long, narrow: narrowWeekdays[i] }));
+    const narrowWeekdays: string[] = this._dateAdapter.getDayOfWeekNames('narrow');
+    const longWeekdays: string[] = this._dateAdapter.getDayOfWeekNames('long');
+    const weekdays: Weekday[] = longWeekdays.map((long, i) => ({
+      long,
+      narrow: narrowWeekdays[i],
+    }));
 
-    // Rotate the labels for days of the week based on the configured first day of the week.
-    const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+    // Rotates the labels for days of the week based on the configured first day of the week.
+    const firstDayOfWeek: number = this._dateAdapter.getFirstDayOfWeek();
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
   }
 
-  /** Create the rows for each week. */
+  /** Creates the rows for each week. */
   private _createWeekRows(month: number, year: number): Day[][] {
-    const daysInMonth = this._dateAdapter.getNumDaysInMonth(year, month);
-    const dateNames = this._dateAdapter.getDateNames();
-    const weeks = [[]];
+    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(year, month);
+    const dateNames: string[] = this._dateAdapter.getDateNames();
+    const weeks: Day[][] = [[]];
     const weekOffset = this._dateAdapter.getFirstWeekOffset(year, month);
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === NativeDateAdapter.DAYS_PER_WEEK) {
@@ -188,13 +196,14 @@ export class SbbCalendar implements ComponentInterface {
       weeks[weeks.length - 1].push({
         value: new Date(year, month, i + (1 % 12)).toISOString(),
         dayValue: dateNames[i],
-        monthValue: month + 1,
-        yearValue: year,
+        monthValue: String(month + 1),
+        yearValue: String(year),
       });
     }
     return weeks;
   }
 
+  /** Creates the calendar table. */
   private _createTable(weeks: Day[][]): JSXElement {
     return (
       <table class="sbb-calendar__table">
@@ -208,7 +217,7 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the table header with the months header cells. */
   private _createTableHeader(): JSX.Element {
-    return this._weekdays.map((day: { long: string; narrow: string }) => (
+    return this._weekdays.map((day: Weekday) => (
       <th>
         <span class="visually-hidden">{day.long}</span>
         <span aria-hidden="true">{day.narrow}</span>
@@ -216,16 +225,18 @@ export class SbbCalendar implements ComponentInterface {
     ));
   }
 
-  /** Create the table body with the days cells. */
+  /**
+   * Creates the table body with the days cells. For the first row, it also considers the possible day's offset.
+   */
   private _createTableBody(weeks: Day[][]): JSX.Element {
     return weeks.map((week: Day[], rowIndex: number) => {
-      const firstRowOffset = NativeDateAdapter.DAYS_PER_WEEK - week.length;
+      const firstRowOffset: number = NativeDateAdapter.DAYS_PER_WEEK - week.length;
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
             <td
               colSpan={firstRowOffset}
-              data-day={`0 ${week[rowIndex].monthValue} ${week[rowIndex].yearValue}`}
+              data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
             ></td>
             {this._createDayCells(week)}
           </tr>
@@ -235,12 +246,14 @@ export class SbbCalendar implements ComponentInterface {
     });
   }
 
-  /** Create the cells for the days. */
+  /** Creates the cells for the days. */
   private _createDayCells(week: Day[]): JSX.Element {
-    const today = this._dateAdapter.today().toISOString();
+    const today: string = this._dateAdapter.today().toISOString();
     return week.map((day: Day) => {
-      const isOutOfRange = !this._disableDay(day.value);
-      const selected = this._selected && day.value === this._selected;
+      const isOutOfRange = !this._isDayInRange(day.value);
+      const isFilteredOut = !this.dateFilter(new Date(day.value));
+      const selected: boolean = this._selected && day.value === this._selected;
+      const label = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       return (
         <td>
           <button
@@ -248,14 +261,14 @@ export class SbbCalendar implements ComponentInterface {
               'sbb-datepicker__day': true,
               'sbb-datepicker__day-today': day.value === today,
               'sbb-datepicker__day-selected': selected,
-              'sbb-datepicker__crossed-out': !isOutOfRange && !this.dateFilter(new Date(day.value)),
+              'sbb-datepicker__crossed-out': !isOutOfRange && isFilteredOut,
             }}
             onClick={(event) => this._selectDate(day.value, event)}
-            disabled={isOutOfRange || !this.dateFilter(new Date(day.value))}
-            aria-label={`${day.dayValue} ${day.monthValue} ${day.yearValue}`}
+            disabled={isOutOfRange || isFilteredOut}
+            aria-label={label}
             aria-pressed={selected ? 'true' : 'false'}
-            aria-disabled={isOutOfRange || !this.dateFilter(new Date(day.value)) ? 'true' : 'false'}
-            data-day={`${day.dayValue} ${day.monthValue} ${day.yearValue}`}
+            aria-disabled={String(isOutOfRange || isFilteredOut)}
+            data-day={label}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => handleKeyboardEvent(evt, this._days)}
           >
@@ -266,26 +279,28 @@ export class SbbCalendar implements ComponentInterface {
     });
   }
 
+  /** Creates the month label. */
   private _createMonthLabel(d: Date): JSXElement {
-    const month = this._dateAdapter.getMonth(d);
-    const year = this._dateAdapter.getYear(d);
     return (
       <span class="sbb-calendar__controls-month-label">
-        {this._dateAdapter.getMonthNames('long')[month]} {year}
+        {this._dateAdapter.getMonthNames('long')[this._dateAdapter.getMonth(d)]}{' '}
+        {this._dateAdapter.getYear(d)}
       </span>
     );
   }
 
-  private _disableDay(date: string): boolean {
-    if (
-      (this._dateAdapter.isValid(this._min) &&
-        this._dateAdapter.compareDate(this._min, new Date(date)) > 0) ||
-      (this._dateAdapter.isValid(this._max) &&
-        this._dateAdapter.compareDate(this._max, new Date(date)) < 0)
-    ) {
-      return false;
+  /** Checks if date is within the min-max range. */
+  private _isDayInRange(date: string): boolean {
+    if (!this._min && !this._max) {
+      return true;
     }
-    return true;
+    const isBeforeMin =
+      this._dateAdapter.isValid(this._min) &&
+      this._dateAdapter.compareDate(this._min, new Date(date)) > 0;
+    const isAfterMax =
+      this._dateAdapter.isValid(this._max) &&
+      this._dateAdapter.compareDate(this._max, new Date(date)) < 0;
+    return !(isBeforeMin || isAfterMax);
   }
 
   /** Emits the selected date and sets it internally. */
@@ -297,20 +312,21 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
+  /** Goes to the next month. */
   private _nextMonthClicked(event: Event): void {
     event.stopImmediatePropagation();
-    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
-    this._assignActiveDate(newActiveDate);
+    this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, 1));
     this._init();
   }
 
+  /** Goes to the previous month. */
   private _previousMonthClicked(event: Event): void {
     event.stopImmediatePropagation();
-    const newActiveDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
-    this._assignActiveDate(newActiveDate);
+    this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, -1));
     this._init();
   }
 
+  /** Checks if the "previous month" button is enabled. */
   private _previousMonthEnabled(): boolean {
     if (!this._min) {
       return false;
@@ -320,6 +336,7 @@ export class SbbCalendar implements ComponentInterface {
     return this._dateAdapter.compareDate(prevMonth, this._min) < 0;
   }
 
+  /** Checks if the "next month" button is enabled. */
   private _nextMonthEnabled(): boolean {
     if (!this._max) {
       return false;
@@ -342,10 +359,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _getFirstFocusable(): HTMLButtonElement {
-    let firstFocusable = this._element.shadowRoot.querySelector('.sbb-datepicker__day-selected');
-    if (!firstFocusable) {
-      firstFocusable = this._element.shadowRoot.querySelector('.sbb-datepicker__day-today');
-    }
+    let firstFocusable =
+      this._element.shadowRoot.querySelector('.sbb-datepicker__day-selected') ??
+      this._element.shadowRoot.querySelector('.sbb-datepicker__day-today');
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = Array.from(
         this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')
@@ -355,12 +371,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _setTabIndex(): void {
-    const currentlyActive = Array.from(
+    Array.from(
       this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day[tabindex="0"]')
-    );
-    for (const day of currentlyActive) {
-      (day as HTMLElement).tabIndex = -1;
-    }
+    ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;

@@ -25,7 +25,7 @@
 
 ### `focusCell() => Promise<void>`
 
-
+Focuses on a day cell.
 
 #### Returns
 
@@ -35,7 +35,7 @@ Type: `Promise<void>`
 
 ### `resetPosition() => Promise<void>`
 
-
+Resets the active month according to the new state of the calendar.
 
 #### Returns
 

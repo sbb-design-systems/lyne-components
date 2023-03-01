@@ -78,7 +78,7 @@ With `sbb-form-field` and all related components, input's value set, `wide` set 
 
 ### `getValueAsDate() => Promise<Date>`
 
-
+Gets the input value with the correct date format.
 
 #### Returns
 
@@ -88,7 +88,7 @@ Type: `Promise<Date>`
 
 ### `setValueAsDate(date: Date) => Promise<void>`
 
-
+Set the input value to the correctly formatted value.
 
 #### Returns
 

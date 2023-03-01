@@ -30,10 +30,13 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   @Element() private _element: HTMLSbbDatepickerNextDayElement;
 
+  /** Whether the component is disabled due date equals to max date. */
   @State() private _disabled = false;
 
+  /** Whether the component is disabled due date-picker's input disabled. */
   @State() private _inputDisabled = false;
 
+  /** The maximum date as set in the date-picker's input. */
   @State() private _max: string | number;
 
   @State() private _currentLanguage = documentLanguage();

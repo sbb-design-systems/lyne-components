@@ -97,10 +97,12 @@ export class SbbDatepicker implements ComponentInterface {
     }
   }
 
+  /** Gets the input value with the correct date format. */
   @Method() public async getValueAsDate(): Promise<Date> {
     return this._dateAdapter.formatValueAsDate(this._formatValue(this._inputElement?.value));
   }
 
+  /** Set the input value to the correctly formatted value. */
   @Method() public async setValueAsDate(date: Date): Promise<void> {
     const newValue: string = this._formatValue(
       `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
