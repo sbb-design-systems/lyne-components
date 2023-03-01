@@ -18,6 +18,7 @@
 
 :host([negative]:not([negative='false'])) {
   --sbb-footer-background-color: var(--sbb-color-charcoal-default);
+  --sbb-footer-color: var(--sbb-color-white-default);
 }
 
 .sbb-footer {
