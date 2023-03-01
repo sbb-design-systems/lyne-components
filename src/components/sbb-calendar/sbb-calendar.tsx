@@ -18,6 +18,7 @@ import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { Day, handleKeyboardEvent, Weekday } from './sbb-calendar.helper';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
 
 @Component({
   shadow: true,
@@ -172,7 +173,7 @@ export class SbbCalendar implements ComponentInterface {
   private _setWeekdays(): void {
     const narrowWeekdays: string[] = this._dateAdapter.getDayOfWeekNames('narrow');
     const longWeekdays: string[] = this._dateAdapter.getDayOfWeekNames('long');
-    const weekdays: Weekday[] = longWeekdays.map((long, i) => ({
+    const weekdays: Weekday[] = longWeekdays.map((long: string, i: number) => ({
       long,
       narrow: narrowWeekdays[i],
     }));
@@ -270,7 +271,7 @@ export class SbbCalendar implements ComponentInterface {
             aria-disabled={String(isOutOfRange || isFilteredOut)}
             data-day={label}
             tabindex="-1"
-            onKeyDown={(evt: KeyboardEvent) => handleKeyboardEvent(evt, this._days)}
+            onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
           >
             {day.dayValue}
           </button>
@@ -312,17 +313,18 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  /** Goes to the next month. */
-  private _nextMonthClicked(event: Event): void {
-    event.stopImmediatePropagation();
-    this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, 1));
-    this._init();
+  private _handleKeyboardEvent(event): void {
+    if (isArrowKeyOrPageKeysPressed(event)) {
+      event.preventDefault();
+    }
+    const index = this._days.findIndex((e: HTMLButtonElement) => e === event.target);
+    handleKeyboardEvent(event, index, this._days)?.focus();
   }
 
   /** Goes to the previous month. */
-  private _previousMonthClicked(event: Event): void {
+  private _goToMonth(event: Event, months: number): void {
     event.stopImmediatePropagation();
-    this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, -1));
+    this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, months));
     this._init();
   }
 
@@ -389,7 +391,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-left-small"
             size="m"
             accessibility-label={i18nPreviousMonth[this._currentLanguage]}
-            onClick={(event) => this._previousMonthClicked(event)}
+            onClick={(event) => this._goToMonth(event, -1)}
             disabled={this._previousMonthEnabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
@@ -403,7 +405,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-right-small"
             size="m"
             accessibility-label={i18nNextMonth[this._currentLanguage]}
-            onClick={(event) => this._nextMonthClicked(event)}
+            onClick={(event) => this._goToMonth(event, 1)}
             disabled={this._nextMonthEnabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>

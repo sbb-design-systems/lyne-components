@@ -96,7 +96,7 @@ CalendarWide.args = { ...defaultArgs, wide: true };
 
 export const CalendarFilterFunction = TemplateFilterFunction.bind({});
 CalendarFilterFunction.argTypes = { ...defaultArgTypes, dateFilter };
-CalendarFilterFunction.args = { ...defaultArgs, dateFilter: dateFilter.options[0] };
+CalendarFilterFunction.args = { ...defaultArgs, dateFilter: dateFilter.options[2] };
 
 export default {
   decorators: [

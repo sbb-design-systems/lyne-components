@@ -10,13 +10,19 @@ export interface Weekday {
   narrow: string;
 }
 
-export function handleKeyboardEvent(evt: KeyboardEvent, days: HTMLButtonElement[]): void {
-  const arrowsKeys = ['ArrowUp', 'ArrowRight', 'ArrowDown', 'ArrowLeft'];
-  if (arrowsKeys.includes(evt.key)) {
-    evt.preventDefault();
-  }
-  const index = days.findIndex((e) => e === evt.target);
-  const findNext = (increment: number): HTMLButtonElement => {
+/**
+ * Gets the index of the element to move to, based on a list of elements, which can be potentially disabled,
+ * the keyboard input and the position of the current element in the list.
+ * @param evt The keyboard event to check.
+ * @param index The index of the current element in the list.
+ * @param days An array of objects that have the `disabled` property.
+ */
+export function handleKeyboardEvent<T extends { disabled: boolean }>(
+  evt: KeyboardEvent,
+  index: number,
+  days: T[]
+): T {
+  const findNext = (increment: number): T => {
     let newIndex = index + increment;
     while (newIndex < days.length && days[newIndex]?.disabled) {
       newIndex += increment;
@@ -24,18 +30,38 @@ export function handleKeyboardEvent(evt: KeyboardEvent, days: HTMLButtonElement[
     return days[newIndex] ?? days[index];
   };
 
+  const findLastOnColumn = (): T => {
+    let nextIndex = index + Math.trunc((days.length - index - 1) / 7) * 7;
+    while (nextIndex > index && days[nextIndex]?.disabled) {
+      nextIndex -= 7;
+    }
+    return days[nextIndex] ?? days[index];
+  };
+
+  const findFirstOnColumn = (): T => {
+    let nextIndex = index % 7;
+    while (nextIndex < index && days[nextIndex]?.disabled) {
+      nextIndex += 7;
+    }
+    return days[nextIndex] ?? days[index];
+  };
+
   switch (evt.key) {
     case 'ArrowUp':
-      findNext(-7).focus();
-      break;
+      return findNext(-7);
     case 'ArrowDown':
-      findNext(7).focus();
-      break;
+      return findNext(7);
     case 'ArrowLeft':
-      findNext(-1).focus();
-      break;
+      return findNext(-1);
     case 'ArrowRight':
-      findNext(1).focus();
-      break;
+      return findNext(1);
+    case 'PageDown':
+      return findLastOnColumn();
+    case 'PageUp':
+      return findFirstOnColumn();
+    case 'Home':
+      return findNext(-index);
+    case 'End':
+      return findNext(days.length - index - 1);
   }
 }
