@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.21](https://github.com/lyne-design-system/lyne-components/compare/v0.26.20...v0.26.21) (2023-03-02)
+
+### Bug Fixes
+
+- **sbb-footer:** define default font styles and fix accessibility ([#1656](https://github.com/lyne-design-system/lyne-components/issues/1656)) ([234df26](https://github.com/lyne-design-system/lyne-components/commit/234df26bd4005c800225c341975d790323188e1e))
+
 ### [0.26.20](https://github.com/lyne-design-system/lyne-components/compare/v0.26.19...v0.26.20) (2023-03-02)
 
 ### Bug Fixes
