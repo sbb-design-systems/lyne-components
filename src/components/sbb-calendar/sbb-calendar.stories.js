@@ -52,16 +52,18 @@ const dateFilter = {
   },
 };
 
-const defaultArgs = {
-  wide: false,
-  selectedDate: new Date(2023, 0, 20),
-};
-
 const defaultArgTypes = {
   wide: { control: { type: 'boolean' } },
   selectedDate: { control: { type: 'date' } },
   min: { control: { type: 'date' } },
   max: { control: { type: 'date' } },
+  dateFilter,
+};
+
+const defaultArgs = {
+  wide: false,
+  selectedDate: new Date(2023, 0, 20),
+  dateFilter: dateFilter.options[0],
 };
 
 export const Calendar = Template.bind({});

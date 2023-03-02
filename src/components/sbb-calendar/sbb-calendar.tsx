@@ -271,7 +271,7 @@ export class SbbCalendar implements ComponentInterface {
             aria-disabled={String(isOutOfRange || isFilteredOut)}
             data-day={label}
             tabindex="-1"
-            onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+            onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
           >
             {day.dayValue}
           </button>
@@ -313,12 +313,12 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  private _handleKeyboardEvent(event): void {
+  private _handleKeyboardEvent(event, day: Day): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
     const index = this._days.findIndex((e: HTMLButtonElement) => e === event.target);
-    handleKeyboardEvent(event, index, this._days)?.focus();
+    handleKeyboardEvent(event, index, this._days, day)?.focus();
   }
 
   /** Goes to the previous month. */
