@@ -110,7 +110,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _originElement: HTMLElement;
   private _triggerElement: HTMLInputElement;
   private _triggerEventsController: AbortController;
-  private _windowEventsController: AbortController;
+  private _openPanelEventsController: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
   private _activeItemIndex = -1;
 
@@ -144,7 +144,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     this._state = 'closing';
     this.willClose.emit();
-    this._windowEventsController.abort();
+    this._openPanelEventsController.abort();
   }
 
   // Removes trigger click listener on trigger change.
@@ -181,12 +181,12 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    this._windowEventsController?.abort();
+    this._openPanelEventsController?.abort();
   }
 
   private _setUp(): void {
     this._triggerEventsController?.abort();
-    this._windowEventsController?.abort();
+    this._openPanelEventsController?.abort();
 
     this._attachTo(this._getOriginElement());
     this._bindTo(this._getTriggerElement());
@@ -312,7 +312,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onOpenAnimatinoEnd(): void {
     this._state = 'opened';
-    this._attachWindowEvents();
+    this._attachOpenPanelEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._originElement?.setAttribute('data-autocomplete-open', 'true');
     this.didOpen.emit();
@@ -326,24 +326,28 @@ export class SbbAutocomplete implements ComponentInterface {
     this.didClose.emit();
   }
 
-  private _attachWindowEvents(): void {
-    this._windowEventsController = new AbortController();
+  private _attachOpenPanelEvents(): void {
+    this._openPanelEventsController = new AbortController();
     document.addEventListener('scroll', () => this._setOverlayPosition(), {
       passive: true,
-      signal: this._windowEventsController.signal,
+      signal: this._openPanelEventsController.signal,
     });
     window.addEventListener('resize', () => this._setOverlayPosition(), {
       passive: true,
-      signal: this._windowEventsController.signal,
+      signal: this._openPanelEventsController.signal,
     });
 
     window.addEventListener('click', this._onBackdropClick, {
-      signal: this._windowEventsController.signal,
+      signal: this._openPanelEventsController.signal,
     });
 
-    window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
-      signal: this._windowEventsController.signal,
-    });
+    this._triggerElement.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => this._onKeydownEvent(event),
+      {
+        signal: this._openPanelEventsController.signal,
+      }
+    );
   }
 
   private _onBackdropClick = (event: PointerEvent): void => {
@@ -360,6 +364,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     switch (event.key) {
       case 'Escape':
+      case 'Tab':
         this.close();
         break;
 
@@ -439,7 +444,7 @@ export class SbbAutocomplete implements ComponentInterface {
     element?.setAttribute('autocomplete', 'off');
     element?.setAttribute('role', 'combobox');
     element?.setAttribute('aria-autocomplete', 'list');
-    element?.setAttribute('aria-owns', this._element.id || this._overlayId,);
+    element?.setAttribute('aria-owns', this._element.id || this._overlayId);
   }
 
   private _removeTriggerAttributes(element: HTMLInputElement): void {
