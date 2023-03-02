@@ -58,13 +58,11 @@ export class SbbTagGroup implements ComponentInterface {
       return;
     }
 
-    const tags = this._tags();
+    const isChecked: (tag: HTMLSbbTagElement) => boolean = this.multiple
+      ? (t) => value.includes(t.value)
+      : (t) => t.value === value;
 
-    if (this.multiple) {
-      tags.forEach((tag) => (tag.checked = value.includes(tag.value)));
-    } else {
-      tags.forEach((tag) => (tag.checked = tag.value === value));
-    }
+    this._tags().forEach((tag) => (tag.checked = isChecked(tag)));
   }
 
   private _ensureOnlyOneTagSelected(): void {
@@ -84,27 +82,23 @@ export class SbbTagGroup implements ComponentInterface {
     const target: HTMLSbbTagElement = event.target as HTMLSbbTagElement;
     event.stopPropagation();
 
-    // If multiple or if value was unchecked, read state from toggles
     if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
+      // If multiple or if value was unchecked, read state from toggles
       this._updateValueByReadingTags();
-      // If a value has changed in exclusive mode (only checked are reported), directly assign it.
     } else if (event.detail.type === 'value') {
+      // If a value has changed in exclusive mode (only checked are reported), directly assign it.
       this.value = event.detail.value;
-      // If a value was checked in exclusive mode, assign this value directly.
     } else if (event.detail.type === 'checked' && event.detail.checked) {
+      // If a value was checked in exclusive mode, assign this value directly.
       this.value = target.value;
     }
   }
 
   private _updateValueByReadingTags(): void {
     if (this.multiple) {
-      const values = [];
-      for (const tag of this._tags()) {
-        if (tag.checked) {
-          values.push(tag.value);
-        }
-      }
-      this.value = values;
+      this.value = this._tags()
+        .filter((tag) => tag.checked)
+        .map((tag) => tag.value);
     } else {
       this.value = this._tags().find((tag) => tag.checked)?.value || null;
     }
