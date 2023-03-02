@@ -16,9 +16,9 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { StateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
-import tokens from '@sbb-esta/lyne-design-tokens/dist/js/sbb-tokens.json';
+import { SbbSizeButtonMMinHeightZero } from '@sbb-esta/lyne-design-tokens';
 
-const MAX_WIDTH_FOR_FULL_CLICK_TARGET = tokens['sbb-size-button-m-min-height-zero'];
+const MAX_WIDTH_FOR_FULL_CLICK_TARGET = SbbSizeButtonMMinHeightZero;
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
