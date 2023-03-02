@@ -19,10 +19,14 @@
   --sbb-navigation-section-width: 100vw;
   --sbb-navigation-section-height: 100vh;
 
+  // Needed for backwards compatibility on Chromatic
+  // TODO: Remove once not needed
   @supports (width: 100dvw) {
     --sbb-navigation-section-width: 100dvw;
   }
 
+  // Needed for backwards compatibility on Chromatic
+  // TODO: Remove once not needed
   @supports (height: 100dvh) {
     --sbb-navigation-section-height: 100dvh;
   }
