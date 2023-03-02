@@ -13,7 +13,7 @@ const value = {
   },
 };
 
-const selected = {
+const active = {
   control: {
     type: 'boolean',
   },
@@ -21,36 +21,48 @@ const selected = {
 
 const preserveIconSpace = {
   control: 'inline-radio',
-  options: ['true', 'false'],
+  options: ['false', 'true'],
 };
 
 const defaultArgTypes = {
   value,
   'icon-name': iconName,
-  selected,
+  active: active,
   'preserve-icon-space': preserveIconSpace,
 };
 
 const defaultArgs = {
   value: 'First value',
   'icon-name': 'clock-small',
-  selected: false,
+  active: false,
   'preserve-icon-space': 'true',
 };
 
 const Template = ({ value, ...args }) => (
-  <div style="border: 1px solid cyan">
+  <div>
+    <sbb-option {...args}>{value}</sbb-option>
+    <sbb-option {...args}>{value}</sbb-option>
     <sbb-option {...args}>{value}</sbb-option>
   </div>
 );
 
+const defaultDecorator = [
+  (Story) => (
+    <div style={'border: 3px solid red'}>
+      <Story />
+    </div>
+  ),
+];
+
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
+Basic.decorators = defaultDecorator;
 
 export const NoIcon = Template.bind({});
 NoIcon.argTypes = defaultArgTypes;
 NoIcon.args = { ...defaultArgs, 'icon-name': '' };
+NoIcon.decorators = defaultDecorator;
 
 export default {
   decorators: [
