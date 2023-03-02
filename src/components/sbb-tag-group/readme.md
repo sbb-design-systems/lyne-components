@@ -26,14 +26,51 @@ For example, if you have toggles for "Bold", "Italic", and "Underline", you migh
 
 ## Usage
 
-Basic usage:
+Basic usage exclusive:
 
 ```html
 <sbb-tag-group aria-label="Select your desired device to filter it">
-  <sbb-tag value="tag-1" checked>All</sbb-tag>
-  <sbb-tag value="tag-2" disabled>Phones</sbb-tag>
-  <sbb-tag value="tag-3">Computer</sbb-tag>
-  <sbb-tag value="tag-3">Laptop</sbb-tag>
+  <sbb-tag value="all" checked>All</sbb-tag>
+  <sbb-tag value="phones" disabled>Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+  <sbb-tag value="laptop">Laptop</sbb-tag>
+</sbb-tag-group>
+```
+
+Basic usage multiple:
+
+```html
+<sbb-tag-group aria-label="Select your desired device to filter it" multiple>
+  <sbb-tag value="all" checked>All</sbb-tag>
+  <sbb-tag value="phones" disabled>Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+  <sbb-tag value="laptop">Laptop</sbb-tag>
+</sbb-tag-group>
+```
+
+Advanced usage multiple and exclusive mixed:
+
+```ts
+const uncheckAllTag = () => {
+  document.getElementById('all').removeAttribute('checked');
+};
+
+const uncheckTags = () => {
+  Array.from(document.querySelectorAll('sbb-tag'))
+    .filter((e) => e.getAttribute('id') !== 'all' && !e.getAttribute('disabled'))
+    .forEach((e) => e.removeAttribute('checked'));
+};
+
+```
+
+```html
+<sbb-tag-group aria-label="Select your desired device to filter it" multiple>
+  <sbb-tag id="all" onChange={() => uncheckTags()} value="All" checked>
+  All
+  </sbb-tag>
+  <sbb-tag value="phones" onChange={() => uncheckAllTag()}>Phones</sbb-tag>
+  <sbb-tag value="computer" onChange={() => uncheckAllTag()}>Computer</sbb-tag>
+  <sbb-tag value="laptop" onChange={() => uncheckAllTag()}>Laptop</sbb-tag>
 </sbb-tag-group>
 ```
 
