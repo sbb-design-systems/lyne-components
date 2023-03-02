@@ -30,11 +30,18 @@ describe('sbb-action-group', () => {
       expect(links.every((l) => l.getAttribute('size') === 'l')).toBeTruthy();
     });
 
-    it('should update attributes with size="m"', async () => {
-      element.setAttribute('size', 'm');
+    it('should update attributes with button-size="m"', async () => {
+      element.setAttribute('button-size', 'm');
       await page.waitForChanges();
       const links = await page.findAll('sbb-action-group sbb-button');
       expect(links.every((l) => l.getAttribute('size') === 'm')).toBeTruthy();
+    });
+
+    it('should update attributes with link-size="s"', async () => {
+      element.setAttribute('link-size', 's');
+      await page.waitForChanges();
+      const links = await page.findAll('sbb-action-group sbb-link');
+      expect(links.every((l) => l.getAttribute('size') === 's')).toBeTruthy();
     });
 
     it('should apply variant block to sbb-link', async () => {

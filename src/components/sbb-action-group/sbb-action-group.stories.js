@@ -97,14 +97,14 @@ const basicArgTypes = {
   'align-group': alignGroup,
   orientation,
   'horizontal-from': horizontalFrom,
-  size: buttonSize,
+  'button-size': buttonSize,
 };
 
 const basicArgs = {
   'align-group': 'start',
   orientation: 'horizontal',
   'horizontal-from': 'unset',
-  size: buttonSize.options[0],
+  'button-size': buttonSize.options[0],
 };
 
 const basicArgsVertical = {
