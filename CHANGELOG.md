@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.20](https://github.com/lyne-design-system/lyne-components/compare/v0.26.19...v0.26.20) (2023-03-02)
+
+### Bug Fixes
+
+- add ts files in code coverage calculation ([#1657](https://github.com/lyne-design-system/lyne-components/issues/1657)) ([2b6f5a8](https://github.com/lyne-design-system/lyne-components/commit/2b6f5a85e27c1b74bf272858fcea58ffe6a59db5))
+- **sbb-dialog:** observe dialog content resizing ([#1650](https://github.com/lyne-design-system/lyne-components/issues/1650)) ([1211776](https://github.com/lyne-design-system/lyne-components/commit/1211776720eb264e2b68e965f96fac093ce41e38))
+- **sbb-navigation:** set correct dimension on mobile ([#1646](https://github.com/lyne-design-system/lyne-components/issues/1646)) ([08b6b9d](https://github.com/lyne-design-system/lyne-components/commit/08b6b9d0c76deab049f4d2a3935c5adb550db23f))
+
 ### [0.26.19](https://github.com/lyne-design-system/lyne-components/compare/v0.26.18...v0.26.19) (2023-02-23)
 
 ### Documentation
