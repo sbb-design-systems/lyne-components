@@ -68,10 +68,10 @@ describe('SbbCalendarHelper', () => {
       const twentySeven = handleKeyboardEvent(eventPageDown, 13, days);
       expect(twentySeven.value).toEqual(27);
 
-      // Start is at index = 0; eventPageUp means go to the first in the same column;
+      // Start is at index = 1; eventPageUp means go to the first in the same column;
       //  since there's nothing before, it stays at the same point.
-      const zero = handleKeyboardEvent(eventPageUp, 0, days);
-      expect(zero.value).toEqual(0);
+      const zero = handleKeyboardEvent(eventPageUp, 1, days);
+      expect(zero.value).toEqual(1);
 
       // Start is at index = 30; eventPageDown means go to the last in the same column;
       //  since there's nothing after, it stays at the same point.
