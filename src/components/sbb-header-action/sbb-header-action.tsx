@@ -94,7 +94,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
 
   @Element() private _element: HTMLElement;
 
-  private _documentResizeObserver = new ResizeObserver(() => this._updateHiddenLabel());
+  private _documentResizeObserver = new ResizeObserver(() => this._updateExpanded());
 
   public connectedCallback(): void {
     // Forward focus call to action element
@@ -113,7 +113,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
   }
 
   @Watch('expandFrom')
-  private _updateHiddenLabel(): void {
+  private _updateExpanded(): void {
     toggleDatasetEntry(this._element, 'expanded', !isBreakpoint('zero', this.expandFrom));
   }
 
