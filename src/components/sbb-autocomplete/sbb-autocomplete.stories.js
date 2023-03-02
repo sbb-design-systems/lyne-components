@@ -94,6 +94,18 @@ const aboveDecorator = [
   ),
 ];
 
+const scrollDecorator = [
+  (Story) => (
+    <div
+      style={
+        'padding: 2rem; height: calc(100vh * 1.5); background-color: #e6e6e6; display: flex; align-items: center'
+      }
+    >
+      <Story />
+    </div>
+  ),
+];
+
 const Template = (args) => [
   <sbb-form-field borderless={args.borderless} label="Label">
     <input placeholder="Placeholder" />
@@ -166,6 +178,11 @@ export const BorderlessOpenAbove = Template.bind({});
 BorderlessOpenAbove.argTypes = defaultArgTypes;
 BorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
 BorderlessOpenAbove.decorators = aboveDecorator;
+
+export const Scroll = Template.bind({});
+Scroll.argTypes = defaultArgTypes;
+Scroll.args = { ...defaultArgs };
+Scroll.decorators = scrollDecorator;
 
 export default {
   parameters: {

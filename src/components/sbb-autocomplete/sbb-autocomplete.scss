@@ -11,7 +11,6 @@
   --sbb-overlay-min-height: #{sbb.px-to-rem-build(120)};
   --sbb-overlay-width: fit-content;
   --sbb-overlay-border-radius: var(--sbb-border-radius-4x);
-  --sbb-overlay-translate-y: 0;
   --sbb-overlay-transition-origin: center;
   --sbb-overlay-transition-duration: var(--sbb-animation-duration-2x);
 }
@@ -21,12 +20,10 @@
 }
 
 :host([data-autocomplete-position='below']) {
-  --sbb-overlay-translate-y: calc(-1 * var(--sbb-overlay-origin-height));
   --sbb-overlay-transition-origin: top;
 }
 
 :host([data-autocomplete-position='above']) {
-  --sbb-overlay-translate-y: var(--sbb-overlay-origin-height);
   --sbb-overlay-transition-origin: bottom;
 }
 
@@ -63,22 +60,6 @@
     pointer-events: all;
   }
 
-  :host([data-state='opening']) & {
-    animation: {
-      name: open;
-      duration: var(--sbb-overlay-transition-duration);
-      timing-function: var(--sbb-animation-easing);
-    }
-  }
-
-  :host([data-state='closing']) & {
-    animation: {
-      name: close;
-      duration: var(--sbb-overlay-transition-duration);
-      timing-function: var(--sbb-animation-easing);
-    }
-  }
-
   :host([data-state='opened']) & {
     @include sbb.shadow-level-5-hard;
   }
@@ -108,8 +89,6 @@
   }
 
   :host([data-autocomplete-position='above']) & {
-    transform: translateY(var(--sbb-overlay-origin-height));
-
     &::after {
       content: '';
       display: block;
@@ -135,28 +114,44 @@
   max-height: var(--sbb-overlay-max-height);
   min-height: var(--sbb-overlay-min-height);
   overflow-y: auto;
+
+  :host([data-state='opening']) & {
+    animation: {
+      name: open;
+      duration: var(--sbb-overlay-transition-duration);
+      timing-function: var(--sbb-animation-easing);
+    }
+  }
+
+  :host([data-state='closing']) & {
+    animation: {
+      name: close;
+      duration: var(--sbb-overlay-transition-duration);
+      timing-function: var(--sbb-animation-easing);
+    }
+  }
 }
 
 @keyframes open {
   from {
-    transform: scaleY(0) translateY(var(--sbb-overlay-translate-y));
+    transform: scaleY(0);
     transform-origin: var(--sbb-overlay-transition-origin);
   }
 
   to {
-    transform: scaleY(1) translateY(var(--sbb-overlay-translate-y));
+    transform: scaleY(1);
     transform-origin: var(--sbb-overlay-transition-origin);
   }
 }
 
 @keyframes close {
   from {
-    transform: scaleY(1) translateY(var(--sbb-overlay-translate-y));
+    transform: scaleY(1);
     transform-origin: var(--sbb-overlay-transition-origin);
   }
 
   to {
-    transform: scaleY(0) translateY(var(--sbb-overlay-translate-y));
+    transform: scaleY(0);
     transform-origin: var(--sbb-overlay-transition-origin);
   }
 }
