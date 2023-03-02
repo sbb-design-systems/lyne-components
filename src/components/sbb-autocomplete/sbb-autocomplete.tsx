@@ -436,21 +436,23 @@ export class SbbAutocomplete implements ComponentInterface {
       this._element.id || this._overlayId,
       this._state
     );
+    element?.setAttribute('autocomplete', 'off');
     element?.setAttribute('role', 'combobox');
     element?.setAttribute('aria-autocomplete', 'list');
-    element?.setAttribute('autocomplete', 'off');
+    element?.setAttribute('aria-owns', this._element.id || this._overlayId,);
   }
 
   private _removeTriggerAttributes(element: HTMLInputElement): void {
     removeAriaOverlayTriggerAttributes(element);
+    element?.removeAttribute('autocomplete');
     element?.removeAttribute('role');
     element?.removeAttribute('aria-autocomplete');
-    element?.removeAttribute('autocomplete');
+    element?.removeAttribute('aria-owns');
   }
 
   public render(): JSX.Element {
     return (
-      <Host data-state={this._state} ref={assignId(() => this._overlayId)}>
+      <Host role="listbox" data-state={this._state} ref={assignId(() => this._overlayId)}>
         <div class="sbb-autocomplete__backdrop">
           <div
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
