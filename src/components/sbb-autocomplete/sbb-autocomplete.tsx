@@ -221,7 +221,7 @@ export class SbbAutocomplete implements ComponentInterface {
     if (!anchorElem) {
       return;
     }
-    
+
     // Reset attributes to the old anchor and add them to the new one
     this._removeOriginAttributes(this._originElement);
     this._setOriginAttributes(anchorElem);
@@ -416,10 +416,10 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _setOriginAttributes(element: HTMLElement): void {
-     // This attributes are used to handle the visual attachment effect
-     element.setAttribute('data-autocomplete-origin', 'true');
-     element.setAttribute('data-autocomplete-open', 'false');
-     element.setAttribute('data-autocomplete-disable-animation', `${this.disableAnimation}`);
+    // This attributes are used to handle the visual attachment effect
+    element.setAttribute('data-autocomplete-origin', 'true');
+    element.setAttribute('data-autocomplete-open', 'false');
+    element.setAttribute('data-autocomplete-disable-animation', `${this.disableAnimation}`);
   }
 
   private _removeOriginAttributes(element: HTMLElement): void {
