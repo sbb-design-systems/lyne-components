@@ -12,6 +12,7 @@
   --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
 
   display: inline-block;
+  min-width: var(--sbb-toggle-min-width);
   overflow: hidden;
   z-index: 1;
 }
@@ -43,10 +44,13 @@ input[type='radio'] {
   justify-content: center;
   align-items: center;
   height: var(--sbb-toggle-height);
-  min-width: var(--sbb-toggle-min-width);
   padding-inline: var(--sbb-toggle-padding-inline);
   border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
+
+  :host(:not([data-icon-only])) & {
+    gap: var(--sbb-spacing-fixed-1x);
+  }
 }
 
 .sbb-toggle-option__label {
@@ -70,8 +74,4 @@ sbb-icon,
 ::slotted(sbb-icon) {
   min-width: var(--sbb-toggle-option-icon-min-size);
   min-height: var(--sbb-toggle-option-icon-min-size);
-
-  :host(:not([data-icon-only])) & {
-    margin-inline: 0 var(--sbb-spacing-fixed-1x);
-  }
 }
