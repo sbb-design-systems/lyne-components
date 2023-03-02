@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
@@ -24,7 +25,6 @@ import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-acti
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -48,6 +48,7 @@ import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.cu
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 export { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
@@ -64,7 +65,6 @@ export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-acti
 export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -124,17 +124,21 @@ export namespace Components {
          */
         "alignGroup": InterfaceSbbActionGroupAttributes['alignGroup'];
         /**
+          * Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.
+         */
+        "buttonSize"?: InterfaceButtonAttributes['size'];
+        /**
           * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
         /**
+          * Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "linkSize"?: InterfaceLinkAttributes['size'];
+        /**
           * Indicates the orientation of the components inside the `<sbb-action-group>`.
          */
         "orientation": InterfaceSbbActionGroupAttributes['orientation'];
-        /**
-          * Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.
-         */
-        "size"?: InterfaceButtonAttributes['size'];
     }
     interface SbbAlert {
         /**
@@ -2315,17 +2319,21 @@ declare namespace LocalJSX {
          */
         "alignGroup"?: InterfaceSbbActionGroupAttributes['alignGroup'];
         /**
+          * Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.
+         */
+        "buttonSize"?: InterfaceButtonAttributes['size'];
+        /**
           * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
         /**
+          * Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "linkSize"?: InterfaceLinkAttributes['size'];
+        /**
           * Indicates the orientation of the components inside the `<sbb-action-group>`.
          */
         "orientation"?: InterfaceSbbActionGroupAttributes['orientation'];
-        /**
-          * Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.
-         */
-        "size"?: InterfaceButtonAttributes['size'];
     }
     interface SbbAlert {
         /**

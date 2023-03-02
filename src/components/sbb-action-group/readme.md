@@ -106,9 +106,10 @@ the values for `align-group` and `align-self` for the various allocations are as
 | Property         | Attribute         | Description                                                                                                     | Type                                                                       | Default        |
 | ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
 | `alignGroup`     | `align-group`     | Set the slotted `<sbb-action-group>` children's alignment.                                                      | `"center" \| "end" \| "start" \| "stretch"`                                | `'start'`      |
+| `buttonSize`     | `button-size`     | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. | `"l" \| "m"`                                                               | `'l'`          |
 | `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                                                              | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`     |
+| `linkSize`       | `link-size`       | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     | `"m" \| "s" \| "xs"`                                                       | `'m'`          |
 | `orientation`    | `orientation`     | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
-| `size`           | `size`            | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. | `"l" \| "m"`                                                               | `'l'`          |
 
 
 ## Slots

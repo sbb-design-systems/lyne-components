@@ -72,6 +72,13 @@ const buttonSize = {
   options: ['l', 'm'],
 };
 
+const linkSize = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's', 'xs'],
+};
+
 const orientation = {
   control: {
     type: 'inline-radio',
@@ -98,6 +105,7 @@ const basicArgTypes = {
   orientation,
   'horizontal-from': horizontalFrom,
   'button-size': buttonSize,
+  'link-size': linkSize,
 };
 
 const basicArgs = {
@@ -105,6 +113,7 @@ const basicArgs = {
   orientation: 'horizontal',
   'horizontal-from': 'unset',
   'button-size': buttonSize.options[0],
+  'link-size': linkSize.options[0],
 };
 
 const basicArgsVertical = {
