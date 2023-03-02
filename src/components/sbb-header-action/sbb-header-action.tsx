@@ -25,6 +25,7 @@ import {
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 /**
  * @slot icon - Slot used to render the action icon.
@@ -101,6 +102,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
     this._element.focus = focusActionElement;
 
     this._documentResizeObserver.observe(document.documentElement);
+    this._updateExpanded();
   }
 
   public disconnectedCallback(): void {
