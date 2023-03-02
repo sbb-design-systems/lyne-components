@@ -182,7 +182,9 @@ export class SbbOption implements ComponentInterface {
     return (
       <Host
         role="option"
+        tabindex="0"
         data-active={this.active}
+        aria-disabled={this.disabled}
         aria-selected={this._selected}
         ref={assignId(() => this._optionId)}
       >
