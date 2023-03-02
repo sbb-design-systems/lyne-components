@@ -26,6 +26,7 @@ import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { ScrollHandler } from '../../global/helpers/scroll';
+import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -90,13 +91,17 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
-  /** The state of the dialog. */
+  /*
+   * The state of the dialog.
+   */
   private set _state(state: SbbDialogState) {
     this._element.dataset.state = state;
   }
   private get _state(): SbbDialogState {
     return this._element.dataset.state as SbbDialogState;
   }
+
+  private _dialogContentResizeObserver = new ResizeObserver(() => this._setOverflowAttribute());
 
   /**
    * Emits whenever the dialog starts the opening transition.
@@ -249,10 +254,6 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     window.addEventListener('keydown', (event: KeyboardEvent) => this._onKeydownEvent(event), {
       signal: this._windowEventsController.signal,
     });
-    window.addEventListener('resize', () => this._setOverflowAttribute(), {
-      passive: true,
-      signal: this._windowEventsController.signal,
-    });
   }
 
   // Check if the pointerdown event target is triggered on the dialog.
@@ -288,6 +289,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       this.didOpen.emit();
       this._setDialogFocus();
       this._focusTrap.trap(this._element);
+      this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
     } else if (event.animationName === 'close') {
       this._state = 'closed';
@@ -296,6 +298,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
+      this._dialogContentResizeObserver.disconnect();
       // Enable scrolling for content below the dialog
       this._scrollHandler.enableScroll();
     }
