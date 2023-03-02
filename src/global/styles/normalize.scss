@@ -233,9 +233,11 @@ summary {
 
 /*
 Add global styles for the origin of autocomplete dropdown
+TODO: Check if this needs to me moved on another file
 */
-
 *[data-autocomplete-origin] {
+  --sbb-autocomplete-animation-duration: var(--sbb-animation-duration-1x);
+
   position: relative;
   z-index: 0;
 
@@ -250,7 +252,7 @@ Add global styles for the origin of autocomplete dropdown
     width: 100%;
     height: calc(2 * var(--sbb-border-radius-4x));
     pointer-events: none;
-    transition: visibility var(--sbb-animation-duration-1x) var(--sbb-animation-easing);
+    transition: visibility var(--sbb-autocomplete-animation-duration) var(--sbb-animation-easing);
   }
 
   &[data-autocomplete-position='below']::before {
@@ -263,5 +265,9 @@ Add global styles for the origin of autocomplete dropdown
 
   &[data-autocomplete-open]:not([data-autocomplete-open='false'])::before {
     visibility: visible;
+  }
+
+  &[data-autocomplete-disable-animation]:not([data-autocomplete-disable-animation='false']) {
+    --sbb-autocomplete-animation-duration: 0s;
   }
 }
