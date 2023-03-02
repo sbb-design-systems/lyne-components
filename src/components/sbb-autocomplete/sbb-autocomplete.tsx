@@ -54,6 +54,11 @@ export class SbbAutocomplete implements ComponentInterface {
   @Prop() public trigger: string | HTMLInputElement;
 
   /**
+   * Whether the animation is enabled.
+   */
+  @Prop({ reflect: true }) public disableAnimation = false;
+
+  /**
    * The state of the menu.
    */
   @State() private _state: SbbAutocompleteState = 'closed';
