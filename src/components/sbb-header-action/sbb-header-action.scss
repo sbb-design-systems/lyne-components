@@ -33,23 +33,12 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   display: inline-block;
 }
 
-@each $breakpoint in $breakpoints {
-  :host([expand-from='#{$breakpoint}']) {
-    @include sbb.mq($from: $breakpoint) {
-      --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
+:host([data-expanded]) {
+  --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
 
-      // If expanded, move it left by left padding.
-      // As result, the icon should be aligned with the left side of the page wrapper.
-      --sbb-header-first-item-margin-inline-start: calc(
-        -1 * var(--sbb-header-action-padding-inline)
-      );
-    }
-    @include sbb.mq($to: $breakpoint) {
-      .sbb-header-action__text {
-        @include sbb.screen-reader-only;
-      }
-    }
-  }
+  // If expanded, move it left by left padding.
+  // As result, the icon should be aligned with the left side of the page wrapper.
+  --sbb-header-first-item-margin-inline-start: calc(-1 * var(--sbb-header-action-padding-inline));
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -131,6 +120,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   @include sbb.text-xs--bold;
 
   display: block;
+
+  :host(:not([data-expanded])) & {
+    @include sbb.screen-reader-only;
+  }
 }
 
 .sbb-header-action__opens-in-new-window {

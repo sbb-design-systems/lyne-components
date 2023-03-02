@@ -8,6 +8,7 @@ import {
   ComponentInterface,
   State,
   Host,
+  Watch,
 } from '@stencil/core';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
@@ -22,6 +23,8 @@ import {
   resolveRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
+import { isBreakpoint } from '../../global/helpers/breakpoint';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot icon - Slot used to render the action icon.
@@ -91,14 +94,27 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
 
   @Element() private _element: HTMLElement;
 
+  private _documentResizeObserver = new ResizeObserver(() => this._updateHiddenLabel());
+
   public connectedCallback(): void {
     // Forward focus call to action element
     this._element.focus = focusActionElement;
+
+    this._documentResizeObserver.observe(document.documentElement);
+  }
+
+  public disconnectedCallback(): void {
+    this._documentResizeObserver.disconnect();
   }
 
   @Listen('click')
   public handleClick(event: Event): void {
     forwardHostEvent(event, this._element, actionElement(this._element));
+  }
+
+  @Watch('expandFrom')
+  private _updateHiddenLabel(): void {
+    toggleDatasetEntry(this._element, 'expanded', !isBreakpoint('zero', this.expandFrom));
   }
 
   public render(): JSX.Element {
