@@ -112,9 +112,9 @@ export default {
     actions: {
       handles: [events.dateSelected],
     },
-  },
-  backgrounds: {
-    disable: true,
+    backgrounds: {
+      disable: true,
+    },
     docs: {
       extractComponentDescription: () => readme,
     },

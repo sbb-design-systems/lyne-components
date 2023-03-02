@@ -97,7 +97,7 @@ export class SbbCalendar implements ComponentInterface {
     this._setSelectedDate(this._dateAdapter.deserializeDate(newDate));
   }
 
-  /** Focuses on a day cell. */
+  /** Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day. */
   @Method()
   public async focusCell(): Promise<void> {
     const toFocus = this._getFirstFocusable();

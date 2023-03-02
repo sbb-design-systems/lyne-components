@@ -1,5 +1,34 @@
 # sbb-calendar
 
+The `sbb-calendar` component displays a calendar that allows the user to select a date. For accessibility purposes it's rendered as a native table element and each day is a button. 
+
+While being deeply linked to the implementation of the `sbb-datepicker-toggle` component, it can be used on its own.
+
+For date inputs (`min`, `max`, `selected-date`) the accepted formats are: 
+- Date objects
+- ISO String 
+- Unix Timestamp (number of seconds since 1 Jan 1970)
+
+and it's recommended to set the time at 00:00:00.
+## Accessibility
+
+Keyboard navigation summary:
+- Arrow keys: move between days
+- Home key: jumps to the first day of the month
+- End key: jumps to the last day of the month
+- Page Up key: jumps to the top of the column of the currently selected day
+- Page Down key: jumps to the bottom of the column of the currently selected day
+
+## Usage
+
+```html
+<sbb-calendar 
+  min="1600000000" 
+  max="1700000000" 
+  selected-date="1650000000"
+></sbb-calendar>
+```
+
 <!-- Auto Generated Below -->
 
 
@@ -25,7 +54,7 @@
 
 ### `focusCell() => Promise<void>`
 
-Focuses on a day cell.
+Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day.
 
 #### Returns
 
