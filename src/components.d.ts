@@ -218,6 +218,10 @@ export namespace Components {
          */
         "close": () => Promise<void>;
         /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * Opens the autocomplete.
          */
         "open": () => Promise<void>;
@@ -2559,6 +2563,10 @@ declare namespace LocalJSX {
         "role"?: InterfaceSbbAlertGroupAttributes['role'];
     }
     interface SbbAutocomplete {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
         /**
           * Emits whenever the menu is closed.
          */
