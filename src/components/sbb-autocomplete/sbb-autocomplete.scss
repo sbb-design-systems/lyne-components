@@ -30,6 +30,10 @@
   --sbb-overlay-transition-origin: bottom;
 }
 
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-overlay-transition-duration: 0s;
+}
+
 ::slotted(sbb-divider) {
   margin-block: var(--sbb-spacing-fixed-3x);
 }
