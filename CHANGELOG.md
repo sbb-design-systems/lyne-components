@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.26.23](https://github.com/lyne-design-system/lyne-components/compare/v0.26.22...v0.26.23) (2023-03-02)
+
+### Bug Fixes
+
+- **sbb-header:** always read header action label to screen readers ([#1658](https://github.com/lyne-design-system/lyne-components/issues/1658)) ([5289c50](https://github.com/lyne-design-system/lyne-components/commit/5289c50c483312187033d3e12fb8900e274facad))
+
 ### [0.26.22](https://github.com/lyne-design-system/lyne-components/compare/v0.26.21...v0.26.22) (2023-03-02)
 
 ### Bug Fixes
