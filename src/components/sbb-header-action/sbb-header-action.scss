@@ -8,7 +8,6 @@
 $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host {
-  --sbb-header-action-text-display: none;
   --sbb-header-action-padding-inline: 0;
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-button-m-min-height);
@@ -37,7 +36,6 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 @each $breakpoint in $breakpoints {
   :host([expand-from='#{$breakpoint}']) {
     @include sbb.mq($from: $breakpoint) {
-      --sbb-header-action-text-display: block;
       --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
 
       // If expanded, move it left by left padding.
@@ -45,6 +43,11 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
       --sbb-header-first-item-margin-inline-start: calc(
         -1 * var(--sbb-header-action-padding-inline)
       );
+    }
+    @include sbb.mq($to: $breakpoint) {
+      .sbb-header-action__text {
+        @include sbb.screen-reader-only;
+      }
     }
   }
 }
@@ -127,7 +130,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 .sbb-header-action__text {
   @include sbb.text-xs--bold;
 
-  display: var(--sbb-header-action-text-display);
+  display: block;
 }
 
 .sbb-header-action__opens-in-new-window {
