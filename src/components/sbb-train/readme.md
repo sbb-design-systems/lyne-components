@@ -9,8 +9,12 @@ It should refer to the section where the locomotive is placed.
 
 ```html
 
-<sbb-train direction-label="driving direction" station="Genève-Aéroport" direction="left"
-           accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction.">
+<sbb-train 
+  direction-label="driving direction"
+  direction-label-level="3"
+  station="Genève-Aéroport"
+  direction="left"
+  accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction.">
   ...
 </sbb-train>
 ```
@@ -20,12 +24,13 @@ It should refer to the section where the locomotive is placed.
 
 ## Properties
 
-| Property                      | Attribute             | Description                                                                                  | Type                | Default     |
-| ----------------------------- | --------------------- | -------------------------------------------------------------------------------------------- | ------------------- | ----------- |
-| `accessibilityLabel`          | `accessibility-label` | Accessibility label for additional information regarding the leaving direction of the train. | `string`            | `''`        |
-| `direction`                   | `direction`           | Controls the direction indicator to show the arrow left or right. Default is left.           | `"left" \| "right"` | `'left'`    |
-| `directionLabel` _(required)_ | `direction-label`     | General label for "driving direction".                                                       | `string`            | `undefined` |
-| `station`                     | `station`             | Label for the destination station of the train.                                              | `string`            | `undefined` |
+| Property                      | Attribute               | Description                                                                                  | Type                                     | Default     |
+| ----------------------------- | ----------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `accessibilityLabel`          | `accessibility-label`   | Accessibility label for additional information regarding the leaving direction of the train. | `string`                                 | `''`        |
+| `direction`                   | `direction`             | Controls the direction indicator to show the arrow left or right. Default is left.           | `"left" \| "right"`                      | `'left'`    |
+| `directionLabel` _(required)_ | `direction-label`       | General label for "driving direction".                                                       | `string`                                 | `undefined` |
+| `directionLabelLevel`         | `direction-label-level` | The semantic level of the direction level, e.g. 3 = h3.                                      | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
+| `station`                     | `station`               | Label for the destination station of the train.                                              | `string`                                 | `undefined` |
 
 
 ## Slots

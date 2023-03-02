@@ -1,5 +1,6 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbTrainAttributes } from './sbb-train.custom.d';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
  * @slot unnamed - Used for slotting sbb-sectors.
@@ -13,6 +14,9 @@ import { InterfaceSbbTrainAttributes } from './sbb-train.custom.d';
 export class SbbTrain {
   /** General label for "driving direction". */
   @Prop() public directionLabel!: string;
+
+  /** The semantic level of the direction level, e.g. 3 = h3. */
+  @Prop() public directionLabelLevel: InterfaceTitleAttributes['level'] = '3';
 
   /** Label for the destination station of the train. */
   @Prop() public station?: string;
@@ -32,6 +36,7 @@ export class SbbTrain {
   }
 
   public render(): JSX.Element {
+    const DIRECTION_TAG_NAME = `h${this.directionLabelLevel}`;
     return (
       <div class="sbb-train">
         <div class="sbb-train__sectors">
@@ -40,10 +45,10 @@ export class SbbTrain {
 
         {this.directionLabel && (
           <div class="sbb-train__direction" aria-label={this._getDirectionAriaLabel()}>
-            <h3 aria-hidden="true" class="sbb-train__direction-heading">
+            <DIRECTION_TAG_NAME aria-hidden="true" class="sbb-train__direction-heading">
               <span class="sbb-train__direction-label">{this.directionLabel}</span>
               {this.station && <span class="sbb-train__direction-station">{this.station}</span>}
-            </h3>
+            </DIRECTION_TAG_NAME>
             <div class="sbb-train__direction-indicator">
               <div class="sbb-train__sticky-wrapper">
                 <sbb-icon
