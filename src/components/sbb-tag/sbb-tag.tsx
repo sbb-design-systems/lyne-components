@@ -136,7 +136,7 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
           type="button"
           class="sbb-tag"
           // We have to ensure that the value is always present
-          aria-pressed={this.checked ? 'true' : 'false'}
+          aria-pressed={this.checked.toString()}
           disabled={this.disabled}
           aria-disabled={this.disabled}
           {...getAccessibilityAttributeList(this)}
