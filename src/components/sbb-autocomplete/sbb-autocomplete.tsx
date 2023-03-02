@@ -106,6 +106,7 @@ export class SbbAutocomplete implements ComponentInterface {
   @Element() private _element!: HTMLElement;
 
   private _dialog: HTMLElement;
+  private _optionContainer: HTMLElement;
   private _originElement: HTMLElement;
   private _triggerElement: HTMLInputElement;
   private _triggerEventsController: AbortController;
@@ -289,7 +290,7 @@ export class SbbAutocomplete implements ComponentInterface {
     );
 
     // Calculate and set the position
-    const panelPosition = getElementPosition(this._dialog, this._originElement);
+    const panelPosition = getElementPosition(this._optionContainer, this._originElement);
 
     this._element.style.setProperty('--sbb-overlay-position-x', `${panelPosition.left}px`);
     this._element.style.setProperty('--sbb-overlay-position-y', `${panelPosition.top}px`);
@@ -457,7 +458,10 @@ export class SbbAutocomplete implements ComponentInterface {
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
-            <div class="sbb-autocomplete__options">
+            <div
+              class="sbb-autocomplete__options"
+              ref={(containerRef) => (this._optionContainer = containerRef)}
+            >
               <slot />
             </div>
           </div>
