@@ -248,23 +248,25 @@ TODO: Check if this needs to me moved on another file
     position: absolute;
     z-index: -1;
     background-color: white;
+    opacity: 0;
     left: 0;
     width: 100%;
     height: calc(2 * var(--sbb-border-radius-4x));
     pointer-events: none;
-    transition: visibility var(--sbb-autocomplete-animation-duration) var(--sbb-animation-easing);
+    transition: opacity var(--sbb-autocomplete-animation-duration) var(--sbb-animation-easing);
   }
 
   &[data-autocomplete-position='below']::before {
-    top: calc(100% - var(--sbb-border-radius-4x));
+    bottom: calc(var(--sbb-border-radius-4x) * -1);
   }
 
   &[data-autocomplete-position='above']::before {
-    top: calc(0% - var(--sbb-border-radius-4x));
+    top: calc(var(--sbb-border-radius-4x) * -1);
   }
 
   &[data-autocomplete-open]:not([data-autocomplete-open='false'])::before {
     visibility: visible;
+    opacity: 1;
   }
 
   &[data-autocomplete-disable-animation]:not([data-autocomplete-disable-animation='false']) {

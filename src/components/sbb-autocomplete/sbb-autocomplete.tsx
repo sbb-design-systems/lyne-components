@@ -130,6 +130,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
+    this._originElement?.setAttribute('data-autocomplete-open', 'true');
   }
 
   /**
@@ -314,7 +315,6 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
-    this._originElement?.setAttribute('data-autocomplete-open', 'true');
     this.didOpen.emit();
   }
 
