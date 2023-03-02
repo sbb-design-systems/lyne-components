@@ -56,6 +56,7 @@ export class SbbOption implements ComponentInterface {
 
   /**
    * Whether or not the option is disabled.
+   * TBI: missing disabled style, will be implemented with the select component
    */
   @Prop() public disabled?: boolean;
 

@@ -221,11 +221,12 @@ export class SbbAutocomplete implements ComponentInterface {
     if (!anchorElem) {
       return;
     }
-    this._originElement = anchorElem;
+    
+    // Reset attributes to the old anchor and add them to the new one
+    this._removeOriginAttributes(this._originElement);
+    this._setOriginAttributes(anchorElem);
 
-    // This attributes are used to handle the visual attachment effect
-    this._originElement.setAttribute('data-autocomplete-origin', 'true');
-    this._originElement.setAttribute('data-autocomplete-open', 'false');
+    this._originElement = anchorElem;
   }
 
   private _bindTo(triggerElem: HTMLInputElement): void {
@@ -238,9 +239,9 @@ export class SbbAutocomplete implements ComponentInterface {
       `${this._originElement.hasAttribute('borderless')}`
     );
 
-    // Reset aria attributes to the old trigger and add them to the new one
-    this._removeAriaAttributes(this._triggerElement);
-    this._setAriaAttributes(triggerElem);
+    // Reset attributes to the old trigger and add them to the new one
+    this._removeTriggerAttributes(this._triggerElement);
+    this._setTriggerAttributes(triggerElem);
 
     this._triggerElement = triggerElem;
 
@@ -410,7 +411,24 @@ export class SbbAutocomplete implements ComponentInterface {
     this._activeItemIndex = -1;
   }
 
-  private _setAriaAttributes(element: HTMLInputElement): void {
+  private _highlightOptions(searchTerm: string): void {
+    this._options.forEach((option) => (option.highlightString = searchTerm));
+  }
+
+  private _setOriginAttributes(element: HTMLElement): void {
+     // This attributes are used to handle the visual attachment effect
+     element.setAttribute('data-autocomplete-origin', 'true');
+     element.setAttribute('data-autocomplete-open', 'false');
+     element.setAttribute('data-autocomplete-disable-animation', `${this.disableAnimation}`);
+  }
+
+  private _removeOriginAttributes(element: HTMLElement): void {
+    element?.removeAttribute('data-autocomplete-origin');
+    element?.removeAttribute('data-autocomplete-open');
+    element?.removeAttribute('data-autocomplete-disable-animation');
+  }
+
+  private _setTriggerAttributes(element: HTMLInputElement): void {
     setAriaOverlayTriggerAttributes(
       element,
       'listbox',
@@ -422,15 +440,11 @@ export class SbbAutocomplete implements ComponentInterface {
     element?.setAttribute('autocomplete', 'off');
   }
 
-  private _removeAriaAttributes(element: HTMLInputElement): void {
+  private _removeTriggerAttributes(element: HTMLInputElement): void {
     removeAriaOverlayTriggerAttributes(element);
     element?.removeAttribute('role');
     element?.removeAttribute('aria-autocomplete');
     element?.removeAttribute('autocomplete');
-  }
-
-  private _highlightOptions(searchTerm: string): void {
-    this._options.forEach((option) => (option.highlightString = searchTerm));
   }
 
   public render(): JSX.Element {
