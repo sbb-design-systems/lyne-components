@@ -50,7 +50,7 @@ export class SbbActionGroup {
     this._element.querySelectorAll('sbb-button').forEach((b) => (b.size = this.buttonSize));
   }
 
-  @Watch('buttonSize')
+  @Watch('linkSize')
   public syncLinks(): void {
     this._element.querySelectorAll('sbb-link').forEach((link) => {
       link.variant = 'block';

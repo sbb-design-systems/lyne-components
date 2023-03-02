@@ -20,7 +20,7 @@ describe('sbb-action-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-action-group align="start" orientation="horizontal" align-group="start" horizontal-from="medium" button-size="l">
+      <sbb-action-group align="start" orientation="horizontal" align-group="start" horizontal-from="medium" button-size="l" link-size="m">
         <mock:shadow-root>
           <div class="sbb-action-group">
             <slot></slot>
