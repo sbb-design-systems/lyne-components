@@ -52,11 +52,9 @@ const writeIndex = () => {
   fs.writeFileSync(`${config.bundleDir}/${config.componentsFile}`, JSON.stringify(files));
 };
 
-glob(config.componentsGlob, {}, (err, files) => {
-  if (err) {
-    throw new Error(`Error reading stories files: ${err}`);
-  }
+(async () => {
+  const files = await glob(config.componentsGlob);
 
   buildFiles(files);
   writeIndex();
-});
+})();
