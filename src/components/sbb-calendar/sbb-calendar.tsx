@@ -267,7 +267,7 @@ export class SbbCalendar implements ComponentInterface {
             onClick={(event) => this._selectDate(day.value, event)}
             disabled={isOutOfRange || isFilteredOut}
             aria-label={this._dateAdapter.getAccessibilityFormatDate(day.value)}
-            aria-pressed={selected ? 'true' : 'false'}
+            aria-pressed={String(selected)}
             aria-disabled={String(isOutOfRange || isFilteredOut)}
             data-day={dayValue}
             tabindex="-1"
