@@ -2,7 +2,6 @@ import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { isRideLeg } from './sbb-pearl-chain.helper';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({
@@ -94,7 +93,7 @@ export class SbbPearlChain {
   }
 
   public render(): JSX.Element {
-    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
+    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => leg?.__typename === 'PTRideLeg');
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
     const arrivalTime =

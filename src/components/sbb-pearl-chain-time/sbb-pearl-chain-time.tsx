@@ -68,7 +68,7 @@ export class SbbPearlChainTime {
     return (
       <span class={`sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}`}>
         <sbb-icon name={icon}></sbb-icon>
-        <time dateTime={this.departureWalk + 'M'}>
+        <time dateTime={duration + 'M'}>
           <span class="sbb-screenreaderonly">
             {type && type === 'departure'
               ? i18nWalkingDistanceDeparture[this._currentLanguage]
@@ -76,7 +76,7 @@ export class SbbPearlChainTime {
             {label && <span>{label}</span>}
           </span>
           {duration}
-          <span aria-hidden="true">'</span>
+          <span aria-label="min">'</span>
         </time>
       </span>
     );
@@ -204,7 +204,7 @@ export class SbbPearlChainTime {
             <time dateTime={connectionLastLeg.duration + 'M'}>
               <span class="sbb-screenreaderonly">{connectionLastLegNotices?.text}</span>
               {connectionLastLeg.duration}
-              <span aria-hidden="true">'</span>
+              <span aria-label="min">'</span>
             </time>
           </span>
         )}

@@ -89,7 +89,7 @@ export const extendedLeg = {
       {
         name: 'CI',
         text: {
-          template: "Verlängerte Einsteigezeit (45')",
+          template: "Extended boarding time (45')",
         },
       },
     ],

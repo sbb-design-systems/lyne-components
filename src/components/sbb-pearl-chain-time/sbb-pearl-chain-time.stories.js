@@ -80,9 +80,9 @@ withArrivalWalk.args = {
   'arrival-walk': '5',
 };
 
-export const maximal = Template.bind({});
-maximal.argTypes = defaultArgTypes;
-maximal.args = {
+export const mixed = Template.bind({});
+mixed.argTypes = defaultArgTypes;
+mixed.args = {
   ...defaultArgs,
   'departure-walk': '0',
   'arrival-walk': '5',
