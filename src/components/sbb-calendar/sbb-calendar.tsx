@@ -254,7 +254,7 @@ export class SbbCalendar implements ComponentInterface {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this.dateFilter(new Date(day.value));
       const selected: boolean = this._selected && day.value === this._selected;
-      const label = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
+      const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       return (
         <td>
           <button
@@ -266,10 +266,10 @@ export class SbbCalendar implements ComponentInterface {
             }}
             onClick={(event) => this._selectDate(day.value, event)}
             disabled={isOutOfRange || isFilteredOut}
-            aria-label={label}
+            aria-label={this._dateAdapter.getAccessibilityFormatDate(day.value)}
             aria-pressed={selected ? 'true' : 'false'}
             aria-disabled={String(isOutOfRange || isFilteredOut)}
-            data-day={label}
+            data-day={dayValue}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
           >

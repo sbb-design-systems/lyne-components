@@ -61,6 +61,16 @@ export class NativeDateAdapter {
     return date.getDay();
   }
 
+  /** Gets the date in the local format. */
+  public getAccessibilityFormatDate(date: Date | string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    return new Intl.DateTimeFormat(documentLanguage(), options).format(new Date(date));
+  }
+
   /**
    * Creates an array of strings with length = 12, filled with the name of the months starting from January, in the document language.
    * @param style See `month` in `DateTimeFormatOptions`: `long` for full name, `short` for short name, `narrow` for single letter,

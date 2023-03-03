@@ -210,4 +210,26 @@ describe('NativeDateAdapter', () => {
     expect(formattedDate.getMonth()).toEqual(0);
     expect(formattedDate.getDate()).toEqual(1);
   });
+
+  it('should generate localized accessibility labels', async () => {
+    document.documentElement.setAttribute('lang', 'en-US');
+    expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2017, 11, 5, 0, 0, 0))).toEqual(
+      'December 5, 2017'
+    );
+
+    document.documentElement.setAttribute('lang', 'de-DE');
+    expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2023, 8, 13, 0, 0, 0))).toEqual(
+      '13. September 2023'
+    );
+
+    document.documentElement.setAttribute('lang', 'it-IT');
+    expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2015, 2, 24, 0, 0, 0))).toEqual(
+      '24 marzo 2015'
+    );
+
+    document.documentElement.setAttribute('lang', 'fr-FR');
+    expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2018, 7, 15, 0, 0, 0))).toEqual(
+      '15 août 2018'
+    );
+  });
 });
