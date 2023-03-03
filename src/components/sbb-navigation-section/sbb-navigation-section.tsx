@@ -18,7 +18,6 @@ import {
   queryAndObserveNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { i18nGoBack } from '../../global/i18n';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -39,7 +38,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation-section.scss',
   tag: 'sbb-navigation-section',
 })
-export class SbbNavigationSection implements ComponentInterface, AccessibilityProperties {
+export class SbbNavigationSection implements ComponentInterface {
   /*
    * The label to be shown before the action list.
    */

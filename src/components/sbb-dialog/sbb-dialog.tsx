@@ -11,7 +11,6 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
 import {
@@ -41,7 +40,7 @@ type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
   styleUrl: 'sbb-dialog.scss',
   tag: 'sbb-dialog',
 })
-export class SbbDialog implements ComponentInterface, AccessibilityProperties {
+export class SbbDialog implements ComponentInterface {
   /**
    * Dialog title.
    */

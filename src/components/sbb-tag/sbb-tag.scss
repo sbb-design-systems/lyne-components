@@ -22,6 +22,7 @@
   }
 
   display: inline-block;
+  outline: none;
   max-width: 100%;
 }
 
@@ -52,6 +53,14 @@
   --sbb-tag-border-color: var(--sbb-color-platinum-default);
 }
 
+// Pressed state
+:host(:active) {
+  --sbb-tag-background-color: var(--sbb-color-milk-default);
+  --sbb-tag-border-color: var(--sbb-color-iron-default);
+  --sbb-tag-border-width: var(--sbb-border-width-2x);
+  --sbb-tag-text-color: var(--sbb-color-iron-default);
+}
+
 .sbb-tag {
   @include sbb.button-reset;
   @include sbb.text-xs--bold;
@@ -69,14 +78,6 @@
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   -webkit-tap-highlight-color: transparent;
 
-  // Pressed state
-  &:active {
-    --sbb-tag-background-color: var(--sbb-color-milk-default);
-    --sbb-tag-border-color: var(--sbb-color-iron-default);
-    --sbb-tag-border-width: var(--sbb-border-width-2x);
-    --sbb-tag-text-color: var(--sbb-color-iron-default);
-  }
-
   &::before {
     content: '';
     position: absolute;
@@ -87,10 +88,10 @@
     transition-duration: var(--sbb-tag-animation-duration);
     transition-timing-function: var(--sbb-tag-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
-  }
 
-  &:focus-visible::before {
-    @include sbb.focus-outline;
+    :host(:focus-visible) & {
+      @include sbb.focus-outline;
+    }
   }
 
   :host([disabled]:not([disabled='false'])) & {

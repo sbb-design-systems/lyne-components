@@ -6,6 +6,7 @@
 
 :host {
   display: inline-block;
+  outline: none;
 
   --sbb-toggle-check-font-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-check-checked-color: var(--sbb-color-red-default);
@@ -79,6 +80,12 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
 }
 
 input[type='checkbox'] {
@@ -93,12 +100,6 @@ input[type='checkbox'] {
   gap: var(--sbb-toggle-check-gap);
   align-items: start;
   width: 100%;
-
-  input[type='checkbox']:focus-visible + & {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
 }
 
 .sbb-toggle-check__label {

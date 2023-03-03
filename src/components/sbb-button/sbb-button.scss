@@ -6,6 +6,7 @@
 
 :host {
   display: inline-block;
+  outline: none;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);
@@ -209,10 +210,10 @@
     @include sbb.if-forced-colors {
       border: var(--sbb-border-width-1x) solid CanvasText;
     }
-  }
 
-  &:focus-visible::before {
-    @include sbb.focus-outline;
+    :host(:focus-visible) & {
+      @include sbb.focus-outline;
+    }
   }
 
   // If the the device can hover over elements with ease

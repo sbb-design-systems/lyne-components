@@ -22,7 +22,7 @@
   display: block;
   min-height: var(--sbb-panel-height);
 
-  &:focus-visible {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
   }
 }

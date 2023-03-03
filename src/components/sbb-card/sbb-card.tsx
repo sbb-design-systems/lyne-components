@@ -12,14 +12,15 @@ import {
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
-  actionElement,
   ButtonType,
-  focusActionElement,
-  forwardHostEvent,
+  dispatchClickEventWhenButtonAndSpaceKeyup,
+  dispatchClickEventWhenEnterKeypress,
+  handleLinkButtonClick,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
   resolveRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 import {
@@ -71,9 +72,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   /** The value associated with button `name` when it's submitted with the form data. */
   @Prop() public value?: string | undefined;
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element!: HTMLElement;
@@ -89,9 +87,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   }
 
   public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
-
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
@@ -102,7 +97,17 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, actionElement(this._element));
+    handleLinkButtonClick(event);
+  }
+
+  @Listen('keypress')
+  public handleKeypress(event: KeyboardEvent): void {
+    dispatchClickEventWhenEnterKeypress(event);
+  }
+
+  @Listen('keyup')
+  public handleKeyup(event: KeyboardEvent): void {
+    dispatchClickEventWhenButtonAndSpaceKeyup(event);
   }
 
   /**
@@ -121,25 +126,20 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
     const {
       tagName: TAG_NAME,
       attributes,
-      screenReaderNewWindowInfo,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage);
-
-    const hostAttributes = {
-      'data-has-badge': this._hasBadge(),
-    };
+      hostAttributes,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
+    if (this._hasBadge()) {
+      hostAttributes['data-has-badge'] = '';
+    }
 
     return (
       <Host {...hostAttributes}>
-        <TAG_NAME
-          class="sbb-card"
-          {...attributes}
-          ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
-        >
+        <TAG_NAME class="sbb-card" {...attributes}>
           {this._hasBadge() && <slot name="badge" />}
           <span class="sbb-card__wrapper">
             <slot />
           </span>
-          {screenReaderNewWindowInfo && (
+          {targetsNewWindow(this) && (
             <span class="sbb-card__opens-in-new-window">
               . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>

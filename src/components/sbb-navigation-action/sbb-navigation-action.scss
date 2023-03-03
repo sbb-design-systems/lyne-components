@@ -5,6 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
+  outline: none;
+
   --sbb-navigation-action-color: var(--sbb-color-cloud-default);
 }
 
@@ -32,7 +34,7 @@
   text-align: left;
   color: var(--sbb-navigation-action-color);
 
-  &:focus-visible {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));

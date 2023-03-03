@@ -6,19 +6,30 @@ describe('sbb-teaser-hero', () => {
   it('should render all properties', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch" rel="external" target="_blank" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
+      html: `<sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" rel="external" target="_blank" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch" rel="external" target="_blank" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero
+        aria-label="label"
+        href="https://www.sbb.ch"
+        rel="external"
+        target="_blank"
+        link-content="Find out more"
+        image-src="${sampleImages[1]}"
+        image-alt="SBB CFF FFS Employee"
+        role="link"
+        tabindex="0"
+      >
           <mock:shadow-root>
             <a
-              aria-label="label. Link target opens in new window."
               class="sbb-teaser-hero"
               dir="ltr"
               href="https://www.sbb.ch"
               rel="external"
               target="_blank"
+              role="presentation"
+              tabindex="-1"
             >
               <span class="sbb-teaser-hero__panel">
                 <span class="sbb-teaser-hero__panel-text">
@@ -37,6 +48,9 @@ describe('sbb-teaser-hero', () => {
              <slot name="image">
                <sbb-image image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
              </slot>
+             <span class="sbb-teaser-hero__opens-in-new-window">
+               . Link target opens in new window.
+             </span>
             </a>
           </mock:shadow-root>
           Break out and explore castles and palaces.
@@ -47,14 +61,15 @@ describe('sbb-teaser-hero', () => {
   it('should render without link', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero accessibility-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
+      html: `<sbb-teaser-hero aria-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">Break out and explore castles and palaces.</sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero aria-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
           <mock:shadow-root>
             <span
-              aria-label="label"
+              role="presentation"
+              tabindex="-1"
               class="sbb-teaser-hero"
               dir="ltr"
             >
@@ -76,17 +91,18 @@ describe('sbb-teaser-hero', () => {
   it('should render with slots', async () => {
     const { root } = await newSpecPage({
       components: [SbbTeaserHero],
-      html: `<sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>`,
+      html: `<sbb-teaser-hero aria-label="label" href="https://www.sbb.ch">Break out and explore castles and palaces.<span slot="link-content">Find out more</span><sbb-image slot="image" image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image></sbb-teaser-hero>`,
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero accessibility-label="label" href="https://www.sbb.ch">
+      <sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" role="link" tabindex="0">
           <mock:shadow-root>
             <a
-              aria-label="label"
               class="sbb-teaser-hero"
               dir="ltr"
               href="https://www.sbb.ch"
+              role="presentation"
+              tabindex="-1"
             >
               <span class="sbb-teaser-hero__panel">
                 <span class="sbb-teaser-hero__panel-text">

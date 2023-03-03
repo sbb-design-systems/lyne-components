@@ -1,26 +1,17 @@
+import { Component, ComponentInterface, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
 import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
-import {
-  actionElement,
   ButtonType,
-  focusActionElement,
-  forwardHostEvent,
+  dispatchClickEventWhenButtonAndSpaceKeyup,
+  dispatchClickEventWhenEnterKeypress,
+  handleLinkButtonClick,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
-  PopupType,
   resolveRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
@@ -69,23 +60,7 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   /** The <form> element to associate the button with. */
   @Prop() public form?: string;
 
-  /**
-   * If you use the button to trigger another widget which itself is covering
-   * the page, you must provide an according attribute for aria-haspopup.
-   */
-  @Prop() public accessibilityHaspopup: PopupType | undefined;
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element: HTMLElement;
-
-  public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
-  }
 
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
@@ -94,12 +69,17 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    if (this.disabled) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    } else {
-      forwardHostEvent(event, this._element, actionElement(this._element));
-    }
+    handleLinkButtonClick(event);
+  }
+
+  @Listen('keypress')
+  public handleKeypress(event: KeyboardEvent): void {
+    dispatchClickEventWhenEnterKeypress(event);
+  }
+
+  @Listen('keyup')
+  public handleKeyup(event: KeyboardEvent): void {
+    dispatchClickEventWhenButtonAndSpaceKeyup(event);
   }
 
   public render(): JSX.Element {
@@ -107,16 +87,12 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
       tagName: TAG_NAME,
       hostAttributes,
       attributes,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage, false);
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
     // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <Host {...hostAttributes}>
-        <TAG_NAME
-          class="sbb-menu-action"
-          {...attributes}
-          ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
-        >
+        <TAG_NAME class="sbb-menu-action" {...attributes}>
           <span class="sbb-menu-action__content">
             <span class="sbb-menu-action__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
@@ -128,6 +104,11 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
               <span class="sbb-menu-action__amount">{this.amount}</span>
             )}
           </span>
+          {targetsNewWindow(this) && (
+            <span class="sbb-link__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+            </span>
+          )}
         </TAG_NAME>
       </Host>
     );

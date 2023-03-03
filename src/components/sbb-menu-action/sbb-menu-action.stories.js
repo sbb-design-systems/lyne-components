@@ -127,21 +127,6 @@ const form = {
   },
 };
 
-const accessibilityHaspopup = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   amount,
@@ -155,8 +140,6 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-haspopup': accessibilityHaspopup,
-  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs = {
@@ -173,8 +156,6 @@ const defaultArgs = {
   name: undefined,
   value: undefined,
   form: undefined,
-  'accessibility-haspopup': undefined,
-  'accessibility-label': 'Details',
 };
 
 const buttonArgs = {

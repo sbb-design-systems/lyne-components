@@ -182,21 +182,6 @@ const form = {
   },
 };
 
-const accessibilityHaspopup = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   variant,
@@ -213,8 +198,6 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-haspopup': accessibilityHaspopup,
-  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs = {
@@ -233,8 +216,6 @@ const defaultArgs = {
   name: 'Button Name',
   value: undefined,
   form: undefined,
-  'accessibility-haspopup': undefined,
-  'accessibility-label': undefined,
 };
 
 export const primary = Template.bind({});

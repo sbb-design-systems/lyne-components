@@ -10,10 +10,6 @@ import {
   Watch,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import {
-  AccessibilityProperties,
-  getAccessibilityAttributeList,
-} from '../../global/interfaces/accessibility-properties';
 import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
@@ -25,7 +21,7 @@ const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
   styleUrl: 'sbb-time-input.scss',
   tag: 'sbb-time-input',
 })
-export class SbbTimeInput implements ComponentInterface, AccessibilityProperties {
+export class SbbTimeInput implements ComponentInterface {
   /** Value for the inner HTMLInputElement. */
   @Prop({ mutable: true }) public value?: string = '';
 
@@ -170,7 +166,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
       required: this.required || null,
       value: this._formatValue(this.value) || null,
       placeholder: this._placeholder,
-      ...getAccessibilityAttributeList(this),
     };
     return (
       <input

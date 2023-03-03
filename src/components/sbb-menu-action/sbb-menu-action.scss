@@ -5,13 +5,11 @@
 @include sbb.host-component-properties;
 
 :host {
+  outline: none;
+
   --sbb-menu-action-border-radius: var(--sbb-border-radius-infinity);
   --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
   --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
-}
-
-:host(:focus-within) {
-  outline: none;
 }
 
 .sbb-menu-action {
@@ -23,10 +21,6 @@
   color: var(--sbb-color-white-default);
   padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
   cursor: pointer;
-
-  &:focus-visible {
-    outline: none;
-  }
 
   :host([disabled]:not([disabled='false'])) & {
     cursor: default;
@@ -45,7 +39,7 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
-  .sbb-menu-action:focus-visible & {
+  :host(:focus-visible) & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
     @include sbb.focus-outline;

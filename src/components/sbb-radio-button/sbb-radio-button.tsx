@@ -145,14 +145,15 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const attributes = {
+      role: 'radio',
+      'aria-checked': this.checked?.toString() ?? 'false',
+      'aria-required': (this.required || this._requiredFromGroup).toString(),
+      'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      ...(this.disabled || this._disabledFromGroup ? undefined : { tabIndex: '0' }),
+    };
     return (
-      <Host
-        /* eslint-disable jsx-a11y/aria-proptypes */
-        aria-checked={`${this.checked}`}
-        aria-disabled={`${this.disabled || this._disabledFromGroup}`}
-        /* eslint-enable jsx-a11y/aria-proptypes */
-        role="radio"
-      >
+      <Host {...attributes}>
         <label class="sbb-radio-button">
           <input
             type="radio"

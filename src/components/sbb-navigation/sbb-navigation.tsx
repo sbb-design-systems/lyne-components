@@ -20,7 +20,6 @@ import { AgnosticMutationObserver as MutationObserver } from '../../global/helpe
 import { isEventOnElement } from '../../global/helpers/position';
 import { ScrollHandler } from '../../global/helpers/scroll';
 import { i18nCloseNavigation } from '../../global/i18n';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -47,7 +46,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation.scss',
   tag: 'sbb-navigation',
 })
-export class SbbNavigation implements ComponentInterface, AccessibilityProperties {
+export class SbbNavigation implements ComponentInterface {
   /**
    * The element that will trigger the navigation.
    * Accepts both a string (id of an element) or an HTML element.

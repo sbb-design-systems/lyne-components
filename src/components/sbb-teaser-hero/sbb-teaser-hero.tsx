@@ -1,11 +1,11 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
 import {
-  actionElement,
-  focusActionElement,
-  forwardHostEvent,
+  dispatchClickEventWhenEnterKeypress,
+  handleLinkButtonClick,
   LinkProperties,
   LinkTargetType,
-  resolveLinkRenderVariables,
+  resolveLinkOrStaticRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
@@ -22,9 +22,6 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
   tag: 'sbb-teaser-hero',
 })
 export class SbbTeaserHero implements ComponentInterface, LinkProperties {
-  /** This will be forwarded as aria-label to anchor tag. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /** The href value you want to link to. */
   @Prop() public href: string | undefined;
 
@@ -45,8 +42,6 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element!: HTMLElement;
-
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
@@ -54,50 +49,50 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    if (this.href) {
-      forwardHostEvent(event, this._element, actionElement(this._element));
-    }
+    handleLinkButtonClick(event);
   }
 
-  public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
+  @Listen('keypress')
+  public handleKeypress(event: KeyboardEvent): void {
+    dispatchClickEventWhenEnterKeypress(event);
   }
 
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
       attributes,
-      screenReaderNewWindowInfo,
-    } = resolveLinkRenderVariables(this, this._currentLanguage);
+      hostAttributes,
+    } = resolveLinkOrStaticRenderVariables(this);
 
     return (
-      <TAG_NAME class="sbb-teaser-hero" {...attributes}>
-        <span class="sbb-teaser-hero__panel">
-          <span class="sbb-teaser-hero__panel-text">
-            <slot />
+      <Host {...hostAttributes}>
+        <TAG_NAME class="sbb-teaser-hero" {...attributes}>
+          <span class="sbb-teaser-hero__panel">
+            <span class="sbb-teaser-hero__panel-text">
+              <slot />
+            </span>
+            {this.href && (
+              <sbb-link
+                class="sbb-teaser-hero__panel-link"
+                icon-name="chevron-small-right-small"
+                icon-placement="end"
+                size="m"
+                negative
+              >
+                <slot name="link-content">{this.linkContent}</slot>
+              </sbb-link>
+            )}
           </span>
-          {this.href && (
-            <sbb-link
-              class="sbb-teaser-hero__panel-link"
-              icon-name="chevron-small-right-small"
-              icon-placement="end"
-              size="m"
-              negative
-            >
-              <slot name="link-content">{this.linkContent}</slot>
-            </sbb-link>
+          <slot name="image">
+            {this.imageSrc && <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>}
+          </slot>
+          {targetsNewWindow(this) && (
+            <span class="sbb-teaser-hero__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+            </span>
           )}
-        </span>
-        <slot name="image">
-          {this.imageSrc && <sbb-image image-src={this.imageSrc} alt={this.imageAlt}></sbb-image>}
-        </slot>
-        {screenReaderNewWindowInfo && (
-          <span class="sbb-teaser-hero__opens-in-new-window">
-            . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-          </span>
-        )}
-      </TAG_NAME>
+        </TAG_NAME>
+      </Host>
     );
   }
 }

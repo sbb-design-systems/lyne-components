@@ -17,6 +17,7 @@
   }
 
   display: inline-block;
+  outline: none;
 }
 
 :host([data-group-disabled]),
@@ -53,6 +54,12 @@
   display: flex;
 
   @include sbb.zero-width-space;
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
 }
 
 .sbb-checkbox {
@@ -153,10 +160,4 @@ input[type='checkbox'] {
     justify-content: flex-start;
     flex-grow: 1;
   }
-}
-
-input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
-  @include sbb.focus-outline;
-
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }

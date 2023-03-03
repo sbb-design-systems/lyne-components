@@ -79,9 +79,9 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card color="white" size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+      <sbb-card color="white" size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" size="l" tabindex="0">
         <mock:shadow-root>
-          <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
+          <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
@@ -109,9 +109,9 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card color="white" size="s" name="button" form="form" value="value" active="">
+      <sbb-card color="white" size="s" name="button" form="form" value="value" active="" role="button" size="s" tabindex="0">
         <mock:shadow-root>
-          <button class="sbb-card" dir="ltr" type="button" name="button" form="form" value="value">
+          <button class="sbb-card" dir="ltr" type="button" name="button" role="presentation" tabindex="-1" value="value">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>

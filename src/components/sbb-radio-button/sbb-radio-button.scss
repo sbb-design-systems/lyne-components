@@ -17,12 +17,6 @@
   );
 }
 
-:host(:focus-visible) {
-  @include sbb.focus-outline;
-
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-}
-
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
   --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
@@ -41,6 +35,12 @@
   position: relative;
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
+
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
 
   :host([size='s']) & {
     @include sbb.text-s--regular;

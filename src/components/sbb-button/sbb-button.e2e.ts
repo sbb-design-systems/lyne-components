@@ -5,14 +5,8 @@ describe('sbb-button', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-button id="outer-id">I am a button</sbb-button>');
+    await page.setContent('<sbb-button id="focus-id">I am a button</sbb-button>');
     element = await page.find('sbb-button');
-
-    // Set id of the inner-button for later comparing of active element
-    await page.evaluate(
-      () =>
-        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
-    );
   });
 
   it('renders', async () => {
@@ -23,10 +17,10 @@ describe('sbb-button', () => {
     it('dispatches event on click', async () => {
       await page.waitForChanges();
       const button = await page.find('sbb-button >>> .sbb-button');
-      const changeSpy = await page.spyOnEvent('click');
+      const clickSpy = await page.spyOnEvent('click');
 
       await button.click();
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(clickSpy).toHaveReceivedEventTimes(1);
     });
 
     it('should not dispatch event on click if disabled', async () => {
@@ -35,10 +29,10 @@ describe('sbb-button', () => {
       await page.waitForChanges();
 
       const button = await page.find('sbb-button >>> .sbb-button');
-      const changeSpy = await page.spyOnEvent('click');
+      const clickSpy = await page.spyOnEvent('click');
 
       await button.click();
-      expect(changeSpy).not.toHaveReceivedEvent();
+      expect(clickSpy).not.toHaveReceivedEvent();
     });
 
     it('should dispatch event on click if static', async () => {
@@ -47,10 +41,40 @@ describe('sbb-button', () => {
       await page.waitForChanges();
 
       const button = await page.find('sbb-button >>> .sbb-button');
-      const changeSpy = await page.spyOnEvent('click');
+      const clickSpy = await page.spyOnEvent('click');
 
       await button.click();
-      expect(changeSpy).toHaveReceivedEvent();
+      expect(clickSpy).toHaveReceivedEvent();
+    });
+
+    it('should dispatch click event on pressing Enter', async () => {
+      const clickSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(clickSpy).toHaveReceivedEvent();
+    });
+
+    it('should dispatch click event on pressing Space', async () => {
+      const clickSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(clickSpy).toHaveReceivedEvent();
+    });
+
+    it('should dispatch click event on pressing Enter with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
+
+      const clickSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(clickSpy).toHaveReceivedEvent();
+    });
+
+    it('should not dispatch click event on pressing Space with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
+
+      const clickSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(clickSpy).not.toHaveReceivedEvent();
     });
 
     it('should stop propagating host click if disabled', async () => {
@@ -64,32 +88,11 @@ describe('sbb-button', () => {
       expect(clickSpy).not.toHaveReceivedEvent();
     });
 
-    it('should forward host click to action element', async () => {
-      const button = await page.find('sbb-button >>> .sbb-button');
-
-      const changeSpy = await button.spyOnEvent('click');
-
-      element.triggerEvent('click');
-      await page.waitForChanges();
-
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-    });
-
-    it('should forward host focus event to action element', async () => {
-      const button = await page.find('sbb-button >>> .sbb-button');
-
-      const changeSpy = await button.spyOnEvent('focus');
-
+    it('should receive focus', async () => {
       await element.focus();
       await page.waitForChanges();
 
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-
-      // Although the inner native button receives the focus, the active element is the host
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-        'inner-id'
-      );
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
     });
   });
 });

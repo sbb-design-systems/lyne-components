@@ -46,14 +46,14 @@ The state is reflected via `aria-pressed` attribute.
 
 ## Properties
 
-| Property             | Attribute             | Description                                                                                                                                         | Type      | Default     |
-| -------------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | The aria-label prop for tag action element.                                                                                                         | `string`  | `undefined` |
-| `amount`             | `amount`              | Amount displayed inside the tag.                                                                                                                    | `string`  | `undefined` |
-| `checked`            | `checked`             | Whether the toggle is checked.                                                                                                                      | `boolean` | `false`     |
-| `disabled`           | `disabled`            | Whether the tag is disabled.                                                                                                                        | `boolean` | `false`     |
-| `iconName`           | `icon-name`           | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined` |
-| `value`              | `value`               | Value of the tag.                                                                                                                                   | `string`  | `undefined` |
+| Property   | Attribute   | Description                                                                                                                                         | Type      | Default     |
+| ---------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `amount`   | `amount`    | Amount displayed inside the tag.                                                                                                                    | `string`  | `undefined` |
+| `checked`  | `checked`   | Whether the toggle is checked.                                                                                                                      | `boolean` | `false`     |
+| `disabled` | `disabled`  | Whether the tag is disabled.                                                                                                                        | `boolean` | `false`     |
+| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined` |
+| `name`     | `name`      | The name attribute to use for the button.                                                                                                           | `string`  | `undefined` |
+| `value`    | `value`     | Value of the tag.                                                                                                                                   | `string`  | `undefined` |
 
 
 ## Events

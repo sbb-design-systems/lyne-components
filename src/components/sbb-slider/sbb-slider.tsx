@@ -11,8 +11,6 @@ import {
   EventEmitter,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
-import { focusInputElement } from '../../global/helpers/input-element';
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.
@@ -23,7 +21,7 @@ import { focusInputElement } from '../../global/helpers/input-element';
   styleUrl: 'sbb-slider.scss',
   tag: 'sbb-slider',
 })
-export class SbbSlider implements ComponentInterface, AccessibilityProperties {
+export class SbbSlider implements ComponentInterface {
   /** Value for the inner HTMLInputElement. */
   @Prop({ mutable: true }) public value?: string = '';
 
@@ -57,9 +55,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   /** Name of the icon at component's end, which will be forward to the nested `sbb-icon`. */
   @Prop() public endIcon?: string;
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /**
    * The ratio between the absolute value and the validity interval.
    * E.g. given `min=0`, `max=100` and `value=50`, then `_valueFraction=0.5`
@@ -78,8 +73,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
   private _rangeInput!: HTMLInputElement;
 
   public connectedCallback(): void {
-    // Forward focus call to input element
-    this._element.focus = focusInputElement;
     this._handleChange();
   }
 
@@ -138,7 +131,6 @@ export class SbbSlider implements ComponentInterface, AccessibilityProperties {
       disabled: this.disabled || this.readonly || null,
       valueAsNumber: this.valueAsNumber || null,
       value: this.value || null,
-      'aria-label': this.accessibilityLabel || null,
     };
 
     return (

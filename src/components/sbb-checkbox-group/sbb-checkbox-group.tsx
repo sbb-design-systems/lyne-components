@@ -135,7 +135,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host>
+      <Host role="group">
         <div class="sbb-checkbox-group">
           <slot onSlotchange={() => this._updateCheckboxes()} />
         </div>

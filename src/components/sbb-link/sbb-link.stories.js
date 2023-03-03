@@ -170,21 +170,6 @@ const form = {
   },
 };
 
-const accessibilityHaspopup = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   text,
   variant,
@@ -202,8 +187,6 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-haspopup': accessibilityHaspopup,
-  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs = {
@@ -223,8 +206,6 @@ const defaultArgs = {
   name: 'Button name',
   value: undefined,
   form: undefined,
-  'accessibility-haspopup': undefined,
-  'accessibility-label': 'Travelcards & tickets',
 };
 
 /* ************************************************* */

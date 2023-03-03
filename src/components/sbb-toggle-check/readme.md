@@ -44,16 +44,15 @@ descriptive text content.
 
 ## Properties
 
-| Property             | Attribute             | Description                                                    | Type                  | Default        |
-| -------------------- | --------------------- | -------------------------------------------------------------- | --------------------- | -------------- |
-| `accessibilityLabel` | `accessibility-label` | The aria-label prop for the hidden input.                      | `string`              | `undefined`    |
-| `checked`            | `checked`             | Whether the toggle-check is checked.                           | `boolean`             | `false`        |
-| `disabled`           | `disabled`            | The disabled prop for the disabled state.                      | `boolean`             | `false`        |
-| `iconName`           | `icon-name`           | The svg name for the true state - default -> 'tick-small'      | `string`              | `'tick-small'` |
-| `labelPosition`      | `label-position`      | The label position relative to the toggle. Defaults to 'after' | `"after" \| "before"` | `'after'`      |
-| `name`               | `name`                | Name of the toggle-check.                                      | `string`              | `undefined`    |
-| `required`           | `required`            | The required prop for the required state.                      | `boolean`             | `false`        |
-| `value`              | `value`               | Value of toggle-check.                                         | `string`              | `undefined`    |
+| Property        | Attribute        | Description                                                    | Type                  | Default        |
+| --------------- | ---------------- | -------------------------------------------------------------- | --------------------- | -------------- |
+| `checked`       | `checked`        | Whether the toggle-check is checked.                           | `boolean`             | `false`        |
+| `disabled`      | `disabled`       | The disabled prop for the disabled state.                      | `boolean`             | `false`        |
+| `iconName`      | `icon-name`      | The svg name for the true state - default -> 'tick-small'      | `string`              | `'tick-small'` |
+| `labelPosition` | `label-position` | The label position relative to the toggle. Defaults to 'after' | `"after" \| "before"` | `'after'`      |
+| `name`          | `name`           | Name of the toggle-check.                                      | `string`              | `undefined`    |
+| `required`      | `required`       | The required prop for the required state.                      | `boolean`             | `false`        |
+| `value`         | `value`          | Value of toggle-check.                                         | `string`              | `undefined`    |
 
 
 ## Events
