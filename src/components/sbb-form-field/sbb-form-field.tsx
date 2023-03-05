@@ -239,20 +239,15 @@ export class SbbFormField implements ComponentInterface {
     this._input?.setAttribute('aria-describedby', value);
   }
 
-  private _setInputFocus(event: Event): void {
-    const composedPathElements = event
-      .composedPath()
-      .filter((el) => el instanceof window.HTMLElement);
-
-    const isPopup = composedPathElements.some(
-      (el) =>
-        isValidAttribute(el as HTMLElement, 'aria-haspopup') ||
-        (el as HTMLElement).tagName === 'SBB-TOOLTIP'
-    );
-
-    if (!isPopup) {
+  private _setInputFocus(): void {
+    if (!isValidAttribute(this._element, 'data-has-popup-open')) {
       this._input?.focus();
     }
+  }
+
+  private _isPopupTarget(event: Event): boolean {
+    const composedPathEls = event.composedPath().filter((el) => el instanceof window.HTMLElement);
+    return composedPathEls.some((el) => (el as HTMLElement).tagName === 'SBB-TOOLTIP');
   }
 
   public render(): JSX.Element {

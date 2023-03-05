@@ -70,7 +70,8 @@
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
 }
 
-:host(:focus-within) {
+:host(:focus-within),
+:host([data-has-popup-open]) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
 }
