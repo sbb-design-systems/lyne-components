@@ -14,7 +14,7 @@
 :host([data-active]:not([data-active='false'])) {
   @include sbb.focus-outline;
 
-  --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
 
   border-radius: var(--sbb-border-radius-4x);
 }
