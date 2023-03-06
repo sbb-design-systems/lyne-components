@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.27.0](https://github.com/lyne-design-system/lyne-components/compare/v0.26.23...v0.27.0) (2023-03-06)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-tag:** - Exclusive mode is now the default mode. To change to multiple, set the new `multiple` property to true.
+
+* You should always set value property of the `sbb-tag` to work correctly in the `sbb-tag-group`.
+
+### Bug Fixes
+
+- **sbb-header:** change stroke width of icons from 0.5px to 1.2px ([#1661](https://github.com/lyne-design-system/lyne-components/issues/1661)) ([a7de8cc](https://github.com/lyne-design-system/lyne-components/commit/a7de8ccc7ed93a95b836ca57e103e40f111bf665))
+- **sbb-tab-group:** remove unwanted space between tabs ([#1662](https://github.com/lyne-design-system/lyne-components/issues/1662)) ([d2c3a2a](https://github.com/lyne-design-system/lyne-components/commit/d2c3a2a53b0bc87b2b72abc46fa06f7b7b29ca8e))
+- **sbb-tag:** fix accessibility by using buttons instead of checkboxes ([#1647](https://github.com/lyne-design-system/lyne-components/issues/1647)) ([35a2ba5](https://github.com/lyne-design-system/lyne-components/commit/35a2ba5ddfc70cc61834d4b7419cd30ef035ebb1))
+
 ### [0.26.23](https://github.com/lyne-design-system/lyne-components/compare/v0.26.22...v0.26.23) (2023-03-02)
 
 ### Bug Fixes
