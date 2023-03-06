@@ -10,17 +10,28 @@ For date inputs (`min`, `max`, `selected-date`) the accepted formats are:
 - Unix Timestamp (number of seconds since 1 Jan 1970)
 
 and it's recommended to set the time at 00:00:00.
+
+The component displays one month by default; two months can be displayed setting the `wide` property to `true`. It's also
+possible to filter out unwanted date using the `dateFilter` function property.
+
+Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date 
+which can be read from `event.detail`.
+
 ## Accessibility
 
 Keyboard navigation summary:
-- Arrow keys: move between days
-- Home key: jumps to the first day of the month
-- End key: jumps to the last day of the month
-- Page Up key: jumps to the top of the column of the currently selected day
-- Page Down key: jumps to the bottom of the column of the currently selected day
+- Left arrow: go to previous day
+- Right arrow: go to next day
+- Up arrow: go to the same day in the previous week
+- Down arrow: go to the same day in the next week
+- Home: go to the first day of the month
+- End: go to the last day of the month
+- Page Up: go to the top of the column of the currently selected day
+- Page Down: go to the bottom of the column of the currently selected day
 
 ## Usage
 
+Calendar with selected date and bounds:
 ```html
 <sbb-calendar 
   min="1600000000" 
