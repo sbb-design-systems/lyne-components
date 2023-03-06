@@ -3,5 +3,8 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
+  change: 'change',
   didChange: 'didChange',
+  input: 'input',
+  stateChange: 'state-change',
 };

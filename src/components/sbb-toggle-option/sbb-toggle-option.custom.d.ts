@@ -1,11 +1,11 @@
-export type StateChange = StateChangeChecked | StateChangeValue;
+export type ToggleOptionStateChange = ToggleOptionStateChangeChecked | ToggleOptionStateChangeValue;
 
-export interface StateChangeValue {
+export interface ToggleOptionStateChangeValue {
   type: 'value';
   value: string;
 }
 
-export interface StateChangeChecked {
+export interface ToggleOptionStateChangeChecked {
   type: 'checked';
   checked: boolean;
 }

@@ -1,6 +1,15 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen } from '@stencil/core';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  Watch,
+} from '@stencil/core';
+import { TagStateChange } from '../sbb-tag/sbb-tag.custom';
 
 /**
  * @slot unnamed - Provide one or more 'sbb-tag' to add to the group.
@@ -13,43 +22,110 @@ import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 export class SbbTagGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
-  public tags: HTMLSbbTagElement[];
+  /**
+   * If set multiple to false, the selection is exclusive and the value is a string (or null).
+   * If set multiple to true, the selection can have multiple values and therefore value is an array.
+   *
+   * Changing multiple during run time is not supported.
+   */
+  @Prop() public multiple = false;
 
-  private _getTags(): HTMLSbbTagElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-tag')) as HTMLSbbTagElement[];
-  }
+  /**
+   * Value of the sbb-tag-group.
+   * If set multiple to false, the value is a string (or null).
+   * If set multiple to true, the value is an array.
+   */
+  @Prop({ mutable: true }) public value: string | string[] | null = null;
 
-  private _onTagSlotChange(): void {
-    this.tags = this._getTags();
-  }
-
-  @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledTags: HTMLSbbTagElement[] = this._getTags().filter(
-      (tag) => !isValidAttribute(tag, 'disabled')
-    );
-
-    if (
-      !enabledTags ||
-      // don't trap nested handling
-      ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element)
-    ) {
+  @Watch('value')
+  public valueChanged(value: string | string[] | null): void {
+    if (Array.isArray(value) && !this.multiple) {
+      console.warn(
+        'Trying to set array value for sbb-tag-group but multiple mode is not activated.',
+        value
+      );
+      return;
+    } else if (!Array.isArray(value) && this.multiple) {
+      try {
+        // If possible, try to parse JSON and restart to assign value.
+        this.value = JSON.parse(value);
+      } catch {
+        console.warn(
+          'Expected value to be an array because sbb-tag-group multiple mode is activated.',
+          value
+        );
+      }
       return;
     }
 
-    if (isArrowKeyPressed(evt)) {
-      const cur: number = enabledTags.findIndex((e: HTMLSbbTagElement) => e === evt.target);
-      const nextIndex: number = getNextElementIndex(evt, cur, enabledTags.length);
-      enabledTags[nextIndex]?.focus();
+    const isChecked: (tag: HTMLSbbTagElement) => boolean = this.multiple
+      ? (t) => value.includes(t.value)
+      : (t) => t.value === value;
+
+    this._tags().forEach((tag) => (tag.checked = isChecked(tag)));
+  }
+
+  private _ensureOnlyOneTagSelected(): void {
+    if (this.multiple) {
+      return;
     }
+
+    // Ensure only one tag checked
+    this._tags()
+      .filter((tag) => tag.checked)
+      .slice(1)
+      .forEach((tag) => (tag.checked = false));
+  }
+
+  @Listen('state-change', { passive: true })
+  public handleStateChange(event: CustomEvent<TagStateChange>): void {
+    const target: HTMLSbbTagElement = event.target as HTMLSbbTagElement;
+    event.stopPropagation();
+
+    if (this.multiple || (event.detail.type === 'checked' && !event.detail.checked)) {
+      // If multiple or if value was unchecked, read state from toggles
+      this._updateValueByReadingTags();
+    } else if (event.detail.type === 'value') {
+      // If a value has changed in exclusive mode (only checked are reported), directly assign it.
+      this.value = event.detail.value;
+    } else if (event.detail.type === 'checked' && event.detail.checked) {
+      // If a value was checked in exclusive mode, assign this value directly.
+      this.value = target.value;
+    }
+  }
+
+  private _updateValueByReadingTags(): void {
+    if (this.multiple) {
+      this.value = this._tags()
+        .filter((tag) => tag.checked)
+        .map((tag) => tag.value);
+    } else {
+      this.value = this._tags().find((tag) => tag.checked)?.value || null;
+    }
+  }
+
+  public connectedCallback(): void {
+    if (this.value) {
+      this.valueChanged(this.value);
+    }
+  }
+
+  private _tags(): HTMLSbbTagElement[] {
+    return Array.from(this._element.querySelectorAll('sbb-tag')) as HTMLSbbTagElement[];
   }
 
   public render(): JSX.Element {
     return (
-      <div class="sbb-tag-group">
-        <slot onSlotchange={() => this._onTagSlotChange()} />
-      </div>
+      <Host role="group">
+        <div class="sbb-tag-group">
+          <slot
+            onSlotchange={() => {
+              this._ensureOnlyOneTagSelected();
+              this._updateValueByReadingTags();
+            }}
+          />
+        </div>
+      </Host>
     );
   }
 }

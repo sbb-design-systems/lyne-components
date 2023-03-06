@@ -1,12 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const uncheckOtherTags = (event) => {
-  Array.from(document.querySelectorAll('sbb-tag'))
-    .filter((e) => e !== event.target && !e.getAttribute('disabled'))
-    .forEach((e) => e.removeAttribute('checked'));
-};
-
 const uncheckAllTag = () => {
   document.getElementById('all').removeAttribute('checked');
 };
@@ -19,39 +13,9 @@ const uncheckTags = () => {
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`;
 
-const numberOfTagsInGroup = {
-  control: {
-    type: 'number',
-  },
-  table: {
-    category: 'sbb-tag-group properties',
-  },
-};
-
-const checked = {
+const multiple = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'sbb-tag properties',
-  },
-};
-
-const disabled = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'sbb-tag properties',
-  },
-};
-
-const label = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'sbb-tag properties',
   },
 };
 
@@ -59,97 +23,56 @@ const value = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'sbb-tag properties',
-  },
 };
 
-const icon = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'sbb-tag properties',
-  },
 };
 
-const amount = {
+const numberOfTagsInGroup = {
   control: {
     type: 'number',
-  },
-  table: {
-    category: 'sbb-tag properties',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'sbb-tag properties',
   },
 };
 
 const defaultArgTypes = {
-  checked,
-  disabled,
-  label,
+  multiple,
   value,
-  'icon-name': icon,
-  amount,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   numberOfTagsInGroup,
 };
 
 const defaultArgs = {
-  checked: false,
-  disabled: false,
-  label: 'Label',
-  value: 'Value',
-  'icon-name': undefined,
-  amount: undefined,
-  'accessibility-label': undefined,
+  multiple: true,
+  value: undefined,
+  'aria-label': 'Select your desired filter',
   numberOfTagsInGroup: 8,
 };
 
-const tagTemplate = ({ label, ...args }, firstChecked = false) => (
-  <sbb-tag {...args} checked={firstChecked || args.checked}>
+const tagTemplate = (label, checked = false) => (
+  <sbb-tag checked={checked} value={label} amount="123" icon-name="pie-small">
     {label}
-    {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
   </sbb-tag>
 );
 
 const tagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => (
-  <sbb-tag-group aria-label="Select your desired filter">
-    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => tagTemplate(args, i === 0))}
+  <sbb-tag-group {...args}>
+    {new Array(numberOfTagsInGroup).fill(0).map((e, i) => tagTemplate(`Label ${i + 1}`, i === 0))}
   </sbb-tag-group>
 );
 
 const tagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }) => (
-  <sbb-tag-group aria-label="Select your desired filter">
-    {tagTemplate({ ...args, label: longLabelText }, true)}
-    {new Array(numberOfTagsInGroup - 1).fill(0).map(() => tagTemplate(args))}
+  <sbb-tag-group {...args}>
+    {tagTemplate(longLabelText, true)}
+    {new Array(numberOfTagsInGroup - 1).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>
 );
 
-const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
-  <sbb-tag-group aria-label="Select your desired filter">
-    {new Array(numberOfTagsInGroup).fill(0).map((e, i, array) => {
-      const labelNumbered = `${label} ${i + 1}`;
-      const ariaLabel = `Option ${i + 1} of ${array.length}`;
-
-      return (
-        <sbb-tag
-          {...args}
-          onChange={(event) => uncheckOtherTags(event)}
-          accessibility-label={ariaLabel}
-        >
-          {labelNumbered}
-          {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
-        </sbb-tag>
-      );
-    })}
+const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
+  <sbb-tag-group {...args}>
+    {new Array(numberOfTagsInGroup).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>,
   <div style="margin-block-start: 1rem;">
     This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
@@ -157,16 +80,15 @@ const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
   </div>,
 ];
 
-const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, label, ...args }) => [
-  <sbb-tag-group aria-label="Select your desired filter">
-    <sbb-tag id="all" {...args} onChange={() => uncheckTags()}>
+const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
+  <sbb-tag-group {...args}>
+    <sbb-tag id="all" onChange={() => uncheckTags()} value="All" checked>
       All
     </sbb-tag>
     {new Array(numberOfTagsInGroup).fill(0).map((e, i) => {
       return (
-        <sbb-tag {...args} onChange={() => uncheckAllTag()}>
-          {label} {i + 1}
-          {args.amount !== undefined && <span slot="amount">{args.amount}</span>}
+        <sbb-tag onChange={() => uncheckAllTag()} amount="123" value={`Label ${i + 1}`}>
+          Label {i + 1}
         </sbb-tag>
       );
     })}
@@ -181,25 +103,16 @@ export const tagGroup = tagGroupTemplate.bind({});
 tagGroup.argTypes = defaultArgTypes;
 tagGroup.args = { ...defaultArgs };
 
-export const withAmount = tagGroupTemplate.bind({});
-withAmount.argTypes = defaultArgTypes;
-withAmount.args = { ...defaultArgs, amount: 123 };
-
-export const withIcon = tagGroupTemplate.bind({});
-withIcon.argTypes = defaultArgTypes;
-withIcon.args = { ...defaultArgs, 'icon-name': 'pie-small' };
-
-export const withAmountAndIcon = tagGroupTemplate.bind({});
-withAmountAndIcon.argTypes = defaultArgTypes;
-withAmountAndIcon.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123 };
-
 export const ellipsisLabel = tagGroupTemplateEllipsis.bind({});
 ellipsisLabel.argTypes = defaultArgTypes;
-ellipsisLabel.args = { ...defaultArgs, 'icon-name': 'pie-small', amount: 123 };
+ellipsisLabel.args = { ...defaultArgs };
 
 export const exclusiveTagGroup = exclusiveTagGroupTemplate.bind({});
 exclusiveTagGroup.argTypes = defaultArgTypes;
-exclusiveTagGroup.args = { ...defaultArgs };
+exclusiveTagGroup.args = {
+  ...defaultArgs,
+  multiple: false,
+};
 
 export const allChoiceTagGroup = allChoiceTagGroupTemplate.bind({});
 allChoiceTagGroup.argTypes = defaultArgTypes;
@@ -215,7 +128,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['change'],
+      handles: ['input', 'change'],
     },
     docs: {
       extractComponentDescription: () => readme,
