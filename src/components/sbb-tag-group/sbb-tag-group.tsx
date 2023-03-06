@@ -71,10 +71,10 @@ export class SbbTagGroup implements ComponentInterface {
     }
 
     // Ensure only one tag checked
-    const checkedTags = this._tags().filter((tag) => tag.checked);
-    if (checkedTags.length > 1) {
-      checkedTags.slice(1).forEach((tag) => (tag.checked = false));
-    }
+    this._tags()
+      .filter((tag) => tag.checked)
+      .slice(1)
+      .forEach((tag) => (tag.checked = false));
   }
 
   @Listen('state-change', { passive: true })
