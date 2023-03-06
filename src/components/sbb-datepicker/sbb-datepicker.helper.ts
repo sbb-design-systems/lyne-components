@@ -11,6 +11,8 @@ export interface InputUpdateEvent {
 /**
  * Given a SbbDatepickerPreviousDay, a SbbDatepickerNextDay or a SbbDatepickerToggle component,
  * it returns the related SbbDatepicker reference, if exists.
+ * @param element The element potentially connected to the SbbDatepicker.
+ * @param trigger The id or the reference of the SbbDatePicker.
  */
 export function getDatePicker(
   element:
@@ -35,6 +37,8 @@ export function getDatePicker(
 
 /**
  * Given a SbbDatepicker component, returns the related input reference, if it exists.
+ * @param element The starting SbbDatepicker element.
+ * @param trigger The id or the reference of the input.
  */
 export function getInput(
   element: HTMLSbbDatepickerElement,

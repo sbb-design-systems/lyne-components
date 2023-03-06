@@ -15,6 +15,8 @@ If the input's value changes, it is formatted then a `change` event is emitted w
 date, the `sbb-invalid` class is added to the input. The component also listens for changes in its two properties, 
  `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
 
+Consumers can listen to the native `change` event on the `sbb-datepicker` component to intercept the date change `event`;
+the current value can be read from the async method `event.target.getValueAsDate()`.
 
 ## Usage
 
