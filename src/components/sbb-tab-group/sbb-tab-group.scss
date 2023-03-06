@@ -18,6 +18,7 @@
     visibility: hidden;
     opacity: 0;
     height: 0;
+    overflow: hidden;
   }
 
   ::slotted(*[active]:not([active='false'])) {
