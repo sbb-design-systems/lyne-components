@@ -174,9 +174,6 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
-    chromatic: {
-      delay: 5000,
-    },
   },
   title: 'components/sbb-image',
 };
