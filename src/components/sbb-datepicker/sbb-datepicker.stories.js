@@ -314,7 +314,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: [events.inputUpdated, events.datePickerUpdated, events.change],
+      handles: ['input', events.change],
     },
     backgrounds: {
       disable: true,

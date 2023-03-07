@@ -37,7 +37,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['click'],
+      handles: ['click', 'change'],
     },
     backgrounds: {
       disable: true,

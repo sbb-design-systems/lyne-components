@@ -43,7 +43,7 @@ export class SbbDatepicker implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  @Event({ bubbles: true, cancelable: true }) public change: EventEmitter;
+  @Event({ bubbles: true, cancelable: false, composed: false }) public change: EventEmitter;
 
   /** Notifies that the attributes of the input connected to the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public inputUpdated: EventEmitter<InputUpdateEvent>;

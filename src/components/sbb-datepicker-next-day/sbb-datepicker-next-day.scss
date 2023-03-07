@@ -31,4 +31,6 @@ button:focus-visible {
 
 button[disabled]:not([disabled='false']) {
   --sbb-datepicker-control-color: var(--sbb-color-graphite-default);
+
+  cursor: unset;
 }
