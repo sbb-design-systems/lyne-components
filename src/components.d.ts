@@ -13,7 +13,6 @@ import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custo
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
-import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
@@ -74,6 +73,7 @@ export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+export { SbbOptionSelectionChange } from "./components/sbb-autocomplete/sbb-autocomplete.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -218,7 +218,7 @@ export namespace Components {
          */
         "close": () => Promise<void>;
         /**
-          * Whether the animation is enabled.
+          * Whether the animation is disabled.
          */
         "disableAnimation": boolean;
         /**
@@ -226,11 +226,11 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         /**
-          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor
+          * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
          */
         "origin": string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'
+          * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'.
          */
         "trigger": string | HTMLInputElement;
     }
@@ -1081,33 +1081,28 @@ export namespace Components {
     }
     interface SbbOption {
         /**
-          * Whether or not the option is currently active.
+          * Whether the option is currently active.
          */
         "active"?: boolean;
         "deselect": () => Promise<void>;
         /**
-          * Disable the highlight of the label
+          * Disable the highlight of the label.
          */
         "disableLabelHighlight": boolean;
         /**
-          * Whether or not the option is disabled. TBI: missing disabled style, will be implemented with the select component
+          * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */
         "disabled"?: boolean;
         /**
-          * Whether or not the option is currently selected.
-         */
-        "getId": () => Promise<boolean>;
-        /**
-          * The portion of the highlighted label
+          * The portion of the highlighted label.
          */
         "highlightString": string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
-        "isSelected": () => Promise<boolean>;
         /**
-          * Wheter the icon space is preserved when no icon is set
+          * Whether the icon space is preserved when no icon is set.
          */
         "preserveIconSpace": boolean;
         "select": () => Promise<void>;
@@ -2523,7 +2518,7 @@ declare namespace LocalJSX {
     }
     interface SbbAutocomplete {
         /**
-          * Whether the animation is enabled.
+          * Whether the animation is disabled.
          */
         "disableAnimation"?: boolean;
         /**
@@ -2543,11 +2538,11 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**
-          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor
+          * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
          */
         "origin"?: string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'
+          * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'.
          */
         "trigger"?: string | HTMLInputElement;
     }
@@ -3425,19 +3420,19 @@ declare namespace LocalJSX {
     }
     interface SbbOption {
         /**
-          * Whether or not the option is currently active.
+          * Whether the option is currently active.
          */
         "active"?: boolean;
         /**
-          * Disable the highlight of the label
+          * Disable the highlight of the label.
          */
         "disableLabelHighlight"?: boolean;
         /**
-          * Whether or not the option is disabled. TBI: missing disabled style, will be implemented with the select component
+          * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */
         "disabled"?: boolean;
         /**
-          * The portion of the highlighted label
+          * The portion of the highlighted label.
          */
         "highlightString"?: string;
         /**
@@ -3453,7 +3448,7 @@ declare namespace LocalJSX {
          */
         "onOption-did-select"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
         /**
-          * Wheter the icon space is preserved when no icon is set
+          * Whether the icon space is preserved when no icon is set.
          */
         "preserveIconSpace"?: boolean;
         /**
