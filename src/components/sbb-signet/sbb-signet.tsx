@@ -12,7 +12,7 @@ export class SbbSignet {
   @Prop({ reflect: true }) public protectiveRoom?: InterfaceSignetAttributes['protectiveRoom'] =
     'ideal';
 
-  /** Accessibility label which is forwarded to the inner SVG signet. */
+  /** Accessibility label which will be forwarded to the inner SVG signet. */
   @Prop() public accessibilityLabel = 'Logo';
 
   public render(): JSX.Element {

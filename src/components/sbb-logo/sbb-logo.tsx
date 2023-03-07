@@ -15,7 +15,7 @@ export class SbbLogo {
   @Prop({ reflect: true }) public protectiveRoom?: InterfaceLogoAttributes['protectiveRoom'] =
     'ideal';
 
-  /** Accessibility label which is forwarded to the SVG logo. */
+  /** Accessibility label which will be forwarded to the SVG logo. */
   @Prop() public accessibilityLabel = 'Logo';
 
   public render(): JSX.Element {
