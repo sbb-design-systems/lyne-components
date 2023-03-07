@@ -19,10 +19,11 @@ please define the desired height or width on `<sbb-logo>`.
 
 ## Properties
 
-| Property         | Attribute         | Description                         | Type                             | Default   |
-| ---------------- | ----------------- | ----------------------------------- | -------------------------------- | --------- |
-| `negative`       | `negative`        | Variants of the logo.               | `boolean`                        | `false`   |
-| `protectiveRoom` | `protective-room` | Visual protective room around logo. | `"ideal" \| "minimal" \| "none"` | `'ideal'` |
+| Property             | Attribute             | Description                                                  | Type                             | Default   |
+| -------------------- | --------------------- | ------------------------------------------------------------ | -------------------------------- | --------- |
+| `accessibilityLabel` | `accessibility-label` | Accessibility label which will be forwarded to the SVG logo. | `string`                         | `'Logo'`  |
+| `negative`           | `negative`            | Variants of the logo.                                        | `boolean`                        | `false`   |
+| `protectiveRoom`     | `protective-room`     | Visual protective room around logo.                          | `"ideal" \| "minimal" \| "none"` | `'ideal'` |
 
 
 ## Dependencies

@@ -47,5 +47,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'brand elements/SBB Clock',
+  title: 'components/sbb-clock',
 };

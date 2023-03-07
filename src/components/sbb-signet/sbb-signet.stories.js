@@ -10,12 +10,20 @@ const protectiveRoom = {
   options: ['none', 'minimal', 'ideal'],
 };
 
+const accessibilityLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   'protective-room': protectiveRoom,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs = {
   'protective-room': protectiveRoom.options[0],
+  'accessibility-label': undefined,
 };
 
 export const NoProtectiveRoom = Template.bind({});
@@ -46,5 +54,5 @@ export default {
       viewports: [320],
     },
   },
-  title: 'brand elements/SBB Signet',
+  title: 'components/sbb-signet',
 };
