@@ -127,14 +127,17 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     this._checked = event.detail.checked;
+    this._setContentElementHeight();
+
+    if (this.forceOpen) {
+      return;
+    }
 
     if (this._checked) {
       this.willOpen.emit();
     } else {
       this.willClose.emit();
     }
-
-    this._setContentElementHeight();
   }
 
   public connectedCallback(): void {
