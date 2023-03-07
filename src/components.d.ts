@@ -861,6 +861,10 @@ export namespace Components {
     }
     interface SbbLogo {
         /**
+          * Accessibility label which is forwarded to the SVG logo.
+         */
+        "accessibilityLabel": string;
+        /**
           * Variants of the logo.
          */
         "negative": boolean;
@@ -1178,6 +1182,10 @@ export namespace Components {
         "label": string;
     }
     interface SbbSignet {
+        /**
+          * Accessibility label which is forwarded to the inner SVG signet.
+         */
+        "accessibilityLabel": string;
         /**
           * Visual protective room around signet.
          */
@@ -3084,6 +3092,10 @@ declare namespace LocalJSX {
     }
     interface SbbLogo {
         /**
+          * Accessibility label which is forwarded to the SVG logo.
+         */
+        "accessibilityLabel"?: string;
+        /**
           * Variants of the logo.
          */
         "negative"?: boolean;
@@ -3419,6 +3431,10 @@ declare namespace LocalJSX {
         "label": string;
     }
     interface SbbSignet {
+        /**
+          * Accessibility label which is forwarded to the inner SVG signet.
+         */
+        "accessibilityLabel"?: string;
         /**
           * Visual protective room around signet.
          */

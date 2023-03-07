@@ -19,9 +19,10 @@ please define the desired height or width on `<sbb-signet>`.
 
 ## Properties
 
-| Property         | Attribute         | Description                           | Type                             | Default   |
-| ---------------- | ----------------- | ------------------------------------- | -------------------------------- | --------- |
-| `protectiveRoom` | `protective-room` | Visual protective room around signet. | `"ideal" \| "minimal" \| "none"` | `'ideal'` |
+| Property             | Attribute             | Description                                                     | Type                             | Default   |
+| -------------------- | --------------------- | --------------------------------------------------------------- | -------------------------------- | --------- |
+| `accessibilityLabel` | `accessibility-label` | Accessibility label which is forwarded to the inner SVG signet. | `string`                         | `'Logo'`  |
+| `protectiveRoom`     | `protective-room`     | Visual protective room around signet.                           | `"ideal" \| "minimal" \| "none"` | `'ideal'` |
 
 
 ----------------------------------------------
