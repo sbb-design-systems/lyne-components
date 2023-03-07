@@ -199,6 +199,24 @@ export const WithRadioButonGroup = WithRadioButtonGroupTemplate.bind({});
 WithRadioButonGroup.argTypes = basicArgTypes;
 WithRadioButonGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
 
+export const WithCheckboxGroupForceOpen = WithCheckboxGroupTemplate.bind({});
+WithCheckboxGroupForceOpen.argTypes = basicArgTypes;
+WithCheckboxGroupForceOpen.args = {
+  ...basicArgs,
+  'force-open': true,
+  checkedInput: true,
+  disabledInput: true,
+};
+
+export const WithRadioButonGroupForceOpen = WithRadioButtonGroupTemplate.bind({});
+WithRadioButonGroupForceOpen.argTypes = basicArgTypes;
+WithRadioButonGroupForceOpen.args = {
+  ...basicArgs,
+  'force-open': true,
+  checkedInput: true,
+  disabledInput: true,
+};
+
 export const WithCheckboxGroupMilk = WithCheckboxGroupTemplate.bind({});
 WithCheckboxGroupMilk.argTypes = basicArgTypes;
 WithCheckboxGroupMilk.args = {
