@@ -9,7 +9,7 @@ For date inputs (`min`, `max`, `selected-date`) the accepted formats are:
 - ISO String 
 - Unix Timestamp (number of seconds since 1 Jan 1970)
 
-and it's recommended to set the time at 00:00:00.
+and it's recommended to set the time to 00:00:00.
 
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`. It's also
 possible to filter out unwanted date using the `dateFilter` function property.

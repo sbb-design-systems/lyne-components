@@ -17,7 +17,7 @@ export interface Weekday {
  * @param index The starting index.
  * @param delta The value to add or subtract.
  */
-function findNext<T extends { disabled: boolean }>(days: T[], index: number, delta: number): T {
+function findNext(days: HTMLButtonElement[], index: number, delta: number): HTMLButtonElement {
   let nextIndex = index + delta;
   while (nextIndex < days.length && days[nextIndex]?.disabled) {
     nextIndex += delta;
@@ -30,7 +30,7 @@ function findNext<T extends { disabled: boolean }>(days: T[], index: number, del
  * @param days The array to search.
  * @param firstOfCurrentMonth The index of the first day of the month.
  */
-function findFirst<T extends { disabled: boolean }>(days: T[], firstOfCurrentMonth: number): T {
+function findFirst(days: HTMLButtonElement[], firstOfCurrentMonth: number): HTMLButtonElement {
   return !days[firstOfCurrentMonth].disabled
     ? days[firstOfCurrentMonth]
     : findNext(days, firstOfCurrentMonth, 1);
@@ -41,7 +41,7 @@ function findFirst<T extends { disabled: boolean }>(days: T[], firstOfCurrentMon
  * @param days The array to search.
  * @param lastOfCurrentMonth The index of the last day of the month.
  */
-function findLast<T extends { disabled: boolean }>(days: T[], lastOfCurrentMonth: number): T {
+function findLast(days: HTMLButtonElement[], lastOfCurrentMonth: number): HTMLButtonElement {
   return !days[lastOfCurrentMonth].disabled
     ? days[lastOfCurrentMonth]
     : findNext(days, lastOfCurrentMonth, -1);
@@ -53,11 +53,11 @@ function findLast<T extends { disabled: boolean }>(days: T[], lastOfCurrentMonth
  * @param index The starting index.
  * @param offset The day's offset from the first month.
  */
-function findFirstOnColumn<T extends { disabled: boolean }>(
-  days: T[],
+function findFirstOnColumn(
+  days: HTMLButtonElement[],
   index: number,
   offset: number
-): T {
+): HTMLButtonElement {
   const nextIndex = (index % 7) + offset;
   return !days[nextIndex].disabled ? days[nextIndex] : findNext(days, nextIndex, 7);
 }
@@ -68,11 +68,11 @@ function findFirstOnColumn<T extends { disabled: boolean }>(
  * @param index The starting index.
  * @param offset The day's offset from the first month.
  */
-function findLastOnColumn<T extends { disabled: boolean }>(
-  days: T[],
+function findLastOnColumn(
+  days: HTMLButtonElement[],
   index: number,
   offset: number
-): T {
+): HTMLButtonElement {
   const nextIndex = index + Math.trunc((offset - index - 1) / 7) * 7;
   return !days[nextIndex].disabled ? days[nextIndex] : findNext(days, nextIndex, -7);
 }
@@ -90,12 +90,12 @@ function findLastOnColumn<T extends { disabled: boolean }>(
  * @param days An array of objects that have the `disabled` property (HTMLButtonElements in sbb-calendar).
  * @param day The day object you move from.
  */
-export function handleKeyboardEvent<T extends { disabled: boolean }>(
+export function handleKeyboardEvent(
   evt: KeyboardEvent,
   index: number,
-  days: T[],
+  days: HTMLButtonElement[],
   day: Day
-): T {
+): HTMLButtonElement {
   // Calculate the index of the starting day in the month.
   const indexInMonth = +day.dayValue - 1;
 

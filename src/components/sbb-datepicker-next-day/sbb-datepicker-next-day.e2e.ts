@@ -89,9 +89,10 @@ describe('sbb-datepicker-next-day', () => {
       expect(await input.getProperty('value')).toEqual('21-01-2023');
     });
 
-    it.skip('disabled due disabled picker', async () => {
+    it('disabled due disabled picker', async () => {
       expect(await input.getProperty('value')).toEqual('21-01-2023');
-      input.setAttribute('disabled', true);
+      await page.evaluate(() => document.querySelector('input').setAttribute('disabled', ''));
+
       await page.waitForChanges();
 
       expect(button).toHaveAttribute('disabled');

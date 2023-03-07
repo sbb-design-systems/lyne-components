@@ -7,8 +7,8 @@ const StandaloneTemplate = (picker = null) => (
 
 const PickerAndButtonTemplate = () => (
   <div style="display: flex; gap: 1em;">
-    <input id="datepicker-input" />
     <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+    <input id="datepicker-input" />
     {StandaloneTemplate('datepicker')}
   </div>
 );

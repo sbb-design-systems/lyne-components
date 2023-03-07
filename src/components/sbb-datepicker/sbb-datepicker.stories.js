@@ -164,7 +164,7 @@ const basicArgs = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options[0],
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 const formFieldBasicArgsTypes = {

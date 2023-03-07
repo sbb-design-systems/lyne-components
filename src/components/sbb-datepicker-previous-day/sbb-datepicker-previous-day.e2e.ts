@@ -88,10 +88,9 @@ describe('sbb-datepicker-previous-day', () => {
       expect(await input.getProperty('value')).toEqual('20-01-2023');
     });
 
-    /** Test skipped due MutationObserver is not working in node test environment. */
-    it.skip('disabled due disabled picker', async () => {
+    it('disabled due disabled picker', async () => {
       expect(await input.getProperty('value')).toEqual('20-01-2023');
-      input.setAttribute('disabled', true);
+      await page.evaluate(() => document.querySelector('input').setAttribute('disabled', ''));
       await page.waitForChanges();
 
       expect(button).toHaveAttribute('disabled');
