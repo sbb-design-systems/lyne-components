@@ -1,6 +1,11 @@
-export type StateChange = StateChangeChecked | StateChangeValue;
+export type RadioButtonStateChange = RadioButtonStateChangeChecked | RadioButtonStateChangeDisabled;
 
-export interface StateChangeChecked {
+export interface RadioButtonStateChangeDisabled {
+  type: 'disabled';
+  disabled: boolean;
+}
+
+export interface RadioButtonStateChangeChecked {
   type: 'checked';
   checked: boolean;
 }

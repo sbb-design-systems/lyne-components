@@ -9,6 +9,7 @@ import {
   Listen,
   EventEmitter,
   Event,
+  Watch,
 } from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
@@ -21,7 +22,7 @@ import {
   AccessibilityProperties,
   getAccessibilityAttributeList,
 } from '../../global/interfaces/accessibility-properties';
-import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
+import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
@@ -95,6 +96,30 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
+  /**
+   * Internal event that emits whenever the state of the checkbox
+   * in relation to the parent selection panel changes.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'state-change',
+  })
+  public stateChange: EventEmitter<CheckboxStateChange>;
+
+  @Watch('checked')
+  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'checked', checked: currentValue });
+    }
+  }
+
+  @Watch('disabled')
+  public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'disabled', disabled: currentValue });
+    }
+  }
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
@@ -127,6 +152,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
     toggleDatasetEntry(
       this._element,
       'withinSelectionPanel',
+      // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
       !!this._element.closest('sbb-selection-panel')
     );
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);

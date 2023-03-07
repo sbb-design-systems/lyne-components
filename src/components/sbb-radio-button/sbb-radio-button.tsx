@@ -14,7 +14,10 @@ import {
   Watch,
 } from '@stencil/core';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { InterfaceSbbRadioButtonAttributes, StateChange } from './sbb-radio-button.custom';
+import {
+  InterfaceSbbRadioButtonAttributes,
+  RadioButtonStateChange,
+} from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
@@ -89,19 +92,26 @@ export class SbbRadioButton implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   /**
-   * Internal event that emits whenever the state of the toggle option
-   * in relation to the parent toggle changes.
+   * Internal event that emits whenever the state of the radio option
+   * in relation to the parent selection panel changes.
    */
   @Event({
     bubbles: true,
     eventName: 'state-change',
   })
-  public stateChange: EventEmitter<StateChange>;
+  public stateChange: EventEmitter<RadioButtonStateChange>;
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
+    }
+  }
+
+  @Watch('disabled')
+  public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
 
@@ -133,6 +143,7 @@ export class SbbRadioButton implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'withinSelectionPanel',
+      // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
       !!this._element.closest('sbb-selection-panel')
     );
     this._setupInitialStateAndAttributeObserver();

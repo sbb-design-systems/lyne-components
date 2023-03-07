@@ -5,10 +5,12 @@
 
 ## Properties
 
-| Property   | Attribute   | Description                          | Type               | Default     |
-| ---------- | ----------- | ------------------------------------ | ------------------ | ----------- |
-| `checked`  | `checked`   | Whether the radio button is checked. | `boolean`          | `false`     |
-| `someProp` | `some-prop` | Documentation for someProp           | `"opt1" \| "opt2"` | `undefined` |
+| Property           | Attribute           | Description                                    | Type                | Default     |
+| ------------------ | ------------------- | ---------------------------------------------- | ------------------- | ----------- |
+| `color`            | `color`             | The background color of the panel.             | `"milk" \| "white"` | `'white'`   |
+| `disableAnimation` | `disable-animation` | Whether the animation is enabled.              | `boolean`           | `false`     |
+| `forceOpen`        | `force-open`        | Whether the content section is always visible. | `boolean`           | `false`     |
+| `someProp`         | `some-prop`         | Documentation for someProp                     | `"opt1" \| "opt2"`  | `undefined` |
 
 
 ## Slots
@@ -17,6 +19,19 @@
 | ----------- | ---------------------------- |
 | `"unnamed"` | Use this to document a slot. |
 
+
+## Dependencies
+
+### Depends on
+
+- [sbb-divider](../sbb-divider)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-selection-panel --> sbb-divider
+  style sbb-selection-panel fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

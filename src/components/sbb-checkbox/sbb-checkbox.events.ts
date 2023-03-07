@@ -4,4 +4,5 @@
  */
 export default {
   didChange: 'didChange',
+  stateChange: 'state-change',
 };

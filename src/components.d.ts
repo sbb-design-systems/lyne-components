@@ -15,7 +15,7 @@ import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -31,7 +31,7 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-import { InterfaceSbbRadioButtonAttributes, StateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom.d";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
@@ -57,7 +57,7 @@ export { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-export { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+export { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 export { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -73,7 +73,7 @@ export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-export { InterfaceSbbRadioButtonAttributes, StateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
+export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom.d";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
@@ -1133,9 +1133,17 @@ export namespace Components {
     }
     interface SbbSelectionPanel {
         /**
-          * Whether the radio button is checked.
+          * The background color of the panel.
          */
-        "checked": boolean;
+        "color": 'white' | 'milk';
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the content section is always visible.
+         */
+        "forceOpen": boolean;
         /**
           * Documentation for someProp
          */
@@ -2546,6 +2554,10 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
         /**
+          * Internal event that emits whenever the state of the checkbox in relation to the parent selection panel changes.
+         */
+        "onState-change"?: (event: SbbCheckboxCustomEvent<CheckboxStateChange>) => void;
+        /**
           * Whether the checkbox is required.
          */
         "required"?: boolean;
@@ -3270,9 +3282,9 @@ declare namespace LocalJSX {
          */
         "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
         /**
-          * Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes.
+          * Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes.
          */
-        "onState-change"?: (event: SbbRadioButtonCustomEvent<StateChange>) => void;
+        "onState-change"?: (event: SbbRadioButtonCustomEvent<RadioButtonStateChange>) => void;
         /**
           * Whether the radio button is required.
          */
@@ -3337,9 +3349,17 @@ declare namespace LocalJSX {
     }
     interface SbbSelectionPanel {
         /**
-          * Whether the radio button is checked.
+          * The background color of the panel.
          */
-        "checked"?: boolean;
+        "color"?: 'white' | 'milk';
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the content section is always visible.
+         */
+        "forceOpen"?: boolean;
         /**
           * Documentation for someProp
          */

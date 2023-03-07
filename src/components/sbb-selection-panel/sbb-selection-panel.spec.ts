@@ -12,9 +12,6 @@ describe('sbb-selection-panel', () => {
         <sbb-selection-panel>
           <mock:shadow-root>
             <div class="sbb-selection-panel">
-              <div class="sbb-selection-panel__badge">
-                <slot name="badge"></slot>
-              </div>
               <div class="sbb-selection-panel__input">
                 <slot></slot>
               </div>
