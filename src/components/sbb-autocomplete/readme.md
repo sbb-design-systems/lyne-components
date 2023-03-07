@@ -96,9 +96,9 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                       |
+| ----------- | --------------------------------- |
+| `"unnamed"` | Use this slot to project options. |
 
 
 ----------------------------------------------
