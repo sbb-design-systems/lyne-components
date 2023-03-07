@@ -226,11 +226,11 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         /**
-          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'sbb-form-field' ancestor
+          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor
          */
         "origin": string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not setted, will search for the first 'input' child of 'origin'
+          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'
          */
         "trigger": string | HTMLInputElement;
     }
@@ -2543,11 +2543,11 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**
-          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not setted, will search for the first 'sbb-form-field' ancestor
+          * The element where the autocomplete will attach. Accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor
          */
         "origin"?: string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not setted, will search for the first 'input' child of 'origin'
+          * The element that will trigger the autocomplete opening. Accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'
          */
         "trigger"?: string | HTMLInputElement;
     }
