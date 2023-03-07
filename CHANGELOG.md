@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.28.0](https://github.com/lyne-design-system/lyne-components/compare/v0.27.1...v0.28.0) (2023-03-07)
+
+### ⚠ BREAKING CHANGES
+
+- This changes the behavior of `<sbb-action-group>` and `<sbb-link-list>`, as they now overwrite properties of nested `<sbb-link>` (`variant`, `size` (renamed from `text-size`)) and `<sbb-button>` (`size`).
+
+### Features
+
+- add property sync functionality for group components ([#1629](https://github.com/lyne-design-system/lyne-components/issues/1629)) ([27bf32a](https://github.com/lyne-design-system/lyne-components/commit/27bf32aec44acffadafc84abba04b9b2bc06651f))
+
 ### [0.27.1](https://github.com/lyne-design-system/lyne-components/compare/v0.27.0...v0.27.1) (2023-03-07)
 
 ### Bug Fixes
