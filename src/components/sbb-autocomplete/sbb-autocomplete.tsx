@@ -228,6 +228,11 @@ export class SbbAutocomplete implements ComponentInterface {
     this._removeOriginAttributes(this._originElement);
     this._setOriginAttributes(anchorElem);
 
+    this._element.setAttribute(
+      'data-autocomplete-origin-borderless',
+      `${this._originElement.hasAttribute('borderless')}`
+    );
+
     this._originElement = anchorElem;
   }
 
@@ -236,19 +241,19 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    this._element.setAttribute(
-      'data-autocomplete-origin-borderless',
-      `${this._originElement.hasAttribute('borderless')}`
-    );
-
     // Reset attributes to the old trigger and add them to the new one
     this._removeTriggerAttributes(this._triggerElement);
     this._setTriggerAttributes(triggerElem);
 
     this._triggerElement = triggerElem;
 
-    // Open the overlay on focus, input and arrow down event
+    this._setupTriggerEvents();
+  }
+
+  private _setupTriggerEvents(): void {
     this._triggerEventsController = new AbortController();
+
+    // Open the overlay on focus, input and arrow down event
     this._triggerElement.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
@@ -265,7 +270,7 @@ export class SbbAutocomplete implements ComponentInterface {
       }
     );
 
-    // On input change, highlight the options
+    // On input change, highlight the options label
     this._triggerElement.addEventListener(
       'input',
       (ev) => this._highlightOptions((ev.target as HTMLInputElement).value),
@@ -303,6 +308,9 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
+  /**
+   * On open/close animation end
+   */
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
       this._onOpenAnimatinoEnd();
@@ -328,6 +336,8 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _attachOpenPanelEvents(): void {
     this._openPanelEventsController = new AbortController();
+
+    // Since the overlay is in 'fixed' position, we need to recalculate its position on window scroll/resize
     document.addEventListener('scroll', () => this._setOverlayPosition(), {
       passive: true,
       signal: this._openPanelEventsController.signal,
@@ -341,6 +351,7 @@ export class SbbAutocomplete implements ComponentInterface {
       signal: this._openPanelEventsController.signal,
     });
 
+    // Keyboard interactions
     this._triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._onKeydownEvent(event),
@@ -350,13 +361,15 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
+  /**
+   * If the click is outside the autocomplete, close the panel
+   */
   private _onBackdropClick = (event: PointerEvent): void => {
     if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
     }
   };
 
-  // Closes the menu on "Esc" key pressed and traps focus within the menu.
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
@@ -393,14 +406,17 @@ export class SbbAutocomplete implements ComponentInterface {
   private _setNextActiveOption(event: KeyboardEvent): void {
     const options: HTMLSbbOptionElement[] = this._options;
 
+    // Get the previous and the next active option
     const last = this._activeItemIndex;
     const lastActiveOption = options[last];
     const next = getNextElementIndex(event, this._activeItemIndex, options.length);
     const nextActiveOption = options[next];
 
+    // Activate the next
     nextActiveOption.active = true;
     this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
 
+    // Reset the previous
     if (lastActiveOption) {
       lastActiveOption.active = false;
     }
@@ -417,12 +433,15 @@ export class SbbAutocomplete implements ComponentInterface {
     this._activeItemIndex = -1;
   }
 
+  /**
+   * Projects the search term on the options 
+   */
   private _highlightOptions(searchTerm: string): void {
     this._options.forEach((option) => (option.highlightString = searchTerm));
   }
 
   private _setOriginAttributes(element: HTMLElement): void {
-    // This attributes are used to handle the visual attachment effect
+    // This attributes are used to handle visual effects
     element.setAttribute('data-autocomplete-origin', 'true');
     element.setAttribute('data-autocomplete-open', 'false');
     element.setAttribute('data-autocomplete-disable-animation', `${this.disableAnimation}`);
