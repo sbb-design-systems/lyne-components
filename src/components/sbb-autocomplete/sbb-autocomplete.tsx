@@ -40,7 +40,7 @@ export class SbbAutocomplete implements ComponentInterface {
    * The element where the autocomplete will attach.
    * Accepts both a string (id of an element) or an HTML element.
    *
-   * If not setted, will search for the first 'sbb-form-field' ancestor
+   * If not set, will search for the first 'sbb-form-field' ancestor
    */
   @Prop() public origin: string | HTMLElement;
 
@@ -49,7 +49,7 @@ export class SbbAutocomplete implements ComponentInterface {
    * Accepts both a string (id of an element) or an HTML element.
    * By default, the autocomplete will open on focus of the 'trigger' element.
    *
-   * If not setted, will search for the first 'input' child of 'origin'
+   * If not set, will search for the first 'input' child of 'origin'
    */
   @Prop() public trigger: string | HTMLInputElement;
 
