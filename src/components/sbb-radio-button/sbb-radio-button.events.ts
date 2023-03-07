@@ -4,4 +4,5 @@
  */
 export default {
   didSelect: 'did-select',
+  stateChange: 'state-change',
 };

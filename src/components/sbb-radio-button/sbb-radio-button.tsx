@@ -11,10 +11,12 @@ import {
   Method,
   Prop,
   State,
+  Watch,
 } from '@stencil/core';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { InterfaceSbbRadioButtonAttributes } from './sbb-radio-button.custom';
+import { InterfaceSbbRadioButtonAttributes, StateChange } from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -86,6 +88,23 @@ export class SbbRadioButton implements ComponentInterface {
 
   @Element() private _element: HTMLElement;
 
+  /**
+   * Internal event that emits whenever the state of the toggle option
+   * in relation to the parent toggle changes.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'state-change',
+  })
+  public stateChange: EventEmitter<StateChange>;
+
+  @Watch('checked')
+  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'checked', checked: currentValue });
+    }
+  }
+
   @Listen('click')
   public handleClick(event: Event): void {
     this.select();
@@ -111,6 +130,11 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    toggleDatasetEntry(
+      this._element,
+      'withinSelectionPanel',
+      !!this._element.closest('sbb-selection-panel')
+    );
     this._setupInitialStateAndAttributeObserver();
   }
 
@@ -163,6 +187,7 @@ export class SbbRadioButton implements ComponentInterface {
             checked={this.checked}
             value={this.value}
             class="sbb-radio-button__input"
+            onChange={(): void => console.log('Changed')}
           />
           <span class="sbb-radio-button__label-slot">
             <slot />

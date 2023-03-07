@@ -31,7 +31,7 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonAttributes, StateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom.d";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
@@ -73,7 +73,7 @@ export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+export { InterfaceSbbRadioButtonAttributes, StateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom.d";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
@@ -3269,6 +3269,10 @@ declare namespace LocalJSX {
           * Emits whenever the radio group value changes.
          */
         "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        /**
+          * Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes.
+         */
+        "onState-change"?: (event: SbbRadioButtonCustomEvent<StateChange>) => void;
         /**
           * Whether the radio button is required.
          */

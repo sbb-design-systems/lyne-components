@@ -24,6 +24,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   --sbb-checkbox-group-checkbox-width: 100%;
 }
 
+:host([data-has-selection-panel]) {
+  --sbb-checkbox-group-width: 100%;
+}
+
 @each $breakpoint in $breakpoints {
   @include sbb.mq($from: #{$breakpoint}) {
     // horizontal-from overrides orientation vertical

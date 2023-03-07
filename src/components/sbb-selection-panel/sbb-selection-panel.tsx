@@ -39,17 +39,24 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   @Element() private _element: HTMLElement;
 
+  private _contentElement: HTMLElement;
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  @Listen('did-select')
   @Listen('change')
+  @Listen('state-change')
   public onInputChange(event: Event): void {
-    console.log(event.target);
-    
     this.checked = (event.target as HTMLInputElement).checked;
+
+    if (this.checked) {
+      this._element.style.setProperty(
+        '--sbb-selection-panel-content-height',
+        `${this._contentElement.scrollHeight}px`
+      );
+    }
   }
 
   public connectedCallback(): void {
@@ -69,9 +76,9 @@ export class SbbSelectionPanel implements ComponentInterface {
           </div>
 
           {this._namedSlots.content && (
-          <div class="sbb-selection-panel__content">
-            <slot name="content" />
-          </div>
+            <div class="sbb-selection-panel__content" ref={(el) => (this._contentElement = el)}>
+              <slot name="content" />
+            </div>
           )}
         </div>
       </Host>

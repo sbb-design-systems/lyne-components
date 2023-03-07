@@ -87,6 +87,11 @@ export class SbbCheckboxGroup implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    toggleDatasetEntry(
+      this._element,
+      'hasSelectionPanel',
+      !!this._element.querySelector('sbb-selection-panel')
+    );
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
@@ -105,7 +110,8 @@ export class SbbCheckboxGroup implements ComponentInterface {
       !enabledCheckboxes ||
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element)
+        (evt.target as HTMLElement).parentElement !== this._element &&
+        (evt.target as HTMLElement).parentElement.nodeName !== 'SBB-SELECTION-PANEL')
     ) {
       return;
     }

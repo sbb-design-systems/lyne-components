@@ -26,9 +26,10 @@ Use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` com
 
 ## Events
 
-| Event        | Description                                   | Type               |
-| ------------ | --------------------------------------------- | ------------------ |
-| `did-select` | Emits whenever the radio group value changes. | `CustomEvent<any>` |
+| Event          | Description                                                                                                 | Type               |
+| -------------- | ----------------------------------------------------------------------------------------------------------- | ------------------ |
+| `did-select`   | Emits whenever the radio group value changes.                                                               | `CustomEvent<any>` |
+| `state-change` | Internal event that emits whenever the state of the toggle option in relation to the parent toggle changes. | `CustomEvent<any>` |
 
 
 ## Methods

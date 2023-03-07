@@ -11,7 +11,14 @@ describe('sbb-selection-panel', () => {
     expect(root).toEqualHtml(`
         <sbb-selection-panel>
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <div class="sbb-selection-panel">
+              <div class="sbb-selection-panel__badge">
+                <slot name="badge"></slot>
+              </div>
+              <div class="sbb-selection-panel__input">
+                <slot></slot>
+              </div>
+            </div>
           </mock:shadow-root>
         </sbb-selection-panel>
       `);

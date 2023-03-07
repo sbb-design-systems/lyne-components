@@ -1,34 +1,94 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => (
-  <sbb-selection-panel {...args}>
-    <sbb-card-badge slot="badge">
-      <div slot="generic">
-        <span>
-          <time datetime="2021-11-25">Black Friday</time> Special
-        </span>
-      </div>
-    </sbb-card-badge>
+const TemplateCheckboxGroup = (args) => (
+  <sbb-checkbox-group>
+    <sbb-selection-panel {...args}>
+      <sbb-card-badge slot="badge">
+        <div slot="generic">
+          <span>Panel badge</span>
+        </div>
+      </sbb-card-badge>
+      <sbb-checkbox>Value</sbb-checkbox>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-panel>
 
-    {/* <sbb-radio-button>
-      Value
-      <span slot="subtext">Subtext</span>
-      <span slot="suffix">
-         <sbb-icon/>
-         <span class="sbb-text-xs sbb-text--bold">CHF</span>
-         <span class="sbb-text-m sbb-text--bold">40.00</span>
-       </span>
-    </sbb-radio-button> */}
+    <sbb-selection-panel {...args}>
+      <sbb-card-badge slot="badge">
+        <div slot="generic">
+          <span>Panel badge</span>
+        </div>
+      </sbb-card-badge>
+      <sbb-checkbox>Value</sbb-checkbox>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-panel>
 
-    <sbb-checkbox>Value</sbb-checkbox>
-    <div slot="content">Inner Content</div>
-  </sbb-selection-panel>
+    <sbb-selection-panel {...args}>
+      <sbb-card-badge slot="badge">
+        <div slot="generic">
+          <span>Panel badge</span>
+        </div>
+      </sbb-card-badge>
+      <sbb-checkbox>Value</sbb-checkbox>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-panel>
+  </sbb-checkbox-group>
 );
 
-export const story1 = Template.bind({});
+const TemplateRadioButtonGroup = (args) => (
+  <sbb-radio-button-group>
+    <sbb-selection-panel {...args}>
+      <sbb-card-badge slot="badge">
+        <div slot="generic">
+          <span>Panel badge</span>
+        </div>
+      </sbb-card-badge>
+      <sbb-radio-button value="Value one">Value one</sbb-radio-button>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-panel>
 
-story1.args = {
+    <sbb-selection-panel {...args}>
+      <sbb-card-badge slot="badge">
+        <div slot="generic">
+          <span>Panel badge</span>
+        </div>
+      </sbb-card-badge>
+      <sbb-radio-button value="Value two">Value two</sbb-radio-button>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-panel>
+
+    <sbb-selection-panel {...args}>
+      <sbb-card-badge slot="badge">
+        <div slot="generic">
+          <span>Panel badge</span>
+        </div>
+      </sbb-card-badge>
+      <sbb-radio-button value="Value three">Value three</sbb-radio-button>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-panel>
+  </sbb-radio-button-group>
+);
+
+{
+  /* <sbb-radio-button>
+  Value
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix">
+    <sbb-icon/>
+    <span class="sbb-text-xs sbb-text--bold">CHF</span>
+    <span class="sbb-text-m sbb-text--bold">40.00</span>
+  </span>
+</sbb-radio-button> */
+}
+
+export const withCheckboxGroup = TemplateCheckboxGroup.bind({});
+export const withRadioButonGroup = TemplateRadioButtonGroup.bind({});
+
+withCheckboxGroup.args = {
+  'some-prop': 'opt1',
+};
+
+withRadioButonGroup.args = {
   'some-prop': 'opt1',
 };
 

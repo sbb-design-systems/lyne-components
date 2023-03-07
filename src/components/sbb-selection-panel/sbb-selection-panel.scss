@@ -6,9 +6,12 @@
 
 :host {
   --sbb-selection-panel-background: var(--sbb-color-milk-default);
+
+  display: contents;
 }
 
 .sbb-selection-panel {
+  flex: auto;
   position: relative;
   background-color: var(--sbb-selection-panel-background);
   border-radius: var(--sbb-border-radius-4x);
@@ -24,14 +27,39 @@
 }
 
 .sbb-selection-panel__content {
-  display: none;
+  visibility: hidden;
+  max-height: 0;
+  opacity: 0;
   border-top: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
   margin-inline: var(--sbb-spacing-responsive-xxs);
-  padding-block-start: var(--sbb-spacing-responsive-xxs);
-  padding-block-end: var(--sbb-spacing-responsive-xs);
+  transition: max-height var(--sbb-animation-duration-4x) var(--sbb-animation-easing),
+    padding var(--sbb-animation-duration-4x) var(--sbb-animation-easing),
+    opacity var(--sbb-animation-duration-4x) var(--sbb-animation-duration-4x)
+      var(--sbb-animation-easing);
 
   :host([data-has-content][checked]) & {
-    display: block;
+    visibility: visible;
+    max-height: calc(
+      var(--sbb-selection-panel-content-height) + var(--sbb-spacing-responsive-xxs) +
+        var(--sbb-spacing-responsive-xs)
+    );
+    opacity: 1;
+    padding-block-start: var(--sbb-spacing-responsive-xxs);
+    padding-block-end: var(--sbb-spacing-responsive-xs);
+  }
+}
+
+slot[name='content']::slotted(*) {
+  opacity: 0;
+  transition: {
+    duration: var(--sbb-animation-duration-4x);
+    timing-function: var(--sbb-animation-easing);
+    property: opacity;
+  }
+
+  :host([data-has-content][checked]) & {
+    opacity: 1;
+    transition-delay: var(--sbb-animation-duration-4x);
   }
 }
 
@@ -40,6 +68,11 @@
   cursor: pointer;
   display: block;
   padding: var(--sbb-spacing-responsive-xs) var(--sbb-spacing-responsive-xxs);
+  transition: {
+    duration: var(--sbb-animation-duration-4x);
+    timing-function: var(--sbb-animation-easing);
+    property: padding;
+  }
 
   :host([data-has-content][checked]) & {
     padding-block-end: var(--sbb-spacing-responsive-xxs);

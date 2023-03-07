@@ -24,7 +24,6 @@ import {
 import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
-import { hostContext } from '../../global/helpers/host-context';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
@@ -125,7 +124,11 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   }
 
   public connectedCallback(): void {
-    toggleDatasetEntry(this._element, 'withinSelectionPanel', !!hostContext('sbb-selection-panel', this._element));
+    toggleDatasetEntry(
+      this._element,
+      'withinSelectionPanel',
+      !!this._element.closest('sbb-selection-panel')
+    );
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._setupInitialStateAndAttributeObserver();
