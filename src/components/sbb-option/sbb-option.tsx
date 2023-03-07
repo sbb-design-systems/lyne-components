@@ -24,7 +24,7 @@ let nextId = 0;
 
 /**
  * @slot unnamed - Use this to provide the option label.
- * @slot icon - Use this slot to provide an icon. If `icon-name` is set, an sbb-icon will be used.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 @Component({
   shadow: true,
@@ -32,9 +32,7 @@ let nextId = 0;
   tag: 'sbb-option',
 })
 export class SbbOption implements ComponentInterface {
-  /**
-   * Value of the option.
-   */
+  /** Value of the option. */
   @Prop() public value?: string;
 
   /**
@@ -44,35 +42,22 @@ export class SbbOption implements ComponentInterface {
    */
   @Prop() public iconName?: string;
 
-  /**
-   * Wheter the icon space is preserved when no icon is set
-   */
+  /** Whether the icon space is preserved when no icon is set. */
   @Prop({ reflect: true }) public preserveIconSpace = true;
 
-  /**
-   * Whether or not the option is currently active.
-   */
+  /** Whether the option is currently active. */
   @Prop() public active?: boolean;
 
-  /**
-   * Whether or not the option is disabled.
-   * TBI: missing disabled style, will be implemented with the select component
-   */
+  /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
   @Prop() public disabled?: boolean;
 
-  /**
-   * The portion of the highlighted label
-   */
+  /** The portion of the highlighted label. */
   @Prop() public highlightString: string;
 
-  /**
-   * Disable the highlight of the label
-   */
+  /** Disable the highlight of the label. */
   @Prop({ reflect: true }) public disableLabelHighlight: boolean;
 
-  /**
-   * Emits whenever the menu is closed.
-   */
+  /** Emits whenever the menu is closed. */
   @Event({
     bubbles: true,
     composed: true,
@@ -80,9 +65,7 @@ export class SbbOption implements ComponentInterface {
   })
   public didSelect: EventEmitter<SbbOptionSelectionChange>;
 
-  /**
-   * Emits whenever the menu is closed.
-   */
+  /** Emits whenever the menu is closed. */
   @Event({
     bubbles: true,
     composed: true,
@@ -90,14 +73,10 @@ export class SbbOption implements ComponentInterface {
   })
   public didDeselect: EventEmitter<SbbOptionSelectionChange>;
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
-  /**
-   * Whether or not the option is currently selected.
-   */
+  /** Whether the option is currently selected. */
   @State() private _selected: boolean;
 
   @State() private _label: string;
@@ -106,11 +85,6 @@ export class SbbOption implements ComponentInterface {
 
   private _optionId = `sbb-option-${++nextId}`;
   private _labelSlot: HTMLSlotElement;
-
-  @Method()
-  public async isSelected(): Promise<boolean> {
-    return this._selected;
-  }
 
   @Method()
   public async select(): Promise<void> {
@@ -132,14 +106,6 @@ export class SbbOption implements ComponentInterface {
     this.didDeselect.emit({ id: this._element.id, value: this.value });
   }
 
-  /**
-   * Whether or not the option is currently selected.
-   */
-  @Method()
-  public async getId(): Promise<boolean> {
-    return this._selected;
-  }
-
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
@@ -159,14 +125,12 @@ export class SbbOption implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    this._setupHighlightHandler();
+    if (!this.disableLabelHighlight) {
+      this._setupHighlightHandler();
+    }
   }
 
   private _setupHighlightHandler(): void {
-    if (this.disableLabelHighlight) {
-      return;
-    }
-
     const labelNode = this._labelSlot
       .assignedNodes()
       .filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
@@ -176,6 +140,28 @@ export class SbbOption implements ComponentInterface {
       return;
     }
     this._label = labelNode.wholeText;
+  }
+
+  private _getHighlightedLabel(): JSX.Element {
+    if (!this.highlightString || !this.highlightString.trim()) {
+      return this._label;
+    }
+
+    const matchIndex = this._label.toLowerCase().indexOf(this.highlightString.toLowerCase());
+
+    if (matchIndex === -1) {
+      return this._label;
+    }
+
+    const prefix = this._label.substring(0, matchIndex);
+    const highlighted = this._label.substring(matchIndex, matchIndex + this.highlightString.length);
+    const postfix = this._label.substring(matchIndex + this.highlightString.length);
+
+    return [
+      <span class="sbb-option__label--highlight">{prefix}</span>,
+      <span>{highlighted}</span>,
+      <span class="sbb-option__label--highlight">{postfix}</span>,
+    ];
   }
 
   public render(): JSX.Element {
@@ -202,36 +188,10 @@ export class SbbOption implements ComponentInterface {
           </span>
           <span class="sbb-option__label">
             <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
-            {this._getHighlightedLabel()}
+            {this._label && !this.disableLabelHighlight && this._getHighlightedLabel()}
           </span>
         </div>
       </Host>
     );
-  }
-
-  private _getHighlightedLabel(): JSX.Element {
-    if (!this._label || this.disableLabelHighlight) {
-      return;
-    }
-
-    if (!this.highlightString || !this.highlightString.trim()) {
-      return this._label;
-    }
-
-    const matchIndex = this._label.toLowerCase().indexOf(this.highlightString.toLowerCase());
-
-    if (matchIndex === -1) {
-      return this._label;
-    }
-
-    const prefix = this._label.substring(0, matchIndex);
-    const highlighted = this._label.substring(matchIndex, matchIndex + this.highlightString.length);
-    const postfix = this._label.substring(matchIndex + this.highlightString.length);
-
-    return [
-      <span class="sbb-option__label--highlight">{prefix}</span>,
-      <span>{highlighted}</span>,
-      <span class="sbb-option__label--highlight">{postfix}</span>,
-    ];
   }
 }
