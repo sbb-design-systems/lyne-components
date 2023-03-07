@@ -63,12 +63,12 @@ Or, you can specify a different `origin` and `trigger`
 
 ## Events
 
-| Event        | Description                                            | Type                |
-| ------------ | ------------------------------------------------------ | ------------------- |
-| `did-close`  | Emits whenever the menu is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the menu is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the menu begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the menu starts the opening transition. | `CustomEvent<void>` |
+| Event        | Description                                                    | Type                |
+| ------------ | -------------------------------------------------------------- | ------------------- |
+| `did-close`  | Emits whenever the autocomplete is closed.                     | `CustomEvent<void>` |
+| `did-open`   | Emits whenever the autocomplete is opened.                     | `CustomEvent<void>` |
+| `will-close` | Emits whenever the autocomplete begins the closing transition. | `CustomEvent<void>` |
+| `will-open`  | Emits whenever the autocomplete starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods
