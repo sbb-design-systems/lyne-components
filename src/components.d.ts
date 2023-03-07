@@ -1700,6 +1700,10 @@ export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
 }
+export interface SbbSelectionPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSelectionPanelElement;
+}
 export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbSliderElement;
@@ -3360,6 +3364,22 @@ declare namespace LocalJSX {
           * Whether the content section is always visible.
          */
         "forceOpen"?: boolean;
+        /**
+          * Emits whenever the content section is closed.
+         */
+        "onDid-close"?: (event: SbbSelectionPanelCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the content section is opened.
+         */
+        "onDid-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
+        /**
+          * Emits whenever the content section begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbSelectionPanelCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the content section starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
         /**
           * Documentation for someProp
          */

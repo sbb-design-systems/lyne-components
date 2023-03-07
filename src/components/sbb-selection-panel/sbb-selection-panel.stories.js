@@ -1,3 +1,4 @@
+import events from './sbb-selection-panel.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
@@ -226,7 +227,7 @@ export default {
   ],
   parameters: {
     actions: {
-      // handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
+      handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
     },
     backgrounds: {
       disable: true,

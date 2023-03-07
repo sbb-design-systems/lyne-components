@@ -3,11 +3,13 @@ import {
   ComponentInterface,
   h,
   Element,
+  Event,
   Host,
   JSX,
   Listen,
   Prop,
   State,
+  EventEmitter,
 } from '@stencil/core';
 import {
   createNamedSlotState,
@@ -62,6 +64,46 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   @Element() private _element: HTMLElement;
 
+  /**
+   * Emits whenever the content section starts the opening transition.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'will-open',
+  })
+  public willOpen: EventEmitter<void>;
+
+  /**
+   * Emits whenever the content section is opened.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'did-open',
+  })
+  public didOpen: EventEmitter<void>;
+
+  /**
+   * Emits whenever the content section begins the closing transition.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'will-close',
+  })
+  public willClose: EventEmitter<{ closeTarget: HTMLElement }>;
+
+  /**
+   * Emits whenever the content section is closed.
+   */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'did-close',
+  })
+  public didClose: EventEmitter<{ closeTarget: HTMLElement }>;
+
   private _contentElement: HTMLElement;
 
   private get _input(): HTMLInputElement {
@@ -85,6 +127,13 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     this._checked = event.detail.checked;
+
+    if (this._checked) {
+      this.willOpen.emit();
+    } else {
+      this.willClose.emit();
+    }
+
     this._setContentElementHeight();
   }
 
@@ -108,6 +157,18 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
   }
 
+  private _onTransitionEnd(event: TransitionEvent): void {
+    if (event.target !== this._contentElement || event.propertyName !== 'opacity') {
+      return;
+    }
+
+    if (this._checked) {
+      this.didOpen.emit();
+    } else {
+      this.didClose.emit();
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <Host
@@ -127,7 +188,11 @@ export class SbbSelectionPanel implements ComponentInterface {
           </div>
 
           {this._namedSlots['content'] && (
-            <div class="sbb-selection-panel__content" ref={(el) => (this._contentElement = el)}>
+            <div
+              class="sbb-selection-panel__content"
+              ref={(el) => (this._contentElement = el)}
+              onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
+            >
               <sbb-divider />
               <slot name="content" />
             </div>

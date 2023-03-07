@@ -13,6 +13,16 @@
 | `someProp`         | `some-prop`         | Documentation for someProp                     | `"opt1" \| "opt2"`  | `undefined` |
 
 
+## Events
+
+| Event        | Description                                                       | Type                                         |
+| ------------ | ----------------------------------------------------------------- | -------------------------------------------- |
+| `did-close`  | Emits whenever the content section is closed.                     | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `did-open`   | Emits whenever the content section is opened.                     | `CustomEvent<void>`                          |
+| `will-close` | Emits whenever the content section begins the closing transition. | `CustomEvent<{ closeTarget: HTMLElement; }>` |
+| `will-open`  | Emits whenever the content section starts the opening transition. | `CustomEvent<void>`                          |
+
+
 ## Slots
 
 | Slot        | Description                  |
