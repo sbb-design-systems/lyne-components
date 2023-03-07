@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.28.1](https://github.com/lyne-design-system/lyne-components/compare/v0.28.0...v0.28.1) (2023-03-07)
+
+### Bug Fixes
+
+- **sbb-logo,sbb-signet:** allow label of image to be defined ([#1665](https://github.com/lyne-design-system/lyne-components/issues/1665)) ([37a4956](https://github.com/lyne-design-system/lyne-components/commit/37a4956ea5f3adc52f0d53c3534f22622e7fa15b))
+
 ## [0.28.0](https://github.com/lyne-design-system/lyne-components/compare/v0.27.1...v0.28.0) (2023-03-07)
 
 ### ⚠ BREAKING CHANGES
