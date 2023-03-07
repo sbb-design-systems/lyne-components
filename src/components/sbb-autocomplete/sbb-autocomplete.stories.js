@@ -133,7 +133,7 @@ const Template = (args) => [
       <sbb-option
         preserve-icon-space={args.preserveIconSpace}
         disable-label-highlight={args.disableLabelHighlight}
-        value="Option 2"
+        value="Option 3"
       >
         <sbb-icon slot="icon" name={args.iconName} />
         Option 3
