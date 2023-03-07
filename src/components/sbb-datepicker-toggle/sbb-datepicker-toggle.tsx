@@ -72,8 +72,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._datePickerController?.abort();
   }
 
-  private async _init(trigger?: string | HTMLElement): Promise<void> {
-    this._datePicker = getDatePicker(this._element, trigger);
+  private async _init(datePicker?: string | HTMLElement): Promise<void> {
+    this._datePicker = getDatePicker(this._element, datePicker);
 
     this._datePicker?.addEventListener(
       'inputUpdated',
@@ -119,7 +119,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
     this._calendarElement = calendar;
-    if (!this._datePicker) {
+    if (!this._datePicker || !this._calendarElement) {
       return;
     }
     this._calendarElement.selectedDate = await this._datePicker.getValueAsDate();
