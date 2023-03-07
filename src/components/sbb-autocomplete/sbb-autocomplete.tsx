@@ -28,7 +28,7 @@ type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
 let nextId = 0;
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Use this slot to project options.
  */
 @Component({
   shadow: true,
