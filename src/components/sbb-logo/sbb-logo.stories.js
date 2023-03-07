@@ -78,5 +78,5 @@ export default {
       viewports: [320],
     },
   },
-  title: 'brand elements/SBB Logo',
+  title: 'components/sbb-logo',
 };

@@ -72,7 +72,6 @@ export const parameters = {
         'components',
         ['*', 'form elements', 'timetable', 'cards', 'layout'],
         'styles',
-        'brand elements',
         '*',
         'internals',
         'lab',

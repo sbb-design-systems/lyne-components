@@ -54,5 +54,5 @@ export default {
       viewports: [320],
     },
   },
-  title: 'brand elements/SBB Signet',
+  title: 'components/sbb-signet',
 };
