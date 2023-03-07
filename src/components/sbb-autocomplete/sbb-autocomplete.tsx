@@ -415,7 +415,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Activate the next
     nextActiveOption.active = true;
     this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
-    nextActiveOption.scrollIntoView({block: 'nearest'});
+    nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous
     if (lastActiveOption) {
@@ -435,7 +435,7 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /**
-   * Projects the search term on the options 
+   * Projects the search term on the options
    */
   private _highlightOptions(searchTerm: string): void {
     this._options.forEach((option) => (option.highlightString = searchTerm));
