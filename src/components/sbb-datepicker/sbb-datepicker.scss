@@ -3,24 +3,3 @@
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
-
-:host {
-  --sbb-datepicker-color: var(--sbb-color-charcoal-default);
-}
-
-:host([disabled]:not([disabled='false'])) {
-  --sbb-datepicker-color: var(--sbb-color-graphite-default);
-
-  @include sbb.if-forced-colors {
-    --sbb-datepicker-color: GrayText;
-  }
-}
-
-input {
-  @include sbb.text-m--regular;
-  @include sbb.placeholder;
-  @include sbb.input-reset;
-
-  // Color is inherited from sbb-form-field, if the sbb-time-input is used within it.
-  color: var(--sbb-form-field-text-color, var(--sbb-datepicker-color));
-}
