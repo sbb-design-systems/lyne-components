@@ -2568,19 +2568,19 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Emits whenever the menu is closed.
+          * Emits whenever the autocomplete is closed.
          */
         "onDid-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu is opened.
+          * Emits whenever the autocomplete is opened.
          */
         "onDid-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu begins the closing transition.
+          * Emits whenever the autocomplete begins the closing transition.
          */
         "onWill-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**
-          * Emits whenever the menu starts the opening transition.
+          * Emits whenever the autocomplete starts the opening transition.
          */
         "onWill-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**

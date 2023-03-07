@@ -59,12 +59,12 @@ export class SbbAutocomplete implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
-   * The state of the menu.
+   * The state of the autocomplete.
    */
   @State() private _state: SbbAutocompleteState = 'closed';
 
   /**
-   * Emits whenever the menu starts the opening transition.
+   * Emits whenever the autocomplete starts the opening transition.
    */
   @Event({
     bubbles: true,
@@ -74,7 +74,7 @@ export class SbbAutocomplete implements ComponentInterface {
   public willOpen: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu is opened.
+   * Emits whenever the autocomplete is opened.
    */
   @Event({
     bubbles: true,
@@ -84,7 +84,7 @@ export class SbbAutocomplete implements ComponentInterface {
   public didOpen: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu begins the closing transition.
+   * Emits whenever the autocomplete begins the closing transition.
    */
   @Event({
     bubbles: true,
@@ -94,7 +94,7 @@ export class SbbAutocomplete implements ComponentInterface {
   public willClose: EventEmitter<void>;
 
   /**
-   * Emits whenever the menu is closed.
+   * Emits whenever the autocomplete is closed.
    */
   @Event({
     bubbles: true,
