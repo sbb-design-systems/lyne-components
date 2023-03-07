@@ -83,5 +83,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/autocomplete/sbb-option',
+  title: 'components/sbb-option',
 };
