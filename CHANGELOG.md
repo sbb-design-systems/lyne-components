@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.27.1](https://github.com/lyne-design-system/lyne-components/compare/v0.27.0...v0.27.1) (2023-03-07)
+
+### Bug Fixes
+
+- **sbb-header-action:** fix styling after orientation change on iOS ([#1664](https://github.com/lyne-design-system/lyne-components/issues/1664)) ([e30db05](https://github.com/lyne-design-system/lyne-components/commit/e30db05b455ebae7d19a4c74d0ff5d2153933ecb))
+
 ## [0.27.0](https://github.com/lyne-design-system/lyne-components/compare/v0.26.23...v0.27.0) (2023-03-06)
 
 ### ⚠ BREAKING CHANGES
