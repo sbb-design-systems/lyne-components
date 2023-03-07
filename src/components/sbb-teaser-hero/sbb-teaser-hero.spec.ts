@@ -28,7 +28,7 @@ describe('sbb-teaser-hero', () => {
                   class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
                   icon-placement="end"
-                  text-size="m"
+                  size="m"
                   negative
                 >
                   <slot name="link-content">Find out more</slot>
@@ -96,7 +96,7 @@ describe('sbb-teaser-hero', () => {
                   class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
                   icon-placement="end"
-                  text-size="m"
+                  size="m"
                   negative
                 >
                   <slot name="link-content"></slot>

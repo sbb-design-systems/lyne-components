@@ -58,7 +58,7 @@ const negative = {
   },
 };
 
-const textSize = {
+const size = {
   control: {
     type: 'select',
   },
@@ -189,7 +189,7 @@ const defaultArgTypes = {
   text,
   variant,
   negative,
-  'text-size': textSize,
+  size,
   static: isStatic,
   'icon-name': iconName,
   'icon-placement': iconPlacement,
@@ -210,7 +210,7 @@ const defaultArgs = {
   text: 'Travelcards & tickets',
   variant: variant.options[0],
   negative: false,
-  'text-size': textSize.options[1],
+  size: size.options[1],
   static: false,
   'icon-name': undefined,
   'icon-placement': iconPlacement.options[0],
@@ -234,7 +234,7 @@ export const BlockXS = Template.bind({});
 BlockXS.argTypes = defaultArgTypes;
 BlockXS.args = {
   ...defaultArgs,
-  'text-size': textSize.options[0],
+  size: size.options[0],
 };
 BlockXS.documentation = {
   title: 'Block Size XS',
@@ -244,7 +244,7 @@ export const BlockS = Template.bind({});
 BlockS.argTypes = defaultArgTypes;
 BlockS.args = {
   ...defaultArgs,
-  'text-size': textSize.options[1],
+  size: size.options[1],
 };
 BlockS.documentation = {
   title: 'Block Size S',
@@ -254,7 +254,7 @@ export const BlockM = Template.bind({});
 BlockM.argTypes = defaultArgTypes;
 BlockM.args = {
   ...defaultArgs,
-  'text-size': textSize.options[2],
+  size: size.options[2],
 };
 BlockM.documentation = {
   title: 'Block Size M',
@@ -264,7 +264,7 @@ export const BlockXSIcon = Template.bind({});
 BlockXSIcon.argTypes = defaultArgTypes;
 BlockXSIcon.args = {
   ...defaultArgs,
-  'text-size': textSize.options[0],
+  size: size.options[0],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
@@ -276,7 +276,7 @@ export const BlockSIcon = Template.bind({});
 BlockSIcon.argTypes = defaultArgTypes;
 BlockSIcon.args = {
   ...defaultArgs,
-  'text-size': textSize.options[1],
+  size: size.options[1],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
@@ -288,7 +288,7 @@ export const BlockMIcon = Template.bind({});
 BlockMIcon.argTypes = defaultArgTypes;
 BlockMIcon.args = {
   ...defaultArgs,
-  'text-size': textSize.options[2],
+  size: size.options[2],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };

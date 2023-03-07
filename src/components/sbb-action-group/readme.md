@@ -1,17 +1,23 @@
 # sbb-action-group
 
-The `sbb-action-group` component is a generic content container which can contain up to three action items
-(`<sbb-button>` or `<sbb-link>` or other HTML elements) in various allocations.
+The `<sbb-action-group>` component is a generic content container which can contain up to three
+action items (`<sbb-button>` or `<sbb-link>` or other HTML elements) in various allocations.
 
-The `orientation` property is used to set items orientation. Possible values are `horizontal` (default) and `vertical`.
+The `orientation` property is used to set items orientation. Possible values are `horizontal`
+(default) and `vertical`.
 
-The optional property `horizontalFrom` indicates the minimum breakpoint from which the orientation changes to `horizontal`.
+The optional property `horizontalFrom` indicates the minimum breakpoint from which the orientation
+changes to `horizontal`.
 
 The `align-group` property can be used to set the default alignment of the contained elements; 
 possible values are `start`, `center`, `stretch` and `end`.
 
-It is also possible to set the `align-self` attribute on action items in order to move them in the opposite direction 
-to the group; possible values are `start`, `center` or `end`.
+It is also possible to set the `align-self` attribute on action items in order to move them in the
+opposite direction to the group; possible values are `start`, `center` or `end`.
+
+**NOTE**: `<sbb-action-group>` will automatically set variant `block` and will sync the `linkSize`
+ property with nested `<sbb-link>` and the `buttonSize` property with the nested `<sbb-button>`
+ instances.
 
 ## Usage
 
@@ -34,10 +40,7 @@ The examples below shows how to use the `<sbb-action-group>` component using `<s
   <sbb-button variant="secondary">Action 2</sbb-button>
   <sbb-link
     align-self="end"
-    variant="block"
-    text-size="s"
     icon-name="chevron-small-left-small"
-    icon-placement="start"
     href="https://github.com/lyne-design-system/lyne-components"
   >
     Action 3
@@ -56,7 +59,7 @@ and we consider a template like the following one (possibly removing the link fo
 <sbb-action-group>
   <sbb-button>Button 1</sbb-button>
   <sbb-button>Button 2</sbb-button>
-  <sbb-link variant="block" icon-name="chevron-small-left-small" href="https://github.com/lyne-design-system/lyne-components">
+  <sbb-link icon-name="chevron-small-left-small" href="https://github.com/lyne-design-system/lyne-components">
     Link
   </sbb-link>
 </sbb-action-group>
@@ -100,11 +103,13 @@ the values for `align-group` and `align-self` for the various allocations are as
 
 ## Properties
 
-| Property         | Attribute         | Description                                                                  | Type                                                                       | Default        |
-| ---------------- | ----------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
-| `alignGroup`     | `align-group`     | Set the slotted `<sbb-action-group>` children's alignment.                   | `"center" \| "end" \| "start" \| "stretch"`                                | `'start'`      |
-| `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                           | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`     |
-| `orientation`    | `orientation`     | Indicates the orientation of the components inside the `<sbb-action-group>`. | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
+| Property         | Attribute         | Description                                                                                                     | Type                                                                       | Default        |
+| ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------- |
+| `alignGroup`     | `align-group`     | Set the slotted `<sbb-action-group>` children's alignment.                                                      | `"center" \| "end" \| "start" \| "stretch"`                                | `'start'`      |
+| `buttonSize`     | `button-size`     | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances. | `"l" \| "m"`                                                               | `'l'`          |
+| `horizontalFrom` | `horizontal-from` | Overrides the behaviour of `orientation` property.                                                              | `"large" \| "medium" \| "micro" \| "small" \| "ultra" \| "wide" \| "zero"` | `'medium'`     |
+| `linkSize`       | `link-size`       | Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.     | `"m" \| "s" \| "xs"`                                                       | `'m'`          |
+| `orientation`    | `orientation`     | Indicates the orientation of the components inside the `<sbb-action-group>`.                                    | `"horizontal" \| "vertical"`                                               | `'horizontal'` |
 
 
 ## Slots

@@ -71,7 +71,7 @@ const tooltip = (args) => (
     <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s);'}>
       Simple information tooltip with link.{' '}
       <sbb-link
-        text-size="s"
+        size="s"
         variant="block"
         icon-name="chevron-small-right-small"
         icon-placement="end"

@@ -10,41 +10,27 @@ const wrapperStyle = (context) => {
 };
 
 const LinkTemplate = (args) => (
-  <sbb-link
-    href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-    text-size={args.linkTextSize}
-    negative={args.negative}
-  >
+  <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
     {args.linkTitle}
   </sbb-link>
 );
 
 // SlottedTitle
-const TemplateSlottedTitle = ({ 'title-content': titleContent, linkTextSize, ...args }) => (
+const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }) => (
   <sbb-link-list {...args}>
     <span slot="title">{titleContent}</span>
-    {links.map((linkTitle) => {
-      const linkArgs = {
-        linkTitle,
-        linkTextSize,
-        negative: args.negative,
-      };
-      return <LinkTemplate {...linkArgs} />;
-    })}
+    {links.map((linkTitle) => (
+      <LinkTemplate {...{ linkTitle }} />
+    ))}
   </sbb-link-list>
 );
 
 // TitleAsProperty
-const Template = ({ linkTextSize, ...args }) => (
+const Template = ({ ...args }) => (
   <sbb-link-list {...args}>
-    {links.map((linkTitle) => {
-      const linkArgs = {
-        linkTitle,
-        linkTextSize,
-        negative: args.negative,
-      };
-      return <LinkTemplate {...linkArgs} />;
-    })}
+    {links.map((linkTitle) => (
+      <LinkTemplate {...{ linkTitle }} />
+    ))}
   </sbb-link-list>
 );
 
@@ -55,9 +41,6 @@ const orientation = {
     type: 'select',
   },
   options: ['vertical', 'horizontal'],
-  table: {
-    category: 'List Styling',
-  },
 };
 
 const horizontalFrom = {
@@ -65,9 +48,20 @@ const horizontalFrom = {
     type: 'select',
   },
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
-  table: {
-    category: 'List Styling',
+};
+
+const negative = {
+  control: {
+    type: 'boolean',
   },
+  options: [true, false],
+};
+
+const size = {
+  control: {
+    type: 'select',
+  },
+  options: ['xs', 's', 'm'],
 };
 
 const titleContent = {
@@ -89,41 +83,22 @@ const titleLevel = {
   },
 };
 
-const negative = {
-  control: {
-    type: 'boolean',
-  },
-  options: [true, false],
-  table: {
-    category: 'Styling Variant',
-  },
-};
-
-const linkTextSize = {
-  control: {
-    type: 'select',
-  },
-  options: ['xs', 's', 'm'],
-  table: {
-    category: 'List Items',
-  },
-};
-
 const defaultArgTypes = {
-  orientation: orientation,
+  orientation,
   'horizontal-from': horizontalFrom,
+  size,
+  negative,
   'title-level': titleLevel,
   'title-content': titleContent,
-  negative,
-  linkTextSize,
 };
 
 const defaultArgs = {
   orientation: orientation.options[0],
+  'horizontal-from': undefined,
+  size: size.options[1],
+  negative: false,
   'title-level': titleLevel.options[0],
   'title-content': 'Help & Contact',
-  negative: false,
-  linkTextSize: linkTextSize.options[1],
 };
 
 export const LinkListDefault = Template.bind({});
@@ -136,7 +111,7 @@ export const LinkListXS = Template.bind({});
 LinkListXS.argTypes = defaultArgTypes;
 LinkListXS.args = {
   ...defaultArgs,
-  linkTextSize: linkTextSize.options[0],
+  size: size.options[0],
 };
 
 export const LinkListNoTitle = Template.bind({});

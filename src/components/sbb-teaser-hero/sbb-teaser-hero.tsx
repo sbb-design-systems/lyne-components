@@ -82,7 +82,7 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
               class="sbb-teaser-hero__panel-link"
               icon-name="chevron-small-right-small"
               icon-placement="end"
-              text-size="m"
+              size="m"
               negative
             >
               <slot name="link-content">{this.linkContent}</slot>

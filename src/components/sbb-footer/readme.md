@@ -53,12 +53,12 @@ Variant clock-columns with wrapped link-list with button:
   </sbb-link-list>
   ...
   <sbb-divider />  
-  <sbb-link-list horizontal-from="large">
-    <sbb-link href="#" text-size="xs">Refunds</sbb-link>
-    <sbb-link href="#" text-size="xs">Lost property office</sbb-link>
-    <sbb-link href="#" text-size="xs">Complaints</sbb-link>
-    <sbb-link href="#" text-size="xs">Praise</sbb-link>
-    <sbb-link href="#" text-size="xs">Report property damage</sbb-link>
+  <sbb-link-list size="xs" horizontal-from="large">
+    <sbb-link href="#">Refunds</sbb-link>
+    <sbb-link href="#">Lost property office</sbb-link>
+    <sbb-link href="#">Complaints</sbb-link>
+    <sbb-link href="#">Praise</sbb-link>
+    <sbb-link href="#">Report property damage</sbb-link>
   </sbb-link-list>
 
 </sbb-footer>

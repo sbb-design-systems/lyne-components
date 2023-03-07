@@ -1,4 +1,6 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, Watch } from '@stencil/core';
+import { InterfaceButtonAttributes } from '../sbb-button/sbb-button.custom';
+import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 import { InterfaceSbbActionGroupAttributes } from './sbb-action-group.custom';
 
 /**
@@ -29,10 +31,42 @@ export class SbbActionGroup {
   @Prop({ reflect: true }) public orientation: InterfaceSbbActionGroupAttributes['orientation'] =
     'horizontal';
 
+  /**
+   * Size of the nested sbb-button instances. This will overwrite the size attribute of nested
+   * sbb-button instances.
+   */
+  @Prop({ reflect: true }) public buttonSize?: InterfaceButtonAttributes['size'] = 'l';
+
+  /**
+   * Size of the nested sbb-link instances. This will overwrite the size attribute of nested
+   * sbb-link instances.
+   */
+  @Prop({ reflect: true }) public linkSize?: InterfaceLinkAttributes['size'] = 'm';
+
+  @Element() private _element!: HTMLElement;
+
+  @Watch('buttonSize')
+  public syncButtons(): void {
+    this._element.querySelectorAll('sbb-button').forEach((b) => (b.size = this.buttonSize));
+  }
+
+  @Watch('linkSize')
+  public syncLinks(): void {
+    this._element.querySelectorAll('sbb-link').forEach((link) => {
+      link.variant = 'block';
+      link.size = this.linkSize;
+    });
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-action-group">
-        <slot />
+        <slot
+          onSlotchange={() => {
+            this.syncButtons();
+            this.syncLinks();
+          }}
+        />
       </div>
     );
   }

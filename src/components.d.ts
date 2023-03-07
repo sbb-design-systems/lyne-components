@@ -7,11 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 import { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
+import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
-import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
@@ -24,7 +25,6 @@ import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-acti
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -48,11 +48,12 @@ import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.cu
 import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
+export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 export { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
-export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 export { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
@@ -65,7 +66,6 @@ export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-acti
 export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -126,9 +126,17 @@ export namespace Components {
          */
         "alignGroup": InterfaceSbbActionGroupAttributes['alignGroup'];
         /**
+          * Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.
+         */
+        "buttonSize"?: InterfaceButtonAttributes['size'];
+        /**
           * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "linkSize"?: InterfaceLinkAttributes['size'];
         /**
           * Indicates the orientation of the components inside the `<sbb-action-group>`.
          */
@@ -817,13 +825,13 @@ export namespace Components {
          */
         "rel"?: string | undefined;
         /**
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
+         */
+        "size": InterfaceLinkAttributes['size'];
+        /**
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
-         */
-        "textSize": InterfaceLinkAttributes['textSize'];
         /**
           * The type attribute to use for the button.
          */
@@ -843,13 +851,17 @@ export namespace Components {
          */
         "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * Negative coloring variant flag.
+          * Whether to render the link list and nested sbb-link instances as negative. This will overwrite the negative attribute of nested sbb-link instances.
          */
         "negative": boolean;
         /**
           * The orientation in which the list will be shown vertical or horizontal.
          */
         "orientation": InterfaceLinkListAttributes['orientation'];
+        /**
+          * Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "size": InterfaceLinkAttributes['size'];
         /**
           * The title text we want to show before the list.
          */
@@ -2317,9 +2329,17 @@ declare namespace LocalJSX {
          */
         "alignGroup"?: InterfaceSbbActionGroupAttributes['alignGroup'];
         /**
+          * Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.
+         */
+        "buttonSize"?: InterfaceButtonAttributes['size'];
+        /**
           * Overrides the behaviour of `orientation` property.
          */
         "horizontalFrom"?: InterfaceSbbActionGroupAttributes['horizontalFrom'];
+        /**
+          * Size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "linkSize"?: InterfaceLinkAttributes['size'];
         /**
           * Indicates the orientation of the components inside the `<sbb-action-group>`.
          */
@@ -3040,13 +3060,13 @@ declare namespace LocalJSX {
          */
         "rel"?: string | undefined;
         /**
+          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
+         */
+        "size"?: InterfaceLinkAttributes['size'];
+        /**
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
-        /**
-          * Text size, the link should get in the non-button variation. With inline variant, the text size adapts to where it is used.
-         */
-        "textSize"?: InterfaceLinkAttributes['textSize'];
         /**
           * The type attribute to use for the button.
          */
@@ -3066,13 +3086,17 @@ declare namespace LocalJSX {
          */
         "horizontalFrom"?: InterfaceLinkListAttributes['horizontalFromBreakpoint'];
         /**
-          * Negative coloring variant flag.
+          * Whether to render the link list and nested sbb-link instances as negative. This will overwrite the negative attribute of nested sbb-link instances.
          */
         "negative"?: boolean;
         /**
           * The orientation in which the list will be shown vertical or horizontal.
          */
         "orientation"?: InterfaceLinkListAttributes['orientation'];
+        /**
+          * Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "size"?: InterfaceLinkAttributes['size'];
         /**
           * The title text we want to show before the list.
          */

@@ -136,24 +136,22 @@ const actionGroup = (negative) => (
     align-group="stretch"
     orientation="vertical"
     horizontal-from="medium"
+    size="m"
   >
     <sbb-link
-      variant="block"
-      text-size="s"
       align-self="start"
       icon-name="chevron-small-left-small"
-      icon-placement="start"
       href="https://www.sbb.ch/en/"
       negative={negative}
       sbb-dialog-close
     >
       Link
     </sbb-link>
-    <sbb-button size="m" variant="secondary" sbb-dialog-close>
+    <sbb-button variant="secondary" sbb-dialog-close>
       Cancel
     </sbb-button>
-    <sbb-button size="m" variant="primary" sbb-dialog-close>
-      Button
+    <sbb-button variant="primary" sbb-dialog-close>
+      Confirm
     </sbb-button>
   </sbb-action-group>
 );
