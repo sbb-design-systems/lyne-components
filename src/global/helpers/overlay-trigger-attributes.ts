@@ -4,7 +4,7 @@
  */
 export function setAriaOverlayTriggerAttributes(
   trigger: HTMLElement,
-  popupType: 'menu' | 'dialog' | 'listbox',
+  popupType: 'menu' | 'dialog',
   overlayId: string,
   state: string
 ): void {
@@ -27,5 +27,41 @@ export function removeAriaOverlayTriggerAttributes(trigger: HTMLElement): void {
 
   trigger.removeAttribute('aria-haspopup');
   trigger.removeAttribute('aria-controls');
+  trigger.removeAttribute('aria-expanded');
+}
+
+/**
+ * Add meaningful aria attributes to trigger element of role='combobox'
+ */
+export function setAriaComboBoxAttributes(
+  trigger: HTMLElement,
+  overlayId: string,
+  expanded: boolean
+): void {
+  if (!trigger) {
+    return;
+  }
+
+  trigger.setAttribute('autocomplete', 'off');
+  trigger.setAttribute('role', 'combobox');
+  trigger.setAttribute('aria-autocomplete', 'list');
+  trigger.setAttribute('aria-haspopup', 'listbox');
+  trigger.setAttribute('aria-owns', overlayId);
+  trigger.setAttribute('aria-expanded', `${expanded}`);
+}
+
+/**
+ * Remove aria attributes from trigger elements.
+ */
+export function removeAriaComboBoxAttributes(trigger: HTMLElement): void {
+  if (!trigger) {
+    return;
+  }
+
+  trigger.removeAttribute('autocomplete');
+  trigger.removeAttribute('role');
+  trigger.removeAttribute('aria-autocomplete');
+  trigger.removeAttribute('aria-haspopup');
+  trigger.removeAttribute('aria-owns');
   trigger.removeAttribute('aria-expanded');
 }

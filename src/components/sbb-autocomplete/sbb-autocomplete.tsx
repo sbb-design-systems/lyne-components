@@ -17,8 +17,8 @@ import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { assignId } from '../../global/helpers/assign-id';
 import { hostContext } from '../../global/helpers/host-context';
 import {
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
+  removeAriaComboBoxAttributes,
+  setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionSelectionChange } from './sbb-autocomplete.custom';
@@ -432,6 +432,7 @@ export class SbbAutocomplete implements ComponentInterface {
       activeElement.active = false;
     }
     this._activeItemIndex = -1;
+    this._triggerElement.removeAttribute('aria-activedescendant');
   }
 
   /**
@@ -455,24 +456,11 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _setTriggerAttributes(element: HTMLInputElement): void {
-    setAriaOverlayTriggerAttributes(
-      element,
-      'listbox',
-      this._element.id || this._overlayId,
-      this._state
-    );
-    element?.setAttribute('autocomplete', 'off');
-    element?.setAttribute('role', 'combobox');
-    element?.setAttribute('aria-autocomplete', 'list');
-    element?.setAttribute('aria-owns', this._element.id || this._overlayId);
+    setAriaComboBoxAttributes(element, this._element.id || this._overlayId, false);
   }
 
   private _removeTriggerAttributes(element: HTMLInputElement): void {
-    removeAriaOverlayTriggerAttributes(element);
-    element?.removeAttribute('autocomplete');
-    element?.removeAttribute('role');
-    element?.removeAttribute('aria-autocomplete');
-    element?.removeAttribute('aria-owns');
+    removeAriaComboBoxAttributes(element);
   }
 
   public render(): JSX.Element {
