@@ -1,0 +1,47 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-selection-panel-background: var(--sbb-color-milk-default);
+}
+
+.sbb-selection-panel {
+  position: relative;
+  background-color: var(--sbb-selection-panel-background);
+  border-radius: var(--sbb-border-radius-4x);
+}
+
+.sbb-selection-panel__badge {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--sbb-border-radius-4x);
+  overflow: hidden;
+}
+
+.sbb-selection-panel__content {
+  display: none;
+  border-top: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  margin-inline: var(--sbb-spacing-responsive-xxs);
+  padding-block-start: var(--sbb-spacing-responsive-xxs);
+  padding-block-end: var(--sbb-spacing-responsive-xs);
+
+  :host([data-has-content][checked]) & {
+    display: block;
+  }
+}
+
+::slotted(sbb-radio-button),
+::slotted(sbb-checkbox) {
+  cursor: pointer;
+  display: block;
+  padding: var(--sbb-spacing-responsive-xs) var(--sbb-spacing-responsive-xxs);
+
+  :host([data-has-content][checked]) & {
+    padding-block-end: var(--sbb-spacing-responsive-xxs);
+  }
+}
