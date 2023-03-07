@@ -230,7 +230,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     this._element.setAttribute(
       'data-autocomplete-origin-borderless',
-      `${this._originElement.hasAttribute('borderless')}`
+      `${anchorElem.hasAttribute('borderless')}`
     );
 
     this._originElement = anchorElem;
@@ -415,6 +415,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Activate the next
     nextActiveOption.active = true;
     this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+    nextActiveOption.scrollIntoView({block: 'nearest'});
 
     // Reset the previous
     if (lastActiveOption) {
