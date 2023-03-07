@@ -21,7 +21,16 @@ const disableAnimation = {
   },
 };
 
-const disableInput = {
+const checkedInput = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input',
+  },
+};
+
+const disabledInput = {
   control: {
     type: 'boolean',
   },
@@ -34,200 +43,105 @@ const basicArgTypes = {
   color: color,
   'force-open': forceOpen,
   'disable-animation': disableAnimation,
-  disableInput,
+  checkedInput,
+  disabledInput,
 };
 
 const basicArgs = {
   color: color.options[0],
   'force-open': false,
   'disable-animation': isChromatic(),
-  disableInput: false,
+  checkedInput: false,
+  disabledInput: false,
 };
 
-const WithCheckboxTemplate = ({ disableInput, ...args }) => (
+const cardbadge = () => (
+  <sbb-card-badge slot="badge">
+    <div slot="generic">
+      <span>%</span>
+    </div>
+  </sbb-card-badge>
+);
+
+const innerContent = () => (
+  <div slot="content">
+    Inner Content
+    <sbb-link
+      text-size="s"
+      variant="block"
+      icon-name="chevron-small-right-small"
+      icon-placement="end"
+      sbb-tooltip-close
+    >
+      Link
+    </sbb-link>
+  </div>
+);
+
+const WithCheckboxTemplate = ({ checkedInput, disabledInput, ...args }) => (
   <sbb-selection-panel {...args}>
-    <sbb-card-badge slot="badge">
-      <div slot="generic">
-        <span>%</span>
-      </div>
-    </sbb-card-badge>
-    <sbb-checkbox checked disabled={disableInput}>
+    {cardbadge()}
+    <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
       Value one
     </sbb-checkbox>
-    <div slot="content">
-      Inner Content{' '}
-      <sbb-link
-        text-size="s"
-        variant="block"
-        icon-name="chevron-small-right-small"
-        icon-placement="end"
-        sbb-tooltip-close
-      >
-        Link
-      </sbb-link>
-    </div>
+    {innerContent()}
   </sbb-selection-panel>
 );
 
-const WithRadioButtonTemplate = ({ disableInput, ...args }) => (
+const WithRadioButtonTemplate = ({ checkedInput, disabledInput, ...args }) => (
   <sbb-selection-panel {...args}>
-    <sbb-card-badge slot="badge">
-      <div slot="generic">
-        <span>%</span>
-      </div>
-    </sbb-card-badge>
-    <sbb-radio-button value="Value one" disabled={disableInput}>
+    {cardbadge()}
+    <sbb-radio-button value="Value one" checked={checkedInput} disabled={disabledInput}>
       Value one
     </sbb-radio-button>
-    <div slot="content">
-      Inner Content{' '}
-      <sbb-link
-        text-size="s"
-        variant="block"
-        icon-name="chevron-small-right-small"
-        icon-placement="end"
-        sbb-tooltip-close
-      >
-        Link
-      </sbb-link>
-    </div>
+    {innerContent()}
   </sbb-selection-panel>
 );
 
-const WithCheckboxGroupTemplate = ({ disableInput, ...args }) => (
+const WithCheckboxGroupTemplate = ({ checkedInput, disabledInput, ...args }) => (
   <sbb-checkbox-group orientation="vertical" horizontal-from="small">
     <sbb-selection-panel {...args}>
-      <sbb-card-badge slot="badge">
-        <div slot="generic">
-          <span>%</span>
-        </div>
-      </sbb-card-badge>
-      <sbb-checkbox checked>Value one</sbb-checkbox>
-      <div slot="content">
-        Inner Content{' '}
-        <sbb-link
-          text-size="s"
-          variant="block"
-          icon-name="chevron-small-right-small"
-          icon-placement="end"
-          sbb-tooltip-close
-        >
-          Link
-        </sbb-link>
-      </div>
+      {cardbadge()}
+      <sbb-checkbox checked={checkedInput}>Value one</sbb-checkbox>
+      {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
-      <sbb-card-badge slot="badge">
-        <div slot="generic">
-          <span>%</span>
-        </div>
-      </sbb-card-badge>
-      <sbb-checkbox disabled={disableInput}>Value two</sbb-checkbox>
-      <div slot="content">
-        Inner Content{' '}
-        <sbb-link
-          text-size="s"
-          variant="block"
-          icon-name="chevron-small-right-small"
-          icon-placement="end"
-          sbb-tooltip-close
-        >
-          Link
-        </sbb-link>
-      </div>
+      {cardbadge()}
+      <sbb-checkbox disabled={disabledInput}>Value two</sbb-checkbox>
+      {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
-      <sbb-card-badge slot="badge">
-        <div slot="generic">
-          <span>%</span>
-        </div>
-      </sbb-card-badge>
+      {cardbadge()}
       <sbb-checkbox>Value three</sbb-checkbox>
-      <div slot="content">
-        Inner Content{' '}
-        <sbb-link
-          text-size="s"
-          variant="block"
-          icon-name="chevron-small-right-small"
-          icon-placement="end"
-          sbb-tooltip-close
-        >
-          Link
-        </sbb-link>
-      </div>
+      {innerContent()}
     </sbb-selection-panel>
   </sbb-checkbox-group>
 );
 
-const WithRadioButtonGroupTemplate = ({ disableInput, ...args }) => (
+const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) => (
   <sbb-radio-button-group orientation="vertical" horizontal-from="small">
     <sbb-selection-panel {...args}>
-      <sbb-card-badge slot="badge">
-        <div slot="generic">
-          <span>%</span>
-        </div>
-      </sbb-card-badge>
-      <sbb-radio-button value="Value one" checked>
+      {cardbadge()}
+      <sbb-radio-button value="Value one" checked={checkedInput}>
         Value one
       </sbb-radio-button>
-      <div slot="content">
-        Inner Content{' '}
-        <sbb-link
-          text-size="s"
-          variant="block"
-          icon-name="chevron-small-right-small"
-          icon-placement="end"
-          sbb-tooltip-close
-        >
-          Link
-        </sbb-link>
-      </div>
+      {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
-      <sbb-card-badge slot="badge">
-        <div slot="generic">
-          <span>%</span>
-        </div>
-      </sbb-card-badge>
-      <sbb-radio-button value="Value two" disabled={disableInput}>
+      {cardbadge()}
+      <sbb-radio-button value="Value two" disabled={disabledInput}>
         Value two
       </sbb-radio-button>
-      <div slot="content">
-        Inner Content{' '}
-        <sbb-link
-          text-size="s"
-          variant="block"
-          icon-name="chevron-small-right-small"
-          icon-placement="end"
-          sbb-tooltip-close
-        >
-          Link
-        </sbb-link>
-      </div>
+      {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
-      <sbb-card-badge slot="badge">
-        <div slot="generic">
-          <span>%</span>
-        </div>
-      </sbb-card-badge>
+      {cardbadge()}
       <sbb-radio-button value="Value three">Value three</sbb-radio-button>
-      <div slot="content">
-        Inner Content{' '}
-        <sbb-link
-          text-size="s"
-          variant="block"
-          icon-name="chevron-small-right-small"
-          icon-placement="end"
-          sbb-tooltip-close
-        >
-          Link
-        </sbb-link>
-      </div>
+      {innerContent()}
     </sbb-selection-panel>
   </sbb-radio-button-group>
 );
@@ -252,13 +166,55 @@ export const WithRadioButon = WithRadioButtonTemplate.bind({});
 WithRadioButon.argTypes = basicArgTypes;
 WithRadioButon.args = { ...basicArgs };
 
+export const WithCheckboxChecked = WithCheckboxTemplate.bind({});
+WithCheckboxChecked.argTypes = basicArgTypes;
+WithCheckboxChecked.args = { ...basicArgs, checkedInput: true };
+
+export const WithRadioButtonChecked = WithRadioButtonTemplate.bind({});
+WithRadioButtonChecked.argTypes = basicArgTypes;
+WithRadioButtonChecked.args = { ...basicArgs, checkedInput: true };
+
+export const WithCheckboxDisabled = WithCheckboxTemplate.bind({});
+WithCheckboxDisabled.argTypes = basicArgTypes;
+WithCheckboxDisabled.args = { ...basicArgs, disabledInput: true };
+
+export const WithRadioButtonDisabled = WithRadioButtonTemplate.bind({});
+WithRadioButtonDisabled.argTypes = basicArgTypes;
+WithRadioButtonDisabled.args = { ...basicArgs, disabledInput: true };
+
+export const WithCheckboxCheckedDisabled = WithCheckboxTemplate.bind({});
+WithCheckboxCheckedDisabled.argTypes = basicArgTypes;
+WithCheckboxCheckedDisabled.args = { ...basicArgs, checkedInput: true, disabledInput: true };
+
+export const WithRadioButtonCheckedDisabled = WithRadioButtonTemplate.bind({});
+WithRadioButtonCheckedDisabled.argTypes = basicArgTypes;
+WithRadioButtonCheckedDisabled.args = { ...basicArgs, checkedInput: true, disabledInput: true };
+
 export const WithCheckboxGroup = WithCheckboxGroupTemplate.bind({});
 WithCheckboxGroup.argTypes = basicArgTypes;
-WithCheckboxGroup.args = { ...basicArgs };
+WithCheckboxGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
 
 export const WithRadioButonGroup = WithRadioButtonGroupTemplate.bind({});
 WithRadioButonGroup.argTypes = basicArgTypes;
-WithRadioButonGroup.args = { ...basicArgs };
+WithRadioButonGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
+
+export const WithCheckboxGroupMilk = WithCheckboxGroupTemplate.bind({});
+WithCheckboxGroupMilk.argTypes = basicArgTypes;
+WithCheckboxGroupMilk.args = {
+  ...basicArgs,
+  color: color.options[1],
+  checkedInput: true,
+  disabledInput: true,
+};
+
+export const WithRadioButonGroupMilk = WithRadioButtonGroupTemplate.bind({});
+WithRadioButonGroupMilk.argTypes = basicArgTypes;
+WithRadioButonGroupMilk.args = {
+  ...basicArgs,
+  color: color.options[1],
+  checkedInput: true,
+  disabledInput: true,
+};
 
 export default {
   decorators: [
@@ -270,7 +226,7 @@ export default {
   ],
   parameters: {
     actions: {
-      // handles: [events.click],
+      // handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
     },
     backgrounds: {
       disable: true,
