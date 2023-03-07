@@ -22,6 +22,7 @@ import {
 } from '../../global/helpers/overlay-trigger-attributes';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionSelectionChange } from './sbb-autocomplete.custom';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -37,35 +38,27 @@ let nextId = 0;
 })
 export class SbbAutocomplete implements ComponentInterface {
   /**
-   * The element where the autocomplete will attach.
-   * Accepts both a string (id of an element) or an HTML element.
+   * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.
    *
-   * If not set, will search for the first 'sbb-form-field' ancestor
+   * If not set, will search for the first 'sbb-form-field' ancestor.
    */
   @Prop() public origin: string | HTMLElement;
 
   /**
-   * The element that will trigger the autocomplete opening.
-   * Accepts both a string (id of an element) or an HTML element.
+   * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element.
    * By default, the autocomplete will open on focus of the 'trigger' element.
    *
-   * If not set, will search for the first 'input' child of 'origin'
+   * If not set, will search for the first 'input' child of 'origin'.
    */
   @Prop() public trigger: string | HTMLInputElement;
 
-  /**
-   * Whether the animation is enabled.
-   */
+  /** Whether the animation is disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
-  /**
-   * The state of the autocomplete.
-   */
+  /** The state of the autocomplete. */
   @State() private _state: SbbAutocompleteState = 'closed';
 
-  /**
-   * Emits whenever the autocomplete starts the opening transition.
-   */
+  /** Emits whenever the autocomplete starts the opening transition. */
   @Event({
     bubbles: true,
     composed: true,
@@ -73,9 +66,7 @@ export class SbbAutocomplete implements ComponentInterface {
   })
   public willOpen: EventEmitter<void>;
 
-  /**
-   * Emits whenever the autocomplete is opened.
-   */
+  /** Emits whenever the autocomplete is opened. */
   @Event({
     bubbles: true,
     composed: true,
@@ -83,9 +74,7 @@ export class SbbAutocomplete implements ComponentInterface {
   })
   public didOpen: EventEmitter<void>;
 
-  /**
-   * Emits whenever the autocomplete begins the closing transition.
-   */
+  /** Emits whenever the autocomplete begins the closing transition. */
   @Event({
     bubbles: true,
     composed: true,
@@ -93,9 +82,7 @@ export class SbbAutocomplete implements ComponentInterface {
   })
   public willClose: EventEmitter<void>;
 
-  /**
-   * Emits whenever the autocomplete is closed.
-   */
+  /** Emits whenever the autocomplete is closed. */
   @Event({
     bubbles: true,
     composed: true,
@@ -118,9 +105,7 @@ export class SbbAutocomplete implements ComponentInterface {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
   }
 
-  /**
-   * Opens the autocomplete.
-   */
+  /** Opens the autocomplete. */
   @Method()
   public async open(): Promise<void> {
     if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
@@ -130,13 +115,10 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-    this._originElement?.setAttribute('data-autocomplete-open', 'true');
+    toggleDatasetEntry(this._originElement, 'autocompleteOpen', true);
   }
 
-  /**
-   * Closes the autocomplete.
-   */
-
+  /** Closes the autocomplete. */
   @Method()
   public async close(): Promise<void> {
     if (this._state !== 'opened') {
@@ -148,27 +130,23 @@ export class SbbAutocomplete implements ComponentInterface {
     this._openPanelEventsController.abort();
   }
 
-  // Removes trigger click listener on trigger change.
+  /** Removes trigger click listener on trigger change. */
   @Watch('origin')
   public removeTriggerClickListener(
     newValue: string | HTMLElement,
     oldValue: string | HTMLElement
   ): void {
     if (newValue !== oldValue) {
-      this._setUp();
+      this._componentSetup();
     }
   }
 
-  /**
-   * When an option is selected, update the input value and close the autocomplete
-   */
+  /** When an option is selected, update the input value and close the autocomplete. */
   @Listen('option-did-select')
   public onOptionSelected(event: CustomEvent<SbbOptionSelectionChange>): void {
-    const selectedOptionId = event.detail.id;
-
     // Deselect the previous options
     this._options
-      .filter((option) => option.id !== selectedOptionId)
+      .filter((option) => option.id !== event.detail.id)
       .forEach((option) => option.deselect());
 
     // Set the option value
@@ -178,14 +156,15 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._setUp();
+    this._componentSetup();
   }
 
   public disconnectedCallback(): void {
+    this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
   }
 
-  private _setUp(): void {
+  private _componentSetup(): void {
     this._triggerEventsController?.abort();
     this._openPanelEventsController?.abort();
 
@@ -194,8 +173,8 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /**
-   * Retrieve the element where the autocomplete will be attached
-   * @returns 'anchor' or the first 'sbb-form-field' ancestor
+   * Retrieve the element where the autocomplete will be attached.
+   * @returns 'anchor' or the first 'sbb-form-field' ancestor.
    */
   private _getOriginElement(): HTMLElement {
     if (!this.origin) {
@@ -206,8 +185,8 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /**
-   * Retrieve the element that will trigger the autocomplete opening
-   * @returns 'trigger' or the first 'input' inside the origin element
+   * Retrieve the element that will trigger the autocomplete opening.
+   * @returns 'trigger' or the first 'input' inside the origin element.
    */
   private _getTriggerElement(): HTMLInputElement {
     if (!this.trigger) {
@@ -228,9 +207,10 @@ export class SbbAutocomplete implements ComponentInterface {
     this._removeOriginAttributes(this._originElement);
     this._setOriginAttributes(anchorElem);
 
-    this._element.setAttribute(
-      'data-autocomplete-origin-borderless',
-      `${anchorElem.hasAttribute('borderless')}`
+    toggleDatasetEntry(
+      this._element,
+      'autocompleteOriginBorderless',
+      this._originElement.hasAttribute('borderless')
     );
 
     this._originElement = anchorElem;
@@ -263,7 +243,9 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => {
-        if (event.key === 'ArrowDown') this.open();
+        if (event.key === 'ArrowDown') {
+          this.open();
+        }
       },
       {
         signal: this._triggerEventsController.signal,
@@ -308,18 +290,16 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
-  /**
-   * On open/close animation end
-   */
+  /** On open/close animation end. */
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
-      this._onOpenAnimatinoEnd();
+      this._onOpenAnimationEnd();
     } else if (event.animationName === 'close') {
       this._onCloseAnimationEnd();
     }
   }
 
-  private _onOpenAnimatinoEnd(): void {
+  private _onOpenAnimationEnd(): void {
     this._state = 'opened';
     this._attachOpenPanelEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -329,7 +309,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
-    this._originElement?.setAttribute('data-autocomplete-open', 'false');
+    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
     this._resetActiveElement();
     this.didClose.emit();
   }
@@ -435,18 +415,16 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.removeAttribute('aria-activedescendant');
   }
 
-  /**
-   * Projects the search term on the options
-   */
+  /** Projects the search term on the options. */
   private _highlightOptions(searchTerm: string): void {
     this._options.forEach((option) => (option.highlightString = searchTerm));
   }
 
   private _setOriginAttributes(element: HTMLElement): void {
-    // This attributes are used to handle visual effects
-    element.setAttribute('data-autocomplete-origin', 'true');
-    element.setAttribute('data-autocomplete-open', 'false');
-    element.setAttribute('data-autocomplete-disable-animation', `${this.disableAnimation}`);
+    // These attributes are used to handle visual effects
+    toggleDatasetEntry(element, 'dataAutocompleteOrigin', true);
+    toggleDatasetEntry(element, 'dataAutocompleteOpen', false);
+    toggleDatasetEntry(element, 'dataAutocompleteDisableAnimation', this.disableAnimation);
   }
 
   private _removeOriginAttributes(element: HTMLElement): void {
