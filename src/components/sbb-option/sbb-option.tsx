@@ -43,10 +43,10 @@ export class SbbOption implements ComponentInterface {
   @Prop() public iconName?: string;
 
   /** Whether the icon space is preserved when no icon is set. */
-  @Prop({ reflect: true }) public preserveIconSpace = true;
+  @Prop({ reflect: true }) public preserveIconSpace: boolean;
 
   /** Whether the option is currently active. */
-  @Prop() public active?: boolean;
+  @Prop({ reflect: true }) public active?: boolean;
 
   /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
   @Prop() public disabled?: boolean;
@@ -168,8 +168,7 @@ export class SbbOption implements ComponentInterface {
     return (
       <Host
         role="option"
-        tabindex="0"
-        data-active={this.active}
+        tabindex={this.disabled ? '-1' : '0'}
         aria-disabled={this.disabled}
         aria-selected={this._selected}
         ref={assignId(() => this._optionId)}

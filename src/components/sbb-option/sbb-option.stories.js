@@ -20,8 +20,9 @@ const active = {
 };
 
 const preserveIconSpace = {
-  control: 'inline-radio',
-  options: ['false', 'true'],
+  control: {
+    type: 'boolean',
+  },
 };
 
 const defaultArgTypes = {
