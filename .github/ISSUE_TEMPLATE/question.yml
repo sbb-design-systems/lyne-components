@@ -1,7 +1,7 @@
-name: Feature request or enhancement
-description: Request for a new component or enhancement of a component
-title: '[Feature request]: '
-labels: ['type: feature-request 💡']
+name: Question
+description: Ask a question to our developers and user experience architects
+title: '[Question]: '
+labels: 'type: question ❓'
 assignees:
   - octocat
 body:
@@ -19,16 +19,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Please describe your idea in as much detail as possible.
-  - type: dropdown
-    id: new-or-enhancement
-    attributes:
-      label: Request type
-      options:
-        - 'Request for a new component'
-        - 'Request for enhancement of a component'
-    validations:
-      required: true
+        ## Your question
   - type: dropdown
     id: component-or-design-token
     attributes:
@@ -40,17 +31,22 @@ body:
         - 'Other'
     validations:
       required: true
-  - type: textarea
-    id: request
+  - type: input
+    id: question
     attributes:
-      label: Functionality
-      description: For what purpose is the component used? What features does it need to have? Which component should be enhanced?
+      label: Your Question
     validations:
       required: true
-  - type: input
-    id: link
+  - type: textarea
+    id: relevant-information
     attributes:
-      label: Link to design proposal file
-      description: Figma-Link
+      label: Give us a summary about your question
+    validations:
+      required: false
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Provide as much useful information as you can
+      description: e.g. Links to Figma or other references
     validations:
       required: false
