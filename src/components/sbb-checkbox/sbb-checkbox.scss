@@ -164,13 +164,13 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
-  :host(:not([data-within-selection-panel])) & {
+  :host(:not([data-is-selection-panel-input])) & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
-  :host([data-within-selection-panel]) & {
+  :host([data-is-selection-panel-input]) & {
     &::before {
       content: '';
       position: absolute;

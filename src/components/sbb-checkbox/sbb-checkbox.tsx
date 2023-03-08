@@ -79,15 +79,14 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
   @State() private _requiredFromGroup = false;
 
-  /** Whether the radio button is nested inside a selection panel. */
-  @State() private _withinSelectionPanel = false;
-
   private _checkbox: HTMLInputElement;
 
   /** MutationObserver on data attributes. */
   private _checkboxAttributeObserver = new MutationObserver(
     this._onCheckboxAttributesChange.bind(this)
   );
+  private _isSelectionPanelInput = false;
+  private _withinSelectionPanel = false;
 
   @Element() private _element: HTMLElement;
 
@@ -111,14 +110,14 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (this._withinSelectionPanel && currentValue !== previousValue) {
+    if (this._isSelectionPanelInput && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
     }
   }
 
   @Watch('disabled')
   public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (this._withinSelectionPanel && currentValue !== previousValue) {
+    if (this._isSelectionPanelInput && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
@@ -153,8 +152,9 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   public connectedCallback(): void {
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._withinSelectionPanel =
-      !!this._element.closest('sbb-selection-panel') && !this._element.closest('[slot="content"]');
+    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
+    this._isSelectionPanelInput =
+      this._withinSelectionPanel && !this._element.closest('[slot="content"]');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._setupInitialStateAndAttributeObserver();
@@ -183,7 +183,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   public render(): JSX.Element {
     return (
-      <Host data-within-selection-panel={this._withinSelectionPanel}>
+      <Host data-is-selection-panel-input={this._isSelectionPanelInput}>
         <span class="sbb-checkbox-wrapper">
           <label class="sbb-checkbox">
             <input
@@ -226,15 +226,15 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
               </span>
               <span class="sbb-checkbox__label">
                 <slot />
-                {(this.iconName || (this._namedSlots['icon'] && !this._withinSelectionPanel)) && (
+                {(this.iconName || (this._namedSlots['icon'] && !this._isSelectionPanelInput)) && (
                   <span class="sbb-checkbox__label--icon">
                     <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
                   </span>
                 )}
-                {this._namedSlots['suffix'] && <slot name="suffix" />}
+                {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
               </span>
             </span>
-            {this._namedSlots['subtext'] && <slot name="subtext" />}
+            {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
             <span data-selection-panel-expanded></span>
           </label>
         </span>

@@ -18,13 +18,13 @@
   );
 }
 
-:host(:focus-visible:not([data-within-selection-panel])) {
+:host(:focus-visible:not([data-is-selection-panel-input])) {
   @include sbb.focus-outline;
 
   border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }
 
-:host(:focus-visible[data-within-selection-panel]) {
+:host(:focus-visible[data-is-selection-panel-input]) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;

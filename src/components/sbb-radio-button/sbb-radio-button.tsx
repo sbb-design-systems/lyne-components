@@ -80,15 +80,12 @@ export class SbbRadioButton implements ComponentInterface {
   @State() private _requiredFromGroup = false;
 
   /**
-   * Whether the radio button is nested inside a selection panel.
-   */
-  @State() private _withinSelectionPanel = false;
-
-  /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @State() private _namedSlots = createNamedSlotState('subtext', 'suffix');
 
+  private _isSelectionPanelInput = false;
+  private _withinSelectionPanel = false;
   private _radioButtonAttributeObserver = new MutationObserver(
     this._onRadioButtonAttributesChange.bind(this)
   );
@@ -145,8 +142,9 @@ export class SbbRadioButton implements ComponentInterface {
 
   public connectedCallback(): void {
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._withinSelectionPanel =
-      !!this._element.closest('sbb-selection-panel') && !this._element.closest('[slot="content"]');
+    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
+    this._isSelectionPanelInput =
+      this._withinSelectionPanel && !this._element.closest('[slot="content"]');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._setupInitialStateAndAttributeObserver();
   }
@@ -184,7 +182,7 @@ export class SbbRadioButton implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host
-        data-within-selection-panel={this._withinSelectionPanel}
+        data-is-selection-panel-input={this._isSelectionPanelInput}
         /* eslint-disable jsx-a11y/aria-proptypes */
         aria-checked={`${this.checked}`}
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
@@ -205,9 +203,9 @@ export class SbbRadioButton implements ComponentInterface {
           />
           <span class="sbb-radio-button__label-slot">
             <slot />
-            {this._namedSlots['suffix'] && <slot name="suffix" />}
+            {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
-          {this._namedSlots['subtext'] && <slot name="subtext" />}
+          {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
           <span data-selection-panel-expanded></span>
         </label>
       </Host>
