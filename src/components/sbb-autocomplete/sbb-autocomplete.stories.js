@@ -22,9 +22,8 @@ const iconName = {
 
 const preserveIconSpace = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['false', 'true'],
   table: {
     category: 'Option',
   },
@@ -67,7 +66,7 @@ const defaultArgs = {
 
   // Option args
   iconName: 'clock-small',
-  preserveIconSpace: 'true',
+  preserveIconSpace: false,
   disableLabelHighlight: false,
 
   // Form field args

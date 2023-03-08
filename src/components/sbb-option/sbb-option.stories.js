@@ -36,7 +36,7 @@ const defaultArgs = {
   value: 'First value',
   'icon-name': 'clock-small',
   active: false,
-  'preserve-icon-space': 'true',
+  'preserve-icon-space': false,
 };
 
 const Template = ({ value, ...args }) => (
