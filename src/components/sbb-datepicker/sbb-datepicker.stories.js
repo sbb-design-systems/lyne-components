@@ -260,10 +260,6 @@ const changeEventHandler = async (event) => {
   document.getElementById('container-value').append(div);
 };
 
-export const WithoutFormField = Template.bind({});
-WithoutFormField.argTypes = { ...basicArgTypes };
-WithoutFormField.args = { ...basicArgs };
-
 export const InFormField = TemplateFormField.bind({});
 InFormField.argTypes = { ...formFieldBasicArgsTypes };
 InFormField.args = { ...formFieldBasicArgs };
@@ -303,6 +299,10 @@ InFormFieldOptional.args = { ...formFieldBasicArgs, optional: true };
 export const InFormFieldBorderless = TemplateFormField.bind({});
 InFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldBorderless.args = { ...formFieldBasicArgs, borderless: true };
+
+export const WithoutFormField = Template.bind({});
+WithoutFormField.argTypes = { ...basicArgTypes };
+WithoutFormField.args = { ...basicArgs };
 
 export default {
   decorators: [
