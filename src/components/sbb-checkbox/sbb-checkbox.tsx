@@ -10,6 +10,7 @@ import {
   EventEmitter,
   Event,
   Watch,
+  Host,
 } from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
@@ -25,7 +26,6 @@ import {
 import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -79,6 +79,9 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
   @State() private _requiredFromGroup = false;
 
+  /** Whether the radio button is nested inside a selection panel. */
+  @State() private _withinSelectionPanel = false;
+
   private _checkbox: HTMLInputElement;
 
   /** MutationObserver on data attributes. */
@@ -89,7 +92,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   @Element() private _element: HTMLElement;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @State() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -108,14 +111,14 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
+    if (this._withinSelectionPanel && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
     }
   }
 
   @Watch('disabled')
   public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
+    if (this._withinSelectionPanel && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
@@ -149,12 +152,8 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   }
 
   public connectedCallback(): void {
-    toggleDatasetEntry(
-      this._element,
-      'withinSelectionPanel',
-      // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-      !!this._element.closest('sbb-selection-panel')
-    );
+    // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
+    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._setupInitialStateAndAttributeObserver();
@@ -183,57 +182,61 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   public render(): JSX.Element {
     return (
-      <span class="sbb-checkbox-wrapper">
-        <label class="sbb-checkbox">
-          <input
-            ref={(checkbox: HTMLInputElement) => {
-              this._checkbox = checkbox;
-              // Forward indeterminate state to native input. As it is only a property, we have to set it programatically.
-              this._checkbox.indeterminate = this.indeterminate;
-            }}
-            type="checkbox"
-            disabled={this.disabled || this._disabledFromGroup}
-            aria-disabled={this.disabled || this._disabledFromGroup}
-            required={this.required || this._requiredFromGroup}
-            checked={this.checked}
-            value={this.value}
-            {...getAccessibilityAttributeList(this)}
-            onChange={(event: Event): void => this.checkedChanged(event)}
-          />
-          <span class="sbb-checkbox__inner">
-            <span class="sbb-checkbox__aligner">
-              <span class="sbb-checkbox__selection">
-                <span class="sbb-checkbox__icon">
-                  {(this.checked || this.indeterminate) && (
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  )}
+      <Host data-within-selection-panel={this._withinSelectionPanel}>
+        <span class="sbb-checkbox-wrapper">
+          <label class="sbb-checkbox">
+            <input
+              ref={(checkbox: HTMLInputElement) => {
+                this._checkbox = checkbox;
+                // Forward indeterminate state to native input. As it is only a property, we have to set it programatically.
+                this._checkbox.indeterminate = this.indeterminate;
+              }}
+              type="checkbox"
+              disabled={this.disabled || this._disabledFromGroup}
+              aria-disabled={this.disabled || this._disabledFromGroup}
+              required={this.required || this._requiredFromGroup}
+              checked={this.checked}
+              value={this.value}
+              {...getAccessibilityAttributeList(this)}
+              onChange={(event: Event): void => this.checkedChanged(event)}
+            />
+            <span class="sbb-checkbox__inner">
+              <span class="sbb-checkbox__aligner">
+                <span class="sbb-checkbox__selection">
+                  <span class="sbb-checkbox__icon">
+                    {(this.checked || this.indeterminate) && (
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </span>
                 </span>
               </span>
+              <span class="sbb-checkbox__label">
+                <slot />
+                {(this.iconName || (this._namedSlots['icon'] && !this._withinSelectionPanel)) && (
+                  <span class="sbb-checkbox__label--icon">
+                    <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+                  </span>
+                )}
+                {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
+              </span>
             </span>
-            <span class="sbb-checkbox__label">
-              <slot />
-              {(this.iconName || this._namedSlots.icon) && (
-                <span class="sbb-checkbox__label--icon">
-                  <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-                </span>
-              )}
-            </span>
-          </span>
-        </label>
-      </span>
+            {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
+          </label>
+        </span>
+      </Host>
     );
   }
 }

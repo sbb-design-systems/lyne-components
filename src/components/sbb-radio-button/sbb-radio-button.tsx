@@ -19,7 +19,11 @@ import {
   RadioButtonStateChange,
 } from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import {
+  createNamedSlotState,
+  queryAndObserveNamedSlotState,
+  queryNamedSlotState,
+} from '../../global/helpers/observe-named-slot-changes';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -76,6 +80,16 @@ export class SbbRadioButton implements ComponentInterface {
   @State() private _requiredFromGroup = false;
 
   /**
+   * Whether the radio button is nested inside a selection panel.
+   */
+  @State() private _withinSelectionPanel = false;
+
+  /**
+   * State of listed named slots, by indicating whether any element for a named slot is defined.
+   */
+  @State() private _namedSlots = createNamedSlotState('subtext', 'suffix');
+
+  /**
    * Emits whenever the radio group value changes.
    */
   @Event({
@@ -103,16 +117,21 @@ export class SbbRadioButton implements ComponentInterface {
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
+    if (this._withinSelectionPanel && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
     }
   }
 
   @Watch('disabled')
   public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
+    if (this._withinSelectionPanel && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
+  }
+
+  @Listen('sbbNamedSlotChange', { passive: true })
+  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
+    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   @Listen('click')
@@ -140,12 +159,9 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    toggleDatasetEntry(
-      this._element,
-      'withinSelectionPanel',
-      // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-      !!this._element.closest('sbb-selection-panel')
-    );
+    // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
+    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._setupInitialStateAndAttributeObserver();
   }
 
@@ -182,6 +198,7 @@ export class SbbRadioButton implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host
+        data-within-selection-panel={this._withinSelectionPanel}
         /* eslint-disable jsx-a11y/aria-proptypes */
         aria-checked={`${this.checked}`}
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
@@ -202,7 +219,9 @@ export class SbbRadioButton implements ComponentInterface {
           />
           <span class="sbb-radio-button__label-slot">
             <slot />
+            {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
+          {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
         </label>
       </Host>
     );

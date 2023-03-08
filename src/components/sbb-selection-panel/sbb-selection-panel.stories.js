@@ -56,6 +56,12 @@ const basicArgs = {
   disabledInput: false,
 };
 
+const suffixStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyConten: 'flex-end',
+};
+
 const cardbadge = () => (
   <sbb-card-badge slot="badge">
     <div slot="generic">
@@ -63,6 +69,18 @@ const cardbadge = () => (
     </div>
   </sbb-card-badge>
 );
+
+const suffixAndSubtext = () => [
+  <span slot="subtext">Subtext</span>,
+  <span slot="suffix" style="margin-inline-start: auto">
+    <span style={suffixStyle}>
+      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-1x)" />
+      <span class="sbb-text-m sbb-text--bold">
+        <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
+      </span>
+    </span>
+  </span>,
+];
 
 const innerContent = () => (
   <div slot="content">
@@ -84,6 +102,7 @@ const WithCheckboxTemplate = ({ checkedInput, disabledInput, ...args }) => (
     {cardbadge()}
     <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
       Value one
+      {suffixAndSubtext()}
     </sbb-checkbox>
     {innerContent()}
   </sbb-selection-panel>
@@ -94,39 +113,50 @@ const WithRadioButtonTemplate = ({ checkedInput, disabledInput, ...args }) => (
     {cardbadge()}
     <sbb-radio-button value="Value one" checked={checkedInput} disabled={disabledInput}>
       Value one
+      {suffixAndSubtext()}
     </sbb-radio-button>
     {innerContent()}
   </sbb-selection-panel>
 );
 
 const WithCheckboxGroupTemplate = ({ checkedInput, disabledInput, ...args }) => (
-  <sbb-checkbox-group orientation="vertical" horizontal-from="small">
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       {cardbadge()}
-      <sbb-checkbox checked={checkedInput}>Value one</sbb-checkbox>
+      <sbb-checkbox checked={checkedInput}>
+        Value one
+        {suffixAndSubtext()}
+      </sbb-checkbox>
       {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
       {cardbadge()}
-      <sbb-checkbox disabled={disabledInput}>Value two</sbb-checkbox>
+      <sbb-checkbox disabled={disabledInput}>
+        Value two
+        {suffixAndSubtext()}
+      </sbb-checkbox>
       {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
       {cardbadge()}
-      <sbb-checkbox>Value three</sbb-checkbox>
+      <sbb-checkbox>
+        Value three
+        {suffixAndSubtext()}
+      </sbb-checkbox>
       {innerContent()}
     </sbb-selection-panel>
   </sbb-checkbox-group>
 );
 
 const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) => (
-  <sbb-radio-button-group orientation="vertical" horizontal-from="small">
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       {cardbadge()}
       <sbb-radio-button value="Value one" checked={checkedInput}>
         Value one
+        {suffixAndSubtext()}
       </sbb-radio-button>
       {innerContent()}
     </sbb-selection-panel>
@@ -135,13 +165,17 @@ const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) 
       {cardbadge()}
       <sbb-radio-button value="Value two" disabled={disabledInput}>
         Value two
+        {suffixAndSubtext()}
       </sbb-radio-button>
       {innerContent()}
     </sbb-selection-panel>
 
     <sbb-selection-panel {...args}>
       {cardbadge()}
-      <sbb-radio-button value="Value three">Value three</sbb-radio-button>
+      <sbb-radio-button value="Value three">
+        Value three
+        {suffixAndSubtext()}
+      </sbb-radio-button>
       {innerContent()}
     </sbb-selection-panel>
   </sbb-radio-button-group>

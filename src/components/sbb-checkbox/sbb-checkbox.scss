@@ -11,6 +11,7 @@
   --sbb-checkbox-selection-color: var(--sbb-color-red-default);
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
+  --sbb-checkbox-subtext-color: var(--sbb-color-granite-default);
 
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: Canvas;
@@ -26,6 +27,7 @@
   --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);
   --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
   --sbb-checkbox-cursor: default;
+  --sbb-checkbox-subtext-color: var(--sbb-color-smoke-default);
 
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: Canvas;
@@ -47,6 +49,12 @@
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: GrayText;
   }
+}
+
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-checkbox-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
 }
 
 .sbb-checkbox-wrapper {

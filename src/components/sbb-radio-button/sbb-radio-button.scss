@@ -9,6 +9,7 @@
   --sbb-radio-button-background-color: var(--sbb-color-white-default);
   --sbb-radio-button-border: var(--sbb-border-width-1x);
   --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
+  --sbb-radio-button-subtext-color: var(--sbb-color-granite-default);
 
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
@@ -46,6 +47,7 @@
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
   --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
 }
 
 .sbb-radio-button__input {
@@ -72,9 +74,16 @@
   }
 }
 
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-radio-button-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
+}
+
 .sbb-radio-button__label-slot {
   display: flex;
   align-items: flex-start;
+  overflow: hidden;
 
   // Unchecked style
   &::before {
