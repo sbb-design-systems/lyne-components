@@ -48,7 +48,7 @@ function findLast(days: HTMLButtonElement[], lastOfCurrentMonth: number): HTMLBu
 }
 
 /**
- * Find the first enabled element in the same column the provided array.
+ * Find the first enabled element in the same column of the provided array.
  * @param days The array to search.
  * @param index The starting index.
  * @param offset The day's offset from the first month.
@@ -63,7 +63,7 @@ function findFirstOnColumn(
 }
 
 /**
- * Find the last enabled element in the same column the provided array.
+ * Find the last enabled element in the same column of the provided array.
  * @param days The array to search.
  * @param index The starting index.
  * @param offset The day's offset from the first month.

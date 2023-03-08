@@ -45,13 +45,13 @@ Calendar with selected date and bounds:
 
 ## Properties
 
-| Property       | Attribute       | Description                              | Type                       | Default      |
-| -------------- | --------------- | ---------------------------------------- | -------------------------- | ------------ |
-| `dateFilter`   | --              | A function used to filter out dates.     | `(date: Date) => boolean`  | `() => true` |
-| `max`          | `max`           | The maximum valid date.                  | `Date \| number \| string` | `undefined`  |
-| `min`          | `min`           | The minimum valid date.                  | `Date \| number \| string` | `undefined`  |
-| `selectedDate` | `selected-date` | The selected date.                       | `Date \| number \| string` | `undefined`  |
-| `wide`         | `wide`          | If set to true, two months are displayed | `boolean`                  | `false`      |
+| Property       | Attribute       | Description                                                                                                    | Type                       | Default      |
+| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------ |
+| `dateFilter`   | --              | A function used to filter out dates.                                                                           | `(date: Date) => boolean`  | `() => true` |
+| `max`          | `max`           | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). | `Date \| number \| string` | `undefined`  |
+| `min`          | `min`           | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). | `Date \| number \| string` | `undefined`  |
+| `selectedDate` | `selected-date` | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).      | `Date \| number \| string` | `undefined`  |
+| `wide`         | `wide`          | If set to true, two months are displayed                                                                       | `boolean`                  | `false`      |
 
 
 ## Events

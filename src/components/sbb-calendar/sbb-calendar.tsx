@@ -29,16 +29,16 @@ export class SbbCalendar implements ComponentInterface {
   /** If set to true, two months are displayed */
   @Prop() public wide = false;
 
-  /** The minimum valid date. */
+  /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). */
   @Prop() public min: Date | string | number;
 
-  /** The maximum valid date. */
+  /** The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). */
   @Prop() public max: Date | string | number;
 
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
-  /** The selected date. */
+  /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). */
   @Prop({ attribute: 'selected-date' }) public selectedDate: Date | string | number;
 
   /** Event emitted on date selection. */
@@ -50,7 +50,7 @@ export class SbbCalendar implements ComponentInterface {
   /** The selected date as ISOString. */
   @State() private _selected: string;
 
-  /** The current width */
+  /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @State() private _wide: boolean;
 
   /** Minimum value converted to date */
@@ -77,31 +77,40 @@ export class SbbCalendar implements ComponentInterface {
   /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks: Day[][];
 
+  private _calendarController: AbortController;
+
   @Watch('min')
-  public convertMinDate(newMin: Date | string | number): void {
+  private _convertMinDate(newMin: Date | string | number): void {
     this._min = this._dateAdapter.deserializeDate(newMin);
   }
 
   @Watch('max')
-  public convertMaxDate(newMax: Date | string | number): void {
+  private _convertMaxDate(newMax: Date | string | number): void {
     this._max = this._dateAdapter.deserializeDate(newMax);
   }
 
   @Watch('wide')
-  public changeWidthConfiguration(newValue: boolean): void {
-    this._setCalendarWidth(newValue);
+  private _setCalendarWidth(value: boolean): void {
+    this._wide = isBreakpoint('medium') && value;
   }
 
+  /** Sets the selected date. */
   @Watch('selectedDate')
-  public selectedDateChanged(newDate: Date | string | number): void {
-    this._setSelectedDate(this._dateAdapter.deserializeDate(newDate));
+  private _setSelectedDate(selectedDate: Date | null): void {
+    if (
+      !!selectedDate &&
+      (!this._isDayInRange(selectedDate.toISOString()) || this.dateFilter(selectedDate))
+    ) {
+      this._selected = new Date(selectedDate.setHours(0, 0, 0, 0)).toISOString();
+    } else {
+      this._selected = undefined;
+    }
   }
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day. */
   @Method()
   public async focusCell(): Promise<void> {
-    const toFocus = this._getFirstFocusable();
-    toFocus?.focus();
+    this._getFirstFocusable()?.focus();
   }
 
   /** Resets the active month according to the new state of the calendar. */
@@ -117,9 +126,13 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    window.addEventListener('resize', () => this._init(), { passive: true });
-    this.convertMinDate(this.min);
-    this.convertMaxDate(this.max);
+    this._calendarController = new AbortController();
+    window.addEventListener('resize', () => this._init(), {
+      passive: true,
+      signal: this._calendarController.signal,
+    });
+    this._convertMinDate(this.min);
+    this._convertMaxDate(this.max);
     this._setDates();
     this._init();
   }
@@ -127,8 +140,12 @@ export class SbbCalendar implements ComponentInterface {
   public componentDidRender(): void {
     this._setTabIndex();
     this._days = Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')
+      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day')
     ) as HTMLButtonElement[];
+  }
+
+  public disconnectedCallback(): void {
+    this._calendarController.abort();
   }
 
   /** Initializes the component. */
@@ -151,22 +168,6 @@ export class SbbCalendar implements ComponentInterface {
     const selectedDate: Date = this._dateAdapter.deserializeDate(this.selectedDate);
     this._activeDate = selectedDate ?? this._dateAdapter.today();
     this._setSelectedDate(selectedDate);
-  }
-
-  /** Sets the selected date. */
-  private _setSelectedDate(selectedDate: Date | null): void {
-    if (
-      !!selectedDate &&
-      (!this._isDayInRange(selectedDate.toISOString()) || this.dateFilter(selectedDate))
-    ) {
-      this._selected = new Date(selectedDate.setHours(0, 0, 0, 0)).toISOString();
-    } else {
-      this._selected = undefined;
-    }
-  }
-
-  private _setCalendarWidth(value: boolean): void {
-    this._wide = isBreakpoint('medium') && value;
   }
 
   /** Creates the array of weekdays. */
@@ -219,8 +220,8 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the table header with the months header cells. */
   private _createTableHeader(): JSX.Element {
     return this._weekdays.map((day: Weekday) => (
-      <th>
-        <span class="visually-hidden">{day.long}</span>
+      <th class="sbb-calendar__table-header">
+        <span class="sbb-calendar__visually-hidden">{day.long}</span>
         <span aria-hidden="true">{day.narrow}</span>
       </th>
     ));
@@ -256,13 +257,13 @@ export class SbbCalendar implements ComponentInterface {
       const selected: boolean = this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       return (
-        <td>
+        <td class="sbb-calendar__table-data">
           <button
             class={{
-              'sbb-datepicker__day': true,
-              'sbb-datepicker__day-today': day.value === today,
-              'sbb-datepicker__day-selected': selected,
-              'sbb-datepicker__crossed-out': !isOutOfRange && isFilteredOut,
+              'sbb-calendar__day': true,
+              'sbb-calendar__day-today': day.value === today,
+              'sbb-calendar__day-selected': selected,
+              'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             }}
             onClick={(event) => this._selectDate(day.value, event)}
             disabled={isOutOfRange || isFilteredOut}
@@ -362,11 +363,11 @@ export class SbbCalendar implements ComponentInterface {
 
   private _getFirstFocusable(): HTMLButtonElement {
     let firstFocusable =
-      this._element.shadowRoot.querySelector('.sbb-datepicker__day-selected') ??
-      this._element.shadowRoot.querySelector('.sbb-datepicker__day-today');
+      this._element.shadowRoot.querySelector('.sbb-calendar__day-selected') ??
+      this._element.shadowRoot.querySelector('.sbb-calendar__day-today');
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = Array.from(
-        this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day')
+        this._element.shadowRoot.querySelectorAll('.sbb-calendar__day')
       ).find((e) => !(e as HTMLButtonElement).disabled);
     }
     return (firstFocusable as HTMLButtonElement) || null;
@@ -374,7 +375,7 @@ export class SbbCalendar implements ComponentInterface {
 
   private _setTabIndex(): void {
     Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-datepicker__day[tabindex="0"]')
+      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day[tabindex="0"]')
     ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {

@@ -204,7 +204,9 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+    if (this._inputElement) {
+      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+    }
 
     return <Host></Host>;
   }

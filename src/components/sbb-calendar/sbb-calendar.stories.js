@@ -13,16 +13,27 @@ const getCalendarAttr = (min, max) => {
   return attr;
 };
 
-const Template = ({ min, max, selectedDate, ...args }) => (
+const Template = ({ min, max, selectedDate, dateFilter, ...args }) => (
   <sbb-calendar
     selectedDate={new Date(selectedDate)}
     {...getCalendarAttr(min, max)}
     {...args}
+    ref={(calendarRef) => {
+      calendarRef.dateFilter = dateFilter;
+    }}
   ></sbb-calendar>
 );
 
-const TemplateUnixTimestamp = ({ min, max, selectedDate, ...args }) => (
-  <sbb-calendar min={min} max={max} selected-date={selectedDate} {...args}></sbb-calendar>
+const TemplateUnixTimestamp = ({ min, max, selectedDate, dateFilter, ...args }) => (
+  <sbb-calendar
+    min={min}
+    max={max}
+    selected-date={selectedDate}
+    {...args}
+    ref={(calendarRef) => {
+      calendarRef.dateFilter = dateFilter;
+    }}
+  ></sbb-calendar>
 );
 
 const TemplateFilterFunction = ({ dateFilter, ...args }) => (
@@ -33,6 +44,69 @@ const TemplateFilterFunction = ({ dateFilter, ...args }) => (
     {...args}
   ></sbb-calendar>
 );
+
+const wide = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const selectedDate = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const min = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Date filters',
+  },
+};
+
+const max = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Date filters',
+  },
+};
+
+const selectedDateAsString = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const minAsString = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Date filters',
+  },
+};
+
+const maxAsString = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Date filters',
+  },
+};
 
 const filterFunctions = [
   () => true,
@@ -50,13 +124,16 @@ const dateFilter = {
       2: 'The dateFilter function excludes even days.',
     },
   },
+  table: {
+    category: 'Date filters',
+  },
 };
 
 const defaultArgTypes = {
-  wide: { control: { type: 'boolean' } },
-  selectedDate: { control: { type: 'date' } },
-  min: { control: { type: 'date' } },
-  max: { control: { type: 'date' } },
+  wide,
+  selectedDate,
+  min,
+  max,
   dateFilter,
 };
 
@@ -81,9 +158,9 @@ CalendarWithMinAndMax.args = {
 export const CalendarUnixTimestamp = TemplateUnixTimestamp.bind({});
 CalendarUnixTimestamp.argTypes = {
   ...defaultArgTypes,
-  min: { control: { type: 'text' } },
-  max: { control: { type: 'text' } },
-  selectedDate: { control: { type: 'text' } },
+  min: minAsString,
+  max: maxAsString,
+  selectedDate: selectedDateAsString,
 };
 CalendarUnixTimestamp.args = {
   ...defaultArgs,

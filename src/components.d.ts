@@ -276,11 +276,11 @@ export namespace Components {
          */
         "focusCell": () => Promise<void>;
         /**
-          * The maximum valid date.
+          * The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).
          */
         "max": Date | string | number;
         /**
-          * The minimum valid date.
+          * The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).
          */
         "min": Date | string | number;
         /**
@@ -288,7 +288,7 @@ export namespace Components {
          */
         "resetPosition": () => Promise<void>;
         /**
-          * The selected date.
+          * The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).
          */
         "selectedDate": Date | string | number;
         /**
@@ -2488,11 +2488,11 @@ declare namespace LocalJSX {
          */
         "dateFilter"?: (date: Date | null) => boolean;
         /**
-          * The maximum valid date.
+          * The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).
          */
         "max"?: Date | string | number;
         /**
-          * The minimum valid date.
+          * The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).
          */
         "min"?: Date | string | number;
         /**
@@ -2500,7 +2500,7 @@ declare namespace LocalJSX {
          */
         "onDate-selected"?: (event: SbbCalendarCustomEvent<Date>) => void;
         /**
-          * The selected date.
+          * The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).
          */
         "selectedDate"?: Date | string | number;
         /**
