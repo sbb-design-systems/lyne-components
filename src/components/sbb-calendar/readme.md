@@ -63,16 +63,6 @@ Calendar with selected date and bounds:
 
 ## Methods
 
-### `focusCell() => Promise<void>`
-
-Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `resetPosition() => Promise<void>`
 
 Resets the active month according to the new state of the calendar.

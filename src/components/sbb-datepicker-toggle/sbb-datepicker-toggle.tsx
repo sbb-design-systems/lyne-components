@@ -145,7 +145,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
             this._openedByKeyboard = false;
           }}
           onDid-open={() => {
-            this._openedByKeyboard && this._calendarElement.focusCell();
+            this._openedByKeyboard && this._calendarElement.focus();
           }}
           trigger={this._triggerElement}
           data-hide-close-button

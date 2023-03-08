@@ -39,7 +39,7 @@ export class SbbCalendar implements ComponentInterface {
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
   /** The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). */
-  @Prop({ attribute: 'selected-date' }) public selectedDate: Date | string | number;
+  @Prop() public selectedDate: Date | string | number;
 
   /** Event emitted on date selection. */
   @Event({ eventName: 'date-selected' }) public dateSelected: EventEmitter<Date>;
@@ -65,9 +65,6 @@ export class SbbCalendar implements ComponentInterface {
 
   private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
 
-  /** A list of buttons corresponding to the days of the month. */
-  private _days: HTMLButtonElement[];
-
   /** A list of the day of the week, in two format (long and single char). */
   private _weekdays: Weekday[];
 
@@ -76,6 +73,13 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks: Day[][];
+
+  /** A list of buttons corresponding to the days of the month. */
+  private get _days(): HTMLButtonElement[] {
+    return Array.from(
+      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day')
+    ) as HTMLButtonElement[];
+  }
 
   private _calendarController: AbortController;
 
@@ -108,8 +112,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day. */
-  @Method()
-  public async focusCell(): Promise<void> {
+  private _focusCell(): void {
     this._getFirstFocusable()?.focus();
   }
 
@@ -126,6 +129,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._element.focus = this._focusCell.bind(this);
     this._calendarController = new AbortController();
     window.addEventListener('resize', () => this._init(), {
       passive: true,
@@ -139,9 +143,6 @@ export class SbbCalendar implements ComponentInterface {
 
   public componentDidRender(): void {
     this._setTabIndex();
-    this._days = Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day')
-    ) as HTMLButtonElement[];
   }
 
   public disconnectedCallback(): void {
@@ -285,8 +286,9 @@ export class SbbCalendar implements ComponentInterface {
   private _createMonthLabel(d: Date): JSXElement {
     return (
       <span class="sbb-calendar__controls-month-label">
-        {this._dateAdapter.getMonthNames('long')[this._dateAdapter.getMonth(d)]}{' '}
-        {this._dateAdapter.getYear(d)}
+        {`${
+          this._dateAdapter.getMonthNames('long')[this._dateAdapter.getMonth(d)]
+        } ${this._dateAdapter.getYear(d)}`}
       </span>
     );
   }
@@ -318,11 +320,12 @@ export class SbbCalendar implements ComponentInterface {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
-    const index = this._days.findIndex((e: HTMLButtonElement) => e === event.target);
-    handleKeyboardEvent(event, index, this._days, day)?.focus();
+    const days = this._days;
+    const index = days.findIndex((e: HTMLButtonElement) => e === event.target);
+    handleKeyboardEvent(event, index, days, day)?.focus();
   }
 
-  /** Goes to the previous month. */
+  /** Goes to the month identified by the shift. */
   private _goToMonth(event: Event, months: number): void {
     event.stopImmediatePropagation();
     this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, months));
@@ -366,9 +369,7 @@ export class SbbCalendar implements ComponentInterface {
       this._element.shadowRoot.querySelector('.sbb-calendar__day-selected') ??
       this._element.shadowRoot.querySelector('.sbb-calendar__day-today');
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable = Array.from(
-        this._element.shadowRoot.querySelectorAll('.sbb-calendar__day')
-      ).find((e) => !(e as HTMLButtonElement).disabled);
+      firstFocusable = this._element.shadowRoot.querySelector('.sbb-calendar__day:not([disabled]');
     }
     return (firstFocusable as HTMLButtonElement) || null;
   }
