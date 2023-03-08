@@ -11,11 +11,13 @@ import {
   State,
   EventEmitter,
 } from '@stencil/core';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { i18nCollapsed, i18nExapnded } from '../../global/i18n';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom.d';
@@ -63,6 +65,8 @@ export class SbbSelectionPanel implements ComponentInterface {
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @State() private _namedSlots = createNamedSlotState('badge', 'content');
+
+  @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element: HTMLElement;
 
@@ -112,6 +116,11 @@ export class SbbSelectionPanel implements ComponentInterface {
     return this._element.querySelector('sbb-checkbox, sbb-radio-button') as HTMLInputElement;
   }
 
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
+  }
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
@@ -138,16 +147,31 @@ export class SbbSelectionPanel implements ComponentInterface {
     } else {
       this.willClose.emit();
     }
+
+    this._setExpandedStateForScreenReaders();
   }
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+  }
+
+  public componentDidLoad(): void {
     this._updateSelectionPanel();
   }
 
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._disabled = this._input?.disabled;
+    this._setExpandedStateForScreenReaders();
+  }
+
+  private _setExpandedStateForScreenReaders(): void {
+    if (this._contentElement) {
+      this._input.shadowRoot.querySelector('[data-selection-panel-expanded]').innerHTML = this
+        ._checked
+        ? i18nExapnded[this._currentLanguage]
+        : i18nCollapsed[this._currentLanguage];
+    }
   }
 
   private _setContentElementHeight(): void {
@@ -186,13 +210,16 @@ export class SbbSelectionPanel implements ComponentInterface {
           )}
 
           <div class="sbb-selection-panel__input">
-            <slot onSlotchange={() => this._updateSelectionPanel()} />
+            <slot />
           </div>
 
           {this._namedSlots['content'] && (
             <div
               class="sbb-selection-panel__content"
-              ref={(el) => (this._contentElement = el)}
+              ref={(el) => {
+                this._contentElement = el;
+                this._contentElement.inert = !this._checked;
+              }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
               <sbb-divider />

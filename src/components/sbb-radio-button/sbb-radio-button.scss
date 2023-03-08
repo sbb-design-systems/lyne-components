@@ -147,3 +147,7 @@ slot[name='subtext'] {
     }
   }
 }
+
+span[data-selection-panel-expanded] {
+  @include sbb.screen-reader-only;
+}

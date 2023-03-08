@@ -188,3 +188,7 @@ input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
     }
   }
 }
+
+span[data-selection-panel-expanded] {
+  @include sbb.screen-reader-only;
+}

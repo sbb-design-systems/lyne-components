@@ -438,3 +438,17 @@ export const i18nConnectionRoundtrip = (returnCity: string): Record<string, stri
   fr: `et retour à ${returnCity}.`,
   it: `e ritorno a ${returnCity}.`,
 });
+
+export const i18nExapnded: Record<string, string> = {
+  de: 'Erweitert',
+  en: 'Expanded',
+  fr: 'Est tiré',
+  it: 'Esapnso',
+};
+
+export const i18nCollapsed: Record<string, string> = {
+  de: 'Reduziert',
+  en: 'Collapsed',
+  fr: 'Condensé',
+  it: 'Compresso',
+};

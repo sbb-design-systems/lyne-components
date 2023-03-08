@@ -29,7 +29,7 @@
   --sbb-selection-panel-background: var(--sbb-color-milk-default);
 }
 
-:host([data-has-content][data-checked]:not([data-checked='false'])) {
+:host([data-checked]:not([data-checked='false'])) {
   --sbb-selection-panel-border-color: var(--sbb-color-charcoal-default);
 }
 

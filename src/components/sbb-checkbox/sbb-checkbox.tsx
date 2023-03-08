@@ -235,6 +235,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
               </span>
             </span>
             {this._namedSlots['subtext'] && <slot name="subtext" />}
+            <span data-selection-panel-expanded></span>
           </label>
         </span>
       </Host>
