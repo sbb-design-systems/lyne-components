@@ -89,16 +89,6 @@ export class SbbRadioButton implements ComponentInterface {
    */
   @State() private _namedSlots = createNamedSlotState('subtext', 'suffix');
 
-  /**
-   * Emits whenever the radio group value changes.
-   */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-select',
-  })
-  public didSelect: EventEmitter;
-
   private _radioButtonAttributeObserver = new MutationObserver(
     this._onRadioButtonAttributesChange.bind(this)
   );
@@ -117,14 +107,14 @@ export class SbbRadioButton implements ComponentInterface {
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (this._withinSelectionPanel && currentValue !== previousValue) {
+    if (currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
     }
   }
 
   @Watch('disabled')
   public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
-    if (this._withinSelectionPanel && currentValue !== previousValue) {
+    if (currentValue !== previousValue) {
       this.stateChange.emit({ type: 'disabled', disabled: currentValue });
     }
   }
@@ -146,15 +136,10 @@ export class SbbRadioButton implements ComponentInterface {
       return;
     }
 
-    let value = this.value;
-
     if (this.allowEmptySelection) {
       this.checked = !this.checked;
-      value = this.checked ? value : undefined;
-      this.didSelect.emit(value);
     } else if (!this.checked) {
       this.checked = true;
-      this.didSelect.emit(value);
     }
   }
 

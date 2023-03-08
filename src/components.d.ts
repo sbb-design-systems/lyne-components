@@ -3282,10 +3282,6 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Emits whenever the radio group value changes.
-         */
-        "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
-        /**
           * Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes.
          */
         "onState-change"?: (event: SbbRadioButtonCustomEvent<RadioButtonStateChange>) => void;

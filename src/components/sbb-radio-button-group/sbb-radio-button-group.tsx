@@ -20,6 +20,7 @@ import {
 } from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 
 /**
  * @slot unnamed - Use this to provide radio buttons within the group.
@@ -160,9 +161,11 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  @Listen('did-select', { passive: true })
-  public onRadioButtonSelect(event: CustomEvent<string>): void {
-    this.value = event.detail;
+  @Listen('state-change', { passive: true })
+  public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
+    event.stopPropagation();
+    if (event.detail.type === 'checked' && event.detail.checked)
+      this.value = (event.target as HTMLInputElement).value;
   }
 
   private _updateRadios(): void {

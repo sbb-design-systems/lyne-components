@@ -16,6 +16,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom.d';
 
@@ -35,7 +36,8 @@ export class SbbSelectionPanel implements ComponentInterface {
   /**
    * The background color of the panel.
    */
-  @Prop() color: 'white' | 'milk' = 'white';
+  @Prop()
+  public color: 'white' | 'milk' = 'white';
 
   /**
    * Whether the content section is always visible.
@@ -115,10 +117,8 @@ export class SbbSelectionPanel implements ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
-  @Listen('state-change')
-  public onInputChange(event: CustomEvent<RadioButtonStateChange>): void {
-    event.stopPropagation();
-
+  @Listen('state-change', { passive: true })
+  public onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
     if (event.detail.type === 'disabled') {
       this._disabled = event.detail.disabled;
       return;
