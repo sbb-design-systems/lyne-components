@@ -576,11 +576,19 @@ export const i18nPreviousDay: Record<string, string> = {
   fr: 'Jour précédent',
   it: 'Giorno precedente',
 };
+
 export const i18nShowCalendar: Record<string, string> = {
   de: 'Kalender anzeigen',
   en: 'Show calendar',
   fr: 'Afficher le calendrier',
   it: 'Visualizzare calendario',
+};
+
+export const i18nDatePickerPlaceholder: Record<string, string> = {
+  de: 'TT.MM.JJJJ',
+  en: 'DD.MM.YYYY',
+  fr: 'JJ.MM.AAAA',
+  it: 'GG.MM.AAAA',
 };
 
 export const i18nConnectionFrom: Record<string, string> = {

@@ -7,6 +7,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -15,6 +16,8 @@ import {
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { i18nDatePickerPlaceholder } from '../../global/i18n';
 
 const REGEX_PATTERN = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const REGEX =
@@ -53,6 +56,8 @@ export class SbbDatepicker implements ComponentInterface {
 
   @State() private _inputElement: HTMLInputElement;
 
+  @State() private _currentLanguage = documentLanguage();
+
   @Watch('input')
   public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
@@ -84,7 +89,7 @@ export class SbbDatepicker implements ComponentInterface {
       });
 
       this._inputElement.type = 'text';
-      this._inputElement.placeholder = this._placeholder;
+      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
 
       this._inputElement.addEventListener(
         'input',
@@ -95,6 +100,11 @@ export class SbbDatepicker implements ComponentInterface {
         signal: this._datePickerController.signal,
       });
     }
+  }
+
+  @Listen('sbbLanguageChange', { target: 'document' })
+  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
+    this._currentLanguage = event.detail;
   }
 
   /** Gets the input value with the correct date format. */
@@ -109,9 +119,6 @@ export class SbbDatepicker implements ComponentInterface {
     );
     await this._formatAndUpdateValue(newValue);
   }
-
-  /** Placeholder for the inner HTMLInputElement.*/
-  private _placeholder = 'DD.MM.YYYY';
 
   private _datePickerController: AbortController;
 
@@ -197,6 +204,8 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+
     return <Host></Host>;
   }
 }
