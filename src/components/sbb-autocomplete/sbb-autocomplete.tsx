@@ -207,13 +207,13 @@ export class SbbAutocomplete implements ComponentInterface {
     this._removeOriginAttributes(this._originElement);
     this._setOriginAttributes(anchorElem);
 
+    this._originElement = anchorElem;
+
     toggleDatasetEntry(
       this._element,
       'autocompleteOriginBorderless',
       this._originElement.hasAttribute('borderless')
     );
-
-    this._originElement = anchorElem;
   }
 
   private _bindTo(triggerElem: HTMLInputElement): void {
