@@ -440,15 +440,15 @@ export const i18nConnectionRoundtrip = (returnCity: string): Record<string, stri
 });
 
 export const i18nExapnded: Record<string, string> = {
-  de: 'Erweitert',
-  en: 'Expanded',
-  fr: 'Est tiré',
-  it: 'Esapnso',
+  de: 'erweitert',
+  en: 'expanded',
+  fr: 'est tiré',
+  it: 'esapnso',
 };
 
 export const i18nCollapsed: Record<string, string> = {
-  de: 'Reduziert',
-  en: 'Collapsed',
-  fr: 'Condensé',
-  it: 'Compresso',
+  de: 'reduziert',
+  en: 'collapsed',
+  fr: 'condensé',
+  it: 'compresso',
 };

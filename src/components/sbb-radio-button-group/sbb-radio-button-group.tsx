@@ -84,9 +84,6 @@ export class SbbRadioButtonGroup implements ComponentInterface {
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
-    this.change.emit({ value });
-    this.input.emit({ value });
-    this.didChange.emit({ value });
   }
 
   @Watch('disabled')
@@ -164,8 +161,25 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   @Listen('state-change', { passive: true })
   public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
     event.stopPropagation();
-    if (event.detail.type === 'checked' && event.detail.checked)
+    if (event.detail.type !== 'checked') {
+      return;
+    }
+
+    if (event.detail.checked) {
       this.value = (event.target as HTMLInputElement).value;
+      this._emitChange(this.value);
+      return;
+    }
+
+    if (this.allowEmptySelection) {
+      this._emitChange();
+    }
+  }
+
+  private _emitChange(value?: string): void {
+    this.change.emit({ value });
+    this.input.emit({ value });
+    this.didChange.emit({ value });
   }
 
   private _updateRadios(): void {

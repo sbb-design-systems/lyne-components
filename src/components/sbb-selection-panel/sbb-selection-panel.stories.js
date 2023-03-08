@@ -288,13 +288,111 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
   </sbb-checkbox-group>
 );
 
+const WithCheckboxesErrorMessageTemplate = ({ checkedInput, disabledInput, ...args }) => {
+  const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
+
+  return (
+    <sbb-checkbox-group
+      orientation="vertical"
+      horizontal-from="large"
+      id="sbb-checkbox-group"
+      onChange={() => {
+        const hasChecked = Array.from(
+          document.getElementById('sbb-checkbox-group').querySelectorAll('sbb-checkbox')
+        ).some((el) => el.checked);
+        if (hasChecked) {
+          sbbFormError.remove();
+        } else {
+          document.getElementById('sbb-checkbox-group').append(sbbFormError);
+        }
+      }}
+    >
+      <sbb-selection-panel {...args}>
+        {cardbadge()}
+        <sbb-checkbox checked={checkedInput}>
+          Value one
+          {suffixAndSubtext()}
+        </sbb-checkbox>
+        {innerContent()}
+      </sbb-selection-panel>
+
+      <sbb-selection-panel {...args}>
+        {cardbadge()}
+        <sbb-checkbox disabled={disabledInput}>
+          Value two
+          {suffixAndSubtext()}
+        </sbb-checkbox>
+        {innerContent()}
+      </sbb-selection-panel>
+
+      <sbb-selection-panel {...args}>
+        {cardbadge()}
+        <sbb-checkbox>
+          Value three
+          {suffixAndSubtext()}
+        </sbb-checkbox>
+        {innerContent()}
+      </sbb-selection-panel>
+      {sbbFormError}
+    </sbb-checkbox-group>
+  );
+};
+
+const WithRadiosErrorMessageTemplate = ({ checkedInput, disabledInput, ...args }) => {
+  const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
+
+  return (
+    <sbb-radio-button-group
+      orientation="vertical"
+      horizontal-from="large"
+      allow-empty-selection
+      id="sbb-radio-group"
+      onChange={(event) => {
+        if (event.detail.value) {
+          sbbFormError.remove();
+        } else {
+          document.getElementById('sbb-radio-group').append(sbbFormError);
+        }
+      }}
+    >
+      <sbb-selection-panel {...args}>
+        {cardbadge()}
+        <sbb-radio-button value="Value one" checked={checkedInput}>
+          Value one
+          {suffixAndSubtext()}
+        </sbb-radio-button>
+        {innerContent()}
+      </sbb-selection-panel>
+
+      <sbb-selection-panel {...args}>
+        {cardbadge()}
+        <sbb-radio-button value="Value two" disabled={disabledInput}>
+          Value two
+          {suffixAndSubtext()}
+        </sbb-radio-button>
+        {innerContent()}
+      </sbb-selection-panel>
+
+      <sbb-selection-panel {...args}>
+        {cardbadge()}
+        <sbb-radio-button value="Value three">
+          Value three
+          {suffixAndSubtext()}
+        </sbb-radio-button>
+        {innerContent()}
+      </sbb-selection-panel>
+      {sbbFormError}
+    </sbb-radio-button-group>
+  );
+};
+
 export const WithCheckbox = WithCheckboxTemplate.bind({});
 WithCheckbox.argTypes = basicArgTypes;
 WithCheckbox.args = { ...basicArgs };
 
-export const WithRadioButon = WithRadioButtonTemplate.bind({});
-WithRadioButon.argTypes = basicArgTypes;
-WithRadioButon.args = { ...basicArgs };
+export const WithRadioButton = WithRadioButtonTemplate.bind({});
+WithRadioButton.argTypes = basicArgTypes;
+WithRadioButton.args = { ...basicArgs };
 
 export const WithCheckboxChecked = WithCheckboxTemplate.bind({});
 WithCheckboxChecked.argTypes = basicArgTypes;
@@ -324,9 +422,9 @@ export const WithCheckboxGroup = WithCheckboxGroupTemplate.bind({});
 WithCheckboxGroup.argTypes = basicArgTypes;
 WithCheckboxGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
 
-export const WithRadioButonGroup = WithRadioButtonGroupTemplate.bind({});
-WithRadioButonGroup.argTypes = basicArgTypes;
-WithRadioButonGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
+export const WithRadioButtonGroup = WithRadioButtonGroupTemplate.bind({});
+WithRadioButtonGroup.argTypes = basicArgTypes;
+WithRadioButtonGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
 
 export const WithCheckboxGroupForceOpen = WithCheckboxGroupTemplate.bind({});
 WithCheckboxGroupForceOpen.argTypes = basicArgTypes;
@@ -337,9 +435,9 @@ WithCheckboxGroupForceOpen.args = {
   disabledInput: true,
 };
 
-export const WithRadioButonGroupForceOpen = WithRadioButtonGroupTemplate.bind({});
-WithRadioButonGroupForceOpen.argTypes = basicArgTypes;
-WithRadioButonGroupForceOpen.args = {
+export const WithRadioButtonGroupForceOpen = WithRadioButtonGroupTemplate.bind({});
+WithRadioButtonGroupForceOpen.argTypes = basicArgTypes;
+WithRadioButtonGroupForceOpen.args = {
   ...basicArgs,
   'force-open': true,
   checkedInput: true,
@@ -355,12 +453,28 @@ WithCheckboxGroupMilk.args = {
   disabledInput: true,
 };
 
-export const WithRadioButonGroupMilk = WithRadioButtonGroupTemplate.bind({});
-WithRadioButonGroupMilk.argTypes = basicArgTypes;
-WithRadioButonGroupMilk.args = {
+export const WithRadioButtonGroupMilk = WithRadioButtonGroupTemplate.bind({});
+WithRadioButtonGroupMilk.argTypes = basicArgTypes;
+WithRadioButtonGroupMilk.args = {
   ...basicArgs,
   color: color.options[1],
   checkedInput: true,
+  disabledInput: true,
+};
+
+export const WithCheckboxesErrorMessage = WithCheckboxesErrorMessageTemplate.bind({});
+WithCheckboxesErrorMessage.argTypes = basicArgTypes;
+WithCheckboxesErrorMessage.args = {
+  ...basicArgs,
+  'force-open': true,
+  disabledInput: true,
+};
+
+export const WithRadiosErrorMessage = WithRadiosErrorMessageTemplate.bind({});
+WithRadiosErrorMessage.argTypes = basicArgTypes;
+WithRadiosErrorMessage.args = {
+  ...basicArgs,
+  'force-open': true,
   disabledInput: true,
 };
 
