@@ -206,70 +206,6 @@ export namespace Components {
          */
         "role": InterfaceSbbAlertGroupAttributes['role'];
     }
-    interface SbbAutocomplete {
-        /**
-          * Id which is sent as the id in the eventDetail payload when a value is selected
-         */
-        "eventId"?: string;
-        /**
-          * Define if borderless variant of autocomplete input should be used. See documentation of sbb-text-input for details.
-         */
-        "inputBorderless"?: boolean;
-        /**
-          * Debounce timeout to use for the input. See documentation of sbb-text-input for details.
-         */
-        "inputDebounceTimeout"?: number;
-        /**
-          * Label attribute for the input element. See sbb-text-input for details.
-         */
-        "inputLabel": string;
-        /**
-          * Determine if the input label should be visible. See sbb-text-input for details.
-         */
-        "inputLabelVisible"?: boolean;
-        /**
-          * Name attribute for the input element. See sbb-text-input for details.
-         */
-        "inputName": string;
-        /**
-          * Placeholder attribute for the input element. See sbb-text-input for details.
-         */
-        "inputPlaceholder"?: string;
-        /**
-          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
-         */
-        "items"?: string;
-        /**
-          * Define how many chars a user must type into the input field for the autocomplete list to show up.
-         */
-        "minChars"?: number;
-        /**
-          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
-         */
-        "value"?: string;
-    }
-    interface SbbAutocompleteItem {
-        /**
-          * The aria-posinset attribute for the list element
-         */
-        "ariaPosinset"?: number;
-        /**
-          * The aira-setsize attribute for the list element
-         */
-        "ariaSetsize"?: number;
-        /**
-          * The text to highlight within the string property
-         */
-        "highlight"?: string;
-        /**
-          * Mark the item as selected, which will change it's appearance and the according aria attributes.
-         */
-        "selected"?: boolean;
-        /**
-          * Text to show as content of the autocomplete item
-         */
-        "text": string;
-    }
     interface SbbButton {
         /**
           * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
@@ -1807,18 +1743,6 @@ declare global {
         prototype: HTMLSbbAlertGroupElement;
         new (): HTMLSbbAlertGroupElement;
     };
-    interface HTMLSbbAutocompleteElement extends Components.SbbAutocomplete, HTMLStencilElement {
-    }
-    var HTMLSbbAutocompleteElement: {
-        prototype: HTMLSbbAutocompleteElement;
-        new (): HTMLSbbAutocompleteElement;
-    };
-    interface HTMLSbbAutocompleteItemElement extends Components.SbbAutocompleteItem, HTMLStencilElement {
-    }
-    var HTMLSbbAutocompleteItemElement: {
-        prototype: HTMLSbbAutocompleteItemElement;
-        new (): HTMLSbbAutocompleteItemElement;
-    };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
     var HTMLSbbButtonElement: {
@@ -2227,8 +2151,6 @@ declare global {
         "sbb-action-group": HTMLSbbActionGroupElement;
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
-        "sbb-autocomplete": HTMLSbbAutocompleteElement;
-        "sbb-autocomplete-item": HTMLSbbAutocompleteItemElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-card": HTMLSbbCardElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
@@ -2432,70 +2354,6 @@ declare namespace LocalJSX {
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
         "role"?: InterfaceSbbAlertGroupAttributes['role'];
-    }
-    interface SbbAutocomplete {
-        /**
-          * Id which is sent as the id in the eventDetail payload when a value is selected
-         */
-        "eventId"?: string;
-        /**
-          * Define if borderless variant of autocomplete input should be used. See documentation of sbb-text-input for details.
-         */
-        "inputBorderless"?: boolean;
-        /**
-          * Debounce timeout to use for the input. See documentation of sbb-text-input for details.
-         */
-        "inputDebounceTimeout"?: number;
-        /**
-          * Label attribute for the input element. See sbb-text-input for details.
-         */
-        "inputLabel": string;
-        /**
-          * Determine if the input label should be visible. See sbb-text-input for details.
-         */
-        "inputLabelVisible"?: boolean;
-        /**
-          * Name attribute for the input element. See sbb-text-input for details.
-         */
-        "inputName": string;
-        /**
-          * Placeholder attribute for the input element. See sbb-text-input for details.
-         */
-        "inputPlaceholder"?: string;
-        /**
-          * Items to show in the autocomplete interface. You should pass a stringified array of objects, containing the `text` key for each object with an appropriate value.
-         */
-        "items"?: string;
-        /**
-          * Define how many chars a user must type into the input field for the autocomplete list to show up.
-         */
-        "minChars"?: number;
-        /**
-          * The value to use as default value for the input. The input value or the selected autocomplete value is reflected to this attribute.
-         */
-        "value"?: string;
-    }
-    interface SbbAutocompleteItem {
-        /**
-          * The aria-posinset attribute for the list element
-         */
-        "ariaPosinset"?: number;
-        /**
-          * The aira-setsize attribute for the list element
-         */
-        "ariaSetsize"?: number;
-        /**
-          * The text to highlight within the string property
-         */
-        "highlight"?: string;
-        /**
-          * Mark the item as selected, which will change it's appearance and the according aria attributes.
-         */
-        "selected"?: boolean;
-        /**
-          * Text to show as content of the autocomplete item
-         */
-        "text": string;
     }
     interface SbbButton {
         /**
@@ -4012,8 +3870,6 @@ declare namespace LocalJSX {
         "sbb-action-group": SbbActionGroup;
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
-        "sbb-autocomplete": SbbAutocomplete;
-        "sbb-autocomplete-item": SbbAutocompleteItem;
         "sbb-button": SbbButton;
         "sbb-card": SbbCard;
         "sbb-card-badge": SbbCardBadge;
@@ -4092,8 +3948,6 @@ declare module "@stencil/core" {
             "sbb-action-group": LocalJSX.SbbActionGroup & JSXBase.HTMLAttributes<HTMLSbbActionGroupElement>;
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
-            "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
-            "sbb-autocomplete-item": LocalJSX.SbbAutocompleteItem & JSXBase.HTMLAttributes<HTMLSbbAutocompleteItemElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
