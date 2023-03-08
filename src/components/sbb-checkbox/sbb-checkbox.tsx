@@ -153,7 +153,8 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
 
   public connectedCallback(): void {
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
+    this._withinSelectionPanel =
+      !!this._element.closest('sbb-selection-panel') && !this._element.closest('[slot="content"]');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
     this._setupInitialStateAndAttributeObserver();
@@ -230,10 +231,10 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
                     <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
                   </span>
                 )}
-                {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
+                {this._namedSlots['suffix'] && <slot name="suffix" />}
               </span>
             </span>
-            {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
+            {this._namedSlots['subtext'] && <slot name="subtext" />}
           </label>
         </span>
       </Host>

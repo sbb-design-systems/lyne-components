@@ -59,7 +59,6 @@ const basicArgs = {
 const suffixStyle = {
   display: 'flex',
   alignItems: 'center',
-  justifyConten: 'flex-end',
 };
 
 const cardbadge = () => (
@@ -181,17 +180,113 @@ const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) 
   </sbb-radio-button-group>
 );
 
-{
-  /* <sbb-radio-button>
-  Value
-  <span slot="subtext">Subtext</span>
-  <span slot="suffix">
-    <sbb-icon/>
-    <span class="sbb-text-xs sbb-text--bold">CHF</span>
-    <span class="sbb-text-m sbb-text--bold">40.00</span>
-  </span>
-</sbb-radio-button> */
-}
+const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args }) => (
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+    <sbb-selection-panel {...args}>
+      {cardbadge()}
+      <sbb-checkbox checked={checkedInput}>
+        Sparen
+        {suffixAndSubtext()}
+      </sbb-checkbox>
+      <div slot="content">
+        <sbb-radio-button-group orientation="vertical">
+          <sbb-radio-button value="non-flex" style="width: 100%">
+            Non-Flex
+            <span slot="subtext">Keine Rückerstattung möglich</span>
+            <span
+              slot="suffix"
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+            >
+              <span style={suffixStyle}>
+                <span class="sbb-text-m">
+                  <span class="sbb-text-xxs">CHF</span> 0.00
+                </span>
+              </span>
+            </span>
+          </sbb-radio-button>
+          <sbb-radio-button value="semi-flex" style="width: 100%">
+            Semi-Flex
+            <span slot="subtext">Teil-Rückerstattung möglich</span>
+            <span
+              slot="suffix"
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+            >
+              <span style={suffixStyle}>
+                <span class="sbb-text-m">
+                  <span class="sbb-text-xxs">+ CHF</span> 5.00
+                </span>
+              </span>
+            </span>
+          </sbb-radio-button>
+        </sbb-radio-button-group>
+        <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs)" />
+        <span style="color: var(--sbb-color-granite-default)">
+          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x)">
+            1 x 0 x Sparbillett, Halbtax{' '}
+            <sbb-tooltip-trigger id="tooltip-trigger-1" icon-name="circle-information-small" />
+          </div>
+          <div>Gültig: Do., 03.11.2022 bis Fr., 04.11.2022 05:00</div>
+        </span>
+        <sbb-tooltip trigger="tooltip-trigger-1" hover-trigger>
+          <span id="tooltip-content" class="sbb-text-s">
+            Simple info tooltip.
+          </span>
+        </sbb-tooltip>
+      </div>
+    </sbb-selection-panel>
+
+    <sbb-selection-panel {...args}>
+      {cardbadge()}
+      <sbb-checkbox disabled={disabledInput}>
+        City Angebot
+        {suffixAndSubtext()}
+      </sbb-checkbox>
+      <div slot="content">
+        <sbb-checkbox-group orientation="vertical">
+          <sbb-checkbox value="option-1" style="width: 100%">
+            Option one
+            <span
+              slot="suffix"
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+            >
+              <span style={suffixStyle}>
+                <span class="sbb-text-m">
+                  <span class="sbb-text-xxs">CHF</span> 0.00
+                </span>
+              </span>
+            </span>
+          </sbb-checkbox>
+          <sbb-checkbox value="option-2" style="width: 100%">
+            Option two
+            <span
+              slot="suffix"
+              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+            >
+              <span style={suffixStyle}>
+                <span class="sbb-text-m">
+                  <span class="sbb-text-xxs">+ CHF</span> 5.00
+                </span>
+              </span>
+            </span>
+          </sbb-checkbox>
+        </sbb-checkbox-group>
+        <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs)" />
+        <span style="color: var(--sbb-color-granite-default)">
+          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x)">
+            1 x 0 x City-Ticket inkl. City-Zuschlag Stadt, Halbtax{' '}
+            <sbb-tooltip-trigger id="tooltip-trigger-2" icon-name="circle-information-small" />
+          </div>
+          <div>Gültig: Do., 03.11.2022 bis Fr., 04.11.2022 05:00</div>
+        </span>
+        <sbb-tooltip trigger="tooltip-trigger-2" hover-trigger>
+          <span id="tooltip-content" class="sbb-text-s">
+            Simple info tooltip.
+          </span>
+        </sbb-tooltip>
+      </div>
+    </sbb-selection-panel>
+  </sbb-checkbox-group>
+);
 
 export const WithCheckbox = WithCheckboxTemplate.bind({});
 WithCheckbox.argTypes = basicArgTypes;
@@ -268,6 +363,10 @@ WithRadioButonGroupMilk.args = {
   checkedInput: true,
   disabledInput: true,
 };
+
+export const TicketsOptionsExample = TicketsOptionsExampleTemplate.bind({});
+TicketsOptionsExample.argTypes = basicArgTypes;
+TicketsOptionsExample.args = { ...basicArgs, checkedInput: true };
 
 export default {
   decorators: [

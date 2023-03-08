@@ -25,7 +25,9 @@
 }
 
 :host(:focus-visible[data-within-selection-panel]) {
-  outline: none;
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 
   .sbb-radio-button__label-slot::after {
     content: '';

@@ -160,7 +160,8 @@ export class SbbRadioButton implements ComponentInterface {
 
   public connectedCallback(): void {
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
+    this._withinSelectionPanel =
+      !!this._element.closest('sbb-selection-panel') && !this._element.closest('[slot="content"]');
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._setupInitialStateAndAttributeObserver();
   }
@@ -219,9 +220,9 @@ export class SbbRadioButton implements ComponentInterface {
           />
           <span class="sbb-radio-button__label-slot">
             <slot />
-            {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
+            {this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
-          {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
+          {this._namedSlots['subtext'] && <slot name="subtext" />}
         </label>
       </Host>
     );

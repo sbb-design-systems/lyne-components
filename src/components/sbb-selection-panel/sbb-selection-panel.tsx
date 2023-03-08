@@ -148,7 +148,6 @@ export class SbbSelectionPanel implements ComponentInterface {
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._disabled = this._input?.disabled;
-    this._setContentElementHeight();
   }
 
   private _setContentElementHeight(): void {
@@ -197,7 +196,7 @@ export class SbbSelectionPanel implements ComponentInterface {
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
               <sbb-divider />
-              <slot name="content" />
+              <slot name="content" onSlotchange={() => this._setContentElementHeight()} />
             </div>
           )}
         </div>
