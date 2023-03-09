@@ -422,9 +422,9 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _setOriginAttributes(element: HTMLElement): void {
     // These attributes are used to handle visual effects
-    toggleDatasetEntry(element, 'dataAutocompleteOrigin', true);
-    toggleDatasetEntry(element, 'dataAutocompleteOpen', false);
-    toggleDatasetEntry(element, 'dataAutocompleteDisableAnimation', this.disableAnimation);
+    toggleDatasetEntry(element, 'autocompleteOrigin', true);
+    toggleDatasetEntry(element, 'autocompleteOpen', false);
+    toggleDatasetEntry(element, 'autocompleteDisableAnimation', this.disableAnimation);
   }
 
   private _removeOriginAttributes(element: HTMLElement): void {

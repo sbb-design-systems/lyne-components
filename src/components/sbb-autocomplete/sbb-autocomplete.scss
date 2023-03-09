@@ -83,7 +83,11 @@
     }
   }
 
-  :host([data-autocomplete-origin-borderless='true'][data-autocomplete-position='below'])
+  :host(
+      [data-autocomplete-origin-borderless]:not(
+          [data-autocomplete-origin-borderless='false']
+        )[data-autocomplete-position='below']
+    )
     &::before {
     @include sbb.shadow-level-5-hard;
   }
@@ -101,7 +105,12 @@
     }
   }
 
-  :host([data-autocomplete-origin-borderless='true'][data-autocomplete-position='above']) &::after {
+  :host(
+      [data-autocomplete-origin-borderless]:not(
+          [data-autocomplete-origin-borderless='false']
+        )[data-autocomplete-position='above']
+    )
+    &::after {
     @include sbb.shadow-level-5-hard;
   }
 }
