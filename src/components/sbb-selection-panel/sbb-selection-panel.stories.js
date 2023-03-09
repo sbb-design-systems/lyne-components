@@ -501,5 +501,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'sbb-selection-panel',
+  title: 'components/sbb-selection-panel',
 };

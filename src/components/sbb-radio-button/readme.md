@@ -46,9 +46,11 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                               |
-| ----------- | ----------------------------------------- |
-| `"unnamed"` | Use this slot to provide the radio label. |
+| Slot        | Description                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| `"subtext"` | Slot used to render a subtext under the label (only visible within a selection panel).          |
+| `"suffix"`  | Slot used to render additional content after the label (only visible within a selection panel). |
+| `"unnamed"` | Use this slot to provide the radio label.                                                       |
 
 
 ----------------------------------------------

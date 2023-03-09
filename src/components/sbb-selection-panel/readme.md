@@ -5,12 +5,11 @@
 
 ## Properties
 
-| Property           | Attribute           | Description                                    | Type                | Default     |
-| ------------------ | ------------------- | ---------------------------------------------- | ------------------- | ----------- |
-| `color`            | `color`             | The background color of the panel.             | `"milk" \| "white"` | `'white'`   |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.              | `boolean`           | `false`     |
-| `forceOpen`        | `force-open`        | Whether the content section is always visible. | `boolean`           | `false`     |
-| `someProp`         | `some-prop`         | Documentation for someProp                     | `"opt1" \| "opt2"`  | `undefined` |
+| Property           | Attribute           | Description                                    | Type                | Default   |
+| ------------------ | ------------------- | ---------------------------------------------- | ------------------- | --------- |
+| `color`            | `color`             | The background color of the panel.             | `"milk" \| "white"` | `'white'` |
+| `disableAnimation` | `disable-animation` | Whether the animation is enabled.              | `boolean`           | `false`   |
+| `forceOpen`        | `force-open`        | Whether the content section is always visible. | `boolean`           | `false`   |
 
 
 ## Events
@@ -25,9 +24,11 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| `"badge"`   | Use this slot to provide a `sbb-card-badge` (optional).            |
+| `"content"` | Use this slot to provide custom content for the panel (optional).  |
+| `"unnamed"` | Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`. |
 
 
 ## Dependencies

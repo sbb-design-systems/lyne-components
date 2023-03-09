@@ -20,10 +20,11 @@ import {
 import { i18nCollapsed, i18nExapnded } from '../../global/i18n';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
-import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom.d';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
+ * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
+ * @slot content - Use this slot to provide custom content for the panel (optional).
  */
 @Component({
   shadow: true,
@@ -31,15 +32,10 @@ import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.cust
   tag: 'sbb-selection-panel',
 })
 export class SbbSelectionPanel implements ComponentInterface {
-  /** Documentation for someProp */
-  @Prop()
-  public someProp?: InterfaceSbbSelectionPanelAttributes['someInterface'];
-
   /**
    * The background color of the panel.
    */
-  @Prop()
-  public color: 'white' | 'milk' = 'white';
+  @Prop() public color: 'white' | 'milk' = 'white';
 
   /**
    * Whether the content section is always visible.

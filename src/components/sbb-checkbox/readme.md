@@ -88,10 +88,12 @@ specify an appropriate label.
 
 ## Slots
 
-| Slot        | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `"icon"`    | Slot used to render the checkbox icon.         |
-| `"unnamed"` | Slot used to render the checkbox label's text. |
+| Slot        | Description                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| `"icon"`    | Slot used to render the checkbox icon (disabled inside a selection panel).                      |
+| `"subtext"` | Slot used to render a subtext under the label (only visible within a selection panel).          |
+| `"suffix"`  | Slot used to render additional content after the label (only visible within a selection panel). |
+| `"unnamed"` | Slot used to render the checkbox label's text.                                                  |
 
 
 ## Dependencies

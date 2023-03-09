@@ -32,6 +32,8 @@ const radioButtonObserverConfig: MutationObserverInit = {
 
 /**
  * @slot unnamed - Use this slot to provide the radio label.
+ * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
+ * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
 @Component({
   shadow: true,

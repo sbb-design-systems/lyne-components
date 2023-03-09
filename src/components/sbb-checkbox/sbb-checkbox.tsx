@@ -33,8 +33,10 @@ const checkboxObserverConfig: MutationObserverInit = {
 };
 
 /**
- * @slot icon - Slot used to render the checkbox icon.
  * @slot unnamed - Slot used to render the checkbox label's text.
+ * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
+ * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
+ * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
 @Component({
   shadow: true,

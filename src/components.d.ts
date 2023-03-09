@@ -33,7 +33,6 @@ import { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-prop
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
-import { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom.d";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
@@ -75,7 +74,6 @@ export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-prop
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
-export { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom.d";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
@@ -1144,10 +1142,6 @@ export namespace Components {
           * Whether the content section is always visible.
          */
         "forceOpen": boolean;
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceSbbSelectionPanelAttributes['someInterface'];
     }
     interface SbbSignet {
         /**
@@ -3376,10 +3370,6 @@ declare namespace LocalJSX {
           * Emits whenever the content section starts the opening transition.
          */
         "onWill-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
-        /**
-          * Documentation for someProp
-         */
-        "someProp"?: InterfaceSbbSelectionPanelAttributes['someInterface'];
     }
     interface SbbSignet {
         /**
