@@ -22,7 +22,7 @@ import { getDatePicker, InputUpdateEvent } from '../sbb-datepicker/sbb-datepicke
   tag: 'sbb-datepicker-toggle',
 })
 export class SbbDatepickerToggle implements ComponentInterface {
-  /** Datepicker reference */
+  /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
   @Element() private _element: HTMLSbbDatepickerToggleElement;
@@ -128,6 +128,9 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   private _hasDataNow(): boolean {
+    if(!this._datePicker) {
+      return false;
+    }
     const dataNow = +this._datePicker.dataset?.now;
     return !isNaN(dataNow);
   }
@@ -138,7 +141,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
       today.setHours(0, 0, 0, 0);
       return today;
     }
-    return this._dateAdapter.today();
+    return undefined;
   }
 
   public render(): JSX.Element {
@@ -165,7 +168,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           data-hide-close-button
         >
           <sbb-calendar
-            data-now={this._now().valueOf()}
+            data-now={this._now()?.valueOf()}
             ref={async (calendar: HTMLSbbCalendarElement) => this._assignCalendar(calendar)}
             min={this._min}
             max={this._max}

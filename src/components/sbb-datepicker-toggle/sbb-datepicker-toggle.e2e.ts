@@ -13,7 +13,7 @@ describe('sbb-datepicker-toggle', () => {
     expect(tooltipTrigger).toHaveAttribute('disabled');
   });
 
-  it('renders and open tooltip with picker', async () => {
+  it('renders and opens tooltip with picker', async () => {
     const page: E2EPage = await newE2EPage({
       html: `
           <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
