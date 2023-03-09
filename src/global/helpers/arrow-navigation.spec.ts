@@ -22,6 +22,10 @@ describe('getNextElementIndex', () => {
       expect(getNextElementIndex(eventRight, 1, size)).toEqual(2);
       expect(getNextElementIndex(eventDown, size - 2, size)).toEqual(9);
       expect(getNextElementIndex(eventRight, size - 1, size)).toEqual(0);
+
+      // current out of bound tests
+      expect(getNextElementIndex(eventDown, -1, size)).toEqual(0);
+      expect(getNextElementIndex(eventRight, size, size)).toEqual(0);
     });
 
     it('should return the previous element', function () {
@@ -32,6 +36,10 @@ describe('getNextElementIndex', () => {
       expect(getNextElementIndex(eventLeft, size - 2, size)).toEqual(7);
       expect(getNextElementIndex(eventUp, 1, size)).toEqual(0);
       expect(getNextElementIndex(eventLeft, 0, size)).toEqual(9);
+
+      // current out of bound tests
+      expect(getNextElementIndex(eventUp, -1, size)).toEqual(size - 1);
+      expect(getNextElementIndex(eventLeft, size, size)).toEqual(size - 1);
     });
   });
 
