@@ -443,19 +443,19 @@ export namespace Components {
     }
     interface SbbDatepickerNextDay {
         /**
-          * Datepicker reference
+          * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
     }
     interface SbbDatepickerPreviousDay {
         /**
-          * Datepicker reference
+          * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
     }
     interface SbbDatepickerToggle {
         /**
-          * Datepicker reference
+          * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
     }
@@ -2664,19 +2664,19 @@ declare namespace LocalJSX {
     }
     interface SbbDatepickerNextDay {
         /**
-          * Datepicker reference
+          * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
     }
     interface SbbDatepickerPreviousDay {
         /**
-          * Datepicker reference
+          * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
     }
     interface SbbDatepickerToggle {
         /**
-          * Datepicker reference
+          * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
     }

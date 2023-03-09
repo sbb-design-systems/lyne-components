@@ -17,7 +17,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="prefix"></slot>
               </div>
               <div class="sbb-form-field__input-container">
@@ -28,7 +28,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="suffix"></slot>
               </div>
             </div>
@@ -62,7 +62,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="prefix"></slot>
               </div>
               <div class="sbb-form-field__input-container">
@@ -75,7 +75,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="suffix"></slot>
               </div>
             </div>
@@ -106,7 +106,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="prefix"></slot>
               </div>
               <div class="sbb-form-field__input-container">
@@ -117,7 +117,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="suffix"></slot>
               </div>
             </div>
@@ -151,7 +151,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="prefix"></slot>
               </div>
               <div class="sbb-form-field__input-container">
@@ -162,7 +162,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="suffix"></slot>
               </div>
             </div>
@@ -200,7 +200,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="prefix"></slot>
               </div>
               <div class="sbb-form-field__input-container">
@@ -208,7 +208,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="suffix"></slot>
               </div>
             </div>
@@ -244,7 +244,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="prefix"></slot>
               </div>
               <div class="sbb-form-field__input-container">
@@ -256,7 +256,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
-              <div class="sbb-form-field__slot">
+              <div class="sbb-form-field__slot-container">
                 <slot name="suffix"></slot>
               </div>
             </div>

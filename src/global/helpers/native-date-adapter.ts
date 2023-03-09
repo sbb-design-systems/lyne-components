@@ -5,30 +5,6 @@ export class NativeDateAdapter {
   public static readonly DAYS_PER_WEEK = 7;
 
   /**
-   * Creates an array with the given length and fills it by mapping with the provided function.
-   * @param length The length of the array to be created.
-   * @param valueFunction The function of array's index used to fill the array.
-   */
-  private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
-    const valuesArray = Array(length);
-    for (let i = 0; i < length; i++) {
-      valuesArray[i] = valueFunction(i);
-    }
-    return valuesArray;
-  }
-
-  /** Creates a date but allows the month and date to overflow. */
-  private _createDateWithOverflow(year: number, month: number, date: number): Date {
-    const result = new Date(year, month, date);
-    // We need to correct for the fact that JS native Date treats years in range [0, 99] as
-    // abbreviations for 19xx.
-    if (year >= 0 && year < 100) {
-      result.setFullYear(this.getYear(result) - 1900);
-    }
-    return result;
-  }
-
-  /**
    * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
    */
   public getFirstWeekOffset(year: number, month: number): number {
@@ -132,7 +108,7 @@ export class NativeDateAdapter {
     return result;
   }
 
-  /** Checks whether the 2 dates are non-null and are in the same month of the same year. */
+  /** Checks whether the two dates are non-null and are in the same month of the same year. */
   public hasSameMonthAndYear(d1: Date | null, d2: Date | null): boolean {
     return !!(
       d1 &&
@@ -220,5 +196,29 @@ export class NativeDateAdapter {
       return undefined;
     }
     return new Date(+values[2], +values[1] - 1, +values[0]);
+  }
+
+  /**
+   * Creates an array with the given length and fills it by mapping with the provided function.
+   * @param length The length of the array to be created.
+   * @param valueFunction The function of array's index used to fill the array.
+   */
+  private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
+    const valuesArray = Array(length);
+    for (let i = 0; i < length; i++) {
+      valuesArray[i] = valueFunction(i);
+    }
+    return valuesArray;
+  }
+
+  /** Creates a date but allows the month and date to overflow. */
+  private _createDateWithOverflow(year: number, month: number, date: number): Date {
+    const result = new Date(year, month, date);
+    // We need to correct for the fact that JS native Date treats years in range [0, 99] as
+    // abbreviations for 19xx.
+    if (year >= 0 && year < 100) {
+      result.setFullYear(this.getYear(result) - 1900);
+    }
+    return result;
   }
 }
