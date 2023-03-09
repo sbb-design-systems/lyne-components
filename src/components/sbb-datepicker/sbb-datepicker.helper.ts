@@ -152,10 +152,10 @@ export function isDateAvailable(
   const dateMin: Date = dateAdapter.deserializeDate(min);
   const dateMax: Date = dateAdapter.deserializeDate(max);
 
-  if (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin) < 0) {
-    return false;
-  }
-  if (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(date, dateMax) > 0) {
+  if (
+    (dateAdapter.isValid(dateMin) && dateAdapter.compareDate(date, dateMin) < 0) ||
+    (dateAdapter.isValid(dateMax) && dateAdapter.compareDate(date, dateMax) > 0)
+  ) {
     return false;
   }
 

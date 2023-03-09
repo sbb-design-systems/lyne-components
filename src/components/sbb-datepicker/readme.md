@@ -49,7 +49,7 @@ With `sbb-form-field` and all related components, input's value set, `wide` set 
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-toggle></sbb-datepicker-toggle>
       <input value="01.01.2023"/>
-      <sbb-datepicker wide="true"></sbb-datepicker>
+      <sbb-datepicker wide></sbb-datepicker>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>
     </sbb-form-field>
 ```

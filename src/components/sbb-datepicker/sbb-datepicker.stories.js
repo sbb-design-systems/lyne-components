@@ -1,7 +1,6 @@
 import isChromatic from 'chromatic';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-datepicker.events';
 
 const value = {
   control: {
@@ -332,7 +331,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['input', events.change],
+      handles: ['input', 'change'],
     },
     backgrounds: {
       disable: true,

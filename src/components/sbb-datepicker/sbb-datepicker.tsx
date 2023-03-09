@@ -114,10 +114,9 @@ export class SbbDatepicker implements ComponentInterface {
 
   /** Set the input value to the correctly formatted value. */
   @Method() public async setValueAsDate(date: Date): Promise<void> {
-    const newValue: string = this._formatValue(
+    await this._formatAndUpdateValue(
       `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
     );
-    await this._formatAndUpdateValue(newValue);
   }
 
   private _datePickerController: AbortController;
@@ -204,7 +203,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    if (this._inputElement) {
+    if (this._inputElement && !this._inputElement.placeholder) {
       this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
     }
 
