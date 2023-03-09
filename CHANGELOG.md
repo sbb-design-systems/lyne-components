@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.28.3](https://github.com/lyne-design-system/lyne-components/compare/v0.28.2...v0.28.3) (2023-03-09)
+
+### Bug Fixes
+
+- **sbb-header:** fix stroke width of icons ([#1669](https://github.com/lyne-design-system/lyne-components/issues/1669)) ([ecd402f](https://github.com/lyne-design-system/lyne-components/commit/ecd402f078679543ae8e667e67eeeda017909e27))
+
 ### [0.28.2](https://github.com/lyne-design-system/lyne-components/compare/v0.28.1...v0.28.2) (2023-03-08)
 
 ### Documentation
