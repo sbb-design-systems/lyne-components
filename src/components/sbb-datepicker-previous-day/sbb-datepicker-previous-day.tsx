@@ -25,7 +25,7 @@ import {
   tag: 'sbb-datepicker-previous-day',
 })
 export class SbbDatepickerPreviousDay implements ComponentInterface {
-  /** Datepicker reference */
+  /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
   @Element() private _element: HTMLSbbDatepickerPreviousDayElement;
@@ -50,6 +50,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
+      this._datePickerController?.abort();
       this._init(this.datePicker);
     }
   }
@@ -60,7 +61,6 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._datePickerController = new AbortController();
     this._init(this.datePicker);
   }
 
@@ -69,6 +69,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   }
 
   private _init(picker?: string | HTMLElement): void {
+    this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this._element, picker);
     if (!this._datePickerElement) {
       return;
@@ -113,8 +114,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     if (!this._datePickerElement) {
       return;
     }
-    const startingDate: Date =
-      (await this._datePickerElement.getValueAsDate()) ?? this._now();
+    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
     const date: Date = findPreviousAvailableDate(
       startingDate,
       this._datePickerElement.dateFilter,
@@ -127,6 +127,9 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   }
 
   private _hasDataNow(): boolean {
+    if (!this._datePickerElement) {
+      return false;
+    }
     const dataNow = +this._datePickerElement.dataset?.now;
     return !isNaN(dataNow);
   }
@@ -137,14 +140,15 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
       today.setHours(0, 0, 0, 0);
       return today;
     }
-    return this._dateAdapter.today();
+    return undefined;
   }
 
   public render(): JSX.Element {
     return (
       <Host slot="prefix">
-        <div id="sbb-datepicker-previous-day">
+        <div class="sbb-datepicker-previous-day">
           <button
+            class="sbb-datepicker-previous-day__button"
             aria-label={i18nPreviousDay[this._currentLanguage]}
             aria-disabled={this._disabled || this._inputDisabled}
             disabled={this._disabled || this._inputDisabled}
