@@ -128,7 +128,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   private _hasDataNow(): boolean {
-    if(!this._datePicker) {
+    if (!this._datePicker) {
       return false;
     }
     const dataNow = +this._datePicker.dataset?.now;
