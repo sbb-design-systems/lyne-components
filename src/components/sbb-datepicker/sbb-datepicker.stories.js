@@ -1,3 +1,4 @@
+import isChromatic from 'chromatic';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-datepicker.events';
@@ -141,6 +142,15 @@ const borderless = {
   },
 };
 
+const dataNow = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Testing',
+  },
+};
+
 const basicArgTypes = {
   value,
   form,
@@ -151,7 +161,8 @@ const basicArgTypes = {
   max,
   wide,
   dateFilter,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': accessibilityLabel,
+  'data-now': dataNow,
 };
 
 const basicArgs = {
@@ -166,6 +177,10 @@ const basicArgs = {
   dateFilter: dateFilter.options[0],
   'aria-label': undefined,
 };
+
+if (isChromatic()) {
+  basicArgs.dataNow = new Date(2023, 0, 12, 0, 0, 0).valueOf();
+}
 
 const formFieldBasicArgsTypes = {
   ...basicArgTypes,
@@ -194,7 +209,7 @@ const getInputAttributes = (min, max) => {
   return attr;
 };
 
-const Template = ({ min, max, wide, dateFilter, ...args }) => {
+const Template = ({ min, max, wide, dateFilter, 'data-now': dataNow, ...args }) => {
   return [
     <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker" />
@@ -208,6 +223,7 @@ const Template = ({ min, max, wide, dateFilter, ...args }) => {
         }}
         wide={wide}
         onChange={(event) => changeEventHandler(event)}
+        data-now={dataNow}
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker" />
     </div>,
@@ -226,6 +242,7 @@ const TemplateFormField = ({
   size,
   wide,
   dateFilter,
+  'data-now': dataNow,
   ...args
 }) => {
   return [
@@ -246,6 +263,7 @@ const TemplateFormField = ({
         }}
         wide={wide}
         onChange={(event) => changeEventHandler(event)}
+        data-now={dataNow}
       ></sbb-datepicker>
     </sbb-form-field>,
     <div id="container-value" style="margin-block-start: 1rem;">

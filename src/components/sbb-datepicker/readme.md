@@ -54,6 +54,11 @@ With `sbb-form-field` and all related components, input's value set, `wide` set 
     </sbb-form-field>
 ```
 
+## Testing
+
+To specify a specific date for the current datetime, you can use the `data-now` attribute (timestamp in milliseconds).
+This is helpful if you need a specific state of the component.
+
 <!-- Auto Generated Below -->
 
 

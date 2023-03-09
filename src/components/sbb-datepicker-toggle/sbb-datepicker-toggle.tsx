@@ -127,6 +127,20 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._calendarElement.resetPosition();
   }
 
+  private _hasDataNow(): boolean {
+    const dataNow = +this._datePicker.dataset?.now;
+    return !isNaN(dataNow);
+  }
+
+  private _now(): Date {
+    if (this._hasDataNow()) {
+      const today = new Date(+this._datePicker.dataset?.now);
+      today.setHours(0, 0, 0, 0);
+      return today;
+    }
+    return this._dateAdapter.today();
+  }
+
   public render(): JSX.Element {
     return (
       <Host slot="prefix">
@@ -151,6 +165,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           data-hide-close-button
         >
           <sbb-calendar
+            data-now={this._now().valueOf()}
             ref={async (calendar: HTMLSbbCalendarElement) => this._assignCalendar(calendar)}
             min={this._min}
             max={this._max}

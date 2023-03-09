@@ -1,6 +1,7 @@
 import events from './sbb-calendar.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic';
 
 const getCalendarAttr = (min, max) => {
   let attr = {};
@@ -108,6 +109,15 @@ const maxAsString = {
   },
 };
 
+const dataNow = {
+  control: {
+    type: 'date',
+  },
+  table: {
+    category: 'Testing',
+  },
+};
+
 const filterFunctions = [
   () => true,
   (d) => d.getDay() !== 6 && d.getDay() !== 0,
@@ -135,6 +145,7 @@ const defaultArgTypes = {
   min,
   max,
   dateFilter,
+  'data-now': dataNow,
 };
 
 const defaultArgs = {
@@ -142,6 +153,10 @@ const defaultArgs = {
   selectedDate: new Date(2023, 0, 20),
   dateFilter: dateFilter.options[0],
 };
+
+if (isChromatic()) {
+  defaultArgs.dataNow = new Date(2023, 0, 12, 0, 0, 0).valueOf();
+}
 
 export const Calendar = Template.bind({});
 Calendar.argTypes = { ...defaultArgTypes };

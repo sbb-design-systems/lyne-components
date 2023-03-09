@@ -165,7 +165,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Sets the date variables. */
   private _setDates(): void {
     const selectedDate: Date = this._dateAdapter.deserializeDate(this.selectedDate);
-    this._activeDate = selectedDate ?? this._dateAdapter.today();
+    this._activeDate = selectedDate ?? this._now();
     this._setSelectedDate(selectedDate);
   }
 
@@ -230,6 +230,7 @@ export class SbbCalendar implements ComponentInterface {
    * Creates the table body with the days cells. For the first row, it also considers the possible day's offset.
    */
   private _createTableBody(weeks: Day[][]): JSX.Element {
+    const today: string = this._now().toISOString();
     return weeks.map((week: Day[], rowIndex: number) => {
       const firstRowOffset: number = NativeDateAdapter.DAYS_PER_WEEK - week.length;
       if (rowIndex === 0 && firstRowOffset) {
@@ -239,17 +240,16 @@ export class SbbCalendar implements ComponentInterface {
               colSpan={firstRowOffset}
               data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
             ></td>
-            {this._createDayCells(week)}
+            {this._createDayCells(week, today)}
           </tr>
         );
       }
-      return <tr>{this._createDayCells(week)}</tr>;
+      return <tr>{this._createDayCells(week, today)}</tr>;
     });
   }
 
   /** Creates the cells for the days. */
-  private _createDayCells(week: Day[]): JSX.Element {
-    const today: string = this._dateAdapter.today().toISOString();
+  private _createDayCells(week: Day[], today: string): JSX.Element {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this.dateFilter(new Date(day.value));
@@ -380,6 +380,20 @@ export class SbbCalendar implements ComponentInterface {
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
     }
+  }
+
+  private _hasDataNow(): boolean {
+    const dataNow = +this._element.dataset?.now;
+    return !isNaN(dataNow);
+  }
+
+  private _now(): Date {
+    if (this._hasDataNow()) {
+      const today = new Date(+this._element.dataset?.now);
+      today.setHours(0, 0, 0, 0);
+      return today;
+    }
+    return this._dateAdapter.today();
   }
 
   public render(): JSX.Element {

@@ -114,7 +114,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
       return;
     }
     const startingDate: Date =
-      (await this._datePickerElement.getValueAsDate()) ?? this._dateAdapter.today();
+      (await this._datePickerElement.getValueAsDate()) ?? this._now();
     const date: Date = findPreviousAvailableDate(
       startingDate,
       this._datePickerElement.dateFilter,
@@ -124,6 +124,20 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       await this._datePickerElement.setValueAsDate(date);
     }
+  }
+
+  private _hasDataNow(): boolean {
+    const dataNow = +this._datePickerElement.dataset?.now;
+    return !isNaN(dataNow);
+  }
+
+  private _now(): Date {
+    if (this._hasDataNow()) {
+      const today = new Date(+this._datePickerElement.dataset?.now);
+      today.setHours(0, 0, 0, 0);
+      return today;
+    }
+    return this._dateAdapter.today();
   }
 
   public render(): JSX.Element {
