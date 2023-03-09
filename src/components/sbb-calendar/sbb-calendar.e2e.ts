@@ -28,15 +28,15 @@ describe('sbb-calendar', () => {
   });
 
   it('renders and navigates to next month', async () => {
-    let days = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
-    expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
+    let day = await page.find('sbb-calendar >>> .sbb-calendar__day');
+    expect(await day.getAttribute('data-day')).toEqual('1 1 2023');
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-next');
     await nextMonthButton.click();
     await page.waitForChanges();
 
-    days = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
-    expect(await days[0].getAttribute('data-day')).toEqual('1 2 2023');
+    day = await page.find('sbb-calendar >>> .sbb-calendar__day');
+    expect(await day.getAttribute('data-day')).toEqual('1 2 2023');
   });
 
   it('renders and navigates to previous month', async () => {
@@ -55,32 +55,32 @@ describe('sbb-calendar', () => {
     await element.setProperty('max', 1674946800);
     await page.waitForChanges();
 
-    let days = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
-    expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
+    let day = await page.find('sbb-calendar >>> .sbb-calendar__day');
+    expect(await day.getAttribute('data-day')).toEqual('1 1 2023');
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-next');
     expect(nextMonthButton).toHaveAttribute('disabled');
     await nextMonthButton.click();
     await page.waitForChanges();
 
-    days = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
-    expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
+    day = await page.find('sbb-calendar >>> .sbb-calendar__day');
+    expect(await day.getAttribute('data-day')).toEqual('1 1 2023');
   });
 
   it('sets min and previous month button gets disabled', async () => {
     await element.setProperty('min', 1673737200);
     await page.waitForChanges();
 
-    let days = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
-    expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
+    let day = await page.find('sbb-calendar >>> .sbb-calendar__day');
+    expect(await day.getAttribute('data-day')).toEqual('1 1 2023');
 
     const nextMonthButton = await page.find('sbb-calendar >>> #sbb-calendar__controls-previous');
     expect(nextMonthButton).toHaveAttribute('disabled');
     await nextMonthButton.click();
     await page.waitForChanges();
 
-    days = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
-    expect(await days[0].getAttribute('data-day')).toEqual('1 1 2023');
+    day = await page.find('sbb-calendar >>> .sbb-calendar__day');
+    expect(await day.getAttribute('data-day')).toEqual('1 1 2023');
   });
 
   it('selects a different date', async () => {

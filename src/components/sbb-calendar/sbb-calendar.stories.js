@@ -178,13 +178,6 @@ CalendarFilterFunction.argTypes = { ...defaultArgTypes, dateFilter };
 CalendarFilterFunction.args = { ...defaultArgs, dateFilter: dateFilter.options[2] };
 
 export default {
-  decorators: [
-    (Story) => (
-      <div>
-        <Story />
-      </div>
-    ),
-  ],
   parameters: {
     actions: {
       handles: [events.dateSelected],

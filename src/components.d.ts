@@ -50,11 +50,12 @@ import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.cu
 import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
+export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
+export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 export { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
-export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 export { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
@@ -68,7 +69,6 @@ export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-acti
 export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
@@ -79,6 +79,7 @@ export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
+export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 export { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
@@ -86,7 +87,7 @@ export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
-export { StateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {

@@ -93,11 +93,6 @@ export class SbbCalendar implements ComponentInterface {
     this._max = this._dateAdapter.deserializeDate(newMax);
   }
 
-  @Watch('wide')
-  private _setCalendarWidth(value: boolean): void {
-    this._wide = isBreakpoint('medium') && value;
-  }
-
   /** Sets the selected date. */
   @Watch('selectedDate')
   private _setSelectedDate(selectedDate: Date | null): void {
@@ -118,6 +113,7 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Resets the active month according to the new state of the calendar. */
   @Method()
+  @Watch('wide')
   public async resetPosition(): Promise<void> {
     this._setDates();
     this._init();
@@ -142,6 +138,8 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public componentDidRender(): void {
+    // The calendar needs to calculate tab-indexes on first render
+    // and every time a date is selected or the month view changes.
     this._setTabIndex();
   }
 
@@ -151,7 +149,7 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Initializes the component. */
   private _init(): void {
-    this._setCalendarWidth(this.wide);
+    this._wide = isBreakpoint('medium') && this.wide;
     this._setWeekdays();
     this._weeks = this._createWeekRows(this._activeDate.getMonth(), this._activeDate.getFullYear());
     this._nextMonthWeeks = [[]];
