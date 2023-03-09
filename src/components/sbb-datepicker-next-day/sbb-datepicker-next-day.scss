@@ -9,13 +9,13 @@
   --sbb-datepicker-control-color: var(--sbb-color-black-default);
 }
 
-#sbb-datepicker-next-day {
+.sbb-datepicker-next-day {
   height: var(--sbb-form-field-height);
   display: flex;
   align-items: center;
 }
 
-button {
+.sbb-datepicker-next-day__button {
   @include sbb.button-reset;
 
   display: flex;
@@ -23,13 +23,13 @@ button {
   cursor: pointer;
 }
 
-button:focus-visible {
+.sbb-datepicker-next-day__button:focus-visible {
   @include sbb.focus-outline;
 
   border-radius: var(--sbb-datepicker-control-radius);
 }
 
-button[disabled]:not([disabled='false']) {
+.sbb-datepicker-next-day__button[disabled] {
   --sbb-datepicker-control-color: var(--sbb-color-graphite-default);
 
   cursor: unset;

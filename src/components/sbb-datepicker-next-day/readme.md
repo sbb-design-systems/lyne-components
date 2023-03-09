@@ -36,9 +36,9 @@ With `sbb-form-field`:
 
 ## Properties
 
-| Property     | Attribute     | Description          | Type                    | Default     |
-| ------------ | ------------- | -------------------- | ----------------------- | ----------- |
-| `datePicker` | `date-picker` | Datepicker reference | `HTMLElement \| string` | `undefined` |
+| Property     | Attribute     | Description           | Type                    | Default     |
+| ------------ | ------------- | --------------------- | ----------------------- | ----------- |
+| `datePicker` | `date-picker` | Datepicker reference. | `HTMLElement \| string` | `undefined` |
 
 
 ## Dependencies

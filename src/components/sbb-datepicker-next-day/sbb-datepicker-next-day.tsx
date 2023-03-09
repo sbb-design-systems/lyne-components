@@ -25,7 +25,7 @@ import {
   tag: 'sbb-datepicker-next-day',
 })
 export class SbbDatepickerNextDay implements ComponentInterface {
-  /** Datepicker reference */
+  /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
   @Element() private _element: HTMLSbbDatepickerNextDayElement;
@@ -142,8 +142,9 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host slot="suffix">
-        <div id="sbb-datepicker-next-day">
+        <div class="sbb-datepicker-next-day">
           <button
+            class="sbb-datepicker-next-day__button"
             aria-label={i18nNextDay[this._currentLanguage]}
             aria-disabled={this._disabled || this._inputDisabled}
             disabled={this._disabled || this._inputDisabled}
