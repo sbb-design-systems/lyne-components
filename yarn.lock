@@ -2158,10 +2158,38 @@
     validate-npm-package-name "^4.0.0"
     yargs "^17.6.0"
 
-"@netlify/edge-bundler@8.11.0", "@netlify/edge-bundler@^8.11.0":
+"@netlify/edge-bundler@8.11.0":
   version "8.11.0"
   resolved "https://registry.yarnpkg.com/@netlify/edge-bundler/-/edge-bundler-8.11.0.tgz#ae214ad51b7359410b18a8e19eebc35bffa89b77"
   integrity sha512-Hex57i1Tyb7kDd1q2e6dvpzYonFQSRRCP/INFnrjaaRgjzdQzEA5Y6PQIuCwbN33kI3G8V1ZNnc1gpJPuPEO7w==
+  dependencies:
+    "@import-maps/resolve" "^1.0.1"
+    ajv "^8.11.2"
+    ajv-errors "^3.0.0"
+    better-ajv-errors "^1.2.0"
+    common-path-prefix "^3.0.0"
+    del "^7.0.0"
+    env-paths "^3.0.0"
+    execa "^6.0.0"
+    find-up "^6.3.0"
+    get-port "^6.1.2"
+    glob-to-regexp "^0.4.1"
+    is-path-inside "^4.0.0"
+    jsonc-parser "^3.2.0"
+    node-fetch "^3.1.1"
+    node-stream-zip "^1.15.0"
+    p-retry "^5.1.1"
+    p-wait-for "^4.1.0"
+    path-key "^4.0.0"
+    regexp-tree "^0.1.24"
+    semver "^7.3.5"
+    tmp-promise "^3.0.3"
+    uuid "^9.0.0"
+
+"@netlify/edge-bundler@^8.11.1":
+  version "8.11.1"
+  resolved "https://registry.yarnpkg.com/@netlify/edge-bundler/-/edge-bundler-8.11.1.tgz#1d8e890a1fad4e4bb5f2e2939d74d7488204dd52"
+  integrity sha512-pj3myy714qX0OuPwtRTfBgaQ2fZwj5qkpACyeXtrsVcaHRNnE0l7cymfZ0fS0a/xkINj9fcyTEtZBahDuuLT2g==
   dependencies:
     "@import-maps/resolve" "^1.0.1"
     ajv "^8.11.2"
@@ -13391,15 +13419,15 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0, nested-error-stacks@^2.1
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-netlify-cli@13.1.1:
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-13.1.1.tgz#b2b9825fddd0ee141654fbf8ceef0bd30233421c"
-  integrity sha512-PRcZfH63PU223PAjP9CkCXUjC1dvshy6DRQnhNJC+541TQB/sdDQRUKBPx185aKbcdhjoMhPXAlZO/LceY0EnQ==
+netlify-cli@13.1.2:
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-13.1.2.tgz#7d74327a4f0e4455ef0e2cce6cb32326eef07e4a"
+  integrity sha512-1kanhjOytN/z8WCF5VvleJ57RtawvRjXN38RN4UaV7aKkSFLO2+UpFGtGtVihbp7x4cACYAaH/RJvtsrzWAKaQ==
   dependencies:
     "@fastify/static" "^6.6.0"
     "@netlify/build" "^29.6.6"
     "@netlify/config" "^20.3.4"
-    "@netlify/edge-bundler" "^8.11.0"
+    "@netlify/edge-bundler" "^8.11.1"
     "@netlify/framework-info" "^9.8.5"
     "@netlify/local-functions-proxy" "^1.1.1"
     "@netlify/zip-it-and-ship-it" "^8.9.0"
