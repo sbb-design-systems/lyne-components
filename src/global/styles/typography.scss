@@ -1,6 +1,7 @@
 @use './core/font-face';
 @use './mixins/layout';
 @use './mixins/lists';
+@use './mixins/overlay';
 @use './mixins/typo';
 
 @include font-face.font-declarations;
@@ -83,6 +84,10 @@ sup {
 
 .sbb-legend {
   @include typo.legend;
+}
+
+[data-autocomplete-origin] {
+  @include overlay.overlay;
 }
 
 // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
