@@ -1106,9 +1106,10 @@ export namespace Components {
          */
         "disabled"?: boolean;
         /**
-          * The portion of the highlighted label.
+          * Highlight the label of the option
+          * @param value the highlighted portion of the label
          */
-        "highlightString": string;
+        "highlight": (value: string) => Promise<void>;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
@@ -3464,10 +3465,6 @@ declare namespace LocalJSX {
           * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */
         "disabled"?: boolean;
-        /**
-          * The portion of the highlighted label.
-         */
-        "highlightString"?: string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */

@@ -434,7 +434,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** Projects the search term on the options. */
   private _highlightOptions(searchTerm: string): void {
-    this._options.forEach((option) => (option.highlightString = searchTerm));
+    this._options.forEach((option) => option.highlight(searchTerm));
   }
 
   private _setOriginAttributes(element: HTMLElement): void {
