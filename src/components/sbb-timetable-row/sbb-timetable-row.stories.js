@@ -12,6 +12,7 @@ import {
   quayChangeTrip,
   ShipTrip,
   walkTimeTrip,
+  extendedEnterTimeTrip,
   NoticesTrip,
   skippedDepartureStopTrip,
   skippedArrivalStopTrip,
@@ -258,6 +259,13 @@ WalkTime.argTypes = defaultArgTypes;
 WalkTime.args = {
   ...defaultArgs,
   trip: walkTimeTrip,
+};
+
+export const ExtendedEnterTime = Template.bind({});
+ExtendedEnterTime.argTypes = defaultArgTypes;
+ExtendedEnterTime.args = {
+  ...defaultArgs,
+  trip: extendedEnterTimeTrip,
 };
 
 export const Notices = Template.bind({});

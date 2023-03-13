@@ -1,5 +1,6 @@
 import {
   cancelledLeg,
+  extendedLeg,
   futureLeg,
   longFutureLeg,
   pastLeg,
@@ -578,6 +579,34 @@ export const walkTimeTrip = {
       __typename: 'TripStatus',
     },
     __typename: 'TripSummary',
+  },
+};
+
+export const extendedEnterTimeTrip = {
+  legs: [extendedLeg, futureLeg, longFutureLeg],
+  notices: [],
+  situations: [],
+  summary: {
+    duration: 41,
+    arrival: {
+      time: '2022-11-30T17:06:00+01:00',
+      quayAimedName: '11',
+    },
+    arrivalWalk: 0,
+    departure: {
+      time: '2022-11-30T16:30:00+01:00',
+      quayAimedName: '4',
+    },
+    departureWalk: 0,
+    direction: 'Chur',
+    product: {
+      line: '35',
+      number: '2377',
+      vehicleMode: 'TRAIN',
+      vehicleSubModeShortName: 'IR',
+    },
+    occupancy: {},
+    tripStatus: {},
   },
 };
 

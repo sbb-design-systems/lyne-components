@@ -49,7 +49,7 @@ This is helpful if you need a specific state of the component.
 | `loadingPrice`       | `loading-price`       | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`  | `undefined` |
 | `loadingTrip`        | `loading-trip`        | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`  | `undefined` |
 | `price`              | --                    | The price Prop, which consists of the data for the badge.                                         | `Price`    | `undefined` |
-| `trip` _(required)_  | --                    | The trip Prop                                                                                     | `Trip`     | `undefined` |
+| `trip`               | --                    | The trip Prop                                                                                     | `Trip`     | `undefined` |
 
 
 ## Dependencies

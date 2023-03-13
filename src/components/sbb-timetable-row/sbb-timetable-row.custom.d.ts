@@ -3,21 +3,6 @@ import {
   ScheduledStopPointDetail,
 } from '../../global/interfaces/pearl-chain-properties';
 
-/** Text template with optional formattable parameters. Useful to represent in UIs as clickable features like an e-Mail, phone or URL. */
-export type LinkedText = {
-  /** End-user text. */
-  template?: string;
-};
-
-/** travel hints for the transportation */
-export interface Notice {
-  name: string;
-  /** Priority - A lower priority value means a higher importance */
-  priority?: number;
-  /** Text format with linkable parameters */
-  text?: LinkedText;
-}
-
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
   name: string;
@@ -140,7 +125,7 @@ export interface Price {
 
 export interface Trip {
   /** List of transfer points */
-  legs: PtRideLeg[];
+  legs: (PtRideLeg & PtConnectionLeg)[];
   /**
    * List of legs travel hints
    * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2

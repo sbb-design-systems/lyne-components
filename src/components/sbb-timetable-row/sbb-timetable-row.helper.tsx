@@ -1,6 +1,6 @@
 import { h, JSX } from '@stencil/core';
-import { PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
-import { HimCus, Notice, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
+import { Notice, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { HimCus, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
