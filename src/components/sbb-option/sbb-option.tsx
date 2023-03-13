@@ -51,9 +51,6 @@ export class SbbOption implements ComponentInterface {
   /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
   @Prop() public disabled?: boolean;
 
-  /** The portion of the highlighted label. */
-  @Prop() public highlightString: string;
-
   /** Disable the highlight of the label. */
   @Prop({ reflect: true }) public disableLabelHighlight: boolean;
 
@@ -81,6 +78,9 @@ export class SbbOption implements ComponentInterface {
 
   @State() private _label: string;
 
+  /** The portion of the highlighted label. */
+  @State() public highlightString: string;
+
   @Element() private _element: HTMLElement;
 
   private _optionId = `sbb-option-${++nextId}`;
@@ -104,6 +104,15 @@ export class SbbOption implements ComponentInterface {
 
     this._selected = false;
     this.didDeselect.emit({ id: this._element.id, value: this.value });
+  }
+
+  /**
+   * Highlight the label of the option
+   * @param value the highlighted portion of the label
+   */
+  @Method()
+  public async highlight(value: string): Promise<void> {
+    this.highlightString = value;
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -180,9 +189,7 @@ export class SbbOption implements ComponentInterface {
                 !this.preserveIconSpace && !this._namedSlots.icon && !this.iconName,
             }}
           >
-            <slot name="icon">
-              {this.iconName && <sbb-icon name={this.iconName} />}
-            </slot>
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           </span>
           <span class="sbb-option__label">
             <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
