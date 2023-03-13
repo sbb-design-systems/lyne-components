@@ -31,7 +31,6 @@ Option with icon
 | `active`                | `active`                  | Whether the option is currently active.                                                                                                   | `boolean` | `undefined` |
 | `disableLabelHighlight` | `disable-label-highlight` | Disable the highlight of the label.                                                                                                       | `boolean` | `undefined` |
 | `disabled`              | `disabled`                | Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.                               | `boolean` | `undefined` |
-| `highlightString`       | `highlight-string`        | The portion of the highlighted label.                                                                                                     | `string`  | `undefined` |
 | `iconName`              | `icon-name`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `undefined` |
 | `preserveIconSpace`     | `preserve-icon-space`     | Whether the icon space is preserved when no icon is set.                                                                                  | `boolean` | `undefined` |
 | `value`                 | `value`                   | Value of the option.                                                                                                                      | `string`  | `undefined` |
@@ -50,6 +49,16 @@ Option with icon
 ### `deselect() => Promise<void>`
 
 
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `highlight(value: string) => Promise<void>`
+
+Highlight the label of the option
 
 #### Returns
 
