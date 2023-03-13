@@ -230,7 +230,7 @@ export namespace Components {
          */
         "origin": string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'.
+          * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
          */
         "trigger": string | HTMLInputElement;
     }
@@ -2542,7 +2542,7 @@ declare namespace LocalJSX {
          */
         "origin"?: string | HTMLElement;
         /**
-          * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'.
+          * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
          */
         "trigger"?: string | HTMLInputElement;
     }

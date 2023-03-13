@@ -47,7 +47,7 @@ export class SbbAutocomplete implements ComponentInterface {
    * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element.
    * By default, the autocomplete will open on focus of the 'trigger' element.
    *
-   * If not set, will search for the first 'input' child of 'origin'.
+   * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
    */
   @Prop() public trigger: string | HTMLInputElement;
 
@@ -180,7 +180,16 @@ export class SbbAutocomplete implements ComponentInterface {
       return this._element.closest('sbb-form-field') as HTMLSbbFormFieldElement;
     }
 
-    return typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
+    const result =
+      typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
+
+    if (!result) {
+      throw new Error(
+        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation'
+      );
+    }
+
+    return result;
   }
 
   /**
@@ -189,12 +198,21 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   private _getTriggerElement(): HTMLInputElement {
     if (!this.trigger) {
-      return this._originElement?.querySelector('input') as HTMLInputElement;
+      return this._element.closest('sbb-form-field')?.querySelector('input') as HTMLInputElement;
     }
 
-    return typeof this.trigger === 'string'
-      ? (document.getElementById(this.trigger) as HTMLInputElement)
-      : this.trigger;
+    const result =
+      typeof this.trigger === 'string'
+        ? (document.getElementById(this.trigger) as HTMLInputElement)
+        : this.trigger;
+
+    if (!result) {
+      throw new Error(
+        'Cannot find the trigger element. Please specify a valid element or read the "trigger" prop documentation'
+      );
+    }
+
+    return result;
   }
 
   private _attachTo(anchorElem: HTMLElement): void {
