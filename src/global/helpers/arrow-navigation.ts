@@ -30,9 +30,7 @@ function getLastIndex(size: number): number {
   return size - 1;
 }
 
-function getFirstIndex(): number {
-  return 0;
-}
+const firstIndex = 0;
 
 /**
  * Gets the index of the element to move to, based on the keyboard input, the current element in the list and the list size.
@@ -57,6 +55,6 @@ export function getNextElementIndex(event: KeyboardEvent, current: number, size:
   if (event.key === prevKey || event.key === 'ArrowUp') {
     return current < 0 ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
   } else if (event.key === nextKey || event.key === 'ArrowDown') {
-    return current >= size ? getFirstIndex() : calcNextIndexInRange(current, size, 1);
+    return current >= size ? firstIndex : calcNextIndexInRange(current, size, 1);
   }
 }

@@ -15,7 +15,6 @@ import {
 } from '@stencil/core';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { assignId } from '../../global/helpers/assign-id';
-import { hostContext } from '../../global/helpers/host-context';
 import {
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
@@ -178,7 +177,7 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   private _getOriginElement(): HTMLElement {
     if (!this.origin) {
-      return hostContext('sbb-form-field', this._element) as HTMLSbbFormFieldElement;
+      return this._element.closest('sbb-form-field') as HTMLSbbFormFieldElement;
     }
 
     return typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
