@@ -168,7 +168,6 @@ export class SbbOption implements ComponentInterface {
     return (
       <Host
         role="option"
-        tabindex={this.disabled ? '-1' : '0'}
         aria-disabled={this.disabled}
         aria-selected={this._selected}
         ref={assignId(() => this._optionId)}
@@ -182,7 +181,7 @@ export class SbbOption implements ComponentInterface {
             }}
           >
             <slot name="icon">
-              {this.iconName && <sbb-icon slot="icon" name={this.iconName} />}
+              {this.iconName && <sbb-icon name={this.iconName} />}
             </slot>
           </span>
           <span class="sbb-option__label">
