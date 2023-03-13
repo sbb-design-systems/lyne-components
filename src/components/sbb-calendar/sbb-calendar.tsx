@@ -74,6 +74,9 @@ export class SbbCalendar implements ComponentInterface {
   /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks: Day[][];
 
+  /** An array containing all the month names in the current language. */
+  private _months = this._dateAdapter.getMonthNames('long');
+
   /** A list of buttons corresponding to the days of the month. */
   private get _days(): HTMLButtonElement[] {
     return Array.from(
@@ -122,6 +125,7 @@ export class SbbCalendar implements ComponentInterface {
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
+    this._months = this._dateAdapter.getMonthNames('long');
   }
 
   public connectedCallback(): void {
@@ -282,13 +286,27 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the month label. */
   private _createMonthLabel(d: Date): JSXElement {
+    const monthLabel = `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
+      d
+    )}`;
     return (
-      <span class="sbb-calendar__controls-month-label">
-        {`${
-          this._dateAdapter.getMonthNames('long')[this._dateAdapter.getMonth(d)]
-        } ${this._dateAdapter.getYear(d)}`}
+      <span class="sbb-calendar__controls-month-label" aria-hidden="true">
+        {monthLabel}
       </span>
     );
+  }
+
+  /** Creates the month label. */
+  private _createMonthAriaLabel(...dates: Date[]): string {
+    let monthLabel = '';
+    for (const d of dates) {
+      if (d) {
+        monthLabel += `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
+          d
+        )} `;
+      }
+    }
+    return monthLabel;
   }
 
   /** Checks if date is within the min-max range. */
@@ -397,6 +415,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const nextMonthActiveDate = this._wide
+      ? this._dateAdapter.addCalendarMonths(this._activeDate, 1)
+      : undefined;
     return (
       <div class="sbb-calendar__wrapper">
         <div class="sbb-calendar__controls">
@@ -411,8 +432,10 @@ export class SbbCalendar implements ComponentInterface {
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
             {this._createMonthLabel(this._activeDate)}
-            {this._wide &&
-              this._createMonthLabel(this._dateAdapter.addCalendarMonths(this._activeDate, 1))}
+            {this._wide && this._createMonthLabel(nextMonthActiveDate)}
+            <span role="status" class="sbb-calendar__visually-hidden">
+              {this._createMonthAriaLabel(this._activeDate, nextMonthActiveDate)}
+            </span>
           </div>
           <sbb-button
             variant="secondary"

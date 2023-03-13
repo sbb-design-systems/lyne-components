@@ -60,7 +60,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input id="id" placeholder="DD.MM.YYYY" type="text">'
+        '<input id="id" placeholder="DD.MM.YYYY" role="status" type="text">'
       );
     });
 
@@ -81,7 +81,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input id="sbb-form-field-input-0" placeholder="DD.MM.YYYY" type="text">'
+        '<input id="sbb-form-field-input-0" placeholder="DD.MM.YYYY" role="status" type="text">'
       );
     });
 

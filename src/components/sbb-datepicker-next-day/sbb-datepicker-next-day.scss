@@ -16,21 +16,5 @@
 }
 
 .sbb-datepicker-next-day__button {
-  @include sbb.button-reset;
-
-  display: flex;
-  color: var(--sbb-datepicker-control-color);
-  cursor: pointer;
-}
-
-.sbb-datepicker-next-day__button:focus-visible {
-  @include sbb.focus-outline;
-
-  border-radius: var(--sbb-datepicker-control-radius);
-}
-
-.sbb-datepicker-next-day__button[disabled] {
-  --sbb-datepicker-control-color: var(--sbb-color-graphite-default);
-
-  cursor: unset;
+  @include sbb.icon-button;
 }

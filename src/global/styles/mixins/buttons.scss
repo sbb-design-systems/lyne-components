@@ -1,3 +1,5 @@
+@use './a11y.scss';
+
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
 // ----------------------------------------------------------------------------------------------------
@@ -14,4 +16,63 @@
   background: none;
   -webkit-tap-highlight-color: transparent;
   color: inherit;
+}
+
+@mixin icon-button {
+  @include button-reset;
+
+  --sbb-icon-button-background: transparent;
+  --sbb-icon-button-color: var(--sbb-color-black-default);
+  --sbb-icon-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-icon-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-icon-button-inset: 0;
+  --sbb-icon-button-transform: none;
+  --sbb-icon-button-size: 1.5rem;
+
+  position: relative;
+  height: var(--sbb-icon-button-size);
+  width: var(--sbb-icon-button-size);
+  border-radius: calc(var(--sbb-icon-button-size) / 2);
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--sbb-icon-button-color);
+
+  &::before {
+    background-color: var(--sbb-icon-button-background);
+    content: '';
+    position: absolute;
+    inset: var(--sbb-icon-button-inset);
+    border-radius: calc(var(--sbb-icon-button-size) / 2);
+    transition-duration: var(--sbb-icon-button-transition-duration);
+    transition-timing-function: var(--sbb-icon-button-transition-easing-function);
+  }
+
+  &:hover {
+    --sbb-icon-button-background: var(--sbb-color-milk-default);
+    --sbb-icon-button-transform: translateY(-1px);
+  }
+
+  &:active {
+    --sbb-icon-button-background: var(--sbb-color-cloud-default);
+    --sbb-icon-button-inset: 1px;
+    --sbb-icon-button-transform: translateY(0);
+  }
+
+  &[disabled] {
+    --sbb-icon-button-color: var(--sbb-color-granite-default);
+
+    cursor: unset;
+  }
+
+  &:focus-visible {
+    @include a11y.focus-outline;
+
+    border-radius: var(--sbb-datepicker-control-radius);
+  }
+
+  sbb-icon {
+    transition-duration: var(--sbb-icon-button-transition-duration);
+    transition-timing-function: var(--sbb-icon-button-transition-easing-function);
+    transform: var(--sbb-icon-button-transform);
+  }
 }

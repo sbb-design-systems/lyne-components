@@ -89,16 +89,32 @@ export class SbbDatepicker implements ComponentInterface {
       });
 
       this._inputElement.type = 'text';
-      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+      this._inputElement.role = 'status';
+
+      if (!this._inputElement.placeholder) {
+        this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+      }
 
       this._inputElement.addEventListener(
         'input',
-        (event: Event) => this._preventCharInsert(event),
+        (event: Event) => {
+          if (!(event instanceof CustomEvent)) {
+            this._preventCharInsert(event);
+          }
+        },
         { signal: this._datePickerController.signal }
       );
-      this._inputElement.addEventListener('change', (event: Event) => this._valueChanged(event), {
-        signal: this._datePickerController.signal,
-      });
+      this._inputElement.addEventListener(
+        'change',
+        (event: Event) => {
+          if (!(event instanceof CustomEvent)) {
+            this._valueChanged(event);
+          }
+        },
+        {
+          signal: this._datePickerController.signal,
+        }
+      );
     }
   }
 
@@ -186,6 +202,11 @@ export class SbbDatepicker implements ComponentInterface {
   private _emitChange(): void {
     this.change.emit();
     this.didChange.emit();
+
+    if (this._inputElement) {
+      this._inputElement.dispatchEvent(new CustomEvent('input'));
+      this._inputElement.dispatchEvent(new CustomEvent('change'));
+    }
   }
 
   private _onInputPropertiesChange(): void {
