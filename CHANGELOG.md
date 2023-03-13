@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.28.4](https://github.com/lyne-design-system/lyne-components/compare/v0.28.3...v0.28.4) (2023-03-13)
+
+### Features
+
+- **sbb-pearl-chain-time:** add extended transfer render logic ([#1651](https://github.com/lyne-design-system/lyne-components/issues/1651)) ([776dbb0](https://github.com/lyne-design-system/lyne-components/commit/776dbb060b1e2f1da04e22f1dd75d9b25e019c82))
+
+### Bug Fixes
+
+- **sbb-pearl-chain-time:** fix time formatting ([#1672](https://github.com/lyne-design-system/lyne-components/issues/1672)) ([9bc8f81](https://github.com/lyne-design-system/lyne-components/commit/9bc8f81198daf83e7b2c928b224bbcdd1a5b98ba))
+
 ### [0.28.3](https://github.com/lyne-design-system/lyne-components/compare/v0.28.2...v0.28.3) (2023-03-09)
 
 ### Bug Fixes
