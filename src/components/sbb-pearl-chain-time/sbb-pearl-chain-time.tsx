@@ -83,7 +83,7 @@ export class SbbPearlChainTime {
         {departure && (
           <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
             <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
-            {format(departure, 'H:mm')}
+            {format(departure, 'HH:mm')}
           </time>
         )}
         <sbb-pearl-chain
@@ -95,7 +95,7 @@ export class SbbPearlChainTime {
         {arrival && (
           <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
             <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
-            {format(arrival, 'H:mm')}
+            {format(arrival, 'HH:mm')}
           </time>
         )}
         {this.arrivalWalk > 0 && (
