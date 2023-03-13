@@ -5,7 +5,7 @@ The panel appears below/above the `origin` element.
 
 If not explicitly set, the `sbb-autocomplete` will look for an `sbb-form-field` ancestor as `origin`.
 
-Also, if not explicitly set, it will look for an `input` in `origin` to use as `trigger`.
+Also, if not explicitly set, it will look for an `input` in the 'sbb-form-field' ancestor to use as `trigger`.
 
 ```html
 <!-- Origin element -->
@@ -54,11 +54,11 @@ Or, you can specify a different `origin` and `trigger`
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                                                                                                                                                                      | Type                         | Default     |
-| ------------------ | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is disabled.                                                                                                                                                                                                                               | `boolean`                    | `false`     |
-| `origin`           | `origin`            | The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.                                                                                      | `HTMLElement \| string`      | `undefined` |
-| `trigger`          | `trigger`           | The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of 'origin'. | `HTMLInputElement \| string` | `undefined` |
+| Property           | Attribute           | Description                                                                                                                                                                                                                                                                         | Type                         | Default     |
+| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------- |
+| `disableAnimation` | `disable-animation` | Whether the animation is disabled.                                                                                                                                                                                                                                                  | `boolean`                    | `false`     |
+| `origin`           | `origin`            | The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                         | `HTMLElement \| string`      | `undefined` |
+| `trigger`          | `trigger`           | The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. | `HTMLInputElement \| string` | `undefined` |
 
 
 ## Events
