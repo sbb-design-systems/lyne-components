@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.sbb-datepicker-previos-day__button {
+.sbb-datepicker-previous-day__button {
   @include sbb.button-reset;
 
   display: flex;
@@ -23,13 +23,13 @@
   cursor: pointer;
 }
 
-.sbb-datepicker-previos-day__button:focus-visible {
+.sbb-datepicker-previous-day__button:focus-visible {
   @include sbb.focus-outline;
 
   border-radius: var(--sbb-datepicker-control-radius);
 }
 
-.sbb-datepicker-previos-day__button[disabled] {
+.sbb-datepicker-previous-day__button[disabled] {
   --sbb-datepicker-control-color: var(--sbb-color-graphite-default);
 
   cursor: unset;
