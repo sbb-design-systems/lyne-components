@@ -1069,12 +1069,6 @@ export namespace Components {
          */
         "value"?: any | null;
     }
-    interface SbbSector {
-        /**
-          * Label for the sector.
-         */
-        "label": string;
-    }
     interface SbbSignet {
         /**
           * Accessibility label which will be forwarded to the inner SVG signet.
@@ -1543,6 +1537,10 @@ export namespace Components {
         "station"?: string;
     }
     interface SbbTrainFormation {
+        /**
+          * Option to hide all wagon numbers.
+         */
+        "hideWagonLabel": boolean;
     }
     interface SbbWagon {
         /**
@@ -1565,6 +1563,10 @@ export namespace Components {
           * Occupancy of a wagon.
          */
         "occupancy": InterfaceSbbWagonAttributes['occupancy'];
+        /**
+          * Sector in which to wagon stops.
+         */
+        "sector": string;
         /**
           * Wagon type.
          */
@@ -1644,6 +1646,14 @@ export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
+}
+export interface SbbTrainCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTrainElement;
+}
+export interface SbbWagonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbWagonElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1886,12 +1896,6 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
-    interface HTMLSbbSectorElement extends Components.SbbSector, HTMLStencilElement {
-    }
-    var HTMLSbbSectorElement: {
-        prototype: HTMLSbbSectorElement;
-        new (): HTMLSbbSectorElement;
-    };
     interface HTMLSbbSignetElement extends Components.SbbSignet, HTMLStencilElement {
     }
     var HTMLSbbSignetElement: {
@@ -2122,7 +2126,6 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
-        "sbb-sector": HTMLSbbSectorElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
@@ -3186,12 +3189,6 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
-    interface SbbSector {
-        /**
-          * Label for the sector.
-         */
-        "label": string;
-    }
     interface SbbSignet {
         /**
           * Accessibility label which will be forwarded to the inner SVG signet.
@@ -3692,12 +3689,17 @@ declare namespace LocalJSX {
           * The semantic level of the direction level, e.g. 3 = h3.
          */
         "directionLabelLevel"?: InterfaceTitleAttributes['level'];
+        "onTrainSlotChange"?: (event: SbbTrainCustomEvent<any>) => void;
         /**
           * Label for the destination station of the train.
          */
         "station"?: string;
     }
     interface SbbTrainFormation {
+        /**
+          * Option to hide all wagon numbers.
+         */
+        "hideWagonLabel"?: boolean;
     }
     interface SbbWagon {
         /**
@@ -3720,6 +3722,11 @@ declare namespace LocalJSX {
           * Occupancy of a wagon.
          */
         "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
+        "onSectorChange"?: (event: SbbWagonCustomEvent<any>) => void;
+        /**
+          * Sector in which to wagon stops.
+         */
+        "sector"?: string;
         /**
           * Wagon type.
          */
@@ -3772,7 +3779,6 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
-        "sbb-sector": SbbSector;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
         "sbb-tab-amount": SbbTabAmount;
@@ -3850,7 +3856,6 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
-            "sbb-sector": LocalJSX.SbbSector & JSXBase.HTMLAttributes<HTMLSbbSectorElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;

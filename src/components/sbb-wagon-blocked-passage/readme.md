@@ -1,6 +1,6 @@
 # sbb-wagon-blocked-passage
 A sbb-wagon-blocked-passage is a visual representation of a blocked passage between sbb-wagons. It is used inside the
-sbb-sector element.
+sbb-train element.
 
 ```html
 <sbb-wagon-blocked-passage />
@@ -9,5 +9,3 @@ sbb-sector element.
 
 
 ----------------------------------------------
-
-

@@ -1,7 +1,8 @@
 # sbb-train
 
-A sbb-train is a container element for one to x sbb-sectors. It has a direction indicator with a label for the
-travel direction and the destination station. It is used inside the sbb-train-formation element.
+A sbb-train is a container element for one to x sbb-wagons or sbb-blocked-passages.
+It has a direction indicator with a label for the travel direction and the destination station. 
+It is used inside the sbb-train-formation element.
 
 **Note:**
 The accessibility-label should be used to give further information about the leaving direction of the train.
@@ -14,7 +15,7 @@ It should refer to the section where the locomotive is placed.
   direction-label-level="3"
   station="Genève-Aéroport"
   direction="left"
-  accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction.">
+  accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction">
   ...
 </sbb-train>
 ```
@@ -35,9 +36,9 @@ It should refer to the section where the locomotive is placed.
 
 ## Slots
 
-| Slot        | Description                    |
-| ----------- | ------------------------------ |
-| `"unnamed"` | Used for slotting sbb-sectors. |
+| Slot        | Description                   |
+| ----------- | ----------------------------- |
+| `"unnamed"` | Used for slotting sbb-wagons. |
 
 
 ## Dependencies
@@ -54,5 +55,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-

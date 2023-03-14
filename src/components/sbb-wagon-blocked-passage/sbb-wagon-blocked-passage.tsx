@@ -8,9 +8,11 @@ import { Component, ComponentInterface, h, JSX } from '@stencil/core';
 export class SbbWagonBlockedPassage implements ComponentInterface {
   public render(): JSX.Element {
     return (
-      <div class="sbb-wagon-blocked-passage">
-        <div class="sbb-wagon-blocked-passage__icon"></div>
-      </div>
+      <span class="sbb-wagon-blocked-passage">
+        <span class="sbb-wagon-blocked-passage__wrapper">
+          <span class="sbb-wagon-blocked-passage__icon"></span>
+        </span>
+      </span>
     );
   }
 }

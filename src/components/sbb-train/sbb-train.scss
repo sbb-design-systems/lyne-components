@@ -5,7 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-train-sector-padding: var(--sbb-spacing-fixed-1x);
   --sbb-train-direction-spacing: var(--sbb-spacing-fixed-4x);
   --sbb-train-direction-label-padding: var(--sbb-spacing-fixed-1x);
   --sbb-train-direction-station-padding: var(--sbb-spacing-fixed-3x);
@@ -36,9 +35,11 @@
   height: 100%;
 }
 
-.sbb-train__sectors {
+.sbb-train__wagons {
+  @include sbb.list-reset;
+
   display: flex;
-  gap: var(--sbb-train-sector-padding);
+  gap: var(--sbb-train-formation-wagon-gap);
 }
 
 .sbb-train__direction {

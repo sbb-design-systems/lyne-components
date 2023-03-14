@@ -8,7 +8,7 @@
   --sbb-wagon-blocked-passage-height: var(--sbb-train-formation-wagon-height);
   --sbb-wagon-blocked-passage-background-color: var(--sbb-color-red-default);
   --sbb-wagon-blocked-passage-bar-color: var(--sbb-color-white-default);
-  --sbb-wagon-blocked-passage-icon-dimension: #{sbb.px-to-rem-build(16)};
+  --sbb-wagon-blocked-passage-icon-dimension: var(--sbb-size-icon-timetable-attribute);
   --sbb-wagon-blocked-passage-icon-bar-width: #{sbb.px-to-rem-build(10)};
   --sbb-wagon-blocked-passage-icon-bar-height: #{sbb.px-to-rem-build(4)};
   --sbb-wagon-blocked-passage-icon-bar-border-radius: #{sbb.px-to-rem-build(1)};
@@ -20,12 +20,19 @@
 }
 
 .sbb-wagon-blocked-passage {
+  &::before {
+    content: '';
+    display: var(--sbb-train-formation-wagon-label-display, block);
+    height: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
+  }
+}
+
+.sbb-wagon-blocked-passage__wrapper {
   width: var(--sbb-wagon-blocked-passage-icon-dimension);
   display: flex;
   justify-content: center;
   flex-direction: column;
   height: var(--sbb-wagon-blocked-passage-height);
-  margin-block-start: calc(var(--sbb-font-size-text-s) * var(--sbb-typo-line-height-body-text));
 }
 
 .sbb-wagon-blocked-passage__icon {

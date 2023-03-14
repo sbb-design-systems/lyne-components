@@ -9,38 +9,41 @@ initially and on resize.
     direction-label="Direction of travel"
     station="Bern"
     direction="left"
-    accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction."
+    accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
   >
-    <sbb-sector label="Sector A">
-      <sbb-wagon
-        type="locomotive"
-        additional-accessibility-text="Top of the train"
-      ></sbb-wagon>
-      <sbb-wagon type="closed"></sbb-wagon>
-      <sbb-wagon-blocked-passage />
-      <sbb-wagon
-        type="wagon"
-        label="38"
-        occupancy="low"
-        wagon-class="1"
-        blocked-passage="previous"
-      >
-        <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
-        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
-        <sbb-icon
-          aria-hidden="false"
-          aria-label="Business zone in 1st class: Reservation possible"
-          name="sa-bz"
-        ></sbb-icon>
-      </sbb-wagon>
-    </sbb-sector>
+    <sbb-wagon
+      sector="A"
+      type="locomotive"
+      additional-accessibility-text="Top of the train"
+    ></sbb-wagon>
+    <sbb-wagon
+      sector="A"
+      type="closed">
+    </sbb-wagon>
+    <sbb-wagon-blocked-passage />
+    <sbb-wagon
+      sector="A"
+      type="wagon"
+      label="38"
+      occupancy="low"
+      wagon-class="1"
+      blocked-passage="previous"
+    >
+      <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
+      <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+      <sbb-icon
+        aria-hidden="false"
+        aria-label="Business zone in 1st class: Reservation possible"
+        name="sa-bz"
+      ></sbb-icon>
+    </sbb-wagon>
     ...
   </sbb-train>
   <sbb-train
     direction-label="Direction of travel"
     station="Luzern"
     direction="left"
-    accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction."
+    accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction"
   >
     ...
   </sbb-train>
@@ -48,6 +51,13 @@ initially and on resize.
 ```
 
 <!-- Auto Generated Below -->
+
+
+## Properties
+
+| Property         | Attribute          | Description                       | Type      | Default |
+| ---------------- | ------------------ | --------------------------------- | --------- | ------- |
+| `hideWagonLabel` | `hide-wagon-label` | Option to hide all wagon numbers. | `boolean` | `false` |
 
 
 ## Slots
@@ -58,5 +68,3 @@ initially and on resize.
 
 
 ----------------------------------------------
-
-

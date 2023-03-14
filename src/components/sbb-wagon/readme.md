@@ -1,6 +1,6 @@
 # sbb-wagon
 A sbb-wagon represents a train compartment. It can be a locomotive or a wagon. It is used inside the 
-sbb-sector element. 
+sbb-train element. 
 
 **Note:**
 A sbb-wagon of type wagon has the possibilities of slotting icons. They will be applied internally 
@@ -31,6 +31,7 @@ into a list (ul>li) element and requires an aria-label for each slotted icon (se
 | `customAccessibilityLabel`    | `custom-accessibility-label`    | Custom accessibility text to overwrite the constructed default text.                  | `string`                                   | `''`        |
 | `label`                       | `label`                         | Visible label for the wagon number. Not used by type locomotive or closed.            | `string`                                   | `undefined` |
 | `occupancy`                   | `occupancy`                     | Occupancy of a wagon.                                                                 | `"high" \| "low" \| "medium" \| "unknown"` | `'unknown'` |
+| `sector`                      | `sector`                        | Sector in which to wagon stops.                                                       | `string`                                   | `undefined` |
 | `type`                        | `type`                          | Wagon type.                                                                           | `"closed" \| "locomotive" \| "wagon"`      | `'wagon'`   |
 | `wagonClass`                  | `wagon-class`                   | Visible class label of a wagon.                                                       | `"1" \| "2"`                               | `undefined` |
 
@@ -56,5 +57,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-

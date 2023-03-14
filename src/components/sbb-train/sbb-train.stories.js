@@ -59,7 +59,7 @@ const defaultArgs = {
   'direction-label': 'Direction of travel',
   'direction-label-level': directionLabelLevel.options[2],
   'accessibility-label':
-    'The top of the train is in Sector A. The train leaves the station in this direction.',
+    'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
   direction: direction.options[0],
 };
