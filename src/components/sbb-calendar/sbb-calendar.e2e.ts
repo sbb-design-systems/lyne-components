@@ -18,7 +18,7 @@ describe('sbb-calendar', () => {
 
   it('highlights current day', async () => {
     page = await newE2EPage({
-      html: `<sbb-calendar data-now="1673305200000"></sbb-calendar>`,
+      html: `<sbb-calendar data-now="1673348400000"></sbb-calendar>`,
     });
     const currentDayButton = await page.find(`sbb-calendar >>> button[data-day="10 1 2023"]`);
     expect(currentDayButton).toHaveClass('sbb-calendar__day-today');
