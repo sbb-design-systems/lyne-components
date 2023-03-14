@@ -82,7 +82,7 @@ const suffixAndSubtext = () => [
 ];
 
 const innerContent = () => (
-  <div slot="content">
+  <div id="panel-content" slot="content">
     Inner Content
     <sbb-link
       text-size="s"
@@ -153,7 +153,7 @@ const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) 
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       {cardbadge()}
-      <sbb-radio-button value="Value one" checked={checkedInput}>
+      <sbb-radio-button value="Value one" checked={checkedInput} aria-describedby="panel-content">
         Value one
         {suffixAndSubtext()}
       </sbb-radio-button>

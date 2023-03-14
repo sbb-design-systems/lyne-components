@@ -163,8 +163,15 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _setExpandedStateForScreenReaders(): void {
     if (this._contentElement) {
-      this._input.shadowRoot.querySelector('[data-selection-panel-expanded]').innerHTML = this
-        ._checked
+      const selectionPanelExpandedEl = this._input.shadowRoot.querySelector(
+        '[data-selection-panel-expanded]'
+      );
+
+      if (!selectionPanelExpandedEl) {
+        return;
+      }
+
+      selectionPanelExpandedEl.innerHTML = this._checked
         ? i18nExapnded[this._currentLanguage]
         : i18nCollapsed[this._currentLanguage];
     }
