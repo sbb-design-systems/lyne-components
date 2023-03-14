@@ -153,7 +153,7 @@ const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) 
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       {cardbadge()}
-      <sbb-radio-button value="Value one" checked={checkedInput} aria-describedby="panel-content">
+      <sbb-radio-button value="Value one" checked={checkedInput}>
         Value one
         {suffixAndSubtext()}
       </sbb-radio-button>
