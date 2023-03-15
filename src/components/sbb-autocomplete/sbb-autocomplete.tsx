@@ -54,6 +54,9 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Whether the animation is disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
+  /** Whether the icon space is preserved when no icon is set. */
+  @Prop({ reflect: true }) public preserveIconSpace: boolean;
+
   /** The state of the autocomplete. */
   @State() private _state: SbbAutocompleteState = 'closed';
 

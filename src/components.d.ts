@@ -230,6 +230,10 @@ export namespace Components {
          */
         "origin": string | HTMLElement;
         /**
+          * Whether the icon space is preserved when no icon is set.
+         */
+        "preserveIconSpace": boolean;
+        /**
           * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
          */
         "trigger": string | HTMLInputElement;
@@ -2542,6 +2546,10 @@ declare namespace LocalJSX {
           * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
          */
         "origin"?: string | HTMLElement;
+        /**
+          * Whether the icon space is preserved when no icon is set.
+         */
+        "preserveIconSpace"?: boolean;
         /**
           * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
          */

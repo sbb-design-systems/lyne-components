@@ -185,8 +185,7 @@ export class SbbOption implements ComponentInterface {
           <span
             class={{
               'sbb-option__icon': true,
-              'sbb-option__icon--hidden':
-                !this.preserveIconSpace && !this._namedSlots.icon && !this.iconName,
+              'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
             }}
           >
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
