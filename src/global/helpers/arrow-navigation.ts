@@ -53,7 +53,7 @@ export function getNextElementIndex(event: KeyboardEvent, current: number, size:
   }
 
   if (event.key === prevKey || event.key === 'ArrowUp') {
-    return current < 0 ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
+    return current < firstIndex ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
   } else if (event.key === nextKey || event.key === 'ArrowDown') {
     return current >= size ? firstIndex : calcNextIndexInRange(current, size, 1);
   }

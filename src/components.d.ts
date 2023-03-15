@@ -29,7 +29,7 @@ import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
-import { SbbOptionSelectionChange } from "./components/sbb-autocomplete/sbb-autocomplete.custom";
+import { SbbOptionSelectionChange } from "./components/sbb-option/sbb-option.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -73,7 +73,7 @@ export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
-export { SbbOptionSelectionChange } from "./components/sbb-autocomplete/sbb-autocomplete.custom";
+export { SbbOptionSelectionChange } from "./components/sbb-option/sbb-option.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -1088,7 +1088,6 @@ export namespace Components {
           * Whether the option is currently active.
          */
         "active"?: boolean;
-        "deselect": () => Promise<void>;
         /**
           * Disable the highlight of the label.
          */
@@ -1107,10 +1106,9 @@ export namespace Components {
          */
         "iconName"?: string;
         /**
-          * Whether the icon space is preserved when no icon is set.
+          * Whether the option is selected.
          */
-        "preserveIconSpace": boolean;
-        "select": () => Promise<void>;
+        "selected": boolean;
         /**
           * Value of the option.
          */
@@ -3445,17 +3443,13 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Emits whenever the menu is closed.
-         */
-        "onOption-did-deselect"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
-        /**
-          * Emits whenever the menu is closed.
+          * Emits when the option is clicked.
          */
         "onOption-did-select"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
         /**
-          * Whether the icon space is preserved when no icon is set.
+          * Whether the option is selected.
          */
-        "preserveIconSpace"?: boolean;
+        "selected"?: boolean;
         /**
           * Value of the option.
          */

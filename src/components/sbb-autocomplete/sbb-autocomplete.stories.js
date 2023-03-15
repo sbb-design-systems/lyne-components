@@ -167,6 +167,11 @@ BorderlessOpenAbove.argTypes = defaultArgTypes;
 BorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
 BorderlessOpenAbove.decorators = aboveDecorator;
 
+export const PreserveIconSpace = Template.bind({});
+PreserveIconSpace.argTypes = defaultArgTypes;
+PreserveIconSpace.args = { ...defaultArgs, preserveIconSpace: true };
+PreserveIconSpace.decorators = defaultDecorator;
+
 export const Scroll = Template.bind({});
 Scroll.argTypes = defaultArgTypes;
 Scroll.args = { ...defaultArgs };

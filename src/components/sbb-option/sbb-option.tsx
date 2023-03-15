@@ -11,6 +11,7 @@ import {
   Method,
   Prop,
   State,
+  Watch,
 } from '@stencil/core';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -18,7 +19,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { SbbOptionSelectionChange } from '../sbb-autocomplete/sbb-autocomplete.custom';
+import { SbbOptionSelectionChange } from './sbb-option.custom';
 
 let nextId = 0;
 
@@ -42,11 +43,11 @@ export class SbbOption implements ComponentInterface {
    */
   @Prop() public iconName?: string;
 
-  /** Whether the icon space is preserved when no icon is set. */
-  @Prop({ reflect: true }) public preserveIconSpace: boolean;
-
   /** Whether the option is currently active. */
   @Prop({ reflect: true }) public active?: boolean;
+
+  /** Whether the option is selected. */
+  @Prop({ mutable: true, reflect: true }) public selected = false;
 
   /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
   @Prop() public disabled?: boolean;
@@ -54,7 +55,7 @@ export class SbbOption implements ComponentInterface {
   /** Disable the highlight of the label. */
   @Prop({ reflect: true }) public disableLabelHighlight: boolean;
 
-  /** Emits whenever the menu is closed. */
+  /** Emits when the option is clicked. */
   @Event({
     bubbles: true,
     composed: true,
@@ -62,19 +63,8 @@ export class SbbOption implements ComponentInterface {
   })
   public didSelect: EventEmitter<SbbOptionSelectionChange>;
 
-  /** Emits whenever the menu is closed. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'option-did-deselect',
-  })
-  public didDeselect: EventEmitter<SbbOptionSelectionChange>;
-
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
-
-  /** Whether the option is currently selected. */
-  @State() private _selected: boolean;
 
   @State() private _label: string;
 
@@ -85,26 +75,6 @@ export class SbbOption implements ComponentInterface {
 
   private _optionId = `sbb-option-${++nextId}`;
   private _labelSlot: HTMLSlotElement;
-
-  @Method()
-  public async select(): Promise<void> {
-    if (this.disabled || this._selected) {
-      return;
-    }
-
-    this._selected = true;
-    this.didSelect.emit({ id: this._element.id, value: this.value });
-  }
-
-  @Method()
-  public async deselect(): Promise<void> {
-    if (this.disabled || !this._selected) {
-      return;
-    }
-
-    this._selected = false;
-    this.didDeselect.emit({ id: this._element.id, value: this.value });
-  }
 
   /**
    * Highlight the label of the option
@@ -126,7 +96,14 @@ export class SbbOption implements ComponentInterface {
       return;
     }
 
-    this.select();
+    this.selected = !this.selected;
+  }
+
+  @Watch('selected')
+  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.didSelect.emit({ id: this._element.id, value: this.value, selected: this.selected });
+    }
   }
 
   public connectedCallback(): void {
@@ -178,7 +155,7 @@ export class SbbOption implements ComponentInterface {
       <Host
         role="option"
         aria-disabled={this.disabled}
-        aria-selected={this._selected}
+        aria-selected={this.selected}
         ref={assignId(() => this._optionId)}
       >
         <div class="sbb-option">
