@@ -73,7 +73,7 @@ export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-export { PtRideLeg } from "./global/interfaces/pearl-chain-properties";
+export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
