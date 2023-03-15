@@ -35,6 +35,12 @@
   margin-block: var(--sbb-spacing-fixed-3x);
 }
 
+:host([preserve-icon-space]:not([preserve-icon-space='false'])) {
+  ::slotted(sbb-option) {
+    --sbb-option-icon-container-display: initial;
+  }
+}
+
 .sbb-autocomplete__backdrop {
   position: fixed;
   pointer-events: none;
