@@ -6,7 +6,9 @@
 
 :host {
   display: inline-block;
-  outline: none;
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);

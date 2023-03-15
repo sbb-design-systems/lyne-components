@@ -5,7 +5,9 @@
 @include sbb.host-component-properties;
 
 :host {
-  outline: none;
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
   border-radius: var(--sbb-card-border-radius);
   @include sbb.card-variables;
 }
