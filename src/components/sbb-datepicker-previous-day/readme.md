@@ -15,19 +15,13 @@ if it is disabled, or if the selected date is equal to the input's `min` attribu
 
 ## Usage
 
-Without `sbb-form-field`:
-```html
-    <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-toggle>
-    <input id="datepicker-input" />
-    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-```
-
-With `sbb-form-field`:
+Inside `sbb-form-field`:
 ```html
     <sbb-form-field>
-      <sbb-datepicker-previous-day></sbb-datepicker-toggle>
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <input />
       <sbb-datepicker></sbb-datepicker>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
     </sbb-form-field>
 ```
 

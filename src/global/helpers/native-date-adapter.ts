@@ -195,7 +195,7 @@ export class NativeDateAdapter {
     if (!values || values.length <= 2) {
       return undefined;
     }
-    return new Date(+values[2], +values[1] - 1, +values[0]);
+    return new Date(+values[2], +values[1] - 1, +values[0], 0, 0, 0, 0);
   }
 
   /**

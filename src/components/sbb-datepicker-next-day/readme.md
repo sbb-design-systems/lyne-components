@@ -15,16 +15,10 @@ if it is disabled, or if the selected date is equal to the input's `max` attribu
 
 ## Usage
 
-Without `sbb-form-field`:
-```html
-    <input id="datepicker-input" />
-    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-    <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
-```
-
-With `sbb-form-field`:
+Inside `sbb-form-field`:
 ```html
     <sbb-form-field>
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <input />
       <sbb-datepicker></sbb-datepicker>
       <sbb-datepicker-next-day></sbb-datepicker-next-day>

@@ -10,27 +10,20 @@ the `sbb-datepicker-toggle` will be projected in the `prefix` slot of the `sbb-f
 they can be connected using the `datePicker` property, which accepts the id of the `sbb-datepicker`,
 or directly its reference.
 
-The `sbb-datepicker-toggle` is in `disabled` state if the `sbb-datepicker`'s input is disabled; also, 
-if the input has `min` or `max` attributes,they are used as limits in the inner `sbb-calendar`. 
-More, the `wide` property from the `sbb-datepicker` can be used to display the calendar in a two months
+The `wide` property from the `sbb-datepicker` can be used to display the calendar in a two months
 view, while the `dateFilter` property can be used to filter unwanted dates.
 
 
 ## Usage
 
-Without `sbb-form-field`:
-```html
-    <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
-    <input id="datepicker-input" />
-    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-```
-
-With `sbb-form-field`:
+Inside `sbb-form-field`:
 ```html
     <sbb-form-field>
+      <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
       <sbb-datepicker-toggle></sbb-datepicker-toggle>
       <input />
       <sbb-datepicker></sbb-datepicker>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
     </sbb-form-field>
 ```
 

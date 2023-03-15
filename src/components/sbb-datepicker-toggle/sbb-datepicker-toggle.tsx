@@ -50,6 +50,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
+      this._datePickerController?.abort();
+      this._datePickerController = new AbortController();
       this._init(this.datePicker);
     }
   }
@@ -105,8 +107,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   private async _datePickerChanged(event: Event): Promise<void> {
-    const datepicker = event.target as HTMLSbbDatepickerElement;
-    const datepickerDate = await datepicker.getValueAsDate();
+    this._datePicker = event.target as HTMLSbbDatepickerElement;
+    const datepickerDate = await this._datePicker.getValueAsDate();
     const calendarDate = this._dateAdapter.deserializeDate(this._calendarElement.selectedDate);
     if (datepickerDate?.getTime() !== calendarDate?.getTime()) {
       this._calendarElement.selectedDate = datepickerDate;

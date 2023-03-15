@@ -11,6 +11,8 @@
   --sbb-calendar-header-color: var(--sbb-color-granite-default);
   --sbb-calendar-day-color: var(--sbb-color-charcoal-default);
   --sbb-calendar-day-selected-color: var(--sbb-color-white-default);
+  --sbb-calendar-day-disabled-height: #{sbb.px-to-rem-build(1.5)};
+  --sbb-calendar-day-disabled-width: #{sbb.px-to-rem-build(25.5)};
 
   @include sbb.mq($from: micro) {
     --sbb-calendar-day-size: #{sbb.px-to-rem-build(44)};
@@ -87,8 +89,8 @@
 
 .sbb-calendar__crossed-out::before {
   content: '';
-  height: #{sbb.px-to-rem-build(1.5)};
-  width: #{sbb.px-to-rem-build(25.5)};
+  height: var(--sbb-calendar-day-disabled-height);
+  width: var(--sbb-calendar-day-disabled-width);
   position: absolute;
   background-color: var(--sbb-calendar-day-disabled-color);
   top: 50%;

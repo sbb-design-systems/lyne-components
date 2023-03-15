@@ -19,8 +19,8 @@ import { AgnosticMutationObserver as MutationObserver } from '../../global/helpe
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 
-const REGEX_PATTERN = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
-const REGEX =
+const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
+const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
 @Component({
@@ -160,7 +160,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   private _formatValue(value: string): string {
-    const match: RegExpMatchArray = value?.match(REGEX);
+    const match: RegExpMatchArray = value?.match(FORMAT_DATE);
     if (!match || match.length <= 2) {
       return value;
     }
@@ -219,7 +219,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   private _preventCharInsert(event): void {
-    const match = event.target.value.match(REGEX_PATTERN);
+    const match = event.target.value.match(ALLOWED_CHARACTERS);
     event.target.value = match?.[0] ?? null;
   }
 
