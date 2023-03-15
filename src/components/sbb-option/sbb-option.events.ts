@@ -3,6 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  didDeselect: 'option-did-deselect',
   didSelect: 'option-did-select',
 };
