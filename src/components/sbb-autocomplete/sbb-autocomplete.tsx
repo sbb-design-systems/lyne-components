@@ -154,6 +154,11 @@ export class SbbAutocomplete implements ComponentInterface {
     // Set the option value
     this._triggerElement.value = event.detail.value;
 
+    this._triggerElement.dispatchEvent(
+      new window.Event('change', { bubbles: true, composed: false })
+    );
+    this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+
     this.close();
   }
 
