@@ -98,7 +98,7 @@
     "puppeteer": "19.7.5",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "sass": "1.59.2",
+    "sass": "1.59.3",
     "sass-loader": "10.4.1",
     "shelljs": "0.8.5",
     "simple-git": "3.17.0",
