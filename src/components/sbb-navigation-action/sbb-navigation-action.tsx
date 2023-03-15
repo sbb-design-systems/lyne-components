@@ -11,9 +11,6 @@ import {
 } from '@stencil/core';
 import {
   ButtonType,
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -25,6 +22,7 @@ import { hostContext } from '../../global/helpers/host-context';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 // This approach allows us to just check whether an attribute has been added or removed
 // from the DOM, instead of a `Watch()` decorator that would check the value change
@@ -81,7 +79,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   /**
    * The name attribute to use for the button.
    */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /**
    * The value attribute to use for the button.
@@ -90,15 +88,18 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLSbbNavigationActionElement;
+  @Element() private _element!: HTMLSbbNavigationActionElement;
 
   private _navigationMarker: HTMLSbbNavigationMarkerElement;
   private _navigationActionAttributeObserver = new MutationObserver(() =>
     this._onActiveActionChange()
   );
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   public connectedCallback(): void {
     this._navigationActionAttributeObserver.observe(this._element, navigationActionObserverConfig);
+    this._handlerRepository.connect();
 
     // Check if the current element is nested inside a navigation marker.
     this._navigationMarker = hostContext(
@@ -109,6 +110,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   public disconnectedCallback(): void {
     this._navigationActionAttributeObserver.disconnect();
+    this._handlerRepository.disconnect();
   }
 
   // Check whether the `active` attribute has been added or removed from the DOM
@@ -127,21 +129,10 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   }
 
   @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
+  public handleClick(): void {
     if (!this.active) {
       this._navigationMarker?.select(this._element);
     }
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
   }
 
   public render(): JSX.Element {
@@ -155,7 +146,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
         <TAG_NAME class="sbb-navigation-action" {...attributes}>
           <slot />
           {targetsNewWindow(this) && (
-            <span class="sbb-link__opens-in-new-window">
+            <span class="sbb-navigation-action__opens-in-new-window">
               . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>
           )}

@@ -106,8 +106,7 @@ describe('getButtonAttributeList', () => {
     };
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
-      name: 'name',
-      type: 'submit',
+      type: 'button',
       value: 'value',
       role: 'presentation',
       tabIndex: '-1',
@@ -161,8 +160,7 @@ describe('getButtonRenderVariables', () => {
         dir: 'ltr',
         role: 'presentation',
         tabIndex: '-1',
-        name: 'name',
-        type: 'submit',
+        type: 'button',
       },
       hostAttributes: {
         role: 'button',

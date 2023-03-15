@@ -11,9 +11,7 @@ import {
 } from '@stencil/core';
 import {
   ButtonType,
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
+  IsStaticProperty,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -29,6 +27,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot unnamed - Link Content
@@ -39,7 +38,7 @@ import {
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements ComponentInterface, LinkButtonProperties {
+export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStaticProperty {
   /** Variant of the link (block or inline). */
   @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
@@ -88,7 +87,7 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
   @Prop({ reflect: true }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
   @Prop() public value?: string;
@@ -103,30 +102,22 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
 
   @Element() private _element!: HTMLElement;
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })

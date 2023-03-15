@@ -12,15 +12,14 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 import {
   createNamedSlotState,
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import {
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
+  ButtonProperties,
   resolveButtonRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { TagStateChange } from './sbb-tag.custom';
@@ -35,12 +34,15 @@ import { TagStateChange } from './sbb-tag.custom';
   styleUrl: 'sbb-tag.scss',
   tag: 'sbb-tag',
 })
-export class SbbTag implements ComponentInterface {
+export class SbbTag implements ComponentInterface, ButtonProperties {
   /** The name attribute to use for the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** Value of the tag. */
   @Prop() public value?: string;
+
+  /** The <form> element to associate the button with. */
+  @Prop() public form?: string;
 
   /** Amount displayed inside the tag. */
   @Prop() public amount?: string;
@@ -60,7 +62,7 @@ export class SbbTag implements ComponentInterface {
    */
   @Prop() public iconName?: string;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
@@ -95,29 +97,25 @@ export class SbbTag implements ComponentInterface {
   /** Change event emitter */
   @Event({ bubbles: true }) public change: EventEmitter;
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
+  public connectedCallback(): void {
+    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
+  }
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
+  public handleClick(): void {
     this.toggleClicked();
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
-  }
-
-  public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */

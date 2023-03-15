@@ -81,6 +81,7 @@ export interface LinkButtonRenderVariables {
  */
 export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
 
+/** Indicates that a class or object can be static/non-interactive. */
 export interface IsStaticProperty {
   isStatic: boolean;
 }
@@ -133,8 +134,7 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
  */
 function getButtonAttributeList(buttonProperties: ButtonProperties): Record<string, string> {
   return filterUndefined(getLinkButtonBaseAttributeList(), {
-    name: buttonProperties.name || undefined,
-    type: buttonProperties.type || 'button',
+    type: 'button',
     disabled: buttonProperties.disabled ? 'true' : undefined,
     value: buttonProperties.value ?? undefined,
   });
@@ -205,90 +205,4 @@ export function resolveLinkOrStaticRenderVariables(
 /** Returns true, if href is set and target is _blank. */
 export function targetsNewWindow(properties: LinkProperties): boolean {
   return properties.href && properties.target === '_blank';
-}
-
-/**
- * Dispatches a 'click' PointerEvent, if the original keyboard event is a 'Enter' press.
- * As verified with the native button, when 'Enter' is pressed, a 'click' event is dispatched
- * after the 'keypress' event.
- * @param event The origin event.
- */
-export function dispatchClickEventWhenEnterKeypress(event: KeyboardEvent): void {
-  if (event.key === 'Enter') {
-    (event.target as Element).dispatchEvent(
-      new PointerEvent('click', { bubbles: true, cancelable: true, composed: true })
-    );
-  }
-}
-
-/**
- * Dispatches a 'click' PointerEvent, if the original keyboard event is a 'Space' press.
- * As verified with the native button, when 'Space' is pressed, a 'click' event is dispatched
- * after the 'keyup' event.
- * @param event The origin event.
- */
-export function dispatchClickEventWhenButtonAndSpaceKeyup(event: KeyboardEvent): void {
-  if (event.key === ' ' && !(event.target as Element & { href?: string }).href) {
-    (event.target as Element).dispatchEvent(
-      new PointerEvent('click', { bubbles: true, cancelable: true, composed: true })
-    );
-  }
-}
-
-/**
- * Trigger an anchor element click after the event has finished the bubbling phase and
- * preventDefault() has not been called for the event.
- */
-async function triggerAnchorWhenNecessary(event: Event): Promise<void> {
-  const target = event.target as Element;
-  const composedTarget = event.composedPath()[0] as Element;
-  // We only want to trigger a click event on the inner anchor element, if the host element is the
-  // event origin, which means the inner anchor element has not actually been activated/clicked.
-  if (!target.tagName.startsWith('SBB-') || target !== composedTarget) {
-    return;
-  }
-  // We need for the event phase to finish, which is the
-  // case after a micro task (e.g. await Promise).
-  await Promise.resolve();
-  if (event.defaultPrevented) {
-    return;
-  }
-
-  // We are using dispatchEvent here, instead of just .click() in order to
-  // prevent another click event from bubbling up the DOM tree.
-  target.shadowRoot.querySelector('a').dispatchEvent(new PointerEvent('click'));
-}
-
-/** Handle the click logic for an action element. */
-export function handleLinkButtonClick(event: Event): void {
-  const element = event.target as HTMLElement & Partial<LinkButtonProperties & IsStaticProperty>;
-  if (element.isStatic) {
-    return;
-  } else if (element.disabled) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    return;
-  } else if (element.href) {
-    triggerAnchorWhenNecessary(event);
-    return;
-  } else if (!element.type || element.type === 'button') {
-    return;
-  }
-
-  // Use querySelector with form and id selector, as the form property must
-  // reference a valid <form> element
-  const form = element.form
-    ? (element.ownerDocument.querySelector(`form#${element.form}`) as HTMLFormElement)
-    : element.closest('form');
-  if (!form) {
-    return;
-  } else if (element.type === 'submit') {
-    if (form.requestSubmit) {
-      form.requestSubmit(element);
-    } else {
-      form.submit();
-    }
-  } else if (element.type === 'reset') {
-    form.reset();
-  }
 }

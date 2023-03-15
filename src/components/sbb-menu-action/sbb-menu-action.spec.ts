@@ -15,7 +15,7 @@ describe('sbb-menu-action', () => {
     expect(root).toEqualHtml(`
         <sbb-menu-action form="formid" name="name" type="submit" role="button" tabindex="0">
           <mock:shadow-root>
-            <button class="sbb-menu-action" dir="ltr" role="presentation" tabindex="-1" name="name" type="submit">
+            <button class="sbb-menu-action" dir="ltr" role="presentation" tabindex="-1" type="button">
               <span class="sbb-menu-action__content">
                 <span class="sbb-menu-action__icon">
                   <slot name="icon"></slot>
@@ -58,7 +58,7 @@ describe('sbb-menu-action', () => {
                   123456
                 </span>
               </span>
-              <span class="sbb-link__opens-in-new-window">
+              <span class="sbb-menu-action__opens-in-new-window">
                 . Link target opens in new window.
               </span>
             </a>

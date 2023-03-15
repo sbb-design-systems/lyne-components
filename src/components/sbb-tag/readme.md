@@ -51,6 +51,7 @@ The state is reflected via `aria-pressed` attribute.
 | `amount`   | `amount`    | Amount displayed inside the tag.                                                                                                                    | `string`  | `undefined` |
 | `checked`  | `checked`   | Whether the toggle is checked.                                                                                                                      | `boolean` | `false`     |
 | `disabled` | `disabled`  | Whether the tag is disabled.                                                                                                                        | `boolean` | `false`     |
+| `form`     | `form`      | The <form> element to associate the button with.                                                                                                    | `string`  | `undefined` |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`  | `undefined` |
 | `name`     | `name`      | The name attribute to use for the button.                                                                                                           | `string`  | `undefined` |
 | `value`    | `value`     | Value of the tag.                                                                                                                                   | `string`  | `undefined` |

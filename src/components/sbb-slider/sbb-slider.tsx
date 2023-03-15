@@ -29,7 +29,7 @@ export class SbbSlider implements ComponentInterface {
   @Prop({ mutable: true }) public valueAsNumber?: number;
 
   /** Name of the inner HTMLInputElement. */
-  @Prop() public name?: string = '';
+  @Prop({ reflect: true }) public name?: string = '';
 
   /** The <form> element to associate the inner HTMLInputElement with. */
   @Prop() public form?: string;

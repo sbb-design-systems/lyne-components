@@ -14,9 +14,6 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
   LinkButtonProperties,
   LinkTargetType,
   resolveRenderVariables,
@@ -26,6 +23,7 @@ import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot icon - Slot used to render the action icon.
@@ -69,7 +67,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
   @Prop() public type: ButtonType | undefined;
 
   /** Name attribute if component is displayed as a button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The value associated with button `name` when it's submitted with the form data. */
   @Prop() public value?: string;
@@ -84,32 +82,21 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
     this._currentLanguage = event.detail;
   }
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   private _documentResizeObserver = new ResizeObserver(() => this._updateExpanded());
+
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
 
   public connectedCallback(): void {
     this._documentResizeObserver.observe(document.documentElement);
     this._updateExpanded();
+    this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
     this._documentResizeObserver.disconnect();
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
+    this._handlerRepository.disconnect();
   }
 
   @Watch('expandFrom')

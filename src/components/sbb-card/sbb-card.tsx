@@ -13,9 +13,6 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -28,6 +25,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -64,7 +62,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   @Prop() public type: ButtonType | undefined;
 
   /** The name of the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The <form> element to associate the button with. */
   @Prop() public form?: string | undefined;
@@ -81,6 +79,8 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
    */
   @State() private _namedSlots = createNamedSlotState('badge');
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
@@ -88,26 +88,16 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
   }
 
   /**

@@ -1,9 +1,16 @@
-import { Component, ComponentInterface, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
 import {
   ButtonType,
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -12,6 +19,7 @@ import {
 } from '../../global/interfaces/link-button-properties';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
@@ -52,7 +60,7 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
   @Prop({ reflect: true }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
   @Prop() public value?: string;
@@ -62,24 +70,21 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
   }
 
-  @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
   }
 
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {
@@ -105,7 +110,7 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
             )}
           </span>
           {targetsNewWindow(this) && (
-            <span class="sbb-link__opens-in-new-window">
+            <span class="sbb-menu-action__opens-in-new-window">
               . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>
           )}

@@ -1,7 +1,15 @@
-import { Component, ComponentInterface, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
 import {
-  dispatchClickEventWhenEnterKeypress,
-  handleLinkButtonClick,
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
+import {
   LinkProperties,
   LinkTargetType,
   resolveLinkOrStaticRenderVariables,
@@ -9,6 +17,7 @@ import {
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { HandlerRepository, linkHandlerAspect } from '../../global/helpers';
 
 /**
  * @slot unnamed - text content of panel
@@ -42,19 +51,21 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
+  @Element() private _element!: HTMLSbbNavigationActionElement;
+
+  private _handlerRepository = new HandlerRepository(this._element, linkHandlerAspect);
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
+  }
+
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
   }
 
   public render(): JSX.Element {

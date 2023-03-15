@@ -50,3 +50,7 @@
     @include sbb.text-xxs--bold;
   }
 }
+
+.sbb-navigation-action__opens-in-new-window {
+  @include sbb.screen-reader-only;
+}

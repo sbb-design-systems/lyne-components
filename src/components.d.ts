@@ -1176,6 +1176,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
         "iconName"?: string;
@@ -3281,6 +3285,10 @@ declare namespace LocalJSX {
           * Whether the tag is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */

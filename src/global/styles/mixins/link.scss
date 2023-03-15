@@ -48,18 +48,26 @@
   }
 }
 
-@mixin link-hover {
+@mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
-    &:hover {
-      color: var(--sbb-link-color-hover);
-      text-decoration: underline;
-    }
+    color: var(--sbb-link-color-hover);
+    text-decoration: underline;
   }
+}
+
+@mixin link-hover {
+  &:hover {
+    @include link-hover-rules;
+  }
+}
+
+@mixin link-active-rules {
+  color: var(--sbb-link-color-active);
 }
 
 @mixin link-active {
   &:active {
-    color: var(--sbb-link-color-active);
+    @include link-active-rules;
   }
 }
 

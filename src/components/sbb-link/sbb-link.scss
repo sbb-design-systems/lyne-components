@@ -73,11 +73,13 @@
     cursor: default;
   }
 
-  :host(:not([disabled]:not([disabled='false']))) & {
-    @include sbb.link-hover;
+  :host(:hover:not([disabled]:not([disabled='false']))) & {
+    @include sbb.link-hover-rules;
+  }
 
+  :host(:is(:active, [data-active]):not([disabled]:not([disabled='false']))) & {
     // Active definitions have to be after :hover definitions
-    @include sbb.link-active;
+    @include sbb.link-active-rules;
   }
 }
 

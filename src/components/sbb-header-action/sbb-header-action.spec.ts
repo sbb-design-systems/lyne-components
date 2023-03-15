@@ -15,7 +15,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action icon-name='pie-small' expand-from="zero" name="test" type="reset" value="value" role="button" tabindex="0" data-expanded>
         <mock:shadow-root>
-          <button class="sbb-header-action" dir="ltr" name="test" role="presentation" tabindex="-1" type="reset" value="value">
+          <button class="sbb-header-action" dir="ltr" role="presentation" tabindex="-1" type="button" value="value">
             <span class="sbb-header-action__wrapper">
               <span class="sbb-header-action__icon">
                 <slot name="icon">

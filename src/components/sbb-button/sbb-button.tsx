@@ -12,9 +12,7 @@ import {
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
-  dispatchClickEventWhenEnterKeypress,
-  dispatchClickEventWhenButtonAndSpaceKeyup,
-  handleLinkButtonClick,
+  IsStaticProperty,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
@@ -29,6 +27,7 @@ import {
 } from '../../global/helpers/observe-named-slot-changes';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot unnamed - Button Content
@@ -39,7 +38,7 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
   styleUrl: 'sbb-button.scss',
   tag: 'sbb-button',
 })
-export class SbbButton implements ComponentInterface, LinkButtonProperties {
+export class SbbButton implements ComponentInterface, LinkButtonProperties, IsStaticProperty {
   /** Variant of the button, like primary, secondary etc. */
   @Prop({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
 
@@ -81,7 +80,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
   @Prop({ reflect: true }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
   @Prop() public value?: string;
@@ -98,6 +97,8 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
@@ -105,6 +106,11 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
       (n) => !(n as Element).slot && n.textContent
     );
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -115,21 +121,6 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties {
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    handleLinkButtonClick(event);
-  }
-
-  @Listen('keypress')
-  public handleKeypress(event: KeyboardEvent): void {
-    dispatchClickEventWhenEnterKeypress(event);
-  }
-
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
-    dispatchClickEventWhenButtonAndSpaceKeyup(event);
   }
 
   private _onLabelSlotChange(event: Event): void {

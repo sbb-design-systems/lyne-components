@@ -48,7 +48,7 @@ describe('sbb-card', () => {
     expect(element).toEqualHtml(`
       <sbb-card color="white" class='hydrated' data-has-badge role="button" size="xl" tabindex="0" name="button" form="form" value="value">
         <mock:shadow-root>
-          <button class="sbb-card" dir="ltr" type='button' name="button" value="value" role="presentation" tabindex="-1">
+          <button class="sbb-card" dir="ltr" type='button' value="value" role="presentation" tabindex="-1">
             <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>

@@ -75,3 +75,7 @@
   width: var(--sbb-spacing-fixed-4x);
   max-height: var(--sbb-spacing-fixed-4x);
 }
+
+.sbb-menu-action__opens-in-new-window {
+  @include sbb.screen-reader-only;
+}

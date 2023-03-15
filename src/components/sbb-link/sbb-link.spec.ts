@@ -80,10 +80,9 @@ describe('sbb-link', () => {
               class="sbb-link"
               dir="ltr"
               disabled="true"
-              name="name"
               role="presentation"
               tabindex="-1"
-              type="submit"
+              type="button"
             >
               <span class="sbb-link__icon">
                 <slot name="icon"></slot>

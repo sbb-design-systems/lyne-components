@@ -15,7 +15,7 @@ describe('sbb-checkbox-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-checkbox-group orientation="horizontal" role="group">
+      <sbb-checkbox-group orientation="horizontal">
         <mock:shadow-root>
           <div class="sbb-checkbox-group">
             <slot></slot>
