@@ -226,7 +226,7 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         /**
-          * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
+          * The element where the autocomplete will attach; accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
          */
         "origin": string | HTMLElement;
         /**
@@ -2543,7 +2543,7 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
         /**
-          * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
+          * The element where the autocomplete will attach; accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.
          */
         "origin"?: string | HTMLElement;
         /**

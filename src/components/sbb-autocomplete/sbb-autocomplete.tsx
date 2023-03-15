@@ -37,7 +37,7 @@ let nextId = 0;
 })
 export class SbbAutocomplete implements ComponentInterface {
   /**
-   * The element where the autocomplete will attach; accepts both a string (an element id) or an HTML element.
+   * The element where the autocomplete will attach; accepts both a string (id of an element) or an HTML element.
    *
    * If not set, will search for the first 'sbb-form-field' ancestor.
    */
