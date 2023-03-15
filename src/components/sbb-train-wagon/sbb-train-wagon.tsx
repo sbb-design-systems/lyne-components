@@ -11,7 +11,8 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { InterfaceSbbWagonAttributes } from './sbb-wagon.custom.d';
+import { InterfaceSbbTrainWagonAttributes } from './sbb-train-wagon.custom.d';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -30,26 +31,26 @@ import {
 } from '../../global/helpers';
 
 /**
- * @slot unnamed - Used to slot one to x icons for meta information of the sbb-wagon.
+ * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.
  */
 
 @Component({
   shadow: true,
-  styleUrl: 'sbb-wagon.scss',
-  tag: 'sbb-wagon',
+  styleUrl: 'sbb-train-wagon.scss',
+  tag: 'sbb-train-wagon',
 })
-export class SbbWagon {
+export class SbbTrainWagon {
   /** Wagon type. */
-  @Prop({ reflect: true }) public type: InterfaceSbbWagonAttributes['type'] = 'wagon';
+  @Prop({ reflect: true }) public type: InterfaceSbbTrainWagonAttributes['type'] = 'wagon';
 
   /** Occupancy of a wagon. */
-  @Prop() public occupancy?: InterfaceSbbWagonAttributes['occupancy'] = 'unknown';
+  @Prop() public occupancy?: InterfaceSbbTrainWagonAttributes['occupancy'] = 'unknown';
 
   /** Sector in which to wagon stops. */
   @Prop({ reflect: true }) public sector: string;
 
   /** Accessibility text for blocked passages of the wagon. */
-  @Prop() public blockedPassage: InterfaceSbbWagonAttributes['blockedPassage'] = 'none';
+  @Prop() public blockedPassage: InterfaceSbbTrainWagonAttributes['blockedPassage'] = 'none';
 
   /** Visible class label of a wagon. */
   @Prop() public wagonClass?: '1' | '2';
@@ -157,18 +158,20 @@ export class SbbWagon {
   public render(): JSX.Element {
     // We should avoid lists with only one entry
     if (this._icons?.length > 1) {
-      this._icons.forEach((icon, index) => icon.setAttribute('slot', `sbb-wagon-icon-${index}`));
+      this._icons.forEach((icon, index) =>
+        icon.setAttribute('slot', `sbb-train-wagon-icon-${index}`)
+      );
     } else {
       this._icons.forEach((icon) => icon.removeAttribute('slot'));
     }
 
     return (
       <Host aria-label={this._getAccessibilityText()}>
-        <div class="sbb-wagon">
-          <span class="sbb-wagon__label" aria-hidden="true">
+        <div class="sbb-train-wagon">
+          <span class="sbb-train-wagon__label" aria-hidden="true">
             {this.label}
           </span>
-          <span class="sbb-wagon__compartment">
+          <span class="sbb-train-wagon__compartment">
             {this.type === 'wagon' ? (
               <Fragment>
                 {this.occupancy && (
@@ -176,7 +179,7 @@ export class SbbWagon {
                     name={`utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`}
                   ></sbb-icon>
                 )}
-                <span class="sbb-wagon__class">
+                <span class="sbb-train-wagon__class">
                   <span aria-hidden="true">{this.wagonClass}</span>
                 </span>
               </Fragment>
@@ -201,16 +204,16 @@ export class SbbWagon {
             )}
           </span>
           {this.type === 'wagon' && (
-            <span class="sbb-wagon__icons">
+            <span class="sbb-train-wagon__icons">
               {this._icons?.length > 1 && (
                 <ul
-                  class="sbb-wagon__icons-list"
+                  class="sbb-train-wagon__icons-list"
                   aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
                 >
                   {this._icons.map((_, index) => (
-                    <li class="sbb-wagon__icons-item">
+                    <li class="sbb-train-wagon__icons-item">
                       <slot
-                        name={`sbb-wagon-icon-${index}`}
+                        name={`sbb-train-wagon-icon-${index}`}
                         onSlotchange={(): void => this._readSlottedIcons()}
                       />
                     </li>
@@ -218,7 +221,7 @@ export class SbbWagon {
                 </ul>
               )}
               <span
-                class="sbb-wagon__icons-item"
+                class="sbb-train-wagon__icons-item"
                 hidden={this._icons?.length !== 1}
                 aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
               >

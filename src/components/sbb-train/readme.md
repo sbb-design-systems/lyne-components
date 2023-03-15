@@ -1,6 +1,6 @@
 # sbb-train
 
-A sbb-train is a container element for one to x sbb-wagons or sbb-blocked-passages.
+A `<sbb-train>` is a container element for one to x `<sbb-train-wagon`> or `<sbb-train-blocked-passage>`.
 It has a direction indicator with a label for the travel direction and the destination station. 
 It is used inside the sbb-train-formation element.
 
@@ -36,9 +36,9 @@ It should refer to the section where the locomotive is placed.
 
 ## Slots
 
-| Slot        | Description                   |
-| ----------- | ----------------------------- |
-| `"unnamed"` | Used for slotting sbb-wagons. |
+| Slot        | Description                         |
+| ----------- | ----------------------------------- |
+| `"unnamed"` | Used for slotting sbb-train-wagons. |
 
 
 ## Dependencies
@@ -55,3 +55,5 @@ graph TD;
 ```
 
 ----------------------------------------------
+
+

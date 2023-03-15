@@ -1,10 +1,10 @@
-import { SbbWagon } from './sbb-wagon';
+import { SbbTrainWagon } from './sbb-train-wagon';
 import { newSpecPage } from '@stencil/core/testing';
 
 async function assertAriaLabel(
   properties: Partial<
     Pick<
-      HTMLSbbWagonElement,
+      HTMLSbbTrainWagonElement,
       | 'type'
       | 'occupancy'
       | 'sector'
@@ -39,148 +39,148 @@ async function assertAriaLabel(
     .join(' ');
 
   const { root } = await newSpecPage({
-    components: [SbbWagon],
-    html: `<sbb-wagon ${attributes}/>`,
+    components: [SbbTrainWagon],
+    html: `<sbb-train-wagon ${attributes}/>`,
   });
 
   expect(root.getAttribute('aria-label')).toEqual(assertString);
 }
 
-describe('sbb-wagon', () => {
+describe('sbb-train-wagon', () => {
   describe('render', () => {
     it('should render as type wagon', async () => {
       const { root } = await newSpecPage({
-        components: [SbbWagon],
-        html: '<sbb-wagon occupancy="unknown" wagon-class="1" type="wagon" label="38" blocked-passage="previous"/>',
+        components: [SbbTrainWagon],
+        html: '<sbb-train-wagon occupancy="unknown" wagon-class="1" type="wagon" label="38" blocked-passage="previous"/>',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-wagon aria-label="Train coach, Number: 38, First Class, No occupancy forecast available, No passage to the previous train coach." blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
+        <sbb-train-wagon aria-label="Train coach, Number: 38, First Class, No occupancy forecast available, No passage to the previous train coach." blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
           <mock:shadow-root>
-            <div class="sbb-wagon">
-              <span class="sbb-wagon__label" aria-hidden="true">
+            <div class="sbb-train-wagon">
+              <span class="sbb-train-wagon__label" aria-hidden="true">
                 38
               </span>
-              <span class="sbb-wagon__compartment">
+              <span class="sbb-train-wagon__compartment">
                 <sbb-icon name="utilization-none"></sbb-icon>
-                <span class="sbb-wagon__class">
+                <span class="sbb-train-wagon__class">
                   <span aria-hidden="true">1</span>
                 </span>
               </span>
-              <span class="sbb-wagon__icons">
-                <span hidden aria-label="Additional wagon information" class="sbb-wagon__icons-item">
+              <span class="sbb-train-wagon__icons">
+                <span hidden aria-label="Additional wagon information" class="sbb-train-wagon__icons-item">
                   <slot></slot>
                 </span>
               </span>
             </div>
           </mock:shadow-root>
-        </sbb-wagon>
+        </sbb-train-wagon>
       `);
     });
 
     it('should render as type wagon with one icon', async () => {
       const { root } = await newSpecPage({
-        components: [SbbWagon],
-        html: '<sbb-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-wagon>',
+        components: [SbbTrainWagon],
+        html: '<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-wagon aria-label="Train coach, No occupancy forecast available." type="wagon">
+        <sbb-train-wagon aria-label="Train coach, No occupancy forecast available." type="wagon">
           <mock:shadow-root>
-            <div class="sbb-wagon">
-              <span class="sbb-wagon__label" aria-hidden="true">
+            <div class="sbb-train-wagon">
+              <span class="sbb-train-wagon__label" aria-hidden="true">
               </span>
-              <span class="sbb-wagon__compartment">
+              <span class="sbb-train-wagon__compartment">
                 <sbb-icon name="utilization-none"></sbb-icon>
-                <span class="sbb-wagon__class">
+                <span class="sbb-train-wagon__class">
                   <span aria-hidden="true"></span>
                 </span>
               </span>
-              <span class="sbb-wagon__icons">
-                <span aria-label="Additional wagon information" class="sbb-wagon__icons-item">
+              <span class="sbb-train-wagon__icons">
+                <span aria-label="Additional wagon information" class="sbb-train-wagon__icons-item">
                   <slot></slot>
                 </span>
               </span>
             </div>
           </mock:shadow-root>
           <sbb-icon name="sa-rs"></sbb-icon>
-        </sbb-wagon>
+        </sbb-train-wagon>
       `);
     });
 
     it('should render as type wagon with multiple icons', async () => {
       const { root } = await newSpecPage({
-        components: [SbbWagon],
-        html: '<sbb-wagon><sbb-icon name="sa-rs"></sbb-icon><sbb-icon name="sa-rs"></sbb-icon></sbb-wagon>',
+        components: [SbbTrainWagon],
+        html: '<sbb-train-wagon><sbb-icon name="sa-rs"></sbb-icon><sbb-icon name="sa-rs"></sbb-icon></sbb-train-wagon>',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-wagon aria-label="Train coach, No occupancy forecast available." type="wagon">
+        <sbb-train-wagon aria-label="Train coach, No occupancy forecast available." type="wagon">
           <mock:shadow-root>
-            <div class="sbb-wagon">
-              <span class="sbb-wagon__label" aria-hidden="true">
+            <div class="sbb-train-wagon">
+              <span class="sbb-train-wagon__label" aria-hidden="true">
               </span>
-              <span class="sbb-wagon__compartment">
+              <span class="sbb-train-wagon__compartment">
                 <sbb-icon name="utilization-none"></sbb-icon>
-                <span class="sbb-wagon__class">
+                <span class="sbb-train-wagon__class">
                   <span aria-hidden="true"></span>
                 </span>
               </span>
-              <span class="sbb-wagon__icons">
-              <ul aria-label="Additional wagon information" class="sbb-wagon__icons-list">
-                <li class="sbb-wagon__icons-item">
-                  <slot name="sbb-wagon-icon-0"></slot>
+              <span class="sbb-train-wagon__icons">
+              <ul aria-label="Additional wagon information" class="sbb-train-wagon__icons-list">
+                <li class="sbb-train-wagon__icons-item">
+                  <slot name="sbb-train-wagon-icon-0"></slot>
                 </li>
-                <li class="sbb-wagon__icons-item">
-                  <slot name="sbb-wagon-icon-1"></slot>
+                <li class="sbb-train-wagon__icons-item">
+                  <slot name="sbb-train-wagon-icon-1"></slot>
                 </li>
               </ul>
-              <span aria-label="Additional wagon information" class="sbb-wagon__icons-item" hidden>
+              <span aria-label="Additional wagon information" class="sbb-train-wagon__icons-item" hidden>
                 <slot></slot>
               </span>
             </div>
           </mock:shadow-root>
-          <sbb-icon name="sa-rs" slot="sbb-wagon-icon-0"></sbb-icon>
-          <sbb-icon name="sa-rs" slot="sbb-wagon-icon-1"></sbb-icon>
-        </sbb-wagon>
+          <sbb-icon name="sa-rs" slot="sbb-train-wagon-icon-0"></sbb-icon>
+          <sbb-icon name="sa-rs" slot="sbb-train-wagon-icon-1"></sbb-icon>
+        </sbb-train-wagon>
       `);
     });
 
     it('should render as type locomotive', async () => {
       const { root } = await newSpecPage({
-        components: [SbbWagon],
-        html: '<sbb-wagon type="locomotive" additional-accessibility-text="Top of the train"/>',
+        components: [SbbTrainWagon],
+        html: '<sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train"/>',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-wagon type="locomotive" additional-accessibility-text="Top of the train"  aria-label="Locomotive, Top of the train.">
+        <sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train"  aria-label="Locomotive, Top of the train.">
           <mock:shadow-root>
-            <div class="sbb-wagon">
-              <span aria-hidden="true" class="sbb-wagon__label"></span>
-              <span class="sbb-wagon__compartment">
+            <div class="sbb-train-wagon">
+              <span aria-hidden="true" class="sbb-train-wagon__label"></span>
+              <span class="sbb-train-wagon__compartment">
                 <svg aria-hidden="true" width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z" stroke="#767676"></path></svg>
               </span>
             </div>
           </mock:shadow-root>
-        </sbb-wagon>
+        </sbb-train-wagon>
       `);
     });
 
     it('should render as type closed wagon without number', async () => {
       const { root } = await newSpecPage({
-        components: [SbbWagon],
-        html: '<sbb-wagon type="closed" />',
+        components: [SbbTrainWagon],
+        html: '<sbb-train-wagon type="closed" />',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-wagon type="closed" aria-label="Closed train coach.">
+        <sbb-train-wagon type="closed" aria-label="Closed train coach.">
           <mock:shadow-root>
-            <div class="sbb-wagon">
-              <span aria-hidden="true" class="sbb-wagon__label"></span>
-              <span class="sbb-wagon__compartment"></span>
+            <div class="sbb-train-wagon">
+              <span aria-hidden="true" class="sbb-train-wagon__label"></span>
+              <span class="sbb-train-wagon__compartment"></span>
             </div>
           </mock:shadow-root>
-        </sbb-wagon>
+        </sbb-train-wagon>
       `);
     });
   });

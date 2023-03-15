@@ -11,17 +11,17 @@ initially and on resize.
     direction="left"
     accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
   >
-    <sbb-wagon
+    <sbb-train-wagon
       sector="A"
       type="locomotive"
       additional-accessibility-text="Top of the train"
-    ></sbb-wagon>
-    <sbb-wagon
+    ></sbb-train-wagon>
+    <sbb-train-wagon
       sector="A"
       type="closed">
-    </sbb-wagon>
-    <sbb-wagon-blocked-passage />
-    <sbb-wagon
+    </sbb-train-wagon>
+    <sbb-train-blocked-passage />
+    <sbb-train-wagon
       sector="A"
       type="wagon"
       label="38"
@@ -36,7 +36,7 @@ initially and on resize.
         aria-label="Business zone in 1st class: Reservation possible"
         name="sa-bz"
       ></sbb-icon>
-    </sbb-wagon>
+    </sbb-train-wagon>
     ...
   </sbb-train>
   <sbb-train
@@ -68,3 +68,5 @@ initially and on resize.
 
 
 ----------------------------------------------
+
+

@@ -3,7 +3,7 @@ import { InterfaceSbbTrainAttributes } from './sbb-train.custom.d';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
- * @slot unnamed - Used for slotting sbb-wagons.
+ * @slot unnamed - Used for slotting sbb-train-wagons.
  */
 
 @Component({
@@ -35,7 +35,7 @@ export class SbbTrain {
    */
   @Event({ bubbles: true, cancelable: true }) public trainSlotChange: EventEmitter;
 
-  @State() private _wagons: (HTMLSbbWagonBlockedPassageElement | HTMLSbbWagonElement)[];
+  @State() private _wagons: (HTMLSbbTrainBlockedPassageElement | HTMLSbbTrainWagonElement)[];
 
   public connectedCallback(): void {
     this._readWagons();
@@ -51,10 +51,10 @@ export class SbbTrain {
 
   private _readWagons(): void {
     const wagons = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbWagonBlockedPassageElement | HTMLSbbWagonElement =>
-        e.tagName === 'SBB-WAGON' || e.tagName === 'SBB-WAGON-BLOCKED-PASSAGE'
+      (e): e is HTMLSbbTrainBlockedPassageElement | HTMLSbbTrainWagonElement =>
+        e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE'
     );
-    // If the slotted sbb-wagon and sbb-wagon-blocked-passage instances have not changed, we can skip syncing and updating
+    // If the slotted sbb-train-wagon and sbb-train-blocked-passage instances have not changed, we can skip syncing and updating
     // the link reference list.
     if (
       this._wagons &&

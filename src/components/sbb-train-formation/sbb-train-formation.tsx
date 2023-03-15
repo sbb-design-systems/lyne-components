@@ -70,16 +70,19 @@ export class SbbTrainFormation {
     event?.stopPropagation();
 
     this._sectors = Array.from(
-      this._element.querySelectorAll('sbb-wagon,sbb-wagon-blocked-passage')
+      this._element.querySelectorAll('sbb-train-wagon,sbb-train-blocked-passage')
     ).reduce(
-      (accu: SectorCollected[], item: HTMLSbbWagonElement | HTMLSbbWagonBlockedPassageElement) => {
+      (
+        accu: SectorCollected[],
+        item: HTMLSbbTrainWagonElement | HTMLSbbTrainBlockedPassageElement
+      ) => {
         if (!accu.length) {
           accu.push({ wagonsCount: 0, blockedPassageCount: 0 } as SectorCollected);
         }
 
         const currentSectorCollected = accu[accu.length - 1];
 
-        if (item.tagName === 'SBB-WAGON') {
+        if (item.tagName === 'SBB-TRAIN-WAGON') {
           const sectorAttribute = item.getAttribute('sector');
           if (!sectorAttribute && !accu.length) {
             console.error(`No sector specified for first wagon`, item);
@@ -97,7 +100,7 @@ export class SbbTrainFormation {
               blockedPassageCount: 0,
             } as SectorCollected);
           }
-        } else if (item.tagName === 'SBB-WAGON-BLOCKED-PASSAGE') {
+        } else if (item.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE') {
           currentSectorCollected.blockedPassageCount++;
         }
         return accu;

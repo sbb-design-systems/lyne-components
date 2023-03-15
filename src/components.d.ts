@@ -46,7 +46,7 @@ import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sb
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 import { SbbFocusOrigin } from "./global/helpers/focus";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
+import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
@@ -88,7 +88,7 @@ export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sb
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 export { SbbFocusOrigin } from "./global/helpers/focus";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-export { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
+export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -1536,13 +1536,15 @@ export namespace Components {
          */
         "station"?: string;
     }
+    interface SbbTrainBlockedPassage {
+    }
     interface SbbTrainFormation {
         /**
           * Option to hide all wagon numbers.
          */
         "hideWagonLabel": boolean;
     }
-    interface SbbWagon {
+    interface SbbTrainWagon {
         /**
           * Additional accessibility text which will be appended to the constructed default text.
          */
@@ -1550,7 +1552,7 @@ export namespace Components {
         /**
           * Accessibility text for blocked passages of the wagon.
          */
-        "blockedPassage": InterfaceSbbWagonAttributes['blockedPassage'];
+        "blockedPassage": InterfaceSbbTrainWagonAttributes['blockedPassage'];
         /**
           * Custom accessibility text to overwrite the constructed default text.
          */
@@ -1562,7 +1564,7 @@ export namespace Components {
         /**
           * Occupancy of a wagon.
          */
-        "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
+        "occupancy"?: InterfaceSbbTrainWagonAttributes['occupancy'];
         /**
           * Sector in which to wagon stops.
          */
@@ -1570,13 +1572,11 @@ export namespace Components {
         /**
           * Wagon type.
          */
-        "type": InterfaceSbbWagonAttributes['type'];
+        "type": InterfaceSbbTrainWagonAttributes['type'];
         /**
           * Visible class label of a wagon.
          */
         "wagonClass"?: '1' | '2';
-    }
-    interface SbbWagonBlockedPassage {
     }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
@@ -1651,9 +1651,9 @@ export interface SbbTrainCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTrainElement;
 }
-export interface SbbWagonCustomEvent<T> extends CustomEvent<T> {
+export interface SbbTrainWagonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSbbWagonElement;
+    target: HTMLSbbTrainWagonElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -2067,23 +2067,23 @@ declare global {
         prototype: HTMLSbbTrainElement;
         new (): HTMLSbbTrainElement;
     };
+    interface HTMLSbbTrainBlockedPassageElement extends Components.SbbTrainBlockedPassage, HTMLStencilElement {
+    }
+    var HTMLSbbTrainBlockedPassageElement: {
+        prototype: HTMLSbbTrainBlockedPassageElement;
+        new (): HTMLSbbTrainBlockedPassageElement;
+    };
     interface HTMLSbbTrainFormationElement extends Components.SbbTrainFormation, HTMLStencilElement {
     }
     var HTMLSbbTrainFormationElement: {
         prototype: HTMLSbbTrainFormationElement;
         new (): HTMLSbbTrainFormationElement;
     };
-    interface HTMLSbbWagonElement extends Components.SbbWagon, HTMLStencilElement {
+    interface HTMLSbbTrainWagonElement extends Components.SbbTrainWagon, HTMLStencilElement {
     }
-    var HTMLSbbWagonElement: {
-        prototype: HTMLSbbWagonElement;
-        new (): HTMLSbbWagonElement;
-    };
-    interface HTMLSbbWagonBlockedPassageElement extends Components.SbbWagonBlockedPassage, HTMLStencilElement {
-    }
-    var HTMLSbbWagonBlockedPassageElement: {
-        prototype: HTMLSbbWagonBlockedPassageElement;
-        new (): HTMLSbbWagonBlockedPassageElement;
+    var HTMLSbbTrainWagonElement: {
+        prototype: HTMLSbbTrainWagonElement;
+        new (): HTMLSbbTrainWagonElement;
     };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
@@ -2154,9 +2154,9 @@ declare global {
         "sbb-tooltip": HTMLSbbTooltipElement;
         "sbb-tooltip-trigger": HTMLSbbTooltipTriggerElement;
         "sbb-train": HTMLSbbTrainElement;
+        "sbb-train-blocked-passage": HTMLSbbTrainBlockedPassageElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
-        "sbb-wagon": HTMLSbbWagonElement;
-        "sbb-wagon-blocked-passage": HTMLSbbWagonBlockedPassageElement;
+        "sbb-train-wagon": HTMLSbbTrainWagonElement;
     }
 }
 declare namespace LocalJSX {
@@ -3695,13 +3695,15 @@ declare namespace LocalJSX {
          */
         "station"?: string;
     }
+    interface SbbTrainBlockedPassage {
+    }
     interface SbbTrainFormation {
         /**
           * Option to hide all wagon numbers.
          */
         "hideWagonLabel"?: boolean;
     }
-    interface SbbWagon {
+    interface SbbTrainWagon {
         /**
           * Additional accessibility text which will be appended to the constructed default text.
          */
@@ -3709,7 +3711,7 @@ declare namespace LocalJSX {
         /**
           * Accessibility text for blocked passages of the wagon.
          */
-        "blockedPassage"?: InterfaceSbbWagonAttributes['blockedPassage'];
+        "blockedPassage"?: InterfaceSbbTrainWagonAttributes['blockedPassage'];
         /**
           * Custom accessibility text to overwrite the constructed default text.
          */
@@ -3721,8 +3723,8 @@ declare namespace LocalJSX {
         /**
           * Occupancy of a wagon.
          */
-        "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
-        "onSectorChange"?: (event: SbbWagonCustomEvent<any>) => void;
+        "occupancy"?: InterfaceSbbTrainWagonAttributes['occupancy'];
+        "onSectorChange"?: (event: SbbTrainWagonCustomEvent<any>) => void;
         /**
           * Sector in which to wagon stops.
          */
@@ -3730,13 +3732,11 @@ declare namespace LocalJSX {
         /**
           * Wagon type.
          */
-        "type"?: InterfaceSbbWagonAttributes['type'];
+        "type"?: InterfaceSbbTrainWagonAttributes['type'];
         /**
           * Visible class label of a wagon.
          */
         "wagonClass"?: '1' | '2';
-    }
-    interface SbbWagonBlockedPassage {
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
@@ -3807,9 +3807,9 @@ declare namespace LocalJSX {
         "sbb-tooltip": SbbTooltip;
         "sbb-tooltip-trigger": SbbTooltipTrigger;
         "sbb-train": SbbTrain;
+        "sbb-train-blocked-passage": SbbTrainBlockedPassage;
         "sbb-train-formation": SbbTrainFormation;
-        "sbb-wagon": SbbWagon;
-        "sbb-wagon-blocked-passage": SbbWagonBlockedPassage;
+        "sbb-train-wagon": SbbTrainWagon;
     }
 }
 export { LocalJSX as JSX };
@@ -3887,9 +3887,9 @@ declare module "@stencil/core" {
             "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
             "sbb-tooltip-trigger": LocalJSX.SbbTooltipTrigger & JSXBase.HTMLAttributes<HTMLSbbTooltipTriggerElement>;
             "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
+            "sbb-train-blocked-passage": LocalJSX.SbbTrainBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbTrainBlockedPassageElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
-            "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;
-            "sbb-wagon-blocked-passage": LocalJSX.SbbWagonBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbWagonBlockedPassageElement>;
+            "sbb-train-wagon": LocalJSX.SbbTrainWagon & JSXBase.HTMLAttributes<HTMLSbbTrainWagonElement>;
         }
     }
 }

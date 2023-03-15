@@ -1,9 +1,9 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = (args) => <sbb-wagon {...args}></sbb-wagon>;
+const Template = (args) => <sbb-train-wagon {...args}></sbb-train-wagon>;
 const WagonIconsTemplate = (args) => (
-  <sbb-wagon {...args}>
+  <sbb-train-wagon {...args}>
     <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
     <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
     <sbb-icon
@@ -11,17 +11,17 @@ const WagonIconsTemplate = (args) => (
       aria-label="Business zone in 1st class: Reservation possible"
       name="sa-bz"
     ></sbb-icon>
-  </sbb-wagon>
+  </sbb-train-wagon>
 );
 
 const WagonOneIconTemplate = (args) => (
-  <sbb-wagon {...args}>
+  <sbb-train-wagon {...args}>
     <sbb-icon
       aria-hidden="false"
       aria-label="Business zone in 1st class: Reservation possible"
       name="sa-bz"
     ></sbb-icon>
-  </sbb-wagon>
+  </sbb-train-wagon>
 );
 
 const label = {
@@ -165,5 +165,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/train-formation/sbb-wagon',
+  title: 'components/timetable/sbb-train-wagon',
 };

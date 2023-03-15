@@ -88,5 +88,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/train-formation/sbb-train',
+  title: 'components/timetable/sbb-train',
 };

@@ -1,21 +1,21 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
-describe('sbb-wagon', () => {
+describe('sbb-train-wagon', () => {
   let element: E2EElement, page: E2EPage;
 
   it('renders', async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-wagon></sbb-wagon>');
+    await page.setContent('<sbb-train-wagon></sbb-train-wagon>');
 
-    element = await page.find('sbb-wagon');
+    element = await page.find('sbb-train-wagon');
     expect(element).toHaveClass('hydrated');
   });
 
   it('should emit sectorChange', async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-wagon sector="A"></sbb-wagon>');
+    await page.setContent('<sbb-train-wagon sector="A"></sbb-train-wagon>');
     await page.waitForChanges();
-    element = await page.find('sbb-wagon');
+    element = await page.find('sbb-train-wagon');
     const sectorChangeSpy = await element.spyOnEvent('sectorChange');
 
     element.setProperty('sector', 'B');
@@ -27,17 +27,17 @@ describe('sbb-wagon', () => {
   it('should change slot name when changing from multiple to single icon', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-wagon sector="A">
+      `<sbb-train-wagon sector="A">
               <sbb-icon name="sa-rs"></sbb-icon>
               <sbb-icon name="sa-rs"></sbb-icon>
-            </sbb-wagon>`
+            </sbb-train-wagon>`
     );
     await page.waitForChanges();
-    element = await page.find('sbb-wagon');
+    element = await page.find('sbb-train-wagon');
 
     expect(
       (await page.findAll('sbb-icon')).every((icon) =>
-        icon.getAttribute('slot').startsWith('sbb-wagon-icon-')
+        icon.getAttribute('slot').startsWith('sbb-train-wagon-icon-')
       )
     ).toBe(true);
 
