@@ -2,10 +2,20 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const Template = (args) => <sbb-wagon {...args}></sbb-wagon>;
-const WagonWithIconsTemplate = (args) => (
+const WagonIconsTemplate = (args) => (
   <sbb-wagon {...args}>
     <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
     <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+    <sbb-icon
+      aria-hidden="false"
+      aria-label="Business zone in 1st class: Reservation possible"
+      name="sa-bz"
+    ></sbb-icon>
+  </sbb-wagon>
+);
+
+const WagonOneIconTemplate = (args) => (
+  <sbb-wagon {...args}>
     <sbb-icon
       aria-hidden="false"
       aria-label="Business zone in 1st class: Reservation possible"
@@ -18,26 +28,17 @@ const label = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'Wagon',
-  },
 };
 
 const additionalAccessibilityText = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'Wagon',
-  },
 };
 
 const customAccessibilityLabel = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Wagon',
   },
 };
 
@@ -46,9 +47,6 @@ const occupancy = {
     type: 'inline-radio',
   },
   options: ['high', 'medium', 'low', 'unknown'],
-  table: {
-    category: 'Wagon',
-  },
 };
 
 const type = {
@@ -56,9 +54,6 @@ const type = {
     type: 'inline-radio',
   },
   options: ['locomotive', 'closed', 'wagon'],
-  table: {
-    category: 'Wagon',
-  },
 };
 
 const wagonClass = {
@@ -66,9 +61,6 @@ const wagonClass = {
     type: 'inline-radio',
   },
   options: ['1', '2'],
-  table: {
-    category: 'Wagon',
-  },
 };
 
 const defaultArgTypes = {
@@ -85,22 +77,62 @@ const defaultArgs = {
   type: type.options[2],
   occupancy: occupancy.options[2],
   'wagon-class': wagonClass.options[1],
-  'additional-accessibility-text': '',
-  'custom-accessibility-label': '',
+  'additional-accessibility-text': undefined,
+  'custom-accessibility-label': undefined,
 };
 
-export const wagon = Template.bind({});
-wagon.argTypes = defaultArgTypes;
-wagon.args = defaultArgs;
-wagon.documentation = {
-  title: 'Wagon example with label, occupancy, class without icons',
+export const wagonLowOccupancy = Template.bind({});
+wagonLowOccupancy.argTypes = defaultArgTypes;
+wagonLowOccupancy.args = defaultArgs;
+
+export const wagonMediumOccupancy = Template.bind({});
+wagonMediumOccupancy.argTypes = defaultArgTypes;
+wagonMediumOccupancy.args = {
+  ...defaultArgs,
+  occupancy: occupancy.options[1],
 };
 
-export const wagonWithIcons = WagonWithIconsTemplate.bind({});
-wagonWithIcons.argTypes = defaultArgTypes;
-wagonWithIcons.args = defaultArgs;
-wagonWithIcons.documentation = {
-  title: 'Wagon example with label, occupancy, class with icons',
+export const wagonHighOccupancy = Template.bind({});
+wagonHighOccupancy.argTypes = defaultArgTypes;
+wagonHighOccupancy.args = {
+  ...defaultArgs,
+  occupancy: occupancy.options[0],
+};
+
+export const wagonUnknownOccupancy = Template.bind({});
+wagonUnknownOccupancy.argTypes = defaultArgTypes;
+wagonUnknownOccupancy.args = {
+  ...defaultArgs,
+  occupancy: occupancy.options[3],
+};
+
+export const wagonUndefinedOccupancy = Template.bind({});
+wagonUndefinedOccupancy.argTypes = defaultArgTypes;
+wagonUndefinedOccupancy.args = {
+  ...defaultArgs,
+  occupancy: '',
+};
+
+export const wagonOneIcon = WagonOneIconTemplate.bind({});
+wagonOneIcon.argTypes = defaultArgTypes;
+wagonOneIcon.args = defaultArgs;
+
+export const wagonMultipleIcons = WagonIconsTemplate.bind({});
+wagonMultipleIcons.argTypes = defaultArgTypes;
+wagonMultipleIcons.args = defaultArgs;
+
+export const wagonFirstClass = Template.bind({});
+wagonFirstClass.argTypes = defaultArgTypes;
+wagonFirstClass.args = {
+  ...defaultArgs,
+  'wagon-class': wagonClass.options[0],
+};
+
+export const wagonUndefinedClass = Template.bind({});
+wagonUndefinedClass.argTypes = defaultArgTypes;
+wagonUndefinedClass.args = {
+  ...defaultArgs,
+  'wagon-class': undefined,
 };
 
 export const locomotive = Template.bind({});
@@ -109,18 +141,12 @@ locomotive.args = {
   ...defaultArgs,
   type: type.options[0],
 };
-locomotive.documentation = {
-  title: 'Locomotive example',
-};
 
 export const closed = Template.bind({});
 closed.argTypes = defaultArgTypes;
 closed.args = {
   ...defaultArgs,
   type: type.options[1],
-};
-closed.documentation = {
-  title: 'Closed wagon example',
 };
 
 export default {

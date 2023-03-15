@@ -11,9 +11,11 @@ describe('sbb-wagon-blocked-passage', () => {
     expect(root).toEqualHtml(`
         <sbb-wagon-blocked-passage>
           <mock:shadow-root>
-            <div class="sbb-wagon-blocked-passage">
-              <div class="sbb-wagon-blocked-passage__icon"></div>
-            </div>
+            <span class="sbb-wagon-blocked-passage">
+              <span class="sbb-wagon-blocked-passage__wrapper">
+                <span class="sbb-wagon-blocked-passage__icon"></span>
+              </span>
+            </span>
           </mock:shadow-root>
         </sbb-wagon-blocked-passage>
       `);

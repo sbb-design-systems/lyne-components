@@ -33,6 +33,13 @@ export const i18nBarrierFreeTravel: Record<string, string> = {
   it: 'Viaggio senza barriere.',
 };
 
+export const i18nSector: Record<string, string> = {
+  de: 'Sektor',
+  en: 'Sector',
+  fr: 'Secteur',
+  it: 'Settore',
+};
+
 export const i18nClass: Record<string, Record<string, string>> = {
   first: {
     de: 'Erste Klasse',

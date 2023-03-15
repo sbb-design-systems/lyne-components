@@ -1546,7 +1546,7 @@ export namespace Components {
         /**
           * Additional accessibility text which will be appended to the constructed default text.
          */
-        "additionalAccessibilityText": string;
+        "additionalAccessibilityText"?: string;
         /**
           * Accessibility text for blocked passages of the wagon.
          */
@@ -1554,7 +1554,7 @@ export namespace Components {
         /**
           * Custom accessibility text to overwrite the constructed default text.
          */
-        "customAccessibilityLabel": string;
+        "customAccessibilityLabel"?: string;
         /**
           * Visible label for the wagon number. Not used by type locomotive or closed.
          */
@@ -1562,7 +1562,7 @@ export namespace Components {
         /**
           * Occupancy of a wagon.
          */
-        "occupancy": InterfaceSbbWagonAttributes['occupancy'];
+        "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
         /**
           * Sector in which to wagon stops.
          */

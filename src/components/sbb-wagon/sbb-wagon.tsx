@@ -19,6 +19,7 @@ import {
   i18nClosedCompartmentLabel,
   i18nLocomotiveLabel,
   i18nOccupancy,
+  i18nSector,
   i18nWagonLabel,
   i18nWagonLabelNumber,
 } from '../../global/i18n';
@@ -42,7 +43,7 @@ export class SbbWagon {
   @Prop({ reflect: true }) public type: InterfaceSbbWagonAttributes['type'] = 'wagon';
 
   /** Occupancy of a wagon. */
-  @Prop() public occupancy: InterfaceSbbWagonAttributes['occupancy'] = 'unknown';
+  @Prop() public occupancy?: InterfaceSbbWagonAttributes['occupancy'] = 'unknown';
 
   /** Sector in which to wagon stops. */
   @Prop({ reflect: true }) public sector: string;
@@ -57,10 +58,10 @@ export class SbbWagon {
   @Prop() public label?: string;
 
   /** Custom accessibility text to overwrite the constructed default text. */
-  @Prop() public customAccessibilityLabel = '';
+  @Prop() public customAccessibilityLabel?: string;
 
   /** Additional accessibility text which will be appended to the constructed default text. */
-  @Prop() public additionalAccessibilityText = '';
+  @Prop() public additionalAccessibilityText?: string;
 
   /** Slotted Sbb-icons. */
   @State() private _icons: HTMLSbbIconElement[];
@@ -109,46 +110,48 @@ export class SbbWagon {
    */
   private _getAccessibilityText(): string {
     // Custom overwrite text
-    if (this.customAccessibilityLabel.length) {
+    if (this.customAccessibilityLabel) {
       return this.customAccessibilityLabel;
     }
 
-    const parts: string[] = [];
+    const textParts: string[] = [];
     if (this.type === 'locomotive') {
-      parts.push(`${i18nLocomotiveLabel[this._currentLanguage]}`);
+      textParts.push(i18nLocomotiveLabel[this._currentLanguage]);
     } else if (this.type === 'closed') {
-      parts.push(i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage]);
+      textParts.push(i18nClosedCompartmentLabel(parseInt(this.label))[this._currentLanguage]);
     } else {
-      parts.push(`${i18nWagonLabel[this._currentLanguage]}`);
+      textParts.push(i18nWagonLabel[this._currentLanguage]);
     }
 
     if (this.sector) {
-      // TODO: Translate
-      parts.push(`Sector: ${this.sector}`);
+      textParts.push(`${i18nSector[this._currentLanguage]}: ${this.sector}`);
     }
 
     if (this.type === 'wagon') {
-      parts.push(`${i18nWagonLabelNumber(parseInt(this.label))[this._currentLanguage]}`);
-      parts.push(
-        this.wagonClass === '1'
-          ? `${i18nClass['first'][this._currentLanguage]}`
-          : `${i18nClass['second'][this._currentLanguage]}`
-      );
+      if (this.label) {
+        textParts.push(i18nWagonLabelNumber(parseInt(this.label))[this._currentLanguage]);
+      }
+
+      if (this.wagonClass === '1') {
+        textParts.push(i18nClass['first'][this._currentLanguage]);
+      } else if (this.wagonClass === '2') {
+        textParts.push(i18nClass['second'][this._currentLanguage]);
+      }
 
       if (this.occupancy && i18nOccupancy[this.occupancy]) {
-        parts.push(`${i18nOccupancy[this.occupancy][this._currentLanguage]}`);
+        textParts.push(i18nOccupancy[this.occupancy][this._currentLanguage]);
       }
       if (this.blockedPassage && this.blockedPassage !== 'none') {
-        parts.push(`${i18nBlockedPassage[this.blockedPassage][this._currentLanguage]}`);
+        textParts.push(i18nBlockedPassage[this.blockedPassage][this._currentLanguage]);
       }
     }
 
     // Additional text like e.g. "Top/End of the train"-hint
-    if (this.additionalAccessibilityText.length) {
-      parts.push(`${this.additionalAccessibilityText}`);
+    if (this.additionalAccessibilityText) {
+      textParts.push(this.additionalAccessibilityText);
     }
 
-    return `${parts.join(', ')}.`;
+    return `${textParts.join(', ')}.`;
   }
 
   public render(): JSX.Element {
@@ -165,7 +168,7 @@ export class SbbWagon {
           <span class="sbb-wagon__label" aria-hidden="true">
             {this.label}
           </span>
-          <div class="sbb-wagon__compartment">
+          <span class="sbb-wagon__compartment">
             {this.type === 'wagon' ? (
               <Fragment>
                 {this.occupancy && (
@@ -196,13 +199,16 @@ export class SbbWagon {
                 )}
               </Fragment>
             )}
-          </div>
+          </span>
           {this.type === 'wagon' && (
-            <div class="sbb-wagon__icons">
+            <span class="sbb-wagon__icons">
               {this._icons?.length > 1 && (
-                <ul aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}>
+                <ul
+                  class="sbb-wagon__icons-list"
+                  aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+                >
                   {this._icons.map((_, index) => (
-                    <li>
+                    <li class="sbb-wagon__icons-item">
                       <slot
                         name={`sbb-wagon-icon-${index}`}
                         onSlotchange={(): void => this._readSlottedIcons()}
@@ -212,12 +218,13 @@ export class SbbWagon {
                 </ul>
               )}
               <span
+                class="sbb-wagon__icons-item"
                 hidden={this._icons?.length !== 1}
                 aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
               >
                 <slot onSlotchange={(): void => this._readSlottedIcons()} />
               </span>
-            </div>
+            </span>
           )}
         </div>
       </Host>

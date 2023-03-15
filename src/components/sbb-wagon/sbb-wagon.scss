@@ -21,13 +21,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: var(--sbb-wagon-width);
+  width: var(--sbb-wagon-width);
   position: relative;
-
-  :host([type='wagon']) &,
-  :host([type='closed']) & {
-    width: var(--sbb-wagon-width);
-  }
 }
 
 .sbb-wagon__label {
@@ -67,21 +62,19 @@
 .sbb-wagon__icons {
   --sbb-icon-svg-height: var(--sbb-wagon-icons-height);
 
-  p {
-    @include sbb.screen-reader-only;
-  }
+  display: flex;
+  padding-block-start: var(--sbb-wagon-icons-padding-block-start);
+}
 
-  ul {
-    @include sbb.list-reset;
+.sbb-wagon__icons-list {
+  @include sbb.list-reset;
 
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sbb-wagon-icons-gap);
-    justify-content: center;
-    padding-block-start: var(--sbb-wagon-icons-padding-block-start);
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-wagon-icons-gap);
+  justify-content: center;
+}
 
-  li {
-    display: inline-flex;
-  }
+.sbb-wagon__icons-item {
+  display: inline-flex;
 }
