@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { Day, handleKeyboardEvent, Weekday } from './sbb-calendar.helper';
+import { Day, Weekday } from './sbb-calendar.custom';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
@@ -338,7 +338,7 @@ export class SbbCalendar implements ComponentInterface {
     }
     const days = this._days;
     const index = days.findIndex((e: HTMLButtonElement) => e === event.target);
-    handleKeyboardEvent(event, index, days, day)?.focus();
+    this._navigateByKeyboard(event, index, days, day)?.focus();
   }
 
   /** Goes to the month identified by the shift. */
@@ -348,8 +348,8 @@ export class SbbCalendar implements ComponentInterface {
     this._init();
   }
 
-  /** Checks if the "previous month" button is enabled. */
-  private _previousMonthEnabled(): boolean {
+  /** Checks if the "previous month" button should be disabled. */
+  private _previousMonthDisabled(): boolean {
     if (!this._min) {
       return false;
     }
@@ -358,8 +358,8 @@ export class SbbCalendar implements ComponentInterface {
     return this._dateAdapter.compareDate(prevMonth, this._min) < 0;
   }
 
-  /** Checks if the "next month" button is enabled. */
-  private _nextMonthEnabled(): boolean {
+  /** Checks if the "next month" button should be disabled. */
+  private _nextMonthDisabled(): boolean {
     if (!this._max) {
       return false;
     }
@@ -400,6 +400,128 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
+  /**
+   * Gets the next element of the provided array starting from `index` by adding `delta`.
+   * If the found element is disabled, it continues adding `delta` until it finds an enabled one in the array bounds.
+   * @param days The array to search.
+   * @param index The starting index.
+   * @param delta The value to add or subtract.
+   */
+  private _findNext(days: HTMLButtonElement[], index: number, delta: number): HTMLButtonElement {
+    let nextIndex = index + delta;
+    while (nextIndex < days.length && days[nextIndex]?.disabled) {
+      nextIndex += delta;
+    }
+    return days[nextIndex] ?? days[index];
+  }
+
+  /**
+   * Find the first enabled element in the provided array.
+   * @param days The array to search.
+   * @param firstOfCurrentMonth The index of the first day of the month.
+   */
+  private _findFirst(days: HTMLButtonElement[], firstOfCurrentMonth: number): HTMLButtonElement {
+    return !days[firstOfCurrentMonth].disabled
+      ? days[firstOfCurrentMonth]
+      : this._findNext(days, firstOfCurrentMonth, 1);
+  }
+
+  /**
+   * Find the last enabled element in the provided array.
+   * @param days The array to search.
+   * @param lastOfCurrentMonth The index of the last day of the month.
+   */
+  private _findLast(days: HTMLButtonElement[], lastOfCurrentMonth: number): HTMLButtonElement {
+    return !days[lastOfCurrentMonth].disabled
+      ? days[lastOfCurrentMonth]
+      : this._findNext(days, lastOfCurrentMonth, -1);
+  }
+
+  /**
+   * Find the first enabled element in the same column of the provided array.
+   * @param days The array to search.
+   * @param index The starting index.
+   * @param offset The day's offset from the first month.
+   */
+  private _findFirstOnColumn(
+    days: HTMLButtonElement[],
+    index: number,
+    offset: number
+  ): HTMLButtonElement {
+    const nextIndex = (index % 7) + offset;
+    return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, 7);
+  }
+
+  /**
+   * Find the last enabled element in the same column of the provided array.
+   * @param days The array to search.
+   * @param index The starting index.
+   * @param offset The day's offset from the first month.
+   */
+  private _findLastOnColumn(
+    days: HTMLButtonElement[],
+    index: number,
+    offset: number
+  ): HTMLButtonElement {
+    const nextIndex = index + Math.trunc((offset - index - 1) / 7) * 7;
+    return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, -7);
+  }
+
+  /**
+   * Gets the index of the element to move to, based on a list of elements, which can be potentially disabled,
+   * the keyboard input and the position of the current element in the list.
+   *
+   * It handles the two months view in `wide` mode this way:
+   *  - `Home`/`End` keys return the index of the first/last day of the current month;
+   *  - `PageUp` / `PageDown` keys return the index of the first/last weekday of the current month.
+   *
+   * @param evt The keyboard event to check.
+   * @param index The index of the current element in the list.
+   * @param days An array of objects that have the `disabled` property (HTMLButtonElements in sbb-calendar).
+   * @param day The day object you move from.
+   */
+  private _navigateByKeyboard(
+    evt: KeyboardEvent,
+    index: number,
+    days: HTMLButtonElement[],
+    day: Day
+  ): HTMLButtonElement {
+    // Calculate the index of the starting day in the month.
+    const indexInMonth = +day.dayValue - 1;
+
+    // Calculates the day's offset from the first month
+    // (in single view, it's zero, in wide view it's the number of days of the first month).
+    const firstMonthOffset = index - indexInMonth;
+
+    // Calculates the index of the last day in the starting month.
+    // When one month is displayed, it is exactly the length of the `days` array, and same when two months are displayed,
+    // but the starting position is in the second one; if the starting position is in the first one, it calculates
+    // the last day using the year and month value and setting the day to zero.
+    const indexOfLastDayOfCurrentMonth =
+      index === indexInMonth ? new Date(+day.yearValue, +day.monthValue, 0).getDate() : days.length;
+
+    switch (evt.key) {
+      case 'ArrowUp':
+        return this._findNext(days, index, -7);
+      case 'ArrowDown':
+        return this._findNext(days, index, 7);
+      case 'ArrowLeft':
+        return this._findNext(days, index, -1);
+      case 'ArrowRight':
+        return this._findNext(days, index, 1);
+      case 'Home':
+        return this._findFirst(days, firstMonthOffset);
+      case 'PageUp':
+        return this._findFirstOnColumn(days, indexInMonth, firstMonthOffset);
+      case 'PageDown':
+        return this._findLastOnColumn(days, index, indexOfLastDayOfCurrentMonth);
+      case 'End':
+        return this._findLast(days, indexOfLastDayOfCurrentMonth - 1);
+      default:
+        return days[index];
+    }
+  }
+
   private _hasDataNow(): boolean {
     const dataNow = +this._element.dataset?.now;
     return !isNaN(dataNow);
@@ -427,7 +549,7 @@ export class SbbCalendar implements ComponentInterface {
             size="m"
             accessibility-label={i18nPreviousMonth[this._currentLanguage]}
             onClick={(event) => this._goToMonth(event, -1)}
-            disabled={this._previousMonthEnabled()}
+            disabled={this._previousMonthDisabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
@@ -443,7 +565,7 @@ export class SbbCalendar implements ComponentInterface {
             size="m"
             accessibility-label={i18nNextMonth[this._currentLanguage]}
             onClick={(event) => this._goToMonth(event, 1)}
-            disabled={this._nextMonthEnabled()}
+            disabled={this._nextMonthDisabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>
         </div>
