@@ -19,24 +19,16 @@ const active = {
   },
 };
 
-const preserveIconSpace = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const defaultArgTypes = {
   value,
   'icon-name': iconName,
   active: active,
-  'preserve-icon-space': preserveIconSpace,
 };
 
 const defaultArgs = {
   value: 'First value',
   'icon-name': 'clock-small',
   active: false,
-  'preserve-icon-space': false,
 };
 
 const Template = ({ value, ...args }) => (

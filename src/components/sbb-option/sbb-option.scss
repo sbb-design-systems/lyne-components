@@ -9,7 +9,9 @@
 
   --sbb-option-bg-color: inherit;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
-  --sbb-option-icon-container-display: none; // Overrided by the 'preserve-icon-space' on the autocomplete
+
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  --sbb-option-icon-container-display: none;
 }
 
 :host([active]:not([active='false'])) {

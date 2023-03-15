@@ -20,7 +20,7 @@ import {
   setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { SbbOptionSelectionChange } from './sbb-autocomplete.custom';
+import { SbbOptionSelectionChange } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
@@ -149,7 +149,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Deselect the previous options
     this._options
       .filter((option) => option.id !== event.detail.id)
-      .forEach((option) => option.deselect());
+      .forEach((option) => (option.selected = false));
 
     // Set the option value
     this._triggerElement.value = event.detail.value;
@@ -404,7 +404,7 @@ export class SbbAutocomplete implements ComponentInterface {
     const activeOption = this._options[this._activeItemIndex];
 
     if (activeOption) {
-      activeOption.select();
+      activeOption.selected = true;
     }
   }
 
