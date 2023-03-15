@@ -11,18 +11,18 @@ const disableAnimation = {
   },
 };
 
-const iconName = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Option',
-  },
-};
-
 const preserveIconSpace = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
+const iconName = {
+  control: {
+    type: 'text',
   },
   table: {
     category: 'Option',
@@ -50,10 +50,10 @@ const borderless = {
 const defaultArgTypes = {
   // Autocomplete args
   disableAnimation: disableAnimation,
+  preserveIconSpace: preserveIconSpace,
 
   // Option args
   iconName: iconName,
-  preserveIconSpace: preserveIconSpace,
   disableLabelHighlight: disableLabelHighlight,
 
   // Form field args
@@ -109,10 +109,12 @@ const Template = (args) => [
   <sbb-form-field borderless={args.borderless} label="Label">
     <input placeholder="Placeholder" />
 
-    <sbb-autocomplete disable-animation={args.disableAnimation}>
+    <sbb-autocomplete
+      disable-animation={args.disableAnimation}
+      preserve-icon-space={args.preserveIconSpace}
+    >
       <sbb-option
         icon-name={args.iconName}
-        preserve-icon-space={args.preserveIconSpace}
         disable-label-highlight={args.disableLabelHighlight}
         value="Option 1"
       >
@@ -120,7 +122,6 @@ const Template = (args) => [
       </sbb-option>
       <sbb-option
         icon-name={args.iconName}
-        preserve-icon-space={args.preserveIconSpace}
         disable-label-highlight={args.disableLabelHighlight}
         value="Option 2"
       >
@@ -129,29 +130,17 @@ const Template = (args) => [
 
       <sbb-divider />
 
-      <sbb-option
-        preserve-icon-space={args.preserveIconSpace}
-        disable-label-highlight={args.disableLabelHighlight}
-        value="Option 3"
-      >
+      <sbb-option disable-label-highlight={args.disableLabelHighlight} value="Option 3">
         <sbb-icon slot="icon" name={args.iconName} />
         Option 3
       </sbb-option>
 
       <sbb-divider />
 
-      <sbb-option
-        preserve-icon-space={args.preserveIconSpace}
-        disable-label-highlight={args.disableLabelHighlight}
-        value="Option 4"
-      >
+      <sbb-option disable-label-highlight={args.disableLabelHighlight} value="Option 4">
         Option 4
       </sbb-option>
-      <sbb-option
-        preserve-icon-space={args.preserveIconSpace}
-        disable-label-highlight={args.disableLabelHighlight}
-        value="Option 5"
-      >
+      <sbb-option disable-label-highlight={args.disableLabelHighlight} value="Option 5">
         Option 5
       </sbb-option>
     </sbb-autocomplete>
