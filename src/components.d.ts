@@ -1089,10 +1089,6 @@ export namespace Components {
          */
         "active"?: boolean;
         /**
-          * Disable the highlight of the label.
-         */
-        "disableLabelHighlight": boolean;
-        /**
           * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */
         "disabled"?: boolean;
@@ -3430,10 +3426,6 @@ declare namespace LocalJSX {
           * Whether the option is currently active.
          */
         "active"?: boolean;
-        /**
-          * Disable the highlight of the label.
-         */
-        "disableLabelHighlight"?: boolean;
         /**
           * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */
