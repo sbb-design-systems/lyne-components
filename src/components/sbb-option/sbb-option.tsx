@@ -52,9 +52,6 @@ export class SbbOption implements ComponentInterface {
   /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
   @Prop() public disabled?: boolean;
 
-  /** Disable the highlight of the label. */
-  @Prop({ reflect: true }) public disableLabelHighlight: boolean;
-
   /** Emits when the option selection status changes. */
   @Event({
     bubbles: true,
@@ -69,7 +66,10 @@ export class SbbOption implements ComponentInterface {
   @State() private _label: string;
 
   /** The portion of the highlighted label. */
-  @State() public highlightString: string;
+  @State() private _highlightString: string;
+
+  /** Disable the highlight of the label. */
+  @State() private _disableLabelHighlight: boolean;
 
   @Element() private _element: HTMLElement;
 
@@ -82,7 +82,7 @@ export class SbbOption implements ComponentInterface {
    */
   @Method()
   public async highlight(value: string): Promise<void> {
-    this.highlightString = value;
+    this._highlightString = value;
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -115,37 +115,40 @@ export class SbbOption implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    if (!this.disableLabelHighlight) {
+    if (!this._disableLabelHighlight) {
       this._setupHighlightHandler();
     }
   }
 
   private _setupHighlightHandler(): void {
-    const labelNode = this._labelSlot
-      .assignedNodes()
-      .filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
+    const slotNodes = this._labelSlot.assignedNodes();
+    const labelNode = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
 
-    if (!labelNode) {
-      this.disableLabelHighlight = true;
+    // Disable the highlight if the slot does not contain just a text node
+    if (!labelNode || slotNodes.length !== 1) {
+      this._disableLabelHighlight = true;
       return;
     }
     this._label = labelNode.wholeText;
   }
 
   private _getHighlightedLabel(): JSX.Element {
-    if (!this.highlightString || !this.highlightString.trim()) {
+    if (!this._highlightString || !this._highlightString.trim()) {
       return this._label;
     }
 
-    const matchIndex = this._label.toLowerCase().indexOf(this.highlightString.toLowerCase());
+    const matchIndex = this._label.toLowerCase().indexOf(this._highlightString.toLowerCase());
 
     if (matchIndex === -1) {
       return this._label;
     }
 
     const prefix = this._label.substring(0, matchIndex);
-    const highlighted = this._label.substring(matchIndex, matchIndex + this.highlightString.length);
-    const postfix = this._label.substring(matchIndex + this.highlightString.length);
+    const highlighted = this._label.substring(
+      matchIndex,
+      matchIndex + this._highlightString.length
+    );
+    const postfix = this._label.substring(matchIndex + this._highlightString.length);
 
     return [
       <span class="sbb-option__label--highlight">{prefix}</span>,
@@ -160,6 +163,7 @@ export class SbbOption implements ComponentInterface {
         role="option"
         aria-disabled={this.disabled}
         aria-selected={this.selected}
+        data-disable-highlight={this._disableLabelHighlight}
         ref={assignId(() => this._optionId)}
       >
         <div class="sbb-option">
@@ -173,7 +177,7 @@ export class SbbOption implements ComponentInterface {
           </span>
           <span class="sbb-option__label">
             <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
-            {this._label && !this.disableLabelHighlight && this._getHighlightedLabel()}
+            {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
           </span>
         </div>
       </Host>

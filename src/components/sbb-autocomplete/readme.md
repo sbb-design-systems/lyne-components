@@ -36,6 +36,26 @@ Or, you can specify a different `origin` and `trigger`
 </sbb-autocomplete>
 ```
 
+### Option highlight
+
+The autocomplete will highlight the caption of the option if the slot contains only a **text node**.  
+In case of a non-supported scenario, the highlight will be disabled.
+
+```html  
+<!-- Supported scenarios -->
+<sbb-option> Highlightable caption </sbb-option>
+
+<!-- Not supported scenarios -->
+<sbb-option> 
+  <span> Not highlightable caption </span>
+</sbb-option>
+
+<sbb-option> 
+  <img src="...">
+  Highlightable caption 
+</sbb-option>
+```
+
 ## Keyboard interaction
 | Keyboard shortcut                      | Action                                                         |
 |----------------------------------------|----------------------------------------------------------------|
