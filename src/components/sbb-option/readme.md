@@ -38,9 +38,9 @@ Option with icon
 
 ## Events
 
-| Event               | Description                       | Type                                    |
-| ------------------- | --------------------------------- | --------------------------------------- |
-| `option-did-select` | Emits when the option is clicked. | `CustomEvent<SbbOptionSelectionChange>` |
+| Event                     | Description                                     | Type                                    |
+| ------------------------- | ----------------------------------------------- | --------------------------------------- |
+| `option-selection-change` | Emits when the option selection status changes. | `CustomEvent<SbbOptionSelectionChange>` |
 
 
 ## Methods

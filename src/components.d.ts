@@ -3443,9 +3443,9 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Emits when the option is clicked.
+          * Emits when the option selection status changes.
          */
-        "onOption-did-select"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
+        "onOption-selection-change"?: (event: SbbOptionCustomEvent<SbbOptionSelectionChange>) => void;
         /**
           * Whether the option is selected.
          */
