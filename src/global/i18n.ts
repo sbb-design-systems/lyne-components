@@ -55,6 +55,20 @@ export const i18nClass: Record<string, Record<string, string>> = {
   },
 };
 
+export const i18nTrain: Record<string, string> = {
+  de: 'Zug',
+  en: 'Train',
+  fr: 'Train',
+  it: 'Treno',
+};
+
+export const i18nWagonsLabel: Record<string, string> = {
+  de: 'Wagen des Zuges',
+  en: 'Coaches of the train',
+  fr: 'Wagons de train',
+  it: 'Vagoni del treno',
+};
+
 export const i18nWagonLabel: Record<string, string> = {
   de: 'Wagen',
   en: 'Train coach',
@@ -140,13 +154,6 @@ export const i18nDeparture: Record<string, string> = {
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza',
-};
-
-export const i18nDistance: Record<string, string> = {
-  de: 'Distanz',
-  en: 'Distance',
-  fr: 'Distance',
-  it: 'Distanza',
 };
 
 export const i18nDistanceMeter: Record<string, Record<string, Record<string, string>>> = {
@@ -449,26 +456,6 @@ export const i18nTargetOpensInNewWindow: Record<string, string> = {
   en: 'Link target opens in new window.',
   fr: "Le lien s'ouvre dans une nouvelle fenêtre.",
   it: "L'obiettivo del link si apre in una nuova finestra.",
-};
-
-export const i18nXResultsAvailable = (resultsCount: number): Record<string, string> => ({
-  de: `${resultsCount} Resultate verfügbar.`,
-  en: `${resultsCount} results available.`,
-  fr: `${resultsCount} résultats disponibles.`,
-  it: `${resultsCount} sarà disponibile.`,
-});
-
-export const i18nUseArrowKeysToNavigate: Record<string, string> = {
-  de: 'Verwenden Sie Pfeiltasten nach oben und unten, um zu navigieren.',
-  en: 'Use up and down arrow keys to navigate.',
-  fr: 'Utilisez les touches fléchées haut et bas pour naviguer.',
-  it: 'Usa i tasti freccia su e giù per navigare.',
-};
-export const i18nWalk: Record<string, string> = {
-  de: 'Fussweg',
-  en: 'Walk',
-  fr: 'Parcours à pied',
-  it: 'Percorso a piedi',
 };
 
 export const i18nWalkingDistanceArrival: Record<string, string> = {

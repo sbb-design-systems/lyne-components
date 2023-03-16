@@ -48,7 +48,7 @@ export class SbbTimetableOccupancy {
 
           const classText = occupancyItem.class === '1' ? 'first' : 'second';
 
-          const a11yLabel = `${i18nClass[classText][this._currentLanguage]}. ${occupancyText}`;
+          const a11yLabel = `${i18nClass[classText][this._currentLanguage]}. ${occupancyText}.`;
 
           return (
             <li class="occupancy__list-item">

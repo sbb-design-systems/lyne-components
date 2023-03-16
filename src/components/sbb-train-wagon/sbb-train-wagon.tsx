@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Fragment,
   h,
-  Host,
   JSX,
   Prop,
   State,
@@ -166,71 +165,69 @@ export class SbbTrainWagon {
     }
 
     return (
-      <Host aria-label={this._getAccessibilityText()}>
-        <div class="sbb-train-wagon">
-          <span class="sbb-train-wagon__label" aria-hidden="true">
-            {this.label}
-          </span>
-          <span class="sbb-train-wagon__compartment">
-            {this.type === 'wagon' ? (
-              <Fragment>
-                {this.occupancy && (
-                  <sbb-icon
-                    name={`utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`}
-                  ></sbb-icon>
-                )}
-                <span class="sbb-train-wagon__class">
-                  <span aria-hidden="true">{this.wagonClass}</span>
-                </span>
-              </Fragment>
-            ) : (
-              <Fragment>
-                {this.type === 'locomotive' && (
-                  <svg
-                    aria-hidden="true"
-                    width="80"
-                    height="40"
-                    viewBox="0 0 80 40"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z"
-                      stroke="#767676"
-                    />
-                  </svg>
-                )}
-              </Fragment>
-            )}
-          </span>
-          {this.type === 'wagon' && (
-            <span class="sbb-train-wagon__icons">
-              {this._icons?.length > 1 && (
-                <ul
-                  class="sbb-train-wagon__icons-list"
-                  aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
-                >
-                  {this._icons.map((_, index) => (
-                    <li class="sbb-train-wagon__icons-item">
-                      <slot
-                        name={`sbb-train-wagon-icon-${index}`}
-                        onSlotchange={(): void => this._readSlottedIcons()}
-                      />
-                    </li>
-                  ))}
-                </ul>
+      <div class="sbb-train-wagon" aria-label={this._getAccessibilityText()}>
+        <span class="sbb-train-wagon__label" aria-hidden="true">
+          {this.label}
+        </span>
+        <span class="sbb-train-wagon__compartment">
+          {this.type === 'wagon' ? (
+            <Fragment>
+              {this.occupancy && (
+                <sbb-icon
+                  name={`utilization-${this.occupancy === 'unknown' ? 'none' : this.occupancy}`}
+                ></sbb-icon>
               )}
-              <span
-                class="sbb-train-wagon__icons-item"
-                hidden={this._icons?.length !== 1}
+              <span class="sbb-train-wagon__class">
+                <span aria-hidden="true">{this.wagonClass}</span>
+              </span>
+            </Fragment>
+          ) : (
+            <Fragment>
+              {this.type === 'locomotive' && (
+                <svg
+                  aria-hidden="true"
+                  width="80"
+                  height="40"
+                  viewBox="0 0 80 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z"
+                    stroke="#767676"
+                  />
+                </svg>
+              )}
+            </Fragment>
+          )}
+        </span>
+        {this.type === 'wagon' && (
+          <span class="sbb-train-wagon__icons">
+            {this._icons?.length > 1 && (
+              <ul
+                class="sbb-train-wagon__icons-list"
                 aria-label={i18nAdditionalWagonInformationHeading[this._currentLanguage]}
               >
-                <slot onSlotchange={(): void => this._readSlottedIcons()} />
-              </span>
+                {this._icons.map((_, index) => (
+                  <li class="sbb-train-wagon__icons-item">
+                    <slot
+                      name={`sbb-train-wagon-icon-${index}`}
+                      onSlotchange={(): void => this._readSlottedIcons()}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+            <span
+              class="sbb-train-wagon__icons-item"
+              hidden={this._icons?.length !== 1}
+              aria-label={this._icons?.length === 1 && i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+            >
+              <slot onSlotchange={(): void => this._readSlottedIcons()} />
             </span>
-          )}
-        </div>
-      </Host>
+          </span>
+        )}
+      </div>
     );
   }
 }

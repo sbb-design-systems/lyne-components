@@ -239,7 +239,7 @@ export class SbbTimetableRow {
                             i18nOccupancy[occupancy?.firstClass?.toLowerCase()][
                               this._currentLanguage
                             ]
-                          }`}
+                          }.`}
                       </span>
                     </li>
                   )}
@@ -256,7 +256,7 @@ export class SbbTimetableRow {
                             i18nOccupancy[occupancy?.secondClass?.toLowerCase()][
                               this._currentLanguage
                             ]
-                          }`}
+                          }.`}
                       </span>
                     </li>
                   )}

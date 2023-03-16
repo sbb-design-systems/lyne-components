@@ -43,7 +43,9 @@ async function assertAriaLabel(
     html: `<sbb-train-wagon ${attributes}/>`,
   });
 
-  expect(root.getAttribute('aria-label')).toEqual(assertString);
+  expect(root.shadowRoot.querySelector('[aria-label]').getAttribute('aria-label')).toEqual(
+    assertString
+  );
 }
 
 describe('sbb-train-wagon', () => {
@@ -55,9 +57,9 @@ describe('sbb-train-wagon', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-train-wagon aria-label="Train coach, Number: 38, First Class, No occupancy forecast available, No passage to the previous train coach." blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
+        <sbb-train-wagon blocked-passage="previous" label="38" occupancy="unknown" type="wagon" wagon-class="1">
           <mock:shadow-root>
-            <div class="sbb-train-wagon">
+            <div class="sbb-train-wagon" aria-label="Train coach, Number: 38, First Class, No occupancy forecast available, No passage to the previous train coach.">
               <span class="sbb-train-wagon__label" aria-hidden="true">
                 38
               </span>
@@ -68,7 +70,7 @@ describe('sbb-train-wagon', () => {
                 </span>
               </span>
               <span class="sbb-train-wagon__icons">
-                <span hidden aria-label="Additional wagon information" class="sbb-train-wagon__icons-item">
+                <span hidden class="sbb-train-wagon__icons-item">
                   <slot></slot>
                 </span>
               </span>
@@ -85,9 +87,9 @@ describe('sbb-train-wagon', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-train-wagon aria-label="Train coach, No occupancy forecast available." type="wagon">
+        <sbb-train-wagon type="wagon">
           <mock:shadow-root>
-            <div class="sbb-train-wagon">
+            <div class="sbb-train-wagon" aria-label="Train coach, No occupancy forecast available.">
               <span class="sbb-train-wagon__label" aria-hidden="true">
               </span>
               <span class="sbb-train-wagon__compartment">
@@ -115,9 +117,9 @@ describe('sbb-train-wagon', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-train-wagon aria-label="Train coach, No occupancy forecast available." type="wagon">
+        <sbb-train-wagon type="wagon">
           <mock:shadow-root>
-            <div class="sbb-train-wagon">
+            <div class="sbb-train-wagon" aria-label="Train coach, No occupancy forecast available.">
               <span class="sbb-train-wagon__label" aria-hidden="true">
               </span>
               <span class="sbb-train-wagon__compartment">
@@ -135,7 +137,7 @@ describe('sbb-train-wagon', () => {
                   <slot name="sbb-train-wagon-icon-1"></slot>
                 </li>
               </ul>
-              <span aria-label="Additional wagon information" class="sbb-train-wagon__icons-item" hidden>
+              <span class="sbb-train-wagon__icons-item" hidden>
                 <slot></slot>
               </span>
             </div>
@@ -153,9 +155,9 @@ describe('sbb-train-wagon', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train"  aria-label="Locomotive, Top of the train.">
+        <sbb-train-wagon type="locomotive" additional-accessibility-text="Top of the train">
           <mock:shadow-root>
-            <div class="sbb-train-wagon">
+            <div class="sbb-train-wagon" aria-label="Locomotive, Top of the train.">
               <span aria-hidden="true" class="sbb-train-wagon__label"></span>
               <span class="sbb-train-wagon__compartment">
                 <svg aria-hidden="true" width="80" height="40" viewBox="0 0 80 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.7906 4.42719C19.9743 1.93152 23.129 0.5 26.4452 0.5H53.5548C56.871 0.5 60.0257 1.93152 62.2094 4.4272L76.2094 20.4272C82.7157 27.8629 77.4351 39.5 67.5548 39.5H12.4452C2.56489 39.5 -2.71566 27.8629 3.79058 20.4272L17.7906 4.42719Z" stroke="#767676"></path></svg>
@@ -173,9 +175,9 @@ describe('sbb-train-wagon', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-train-wagon type="closed" aria-label="Closed train coach.">
+        <sbb-train-wagon type="closed">
           <mock:shadow-root>
-            <div class="sbb-train-wagon">
+            <div class="sbb-train-wagon" aria-label="Closed train coach.">
               <span aria-hidden="true" class="sbb-train-wagon__label"></span>
               <span class="sbb-train-wagon__compartment"></span>
             </div>

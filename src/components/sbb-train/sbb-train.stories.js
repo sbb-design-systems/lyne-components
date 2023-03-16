@@ -12,13 +12,6 @@ const directionLabel = {
   },
 };
 
-const directionLabelLevel = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
 const station = {
   control: {
     type: 'text',
@@ -49,7 +42,6 @@ const direction = {
 
 const defaultArgTypes = {
   'direction-label': directionLabel,
-  'direction-label-level': directionLabelLevel,
   'accessibility-label': accessibilityLabel,
   station,
   direction,
@@ -57,7 +49,6 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   'direction-label': 'Direction of travel',
-  'direction-label-level': directionLabelLevel.options[2],
   'accessibility-label':
     'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
@@ -70,7 +61,7 @@ train.args = defaultArgs;
 
 export const trainWithoutStation = Template.bind({});
 trainWithoutStation.argTypes = defaultArgTypes;
-trainWithoutStation.args = { ...defaultArgs, station: '' };
+trainWithoutStation.args = { ...defaultArgs, station: undefined };
 
 export default {
   decorators: [

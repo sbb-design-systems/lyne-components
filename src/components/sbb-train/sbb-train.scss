@@ -49,7 +49,7 @@
   margin-block-end: var(--sbb-train-direction-spacing);
   display: flex;
   position: relative;
-  margin-top: auto;
+  margin-block-start: auto;
   width: 100%;
 }
 
@@ -71,8 +71,7 @@
   z-index: 0;
   position: absolute;
   top: calc(((0.5em * var(--sbb-typo-line-height-body-text))) + var(--sbb-train-direction-spacing));
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   height: var(--sbb-train-direction-line-width);
   background-color: var(--sbb-train-direction-line-color);
 }
@@ -121,9 +120,10 @@
 }
 
 .sbb-train__direction-station {
+  @include sbb.text-xxs--regular;
+
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
   padding: 0 var(--sbb-train-direction-station-padding);
-  @include sbb.text-xxs--regular;
 }
