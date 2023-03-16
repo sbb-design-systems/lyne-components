@@ -111,7 +111,7 @@ describe('sbb-card', () => {
     expect(root).toEqualHtml(`
       <sbb-card color="white" size="s" name="button" form="form" value="value" active="" role="button" size="s" tabindex="0">
         <mock:shadow-root>
-          <button class="sbb-card" dir="ltr" type="button" role="presentation" tabindex="-1" value="value">
+          <button class="sbb-card" dir="ltr" type="button" role="presentation" tabindex="-1">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>

@@ -39,7 +39,6 @@ describe('sbb-button', () => {
               dir="ltr"
               type="button"
               disabled="true"
-              value="value"
               role="presentation"
               tabindex="-1"
              >

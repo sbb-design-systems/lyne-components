@@ -107,7 +107,6 @@ describe('getButtonAttributeList', () => {
     const expectedObj: Record<string, string> = {
       dir: 'ltr',
       type: 'button',
-      value: 'value',
       role: 'presentation',
       tabIndex: '-1',
     };

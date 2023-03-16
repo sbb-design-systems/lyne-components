@@ -136,7 +136,6 @@ function getButtonAttributeList(buttonProperties: ButtonProperties): Record<stri
   return filterUndefined(getLinkButtonBaseAttributeList(), {
     type: 'button',
     disabled: buttonProperties.disabled ? 'true' : undefined,
-    value: buttonProperties.value ?? undefined,
   });
 }
 
