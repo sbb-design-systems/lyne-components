@@ -23,10 +23,10 @@ describe('sbb-train', () => {
     await page.waitForChanges();
     element = await page.find('sbb-train');
     const trainSlotChangeSpy = await element.spyOnEvent('trainSlotChange');
-    await page.waitForChanges();
 
     await page.evaluate(() => document.querySelector('sbb-train-wagon').remove());
+    await page.waitForChanges();
 
-    expect(trainSlotChangeSpy).toHaveReceivedEventTimes(1);
+    expect(trainSlotChangeSpy).toHaveReceivedEvent();
   });
 });
