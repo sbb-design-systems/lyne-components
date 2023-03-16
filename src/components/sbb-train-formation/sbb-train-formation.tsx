@@ -1,4 +1,4 @@
-import { Component, Element, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
@@ -36,6 +36,7 @@ export class SbbTrainFormation {
 
   public connectedCallback(): void {
     this._readSectors();
+    this._readTrains();
   }
 
   public disconnectedCallback(): void {
@@ -63,6 +64,8 @@ export class SbbTrainFormation {
 
   @State() private _sectors: SectorCollected[] = [];
 
+  @State() private _trains: HTMLSbbTrainElement[];
+
   @Listen('trainSlotChange')
   @Listen('sectorChange')
   private _readSectors(event?: Event): void {
@@ -86,6 +89,7 @@ export class SbbTrainFormation {
           const sectorAttribute = item.getAttribute('sector');
           if (!sectorAttribute && !accu.length) {
             console.error(`No sector specified for first wagon`, item);
+            // TODO: evtl. ohne error abbrechen, konsequenzen?
             throw new Error(`No sector specified for first wagon`);
           }
           if (!currentSectorCollected.label && sectorAttribute) {
@@ -109,38 +113,73 @@ export class SbbTrainFormation {
     );
   }
 
+  private _readTrains(): void {
+    this._trains = Array.from(this._element.children).filter(
+      (e): e is HTMLSbbTrainElement => e.tagName === 'SBB-TRAIN'
+    );
+  }
+
   public render(): JSX.Element {
+    // We should avoid lists with only one entry
+    if (this._trains?.length > 1) {
+      this._trains.forEach((train, index) => train.setAttribute('slot', `train-${index}`));
+    } else {
+      this._trains.forEach((train) => train.removeAttribute('slot'));
+    }
+
     //TODO: translate
     return (
-      <Host role="list" aria-label="Train Formation">
-        <div
-          class="sbb-train-formation"
-          ref={(el): void => {
-            this._formationDiv = el;
-          }}
-        >
-          <div class="sbb-train-formation__sectors" aria-hidden="true">
-            {this._sectors.map((sectorCollected) => (
-              // TODO: translate
-              <span
-                class="sbb-train-formation__sector"
-                style={{
-                  '--sbb-train-formation-wagon-count': sectorCollected.wagonsCount.toString(),
-                  '--sbb-train-formation-wagon-blocked-passage-count':
-                    sectorCollected.blockedPassageCount.toString(),
-                }}
-              >
-                <span class="sbb-train-formation__sector-sticky-wrapper">
-                  Sector {sectorCollected.label}
-                </span>
+      <div
+        class="sbb-train-formation"
+        ref={(el): void => {
+          this._formationDiv = el;
+        }}
+      >
+        <div class="sbb-train-formation__sectors" aria-hidden="true">
+          {this._sectors.map((sectorCollected) => (
+            // TODO: translate
+            <span
+              class="sbb-train-formation__sector"
+              style={{
+                '--sbb-train-formation-wagon-count': sectorCollected.wagonsCount.toString(),
+                '--sbb-train-formation-wagon-blocked-passage-count':
+                  sectorCollected.blockedPassageCount.toString(),
+              }}
+            >
+              <span class="sbb-train-formation__sector-sticky-wrapper">
+                Sector {sectorCollected.label}
               </span>
-            ))}
-          </div>
-          <div class="sbb-train-formation__trains">
-            <slot onSlotchange={() => this._readSectors()} />
-          </div>
+            </span>
+          ))}
         </div>
-      </Host>
+
+        <div class="sbb-train-formation__trains">
+          {this._trains?.length > 1 && (
+            <ul class="sbb-train-formation__train-list" aria-label="List of trains">
+              {this._trains.map((_, index) => (
+                <li class="sbb-train-formation__train-list-item">
+                  <slot
+                    name={`train-${index}`}
+                    onSlotchange={(): void => {
+                      this._readSectors();
+                      this._readTrains();
+                    }}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <span class="sbb-train-formation__single-train" hidden={this._trains?.length !== 1}>
+            <slot
+              onSlotchange={() => {
+                this._readSectors();
+                this._readTrains();
+              }}
+            />
+          </span>
+        </div>
+      </div>
     );
   }
 }

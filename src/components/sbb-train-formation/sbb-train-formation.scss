@@ -89,7 +89,16 @@
   white-space: nowrap;
 }
 
-.sbb-train-formation__trains {
+.sbb-train-formation__train-list {
+  @include sbb.list-reset;
+}
+
+.sbb-train-formation__train-list-item {
+  display: inline-flex;
+}
+
+.sbb-train-formation__single-train,
+.sbb-train-formation__train-list {
   display: flex;
   gap: var(--sbb-train-formation-wagon-gap);
 }

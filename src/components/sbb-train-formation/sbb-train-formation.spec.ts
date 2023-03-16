@@ -12,7 +12,12 @@ describe('sbb-train-formation', () => {
         <sbb-train-formation>
           <mock:shadow-root>
             <div class="sbb-train-formation" style="--sbb-train-direction-width: 0px;">
-              <slot />
+              <div aria-hidden="true" class="sbb-train-formation__sectors"></div>
+               <div class="sbb-train-formation__trains">
+                 <span class="sbb-train-formation__single-train" hidden>
+                   <slot></slot>
+                 </span>
+               </div>
             </div>
           </mock:shadow-root>
         </sbb-train-formation>
