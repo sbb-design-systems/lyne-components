@@ -66,14 +66,14 @@ export const i18nWagonsLabel: Record<string, string> = {
   de: 'Wagen des Zuges',
   en: 'Coaches of the train',
   fr: 'Wagons de train',
-  it: 'Vagoni del treno',
+  it: 'Carrozze del treno',
 };
 
 export const i18nWagonLabel: Record<string, string> = {
   de: 'Wagen',
   en: 'Train coach',
   fr: 'Wagon de train',
-  it: 'Vagone del treno',
+  it: 'Carrozza del treno',
 };
 
 export const i18nWagonLabelNumber = (wagonNumber: number): Record<string, string> => ({
@@ -89,14 +89,14 @@ export const i18nClosedCompartmentLabel = (wagonNumber: number): Record<string, 
       de: `Geschlossener Wagen mit der Nummer ${wagonNumber}`,
       en: `Closed train coach with the number ${wagonNumber}`,
       fr: `Wagon de train fermé avec le numéro ${wagonNumber}`,
-      it: `Vagone del treno chiuso con il numero ${wagonNumber}`,
+      it: `Carrozza del treno chiuso con il numero ${wagonNumber}`,
     };
   }
   return {
     de: 'Geschlossener Zugwaggon',
     en: 'Closed train coach',
     fr: 'Wagon de train fermé',
-    it: 'Vagone del treno chiuso',
+    it: 'Carrozza del treno chiuso',
   };
 };
 
@@ -112,19 +112,19 @@ export const i18nBlockedPassage: Record<string, Record<string, string>> = {
     de: 'Kein Durchgang zum vorherigen Wagen',
     en: 'No passage to the previous train coach',
     fr: 'Pas de passage au wagon du train précédent',
-    it: 'Nessun passaggio allo vagone del treno precedente',
+    it: 'Nessun passaggio alla carrozza del treno precedente',
   },
   next: {
     de: 'Kein Durchgang zum nächsten Wagen',
     en: 'No passage to the next train coach',
     fr: 'Pas de passage au wagon de train suivant',
-    it: 'Nessun passaggio allo vagone del treno successivo',
+    it: 'Nessun passaggio alla carrozza del treno successivo',
   },
   both: {
     de: 'Kein Durchgang zum nächsten und vorherigen Wagen',
     en: 'No passage to the next and previous train coach',
     fr: 'Pas de passage au wagon de train suivant et précédent',
-    it: 'Nessun passaggio allo vagone del treno successivo e precedente',
+    it: 'Nessun passaggio alla carrozza del treno successivo e precedente',
   },
 };
 
@@ -132,7 +132,7 @@ export const i18nAdditionalWagonInformationHeading: Record<string, string> = {
   de: 'Zusätzliche Wageninformation',
   en: 'Additional wagon information',
   fr: 'Informations supplémentaires sur les wagons',
-  it: 'Informazioni aggiuntive sul vagone',
+  it: 'Informazioni aggiuntive sulla carrozza del treno',
 };
 
 export const i18nConnectionsDepartOn: Record<string, string> = {

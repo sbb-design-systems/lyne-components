@@ -221,7 +221,10 @@ export class SbbTrainWagon {
             <span
               class="sbb-train-wagon__icons-item"
               hidden={this._icons?.length !== 1}
-              aria-label={this._icons?.length === 1 && i18nAdditionalWagonInformationHeading[this._currentLanguage]}
+              aria-label={
+                this._icons?.length === 1 &&
+                i18nAdditionalWagonInformationHeading[this._currentLanguage]
+              }
             >
               <slot onSlotchange={(): void => this._readSlottedIcons()} />
             </span>
