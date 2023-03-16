@@ -144,8 +144,12 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /** When an option is selected, update the input value and close the autocomplete. */
-  @Listen('option-did-select')
+  @Listen('option-selection-change')
   public onOptionSelected(event: CustomEvent<SbbOptionSelectionChange>): void {
+    if (!event.detail.selected) {
+      return;
+    }
+    
     // Deselect the previous options
     this._options
       .filter((option) => option.id !== event.detail.id)
