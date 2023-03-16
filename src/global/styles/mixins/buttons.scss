@@ -59,7 +59,10 @@
   }
 
   &[disabled] {
-    --sbb-icon-button-color: var(--sbb-color-granite-default);
+    --sbb-icon-button-color: var(--sbb-color-graphite-default);
+    --sbb-icon-button-inset: 0;
+    --sbb-icon-button-transform: none;
+    --sbb-icon-button-background: transparent;
 
     cursor: unset;
   }

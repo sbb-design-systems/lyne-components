@@ -1,4 +1,3 @@
-import { hostContext } from '../../global/helpers/host-context';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 
 export interface InputUpdateEvent {
@@ -6,6 +5,19 @@ export interface InputUpdateEvent {
   readonly: boolean;
   min: string | number;
   max: string | number;
+}
+
+/**
+ *  Check whether it's a string or an HTMLElement, if it's a string queries the element with the
+ *  corresponding id.
+ *  @param trigger either the wanted id or the HTMLElement
+ */
+export function getElement(trigger: string | HTMLElement): HTMLElement {
+  if (typeof trigger === 'string') {
+    return document.getElementById(trigger) as HTMLElement;
+  } else if (trigger instanceof window.Element) {
+    return trigger as HTMLElement;
+  }
 }
 
 /**
@@ -22,17 +34,12 @@ export function getDatePicker(
   trigger?: string | HTMLElement
 ): HTMLSbbDatepickerElement {
   if (!trigger) {
-    const parent = hostContext('sbb-form-field', element);
+    const parent = element.closest('sbb-form-field');
     return parent?.querySelector('sbb-datepicker') as HTMLSbbDatepickerElement;
   }
 
-  // Check whether it's a string or an HTMLElement
-  if (typeof trigger === 'string') {
-    return document.getElementById(trigger) as HTMLSbbDatepickerElement;
-  } else if (trigger instanceof window.Element) {
-    return trigger as HTMLSbbDatepickerElement;
-  }
-  return null;
+  const datePicker = getElement(trigger) as HTMLSbbDatepickerElement;
+  return datePicker ?? null;
 }
 
 /**
@@ -45,17 +52,12 @@ export function getInput(
   trigger?: string | HTMLElement
 ): HTMLInputElement {
   if (!trigger) {
-    const parent = hostContext('sbb-form-field', element);
+    const parent = element.closest('sbb-form-field');
     return parent?.querySelector('input') as HTMLInputElement;
   }
 
-  // Check whether it's a string or an HTMLElement
-  if (typeof trigger === 'string') {
-    return document.getElementById(trigger) as HTMLInputElement;
-  } else if (trigger instanceof window.Element) {
-    return trigger as HTMLInputElement;
-  }
-  return null;
+  const input = getElement(trigger) as HTMLInputElement;
+  return input ?? null;
 }
 
 /**

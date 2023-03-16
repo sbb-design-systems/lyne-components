@@ -109,11 +109,6 @@ export class SbbCalendar implements ComponentInterface {
     }
   }
 
-  /** Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day. */
-  private _focusCell(): void {
-    this._getFirstFocusable()?.focus();
-  }
-
   /** Resets the active month according to the new state of the calendar. */
   @Method()
   @Watch('wide')
@@ -164,6 +159,11 @@ export class SbbCalendar implements ComponentInterface {
         nextMonthDate.getFullYear()
       );
     }
+  }
+
+  /** Focuses on a day cell prioritizing the selected day, the current day, and lastly the first selectable day. */
+  private _focusCell(): void {
+    this._getFirstFocusable()?.focus();
   }
 
   /** Sets the date variables. */
@@ -403,9 +403,6 @@ export class SbbCalendar implements ComponentInterface {
   /**
    * Gets the next element of the provided array starting from `index` by adding `delta`.
    * If the found element is disabled, it continues adding `delta` until it finds an enabled one in the array bounds.
-   * @param days The array to search.
-   * @param index The starting index.
-   * @param delta The value to add or subtract.
    */
   private _findNext(days: HTMLButtonElement[], index: number, delta: number): HTMLButtonElement {
     let nextIndex = index + delta;
@@ -415,34 +412,21 @@ export class SbbCalendar implements ComponentInterface {
     return days[nextIndex] ?? days[index];
   }
 
-  /**
-   * Find the first enabled element in the provided array.
-   * @param days The array to search.
-   * @param firstOfCurrentMonth The index of the first day of the month.
-   */
+  /** Find the first enabled element in the provided array. */
   private _findFirst(days: HTMLButtonElement[], firstOfCurrentMonth: number): HTMLButtonElement {
     return !days[firstOfCurrentMonth].disabled
       ? days[firstOfCurrentMonth]
       : this._findNext(days, firstOfCurrentMonth, 1);
   }
 
-  /**
-   * Find the last enabled element in the provided array.
-   * @param days The array to search.
-   * @param lastOfCurrentMonth The index of the last day of the month.
-   */
+  /** Find the last enabled element in the provided array. */
   private _findLast(days: HTMLButtonElement[], lastOfCurrentMonth: number): HTMLButtonElement {
     return !days[lastOfCurrentMonth].disabled
       ? days[lastOfCurrentMonth]
       : this._findNext(days, lastOfCurrentMonth, -1);
   }
 
-  /**
-   * Find the first enabled element in the same column of the provided array.
-   * @param days The array to search.
-   * @param index The starting index.
-   * @param offset The day's offset from the first month.
-   */
+  /** Find the first enabled element in the same column of the provided array. */
   private _findFirstOnColumn(
     days: HTMLButtonElement[],
     index: number,
@@ -452,12 +436,7 @@ export class SbbCalendar implements ComponentInterface {
     return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, 7);
   }
 
-  /**
-   * Find the last enabled element in the same column of the provided array.
-   * @param days The array to search.
-   * @param index The starting index.
-   * @param offset The day's offset from the first month.
-   */
+  /** Find the last enabled element in the same column of the provided array. */
   private _findLastOnColumn(
     days: HTMLButtonElement[],
     index: number,
@@ -470,15 +449,6 @@ export class SbbCalendar implements ComponentInterface {
   /**
    * Gets the index of the element to move to, based on a list of elements, which can be potentially disabled,
    * the keyboard input and the position of the current element in the list.
-   *
-   * It handles the two months view in `wide` mode this way:
-   *  - `Home`/`End` keys return the index of the first/last day of the current month;
-   *  - `PageUp` / `PageDown` keys return the index of the first/last weekday of the current month.
-   *
-   * @param evt The keyboard event to check.
-   * @param index The index of the current element in the list.
-   * @param days An array of objects that have the `disabled` property (HTMLButtonElements in sbb-calendar).
-   * @param day The day object you move from.
    */
   private _navigateByKeyboard(
     evt: KeyboardEvent,
