@@ -62,6 +62,13 @@ export const i18nTrain: Record<string, string> = {
   it: 'Treno',
 };
 
+export const i18nTrains: Record<string, string> = {
+  de: 'Züge',
+  en: 'Trains',
+  fr: 'Trains',
+  it: 'Treni',
+};
+
 export const i18nWagonsLabel: Record<string, string> = {
   de: 'Wagen des Zuges',
   en: 'Coaches of the train',

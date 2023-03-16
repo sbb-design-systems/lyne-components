@@ -55,9 +55,9 @@ initially and on resize.
 
 ## Properties
 
-| Property         | Attribute          | Description                       | Type      | Default |
-| ---------------- | ------------------ | --------------------------------- | --------- | ------- |
-| `hideWagonLabel` | `hide-wagon-label` | Option to hide all wagon numbers. | `boolean` | `false` |
+| Property         | Attribute          | Description                      | Type      | Default |
+| ---------------- | ------------------ | -------------------------------- | --------- | ------- |
+| `hideWagonLabel` | `hide-wagon-label` | Option to hide all wagon labels. | `boolean` | `false` |
 
 
 ## Slots

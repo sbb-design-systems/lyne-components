@@ -1536,7 +1536,7 @@ export namespace Components {
     }
     interface SbbTrainFormation {
         /**
-          * Option to hide all wagon numbers.
+          * Option to hide all wagon labels.
          */
         "hideWagonLabel": boolean;
     }
@@ -3691,7 +3691,7 @@ declare namespace LocalJSX {
     }
     interface SbbTrainFormation {
         /**
-          * Option to hide all wagon numbers.
+          * Option to hide all wagon labels.
          */
         "hideWagonLabel"?: boolean;
     }

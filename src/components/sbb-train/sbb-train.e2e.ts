@@ -19,7 +19,8 @@ describe('sbb-train', () => {
         <sbb-train-wagon></sbb-train-wagon>
         <sbb-train-wagon></sbb-train-wagon>
       </sbb-train>
-`);
+    `);
+
     await page.waitForChanges();
     element = await page.find('sbb-train');
     const trainSlotChangeSpy = await element.spyOnEvent('trainSlotChange');

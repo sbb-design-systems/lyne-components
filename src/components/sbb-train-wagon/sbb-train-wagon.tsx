@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -38,7 +39,7 @@ import {
   styleUrl: 'sbb-train-wagon.scss',
   tag: 'sbb-train-wagon',
 })
-export class SbbTrainWagon {
+export class SbbTrainWagon implements ComponentInterface {
   /** Wagon type. */
   @Prop({ reflect: true }) public type: InterfaceSbbTrainWagonAttributes['type'] = 'wagon';
 

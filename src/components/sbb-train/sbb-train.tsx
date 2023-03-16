@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentInterface,
   Element,
   Event,
   EventEmitter,
@@ -22,7 +23,7 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
   styleUrl: 'sbb-train.scss',
   tag: 'sbb-train',
 })
-export class SbbTrain {
+export class SbbTrain implements ComponentInterface {
   @Element() private _element: HTMLSbbTrainElement;
 
   /** General label for "driving direction". */
@@ -91,6 +92,11 @@ export class SbbTrain {
     this._wagons = wagons;
   }
 
+  private _handleSlotChange(): void {
+    this.trainSlotChange.emit();
+    this._readWagons();
+  }
+
   public render(): JSX.Element {
     this._wagons.forEach((wagon, index) => wagon.setAttribute('slot', `wagon-${index}`));
 
@@ -99,23 +105,12 @@ export class SbbTrain {
         <ul class="sbb-train__wagons" aria-label={i18nWagonsLabel[this._currentLanguage]}>
           {this._wagons.map((_, index) => (
             <li>
-              <slot
-                name={`wagon-${index}`}
-                onSlotchange={(): void => {
-                  this.trainSlotChange.emit();
-                  this._readWagons();
-                }}
-              />
+              <slot name={`wagon-${index}`} onSlotchange={(): void => this._handleSlotChange()} />
             </li>
           ))}
         </ul>
         <span hidden>
-          <slot
-            onSlotchange={() => {
-              this.trainSlotChange.emit();
-              this._readWagons();
-            }}
-          />
+          <slot onSlotchange={() => this._handleSlotChange()} />
         </span>
 
         {this.directionLabel && (
