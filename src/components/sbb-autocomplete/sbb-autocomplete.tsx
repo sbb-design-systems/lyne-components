@@ -149,7 +149,7 @@ export class SbbAutocomplete implements ComponentInterface {
     if (!event.detail.selected) {
       return;
     }
-    
+
     // Deselect the previous options
     this._options
       .filter((option) => option.id !== event.detail.id)

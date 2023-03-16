@@ -28,7 +28,9 @@
   }
 }
 
-:host(:not([disable-label-highlight]:not([disable-label-highlight='false']))) {
+// if the highlight is enabled, hide the slot content
+:host(:not([data-disable-highlight])),
+:host([data-disable-highlight='false']) {
   .sbb-option__label slot {
     display: none;
   }

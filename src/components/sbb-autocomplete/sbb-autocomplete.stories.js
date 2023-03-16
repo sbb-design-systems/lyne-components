@@ -113,36 +113,24 @@ const Template = (args) => [
       disable-animation={args.disableAnimation}
       preserve-icon-space={args.preserveIconSpace}
     >
-      <sbb-option
-        icon-name={args.iconName}
-        disable-label-highlight={args.disableLabelHighlight}
-        value="Option 1"
-      >
+      <sbb-option icon-name={args.iconName} value="Option 1">
         Option 1
       </sbb-option>
-      <sbb-option
-        icon-name={args.iconName}
-        disable-label-highlight={args.disableLabelHighlight}
-        value="Option 2"
-      >
+      <sbb-option icon-name={args.iconName} value="Option 2">
         Option 2
       </sbb-option>
 
       <sbb-divider />
 
-      <sbb-option disable-label-highlight={args.disableLabelHighlight} value="Option 3">
+      <sbb-option value="Option 3">
         <sbb-icon slot="icon" name={args.iconName} />
         Option 3
       </sbb-option>
 
       <sbb-divider />
 
-      <sbb-option disable-label-highlight={args.disableLabelHighlight} value="Option 4">
-        Option 4
-      </sbb-option>
-      <sbb-option disable-label-highlight={args.disableLabelHighlight} value="Option 5">
-        Option 5
-      </sbb-option>
+      <sbb-option value="Option 4">Option 4</sbb-option>
+      <sbb-option value="Option 5">Option 5</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>,
 ];
