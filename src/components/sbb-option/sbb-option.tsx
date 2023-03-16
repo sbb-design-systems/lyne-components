@@ -55,13 +55,13 @@ export class SbbOption implements ComponentInterface {
   /** Disable the highlight of the label. */
   @Prop({ reflect: true }) public disableLabelHighlight: boolean;
 
-  /** Emits when the option is clicked. */
+  /** Emits when the option selection status changes. */
   @Event({
     bubbles: true,
     composed: true,
-    eventName: 'option-did-select',
+    eventName: 'option-selection-change',
   })
-  public didSelect: EventEmitter<SbbOptionSelectionChange>;
+  public selectionChange: EventEmitter<SbbOptionSelectionChange>;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
@@ -102,7 +102,11 @@ export class SbbOption implements ComponentInterface {
   @Watch('selected')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
-      this.didSelect.emit({ id: this._element.id, value: this.value, selected: this.selected });
+      this.selectionChange.emit({
+        id: this._element.id,
+        value: this.value,
+        selected: this.selected,
+      });
     }
   }
 
