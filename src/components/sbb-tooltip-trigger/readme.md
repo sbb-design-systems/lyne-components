@@ -62,6 +62,7 @@ To make screen readers announce the tooltip content when the trigger is focused,
 | ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------- |
 | `disabled` | `disabled`  | Whether the tooltip-trigger is disabled                                                                                                   | `boolean` | `false`                      |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `'circle-information-small'` |
+| `name`     | `name`      | The name attribute to use for the button.                                                                                                 | `string`  | `undefined`                  |
 
 
 ## Slots

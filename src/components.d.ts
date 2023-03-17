@@ -1517,6 +1517,10 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName": string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
     }
     interface SbbTrain {
         /**
@@ -3668,6 +3672,10 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
     }
     interface SbbTrain {
         /**

@@ -34,7 +34,7 @@
   cursor: pointer;
   color: var(--sbb-tooltip-color);
 
-  &:focus-visible {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-4x);
