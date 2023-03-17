@@ -9,7 +9,10 @@ import {
   Watch,
   Event,
   EventEmitter,
+  Host,
+  Listen,
 } from '@stencil/core';
+import { isEventPrevented } from '../../global/helpers';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
 
 /**
@@ -78,8 +81,10 @@ export class SbbSlider implements ComponentInterface {
 
   @Watch('value')
   @Watch('valueAsNumber')
-  private _syncValues(newValue: string | number = this._rangeInput.valueAsNumber): void {
-    if (newValue && typeof newValue !== 'number') {
+  private _syncValues(newValue: string | number = this._rangeInput?.valueAsNumber): void {
+    if (newValue == null) {
+      return;
+    } else if (newValue && typeof newValue !== 'number') {
       newValue = +newValue;
     }
 
@@ -113,19 +118,59 @@ export class SbbSlider implements ComponentInterface {
     const mathFraction: number = (value - min) / (max - min);
     this._valueFraction =
       isNaN(mathFraction) || mathFraction < 0 ? 0 : mathFraction > 1 ? 1 : mathFraction;
+    this._syncValues();
+  }
+
+  @Listen('keydown')
+  public async handleKeydown(event: KeyboardEvent): Promise<void> {
+    if (this.disabled || this.readonly || (await isEventPrevented(event))) {
+      return;
+    }
+
+    if (event.key === 'Home') {
+      this._rangeInput.value = this._rangeInput.min;
+    } else if (event.key === 'End') {
+      this._rangeInput.value = this._rangeInput.max;
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
+      this._rangeInput.stepDown();
+    } else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
+      this._rangeInput.stepUp();
+    } else if (event.key === 'PageDown') {
+      this._rangeInput.stepDown((+this._rangeInput.max - +this._rangeInput.min) / 10);
+    } else if (event.key === 'PageUp') {
+      this._rangeInput.stepUp((+this._rangeInput.max - +this._rangeInput.min) / 10);
+    } else {
+      return;
+    }
+
+    this._syncValues();
+    this._element.dispatchEvent(
+      new InputEvent('input', { bubbles: true, cancelable: true, composed: true })
+    );
+    this._emitChange(
+      new window.Event('change', { bubbles: true, cancelable: true, composed: true })
+    );
   }
 
   /** Emits the change event. */
-  private _emitChange(event): void {
-    this._syncValues();
+  private _emitChange(event: Event): void {
     forwardEventToHost(event, this._element);
     this.didChange.emit();
   }
 
   public render(): JSX.Element {
+    const hostAttributes = {
+      role: 'slider',
+      tabIndex: this.disabled ? null : 0,
+      'aria-valuemin': this.min || null,
+      'aria-valuemax': this.max || null,
+      'aria-valuenow': this.value || null,
+      'aria-readonly': this.readonly?.toString() ?? 'false',
+      'aria-disabled': this.disabled?.toString() ?? 'false',
+    };
     const inputAttributes = {
+      tabIndex: -1,
       name: this.name || null,
-      form: this.form || null,
       min: this.min || null,
       max: this.max || null,
       disabled: this.disabled || this.readonly || null,
@@ -134,31 +179,33 @@ export class SbbSlider implements ComponentInterface {
     };
 
     return (
-      <div class="sbb-slider__height-container">
-        <div class="sbb-slider__wrapper">
-          <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
-          <div
-            class="sbb-slider__container"
-            style={{
-              '--sbb-slider-value-fraction': this._valueFraction.toString(),
-            }}
-          >
-            <input
-              class="sbb-slider__range-input"
-              type="range"
-              {...inputAttributes}
-              onChange={(event: Event) => this._emitChange(event)}
-              onInput={() => this._handleChange()}
-              ref={(input) => (this._rangeInput = input)}
-            />
-            <div class="sbb-slider__line">
-              <div class="sbb-slider__selected-line"></div>
+      <Host {...hostAttributes}>
+        <div class="sbb-slider__height-container">
+          <div class="sbb-slider__wrapper">
+            <slot name="prefix">{this.startIcon && <sbb-icon name={this.startIcon} />}</slot>
+            <div
+              class="sbb-slider__container"
+              style={{
+                '--sbb-slider-value-fraction': this._valueFraction.toString(),
+              }}
+            >
+              <input
+                class="sbb-slider__range-input"
+                type="range"
+                {...inputAttributes}
+                onChange={(event: Event) => this._emitChange(event)}
+                onInput={() => this._handleChange()}
+                ref={(input) => (this._rangeInput = input)}
+              />
+              <div class="sbb-slider__line">
+                <div class="sbb-slider__selected-line"></div>
+              </div>
+              <div class="sbb-slider__knob"></div>
             </div>
-            <div class="sbb-slider__knob"></div>
+            <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
           </div>
-          <slot name="suffix">{this.endIcon && <sbb-icon name={this.endIcon} />}</slot>
         </div>
-      </div>
+      </Host>
     );
   }
 }

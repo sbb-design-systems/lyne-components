@@ -14,8 +14,8 @@ async function triggerAnchorWhenNecessary(event: Event): Promise<void> {
     return;
   }
   // We need for the event phase to finish, which is the
-  // case after a micro task (e.g. await Promise).
-  await Promise.resolve();
+  // case after a macro task (e.g. setTimeout).
+  await new Promise((r) => setTimeout(r));
   if (event.defaultPrevented) {
     return;
   }

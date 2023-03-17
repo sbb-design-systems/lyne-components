@@ -7,6 +7,10 @@
 :host {
   display: inline-block;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   --sbb-teaser-scale-hover: 1.02;
   --sbb-teaser-description-color: var(--sbb-color-granite-default);
   --sbb-teaser-flex-direction: row;

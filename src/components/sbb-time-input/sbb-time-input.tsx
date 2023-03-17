@@ -5,6 +5,7 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Prop,
   Watch,
@@ -40,9 +41,6 @@ export class SbbTimeInput implements ComponentInterface {
   /** Required state for the inner HTMLInputElement. */
   @Prop() public required?: boolean = false;
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
@@ -55,8 +53,8 @@ export class SbbTimeInput implements ComponentInterface {
   private _placeholder = 'HH:MM';
 
   /** Applies the correct format to values and triggers event dispatch. */
-  private _updateValueAndEmitChange(event): void {
-    this._updateValue(event.target.value);
+  private _updateValueAndEmitChange(event: Event): void {
+    this._updateValue((event.target as HTMLInputElement).value);
     this._emitChange(event);
   }
 
@@ -71,7 +69,7 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   /** Emits the change event. */
-  private _emitChange(event): void {
+  private _emitChange(event: Event): void {
     forwardEventToHost(event, this._element);
     this.didChange.emit();
   }
@@ -127,13 +125,9 @@ export class SbbTimeInput implements ComponentInterface {
    *  Validate the typed input; if an invalid char is inserted (letters, special chars..), it's removed.
    *  Using `REGEX_GROUPS_WITH_COLON` permits only to insert 4 numbers, possibly with a valid separator.
    */
-  private _preventCharInsert(event): void {
-    const match = event.target.value.match(REGEX_GROUPS_WITH_COLON);
-    if (match) {
-      event.target.value = match[0];
-    } else {
-      event.target.value = null;
-    }
+  private _preventCharInsert(event: InputEvent): void {
+    const match = (event.target as HTMLInputElement).value.match(REGEX_GROUPS_WITH_COLON);
+    (event.target as HTMLInputElement).value = match ? match[0] : null;
   }
 
   public connectedCallback(): void {
@@ -159,8 +153,14 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const hostAttributes = {
+      role: 'input',
+      'aria-required': this.required?.toString() ?? 'false',
+      'aria-readonly': this.readonly?.toString() ?? 'false',
+      'aria-disabled': this.disabled?.toString() ?? 'false',
+    };
     const inputAttributes = {
-      form: this.form || null,
+      role: 'presentation',
       disabled: this.disabled || null,
       readonly: this.readonly || null,
       required: this.required || null,
@@ -168,12 +168,14 @@ export class SbbTimeInput implements ComponentInterface {
       placeholder: this._placeholder,
     };
     return (
-      <input
-        type="text"
-        {...inputAttributes}
-        onInput={(event: InputEvent) => this._preventCharInsert(event)}
-        onChange={(event: Event) => this._updateValueAndEmitChange(event)}
-      />
+      <Host {...hostAttributes}>
+        <input
+          type="text"
+          {...inputAttributes}
+          onInput={(event: InputEvent) => this._preventCharInsert(event)}
+          onChange={(event: Event) => this._updateValueAndEmitChange(event)}
+        />
+      </Host>
     );
   }
 }

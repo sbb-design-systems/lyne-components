@@ -1255,10 +1255,6 @@ export namespace Components {
     }
     interface SbbTimeInput {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Disabled state for the inner HTMLInputElement.
          */
         "disabled"?: boolean;
@@ -3380,10 +3376,6 @@ declare namespace LocalJSX {
         "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimeInput {
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Disabled state for the inner HTMLInputElement.
          */
