@@ -121,6 +121,9 @@ export class SbbDatepicker implements ComponentInterface {
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
+    if (this._inputElement && !this._inputElement.placeholder) {
+      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+    }
   }
 
   /** Gets the input value with the correct date format. */
@@ -224,10 +227,6 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    if (this._inputElement && !this._inputElement.placeholder) {
-      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
-    }
-
     return <Host></Host>;
   }
 }

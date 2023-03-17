@@ -211,7 +211,10 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the calendar table. */
   private _createTable(weeks: Day[][]): JSXElement {
     return (
-      <table class="sbb-calendar__table">
+      <table
+        class="sbb-calendar__table"
+        onFocusout={(event) => this._handleTableBlur(event.relatedTarget as HTMLElement)}
+      >
         <thead class="sbb-calendar__table-header">
           <tr class="sbb-calendar__table-header-row">{this._createTableHeader()}</tr>
         </thead>
@@ -338,7 +341,13 @@ export class SbbCalendar implements ComponentInterface {
     }
     const days = this._days;
     const index = days.findIndex((e: HTMLButtonElement) => e === event.target);
-    this._navigateByKeyboard(event, index, days, day)?.focus();
+    const nextEl = this._navigateByKeyboard(event, index, days, day);
+    const activeEl = this._element.shadowRoot.activeElement;
+    if (nextEl !== activeEl) {
+      (nextEl as HTMLButtonElement).tabIndex = 0;
+      nextEl?.focus();
+      (activeEl as HTMLButtonElement).tabIndex = -1;
+    }
   }
 
   /** Goes to the month identified by the shift. */
@@ -397,6 +406,12 @@ export class SbbCalendar implements ComponentInterface {
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
+    }
+  }
+
+  private _handleTableBlur(eventTarget: HTMLElement): void {
+    if (eventTarget?.tagName !== 'BUTTON') {
+      this._setTabIndex();
     }
   }
 
