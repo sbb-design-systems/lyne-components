@@ -1,19 +1,15 @@
 import { documentLanguage } from './language';
 
-export class NativeDateAdapter {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  public static readonly DAYS_PER_WEEK = 7;
+export const DAYS_PER_WEEK = 7;
 
+export class NativeDateAdapter {
   /**
    * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
    */
   public getFirstWeekOffset(year: number, month: number): number {
     const firstOfMonth = this.createDate(year, month, 1);
     return (
-      (NativeDateAdapter.DAYS_PER_WEEK +
-        this.getDayOfWeek(firstOfMonth) -
-        this.getFirstDayOfWeek()) %
-      NativeDateAdapter.DAYS_PER_WEEK
+      (DAYS_PER_WEEK + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_WEEK
     );
   }
 

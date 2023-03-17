@@ -17,6 +17,8 @@ possible to filter out unwanted date using the `dateFilter` function property.
 Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date 
 which can be read from `event.detail`.
 
+Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+
 ## Accessibility
 
 Keyboard navigation summary:

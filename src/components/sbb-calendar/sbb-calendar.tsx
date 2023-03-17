@@ -14,7 +14,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { DAYS_PER_WEEK, NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { Day, Weekday } from './sbb-calendar.custom';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
@@ -194,7 +194,7 @@ export class SbbCalendar implements ComponentInterface {
     const weeks: Day[][] = [[]];
     const weekOffset = this._dateAdapter.getFirstWeekOffset(year, month);
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
-      if (cell === NativeDateAdapter.DAYS_PER_WEEK) {
+      if (cell === DAYS_PER_WEEK) {
         weeks.push([]);
         cell = 0;
       }
@@ -239,7 +239,7 @@ export class SbbCalendar implements ComponentInterface {
   private _createTableBody(weeks: Day[][]): JSX.Element {
     const today: string = this._now().toISOString();
     return weeks.map((week: Day[], rowIndex: number) => {
-      const firstRowOffset: number = NativeDateAdapter.DAYS_PER_WEEK - week.length;
+      const firstRowOffset: number = DAYS_PER_WEEK - week.length;
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
