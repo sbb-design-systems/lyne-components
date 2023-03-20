@@ -114,7 +114,7 @@ export class SbbTimetableRow {
           {this._getQuayType(this.trip.summary.product?.vehicleMode)?.long[this._currentLanguage]}
         </span>
         <span aria-hidden="true">
-           f {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
+          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
         </span>
       </span>
     );
