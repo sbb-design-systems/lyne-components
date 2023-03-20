@@ -21,7 +21,7 @@ import {
   sortSituation,
 } from './sbb-timetable-row.helper';
 import { durationToTime } from '../../global/helpers/date-helper';
-import { ITripItem } from '../../global/interfaces/pearl-chain-properties';
+import { ITripItem } from '../../global/interfaces/timetable-properties';
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',

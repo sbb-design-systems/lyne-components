@@ -1,7 +1,12 @@
 import { h, JSX } from '@stencil/core';
-import { ITripItem, Notice } from '../../global/interfaces/pearl-chain-properties';
-import { HimCus, VehicleModeEnum } from './sbb-timetable-row.custom';
-import { isRideLeg, PTRideLeg, PTSituation } from '../../global/interfaces/pearl-chain-properties';
+import { ITripItem, Notice } from '../../global/interfaces/timetable-properties';
+import { HimCus } from './sbb-timetable-row.custom';
+import {
+  VehicleModeEnum,
+  PtRideLeg,
+  PtSituation,
+} from '../../global/interfaces/timetable-properties';
+import { isRideLeg } from '../../global/helpers/timetable-helper';
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
@@ -77,26 +82,26 @@ export const renderStringProduct = (vehicleName: string, line?: string | null): 
   );
 };
 
-const isReachable = (legs: PTRideLeg[]): boolean => {
+const isReachable = (legs: PtRideLeg[]): boolean => {
   return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.reachable === true);
 };
 
-const getReachableText = (legs: PTRideLeg[]): string => {
+const getReachableText = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
     ?.serviceAlteration?.reachableText;
 };
 
-const getRedirectedText = (legs: PTRideLeg[]): string => {
+const getRedirectedText = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)?.serviceJourney
     ?.serviceAlteration?.redirectedText;
 };
 
-const getUnplannedStop = (legs: PTRideLeg[]): string => {
+const getUnplannedStop = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
 
-export const sortSituation = (situations: PTSituation[]): PTSituation[] => {
+export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
   const priorities = {
     DISTURBANCE: 0,
     INFORMATION: 1,
@@ -107,11 +112,11 @@ export const sortSituation = (situations: PTSituation[]): PTSituation[] => {
   };
 
   return [...situations]?.sort(
-    (a: PTSituation, b: PTSituation) => priorities[a.cause] - priorities[b.cause]
+    (a: PtSituation, b: PtSituation) => priorities[a.cause] - priorities[b.cause]
   );
 };
 
-export const getHimIcon = (situation: PTSituation): HimCus => {
+export const getHimIcon = (situation: PtSituation): HimCus => {
   switch (situation?.cause) {
     case 'DISTURBANCE':
       return {
@@ -148,7 +153,7 @@ export const getHimIcon = (situation: PTSituation): HimCus => {
 
 export const getCus = (trip: ITripItem): HimCus => {
   const { summary, legs } = trip;
-  const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PTRideLeg[];
+  const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
 
   if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)

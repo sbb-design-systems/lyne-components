@@ -1,7 +1,8 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { PTRideLeg, Leg } from '../../global/interfaces/pearl-chain-properties';
+import { isRideLeg } from '../../global/helpers/timetable-helper';
+import { PtRideLeg, Leg } from '../../global/interfaces/timetable-properties';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({
@@ -33,7 +34,7 @@ export class SbbPearlChain {
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
-  private _getAllDuration(legs: PTRideLeg[]): number {
+  private _getAllDuration(legs: PtRideLeg[]): number {
     return legs?.reduce(
       (sum: number, leg) =>
         (sum += differenceInMinutes(
@@ -44,11 +45,11 @@ export class SbbPearlChain {
     );
   }
 
-  private _isAllCancelled(legs: PTRideLeg[]): boolean {
+  private _isAllCancelled(legs: PtRideLeg[]): boolean {
     return legs?.every((leg) => leg?.serviceJourney?.serviceAlteration?.cancelled);
   }
 
-  private _getRelativeDuration(legs: PTRideLeg[], leg: PTRideLeg): number {
+  private _getRelativeDuration(legs: PtRideLeg[], leg: PtRideLeg): number {
     const duration = differenceInMinutes(
       removeTimezoneFromISOTimeString(leg.arrival?.time),
       removeTimezoneFromISOTimeString(leg.departure?.time)
@@ -93,10 +94,7 @@ export class SbbPearlChain {
   }
 
   public render(): JSX.Element {
-    const rideLegs: PTRideLeg[] = this.legs?.filter(
-      (leg) => leg?.__typename === 'PTRideLeg'
-    ) as PTRideLeg[];
-    console.log(rideLegs);
+    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
 
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
@@ -158,7 +156,7 @@ export class SbbPearlChain {
         <span
           class={`sbb-pearl-chain__bullet ${statusClassDeparture} ${departureNotServiced} ${departureCancelClass}`}
         ></span>
-        {rideLegs?.map((leg: PTRideLeg, index: number) => {
+        {rideLegs?.map((leg: PtRideLeg, index: number) => {
           const { stopPoints, serviceAlteration } = leg?.serviceJourney || {};
 
           const duration = this._getRelativeDuration(rideLegs, leg);

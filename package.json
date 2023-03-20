@@ -110,7 +110,6 @@
     "stylelint-config-prettier-scss": "0.0.1",
     "stylelint-config-standard-scss": "7.0.1",
     "stylelint-scss": "4.5.0",
-    "ts-deep-extract-types": "^1.0.1",
     "ts-node": "10.9.1",
     "typescript": "4.9.5",
     "yargs": "17.7.1"

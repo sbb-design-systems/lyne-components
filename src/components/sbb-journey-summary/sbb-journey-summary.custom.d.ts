@@ -1,4 +1,4 @@
-import { Leg } from '../../global/interfaces/pearl-chain-properties';
+import { Leg } from '../../global/interfaces/timetable-properties';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];

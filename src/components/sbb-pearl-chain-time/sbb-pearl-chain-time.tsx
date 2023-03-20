@@ -8,14 +8,9 @@ import {
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import {
-  isConnectionLeg,
-  isRideLeg,
-  Leg,
-  PTConnectionLeg,
-  PTRideLeg,
-} from '../../global/interfaces/pearl-chain-properties';
+import { Leg, PtConnectionLeg, PtRideLeg } from '../../global/interfaces/timetable-properties';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
+import { isConnectionLeg, isRideLeg } from '../../global/helpers/timetable-helper';
 
 @Component({
   shadow: true,
@@ -92,8 +87,8 @@ export class SbbPearlChainTime {
     const legs =
       this.legs &&
       (this.legs.filter((leg) => isRideLeg(leg) || isConnectionLeg(leg)) as (
-        | PTRideLeg
-        | PTConnectionLeg
+        | PtRideLeg
+        | PtConnectionLeg
       )[]);
     const lastLeg = legs && legs[legs.length - 1];
 
@@ -121,7 +116,7 @@ export class SbbPearlChainTime {
 
     const connectionFirstLeg =
       legs && legs[0] && legs[0].__typename === 'PTConnectionLeg'
-        ? (legs[0] as PTConnectionLeg)
+        ? (legs[0] as PtConnectionLeg)
         : undefined;
 
     const connectionFirstLegNotices = connectionFirstLeg
@@ -132,7 +127,7 @@ export class SbbPearlChainTime {
 
     const connectionLastLeg =
       lastLeg && lastLeg.__typename === 'PTConnectionLeg'
-        ? (lastLeg as PTConnectionLeg)
+        ? (lastLeg as PtConnectionLeg)
         : undefined;
 
     const connectionLastLegNotices = connectionLastLeg
