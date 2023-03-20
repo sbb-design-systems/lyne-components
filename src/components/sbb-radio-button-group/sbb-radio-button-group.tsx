@@ -77,6 +77,8 @@ export class SbbRadioButtonGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _hasSelectionPanel: boolean;
+
   @Watch('value')
   public valueChanged(value: any | undefined): void {
     for (const radio of this._radioButtons) {
@@ -145,11 +147,8 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   public input: EventEmitter;
 
   public connectedCallback(): void {
-    toggleDatasetEntry(
-      this._element,
-      'hasSelectionPanel',
-      !!this._element.querySelector('sbb-selection-panel')
-    );
+    this._hasSelectionPanel = !!this._element.querySelector('sbb-selection-panel');
+    toggleDatasetEntry(this._element, 'hasSelectionPanel', this._hasSelectionPanel);
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
@@ -220,7 +219,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _getRadioTabIndex(radio: HTMLSbbRadioButtonElement): number {
-    return radio.checked && !radio.disabled && !this.disabled ? 0 : -1;
+    return radio.checked || (this._hasSelectionPanel && !radio.disabled && !this.disabled) ? 0 : -1;
   }
 
   @Listen('keydown')
@@ -237,16 +236,27 @@ export class SbbRadioButtonGroup implements ComponentInterface {
       return;
     }
 
-    if (isArrowKeyPressed(evt)) {
+    if (!isArrowKeyPressed(evt)) {
+      return;
+    }
+
+    let current: number;
+    let nextIndex: number;
+
+    if (this._hasSelectionPanel) {
+      current = enabledRadios.findIndex((e: HTMLSbbRadioButtonElement) => e === evt.target);
+      nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
+    } else {
       const checked: number = enabledRadios.findIndex(
         (radio: HTMLSbbRadioButtonElement) => radio.checked
       );
-      const current: number = checked !== -1 ? checked : 0;
-      const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
+      current = checked !== -1 ? checked : 0;
+      nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
       enabledRadios[nextIndex].select();
-      enabledRadios[nextIndex].focus();
-      evt.preventDefault();
     }
+
+    enabledRadios[nextIndex].focus();
+    evt.preventDefault();
   }
 
   public render(): JSX.Element {

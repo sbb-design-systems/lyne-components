@@ -149,8 +149,17 @@ const WithCheckboxGroupTemplate = ({ checkedInput, disabledInput, ...args }) => 
   </sbb-checkbox-group>
 );
 
-const WithRadioButtonGroupTemplate = ({ checkedInput, disabledInput, ...args }) => (
-  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+const WithRadioButtonGroupTemplate = ({
+  checkedInput,
+  disabledInput,
+  allowEmptySelection,
+  ...args
+}) => (
+  <sbb-radio-button-group
+    orientation="vertical"
+    horizontal-from="large"
+    allow-empty-selection={allowEmptySelection}
+  >
     <sbb-selection-panel {...args}>
       {cardbadge()}
       <sbb-radio-button value="Value one" checked={checkedInput}>
@@ -440,6 +449,15 @@ WithRadioButtonGroupForceOpen.argTypes = basicArgTypes;
 WithRadioButtonGroupForceOpen.args = {
   ...basicArgs,
   'force-open': true,
+  checkedInput: true,
+  disabledInput: true,
+};
+
+export const WithRadioButtonGroupAllowEmpty = WithRadioButtonGroupTemplate.bind({});
+WithRadioButtonGroupAllowEmpty.argTypes = basicArgTypes;
+WithRadioButtonGroupAllowEmpty.args = {
+  ...basicArgs,
+  allowEmptySelection: true,
   checkedInput: true,
   disabledInput: true,
 };
