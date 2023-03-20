@@ -31,14 +31,14 @@ describe('removeTimezoneFromDate', () => {
 
 describe('durationToTime', () => {
   it('should return only minutes', () => {
-    expect(durationToTime(40)).toBe('40 min');
+    expect(durationToTime(40, 'en')).toEqual({ short: '40 min', long: '40 Minutes' });
   });
 
   it('should return day with hours', () => {
-    expect(durationToTime(3000)).toBe('2 d 2 h');
+    expect(durationToTime(3000, 'en')).toEqual({ short: '2 d 2 h', long: '2 Days 2 Hours' });
   });
 
   it('should return hours', () => {
-    expect(durationToTime(60)).toBe('1 h');
+    expect(durationToTime(60, 'en')).toEqual({ short: '1 h', long: '1 Hour' });
   });
 });

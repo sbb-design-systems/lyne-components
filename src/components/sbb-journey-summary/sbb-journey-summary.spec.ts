@@ -59,7 +59,12 @@ describe('sbb-journey-summary', () => {
               <span>
                 ,
                 <time>
-                  1 h
+                  <span class="sbb-screenreaderonly">
+                    Travel time 1 Hour
+                  </span>
+                  <span aria-hidden="">
+                    1 h
+                  </span>
                 </time>
               </span>
             </span>
@@ -90,7 +95,12 @@ describe('sbb-journey-summary', () => {
               <span>
                 ,
                 <time>
-                  1 h 40 min
+                  <span class="sbb-screenreaderonly">
+                    Travel time 1 Hour 40 Minutes
+                  </span>
+                  <span aria-hidden="">
+                    1 h 40 min
+                  </span>
                 </time>
               </span>
             </span>

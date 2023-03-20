@@ -4,6 +4,7 @@ import {
   i18nArrival,
   i18nWalkingDistanceDeparture,
   i18nWalkingDistanceArrival,
+  i18nTransferProcedures,
 } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
@@ -71,13 +72,16 @@ export class SbbPearlChainTime {
         <sbb-icon name={icon}></sbb-icon>
         <time dateTime={duration + 'M'}>
           <span class="sbb-screenreaderonly">
-            {type && type === 'departure'
-              ? i18nWalkingDistanceDeparture[this._currentLanguage]
-              : i18nWalkingDistanceArrival[this._currentLanguage]}
+            {!label &&
+              type &&
+              (type === 'departure'
+                ? i18nWalkingDistanceDeparture[this._currentLanguage]
+                : i18nWalkingDistanceArrival[this._currentLanguage])}
             {label && <span>{label}</span>}
           </span>
           {duration}
-          <span aria-label="min">'</span>
+          <span aria-hidden="true">'</span>
+          <span class="sbb-screenreaderonly">min</span>
         </time>
       </span>
     );
@@ -134,8 +138,12 @@ export class SbbPearlChainTime {
       ? connectionLastLeg?.notices?.filter((notice) => connectionLegNotice.includes(notice.name))[0]
       : undefined;
 
+    const rideLegs = this.legs?.filter((leg) => leg?.__typename === 'PTRideLeg');
     return (
       <div class="sbb-pearl-chain__time">
+        <span class="sbb-screenreaderonly">
+          {i18nTransferProcedures[this._currentLanguage] + ' ' + rideLegs?.length}
+        </span>
         {connectionFirstLeg && (
           <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
             <sbb-icon name="walk-small"></sbb-icon>

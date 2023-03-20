@@ -70,7 +70,10 @@ export const renderIconProduct = (transport: string, line?: string | null): JSX.
   const dashLine = line ? '-' + line : '';
 
   return (
-    <sbb-icon class="sbb-timetable__row-transport" name={transport.toLowerCase() + dashLine} />
+    <span class="sbb-timetable__row-transport">
+      <sbb-icon name={transport.toLowerCase() + dashLine} />
+      <span class="sbb-screenreaderonly"> {transport.toLowerCase() + dashLine}</span>
+    </span>
   );
 };
 
