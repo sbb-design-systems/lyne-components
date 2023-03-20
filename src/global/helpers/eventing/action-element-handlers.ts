@@ -1,5 +1,6 @@
 import { IsStaticProperty, LinkButtonProperties } from '../../interfaces/link-button-properties';
 import { HandlerAspect } from './handler-repository';
+import { isEventPrevented } from './is-event-prevented';
 
 /**
  * Trigger an anchor element click after the event has finished the bubbling phase and
@@ -10,13 +11,11 @@ async function triggerAnchorWhenNecessary(event: Event): Promise<void> {
   const composedTarget = event.composedPath()[0] as Element;
   // We only want to trigger a click event on the inner anchor element, if the host element is the
   // event origin, which means the inner anchor element has not actually been activated/clicked.
-  if (!target.tagName.startsWith('SBB-') || target !== composedTarget) {
-    return;
-  }
-  // We need for the event phase to finish, which is the
-  // case after a macro task (e.g. setTimeout).
-  await new Promise((r) => setTimeout(r));
-  if (event.defaultPrevented) {
+  if (
+    !target.tagName.startsWith('SBB-') ||
+    target !== composedTarget ||
+    (await isEventPrevented(event))
+  ) {
     return;
   }
 
@@ -34,7 +33,6 @@ function handleLinkClick(event: Event): void {
 
 /** Handle the click logic for an action element. */
 function handleLinkButtonClick(event: Event): void {
-  console.log('handler');
   const element = event.target as HTMLElement & Partial<LinkButtonProperties & IsStaticProperty>;
   if (element.isStatic) {
     return;
