@@ -62,7 +62,7 @@ describe('sbb-journey-summary', () => {
                   <span class="sbb-screenreaderonly">
                     Travel time 1 Hour
                   </span>
-                  <span aria-hidden="">
+                  <span aria-hidden="true">
                     1 h
                   </span>
                 </time>
@@ -98,7 +98,7 @@ describe('sbb-journey-summary', () => {
                   <span class="sbb-screenreaderonly">
                     Travel time 1 Hour 40 Minutes
                   </span>
-                  <span aria-hidden="">
+                  <span aria-hidden="true">
                     1 h 40 min
                   </span>
                 </time>

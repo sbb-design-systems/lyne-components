@@ -111,11 +111,10 @@ export class SbbTimetableRow {
     return (
       <span class="sbb-timetable__row--quay">
         <span class="sbb-screenreaderonly">
-          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.long[this._currentLanguage] +
-            ' '}
+          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.long[this._currentLanguage]}
         </span>
         <span aria-hidden="true">
-          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
+           f {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
         </span>
       </span>
     );
@@ -151,6 +150,8 @@ export class SbbTimetableRow {
 
     const noticeAttributes = notices && handleNotices(notices);
 
+    const durationObj = durationToTime(duration, this._currentLanguage);
+
     return (
       <sbb-card size="l" active={this.active} id={id} role="rowgroup">
         {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
@@ -178,7 +179,7 @@ export class SbbTimetableRow {
                       i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
                       i18nMeansOfTransport[summary.product.vehicleMode.toLowerCase()][
                         this._currentLanguage
-                      ]}{' '}
+                      ]}
                   </span>
                 </span>
               )}
@@ -188,7 +189,7 @@ export class SbbTimetableRow {
                   ? renderIconProduct(product.vehicleSubModeShortName, product.line)
                   : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
-            {direction && <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>}
+            {direction && <p>{`${i18nDirection[this._currentLanguage]} ${direction}`}</p>}
           </div>
           <sbb-pearl-chain-time
             role="gridcell"
@@ -206,7 +207,8 @@ export class SbbTimetableRow {
                 <span class="sbb-screenreaderonly">
                   {`${i18nDeparture[this._currentLanguage]} ${
                     departure?.quayChanged ? i18nNew[this._currentLanguage] : ''
-                  } `}
+                  }`}
+                  &nbsp;
                 </span>
                 {this._renderQuayType()}
                 {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
@@ -224,11 +226,9 @@ export class SbbTimetableRow {
                     />
                     <span class="sbb-screenreaderonly">
                       {i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
-                        i18nClass.first[this._currentLanguage] +
-                          ' ' +
-                          i18nOccupancy[occupancy?.firstClass?.toLowerCase()][
-                            this._currentLanguage
-                          ]}
+                        `${i18nClass.first[this._currentLanguage]} ${
+                          i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._currentLanguage]
+                        }`}
                     </span>
                   </li>
                 )}
@@ -240,12 +240,12 @@ export class SbbTimetableRow {
                       name={`utilization-` + occupancy?.secondClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
-                      {i18nOccupancy[occupancy.secondClass?.toLowerCase()] &&
-                        i18nClass.second[this._currentLanguage] +
-                          ' ' +
-                          i18nOccupancy[occupancy.secondClass?.toLowerCase()][
+                      {i18nOccupancy[occupancy?.secondClass?.toLowerCase()] &&
+                        `${i18nClass.second[this._currentLanguage]} ${
+                          i18nOccupancy[occupancy?.secondClass?.toLowerCase()][
                             this._currentLanguage
-                          ]}
+                          ]
+                        }`}
                     </span>
                   </li>
                 )}
@@ -280,13 +280,9 @@ export class SbbTimetableRow {
             {duration > 0 && (
               <time>
                 <span class="sbb-screenreaderonly">
-                  {i18nTripDuration[this._currentLanguage] +
-                    ' ' +
-                    durationToTime(duration, this._currentLanguage).long}
+                  {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
                 </span>
-                <span aria-hidden="true">
-                  {durationToTime(duration, this._currentLanguage).short}
-                </span>
+                <span aria-hidden="true">{durationObj.short}</span>
               </time>
             )}
             {hasHimCus && (

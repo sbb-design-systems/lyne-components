@@ -90,6 +90,8 @@ export class SbbJourneySummary implements ComponentInterface {
       legs,
     } = this.config || {};
 
+    const durationObj = durationToTime(duration, this._currentLanguage);
+
     return (
       <div class="sbb-journey-summary">
         {origin && (
@@ -108,11 +110,9 @@ export class SbbJourneySummary implements ComponentInterface {
               ,
               <time>
                 <span class="sbb-screenreaderonly">
-                  {i18nTripDuration[this._currentLanguage] +
-                    ' ' +
-                    durationToTime(duration, this._currentLanguage).long}
+                  {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
                 </span>
-                <span aria-hidden>{durationToTime(duration, this._currentLanguage).short}</span>
+                <span aria-hidden="true">{durationObj.short}</span>
               </time>
             </span>
           )}
