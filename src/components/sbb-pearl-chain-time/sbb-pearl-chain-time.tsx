@@ -8,7 +8,13 @@ import {
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import {
+  isConnectionLeg,
+  isRideLeg,
+  Leg,
+  PTConnectionLeg,
+  PTRideLeg,
+} from '../../global/interfaces/pearl-chain-properties';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
 
 @Component({
@@ -25,7 +31,7 @@ export class SbbPearlChainTime {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: (PtRideLeg & PtConnectionLeg)[];
+  @Prop() public legs!: Leg[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
   @Prop() public departureTime?: string;
@@ -85,9 +91,10 @@ export class SbbPearlChainTime {
   public render(): JSX.Element {
     const legs =
       this.legs &&
-      this.legs.filter(
-        (leg) => leg.__typename === 'PTConnectionLeg' || leg.__typename === 'PTRideLeg'
-      );
+      (this.legs.filter((leg) => isRideLeg(leg) || isConnectionLeg(leg)) as (
+        | PTRideLeg
+        | PTConnectionLeg
+      )[]);
     const lastLeg = legs && legs[legs.length - 1];
 
     const departure: Date | undefined = this.departureTime
@@ -114,7 +121,7 @@ export class SbbPearlChainTime {
 
     const connectionFirstLeg =
       legs && legs[0] && legs[0].__typename === 'PTConnectionLeg'
-        ? (legs[0] as PtConnectionLeg)
+        ? (legs[0] as PTConnectionLeg)
         : undefined;
 
     const connectionFirstLegNotices = connectionFirstLeg
@@ -125,7 +132,7 @@ export class SbbPearlChainTime {
 
     const connectionLastLeg =
       lastLeg && lastLeg.__typename === 'PTConnectionLeg'
-        ? (lastLeg as PtConnectionLeg)
+        ? (lastLeg as PTConnectionLeg)
         : undefined;
 
     const connectionLastLegNotices = connectionLastLeg
@@ -175,7 +182,7 @@ export class SbbPearlChainTime {
         )}
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
-          legs={legs}
+          legs={this.legs}
           disable-animation={this.disableAnimation}
           data-now={this._now()}
         />

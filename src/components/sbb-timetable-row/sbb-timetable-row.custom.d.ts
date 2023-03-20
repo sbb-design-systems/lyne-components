@@ -1,7 +1,4 @@
-import {
-  PtRideLeg,
-  ScheduledStopPointDetail,
-} from '../../global/interfaces/pearl-chain-properties';
+import { ScheduledStopPointDetail } from '../../global/interfaces/pearl-chain-properties';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -121,28 +118,4 @@ export interface Price {
   price?: string;
   text?: string;
   isDiscount?: boolean;
-}
-
-export interface Trip {
-  /** List of transfer points */
-  legs: (PtRideLeg & PtConnectionLeg)[];
-  /**
-   * List of legs travel hints
-   * Usefull for level 1, may be usefull for legend, in buttom of results, in level 2
-   */
-  notices: Notice[];
-  /**
-   * List of legs situation messages
-   * Usefull for level 1, may not needed for level 2
-   */
-  situations: PtSituation[] | undefined;
-  /**
-   * Summary of most relevant aspects of the given Trip and its PTRideLeg's
-   * Usefull for level 1, not needed for level 2
-   */
-  summary?: TripSummary;
-  /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
-  id: string;
-  /** rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
-  valid?: boolean;
 }

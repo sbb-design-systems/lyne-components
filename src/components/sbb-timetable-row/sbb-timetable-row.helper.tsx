@@ -1,6 +1,7 @@
 import { h, JSX } from '@stencil/core';
-import { Notice, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
-import { HimCus, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
+import { ITripItem, Notice } from '../../global/interfaces/pearl-chain-properties';
+import { HimCus, VehicleModeEnum } from './sbb-timetable-row.custom';
+import { isRideLeg, PTRideLeg, PTSituation } from '../../global/interfaces/pearl-chain-properties';
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
@@ -76,26 +77,26 @@ export const renderStringProduct = (vehicleName: string, line?: string | null): 
   );
 };
 
-const isReachable = (legs: PtRideLeg[]): boolean => {
+const isReachable = (legs: PTRideLeg[]): boolean => {
   return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.reachable === true);
 };
 
-const getReachableText = (legs: PtRideLeg[]): string => {
+const getReachableText = (legs: PTRideLeg[]): string => {
   return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
     ?.serviceAlteration?.reachableText;
 };
 
-const getRedirectedText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedFormatted)
-    ?.serviceJourney?.serviceAlteration?.redirectedFormatted;
+const getRedirectedText = (legs: PTRideLeg[]): string => {
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)?.serviceJourney
+    ?.serviceAlteration?.redirectedText;
 };
 
-const getUnplannedStop = (legs: PtRideLeg[]): string => {
+const getUnplannedStop = (legs: PTRideLeg[]): string => {
   return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
 
-export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
+export const sortSituation = (situations: PTSituation[]): PTSituation[] => {
   const priorities = {
     DISTURBANCE: 0,
     INFORMATION: 1,
@@ -106,11 +107,11 @@ export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
   };
 
   return [...situations]?.sort(
-    (a: PtSituation, b: PtSituation) => priorities[a.cause] - priorities[b.cause]
+    (a: PTSituation, b: PTSituation) => priorities[a.cause] - priorities[b.cause]
   );
 };
 
-export const getHimIcon = (situation: PtSituation): HimCus => {
+export const getHimIcon = (situation: PTSituation): HimCus => {
   switch (situation?.cause) {
     case 'DISTURBANCE':
       return {
@@ -145,16 +146,18 @@ export const getHimIcon = (situation: PtSituation): HimCus => {
   }
 };
 
-export const getCus = (trip: Trip): HimCus => {
-  const { legs, summary } = trip;
+export const getCus = (trip: ITripItem): HimCus => {
+  const { summary, legs } = trip;
+  const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PTRideLeg[];
   const { tripStatus } = summary || {};
 
   if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
     return { name: 'cancellation', text: tripStatus?.cancelledText };
-  if (!isReachable(legs)) return { name: 'missed-connection', text: getReachableText(legs) };
+  if (!isReachable(rideLegs))
+    return { name: 'missed-connection', text: getReachableText(rideLegs) };
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
-  if (getRedirectedText(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
-  if (getUnplannedStop(legs)) return { name: 'add-stop', text: getUnplannedStop(legs) };
+  if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };
+  if (getUnplannedStop(rideLegs)) return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
   if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
   if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
 
@@ -167,10 +170,7 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
   return notices.reduce((foundNotice, notice) => {
     if (foundNotice) return foundNotice;
     if (reservationNotice.includes(notice.name)) {
-      return {
-        name: 'RR',
-        text: notice.text?.template,
-      } as Notice;
+      return { ...notice, name: 'RR' } as Notice;
     }
   }, undefined);
 };

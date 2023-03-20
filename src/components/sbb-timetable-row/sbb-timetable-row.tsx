@@ -1,5 +1,5 @@
 import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
-import { Boarding, HimCus, Price, Trip } from './sbb-timetable-row.custom';
+import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
 
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
@@ -21,6 +21,7 @@ import {
   sortSituation,
 } from './sbb-timetable-row.helper';
 import { durationToTime } from '../../global/helpers/date-helper';
+import { ITripItem } from '../../global/interfaces/pearl-chain-properties';
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
@@ -30,7 +31,7 @@ export class SbbTimetableRow {
   @State() private _currentLanguage = documentLanguage();
 
   /** The trip Prop */
-  @Prop() public trip: Trip;
+  @Prop() public trip: ITripItem;
 
   /** The price Prop, which consists of the data for the badge. */
   @Prop() public price?: Price;
@@ -113,7 +114,7 @@ export class SbbTimetableRow {
     );
   }
 
-  private _handleHimCus(trip: Trip): HimCus | undefined {
+  private _handleHimCus(trip: ITripItem): HimCus | undefined {
     const situations = trip.situations && sortSituation(trip.situations);
     const cus = getCus(trip);
 
