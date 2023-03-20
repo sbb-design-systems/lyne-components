@@ -129,6 +129,7 @@
   max-height: var(--sbb-overlay-max-height);
   min-height: var(--sbb-overlay-min-height);
   overflow-y: auto;
+  @include sbb.scrollbar-light;
 
   :host([data-state='opening']) & {
     animation: {
