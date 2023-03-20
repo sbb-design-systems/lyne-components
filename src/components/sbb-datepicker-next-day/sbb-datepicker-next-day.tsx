@@ -108,8 +108,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
     }
   }
 
-  private async _handleClick(event: Event): Promise<void> {
-    event.stopImmediatePropagation();
+  private async _handleClick(): Promise<void> {
     if (!this._datePickerElement) {
       return;
     }
@@ -148,7 +147,8 @@ export class SbbDatepickerNextDay implements ComponentInterface {
             aria-label={i18nNextDay[this._currentLanguage]}
             aria-disabled={this._disabled || this._inputDisabled}
             disabled={this._disabled || this._inputDisabled}
-            onClick={(event) => this._handleClick(event)}
+            onClick={() => this._handleClick()}
+            type="button"
           >
             <sbb-icon name="chevron-small-right-small" />
           </button>

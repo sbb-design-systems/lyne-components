@@ -271,7 +271,7 @@ export class SbbCalendar implements ComponentInterface {
               'sbb-calendar__day-selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             }}
-            onClick={(event) => this._selectDate(day.value, event)}
+            onClick={() => this._selectDate(day.value)}
             disabled={isOutOfRange || isFilteredOut}
             aria-label={this._dateAdapter.getAccessibilityFormatDate(day.value)}
             aria-pressed={String(selected)}
@@ -327,8 +327,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(day: string, event: Event): void {
-    event.stopImmediatePropagation();
+  private _selectDate(day: string): void {
     if (this._selected !== day) {
       this._selected = day;
       this.dateSelected.emit(new Date(day));
@@ -351,8 +350,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Goes to the month identified by the shift. */
-  private _goToMonth(event: Event, months: number): void {
-    event.stopImmediatePropagation();
+  private _goToMonth(months: number): void {
     this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, months));
     this._init();
   }
@@ -533,7 +531,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-left-small"
             size="m"
             accessibility-label={i18nPreviousMonth[this._currentLanguage]}
-            onClick={(event) => this._goToMonth(event, -1)}
+            onClick={() => this._goToMonth(-1)}
             disabled={this._previousMonthDisabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
@@ -549,7 +547,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-right-small"
             size="m"
             accessibility-label={i18nNextMonth[this._currentLanguage]}
-            onClick={(event) => this._goToMonth(event, 1)}
+            onClick={() => this._goToMonth(1)}
             disabled={this._nextMonthDisabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>

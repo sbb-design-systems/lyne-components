@@ -1583,10 +1583,6 @@ export namespace Components {
     }
     interface SbbTooltipTrigger {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Whether the tooltip-trigger is disabled.
          */
         "disabled": boolean;
@@ -3871,10 +3867,6 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbTooltipTrigger {
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the tooltip-trigger is disabled.
          */

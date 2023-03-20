@@ -109,8 +109,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
     }
   }
 
-  private async _handleClick(event: Event): Promise<void> {
-    event.stopImmediatePropagation();
+  private async _handleClick(): Promise<void> {
     if (!this._datePickerElement) {
       return;
     }
@@ -152,7 +151,8 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
             aria-label={i18nPreviousDay[this._currentLanguage]}
             aria-disabled={this._disabled || this._inputDisabled}
             disabled={this._disabled || this._inputDisabled}
-            onClick={(event) => this._handleClick(event)}
+            onClick={() => this._handleClick()}
+            type="button"
           >
             <sbb-icon name="chevron-small-left-small" />
           </button>
