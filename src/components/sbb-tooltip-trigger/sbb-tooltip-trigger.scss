@@ -7,6 +7,9 @@
 :host {
   --sbb-tooltip-color: inherit;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
   display: inline-block;
 }
 
@@ -16,7 +19,7 @@
   }
 }
 
-:host(:active) {
+:host(:is(:active, [data-active])) {
   --sbb-tooltip-color: var(--sbb-color-anthracite-default);
 }
 
@@ -28,7 +31,6 @@
 
 .sbb-tooltip-trigger {
   @include sbb.text-inherit;
-  @include sbb.button-reset;
 
   display: flex;
   cursor: pointer;

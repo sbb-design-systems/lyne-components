@@ -66,8 +66,8 @@
   width: 100%;
   height: 100%;
 
-  // This rule is duplicated, as the focus will land on the host, not the inner action element
-  // and :focus-visible of the inner action element cannnot be reached via user action.
+  // This rule is duplication of the one included in the mixin. As the focus will land on the host,
+  // the inner action element and its :focus-visible state cannot be reached via user action.
   :host(:focus-visible) & {
     @include sbb.focus-outline;
   }

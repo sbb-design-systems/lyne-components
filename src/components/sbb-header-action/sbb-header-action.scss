@@ -64,7 +64,6 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 }
 
 .sbb-header-action {
-  @include sbb.button-reset;
   @include sbb.text-inherit;
 
   display: flex;

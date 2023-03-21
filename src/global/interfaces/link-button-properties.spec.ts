@@ -12,7 +12,6 @@ describe('getLinkAttributeList', () => {
       href: 'link',
     };
     const expectedObj: Record<string, string> = {
-      dir: 'ltr',
       href: 'link',
       role: 'presentation',
       tabIndex: '-1',
@@ -28,7 +27,6 @@ describe('getLinkAttributeList', () => {
       target: '_blank',
     };
     const expectedObj: Record<string, string> = {
-      dir: 'ltr',
       href: 'link',
       target: '_blank',
       rel: 'external noopener nofollow',
@@ -47,7 +45,6 @@ describe('getLinkAttributeList', () => {
       rel: 'custom',
     };
     const expectedObj: Record<string, string> = {
-      dir: 'ltr',
       href: 'link',
       target: '_blank',
       rel: 'custom',
@@ -65,7 +62,6 @@ describe('getLinkAttributeList', () => {
       target: 'custom',
     };
     const expectedObj: Record<string, string> = {
-      dir: 'ltr',
       href: 'link',
       target: 'custom',
       role: 'presentation',
@@ -85,35 +81,12 @@ describe('getLinkAttributeList', () => {
       type: undefined,
     };
     const expectedObj: Record<string, string> = {
-      dir: 'ltr',
       href: 'link',
       tabIndex: '-1',
       role: 'presentation',
     };
 
     expect(resolveRenderVariables(linkProperties).attributes).toEqual(expectedObj);
-  });
-});
-
-describe('getButtonAttributeList', () => {
-  it('should return attributes for button', () => {
-    const buttonProperties: ButtonProperties = {
-      type: 'submit',
-      disabled: false,
-      name: 'name',
-      value: 'value',
-      form: 'formid',
-    };
-    const expectedObj: Record<string, string> = {
-      dir: 'ltr',
-      type: 'button',
-      role: 'presentation',
-      tabIndex: '-1',
-    };
-
-    expect(resolveRenderVariables(buttonProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj
-    );
   });
 });
 
@@ -130,7 +103,6 @@ describe('getLinkRenderVariables', () => {
     const expectedObj = {
       tagName: 'a',
       attributes: {
-        dir: 'ltr',
         role: 'presentation',
         tabIndex: '-1',
         href: 'link',
@@ -140,6 +112,7 @@ describe('getLinkRenderVariables', () => {
       hostAttributes: {
         'aria-disabled': 'true',
         role: 'link',
+        dir: 'ltr',
       },
     };
     expect(resolveRenderVariables(linkButtonProperties)).toEqual(expectedObj);
@@ -154,37 +127,16 @@ describe('getButtonRenderVariables', () => {
 
   it('should return the correct variables', () => {
     const expectedObj = {
-      tagName: 'button',
-      attributes: {
-        dir: 'ltr',
-        role: 'presentation',
-        tabIndex: '-1',
-        type: 'button',
-      },
+      tagName: 'span',
+      attributes: {},
       hostAttributes: {
         role: 'button',
         tabIndex: '0',
+        dir: 'ltr',
       },
     };
 
     expect(resolveRenderVariables(buttonProperties as LinkButtonProperties)).toEqual(expectedObj);
-  });
-});
-
-describe('getLinkButtonStaticRenderVariables', () => {
-  it('should return the correct variables', () => {
-    const expectedObj = {
-      tagName: 'span',
-      attributes: {
-        dir: 'ltr',
-        role: 'presentation',
-        tabIndex: '-1',
-      },
-    };
-
-    expect(resolveRenderVariables({ isStatic: true, href: null, name: null, type: null })).toEqual(
-      expectedObj
-    );
   });
 });
 
@@ -208,7 +160,21 @@ describe('resolveRenderVariables', () => {
 
   it('should return variables for the button case', () => {
     const retObj = resolveRenderVariables({ ...linkButtonProperties, href: undefined });
-    expect(retObj.tagName).toEqual('button');
+    expect(retObj.tagName).toEqual('span');
+  });
+
+  it('should return the correct variables', () => {
+    const expectedObj = {
+      tagName: 'span',
+      attributes: {},
+      hostAttributes: {
+        dir: 'ltr',
+      },
+    };
+
+    expect(resolveRenderVariables({ isStatic: true, href: null, name: null, type: null })).toEqual(
+      expectedObj
+    );
   });
 });
 

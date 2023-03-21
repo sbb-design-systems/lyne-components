@@ -17,9 +17,9 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card data-has-badge size="xl" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+      <sbb-card data-has-badge size="xl" href="https://github.com/lyne-design-system/lyne-components" target="_blank" dir="ltr">
         <mock:shadow-root>
-          <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
+          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
             <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>
@@ -53,12 +53,12 @@ describe('sbb-card', () => {
     expect(root).toEqualHtml(`
       <sbb-card data-has-badge size="xl" name="button" form="form" value="value">
         <mock:shadow-root>
-          <button class="sbb-card" dir="ltr" type='button' name="button" form="form" value="value">
+          <span class="sbb-card">
             <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         <h2>Title</h2>
         Content text
@@ -79,9 +79,9 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card color="white" size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" size="l" tabindex="0">
+      <sbb-card color="white" size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" size="l" tabindex="0" dir="ltr">
         <mock:shadow-root>
-          <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
+          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
@@ -109,13 +109,13 @@ describe('sbb-card', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-card color="white" size="s" name="button" form="form" value="value" active="" role="button" size="s" tabindex="0">
+      <sbb-card color="white" size="s" name="button" form="form" value="value" active="" role="button" size="s" tabindex="0" dir="ltr">
         <mock:shadow-root>
-          <button class="sbb-card" dir="ltr" type="button" role="presentation" tabindex="-1">
+          <span class="sbb-card">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         <span slot="badge">Badge not to render</span>
         <h2>Title</h2>

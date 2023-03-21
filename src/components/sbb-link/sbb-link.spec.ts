@@ -10,7 +10,7 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           size="m"
           download
-          accessibility-label="Travelcards & tickets"
+          aria-label="Travelcards & tickets"
           >
             Travelcards &amp; tickets.
           </sbb-link>
@@ -23,14 +23,14 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           size="m"
           download
-          accessibility-label="Travelcards & tickets"
+          aria-label="Travelcards & tickets"
           role="link"
           tabindex="0"
+          dir="ltr"
         >
           <mock:shadow-root>
             <a
               class="sbb-link"
-              dir="ltr"
               download
               href="https://github.com/lyne-design-system/lyne-components"
               role="presentation"
@@ -74,21 +74,15 @@ describe('sbb-link', () => {
           form="formid"
           disabled
           aria-disabled="true"
+          dir="ltr"
         >
           <mock:shadow-root>
-            <button
-              class="sbb-link"
-              dir="ltr"
-              disabled="true"
-              role="presentation"
-              tabindex="-1"
-              type="button"
-            >
+            <span class="sbb-link">
               <span class="sbb-link__icon">
                 <slot name="icon"></slot>
               </span>
               <slot></slot>
-            </button>
+            </span>
           </mock:shadow-root>
           <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
           Travelcards &amp; tickets.
@@ -113,9 +107,11 @@ describe('sbb-link', () => {
             icon-name="chevron-small-right-small"
             size="m"
             variant="block"
-            static>
+            static
+            dir="ltr"
+            >
           <mock:shadow-root>
-            <span class="sbb-link" dir="ltr" role="presentation" tabindex="-1">
+            <span class="sbb-link">
               <span class="sbb-link__icon">
                 <slot name="icon">
                   <sbb-icon name="chevron-small-right-small"></sbb-icon>
@@ -140,9 +136,9 @@ describe('sbb-link', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link variant="block" static size="s">
+        <sbb-link dir="ltr" variant="block" static size="s">
           <mock:shadow-root>
-            <span class="sbb-link" dir="ltr" role="presentation" tabindex="-1">
+            <span class="sbb-link">
               <slot></slot>
             </span>
           </mock:shadow-root>
@@ -168,9 +164,10 @@ describe('sbb-link', () => {
           role="link"
           tabindex="0"
           target="_blank"
+          dir="ltr"
         >
           <mock:shadow-root>
-            <a class="sbb-link" dir="ltr" href="#link" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+            <a class="sbb-link" href="#link" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
               <slot></slot>
               <span class="sbb-link__opens-in-new-window">. Link target opens in new window.</span>
             </a>

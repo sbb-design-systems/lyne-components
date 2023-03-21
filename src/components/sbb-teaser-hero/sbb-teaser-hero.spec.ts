@@ -20,11 +20,11 @@ describe('sbb-teaser-hero', () => {
         image-alt="SBB CFF FFS Employee"
         role="link"
         tabindex="0"
+        dir="ltr"
       >
           <mock:shadow-root>
             <a
               class="sbb-teaser-hero"
-              dir="ltr"
               href="https://www.sbb.ch"
               rel="external"
               target="_blank"
@@ -65,14 +65,9 @@ describe('sbb-teaser-hero', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero aria-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee">
+      <sbb-teaser-hero aria-label="label" link-content="Find out more" image-src="${sampleImages[1]}" image-alt="SBB CFF FFS Employee" dir="ltr">
           <mock:shadow-root>
-            <span
-              role="presentation"
-              tabindex="-1"
-              class="sbb-teaser-hero"
-              dir="ltr"
-            >
+            <span class="sbb-teaser-hero">
               <span class="sbb-teaser-hero__panel">
                 <span class="sbb-teaser-hero__panel-text">
                   <slot></slot>
@@ -95,11 +90,10 @@ describe('sbb-teaser-hero', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" role="link" tabindex="0">
+      <sbb-teaser-hero aria-label="label" href="https://www.sbb.ch" role="link" tabindex="0" dir="ltr">
           <mock:shadow-root>
             <a
               class="sbb-teaser-hero"
-              dir="ltr"
               href="https://www.sbb.ch"
               role="presentation"
               tabindex="-1"

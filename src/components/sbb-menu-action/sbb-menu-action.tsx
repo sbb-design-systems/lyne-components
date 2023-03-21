@@ -94,7 +94,6 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
       attributes,
     }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
-    // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
       <Host {...hostAttributes}>
         <TAG_NAME class="sbb-menu-action" {...attributes}>

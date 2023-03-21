@@ -51,7 +51,7 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element!: HTMLSbbNavigationActionElement;
+  @Element() private _element!: HTMLSbbTeaserHeroElement;
 
   private _handlerRepository = new HandlerRepository(this._element, linkHandlerAspect);
 

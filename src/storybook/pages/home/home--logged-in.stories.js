@@ -105,7 +105,7 @@ const Template = (args) => (
           <ul class="current-tickets-list">
             <li>
               <sbb-card
-                accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+                aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
                 href="https://github.com/lyne-design-system/lyne-components"
               >
                 <sbb-card-badge
@@ -153,7 +153,7 @@ const Template = (args) => (
             </li>
             <li>
               <sbb-card
-                accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+                aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
                 href="https://github.com/lyne-design-system/lyne-components"
               >
                 <span class="card-product">
@@ -173,7 +173,7 @@ const Template = (args) => (
             </li>
             <li>
               <sbb-card
-                accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+                aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
                 href="https://github.com/lyne-design-system/lyne-components"
               >
                 <span class="card-product">
@@ -260,7 +260,7 @@ const Template = (args) => (
               Your subscriptions.
             </sbb-title>
             <sbb-card
-              accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+              aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
               href="https://github.com/lyne-design-system/lyne-components"
               color="milk"
               size="s"

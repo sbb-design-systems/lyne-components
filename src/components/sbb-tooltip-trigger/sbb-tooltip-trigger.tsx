@@ -42,13 +42,13 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
   }
 
   public render(): JSX.Element {
-    const { attributes, hostAttributes } = resolveButtonRenderVariables(this);
+    const { hostAttributes } = resolveButtonRenderVariables(this);
 
     return (
       <Host {...hostAttributes}>
-        <button class="sbb-tooltip-trigger" {...attributes}>
+        <span class="sbb-tooltip-trigger">
           <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-        </button>
+        </span>
       </Host>
     );
   }

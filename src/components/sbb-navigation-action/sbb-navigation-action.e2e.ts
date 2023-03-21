@@ -67,9 +67,8 @@ describe('sbb-navigation-action', () => {
     element = await page.find('sbb-navigation-action');
     expect(element).toHaveClass('hydrated');
 
-    const button = await page.find('sbb-navigation-action >>> button');
     const clickedSpy = await page.spyOnEvent('click');
-    await button.click();
+    await element.click();
     expect(clickedSpy).toHaveReceivedEventTimes(1);
   });
 });

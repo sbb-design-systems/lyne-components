@@ -65,7 +65,6 @@
 }
 
 .sbb-tag {
-  @include sbb.button-reset;
   @include sbb.text-xs--bold;
 
   position: relative;

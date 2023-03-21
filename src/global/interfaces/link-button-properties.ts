@@ -6,11 +6,6 @@ import getDocumentWritingMode from '../helpers/get-document-writing-mode';
 export type ButtonType = 'button' | 'reset' | 'submit';
 
 /**
- * Enumeration for the 'aria-haspopup' values on the <button> HTML tag.
- */
-export type PopupType = 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
-
-/**
  * Enumeration for 'target' attribute in <a> HTML tag.
  */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -56,20 +51,13 @@ export interface ButtonProperties {
  * A component that implements LinkButtonProperties should use this interface to set useful variables for render function.
  */
 export interface LinkButtonRenderVariables {
-  /**
-   * The tag's name rendered by the component.
-   */
+  /** The tag's name rendered by the component. */
   tagName: 'a' | 'button' | 'span';
 
-  /**
-   * The tag's attributes; can be set using getLinkButtonBaseAttributeList(...),
-   * getLinkAttributeList(...) or getButtonAttributeList(...) methods.
-   */
+  /** The tag's attributes. */
   attributes: Record<string, string>;
 
-  /**
-   * The host's attributes.
-   */
+  /** The host's attributes. */
   hostAttributes?: Record<string, string>;
 }
 
@@ -98,21 +86,15 @@ function filterUndefined(...objects: Record<string, string>[]): Record<string, s
   return result;
 }
 
-/** Creates the basic attribute list for the link/button tag; undefined/null properties are not set. */
-function getLinkButtonBaseAttributeList(): Record<string, string> {
-  return {
-    dir: getDocumentWritingMode(),
-    role: 'presentation',
-    tabIndex: '-1',
-  };
-}
-
 /**
  * Lists all attributes for a link; undefined/null properties are not set.
  * @param linkProperties link properties
  */
 function getLinkAttributeList(linkProperties: LinkProperties): Record<string, string> {
-  const baseAttributeList = getLinkButtonBaseAttributeList();
+  const baseAttributeList = {
+    role: 'presentation',
+    tabIndex: '-1',
+  };
 
   return !linkProperties.href
     ? baseAttributeList
@@ -128,19 +110,11 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
       });
 }
 
-/**
- * Lists all attributes for a button; undefined/null properties are not set.
- * @param buttonProperties button properties
- */
-function getButtonAttributeList(buttonProperties: ButtonProperties): Record<string, string> {
-  return filterUndefined(getLinkButtonBaseAttributeList(), {
-    type: 'button',
-    disabled: buttonProperties.disabled ? 'true' : undefined,
-  });
-}
-
 function hostProperties(role: string, disabled: boolean): Record<string, string> {
-  return Object.assign({ role }, disabled ? { 'aria-disabled': 'true' } : { tabIndex: '0' });
+  return Object.assign(
+    { role, dir: getDocumentWritingMode() },
+    disabled ? { 'aria-disabled': 'true' } : { tabIndex: '0' }
+  );
 }
 
 /** Set default render variables for link case. */
@@ -155,10 +129,11 @@ function resolveLinkRenderVariables(
 }
 
 /** Set default render variables when the element is static (button/link inside another button/link). */
-function resolveLinkButtonStaticRenderVariables(): LinkButtonRenderVariables {
+function resolveStaticRenderVariables(): LinkButtonRenderVariables {
   return {
     tagName: 'span',
-    attributes: getLinkButtonBaseAttributeList(),
+    attributes: {},
+    hostAttributes: { dir: getDocumentWritingMode() },
   };
 }
 
@@ -167,8 +142,8 @@ export function resolveButtonRenderVariables(
   properties: ButtonProperties
 ): LinkButtonRenderVariables {
   return {
-    tagName: 'button',
-    attributes: getButtonAttributeList(properties),
+    tagName: 'span',
+    attributes: {},
     hostAttributes: hostProperties('button', properties.disabled),
   };
 }
@@ -181,7 +156,7 @@ export function resolveRenderVariables(
   properties: LinkButtonProperties & Partial<IsStaticProperty>
 ): LinkButtonRenderVariables {
   if (properties.isStatic) {
-    return resolveLinkButtonStaticRenderVariables();
+    return resolveStaticRenderVariables();
   } else if (properties.href) {
     return resolveLinkRenderVariables(properties);
   }
@@ -191,14 +166,13 @@ export function resolveRenderVariables(
 /**
  * Returns the link render variables or static variables if there is no href property.
  * @param linkProperties used to set variables and to check if href property is set.
- * @param currentLanguage language for accessibility texts.
  */
 export function resolveLinkOrStaticRenderVariables(
   linkProperties: LinkProperties
 ): LinkButtonRenderVariables {
   return linkProperties.href
     ? resolveLinkRenderVariables(linkProperties)
-    : resolveLinkButtonStaticRenderVariables();
+    : resolveStaticRenderVariables();
 }
 
 /** Returns true, if href is set and target is _blank. */

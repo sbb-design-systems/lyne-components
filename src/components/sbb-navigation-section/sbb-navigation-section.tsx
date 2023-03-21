@@ -244,7 +244,7 @@ export class SbbNavigationSection implements ComponentInterface {
     const backButton = (
       <sbb-button
         class="sbb-navigation-section__back"
-        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        arial-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
         negative={true}
         size="m"

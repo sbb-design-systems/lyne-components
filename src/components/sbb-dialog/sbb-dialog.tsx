@@ -337,7 +337,7 @@ export class SbbDialog implements ComponentInterface {
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
-        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        aria-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
@@ -350,7 +350,7 @@ export class SbbDialog implements ComponentInterface {
     const backButton = (
       <sbb-button
         class="sbb-dialog__back"
-        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"

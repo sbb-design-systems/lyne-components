@@ -39,7 +39,7 @@ const labelPosition = {
   options: ['before', 'after'],
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -51,7 +51,7 @@ const defaultArgTypes = {
   'label-position': labelPosition,
   label,
   'icon-name': iconName,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -60,7 +60,7 @@ const defaultArgs = {
   'label-position': labelPosition.options[1],
   label: 'Label',
   'icon-name': undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 /* ************************************************* */

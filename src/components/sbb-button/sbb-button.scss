@@ -171,7 +171,6 @@
 }
 
 .sbb-button {
-  @include sbb.button-reset;
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 

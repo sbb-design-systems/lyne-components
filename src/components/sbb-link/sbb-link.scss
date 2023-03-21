@@ -84,12 +84,6 @@
   }
 }
 
-button:where(.sbb-link) {
-  @include sbb.button-reset;
-
-  text-align: left;
-}
-
 .sbb-link__icon {
   position: relative;
   height: calc(var(--sbb-typo-line-height-body-text) * 1em);

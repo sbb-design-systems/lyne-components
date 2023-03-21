@@ -113,13 +113,9 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  /** Method triggered on button click. Inverts the checked value and emits events. */
   @Listen('click')
   public handleClick(): void {
-    this.toggleClicked();
-  }
-
-  /** Method triggered on button click. Inverts the checked value and emits events. */
-  public toggleClicked(): void {
     if (this.disabled) {
       return;
     }
@@ -137,13 +133,13 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
   }
 
   public render(): JSX.Element {
-    const { attributes, hostAttributes } = resolveButtonRenderVariables(this);
+    const { hostAttributes } = resolveButtonRenderVariables(this);
     // We have to ensure that the value is always present
     hostAttributes['aria-pressed'] = this.checked.toString();
 
     return (
       <Host {...hostAttributes}>
-        <button class="sbb-tag" {...attributes}>
+        <span class="sbb-tag">
           {(this.iconName || this._namedSlots['icon']) && (
             <span class="sbb-tag__icon sbb-tag--shift">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
@@ -157,7 +153,7 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
               <slot name="amount">{this.amount}</slot>
             </span>
           )}
-        </button>
+        </span>
       </Host>
     );
   }

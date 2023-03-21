@@ -22,8 +22,7 @@ The label is provided as the content to the `<sbb-toggle-check>` element.
 It can be displayed after or before the toggle-check.
 
 If you don't want the label to appear next to the toggle-check, you can use
-`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) to
-specify an appropriate label.
+`aria-label` to specify an appropriate label.
 
 ## Accessibility
 
@@ -32,11 +31,11 @@ This internal checkbox receives focus and is automatically labelled by the text 
 `<sbb-toggle-check>` element. Avoid adding other interactive controls into the content of
 `<sbb-toggle-check>`, as this degrades the experience for users of assistive technology.
 
-Always provide an accessible label via `accessibility-label` for checkboxes without
+Always provide an accessible label via `aria-label` for checkboxes without
 descriptive text content.
 
 ```html
-<sbb-toggle-check accessibility-label="Subscribed to email message" />
+<sbb-toggle-check aria-label="Subscribed to email message" />
 ```
 
 <!-- Auto Generated Below -->

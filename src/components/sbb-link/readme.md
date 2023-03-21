@@ -1,7 +1,7 @@
 # sbb-link
 
 The `<sbb-link>` implements the design of the Lyne Link. It can both be used as a anchor (`<a>`)
-(if the href property is set) or as a button (`<button>`). If the `<sbb-link>` is placed inside another
+(if the href property is set) or as a button. If the `<sbb-link>` is placed inside another
 anchor or button tag, it is internally rendered as a span in order to not break HTML functionality.
   
 <!-- Auto Generated Below -->

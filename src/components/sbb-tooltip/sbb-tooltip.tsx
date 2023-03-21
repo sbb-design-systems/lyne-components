@@ -449,7 +449,7 @@ export class SbbTooltip implements ComponentInterface {
     const closeButton = (
       <span class="sbb-tooltip__close">
         <sbb-button
-          accessibility-label={
+          aria-label={
             this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLanguage]
           }
           variant="secondary"
