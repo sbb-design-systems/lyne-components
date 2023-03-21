@@ -8,8 +8,9 @@ import {
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { Leg, PtConnectionLeg, PtRideLeg } from '../../global/interfaces/timetable-properties';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
+import { isConnectionLeg, isRideLeg } from '../../global/helpers/timetable-helper';
 
 @Component({
   shadow: true,
@@ -25,7 +26,7 @@ export class SbbPearlChainTime {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: (PtRideLeg & PtConnectionLeg)[];
+  @Prop() public legs!: Leg[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
   @Prop() public departureTime?: string;
@@ -85,9 +86,10 @@ export class SbbPearlChainTime {
   public render(): JSX.Element {
     const legs =
       this.legs &&
-      this.legs.filter(
-        (leg) => leg.__typename === 'PTConnectionLeg' || leg.__typename === 'PTRideLeg'
-      );
+      (this.legs.filter((leg) => isRideLeg(leg) || isConnectionLeg(leg)) as (
+        | PtRideLeg
+        | PtConnectionLeg
+      )[]);
     const lastLeg = legs && legs[legs.length - 1];
 
     const departure: Date | undefined = this.departureTime
@@ -175,7 +177,7 @@ export class SbbPearlChainTime {
         )}
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
-          legs={legs}
+          legs={this.legs}
           disable-animation={this.disableAnimation}
           data-now={this._now()}
         />

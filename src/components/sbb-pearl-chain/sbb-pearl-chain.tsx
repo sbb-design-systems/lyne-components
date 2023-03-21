@@ -1,7 +1,8 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
-import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
+import { isRideLeg } from '../../global/helpers/timetable-helper';
+import { PtRideLeg, Leg } from '../../global/interfaces/timetable-properties';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({
@@ -18,7 +19,7 @@ export class SbbPearlChain {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs: (PtRideLeg & PtConnectionLeg)[];
+  @Prop() public legs: Leg[];
 
   /**
    * Per default, the current location has a pulsating animation. You can
@@ -93,7 +94,8 @@ export class SbbPearlChain {
   }
 
   public render(): JSX.Element {
-    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => leg?.__typename === 'PTRideLeg');
+    const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
+
     const departureTime =
       rideLegs?.length && removeTimezoneFromISOTimeString(rideLegs[0]?.departure?.time);
     const arrivalTime =

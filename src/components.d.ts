@@ -29,7 +29,7 @@ import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
+import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -37,7 +37,7 @@ import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.cu
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-import { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+import { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
@@ -70,7 +70,7 @@ export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
+export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -78,7 +78,7 @@ export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.cu
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-export { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
@@ -1026,7 +1026,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": (PtRideLeg & PtConnectionLeg)[];
+        "legs": Leg[];
     }
     interface SbbPearlChainTime {
         /**
@@ -1052,7 +1052,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": (PtRideLeg & PtConnectionLeg)[];
+        "legs": Leg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -1404,7 +1404,7 @@ export namespace Components {
         /**
           * The trip Prop
          */
-        "trip": Trip;
+        "trip": ITripItem;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -3193,7 +3193,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs"?: (PtRideLeg & PtConnectionLeg)[];
+        "legs"?: Leg[];
     }
     interface SbbPearlChainTime {
         /**
@@ -3219,7 +3219,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": (PtRideLeg & PtConnectionLeg)[];
+        "legs": Leg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -3600,7 +3600,7 @@ declare namespace LocalJSX {
         /**
           * The trip Prop
          */
-        "trip"?: Trip;
+        "trip"?: ITripItem;
     }
     interface SbbTimetableRowColumnHeaders {
         /**

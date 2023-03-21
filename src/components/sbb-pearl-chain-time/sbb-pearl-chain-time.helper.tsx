@@ -1,4 +1,4 @@
-import { Notice } from '../../global/interfaces/pearl-chain-properties';
+import { Notice } from '../../global/interfaces/timetable-properties';
 
 export const extractTimeAndStringFromNoticeText = (
   notice: Notice

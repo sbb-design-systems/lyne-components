@@ -38,7 +38,7 @@ const unplannedStopService = {
 
 const redirectedService = {
   serviceAlteration: {
-    redirectedFormatted: 'Ausnahmsweise kein Halt',
+    redirectedText: 'Ausnahmsweise kein Halt',
   },
 };
 

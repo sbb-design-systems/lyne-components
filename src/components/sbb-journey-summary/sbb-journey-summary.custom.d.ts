@@ -1,7 +1,7 @@
-import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { Leg } from '../../global/interfaces/timetable-properties';
 
 export interface InterfaceSbbJourneySummaryAttributes {
-  legs: (PtRideLeg & PtConnectionLeg)[];
+  legs: Leg[];
   vias?: string[];
   origin: string;
   destination: string;

@@ -1,6 +1,12 @@
 import { h, JSX } from '@stencil/core';
-import { Notice, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
-import { HimCus, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
+import { ITripItem, Notice } from '../../global/interfaces/timetable-properties';
+import { HimCus } from './sbb-timetable-row.custom';
+import {
+  VehicleModeEnum,
+  PtRideLeg,
+  PtSituation,
+} from '../../global/interfaces/timetable-properties';
+import { isRideLeg } from '../../global/helpers/timetable-helper';
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
@@ -86,8 +92,8 @@ const getReachableText = (legs: PtRideLeg[]): string => {
 };
 
 const getRedirectedText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedFormatted)
-    ?.serviceJourney?.serviceAlteration?.redirectedFormatted;
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)?.serviceJourney
+    ?.serviceAlteration?.redirectedText;
 };
 
 const getUnplannedStop = (legs: PtRideLeg[]): string => {
@@ -145,16 +151,18 @@ export const getHimIcon = (situation: PtSituation): HimCus => {
   }
 };
 
-export const getCus = (trip: Trip): HimCus => {
-  const { legs, summary } = trip;
+export const getCus = (trip: ITripItem): HimCus => {
+  const { summary, legs } = trip;
+  const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
 
   if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
     return { name: 'cancellation', text: tripStatus?.cancelledText };
-  if (!isReachable(legs)) return { name: 'missed-connection', text: getReachableText(legs) };
+  if (!isReachable(rideLegs))
+    return { name: 'missed-connection', text: getReachableText(rideLegs) };
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
-  if (getRedirectedText(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
-  if (getUnplannedStop(legs)) return { name: 'add-stop', text: getUnplannedStop(legs) };
+  if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };
+  if (getUnplannedStop(rideLegs)) return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
   if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
   if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
 
@@ -167,10 +175,7 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
   return notices.reduce((foundNotice, notice) => {
     if (foundNotice) return foundNotice;
     if (reservationNotice.includes(notice.name)) {
-      return {
-        name: 'RR',
-        text: notice.text?.template,
-      } as Notice;
+      return { ...notice, name: 'RR' } as Notice;
     }
   }, undefined);
 };
