@@ -211,7 +211,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _setFocusableRadio(): void {
-    const checked = this._radioButtons.find((radio) => radio.checked);
+    const checked = this._radioButtons.find((radio) => radio.checked && !radio.disabled);
 
     if (!checked && this._enabledRadios) {
       this._enabledRadios[0].tabIndex = 0;
@@ -219,7 +219,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _getRadioTabIndex(radio: HTMLSbbRadioButtonElement): number {
-    return radio.checked || (this._hasSelectionPanel && !radio.disabled && !this.disabled) ? 0 : -1;
+    return (radio.checked || this._hasSelectionPanel) && !radio.disabled && !this.disabled ? 0 : -1;
   }
 
   @Listen('keydown')

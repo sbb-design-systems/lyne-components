@@ -172,8 +172,8 @@ export class SbbSelectionPanel implements ComponentInterface {
       }
 
       selectionPanelExpandedEl.innerHTML = this._checked
-        ? i18nExapnded[this._currentLanguage]
-        : i18nCollapsed[this._currentLanguage];
+        ? ', ' + i18nExapnded[this._currentLanguage]
+        : ', ' + i18nCollapsed[this._currentLanguage];
     }
   }
 
