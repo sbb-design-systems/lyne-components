@@ -1122,6 +1122,16 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbOptionGroup {
+        /**
+          * Whether the group is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Option group label.
+         */
+        "label": string;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -2089,6 +2099,12 @@ declare global {
         prototype: HTMLSbbOptionElement;
         new (): HTMLSbbOptionElement;
     };
+    interface HTMLSbbOptionGroupElement extends Components.SbbOptionGroup, HTMLStencilElement {
+    }
+    var HTMLSbbOptionGroupElement: {
+        prototype: HTMLSbbOptionGroupElement;
+        new (): HTMLSbbOptionGroupElement;
+    };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
     var HTMLSbbOverlayElement: {
@@ -2363,6 +2379,7 @@ declare global {
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
         "sbb-navigation-section": HTMLSbbNavigationSectionElement;
         "sbb-option": HTMLSbbOptionElement;
+        "sbb-option-group": HTMLSbbOptionGroupElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -3480,6 +3497,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbOptionGroup {
+        /**
+          * Whether the group is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Option group label.
+         */
+        "label"?: string;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -4196,6 +4223,7 @@ declare namespace LocalJSX {
         "sbb-navigation-marker": SbbNavigationMarker;
         "sbb-navigation-section": SbbNavigationSection;
         "sbb-option": SbbOption;
+        "sbb-option-group": SbbOptionGroup;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -4282,6 +4310,7 @@ declare module "@stencil/core" {
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
             "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
             "sbb-option": LocalJSX.SbbOption & JSXBase.HTMLAttributes<HTMLSbbOptionElement>;
+            "sbb-option-group": LocalJSX.SbbOptionGroup & JSXBase.HTMLAttributes<HTMLSbbOptionGroupElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;

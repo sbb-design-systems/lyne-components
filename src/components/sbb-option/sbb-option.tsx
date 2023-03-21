@@ -20,8 +20,15 @@ import {
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { SbbOptionSelectionChange } from './sbb-option.custom';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 let nextId = 0;
+
+/** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
+const optionObserverConfig: MutationObserverInit = {
+  attributeFilter: ['data-group-disabled'],
+};
 
 /**
  * @slot unnamed - Use this to provide the option label.
@@ -48,6 +55,9 @@ export class SbbOption implements ComponentInterface {
 
   /** Whether the option is selected. */
   @Prop({ mutable: true, reflect: true }) public selected = false;
+
+  /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
+  @State() private _disabledFromGroup = false;
 
   /** Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component. */
   @Prop() public disabled?: boolean;
@@ -76,6 +86,11 @@ export class SbbOption implements ComponentInterface {
   private _optionId = `sbb-option-${++nextId}`;
   private _labelSlot: HTMLSlotElement;
 
+  /** MutationObserver on data attributes. */
+  private _optionAttributeObserver = new MutationObserver(
+    this._onOptionAttributesChange.bind(this)
+  );
+
   /**
    * Highlight the label of the option
    * @param value the highlighted portion of the label
@@ -92,7 +107,7 @@ export class SbbOption implements ComponentInterface {
 
   @Listen('click', { passive: true })
   public selectByClick(): void {
-    if (this.disabled) {
+    if (this.disabled || this._disabledFromGroup) {
       return;
     }
 
@@ -112,11 +127,22 @@ export class SbbOption implements ComponentInterface {
 
   public connectedCallback(): void {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
+    this._optionAttributeObserver.observe(this._element, optionObserverConfig);
   }
 
   public componentDidLoad(): void {
     if (!this._disableLabelHighlight) {
       this._setupHighlightHandler();
+    }
+  }
+
+  /** Observe changes on data attributes and set the appropriate values. */
+  private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
+    for (const mutation of mutationsList) {
+      if (mutation.attributeName === 'data-group-disabled') {
+        this._disabledFromGroup = !!isValidAttribute(this._element, 'data-group-disabled');
+      }
     }
   }
 
@@ -161,7 +187,7 @@ export class SbbOption implements ComponentInterface {
     return (
       <Host
         role="option"
-        aria-disabled={this.disabled}
+        aria-disabled={this.disabled || this._disabledFromGroup}
         aria-selected={this.selected}
         data-disable-highlight={this._disableLabelHighlight}
         ref={assignId(() => this._optionId)}
