@@ -106,15 +106,12 @@ export class SbbJourneySummary implements ComponentInterface {
         <span class="sbb-journey-summary__date">
           {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
           {duration > 0 && (
-            <span>
-              ,
-              <time>
-                <span class="sbb-screenreaderonly">
-                  {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
-                </span>
-                <span aria-hidden="true">{durationObj.short}</span>
-              </time>
-            </span>
+            <time>
+              <span class="sbb-screenreaderonly">
+                {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+              </span>
+              <span aria-hidden="true">, {durationObj.short}</span>
+            </time>
           )}
         </span>
         <sbb-pearl-chain-time

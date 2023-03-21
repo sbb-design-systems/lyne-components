@@ -56,17 +56,14 @@ describe('sbb-journey-summary', () => {
                   29.08
                 </time>
               </span>
-              <span>
-                ,
                 <time>
                   <span class="sbb-screenreaderonly">
                     Travel time 1 Hour
                   </span>
                   <span aria-hidden="true">
-                    1 h
+                    , 1 h
                   </span>
                 </time>
-              </span>
             </span>
             <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
@@ -92,17 +89,14 @@ describe('sbb-journey-summary', () => {
                   29.08
                 </time>
               </span>
-              <span>
-                ,
                 <time>
                   <span class="sbb-screenreaderonly">
                     Travel time 1 Hour 40 Minutes
                   </span>
                   <span aria-hidden="true">
-                    1 h 40 min
+                    , 1 h 40 min
                   </span>
                 </time>
-              </span>
             </span>
             <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
