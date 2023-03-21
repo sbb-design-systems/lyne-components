@@ -1,0 +1,26 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+.sbb-option-group {
+  margin-block: var(--sbb-spacing-fixed-4x);
+  margin-inline: var(--sbb-spacing-fixed-4x);
+}
+
+.sbb-option-group__label {
+  @include sbb.text-xs--regular;
+
+  color: var(--sbb-color-iron-default);
+  padding-inline: var(--sbb-spacing-fixed-4x);
+  padding-block-end: var(--sbb-spacing-fixed-2x);
+}
+
+::slotted(sbb-option:not(:last-child)) {
+  margin-block-end: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-option-group__divider {
+  padding-block-start: var(--sbb-spacing-fixed-4x);
+}
