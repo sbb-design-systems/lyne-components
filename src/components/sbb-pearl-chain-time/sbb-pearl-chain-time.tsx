@@ -138,7 +138,7 @@ export class SbbPearlChainTime {
       ? connectionLastLeg?.notices?.filter((notice) => connectionLegNotice.includes(notice.name))[0]
       : undefined;
 
-    const rideLegs = this.legs?.filter((leg) => leg?.__typename === 'PTRideLeg');
+    const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));
     return (
       <div class="sbb-pearl-chain__time">
         <span class="sbb-screenreaderonly">

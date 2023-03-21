@@ -97,7 +97,7 @@ export class SbbJourneySummary implements ComponentInterface {
         {origin && (
           <sbb-journey-header
             size="l"
-            level="4"
+            level="3"
             origin={origin}
             destination={destination}
           ></sbb-journey-header>
