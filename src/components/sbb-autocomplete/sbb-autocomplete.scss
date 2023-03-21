@@ -150,7 +150,7 @@
 
 @keyframes open {
   from {
-    transform: scaleY(0);
+    transform: scaleY(0.8);
     transform-origin: var(--sbb-overlay-transition-origin);
   }
 
@@ -167,7 +167,7 @@
   }
 
   to {
-    transform: scaleY(0);
+    transform: scaleY(0.8);
     transform-origin: var(--sbb-overlay-transition-origin);
   }
 }
