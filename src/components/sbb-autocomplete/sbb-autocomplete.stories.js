@@ -119,18 +119,40 @@ const Template = (args) => [
       <sbb-option icon-name={args.iconName} value="Option 2">
         Option 2
       </sbb-option>
-
-      <sbb-divider />
-
       <sbb-option value="Option 3">
         <sbb-icon slot="icon" name={args.iconName} />
         Option 3
       </sbb-option>
-
-      <sbb-divider />
-
       <sbb-option value="Option 4">Option 4</sbb-option>
       <sbb-option value="Option 5">Option 5</sbb-option>
+    </sbb-autocomplete>
+  </sbb-form-field>,
+];
+
+const OptionGroupTemplate = (args) => [
+  <sbb-form-field borderless={args.borderless} label="Label">
+    <input placeholder="Placeholder" />
+
+    <sbb-autocomplete
+      disable-animation={args.disableAnimation}
+      preserve-icon-space={args.preserveIconSpace}
+    >
+      <sbb-option-group label="Group 1">
+        <sbb-option icon-name={args.iconName} value="Option 1">
+          Option 1
+        </sbb-option>
+        <sbb-option icon-name={args.iconName} value="Option 2">
+          Option 2
+        </sbb-option>
+        <sbb-option value="Option 3">
+          <sbb-icon slot="icon" name={args.iconName} />
+          Option 3
+        </sbb-option>
+      </sbb-option-group>
+      <sbb-option-group label="Group 2">
+        <sbb-option value="Option 4">Option 4</sbb-option>
+        <sbb-option value="Option 5">Option 5</sbb-option>
+      </sbb-option-group>
     </sbb-autocomplete>
   </sbb-form-field>,
 ];
@@ -164,6 +186,11 @@ export const Scroll = Template.bind({});
 Scroll.argTypes = defaultArgTypes;
 Scroll.args = { ...defaultArgs };
 Scroll.decorators = scrollDecorator;
+
+export const WithOptionGroup = OptionGroupTemplate.bind({});
+WithOptionGroup.argTypes = defaultArgTypes;
+WithOptionGroup.args = { ...defaultArgs };
+WithOptionGroup.decorators = defaultDecorator;
 
 export default {
   parameters: {
