@@ -25,6 +25,9 @@ describe('sbb-pearl-chain-time', () => {
       <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" data-now="1660662000000">
         <mock:shadow-root>
           <div class="sbb-pearl-chain__time">
+            <span class="sbb-screenreaderonly">
+              changes 1
+            </span>
             <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
               <span class="sbb-screenreaderonly">
                 Departure
@@ -66,6 +69,9 @@ describe('sbb-pearl-chain-time', () => {
         <sbb-pearl-chain-time departure-time='2022-08-16T12:00:00' arrival-time='2022-08-16T15:00:00' departure-walk="10" data-now="1660662000000">
           <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
+              <span class="sbb-screenreaderonly">
+                changes 1
+              </span>
               <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
                 <sbb-icon name="walk-small"></sbb-icon>
                 <time datetime="10M">
@@ -115,6 +121,9 @@ describe('sbb-pearl-chain-time', () => {
         <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" arrival-walk="10" data-now="1660662000000">
           <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
+              <span class="sbb-screenreaderonly">
+                changes 1
+              </span>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
                 <span class="sbb-screenreaderonly">
                   Departure
@@ -169,6 +178,9 @@ describe('sbb-pearl-chain-time', () => {
         <sbb-pearl-chain-time arrival-time="2022-08-16T15:00:00" departure-time="2022-08-16T12:00:00" departure-walk="20" arrival-walk="10" data-now="1660662000000">
         <mock:shadow-root>
             <div class="sbb-pearl-chain__time">
+              <span class="sbb-screenreaderonly">
+                changes 1
+              </span>
               <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
                 <sbb-icon name="walk-small"></sbb-icon>
                 <time datetime="20M">

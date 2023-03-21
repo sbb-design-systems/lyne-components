@@ -2,7 +2,7 @@ import { Component, h, JSX, Prop, Element, ComponentInterface, State, Listen } f
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
-import { i18nToday, i18nTomorrow } from '../../global/i18n';
+import { i18nToday, i18nTomorrow, i18nTripDuration } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 
@@ -90,12 +90,14 @@ export class SbbJourneySummary implements ComponentInterface {
       legs,
     } = this.config || {};
 
+    const durationObj = durationToTime(duration, this._currentLanguage);
+
     return (
       <div class="sbb-journey-summary">
         {origin && (
           <sbb-journey-header
             size="l"
-            level="4"
+            level="3"
             origin={origin}
             destination={destination}
           ></sbb-journey-header>
@@ -104,9 +106,12 @@ export class SbbJourneySummary implements ComponentInterface {
         <span class="sbb-journey-summary__date">
           {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
           {duration > 0 && (
-            <span>
-              , <time>{durationToTime(duration)}</time>
-            </span>
+            <time>
+              <span class="sbb-screenreaderonly">
+                {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+              </span>
+              <span aria-hidden="true">, {durationObj.short}</span>
+            </time>
           )}
         </span>
         <sbb-pearl-chain-time

@@ -4,11 +4,15 @@ import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nClass,
+  i18nDeparture,
   i18nDirection,
   i18nFromPier,
   i18nFromPlatform,
   i18nFromStand,
+  i18nMeansOfTransport,
+  i18nNew,
   i18nOccupancy,
+  i18nTripDuration,
 } from '../../global/i18n';
 import {
   handleNotices,
@@ -109,7 +113,9 @@ export class SbbTimetableRow {
         <span class="sbb-screenreaderonly">
           {this._getQuayType(this.trip.summary.product?.vehicleMode)?.long[this._currentLanguage]}
         </span>
-        {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
+        <span aria-hidden="true">
+          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
+        </span>
       </span>
     );
   }
@@ -126,7 +132,7 @@ export class SbbTimetableRow {
       return this._renderSkeleton();
     }
 
-    const { legs, id, notices } = this.trip || {};
+    const { legs, id, notices, summary } = this.trip || {};
 
     const {
       product,
@@ -137,12 +143,14 @@ export class SbbTimetableRow {
       arrivalWalk,
       occupancy,
       duration,
-    } = this.trip?.summary || {};
+    } = summary || {};
 
     const himCus = this.trip && this._handleHimCus(this.trip);
     const hasHimCus = !!himCus && !!Object.keys(himCus).length;
 
     const noticeAttributes = notices && handleNotices(notices);
+
+    const durationObj = durationToTime(duration, this._currentLanguage);
 
     return (
       <sbb-card size="l" active={this.active} id={id} role="rowgroup">
@@ -165,7 +173,14 @@ export class SbbTimetableRow {
                     class="sbb-timetable__row-transport-icon"
                     name={'picto:' + getTransportIcon(product.vehicleMode)}
                   />
-                  <span class="sbb-screenreaderonly">{product.vehicleMode}</span>
+                  <span class="sbb-screenreaderonly">
+                    {product &&
+                      product.vehicleMode &&
+                      i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
+                      i18nMeansOfTransport[summary.product.vehicleMode.toLowerCase()][
+                        this._currentLanguage
+                      ]}
+                  </span>
                 </span>
               )}
               {product &&
@@ -174,7 +189,7 @@ export class SbbTimetableRow {
                   ? renderIconProduct(product.vehicleSubModeShortName, product.line)
                   : renderStringProduct(product.vehicleSubModeShortName, product?.line))}
             </div>
-            {direction && <p>{i18nDirection[this._currentLanguage] + ' ' + direction}</p>}
+            {direction && <p>{`${i18nDirection[this._currentLanguage]} ${direction}`}</p>}
           </div>
           <sbb-pearl-chain-time
             role="gridcell"
@@ -189,6 +204,12 @@ export class SbbTimetableRow {
           <div class="sbb-timetable__row-footer" role="gridcell">
             {product && this._getQuayType(product.vehicleMode) && departure?.quayAimedName && (
               <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
+                <span class="sbb-screenreaderonly">
+                  {`${i18nDeparture[this._currentLanguage]} ${
+                    departure?.quayChanged ? i18nNew[this._currentLanguage] : ''
+                  }`}
+                  &nbsp;
+                </span>
                 {this._renderQuayType()}
                 {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
               </span>
@@ -198,33 +219,33 @@ export class SbbTimetableRow {
               <ul class="sbb-timetable__row-occupancy" role="list">
                 {occupancy?.firstClass && occupancy.firstClass !== 'UNKNOWN' && (
                   <li>
-                    1.
+                    <span aria-hidden="true">1.</span>
                     <sbb-icon
                       class="sbb-occupancy__item"
                       name={`utilization-` + occupancy?.firstClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
-                      {i18nClass.first[this._currentLanguage]}
-                    </span>
-                    <span class="sbb-screenreaderonly">
                       {i18nOccupancy[occupancy?.firstClass?.toLowerCase()] &&
-                        i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._currentLanguage]}
+                        `${i18nClass.first[this._currentLanguage]} ${
+                          i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._currentLanguage]
+                        }`}
                     </span>
                   </li>
                 )}
                 {occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN' && (
                   <li>
-                    2.
+                    <span aria-hidden="true">2.</span>
                     <sbb-icon
                       class="sbb-occupancy__item"
                       name={`utilization-` + occupancy?.secondClass?.toLowerCase()}
                     />
                     <span class="sbb-screenreaderonly">
-                      {i18nClass.second[this._currentLanguage]}
-                    </span>
-                    <span class="sbb-screenreaderonly">
-                      {i18nOccupancy[occupancy.secondClass?.toLowerCase()] &&
-                        i18nOccupancy[occupancy.secondClass?.toLowerCase()][this._currentLanguage]}
+                      {i18nOccupancy[occupancy?.secondClass?.toLowerCase()] &&
+                        `${i18nClass.second[this._currentLanguage]} ${
+                          i18nOccupancy[occupancy?.secondClass?.toLowerCase()][
+                            this._currentLanguage
+                          ]
+                        }`}
                     </span>
                   </li>
                 )}
@@ -256,7 +277,14 @@ export class SbbTimetableRow {
                 )}
               </ul>
             )}
-            {duration > 0 && <time>{durationToTime(duration)}</time>}
+            {duration > 0 && (
+              <time>
+                <span class="sbb-screenreaderonly">
+                  {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+                </span>
+                <span aria-hidden="true">{durationObj.short}</span>
+              </time>
+            )}
             {hasHimCus && (
               <span class="sbb-timetable__row-warning">
                 <sbb-icon name={himCus.name} aria-hidden="false" aria-label={himCus.text} />

@@ -228,6 +228,46 @@ export const i18nDurationHour: Record<string, Record<string, Record<string, stri
   },
 };
 
+export const i18nDurationDay: Record<string, Record<string, Record<string, string>>> = {
+  single: {
+    long: {
+      de: 'Tag',
+      en: 'Day',
+      fr: 'Jour',
+      it: 'Giorno',
+    },
+  },
+  multiple: {
+    long: {
+      de: 'Tage',
+      en: 'Days',
+      fr: 'Jours',
+      it: 'Giorni',
+    },
+  },
+};
+
+export const i18nTripDuration: Record<string, string> = {
+  de: 'Reisedauer',
+  en: 'Travel time',
+  fr: 'Durée du voyage',
+  it: 'Durata del viaggio',
+};
+
+export const i18nTransferProcedures: Record<string, string> = {
+  de: 'mal umsteigen',
+  en: 'changes',
+  fr: 'changement(s) de train',
+  it: 'cambi',
+};
+
+export const i18nNew: Record<string, string> = {
+  de: 'neu',
+  en: 'new',
+  fr: 'nouveau',
+  it: 'nuovo',
+};
+
 export const i18nFromPlatform: Record<string, Record<string, string>> = {
   long: {
     de: 'Von Gleis',
@@ -304,6 +344,75 @@ export const i18nOccupancy: Record<string, Record<string, string>> = {
     en: 'Very high occupancy expected.',
     fr: "Un taux d'occupation très élevé est attendu.",
     it: "Ci si aspetta un'occupazione molto alta.",
+  },
+};
+
+export const i18nMeansOfTransport: Record<string, Record<string, string>> = {
+  funicular: {
+    de: 'Seilbahn/Zahnradbahn',
+    en: 'Funicular/Cog railway',
+    fr: 'Funiculaire/Chemin de fer à crémaillère',
+    it: 'Funivia/Ferrovia a cremagliera',
+  },
+  ec_id: {
+    de: 'EC/IC',
+    en: 'EC/IC',
+    fr: 'EC/IC',
+    it: 'EC/IC',
+  },
+  bus: {
+    de: 'Bus',
+    en: 'Bus',
+    fr: 'Bus',
+    it: 'Bus',
+  },
+  re: {
+    de: 'RE',
+    en: 'RE',
+    fr: 'RE',
+    it: 'RE',
+  },
+  arz_ext: {
+    de: 'ARZ/EXT',
+    en: 'ARZ/EXT',
+    fr: 'ARZ/EXT',
+    it: 'ARZ/EXT',
+  },
+  ice_tgv_rjx: {
+    de: 'ICE/TGV/RJX',
+    en: 'ICE/TGV/RJX',
+    fr: 'ICE/TGV/RJX',
+    it: 'ICE/TGV/RJX',
+  },
+  ir_pe: {
+    de: 'IR/PE',
+    en: 'IR/PE',
+    fr: 'IR/PE',
+    it: 'IR/PE',
+  },
+  s_sn_r: {
+    de: 'S/SN/R',
+    en: 'S/SN/R',
+    fr: 'S/SN/R',
+    it: 'S/SN/R',
+  },
+  tram: {
+    de: 'Tram/Metro',
+    en: 'Tramway/Underground',
+    fr: 'Tram/Métro',
+    it: 'Tram/Metro',
+  },
+  ship: {
+    de: 'Schiff',
+    en: 'Ship',
+    fr: 'Bateau',
+    it: 'Battello',
+  },
+  train: {
+    de: 'Zug',
+    en: 'Train',
+    fr: 'Train',
+    it: 'Treno',
   },
 };
 

@@ -8,6 +8,8 @@ import {
   subDays,
 } from 'date-fns';
 
+import { i18nDurationHour, i18nDurationMinute, i18nDurationDay } from '../../global/i18n';
+
 /**
  * This function removes the offset of a ISO date string. This needs to be done to make sure that the offset is ignored.
  * If it is not removed the time would be converted to the browsers local time.
@@ -47,30 +49,63 @@ export function removeTimezoneFromISOTimeString(isoTime: string): Date | undefin
  * This function converts a duration number to date string with specific format
  *
  * @param duration - duration in minutes
- * @returns a new date string in the format "dd hh mm"
+ * @param currentLanguage - currentLanguage
+ * @returns an Object with two strings in the format "dd hh mm" (short) an "x Day(s) x Hour(s) x Minute(s) (long)"
  * */
 
-export const durationToTime = (duration: number): string => {
-  const result = [];
+export const durationToTime = (
+  duration: number,
+  currentLanguage?: string
+): { short: string; long: string } => {
+  const short = [];
+  const long = [];
+
   const now = 0;
   let future = addMinutes(now, duration);
 
   const days = differenceInDays(future, now);
   if (days > 0) {
-    result.push(`${days} d`);
+    short.push(`${days} d`);
+    currentLanguage &&
+      long.push(
+        `${days} ${
+          days > 1
+            ? i18nDurationDay.multiple.long[currentLanguage]
+            : i18nDurationDay.single.long[currentLanguage]
+        }`
+      );
     future = subDays(future, days);
   }
 
   const hours = differenceInHours(future, now);
   if (hours > 0) {
-    result.push(`${hours} h`);
+    short.push(`${hours} h`);
+    currentLanguage &&
+      long.push(
+        `${hours} ${
+          hours > 1
+            ? i18nDurationHour.multiple.long[currentLanguage]
+            : i18nDurationHour.single.long[currentLanguage]
+        }`
+      );
     future = subHours(future, hours);
   }
 
   const minutes = differenceInMinutes(future, now);
   if (minutes > 0) {
-    result.push(`${minutes} min`);
+    short.push(`${minutes} min`);
+    currentLanguage &&
+      long.push(
+        `${minutes} ${
+          minutes > 1
+            ? i18nDurationMinute.multiple.long[currentLanguage]
+            : i18nDurationMinute.single.long[currentLanguage]
+        }`
+      );
   }
 
-  return result.join(' ');
+  return {
+    short: short.join(' '),
+    long: long.join(' '),
+  };
 };

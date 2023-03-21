@@ -207,3 +207,7 @@
 .sbb-pearl-chain__position--no-animation {
   animation: unset;
 }
+
+.sbb-screenreaderonly {
+  @include sbb.screen-reader-only;
+}
