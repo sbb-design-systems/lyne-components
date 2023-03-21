@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.28.5](https://github.com/lyne-design-system/lyne-components/compare/v0.28.4...v0.28.5) (2023-03-21)
+
+### Refactorings
+
+- **sbb-timetable:** use GetTripsQuery for types and interfaces ([#1678](https://github.com/lyne-design-system/lyne-components/issues/1678)) ([3476aff](https://github.com/lyne-design-system/lyne-components/commit/3476aff5e2a13cbca42321bf00b99149b00eb625))
+
 ### [0.28.4](https://github.com/lyne-design-system/lyne-components/compare/v0.28.3...v0.28.4) (2023-03-13)
 
 ### Features
