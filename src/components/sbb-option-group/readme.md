@@ -18,19 +18,6 @@
 | `"unnamed"` | Used to display options. |
 
 
-## Dependencies
-
-### Depends on
-
-- [sbb-divider](../sbb-divider)
-
-### Graph
-```mermaid
-graph TD;
-  sbb-option-group --> sbb-divider
-  style sbb-option-group fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 

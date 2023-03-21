@@ -1,5 +1,7 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, Watch } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Used to display options.
@@ -25,6 +27,8 @@ export class SbbOptionGroup implements ComponentInterface {
     }
   }
 
+  private _optGroupLabelId = `sbb-optgroup-label-${++nextId}`;
+
   private get _options(): HTMLSbbOptionElement[] {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
   }
@@ -39,15 +43,15 @@ export class SbbOptionGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <div class="sbb-option-group">
-        <div class="sbb-option-group__label">{this.label}</div>
-        <div class="sbb-option-group__options">
-          <slot onSlotchange={() => this._updateOptions()} />
-        </div>
-        <div class="sbb-option-group__divider">
+      <Host role="group" aria-labelledby={this._optGroupLabelId}>
+        <span class="sbb-option-group__label" aria-hidden="true" id={this._optGroupLabelId}>
+          {this.label}
+        </span>
+        <slot onSlotchange={() => this._updateOptions()} />
+        {/* <div class="sbb-option-group__divider">
           <sbb-divider></sbb-divider>
-        </div>
-      </div>
+        </div> */}
+      </Host>
     );
   }
 }
