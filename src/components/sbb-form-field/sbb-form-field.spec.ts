@@ -19,24 +19,23 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper">
                <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
-                <label class="sbb-form-field__label">
-                  <slot name="label">
-                    <span>
-                      Fill input
-                    </span>
-                  </slot>
-                </label>
+                <span class="sbb-form-field__label">
+                  <slot name="label"></slot>
+                </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error">
+            <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
             </div>
           </div>
         </mock:shadow-root>
+        <label data-creator="SBB-FORM-FIELD" slot="label">
+          Fill input
+        </label>
         <input class="input" placeholder="This is an input" slot="input">
       </sbb-form-field>
     `);
@@ -72,7 +71,7 @@ describe('sbb-form-field', () => {
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error">
+            <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
             </div>
           </div>
@@ -101,24 +100,23 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
-                <label class="sbb-form-field__label">
-                  <slot name="label">
-                    <span>
-                      Fill input
-                    </span>
-                  </slot>
-                </label>
+                <span class="sbb-form-field__label">
+                  <slot name="label"></slot>
+                </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error">
+            <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
             </div>
           </div>
         </mock:shadow-root>
+        <label data-creator="SBB-FORM-FIELD" slot="label">
+          Fill input
+        </label>
         <input class="input" disabled="" placeholder="This is an input" slot="input">
       </sbb-form-field>
     `);
@@ -143,24 +141,23 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
-                <label class="sbb-form-field__label">
-                  <slot name="label">
-                    <span>
-                      Fill input
-                    </span>
-                  </slot>
-                </label>
+                <span class="sbb-form-field__label">
+                  <slot name="label"></slot>
+                </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error">
+            <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
             </div>
           </div>
         </mock:shadow-root>
+        <label data-creator="SBB-FORM-FIELD" slot="label">
+          Fill input
+        </label>
         <input aria-describedby="error" class="input" placeholder="This is an input" readonly="" slot="input">
         <sbb-form-error id="error">
           You can't change this value.
@@ -195,7 +192,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error">
+            <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
             </div>
           </div>
@@ -229,25 +226,24 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
-                <label class="sbb-form-field__label">
-                  <slot name="label">
-                    <span>
-                      Select option:
-                    </span>
-                  </slot>
+                <span class="sbb-form-field__label">
+                  <slot name="label"></slot>
                   <span aria-hidden="true">&nbsp;(optional)</span>
-                </label>
+                </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
                <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error">
+            <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
             </div>
           </div>
         </mock:shadow-root>
+        <label data-creator="SBB-FORM-FIELD" slot="label">
+          Select option:
+        </label>
         <select>
           <option>Value 1</option>
           <option>Value 2</option>
