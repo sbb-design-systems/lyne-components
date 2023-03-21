@@ -127,6 +127,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
+    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
     this._state = 'closing';
     this.willClose.emit();
     this._openPanelEventsController.abort();
@@ -338,7 +339,6 @@ export class SbbAutocomplete implements ComponentInterface {
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
     this._resetActiveElement();
     this.didClose.emit();
   }
