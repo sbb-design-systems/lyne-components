@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.28.6](https://github.com/lyne-design-system/lyne-components/compare/v0.28.5...v0.28.6) (2023-03-21)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** improve accessibility ([#1677](https://github.com/lyne-design-system/lyne-components/issues/1677)) ([d374853](https://github.com/lyne-design-system/lyne-components/commit/d37485389642d565bb44b44dd3511aab4bdfbd9c))
+
 ### [0.28.5](https://github.com/lyne-design-system/lyne-components/compare/v0.28.4...v0.28.5) (2023-03-21)
 
 ### Refactorings
