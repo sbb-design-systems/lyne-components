@@ -12,7 +12,6 @@
   &::before {
     content: '';
     display: block;
-    visibility: hidden;
     position: absolute;
     z-index: -1;
     background-color: white;
@@ -33,7 +32,6 @@
   }
 
   &[data-autocomplete-open]:not([data-autocomplete-open='false'])::before {
-    visibility: visible;
     opacity: 1;
   }
 
