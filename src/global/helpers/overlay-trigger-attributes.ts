@@ -47,6 +47,7 @@ export function setAriaComboBoxAttributes(
   trigger.setAttribute('aria-autocomplete', 'list');
   trigger.setAttribute('aria-haspopup', 'listbox');
   trigger.setAttribute('aria-controls', overlayId);
+  trigger.setAttribute('aria-owns', overlayId);
   trigger.setAttribute('aria-expanded', `${expanded}`);
 }
 
@@ -63,5 +64,6 @@ export function removeAriaComboBoxAttributes(trigger: HTMLElement): void {
   trigger.removeAttribute('aria-autocomplete');
   trigger.removeAttribute('aria-haspopup');
   trigger.removeAttribute('aria-controls');
+  trigger.removeAttribute('aria-owns');
   trigger.removeAttribute('aria-expanded');
 }
