@@ -355,9 +355,7 @@ export class SbbNavigation implements ComponentInterface {
     const closeButton = (
       <sbb-button
         class="sbb-navigation__close"
-        aria-label={
-          this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]
-        }
+        aria-label={this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
         aria-controls="sbb-navigation-dialog-id"
         variant="transparent"
         negative={true}
