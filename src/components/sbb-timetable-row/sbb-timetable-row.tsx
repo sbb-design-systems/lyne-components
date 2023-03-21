@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
 import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
 
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
@@ -153,7 +153,9 @@ export class SbbTimetableRow {
     const durationObj = durationToTime(duration, this._currentLanguage);
 
     return (
-      <sbb-card size="l" active={this.active} id={id} role="rowgroup">
+      <Host role="rowgroup">
+
+      <sbb-card size="l" active={this.active} id={id}>
         {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
         {this.price && !this.loadingPrice && (
           <sbb-card-badge
@@ -293,6 +295,7 @@ export class SbbTimetableRow {
           </div>
         </div>
       </sbb-card>
+      </Host>
     );
   }
 }

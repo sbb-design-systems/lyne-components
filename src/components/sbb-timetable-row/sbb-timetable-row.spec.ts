@@ -17,9 +17,9 @@ describe('sbb-timetable-row', () => {
       page.rootInstance.trip = defaultTrip;
       await page.waitForChanges();
       expect(page.root).toEqualHtml(`
-        <sbb-timetable-row data-now="1660662000000">
+        <sbb-timetable-row data-now="1660662000000" role="rowgroup">
           <mock:shadow-root>
-            <sbb-card role="rowgroup" size="l">
+            <sbb-card size="l">
               <div class="sbb-timetable__row" role="row">
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
@@ -71,9 +71,9 @@ describe('sbb-timetable-row', () => {
       page.rootInstance.trip = BusTrip;
       await page.waitForChanges();
       expect(page.root).toEqualHtml(`
-        <sbb-timetable-row data-now="1660662000000">
+        <sbb-timetable-row data-now="1660662000000" role="rowgroup">
           <mock:shadow-root>
-            <sbb-card role="rowgroup" size="l">
+            <sbb-card size="l">
               <div class="sbb-timetable__row" role="row">
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
