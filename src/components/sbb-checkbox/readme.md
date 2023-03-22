@@ -50,14 +50,13 @@ This internal checkbox receives focus and is automatically labelled by the text 
 `<sbb-checkbox>` element. Avoid adding other interactive controls into the content of
 `<sbb-checkbox>`, as this degrades the experience for users of assistive technology.
 
-Always provide an accessible label via `accessibility-label` for checkboxes without
+Always provide an accessible label via `aria-label` for checkboxes without
 descriptive text content.
 If you don't want the label to appear next to the checkbox, you can use
-`accessibility-label` (forwarded as [`aria-label`](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html)) to
-specify an appropriate label.
+`aria-label` to specify an appropriate label.
 
 ```html
-<sbb-checkbox accessibility-label="Subscribed to email message" />
+<sbb-checkbox aria-label="Subscribed to email message" />
 ```
 
 <!-- Auto Generated Below -->

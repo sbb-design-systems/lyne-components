@@ -37,10 +37,11 @@ export class SbbPearlChain {
   private _getAllDuration(legs: PtRideLeg[]): number {
     return legs?.reduce(
       (sum: number, leg) =>
-        (sum + differenceInMinutes(
+        sum +
+        differenceInMinutes(
           removeTimezoneFromISOTimeString(leg.arrival?.time),
           removeTimezoneFromISOTimeString(leg.departure?.time)
-        )),
+        ),
       0
     );
   }
