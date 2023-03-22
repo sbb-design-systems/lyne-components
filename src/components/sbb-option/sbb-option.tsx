@@ -187,8 +187,10 @@ export class SbbOption implements ComponentInterface {
     return (
       <Host
         role="option"
-        aria-disabled={(this.disabled || this._disabledFromGroup).toString()}
-        aria-selected={this.selected.toString()}
+        /* eslint-disable jsx-a11y/aria-proptypes */
+        aria-selected={`${this.selected}`}
+        aria-disabled={`${this.disabled || this._disabledFromGroup}`}
+        /* eslint-enable jsx-a11y/aria-proptypes */
         data-disable-highlight={this._disableLabelHighlight}
         ref={assignId(() => this._optionId)}
       >
