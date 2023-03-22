@@ -40,10 +40,11 @@ In order to make screen readers announce the type of the trigger when is focused
 </sbb-tooltip-trigger>
 ```
 
-To make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` and set `role="button"`, since the `aria-describedby` attribute can be used with semantic HTML elements and with elements that have an ARIA `role`:
+To make screen readers announce the tooltip content when the trigger is focused, 
+associate the tooltip trigger with the tooltip via `aria-describedby` and an `id`.
 
 ```html
-<sbb-tooltip-trigger role="button" aria-describedby="tooltip-content" id="tooltip-trigger"></sbb-tooltip-trigger>
+<sbb-tooltip-trigger aria-describedby="tooltip-content" id="tooltip-trigger"></sbb-tooltip-trigger>
 
 <!-- Tooltip component -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">

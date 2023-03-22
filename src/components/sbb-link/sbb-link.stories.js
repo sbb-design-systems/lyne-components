@@ -170,6 +170,12 @@ const form = {
   },
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   text,
   variant,
@@ -187,6 +193,7 @@ const defaultArgTypes = {
   name,
   value,
   form,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -206,6 +213,7 @@ const defaultArgs = {
   name: 'Button name',
   value: undefined,
   form: undefined,
+  'aria-label': undefined,
 };
 
 /* ************************************************* */
@@ -217,9 +225,6 @@ BlockXS.args = {
   ...defaultArgs,
   size: size.options[0],
 };
-BlockXS.documentation = {
-  title: 'Block Size XS',
-};
 
 export const BlockS = Template.bind({});
 BlockS.argTypes = defaultArgTypes;
@@ -227,18 +232,12 @@ BlockS.args = {
   ...defaultArgs,
   size: size.options[1],
 };
-BlockS.documentation = {
-  title: 'Block Size S',
-};
 
 export const BlockM = Template.bind({});
 BlockM.argTypes = defaultArgTypes;
 BlockM.args = {
   ...defaultArgs,
   size: size.options[2],
-};
-BlockM.documentation = {
-  title: 'Block Size M',
 };
 
 export const BlockXSIcon = Template.bind({});
@@ -249,9 +248,6 @@ BlockXSIcon.args = {
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
-BlockXSIcon.documentation = {
-  title: 'Block Size XS Icon',
-};
 
 export const BlockSIcon = Template.bind({});
 BlockSIcon.argTypes = defaultArgTypes;
@@ -260,9 +256,6 @@ BlockSIcon.args = {
   size: size.options[1],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
-};
-BlockSIcon.documentation = {
-  title: 'Block Size S Icon',
 };
 
 export const BlockMIcon = Template.bind({});
@@ -273,18 +266,12 @@ BlockMIcon.args = {
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
-BlockMIcon.documentation = {
-  title: 'Block Size M Icon',
-};
 
 export const BlockIconStart = Template.bind({});
 BlockIconStart.argTypes = defaultArgTypes;
 BlockIconStart.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-left-small',
-};
-BlockIconStart.documentation = {
-  title: 'Block Icon Start',
 };
 
 export const BlockNegative = Template.bind({});
@@ -295,9 +282,6 @@ BlockNegative.args = {
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
-BlockNegative.documentation = {
-  title: 'Block Negative Icon',
-};
 
 export const BlockWithSlottedIcon = IconSlotTemplate.bind({});
 BlockWithSlottedIcon.argTypes = defaultArgTypes;
@@ -305,9 +289,6 @@ BlockWithSlottedIcon.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
-};
-BlockWithSlottedIcon.documentation = {
-  title: 'Block with slotted icon',
 };
 
 export const BlockLinkOpensInNewWindow = IconSlotTemplate.bind({});
@@ -317,10 +298,7 @@ BlockLinkOpensInNewWindow.args = {
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
   target: '_blank',
-  'accessibility-label': undefined,
-};
-BlockLinkOpensInNewWindow.documentation = {
-  title: 'Block link opened in new window',
+  'aria-label': undefined,
 };
 
 export const BlockFixedWidth = FixedWidthTemplate.bind({});
@@ -329,9 +307,6 @@ BlockFixedWidth.args = {
   ...defaultArgs,
   text: 'A lot of link text to show what happens if there is not enough space.',
   'icon-name': 'chevron-small-left-small',
-};
-BlockFixedWidth.documentation = {
-  title: 'Block Fixed Width',
 };
 
 export const BlockButton = Template.bind({});
@@ -342,9 +317,6 @@ BlockButton.args = {
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
 };
-BlockButton.documentation = {
-  title: 'Block Button',
-};
 
 export const BlockButtonNegative = Template.bind({});
 BlockButtonNegative.argTypes = defaultArgTypes;
@@ -353,9 +325,6 @@ BlockButtonNegative.args = {
   negative: true,
   href: undefined,
   'icon-name': 'chevron-small-left-small',
-};
-BlockButtonNegative.documentation = {
-  title: 'Block Button Negative',
 };
 
 export const BlockButtonFixedWidth = FixedWidthTemplate.bind({});
@@ -366,9 +335,6 @@ BlockButtonFixedWidth.args = {
   text: 'A lot of link text to show what happens if there is not enough space.',
   'icon-name': 'chevron-small-left-small',
 };
-BlockButtonFixedWidth.documentation = {
-  title: 'Block Button Fixed Width',
-};
 
 export const Inline = InlineTemplate.bind({});
 Inline.argTypes = defaultArgTypes;
@@ -376,9 +342,6 @@ Inline.args = {
   ...defaultArgs,
   text: 'Show more',
   variant: variant.options[1],
-};
-Inline.documentation = {
-  title: 'Inline',
 };
 
 export const InlineNegative = InlineTemplate.bind({});
@@ -389,9 +352,6 @@ InlineNegative.args = {
   variant: variant.options[1],
   negative: true,
 };
-InlineNegative.documentation = {
-  title: 'Inline Negative',
-};
 
 export const InlineButton = InlineTemplate.bind({});
 InlineButton.argTypes = defaultArgTypes;
@@ -400,9 +360,6 @@ InlineButton.args = {
   text: 'Show more',
   variant: 'inline',
   href: undefined,
-};
-InlineNegative.documentation = {
-  title: 'Inline Button',
 };
 
 export const InlineButtonNegative = InlineTemplate.bind({});
@@ -413,9 +370,6 @@ InlineButtonNegative.args = {
   variant: 'inline',
   href: undefined,
   negative: true,
-};
-InlineButtonNegative.documentation = {
-  title: 'Inline Button',
 };
 
 export default {

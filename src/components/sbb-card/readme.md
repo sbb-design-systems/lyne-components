@@ -2,7 +2,8 @@
 
 The `sbb-card` component is a generic content container as an action element; its task is to contain HTML elements related to a single subject.
 
-Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute). When rendered as a button, it is possible to listen to the click event to add behavior.
+Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute).
+When rendered as a button, it is possible to listen to the click event to add behavior.
 
 There are six size variants available (from `xs` to `xxl`), which can be configured via the `size` attribute value,
 and two background variants, white by default and milk when the `color` attribute is set to `milk`.

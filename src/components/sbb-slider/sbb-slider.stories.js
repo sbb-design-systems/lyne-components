@@ -100,7 +100,7 @@ const endIconArg = {
   },
 };
 
-const accessibilityLabelArg = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -109,7 +109,7 @@ const accessibilityLabelArg = {
   },
 };
 
-const labelArg = {
+const labelArgArg = {
   control: {
     type: 'text',
   },
@@ -136,12 +136,12 @@ const basicArgTypes = {
   'value-as-number': valueAsNumberArg,
   'start-icon': startIconArg,
   'end-icon': endIconArg,
-  'accessibility-label': accessibilityLabelArg,
+  'aria-label': ariaLabel,
 };
 
 const formFieldBasicArgsTypes = {
   ...basicArgTypes,
-  label: labelArg,
+  label: labelArgArg,
   optional: optionalArg,
 };
 
@@ -154,7 +154,7 @@ const basicArgs = {
   'value-as-number': 40,
   'start-icon': 'walk-slow-small',
   'end-icon': 'walk-fast-small',
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 const formFieldBasicArgs = {

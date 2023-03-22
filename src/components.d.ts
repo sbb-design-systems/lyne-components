@@ -1309,10 +1309,6 @@ export namespace Components {
     }
     interface SbbTimetableRow {
         /**
-          * This will be forwarded as aria-label to the relevant element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * When this prop is true the sbb-card will be in the active state.
          */
         "active"?: boolean;
@@ -3438,10 +3434,6 @@ declare namespace LocalJSX {
         "config": string;
     }
     interface SbbTimetableRow {
-        /**
-          * This will be forwarded as aria-label to the relevant element.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * When this prop is true the sbb-card will be in the active state.
          */

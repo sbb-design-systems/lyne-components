@@ -40,9 +40,6 @@ export class SbbTimetableRow {
   /** The price Prop, which consists of the data for the badge. */
   @Prop() public price?: Price;
 
-  /** This will be forwarded as aria-label to the relevant element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
   @Prop() public disableAnimation?: boolean;
 

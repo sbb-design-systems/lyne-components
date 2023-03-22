@@ -27,11 +27,18 @@ const size = {
   options: ['m', 's'],
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   value,
   checked,
   disabled,
   size,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -39,6 +46,7 @@ const defaultArgs = {
   checked: false,
   disabled: false,
   size: size.options[0],
+  'aria-label': undefined,
 };
 
 const DefaultTemplate = (args) => <sbb-radio-button {...args}>Value</sbb-radio-button>;

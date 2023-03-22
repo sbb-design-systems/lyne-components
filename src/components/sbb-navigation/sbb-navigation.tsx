@@ -240,6 +240,7 @@ export class SbbNavigation implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
+      this._triggerElement?.focus();
       this._navigation.close();
       this.didClose.emit();
       this._windowEventsController?.abort();

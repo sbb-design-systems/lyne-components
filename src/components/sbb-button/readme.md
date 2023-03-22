@@ -1,6 +1,6 @@
 # sbb-button
 
-The `<sbb-button>` implements the design of the Lyne Button. If the `href` property is set, it will internally be rendered as link, otherwise as a button.
+If the `href` property is set, it will internally be rendered as link, otherwise as a button.
 If the `<sbb-button>` is placed inside another action element (e.g. button, link, ...),
 it is internally rendered as a `<span>` in order to not break HTML structure. 
 It's also possible to set the `<sbb-button>` manually into static state by applying `static` property.

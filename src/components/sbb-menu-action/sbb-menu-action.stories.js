@@ -127,6 +127,12 @@ const form = {
   },
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   text,
   amount,
@@ -140,13 +146,13 @@ const defaultArgTypes = {
   name,
   value,
   form,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
   text: 'Details',
   amount: '99',
   'icon-name': 'tick-small',
-
   href: 'https://www.sbb.ch/en',
   target: '_blank',
   rel: undefined,
@@ -156,6 +162,7 @@ const defaultArgs = {
   name: undefined,
   value: undefined,
   form: undefined,
+  'aria-label': ariaLabel,
 };
 
 const buttonArgs = {

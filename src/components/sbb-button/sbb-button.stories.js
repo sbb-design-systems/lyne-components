@@ -182,6 +182,12 @@ const form = {
   },
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   text,
   variant,
@@ -198,6 +204,7 @@ const defaultArgTypes = {
   name,
   value,
   form,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -216,6 +223,7 @@ const defaultArgs = {
   name: 'Button Name',
   value: undefined,
   form: undefined,
+  'aria-label': undefined,
 };
 
 export const primary = Template.bind({});
@@ -396,7 +404,7 @@ linkOpensInNewWindow.args = {
   href: 'https://www.sbb.ch',
   'icon-name': 'chevron-small-right-small',
   target: '_blank',
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 export default {

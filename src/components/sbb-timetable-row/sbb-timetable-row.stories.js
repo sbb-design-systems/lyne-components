@@ -21,12 +21,6 @@ import {
 } from './sbb-timetable-row.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
 const disableAnimation = {
   control: {
     type: 'boolean',
@@ -64,7 +58,6 @@ const boarding = {
 };
 
 const defaultArgTypes = {
-  'accessibility-label': accessibilityLabel,
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,

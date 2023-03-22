@@ -8,12 +8,20 @@ const size = {
   options: ['l', 'm', 's'],
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   size,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
   size: size.options[0],
+  'aria-label': undefined,
 };
 
 const Template = (args) => <sbb-navigation-action {...args}>Label</sbb-navigation-action>;

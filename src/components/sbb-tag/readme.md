@@ -37,7 +37,7 @@ Unchecked required with custom icon and amount:
 
 ## Accessibility
 
-The component uses an internal `<button>` element to provide an accessible experience. 
+The component imitates an `<button>` element to provide an accessible experience. 
 The state is reflected via `aria-pressed` attribute.
 
 
