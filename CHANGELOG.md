@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.29.0](https://github.com/lyne-design-system/lyne-components/compare/v0.28.6...v0.29.0) (2023-03-22)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-form-field:** It is now required to use a `<label>` to label an input in a `<sbb-form-field>`.
+
+### Bug Fixes
+
+- **sbb-form-field:** always use label to link to input ([#1680](https://github.com/lyne-design-system/lyne-components/issues/1680)) ([c416f68](https://github.com/lyne-design-system/lyne-components/commit/c416f68da95b9fd96c111c944a1c74fd6f0a39f6))
+
 ### [0.28.6](https://github.com/lyne-design-system/lyne-components/compare/v0.28.5...v0.28.6) (2023-03-21)
 
 ### Bug Fixes
