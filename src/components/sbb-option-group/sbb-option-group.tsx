@@ -39,7 +39,7 @@ export class SbbOptionGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="group" aria-label={this.label} aria-disabled="false">
+      <Host role="group" aria-label={this.label} aria-disabled={this.disabled.toString()}>
         <span class="sbb-option-group__label" aria-hidden="true">
           {this.label}
         </span>
