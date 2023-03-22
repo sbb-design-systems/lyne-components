@@ -151,20 +151,18 @@
 
   display: flex;
   max-width: 100%;
+  cursor: default;
 
   // Moves label down and input up to meet positioning requirements
   margin-block-end: var(--sbb-form-field-label-to-input-gap);
   color: var(--sbb-form-field-label-color);
-  user-select: none;
-  pointer-events: none;
 
   :host([data-input-type='select']) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
 
-::slotted(*[slot='label']),
-slot[name='label'] > span {
+::slotted(*[slot='label']) {
   @include sbb.ellipsis;
 }
 
