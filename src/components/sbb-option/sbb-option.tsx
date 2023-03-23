@@ -19,7 +19,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { SbbOptionSelectionChange } from './sbb-option.custom';
+import { SbbOptionSelectionChange, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
@@ -85,6 +85,7 @@ export class SbbOption implements ComponentInterface {
 
   private _optionId = `sbb-option-${++nextId}`;
   private _labelSlot: HTMLSlotElement;
+  private _variant: SbbOptionVariant;
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new MutationObserver(
@@ -129,11 +130,22 @@ export class SbbOption implements ComponentInterface {
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._disabledFromGroup = !!this._element.dataset.groupDisabled;
     this._optionAttributeObserver.observe(this._element, optionObserverConfig);
+    this._setVariantByContext();
   }
 
   public componentDidLoad(): void {
     if (!this._disableLabelHighlight) {
       this._setupHighlightHandler();
+    }
+  }
+
+  private _setVariantByContext(): void {
+    if (this._element.closest('sbb-autocomplete')) {
+      this._variant = 'autocomplete';
+    } else if (this._element.closest('sbb-select')) {
+      this._variant = 'select';
+    } else {
+      throw new Error('sbb-option component is not used within sbb-select or sbb-autocomplete');
     }
   }
 
@@ -183,10 +195,34 @@ export class SbbOption implements ComponentInterface {
     ];
   }
 
+  private _renderAutocompleteOption(): JSX.Element {
+    return (
+      <div class="sbb-option">
+        <span
+          class={{
+            'sbb-option__icon': true,
+            'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
+          }}
+        >
+          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+        </span>
+        <span class="sbb-option__label">
+          <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
+          {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+        </span>
+      </div>
+    );
+  }
+
+  private _renderSelectOption(): JSX.Element {
+    return null;
+  }
+
   public render(): JSX.Element {
     return (
       <Host
         role="option"
+        data-variant={this._variant}
         /* eslint-disable jsx-a11y/aria-proptypes */
         aria-selected={`${this.selected}`}
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
@@ -194,20 +230,9 @@ export class SbbOption implements ComponentInterface {
         data-disable-highlight={this._disableLabelHighlight}
         ref={assignId(() => this._optionId)}
       >
-        <div class="sbb-option">
-          <span
-            class={{
-              'sbb-option__icon': true,
-              'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-            }}
-          >
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-          </span>
-          <span class="sbb-option__label">
-            <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
-            {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
-          </span>
-        </div>
+        {this._variant && this._variant === 'select'
+          ? this._renderSelectOption()
+          : this._renderAutocompleteOption()}
       </Host>
     );
   }
