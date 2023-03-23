@@ -26,7 +26,8 @@
   display: block;
   min-height: var(--sbb-panel-height);
 
-  :host(:focus-visible) & {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
   }
 }

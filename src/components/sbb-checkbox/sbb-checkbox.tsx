@@ -182,6 +182,8 @@ export class SbbCheckbox implements ComponentInterface {
               value={this.value}
               onInput={() => this.handleInputEvent()}
               onChange={(event) => this.handleChangeEvent(event)}
+              // Fix focus when using NVDA
+              onFocus={() => this._element.focus()}
             />
             <span class="sbb-checkbox__inner">
               <span class="sbb-checkbox__aligner">

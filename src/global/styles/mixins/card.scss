@@ -120,7 +120,8 @@
     pointer-events: none;
   }
 
-  &:focus-visible {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
     @include a11y.focus-outline;
   }
 }

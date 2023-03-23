@@ -69,6 +69,18 @@ function isButtonSpaceKeyEvent(event: KeyboardEvent): boolean {
   return event.key === ' ' && !(event.target as Element & { href?: string }).href;
 }
 
+function dispatchClickEvent(event: KeyboardEvent): void {
+  (event.target as Element).dispatchEvent(
+    new PointerEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      composed: true,
+      pointerId: -1,
+      pointerType: '',
+    })
+  );
+}
+
 /**
  * Prevents scrolling from pressing Space, when the event target is an action element.
  * Also sets data-active attribute.
@@ -89,9 +101,7 @@ function preventScrollWhenButtonAndSpaceKeydown(event: KeyboardEvent): void {
  */
 function dispatchClickEventWhenEnterKeypress(event: KeyboardEvent): void {
   if (event.key === 'Enter') {
-    (event.target as Element).dispatchEvent(
-      new PointerEvent('click', { bubbles: true, cancelable: true, composed: true })
-    );
+    dispatchClickEvent(event);
   }
 }
 
@@ -108,9 +118,7 @@ function removeActiveMarker(event: Event): void {
 function dispatchClickEventWhenButtonAndSpaceKeyup(event: KeyboardEvent): void {
   if (isButtonSpaceKeyEvent(event)) {
     removeActiveMarker(event);
-    (event.target as Element).dispatchEvent(
-      new PointerEvent('click', { bubbles: true, cancelable: true, composed: true })
-    );
+    dispatchClickEvent(event);
   }
 }
 

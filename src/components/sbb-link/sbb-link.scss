@@ -51,12 +51,6 @@
   width: 100%;
   cursor: pointer;
 
-  :host(:focus-visible) & {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
-
   :host([variant='inline']) & {
     @include sbb.link-inline-base;
   }
@@ -80,6 +74,13 @@
     @include sbb.if-forced-colors {
       color: GrayText;
     }
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 
   :host(:hover:not([disabled]:not([disabled='false']))) & {

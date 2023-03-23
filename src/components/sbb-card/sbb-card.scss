@@ -73,7 +73,8 @@
 
   // This rule is duplication of the one included in the mixin. As the focus will land on the host,
   // the inner action element and its :focus-visible state cannot be reached via user action.
-  :host(:focus-visible) & {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
   }
 }

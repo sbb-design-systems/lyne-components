@@ -124,32 +124,32 @@ export const getHimIcon = (situation: PtSituation): HimCus => {
     case 'DISTURBANCE':
       return {
         name: 'disruption',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages?.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'INFORMATION':
       return {
         name: 'info',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'DELAY':
       return {
         name: 'delay',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'TRAIN_REPLACEMENT_BY_BUS':
       return {
         name: 'replacementbus',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'CONSTRUCTION_SITE':
       return {
         name: 'construction',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     default:
       return {
         name: 'info',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
   }
 };

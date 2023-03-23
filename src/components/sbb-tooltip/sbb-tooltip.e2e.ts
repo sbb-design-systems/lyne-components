@@ -274,6 +274,13 @@ describe('sbb-tooltip', () => {
     expect(dialog).toHaveAttribute('open');
 
     await page.waitForChanges();
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-link');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip');
+    expect(
+      await page.evaluate(
+        () =>
+          document.activeElement.shadowRoot.activeElement ===
+          document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]')
+      )
+    ).toBe(true);
   });
 });

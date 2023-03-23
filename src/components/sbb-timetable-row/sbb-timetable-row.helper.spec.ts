@@ -36,7 +36,10 @@ describe('sortSituation', () => {
         { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
         { cause: 'DISTURBANCE', broadcastMessages: [] },
       ])
-    ).toStrictEqual([{ cause: 'DISTURBANCE' }, { cause: 'TRAIN_REPLACEMENT_BY_BUS' }]);
+    ).toStrictEqual([
+      { cause: 'DISTURBANCE', broadcastMessages: [] },
+      { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+    ]);
   });
 
   it('should return sorted array even with double causes', () => {
@@ -47,9 +50,9 @@ describe('sortSituation', () => {
         { cause: 'DISTURBANCE', broadcastMessages: [] },
       ])
     ).toStrictEqual([
-      { cause: 'DISTURBANCE' },
-      { cause: 'DISTURBANCE' },
-      { cause: 'TRAIN_REPLACEMENT_BY_BUS' },
+      { cause: 'DISTURBANCE', broadcastMessages: [] },
+      { cause: 'DISTURBANCE', broadcastMessages: [] },
+      { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
     ]);
   });
 });
@@ -60,7 +63,8 @@ describe('getHimIcon', () => {
       cause: 'TRAIN_REPLACEMENT_BY_BUS',
       broadcastMessages: [],
     };
-    expect(getHimIcon(situation)).toStrictEqual({ name: 'replacementbus', text: '' });
+    expect(getHimIcon(situation).name).toEqual('replacementbus');
+    expect(getHimIcon(situation).text).toEqual('');
   });
 
   it('should return info', () => {
@@ -68,7 +72,7 @@ describe('getHimIcon', () => {
       cause: null,
       broadcastMessages: [],
     };
-    expect(getHimIcon(situation)).toStrictEqual({ name: 'info', text: '' });
+    expect(getHimIcon(situation).name).toEqual('info');
   });
 });
 
