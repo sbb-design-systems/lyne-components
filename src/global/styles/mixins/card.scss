@@ -16,6 +16,10 @@
   --sbb-card-animation-easing: var(--sbb-animation-easing);
   --sbb-card-border-color: transparent;
   --sbb-card-hover-shift: 0;
+
+  @include a11y.if-forced-colors {
+    --sbb-card-border-color: CanvasText;
+  }
 }
 
 @mixin card-variables--milk {
@@ -24,6 +28,10 @@
 
 @mixin card-variables--active {
   --sbb-card-border-color: var(--sbb-color-smoke-default);
+
+  @include a11y.if-forced-colors {
+    --sbb-card-border-color: Highlight;
+  }
 }
 
 // Card sizing
@@ -78,6 +86,12 @@
   --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
+@mixin card-variables--button {
+  @include a11y.if-forced-colors {
+    --sbb-card-color: ButtonText;
+  }
+}
+
 @mixin card {
   @include typo.text-inherit;
   @include buttons.button-reset;
@@ -94,6 +108,7 @@
   cursor: pointer;
   text-decoration: none;
   user-select: text;
+  color: var(--sbb-card-color);
 
   &::after {
     position: absolute;
@@ -108,10 +123,6 @@
   &:focus-visible {
     @include a11y.focus-outline;
   }
-
-  @include a11y.if-forced-colors {
-    border: var(--sbb-border-width-1x) solid ButtonText;
-  }
 }
 
 @mixin card--hover($cardSelector) {
@@ -120,6 +131,10 @@
 
     #{$cardSelector} {
       @include shadows.shadow-level-9-hard;
+    }
+
+    @include a11y.if-forced-colors {
+      --sbb-card-border-color: Highlight;
     }
   }
 }

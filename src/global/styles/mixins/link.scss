@@ -31,9 +31,18 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
+@mixin link-variables--button {
+  @include a11y.if-forced-colors {
+    --sbb-link-color-normal: ButtonText;
+    --sbb-link-color-hover: ButtonText;
+    --sbb-link-color-active: ButtonText;
+  }
+}
+
 @mixin link-base {
   color: var(--sbb-link-color-normal);
   text-decoration: var(--sbb-link-text-decoration);
+  user-select: none;
 }
 
 @mixin link-inline-base {

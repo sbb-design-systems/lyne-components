@@ -45,6 +45,11 @@
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
   }
+
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
+  }
 }
 
 :host([variant='primary'][negative]:not([negative='false'])) {
@@ -196,6 +201,7 @@
   padding-inline: var(--sbb-button-padding-inline);
   color: var(--sbb-button-color-default-text);
   cursor: pointer;
+  user-select: none;
 
   // Renders background and border in the background absolute to enable the hover animation
   &::before {
@@ -208,10 +214,6 @@
     transition-duration: var(--sbb-button-transition-duration);
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
-
-    @include sbb.if-forced-colors {
-      border: var(--sbb-border-width-1x) solid CanvasText;
-    }
 
     :host(:focus-visible) & {
       @include sbb.focus-outline;
@@ -311,8 +313,16 @@
   }
 }
 
-:host([static]:not([static='false'])) {
-  user-select: none;
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: ButtonText !important;
+    --sbb-button-color-hover-text: ButtonText !important;
+    --sbb-button-color-active-text: ButtonText !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+    --sbb-button-color-disabled-background: Canvas !important;
+  }
 }
 
 .sbb-button__label,

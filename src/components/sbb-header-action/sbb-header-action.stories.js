@@ -103,6 +103,10 @@ const form = {
   },
 };
 
+const ariaLabel = {
+  control: { type: 'text' },
+};
+
 const basicArgTypes = {
   text,
   'expand-from': expandFrom,
@@ -115,6 +119,7 @@ const basicArgTypes = {
   name,
   value,
   form,
+  'aria-label': ariaLabel,
 };
 
 const basicArgs = {
@@ -129,6 +134,7 @@ const basicArgs = {
   name: undefined,
   value: undefined,
   form: undefined,
+  'aria-label': undefined,
 };
 
 const basicArgsButton = {

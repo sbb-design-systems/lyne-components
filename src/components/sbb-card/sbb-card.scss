@@ -5,11 +5,12 @@
 @include sbb.host-component-properties;
 
 :host {
+  @include sbb.card-variables;
+
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
   border-radius: var(--sbb-card-border-radius);
-  @include sbb.card-variables;
 }
 
 :host([color='milk']) {
@@ -60,6 +61,10 @@
   @include sbb.card--hover('.sbb-card');
 }
 
+:host([role='button']) {
+  @include sbb.card-variables--button;
+}
+
 .sbb-card {
   @include sbb.card;
 
@@ -85,4 +90,10 @@
 // as we do not expect multiple titles to be used inside a card.
 ::slotted(sbb-title) {
   margin-block-start: 0;
+
+  :host([role='button']) & {
+    @include sbb.if-forced-colors {
+      --sbb-title-text-color-normal: ButtonText;
+    }
+  }
 }

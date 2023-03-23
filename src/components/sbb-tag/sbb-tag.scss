@@ -21,6 +21,13 @@
     --sbb-tag-height: #{sbb.px-to-rem-build(40)};
   }
 
+  @include sbb.if-forced-colors {
+    --sbb-tag-background-color: Canvas !important;
+    --sbb-tag-text-color: ButtonText;
+    --sbb-tag-amount-color: ButtonText;
+    --sbb-tag-border-color: CanvasText;
+  }
+
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
@@ -56,12 +63,29 @@
   --sbb-tag-border-color: var(--sbb-color-platinum-default);
 }
 
+:host(:hover:not([disabled]:not([disabled='false']), :active, [data-active])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-tag-background-color: var(--sbb-color-milk-default);
+    --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
+    --sbb-tag-transition: translateY(calc(var(--sbb-border-width-1x) * -1));
+
+    @include sbb.if-forced-colors {
+      --sbb-tag-border-color: Highlight;
+    }
+  }
+}
+
 // Pressed state
-:host(:is(:active, [data-active])) {
+:host(:is(:active, [data-active]):not([disabled]:not([disabled='false']))) {
   --sbb-tag-background-color: var(--sbb-color-milk-default);
   --sbb-tag-border-color: var(--sbb-color-iron-default);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
   --sbb-tag-text-color: var(--sbb-color-iron-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-tag-border-color: Highlight;
+    --sbb-tag-text-color: ButtonText;
+  }
 }
 
 .sbb-tag {
@@ -79,6 +103,7 @@
   color: var(--sbb-tag-text-color);
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   -webkit-tap-highlight-color: transparent;
+  user-select: none;
 
   &::before {
     content: '';
@@ -105,15 +130,6 @@
       inset: 50% var(--sbb-spacing-fixed-5x);
       border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
       @include sbb.absolute-center-y;
-    }
-  }
-
-  :host(:hover:not([disabled]:not([disabled='false']), :active, [data-active])) & {
-    // If the the device can hover over elements with ease
-    @include sbb.hover-mq($hover: true) {
-      --sbb-tag-background-color: var(--sbb-color-milk-default);
-      --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
-      --sbb-tag-transition: translateY(calc(var(--sbb-border-width-1x) * -1));
     }
   }
 }

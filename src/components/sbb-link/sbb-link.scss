@@ -37,6 +37,10 @@
   @include sbb.link-variables--inline-negative;
 }
 
+:host([role='button']) {
+  @include sbb.link-variables--button;
+}
+
 .sbb-link {
   @include sbb.link-base;
 
@@ -72,6 +76,10 @@
   :host([disabled]:not([disabled='false'])) & {
     pointer-events: none;
     cursor: default;
+
+    @include sbb.if-forced-colors {
+      color: GrayText;
+    }
   }
 
   :host(:hover:not([disabled]:not([disabled='false']))) & {
