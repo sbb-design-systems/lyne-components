@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.29.1](https://github.com/lyne-design-system/lyne-components/compare/v0.29.0...v0.29.1) (2023-03-23)
+
+### Bug Fixes
+
+- **sbb-icon:** empty icon on Safari ([#1681](https://github.com/lyne-design-system/lyne-components/issues/1681)) ([0975b00](https://github.com/lyne-design-system/lyne-components/commit/0975b007139d644da784a40ccf287f92f3822e70))
+
 ## [0.29.0](https://github.com/lyne-design-system/lyne-components/compare/v0.28.6...v0.29.0) (2023-03-22)
 
 ### ⚠ BREAKING CHANGES
