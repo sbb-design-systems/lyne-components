@@ -166,6 +166,9 @@ export class SbbDialog implements ComponentInterface {
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
 
+  // Last element which had focus before the dialog was opened.
+  private _lastFocusedElement?: HTMLElement;
+
   @Element() private _element!: HTMLElement;
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -188,6 +191,7 @@ export class SbbDialog implements ComponentInterface {
     }
 
     this._openedByKeyboard = event?.detail === 0;
+    this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
     this._dialog.show();
@@ -293,6 +297,8 @@ export class SbbDialog implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._lastFocusedElement?.focus();
       this._dialog.close();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();

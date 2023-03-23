@@ -172,6 +172,8 @@ export class SbbNavigationSection implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationSectionWrapperElement.scrollTo(0, 0);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._triggerElement?.focus();
       this._navigationSection.close();
       this._windowEventsController?.abort();
     }
