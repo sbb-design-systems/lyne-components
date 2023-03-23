@@ -1,4 +1,3 @@
-import { PtSituation } from './sbb-timetable-row.custom';
 import {
   getCus,
   getHimIcon,
@@ -8,6 +7,7 @@ import {
   sortSituation,
 } from './sbb-timetable-row.helper';
 import { walkTimeTrip, partiallyCancelled } from './sbb-timetable-row.sample-data';
+import { PtSituation } from '../../global/interfaces/timetable-properties';
 
 describe('getTransportIcon', () => {
   it('should return schiff', () => {
@@ -32,16 +32,19 @@ describe('isProductIcon', () => {
 describe('sortSituation', () => {
   it('should return sorted array', () => {
     expect(
-      sortSituation([{ cause: 'TRAIN_REPLACEMENT_BY_BUS' }, { cause: 'DISTURBANCE' }])
+      sortSituation([
+        { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+        { cause: 'DISTURBANCE', broadcastMessages: [] },
+      ])
     ).toStrictEqual([{ cause: 'DISTURBANCE' }, { cause: 'TRAIN_REPLACEMENT_BY_BUS' }]);
   });
 
   it('should return sorted array even with double causes', () => {
     expect(
       sortSituation([
-        { cause: 'TRAIN_REPLACEMENT_BY_BUS' },
-        { cause: 'DISTURBANCE' },
-        { cause: 'DISTURBANCE' },
+        { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
+        { cause: 'DISTURBANCE', broadcastMessages: [] },
+        { cause: 'DISTURBANCE', broadcastMessages: [] },
       ])
     ).toStrictEqual([
       { cause: 'DISTURBANCE' },
@@ -55,6 +58,7 @@ describe('getHimIcon', () => {
   it('should return replacementbus', () => {
     const situation: PtSituation = {
       cause: 'TRAIN_REPLACEMENT_BY_BUS',
+      broadcastMessages: [],
     };
     expect(getHimIcon(situation)).toStrictEqual({ name: 'replacementbus', text: '' });
   });
@@ -62,6 +66,7 @@ describe('getHimIcon', () => {
   it('should return info', () => {
     const situation: PtSituation = {
       cause: null,
+      broadcastMessages: [],
     };
     expect(getHimIcon(situation)).toStrictEqual({ name: 'info', text: '' });
   });
