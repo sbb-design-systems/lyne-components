@@ -10,6 +10,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+:host([data-empty]) {
+  --sbb-icon-default-dimension: 0;
+}
+
 :host([data-empty][data-namespace='default'][name$='-small']) {
   --sbb-icon-default-dimension: var(--sbb-size-icon-ui-small);
 }
