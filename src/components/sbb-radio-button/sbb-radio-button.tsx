@@ -150,7 +150,6 @@ export class SbbRadioButton implements ComponentInterface {
       'aria-checked': this.checked?.toString() ?? 'false',
       'aria-required': (this.required || this._requiredFromGroup).toString(),
       'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
-      ...(this.disabled || this._disabledFromGroup ? undefined : { tabIndex: '0' }),
     };
     return (
       <Host {...attributes}>

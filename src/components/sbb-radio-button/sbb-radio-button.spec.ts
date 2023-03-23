@@ -9,7 +9,7 @@ describe('sbb-radio-button', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-radio-button aria-checked="false" aria-disabled="false" aria-required="false" size="m" role="radio" tabindex="0">
+        <sbb-radio-button aria-checked="false" aria-disabled="false" aria-required="false" size="m" role="radio">
           <mock:shadow-root>
             <label class="sbb-radio-button">
               <input aria-hidden="true" class="sbb-radio-button__input" tabindex="-1" type="radio">
