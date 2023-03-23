@@ -26,7 +26,7 @@
 
 :host([disabled]:not([disabled='false'])) {
   --sbb-menu-action-cursor: default;
-  --sbb-menu-action-color: var(--sbb-color-granite-default);
+  --sbb-menu-action-color: var(--sbb-color-graphite-default);
   --sbb-menu-action-forced-color-border-color: GrayText;
 
   @include sbb.if-forced-colors {
