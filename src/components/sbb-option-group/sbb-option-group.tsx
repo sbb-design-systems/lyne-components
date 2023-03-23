@@ -1,5 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
 
 /**
  * @slot unnamed - Used to display options.
@@ -25,8 +26,26 @@ export class SbbOptionGroup implements ComponentInterface {
     }
   }
 
+  private _variant: SbbOptionVariant;
+
+  public connectedCallback(): void {
+    this._setVariantByContext();
+  }
+
   private get _options(): HTMLSbbOptionElement[] {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
+  }
+
+  private _setVariantByContext(): void {
+    if (this._element.closest('sbb-autocomplete')) {
+      this._variant = 'autocomplete';
+    } else if (this._element.closest('sbb-select')) {
+      this._variant = 'select';
+    } else {
+      throw new Error(
+        'sbb-option-group component is not used within sbb-select or sbb-autocomplete'
+      );
+    }
   }
 
   private _updateOptions(): void {
@@ -39,7 +58,12 @@ export class SbbOptionGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="group" aria-label={this.label} aria-disabled={this.disabled.toString()}>
+      <Host
+        role="group"
+        data-variant={this._variant}
+        aria-label={this.label}
+        aria-disabled={this.disabled.toString()}
+      >
         <span class="sbb-option-group__label" aria-hidden="true">
           {this.label}
         </span>
