@@ -34,7 +34,7 @@
 .sbb-radio-button {
   @include sbb.text-m--regular;
 
-  display: inline-block;
+  display: block;
   cursor: pointer;
   user-select: none;
   position: relative;
