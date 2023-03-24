@@ -267,6 +267,9 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
+    this._triggerElement.addEventListener('click', () => this.open(), {
+      signal: this._triggerEventsController.signal,
+    });
     this._triggerElement.addEventListener('input', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
