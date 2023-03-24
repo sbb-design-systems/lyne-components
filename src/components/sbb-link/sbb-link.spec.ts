@@ -10,7 +10,7 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           size="m"
           download
-          accessibility-label="Travelcards & tickets"
+          aria-label="Travelcards & tickets"
           >
             Travelcards &amp; tickets.
           </sbb-link>
@@ -23,15 +23,18 @@ describe('sbb-link', () => {
           href="https://github.com/lyne-design-system/lyne-components"
           size="m"
           download
-          accessibility-label="Travelcards & tickets"
-          >
+          aria-label="Travelcards & tickets"
+          role="link"
+          tabindex="0"
+          dir="ltr"
+        >
           <mock:shadow-root>
             <a
-              aria-label="Travelcards & tickets"
               class="sbb-link"
-              dir="ltr"
               download
               href="https://github.com/lyne-design-system/lyne-components"
+              role="presentation"
+              tabindex="-1"
             >
               <slot></slot>
             </a>
@@ -53,7 +56,6 @@ describe('sbb-link', () => {
           type="submit"
           form="formid"
           disabled
-          accessibility-haspopup="true"
         >
           <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
           Travelcards &amp; tickets.
@@ -62,6 +64,7 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
+          role="button"
           variant="block"
           icon-placement="end"
           size="m"
@@ -70,23 +73,16 @@ describe('sbb-link', () => {
           type="submit"
           form="formid"
           disabled
-          accessibility-haspopup="true"
+          aria-disabled="true"
+          dir="ltr"
         >
           <mock:shadow-root>
-            <button
-              class="sbb-link"
-              dir="ltr"
-              disabled="true"
-              form="formid"
-              name="name"
-              type="submit"
-              aria-haspopup="true"
-            >
+            <span class="sbb-link">
               <span class="sbb-link__icon">
                 <slot name="icon"></slot>
               </span>
               <slot></slot>
-            </button>
+            </span>
           </mock:shadow-root>
           <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
           Travelcards &amp; tickets.
@@ -111,9 +107,11 @@ describe('sbb-link', () => {
             icon-name="chevron-small-right-small"
             size="m"
             variant="block"
-            static>
+            static
+            dir="ltr"
+            >
           <mock:shadow-root>
-            <span class="sbb-link" dir="ltr">
+            <span class="sbb-link">
               <span class="sbb-link__icon">
                 <slot name="icon">
                   <sbb-icon name="chevron-small-right-small"></sbb-icon>
@@ -138,9 +136,9 @@ describe('sbb-link', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link variant="block" static size="s">
+        <sbb-link dir="ltr" variant="block" static size="s">
           <mock:shadow-root>
-            <span class="sbb-link" dir="ltr">
+            <span class="sbb-link">
               <slot></slot>
             </span>
           </mock:shadow-root>
@@ -160,13 +158,16 @@ describe('sbb-link', () => {
 
     expect(root).toEqualHtml(`
         <sbb-link
-            size="m"
-            variant="inline"
-            href="#link"
-            target="_blank"
->
+          size="m"
+          variant="inline"
+          href="#link"
+          role="link"
+          tabindex="0"
+          target="_blank"
+          dir="ltr"
+        >
           <mock:shadow-root>
-            <a class="sbb-link" dir="ltr" href="#link" rel="external noopener nofollow" target="_blank">
+            <a class="sbb-link" href="#link" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
               <slot></slot>
               <span class="sbb-link__opens-in-new-window">. Link target opens in new window.</span>
             </a>

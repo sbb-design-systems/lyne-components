@@ -17,6 +17,10 @@
   }
 
   display: inline-block;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
 
 :host([data-group-disabled]),
@@ -53,6 +57,13 @@
   display: flex;
 
   @include sbb.zero-width-space;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
 }
 
 .sbb-checkbox {
@@ -153,10 +164,4 @@ input[type='checkbox'] {
     justify-content: flex-start;
     flex-grow: 1;
   }
-}
-
-input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
-  @include sbb.focus-outline;
-
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
 }

@@ -17,7 +17,7 @@ describe('sbb-dialog', () => {
               <div class="sbb-dialog__wrapper">
                 <div class="sbb-dialog__header">
                   <sbb-button
-                    accessibility-label="${i18nCloseDialog.en}"
+                    aria-label="${i18nCloseDialog.en}"
                     class="sbb-dialog__close"
                     icon-name="cross-small"
                     sbb-dialog-close=""

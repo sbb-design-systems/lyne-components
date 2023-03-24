@@ -1,7 +1,7 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 const keyboardPressTimes = async (page: E2EPage, key: string, times = 1): Promise<void> => {
-  const input = await page.find('sbb-slider >>> input');
+  const input = await page.find('sbb-slider');
   await input.focus();
   for (let i = 0; i < times; i++) {
     await input.press(key);
@@ -30,7 +30,20 @@ describe('sbb-slider', () => {
     await page.waitForChanges();
 
     expect(element).toEqualHtml(`
-      <sbb-slider class="hydrated" start-icon="walk-slow-small" end-icon="walk-fast-small" max="500" min="100" value="400">
+      <sbb-slider
+        role="slider"
+        tabindex="0"
+        aria-disabled="false"
+        aria-readonly="false"
+        aria-valuemax="500"
+        aria-valuemin="100"
+        aria-valuenow="400"
+        class="hydrated"
+        start-icon="walk-slow-small"
+        end-icon="walk-fast-small"
+        max="500"
+        min="100"
+        value="400">
         <mock:shadow-root>
           <div class="sbb-slider__height-container">
             <div class="sbb-slider__wrapper">
@@ -38,7 +51,7 @@ describe('sbb-slider', () => {
                 <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="walk-slow-small" role="img"></sbb-icon>
               </slot>
               <div class="sbb-slider__container" style="--sbb-slider-value-fraction: 0.75;">
-                <input class="sbb-slider__range-input" max="500" min="100" type="range">
+                <input class="sbb-slider__range-input" max="500" min="100" tabindex="-1" type="range">
                 <div class="sbb-slider__line">
                   <div class="sbb-slider__selected-line"></div>
                 </div>

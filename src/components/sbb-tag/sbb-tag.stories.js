@@ -37,7 +37,7 @@ const amount = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -50,7 +50,7 @@ const defaultArgTypes = {
   value,
   'icon-name': icon,
   amount,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -60,7 +60,7 @@ const defaultArgs = {
   value: 'Value',
   'icon-name': undefined,
   amount: undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 const defaultArgsIconAndAmount = {

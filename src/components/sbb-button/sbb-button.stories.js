@@ -182,16 +182,7 @@ const form = {
   },
 };
 
-const accessibilityHaspopup = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -213,8 +204,7 @@ const defaultArgTypes = {
   name,
   value,
   form,
-  'accessibility-haspopup': accessibilityHaspopup,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -233,8 +223,7 @@ const defaultArgs = {
   name: 'Button Name',
   value: undefined,
   form: undefined,
-  'accessibility-haspopup': undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 export const primary = Template.bind({});
@@ -415,7 +404,7 @@ linkOpensInNewWindow.args = {
   href: 'https://www.sbb.ch',
   'icon-name': 'chevron-small-right-small',
   target: '_blank',
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 export default {

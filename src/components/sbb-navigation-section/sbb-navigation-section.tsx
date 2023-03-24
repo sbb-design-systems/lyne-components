@@ -18,7 +18,6 @@ import {
   queryAndObserveNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
 import { i18nGoBack } from '../../global/i18n';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -39,7 +38,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation-section.scss',
   tag: 'sbb-navigation-section',
 })
-export class SbbNavigationSection implements ComponentInterface, AccessibilityProperties {
+export class SbbNavigationSection implements ComponentInterface {
   /*
    * The label to be shown before the action list.
    */
@@ -173,6 +172,8 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationSectionWrapperElement.scrollTo(0, 0);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._triggerElement?.focus();
       this._navigationSection.close();
       this._windowEventsController?.abort();
     }
@@ -245,7 +246,7 @@ export class SbbNavigationSection implements ComponentInterface, AccessibilityPr
     const backButton = (
       <sbb-button
         class="sbb-navigation-section__back"
-        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        arial-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant="transparent"
         negative={true}
         size="m"

@@ -5,17 +5,17 @@ describe('sbb-tag', () => {
   it('renders unchecked', async () => {
     const { root } = await newSpecPage({
       components: [SbbTag],
-      html: '<sbb-tag value="all" accessibility-label="Check to remove filters">All</sbb-tag>',
+      html: '<sbb-tag value="all" aria-label="Check to remove filters">All</sbb-tag>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-tag value="all" role="presentation" accessibility-label="Check to remove filters">
+      <sbb-tag aria-label="Check to remove filters" aria-pressed="false" role="button" tabindex="0" value="all" dir="ltr">
         <mock:shadow-root>
-          <button class="sbb-tag" aria-pressed="false" type="button" aria-label="Check to remove filters">
+          <span class="sbb-tag">
             <span class="sbb-tag__text sbb-tag--shift">
               <slot></slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         All
       </sbb-tag>
@@ -29,13 +29,13 @@ describe('sbb-tag', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-tag checked="" role="presentation" value="info">
+      <sbb-tag aria-pressed="true" checked role="button" tabindex="0" value="info" dir="ltr">
         <mock:shadow-root>
-          <button class="sbb-tag" aria-pressed="true" type="button">
+          <span class="sbb-tag">
             <span class="sbb-tag__text sbb-tag--shift">
               <slot></slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         Info
       </sbb-tag>
@@ -53,9 +53,9 @@ describe('sbb-tag', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-tag disabled="" amount="123" icon-name="circle-information-small" role="presentation" value="information">
+      <sbb-tag amount="123" aria-disabled="true" aria-pressed="false" disabled icon-name="circle-information-small" role="button" value="information" dir="ltr">
         <mock:shadow-root>
-          <button class="sbb-tag" aria-pressed="false" aria-disabled="" disabled="" type="button">
+          <span class="sbb-tag">
             <span class="sbb-tag__icon sbb-tag--shift">
               <slot name="icon">
                 <sbb-icon name="circle-information-small" />
@@ -69,7 +69,7 @@ describe('sbb-tag', () => {
                   123
                 </slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         Info
       </sbb-tag>
@@ -89,9 +89,9 @@ describe('sbb-tag', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-tag value="foo" role="presentation">
+      <sbb-tag value="foo" aria-pressed="false" role="button" tabindex="0" dir="ltr">
         <mock:shadow-root>
-          <button class="sbb-tag" aria-pressed="false" type="button">
+          <span class="sbb-tag" >
             <span class="sbb-tag__icon sbb-tag--shift">
               <slot name="icon"></slot>
             </span>
@@ -101,7 +101,7 @@ describe('sbb-tag', () => {
             <span class="sbb-tag__amount sbb-tag--shift">
               <slot name="amount"></slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         <sbb-icon slot="icon" name="cross-small"></sbb-icon>
         Info

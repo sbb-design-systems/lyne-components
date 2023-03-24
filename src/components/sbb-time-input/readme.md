@@ -65,15 +65,14 @@ Readonly `sbb-time-input` inside a `sbb-form-field`:
 
 ## Properties
 
-| Property             | Attribute             | Description                                                          | Type      | Default     |
-| -------------------- | --------------------- | -------------------------------------------------------------------- | --------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant nested element. | `string`  | `undefined` |
-| `disabled`           | `disabled`            | Disabled state for the inner HTMLInputElement.                       | `boolean` | `false`     |
-| `form`               | `form`                | The <form> element to associate the inner HTMLInputElement with.     | `string`  | `undefined` |
-| `readonly`           | `readonly`            | Readonly state for the inner HTMLInputElement.                       | `boolean` | `false`     |
-| `required`           | `required`            | Required state for the inner HTMLInputElement.                       | `boolean` | `false`     |
-| `value`              | `value`               | Value for the inner HTMLInputElement.                                | `string`  | `''`        |
-| `valueAsDate`        | --                    | Date value with the given time for the inner HTMLInputElement.       | `Date`    | `null`      |
+| Property      | Attribute  | Description                                                      | Type      | Default     |
+| ------------- | ---------- | ---------------------------------------------------------------- | --------- | ----------- |
+| `disabled`    | `disabled` | Disabled state for the inner HTMLInputElement.                   | `boolean` | `false`     |
+| `form`        | `form`     | The <form> element to associate the inner HTMLInputElement with. | `string`  | `undefined` |
+| `readonly`    | `readonly` | Readonly state for the inner HTMLInputElement.                   | `boolean` | `false`     |
+| `required`    | `required` | Required state for the inner HTMLInputElement.                   | `boolean` | `false`     |
+| `value`       | `value`    | Value for the inner HTMLInputElement.                            | `string`  | `''`        |
+| `valueAsDate` | --         | Date value with the given time for the inner HTMLInputElement.   | `Date`    | `null`      |
 
 
 ## Events

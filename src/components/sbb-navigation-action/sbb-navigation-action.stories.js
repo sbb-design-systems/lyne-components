@@ -8,12 +8,28 @@ const size = {
   options: ['l', 'm', 's'],
 };
 
+const ariaLabel = {
+  control: {
+    type: 'text',
+  },
+};
+
+const href = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   size,
+  href,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
   size: size.options[0],
+  href: undefined,
+  'aria-label': undefined,
 };
 
 const Template = (args) => <sbb-navigation-action {...args}>Label</sbb-navigation-action>;
@@ -24,17 +40,18 @@ const style =
 export const SizeL = Template.bind({});
 SizeL.argTypes = defaultArgTypes;
 SizeL.args = { ...defaultArgs };
-SizeL.documentation = { title: 'Size L' };
 
 export const SizeM = Template.bind({});
 SizeM.argTypes = defaultArgTypes;
 SizeM.args = { ...defaultArgs, size: size.options[1] };
-SizeM.documentation = { title: 'Size M' };
 
 export const SizeS = Template.bind({});
 SizeS.argTypes = defaultArgTypes;
 SizeS.args = { ...defaultArgs, size: size.options[2] };
-SizeS.documentation = { title: 'Size S' };
+
+export const Link = Template.bind({});
+Link.argTypes = defaultArgTypes;
+Link.args = { ...defaultArgs, href: 'https://www.sbb.ch' };
 
 export default {
   decorators: [

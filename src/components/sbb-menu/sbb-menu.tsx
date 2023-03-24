@@ -288,6 +288,8 @@ export class SbbMenu implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._triggerElement?.focus();
       this._dialog.close();
       this.didClose.emit();
       this._windowEventsController?.abort();

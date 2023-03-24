@@ -6,6 +6,11 @@
 
 :host {
   @include sbb.card-variables;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+  border-radius: var(--sbb-card-border-radius);
 }
 
 :host([color='milk']) {
@@ -56,11 +61,22 @@
   @include sbb.card--hover('.sbb-card');
 }
 
+:host([role='button']) {
+  @include sbb.card-variables--button;
+}
+
 .sbb-card {
   @include sbb.card;
 
   width: 100%;
   height: 100%;
+
+  // This rule is duplication of the one included in the mixin. As the focus will land on the host,
+  // the inner action element and its :focus-visible state cannot be reached via user action.
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+  }
 }
 
 .sbb-card__wrapper {
@@ -75,4 +91,10 @@
 // as we do not expect multiple titles to be used inside a card.
 ::slotted(sbb-title) {
   margin-block-start: 0;
+
+  :host([role='button']) & {
+    @include sbb.if-forced-colors {
+      --sbb-title-text-color-normal: ButtonText;
+    }
+  }
 }

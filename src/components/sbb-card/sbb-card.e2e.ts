@@ -15,9 +15,9 @@ describe('sbb-card', () => {
 
     element = await page.find('sbb-card');
     expect(element).toEqualHtml(`
-      <sbb-card color="white" class='hydrated' data-has-badge size="xl" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+      <sbb-card color="white" class='hydrated' data-has-badge role="link" size="xl" tabindex="0" href="https://github.com/lyne-design-system/lyne-components" target="_blank" dir="ltr">
         <mock:shadow-root>
-          <a class="sbb-card" dir="ltr" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" >
+          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
             <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>
@@ -46,14 +46,14 @@ describe('sbb-card', () => {
 
     element = await page.find('sbb-card');
     expect(element).toEqualHtml(`
-      <sbb-card color="white" class='hydrated' data-has-badge size="xl" name="button" form="form" value="value">
+      <sbb-card color="white" class='hydrated' data-has-badge role="button" size="xl" tabindex="0" name="button" form="form" value="value" dir="ltr">
         <mock:shadow-root>
-          <button class="sbb-card" dir="ltr" type='button' name="button" form="form" value="value">
+          <span class="sbb-card">
             <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         <h2>Title</h2>
         Content text
@@ -65,13 +65,7 @@ describe('sbb-card', () => {
   describe('events', () => {
     beforeEach(async () => {
       page = await newE2EPage();
-      await page.setContent('<sbb-card id="outer-id">Card</sbb-card>');
-
-      // Set id of the inner-button for later comparing of active element
-      await page.evaluate(
-        () =>
-          (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
-      );
+      await page.setContent('<sbb-card id="focus-id">Card</sbb-card>');
 
       element = await page.find('sbb-card');
     });
@@ -85,30 +79,41 @@ describe('sbb-card', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    it('should forward host click to action element', async () => {
+    it('should dispatch click event on pressing Enter', async () => {
       const changeSpy = await page.spyOnEvent('click');
-
-      element.triggerEvent('click');
-      await page.waitForChanges();
-
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      await element.press('Enter');
+      expect(changeSpy).toHaveReceivedEvent();
     });
 
-    it('should forward host focus event to action element', async () => {
-      const button = await page.find('sbb-card >>> .sbb-card');
+    it('should dispatch click event on pressing Space', async () => {
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(changeSpy).toHaveReceivedEvent();
+    });
 
-      const changeSpy = await button.spyOnEvent('focus');
+    it('should dispatch click event on pressing Enter with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
 
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(changeSpy).toHaveReceivedEvent();
+    });
+
+    it('should not dispatch click event on pressing Space with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
+
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(changeSpy).not.toHaveReceivedEvent();
+    });
+
+    it('should receive focus', async () => {
       await element.focus();
       await page.waitForChanges();
 
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-
-      // Although the inner native button receives the focus, the active element is the host
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-        'inner-id'
-      );
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
     });
   });
 });

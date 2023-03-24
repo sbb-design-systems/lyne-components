@@ -7,7 +7,14 @@
 :host {
   --sbb-tooltip-color: inherit;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
   display: inline-block;
+
+  @include sbb.if-forced-colors {
+    --sbb-tooltip-color: ButtonText !important;
+  }
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -16,25 +23,29 @@
   }
 }
 
-:host(:active) {
+:host(:is(:active, [data-active])) {
   --sbb-tooltip-color: var(--sbb-color-anthracite-default);
 }
 
 :host([disabled]:not([disabled='false'])) {
   --sbb-tooltip-color: var(--sbb-color-graphite-default);
 
+  @include sbb.if-forced-colors {
+    --sbb-tooltip-color: GrayText;
+  }
+
   pointer-events: none;
 }
 
 .sbb-tooltip-trigger {
   @include sbb.text-inherit;
-  @include sbb.button-reset;
 
   display: flex;
   cursor: pointer;
   color: var(--sbb-tooltip-color);
 
-  &:focus-visible {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-4x);

@@ -11,7 +11,6 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
 import {
@@ -41,7 +40,7 @@ type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
   styleUrl: 'sbb-dialog.scss',
   tag: 'sbb-dialog',
 })
-export class SbbDialog implements ComponentInterface, AccessibilityProperties {
+export class SbbDialog implements ComponentInterface {
   /**
    * Dialog title.
    */
@@ -167,6 +166,9 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
 
+  // Last element which had focus before the dialog was opened.
+  private _lastFocusedElement?: HTMLElement;
+
   @Element() private _element!: HTMLElement;
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -189,6 +191,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     }
 
     this._openedByKeyboard = event?.detail === 0;
+    this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
     this._dialog.show();
@@ -294,6 +297,8 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._lastFocusedElement?.focus();
       this._dialog.close();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
@@ -338,7 +343,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
-        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        aria-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
@@ -351,7 +356,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     const backButton = (
       <sbb-button
         class="sbb-dialog__back"
-        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"

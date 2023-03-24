@@ -5,14 +5,8 @@ describe('sbb-header-action', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-header-action id="outer-id">Action</sbb-header-action>');
+    await page.setContent('<sbb-header-action id="focus-id">Action</sbb-header-action>');
     await page.waitForChanges();
-
-    // Set id of the inner-button for later comparing of active element
-    await page.evaluate(
-      () =>
-        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
-    );
 
     element = await page.find('sbb-header-action');
   });
@@ -27,32 +21,41 @@ describe('sbb-header-action', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    it('should forward host click to action element', async () => {
-      const headerAction = await page.find('sbb-header-action >>> .sbb-header-action');
-
-      const changeSpy = await headerAction.spyOnEvent('click');
-
-      element.triggerEvent('click');
-      await page.waitForChanges();
-
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+    it('should dispatch click event on pressing Enter', async () => {
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(changeSpy).toHaveReceivedEvent();
     });
 
-    it('should forward host focus event to action element', async () => {
-      const headerAction = await page.find('sbb-header-action >>> .sbb-header-action');
+    it('should dispatch click event on pressing Space', async () => {
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(changeSpy).toHaveReceivedEvent();
+    });
 
-      const changeSpy = await headerAction.spyOnEvent('focus');
+    it('should dispatch click event on pressing Enter with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
 
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(changeSpy).toHaveReceivedEvent();
+    });
+
+    it('should not dispatch click event on pressing Space with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
+
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(changeSpy).not.toHaveReceivedEvent();
+    });
+
+    it('should receive focus', async () => {
       await element.focus();
       await page.waitForChanges();
 
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-
-      // Although the inner native button receives the focus, the active element is the host
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-        'inner-id'
-      );
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
     });
   });
 });

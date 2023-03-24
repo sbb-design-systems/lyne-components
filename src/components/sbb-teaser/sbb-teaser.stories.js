@@ -27,7 +27,7 @@ const description = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -61,7 +61,7 @@ const href = {
 const defaultArgTypes = {
   title,
   description,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   'is-stacked': isStacked,
   href,
 };
@@ -69,7 +69,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   title: 'This is a title',
   description: 'This is a paragraph',
-  'accessibility-label':
+  'aria-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
   'is-stacked': true,
   href: 'https://github.com/lyne-design-system/lyne-components',

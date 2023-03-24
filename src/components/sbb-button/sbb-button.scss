@@ -7,6 +7,10 @@
 :host {
   display: inline-block;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);
 
@@ -40,6 +44,11 @@
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
+  }
+
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
   }
 }
 
@@ -167,7 +176,6 @@
 }
 
 .sbb-button {
-  @include sbb.button-reset;
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
 
@@ -193,6 +201,7 @@
   padding-inline: var(--sbb-button-padding-inline);
   color: var(--sbb-button-color-default-text);
   cursor: pointer;
+  user-select: none;
 
   // Renders background and border in the background absolute to enable the hover animation
   &::before {
@@ -206,18 +215,15 @@
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
 
-    @include sbb.if-forced-colors {
-      border: var(--sbb-border-width-1x) solid CanvasText;
+    // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+    :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+      @include sbb.focus-outline;
     }
-  }
-
-  &:focus-visible::before {
-    @include sbb.focus-outline;
   }
 
   // If the the device can hover over elements with ease
   @include sbb.hover-mq($hover: true) {
-    :host(:not([disabled]:not([disabled='false']))) &:hover:not(:active) {
+    :host(:not([disabled]:not([disabled='false']), :active, [data-active]):hover) & {
       --sbb-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
       --sbb-button-shadow-1-offset-y: calc(
         0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
@@ -280,22 +286,24 @@
     width: var(--sbb-button-icon-size);
   }
 
-  :host(:not([disabled]:not([disabled='false']))) &:active::before {
+  :host(:not([disabled]:not([disabled='false'])):is(:active, [data-active])) &::before {
     color: var(--sbb-button-color-active-text);
     background-color: var(--sbb-button-color-active-background);
     border-color: var(--sbb-button-color-active-border);
   }
 
   // Only apply shadow definitions where it is really used.
-  :host([variant='primary']:not([disabled]:not([disabled='false']))) &,
+  :host([variant='primary']:not([disabled]:not([disabled='false']), :active, [data-active])) &,
   :host(
       [variant='secondary']:not(
           [negative]:not([negative='false']),
-          [disabled]:not([disabled='false'])
+          [disabled]:not([disabled='false']),
+          :active,
+          [data-active]
         )
     )
     & {
-    &:not(:active)::before {
+    &::before {
       box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
           var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
           var(--sbb-shadow-elevation-level-3-shadow-2-spread) var(--sbb-button-shadow-2-color),
@@ -306,8 +314,16 @@
   }
 }
 
-:host([static]:not([static='false'])) {
-  user-select: none;
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-text: ButtonText !important;
+    --sbb-button-color-hover-text: ButtonText !important;
+    --sbb-button-color-active-text: ButtonText !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+    --sbb-button-color-disabled-background: Canvas !important;
+  }
 }
 
 .sbb-button__label,

@@ -1,7 +1,6 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 
 /**
  * @slot generic - Slot used to render generic content. Since this slot is
@@ -15,17 +14,7 @@ import { AccessibilityProperties } from '../../global/interfaces/accessibility-p
   styleUrl: 'sbb-card-badge.scss',
   tag: 'sbb-card-badge',
 })
-export class SbbCardBadge implements ComponentInterface, AccessibilityProperties {
-  /**
-   * Accessibility label text. This text gets exposed to screen reader users.
-   * The text should reflect all the information which gets passed into the
-   * component (as text or within the slot) so which is visible in the
-   * card badge, either through text or iconography.
-   *
-   * Example text: Sales ticket price starts at CHF 37.50
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
+export class SbbCardBadge implements ComponentInterface {
   /** Badge appearance */
   @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'primary';
 
@@ -63,14 +52,12 @@ export class SbbCardBadge implements ComponentInterface, AccessibilityProperties
 
     return (
       <span
-        aria-label={this.accessibilityLabel}
         class={`card-badge
           ${appearanceClass}
           ${sizeClass}`}
         dir={currentWritingMode}
         // eslint-disable-next-line jsx-a11y/aria-role
         role="text"
-        title={this.accessibilityLabel}
       >
         {this.isDiscount ? <span class="discount">%</span> : ''}
         {this.text ? <span class="text">{this.text}</span> : ''}

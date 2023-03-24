@@ -133,8 +133,11 @@
   }
 }
 
-:host(:focus-visible) {
-  outline: 0;
+// Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 
   .sbb-tab-title {
     &::before {

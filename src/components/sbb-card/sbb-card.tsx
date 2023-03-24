@@ -12,14 +12,12 @@ import {
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
-  actionElement,
   ButtonType,
-  focusActionElement,
-  forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
   resolveRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 import {
@@ -27,6 +25,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -63,16 +62,13 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
   @Prop() public type: ButtonType | undefined;
 
   /** The name of the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The <form> element to associate the button with. */
   @Prop() public form?: string | undefined;
 
   /** The value associated with button `name` when it's submitted with the form data. */
   @Prop() public value?: string | undefined;
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
 
   @State() private _currentLanguage = documentLanguage();
 
@@ -83,26 +79,25 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
    */
   @State() private _namedSlots = createNamedSlotState('badge');
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   @Listen('sbbNamedSlotChange', { passive: true })
   public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
-
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, actionElement(this._element));
   }
 
   /**
@@ -121,25 +116,20 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
     const {
       tagName: TAG_NAME,
       attributes,
-      screenReaderNewWindowInfo,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage);
-
-    const hostAttributes = {
-      'data-has-badge': this._hasBadge(),
-    };
+      hostAttributes,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
+    if (this._hasBadge()) {
+      hostAttributes['data-has-badge'] = '';
+    }
 
     return (
       <Host {...hostAttributes}>
-        <TAG_NAME
-          class="sbb-card"
-          {...attributes}
-          ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
-        >
+        <TAG_NAME class="sbb-card" {...attributes}>
           {this._hasBadge() && <slot name="badge" />}
           <span class="sbb-card__wrapper">
             <slot />
           </span>
-          {screenReaderNewWindowInfo && (
+          {targetsNewWindow(this) && (
             <span class="sbb-card__opens-in-new-window">
               . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>
