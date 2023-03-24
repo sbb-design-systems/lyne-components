@@ -84,7 +84,6 @@ export class SbbOption implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   private _optionId = `sbb-option-${++nextId}`;
-  private _labelSlot: HTMLSlotElement;
   private _variant: SbbOptionVariant;
 
   /** MutationObserver on data attributes. */
@@ -133,12 +132,6 @@ export class SbbOption implements ComponentInterface {
     this._setVariantByContext();
   }
 
-  public componentDidLoad(): void {
-    if (!this._disableLabelHighlight) {
-      this._setupHighlightHandler();
-    }
-  }
-
   private _setVariantByContext(): void {
     if (this._element.closest('sbb-autocomplete')) {
       this._variant = 'autocomplete';
@@ -158,8 +151,8 @@ export class SbbOption implements ComponentInterface {
     }
   }
 
-  private _setupHighlightHandler(): void {
-    const slotNodes = this._labelSlot.assignedNodes();
+  private _setupHighlightHandler(event): void {
+    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
     const labelNode = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
 
     // Disable the highlight if the slot does not contain just a text node
@@ -207,7 +200,7 @@ export class SbbOption implements ComponentInterface {
           <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </span>
         <span class="sbb-option__label">
-          <slot ref={(slot) => (this._labelSlot = slot as HTMLSlotElement)} />
+          <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
           {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
         </span>
       </div>
