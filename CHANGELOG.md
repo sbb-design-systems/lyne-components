@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.30.0](https://github.com/lyne-design-system/lyne-components/compare/v0.29.1...v0.30.0) (2023-03-24)
+
+### ⚠ BREAKING CHANGES
+
+- Almost all accessibility-label attributes were removed in favor of just using aria-label (exceptions are `<sbb-alert>`, `<sbb-dialog>`, `<sbb-logo>`, `<sbb-navigation>`, `<sbb-navigation-section>`, `<sbb-signet>` and `<sbb-train>`).
+
+Co-authored-by: Jeri Peier <jeremias.peier@sbb.ch>
+
+### Features
+
+- refactor accessibility features to reflect state on host ([#1670](https://github.com/lyne-design-system/lyne-components/issues/1670)) ([b149e8a](https://github.com/lyne-design-system/lyne-components/commit/b149e8ade3131229a0c4714c3a5864750a50a6d6)), closes [#1611](https://github.com/lyne-design-system/lyne-components/issues/1611)
+
 ### [0.29.1](https://github.com/lyne-design-system/lyne-components/compare/v0.29.0...v0.29.1) (2023-03-23)
 
 ### Bug Fixes
