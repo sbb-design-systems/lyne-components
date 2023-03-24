@@ -4,7 +4,8 @@
 @use './typo';
 
 @mixin overlay {
-  --sbb-autocomplete-animation-duration: var(--sbb-animation-duration-1x);
+  --sbb-autocomplete-animation-closing-duration: var(--sbb-animation-duration-1x); // 40ms
+  --sbb-autocomplete-animation-opening-duration: var(--sbb-animation-duration-2x); // 80ms
 
   position: relative;
   z-index: 0;
@@ -20,7 +21,8 @@
     width: 100%;
     height: calc(2 * var(--sbb-border-radius-4x));
     pointer-events: none;
-    transition: opacity var(--sbb-autocomplete-animation-duration) var(--sbb-animation-easing);
+    transition: opacity var(--sbb-autocomplete-animation-closing-duration)
+      var(--sbb-animation-easing);
   }
 
   &[data-autocomplete-position='below']::before {
@@ -33,6 +35,8 @@
 
   &[data-autocomplete-open]:not([data-autocomplete-open='false'])::before {
     opacity: 1;
+    transition: opacity var(--sbb-autocomplete-animation-opening-duration)
+      var(--sbb-animation-easing);
   }
 
   &[data-autocomplete-disable-animation]:not([data-autocomplete-disable-animation='false']) {

@@ -45,6 +45,8 @@
   padding-inline: var(--sbb-spacing-responsive-xxxs);
   background-color: var(--sbb-option-bg-color);
   min-height: var(--sbb-option-min-height);
+  transform: scaleY(var(--sbb-overlay-option-scale));
+  transition: transform var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
 }
 
 .sbb-option__icon {

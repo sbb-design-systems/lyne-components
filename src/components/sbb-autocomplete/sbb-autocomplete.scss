@@ -12,7 +12,8 @@
   --sbb-overlay-width: fit-content;
   --sbb-overlay-border-radius: var(--sbb-border-radius-4x);
   --sbb-overlay-transition-origin: center;
-  --sbb-overlay-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-overlay-transition-duration: var(--sbb-animation-duration-2x); // 80ms
+  --sbb-overlay-option-scale: 1.25;
 }
 
 :host(:not([data-state='closed'])) {
@@ -72,6 +73,11 @@
 
   :host([data-state='closed']) & {
     visibility: hidden;
+  }
+
+  :host([data-state='opened']) &,
+  :host([data-state='opening']) & {
+    --sbb-overlay-option-scale: 1;
   }
 
   :host([data-autocomplete-position='below']) & {
