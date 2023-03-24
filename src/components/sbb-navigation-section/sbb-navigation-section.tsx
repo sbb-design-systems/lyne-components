@@ -25,8 +25,7 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
-
-type SbbNavigationSectionState = 'closed' | 'opening' | 'opened' | 'closing';
+import { SbbOverlayState } from '../../global/helpers/overlay';
 
 let nextId = 0;
 
@@ -69,7 +68,7 @@ export class SbbNavigationSection implements ComponentInterface {
   /**
    * The state of the navigation section.
    */
-  @State() private _state: SbbNavigationSectionState = 'closed';
+  @State() private _state: SbbOverlayState = 'closed';
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
