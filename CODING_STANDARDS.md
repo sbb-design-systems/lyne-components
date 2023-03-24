@@ -67,32 +67,33 @@ prefer sticking to a _single_ API for accomplishing something.
 
 #### Click event handling on action elements
 
-If a consumer registers a click event on a host element, e.g. `sbb-button`,
-the click event will not be forwarded to the inner action element or prevented when disabled.
+As we have to "reimplement" button and anchor functionality in order to comply with
+accessibility, we need to consider all native behavior of a native `<button>` and `<anchor>`
+element.
 
-In order to forward a programmatic click event on the host to the inner action element
-and to prevent event propagation when disabled, the following listener can be used:
+This has been implemented to the best of our know-how in the form of the
+`actionElementHandlerAspect` and `linkHandlerAspect` together with the `HandlerRepository`.
+
+This can be used as follows:
 
 ```ts
-import { forwardHostClick } from './global/interfaces/link-button-properties';
-import { LinkButtonProperties } from './link-button-properties';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 class ActionElement implements LinkButtonProperties {
-  @Listen('click')
-  public handleClick(event: Event): void {
-    if (this.disabled) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    } else {
-      forwardHostClick(
-        event,
-        this._element,
-        this._element.shadowRoot.firstElementChild as HTMLElement
-      );
-    }
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 }
 ```
+
+Be aware that this does not cover every functionality of a native button or anchor. Compare with
+existing components (e.g. `<sbb-button>`) to what needs to be done additionally.
 
 #### I18N
 
@@ -347,20 +348,15 @@ Use `@Prop() variant: 'default' | 'etc'` to provide different design variants fo
 
 Use `@Prop() negative: boolean` to provide a color negative design for a component.
 
-#### Forwarding aria attributes
+#### Handling aria attributes
 
-For certain components we need to forward aria attributes to an inner element in the component.
-e.g. `<sbb-checkbox>` has an inner `<input type="checkbox">`.
+Id references, which are used commonly with aria attributes, cannot pass shadow DOM boundaries.
+Due to this, the host element of a web component should be enrichted with the appropriate
+role and aria attributes and inner elements with the same semantic meaning should be assigned
+`role="presentation"`.
 
-For these scenarios, we provide properties for each relevant aria attribute with the name replacing
-`aria-*` with `accessibility-*`.
-
-```ts
-/** This will be forwarded as aria-label to the relevant nested element. */
-@Prop() public accessibilityLabel: string | undefined;
-```
-
-For consistency, please use the AccessibilityProperties interface (see sbb-teaser.tsx as a reference).
+This allows consumers to use the host element as the reference and also place id references
+on it.
 
 #### id handling
 
@@ -415,7 +411,8 @@ This can be used in the `connectedCallback()` (see
 which should minimize the performance impact of this detection.
 
 **Usages of this functionality should be carefully considered. If a component has too many variants
-depending on context, this should be discussed at design level.**
+depending on context, this should be discussed at design level. Also in many cases,
+`this._element.closest(selector)` can be used instead, which is far more performant. **
 
 ```ts
 @Element() element!: HTMLElement;
@@ -458,10 +455,10 @@ Also define CSS variables in :host.
   @include sbb.mq($from: medium) {
     --sbb-component-padding: var(--sbb-padding-medium);
   }
+}
 
-  &.sbb-disabled {
-    --sbb-component-color: var(--sbb-color-disabled);
-  }
+:host([disabled]:not([disabled='false'])) {
+  --sbb-component-color: var(--sbb-color-disabled);
 }
 
 .sbb-example {

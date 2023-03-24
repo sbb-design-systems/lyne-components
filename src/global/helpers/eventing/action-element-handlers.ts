@@ -6,7 +6,7 @@ import { isEventPrevented } from './is-event-prevented';
  * Trigger an anchor element click after the event has finished the bubbling phase and
  * preventDefault() has not been called for the event.
  */
-async function triggerAnchorWhenNecessary(event: Event): Promise<void> {
+async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
   const target = event.target as Element;
   const composedTarget = event.composedPath()[0] as Element;
   // We only want to trigger a click event on the inner anchor element, if the host element is the
@@ -21,10 +21,23 @@ async function triggerAnchorWhenNecessary(event: Event): Promise<void> {
 
   // We are using dispatchEvent here, instead of just .click() in order to
   // prevent another click event from bubbling up the DOM tree.
-  target.shadowRoot.querySelector('a').dispatchEvent(new PointerEvent('click'));
+  // TODO: The CTRL case does not work exactly the same as with a use interaction PointerEvent
+  // as the newly created tab immediately receives focus, instead of remaining on the current
+  // page.
+  const { altKey, ctrlKey, metaKey, shiftKey } = event;
+  target.shadowRoot.querySelector('a').dispatchEvent(
+    new PointerEvent('click', {
+      pointerId: -1,
+      pointerType: '',
+      altKey,
+      ctrlKey,
+      metaKey,
+      shiftKey,
+    })
+  );
 }
 
-function handleLinkClick(event: Event): void {
+function handleLinkClick(event: MouseEvent): void {
   const element = event.target as HTMLElement & Partial<LinkButtonProperties & IsStaticProperty>;
   if (!element.isStatic && element.href) {
     triggerAnchorWhenNecessary(event);
@@ -32,7 +45,7 @@ function handleLinkClick(event: Event): void {
 }
 
 /** Handle the click logic for an action element. */
-function handleLinkButtonClick(event: Event): void {
+function handleLinkButtonClick(event: MouseEvent): void {
   const element = event.target as HTMLElement & Partial<LinkButtonProperties & IsStaticProperty>;
   if (element.isStatic) {
     return;
@@ -70,6 +83,7 @@ function isButtonSpaceKeyEvent(event: KeyboardEvent): boolean {
 }
 
 function dispatchClickEvent(event: KeyboardEvent): void {
+  const { altKey, ctrlKey, metaKey, shiftKey } = event;
   (event.target as Element).dispatchEvent(
     new PointerEvent('click', {
       bubbles: true,
@@ -77,6 +91,10 @@ function dispatchClickEvent(event: KeyboardEvent): void {
       composed: true,
       pointerId: -1,
       pointerType: '',
+      altKey,
+      ctrlKey,
+      metaKey,
+      shiftKey,
     })
   );
 }
@@ -100,7 +118,7 @@ function preventScrollWhenButtonAndSpaceKeydown(event: KeyboardEvent): void {
  * @param event The origin event.
  */
 function dispatchClickEventWhenEnterKeypress(event: KeyboardEvent): void {
-  if (event.key === 'Enter') {
+  if (event.key === 'Enter' || event.key === '\n') {
     dispatchClickEvent(event);
   }
 }
@@ -133,7 +151,6 @@ export const actionElementHandlerAspect: HandlerAspect = ({ host, signal }) => {
 };
 
 export const linkHandlerAspect: HandlerAspect = ({ host, signal }) => {
-  const passiveOptions = { passive: true, signal };
   host.addEventListener('click', handleLinkClick, { signal });
-  host.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
+  host.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, { passive: true, signal });
 };
