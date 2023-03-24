@@ -29,7 +29,7 @@ const iconName = {
   },
 };
 
-const disableLabelHighlight = {
+const disabled = {
   control: {
     type: 'boolean',
   },
@@ -47,17 +47,29 @@ const borderless = {
   },
 };
 
+const disabledFromGroup = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option group',
+  },
+};
+
 const defaultArgTypes = {
   // Autocomplete args
-  disableAnimation: disableAnimation,
-  preserveIconSpace: preserveIconSpace,
+  disableAnimation,
+  preserveIconSpace,
 
   // Option args
-  iconName: iconName,
-  disableLabelHighlight: disableLabelHighlight,
+  iconName,
+  disabled,
 
   // Form field args
-  borderless: borderless,
+  borderless,
+
+  // Option group args
+  disabledFromGroup,
 };
 
 const defaultArgs = {
@@ -67,10 +79,13 @@ const defaultArgs = {
   // Option args
   iconName: 'clock-small',
   preserveIconSpace: false,
-  disableLabelHighlight: false,
+  disabled: false,
 
   // Form field args
   borderless: false,
+
+  // Option group args
+  disabledFromGroup: false,
 };
 
 const defaultDecorator = [
@@ -116,7 +131,7 @@ const Template = (args) => [
       <sbb-option icon-name={args.iconName} value="Option 1">
         Option 1
       </sbb-option>
-      <sbb-option icon-name={args.iconName} value="Option 2">
+      <sbb-option icon-name={args.iconName} disabled={args.disabled} value="Option 2">
         Option 2
       </sbb-option>
       <sbb-option value="Option 3">
@@ -137,11 +152,11 @@ const OptionGroupTemplate = (args) => [
       disable-animation={args.disableAnimation}
       preserve-icon-space={args.preserveIconSpace}
     >
-      <sbb-option-group label="Group 1">
+      <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
         <sbb-option icon-name={args.iconName} value="Option 1">
           Option 1
         </sbb-option>
-        <sbb-option icon-name={args.iconName} value="Option 2">
+        <sbb-option icon-name={args.iconName} disabled={args.disabled} value="Option 2">
           Option 2
         </sbb-option>
         <sbb-option value="Option 3">
