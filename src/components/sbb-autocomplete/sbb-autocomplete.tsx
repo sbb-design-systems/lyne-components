@@ -22,8 +22,7 @@ import {
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionSelectionChange } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-
-type SbbAutocompleteState = 'closed' | 'opening' | 'opened' | 'closing';
+import { SbbOverlayState } from '../../global/helpers/overlay';
 
 let nextId = 0;
 
@@ -58,7 +57,7 @@ export class SbbAutocomplete implements ComponentInterface {
   @Prop({ reflect: true }) public preserveIconSpace: boolean;
 
   /** The state of the autocomplete. */
-  @State() private _state: SbbAutocompleteState = 'closed';
+  @State() private _state: SbbOverlayState = 'closed';
 
   /** Emits whenever the autocomplete starts the opening transition. */
   @Event({

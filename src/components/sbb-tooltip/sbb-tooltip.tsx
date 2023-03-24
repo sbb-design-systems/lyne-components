@@ -31,8 +31,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
-
-type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
+import { SbbOverlayState } from '../../global/helpers/overlay';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -87,11 +86,11 @@ export class SbbTooltip implements ComponentInterface {
   /**
    * The state of the tooltip.
    */
-  private set _state(state: SbbTooltipState) {
+  private set _state(state: SbbOverlayState) {
     this._element.dataset.state = state;
   }
-  private get _state(): SbbTooltipState {
-    return this._element.dataset.state as SbbTooltipState;
+  private get _state(): SbbOverlayState {
+    return this._element.dataset.state as SbbOverlayState;
   }
 
   /**

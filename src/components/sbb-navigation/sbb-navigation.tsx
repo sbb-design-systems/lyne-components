@@ -30,8 +30,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
-
-type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
+import { SbbOverlayState } from '../../global/helpers/overlay';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
@@ -75,7 +74,7 @@ export class SbbNavigation implements ComponentInterface {
   /**
    * The state of the navigation.
    */
-  @State() private _state: SbbNavigationState = 'closed';
+  @State() private _state: SbbOverlayState = 'closed';
 
   /**
    * Whether a navigation section is displayed.
