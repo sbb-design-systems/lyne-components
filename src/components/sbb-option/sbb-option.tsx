@@ -16,9 +16,9 @@ import {
 import { assignId } from '../../global/helpers/assign-id';
 import {
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 import { SbbOptionSelectionChange, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -81,7 +81,12 @@ export class SbbOption implements ComponentInterface {
   /** Disable the highlight of the label. */
   @State() private _disableLabelHighlight: boolean;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant: SbbOptionVariant;
@@ -98,11 +103,6 @@ export class SbbOption implements ComponentInterface {
   @Method()
   public async highlight(value: string): Promise<void> {
     this._highlightString = value;
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   @Listen('click', { passive: true })
@@ -126,10 +126,14 @@ export class SbbOption implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
     this._disabledFromGroup = !!this._element.dataset.groupDisabled;
     this._optionAttributeObserver.observe(this._element, optionObserverConfig);
     this._setVariantByContext();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _setVariantByContext(): void {
