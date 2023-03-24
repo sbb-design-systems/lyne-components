@@ -269,9 +269,14 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
-    this._triggerElement.addEventListener('input', () => this.open(), {
-      signal: this._triggerEventsController.signal,
-    });
+    this._triggerElement.addEventListener(
+      'input',
+      (ev) => {
+        this.open();
+        this._highlightOptions((ev.target as HTMLInputElement).value);
+      },
+      { signal: this._triggerEventsController.signal }
+    );
     this._triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => {
@@ -279,18 +284,7 @@ export class SbbAutocomplete implements ComponentInterface {
           this.open();
         }
       },
-      {
-        signal: this._triggerEventsController.signal,
-      }
-    );
-
-    // On input change, highlight the options label
-    this._triggerElement.addEventListener(
-      'input',
-      (ev) => this._highlightOptions((ev.target as HTMLInputElement).value),
-      {
-        signal: this._triggerEventsController.signal,
-      }
+      { signal: this._triggerEventsController.signal }
     );
   }
 
@@ -372,9 +366,7 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
-  /**
-   * If the click is outside the autocomplete, close the panel
-   */
+  /** If the click is outside the autocomplete, closes the panel. */
   private _onBackdropClick = (event: PointerEvent): void => {
     if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
