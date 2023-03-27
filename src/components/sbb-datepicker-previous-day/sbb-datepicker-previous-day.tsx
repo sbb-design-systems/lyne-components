@@ -14,7 +14,10 @@ import { actionElementHandlerAspect, HandlerRepository } from '../../global/help
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nPreviousDay } from '../../global/i18n';
-import { ButtonProperties } from '../../global/interfaces/link-button-properties';
+import {
+  ButtonProperties,
+  resolveButtonRenderVariables,
+} from '../../global/interfaces/link-button-properties';
 import {
   findPreviousAvailableDate,
   getDatePicker,
@@ -27,6 +30,9 @@ import {
   tag: 'sbb-datepicker-previous-day',
 })
 export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonProperties {
+  /** Whether the button is disabled */
+  @Prop({ reflect: true, mutable: true }) public disabled = false;
+
   /** The name attribute to use for the button. */
   @Prop({ reflect: true }) public name: string | undefined;
 
@@ -46,7 +52,10 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
 
   @State() private _currentLanguage = documentLanguage();
 
-  private _handlerRepository = new HandlerRepository(this._element as HTMLElement, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element as HTMLElement,
+    actionElementHandlerAspect
+  );
 
   private _datePickerElement: HTMLSbbDatepickerElement;
 
@@ -152,20 +161,20 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
   }
 
   public render(): JSX.Element {
+    this.disabled = this._disabled || this._inputDisabled;
+    const { hostAttributes } = resolveButtonRenderVariables(this);
+
     return (
-      <Host slot="prefix" role="button">
-        <div class="sbb-datepicker-previous-day">
-          <button
-            class="sbb-datepicker-previous-day__button"
-            aria-label={i18nPreviousDay[this._currentLanguage]}
-            aria-disabled={this._disabled || this._inputDisabled}
-            disabled={this._disabled || this._inputDisabled}
-            onClick={() => this._handleClick()}
-            type="button"
-          >
-            <sbb-icon name="chevron-small-left-small" />
-          </button>
-        </div>
+      <Host
+        {...hostAttributes}
+        slot="prefix"
+        role="button"
+        aria-label={i18nPreviousDay[this._currentLanguage]}
+        onClick={() => this._handleClick()}
+      >
+        <span class="sbb-datepicker-previous-day">
+          <sbb-icon name="chevron-small-left-small" />
+        </span>
       </Host>
     );
   }

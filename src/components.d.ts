@@ -448,6 +448,10 @@ export namespace Components {
          */
         "datePicker"?: string | HTMLElement;
         /**
+          * Whether the button is disabled
+         */
+        "disabled": boolean;
+        /**
           * The name attribute to use for the button.
          */
         "name": string | undefined;
@@ -457,6 +461,10 @@ export namespace Components {
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * Whether the button is disabled
+         */
+        "disabled": boolean;
         /**
           * The name attribute to use for the button.
          */
@@ -2673,6 +2681,10 @@ declare namespace LocalJSX {
          */
         "datePicker"?: string | HTMLElement;
         /**
+          * Whether the button is disabled
+         */
+        "disabled"?: boolean;
+        /**
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
@@ -2682,6 +2694,10 @@ declare namespace LocalJSX {
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * Whether the button is disabled
+         */
+        "disabled"?: boolean;
         /**
           * The name attribute to use for the button.
          */

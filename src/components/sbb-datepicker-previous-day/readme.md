@@ -33,6 +33,7 @@ Inside `sbb-form-field`:
 | Property     | Attribute     | Description                               | Type                    | Default     |
 | ------------ | ------------- | ----------------------------------------- | ----------------------- | ----------- |
 | `datePicker` | `date-picker` | Datepicker reference.                     | `HTMLElement \| string` | `undefined` |
+| `disabled`   | `disabled`    | Whether the button is disabled            | `boolean`               | `false`     |
 | `name`       | `name`        | The name attribute to use for the button. | `string`                | `undefined` |
 
 

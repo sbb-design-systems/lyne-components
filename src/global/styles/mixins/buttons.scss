@@ -1,4 +1,5 @@
 @use './a11y.scss';
+@use '../core/mediaqueries.scss';
 
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
@@ -28,6 +29,7 @@
   --sbb-icon-button-inset: 0;
   --sbb-icon-button-transform: none;
   --sbb-icon-button-size: 1.5rem;
+  --sbb-icon-button-radius: 0.75rem;
 
   position: relative;
   height: var(--sbb-icon-button-size);
@@ -47,30 +49,34 @@
     transition-timing-function: var(--sbb-icon-button-transition-easing-function);
   }
 
-  &:hover {
-    --sbb-icon-button-background: var(--sbb-color-milk-default);
-    --sbb-icon-button-transform: translateY(-1px);
+  @include mediaqueries.hover-mq($hover: true) {
+    :host(:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
+      --sbb-icon-button-background: var(--sbb-color-milk-default);
+      --sbb-icon-button-transform: translateY(-1px);
+    }
   }
 
-  &:active {
+  :host([data-active]) &,
+  :host(:active) & {
     --sbb-icon-button-background: var(--sbb-color-cloud-default);
     --sbb-icon-button-inset: 1px;
     --sbb-icon-button-transform: translateY(0);
   }
 
-  &[disabled] {
+  :host([disabled]) & {
     --sbb-icon-button-color: var(--sbb-color-graphite-default);
     --sbb-icon-button-inset: 0;
     --sbb-icon-button-transform: none;
     --sbb-icon-button-background: transparent;
 
     cursor: unset;
+    pointer-events: none;
   }
 
-  &:focus-visible {
+  :host(:focus-visible) & {
     @include a11y.focus-outline;
 
-    border-radius: var(--sbb-datepicker-control-radius);
+    border-radius: var(--sbb-icon-button-radius);
   }
 
   sbb-icon {

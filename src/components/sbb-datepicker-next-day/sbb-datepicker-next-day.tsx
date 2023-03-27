@@ -14,7 +14,10 @@ import { actionElementHandlerAspect, HandlerRepository } from '../../global/help
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nNextDay } from '../../global/i18n';
-import { ButtonProperties } from '../../global/interfaces/link-button-properties';
+import {
+  ButtonProperties,
+  resolveButtonRenderVariables,
+} from '../../global/interfaces/link-button-properties';
 import {
   findNextAvailableDate,
   getDatePicker,
@@ -27,6 +30,9 @@ import {
   tag: 'sbb-datepicker-next-day',
 })
 export class SbbDatepickerNextDay implements ComponentInterface, ButtonProperties {
+  /** Whether the button is disabled */
+  @Prop({ reflect: true, mutable: true }) public disabled = false;
+
   /** The name attribute to use for the button. */
   @Prop({ reflect: true }) public name: string | undefined;
 
@@ -151,20 +157,20 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
   }
 
   public render(): JSX.Element {
+    this.disabled = this._disabled || this._inputDisabled;
+    const { hostAttributes } = resolveButtonRenderVariables(this);
+
     return (
-      <Host slot="suffix" role="button">
-        <div class="sbb-datepicker-next-day">
-          <button
-            class="sbb-datepicker-next-day__button"
-            aria-label={i18nNextDay[this._currentLanguage]}
-            aria-disabled={this._disabled || this._inputDisabled}
-            disabled={this._disabled || this._inputDisabled}
-            onClick={() => this._handleClick()}
-            type="button"
-          >
-            <sbb-icon name="chevron-small-right-small" />
-          </button>
-        </div>
+      <Host
+        {...hostAttributes}
+        slot="suffix"
+        role="button"
+        onClick={() => this._handleClick()}
+        aria-label={i18nNextDay[this._currentLanguage]}
+      >
+        <span class="sbb-datepicker-next-day">
+          <sbb-icon name="chevron-small-right-small" />
+        </span>
       </Host>
     );
   }

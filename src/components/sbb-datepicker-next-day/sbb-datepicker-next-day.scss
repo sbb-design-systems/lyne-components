@@ -9,12 +9,10 @@
   --sbb-datepicker-control-color: var(--sbb-color-black-default);
 }
 
-.sbb-datepicker-next-day {
-  height: var(--sbb-form-field-height);
-  display: flex;
-  align-items: center;
+:host(:focus-visible) {
+  outline: none;
 }
 
-.sbb-datepicker-next-day__button {
+.sbb-datepicker-next-day {
   @include sbb.icon-button;
 }
