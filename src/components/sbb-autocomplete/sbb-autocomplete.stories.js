@@ -160,7 +160,7 @@ const Template = (args) => [
 ];
 
 const OptionGroupTemplate = (args) => [
-  <sbb-form-field borderless={args.borderless} label="Label">
+  <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
     <input placeholder="Placeholder" />
 
     <sbb-autocomplete
