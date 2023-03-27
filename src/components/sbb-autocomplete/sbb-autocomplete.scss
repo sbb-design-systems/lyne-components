@@ -37,9 +37,7 @@
 }
 
 :host([preserve-icon-space]:not([preserve-icon-space='false'])) {
-  ::slotted(sbb-option) {
-    --sbb-option-icon-container-display: initial;
-  }
+  --sbb-option-icon-container-display: block;
 }
 
 .sbb-autocomplete__backdrop {
