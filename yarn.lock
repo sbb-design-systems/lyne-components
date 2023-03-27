@@ -4053,10 +4053,10 @@
   dependencies:
     "@types/react" "^16"
 
-"@types/react@16.14.35", "@types/react@^16":
-  version "16.14.35"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.35.tgz#9d3cf047d85aca8006c4776693124a5be90ee429"
-  integrity sha512-NUEiwmSS1XXtmBcsm1NyRRPYjoZF2YTE89/5QiLt5mlGffYK9FQqOKuOLuXNrjPQV04oQgaZG+Yq02ZfHoFyyg==
+"@types/react@16.14.36", "@types/react@^16":
+  version "16.14.36"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.36.tgz#05d6239d2e61f9e81e9e87596e6f69a99765f199"
+  integrity sha512-tVq2ZJ5ZYoBYdRX4v18Ki4VCMPmy4dXC3eYMmHkApa1+4wgnpd2tQS4Dy7q7qBf9jMXOICnZXEE6ttvYIgNIjg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
