@@ -85,7 +85,9 @@ describe('sbb-autocomplete', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await element.press('ArrowDown');
+    await page.waitForChanges();
     await element.press('ArrowDown');
+    await page.waitForChanges();
     const optOne = await page.find('sbb-autocomplete > sbb-option#option-1');
     expect(await optOne.getProperty('active')).toEqual(false);
     expect(await optOne.getProperty('selected')).toEqual(false);
@@ -95,6 +97,7 @@ describe('sbb-autocomplete', () => {
     expect(input.getAttribute('aria-activedescendant')).toEqual('option-2');
 
     await element.press('Enter');
+    await page.waitForChanges();
     expect(await optTwo.getProperty('active')).toEqual(false);
     expect(await optTwo.getProperty('selected')).toEqual(true);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
