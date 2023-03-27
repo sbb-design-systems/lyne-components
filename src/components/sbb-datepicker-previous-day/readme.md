@@ -30,9 +30,10 @@ Inside `sbb-form-field`:
 
 ## Properties
 
-| Property     | Attribute     | Description           | Type                    | Default     |
-| ------------ | ------------- | --------------------- | ----------------------- | ----------- |
-| `datePicker` | `date-picker` | Datepicker reference. | `HTMLElement \| string` | `undefined` |
+| Property     | Attribute     | Description                               | Type                    | Default     |
+| ------------ | ------------- | ----------------------------------------- | ----------------------- | ----------- |
+| `datePicker` | `date-picker` | Datepicker reference.                     | `HTMLElement \| string` | `undefined` |
+| `name`       | `name`        | The name attribute to use for the button. | `string`                | `undefined` |
 
 
 ## Dependencies

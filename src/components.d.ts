@@ -54,7 +54,7 @@ export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-export { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
+export { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -73,7 +73,7 @@ export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
+export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -81,13 +81,14 @@ export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.cu
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-export { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+export { SbbFocusOrigin } from "./global/helpers/focus";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
 export namespace Components {
@@ -446,12 +447,20 @@ export namespace Components {
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
     }
     interface SbbDatepickerPreviousDay {
         /**
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
     }
     interface SbbDatepickerToggle {
         /**
@@ -2663,12 +2672,20 @@ declare namespace LocalJSX {
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
     }
     interface SbbDatepickerPreviousDay {
         /**
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
     }
     interface SbbDatepickerToggle {
         /**

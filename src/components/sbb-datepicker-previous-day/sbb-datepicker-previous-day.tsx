@@ -10,9 +10,11 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nPreviousDay } from '../../global/i18n';
+import { ButtonProperties } from '../../global/interfaces/link-button-properties';
 import {
   findPreviousAvailableDate,
   getDatePicker,
@@ -24,11 +26,14 @@ import {
   styleUrl: 'sbb-datepicker-previous-day.scss',
   tag: 'sbb-datepicker-previous-day',
 })
-export class SbbDatepickerPreviousDay implements ComponentInterface {
+export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonProperties {
+  /** The name attribute to use for the button. */
+  @Prop({ reflect: true }) public name: string | undefined;
+
   /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
-  @Element() private _element: HTMLSbbDatepickerPreviousDayElement;
+  @Element() private _element!: HTMLSbbDatepickerPreviousDayElement;
 
   /** Whether the component is disabled due date equals to min date. */
   @State() private _disabled = false;
@@ -40,6 +45,8 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   @State() private _min: string | number;
 
   @State() private _currentLanguage = documentLanguage();
+
+  private _handlerRepository = new HandlerRepository(this._element as HTMLElement, actionElementHandlerAspect);
 
   private _datePickerElement: HTMLSbbDatepickerElement;
 
@@ -61,10 +68,12 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._init(this.datePicker);
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._datePickerController?.abort();
   }
 
@@ -144,7 +153,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host slot="prefix">
+      <Host slot="prefix" role="button">
         <div class="sbb-datepicker-previous-day">
           <button
             class="sbb-datepicker-previous-day__button"

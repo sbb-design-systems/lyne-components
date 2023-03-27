@@ -10,9 +10,11 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nNextDay } from '../../global/i18n';
+import { ButtonProperties } from '../../global/interfaces/link-button-properties';
 import {
   findNextAvailableDate,
   getDatePicker,
@@ -24,11 +26,14 @@ import {
   styleUrl: 'sbb-datepicker-next-day.scss',
   tag: 'sbb-datepicker-next-day',
 })
-export class SbbDatepickerNextDay implements ComponentInterface {
+export class SbbDatepickerNextDay implements ComponentInterface, ButtonProperties {
+  /** The name attribute to use for the button. */
+  @Prop({ reflect: true }) public name: string | undefined;
+
   /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
-  @Element() private _element: HTMLSbbDatepickerNextDayElement;
+  @Element() private _element!: HTMLSbbDatepickerNextDayElement;
 
   /** Whether the component is disabled due date equals to max date. */
   @State() private _disabled = false;
@@ -40,6 +45,11 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   @State() private _max: string | number;
 
   @State() private _currentLanguage = documentLanguage();
+
+  private _handlerRepository = new HandlerRepository(
+    this._element as HTMLElement,
+    actionElementHandlerAspect
+  );
 
   private _datePickerElement: HTMLSbbDatepickerElement;
 
@@ -60,16 +70,18 @@ export class SbbDatepickerNextDay implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._datePickerController = new AbortController();
+    this._handlerRepository.connect();
     this._init(this.datePicker);
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._datePickerController?.abort();
   }
 
-  private _init(trigger?: string | HTMLElement): void {
-    this._datePickerElement = getDatePicker(this._element, trigger);
+  private _init(picker?: string | HTMLElement): void {
+    this._datePickerController = new AbortController();
+    this._datePickerElement = getDatePicker(this._element, picker);
     if (!this._datePickerElement) {
       return;
     }
@@ -140,7 +152,7 @@ export class SbbDatepickerNextDay implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host slot="suffix">
+      <Host slot="suffix" role="button">
         <div class="sbb-datepicker-next-day">
           <button
             class="sbb-datepicker-next-day__button"

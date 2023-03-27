@@ -266,7 +266,7 @@ export class SbbFormField implements ComponentInterface {
       <div class="sbb-form-field__space-wrapper">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={(event) => this._handleWrapperClick(event)} class="sbb-form-field__wrapper">
-          <div class="sbb-form-field__slot">
+          <div class="sbb-form-field__slot-container">
             <slot name="prefix"></slot>
           </div>
 
