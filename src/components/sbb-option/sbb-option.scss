@@ -11,9 +11,6 @@
 
   --sbb-option-bg-color: inherit;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
-
-  // Can be overridden by the 'preserve-icon-space' on the autocomplete
-  --sbb-option-icon-container-display: none;
 }
 
 :host([active]:not([active='false'])) {
@@ -56,7 +53,8 @@
 }
 
 .sbb-option__icon--empty {
-  display: var(--sbb-option-icon-container-display);
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
 }
 
 .sbb-option__label--highlight {
