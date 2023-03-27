@@ -1,6 +1,9 @@
 import { h } from 'jsx-dom';
 import events from './sbb-autocomplete.events.ts';
 import readme from './readme.md';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import isChromatic from 'chromatic';
 
 const disableAnimation = {
   control: {
@@ -74,7 +77,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   // Autocomplete args
-  disableAnimation: false,
+  disableAnimation: isChromatic(),
 
   // Option args
   iconName: 'clock-small',
@@ -120,8 +123,20 @@ const scrollDecorator = [
   ),
 ];
 
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
+  );
+
+  const label = await canvas.getByLabelText('Label');
+  userEvent.click(label);
+};
+
 const Template = (args) => [
-  <sbb-form-field borderless={args.borderless} label="Label">
+  <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
     <input placeholder="Placeholder" />
 
     <sbb-autocomplete
@@ -176,36 +191,43 @@ export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
 Basic.decorators = defaultDecorator;
+Basic.play = isChromatic() && playStory;
 
 export const BasicOpenAbove = Template.bind({});
 BasicOpenAbove.argTypes = defaultArgTypes;
 BasicOpenAbove.args = { ...defaultArgs };
 BasicOpenAbove.decorators = aboveDecorator;
+BasicOpenAbove.play = isChromatic() && playStory;
 
 export const Borderless = Template.bind({});
 Borderless.argTypes = defaultArgTypes;
 Borderless.args = { ...defaultArgs, borderless: true };
 Borderless.decorators = defaultDecorator;
+Borderless.play = isChromatic() && playStory;
 
 export const BorderlessOpenAbove = Template.bind({});
 BorderlessOpenAbove.argTypes = defaultArgTypes;
 BorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
 BorderlessOpenAbove.decorators = aboveDecorator;
+BorderlessOpenAbove.play = isChromatic() && playStory;
 
 export const PreserveIconSpace = Template.bind({});
 PreserveIconSpace.argTypes = defaultArgTypes;
 PreserveIconSpace.args = { ...defaultArgs, preserveIconSpace: true };
 PreserveIconSpace.decorators = defaultDecorator;
+PreserveIconSpace.play = isChromatic() && playStory;
 
 export const Scroll = Template.bind({});
 Scroll.argTypes = defaultArgTypes;
 Scroll.args = { ...defaultArgs };
 Scroll.decorators = scrollDecorator;
+Scroll.play = isChromatic() && playStory;
 
 export const WithOptionGroup = OptionGroupTemplate.bind({});
 WithOptionGroup.argTypes = defaultArgTypes;
 WithOptionGroup.args = { ...defaultArgs };
 WithOptionGroup.decorators = defaultDecorator;
+WithOptionGroup.play = isChromatic() && playStory;
 
 export default {
   parameters: {
