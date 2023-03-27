@@ -17,7 +17,6 @@ Also, if not explicitly set, it will look for an `input` in the 'sbb-form-field'
   <sbb-autocomplete>
     <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
     <sbb-option icon-name="clock-small" value="Option 2"> Option 2 </sbb-option>
-    <sbb-divider />
     <sbb-option icon-name="clock-small" value="Option 3"> Option 3 </sbb-option>
   </sbb-autocomplete>
 </sbb-form-field>
