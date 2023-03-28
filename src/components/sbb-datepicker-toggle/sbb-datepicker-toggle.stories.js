@@ -1,31 +1,73 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import isChromatic from 'chromatic';
 
-const StandaloneTemplate = (picker = null) => (
-  <sbb-datepicker-toggle date-picker={picker}></sbb-datepicker-toggle>
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const defaultArgTypes = {
+  'disable-animation': disableAnimation,
+};
+
+const defaultArgs = {
+  'disable-animation': isChromatic(),
+};
+
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
+  );
+
+  await waitForStablePosition(() =>
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
+  );
+
+  const toggle = await canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
+  userEvent.click(toggle);
+};
+
+const StandaloneTemplate = (picker, args) => (
+  <sbb-datepicker-toggle
+    {...args}
+    date-picker={picker}
+    data-testid="toggle"
+  ></sbb-datepicker-toggle>
 );
 
-const PickerAndButtonTemplate = () => (
+const PickerAndButtonTemplate = (args) => (
   <div style="display: flex; gap: 1em;">
-    <input id="datepicker-input" />
-    {StandaloneTemplate('datepicker')}
+    {StandaloneTemplate('datepicker', args)}
     <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+    <input id="datepicker-input" />
   </div>
 );
 
-const FormFieldTemplate = () => (
+const FormFieldTemplate = (args) => (
   <sbb-form-field>
     <input />
     <sbb-datepicker></sbb-datepicker>
-    {StandaloneTemplate()}
+    {StandaloneTemplate(null, args)}
   </sbb-form-field>
 );
 
-export const Standalone = StandaloneTemplate.bind({});
-
 export const WithPicker = PickerAndButtonTemplate.bind({});
+WithPicker.argTypes = defaultArgTypes;
+WithPicker.args = { ...defaultArgs };
+WithPicker.play = isChromatic() && playStory;
 
 export const InFormField = FormFieldTemplate.bind({});
+InFormField.argTypes = defaultArgTypes;
+InFormField.args = { ...defaultArgs };
+InFormField.play = isChromatic() && playStory;
 
 export default {
   decorators: [

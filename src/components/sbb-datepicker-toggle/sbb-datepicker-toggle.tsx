@@ -25,6 +25,9 @@ export class SbbDatepickerToggle implements ComponentInterface {
   /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
+  /** Whether the animation is disabled. */
+  @Prop() public disableAnimation = false;
+
   @Element() private _element: HTMLSbbDatepickerToggleElement;
 
   @State() private _triggerElement: HTMLElement;
@@ -167,6 +170,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
             this._openedByKeyboard && this._calendarElement.focus();
           }}
           trigger={this._triggerElement}
+          disableAnimation={this.disableAnimation}
           data-hide-close-button
         >
           <sbb-calendar

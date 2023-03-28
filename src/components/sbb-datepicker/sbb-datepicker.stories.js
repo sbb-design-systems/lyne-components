@@ -1,6 +1,9 @@
 import isChromatic from 'chromatic';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 const value = {
   control: {
@@ -150,6 +153,15 @@ const dataNow = {
   },
 };
 
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Testing',
+  },
+};
+
 const basicArgTypes = {
   value,
   form,
@@ -162,6 +174,7 @@ const basicArgTypes = {
   dateFilter,
   'aria-label': accessibilityLabel,
   'data-now': dataNow,
+  disableAnimation,
 };
 
 const basicArgs = {
@@ -175,6 +188,7 @@ const basicArgs = {
   wide: false,
   dateFilter: dateFilter.options[0],
   'aria-label': undefined,
+  disableAnimation: isChromatic(),
 };
 
 if (isChromatic()) {
@@ -208,11 +222,39 @@ const getInputAttributes = (min, max) => {
   return attr;
 };
 
-const Template = ({ min, max, wide, dateFilter, 'data-now': dataNow, ...args }) => {
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
+  );
+
+  await waitForStablePosition(() =>
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
+  );
+
+  const toggle = await canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
+  userEvent.click(toggle);
+};
+
+const Template = ({
+  min,
+  max,
+  wide,
+  dateFilter,
+  'data-now': dataNow,
+  disableAnimation,
+  ...args
+}) => {
   return [
     <div style="display: flex; gap: 0.25rem;">
       <sbb-datepicker-previous-day date-picker="datepicker" />
-      <sbb-datepicker-toggle date-picker="datepicker" />
+      <sbb-datepicker-toggle
+        date-picker="datepicker"
+        data-testid="toggle"
+        disable-animation={disableAnimation}
+      />
       <input {...args} id="datepicker-input" {...getInputAttributes(min, max)} />
       <sbb-datepicker
         id="datepicker"
@@ -242,6 +284,7 @@ const TemplateFormField = ({
   wide,
   dateFilter,
   'data-now': dataNow,
+  disableAnimation,
   ...args
 }) => {
   return [
@@ -254,7 +297,7 @@ const TemplateFormField = ({
     >
       <sbb-datepicker-previous-day />
       <sbb-datepicker-next-day />
-      <sbb-datepicker-toggle />
+      <sbb-datepicker-toggle data-testid="toggle" disable-animation={disableAnimation} />
       <input {...args} {...getInputAttributes(min, max)} />
       <sbb-datepicker
         ref={(calendarRef) => {
@@ -280,6 +323,7 @@ const changeEventHandler = async (event) => {
 export const InFormField = TemplateFormField.bind({});
 InFormField.argTypes = { ...formFieldBasicArgsTypes };
 InFormField.args = { ...formFieldBasicArgs };
+InFormField.play = isChromatic() && playStory;
 
 export const InFormFieldDisabled = TemplateFormField.bind({});
 InFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
@@ -292,6 +336,7 @@ InFormFieldReadonly.args = { ...formFieldBasicArgs, readonly: true };
 export const InFormFieldWide = TemplateFormField.bind({});
 InFormFieldWide.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldWide.args = { ...formFieldBasicArgs, wide: true };
+InFormFieldWide.play = isChromatic() && playStory;
 
 export const InFormFieldWithMinAndMax = TemplateFormField.bind({});
 InFormFieldWithMinAndMax.argTypes = { ...formFieldBasicArgsTypes };
@@ -300,26 +345,32 @@ InFormFieldWithMinAndMax.args = {
   min: new Date(1675814400000),
   max: new Date(1677024000000),
 };
+InFormFieldWithMinAndMax.play = isChromatic() && playStory;
 
 export const InFormFieldWithDateFilter = TemplateFormField.bind({});
 InFormFieldWithDateFilter.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldWithDateFilter.args = { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] };
+InFormFieldWithDateFilter.play = isChromatic() && playStory;
 
 export const InFormFieldLarge = TemplateFormField.bind({});
 InFormFieldLarge.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldLarge.args = { ...formFieldBasicArgs, size: size.options[1] };
+InFormFieldLarge.play = isChromatic() && playStory;
 
 export const InFormFieldOptional = TemplateFormField.bind({});
 InFormFieldOptional.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldOptional.args = { ...formFieldBasicArgs, optional: true };
+InFormFieldOptional.play = isChromatic() && playStory;
 
 export const InFormFieldBorderless = TemplateFormField.bind({});
 InFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldBorderless.args = { ...formFieldBasicArgs, borderless: true };
+InFormFieldBorderless.play = isChromatic() && playStory;
 
 export const WithoutFormField = Template.bind({});
 WithoutFormField.argTypes = { ...basicArgTypes };
 WithoutFormField.args = { ...basicArgs };
+WithoutFormField.play = isChromatic() && playStory;
 
 export default {
   decorators: [

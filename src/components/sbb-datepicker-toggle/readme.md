@@ -32,9 +32,10 @@ Inside `sbb-form-field`:
 
 ## Properties
 
-| Property     | Attribute     | Description           | Type                    | Default     |
-| ------------ | ------------- | --------------------- | ----------------------- | ----------- |
-| `datePicker` | `date-picker` | Datepicker reference. | `HTMLElement \| string` | `undefined` |
+| Property           | Attribute           | Description                        | Type                    | Default     |
+| ------------------ | ------------------- | ---------------------------------- | ----------------------- | ----------- |
+| `datePicker`       | `date-picker`       | Datepicker reference.              | `HTMLElement \| string` | `undefined` |
+| `disableAnimation` | `disable-animation` | Whether the animation is disabled. | `boolean`               | `false`     |
 
 
 ## Dependencies

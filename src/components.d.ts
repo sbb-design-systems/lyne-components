@@ -475,6 +475,10 @@ export namespace Components {
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation": boolean;
     }
     interface SbbDialog {
         /**
@@ -2708,6 +2712,10 @@ declare namespace LocalJSX {
           * Datepicker reference.
          */
         "datePicker"?: string | HTMLElement;
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation"?: boolean;
     }
     interface SbbDialog {
         /**
