@@ -105,14 +105,11 @@ export class SbbTimetableRow {
   /** map Quay */
   private _renderQuayType(): JSX.Element | undefined {
     if (!this.trip.summary?.product) return undefined;
+    const quayType = this._getQuayType(this.trip.summary.product?.vehicleMode);
     return (
       <span class="sbb-timetable__row--quay">
-        <span class="sbb-screenreaderonly">
-          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.long[this._currentLanguage]}
-        </span>
-        <span aria-hidden="true">
-          {this._getQuayType(this.trip.summary.product?.vehicleMode)?.short[this._currentLanguage]}
-        </span>
+        <span class="sbb-screenreaderonly">{quayType?.long[this._currentLanguage]}&nbsp;</span>
+        <span aria-hidden="true">{quayType?.short[this._currentLanguage]}</span>
       </span>
     );
   }
@@ -178,6 +175,7 @@ export class SbbTimetableRow {
                         i18nMeansOfTransport[summary.product.vehicleMode.toLowerCase()][
                           this._currentLanguage
                         ]}
+                      &nbsp;
                     </span>
                   </span>
                 )}
