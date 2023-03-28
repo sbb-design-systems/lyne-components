@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.1](https://github.com/lyne-design-system/lyne-components/compare/v0.30.0...v0.30.1) (2023-03-28)
+
+### Bug Fixes
+
+- stabilize positioning function ([#1684](https://github.com/lyne-design-system/lyne-components/issues/1684)) ([bb17e05](https://github.com/lyne-design-system/lyne-components/commit/bb17e059eb65401ec22354a05fb7d9cd779fbf8f))
+
 ## [0.30.0](https://github.com/lyne-design-system/lyne-components/compare/v0.29.1...v0.30.0) (2023-03-24)
 
 ### ⚠ BREAKING CHANGES
