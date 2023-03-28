@@ -69,7 +69,7 @@ describe('sbb-datepicker-previous-day', () => {
       page = await newE2EPage();
       await page.setContent(`
         <sbb-form-field>
-          <input value="20-01-2023" min="1674169200"/>
+          <input value="20-01-2023" min="1674172800"/>
           <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
           <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
