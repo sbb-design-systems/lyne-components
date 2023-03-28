@@ -18,8 +18,6 @@ describe('sbb-menu-action', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    /*
-    TODO: Figure out why this test fails, when sbb-button test works
     it('should not dispatch event on click if disabled', async () => {
       element.setAttribute('disabled', true);
 
@@ -27,10 +25,9 @@ describe('sbb-menu-action', () => {
 
       const clickSpy = await page.spyOnEvent('click');
 
-      await element.click();
+      element.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
       expect(clickSpy).not.toHaveReceivedEvent();
     });
-    */
 
     it('should dispatch click event on pressing Enter', async () => {
       const changeSpy = await page.spyOnEvent('click');
