@@ -108,7 +108,10 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._inputDisabled = event.detail.disabled || event.detail.readonly;
-        this._min = event.detail.min;
+        if (this._min !== event.detail.min) {
+          this._min = event.detail.min;
+          this._setDisabledState(this._datePickerElement);
+        }
       },
       { signal: this._datePickerController.signal }
     );

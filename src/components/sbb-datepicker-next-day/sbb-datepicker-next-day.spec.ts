@@ -11,13 +11,11 @@ describe('sbb-datepicker-next-day', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <sbb-datepicker-next-day slot="suffix">
+      <sbb-datepicker-next-day aria-label="Next day" dir="ltr" role="button" slot="suffix" tabindex="0">
         <mock:shadow-root>
-          <div class="sbb-datepicker-next-day">
-            <button aria-label="Next day"  class="sbb-datepicker-next-day__button" type="button">
-              <sbb-icon name="chevron-small-right-small" />
-            </button>
-          </div>
+          <span class="sbb-datepicker-next-day">
+            <sbb-icon name="chevron-small-right-small" />
+          </span>
         </mock:shadow-root>
       </sbb-datepicker-next-day>
     `);
@@ -37,8 +35,7 @@ describe('sbb-datepicker-next-day', () => {
 
     const element: HTMLSbbDatepickerNextDayElement =
       page.doc.querySelector('sbb-datepicker-next-day');
-    const button: HTMLButtonElement = element.shadowRoot.querySelector('button');
-    expect(button).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
@@ -55,7 +52,6 @@ describe('sbb-datepicker-next-day', () => {
 
     const element: HTMLSbbDatepickerNextDayElement =
       page.doc.querySelector('sbb-datepicker-next-day');
-    const button: HTMLButtonElement = element.shadowRoot.querySelector('button');
-    expect(button).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('disabled');
   });
 });

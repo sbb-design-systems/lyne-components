@@ -21,14 +21,13 @@ describe('sbb-datepicker-next-day', () => {
         `,
       });
       const element: E2EElement = await page.find('sbb-datepicker-next-day');
-      const button: E2EElement = await page.find('sbb-datepicker-next-day >>> button');
       const input: E2EElement = await page.find('input');
       await page.waitForChanges();
       expect(element).toHaveClass('hydrated');
       expect(await input.getProperty('value')).toEqual('31-12-2022');
 
       const changeSpy = await page.spyOnEvent('change');
-      await button.click();
+      await element.click();
       await page.waitForChanges();
       expect(changeSpy).toHaveReceivedEventTimes(1);
 
@@ -37,7 +36,7 @@ describe('sbb-datepicker-next-day', () => {
   });
 
   describe('in form field', () => {
-    let element: E2EElement, input: E2EElement, button: E2EElement, page: E2EPage;
+    let element: E2EElement, input: E2EElement, page: E2EPage;
 
     beforeEach(async () => {
       page = await newE2EPage();
@@ -50,7 +49,6 @@ describe('sbb-datepicker-next-day', () => {
       `);
       element = await page.find('sbb-datepicker-next-day');
       input = await page.find('input');
-      button = await page.find('sbb-datepicker-next-day >>> button');
       await page.waitForChanges();
     });
 
@@ -61,7 +59,7 @@ describe('sbb-datepicker-next-day', () => {
     it('click', async () => {
       expect(await input.getProperty('value')).toEqual('21-01-2023');
       const changeSpy = await page.spyOnEvent('change');
-      await button.click();
+      await element.click();
       await page.waitForChanges();
       expect(changeSpy).toHaveReceivedEventTimes(1);
       expect(await input.getProperty('value')).toEqual('22.01.2023');
@@ -77,14 +75,18 @@ describe('sbb-datepicker-next-day', () => {
         </sbb-form-field>
       `);
       input = await page.find('input');
-      button = await page.find('sbb-datepicker-next-day >>> button');
       await page.waitForChanges();
 
       expect(await input.getProperty('value')).toEqual('21-01-2023');
       await page.waitForChanges();
 
-      expect(button).toHaveAttribute('disabled');
-      await button.click();
+      expect(
+        await page.evaluate(() =>
+          document.querySelector('sbb-datepicker-next-day').getAttribute('disabled')
+        )
+      ).toEqual('');
+
+      await element.click();
       await page.waitForChanges();
       expect(await input.getProperty('value')).toEqual('21-01-2023');
     });
@@ -95,8 +97,8 @@ describe('sbb-datepicker-next-day', () => {
 
       await page.waitForChanges();
 
-      expect(button).toHaveAttribute('disabled');
-      await button.click();
+      expect(element).toHaveAttribute('disabled');
+      await element.click();
       await page.waitForChanges();
       expect(await input.getProperty('value')).toEqual('21-01-2023');
     });

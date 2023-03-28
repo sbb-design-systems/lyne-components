@@ -107,7 +107,10 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
         this._inputDisabled = event.detail.disabled || event.detail.readonly;
-        this._max = event.detail.max;
+        if (this._max !== event.detail.max) {
+          this._max = event.detail.max;
+          this._setDisabledState(this._datePickerElement);
+        }
       },
       { signal: this._datePickerController.signal }
     );

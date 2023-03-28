@@ -11,13 +11,11 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <sbb-datepicker-previous-day slot="prefix">
+      <sbb-datepicker-previous-day slot="prefix" aria-label="Previous day" dir="ltr" role="button" slot="prefix" tabindex="0">
         <mock:shadow-root>
-          <div class="sbb-datepicker-previous-day">
-            <button aria-label="Previous day" class="sbb-datepicker-previous-day__button" type="button">
-              <sbb-icon name="chevron-small-left-small" />
-            </button>
-          </div>
+          <span class="sbb-datepicker-previous-day">
+            <sbb-icon name="chevron-small-left-small" />
+          </span>
         </mock:shadow-root>
       </sbb-datepicker-previous-day>
     `);
@@ -38,8 +36,7 @@ describe('sbb-datepicker-previous-day', () => {
     const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
       'sbb-datepicker-previous-day'
     );
-    const button: HTMLButtonElement = element.shadowRoot.querySelector('button');
-    expect(button).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
@@ -57,7 +54,6 @@ describe('sbb-datepicker-previous-day', () => {
     const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
       'sbb-datepicker-previous-day'
     );
-    const button: HTMLButtonElement = element.shadowRoot.querySelector('button');
-    expect(button).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('disabled');
   });
 });
