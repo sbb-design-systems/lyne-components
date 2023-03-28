@@ -18,13 +18,13 @@ describe('sbb-card', () => {
       <sbb-card color="white" class='hydrated' data-has-badge role="link" size="xl" tabindex="0" href="https://github.com/lyne-design-system/lyne-components" target="_blank" dir="ltr">
         <mock:shadow-root>
           <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
-            <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
             </span>
+            <slot name="badge"></slot>
           </a>
         </mock:shadow-root>
         <h2>Title</h2>
@@ -49,10 +49,10 @@ describe('sbb-card', () => {
       <sbb-card color="white" class='hydrated' data-has-badge role="button" size="xl" tabindex="0" name="button" form="form" value="value" dir="ltr">
         <mock:shadow-root>
           <span class="sbb-card">
-            <slot name="badge"></slot>
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
+            <slot name="badge"></slot>
           </span>
         </mock:shadow-root>
         <h2>Title</h2>

@@ -125,7 +125,6 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
     return (
       <Host {...hostAttributes}>
         <TAG_NAME class="sbb-card" {...attributes}>
-          {this._hasBadge() && <slot name="badge" />}
           <span class="sbb-card__wrapper">
             <slot />
           </span>
@@ -134,6 +133,7 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
               . {i18nTargetOpensInNewWindow[this._currentLanguage]}
             </span>
           )}
+          {this._hasBadge() && <slot name="badge" />}
         </TAG_NAME>
       </Host>
     );
