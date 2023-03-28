@@ -81,6 +81,7 @@
   border-radius: 50%;
   color: var(--sbb-calendar-day-color);
   position: relative;
+  cursor: pointer;
 }
 
 .sbb-calendar__day:disabled {

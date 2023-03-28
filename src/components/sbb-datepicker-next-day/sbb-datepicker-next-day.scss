@@ -7,6 +7,8 @@
 :host {
   --sbb-datepicker-control-radius: var(--sbb-border-radius-4x);
   --sbb-datepicker-control-color: var(--sbb-color-black-default);
+
+  display: flex;
 }
 
 :host(:focus-visible) {
@@ -15,4 +17,6 @@
 
 .sbb-datepicker-next-day {
   @include sbb.icon-button;
+
+  margin: auto;
 }
