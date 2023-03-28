@@ -123,7 +123,7 @@ export class SbbCheckbox implements ComponentInterface {
   @Listen('click')
   public handleClick(): void {
     if (!this.disabled && !this._disabledFromGroup) {
-      this.checked = !this.checked;
+      this._checkbox.click();
     }
   }
 

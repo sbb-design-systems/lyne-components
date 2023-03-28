@@ -143,7 +143,9 @@ function dispatchClickEventWhenButtonAndSpaceKeyup(event: KeyboardEvent): void {
 /** Adds event handlers to enable button/link-like functionality to a web component host. */
 export const actionElementHandlerAspect: HandlerAspect = ({ host, signal }) => {
   const passiveOptions = { passive: true, signal };
-  host.addEventListener('click', handleLinkButtonClick, { signal });
+  // capture is necessary here, as this event handler needs to be executed before any other
+  // in order to stop immediate propagation in the disabled case.
+  host.addEventListener('click', handleLinkButtonClick, { signal, capture: true });
   host.addEventListener('keydown', preventScrollWhenButtonAndSpaceKeydown, { signal });
   host.addEventListener('keypress', dispatchClickEventWhenEnterKeypress, passiveOptions);
   host.addEventListener('keyup', dispatchClickEventWhenButtonAndSpaceKeyup, passiveOptions);
