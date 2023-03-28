@@ -1,12 +1,24 @@
-The `sbb-autocomplete` is a component that can be bonded to any text input (`trigger`) to display a panel of suggested options.  
-The panel appears below/above the `origin` element. 
+# sbb-autocomplete
+
+The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
+
+If the component is used within a `sbb-form-field`, it will automatically connect to the native `input` as trigger
+and will display the option panel above or below the `sbb-form-field`; otherwise, it's possible to set 
+the panel `origin` and the input `trigger` passing an id or an element reference.
+
+The `preserveIconSpace` property can be used to reserve space on the left side of the options in the panel.
+
+The component's option panel can be open on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
+it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
+
+### Option highlight
+
+By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.
+See the [sbb-option](../sbb-option/readme.md) for more details.
 
 ## Usage
 
-If not explicitly set, the `sbb-autocomplete` will look for an `sbb-form-field` ancestor as `origin`.
-
-Also, if not explicitly set, it will look for an `input` in the 'sbb-form-field' ancestor to use as `trigger`.
-
+In a form field:
 ```html
 <!-- Origin element -->
 <sbb-form-field label="Label">
@@ -21,8 +33,8 @@ Also, if not explicitly set, it will look for an `input` in the 'sbb-form-field'
   </sbb-autocomplete>
 </sbb-form-field>
 ```
-Or, you can specify a different `origin` and `trigger`
 
+Standalone, by setting the `origin` and `trigger` properties:
 ```html
 <!-- Origin element -->
 <div id="autocomplete-origin">Another origin</div>
@@ -31,28 +43,10 @@ Or, you can specify a different `origin` and `trigger`
 <input id="autocomplete-txt" placeholder="Another trigger element" />
 
 <sbb-autocomplete origin="autocomplete-origin" trigger="autocomplete-txt">
-  ...
+  <sbb-option value="Option A">Option A</sbb-option>
+  <sbb-option value="Option B">Option B</sbb-option>
+  <sbb-option value="Option C">Option C</sbb-option>
 </sbb-autocomplete>
-```
-
-### Option highlight
-
-The autocomplete will highlight the caption of the option if the slot contains only a **text node**.  
-In case of a non-supported scenario, the highlight will be disabled.
-
-```html  
-<!-- Supported scenarios -->
-<sbb-option> Highlightable caption </sbb-option>
-
-<!-- Not supported scenarios -->
-<sbb-option> 
-  <span> Not highlightable caption </span>
-</sbb-option>
-
-<sbb-option> 
-  <img src="...">
-  Highlightable caption 
-</sbb-option>
 ```
 
 ## Keyboard interaction
@@ -64,9 +58,13 @@ In case of a non-supported scenario, the highlight will be disabled.
 | <kbd>Escape</kbd>                      | Close the autocomplete panel.                                  |
 
 ## Accessibility
-`sbb-autocomplete` implements the ARIA combobox interaction pattern. The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`. Because of this listbox pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. Nesting interactive controls like this interferes with most assistive technology.
+`sbb-autocomplete` implements the ARIA combobox interaction pattern. 
+The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`. 
+Because of this listbox pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. 
+Nesting interactive controls like this interferes with most assistive technology.
 
 `sbb-autocomplete` preserves focus on the text trigger, using aria-activedescendant to support navigation though the autocomplete options.
+
 
 <!-- Auto Generated Below -->
 
