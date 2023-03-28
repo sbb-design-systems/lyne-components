@@ -1,21 +1,54 @@
 # sbb-option
 
-The `<sbb-option>` implements the design of the Lyne Option, and can be used to display and manage options in components like `<sbb-autocomplete>` or `<sbb-select>`.
-If the `icon-name` property is set, it will include the related icon on the left.
-Icon space can be reserved even if the icon is not shown.
+The `<sbb-option>` component can be used to display items in components like `<sbb-autocomplete>` or `<sbb-select>`.
+
+Like the native `option`, the component has a `value` property. The `selected`, `disabled` and `active` properties are 
+connected to the self-named states. When disabled, the selection via click is prevented.
+If the `sbb-option` is nested in a `sbb-option-group` component, it inherits from the parent the `disabled` state.
+
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
+at the component start using the `iconName` property or via custom content using the `icon` slot. 
+Icon space can be reserved even if the `iconName` property is not set by overriding the `--sbb-option-icon-container-display` variable.
+
+Consumers can listen to the `selectionChange` event on the `sbb-option` component to intercept the selected value;
+the `event.detail` object includes the `sbb-option` id, value and selected state (as a boolean value).
+
+### Highlight
+
+If the label slot contains only a **text node**, it is possible to search for text in the `sbb-option` using the 
+`highlight` method, passing the desired text; if the text is present it will be highlighted in bold.
+
+```html  
+<!-- Supported scenario -->
+<sbb-option> Highlightable caption</sbb-option>
+
+<!-- Not supported scenarios -->
+<sbb-option> 
+  <span>Not highlightable caption</span>
+</sbb-option>
+
+<sbb-option> 
+  <img src="...">
+  Highlightable caption 
+</sbb-option>
+```
 
 ## Usage
 
+Default:
 ```html
-<sbb-option>Option label</sbb-option>
+<sbb-option value="value">Option label</sbb-option>
 ```
 
-Option with icon
-
+Selected and active with icon:
 ```html
-<sbb-button icon-name="info">Option label</sbb-button>
+<sbb-option value="value" icon-name="info" selected active>Option label</sbb-option>
 ```
 
+Disabled:
+```html
+<sbb-option value="value" disabled>Option label</sbb-option>
+```
 
 ## Accessibility
 -- TBD --
