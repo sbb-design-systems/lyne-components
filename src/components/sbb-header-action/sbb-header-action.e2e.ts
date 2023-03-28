@@ -14,10 +14,9 @@ describe('sbb-header-action', () => {
   describe('events', () => {
     it('dispatches event on click', async () => {
       await page.waitForChanges();
-      const headerAction = await page.find('sbb-header-action >>> .sbb-header-action');
       const changeSpy = await page.spyOnEvent('click');
 
-      await headerAction.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 

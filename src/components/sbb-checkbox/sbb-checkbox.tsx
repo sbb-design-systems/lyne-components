@@ -121,9 +121,9 @@ export class SbbCheckbox implements ComponentInterface {
   }
 
   @Listen('click')
-  public handleClick(): void {
-    if (!this.disabled && !this._disabledFromGroup) {
-      this.checked = !this.checked;
+  public handleClick(event: Event): void {
+    if (!this.disabled && !this._disabledFromGroup && event.composedPath()[0] === this._element) {
+      this._checkbox.click();
     }
   }
 

@@ -72,10 +72,9 @@ describe('sbb-card', () => {
 
     it('dispatches event on click', async () => {
       await page.waitForChanges();
-      const card = await page.find('sbb-card >>> .sbb-card');
       const changeSpy = await page.spyOnEvent('click');
 
-      await card.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 

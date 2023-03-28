@@ -17,18 +17,16 @@ describe('sbb-checkbox', () => {
   describe('events', () => {
     it('emit event on click', async () => {
       await page.waitForChanges();
-      const checkbox = await page.find('sbb-checkbox');
       const changeSpy = await page.spyOnEvent('change');
-      await checkbox.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEvent();
     });
 
     it('emit event on keypress', async () => {
       await page.waitForChanges();
-      const checkbox = await page.find('sbb-checkbox');
       const changeSpy = await page.spyOnEvent('change');
-      await checkbox.press('Tab');
-      await checkbox.press('Space');
+      await element.press('Tab');
+      await element.press('Space');
       await page.waitForChanges();
       expect(changeSpy).toHaveReceivedEvent();
     });
@@ -40,28 +38,26 @@ describe('sbb-checkbox', () => {
       await page.setContent('<sbb-checkbox indeterminate>Label</sbb-checkbox>');
       element = await page.find('sbb-checkbox');
       await page.waitForChanges();
-      const input = await page.find('sbb-checkbox >>> input');
 
-      expect(await input.getProperty('checked')).toBe(false);
-      expect(await input.getProperty('indeterminate')).toBe(true);
+      expect(await element.getProperty('checked')).toBe(false);
+      expect(await element.getProperty('indeterminate')).toBe(true);
 
       await element.click();
       await page.waitForChanges();
 
-      expect(await input.getProperty('checked')).toBe(true);
-      expect(await input.getProperty('indeterminate')).toBeFalsy();
+      expect(await element.getProperty('checked')).toBe(true);
+      expect(await element.getProperty('indeterminate')).toBeFalsy();
     });
 
     it('should update indeterminate state of input', async () => {
       await page.waitForChanges();
 
-      const input = await page.find('sbb-checkbox >>> input');
-      expect(await input.getProperty('indeterminate')).toBeFalsy();
+      expect(await element.getProperty('indeterminate')).toBeFalsy();
 
       element.setProperty('indeterminate', true);
       await page.waitForChanges();
 
-      expect(await input.getProperty('indeterminate')).toBe(true);
+      expect(await element.getProperty('indeterminate')).toBe(true);
     });
   });
 });

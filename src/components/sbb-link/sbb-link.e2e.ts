@@ -13,10 +13,9 @@ describe('sbb-link', () => {
   describe('events', () => {
     it('dispatches event on click', async () => {
       await page.waitForChanges();
-      const link = await page.find('sbb-link >>> .sbb-link');
       const changeSpy = await page.spyOnEvent('click');
 
-      await link.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -25,10 +24,9 @@ describe('sbb-link', () => {
 
       await page.waitForChanges();
 
-      const link = await page.find('sbb-link >>> .sbb-link');
       const changeSpy = await page.spyOnEvent('click');
 
-      await link.click();
+      await element.click();
       expect(changeSpy).not.toHaveReceivedEvent();
     });
 
@@ -37,10 +35,9 @@ describe('sbb-link', () => {
 
       await page.waitForChanges();
 
-      const link = await page.find('sbb-link >>> .sbb-link');
       const changeSpy = await page.spyOnEvent('click');
 
-      await link.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEvent();
     });
 

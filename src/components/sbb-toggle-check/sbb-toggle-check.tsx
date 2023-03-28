@@ -12,6 +12,7 @@ import {
   Listen,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
+import { inputElement } from '../../global/helpers/input-element';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 
 @Component({
@@ -59,8 +60,8 @@ export class SbbToggleCheck implements ComponentInterface {
 
   @Listen('click')
   public handleClick(): void {
-    if (!this.disabled) {
-      this.checked = !this.checked;
+    if (!this.disabled && event.composedPath()[0] === this._element) {
+      inputElement(this._element).click();
     }
   }
 

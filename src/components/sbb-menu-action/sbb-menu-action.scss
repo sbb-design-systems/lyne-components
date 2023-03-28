@@ -29,6 +29,9 @@
   --sbb-menu-action-color: var(--sbb-color-graphite-default);
   --sbb-menu-action-forced-color-border-color: GrayText;
 
+  pointer-events: none;
+  cursor: default;
+
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: GrayText;
   }

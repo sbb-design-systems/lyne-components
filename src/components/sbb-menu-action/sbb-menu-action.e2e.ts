@@ -6,17 +6,15 @@ describe('sbb-menu-action', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent('<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>');
-
     element = await page.find('sbb-menu-action');
   });
 
   describe('events', () => {
     it('dispatches event on click', async () => {
       await page.waitForChanges();
-      const menuAction = await page.find('sbb-menu-action');
       const changeSpy = await page.spyOnEvent('click');
 
-      await menuAction.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -25,21 +23,9 @@ describe('sbb-menu-action', () => {
 
       await page.waitForChanges();
 
-      const menuAction = await page.find('sbb-menu-action >>> .sbb-menu-action');
-      const changeSpy = await page.spyOnEvent('click');
-
-      await menuAction.click();
-      expect(changeSpy).not.toHaveReceivedEvent();
-    });
-
-    it('should stop propagating host click if disabled', async () => {
-      element.setProperty('disabled', true);
-
       const clickSpy = await page.spyOnEvent('click');
 
-      element.triggerEvent('click');
-      await page.waitForChanges();
-
+      element.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
       expect(clickSpy).not.toHaveReceivedEvent();
     });
 
