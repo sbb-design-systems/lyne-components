@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.2](https://github.com/lyne-design-system/lyne-components/compare/v0.30.1...v0.30.2) (2023-03-28)
+
+### Bug Fixes
+
+- refine accessibility changes on host elements ([#1685](https://github.com/lyne-design-system/lyne-components/issues/1685)) ([70f33c1](https://github.com/lyne-design-system/lyne-components/commit/70f33c15d789d408e4544031a6b45ef3138aa23b))
+
 ### [0.30.1](https://github.com/lyne-design-system/lyne-components/compare/v0.30.0...v0.30.1) (2023-03-28)
 
 ### Bug Fixes
