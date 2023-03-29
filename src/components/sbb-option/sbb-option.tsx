@@ -22,6 +22,7 @@ import {
 import { SbbOptionSelectionChange, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { isAndroid } from '../../global/helpers/platform';
 
 let nextId = 0;
 
@@ -217,13 +218,14 @@ export class SbbOption implements ComponentInterface {
     return (
       <Host
         role="option"
+        tabindex={isAndroid() && !this.disabled && 0}
         data-variant={this._variant}
+        data-disable-highlight={this._disableLabelHighlight}
+        ref={assignId(() => this._optionId)}
         /* eslint-disable jsx-a11y/aria-proptypes */
         aria-selected={`${this.selected}`}
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
         /* eslint-enable jsx-a11y/aria-proptypes */
-        data-disable-highlight={this._disableLabelHighlight}
-        ref={assignId(() => this._optionId)}
       >
         {this._variant && this._variant === 'select'
           ? this._renderSelectOption()
