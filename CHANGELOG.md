@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.3](https://github.com/lyne-design-system/lyne-components/compare/v0.30.2...v0.30.3) (2023-03-29)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** add spacings for sr-only text ([#1686](https://github.com/lyne-design-system/lyne-components/issues/1686)) ([50338fa](https://github.com/lyne-design-system/lyne-components/commit/50338fafa60a3d4366bfc510094a73c7d1ed5c5e))
+
 ### [0.30.2](https://github.com/lyne-design-system/lyne-components/compare/v0.30.1...v0.30.2) (2023-03-28)
 
 ### Bug Fixes
