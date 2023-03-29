@@ -43,36 +43,50 @@ describe('sbb-autocomplete', () => {
   });
 
   it('opens and closes with mouse and keyboard', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
 
     await input.focus();
+    await page.waitForChanges();
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     expect(input.getAttribute('aria-expanded')).toEqual('true');
 
     await element.press('Escape');
     await page.waitForChanges();
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     expect(input.getAttribute('aria-expanded')).toEqual('false');
 
     await element.press('ArrowDown');
+    await page.waitForChanges();
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
     await page.waitForChanges();
     expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
     expect(input.getAttribute('aria-expanded')).toEqual('true');
 
     await element.press('Tab');
     await page.waitForChanges();
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(2);
+    await page.waitForChanges();
     expect(didCloseEventSpy).toHaveReceivedEventTimes(2);
     expect(input.getAttribute('aria-expanded')).toEqual('false');
 
     await input.click();
+    await page.waitForChanges();
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
     await page.waitForChanges();
     expect(didOpenEventSpy).toHaveReceivedEventTimes(3);
     expect(input.getAttribute('aria-expanded')).toEqual('true');
 
     const button = await page.find('button');
     await button.click();
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(3);
+    await page.waitForChanges();
     expect(didCloseEventSpy).toHaveReceivedEventTimes(3);
     expect(input.getAttribute('aria-expanded')).toEqual('false');
   });
