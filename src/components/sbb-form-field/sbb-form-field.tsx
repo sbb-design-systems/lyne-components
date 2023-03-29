@@ -142,11 +142,26 @@ export class SbbFormField implements ComponentInterface {
     this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
+  @Listen('will-open')
+  public onPopupOpen({ target }): void {    
+    if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
+      toggleDatasetEntry(this._element, 'hasPopupOpen', true);
+    }
+  }
+
+  @Listen('did-close')
+  public onPopupClose({ target }): void {
+    if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
+      toggleDatasetEntry(this._element, 'hasPopupOpen', false);
+    }
+  }
+
   private _handleWrapperClick(event: Event): void {
     if (
       (event.target as Element).tagName !== 'LABEL' &&
       !this._isButton(event.target as Element) &&
-      !this._isButton(event.composedPath()[0] as Element)
+      !this._isButton(event.composedPath()[0] as Element) &&
+      !this._isPopup(event)
     ) {
       this._input?.focus();
     }
@@ -154,6 +169,11 @@ export class SbbFormField implements ComponentInterface {
 
   private _isButton(element: Element): boolean {
     return element.tagName === 'BUTTON' || element.getAttribute('role') === 'button';
+  }
+
+  private _isPopup(event: Event): boolean {
+    const composedPathEls = event.composedPath().filter((el) => el instanceof window.HTMLElement);
+    return composedPathEls.some((el) => (el as HTMLElement).tagName === 'SBB-TOOLTIP');
   }
 
   private _onSlotLabelChange(): void {
@@ -237,17 +257,6 @@ export class SbbFormField implements ComponentInterface {
       ? this._errorElements.map((e) => e.id).join(',')
       : this._originalInputAriaDescribedby;
     this._input?.setAttribute('aria-describedby', value);
-  }
-
-  private _setInputFocus(): void {
-    if (!isValidAttribute(this._element, 'data-has-popup-open')) {
-      this._input?.focus();
-    }
-  }
-
-  private _isPopupTarget(event: Event): boolean {
-    const composedPathEls = event.composedPath().filter((el) => el instanceof window.HTMLElement);
-    return composedPathEls.some((el) => (el as HTMLElement).tagName === 'SBB-TOOLTIP');
   }
 
   public render(): JSX.Element {
