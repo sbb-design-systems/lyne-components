@@ -21,10 +21,10 @@ describe('sbb-card', () => {
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>
+            <slot name="badge"></slot>
             <span class="sbb-card__opens-in-new-window">
               . Link target opens in new window.
             </span>
-            <slot name="badge"></slot>
           </a>
         </mock:shadow-root>
         <h2>Title</h2>
