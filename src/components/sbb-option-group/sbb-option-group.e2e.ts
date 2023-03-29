@@ -6,7 +6,7 @@ describe('sbb-option-group', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <sbb-option-group>
+      <sbb-option-group label="Group 1">
         <sbb-option id="option-1" value="option-1">Label 1</sbb-option>
         <sbb-option id="option-2" disabled value="option-2">Label 2</sbb-option>
         <sbb-option id="option-3" value="option-3">Label 3</sbb-option>

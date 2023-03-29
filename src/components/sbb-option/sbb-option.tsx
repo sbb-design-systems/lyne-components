@@ -141,8 +141,6 @@ export class SbbOption implements ComponentInterface {
       this._variant = 'autocomplete';
     } else if (this._element.closest('sbb-select')) {
       this._variant = 'select';
-    } else {
-      throw new Error('sbb-option component is not used within sbb-select or sbb-autocomplete');
     }
   }
 
