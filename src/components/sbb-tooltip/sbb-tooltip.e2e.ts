@@ -45,7 +45,7 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
-    trigger.triggerEvent('click');
+    trigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -114,7 +114,7 @@ describe('sbb-tooltip', () => {
 
     expect(dialog).toHaveAttribute('open');
 
-    await closeButton.click();
+    closeButton.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -135,7 +135,7 @@ describe('sbb-tooltip', () => {
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
-    trigger.triggerEvent('click');
+    trigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -173,7 +173,7 @@ describe('sbb-tooltip', () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const tooltipLink = await page.find('sbb-tooltip > sbb-link');
 
-    trigger.triggerEvent('click');
+    trigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -187,7 +187,7 @@ describe('sbb-tooltip', () => {
     expect(dialog).toHaveAttribute('open');
     expect(tooltipLink).not.toBeNull();
 
-    tooltipLink.triggerEvent('click');
+    tooltipLink.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -208,7 +208,7 @@ describe('sbb-tooltip', () => {
     await page.setViewport({ width: 1200, height: 800 });
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
-    trigger.triggerEvent('click');
+    trigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -253,7 +253,7 @@ describe('sbb-tooltip', () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
-    trigger.triggerEvent('click');
+    trigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
