@@ -82,7 +82,7 @@ describe('sbb-navigation', () => {
 
     expect(dialog).toHaveAttribute('open');
 
-    await closeButton.click();
+    closeButton.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
@@ -131,7 +131,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    action.triggerEvent('click');
+    action.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -140,7 +140,7 @@ describe('sbb-navigation', () => {
     expect(dialog).toHaveAttribute('open');
     expect(sectionDialog).toHaveAttribute('open');
 
-    closeEl.triggerEvent('click');
+    closeEl.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
@@ -167,7 +167,7 @@ describe('sbb-navigation', () => {
     expect(navDialog).toHaveAttribute('open');
     expect(sectionDialog).not.toHaveAttribute('open');
 
-    action.triggerEvent('click');
+    action.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(navDialog).toHaveAttribute('open');
@@ -192,13 +192,13 @@ describe('sbb-navigation', () => {
     expect(firstSectionDialog).not.toHaveAttribute('open');
     expect(secondSectionDialog).not.toHaveAttribute('open');
 
-    firstAction.triggerEvent('click');
+    firstAction.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(firstSectionDialog).toHaveAttribute('open');
     expect(secondSectionDialog).not.toHaveAttribute('open');
 
-    secondAction.triggerEvent('click');
+    secondAction.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(firstSectionDialog).not.toHaveAttribute('open');
@@ -218,7 +218,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    action.triggerEvent('click');
+    action.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -227,7 +227,7 @@ describe('sbb-navigation', () => {
     expect(dialog).toHaveAttribute('open');
     expect(sectionDialog).toHaveAttribute('open');
 
-    await closeButton.click();
+    closeButton.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
@@ -249,7 +249,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    action.triggerEvent('click');
+    action.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -285,7 +285,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    action.triggerEvent('click');
+    action.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
@@ -294,7 +294,7 @@ describe('sbb-navigation', () => {
     expect(dialog).toHaveAttribute('open');
     expect(sectionDialog).toHaveAttribute('open');
 
-    await closeEl.click();
+    closeEl.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
 
     expect(dialog).toHaveAttribute('open');
