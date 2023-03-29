@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Fragment,
   h,
+  Host,
   JSX,
   Prop,
   State,

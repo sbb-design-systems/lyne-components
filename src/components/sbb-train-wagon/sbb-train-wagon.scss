@@ -9,12 +9,16 @@
   --sbb-train-wagon-height: var(--sbb-train-formation-wagon-height);
   --sbb-train-wagon-inner-padding: var(--sbb-spacing-fixed-3x);
   --sbb-train-wagon-shape-border-radius: var(--sbb-train-formation-wagon-border-radius);
-  --sbb-train-wagon-shape-outline-color: var(--sbb-color-charcoal-default);
-  --sbb-train-wagon-shape-outline-color-closed: var(--sbb-color-metal-default);
-  --sbb-train-wagon-shape-outline-width: var(--sbb-border-width-1x);
+  --sbb-train-wagon-shape-color: var(--sbb-color-charcoal-default);
+  --sbb-train-wagon-shape-color-closed: var(--sbb-color-metal-default);
+  --sbb-train-wagon-shape-width: var(--sbb-border-width-1x);
   --sbb-train-wagon-icons-padding-block-start: var(--sbb-spacing-fixed-2x);
   --sbb-train-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
   --sbb-train-wagon-icons-height: #{sbb.px-to-rem-build(14)};
+
+  @include sbb.if-forced-colors {
+    --sbb-train-wagon-shape-color-closed: CanvasText;
+  }
 }
 
 .sbb-train-wagon {
@@ -45,13 +49,11 @@
   }
 
   :host([type='wagon']) & {
-    border: var(--sbb-train-wagon-shape-outline-width) solid
-      var(--sbb-train-wagon-shape-outline-color);
+    border: var(--sbb-train-wagon-shape-width) solid var(--sbb-train-wagon-shape-color);
   }
 
   :host([type='closed']) & {
-    border: var(--sbb-train-wagon-shape-outline-width) solid
-      var(--sbb-train-wagon-shape-outline-color-closed);
+    border: var(--sbb-train-wagon-shape-width) solid var(--sbb-train-wagon-shape-color-closed);
   }
 }
 
