@@ -63,7 +63,7 @@ The text input trigger specifies `role="combobox"` while the content of the pop-
 Because of this listbox pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. 
 Nesting interactive controls like this interferes with most assistive technology.
 
-`sbb-autocomplete` preserves focus on the text trigger, using aria-activedescendant to support navigation though the autocomplete options.
+`sbb-autocomplete` preserves focus on the input trigger, using `aria-activedescendant` to support navigation though the autocomplete options.
 
 
 <!-- Auto Generated Below -->
@@ -71,12 +71,12 @@ Nesting interactive controls like this interferes with most assistive technology
 
 ## Properties
 
-| Property            | Attribute             | Description                                                                                                                                                                                                                                                                         | Type                         | Default     |
-| ------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------- |
-| `disableAnimation`  | `disable-animation`   | Whether the animation is disabled.                                                                                                                                                                                                                                                  | `boolean`                    | `false`     |
-| `origin`            | `origin`              | The element where the autocomplete will attach; accepts both a string (id of an element) or an HTML element.  If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                      | `HTMLElement \| string`      | `undefined` |
-| `preserveIconSpace` | `preserve-icon-space` | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                            | `boolean`                    | `undefined` |
-| `trigger`           | `trigger`             | The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element. By default, the autocomplete will open on focus of the 'trigger' element.  If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. | `HTMLInputElement \| string` | `undefined` |
+| Property            | Attribute             | Description                                                                                                                                                                                                                                                                                                       | Type                         | Default     |
+| ------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------- |
+| `disableAnimation`  | `disable-animation`   | Whether the animation is disabled.                                                                                                                                                                                                                                                                                | `boolean`                    | `false`     |
+| `origin`            | `origin`              | The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.                                                                                                                                                  | `HTMLElement \| string`      | `undefined` |
+| `preserveIconSpace` | `preserve-icon-space` | Whether the icon space is preserved when no icon is set.                                                                                                                                                                                                                                                          | `boolean`                    | `undefined` |
+| `trigger`           | `trigger`             | The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. | `HTMLInputElement \| string` | `undefined` |
 
 
 ## Events

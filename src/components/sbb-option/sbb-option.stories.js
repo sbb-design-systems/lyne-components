@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import events from './sbb-option.events';
 
 const iconName = {
   control: {
@@ -85,7 +86,7 @@ export default {
   ],
   parameters: {
     actions: {
-      handles: ['click'],
+      handles: [events.selectionChange],
     },
     backgrounds: {
       disable: true,

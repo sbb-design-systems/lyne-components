@@ -36,16 +36,14 @@ let nextId = 0;
 })
 export class SbbAutocomplete implements ComponentInterface {
   /**
-   * The element where the autocomplete will attach; accepts both a string (id of an element) or an HTML element.
-   *
+   * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
    * If not set, will search for the first 'sbb-form-field' ancestor.
    */
   @Prop() public origin: string | HTMLElement;
 
   /**
-   * The element that will trigger the autocomplete opening; accepts both a string (id of an element) or an HTML element.
-   * By default, the autocomplete will open on focus of the 'trigger' element.
-   *
+   * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.
+   * By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.
    * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
    */
   @Prop() public trigger: string | HTMLInputElement;
@@ -185,7 +183,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /**
    * Retrieve the element where the autocomplete will be attached.
-   * @returns 'anchor' or the first 'sbb-form-field' ancestor.
+   * @returns 'origin' or the first 'sbb-form-field' ancestor.
    */
   private _getOriginElement(): HTMLElement {
     if (!this.origin) {
@@ -232,7 +230,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    // Reset attributes to the old anchor and add them to the new one
+    // Reset attributes to the old origin and add them to the new one
     this._removeOriginAttributes(this._originElement);
     this._setOriginAttributes(anchorElem);
 
@@ -262,7 +260,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _setupTriggerEvents(): void {
     this._triggerEventsController = new AbortController();
 
-    // Open the overlay on focus, input and arrow down event
+    // Open the overlay on focus, click, input and `ArrowDown` event
     this._triggerElement.addEventListener('focus', () => this.open(), {
       signal: this._triggerEventsController.signal,
     });
@@ -334,6 +332,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
+    this._openPanelEventsController?.abort();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this.didClose.emit();
@@ -409,18 +408,15 @@ export class SbbAutocomplete implements ComponentInterface {
   private _setNextActiveOption(event: KeyboardEvent): void {
     const options: HTMLSbbOptionElement[] = this._options;
 
-    // Get the previous and the next active option
-    const last = this._activeItemIndex;
-    const lastActiveOption = options[last];
+    // Get and activate the next active option
     const next = getNextElementIndex(event, this._activeItemIndex, options.length);
     const nextActiveOption = options[next];
-
-    // Activate the next
     nextActiveOption.active = true;
     this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
-    // Reset the previous
+    // Reset the previous active option
+    const lastActiveOption = options[this._activeItemIndex];
     if (lastActiveOption) {
       lastActiveOption.active = false;
     }
@@ -438,7 +434,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.removeAttribute('aria-activedescendant');
   }
 
-  /** Projects the search term on the options. */
+  /** Highlight the searched text on the options. */
   private _highlightOptions(searchTerm: string): void {
     this._options.forEach((option) => option.highlight(searchTerm));
   }
