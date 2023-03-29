@@ -77,7 +77,7 @@ export class SbbPearlChainTime {
               (type === 'departure'
                 ? i18nWalkingDistanceDeparture[this._currentLanguage]
                 : i18nWalkingDistanceArrival[this._currentLanguage])}
-            {label && <span>{label}</span>}
+            {label && <span>{label}</span>}&nbsp;
           </span>
           {duration}
           <span aria-hidden="true">'</span>
@@ -141,9 +141,6 @@ export class SbbPearlChainTime {
     const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));
     return (
       <div class="sbb-pearl-chain__time">
-        <span class="sbb-screenreaderonly">
-          {i18nTransferProcedures[this._currentLanguage] + ' ' + rideLegs?.length}
-        </span>
         {connectionFirstLeg && (
           <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--left">
             <sbb-icon name="walk-small"></sbb-icon>
@@ -179,10 +176,13 @@ export class SbbPearlChainTime {
 
         {departure && (
           <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
-            <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
+            <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}:&nbsp;</span>
             {format(departure, 'HH:mm')}
           </time>
         )}
+        <span class="sbb-screenreaderonly">
+          {`${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}`}
+        </span>
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
           legs={this.legs}
@@ -191,7 +191,7 @@ export class SbbPearlChainTime {
         />
         {arrival && (
           <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
-            <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
+            <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}:&nbsp;</span>
             {format(arrival, 'HH:mm')}
           </time>
         )}
