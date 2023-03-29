@@ -7,10 +7,10 @@
 :host {
   @include sbb.text-s--regular;
 
-  cursor: pointer;
-
   --sbb-option-bg-color: inherit;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
+
+  cursor: pointer;
 }
 
 :host([active]:not([active='false'])) {
