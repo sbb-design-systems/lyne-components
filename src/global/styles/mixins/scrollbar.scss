@@ -37,14 +37,14 @@
     transparent;
 }
 
-@mixin scrollbar-dark {
+@mixin scrollbar-negative {
   @include scrollbar;
 
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
 }
 
-@mixin scrollbar-light {
+@mixin scrollbar-positive {
   @include scrollbar;
 
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);

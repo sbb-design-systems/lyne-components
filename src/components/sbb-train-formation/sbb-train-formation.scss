@@ -21,7 +21,7 @@
 }
 
 .sbb-train-formation {
-  @include sbb.scrollbar-light;
+  @include sbb.scrollbar-positive;
 
   display: grid;
   grid-template:

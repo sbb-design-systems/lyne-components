@@ -140,7 +140,7 @@
 }
 
 .sbb-navigation-section__wrapper {
-  @include sbb.scrollbar-dark;
+  @include sbb.scrollbar-negative;
 
   height: 100%;
   padding-block: var(--sbb-navigation-section-padding-block);
