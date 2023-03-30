@@ -7,10 +7,9 @@
 :host {
   @include sbb.text-s--regular;
 
-  --sbb-option-bg-color: inherit;
-  --sbb-option-min-height: var(--sbb-size-button-m-min-height);
-
   cursor: pointer;
+
+  --sbb-option-bg-color: inherit;
 }
 
 :host([active]:not([active='false'])) {
@@ -40,8 +39,8 @@
   align-items: center;
   column-gap: var(--sbb-spacing-responsive-xxxs);
   padding-inline: var(--sbb-spacing-responsive-xxxs);
+  padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   background-color: var(--sbb-option-bg-color);
-  min-height: var(--sbb-option-min-height);
   transform: scaleY(var(--sbb-overlay-option-scale));
   transition: transform var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
 }

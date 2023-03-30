@@ -41,6 +41,10 @@ export class SbbOptionGroup implements ComponentInterface {
       this._variant = 'autocomplete';
     } else if (this._element.closest('sbb-select')) {
       this._variant = 'select';
+    } else {
+      throw new Error(
+        'sbb-option-group component is not used within sbb-select or sbb-autocomplete'
+      );
     }
   }
 
@@ -60,13 +64,13 @@ export class SbbOptionGroup implements ComponentInterface {
         aria-label={this.label}
         aria-disabled={this.disabled.toString()}
       >
+        <div class="sbb-option-group__divider">
+          <sbb-divider></sbb-divider>
+        </div>
         <span class="sbb-option-group__label" aria-hidden="true">
           {this.label}
         </span>
         <slot onSlotchange={() => this._updateOptions()} />
-        <div class="sbb-option-group__divider">
-          <sbb-divider></sbb-divider>
-        </div>
       </Host>
     );
   }
