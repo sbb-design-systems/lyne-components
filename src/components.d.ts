@@ -1116,6 +1116,11 @@ export namespace Components {
          */
         "selected": boolean;
         /**
+          * Set the option group label (used for a11y)
+          * @param value the label of the option group
+         */
+        "setGroupLabel": (value: string) => Promise<void>;
+        /**
           * Value of the option.
          */
         "value"?: string;
