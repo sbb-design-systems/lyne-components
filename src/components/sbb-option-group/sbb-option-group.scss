@@ -4,23 +4,31 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-option-group-divider-display: block;
+}
+
+:host(:first-child) {
+  --sbb-option-group-divider-display: none;
+}
+
 .sbb-option-group {
   margin-block: var(--sbb-spacing-fixed-4x);
   margin-inline: var(--sbb-spacing-fixed-4x);
 }
 
 .sbb-option-group__label {
+  display: block;
   @include sbb.text-xs--regular;
 
-  color: var(--sbb-color-iron-default);
+  // font size is fixed
+  font-size: var(--sbb-typo-scale-0-75x);
+  color: var(--sbb-color-metal-default);
   padding-inline: var(--sbb-spacing-fixed-4x);
-  padding-block-end: var(--sbb-spacing-fixed-2x);
-}
-
-::slotted(sbb-option:not(:last-child)) {
-  margin-block-end: var(--sbb-spacing-fixed-3x);
+  padding-block: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-option-group__divider {
-  padding-block-start: var(--sbb-spacing-fixed-4x);
+  display: var(--sbb-option-group-divider-display);
+  padding-block-end: var(--sbb-spacing-fixed-2x);
 }
