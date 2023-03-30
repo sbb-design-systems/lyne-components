@@ -6,9 +6,7 @@ If the component is used within a `sbb-form-field`, it will automatically connec
 and will display the option panel above or below the `sbb-form-field`; otherwise, it's possible to set 
 the panel `origin` and the input `trigger` passing an id or an element reference.
 
-The `preserveIconSpace` property can be used to reserve space on the left side of the options in the panel.
-
-The component's option panel can be open on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
+The options panel opens on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
 ### Option highlight
@@ -19,6 +17,7 @@ See the [sbb-option](../sbb-option/readme.md) for more details.
 ## Usage
 
 In a form field:
+
 ```html
 <!-- Origin element -->
 <sbb-form-field label="Label">
@@ -35,6 +34,7 @@ In a form field:
 ```
 
 Standalone, by setting the `origin` and `trigger` properties:
+
 ```html
 <!-- Origin element -->
 <div id="autocomplete-origin">Another origin</div>
@@ -47,6 +47,27 @@ Standalone, by setting the `origin` and `trigger` properties:
   <sbb-option value="Option B">Option B</sbb-option>
   <sbb-option value="Option C">Option C</sbb-option>
 </sbb-autocomplete>
+```
+### Option grouping
+`sbb-option` can be collected into groups using `sbb-option-group` element:
+
+```html
+<!-- Origin element -->
+<sbb-form-field label="Label">
+
+  <!-- Trigger element -->
+  <input placeholder="Trigger element" />
+
+  <sbb-autocomplete>
+    <sbb-option-group label="Group 1">
+      <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
+      ...
+    </sbb-poptiong-group>
+    <sbb-option-group label="Group 2">
+      ...
+    </sbb-poptiong-group>
+  </sbb-autocomplete>
+</sbb-form-field>
 ```
 
 ## Keyboard interaction
