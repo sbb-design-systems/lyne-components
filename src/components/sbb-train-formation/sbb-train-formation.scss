@@ -24,7 +24,8 @@
   @include sbb.scrollbar-light;
 
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template: auto 1fr auto auto auto 'start sectors end'
+    'start trains end';
   position: relative;
   overflow-x: auto;
   background-color: var(--sbb-train-formation-background-color);
@@ -34,18 +35,22 @@
   &::after {
     content: '';
     display: block;
-    grid-row: 1 / 3;
     width: var(--sbb-train-formation-inline-padding);
     background-color: var(--sbb-train-formation-background-color);
   }
 
+  &::before {
+    grid-area: start;
+  }
+
   &::after {
-    grid-column: -1;
+    grid-area: end;
   }
 }
 
 .sbb-train-formation__sectors {
   display: flex;
+  grid-area: sectors;
   gap: var(--sbb-train-formation-wagon-gap);
 }
 
@@ -87,6 +92,10 @@
   margin: 0 var(--sbb-spacing-fixed-2x);
   overflow: hidden;
   white-space: nowrap;
+}
+
+.sbb-train-formation__trains {
+  grid-area: trains;
 }
 
 .sbb-train-formation__train-list {

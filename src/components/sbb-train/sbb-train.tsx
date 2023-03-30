@@ -101,7 +101,8 @@ export class SbbTrain implements ComponentInterface {
     this._wagons.forEach((wagon, index) => wagon.setAttribute('slot', `wagon-${index}`));
 
     return (
-      <div class="sbb-train" aria-label={this._getDirectionAriaLabel()}>
+      <div class="sbb-train">
+        <span class="sbb-screenreaderonly">{this._getDirectionAriaLabel()}</span>
         <ul class="sbb-train__wagons" aria-label={i18nWagonsLabel[this._currentLanguage]}>
           {this._wagons.map((_, index) => (
             <li>

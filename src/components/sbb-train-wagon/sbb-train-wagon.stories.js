@@ -36,12 +36,6 @@ const additionalAccessibilityText = {
   },
 };
 
-const customAccessibilityLabel = {
-  control: {
-    type: 'text',
-  },
-};
-
 const occupancy = {
   control: {
     type: 'inline-radio',
@@ -69,7 +63,6 @@ const defaultArgTypes = {
   label,
   'wagon-class': wagonClass,
   'additional-accessibility-text': additionalAccessibilityText,
-  'custom-accessibility-label': customAccessibilityLabel,
 };
 
 const defaultArgs = {
@@ -78,7 +71,6 @@ const defaultArgs = {
   occupancy: occupancy.options[2],
   'wagon-class': wagonClass.options[1],
   'additional-accessibility-text': undefined,
-  'custom-accessibility-label': undefined,
 };
 
 export const wagonLowOccupancy = Template.bind({});

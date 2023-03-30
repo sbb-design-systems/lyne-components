@@ -83,12 +83,12 @@ export const i18nWagonLabel: Record<string, string> = {
   it: 'Carrozza del treno',
 };
 
-export const i18nWagonLabelNumber = (wagonNumber: number): Record<string, string> => ({
-  de: `Nummer: ${wagonNumber}`,
-  en: `Number: ${wagonNumber}`,
-  fr: `Numéro: ${wagonNumber}`,
-  it: `Numero: ${wagonNumber}`,
-});
+export const i18nWagonLabelNumber: Record<string, string> = {
+  de: `Nummer`,
+  en: `Number`,
+  fr: `Numéro`,
+  it: `Numero`,
+};
 
 export const i18nClosedCompartmentLabel = (wagonNumber: number): Record<string, string> => {
   if (wagonNumber) {

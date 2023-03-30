@@ -23,16 +23,15 @@ into a list (ul>li) element and requires an aria-label for each slotted icon (se
 
 ## Properties
 
-| Property                      | Attribute                       | Description                                                                           | Type                                       | Default     |
-| ----------------------------- | ------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `additionalAccessibilityText` | `additional-accessibility-text` | Additional accessibility text which will be appended to the constructed default text. | `string`                                   | `undefined` |
-| `blockedPassage`              | `blocked-passage`               | Accessibility text for blocked passages of the wagon.                                 | `"both" \| "next" \| "none" \| "previous"` | `'none'`    |
-| `customAccessibilityLabel`    | `custom-accessibility-label`    | Custom accessibility text to overwrite the constructed default text.                  | `string`                                   | `undefined` |
-| `label`                       | `label`                         | Visible label for the wagon number. Not used by type locomotive or closed.            | `string`                                   | `undefined` |
-| `occupancy`                   | `occupancy`                     | Occupancy of a wagon.                                                                 | `"high" \| "low" \| "medium" \| "unknown"` | `'unknown'` |
-| `sector`                      | `sector`                        | Sector in which to wagon stops.                                                       | `string`                                   | `undefined` |
-| `type`                        | `type`                          | Wagon type.                                                                           | `"closed" \| "locomotive" \| "wagon"`      | `'wagon'`   |
-| `wagonClass`                  | `wagon-class`                   | Visible class label of a wagon.                                                       | `"1" \| "2"`                               | `undefined` |
+| Property                      | Attribute                       | Description                                                                | Type                                       | Default     |
+| ----------------------------- | ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
+| `additionalAccessibilityText` | `additional-accessibility-text` | Additional accessibility text which will be appended to the end.           | `string`                                   | `undefined` |
+| `blockedPassage`              | `blocked-passage`               | Accessibility text for blocked passages of the wagon.                      | `"both" \| "next" \| "none" \| "previous"` | `'none'`    |
+| `label`                       | `label`                         | Visible label for the wagon number. Not used by type locomotive or closed. | `string`                                   | `undefined` |
+| `occupancy`                   | `occupancy`                     | Occupancy of a wagon.                                                      | `"high" \| "low" \| "medium" \| "unknown"` | `'unknown'` |
+| `sector`                      | `sector`                        | Sector in which to wagon stops.                                            | `string`                                   | `undefined` |
+| `type`                        | `type`                          | Wagon type.                                                                | `"closed" \| "locomotive" \| "wagon"`      | `'wagon'`   |
+| `wagonClass`                  | `wagon-class`                   | Visible class label of a wagon.                                            | `"1" \| "2"`                               | `undefined` |
 
 
 ## Slots

@@ -12,7 +12,7 @@
   --sbb-train-wagon-shape-color: var(--sbb-color-charcoal-default);
   --sbb-train-wagon-shape-color-closed: var(--sbb-color-metal-default);
   --sbb-train-wagon-shape-width: var(--sbb-border-width-1x);
-  --sbb-train-wagon-icons-padding-block-start: var(--sbb-spacing-fixed-2x);
+  --sbb-train-wagon-gap: var(--sbb-spacing-fixed-2x);
   --sbb-train-wagon-icons-gap: var(--sbb-spacing-fixed-1x);
   --sbb-train-wagon-icons-height: #{sbb.px-to-rem-build(14)};
 
@@ -26,48 +26,90 @@
   flex-direction: column;
   align-items: center;
   width: var(--sbb-train-wagon-width);
+  gap: var(--sbb-train-wagon-gap);
+}
+
+.sbb-train-wagon__compartment {
+  @include sbb.list-reset;
+
+  display: grid;
+  grid-template: 1fr 1fr auto 1fr 'label label'
+    'occupancy class';
   position: relative;
+  width: 100%;
+
+  // Reserve space because there is no content in the closed wagon
+  &::before {
+    :host([type='closed']) &,
+    :host(:not([data-has-visible-wagon-content])) & {
+      content: '';
+      grid-area: occupancy / span 2;
+      height: var(--sbb-train-wagon-height);
+    }
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset-inline: 0;
+    inset-block: auto 0;
+    width: var(--sbb-train-wagon-width);
+    height: var(--sbb-train-wagon-height);
+    border-radius: var(--sbb-train-wagon-shape-border-radius);
+
+    :host([type='wagon']) & {
+      border: var(--sbb-train-wagon-shape-width) solid var(--sbb-train-wagon-shape-color);
+    }
+
+    :host([type='closed']) & {
+      border: var(--sbb-train-wagon-shape-width) solid var(--sbb-train-wagon-shape-color-closed);
+    }
+  }
+}
+
+.sbb-train-wagon__occupancy,
+.sbb-train-wagon__class {
+  height: var(--sbb-train-wagon-height);
+  display: flex;
+  align-items: center;
 }
 
 .sbb-train-wagon__label {
   @include sbb.text-s--regular;
 
+  grid-area: label;
+  text-align: center;
   display: var(--sbb-train-formation-wagon-label-display, inline-block);
   min-height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
-.sbb-train-wagon__compartment {
-  height: var(--sbb-train-wagon-height);
-
-  :host([type='wagon']) &,
-  :host([type='closed']) & {
-    padding: 0 var(--sbb-train-wagon-inner-padding);
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-radius: var(--sbb-train-wagon-shape-border-radius);
-  }
-
-  :host([type='wagon']) & {
-    border: var(--sbb-train-wagon-shape-width) solid var(--sbb-train-wagon-shape-color);
-  }
-
-  :host([type='closed']) & {
-    border: var(--sbb-train-wagon-shape-width) solid var(--sbb-train-wagon-shape-color-closed);
-  }
+.sbb-train-wagon__occupancy {
+  grid-area: occupancy;
+  padding-inline-start: var(--sbb-train-wagon-inner-padding);
 }
 
 .sbb-train-wagon__class {
   @include sbb.title-6($exclude-spacing: true);
 
+  grid-area: class;
+  padding-inline-end: var(--sbb-train-wagon-inner-padding);
   margin-inline-start: auto;
+}
+
+.sbb-train-wagon__locomotive {
+  grid-area: occupancy / span 2;
 }
 
 .sbb-train-wagon__icons {
   --sbb-icon-svg-height: var(--sbb-train-wagon-icons-height);
 
   display: flex;
-  padding-block-start: var(--sbb-train-wagon-icons-padding-block-start);
+
+  &[hidden] {
+    // Don't reserve any space in hidden case
+    position: absolute;
+  }
 }
 
 .sbb-train-wagon__icons-list {
@@ -81,4 +123,8 @@
 
 .sbb-train-wagon__icons-item {
   display: inline-flex;
+}
+
+.sbb-screenreaderonly {
+  @include sbb.screen-reader-only;
 }
