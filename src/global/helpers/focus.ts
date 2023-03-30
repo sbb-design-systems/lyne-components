@@ -41,7 +41,7 @@ export class FocusTrap {
         const elementChildren: HTMLElement[] = Array.from(element.shadowRoot.querySelectorAll('*'));
         const focusableElements = getFocusableElements(elementChildren, filterFunc);
         const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements.at(-1) as HTMLElement;
+        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
 
         const [pivot, next] = event.shiftKey
           ? [firstFocusable, lastFocusable]
