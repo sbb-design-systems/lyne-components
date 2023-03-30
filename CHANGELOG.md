@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.5](https://github.com/lyne-design-system/lyne-components/compare/v0.30.4...v0.30.5) (2023-03-30)
+
+### Bug Fixes
+
+- only dispatch click on anchor when it is available ([#1690](https://github.com/lyne-design-system/lyne-components/issues/1690)) ([b79825f](https://github.com/lyne-design-system/lyne-components/commit/b79825f8cc9e20f3170e16cf4f88f3eead6c240b))
+
 ### [0.30.4](https://github.com/lyne-design-system/lyne-components/compare/v0.30.3...v0.30.4) (2023-03-29)
 
 ### Bug Fixes
