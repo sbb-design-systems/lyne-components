@@ -87,6 +87,16 @@ Type: `Promise<void>`
 
 
 
+### `setGroupLabel(value: string) => Promise<void>`
+
+Set the option group label (used for a11y)
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Slots
 
