@@ -205,23 +205,25 @@ export class SbbOption implements ComponentInterface {
 
   private _renderAutocompleteOption(): JSX.Element {
     return (
-      <div class="sbb-option">
-        <span
-          class={{
-            'sbb-option__icon': true,
-            'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-          }}
-        >
-          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-        </span>
-        <span class="sbb-option__label">
-          <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
-          {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+      <div class="sbb-option__container">
+        <div class="sbb-option">
+          <span
+            class={{
+              'sbb-option__icon': true,
+              'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
+            }}
+          >
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+          </span>
+          <span class="sbb-option__label">
+            <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
+            {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
 
-          {this._inertAriaGroups && this._groupLabel && (
-            <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
-          )}
-        </span>
+            {this._inertAriaGroups && this._groupLabel && (
+              <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
+            )}
+          </span>
+        </div>
       </div>
     );
   }

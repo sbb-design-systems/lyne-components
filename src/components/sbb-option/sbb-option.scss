@@ -14,11 +14,7 @@
 }
 
 :host([active]:not([active='false'])) {
-  @include sbb.focus-outline;
-
   --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-
-  border-radius: var(--sbb-border-radius-4x);
 }
 
 :host(:hover:not([disabled]:not([disabled='false']), [data-group-disabled])) {
@@ -39,6 +35,23 @@
 :host([disabled]:not([disabled='false'])) {
   --sbb-option-color: var(--sbb-color-graphite-default);
   --sbb-option-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-option-color: GrayText;
+  }
+}
+
+:host(:not(:is([disabled]:not([disabled='false']), [data-group-disabled]))) {
+  .sbb-option__label--highlight {
+    @include sbb.text--bold;
+    @include sbb.if-forced-colors {
+      color: Highlight;
+    }
+  }
+}
+
+.sbb-option__container {
+  background-color: var(--sbb-option-bg-color);
 }
 
 .sbb-option {
@@ -47,11 +60,16 @@
   column-gap: var(--sbb-spacing-responsive-xxxs);
   padding-inline: var(--sbb-spacing-responsive-xxxs);
   padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
-  background-color: var(--sbb-option-bg-color);
   transform: scaleY(var(--sbb-overlay-option-scale));
   transition: transform var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
   color: var(--sbb-option-color);
   cursor: var(--sbb-option-cursor);
+
+  :host([active]:not([active='false'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-4x);
+  }
 }
 
 .sbb-option__icon {
@@ -63,10 +81,6 @@
 .sbb-option__icon--empty {
   // Can be overridden by the 'preserve-icon-space' on the autocomplete
   display: var(--sbb-option-icon-container-display, none);
-}
-
-.sbb-option__label--highlight {
-  @include sbb.text--bold;
 }
 
 .sbb-option__group-label--visually-hidden {

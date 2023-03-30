@@ -62,10 +62,10 @@ Standalone, by setting the `origin` and `trigger` properties:
     <sbb-option-group label="Group 1">
       <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
       ...
-    </sbb-poptiong-group>
+    </sbb-option-group>
     <sbb-option-group label="Group 2">
       ...
-    </sbb-poptiong-group>
+    </sbb-option-group>
   </sbb-autocomplete>
 </sbb-form-field>
 ```
