@@ -25,7 +25,7 @@ async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
   // as the newly created tab immediately receives focus, instead of remaining on the current
   // page.
   const { altKey, ctrlKey, metaKey, shiftKey } = event;
-  target.shadowRoot.querySelector('a').dispatchEvent(
+  target.shadowRoot.querySelector('a')?.dispatchEvent(
     new PointerEvent('click', {
       pointerId: -1,
       pointerType: '',
