@@ -11,14 +11,14 @@ import {
   Watch,
 } from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.
@@ -65,6 +65,11 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
   @Watch('disabled')
   public updateDisabled(): void {
     for (const checkbox of this._checkboxes) {
@@ -87,12 +92,11 @@ export class SbbCheckboxGroup implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('keydown')

@@ -1,7 +1,6 @@
-import { Component, Element, h, Host, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
 
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nClass,
   i18nDeparture,
@@ -26,14 +25,18 @@ import {
 } from './sbb-timetable-row.helper';
 import { durationToTime } from '../../global/helpers/date-helper';
 import { ITripItem } from '../../global/interfaces/timetable-properties';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-timetable-row.scss',
   tag: 'sbb-timetable-row',
 })
 export class SbbTimetableRow {
-  @State() private _currentLanguage = documentLanguage();
-
   /** The trip Prop */
   @Prop() public trip: ITripItem;
 
@@ -61,11 +64,21 @@ export class SbbTimetableRow {
   /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public active?: boolean;
 
-  @Element() private _element: HTMLElement;
+  @State() private _currentLanguage = documentLanguage();
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _now(): number {
