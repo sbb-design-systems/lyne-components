@@ -89,7 +89,7 @@ describe('sbb-header', () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const menuTrigger = await page.find('sbb-header-action');
-    await menuTrigger.click();
+    menuTrigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
     await page.waitForChanges();
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
