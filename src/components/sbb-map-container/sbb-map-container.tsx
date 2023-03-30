@@ -14,10 +14,10 @@ export class SbbMapContainer {
     return (
       <div class="sbb-map-container">
         <div class="sbb-map-container__sidebar">
-            <slot></slot>
+          <slot />
         </div>
         <div class="sbb-map-container__map">
-          <slot name="map"></slot>
+          <slot name="map" />
         </div>
       </div>
     );
