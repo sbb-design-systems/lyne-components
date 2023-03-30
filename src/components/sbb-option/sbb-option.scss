@@ -7,9 +7,10 @@
 :host {
   @include sbb.text-s--regular;
 
-  cursor: pointer;
-
+  --sbb-option-color: var(--sbb-color-charcoal-default);
   --sbb-option-bg-color: inherit;
+  --sbb-option-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-option-cursor: pointer;
 }
 
 :host([active]:not([active='false'])) {
@@ -34,6 +35,13 @@
   }
 }
 
+:host([data-group-disabled]),
+:host([disabled]:not([disabled='false'])) {
+  --sbb-option-color: var(--sbb-color-graphite-default);
+  --sbb-option-bg-color: var(--sbb-color-milk-default);
+  --sbb-option-cursor: default;
+}
+
 .sbb-option {
   display: flex;
   align-items: center;
@@ -43,6 +51,8 @@
   background-color: var(--sbb-option-bg-color);
   transform: scaleY(var(--sbb-overlay-option-scale));
   transition: transform var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
+  color: var(--sbb-option-color);
+  cursor: var(--sbb-option-cursor);
 }
 
 .sbb-option__icon {

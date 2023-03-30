@@ -23,6 +23,7 @@ import { getElementPosition, isEventOnElement } from '../../global/helpers/posit
 import { SbbOptionSelectionChange } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState } from '../../global/helpers/overlay';
+import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 let nextId = 0;
 
@@ -406,17 +407,20 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _setNextActiveOption(event: KeyboardEvent): void {
-    const options: HTMLSbbOptionElement[] = this._options;
+    const filteredOptions: HTMLSbbOptionElement[] = this._options.filter(
+      (opt: HTMLSbbOptionElement) =>
+        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+    );
 
     // Get and activate the next active option
-    const next = getNextElementIndex(event, this._activeItemIndex, options.length);
-    const nextActiveOption = options[next];
+    const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
+    const nextActiveOption = filteredOptions[next];
     nextActiveOption.active = true;
     this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
-    const lastActiveOption = options[this._activeItemIndex];
+    const lastActiveOption = filteredOptions[this._activeItemIndex];
     if (lastActiveOption) {
       lastActiveOption.active = false;
     }
