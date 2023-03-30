@@ -32,7 +32,7 @@ const value = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -47,7 +47,7 @@ const defaultArgTypes = {
   checked,
   disabled,
   'icon-name': iconName,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -56,7 +56,7 @@ const defaultArgs = {
   checked: false,
   disabled: false,
   'icon-name': undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 const DefaultTemplate = ({ label, ...args }) => (

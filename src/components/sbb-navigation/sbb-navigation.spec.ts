@@ -22,15 +22,15 @@ describe('sbb-navigation', () => {
             <div class="sbb-navigation__container">
               <dialog class="sbb-navigation" id="sbb-navigation-dialog-id">
                 <div class="sbb-navigation__header">
-                  <sbb-button 
-                    accessibility-label="Close navigation" 
-                    aria-controls="sbb-navigation-dialog-id" 
-                    class="sbb-navigation__close" 
-                    icon-name="cross-small" 
+                  <sbb-button
+                    aria-label="Close navigation"
+                    aria-controls="sbb-navigation-dialog-id"
+                    class="sbb-navigation__close"
+                    icon-name="cross-small"
                     negative=""
                     sbb-navigation-close=""
-                    size="m" 
-                    type="button" 
+                    size="m"
+                    type="button"
                     variant="transparent">
                   </sbb-button>
                 </div>

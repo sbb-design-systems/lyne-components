@@ -129,6 +129,13 @@
   color: var(--sbb-form-field-prefix-color);
 }
 
+@include sbb.if-forced-colors {
+  // Align with prefix color
+  ::slotted(*[slot='suffix']) {
+    color: var(--sbb-form-field-prefix-color);
+  }
+}
+
 .sbb-form-field__select-input-icon {
   @include sbb.absolute-center-y;
 

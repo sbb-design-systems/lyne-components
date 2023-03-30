@@ -1,5 +1,3 @@
-import { ScheduledStopPointDetail } from '../../global/interfaces/timetable-properties';
-
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
   name: string;

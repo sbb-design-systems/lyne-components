@@ -6,15 +6,15 @@ describe('sbb-teaser', () => {
     it('renders', async () => {
       const { root } = await newSpecPage({
         components: [SbbTeaser],
-        html: '<sbb-teaser href="https://github.com/lyne-design-system/lyne-components" is-stacked accessibility-label="Sbb teaser"></sbb-teaser>',
+        html: '<sbb-teaser href="https://github.com/lyne-design-system/lyne-components" is-stacked aria-label="Sbb teaser"></sbb-teaser>',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-teaser accessibility-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" is-stacked>
+        <sbb-teaser aria-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" is-stacked role="link" tabindex="0" dir="ltr">
           <mock:shadow-root>
-            <a aria-label="Sbb teaser" class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" dir="ltr">
-            <span class="sbb-teaser__container">
-              <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
+            <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
+              <span class="sbb-teaser__container">
+                <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
                 <span class='sbb-teaser__text'>
                   <sbb-title class="sbb-teaser__lead" level="5" visuallevel="5">
                     <slot name='title'/>
@@ -31,13 +31,13 @@ describe('sbb-teaser', () => {
     it('renders', async () => {
       const { root } = await newSpecPage({
         components: [SbbTeaser],
-        html: '<sbb-teaser href="https://github.com/lyne-design-system/lyne-components" accessibility-label="Sbb teaser" />',
+        html: '<sbb-teaser href="https://github.com/lyne-design-system/lyne-components" aria-label="Sbb teaser" />',
       });
 
       expect(root).toEqualHtml(`
-        <sbb-teaser accessibility-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components">
+        <sbb-teaser aria-label="Sbb teaser" href="https://github.com/lyne-design-system/lyne-components" role="link" tabindex="0" dir="ltr">
           <mock:shadow-root>
-            <a aria-label="Sbb teaser" class="sbb-teaser" dir="ltr" href="https://github.com/lyne-design-system/lyne-components">
+            <a class="sbb-teaser" href="https://github.com/lyne-design-system/lyne-components" role="presentation" tabindex="-1">
               <span class="sbb-teaser__container">
                 <span class='sbb-teaser__image-wrapper'><slot name='image'/></span>
                   <span class='sbb-teaser__text'>

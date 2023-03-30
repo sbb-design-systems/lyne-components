@@ -5,6 +5,10 @@
 @include sbb.host-component-properties;
 
 :host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   @include sbb.panel-variables;
 
   --sbb-teaser-hero-brightness-hover: 1.075;
@@ -22,7 +26,8 @@
   display: block;
   min-height: var(--sbb-panel-height);
 
-  &:focus-visible {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
   }
 }

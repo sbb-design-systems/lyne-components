@@ -252,8 +252,8 @@ const basicArgTypes = {
 
 const basicArgs = {
   label: 'Tab label one',
-  iconSlot: '',
-  amountSlot: '',
+  iconSlot: undefined,
+  amountSlot: undefined,
   disabled: true,
 };
 
@@ -273,13 +273,13 @@ nestedTabGroups.argTypes = basicArgTypes;
 tintedBackground.argTypes = basicArgTypes;
 ellipsisLabel.argTypes = basicArgTypes;
 
-defaultTabs.args = JSON.parse(JSON.stringify(basicArgs));
-numbers.args = JSON.parse(JSON.stringify(basicArgs));
-icons.args = JSON.parse(JSON.stringify(basicArgs));
-numbersAndIcons.args = JSON.parse(JSON.stringify(basicArgs));
-nestedTabGroups.args = JSON.parse(JSON.stringify(basicArgs));
-tintedBackground.args = JSON.parse(JSON.stringify(basicArgs));
-ellipsisLabel.args = JSON.parse(JSON.stringify(basicArgs));
+defaultTabs.args = { ...basicArgs };
+numbers.args = { ...basicArgs };
+icons.args = { ...basicArgs };
+numbersAndIcons.args = { ...basicArgs };
+nestedTabGroups.args = { ...basicArgs };
+tintedBackground.args = { ...basicArgs };
+ellipsisLabel.args = { ...basicArgs };
 
 /* VARIANTS */
 numbers.args.amountSlot = '77';

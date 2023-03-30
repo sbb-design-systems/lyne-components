@@ -113,7 +113,10 @@
   inset: var(--sbb-spacing-fixed-3x) 0;
 }
 
-::slotted(a[slot='logo']:focus-visible)::before {
+// Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+::slotted(
+    a[slot='logo']:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+  )::before {
   @include sbb.focus-outline;
 
   outline-offset: var(--sbb-spacing-fixed-3x);

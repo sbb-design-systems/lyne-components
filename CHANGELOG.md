@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.5](https://github.com/lyne-design-system/lyne-components/compare/v0.30.4...v0.30.5) (2023-03-30)
+
+### Bug Fixes
+
+- only dispatch click on anchor when it is available ([#1690](https://github.com/lyne-design-system/lyne-components/issues/1690)) ([b79825f](https://github.com/lyne-design-system/lyne-components/commit/b79825f8cc9e20f3170e16cf4f88f3eead6c240b))
+
+### [0.30.4](https://github.com/lyne-design-system/lyne-components/compare/v0.30.3...v0.30.4) (2023-03-29)
+
+### Bug Fixes
+
+- **sbb-card:** change sbb-card-badge order ([#1687](https://github.com/lyne-design-system/lyne-components/issues/1687)) ([694786d](https://github.com/lyne-design-system/lyne-components/commit/694786d16ff9e2d5acd1e233c7eedba55048be6d))
+
+### [0.30.3](https://github.com/lyne-design-system/lyne-components/compare/v0.30.2...v0.30.3) (2023-03-29)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** add spacings for sr-only text ([#1686](https://github.com/lyne-design-system/lyne-components/issues/1686)) ([50338fa](https://github.com/lyne-design-system/lyne-components/commit/50338fafa60a3d4366bfc510094a73c7d1ed5c5e))
+
+### [0.30.2](https://github.com/lyne-design-system/lyne-components/compare/v0.30.1...v0.30.2) (2023-03-28)
+
+### Bug Fixes
+
+- refine accessibility changes on host elements ([#1685](https://github.com/lyne-design-system/lyne-components/issues/1685)) ([70f33c1](https://github.com/lyne-design-system/lyne-components/commit/70f33c15d789d408e4544031a6b45ef3138aa23b))
+
+### [0.30.1](https://github.com/lyne-design-system/lyne-components/compare/v0.30.0...v0.30.1) (2023-03-28)
+
+### Bug Fixes
+
+- stabilize positioning function ([#1684](https://github.com/lyne-design-system/lyne-components/issues/1684)) ([bb17e05](https://github.com/lyne-design-system/lyne-components/commit/bb17e059eb65401ec22354a05fb7d9cd779fbf8f))
+
+## [0.30.0](https://github.com/lyne-design-system/lyne-components/compare/v0.29.1...v0.30.0) (2023-03-24)
+
+### ⚠ BREAKING CHANGES
+
+- Almost all accessibility-label attributes were removed in favor of just using aria-label (exceptions are `<sbb-alert>`, `<sbb-dialog>`, `<sbb-logo>`, `<sbb-navigation>`, `<sbb-navigation-section>`, `<sbb-signet>` and `<sbb-train>`).
+
+Co-authored-by: Jeri Peier <jeremias.peier@sbb.ch>
+
+### Features
+
+- refactor accessibility features to reflect state on host ([#1670](https://github.com/lyne-design-system/lyne-components/issues/1670)) ([b149e8a](https://github.com/lyne-design-system/lyne-components/commit/b149e8ade3131229a0c4714c3a5864750a50a6d6)), closes [#1611](https://github.com/lyne-design-system/lyne-components/issues/1611)
+
+### [0.29.1](https://github.com/lyne-design-system/lyne-components/compare/v0.29.0...v0.29.1) (2023-03-23)
+
+### Bug Fixes
+
+- **sbb-icon:** empty icon on Safari ([#1681](https://github.com/lyne-design-system/lyne-components/issues/1681)) ([0975b00](https://github.com/lyne-design-system/lyne-components/commit/0975b007139d644da784a40ccf287f92f3822e70))
+
 ## [0.29.0](https://github.com/lyne-design-system/lyne-components/compare/v0.28.6...v0.29.0) (2023-03-22)
 
 ### ⚠ BREAKING CHANGES

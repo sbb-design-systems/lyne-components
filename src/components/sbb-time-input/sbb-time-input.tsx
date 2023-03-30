@@ -5,15 +5,12 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Prop,
   Watch,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import {
-  AccessibilityProperties,
-  getAccessibilityAttributeList,
-} from '../../global/interfaces/accessibility-properties';
 import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
@@ -25,7 +22,7 @@ const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
   styleUrl: 'sbb-time-input.scss',
   tag: 'sbb-time-input',
 })
-export class SbbTimeInput implements ComponentInterface, AccessibilityProperties {
+export class SbbTimeInput implements ComponentInterface {
   /** Value for the inner HTMLInputElement. */
   @Prop({ mutable: true }) public value?: string = '';
 
@@ -44,9 +41,6 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   /** Required state for the inner HTMLInputElement. */
   @Prop() public required?: boolean = false;
 
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
@@ -59,8 +53,8 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   private _placeholder = 'HH:MM';
 
   /** Applies the correct format to values and triggers event dispatch. */
-  private _updateValueAndEmitChange(event): void {
-    this._updateValue(event.target.value);
+  private _updateValueAndEmitChange(event: Event): void {
+    this._updateValue((event.target as HTMLInputElement).value);
     this._emitChange(event);
   }
 
@@ -75,7 +69,7 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   }
 
   /** Emits the change event. */
-  private _emitChange(event): void {
+  private _emitChange(event: Event): void {
     forwardEventToHost(event, this._element);
     this.didChange.emit();
   }
@@ -131,13 +125,9 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
    *  Validate the typed input; if an invalid char is inserted (letters, special chars..), it's removed.
    *  Using `REGEX_GROUPS_WITH_COLON` permits only to insert 4 numbers, possibly with a valid separator.
    */
-  private _preventCharInsert(event): void {
-    const match = event.target.value.match(REGEX_GROUPS_WITH_COLON);
-    if (match) {
-      event.target.value = match[0];
-    } else {
-      event.target.value = null;
-    }
+  private _preventCharInsert(event: InputEvent): void {
+    const match = (event.target as HTMLInputElement).value.match(REGEX_GROUPS_WITH_COLON);
+    (event.target as HTMLInputElement).value = match ? match[0] : null;
   }
 
   public connectedCallback(): void {
@@ -163,22 +153,29 @@ export class SbbTimeInput implements ComponentInterface, AccessibilityProperties
   }
 
   public render(): JSX.Element {
+    const hostAttributes = {
+      role: 'input',
+      'aria-required': this.required?.toString() ?? 'false',
+      'aria-readonly': this.readonly?.toString() ?? 'false',
+      'aria-disabled': this.disabled?.toString() ?? 'false',
+    };
     const inputAttributes = {
-      form: this.form || null,
+      role: 'presentation',
       disabled: this.disabled || null,
       readonly: this.readonly || null,
       required: this.required || null,
       value: this._formatValue(this.value) || null,
       placeholder: this._placeholder,
-      ...getAccessibilityAttributeList(this),
     };
     return (
-      <input
-        type="text"
-        {...inputAttributes}
-        onInput={(event: InputEvent) => this._preventCharInsert(event)}
-        onChange={(event: Event) => this._updateValueAndEmitChange(event)}
-      />
+      <Host {...hostAttributes}>
+        <input
+          type="text"
+          {...inputAttributes}
+          onInput={(event: InputEvent) => this._preventCharInsert(event)}
+          onChange={(event: Event) => this._updateValueAndEmitChange(event)}
+        />
+      </Host>
     );
   }
 }

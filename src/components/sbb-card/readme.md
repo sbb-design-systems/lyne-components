@@ -2,7 +2,8 @@
 
 The `sbb-card` component is a generic content container as an action element; its task is to contain HTML elements related to a single subject.
 
-Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute). When rendered as a button, it is possible to listen to the click event to add behavior.
+Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute).
+When rendered as a button, it is possible to listen to the click event to add behavior.
 
 There are six size variants available (from `xs` to `xxl`), which can be configured via the `size` attribute value,
 and two background variants, white by default and milk when the `color` attribute is set to `milk`.
@@ -32,20 +33,19 @@ In the first one, the `sbb-card` will be internally rendered as a button, in the
 
 ## Properties
 
-| Property             | Attribute             | Description                                                                     | Type                                         | Default     |
-| -------------------- | --------------------- | ------------------------------------------------------------------------------- | -------------------------------------------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant nested element.            | `string`                                     | `undefined` |
-| `active`             | `active`              | Used to set the component's active state.                                       | `boolean`                                    | `false`     |
-| `color`              | `color`               | Option to set the component's background color.                                 | `"milk" \| "white"`                          | `'white'`   |
-| `download`           | `download`            | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |
-| `form`               | `form`                | The <form> element to associate the button with.                                | `string`                                     | `undefined` |
-| `href`               | `href`                | The href value you want to link to.                                             | `string`                                     | `undefined` |
-| `name`               | `name`                | The name of the button.                                                         | `string`                                     | `undefined` |
-| `rel`                | `rel`                 | The relationship of the linked URL as space-separated link types.               | `string`                                     | `undefined` |
-| `size`               | `size`                | Size variant, either xs, s, m, l, xl or xxl.                                    | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl"` | `'m'`       |
-| `target`             | `target`              | Where to display the linked URL.                                                | `string`                                     | `undefined` |
-| `type`               | `type`                | Default behaviour of the button.                                                | `"button" \| "reset" \| "submit"`            | `undefined` |
-| `value`              | `value`               | The value associated with button `name` when it's submitted with the form data. | `string`                                     | `undefined` |
+| Property   | Attribute  | Description                                                                     | Type                                         | Default     |
+| ---------- | ---------- | ------------------------------------------------------------------------------- | -------------------------------------------- | ----------- |
+| `active`   | `active`   | Used to set the component's active state.                                       | `boolean`                                    | `false`     |
+| `color`    | `color`    | Option to set the component's background color.                                 | `"milk" \| "white"`                          | `'white'`   |
+| `download` | `download` | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |
+| `form`     | `form`     | The <form> element to associate the button with.                                | `string`                                     | `undefined` |
+| `href`     | `href`     | The href value you want to link to.                                             | `string`                                     | `undefined` |
+| `name`     | `name`     | The name of the button.                                                         | `string`                                     | `undefined` |
+| `rel`      | `rel`      | The relationship of the linked URL as space-separated link types.               | `string`                                     | `undefined` |
+| `size`     | `size`     | Size variant, either xs, s, m, l, xl or xxl.                                    | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl"` | `'m'`       |
+| `target`   | `target`   | Where to display the linked URL.                                                | `string`                                     | `undefined` |
+| `type`     | `type`     | Default behaviour of the button.                                                | `"button" \| "reset" \| "submit"`            | `undefined` |
+| `value`    | `value`    | The value associated with button `name` when it's submitted with the form data. | `string`                                     | `undefined` |
 
 
 ## Slots

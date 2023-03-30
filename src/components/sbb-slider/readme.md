@@ -59,19 +59,18 @@ The `<sbb-slider>` has the following behaviour on keypress when focused:
 
 ## Properties
 
-| Property             | Attribute             | Description                                                                                                                                    | Type      | Default     |
-| -------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant nested element.                                                                           | `string`  | `undefined` |
-| `disabled`           | `disabled`            | Disabled state for the inner HTMLInputElement.                                                                                                 | `boolean` | `false`     |
-| `endIcon`            | `end-icon`            | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           | `string`  | `undefined` |
-| `form`               | `form`                | The <form> element to associate the inner HTMLInputElement with.                                                                               | `string`  | `undefined` |
-| `max`                | `max`                 | Maximum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'100'`     |
-| `min`                | `min`                 | Minimum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'0'`       |
-| `name`               | `name`                | Name of the inner HTMLInputElement.                                                                                                            | `string`  | `''`        |
-| `readonly`           | `readonly`            | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. | `boolean` | `false`     |
-| `startIcon`          | `start-icon`          | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
-| `value`              | `value`               | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
-| `valueAsNumber`      | `value-as-number`     | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
+| Property        | Attribute         | Description                                                                                                                                    | Type      | Default     |
+| --------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `disabled`      | `disabled`        | Disabled state for the inner HTMLInputElement.                                                                                                 | `boolean` | `false`     |
+| `endIcon`       | `end-icon`        | Name of the icon at component's end, which will be forward to the nested `sbb-icon`.                                                           | `string`  | `undefined` |
+| `form`          | `form`            | The <form> element to associate the inner HTMLInputElement with.                                                                               | `string`  | `undefined` |
+| `max`           | `max`             | Maximum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'100'`     |
+| `min`           | `min`             | Minimum acceptable value for the inner HTMLInputElement.                                                                                       | `string`  | `'0'`       |
+| `name`          | `name`            | Name of the inner HTMLInputElement.                                                                                                            | `string`  | `''`        |
+| `readonly`      | `readonly`        | Readonly state for the inner HTMLInputElement. Since the input range does not allow this attribute, it will be merged with the `disabled` one. | `boolean` | `false`     |
+| `startIcon`     | `start-icon`      | Name of the icon at component's start, which will be forward to the nested `sbb-icon`.                                                         | `string`  | `undefined` |
+| `value`         | `value`           | Value for the inner HTMLInputElement.                                                                                                          | `string`  | `''`        |
+| `valueAsNumber` | `value-as-number` | Numeric value for the inner HTMLInputElement.                                                                                                  | `number`  | `undefined` |
 
 
 ## Events

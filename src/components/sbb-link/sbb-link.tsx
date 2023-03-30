@@ -1,14 +1,22 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 import {
-  actionElement,
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  Prop,
+  State,
+} from '@stencil/core';
+import {
   ButtonType,
-  focusActionElement,
-  forwardHostEvent,
+  IsStaticProperty,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
-  PopupType,
   resolveRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
@@ -19,6 +27,7 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 /**
  * @slot unnamed - Link Content
@@ -29,7 +38,7 @@ import {
   styleUrl: 'sbb-link.scss',
   tag: 'sbb-link',
 })
-export class SbbLink implements ComponentInterface, LinkButtonProperties {
+export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStaticProperty {
   /** Variant of the link (block or inline). */
   @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
@@ -78,22 +87,13 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
   @Prop({ reflect: true }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
   @Prop() public value?: string;
 
   /** The <form> element to associate the button with. */
   @Prop() public form?: string;
-
-  /**
-   * If you use the button to trigger another widget which itself is covering
-   * the page, you must provide an according attribute for aria-haspopup.
-   */
-  @Prop() public accessibilityHaspopup: PopupType | undefined;
-
-  /** This will be forwarded as aria-label to the relevant nested element. */
-  @Prop() public accessibilityLabel: string | undefined;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
@@ -102,51 +102,22 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
 
   @Element() private _element!: HTMLElement;
 
-  private _closestForm: HTMLFormElement | null;
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
-    // Check if the current element is nested in a form.
-    this._closestForm = hostContext('form', this._element) as HTMLFormElement;
     this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
+  }
 
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
-  }
-
-  /**
-   * Method triggered on button click to emit the click event (can be caught from parent component).
-   */
-  public emitButtonClick(): void {
-    if (this.disabled || this.isStatic) {
-      return;
-    }
-
-    if (!this._closestForm || this.type !== 'submit') {
-      return;
-    }
-
-    if (this._closestForm.requestSubmit) {
-      this._closestForm.requestSubmit();
-    } else {
-      this._closestForm.submit();
-    }
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    if (this.disabled) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    } else if (!this.isStatic) {
-      forwardHostEvent(event, this._element, actionElement(this._element));
-    }
   }
 
   @Listen('sbbNamedSlotChange', { passive: true })
@@ -158,32 +129,25 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties {
     const {
       tagName: TAG_NAME,
       attributes,
-      screenReaderNewWindowInfo,
-    }: LinkButtonRenderVariables = resolveRenderVariables(
-      this,
-      this._currentLanguage,
-      this.isStatic
-    );
+      hostAttributes,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
-    // See https://github.com/ionic-team/stencil/issues/2703#issuecomment-1050943715 on why form attribute is set with `setAttribute`
     return (
-      <TAG_NAME
-        class="sbb-link"
-        {...attributes}
-        ref={(btn) => this.form && btn?.setAttribute('form', this.form)}
-      >
-        {this.variant !== 'inline' && (this.iconName || this._namedSlots.icon) && (
-          <span class="sbb-link__icon">
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-          </span>
-        )}
-        <slot />
-        {screenReaderNewWindowInfo && (
-          <span class="sbb-link__opens-in-new-window">
-            . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-          </span>
-        )}
-      </TAG_NAME>
+      <Host {...hostAttributes}>
+        <TAG_NAME class="sbb-link" {...attributes}>
+          {this.variant !== 'inline' && (this.iconName || this._namedSlots.icon) && (
+            <span class="sbb-link__icon">
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            </span>
+          )}
+          <slot />
+          {targetsNewWindow(this) && (
+            <span class="sbb-link__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+            </span>
+          )}
+        </TAG_NAME>
+      </Host>
     );
   }
 }

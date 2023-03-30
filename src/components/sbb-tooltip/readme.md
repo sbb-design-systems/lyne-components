@@ -104,7 +104,7 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 
 ## Methods
 
-### `close(target?: HTMLElement) => Promise<void>`
+### `close(closedByFocusOrigin?: SbbFocusOrigin, target?: HTMLElement) => Promise<void>`
 
 Closes the tooltip.
 
@@ -114,7 +114,7 @@ Type: `Promise<void>`
 
 
 
-### `open() => Promise<void>`
+### `open(focusOrigin?: SbbFocusOrigin) => Promise<void>`
 
 Opens the tooltip on trigger click.
 

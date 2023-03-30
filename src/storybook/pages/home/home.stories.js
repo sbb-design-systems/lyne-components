@@ -104,7 +104,7 @@ const Template = (args) => (
           <BikeProduct />
           <LiberoProduct />
           <sbb-card
-            accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+            aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
             href="https://github.com/lyne-design-system/lyne-components"
             color="milk"
             size="s"
@@ -124,7 +124,7 @@ const Template = (args) => (
           </sbb-card>
 
           <sbb-card
-            accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+            aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
             href="https://github.com/lyne-design-system/lyne-components"
             color="milk"
             size="s"
@@ -144,7 +144,7 @@ const Template = (args) => (
           </sbb-card>
 
           <sbb-card
-            accessibility-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
+            aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
             href="https://github.com/lyne-design-system/lyne-components"
             class="grid-span-2"
             color="milk"

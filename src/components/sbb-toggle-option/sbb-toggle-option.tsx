@@ -17,7 +17,6 @@ import {
   queryAndObserveNamedSlotState,
   queryNamedSlotState,
 } from '../../global/helpers/observe-named-slot-changes';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
 
 /**
@@ -30,7 +29,7 @@ import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
   styleUrl: 'sbb-toggle-option.scss',
   tag: 'sbb-toggle-option',
 })
-export class SbbToggleOption implements ComponentInterface, AccessibilityProperties {
+export class SbbToggleOption implements ComponentInterface {
   /**
    * Whether the toggle-option is checked.
    */
@@ -50,11 +49,6 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
    * Value of toggle-option.
    */
   @Prop() public value?: string;
-
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
 
   /**
    * Whether the toggle option has a label.
@@ -153,11 +147,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
           value={this.value}
           onClick={(event) => event.stopPropagation()}
         />
-        <label
-          class="sbb-toggle-option"
-          htmlFor="sbb-toggle-option-id"
-          aria-label={this.accessibilityLabel}
-        >
+        <label class="sbb-toggle-option" htmlFor="sbb-toggle-option-id">
           {(this.iconName || this._namedSlots.icon) && (
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           )}

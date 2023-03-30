@@ -103,19 +103,8 @@ const form = {
   },
 };
 
-const accessibilityHaspopup = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Button',
-  },
-};
-
-const accessibilityLabel = {
-  control: {
-    type: 'text',
-  },
+const ariaLabel = {
+  control: { type: 'text' },
 };
 
 const basicArgTypes = {
@@ -130,8 +119,7 @@ const basicArgTypes = {
   name,
   value,
   form,
-  'accessibility-haspopup': accessibilityHaspopup,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const basicArgs = {
@@ -146,8 +134,7 @@ const basicArgs = {
   name: undefined,
   value: undefined,
   form: undefined,
-  'accessibility-haspopup': undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 const basicArgsButton = {

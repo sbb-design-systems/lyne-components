@@ -17,13 +17,12 @@ The `<sbb-toggle-option>` component is used inside the `<sbb-toggle>` in order t
 
 ## Properties
 
-| Property             | Attribute             | Description                                                          | Type      | Default     |
-| -------------------- | --------------------- | -------------------------------------------------------------------- | --------- | ----------- |
-| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the relevant nested element. | `string`  | `undefined` |
-| `checked`            | `checked`             | Whether the toggle-option is checked.                                | `boolean` | `false`     |
-| `disabled`           | `disabled`            | Whether the toggle option is disabled.                               | `boolean` | `false`     |
-| `iconName`           | `icon-name`           | Name of the icon for `<sbb-icon>`.                                   | `string`  | `undefined` |
-| `value`              | `value`               | Value of toggle-option.                                              | `string`  | `undefined` |
+| Property   | Attribute   | Description                            | Type      | Default     |
+| ---------- | ----------- | -------------------------------------- | --------- | ----------- |
+| `checked`  | `checked`   | Whether the toggle-option is checked.  | `boolean` | `false`     |
+| `disabled` | `disabled`  | Whether the toggle option is disabled. | `boolean` | `false`     |
+| `iconName` | `icon-name` | Name of the icon for `<sbb-icon>`.     | `string`  | `undefined` |
+| `value`    | `value`     | Value of toggle-option.                | `string`  | `undefined` |
 
 
 ## Events

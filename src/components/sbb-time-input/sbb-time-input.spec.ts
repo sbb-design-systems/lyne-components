@@ -9,9 +9,9 @@ describe('sbb-time-input', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-time-input>
+      <sbb-time-input aria-disabled="false" aria-readonly="false" aria-required="false" role="input">
         <mock:shadow-root>
-          <input placeholder="HH:MM" type="text">
+          <input placeholder="HH:MM" role="presentation" type="text">
         </mock:shadow-root>
       </sbb-time-input>
     `);
@@ -24,9 +24,9 @@ describe('sbb-time-input', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-time-input readonly="true">
+      <sbb-time-input aria-disabled="false" aria-readonly="true" aria-required="false" readonly="true" role="input">
         <mock:shadow-root>
-          <input placeholder="HH:MM" type="text" readonly="">
+          <input placeholder="HH:MM" type="text" role="presentation" readonly="">
         </mock:shadow-root>
       </sbb-time-input>
     `);
@@ -39,9 +39,9 @@ describe('sbb-time-input', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-time-input required="true" value="1200">
+      <sbb-time-input aria-disabled="false" aria-readonly="false" aria-required="true" required="true" role="input" value="1200">
         <mock:shadow-root>
-          <input placeholder="HH:MM" type="text" required="" value="12:00">
+          <input placeholder="HH:MM" type="text" required="" role="presentation" value="12:00">
         </mock:shadow-root>
       </sbb-time-input>
     `);
@@ -54,9 +54,9 @@ describe('sbb-time-input', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-time-input disabled="" value="123" form="myForm">
+      <sbb-time-input role="input" aria-disabled="true" aria-readonly="false" aria-required="false" disabled="" value="123" form="myForm">
         <mock:shadow-root>
-          <input placeholder="HH:MM" type="text" disabled="" value="01:23" form="myForm">
+          <input placeholder="HH:MM" type="text" disabled="" value="01:23" role="presentation">
         </mock:shadow-root>
       </sbb-time-input>
     `);

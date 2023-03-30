@@ -10,20 +10,19 @@ import {
   Host,
 } from '@stencil/core';
 import {
-  actionElement,
   ButtonType,
-  focusActionElement,
-  forwardHostEvent,
   LinkButtonProperties,
   LinkButtonRenderVariables,
   LinkTargetType,
-  PopupType,
   resolveRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { hostContext } from '../../global/helpers/host-context';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 
 // This approach allows us to just check whether an attribute has been added or removed
 // from the DOM, instead of a `Watch()` decorator that would check the value change
@@ -80,45 +79,27 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   /**
    * The name attribute to use for the button.
    */
-  @Prop() public name: string | undefined;
+  @Prop({ reflect: true }) public name: string | undefined;
 
   /**
    * The value attribute to use for the button.
    */
   @Prop() public value?: string;
 
-  /**
-   * When an interaction of this button has an impact on another element(s) in the document, the id
-   * of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute
-   * to the relevant nested element.
-   */
-  @Prop() public accessibilityControls: string | undefined;
-
-  /**
-   * If you use the button to trigger another widget which itself is covering
-   * the page, you must provide an according attribute for aria-haspopup.
-   */
-  @Prop() public accessibilityHaspopup: PopupType | undefined;
-
-  /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLSbbNavigationActionElement;
+  @Element() private _element!: HTMLSbbNavigationActionElement;
 
   private _navigationMarker: HTMLSbbNavigationMarkerElement;
   private _navigationActionAttributeObserver = new MutationObserver(() =>
     this._onActiveActionChange()
   );
 
+  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+
   public connectedCallback(): void {
     this._navigationActionAttributeObserver.observe(this._element, navigationActionObserverConfig);
-
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
+    this._handlerRepository.connect();
 
     // Check if the current element is nested inside a navigation marker.
     this._navigationMarker = hostContext(
@@ -129,6 +110,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   public disconnectedCallback(): void {
     this._navigationActionAttributeObserver.disconnect();
+    this._handlerRepository.disconnect();
   }
 
   // Check whether the `active` attribute has been added or removed from the DOM
@@ -147,9 +129,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   }
 
   @Listen('click')
-  public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, actionElement(this._element));
-
+  public handleClick(): void {
     if (!this.active) {
       this._navigationMarker?.select(this._element);
     }
@@ -158,13 +138,18 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
-      hostAttributes,
       attributes,
-    }: LinkButtonRenderVariables = resolveRenderVariables(this, this._currentLanguage, false);
+      hostAttributes,
+    }: LinkButtonRenderVariables = resolveRenderVariables(this);
     return (
       <Host {...hostAttributes}>
         <TAG_NAME class="sbb-navigation-action" {...attributes}>
           <slot />
+          {targetsNewWindow(this) && (
+            <span class="sbb-navigation-action__opens-in-new-window">
+              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+            </span>
+          )}
         </TAG_NAME>
       </Host>
     );

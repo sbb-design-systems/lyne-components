@@ -12,20 +12,15 @@ import {
   Listen,
 } from '@stencil/core';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
+import { inputElement } from '../../global/helpers/input-element';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
-import {
-  AccessibilityProperties,
-  getAccessibilityAttributeList,
-} from '../../global/interfaces/accessibility-properties';
-import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
-import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
 @Component({
   shadow: true,
   styleUrl: 'sbb-toggle-check.scss',
   tag: 'sbb-toggle-check',
 })
-export class SbbToggleCheck implements ComponentInterface, AccessibilityProperties {
+export class SbbToggleCheck implements ComponentInterface {
   /** Whether the toggle-check is checked. */
   @Prop({ mutable: true, reflect: true }) public checked = false;
 
@@ -33,7 +28,7 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   @Prop() public value?: string;
 
   /** Name of the toggle-check. */
-  @Prop() public name?: string;
+  @Prop({ reflect: true }) public name?: string;
 
   /** The svg name for the true state - default -> 'tick-small' */
   @Prop() public iconName = 'tick-small';
@@ -48,9 +43,6 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   @Prop({ reflect: true }) public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] =
     'after';
 
-  /** The aria-label prop for the hidden input. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
@@ -60,25 +52,40 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
 
   @State() private _hasLabelText = false;
 
-  /** Method triggered on toggle change. */
-  public checkedChanged(event: Event): void {
-    this.checked = inputElement(this._element)?.checked;
-    forwardEventToHost(event, this._element);
-    this.didChange.emit();
-  }
-
   public connectedCallback(): void {
-    // Forward focus call to input element
-    this._element.focus = focusInputElement;
-
     this._hasLabelText = Array.from(this._element.childNodes).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent
     );
   }
 
   @Listen('click')
-  public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, inputElement(this._element));
+  public handleClick(): void {
+    if (!this.disabled && event.composedPath()[0] === this._element) {
+      inputElement(this._element).click();
+    }
+  }
+
+  @Listen('keyup')
+  public handleKeyup(event: KeyboardEvent): void {
+    // The native checkbox input toggles state on keyup with space.
+    if (!this.disabled && event.key === ' ') {
+      // The toggle needs to happen after the keyup event finishes, so we schedule
+      // it to be triggered after the current event loop.
+      setTimeout(() => this._element.shadowRoot.querySelector('input').click());
+    }
+  }
+
+  public handleChangeEvent(event: Event): void {
+    forwardEventToHost(event, this._element);
+    this.didChange.emit();
+  }
+
+  /**
+   * Method triggered on checkbox input event.
+   * If not indeterminate, inverts the value; otherwise sets checked to true.
+   */
+  public handleInputEvent(): void {
+    this.checked = this._element.shadowRoot.querySelector('input')?.checked ?? false;
   }
 
   private _onLabelSlotChange(event: Event): void {
@@ -88,19 +95,27 @@ export class SbbToggleCheck implements ComponentInterface, AccessibilityProperti
   }
 
   public render(): JSX.Element {
+    const attributes = {
+      role: 'checkbox',
+      'aria-checked': this.checked?.toString() ?? 'false',
+      'aria-required': this.required.toString(),
+      'aria-disabled': this.disabled.toString(),
+      ...(this.disabled ? undefined : { tabIndex: '0' }),
+    };
     return (
-      <Host>
+      <Host {...attributes}>
         <label class="sbb-toggle-check">
           <input
             type="checkbox"
+            aria-hidden="true"
+            tabIndex={-1}
             name={this.name}
             disabled={this.disabled}
-            aria-disabled={this.disabled}
             required={this.required}
             checked={this.checked}
             value={this.value}
-            onChange={(event: Event): void => this.checkedChanged(event)}
-            {...getAccessibilityAttributeList(this)}
+            onInput={() => this.handleInputEvent()}
+            onChange={(event) => this.handleChangeEvent(event)}
           />
           <span class="sbb-toggle-check__container">
             <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>

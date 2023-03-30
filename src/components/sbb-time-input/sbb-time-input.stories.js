@@ -62,7 +62,7 @@ const required = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -132,7 +132,7 @@ const basicArgTypes = {
   disabled,
   readonly,
   required,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const formFieldBasicArgsTypes = {
@@ -151,7 +151,7 @@ const basicArgs = {
   disabled: false,
   readonly: false,
   required: false,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 const formFieldBasicArgs = {

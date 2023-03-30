@@ -76,7 +76,7 @@ const iconName = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -94,7 +94,7 @@ const defaultArgTypes = {
   labelTwo,
   iconName: iconName,
   'disable-animation': disableAnimation,
-  accessibilityLabel: accessibilityLabel,
+  ariaLabel,
 };
 
 const defaultArgs = {
@@ -106,16 +106,12 @@ const defaultArgs = {
   labelTwo: 'Zürich',
   iconName: undefined,
   'disable-animation': isChromatic(),
-  accessibilityLabel: undefined,
+  ariaLabel: undefined,
 };
 
-const DefaultTemplate = ({ label, labelTwo, iconName, accessibilityLabel, ...args }) => (
+const DefaultTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }) => (
   <sbb-toggle {...args}>
-    <sbb-toggle-option
-      icon-name={iconName}
-      accessibility-label={accessibilityLabel}
-      value="Value 1"
-    >
+    <sbb-toggle-option icon-name={iconName} aria-label={ariaLabel} value="Value 1">
       {label}
     </sbb-toggle-option>
     <sbb-toggle-option icon-name={iconName && 'arrows-right-left-small'} value="Value 2">
@@ -124,9 +120,9 @@ const DefaultTemplate = ({ label, labelTwo, iconName, accessibilityLabel, ...arg
   </sbb-toggle>
 );
 
-const SlottedIconTemplate = ({ label, labelTwo, iconName, accessibilityLabel, ...args }) => (
+const SlottedIconTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }) => (
   <sbb-toggle {...args}>
-    <sbb-toggle-option value="Value 1" accessibility-label={accessibilityLabel}>
+    <sbb-toggle-option value="Value 1" aria-label={ariaLabel}>
       <sbb-icon slot="icon" name={iconName}></sbb-icon>
       {label}
     </sbb-toggle-option>

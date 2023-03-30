@@ -87,6 +87,52 @@ describe('getElementPosition', () => {
     });
   });
 
+  it('changes the vertical alignment if there is more space above and the element overflows', () => {
+    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+      x: 48,
+      y: 600,
+      width: 80,
+      height: 48,
+      top: 600,
+      right: 952,
+      bottom: 72,
+      left: 48,
+      toJSON: () => {},
+    });
+
+    const elementPosition = getElementPosition(element, trigger);
+
+    expect(elementPosition).toEqual({
+      top: 520,
+      left: 48,
+      maxHeight: '600px',
+      alignment: { horizontal: 'start', vertical: 'above' },
+    });
+  });
+
+  it('does not changes the vertical alignment if there is more space above and the element does not overlflow', () => {
+    jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
+      x: 48,
+      y: 592,
+      width: 80,
+      height: 48,
+      top: 592,
+      right: 952,
+      bottom: 80,
+      left: 48,
+      toJSON: () => {},
+    });
+
+    const elementPosition = getElementPosition(element, trigger);
+
+    expect(elementPosition).toEqual({
+      top: 640,
+      left: 48,
+      maxHeight: '80px',
+      alignment: { horizontal: 'start', vertical: 'below' },
+    });
+  });
+
   it('changes the alignment to end/above', () => {
     jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
       x: 952,
