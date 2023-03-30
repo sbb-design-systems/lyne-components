@@ -21,8 +21,8 @@
   border-radius: var(--sbb-border-radius-4x);
 }
 
-@include sbb.hover-mq($hover: true) {
-  :host(:hover) {
+:host(:hover:not([disabled]:not([disabled='false']), [data-group-disabled])) {
+  @include sbb.hover-mq($hover: true) {
     --sbb-option-bg-color: var(--sbb-color-milk-default);
   }
 }
@@ -38,7 +38,6 @@
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
   --sbb-option-color: var(--sbb-color-graphite-default);
-  --sbb-option-bg-color: var(--sbb-color-milk-default);
   --sbb-option-cursor: default;
 }
 
