@@ -1,5 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
 import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import { hostContext } from '../../global/helpers/host-context';
 import {
   ButtonProperties,
   resolveButtonRenderVariables,
@@ -30,9 +31,14 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
   @Element() private _element!: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+  private _isInFormField = false;
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
+    this._isInFormField = !!(
+      hostContext('sbb-form-field', this._element) ??
+      hostContext('[data-form-field]', this._element)
+    );
   }
 
   public disconnectedCallback(): void {
@@ -44,7 +50,7 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
 
     return (
       <Host {...hostAttributes}>
-        <span class="sbb-tooltip-trigger">
+        <span class="sbb-tooltip-trigger" data-icon-small={this._isInFormField}>
           <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </span>
       </Host>

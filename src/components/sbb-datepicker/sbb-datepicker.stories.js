@@ -336,7 +336,6 @@ InFormFieldReadonly.args = { ...formFieldBasicArgs, readonly: true };
 export const InFormFieldWide = TemplateFormField.bind({});
 InFormFieldWide.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldWide.args = { ...formFieldBasicArgs, wide: true };
-InFormFieldWide.play = isChromatic() && playStory;
 
 export const InFormFieldWithMinAndMax = TemplateFormField.bind({});
 InFormFieldWithMinAndMax.argTypes = { ...formFieldBasicArgsTypes };
@@ -345,32 +344,26 @@ InFormFieldWithMinAndMax.args = {
   min: new Date(1675814400000),
   max: new Date(1677024000000),
 };
-InFormFieldWithMinAndMax.play = isChromatic() && playStory;
 
 export const InFormFieldWithDateFilter = TemplateFormField.bind({});
 InFormFieldWithDateFilter.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldWithDateFilter.args = { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] };
-InFormFieldWithDateFilter.play = isChromatic() && playStory;
 
 export const InFormFieldLarge = TemplateFormField.bind({});
 InFormFieldLarge.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldLarge.args = { ...formFieldBasicArgs, size: size.options[1] };
-InFormFieldLarge.play = isChromatic() && playStory;
 
 export const InFormFieldOptional = TemplateFormField.bind({});
 InFormFieldOptional.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldOptional.args = { ...formFieldBasicArgs, optional: true };
-InFormFieldOptional.play = isChromatic() && playStory;
 
 export const InFormFieldBorderless = TemplateFormField.bind({});
 InFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldBorderless.args = { ...formFieldBasicArgs, borderless: true };
-InFormFieldBorderless.play = isChromatic() && playStory;
 
 export const WithoutFormField = Template.bind({});
 WithoutFormField.argTypes = { ...basicArgTypes };
 WithoutFormField.args = { ...basicArgs };
-WithoutFormField.play = isChromatic() && playStory;
 
 export default {
   decorators: [
