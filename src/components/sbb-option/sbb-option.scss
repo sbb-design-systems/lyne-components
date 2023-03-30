@@ -69,3 +69,7 @@
 .sbb-option__label--highlight {
   @include sbb.text--bold;
 }
+
+.sbb-option__group-label--visually-hidden {
+  @include sbb.screen-reader-only;
+}

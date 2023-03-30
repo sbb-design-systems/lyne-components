@@ -1,5 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { isSafari } from '../../global/helpers/platform';
 import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
 
 /**
@@ -19,17 +20,29 @@ export class SbbOptionGroup implements ComponentInterface {
 
   @Element() private _element: HTMLElement;
 
+  private _variant: SbbOptionVariant;
+  // TODO: the problem that the `_inertAriaGroups` option resolves is only present on Safari using VoiceOver.
+  private _inertAriaGroups = isSafari();
+
   @Watch('disabled')
   public updateDisabled(): void {
+    this._proxyDisabledToOptions();
+  }
+
+  @Watch('label')
+  public proxyGroupLabelToOptions(): void {
+    if (!this._inertAriaGroups) {
+      return;
+    }
+
     for (const option of this._options) {
-      toggleDatasetEntry(option, 'groupDisabled', this.disabled);
+      option.setGroupLabel(this.label);
     }
   }
 
-  private _variant: SbbOptionVariant;
-
   public connectedCallback(): void {
     this._setVariantByContext();
+    this.proxyGroupLabelToOptions();
   }
 
   private get _options(): HTMLSbbOptionElement[] {
@@ -48,10 +61,8 @@ export class SbbOptionGroup implements ComponentInterface {
     }
   }
 
-  private _updateOptions(): void {
-    const options = this._options;
-
-    for (const option of options) {
+  private _proxyDisabledToOptions(): void {
+    for (const option of this._options) {
       toggleDatasetEntry(option, 'groupDisabled', this.disabled);
     }
   }
@@ -59,10 +70,10 @@ export class SbbOptionGroup implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host
-        role="group"
+        role={!this._inertAriaGroups ? 'group' : null}
         data-variant={this._variant}
-        aria-label={this.label}
-        aria-disabled={this.disabled.toString()}
+        aria-label={!this._inertAriaGroups && this.label}
+        aria-disabled={!this._inertAriaGroups && this.disabled.toString()}
       >
         <div class="sbb-option-group__divider">
           <sbb-divider></sbb-divider>
@@ -70,7 +81,7 @@ export class SbbOptionGroup implements ComponentInterface {
         <span class="sbb-option-group__label" aria-hidden="true">
           {this.label}
         </span>
-        <slot onSlotchange={() => this._updateOptions()} />
+        <slot onSlotchange={() => this._proxyDisabledToOptions()} />
       </Host>
     );
   }

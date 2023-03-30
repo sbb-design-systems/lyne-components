@@ -22,7 +22,7 @@ import {
 import { SbbOptionSelectionChange, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { isAndroid } from '../../global/helpers/platform';
+import { isAndroid, isSafari } from '../../global/helpers/platform';
 
 let nextId = 0;
 
@@ -82,6 +82,8 @@ export class SbbOption implements ComponentInterface {
   /** Disable the highlight of the label. */
   @State() private _disableLabelHighlight: boolean;
 
+  @State() private _groupLabel: string;
+
   @Element() private _element!: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(
@@ -91,6 +93,7 @@ export class SbbOption implements ComponentInterface {
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant: SbbOptionVariant;
+  private _inertAriaGroups = isSafari();
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new MutationObserver(
@@ -104,6 +107,15 @@ export class SbbOption implements ComponentInterface {
   @Method()
   public async highlight(value: string): Promise<void> {
     this._highlightString = value;
+  }
+
+  /**
+   * Set the option group label (used for a11y)
+   * @param value the label of the option group
+   */
+  @Method()
+  public async setGroupLabel(value: string): Promise<void> {
+    this._groupLabel = value;
   }
 
   @Listen('click', { passive: true })
@@ -205,6 +217,10 @@ export class SbbOption implements ComponentInterface {
         <span class="sbb-option__label">
           <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
           {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+
+          {this._inertAriaGroups ? (
+            <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
+          ) : null}
         </span>
       </div>
     );
