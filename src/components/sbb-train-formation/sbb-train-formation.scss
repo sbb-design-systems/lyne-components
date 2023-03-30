@@ -24,12 +24,9 @@
   @include sbb.scrollbar-light;
 
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    'start sectors end'
-    'start trains end';
-
+  grid-template:
+    'start sectors end' auto
+    'start trains end' auto / auto 1fr auto;
   position: relative;
   overflow-x: auto;
   background-color: var(--sbb-train-formation-background-color);

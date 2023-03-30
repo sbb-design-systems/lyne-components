@@ -33,9 +33,9 @@
   @include sbb.list-reset;
 
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas: 'label label' 'occupancy class';
+  grid-template:
+    'label label' auto
+    'occupancy class' 1fr / 1fr 1fr;
   position: relative;
   width: 100%;
 
