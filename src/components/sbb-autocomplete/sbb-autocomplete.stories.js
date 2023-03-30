@@ -81,7 +81,7 @@ const defaultArgs = {
 
   // Option args
   iconName: 'clock-small',
-  preserveIconSpace: false,
+  preserveIconSpace: true,
   disabled: false,
 
   // Form field args
@@ -211,11 +211,11 @@ BorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
 BorderlessOpenAbove.decorators = aboveDecorator;
 BorderlessOpenAbove.play = isChromatic() && playStory;
 
-export const PreserveIconSpace = Template.bind({});
-PreserveIconSpace.argTypes = defaultArgTypes;
-PreserveIconSpace.args = { ...defaultArgs, preserveIconSpace: true };
-PreserveIconSpace.decorators = defaultDecorator;
-PreserveIconSpace.play = isChromatic() && playStory;
+export const NoIconSpace = Template.bind({});
+NoIconSpace.argTypes = defaultArgTypes;
+NoIconSpace.args = { ...defaultArgs, preserveIconSpace: false };
+NoIconSpace.decorators = defaultDecorator;
+NoIconSpace.play = isChromatic() && playStory;
 
 export const Scroll = Template.bind({});
 Scroll.argTypes = defaultArgTypes;
