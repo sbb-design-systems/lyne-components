@@ -14,6 +14,7 @@ import { SbbCalendarCustomEvent } from '../../components';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nShowCalendar } from '../../global/i18n';
+import { DateAdapter } from '../../global/interfaces/date-adapter';
 import { getDatePicker, InputUpdateEvent } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
@@ -48,7 +49,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private _datePickerController: AbortController;
 
-  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {

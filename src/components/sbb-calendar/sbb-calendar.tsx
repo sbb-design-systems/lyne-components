@@ -19,6 +19,7 @@ import { Day, Weekday } from './sbb-calendar.custom';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
+import { DateAdapter } from '../../global/interfaces/date-adapter';
 
 @Component({
   shadow: true,
@@ -63,7 +64,7 @@ export class SbbCalendar implements ComponentInterface {
 
   @Element() private _element: HTMLElement;
 
-  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
   /** A list of the day of the week, in two format (long and single char). */
   private _weekdays: Weekday[];
@@ -101,9 +102,10 @@ export class SbbCalendar implements ComponentInterface {
   private _setSelectedDate(selectedDate: Date | null): void {
     if (
       !!selectedDate &&
-      (!this._isDayInRange(selectedDate.toISOString()) || this.dateFilter(selectedDate))
+      (!this._isDayInRange(this._dateAdapter.getISOString(selectedDate)) ||
+        this.dateFilter(selectedDate))
     ) {
-      this._selected = new Date(selectedDate.setHours(0, 0, 0, 0)).toISOString();
+      this._selected = this._dateAdapter.getISOString(selectedDate);
     } else {
       this._selected = undefined;
     }
@@ -150,13 +152,16 @@ export class SbbCalendar implements ComponentInterface {
   private _init(): void {
     this._wide = isBreakpoint('medium') && this.wide;
     this._setWeekdays();
-    this._weeks = this._createWeekRows(this._activeDate.getMonth(), this._activeDate.getFullYear());
+    this._weeks = this._createWeekRows(
+      this._dateAdapter.getMonth(this._activeDate),
+      this._dateAdapter.getYear(this._activeDate)
+    );
     this._nextMonthWeeks = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(
-        nextMonthDate.getMonth(),
-        nextMonthDate.getFullYear()
+        this._dateAdapter.getMonth(nextMonthDate),
+        this._dateAdapter.getYear(nextMonthDate)
       );
     }
   }
@@ -198,8 +203,9 @@ export class SbbCalendar implements ComponentInterface {
         weeks.push([]);
         cell = 0;
       }
+      const date = this._dateAdapter.createDate(year, month, i + 1);
       weeks[weeks.length - 1].push({
-        value: new Date(year, month, i + (1 % 12)).toISOString(),
+        value: this._dateAdapter.getISOString(date),
         dayValue: dateNames[i],
         monthValue: String(month + 1),
         yearValue: String(year),
@@ -237,7 +243,7 @@ export class SbbCalendar implements ComponentInterface {
    * Creates the table body with the days cells. For the first row, it also considers the possible day's offset.
    */
   private _createTableBody(weeks: Day[][]): JSX.Element {
-    const today: string = this._now().toISOString();
+    const today: string = this._dateAdapter.getISOString(this._now());
     return weeks.map((week: Day[], rowIndex: number) => {
       const firstRowOffset: number = DAYS_PER_WEEK - week.length;
       if (rowIndex === 0 && firstRowOffset) {
@@ -259,7 +265,7 @@ export class SbbCalendar implements ComponentInterface {
   private _createDayCells(week: Day[], today: string): JSX.Element {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this.dateFilter(new Date(day.value));
+      const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
       const selected: boolean = this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       return (
@@ -319,10 +325,10 @@ export class SbbCalendar implements ComponentInterface {
     }
     const isBeforeMin =
       this._dateAdapter.isValid(this._min) &&
-      this._dateAdapter.compareDate(this._min, new Date(date)) > 0;
+      this._dateAdapter.compareDate(this._min, this._dateAdapter.createDateFromISOString(date)) > 0;
     const isAfterMax =
       this._dateAdapter.isValid(this._max) &&
-      this._dateAdapter.compareDate(this._max, new Date(date)) < 0;
+      this._dateAdapter.compareDate(this._max, this._dateAdapter.createDateFromISOString(date)) < 0;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -330,7 +336,7 @@ export class SbbCalendar implements ComponentInterface {
   private _selectDate(day: string): void {
     if (this._selected !== day) {
       this._selected = day;
-      this.dateSelected.emit(new Date(day));
+      this.dateSelected.emit(this._dateAdapter.createDateFromISOString(day));
     }
   }
 
@@ -481,7 +487,9 @@ export class SbbCalendar implements ComponentInterface {
     // but the starting position is in the second one; if the starting position is in the first one, it calculates
     // the last day using the year and month value and setting the day to zero.
     const indexOfLastDayOfCurrentMonth =
-      index === indexInMonth ? new Date(+day.yearValue, +day.monthValue, 0).getDate() : days.length;
+      index === indexInMonth
+        ? this._dateAdapter.getNumDaysInMonth(+day.yearValue, +day.monthValue - 1)
+        : days.length;
 
     switch (evt.key) {
       case 'ArrowUp':

@@ -1,4 +1,5 @@
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { DateAdapter } from '../../global/interfaces/date-adapter';
 
 export interface InputUpdateEvent {
   disabled: boolean;
@@ -71,7 +72,7 @@ export function getAvailableDate(
   date: Date,
   delta: number,
   dateFilter: (date: Date) => boolean,
-  dateAdapter: NativeDateAdapter
+  dateAdapter: DateAdapter<Date>
 ): Date {
   let availableDate = dateAdapter.addCalendarDays(date, delta);
 
@@ -95,7 +96,7 @@ export function getAvailableDate(
 export function findPreviousAvailableDate(
   date: Date,
   dateFilter: (date: Date) => boolean,
-  dateAdapter: NativeDateAdapter,
+  dateAdapter: DateAdapter<Date>,
   min: string | number
 ): Date {
   const previousDate = getAvailableDate(date, -1, dateFilter, dateAdapter);
@@ -121,7 +122,7 @@ export function findPreviousAvailableDate(
 export function findNextAvailableDate(
   date: Date,
   dateFilter: (date: Date) => boolean,
-  dateAdapter: NativeDateAdapter,
+  dateAdapter: DateAdapter<Date>,
   max: string | number
 ): Date {
   const nextDate = getAvailableDate(date, 1, dateFilter, dateAdapter);
@@ -150,7 +151,7 @@ export function isDateAvailable(
   min: string | number,
   max: string | number
 ): boolean {
-  const dateAdapter = new NativeDateAdapter();
+  const dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
   const dateMin: Date = dateAdapter.deserializeDate(min);
   const dateMax: Date = dateAdapter.deserializeDate(max);
 

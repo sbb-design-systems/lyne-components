@@ -18,6 +18,7 @@ import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.he
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
+import { DateAdapter } from '../../global/interfaces/date-adapter';
 
 const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const FORMAT_DATE =
@@ -134,7 +135,9 @@ export class SbbDatepicker implements ComponentInterface {
   /** Set the input value to the correctly formatted value. */
   @Method() public async setValueAsDate(date: Date): Promise<void> {
     await this._formatAndUpdateValue(
-      `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+      `${this._dateAdapter.getDate(date)}.${
+        this._dateAdapter.getMonth(date) + 1
+      }.${this._dateAdapter.getYear(date)}`
     );
   }
 
@@ -142,7 +145,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
 
-  private _dateAdapter = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
   public connectedCallback(): void {
     this._inputElement = getInput(this._element, this.input);

@@ -1,8 +1,9 @@
+import { DateAdapter } from '../interfaces/date-adapter';
 import { documentLanguage } from './language';
 
 export const DAYS_PER_WEEK = 7;
 
-export class NativeDateAdapter {
+export class NativeDateAdapter implements DateAdapter<Date> {
   /**
    * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
    */
@@ -104,13 +105,18 @@ export class NativeDateAdapter {
     return result;
   }
 
+  public createDateFromISOString(date: string): Date | null {
+    const d = new Date(date);
+    return this.isValid(d) ? d : null;
+  }
+
   /** Checks whether the two dates are non-null and are in the same month of the same year. */
-  public hasSameMonthAndYear(d1: Date | null, d2: Date | null): boolean {
+  public hasSameMonthAndYear(first: Date | null, second: Date | null): boolean {
     return !!(
-      d1 &&
-      d2 &&
-      this.getMonth(d1) === this.getMonth(d2) &&
-      this.getYear(d1) === this.getYear(d2)
+      first &&
+      second &&
+      this.getMonth(first) === this.getMonth(second) &&
+      this.getYear(first) === this.getYear(second)
     );
   }
 
@@ -192,6 +198,11 @@ export class NativeDateAdapter {
       return undefined;
     }
     return new Date(+values[2], +values[1] - 1, +values[0], 0, 0, 0, 0);
+  }
+
+  public getISOString(date: Date): string {
+    date?.setHours(0, 0, 0, 0);
+    return date?.toISOString();
   }
 
   /**

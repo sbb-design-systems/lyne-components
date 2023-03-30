@@ -14,6 +14,7 @@ import { actionElementHandlerAspect, HandlerRepository } from '../../global/help
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nPreviousDay } from '../../global/i18n';
+import { DateAdapter } from '../../global/interfaces/date-adapter';
 import {
   ButtonProperties,
   resolveButtonRenderVariables,
@@ -59,7 +60,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
 
   private _datePickerElement: HTMLSbbDatepickerElement;
 
-  private _dateAdapter: NativeDateAdapter = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
   private _datePickerController: AbortController;
 
