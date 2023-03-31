@@ -72,6 +72,10 @@ slot[name='right']::slotted(*) {
     height: var(--sbb-pearl-chain-vertical-item-leg-status);
     width: var(--sbb-pearl-chain-vertical-item-border-width);
     background-color: var(--sbb-pearl-chain-vertical-item-color-past);
+
+    @include sbb.if-forced-colors {
+      --sbb-pearl-chain-vertical-item-color-past: GrayText;
+    }
   }
 }
 
@@ -82,6 +86,12 @@ slot[name='right']::slotted(*) {
   background-repeat: repeat-y;
   background-size: calc(2 * var(--sbb-pearl-chain-vertical-item-spacing-small))
     var(--sbb-pearl-chain-vertical-item-spacing-small);
+
+  @include sbb.if-forced-colors {
+    background-color: ButtonHighlight !important;
+    border-inline-start: #{sbb.px-to-rem-build(1)} dashed HighLight;
+    transform: translateY(#{sbb.px-to-rem-build(1)});
+  }
 }
 
 .sbb-pearl-chain-vertical-item__line--thin {
@@ -89,6 +99,10 @@ slot[name='right']::slotted(*) {
 }
 
 .sbb-pearl-chain-vertical-item__line--default {
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-default: CanvasText;
+  }
+
   background-color: var(--sbb-pearl-chain-vertical-item-color-default);
   border-color: var(--sbb-pearl-chain-vertical-item-color-default);
   color: var(--sbb-pearl-chain-vertical-item-color-default);
@@ -98,9 +112,16 @@ slot[name='right']::slotted(*) {
   border-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   color: var(--sbb-pearl-chain-vertical-item-color-disruption);
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-disruption: HighLight;
+  }
 }
 
 .sbb-pearl-chain-vertical-item__line--past {
+  @include sbb.if-forced-colors {
+    --sbb-pearl-chain-vertical-item-color-past: GrayText;
+  }
+
   border-color: var(--sbb-pearl-chain-vertical-item-color-past);
   background-color: var(--sbb-pearl-chain-vertical-item-color-past);
   color: var(--sbb-pearl-chain-vertical-item-color-past);
