@@ -6,10 +6,12 @@
 
 :host {
   --sbb-option-group-divider-display: block;
+  --sbb-option-group-label-padding: var(--sbb-spacing-fixed-4x);
 }
 
 :host(:first-child) {
   --sbb-option-group-divider-display: none;
+  --sbb-option-group-label-padding: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-option-group {
@@ -25,10 +27,10 @@
   font-size: var(--sbb-typo-scale-0-75x);
   color: var(--sbb-color-metal-default);
   padding-inline: var(--sbb-spacing-fixed-4x);
-  padding-block: var(--sbb-spacing-fixed-2x);
+  padding-block-start: var(--sbb-option-group-label-padding);
+  padding-block-end: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-option-group__divider {
   display: var(--sbb-option-group-divider-display);
-  padding-block-end: var(--sbb-spacing-fixed-2x);
 }
