@@ -187,6 +187,38 @@ const OptionGroupTemplate = (args) => [
   </sbb-form-field>,
 ];
 
+const MixedTemplate = (args) => [
+  <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+    <input placeholder="Placeholder" />
+
+    <sbb-autocomplete
+      disable-animation={args.disableAnimation}
+      preserve-icon-space={args.preserveIconSpace}
+    >
+      <sbb-option value="Option 1">
+        <sbb-icon slot="icon" name={args.iconName} style="color: #0279c7;" />
+        Option Value
+      </sbb-option>
+      <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+        <sbb-option icon-name={args.iconName} value="Option 1">
+          Option 1
+        </sbb-option>
+        <sbb-option icon-name={args.iconName} disabled={args.disabled} value="Option 2">
+          Option 2
+        </sbb-option>
+        <sbb-option value="Option 3">
+          <sbb-icon slot="icon" name={args.iconName} />
+          Option 3
+        </sbb-option>
+      </sbb-option-group>
+      <sbb-option-group label="Group 2">
+        <sbb-option value="Option 4">Option 4</sbb-option>
+        <sbb-option value="Option 5">Option 5</sbb-option>
+      </sbb-option-group>
+    </sbb-autocomplete>
+  </sbb-form-field>,
+];
+
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
@@ -228,6 +260,18 @@ WithOptionGroup.argTypes = defaultArgTypes;
 WithOptionGroup.args = { ...defaultArgs };
 WithOptionGroup.decorators = defaultDecorator;
 WithOptionGroup.play = isChromatic() && playStory;
+
+export const WithOptionGroupOpenAbove = OptionGroupTemplate.bind({});
+WithOptionGroupOpenAbove.argTypes = defaultArgTypes;
+WithOptionGroupOpenAbove.args = { ...defaultArgs };
+WithOptionGroupOpenAbove.decorators = aboveDecorator;
+WithOptionGroupOpenAbove.play = isChromatic() && playStory;
+
+export const MixedSingleOptionWithOptionGroup = MixedTemplate.bind({});
+MixedSingleOptionWithOptionGroup.argTypes = defaultArgTypes;
+MixedSingleOptionWithOptionGroup.args = { ...defaultArgs };
+MixedSingleOptionWithOptionGroup.decorators = defaultDecorator;
+MixedSingleOptionWithOptionGroup.play = isChromatic() && playStory;
 
 export default {
   parameters: {
