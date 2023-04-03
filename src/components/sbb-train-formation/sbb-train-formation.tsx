@@ -4,7 +4,7 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 import { i18nSector, i18nTrains } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
-interface SectorCollected {
+interface AggregatedSector {
   label: string;
   wagonCount: number;
   blockedPassageCount: number;
@@ -25,7 +25,7 @@ export class SbbTrainFormation implements ComponentInterface {
   /** Option to hide all wagon labels. */
   @Prop({ reflect: true }) public hideWagonLabel = false;
 
-  @State() private _sectors: SectorCollected[] = [];
+  @State() private _sectors: AggregatedSector[] = [];
 
   @State() private _trains: HTMLSbbTrainElement[];
 
@@ -34,31 +34,14 @@ export class SbbTrainFormation implements ComponentInterface {
   /** Element that defines the visible content width. */
   private _formationDiv: HTMLDivElement;
 
-  /**
-   * Width of the visible space of the content. It is passed to the sbb-trains as css-var and used
-   * for the sticky styling of the direction (indicator/labels/arrows).
-   */
-  private _contentWidth: number;
-
-  private _contentResizeObserver = new ResizeObserver(() => this._onResize());
+  private _contentResizeObserver = new ResizeObserver(() => this._applyCssWidth());
 
   public connectedCallback(): void {
     this._handleSlotChange();
   }
 
-  public componentDidLoad(): void {
-    this._contentWidth = this._formationDiv.getBoundingClientRect().width;
-    this._contentResizeObserver.observe(this._formationDiv);
-    this._applyCssWidth();
-  }
-
   public disconnectedCallback(): void {
     this._contentResizeObserver.disconnect();
-  }
-
-  private _onResize(): void {
-    this._contentWidth = this._formationDiv.getBoundingClientRect().width;
-    this._applyCssWidth();
   }
 
   /**
@@ -66,7 +49,8 @@ export class SbbTrainFormation implements ComponentInterface {
    * every slotted sbb-train for the direction-label
    */
   private _applyCssWidth(): void {
-    this._formationDiv.style.setProperty('--sbb-train-direction-width', `${this._contentWidth}px`);
+    const contentWidth = this._formationDiv.getBoundingClientRect().width;
+    this._formationDiv.style.setProperty('--sbb-train-direction-width', `${contentWidth}px`);
   }
 
   @Listen('sbbLanguageChange', { target: 'document' })
@@ -84,50 +68,47 @@ export class SbbTrainFormation implements ComponentInterface {
       this._element.querySelectorAll('sbb-train-wagon,sbb-train-blocked-passage')
     ).reduce(
       (
-        collected: SectorCollected[],
+        aggregatedSectors: AggregatedSector[],
         item: HTMLSbbTrainWagonElement | HTMLSbbTrainBlockedPassageElement
       ) => {
-        if (!collected.length) {
-          collected.push({ wagonCount: 0, blockedPassageCount: 0 } as SectorCollected);
-        }
-
-        const currentSectorCollected = collected[collected.length - 1];
+        const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
         if (item.tagName === 'SBB-TRAIN-WAGON') {
           const sectorAttribute = (item as HTMLSbbTrainWagonElement).sector;
 
-          if (!currentSectorCollected.label && sectorAttribute) {
-            currentSectorCollected.label = sectorAttribute;
+          if (!currentAggregatedSector.label && sectorAttribute) {
+            currentAggregatedSector.label = sectorAttribute;
           }
 
-          if (!sectorAttribute || currentSectorCollected.label === sectorAttribute) {
-            currentSectorCollected.wagonCount++;
+          if (!sectorAttribute || currentAggregatedSector.label === sectorAttribute) {
+            currentAggregatedSector.wagonCount++;
           } else {
-            collected.push({
+            aggregatedSectors.push({
               label: sectorAttribute,
               wagonCount: 1,
               blockedPassageCount: 0,
             });
           }
         } else if (item.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE') {
-          currentSectorCollected.blockedPassageCount++;
+          currentAggregatedSector.blockedPassageCount++;
         }
 
-        return collected;
+        return aggregatedSectors;
       },
-      []
+      [{ wagonCount: 0, blockedPassageCount: 0 } as AggregatedSector]
     );
   }
-
-  private _readTrains(): void {
+  private _handleSlotChange(): void {
+    this._readSectors();
     this._trains = Array.from(this._element.children).filter(
       (e): e is HTMLSbbTrainElement => e.tagName === 'SBB-TRAIN'
     );
   }
 
-  private _handleSlotChange(): void {
-    this._readSectors();
-    this._readTrains();
+  private _updateFormationDiv(el: HTMLDivElement): void {
+    this._contentResizeObserver.disconnect();
+    this._formationDiv = el;
+    this._contentResizeObserver.observe(this._formationDiv);
   }
 
   public render(): JSX.Element {
@@ -139,24 +120,19 @@ export class SbbTrainFormation implements ComponentInterface {
     }
 
     return (
-      <div
-        class="sbb-train-formation"
-        ref={(el): void => {
-          this._formationDiv = el;
-        }}
-      >
+      <div class="sbb-train-formation" ref={(el): void => this._updateFormationDiv(el)}>
         <div class="sbb-train-formation__sectors" aria-hidden="true">
-          {this._sectors.map((sectorCollected) => (
+          {this._sectors.map((aggregatedSector) => (
             <span
               class="sbb-train-formation__sector"
               style={{
-                '--sbb-train-formation-wagon-count': sectorCollected.wagonCount.toString(),
+                '--sbb-train-formation-wagon-count': aggregatedSector.wagonCount.toString(),
                 '--sbb-train-formation-wagon-blocked-passage-count':
-                  sectorCollected.blockedPassageCount.toString(),
+                  aggregatedSector.blockedPassageCount.toString(),
               }}
             >
               <span class="sbb-train-formation__sector-sticky-wrapper">
-                {i18nSector[this._currentLanguage]} {sectorCollected.label}
+                {i18nSector[this._currentLanguage]} {aggregatedSector.label}
               </span>
             </span>
           ))}

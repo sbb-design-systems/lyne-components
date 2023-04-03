@@ -90,9 +90,9 @@ export class SbbNavigationMarker implements ComponentInterface {
 
   // Create an array with only the sbb-navigation-action children.
   private _readActions(): void {
-    this._actions = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION'
-    );
+    this._actions = Array.from(
+      this._element.querySelectorAll('sbb-navigation-action')
+    ) as HTMLSbbNavigationActionElement[];
     this._updateMarkerActions();
   }
 

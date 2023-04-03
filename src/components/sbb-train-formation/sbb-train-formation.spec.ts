@@ -15,7 +15,7 @@ describe('sbb-train-formation', () => {
     expect(root).toEqualHtml(`
         <sbb-train-formation>
           <mock:shadow-root>
-            <div class="sbb-train-formation" style="--sbb-train-direction-width: 0px;">
+            <div class="sbb-train-formation">
               <div aria-hidden="true" class="sbb-train-formation__sectors">
                  <span class="sbb-train-formation__sector" style="--sbb-train-formation-wagon-count: 1; --sbb-train-formation-wagon-blocked-passage-count: 0;">
                    <span class="sbb-train-formation__sector-sticky-wrapper">
@@ -53,7 +53,7 @@ describe('sbb-train-formation', () => {
     expect(root).toEqualHtml(`
         <sbb-train-formation>
           <mock:shadow-root>
-            <div class="sbb-train-formation" style="--sbb-train-direction-width: 0px;">
+            <div class="sbb-train-formation">
               <div aria-hidden="true" class="sbb-train-formation__sectors">
                  <span class="sbb-train-formation__sector" style="--sbb-train-formation-wagon-count: 2; --sbb-train-formation-wagon-blocked-passage-count: 0;">
                    <span class="sbb-train-formation__sector-sticky-wrapper">

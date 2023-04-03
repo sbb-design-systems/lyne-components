@@ -113,7 +113,9 @@ export class SbbFormField implements ComponentInterface {
 
   @Watch('label')
   public renderLabel(newValue: string): void {
-    let labelElement: HTMLLabelElement = this._element.querySelector(':scope > label');
+    let labelElement: HTMLLabelElement | undefined = Array.from(this._element.children).find(
+      (element) => element.tagName === 'LABEL'
+    ) as HTMLLabelElement | undefined;
     if (!newValue && labelElement?.dataset.creator === this._element.tagName) {
       labelElement.remove();
     } else if (

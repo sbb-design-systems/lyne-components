@@ -111,7 +111,7 @@ export class SbbTrainWagon implements ComponentInterface {
         icon.setAttribute('slot', `sbb-train-wagon-icon-${index}`)
       );
     } else {
-      this._icons.forEach((icon) => icon.removeAttribute('slot'));
+      this._icons?.forEach((icon) => icon.removeAttribute('slot'));
     }
 
     const label = (tagName: string) => {
