@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -20,13 +20,13 @@ const disabled = {
 };
 
 const defaultArgTypes = {
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   'icon-name': iconName,
   disabled: disabled,
 };
 
 const defaultArgs = {
-  'accessibility-label': undefined,
+  'aria-label': undefined,
   'icon-name': 'circle-information-small',
   disabled: false,
 };

@@ -194,7 +194,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   /** Returns the right format for the `valueAsDate` property. */
   public formatValueAsDate(value: string): Date {
     const values = value?.split('.');
-    if (!values || values.length <= 2) {
+    if (!values || values.length <= 2 || values.some((v) => v === '')) {
       return undefined;
     }
     return new Date(+values[2], +values[1] - 1, +values[0], 0, 0, 0, 0);

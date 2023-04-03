@@ -13,12 +13,12 @@ describe('sbb-calendar', () => {
       <mock:shadow-root>
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            <sbb-button accessibility-label="Change to the previous month" iconname="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
+            <sbb-button aria-label="Change to the previous month" iconname="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
             <div class="sbb-calendar__controls-month">
               <span aria-hidden="true" class="sbb-calendar__controls-month-label">January 2023</span>
               <span class="sbb-calendar__visually-hidden" role="status">January 2023</span>
             </div>
-            <sbb-button accessibility-label="Change to the next month" iconname="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
+            <sbb-button aria-label="Change to the next month" iconname="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
           </div>
           <div class="sbb-calendar__table-container">
             <table class="sbb-calendar__table">

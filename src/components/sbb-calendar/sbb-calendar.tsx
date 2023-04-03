@@ -538,7 +538,7 @@ export class SbbCalendar implements ComponentInterface {
             variant="secondary"
             iconName="chevron-small-left-small"
             size="m"
-            accessibility-label={i18nPreviousMonth[this._currentLanguage]}
+            aria-label={i18nPreviousMonth[this._currentLanguage]}
             onClick={() => this._goToMonth(-1)}
             disabled={this._previousMonthDisabled()}
             id="sbb-calendar__controls-previous"
@@ -554,7 +554,7 @@ export class SbbCalendar implements ComponentInterface {
             variant="secondary"
             iconName="chevron-small-right-small"
             size="m"
-            accessibility-label={i18nNextMonth[this._currentLanguage]}
+            aria-label={i18nNextMonth[this._currentLanguage]}
             onClick={() => this._goToMonth(1)}
             disabled={this._nextMonthDisabled()}
             id="sbb-calendar__controls-next"

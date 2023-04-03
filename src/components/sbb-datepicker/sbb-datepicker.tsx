@@ -90,7 +90,8 @@ export class SbbDatepicker implements ComponentInterface {
       });
 
       this._inputElement.type = 'text';
-      this._inputElement.role = 'status';
+      this._inputElement.ariaAtomic = 'true';
+      this._inputElement.ariaLive = 'polite';
 
       if (!this._inputElement.placeholder) {
         this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
@@ -112,6 +113,20 @@ export class SbbDatepicker implements ComponentInterface {
             this._valueChanged(event);
           }
         },
+        {
+          signal: this._datePickerController.signal,
+        }
+      );
+      this._inputElement.addEventListener(
+        'focus',
+        (event: Event) => ((event.target as HTMLInputElement).removeAttribute('aria-live')),
+        {
+          signal: this._datePickerController.signal,
+        }
+      );
+      this._inputElement.addEventListener(
+        'blur',
+        (event: Event) => ((event.target as HTMLInputElement).ariaLive = 'polite'),
         {
           signal: this._datePickerController.signal,
         }
@@ -174,10 +189,10 @@ export class SbbDatepicker implements ComponentInterface {
     const day: string = match[1].padStart(2, '0');
     const month: string = match[2].padStart(2, '0');
     let year: number = +match[3];
-    if (year < 100 && year >= 0) {
+    if (!!year && year && year < 100 && year >= 0) {
       year += 1900;
     }
-    return `${day}.${month}.${year}`;
+    return `${day}.${month}.${year || ''}`;
   }
 
   private _valueChanged(event): void {
