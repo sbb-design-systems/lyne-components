@@ -162,7 +162,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
       today.setHours(0, 0, 0, 0);
       return today;
     }
-    return undefined;
+    return this._dateAdapter.today();
   }
 
   public render(): JSX.Element {
