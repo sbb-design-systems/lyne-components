@@ -143,7 +143,7 @@ export class SbbFormField implements ComponentInterface {
   }
 
   @Listen('will-open')
-  public onPopupOpen({ target }): void {    
+  public onPopupOpen({ target }): void {
     if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
       toggleDatasetEntry(this._element, 'hasPopupOpen', true);
     }
