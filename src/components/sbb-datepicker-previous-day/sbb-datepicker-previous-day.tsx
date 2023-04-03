@@ -71,6 +71,23 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
     }
   }
 
+  @Listen('click')
+  public async handleClick(): Promise<void> {
+    if (!this._datePickerElement) {
+      return;
+    }
+    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
+    const date: Date = findPreviousAvailableDate(
+      startingDate,
+      this._datePickerElement.dateFilter,
+      this._dateAdapter,
+      this._min
+    );
+    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
+      await this._datePickerElement.setValueAsDate(date);
+    }
+  }
+
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
@@ -131,22 +148,6 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
     }
   }
 
-  private async _handleClick(): Promise<void> {
-    if (!this._datePickerElement) {
-      return;
-    }
-    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
-    const date: Date = findPreviousAvailableDate(
-      startingDate,
-      this._datePickerElement.dateFilter,
-      this._dateAdapter,
-      this._min
-    );
-    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      await this._datePickerElement.setValueAsDate(date);
-    }
-  }
-
   private _hasDataNow(): boolean {
     if (!this._datePickerElement) {
       return false;
@@ -169,13 +170,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
     return (
-      <Host
-        {...hostAttributes}
-        slot="prefix"
-        role="button"
-        aria-label={i18nPreviousDay[this._currentLanguage]}
-        onClick={() => this._handleClick()}
-      >
+      <Host {...hostAttributes} slot="prefix" aria-label={i18nPreviousDay[this._currentLanguage]}>
         <span class="sbb-datepicker-previous-day">
           <sbb-icon name="chevron-small-left-small" />
         </span>

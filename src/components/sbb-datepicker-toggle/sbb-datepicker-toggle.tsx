@@ -54,8 +54,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      this._datePickerController?.abort();
-      this._datePickerController = new AbortController();
       this._init(this.datePicker);
     }
   }
@@ -66,7 +64,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._datePickerController = new AbortController();
     this._init(this.datePicker);
   }
 
@@ -79,6 +76,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   private async _init(datePicker?: string | HTMLElement): Promise<void> {
+    this._datePickerController?.abort();
+    this._datePickerController = new AbortController();
     this._datePicker = getDatePicker(this._element, datePicker);
 
     this._datePicker?.addEventListener(

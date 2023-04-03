@@ -71,6 +71,23 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     }
   }
 
+  @Listen('click')
+  public async handleClick(): Promise<void> {
+    if (!this._datePickerElement) {
+      return;
+    }
+    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
+    const date: Date = findNextAvailableDate(
+      startingDate,
+      this._datePickerElement.dateFilter,
+      this._dateAdapter,
+      this._max
+    );
+    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
+      await this._datePickerElement.setValueAsDate(date);
+    }
+  }
+
   @Listen('sbbLanguageChange', { target: 'document' })
   public handleLanguageChange(event: SbbLanguageChangeEvent): void {
     this._currentLanguage = event.detail;
@@ -131,22 +148,6 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     }
   }
 
-  private async _handleClick(): Promise<void> {
-    if (!this._datePickerElement) {
-      return;
-    }
-    const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
-    const date: Date = findNextAvailableDate(
-      startingDate,
-      this._datePickerElement.dateFilter,
-      this._dateAdapter,
-      this._max
-    );
-    if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
-      await this._datePickerElement.setValueAsDate(date);
-    }
-  }
-
   private _hasDataNow(): boolean {
     const dataNow = +this._datePickerElement.dataset?.now;
     return !isNaN(dataNow);
@@ -166,13 +167,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
     return (
-      <Host
-        {...hostAttributes}
-        slot="suffix"
-        role="button"
-        onClick={() => this._handleClick()}
-        aria-label={i18nNextDay[this._currentLanguage]}
-      >
+      <Host {...hostAttributes} slot="suffix" aria-label={i18nNextDay[this._currentLanguage]}>
         <span class="sbb-datepicker-next-day">
           <sbb-icon name="chevron-small-right-small" />
         </span>
