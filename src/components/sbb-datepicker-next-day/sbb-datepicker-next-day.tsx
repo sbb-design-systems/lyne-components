@@ -67,7 +67,6 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      this._datePickerController?.abort();
       this._init(this.datePicker);
     }
   }
@@ -88,6 +87,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
   }
 
   private _init(picker?: string | HTMLElement): void {
+    this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this._element, picker);
     if (!this._datePickerElement) {
