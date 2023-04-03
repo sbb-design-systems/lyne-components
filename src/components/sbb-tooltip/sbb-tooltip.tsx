@@ -176,20 +176,6 @@ export class SbbTooltip implements ComponentInterface {
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
-
-    // Hide outline in Safari which is visible for a short time
-    if (focusOrigin === 'touch' || focusOrigin === 'mouse') {
-      const closeButton = this._element.shadowRoot.querySelector(
-        '[sbb-tooltip-close]'
-      ) as HTMLElement;
-      if (closeButton) {
-        closeButton.dataset.focusOrigin = 'mouse';
-
-        closeButton.addEventListener('blur', () => delete closeButton.dataset.focusOrigin, {
-          once: true,
-        });
-      }
-    }
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
