@@ -119,7 +119,7 @@ export class SbbDatepicker implements ComponentInterface {
       );
       this._inputElement.addEventListener(
         'focus',
-        (event: Event) => ((event.target as HTMLInputElement).removeAttribute('aria-live')),
+        (event: Event) => (event.target as HTMLInputElement).removeAttribute('aria-live'),
         {
           signal: this._datePickerController.signal,
         }
