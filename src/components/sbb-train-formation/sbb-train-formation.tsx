@@ -116,7 +116,7 @@ export class SbbTrainFormation implements ComponentInterface {
     if (this._trains?.length > 1) {
       this._trains.forEach((train, index) => train.setAttribute('slot', `train-${index}`));
     } else {
-      this._trains.forEach((train) => train.removeAttribute('slot'));
+      this._trains?.forEach((train) => train.removeAttribute('slot'));
     }
 
     return (
