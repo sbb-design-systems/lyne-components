@@ -38,7 +38,13 @@ let nextId = 0;
 })
 export class SbbFormField implements ComponentInterface {
   // List of supported element selectors in unnamed slot
-  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER', 'SBB-TIME-INPUT'];
+  private readonly _supportedInputElements = [
+    'INPUT',
+    'SELECT',
+    'SBB-SELECT',
+    'SBB-SLIDER',
+    'SBB-TIME-INPUT',
+  ];
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];
 
@@ -281,7 +287,7 @@ export class SbbFormField implements ComponentInterface {
             <div class="sbb-form-field__input">
               <slot onSlotchange={(event) => this._onSlotInputChange(event)}></slot>
             </div>
-            {this._input?.tagName === 'SELECT' && (
+            {['SELECT', 'SBB-SELECT'].includes(this._input?.tagName) && (
               <sbb-icon
                 name="chevron-small-down-small"
                 class="sbb-form-field__select-input-icon"

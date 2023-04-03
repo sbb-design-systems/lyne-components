@@ -19,7 +19,7 @@
   --sbb-options-panel-width: fit-content;
   --sbb-autocomplete-border-radius: var(--sbb-border-radius-4x);
   --sbb-autocomplete-options-border-radius: 0 0 var(--sbb-autocomplete-border-radius)
-    var(--sbb-autocomplete-border-radius);
+  var(--sbb-autocomplete-border-radius);
   --sbb-autocomplete-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-autocomplete-animation-timing-function: ease;
   --sbb-autocomplete-gap-fix-opacity: 0;
@@ -48,17 +48,17 @@
 
 :host([data-options-panel-position='below']) {
   --sbb-autocomplete-animation-transform: translateY(
-    calc((var(--sbb-options-panel-origin-height) / 2) * -1)
+      calc((var(--sbb-options-panel-origin-height) / 2) * -1)
   );
 }
 
 :host([data-options-panel-position='above']) {
   --sbb-autocomplete-options-border-radius: var(--sbb-autocomplete-border-radius)
-    var(--sbb-autocomplete-border-radius) 0 0;
+  var(--sbb-autocomplete-border-radius) 0 0;
   --sbb-autocomplete-gap-fix-inset-block-start: var(--sbb-options-panel-max-height);
   --sbb-autocomplete-gap-fix-transform: rotate(180deg);
   --sbb-autocomplete-animation-transform: translateY(
-    calc(var(--sbb-options-panel-origin-height) / 2)
+      calc(var(--sbb-options-panel-origin-height) / 2)
   );
 }
 
@@ -74,14 +74,24 @@
   --sbb-option-icon-container-display: block;
 }
 
-.sbb-autocomplete__container {
+.sbb-select__trigger {
+  @include sbb.ellipsis;
+
+  height: calc(1em * var(--sbb-typo-line-height-body-text));
+}
+
+.sbb-select__trigger--placeholder {
+  color: var(--sbb-color-metal-default);
+}
+
+.sbb-select__container {
   position: fixed;
   pointer-events: none;
   inset: 0;
   z-index: var(--sbb-autocomplete-internal-z-index);
 }
 
-.sbb-autocomplete__gap-fix {
+.sbb-select__gap-fix {
   display: flex;
   justify-content: space-between;
   position: fixed;
@@ -94,10 +104,10 @@
   inset-inline-start: var(--sbb-options-panel-position-x);
   transform: var(--sbb-autocomplete-gap-fix-transform);
   transition: opacity var(--sbb-autocomplete-animation-duration)
-    var(--sbb-autocomplete-animation-timing-function);
+  var(--sbb-autocomplete-animation-timing-function);
 }
 
-.sbb-autocomplete__panel {
+.sbb-select__panel {
   display: block;
   position: absolute;
   visibility: var(--sbb-autocomplete-visibility);
@@ -109,7 +119,7 @@
   inset-inline-start: var(--sbb-options-panel-position-x);
   width: var(--sbb-options-panel-width);
   transition: box-shadow var(--sbb-autocomplete-animation-duration)
-    var(--sbb-autocomplete-animation-timing-function);
+  var(--sbb-autocomplete-animation-timing-function);
 
   &::before,
   &::after {
@@ -122,7 +132,7 @@
     border-radius: var(--sbb-autocomplete-border-radius);
     pointer-events: none;
     transition: box-shadow var(--sbb-autocomplete-animation-duration)
-      var(--sbb-autocomplete-animation-timing-function);
+    var(--sbb-autocomplete-animation-timing-function);
     z-index: 1;
   }
 
@@ -152,7 +162,7 @@
           [data-option-panel-origin-borderless='false']
         )
     )
-    & {
+  & {
     &::before,
     &::after {
       @include sbb.shadow-level-5-hard;
@@ -160,11 +170,11 @@
   }
 }
 
-.sbb-autocomplete__wrapper {
+.sbb-select__wrapper {
   overflow: hidden;
 }
 
-.sbb-autocomplete__options {
+.sbb-select__options {
   @include sbb.scrollbar-light;
 
   background-color: var(--sbb-color-white-default);

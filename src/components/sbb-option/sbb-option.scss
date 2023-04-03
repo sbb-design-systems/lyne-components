@@ -9,6 +9,10 @@
 
   --sbb-option-color: var(--sbb-color-charcoal-default);
   --sbb-option-bg-color: inherit;
+  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-justify-content: start;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
 }
@@ -50,6 +54,18 @@
   }
 }
 
+:host([data-variant='select']) {
+  --sbb-option-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-option-column-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-option-justify-content: space-between;
+
+  .sbb-option[data-multiple] {
+    --sbb-option-padding-inline: var(--sbb-spacing-fixed-4x);
+    --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
+    --sbb-option-justify-content: start;
+  }
+}
+
 .sbb-option__container {
   background-color: var(--sbb-option-bg-color);
 }
@@ -57,9 +73,10 @@
 .sbb-option {
   display: flex;
   align-items: center;
-  column-gap: var(--sbb-spacing-responsive-xxxs);
-  padding-inline: var(--sbb-spacing-responsive-xxxs);
-  padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+  column-gap: var(--sbb-option-column-gap);
+  padding-inline: var(--sbb-option-padding-inline);
+  padding-block: var(--sbb-option-padding-block);
+  justify-content: var(--sbb-option-justify-content);
   color: var(--sbb-option-color);
   cursor: var(--sbb-option-cursor);
 

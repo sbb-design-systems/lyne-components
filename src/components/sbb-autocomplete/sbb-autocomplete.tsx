@@ -18,11 +18,15 @@ import {
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
-import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
+import { isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import {
+  attachOpenPanelEvents,
+  setOverlayPosition,
+} from '../../global/helpers/overlay-option-panel';
 
 let nextId = 0;
 
@@ -115,7 +119,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', true);
+    toggleDatasetEntry(this._originElement, 'overlayOpen', true);
   }
 
   /** Closes the autocomplete. */
@@ -125,7 +129,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
+    toggleDatasetEntry(this._originElement, 'overlayOpen', false);
     this._state = 'closing';
     this.willClose.emit();
     this._openPanelEventsController.abort();
@@ -174,11 +178,6 @@ export class SbbAutocomplete implements ComponentInterface {
     );
     this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
-    this.close();
-  }
-
-  @Listen('option-click')
-  public onOptionClick(): void {
     this.close();
   }
 
@@ -267,7 +266,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     toggleDatasetEntry(
       this._element,
-      'autocompleteOriginBorderless',
+      'optionPanelOriginBorderless',
       this._element.closest('sbb-form-field')?.hasAttribute('borderless')
     );
   }
@@ -317,33 +316,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    if (!this._dialog || !this._originElement) {
-      return;
-    }
-
-    // Set the width to match the trigger element
-    this._element.style.setProperty(
-      '--sbb-autocomplete-width',
-      `${this._originElement.offsetWidth}px`
-    );
-
-    // Set the origin height
-    this._element.style.setProperty(
-      '--sbb-autocomplete-origin-height',
-      `${this._originElement.offsetHeight}px`
-    );
-
-    // Calculate and set the position
-    const panelPosition = getElementPosition(this._optionContainer, this._originElement);
-
-    this._element.style.setProperty('--sbb-autocomplete-position-x', `${panelPosition.left}px`);
-    this._element.style.setProperty('--sbb-autocomplete-position-y', `${panelPosition.top}px`);
-    this._element.style.setProperty('--sbb-autocomplete-max-height', panelPosition.maxHeight);
-    this._element.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
-    this._originElement.setAttribute(
-      'data-autocomplete-position',
-      panelPosition.alignment.vertical
-    );
+    setOverlayPosition(this._dialog, this._originElement, this._optionContainer, this._element);
   }
 
   /** On open/close animation end. */
@@ -357,7 +330,11 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onOpenAnimationEnd(): void {
     this._state = 'opened';
-    this._attachOpenPanelEvents();
+    this._openPanelEventsController = attachOpenPanelEvents(
+      this._setOverlayPosition.bind(this),
+      this._onBackdropClick.bind(this),
+      this._onKeydownEvent.bind(this)
+    );
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this.didOpen.emit();
   }
@@ -366,44 +343,18 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'closed';
     this._openPanelEventsController?.abort();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
+    toggleDatasetEntry(this._originElement, 'overlayOpen', false);
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this.didClose.emit();
   }
 
-  private _attachOpenPanelEvents(): void {
-    this._openPanelEventsController = new AbortController();
-
-    // Since the overlay is in 'fixed' position, we need to recalculate its position on window scroll/resize
-    document.addEventListener('scroll', () => this._setOverlayPosition(), {
-      passive: true,
-      signal: this._openPanelEventsController.signal,
-    });
-    window.addEventListener('resize', () => this._setOverlayPosition(), {
-      passive: true,
-      signal: this._openPanelEventsController.signal,
-    });
-
-    window.addEventListener('click', this._onBackdropClick, {
-      signal: this._openPanelEventsController.signal,
-    });
-
-    // Keyboard interactions
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => this._onKeydownEvent(event),
-      {
-        signal: this._openPanelEventsController.signal,
-      }
-    );
-  }
-
   /** If the click is outside the autocomplete, closes the panel. */
-  private _onBackdropClick = (event: PointerEvent): void => {
+  private _onBackdropClick(event: PointerEvent): void {
     if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
     }
-  };
+  }
 
   private _onKeydownEvent(event: KeyboardEvent): void {
     if (this._state !== 'opened') {

@@ -165,7 +165,7 @@
   margin-block-end: var(--sbb-form-field-label-to-input-gap);
   color: var(--sbb-form-field-label-color);
 
-  :host([data-input-type='select']) & {
+  :host([data-input-type='select'][data-input-type='sbb-select']) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
@@ -176,7 +176,7 @@
 
 // Input
 
-.sbb-form-field__input ::slotted(:where(input, select)) {
+.sbb-form-field__input ::slotted(:where(input, select, sbb-select)) {
   @include sbb.text-m--regular;
   @include sbb.placeholder;
   @include sbb.ellipsis;
@@ -195,7 +195,7 @@
   line-height: var(--sbb-typo-line-height-body-text) !important;
 }
 
-.sbb-form-field__input ::slotted(select) {
+.sbb-form-field__input ::slotted(select, sbb-select) {
   padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
 }
 

@@ -1,0 +1,85 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-visual-checkbox-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-red-default);
+  --sbb-visual-checkbox-cursor: pointer;
+
+  @include sbb.if-forced-colors {
+    --sbb-checkbox-selection-color: Canvas;
+  }
+}
+
+:host([disabled]:not([disabled='false'])) {
+  --sbb-visual-checkbox-color: var(--sbb-color-graphite-default);
+  --sbb-visual-checkbox-border-color: var(--sbb-color-graphite-default);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-graphite-default);
+  --sbb-visual-checkbox-label-color: var(--sbb-color-smoke-default);
+  --sbb-visual-checkbox-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-visual-checkbox-selection-color: Canvas;
+  }
+}
+
+:host([indeterminate]:not([indeterminate='false'])) {
+  @include sbb.if-forced-colors {
+    --sbb-visual-checkbox-selection-color: ButtonBorder;
+  }
+}
+
+:host([indeterminate]:not([indeterminate='false']):is([disabled]:not([disabled='false']))) {
+  @include sbb.if-forced-colors {
+    --sbb-visual-checkbox-selection-color: GrayText;
+  }
+}
+
+.sbb-visual-checkbox {
+  display: block;
+  position: relative;
+  min-width: var(--sbb-visual-checkbox-dimension);
+  height: var(--sbb-visual-checkbox-dimension);
+  border-radius: var(--sbb-border-radius-2x);
+  box-shadow: var(--sbb-visual-checkbox-border-color) 0 0 0 var(--sbb-visual-checkbox-border-width)
+    inset;
+  background-color: var(--sbb-color-white-default);
+  cursor: var(--sbb-visual-checkbox-cursor);
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-2x) solid ButtonBorder;
+    outline-offset: calc(-1 * var(--sbb-border-width-2x));
+
+    :host([checked]:not([checked='false'])) & {
+      background-color: HighLight;
+      outline: none;
+    }
+
+    :host([disabled]:not([disabled='false'])) & {
+      outline-color: GrayText;
+    }
+
+    :host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) & {
+      background-color: GrayText;
+    }
+  }
+}
+
+.sbb-visual-checkbox__icon {
+  display: inline-flex;
+  width: var(--sbb-visual-checkbox-dimension);
+  height: var(--sbb-visual-checkbox-dimension);
+
+  svg {
+    margin: auto;
+  }
+
+  path {
+    stroke: var(--sbb-visual-checkbox-selection-color);
+  }
+}

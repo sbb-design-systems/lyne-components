@@ -23,6 +23,7 @@ import { SbbOptionEventData, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isAndroid, isSafari } from '../../global/helpers/platform';
+import { hostContext } from '../../global/helpers/host-context';
 
 let nextId = 0;
 
@@ -127,7 +128,10 @@ export class SbbOption implements ComponentInterface {
   }
 
   @Listen('click', { passive: true })
-  public selectByClick(): void {
+  public selectByClick(event): void {
+    if (this._isMultipleSelect()) {
+      event.stopPropagation();
+    }
     if (this.disabled || this._disabledFromGroup) {
       return;
     }
@@ -168,6 +172,7 @@ export class SbbOption implements ComponentInterface {
       this._variant = 'autocomplete';
     } else if (this._element.closest('sbb-select')) {
       this._variant = 'select';
+      this._disableLabelHighlight = true;
     }
   }
 
@@ -178,6 +183,13 @@ export class SbbOption implements ComponentInterface {
         this._disabledFromGroup = !!isValidAttribute(this._element, 'data-group-disabled');
       }
     }
+  }
+
+  private _isMultipleSelect(): boolean {
+    return (
+      this._variant === 'select' &&
+      hostContext('sbb-select', this._element)?.hasAttribute('multiple')
+    );
   }
 
   private _setupHighlightHandler(event): void {
@@ -219,31 +231,43 @@ export class SbbOption implements ComponentInterface {
 
   private _renderAutocompleteOption(): JSX.Element {
     return (
-      <div class="sbb-option__container">
-        <div class="sbb-option">
-          <span
-            class={{
-              'sbb-option__icon': true,
-              'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-            }}
-          >
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-          </span>
-          <span class="sbb-option__label">
-            <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
-            {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+      <div class="sbb-option">
+        <span
+          class={{
+            'sbb-option__icon': true,
+            'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
+          }}
+        >
+          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+        </span>
+        <span class="sbb-option__label">
+          <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
+          {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
 
-            {this._inertAriaGroups && this._groupLabel && (
-              <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
-            )}
-          </span>
-        </div>
+          {this._inertAriaGroups && this._groupLabel && (
+            <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
+          )}
+        </span>
       </div>
     );
   }
 
   private _renderSelectOption(): JSX.Element {
-    return null;
+    const isMultiple = this._isMultipleSelect();
+    return (
+      <div data-multiple={isMultiple} class="sbb-option">
+        {isMultiple && (
+          <sbb-visual-checkbox
+            checked={this.selected}
+            disabled={this.disabled || this._disabledFromGroup}
+          ></sbb-visual-checkbox>
+        )}
+        <span class="sbb-option__label">
+          <slot />
+        </span>
+        {!isMultiple && this.selected && <sbb-icon name="tick-small" />}
+      </div>
+    );
   }
 
   public render(): JSX.Element {
@@ -259,9 +283,11 @@ export class SbbOption implements ComponentInterface {
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
         /* eslint-enable jsx-a11y/aria-proptypes */
       >
-        {this._variant && this._variant === 'select'
-          ? this._renderSelectOption()
-          : this._renderAutocompleteOption()}
+        <div class="sbb-option__container">
+          {this._variant && this._variant === 'select'
+            ? this._renderSelectOption()
+            : this._renderAutocompleteOption()}
+        </div>
       </Host>
     );
   }

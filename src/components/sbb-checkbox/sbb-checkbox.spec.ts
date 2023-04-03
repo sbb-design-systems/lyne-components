@@ -16,9 +16,7 @@ describe('sbb-checkbox', () => {
               <input aria-hidden="true" tabindex="-1" type="checkbox"/>
               <span class="sbb-checkbox__inner">
                 <span class="sbb-checkbox__aligner">
-                  <span class="sbb-checkbox__selection">
-                    <span class="sbb-checkbox__icon"></span>
-                  </span>
+                  <sbb-visual-checkbox></sbb-visual-checkbox>
                 </span>
                 <span class="sbb-checkbox__label">
                   <slot></slot>
@@ -47,9 +45,7 @@ describe('sbb-checkbox', () => {
                 <input aria-hidden="true" tabindex="-1" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
-                    <span class="sbb-checkbox__selection">
-                      <span class="sbb-checkbox__icon"></span>
-                    </span>
+                    <sbb-visual-checkbox></sbb-visual-checkbox>
                   </span>
                   <span class="sbb-checkbox__label">
                     <slot></slot>
@@ -84,13 +80,7 @@ describe('sbb-checkbox', () => {
                 <input aria-hidden="true" checked tabindex="-1" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
-                    <span class="sbb-checkbox__selection">
-                      <span class="sbb-checkbox__icon">
-                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8 12.3304L10.4615 15L16 9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        </svg>
-                      </span>
-                    </span>
+                    <sbb-visual-checkbox checked=""></sbb-visual-checkbox>
                   </span>
                   <span class="sbb-checkbox__label">
                     <slot></slot>
@@ -121,13 +111,7 @@ describe('sbb-checkbox', () => {
                 <input aria-hidden="true" tabindex="-1" type="checkbox">
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
-                    <span class="sbb-checkbox__selection">
-                      <span class="sbb-checkbox__icon">
-                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9 12H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        </svg>
-                      </span>
-                    </span>
+                    <sbb-visual-checkbox indeterminate=""></sbb-visual-checkbox>
                   </span>
                   <span class="sbb-checkbox__label">
                     <slot></slot>
@@ -153,9 +137,7 @@ describe('sbb-checkbox', () => {
                 <input disabled aria-hidden="true" tabindex="-1" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
-                    <span class="sbb-checkbox__selection">
-                      <span class="sbb-checkbox__icon"></span>
-                    </span>
+                    <sbb-visual-checkbox disabled=""></sbb-visual-checkbox>
                   </span>
                   <span class="sbb-checkbox__label">
                     <slot></slot>

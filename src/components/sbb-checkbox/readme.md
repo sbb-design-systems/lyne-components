@@ -93,11 +93,13 @@ If you don't want the label to appear next to the checkbox, you can use
 
 ### Depends on
 
+- [sbb-visual-checkbox](../sbb-visual-checkbox)
 - [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-checkbox --> sbb-visual-checkbox
   sbb-checkbox --> sbb-icon
   style sbb-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
