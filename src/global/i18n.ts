@@ -40,6 +40,13 @@ export const i18nSector: Record<string, string> = {
   it: 'Settore',
 };
 
+export const i18nSectorShort: Record<string, string> = {
+  de: 'Skt.',
+  en: 'Sec.',
+  fr: 'Sect.',
+  it: 'Set.',
+};
+
 export const i18nClass: Record<string, Record<string, string>> = {
   first: {
     de: 'Erste Klasse',

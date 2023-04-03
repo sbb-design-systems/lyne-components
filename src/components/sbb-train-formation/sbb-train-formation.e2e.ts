@@ -85,7 +85,7 @@ describe('sbb-train-formation', () => {
         ],
         [
           {
-            label: 'Sector A',
+            label: 'Sec. A',
             wagonCount: '1',
             blockedPassageCount: '1',
           },
@@ -113,7 +113,7 @@ describe('sbb-train-formation', () => {
             blockedPassageCount: '1',
           },
           {
-            label: 'Sector B',
+            label: 'Sec. B',
             wagonCount: '1',
             blockedPassageCount: '0',
           },
@@ -168,12 +168,12 @@ describe('sbb-train-formation', () => {
 
       await assertSectorsCollected(page, [
         {
-          label: 'Sector A',
+          label: 'Sec. A',
           wagonCount: '1',
           blockedPassageCount: '0',
         },
         {
-          label: 'Sector B',
+          label: 'Sec. B',
           wagonCount: '1',
           blockedPassageCount: '0',
         },
@@ -206,7 +206,7 @@ describe('sbb-train-formation', () => {
 
       await assertSectorsCollected(page, [
         {
-          label: 'Sector Z',
+          label: 'Sec. Z',
           wagonCount: '1',
           blockedPassageCount: '0',
         },
@@ -244,7 +244,7 @@ describe('sbb-train-formation', () => {
 
       await assertSectorsCollected(page, [
         {
-          label: 'Sector Z',
+          label: 'Sec. Z',
           wagonCount: '1',
           blockedPassageCount: '0',
         },
@@ -274,12 +274,12 @@ describe('sbb-train-formation', () => {
 
       await assertSectorsCollected(page, [
         {
-          label: 'Sector B',
+          label: 'Sec. B',
           wagonCount: '1',
           blockedPassageCount: '0',
         },
         {
-          label: 'Sector C',
+          label: 'Sec. C',
           wagonCount: '1',
           blockedPassageCount: '0',
         },
@@ -305,7 +305,7 @@ describe('sbb-train-formation', () => {
 
       await assertSectorsCollected(page, [
         {
-          label: 'Sector B',
+          label: 'Sec. B',
           wagonCount: '1',
           blockedPassageCount: '0',
         },

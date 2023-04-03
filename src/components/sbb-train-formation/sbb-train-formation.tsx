@@ -1,7 +1,7 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
-import { i18nSector, i18nTrains } from '../../global/i18n';
+import { i18nSector, i18nSectorShort, i18nTrains } from '../../global/i18n';
 import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 
 interface AggregatedSector {
@@ -132,7 +132,11 @@ export class SbbTrainFormation implements ComponentInterface {
               }}
             >
               <span class="sbb-train-formation__sector-sticky-wrapper">
-                {i18nSector[this._currentLanguage]} {aggregatedSector.label}
+                {`${
+                  aggregatedSector.wagonCount === 1 && aggregatedSector.label
+                    ? i18nSectorShort[this._currentLanguage]
+                    : i18nSector[this._currentLanguage]
+                } ${aggregatedSector.label ? aggregatedSector.label : ''}`}
               </span>
             </span>
           ))}
