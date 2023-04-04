@@ -787,6 +787,8 @@ export namespace Components {
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
+    interface SbbMapContainer {
+    }
     interface SbbMenu {
         /**
           * Closes the menu.
@@ -1798,6 +1800,12 @@ declare global {
         prototype: HTMLSbbLogoElement;
         new (): HTMLSbbLogoElement;
     };
+    interface HTMLSbbMapContainerElement extends Components.SbbMapContainer, HTMLStencilElement {
+    }
+    var HTMLSbbMapContainerElement: {
+        prototype: HTMLSbbMapContainerElement;
+        new (): HTMLSbbMapContainerElement;
+    };
     interface HTMLSbbMenuElement extends Components.SbbMenu, HTMLStencilElement {
     }
     var HTMLSbbMenuElement: {
@@ -2104,6 +2112,7 @@ declare global {
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
+        "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-navigation": HTMLSbbNavigationElement;
@@ -2881,6 +2890,8 @@ declare namespace LocalJSX {
           * Visual protective room around logo.
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
+    }
+    interface SbbMapContainer {
     }
     interface SbbMenu {
         /**
@@ -3750,6 +3761,7 @@ declare namespace LocalJSX {
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
+        "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
         "sbb-navigation": SbbNavigation;
@@ -3828,6 +3840,7 @@ declare module "@stencil/core" {
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
+            "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
