@@ -42,6 +42,12 @@ const disabled = {
   },
 };
 
+const required = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const readonly = {
   control: {
     type: 'boolean',
@@ -83,6 +89,7 @@ const defaultArgTypes = {
   multiple,
   placeholder,
   disabled,
+  required,
   readonly,
   'disable-animation': disableAnimation,
   numberOfOptions,
@@ -96,6 +103,7 @@ const defaultArgs = {
   multiple: false,
   placeholder: 'Please select value.',
   disabled: false,
+  required: false,
   readonly: false,
   'disable-animation': isChromatic(),
   numberOfOptions: 5,
@@ -160,6 +168,42 @@ const FormFieldTemplate = (args) => [
   <div id="container-value" style="margin-block-start: 2rem;"></div>,
 ];
 
+const FormFieldTemplateWithError = ({
+  numberOfOptions,
+  disableOption,
+  withOptionGroup,
+  disableGroup,
+  ...args
+}) => {
+  const sbbFormError = <sbb-form-error>Error</sbb-form-error>;
+  return (
+    <div style="padding: 2rem; background-color: #e6e6e6;">
+      <sbb-form-field id="sbb-form-field" label="Select" data-testid="form-field">
+        <sbb-select
+          {...args}
+          id="sbb-select"
+          class="sbb-invalid"
+          data-testid="select"
+          onChange={(event) => {
+            if (event.target.value !== '') {
+              sbbFormError.remove();
+              document.getElementById('sbb-select').classList.remove('sbb-invalid');
+            } else {
+              document.getElementById('sbb-form-field').append(sbbFormError);
+              document.getElementById('sbb-select').classList.add('sbb-invalid');
+            }
+          }}
+        >
+          {withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption)}
+        </sbb-select>
+        {sbbFormError}
+      </sbb-form-field>
+    </div>
+  );
+};
+
 export const FormFieldSingleSelect = FormFieldTemplate.bind({});
 FormFieldSingleSelect.argTypes = defaultArgTypes;
 FormFieldSingleSelect.args = { ...defaultArgs };
@@ -179,6 +223,31 @@ export const FormFieldMultipleSelectGroup = FormFieldTemplate.bind({});
 FormFieldMultipleSelectGroup.argTypes = defaultArgTypes;
 FormFieldMultipleSelectGroup.args = { ...defaultArgs, multiple: true, withOptionGroup: true };
 FormFieldMultipleSelectGroup.play = isChromatic() && playStory;
+
+export const FormFieldRequired = FormFieldTemplateWithError.bind({});
+FormFieldRequired.argTypes = defaultArgTypes;
+FormFieldRequired.args = { ...defaultArgs, required: true };
+FormFieldRequired.play = isChromatic() && playStory;
+
+export const FormFieldDisabled = FormFieldTemplate.bind({});
+FormFieldDisabled.argTypes = defaultArgTypes;
+FormFieldDisabled.args = { ...defaultArgs, disabled: true };
+FormFieldDisabled.play = isChromatic() && playStory;
+
+export const FormFieldReadonly = FormFieldTemplate.bind({});
+FormFieldReadonly.argTypes = defaultArgTypes;
+FormFieldReadonly.args = { ...defaultArgs, readonly: true };
+FormFieldReadonly.play = isChromatic() && playStory;
+
+export const FormFieldOptionDisabled = FormFieldTemplate.bind({});
+FormFieldOptionDisabled.argTypes = defaultArgTypes;
+FormFieldOptionDisabled.args = { ...defaultArgs, disableOption: true };
+FormFieldOptionDisabled.play = isChromatic() && playStory;
+
+export const FormFieldOptionGroupDisabled = FormFieldTemplate.bind({});
+FormFieldOptionGroupDisabled.argTypes = defaultArgTypes;
+FormFieldOptionGroupDisabled.args = { ...defaultArgs, withOptionGroup: true, disableGroup: true };
+FormFieldOptionGroupDisabled.play = isChromatic() && playStory;
 
 export default {
   decorators: [

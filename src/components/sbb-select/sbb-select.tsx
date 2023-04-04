@@ -45,6 +45,9 @@ export class SbbSelect implements ComponentInterface {
   /** Whether the select allows for multiple selection. */
   @Prop() public multiple = false;
 
+  /** Whether the select is required. */
+  @Prop() public required = false;
+
   /** Whether the select is disabled. */
   @Prop() public disabled = false;
 
@@ -406,6 +409,7 @@ export class SbbSelect implements ComponentInterface {
         aria-autocomplete="none"
         aria-haspopup="listbox"
         aria-expanded="false"
+        aria-required={this.required.toString()}
         aria-controls={this._overlayId}
         aria-owns={this._overlayId}
         data-state={this._state}

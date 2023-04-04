@@ -12,6 +12,7 @@
 | `multiple`         | `multiple`          | Whether the select allows for multiple selection.                        | `boolean`            | `false`     |
 | `placeholder`      | `placeholder`       | The placeholder used if no value has been selected.                      | `string`             | `undefined` |
 | `readonly`         | `readonly`          | Whether the select is readonly.                                          | `boolean`            | `false`     |
+| `required`         | `required`          | Whether the select is required.                                          | `boolean`            | `false`     |
 | `value`            | `value`             | The value of the select component. If `multiple` is true, it's an array. | `string \| string[]` | `undefined` |
 
 

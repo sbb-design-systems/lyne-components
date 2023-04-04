@@ -1283,6 +1283,10 @@ export namespace Components {
          */
         "readonly": boolean;
         /**
+          * Whether the select is required.
+         */
+        "required": boolean;
+        /**
           * The value of the select component. If `multiple` is true, it's an array.
          */
         "value": string | string[];
@@ -3753,6 +3757,10 @@ declare namespace LocalJSX {
           * Whether the select is readonly.
          */
         "readonly"?: boolean;
+        /**
+          * Whether the select is required.
+         */
+        "required"?: boolean;
         /**
           * The value of the select component. If `multiple` is true, it's an array.
          */
