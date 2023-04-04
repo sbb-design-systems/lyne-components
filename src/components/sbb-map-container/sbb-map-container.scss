@@ -37,8 +37,7 @@
   grid-row: 2 / 3;
   width: 100%;
   height: calc(100% + var(--sbb-border-radius-4x));
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden auto;
   position: relative;
   z-index: 2;
   border-start-end-radius: var(--sbb-map-container-border-radius);
