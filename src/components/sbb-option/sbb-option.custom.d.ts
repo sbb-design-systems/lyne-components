@@ -1,6 +1,6 @@
 export type SbbOptionVariant = 'autocomplete' | 'select';
 
-export interface SbbOptionSelectionChange {
+export interface SbbOptionEventData {
   id: string;
   selected: boolean;
   value: any;
