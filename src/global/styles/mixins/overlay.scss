@@ -3,43 +3,4 @@
 @use '../core/mediaqueries';
 @use './typo';
 
-@mixin overlay {
-  --sbb-autocomplete-animation-closing-duration: var(--sbb-animation-duration-1x); // 40ms
-  --sbb-autocomplete-animation-opening-duration: var(--sbb-animation-duration-2x); // 80ms
-
-  position: relative;
-  z-index: 0;
-
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    z-index: -1;
-    background-color: white;
-    opacity: 0;
-    left: 0;
-    width: 100%;
-    height: calc(2 * var(--sbb-border-radius-4x));
-    pointer-events: none;
-    transition: opacity var(--sbb-autocomplete-animation-closing-duration)
-      var(--sbb-animation-easing);
-  }
-
-  &[data-autocomplete-position='below']::before {
-    bottom: calc(var(--sbb-border-radius-4x) * -1);
-  }
-
-  &[data-autocomplete-position='above']::before {
-    top: calc(var(--sbb-border-radius-4x) * -1);
-  }
-
-  &[data-autocomplete-open]:not([data-autocomplete-open='false'])::before {
-    opacity: 1;
-    transition: opacity var(--sbb-autocomplete-animation-opening-duration)
-      var(--sbb-animation-easing);
-  }
-
-  &[data-autocomplete-disable-animation]:not([data-autocomplete-disable-animation='false']) {
-    --sbb-autocomplete-animation-duration: 0s;
-  }
-}
+// @mixin overlay {}

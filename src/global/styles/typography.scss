@@ -86,10 +86,6 @@ sup {
   @include typo.legend;
 }
 
-[data-autocomplete-origin] {
-  @include overlay.overlay;
-}
-
 // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
 // Due to margin collapsing, the wrong paragraph space wins.
 // To prevent the mistakenly large gap, we reset the paragraph space.
