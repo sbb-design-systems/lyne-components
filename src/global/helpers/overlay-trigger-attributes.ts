@@ -47,7 +47,7 @@ export function setAriaComboBoxAttributes(
   trigger.setAttribute('aria-autocomplete', 'list');
   trigger.setAttribute('aria-haspopup', 'listbox');
   trigger.setAttribute('aria-controls', overlayId);
-  trigger.setAttribute('aria-owns', overlayId);
+  trigger.setAttribute('aria-owns', overlayId); // From Aria 1.2 this should not be necessary but safari still needs it
   trigger.setAttribute('aria-expanded', `${expanded}`);
 }
 

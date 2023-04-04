@@ -14,7 +14,6 @@ import {
   Watch,
 } from '@stencil/core';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
-import { assignId } from '../../global/helpers/assign-id';
 import {
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
@@ -157,6 +156,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Set the option value
     this._triggerElement.value = event.detail.value;
 
+    // Manually trigger the change events
     this._triggerElement.dispatchEvent(
       new window.Event('change', { bubbles: true, composed: false })
     );
@@ -466,7 +466,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="listbox" data-state={this._state} ref={assignId(() => this._overlayId)}>
+      <Host data-state={this._state}>
         <div class="sbb-autocomplete__backdrop">
           <div
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
@@ -475,7 +475,9 @@ export class SbbAutocomplete implements ComponentInterface {
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
             <div
+              id={this._overlayId}
               class="sbb-autocomplete__options"
+              role="listbox"
               ref={(containerRef) => (this._optionContainer = containerRef)}
             >
               <slot />
