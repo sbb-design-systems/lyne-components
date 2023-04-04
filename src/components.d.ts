@@ -1492,6 +1492,10 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
+          * Whether the close button should be hidden.
+         */
+        "hideCloseButton"?: boolean;
+        /**
           * Whether the tooltip should be triggered on hover.
          */
         "hoverTrigger"?: boolean;
@@ -3639,6 +3643,10 @@ declare namespace LocalJSX {
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Whether the close button should be hidden.
+         */
+        "hideCloseButton"?: boolean;
         /**
           * Whether the tooltip should be triggered on hover.
          */

@@ -1,6 +1,6 @@
 export type SbbFocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 
-export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]):not([tabindex="-1"]):not([static])`;
+export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]:not([disabled='false'])):not([tabindex="-1"]):not([static])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(
@@ -18,8 +18,11 @@ export function getFocusableElements(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
           filterFunc
         );
-      } else if (!filterFunc?.(el) && Array.from(el.children).length) {
-        getFocusables(Array.from(el.children) as HTMLElement[], filterFunc);
+      } else if (!filterFunc?.(el) && (el.children.length || el.shadowRoot?.children.length)) {
+        const children = Array.from(el.children).length
+          ? (Array.from(el.children) as HTMLElement[])
+          : (Array.from(el.shadowRoot.children) as HTMLElement[]);
+        getFocusables(children, filterFunc);
       }
     }
   }
@@ -49,7 +52,10 @@ export class FocusTrap {
           ? [firstFocusable, lastFocusable]
           : [lastFocusable, firstFocusable];
 
-        if (element.shadowRoot?.activeElement === pivot || document.activeElement === pivot) {
+        if (
+          (firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
+          (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot
+        ) {
           next.focus();
           event.preventDefault();
         }

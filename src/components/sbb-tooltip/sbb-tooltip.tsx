@@ -55,6 +55,11 @@ export class SbbTooltip implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
+   * Whether the close button should be hidden.
+   */
+  @Prop() public hideCloseButton?: boolean = false;
+
+  /**
    * Whether the tooltip should be triggered on hover.
    */
   @Prop() public hoverTrigger?: boolean = false;
@@ -139,8 +144,6 @@ export class SbbTooltip implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _tooltipContentElement: HTMLElement;
-  // The element which should receive focus after closing based on where in the backdrop the user clicks.
-  private _nextFocusedElement?: HTMLElement;
   private _firstFocusable: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
@@ -174,23 +177,8 @@ export class SbbTooltip implements ComponentInterface {
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
-
-    // Hide outline in Safari which is visible for a short time
-    if (focusOrigin === 'touch' || focusOrigin === 'mouse') {
-      const closeButton = this._element.shadowRoot.querySelector(
-        '[sbb-tooltip-close]'
-      ) as HTMLElement;
-      if (closeButton) {
-        closeButton.dataset.focusOrigin = 'mouse';
-
-        closeButton.addEventListener('blur', () => delete closeButton.dataset.focusOrigin, {
-          once: true,
-        });
-      }
-    }
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
-    this._nextFocusedElement = undefined;
   }
 
   /**
@@ -365,7 +353,6 @@ export class SbbTooltip implements ComponentInterface {
   // Close tooltip on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
-      this._nextFocusedElement = document.activeElement as HTMLElement;
       clearTimeout(this._closeTimeout);
       this.close(detectFocusOrigin(event));
     }
@@ -412,8 +399,10 @@ export class SbbTooltip implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
-      const elementToFocus = this._nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
-        ? this._nextFocusedElement
+      // The element which should receive focus after closing based on where in the backdrop the user clicks.
+      const nextFocusedElement = document.activeElement as HTMLElement;
+      const elementToFocus = nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
+        ? nextFocusedElement
         : this._triggerElement;
 
       // Set focus origin to element which should receive focus
@@ -519,7 +508,7 @@ export class SbbTooltip implements ComponentInterface {
               <span>
                 <slot>No content</slot>
               </span>
-              {!this._hoverTrigger && closeButton}
+              {!this.hideCloseButton && !this._hoverTrigger && closeButton}
             </div>
           </dialog>
         </div>

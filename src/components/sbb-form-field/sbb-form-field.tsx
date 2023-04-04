@@ -1,4 +1,14 @@
-import { Component, Element, h, JSX, Prop, State, ComponentInterface, Watch } from '@stencil/core';
+import {
+  Component,
+  Element,
+  h,
+  JSX,
+  Prop,
+  State,
+  ComponentInterface,
+  Watch,
+  Listen,
+} from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
@@ -130,11 +140,26 @@ export class SbbFormField implements ComponentInterface {
     }
   }
 
+  @Listen('will-open')
+  public onPopupOpen({ target }): void {
+    if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
+      toggleDatasetEntry(this._element, 'hasPopupOpen', true);
+    }
+  }
+
+  @Listen('did-close')
+  public onPopupClose({ target }): void {
+    if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
+      toggleDatasetEntry(this._element, 'hasPopupOpen', false);
+    }
+  }
+
   private _handleWrapperClick(event: Event): void {
     if (
       (event.target as Element).tagName !== 'LABEL' &&
       !this._isButton(event.target as Element) &&
-      !this._isButton(event.composedPath()[0] as Element)
+      !this._isButton(event.composedPath()[0] as Element) &&
+      !this._isPopup(event)
     ) {
       this._input?.focus();
     }
@@ -142,6 +167,11 @@ export class SbbFormField implements ComponentInterface {
 
   private _isButton(element: Element): boolean {
     return element.tagName === 'BUTTON' || element.getAttribute('role') === 'button';
+  }
+
+  private _isPopup(event: Event): boolean {
+    const composedPathEls = event.composedPath().filter((el) => el instanceof window.HTMLElement);
+    return composedPathEls.some((el) => (el as HTMLElement).tagName === 'SBB-TOOLTIP');
   }
 
   private _onSlotLabelChange(): void {
