@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.8](https://github.com/lyne-design-system/lyne-components/compare/v0.30.7...v0.30.8) (2023-04-04)
+
+### Documentation
+
+- **sbb-form-field:** fix wrong logic in error-space stories ([#1699](https://github.com/lyne-design-system/lyne-components/issues/1699)) ([f4b7c94](https://github.com/lyne-design-system/lyne-components/commit/f4b7c94d575294d66d7d7c3d5d75278211b597e3))
+
 ### [0.30.7](https://github.com/lyne-design-system/lyne-components/compare/v0.30.6...v0.30.7) (2023-04-04)
 
 ### Refactorings
