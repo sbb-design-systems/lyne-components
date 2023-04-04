@@ -14,9 +14,9 @@ import {
 } from '@stencil/core';
 import {
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
 
 /**
@@ -63,6 +63,11 @@ export class SbbToggleOption implements ComponentInterface {
   @Element() private _element!: HTMLElement;
 
   private _toggle?: HTMLSbbToggleElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /**
    * Internal event that emits whenever the state of the toggle option
@@ -112,16 +117,15 @@ export class SbbToggleOption implements ComponentInterface {
     this.checked = true;
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this._element.closest('sbb-toggle');
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._verifyTabindex();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _verifyTabindex(): void {

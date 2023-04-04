@@ -1,6 +1,5 @@
-import { Component, Element, Fragment, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, Fragment, h, JSX, Prop, State } from '@stencil/core';
 import { InterfaceSbbWagonAttributes } from './sbb-wagon.custom.d';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nWagonLabel,
   i18nClass,
@@ -10,6 +9,11 @@ import {
   i18nAdditionalWagonInformationHeading,
   i18nClosedCompartmentLabel,
 } from '../../global/i18n';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Used to slot one to x icons for meta information of the sbb-wagon.
@@ -45,18 +49,23 @@ export class SbbWagon {
   /** Slotted Sbb-icons. */
   @State() private _icons: HTMLSbbIconElement[];
 
+  @State() private _currentLanguage = documentLanguage();
+
   /** Host element. */
   @Element() private _element!: HTMLElement;
 
-  @State() private _currentLanguage = documentLanguage();
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._readSlottedIcons();
   }
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   /**

@@ -1,22 +1,12 @@
-import {
-  Component,
-  h,
-  Prop,
-  State,
-  JSX,
-  Element,
-  Listen,
-  Watch,
-  ComponentInterface,
-} from '@stencil/core';
+import { Component, h, Prop, State, JSX, Element, Watch, ComponentInterface } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
+import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 import {
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
-import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -69,6 +59,11 @@ export class SbbLinkList implements ComponentInterface {
     });
   }
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
   /**
    * Create an array with only the sbb-link children
    */
@@ -91,13 +86,12 @@ export class SbbLinkList implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
     this._readLinks();
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {

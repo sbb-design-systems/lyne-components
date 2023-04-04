@@ -12,12 +12,12 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 import {
+  actionElementHandlerAspect,
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 import {
   ButtonProperties,
   resolveButtonRenderVariables,
@@ -97,20 +97,18 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
   /** Change event emitter */
   @Event({ bubbles: true }) public change: EventEmitter;
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */

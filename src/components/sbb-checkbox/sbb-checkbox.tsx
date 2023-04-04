@@ -13,13 +13,13 @@ import {
 } from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -80,17 +80,17 @@ export class SbbCheckbox implements ComponentInterface {
     this._onCheckboxAttributesChange.bind(this)
   );
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
@@ -112,11 +112,12 @@ export class SbbCheckbox implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._checkboxAttributeObserver.disconnect();
   }
 

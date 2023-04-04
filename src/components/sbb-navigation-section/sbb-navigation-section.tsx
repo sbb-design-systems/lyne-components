@@ -5,18 +5,12 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { i18nGoBack } from '../../global/i18n';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
@@ -24,6 +18,13 @@ import {
   setAriaOverlayTriggerAttributes,
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
+import {
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbNavigationSectionState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -82,15 +83,15 @@ export class SbbNavigationSection implements ComponentInterface {
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
-  private _hasTitle = false;
   private _navigationSectionId = `sbb-navigation-section-${++nextId}`;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /**
    * Opens the navigation section on trigger click.
@@ -231,13 +232,13 @@ export class SbbNavigationSection implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._hasTitle = !!this.titleContent || this._namedSlots['label'];
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._navigationSectionController?.abort();
     this._windowEventsController?.abort();
   }
@@ -284,7 +285,7 @@ export class SbbNavigationSection implements ComponentInterface {
               class="sbb-navigation-section__wrapper"
             >
               <div class="sbb-navigation-section__content">
-                {this._hasTitle && labelElement}
+                {(!!this.titleContent || this._namedSlots.title) && labelElement}
                 <slot />
               </div>
             </div>

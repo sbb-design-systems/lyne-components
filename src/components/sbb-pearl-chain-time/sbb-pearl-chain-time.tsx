@@ -1,4 +1,4 @@
-import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import {
   i18nDeparture,
   i18nArrival,
@@ -6,12 +6,16 @@ import {
   i18nWalkingDistanceArrival,
   i18nTransferProcedures,
 } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 import { Leg, PtConnectionLeg, PtRideLeg } from '../../global/interfaces/timetable-properties';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
 import { isConnectionLeg, isRideLeg } from '../../global/helpers/timetable-helper';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -49,11 +53,19 @@ export class SbbPearlChainTime {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _now(): number {

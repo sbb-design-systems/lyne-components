@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
@@ -20,14 +10,15 @@ import {
   targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import {
+  actionElementHandlerAspect,
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Button Content
@@ -97,7 +88,12 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
 
   @State() private _currentLanguage = documentLanguage();
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
@@ -105,22 +101,11 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
     this._hasText = Array.from(this._element.childNodes).some(
       (n) => !(n as Element).slot && n.textContent
     );
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   private _onLabelSlotChange(event: Event): void {

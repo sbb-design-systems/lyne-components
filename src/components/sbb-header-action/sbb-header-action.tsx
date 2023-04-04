@@ -4,13 +4,11 @@ import {
   h,
   JSX,
   Prop,
-  Listen,
   ComponentInterface,
   State,
   Host,
   Watch,
 } from '@stencil/core';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
@@ -23,7 +21,12 @@ import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import {
+  actionElementHandlerAspect,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot icon - Slot used to render the action icon.
@@ -77,16 +80,15 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
   @Element() private _element!: HTMLElement;
 
   private _documentResizeObserver = new ResizeObserver(() => this._updateExpanded());
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
     this._documentResizeObserver.observe(document.documentElement);
