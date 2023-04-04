@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.10](https://github.com/lyne-design-system/lyne-components/compare/v0.30.9...v0.30.10) (2023-04-04)
+
+### Bug Fixes
+
+- improve focus trap class mechanism ([#1654](https://github.com/lyne-design-system/lyne-components/issues/1654)) ([29f02aa](https://github.com/lyne-design-system/lyne-components/commit/29f02aa099167e0e875cf047edf2810e7e19c8a6))
+
 ### [0.30.9](https://github.com/lyne-design-system/lyne-components/compare/v0.30.8...v0.30.9) (2023-04-04)
 
 ### Features
