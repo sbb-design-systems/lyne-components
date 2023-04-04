@@ -159,6 +159,13 @@ export class SbbSelect implements ComponentInterface {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
   }
 
+  private get _filteredOptions(): HTMLSbbOptionElement[] {
+    return this._options.filter(
+      (opt: HTMLSbbOptionElement) =>
+        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+    );
+  }
+
   public connectedCallback(): void {
     this._setupOrigin();
     this.onValueChanged(this.value);
@@ -213,19 +220,17 @@ export class SbbSelect implements ComponentInterface {
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
   private _onOptionSelected(optionSelectionChange: SbbOptionEventData): void {
     if (!this.multiple) {
-      this._options
+      this._filteredOptions
         .filter((option) => option.id !== optionSelectionChange.id)
         .forEach((option) => (option.selected = false));
       this.value = optionSelectionChange.value;
     } else {
-      if (this.value) {
-        this.value = [...this.value, optionSelectionChange.value];
-      } else {
+      if (!this.value) {
         this.value = [optionSelectionChange.value];
+      } else if (!this.value.includes(optionSelectionChange.value)) {
+        this.value = [...this.value, optionSelectionChange.value];
       }
     }
-    const index = this._options.findIndex((option) => option.id === optionSelectionChange.id);
-    this._setNextActiveOption(null, index);
     this.input.emit();
     this.change.emit();
   }
@@ -236,8 +241,6 @@ export class SbbSelect implements ComponentInterface {
       this.value = (this.value as string[]).filter(
         (el: string) => el !== optionSelectionChange.value
       );
-      const index = this._options.findIndex((option) => option.id === optionSelectionChange.id);
-      this._setNextActiveOption(null, index);
       this.input.emit();
       this.change.emit();
     }
@@ -292,7 +295,7 @@ export class SbbSelect implements ComponentInterface {
 
       case 'End':
       case 'PageDown':
-        this._setNextActiveOption(event, this._options.length - 1);
+        this._setNextActiveOption(event, this._filteredOptions.length - 1);
         break;
 
       default:
@@ -301,7 +304,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _selectByKeyboard(): void {
-    const activeOption: HTMLSbbOptionElement = this._options[this._activeItemIndex];
+    const activeOption: HTMLSbbOptionElement = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
       activeOption.selected = !activeOption.selected;
@@ -311,15 +314,14 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
-    const filteredOptions: HTMLSbbOptionElement[] = this._options.filter(
-      (opt: HTMLSbbOptionElement) =>
-        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
-    );
     const nextIndex =
-      index ?? getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
-    this._setActiveElement(filteredOptions[nextIndex], filteredOptions[this._activeItemIndex]);
+      index ?? getNextElementIndex(event, this._activeItemIndex, this._filteredOptions.length);
+    this._setActiveElement(
+      this._filteredOptions[nextIndex],
+      this._filteredOptions[this._activeItemIndex]
+    );
     if (event && event.shiftKey) {
-      this._options[nextIndex].selected = !this._options[nextIndex].selected;
+      this._filteredOptions[nextIndex].selected = !this._filteredOptions[nextIndex].selected;
     }
     this._activeItemIndex = nextIndex;
   }
@@ -345,7 +347,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _resetActiveElement(): void {
-    const activeElement = this._options[this._activeItemIndex];
+    const activeElement = this._filteredOptions[this._activeItemIndex];
 
     if (activeElement) {
       activeElement.active = false;
@@ -362,15 +364,15 @@ export class SbbSelect implements ComponentInterface {
 
   private _setSelectedOptionFromValue(): void {
     if (!Array.isArray(this.value)) {
-      const option = this._options.find((option) => option.value === this.value);
+      const option = this._filteredOptions.find((option) => option.value === this.value);
       if (option) {
         option.selected = true;
         option.active = true;
-        this._activeItemIndex = this._options.indexOf(option);
+        this._activeItemIndex = this._filteredOptions.indexOf(option);
       }
     } else if (this.value.length > 0) {
       for (const el of this.value) {
-        const option = this._options.find((option) => option.value === el);
+        const option = this._filteredOptions.find((option) => option.value === el);
         if (option) {
           option.selected = true;
         }

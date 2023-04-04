@@ -1,6 +1,21 @@
 import events from './sbb-select.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import isChromatic from 'chromatic';
+
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
+  );
+
+  const label = await canvas.getByTestId('select');
+  userEvent.click(label);
+};
 
 const value = {
   control: {
@@ -39,15 +54,27 @@ const disableAnimation = {
   },
 };
 
+const numberOfOptions = {
+  control: {
+    type: 'number',
+  },
+};
+
+const disableOption = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const withOptionGroup = {
   control: {
     type: 'boolean',
   },
 };
 
-const numberOfOptions = {
+const disableGroup = {
   control: {
-    type: 'number',
+    type: 'boolean',
   },
 };
 
@@ -59,7 +86,9 @@ const defaultArgTypes = {
   readonly,
   'disable-animation': disableAnimation,
   numberOfOptions,
+  disableOption,
   withOptionGroup,
+  disableGroup,
 };
 
 const defaultArgs = {
@@ -68,75 +97,93 @@ const defaultArgs = {
   placeholder: 'Please select value.',
   disabled: false,
   readonly: false,
-  'disable-animation': false,
+  'disable-animation': isChromatic(),
   numberOfOptions: 5,
+  disableOption: false,
   withOptionGroup: false,
+  disableGroup: false,
 };
 
 const changeEventHandler = (event) => {
   const div = document.createElement('div');
   div.innerText = `current value is: ${event.target.value}`;
-  document.getElementById('container-value').prepend(div);
+  document.getElementById('container-value').append(div);
 };
 
-const createOptions = (numberOfOptions) => {
+const createOptions = (numberOfOptions, disableOption, group) => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
-    return <sbb-option value={`Option ${i + 1}`}>{`Option ${i + 1}`}</sbb-option>;
+    const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
+    return (
+      <sbb-option value={value} disabled={disableOption && i < 2}>
+        {value}
+      </sbb-option>
+    );
   });
 };
 
-const createOptionsGroup = (numberOfOptions) => {
+const createOptionsGroup = (numberOfOptions, disableOption, disableGroup) => {
   return [
-    <sbb-option-group label="Group 1">{createOptions(numberOfOptions)}</sbb-option-group>,
-    <sbb-option-group label="Group 2">{createOptions(numberOfOptions)}</sbb-option-group>,
+    <sbb-option-group label="Group 1" disabled={disableGroup}>
+      {createOptions(numberOfOptions, disableOption, '1')}
+    </sbb-option-group>,
+    <sbb-option-group label="Group 2">
+      {createOptions(numberOfOptions, disableOption, '2')}
+    </sbb-option-group>,
   ];
 };
 
-const SelectTemplate = ({ numberOfOptions, withOptionGroup, ...args }) => {
+const SelectTemplate = ({
+  numberOfOptions,
+  disableOption,
+  withOptionGroup,
+  disableGroup,
+  ...args
+}) => {
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
   return (
-    <sbb-select {...args} onChange={(event) => changeEventHandler(event)}>
-      {withOptionGroup ? createOptionsGroup(numberOfOptions) : createOptions(numberOfOptions)}
+    <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
+      {withOptionGroup
+        ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+        : createOptions(numberOfOptions, disableOption)}
     </sbb-select>
   );
 };
 
-const StandaloneTemplate = (args) => [
-  <div>{SelectTemplate(args)}</div>,
-  <div id="container-value" style="margin-block-start: 2rem;"></div>,
-];
-
 const FormFieldTemplate = (args) => [
-  <sbb-form-field label="Select">{SelectTemplate(args)}</sbb-form-field>,
+  <div style="padding: 2rem; background-color: #e6e6e6;">
+    <sbb-form-field label="Select" data-testid="form-field">
+      {SelectTemplate(args)}
+    </sbb-form-field>
+  </div>,
   <div id="container-value" style="margin-block-start: 2rem;"></div>,
 ];
-
-export const Standalone = StandaloneTemplate.bind({});
-Standalone.argTypes = defaultArgTypes;
-Standalone.args = { ...defaultArgs, placeholder: 'Please select:' };
 
 export const FormFieldSingleSelect = FormFieldTemplate.bind({});
 FormFieldSingleSelect.argTypes = defaultArgTypes;
 FormFieldSingleSelect.args = { ...defaultArgs };
+FormFieldSingleSelect.play = isChromatic() && playStory;
 
 export const FormFieldMultipleSelect = FormFieldTemplate.bind({});
 FormFieldMultipleSelect.argTypes = defaultArgTypes;
 FormFieldMultipleSelect.args = { ...defaultArgs, multiple: true };
+FormFieldMultipleSelect.play = isChromatic() && playStory;
 
 export const FormFieldSingleSelectGroup = FormFieldTemplate.bind({});
 FormFieldSingleSelectGroup.argTypes = defaultArgTypes;
 FormFieldSingleSelectGroup.args = { ...defaultArgs, withOptionGroup: true };
+FormFieldSingleSelectGroup.play = isChromatic() && playStory;
 
 export const FormFieldMultipleSelectGroup = FormFieldTemplate.bind({});
 FormFieldMultipleSelectGroup.argTypes = defaultArgTypes;
 FormFieldMultipleSelectGroup.args = { ...defaultArgs, multiple: true, withOptionGroup: true };
+FormFieldMultipleSelectGroup.play = isChromatic() && playStory;
 
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; background-color: #e6e6e6;'}>
+      <div>
         <Story />
       </div>
     ),
