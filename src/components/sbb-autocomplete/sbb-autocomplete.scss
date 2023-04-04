@@ -4,32 +4,66 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-:host {
-  --sbb-overlay-position-x: 0;
-  --sbb-overlay-position-y: 0;
-  --sbb-overlay-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
-  --sbb-overlay-min-height: #{sbb.px-to-rem-build(120)};
-  --sbb-overlay-width: fit-content;
-  --sbb-overlay-border-radius: var(--sbb-border-radius-4x);
-  --sbb-overlay-transition-origin: center;
-  --sbb-overlay-transition-duration: var(--sbb-animation-duration-2x); // 80ms
-  --sbb-overlay-option-scale: 1.25;
+@mixin animation {
+  animation: {
+    name: var(--sbb-autocomplete-animation-name);
+    duration: var(--sbb-autocomplete-transition-duration);
+    timing-function: ease;
+  }
 }
 
-:host(:not([data-state='closed'])) {
-  --sbb-menu-inset: 0;
+:host {
+  --sbb-autocomplete-active-option-y: 0;
+  --sbb-autocomplete-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  --sbb-autocomplete-min-height: #{sbb.px-to-rem-build(120)};
+  --sbb-autocomplete-visibility: visible;
+  --sbb-autocomplete-internal-z-index: -1;
+  --sbb-autocomplete-width: fit-content;
+  --sbb-autocomplete-radius: var(--sbb-border-radius-4x);
+  --sbb-autocomplete-border-radius: 0 0 var(--sbb-autocomplete-radius)
+    var(--sbb-autocomplete-radius);
+  --sbb-autocomplete-transition-origin: center;
+  --sbb-autocomplete-transition-duration: var(--sbb-animation-duration-4x);
+  --sbb-autocomplete-gap-fix-inset-block-start: calc(
+    var(--sbb-autocomplete-origin-height) - var(--sbb-autocomplete-radius)
+  );
+}
+
+:host([data-state='opened']) {
+  --sbb-autocomplete-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+}
+
+:host([data-state='closed']) {
+  --sbb-autocomplete-visibility: hidden;
+}
+
+:host([data-state='opening']) {
+  --sbb-autocomplete-animation-name: open;
+}
+
+:host([data-state='closing']) {
+  --sbb-autocomplete-animation-name: close;
 }
 
 :host([data-autocomplete-position='below']) {
-  --sbb-overlay-transition-origin: top;
+  --sbb-autocomplete-transition-origin: top;
+  --sbb-autocomplete-animation-transform: translateY(
+    calc((var(--sbb-autocomplete-origin-height) / 2) * -1)
+  );
 }
 
 :host([data-autocomplete-position='above']) {
-  --sbb-overlay-transition-origin: bottom;
+  --sbb-autocomplete-border-radius: var(--sbb-autocomplete-radius) var(--sbb-autocomplete-radius) 0
+    0;
+  --sbb-autocomplete-transition-origin: bottom;
+  --sbb-autocomplete-gap-fix-inset-block-start: 0;
+  --sbb-autocomplete-animation-transform: translateY(
+    calc(var(--sbb-autocomplete-origin-height) / 2)
+  );
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-overlay-transition-duration: 0s;
+  --sbb-autocomplete-transition-duration: 0s;
 }
 
 ::slotted(sbb-divider) {
@@ -40,139 +74,124 @@
   --sbb-option-icon-container-display: block;
 }
 
-.sbb-autocomplete__backdrop {
+.sbb-autocomplete__container {
   position: fixed;
   pointer-events: none;
-  inset: var(--sbb-menu-inset, unset);
-  z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+  inset: 0;
+  z-index: var(--sbb-autocomplete-internal-z-index);
+}
+
+.sbb-autocomplete__gap-fix {
+  @include animation;
+
+  position: fixed;
+  visibility: var(--sbb-autocomplete-visibility);
+  width: var(--sbb-autocomplete-width);
+  height: var(--sbb-autocomplete-radius);
+  inset-block-start: var(--sbb-autocomplete-gap-fix-inset-block-start);
+  inset-inline-start: 0;
+  background-color: var(--sbb-color-white-default);
+  z-index: -1;
 }
 
 .sbb-autocomplete__panel {
+  @include animation;
+
   display: block;
   position: absolute;
-  padding: 0;
-  margin: 0;
+  visibility: var(--sbb-autocomplete-visibility);
   background-color: transparent;
   border: none;
-  border-radius: var(--sbb-overlay-border-radius);
-  top: var(--sbb-overlay-position-y);
-  left: var(--sbb-overlay-position-x);
-  width: var(--sbb-overlay-width);
-  visibility: visible;
-  transition: box-shadow var(--sbb-overlay-transition-duration) var(--sbb-animation-easing);
+  border-radius: var(--sbb-autocomplete-radius);
+  inset-inline-start: 0;
+  width: var(--sbb-autocomplete-width);
+  transition: box-shadow var(--sbb-autocomplete-transition-duration) ease;
 
-  :host([data-state='opened']) & {
-    @include sbb.shadow-level-5-hard;
-  }
-
-  :host([data-state='closed']) & {
-    visibility: hidden;
+  &::before,
+  &::after {
+    content: '';
+    display: none;
+    position: relative;
+    width: 100%;
+    height: var(--sbb-autocomplete-origin-height);
+    background-color: transparent;
+    border-radius: var(--sbb-autocomplete-radius);
+    pointer-events: none;
+    transition: box-shadow var(--sbb-autocomplete-transition-duration) ease;
+    z-index: 1;
   }
 
   :host([data-state='opened']) &,
   :host([data-state='opening']) & {
-    --sbb-overlay-option-scale: 1;
+    @include sbb.shadow-level-5-hard;
   }
 
   :host([data-autocomplete-position='below']) & {
-    transform: translateY(calc(-1 * var(--sbb-overlay-origin-height)));
+    inset-block-start: 0;
 
     &::before {
-      content: '';
       display: block;
-      position: relative;
-      width: 100%;
-      height: var(--sbb-overlay-origin-height);
-      background-color: transparent;
-      border-radius: var(--sbb-overlay-border-radius);
-      pointer-events: none;
     }
-  }
-
-  :host(
-      [data-autocomplete-origin-borderless]:not(
-          [data-autocomplete-origin-borderless='false']
-        )[data-autocomplete-position='below']
-    )
-    &::before {
-    @include sbb.shadow-level-5-hard;
   }
 
   :host([data-autocomplete-position='above']) & {
+    inset-block-end: 0;
+
     &::after {
-      content: '';
       display: block;
-      position: relative;
-      width: 100%;
-      height: var(--sbb-overlay-origin-height);
-      background-color: transparent;
-      border-radius: var(--sbb-overlay-border-radius);
-      pointer-events: none;
     }
   }
 
   :host(
-      [data-autocomplete-origin-borderless]:not(
+      :is([data-state='opened'], [data-state='opening'])[data-autocomplete-origin-borderless]:not(
           [data-autocomplete-origin-borderless='false']
-        )[data-autocomplete-position='above']
+        )
     )
+    & {
+    &::before,
     &::after {
-    @include sbb.shadow-level-5-hard;
+      @include sbb.shadow-level-5-hard;
+    }
   }
 }
 
 .sbb-autocomplete__options {
+  @include sbb.scrollbar-light;
+
   background-color: var(--sbb-color-white-default);
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: 0;
-  border-radius: var(--sbb-overlay-border-radius);
-  max-height: var(--sbb-overlay-max-height);
-  min-height: var(--sbb-overlay-min-height);
+  border-radius: var(--sbb-autocomplete-border-radius);
+  max-height: calc(var(--sbb-autocomplete-max-height) - var(--sbb-spacing-fixed-4x));
+  min-height: var(--sbb-autocomplete-min-height);
   pointer-events: all;
   overflow-y: auto;
-  @include sbb.scrollbar-light;
-
-  :host([data-state='opening']) & {
-    animation: {
-      name: open;
-      duration: var(--sbb-overlay-transition-duration);
-      timing-function: var(--sbb-animation-easing);
-    }
-  }
-
-  :host([data-state='closing']) & {
-    animation: {
-      name: close;
-      duration: var(--sbb-overlay-transition-duration);
-      timing-function: var(--sbb-animation-easing);
-    }
-  }
 }
 
 @keyframes open {
   from {
-    transform: scaleY(0.8);
-    transform-origin: var(--sbb-overlay-transition-origin);
+    transform: var(--sbb-autocomplete-animation-transform);
+    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 0;
   }
 
   to {
-    transform: scaleY(1);
-    transform-origin: var(--sbb-overlay-transition-origin);
+    transform: translateY(0);
+    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 1;
   }
 }
 
 @keyframes close {
   from {
-    transform: scaleY(1);
-    transform-origin: var(--sbb-overlay-transition-origin);
+    transform: translateY(0);
+    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 1;
   }
 
   to {
-    transform: scaleY(0.8);
-    transform-origin: var(--sbb-overlay-transition-origin);
+    transform: var(--sbb-autocomplete-animation-transform);
+    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 0;
   }
 }
