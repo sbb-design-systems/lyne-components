@@ -116,7 +116,7 @@ export class SbbTimetableRow {
 
   private _handleHimCus(trip: ITripItem): HimCus | undefined {
     const situations = trip.situations && sortSituation(trip.situations);
-    const cus = getCus(trip);
+    const cus = getCus(trip, this._currentLanguage);
 
     return Object.keys(cus)?.length ? cus : situations?.length && getHimIcon(situations[0]);
   }
