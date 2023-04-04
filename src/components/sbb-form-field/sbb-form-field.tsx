@@ -1,4 +1,14 @@
-import { Component, Element, h, JSX, Prop, State, ComponentInterface, Watch } from '@stencil/core';
+import {
+  Component,
+  Element,
+  h,
+  JSX,
+  Prop,
+  State,
+  ComponentInterface,
+  Watch,
+  Listen,
+} from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
