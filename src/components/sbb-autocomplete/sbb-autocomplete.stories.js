@@ -135,6 +135,27 @@ const playStory = async ({ canvasElement }) => {
   userEvent.click(label);
 };
 
+const createOptionGroup1 = (iconName, disabled) => {
+  return [
+    <sbb-option icon-name={iconName} value="Option 1">
+      Option 1
+    </sbb-option>,
+    <sbb-option icon-name={iconName} disabled={disabled} value="Option 2">
+      Option 2
+    </sbb-option>,
+    <sbb-option value="Option 3">
+      <sbb-icon slot="icon" name={iconName} />
+      Option 3
+    </sbb-option>,
+  ];
+};
+const createOptionGroup2 = () => {
+  return [
+    <sbb-option value="Option 4">Option 4</sbb-option>,
+    <sbb-option value="Option 5">Option 5</sbb-option>,
+  ];
+};
+
 const Template = (args) => [
   <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
     <input placeholder="Placeholder" />
@@ -143,18 +164,8 @@ const Template = (args) => [
       disable-animation={args.disableAnimation}
       preserve-icon-space={args.preserveIconSpace}
     >
-      <sbb-option icon-name={args.iconName} value="Option 1">
-        Option 1
-      </sbb-option>
-      <sbb-option icon-name={args.iconName} disabled={args.disabled} value="Option 2">
-        Option 2
-      </sbb-option>
-      <sbb-option value="Option 3">
-        <sbb-icon slot="icon" name={args.iconName} />
-        Option 3
-      </sbb-option>
-      <sbb-option value="Option 4">Option 4</sbb-option>
-      <sbb-option value="Option 5">Option 5</sbb-option>
+      {createOptionGroup1(args.iconName, args.disabled)}
+      {createOptionGroup2()}
     </sbb-autocomplete>
   </sbb-form-field>,
 ];
@@ -168,21 +179,9 @@ const OptionGroupTemplate = (args) => [
       preserve-icon-space={args.preserveIconSpace}
     >
       <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
-        <sbb-option icon-name={args.iconName} value="Option 1">
-          Option 1
-        </sbb-option>
-        <sbb-option icon-name={args.iconName} disabled={args.disabled} value="Option 2">
-          Option 2
-        </sbb-option>
-        <sbb-option value="Option 3">
-          <sbb-icon slot="icon" name={args.iconName} />
-          Option 3
-        </sbb-option>
+        {createOptionGroup1(args.iconName, args.disabled)}
       </sbb-option-group>
-      <sbb-option-group label="Group 2">
-        <sbb-option value="Option 4">Option 4</sbb-option>
-        <sbb-option value="Option 5">Option 5</sbb-option>
-      </sbb-option-group>
+      <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
     </sbb-autocomplete>
   </sbb-form-field>,
 ];
@@ -200,24 +199,51 @@ const MixedTemplate = (args) => [
         Option Value
       </sbb-option>
       <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
-        <sbb-option icon-name={args.iconName} value="Option 1">
-          Option 1
-        </sbb-option>
-        <sbb-option icon-name={args.iconName} disabled={args.disabled} value="Option 2">
-          Option 2
-        </sbb-option>
-        <sbb-option value="Option 3">
-          <sbb-icon slot="icon" name={args.iconName} />
-          Option 3
-        </sbb-option>
+        {createOptionGroup1(args.iconName, args.disabled)}
       </sbb-option-group>
-      <sbb-option-group label="Group 2">
-        <sbb-option value="Option 4">Option 4</sbb-option>
-        <sbb-option value="Option 5">Option 5</sbb-option>
-      </sbb-option-group>
+      <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
     </sbb-autocomplete>
   </sbb-form-field>,
 ];
+
+const RequiredTemplate = (args) => {
+  const sbbFormError = <sbb-form-error>This is a required field.</sbb-form-error>;
+
+  return [
+    <sbb-form-field
+      borderless={args.borderless}
+      label="Label"
+      data-testid="form-field"
+      id="sbb-form-field"
+    >
+      <input
+        id="sbb-autocomplete"
+        class="sbb-invalid"
+        placeholder="Placeholder"
+        onChange={(event) => {
+          if (event.currentTarget.value !== '') {
+            sbbFormError.remove();
+            document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
+          } else {
+            document.getElementById('sbb-form-field').append(sbbFormError);
+            document.getElementById('sbb-autocomplete').classList.add('sbb-invalid');
+          }
+        }}
+      />
+
+      <sbb-autocomplete
+        disable-animation={args.disableAnimation}
+        preserve-icon-space={args.preserveIconSpace}
+      >
+        <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+          {createOptionGroup1(args.iconName, args.disabled)}
+        </sbb-option-group>
+        <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
+      </sbb-autocomplete>
+      {sbbFormError}
+    </sbb-form-field>,
+  ];
+};
 
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
@@ -236,6 +262,12 @@ Borderless.argTypes = defaultArgTypes;
 Borderless.args = { ...defaultArgs, borderless: true };
 Borderless.decorators = defaultDecorator;
 Borderless.play = isChromatic() && playStory;
+
+export const WithError = RequiredTemplate.bind({});
+WithError.argTypes = defaultArgTypes;
+WithError.args = { ...defaultArgs };
+WithError.decorators = defaultDecorator;
+WithError.play = isChromatic() && playStory;
 
 export const BorderlessOpenAbove = Template.bind({});
 BorderlessOpenAbove.argTypes = defaultArgTypes;
@@ -276,7 +308,7 @@ MixedSingleOptionWithOptionGroup.play = isChromatic() && playStory;
 export default {
   parameters: {
     actions: {
-      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose],
+      handles: [events.willOpen, events.didOpen, events.didClose, events.willClose, 'change'],
     },
     backgrounds: {
       disable: true,
