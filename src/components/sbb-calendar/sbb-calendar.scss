@@ -14,8 +14,9 @@
   --sbb-calendar-day-selected-color: var(--sbb-color-white-default);
   --sbb-calendar-day-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-day-disabled-width: #{sbb.px-to-rem-build(25.5)};
-  --sbb-calendar-day-transition-duration: var(--sbb-animation-duration-3x);
+  --sbb-calendar-day-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-calendar-day-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
 
   @include sbb.mq($from: micro) {
     --sbb-calendar-day-size: #{sbb.px-to-rem-build(44)};
@@ -40,7 +41,7 @@
 
   width: 100%;
   display: flex;
-  gap: var(--sbb-spacing-fixed-10x);
+  gap: var(--sbb-calendar-tables-gap);
 }
 
 .sbb-calendar__controls-month-label {
@@ -51,7 +52,7 @@
 
 .sbb-calendar__table-container {
   display: flex;
-  gap: var(--sbb-spacing-fixed-10x);
+  gap: var(--sbb-calendar-tables-gap);
 }
 
 .sbb-calendar__table {
@@ -95,27 +96,27 @@
   transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
   transition-property: background-color, padding-block-end;
   cursor: pointer;
-}
 
-@include sbb.hover-mq($hover: true) {
-  .sbb-calendar__day:not(.sbb-calendar__day-selected, :active, :disabled):hover {
-    --sbb-calendar-day-background-color: var(--sbb-color-milk-default);
+  @include sbb.hover-mq($hover: true) {
+    &:not(.sbb-calendar__day-selected, :active, :disabled):hover {
+      --sbb-calendar-day-background-color: var(--sbb-color-milk-default);
 
-    padding-block-end: #{sbb.px-to-rem-build(1)};
+      padding-block-end: #{sbb.px-to-rem-build(1)};
+    }
   }
-}
 
-.sbb-calendar__day:disabled {
-  color: var(--sbb-calendar-day-disabled-color);
-  cursor: unset;
-}
+  &:disabled {
+    color: var(--sbb-calendar-day-disabled-color);
+    cursor: unset;
+  }
 
-.sbb-calendar__day:focus-visible {
-  @include sbb.focus-outline;
-}
+  &:focus-visible {
+    @include sbb.focus-outline;
+  }
 
-.sbb-calendar__day:not(.sbb-calendar__day-selected, :disabled):active {
-  --sbb-calendar-day-background-color: var(--sbb-color-cloud-default);
+  &:not(.sbb-calendar__day-selected, :disabled):active {
+    --sbb-calendar-day-background-color: var(--sbb-color-cloud-default);
+  }
 }
 
 .sbb-calendar__crossed-out::before {

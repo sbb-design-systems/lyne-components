@@ -117,6 +117,7 @@ export class SbbDatepicker implements ComponentInterface {
           signal: this._datePickerController.signal,
         }
       );
+      /** Remove aria-live=polite during text edit to avoid screen reader repeating everything twice. */
       this._inputElement.addEventListener(
         'focus',
         (event: Event) => (event.target as HTMLInputElement).removeAttribute('aria-live'),
@@ -124,6 +125,7 @@ export class SbbDatepicker implements ComponentInterface {
           signal: this._datePickerController.signal,
         }
       );
+      /** Set aria-live=polite after text edit ends to make sure state changes are correctly announced. */
       this._inputElement.addEventListener(
         'blur',
         (event: Event) => ((event.target as HTMLInputElement).ariaLive = 'polite'),
@@ -189,7 +191,7 @@ export class SbbDatepicker implements ComponentInterface {
     const day: string = match[1].padStart(2, '0');
     const month: string = match[2].padStart(2, '0');
     let year: number = +match[3];
-    if (!!year && year && year < 100 && year >= 0) {
+    if (!!year && year < 100 && year >= 0) {
       year += 1900;
     }
     return `${day}.${month}.${year || ''}`;
@@ -225,8 +227,8 @@ export class SbbDatepicker implements ComponentInterface {
     this.didChange.emit();
 
     if (this._inputElement) {
-      this._inputElement.dispatchEvent(new CustomEvent('input'));
-      this._inputElement.dispatchEvent(new CustomEvent('change'));
+      this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      this._inputElement.dispatchEvent(new CustomEvent('change', { bubbles: true }));
     }
   }
 

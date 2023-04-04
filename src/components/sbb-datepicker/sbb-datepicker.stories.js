@@ -98,7 +98,7 @@ const dateFilter = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -172,7 +172,7 @@ const basicArgTypes = {
   max,
   wide,
   dateFilter,
-  'aria-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   'data-now': dataNow,
   disableAnimation,
 };
@@ -189,11 +189,8 @@ const basicArgs = {
   dateFilter: dateFilter.options[0],
   'aria-label': undefined,
   disableAnimation: isChromatic(),
+  dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
-
-if (isChromatic()) {
-  basicArgs.dataNow = new Date(2023, 0, 12, 0, 0, 0).valueOf();
-}
 
 const formFieldBasicArgsTypes = {
   ...basicArgTypes,
@@ -341,8 +338,8 @@ export const InFormFieldWithMinAndMax = TemplateFormField.bind({});
 InFormFieldWithMinAndMax.argTypes = { ...formFieldBasicArgsTypes };
 InFormFieldWithMinAndMax.args = {
   ...formFieldBasicArgs,
-  min: new Date(1675814400000),
-  max: new Date(1677024000000),
+  min: new Date(2023, 1, 8),
+  max: new Date(2023, 1, 22),
 };
 
 export const InFormFieldWithDateFilter = TemplateFormField.bind({});
