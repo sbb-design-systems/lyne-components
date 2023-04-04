@@ -1,5 +1,3 @@
-# sbb-navigation-marker
-
 The `<sbb-navigation-marker>` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md). 
 
 Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component. 

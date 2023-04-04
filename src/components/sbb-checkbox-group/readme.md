@@ -1,5 +1,3 @@
-# sbb-checkbox-group
-
 The `<sbb-checkbox-group>` component is used as a container for one or multiple `<sbb-checkbox>` components, 
 which are projected inside an unnamed slot. 
 

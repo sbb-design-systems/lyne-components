@@ -1,5 +1,3 @@
-# sbb-teaser-hero
-
 The hero teaser should be an eye-catcher and should have an emotional effect on the user with its large image component. 
 
 The `sbb-teaser-hero` is a link with a description, an action call and a background image.

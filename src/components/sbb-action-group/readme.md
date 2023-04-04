@@ -1,5 +1,3 @@
-# sbb-action-group
-
 The `<sbb-action-group>` component is a generic content container which can contain up to three
 action items (`<sbb-button>` or `<sbb-link>` or other HTML elements) in various allocations.
 

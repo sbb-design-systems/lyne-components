@@ -1,5 +1,3 @@
-# sbb-navigation-action
-
 The `<sbb-navigation-action>` component is an action element contained by a [sbb-navigation-list](../sbb-navigation-list/readme.md) component or a [sbb-navigation-marker](../sbb-navigation-marker/readme.md) component. 
 
 As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link, depending on the value of the `href` property.

@@ -1,4 +1,4 @@
-# sbb-accordion-item
+to be documented...
 
 <!-- Auto Generated Below -->
 

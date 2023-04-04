@@ -1,5 +1,3 @@
-# sbb-menu
-
 The `sbb-menu` is a component that can be attached to any element (trigger) to display a context menu. 
 The menu appears on trigger left click. 
 

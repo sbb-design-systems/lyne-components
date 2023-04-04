@@ -45,7 +45,7 @@ jobs:
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
       - name: Run build
-        run: yarn build
+        run: yarn build:chromatic-stories && yarn build
 
       - name: Bundle stories
         run: node ./ci/bundleStories.js
@@ -82,7 +82,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create versioned storybook
-        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} npm run build:storybook
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
       - name: Publish to Chromatic

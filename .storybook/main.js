@@ -1,14 +1,21 @@
 module.exports = {
-  stories: ['../src/**/*.stories.js', '../src/**/*.stories.mdx'],
+  stories: ['../src/**/*.stories.jsx', '../src/**/*.stories.mdx'],
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
-    '@brightlayer-ui/storybook-rtl-addon/register',
     'storybook-addon-breakpoints',
     '@storybook/addon-interactions',
     '@storybook/preset-scss',
+    '@storybook/addon-mdx-gfm',
   ],
   features: {
     postcss: false,
+  },
+  framework: {
+    name: '@storybook/html-webpack5',
+    options: {},
+  },
+  docs: {
+    autodocs: true,
   },
 };

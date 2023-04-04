@@ -1,5 +1,3 @@
-# sbb-tooltip
-
 The `sbb-tooltip` component is useful for displaying additional information on mouse hover or click of a trigger element. The information included should be contextual, useful, and provide additional communication and clarity to the user.
 
 ## Usage

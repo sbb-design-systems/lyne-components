@@ -1,5 +1,3 @@
-# sbb-teaser
-
 The sbb-teaser acts as a link containing an image next to a title and a description.
 It's important to set the accessibilityLabel which describes the teaser for screenreader users.
 The title level can be set by the consumer.

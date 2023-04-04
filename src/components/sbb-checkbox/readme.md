@@ -1,5 +1,3 @@
-# sbb-checkbox
-
 The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox">` enhanced with the SBB Design.
 
 The component has two `size`, named `s` (default) and `m`. 

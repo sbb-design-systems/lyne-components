@@ -1,5 +1,3 @@
-# sbb-form-error
-
 The `sbb-form-error` component can be used to provide an error message.
 
 ## Usage

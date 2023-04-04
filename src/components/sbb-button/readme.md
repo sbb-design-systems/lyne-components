@@ -1,5 +1,3 @@
-# sbb-button
-
 If the `href` property is set, it will internally be rendered as link, otherwise as a button.
 If the `<sbb-button>` is placed inside another action element (e.g. button, link, ...),
 it is internally rendered as a `<span>` in order to not break HTML structure. 

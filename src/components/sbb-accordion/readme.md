@@ -1,4 +1,4 @@
-# sbb-accordion
+to be documented...
 
 <!-- Auto Generated Below -->
 
