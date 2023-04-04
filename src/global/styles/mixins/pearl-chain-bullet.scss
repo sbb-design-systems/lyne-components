@@ -62,7 +62,7 @@
 @mixin pearl-chain-bullet-disruption {
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-color-disruption);
   @include a11y.if-forced-colors {
-    --sbb-pearl-chain-bullet-color: HighLight;
+    --sbb-pearl-chain-bullet-color: Highlight;
   }
 }
 
@@ -82,7 +82,7 @@
     width: var(--sbb-pearl-chain-bullet-crossed-width);
 
     @include a11y.if-forced-colors {
-      background: HighLight;
+      background: Highlight;
     }
   }
 }

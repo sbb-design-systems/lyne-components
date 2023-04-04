@@ -9,7 +9,7 @@
 
   @include sbb.if-forced-colors {
     background: unset;
-    border-block-start: #{sbb.px-to-rem-build(1)} dashed HighLight;
+    border-block-start: #{sbb.px-to-rem-build(1)} dashed Highlight;
     transform: translateY(#{sbb.px-to-rem-build(1)});
   }
 }
@@ -135,8 +135,8 @@
   color: var(--sbb-pearl-chain-color-disruption);
 
   @include sbb.if-forced-colors {
-    color: HighLight;
-    background: HighLight;
+    color: Highlight;
+    background: Highlight;
   }
 }
 

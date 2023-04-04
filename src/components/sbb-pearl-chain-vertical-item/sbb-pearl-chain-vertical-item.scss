@@ -88,8 +88,8 @@ slot[name='right']::slotted(*) {
     var(--sbb-pearl-chain-vertical-item-spacing-small);
 
   @include sbb.if-forced-colors {
-    background-color: ButtonHighlight !important;
-    border-inline-start: #{sbb.px-to-rem-build(1)} dashed HighLight;
+    background-color: unset !important;
+    border-inline-start: #{sbb.px-to-rem-build(1)} dashed Highlight;
     transform: translateY(#{sbb.px-to-rem-build(1)});
   }
 }
@@ -113,7 +113,7 @@ slot[name='right']::slotted(*) {
   background-color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   color: var(--sbb-pearl-chain-vertical-item-color-disruption);
   @include sbb.if-forced-colors {
-    --sbb-pearl-chain-vertical-item-color-disruption: HighLight;
+    --sbb-pearl-chain-vertical-item-color-disruption: Highlight;
   }
 }
 

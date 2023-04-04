@@ -155,7 +155,7 @@ li {
   }
 
   @include sbb.if-forced-colors {
-    border: 1px solid ButtonBorder !important;
+    border: var(--sbb-border-width-1x) solid ButtonBorder !important;
   }
 }
 
