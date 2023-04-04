@@ -62,7 +62,7 @@
     "@storybook/html": "6.5.16",
     "@storybook/jest": "0.0.10",
     "@storybook/preset-scss": "1.0.3",
-    "@storybook/testing-library": "0.0.13",
+    "@storybook/testing-library": "0.1.0",
     "@types/jest": "27.5.2",
     "@types/puppeteer": "5.4.7",
     "@types/react": "16.14.38",
