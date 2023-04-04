@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.6](https://github.com/lyne-design-system/lyne-components/compare/v0.30.5...v0.30.6) (2023-04-04)
+
+### Bug Fixes
+
+- **sbb-pearl-chain-vertical:** improve spacing and a11y ([#1694](https://github.com/lyne-design-system/lyne-components/issues/1694)) ([b54b167](https://github.com/lyne-design-system/lyne-components/commit/b54b167382c08a2c6fb07e4cf9b711ef0b2eed13))
+- **sbb-pearl-chain:** fix high contrast mode for lines and bullets ([#1693](https://github.com/lyne-design-system/lyne-components/issues/1693)) ([ca05a8c](https://github.com/lyne-design-system/lyne-components/commit/ca05a8c318becc5ca1dfb0ded44d88115392016a))
+- **sbb-timetable-row:** improve a11y text for himcus icons ([#1698](https://github.com/lyne-design-system/lyne-components/issues/1698)) ([54ea913](https://github.com/lyne-design-system/lyne-components/commit/54ea913fd1248ce1a82d1c72b77a192cae7e07a3))
+
 ### [0.30.5](https://github.com/lyne-design-system/lyne-components/compare/v0.30.4...v0.30.5) (2023-03-30)
 
 ### Bug Fixes
