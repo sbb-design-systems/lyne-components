@@ -336,6 +336,7 @@ export class SbbAutocomplete implements ComponentInterface {
     this._openPanelEventsController?.abort();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
+    this._optionContainer.scrollTop = 0;
     this.didClose.emit();
   }
 
