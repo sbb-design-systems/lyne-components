@@ -21,7 +21,8 @@ export class SbbOptionGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   private _variant: SbbOptionVariant;
-  // TODO: the problem that the `_inertAriaGroups` option resolves is only present on Safari using VoiceOver.
+  // TODO: the problem that the `_inertAriaGroups` resolves is only present on Safari using VoiceOver.
+  //       We should periodically check if it has been solved and, if so, remove the property.
   private _inertAriaGroups = isSafari();
 
   @Watch('disabled')
