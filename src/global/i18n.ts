@@ -247,6 +247,13 @@ export const i18nDurationDay: Record<string, Record<string, Record<string, strin
   },
 };
 
+export const i18nTripQuayChange: Record<string, string> = {
+  de: 'Gleisänderung im Verlauf dieser Verbindung',
+  en: 'Track change in the course of this connection',
+  fr: 'Changement de voie sur le parcours de cette connexion',
+  it: 'Cambiamento di binario nel corso di questa connessione',
+};
+
 export const i18nTripDuration: Record<string, string> = {
   de: 'Reisedauer',
   en: 'Travel time',
