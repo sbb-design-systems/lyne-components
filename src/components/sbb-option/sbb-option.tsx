@@ -19,7 +19,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
-import { SbbOptionSelectionChange, SbbOptionVariant } from './sbb-option.custom';
+import { SbbOptionEventData, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isAndroid, isSafari } from '../../global/helpers/platform';
@@ -69,7 +69,15 @@ export class SbbOption implements ComponentInterface {
     composed: true,
     eventName: 'option-selection-change',
   })
-  public selectionChange: EventEmitter<SbbOptionSelectionChange>;
+  public selectionChange: EventEmitter<SbbOptionEventData>;
+
+  /** Emits when the option is clicked. */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'option-click',
+  })
+  public optionClick: EventEmitter<SbbOptionEventData>;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
@@ -124,7 +132,13 @@ export class SbbOption implements ComponentInterface {
       return;
     }
 
-    this.selected = !this.selected;
+    this.selected = true;
+
+    this.optionClick.emit({
+      id: this._element.id,
+      value: this.value,
+      selected: this.selected,
+    });
   }
 
   @Watch('selected')

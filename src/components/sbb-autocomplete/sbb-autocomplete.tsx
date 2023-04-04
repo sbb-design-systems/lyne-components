@@ -19,7 +19,7 @@ import {
   setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { SbbOptionSelectionChange } from '../sbb-option/sbb-option.custom';
+import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -143,7 +143,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** When an option is selected, update the input value and close the autocomplete. */
   @Listen('option-selection-change')
-  public onOptionSelected(event: CustomEvent<SbbOptionSelectionChange>): void {
+  public onOptionSelected(event: CustomEvent<SbbOptionEventData>): void {
     if (!event.detail.selected) {
       return;
     }
@@ -162,6 +162,11 @@ export class SbbAutocomplete implements ComponentInterface {
     );
     this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
+    this.close();
+  }
+
+  @Listen('option-click')
+  public onOptionClick(): void {
     this.close();
   }
 
