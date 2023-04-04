@@ -27,7 +27,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+      <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
         <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>       
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
@@ -62,7 +62,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
         <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--disruption sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
@@ -97,7 +97,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
@@ -134,7 +134,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
-      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
@@ -172,7 +172,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
           <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
             <slot name="left"></slot>
           </div>
-          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
             <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
           </div>
           <slot name="right"></slot>
@@ -215,7 +215,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
           <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
             <slot name="left"></slot>
           </div>
-          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
           <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
             <div class="sbb-pearl-chain-vertical-item__bullet--position" style="--sbb-pearl-chain-vertical-item-position: 50%;"></div>
           </div>
@@ -259,7 +259,7 @@ describe('sbb-pearl-chain-vertical-item', () => {
           <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
             <slot name="left"></slot>
           </div>
-          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" role="presentation">
+          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
             <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--skipped sbb-pearl-chain-vertical-item__bullet--start-end"></div>
           </div>
           <slot name="right"></slot>

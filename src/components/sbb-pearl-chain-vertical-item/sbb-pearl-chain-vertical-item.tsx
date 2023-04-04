@@ -33,7 +33,7 @@ export class SbbPearlChainVerticalItem {
           <slot name="left"></slot>
         </div>
         <div
-          role="presentation"
+          aria-hidden="true"
           class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle"
         >
           {!hideLine && (
