@@ -4,7 +4,7 @@ import readme from './readme.md';
 const Template = () => (
   <sbb-map-container>
     <div style="padding: 16px">
-      <sbb-form-field placeholder="Ort eingeben..." style="width: 100%">
+      <sbb-form-field placeholder="Type location..." style="width: 100%">
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
         <input minLength="2" name="keyword" autoComplete="off" placeholder="Search" />
         <sbb-icon
@@ -13,7 +13,7 @@ const Template = () => (
           className="custom-search-results__input-clear hidden"
         ></sbb-icon>
       </sbb-form-field>
-      <sbb-title level="4">Betriebslage & Störungen</sbb-title>
+      <sbb-title level="4">Operations & Disruptions</sbb-title>
       <div style="background-color: #F6F6F6; height: 116px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 16px;">
         <p>Situation 1</p>
       </div>
