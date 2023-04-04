@@ -148,15 +148,15 @@ const defaultArgTypes = {
   'data-now': dataNow,
 };
 
+const today = new Date();
+today.setDate(today.getDate() >= 15 ? 8 : 18);
+
 const defaultArgs = {
   wide: false,
-  selectedDate: new Date(2023, 0, 20),
+  selectedDate: isChromatic() ? new Date(2023, 0, 20) : today,
   dateFilter: dateFilter.options[0],
+  dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
-
-if (isChromatic()) {
-  defaultArgs.dataNow = new Date(2023, 0, 12, 0, 0, 0).valueOf();
-}
 
 export const Calendar = Template.bind({});
 Calendar.argTypes = { ...defaultArgTypes };

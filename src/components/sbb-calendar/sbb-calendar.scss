@@ -83,8 +83,8 @@
 }
 
 .sbb-calendar__day {
-  @include sbb.text-s--regular;
   @include sbb.button-reset;
+  @include sbb.text-s--regular;
 
   position: relative;
   width: 100%;
