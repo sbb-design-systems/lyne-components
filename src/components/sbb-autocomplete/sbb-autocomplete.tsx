@@ -306,20 +306,21 @@ export class SbbAutocomplete implements ComponentInterface {
     }
 
     // Set the width to match the trigger element
-    this._element.style.setProperty('--sbb-overlay-width', `${this._originElement.offsetWidth}px`);
+    this._element.style.setProperty(
+      '--sbb-autocomplete-width',
+      `${this._originElement.offsetWidth}px`
+    );
 
     // Set the origin height
     this._element.style.setProperty(
-      '--sbb-overlay-origin-height',
+      '--sbb-autocomplete-origin-height',
       `${this._originElement.offsetHeight}px`
     );
 
     // Calculate and set the position
     const panelPosition = getElementPosition(this._optionContainer, this._originElement);
 
-    this._element.style.setProperty('--sbb-overlay-position-x', `${panelPosition.left}px`);
-    this._element.style.setProperty('--sbb-overlay-position-y', `${panelPosition.top}px`);
-    this._element.style.setProperty('--sbb-overlay-max-height', panelPosition.maxHeight);
+    this._element.style.setProperty('--sbb-autocomplete-max-height', panelPosition.maxHeight);
     this._element.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
     this._originElement.setAttribute(
       'data-autocomplete-position',
@@ -467,7 +468,8 @@ export class SbbAutocomplete implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host data-state={this._state}>
-        <div class="sbb-autocomplete__backdrop">
+        <div class="sbb-autocomplete__gap-fix"></div>
+        <div class="sbb-autocomplete__container">
           <div
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-autocomplete__panel"

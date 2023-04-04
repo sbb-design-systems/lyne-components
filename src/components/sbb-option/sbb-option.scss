@@ -60,8 +60,6 @@
   column-gap: var(--sbb-spacing-responsive-xxxs);
   padding-inline: var(--sbb-spacing-responsive-xxxs);
   padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
-  transform: scaleY(var(--sbb-overlay-option-scale));
-  transition: transform var(--sbb-animation-duration-2x) var(--sbb-animation-easing);
   color: var(--sbb-option-color);
   cursor: var(--sbb-option-cursor);
 

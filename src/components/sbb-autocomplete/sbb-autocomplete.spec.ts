@@ -18,7 +18,8 @@ describe('sbb-autocomplete', () => {
     expect(root).toEqualHtml(`
       <sbb-autocomplete data-state="closed" origin="autocomplete-origin" trigger="autocomplete-trigger">
         <mock:shadow-root>
-          <div class="sbb-autocomplete__backdrop">
+          <div class="sbb-autocomplete__gap-fix"></div>
+          <div class="sbb-autocomplete__container">
             <div class="sbb-autocomplete__panel">
               <div class="sbb-autocomplete__options" role="listbox" id="sbb-autocomplete-1">
                 <slot></slot>
@@ -49,7 +50,8 @@ describe('sbb-autocomplete', () => {
     expect(root).toEqualHtml(`
       <sbb-autocomplete data-state="closed">
         <mock:shadow-root>
-          <div class="sbb-autocomplete__backdrop">
+          <div class="sbb-autocomplete__gap-fix"></div>
+          <div class="sbb-autocomplete__container">
             <div class="sbb-autocomplete__panel">
               <div class="sbb-autocomplete__options" id="sbb-autocomplete-2" role="listbox">
                 <slot></slot>
