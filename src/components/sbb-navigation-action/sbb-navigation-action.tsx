@@ -17,12 +17,16 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { hostContext } from '../../global/helpers/host-context';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import {
+  actionElementHandlerAspect,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 // This approach allows us to just check whether an attribute has been added or removed
 // from the DOM, instead of a `Watch()` decorator that would check the value change
@@ -95,7 +99,11 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
     this._onActiveActionChange()
   );
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
     this._navigationActionAttributeObserver.observe(this._element, navigationActionObserverConfig);
@@ -121,11 +129,6 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
     } else {
       this._navigationMarker?.reset();
     }
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   @Listen('click')

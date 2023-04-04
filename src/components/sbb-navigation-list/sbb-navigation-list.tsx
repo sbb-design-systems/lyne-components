@@ -1,8 +1,9 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot label - Use this to provide a label element.
@@ -30,9 +31,12 @@ export class SbbNavigationList implements ComponentInterface {
    */
   @State() private _namedSlots = createNamedSlotState('label');
 
-  private _hasLabel = false;
+  @Element() private _element!: HTMLElement;
 
-  @Element() private _element: HTMLElement;
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /**
    * Create an array with only the sbb-navigation-action children.
@@ -44,22 +48,26 @@ export class SbbNavigationList implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._hasLabel = !!this.label || this._namedSlots['label'];
+    this._handlerRepository.connect();
     this._readActions();
   }
 
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
+  }
+
   public render(): JSX.Element {
+    const hasLabel = !!this.label || this._namedSlots['label'];
     this._actions.forEach((action, index) => {
       action.setAttribute('slot', `action-${index}`);
       action.size = 'm';
     });
-    const ariaLabelledByAttribute = this._hasLabel
+    const ariaLabelledByAttribute = hasLabel
       ? { 'aria-labelledby': 'sbb-navigation-link-label-id' }
       : {};
     return (
       <Host class="sbb-navigation-list">
-        {this._hasLabel && (
+        {hasLabel && (
           <span class="sbb-navigation-list__label" id="sbb-navigation-link-label-id">
             <slot name="label">{this.label}</slot>
           </span>

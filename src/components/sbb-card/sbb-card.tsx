@@ -1,15 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   ButtonType,
@@ -21,11 +10,13 @@ import {
 } from '../../global/interfaces/link-button-properties';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 import {
+  actionElementHandlerAspect,
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -79,25 +70,19 @@ export class SbbCard implements ComponentInterface, LinkButtonProperties {
    */
   @State() private _namedSlots = createNamedSlotState('badge');
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   /**

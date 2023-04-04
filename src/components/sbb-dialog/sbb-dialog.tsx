@@ -6,26 +6,26 @@ import {
   EventEmitter,
   h,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { ScrollHandler } from '../../global/helpers/scroll';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import {
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -171,15 +171,11 @@ export class SbbDialog implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /**
    * Opens the dialog element.
@@ -229,9 +225,9 @@ export class SbbDialog implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._state = 'closed';
     this._dialogController = new AbortController();
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
 
     this._hasTitle = !!this.titleContent || this._namedSlots['title'];
     toggleDatasetEntry(this._element, 'fullscreen', !this._hasTitle);
@@ -247,6 +243,7 @@ export class SbbDialog implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._dialogController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();

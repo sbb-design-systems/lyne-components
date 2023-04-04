@@ -153,6 +153,10 @@ li {
   @include sbb.mq($from: medium) {
     height: #{sbb.px-to-rem-build(28)};
   }
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid ButtonBorder !important;
+  }
 }
 
 .sbb-loading__row,

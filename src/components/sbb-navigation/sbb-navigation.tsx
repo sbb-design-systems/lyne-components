@@ -15,7 +15,6 @@ import {
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
 import { ScrollHandler } from '../../global/helpers/scroll';
@@ -26,6 +25,11 @@ import {
   setAriaOverlayTriggerAttributes,
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -132,12 +136,12 @@ export class SbbNavigation implements ComponentInterface {
   );
   private _navigationId = `sbb-navigation-${++nextId}`;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   /**
    * Opens the navigation.
@@ -340,12 +344,14 @@ export class SbbNavigation implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._navigationObserver.observe(this._element, navigationObserverConfig);
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._navigationController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();

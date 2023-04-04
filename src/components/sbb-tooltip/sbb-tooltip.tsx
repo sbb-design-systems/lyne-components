@@ -7,7 +7,6 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
@@ -21,13 +20,17 @@ import {
   detectFocusOrigin,
 } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
   setAriaOverlayTriggerAttributes,
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -156,10 +159,10 @@ export class SbbTooltip implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   /**
    * Opens the tooltip on trigger click.
@@ -224,6 +227,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._state = 'closed';
@@ -237,6 +241,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();

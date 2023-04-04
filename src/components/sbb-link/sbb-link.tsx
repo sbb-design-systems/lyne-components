@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   ButtonType,
   IsStaticProperty,
@@ -21,13 +11,14 @@ import {
 import { InterfaceLinkAttributes } from './sbb-link.custom';
 import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
+  actionElementHandlerAspect,
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Link Content
@@ -102,27 +93,21 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStat
 
   @Element() private _element!: HTMLElement;
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   public render(): JSX.Element {

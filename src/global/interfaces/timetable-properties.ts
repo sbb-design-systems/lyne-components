@@ -2,8 +2,12 @@
 export interface ScheduledStopPointDetail {
   /** delay at arrival/departure (in minutes) */
   delay: number;
+  /** reason for delayed arrival/departure */
+  delayText?: string;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
   quayChanged?: boolean | null;
+  /** Enduser text, saying whether there is a Quay change */
+  quayChangedText?: string;
   /** A Quay (or platform or track) for any means of transport-mode / VehicleMode (train, bus, boat, etc.). */
   quayRtName?: string | null;
   /**
@@ -25,6 +29,15 @@ export interface ServiceAlteration {
    *
    */
   delayText: string;
+
+  /** Journey is partially cancelled at beginning or end */
+  partiallyCancelled: boolean;
+
+  /** If partiallyCancelled, enduser info */
+  partiallyCancelledText?: string;
+
+  /** Enduser text, saying whether there is a Quay change */
+  quayChangedText?: string;
 
   /** true: journey is redirected */
   redirected: boolean;

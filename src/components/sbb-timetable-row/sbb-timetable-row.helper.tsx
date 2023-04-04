@@ -7,6 +7,7 @@ import {
   PtSituation,
 } from '../../global/interfaces/timetable-properties';
 import { isRideLeg } from '../../global/helpers/timetable-helper';
+import { i18nTripQuayChange } from '../../global/i18n';
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
@@ -94,6 +95,11 @@ const getReachableText = (legs: PtRideLeg[]): string => {
     ?.serviceAlteration?.reachableText;
 };
 
+const getDelayText = (legs: PtRideLeg[]): string => {
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.delayText)?.serviceJourney
+    ?.serviceAlteration?.delayText;
+};
+
 const getRedirectedText = (legs: PtRideLeg[]): string => {
   return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)?.serviceJourney
     ?.serviceAlteration?.redirectedText;
@@ -154,7 +160,7 @@ export const getHimIcon = (situation: PtSituation): HimCus => {
   }
 };
 
-export const getCus = (trip: ITripItem): HimCus => {
+export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
   const { summary, legs } = trip;
   const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
@@ -166,8 +172,15 @@ export const getCus = (trip: ITripItem): HimCus => {
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
   if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };
   if (getUnplannedStop(rideLegs)) return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
-  if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
-  if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
+  if (tripStatus?.delayed || tripStatus?.delayedUnknown)
+    return { name: 'delay', text: getDelayText(rideLegs) };
+  if (tripStatus?.quayChanged) {
+    const departure = rideLegs[0].departure;
+    return {
+      name: 'platform-change',
+      text: departure.quayChanged ? departure.quayChangedText : i18nTripQuayChange[currentLanguage],
+    };
+  }
 
   return {} as HimCus;
 };

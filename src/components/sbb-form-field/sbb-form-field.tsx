@@ -1,25 +1,16 @@
-import {
-  Component,
-  h,
-  JSX,
-  Prop,
-  State,
-  ComponentInterface,
-  Element,
-  Listen,
-  Watch,
-} from '@stencil/core';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { Component, Element, h, JSX, Prop, State, ComponentInterface, Watch } from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import {
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 let nextId = 0;
 
@@ -80,7 +71,7 @@ export class SbbFormField implements ComponentInterface {
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('label');
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
@@ -95,6 +86,12 @@ export class SbbFormField implements ComponentInterface {
    */
   @State() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
@@ -105,11 +102,12 @@ export class SbbFormField implements ComponentInterface {
   });
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
+    this._handlerRepository.connect();
     this.renderLabel(this.label);
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._formFieldAttributeObserver.disconnect();
   }
 
@@ -130,16 +128,6 @@ export class SbbFormField implements ComponentInterface {
       labelElement.textContent = newValue;
       this._element.insertBefore(labelElement, this._element.firstChild);
     }
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
   }
 
   @Listen('will-open')

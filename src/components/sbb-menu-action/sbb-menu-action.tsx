@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   ButtonType,
   LinkButtonProperties,
@@ -17,9 +7,13 @@ import {
   resolveRenderVariables,
   targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import {
+  actionElementHandlerAspect,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
@@ -72,12 +66,11 @@ export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
 
   @Element() private _element!: HTMLElement;
 
-  private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
     this._handlerRepository.connect();

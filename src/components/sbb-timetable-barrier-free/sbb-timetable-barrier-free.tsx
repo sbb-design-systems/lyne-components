@@ -1,8 +1,12 @@
-import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import icons from '../../global/icons/timetable.json';
 import { i18nBarrierFreeTravel } from '../../global/i18n';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -20,9 +24,19 @@ export class SbbTimetableBarrierFree {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {

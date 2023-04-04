@@ -78,7 +78,10 @@ describe('getHimIcon', () => {
 
 describe('getCus', () => {
   it('should return cancellation', () => {
-    expect(getCus(partiallyCancelled)).toStrictEqual({ name: 'cancellation', text: undefined });
+    expect(getCus(partiallyCancelled, 'en')).toStrictEqual({
+      name: 'cancellation',
+      text: undefined,
+    });
   });
 });
 

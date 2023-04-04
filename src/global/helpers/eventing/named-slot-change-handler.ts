@@ -1,6 +1,19 @@
-import { AgnosticMutationObserver } from './mutation-observer';
+import { AgnosticMutationObserver } from '../mutation-observer';
+import { HandlerAspect } from './handler-repository';
 
-const extractSlotNames = (nodeLists: NodeList[], slotNames = new Set<string>()): Set<string> => {
+export const sbbNamedSlotChangeEventName = 'sbbNamedSlotChange';
+export type SbbNamedSlotChangeEvent = CustomEvent<Set<string>>;
+export interface SbbNamedSlotChangeCallback {
+  (merger: <S extends NamedSlotState>(state: S) => S): void;
+}
+
+declare global {
+  interface HTMLElementEventMap {
+    [sbbNamedSlotChangeEventName]: SbbNamedSlotChangeEvent;
+  }
+}
+
+function extractSlotNames(nodeLists: NodeList[], slotNames = new Set<string>()): Set<string> {
   for (const nodeList of nodeLists) {
     nodeList.forEach((node) => {
       const slotName = (node as Element).getAttribute?.('slot');
@@ -11,7 +24,7 @@ const extractSlotNames = (nodeLists: NodeList[], slotNames = new Set<string>()):
   }
 
   return slotNames;
-};
+}
 
 const observer = new AgnosticMutationObserver((mutations) => {
   // Aggregate multiple mutations to the corresponding target.
@@ -98,7 +111,7 @@ export function createNamedSlotState(...names: string[]): NamedSlotState {
  * @returns A new frozen object with values being set to true, if the host contains elements
  *   with the corresponding slot name.
  */
-export function queryNamedSlotState<S extends NamedSlotState>(
+function queryNamedSlotState<S extends NamedSlotState>(
   element: HTMLElement,
   state: S,
   names?: Set<string>
@@ -119,34 +132,15 @@ export function queryNamedSlotState<S extends NamedSlotState>(
   return Object.freeze(newState) as S;
 }
 
-/**
- * Queries the host element for child elements with the slot names from the given state and.
- *
- * @example
- * ```
- * @Element() private _element: HTMLElement;
- *
- * @State() private _namedSlots = createNamedSlotState('title');
- *
- * public connectedCallback(): void {
- *   this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
- * }
- *
- * @Listen('sbbNamedSlotChange', { passive: true })
- * public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
- *   this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
- * }
- * ```
- *
- * @param element The host element.
- * @param state The previous state.
- * @returns A new frozen object with values being set to true, if the host contains elements
- *   with the corresponding slot name.
- */
-export function queryAndObserveNamedSlotState<S extends NamedSlotState>(
-  element: HTMLElement,
-  state: S
-): S {
-  observeNamedSlotChanges(element);
-  return queryNamedSlotState(element, state);
+/** Creates event handler for detecting named slot changes. */
+export function namedSlotChangeHandlerAspect(action: SbbNamedSlotChangeCallback): HandlerAspect {
+  return ({ host, signal }) => {
+    host.addEventListener(
+      sbbNamedSlotChangeEventName,
+      (e) => action((state) => queryNamedSlotState(host, state, e.detail)),
+      { signal, passive: true }
+    );
+    action((state) => queryNamedSlotState(host, state));
+    observeNamedSlotChanges(host);
+  };
 }

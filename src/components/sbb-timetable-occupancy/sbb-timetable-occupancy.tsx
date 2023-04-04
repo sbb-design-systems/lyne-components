@@ -1,9 +1,11 @@
-import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
-
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import icons from '../../global/icons/timetable.json';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-
 import { i18nClass, i18nOccupancy } from '../../global/i18n';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -11,8 +13,6 @@ import { i18nClass, i18nOccupancy } from '../../global/i18n';
   tag: 'sbb-timetable-occupancy',
 })
 export class SbbTimetableOccupancy {
-  @State() private _currentLanguage = documentLanguage();
-
   /**
    * Stringified JSON which defines most of the
    * content of the component. Please check the
@@ -21,9 +21,21 @@ export class SbbTimetableOccupancy {
    */
   @Prop() public config!: string;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  @State() private _currentLanguage = documentLanguage();
+
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {

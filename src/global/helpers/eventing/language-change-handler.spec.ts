@@ -1,4 +1,4 @@
-import { documentLanguage } from './language';
+import { documentLanguage } from './language-change-handler';
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('language', () => {

@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   LinkProperties,
   LinkTargetType,
@@ -16,8 +6,12 @@ import {
   targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-import { HandlerRepository, linkHandlerAspect } from '../../global/helpers';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  linkHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - text content of panel
@@ -51,9 +45,13 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element!: HTMLSbbTeaserHeroElement;
+  @Element() private _element!: HTMLElement;
 
-  private _handlerRepository = new HandlerRepository(this._element, linkHandlerAspect);
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    linkHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
@@ -61,11 +59,6 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   public render(): JSX.Element {
