@@ -12,6 +12,7 @@
   --sbb-map-container-map-height: calc(
     var(--sbb-map-container-map-height-zero) + var(--sbb-border-radius-4x)
   );
+  --sbb-map-container-border-radius: var(--sbb-border-radius-4x);
 }
 
 .sbb-map-container {
@@ -40,9 +41,9 @@
   overflow-x: hidden;
   position: relative;
   z-index: 2;
-  border-top-right-radius: var(--sbb-border-radius-4x);
-  border-top-left-radius: var(--sbb-border-radius-4x);
-  margin-block-start: calc(var(--sbb-border-radius-4x) * -1);
+  border-start-end-radius: var(--sbb-map-container-border-radius);
+  border-start-start-radius: var(--sbb-map-container-border-radius);
+  margin-block-start: calc(var(--sbb-map-container-border-radius) * -1);
   background-color: var(--sbb-map-container-sidebar-background-color);
 
   @include sbb.mq($from: medium) {
@@ -64,7 +65,7 @@
 
   @include sbb.mq($from: small) {
     --sbb-map-container-map-height: calc(
-      var(--sbb-map-container-map-height-small) + var(--sbb-border-radius-4x)
+      var(--sbb-map-container-map-height-small) + var(--sbb-map-container-border-radius)
     );
   }
 
