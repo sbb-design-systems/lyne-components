@@ -78,6 +78,7 @@ export default {
     ),
   ],
   parameters: {
+    chromatic: { disableSnapshot: false },
     actions: {
       handles: ['click'],
     },

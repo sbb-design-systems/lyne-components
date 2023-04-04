@@ -149,6 +149,9 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
   }
 
   private _hasDataNow(): boolean {
+    if (!this._datePickerElement) {
+      return false;
+    }
     const dataNow = +this._datePickerElement.dataset?.now;
     return !isNaN(dataNow);
   }
