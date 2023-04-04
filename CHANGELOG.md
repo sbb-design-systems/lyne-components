@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.30.9](https://github.com/lyne-design-system/lyne-components/compare/v0.30.8...v0.30.9) (2023-04-04)
+
+### Features
+
+- **sbb-map-container:** initial implementation ([#1691](https://github.com/lyne-design-system/lyne-components/issues/1691)) ([9404ade](https://github.com/lyne-design-system/lyne-components/commit/9404aded08b16bdd5c47faa8c31dd92a53d9e1f5))
+
 ### [0.30.8](https://github.com/lyne-design-system/lyne-components/compare/v0.30.7...v0.30.8) (2023-04-04)
 
 ### Documentation
