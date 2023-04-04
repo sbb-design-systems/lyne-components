@@ -16,11 +16,11 @@ describe('sbb-autocomplete', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-autocomplete data-state="closed" id="sbb-autocomplete-1" origin="autocomplete-origin" role="listbox" trigger="autocomplete-trigger">
+      <sbb-autocomplete data-state="closed" origin="autocomplete-origin" trigger="autocomplete-trigger">
         <mock:shadow-root>
           <div class="sbb-autocomplete__backdrop">
             <div class="sbb-autocomplete__panel">
-              <div class="sbb-autocomplete__options">
+              <div class="sbb-autocomplete__options" role="listbox" id="sbb-autocomplete-1">
                 <slot></slot>
               </div>
             </div>
@@ -47,11 +47,11 @@ describe('sbb-autocomplete', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-autocomplete data-state="closed" id="sbb-autocomplete-2" role="listbox">
+      <sbb-autocomplete data-state="closed">
         <mock:shadow-root>
           <div class="sbb-autocomplete__backdrop">
             <div class="sbb-autocomplete__panel">
-              <div class="sbb-autocomplete__options">
+              <div class="sbb-autocomplete__options" id="sbb-autocomplete-2" role="listbox">
                 <slot></slot>
               </div>
             </div>
