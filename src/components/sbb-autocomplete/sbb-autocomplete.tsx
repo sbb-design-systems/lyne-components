@@ -182,6 +182,11 @@ export class SbbAutocomplete implements ComponentInterface {
     this.close();
   }
 
+  @Listen('option-click')
+  public onOptionClick(): void {
+    this.close();
+  }
+
   public componentDidLoad(): void {
     this._componentSetup();
     this._didLoad = true;
