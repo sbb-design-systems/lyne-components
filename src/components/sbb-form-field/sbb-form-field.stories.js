@@ -70,10 +70,10 @@ const TemplateInputWithErrorSpace = (args) => {
             onKeyUp={(event) => {
               if (event.currentTarget.value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field').classList.remove(args.class);
+                document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
                 document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field').classList.add(args.class);
+                document.getElementById('sbb-form-field-input').classList.add(args.class);
               }
             }}
             class={args.class}
@@ -130,10 +130,10 @@ const TemplateSelectWithErrorSpace = (args) => {
             onChange={(event) => {
               if (event.currentTarget.value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field').classList.remove(args.class);
+                document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
                 document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field').classList.add(args.class);
+                document.getElementById('sbb-form-field-input').classList.add(args.class);
               }
             }}
             class={args.class}
