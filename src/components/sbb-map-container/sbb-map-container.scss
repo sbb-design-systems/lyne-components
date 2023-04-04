@@ -25,13 +25,13 @@
         100% - var(--sbb-map-container-sidebar-width)
       );
     width: 100vw;
-    height: calc(100vh - var(--sbb-header-height));
+    height: calc(100vh - var(--sbb-map-container-margin-start, var(--sbb-header-height)));
     overflow: hidden;
   }
 }
 
 .sbb-map-container__sidebar {
-  @include sbb.scrollbar;
+  @include sbb.scrollbar-light;
 
   grid-column: 1 / 3;
   grid-row: 2 / 3;

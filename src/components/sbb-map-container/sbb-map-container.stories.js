@@ -63,22 +63,6 @@ export default {
           <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
             Menu
           </sbb-header-action>
-          <div class="spacer"></div>
-          <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
-          <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
-          <sbb-header-action
-            icon-name="globe-small"
-            id="language-menu-trigger"
-            className="last-element"
-          >
-            English
-          </sbb-header-action>
-          <sbb-menu trigger="language-menu-trigger">
-            <sbb-menu-action>Deutsch</sbb-menu-action>
-            <sbb-menu-action>Français</sbb-menu-action>
-            <sbb-menu-action>Italiano</sbb-menu-action>
-            <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
-          </sbb-menu>
         </sbb-header>
         <Story />
       </div>
