@@ -3,6 +3,8 @@ import readme from './readme.md';
 
 const fakeSituationCardStyles =
   'background-color: var(--sbb-color-milk-default); height: 116px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 16px;';
+const fakeSituationCards = [...Array(10).keys()];
+
 const Template = () => (
   <sbb-map-container>
     <div style="padding: 16px">
@@ -16,33 +18,11 @@ const Template = () => (
         ></sbb-icon>
       </sbb-form-field>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 1</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 2</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 3</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 4</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 5</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 6</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 7</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 8</p>
-      </div>
-      <div style={fakeSituationCardStyles}>
-        <p>Situation 9</p>
-      </div>
+      {fakeSituationCards.map((value) => (
+        <div style={fakeSituationCardStyles}>
+          <p>Situation {value}</p>
+        </div>
+      ))}
     </div>
 
     <div slot="map" style="height: 100%;">
@@ -59,7 +39,7 @@ export default {
   decorators: [
     (Story) => (
       <div>
-        <sbb-header expanded hide-on-scroll="">
+        <sbb-header expanded hide-on-scroll>
           <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
             Menu
           </sbb-header-action>
