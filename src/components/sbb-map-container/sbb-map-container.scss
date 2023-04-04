@@ -36,7 +36,7 @@
   grid-column: 1 / 3;
   grid-row: 2 / 3;
   width: 100%;
-  height: calc(100% + var(--sbb-border-radius-4x));
+  height: calc(100% + var(--sbb-map-container-border-radius));
   overflow: hidden auto;
   position: relative;
   z-index: 2;
