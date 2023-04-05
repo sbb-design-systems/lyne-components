@@ -133,7 +133,18 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** Removes trigger click listener on trigger change. */
   @Watch('origin')
-  public removeTriggerClickListener(
+  public resetOriginClickListener(
+    newValue: string | HTMLElement,
+    oldValue: string | HTMLElement
+  ): void {
+    if (newValue !== oldValue) {
+      this._componentSetup();
+    }
+  }
+
+  /** Removes trigger click listener on trigger change. */
+  @Watch('trigger')
+  public resetTriggerClickListener(
     newValue: string | HTMLElement,
     oldValue: string | HTMLElement
   ): void {
