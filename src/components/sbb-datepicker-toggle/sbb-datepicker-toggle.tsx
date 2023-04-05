@@ -5,19 +5,17 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
+import { HandlerRepository } from '../../global/helpers';
 import {
   documentLanguage,
-  SbbLanguageChangeEvent,
+  languageChangeHandlerAspect,
 } from '../../global/helpers/eventing/language-change-handler';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nShowCalendar } from '../../global/i18n';
-import { DateAdapter } from '../../global/interfaces/date-adapter';
 import { getDatePicker, InputUpdateEvent } from '../sbb-datepicker/sbb-datepicker.helper';
 
 @Component({
@@ -32,7 +30,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
   /** Whether the animation is disabled. */
   @Prop() public disableAnimation = false;
 
-  @Element() private _element: HTMLSbbDatepickerToggleElement;
+  @Element() private _element!: HTMLSbbDatepickerToggleElement;
 
   @State() private _triggerElement: HTMLElement;
 
@@ -52,7 +50,10 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private _datePickerController: AbortController;
 
-  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   @Watch('datePicker')
   public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
@@ -61,12 +62,8 @@ export class SbbDatepickerToggle implements ComponentInterface {
     }
   }
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._init(this.datePicker);
   }
 
@@ -76,6 +73,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._datePickerController?.abort();
+    this._handlerRepository.disconnect();
   }
 
   private async _init(datePicker?: string | HTMLElement): Promise<void> {
@@ -115,14 +113,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
   private async _datePickerChanged(event: Event): Promise<void> {
     this._datePicker = event.target as HTMLSbbDatepickerElement;
     const datepickerDate = await this._datePicker.getValueAsDate();
-    const calendarDate = this._dateAdapter.deserializeDate(this._calendarElement.selectedDate);
-    if (datepickerDate?.getTime() !== calendarDate?.getTime()) {
-      this._calendarElement.selectedDate = datepickerDate;
-
-      if (!this._dateAdapter.hasSameMonthAndYear(datepickerDate, calendarDate)) {
-        this._calendarElement.resetPosition();
-      }
-    }
+    this._calendarElement.selectedDate = datepickerDate;
   }
 
   private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
@@ -170,6 +161,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           }}
         />
         <sbb-tooltip
+          onWill-open={() => this._calendarElement.resetPosition()}
           onDid-close={() => {
             this._openedByKeyboard = false;
           }}
@@ -178,7 +170,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           }}
           trigger={this._triggerElement}
           disableAnimation={this.disableAnimation}
-          data-hide-close-button
+          hideCloseButton={true}
         >
           <sbb-calendar
             data-now={this._now()?.valueOf()}

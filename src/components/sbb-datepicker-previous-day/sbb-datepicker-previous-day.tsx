@@ -13,7 +13,7 @@ import {
 import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
 import {
   documentLanguage,
-  SbbLanguageChangeEvent,
+  languageChangeHandlerAspect,
 } from '../../global/helpers/eventing/language-change-handler';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nPreviousDay } from '../../global/i18n';
@@ -58,7 +58,8 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
 
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
-    actionElementHandlerAspect
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
   );
 
   private _datePickerElement: HTMLSbbDatepickerElement;
@@ -89,11 +90,6 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       await this._datePickerElement.setValueAsDate(date);
     }
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   public connectedCallback(): void {

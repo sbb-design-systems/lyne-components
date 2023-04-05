@@ -7,21 +7,21 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { HandlerRepository } from '../../global/helpers';
 import {
   documentLanguage,
-  SbbLanguageChangeEvent,
+  languageChangeHandlerAspect,
 } from '../../global/helpers/eventing/language-change-handler';
+import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { DateAdapter } from '../../global/interfaces/date-adapter';
+import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 
 const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const FORMAT_DATE =
@@ -139,14 +139,6 @@ export class SbbDatepicker implements ComponentInterface {
     }
   }
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-    if (this._inputElement && !this._inputElement.placeholder) {
-      this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
-    }
-  }
-
   /** Gets the input value with the correct date format. */
   @Method() public async getValueAsDate(): Promise<Date> {
     return this._dateAdapter.formatValueAsDate(this._formatValue(this._inputElement?.value));
@@ -167,7 +159,18 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
+  private _handlerRepository = new HandlerRepository(
+    this._element as HTMLElement,
+    languageChangeHandlerAspect((l) => {
+      this._currentLanguage = l;
+      if (this._inputElement) {
+        this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+      }
+    })
+  );
+
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
   }
 
@@ -183,6 +186,7 @@ export class SbbDatepicker implements ComponentInterface {
   public disconnectedCallback(): void {
     this._inputObserver?.disconnect();
     this._datePickerController?.abort();
+    this._handlerRepository.disconnect();
   }
 
   private _formatValue(value: string): string {

@@ -7,22 +7,22 @@ import {
   EventEmitter,
   h,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
+import { HandlerRepository } from '../../global/helpers';
+import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { DAYS_PER_WEEK, NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { Day, Weekday } from './sbb-calendar.custom';
-import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import {
   documentLanguage,
-  SbbLanguageChangeEvent,
+  languageChangeHandlerAspect,
 } from '../../global/helpers/eventing/language-change-handler';
-import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
+import { DAYS_PER_WEEK, NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
 import { DateAdapter } from '../../global/interfaces/date-adapter';
+import { Day, Weekday } from './sbb-calendar.custom';
 
 @Component({
   shadow: true,
@@ -65,7 +65,7 @@ export class SbbCalendar implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
@@ -89,6 +89,14 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _calendarController: AbortController;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element as HTMLElement,
+    languageChangeHandlerAspect((l) => {
+      this._currentLanguage = l;
+      this._months = this._dateAdapter.getMonthNames('long');
+    })
+  );
 
   @Watch('min')
   private _convertMinDate(newMin: Date | string | number): void {
@@ -122,14 +130,9 @@ export class SbbCalendar implements ComponentInterface {
     this._init();
   }
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-    this._months = this._dateAdapter.getMonthNames('long');
-  }
-
   public connectedCallback(): void {
     this._element.focus = this._focusCell.bind(this);
+    this._handlerRepository.connect();
     this._calendarController = new AbortController();
     window.addEventListener('resize', () => this._init(), {
       passive: true,
@@ -149,6 +152,7 @@ export class SbbCalendar implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._calendarController.abort();
+    this._handlerRepository.disconnect();
   }
 
   /** Initializes the component. */
