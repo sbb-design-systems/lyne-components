@@ -1,3 +1,5 @@
+import { h } from 'jsx-dom';
+
 import readme from './readme.md';
 import './scrollbar-internal.scss';
 
