@@ -150,7 +150,7 @@
 }
 
 .sbb-menu__content {
-  @include sbb.scrollbar-negative;
+  @include sbb.scrollbar-dark;
 
   max-height: var(--sbb-menu-max-height);
   padding-block: var(--sbb-spacing-fixed-1x);

@@ -213,7 +213,7 @@
 }
 
 .sbb-dialog__content {
-  @include sbb.scrollbar-positive;
+  @include sbb.scrollbar;
 
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);
