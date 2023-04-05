@@ -111,7 +111,6 @@ export class SbbSelect implements ComponentInterface {
       return;
     }
 
-    this._setSelectedOptionFromValue();
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
@@ -137,6 +136,16 @@ export class SbbSelect implements ComponentInterface {
       this._onOptionSelected(event.detail);
     } else {
       this._onOptionDeselected(event.detail);
+    }
+  }
+
+  @Listen('option-click')
+  public onOptionClick(event: CustomEvent<SbbOptionEventData>): void {
+    const clickedOption: HTMLSbbOptionElement = this._filteredOptions.find((option) => option.id === event.detail.id);
+    this._setActiveElement(clickedOption, this._filteredOptions[this._activeItemIndex]);
+    this._activeItemIndex = this._filteredOptions.findIndex((option) => option === clickedOption);
+    if (!this.multiple) {
+      this.close();
     }
   }
 
@@ -215,7 +224,10 @@ export class SbbSelect implements ComponentInterface {
     this._openPanelEventsController?.abort();
     this._element.setAttribute('aria-expanded', 'false');
     toggleDatasetEntry(this._originElement, 'overlayOpen', false);
-    this._resetActiveElement();
+    this._element.removeAttribute('aria-activedescendant');
+    if (this.multiple) {
+      this._resetActiveElement();
+    }
     this.didClose.emit();
   }
 
@@ -322,7 +334,12 @@ export class SbbSelect implements ComponentInterface {
       this._filteredOptions[nextIndex],
       this._filteredOptions[this._activeItemIndex]
     );
-    if (event && event.shiftKey) {
+    if (!this.multiple) {
+      this._setSelectedElement(
+        this._filteredOptions[nextIndex],
+        this._filteredOptions[this._activeItemIndex]
+      );
+    } else if (event?.shiftKey) {
       this._filteredOptions[nextIndex].selected = !this._filteredOptions[nextIndex].selected;
     }
     this._activeItemIndex = nextIndex;
@@ -333,18 +350,22 @@ export class SbbSelect implements ComponentInterface {
     lastActiveOption: HTMLSbbOptionElement
   ): void {
     nextActiveOption.active = true;
-    if (!this.multiple) {
-      nextActiveOption.selected = true;
-    }
     this._element.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
       lastActiveOption.active = false;
-      if (!this.multiple) {
-        lastActiveOption.selected = false;
-      }
+    }
+  }
+
+  private _setSelectedElement(
+    nextActiveOption: HTMLSbbOptionElement,
+    lastActiveOption: HTMLSbbOptionElement
+  ): void {
+    nextActiveOption.selected = true;
+    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
+      lastActiveOption.selected = false;
     }
   }
 
@@ -354,7 +375,6 @@ export class SbbSelect implements ComponentInterface {
     if (activeElement) {
       activeElement.active = false;
     }
-    this._element.removeAttribute('aria-activedescendant');
     this._activeItemIndex = -1;
   }
 
@@ -364,20 +384,22 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _setSelectedOptionFromValue(): void {
-    if (!Array.isArray(this.value)) {
-      const option = this._filteredOptions.find((option) => option.value === this.value);
-      if (option) {
-        option.selected = true;
-        option.active = true;
-        this._activeItemIndex = this._filteredOptions.indexOf(option);
+  private _setValueFromSelectedOption(): void {
+    if (!this.multiple) {
+      const selectedOption = this._filteredOptions.find((option) => option.selected);
+      if (selectedOption) {
+        this._setActiveElement(selectedOption, this._filteredOptions[this._activeItemIndex]);
+        this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selectedOption);
+        this.value = selectedOption.value;
       }
-    } else if (this.value.length > 0) {
-      for (const el of this.value) {
-        const option = this._filteredOptions.find((option) => option.value === el);
-        if (option) {
-          option.selected = true;
+    } else {
+      const options = this._filteredOptions.filter((option) => option.selected);
+      if (options && options.length > 0) {
+        const value = [];
+        for (const option of options) {
+          value.push(option.value);
         }
+        this.value = value;
       }
     }
   }
@@ -437,7 +459,7 @@ export class SbbSelect implements ComponentInterface {
               id={this._overlayId}
               ref={(containerRef) => (this._optionContainer = containerRef)}
             >
-              <slot onSlotchange={(): void => this._setSelectedOptionFromValue()}></slot>
+              <slot onSlotchange={(): void => this._setValueFromSelectedOption()}></slot>
             </div>
           </div>
         </div>

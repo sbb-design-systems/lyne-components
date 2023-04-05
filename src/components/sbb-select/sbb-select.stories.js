@@ -162,11 +162,14 @@ const changeEventHandler = (event) => {
   document.getElementById('container-value').append(div);
 };
 
-const createOptions = (numberOfOptions, disableOption, group) => {
+const createOptions = (numberOfOptions, disableOption, group, selectValue) => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
     const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
+    const selected = Array.isArray(selectValue)
+      ? selectValue.includes(value)
+      : selectValue === value;
     return (
-      <sbb-option value={value} disabled={disableOption && i < 2}>
+      <sbb-option value={value} disabled={disableOption && i < 2} selected={selected}>
         {value}
       </sbb-option>
     );
@@ -198,7 +201,7 @@ const SelectTemplate = ({
     <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
       {withOptionGroup
         ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-        : createOptions(numberOfOptions, disableOption)}
+        : createOptions(numberOfOptions, disableOption, false, args.value)}
     </sbb-select>
   );
 };
@@ -220,6 +223,9 @@ const FormFieldTemplateWithError = ({
   disableGroup,
   ...args
 }) => {
+  if (args.multiple && args.value) {
+    args.value = [args.value];
+  }
   const sbbFormError = <sbb-form-error>Error</sbb-form-error>;
   return (
     <div style="padding: 2rem; background-color: #e6e6e6;">
@@ -246,7 +252,7 @@ const FormFieldTemplateWithError = ({
         >
           {withOptionGroup
             ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption)}
+            : createOptions(numberOfOptions, disableOption, false, args.value)}
         </sbb-select>
         {sbbFormError}
       </sbb-form-field>
