@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.31.0](https://github.com/lyne-design-system/lyne-components/compare/v0.30.10...v0.31.0) (2023-04-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-train-formation:** - Component `sbb-wagon` was renamed to `sbb-train-wagon`
+
+* Component `sbb-wagon-blocked-passage` was renamed to `sbb-train-blocked-passage`
+* Component `sbb-sector` was completely removed. Now you have to set the sector as property / attribute on `sbb-train-wagon` and additionally now only the letter should be provided and not the word "sector".
+* Property `customAccessibilityText` of `sbb-train-wagon` has been removed without replacement.
+
+### Bug Fixes
+
+- **sbb-train-formation:** fix accessibility and overlapping sectors ([#1674](https://github.com/lyne-design-system/lyne-components/issues/1674)) ([8a09083](https://github.com/lyne-design-system/lyne-components/commit/8a0908323348e8ab33b003ff491849815ec03465)), closes [#1570](https://github.com/lyne-design-system/lyne-components/issues/1570) [#1638](https://github.com/lyne-design-system/lyne-components/issues/1638)
+
 ### [0.30.10](https://github.com/lyne-design-system/lyne-components/compare/v0.30.9...v0.30.10) (2023-04-04)
 
 ### Bug Fixes
