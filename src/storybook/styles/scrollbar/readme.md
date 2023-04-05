@@ -1,6 +1,6 @@
 ## Scrollbar
 
-Lyne offers 4 variants of scrollbar mixins.
+Lyne offers two sizes and color variants of scrollbar mixins.
 
 In Firefox the styles are looking differently as there are no possibilities to style the scrollbar exactly as designed.
 

@@ -60,18 +60,10 @@ ThickNegative.argTypes = defaultArgTypes;
 ThickNegative.args = { ...defaultArgs, size: size.options[1], negative: true };
 
 export default {
-  decorators: [
-    (Story) => (
-      <div style={'padding: 2rem'}>
-        <Story />
-      </div>
-    ),
-  ],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'styles/scrollbar',
 };
