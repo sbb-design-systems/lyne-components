@@ -4,6 +4,10 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+// Fixes the gap between the origin and the overlay by creating conjuction
+// corners based on the origin element border radius
+@include sbb.overlayGapFix(var(--sbb-autocomplete-border-radius));
+
 :host {
   --sbb-autocomplete-position-x: 0;
   --sbb-autocomplete-position-y: 0;
@@ -93,31 +97,6 @@
     var(--sbb-autocomplete-animation-timing-function);
 }
 
-.sbb-autocomplete__gap-fix-wrapper {
-  position: relative;
-  overflow: hidden;
-  width: var(--sbb-autocomplete-border-radius);
-  height: var(--sbb-autocomplete-border-radius);
-  background-color: transparent;
-}
-
-.sbb-autocomplete__gap-fix-corner {
-  position: absolute;
-  border-radius: 50%;
-  border: calc(var(--sbb-autocomplete-border-radius) / 2) solid var(--sbb-color-white-default);
-  width: calc(var(--sbb-autocomplete-border-radius) * 3);
-  height: calc(var(--sbb-autocomplete-border-radius) * 3);
-  inset-block-end: calc((var(--sbb-autocomplete-border-radius) / 2) * -1);
-}
-
-.sbb-autocomplete__gap-fix-corner#left {
-  inset-inline-start: calc((var(--sbb-autocomplete-border-radius) / 2) * -1);
-}
-
-.sbb-autocomplete__gap-fix-corner#right {
-  inset-inline-end: calc((var(--sbb-autocomplete-border-radius) / 2) * -1);
-}
-
 .sbb-autocomplete__panel {
   display: block;
   position: absolute;
@@ -192,8 +171,6 @@
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: 0;
   border-radius: var(--sbb-autocomplete-options-border-radius);
-
-  // TODO: add `var(--sbb-spacing-fixed-4x)` margin
   max-height: var(--sbb-autocomplete-max-height);
   min-height: var(--sbb-autocomplete-min-height);
   pointer-events: all;
