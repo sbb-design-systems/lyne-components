@@ -99,6 +99,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _openPanelEventsController: AbortController;
   private _overlayId = `sbb-autocomplete-${++nextId}`;
   private _activeItemIndex = -1;
+  private _didLoad = false;
 
   private get _options(): HTMLSbbOptionElement[] {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
@@ -170,8 +171,15 @@ export class SbbAutocomplete implements ComponentInterface {
     this.close();
   }
 
-  public connectedCallback(): void {
+  public componentDidLoad(): void {
     this._componentSetup();
+    this._didLoad = true;
+  }
+
+  public connectedCallback(): void {
+    if (this._didLoad) {
+      this._componentSetup();
+    }
   }
 
   public disconnectedCallback(): void {
@@ -192,12 +200,15 @@ export class SbbAutocomplete implements ComponentInterface {
    * @returns 'origin' or the first 'sbb-form-field' ancestor.
    */
   private _getOriginElement(): HTMLElement {
-    if (!this.origin) {
-      return this._element.closest('sbb-form-field') as HTMLSbbFormFieldElement;
-    }
+    let result: HTMLElement;
 
-    const result =
-      typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
+    if (!this.origin) {
+      result = this._element
+        .closest('sbb-form-field')
+        ?.shadowRoot.querySelector('#form-field-wrapper');
+    } else {
+      result = typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
+    }
 
     if (!result) {
       throw new Error(
@@ -236,16 +247,12 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    // Reset attributes to the old origin and add them to the new one
-    this._removeOriginAttributes(this._originElement);
-    this._setOriginAttributes(anchorElem);
-
     this._originElement = anchorElem;
 
     toggleDatasetEntry(
       this._element,
       'autocompleteOriginBorderless',
-      this._originElement.hasAttribute('borderless')
+      this._element.closest('sbb-form-field')?.hasAttribute('borderless')
     );
   }
 
@@ -447,19 +454,6 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Highlight the searched text on the options. */
   private _highlightOptions(searchTerm: string): void {
     this._options.forEach((option) => option.highlight(searchTerm));
-  }
-
-  private _setOriginAttributes(element: HTMLElement): void {
-    // These attributes are used to handle visual effects
-    toggleDatasetEntry(element, 'autocompleteOrigin', true);
-    toggleDatasetEntry(element, 'autocompleteOpen', false);
-    toggleDatasetEntry(element, 'autocompleteDisableAnimation', this.disableAnimation);
-  }
-
-  private _removeOriginAttributes(element: HTMLElement): void {
-    element?.removeAttribute('data-autocomplete-origin');
-    element?.removeAttribute('data-autocomplete-open');
-    element?.removeAttribute('data-autocomplete-disable-animation');
   }
 
   private _setTriggerAttributes(element: HTMLInputElement): void {
