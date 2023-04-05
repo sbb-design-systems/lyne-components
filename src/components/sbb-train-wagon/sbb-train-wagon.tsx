@@ -13,7 +13,6 @@ import {
   Watch,
 } from '@stencil/core';
 import { InterfaceSbbTrainWagonAttributes } from './sbb-train-wagon.custom.d';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -67,8 +66,7 @@ export class SbbTrainWagon implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
-  /** Host element. */
-  @Element() private _element!: HTMLElement;
+  @Element() private _element!: HTMLSbbTrainWagonElement;
 
   private _handlerRepository = new HandlerRepository(
     this._element,

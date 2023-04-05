@@ -6,13 +6,16 @@ import {
   EventEmitter,
   h,
   JSX,
-  Listen,
   Prop,
   State,
 } from '@stencil/core';
 import { InterfaceSbbTrainAttributes } from './sbb-train.custom.d';
 import { i18nTrain, i18nWagonsLabel } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - Used for slotting sbb-train-wagons.
@@ -24,8 +27,6 @@ import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/l
   tag: 'sbb-train',
 })
 export class SbbTrain implements ComponentInterface {
-  @Element() private _element: HTMLSbbTrainElement;
-
   /** General label for "driving direction". */
   @Prop() public directionLabel!: string;
 
@@ -48,13 +49,20 @@ export class SbbTrain implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public trainSlotChange: EventEmitter;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  @Element() private _element!: HTMLSbbTrainElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._readWagons();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   /**

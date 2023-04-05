@@ -2,7 +2,11 @@ import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } f
 
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 interface AggregatedSector {
   label: string;
@@ -20,8 +24,6 @@ interface AggregatedSector {
   tag: 'sbb-train-formation',
 })
 export class SbbTrainFormation implements ComponentInterface {
-  @Element() private _element: HTMLElement;
-
   /** Option to hide all wagon labels. */
   @Prop({ reflect: true }) public hideWagonLabel = false;
 
@@ -31,17 +33,26 @@ export class SbbTrainFormation implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
+  @Element() private _element!: HTMLSbbTrainFormationElement;
+
   /** Element that defines the visible content width. */
   private _formationDiv: HTMLDivElement;
 
   private _contentResizeObserver = new ResizeObserver(() => this._applyCssWidth());
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._handleSlotChange();
   }
 
   public disconnectedCallback(): void {
     this._contentResizeObserver.disconnect();
+    this._handlerRepository.disconnect();
   }
 
   /**
@@ -51,11 +62,6 @@ export class SbbTrainFormation implements ComponentInterface {
   private _applyCssWidth(): void {
     const contentWidth = this._formationDiv.getBoundingClientRect().width;
     this._formationDiv.style.setProperty('--sbb-train-direction-width', `${contentWidth}px`);
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   @Listen('trainSlotChange')
