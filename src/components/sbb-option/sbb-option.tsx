@@ -130,6 +130,7 @@ export class SbbOption implements ComponentInterface {
   @Listen('click', { passive: true })
   public selectByClick(event): void {
     if (this.disabled || this._disabledFromGroup) {
+      event.stopPropagation();
       return;
     }
     if (this._isMultipleSelect()) {

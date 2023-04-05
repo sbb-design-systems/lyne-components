@@ -435,10 +435,10 @@ export class SbbSelect implements ComponentInterface {
         aria-owns={this._overlayId}
         data-state={this._state}
         onKeydown={(event) => this._onHostKeydown(event)}
+        onClick={() => this._toggleOpening()}
         tabindex="0"
       >
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div class="sbb-select__trigger" onClick={() => this._toggleOpening()}>
+        <div class="sbb-select__trigger">
           {this._displayValue ?? (
             <span class="sbb-select__trigger--placeholder">{this.placeholder}</span>
           )}

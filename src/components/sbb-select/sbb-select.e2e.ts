@@ -80,7 +80,17 @@ describe('sbb-select', () => {
   });
 
   it('handles selection', async () => {
-    element.setAttribute('value', '1');
+    page = await newE2EPage();
+    await page.setContent(`
+      <div id="parent">
+        <sbb-select>
+          <sbb-option id="option-1" value="1" selected>1</sbb-option>
+          <sbb-option id="option-2" value="2">2</sbb-option>
+          <sbb-option id="option-3" value="3">3</sbb-option>
+        </sbb-select>
+      </div>
+    `);
+    element = await page.find('sbb-select');
     await page.waitForChanges();
 
     const didOpen = await page.spyOnEvent(events.didOpen);
@@ -88,6 +98,8 @@ describe('sbb-select', () => {
     await page.waitForChanges();
 
     expect(didOpen).toHaveReceivedEventTimes(1);
+    expect(await element.getProperty('value')).toEqual('1');
+    expect(element).toEqualAttribute('aria-activedescendant', 'option-1');
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
     expect(firstOption).toHaveAttribute('active');
     expect(firstOption).toHaveAttribute('selected');
