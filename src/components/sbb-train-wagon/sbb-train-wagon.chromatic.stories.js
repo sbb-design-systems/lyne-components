@@ -1,4 +1,4 @@
-import config, * as stories from './sbb-wagon.stories';
+import config, * as stories from './sbb-train-wagon.stories';
 import { chromaticStoryConfig, combineStories } from '../../global/helpers/chromatic';
 
 export const chromaticStories = combineStories(config, stories);

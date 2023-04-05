@@ -66,7 +66,7 @@ In thinking about accessibility, it is useful to place icon use into one of thre
  - [sbb-toggle-option](../sbb-toggle-option)
  - [sbb-tooltip-trigger](../sbb-tooltip-trigger)
  - [sbb-train](../sbb-train)
- - [sbb-wagon](../sbb-wagon)
+ - [sbb-train-wagon](../sbb-train-wagon)
 
 ### Graph
 ```mermaid
@@ -87,7 +87,7 @@ graph TD;
   sbb-toggle-option --> sbb-icon
   sbb-tooltip-trigger --> sbb-icon
   sbb-train --> sbb-icon
-  sbb-wagon --> sbb-icon
+  sbb-train-wagon --> sbb-icon
   style sbb-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

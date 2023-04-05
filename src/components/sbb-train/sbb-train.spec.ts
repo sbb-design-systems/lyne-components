@@ -2,91 +2,116 @@ import { SbbTrain } from './sbb-train';
 import { newSpecPage } from '@stencil/core/testing';
 
 describe('sbb-train', () => {
-  it('renders with left indicator', async () => {
+  it('should render', async () => {
     const { root } = await newSpecPage({
       components: [SbbTrain],
-      html: '<sbb-train direction-label="Driving direction" station="Bern" direction="left"/>',
+      html: '<sbb-train direction-label="Driving direction" station="Bern" />',
     });
 
     expect(root).toEqualHtml(`
       <sbb-train direction-label="Driving direction" station="Bern" direction="left">
         <mock:shadow-root>
           <div class="sbb-train">
-            <div class="sbb-train__sectors">
+            <span class="sbb-screenreaderonly">Train, Driving direction Bern.</span>
+            <ul class="sbb-train__wagons" aria-label="Coaches of the train"></ul>
+            <span hidden>
               <slot />
-            </div>
-            <div aria-label="Driving direction Bern." class="sbb-train__direction">
-              <h3 aria-hidden="true" class="sbb-train__direction-heading">
+            </span>
+            <div class="sbb-train__direction" aria-hidden="true">
+              <div class="sbb-train__direction-heading">
                 <span class="sbb-train__direction-label">Driving direction</span>
                 <span class="sbb-train__direction-station">Bern</span>
-              </h3>
+              </div>
               <div class="sbb-train__direction-indicator">
                 <div class="sbb-train__sticky-wrapper">
                   <sbb-icon class="sbb-train__direction-arrow" name="chevron-small-left-small"></sbb-icon>
                 </div>
               </div>
             </div>
-          </div>
-        </mock:shadow-root>
-      </sbb-train>
-      `);
-  });
-  it('renders with right indicator', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbTrain],
-      html: '<sbb-train direction-label="Driving direction" station="Bern" direction="right"/>',
-    });
-
-    expect(root).toEqualHtml(`
-      <sbb-train direction-label="Driving direction" station="Bern" direction="right">
-        <mock:shadow-root>
-          <div class="sbb-train">
-            <div class="sbb-train__sectors">
-              <slot />
-            </div>
-              <div aria-label="Driving direction Bern." class="sbb-train__direction">
-                <h3 aria-hidden="true" class="sbb-train__direction-heading">
-                  <span class="sbb-train__direction-label">Driving direction</span>
-                  <span class="sbb-train__direction-station">Bern</span>
-                </h3>
-                <div class="sbb-train__direction-indicator">
-                  <div class="sbb-train__sticky-wrapper">
-                    <sbb-icon class="sbb-train__direction-arrow" name="chevron-small-right-small"></sbb-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
           </mock:shadow-root>
         </sbb-train>
       `);
   });
 
-  it('renders without station', async () => {
+  it('should hide direction label element if not present', async () => {
     const { root } = await newSpecPage({
       components: [SbbTrain],
-      html: '<sbb-train direction-label="Driving direction" station="" direction="right"/>',
+      html: '<sbb-train/>',
     });
 
-    expect(root).toEqualHtml(`
-      <sbb-train direction-label="Driving direction" station="" direction="right">
-        <mock:shadow-root>
-          <div class="sbb-train">
-            <div class="sbb-train__sectors">
-              <slot />
-            </div>
-              <div aria-label="Driving direction ." class="sbb-train__direction">
-                <h3 aria-hidden="true" class="sbb-train__direction-heading">
-                  <span class="sbb-train__direction-label">Driving direction</span>
-                </h3>
-                <div class="sbb-train__direction-indicator">
-                  <div class="sbb-train__sticky-wrapper">
-                    <sbb-icon class="sbb-train__direction-arrow" name="chevron-small-right-small"></sbb-icon>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </mock:shadow-root>
-        </sbb-train>
-      `);
+    expect(root.shadowRoot.querySelector('.sbb-train__direction')).toBeNull();
+  });
+
+  it('should hide station element if not present', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTrain],
+      html: '<sbb-train direction-label="Driving direction"/>',
+    });
+
+    expect(root.shadowRoot.querySelector('.sbb-train__direction-station')).toBeNull();
+  });
+
+  it('should display left indicator if direction is left', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTrain],
+      html: '<sbb-train direction-label="Driving direction" station="Bern" direction="left" />',
+    });
+
+    expect(
+      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name')
+    ).toContain('-left-');
+  });
+
+  it('should display right indicator if direction is right', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbTrain],
+      html: '<sbb-train direction-label="Driving direction" station="Bern" direction="right" />',
+    });
+
+    expect(
+      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name')
+    ).toContain('-right-');
+  });
+
+  describe('accessibility label', () => {
+    it('should create aria label with no direction-label and no accessibility-label', async () => {
+      const { root } = await newSpecPage({
+        components: [SbbTrain],
+        html: '<sbb-train />',
+      });
+
+      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual('Train.');
+    });
+
+    it('should create aria label with direction-label and no accessibility-label', async () => {
+      const { root } = await newSpecPage({
+        components: [SbbTrain],
+        html: '<sbb-train direction-label="Direction of Travel"/>',
+      });
+
+      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual('Train.');
+    });
+
+    it('should create aria label with direction-label, station and no accessibility-label', async () => {
+      const { root } = await newSpecPage({
+        components: [SbbTrain],
+        html: '<sbb-train direction-label="Direction of Travel" station="Bern"/>',
+      });
+
+      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual(
+        'Train, Direction of Travel Bern.'
+      );
+    });
+
+    it('should create aria label with direction-label, station and accessibility-label', async () => {
+      const { root } = await newSpecPage({
+        components: [SbbTrain],
+        html: '<sbb-train direction-label="Direction of Travel" station="Bern" accessibility-label="Additional label"/>',
+      });
+
+      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual(
+        'Train, Direction of Travel Bern, Additional label.'
+      );
+    });
   });
 });
