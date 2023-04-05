@@ -5,42 +5,59 @@ import './scrollbar-internal.scss';
 
 const text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
 
-const Template = (args) => (
-  <div class={`overflow-container scrollbar-${args.variant}`}>
-    <div class="inner-box">{text}</div>
-  </div>
-);
+const Template = (args) => {
+  let scrollbarClass = 'scrollbar';
+  if (args.size === 'thick') {
+    scrollbarClass += '-thick';
+  }
+  if (args.negative) {
+    scrollbarClass += '-negative';
+  }
+  return (
+    <div class={`overflow-container ${scrollbarClass}`}>
+      <div class="inner-box">{text}</div>
+    </div>
+  );
+};
 
-const variant = {
+const size = {
   control: {
     type: 'inline-radio',
   },
-  options: ['light', 'dark', 'light-thick', 'dark-thick'],
+  options: ['thin', 'thick'],
+};
+
+const negative = {
+  control: {
+    type: 'boolean',
+  },
 };
 
 const defaultArgTypes = {
-  variant,
+  size,
+  negative,
 };
 
 const defaultArgs = {
-  variant: variant.options[0],
+  size: size.options[0],
+  negative: false,
 };
 
-export const Light = Template.bind({});
-Light.argTypes = defaultArgTypes;
-Light.args = { ...defaultArgs };
+export const Thin = Template.bind({});
+Thin.argTypes = defaultArgTypes;
+Thin.args = { ...defaultArgs };
 
-export const Dark = Template.bind({});
-Dark.argTypes = defaultArgTypes;
-Dark.args = { ...defaultArgs, variant: variant.options[1] };
+export const ThinNegative = Template.bind({});
+ThinNegative.argTypes = defaultArgTypes;
+ThinNegative.args = { ...defaultArgs, negative: true };
 
-export const LightThick = Template.bind({});
-LightThick.argTypes = defaultArgTypes;
-LightThick.args = { ...defaultArgs, variant: variant.options[2] };
+export const Thick = Template.bind({});
+Thick.argTypes = defaultArgTypes;
+Thick.args = { ...defaultArgs, size: size.options[1] };
 
-export const DarkThick = Template.bind({});
-DarkThick.argTypes = defaultArgTypes;
-DarkThick.args = { ...defaultArgs, variant: variant.options[3] };
+export const ThickNegative = Template.bind({});
+ThickNegative.argTypes = defaultArgTypes;
+ThickNegative.args = { ...defaultArgs, size: size.options[1], negative: true };
 
 export default {
   decorators: [

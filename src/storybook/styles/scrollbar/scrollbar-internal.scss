@@ -1,25 +1,25 @@
 @use '../../../global/styles' as sbb;
 
-.scrollbar-dark {
-  @include sbb.scrollbar-dark;
+.scrollbar {
+  @include sbb.scrollbar;
+}
 
+.scrollbar-negative {
+  @include sbb.scrollbar-negative;
+}
+
+.scrollbar-thick {
+  @include sbb.scrollbar-thick;
+}
+
+.scrollbar-thick-negative {
+  @include sbb.scrollbar-thick-negative;
+}
+
+.scrollbar-negative,
+.scrollbar-thick-negative {
   background-color: var(--sbb-color-charcoal-default);
   color: var(--sbb-color-white-default);
-}
-
-.scrollbar-light {
-  @include sbb.scrollbar-light;
-}
-
-.scrollbar-dark-thick {
-  @include sbb.scrollbar-dark-thick;
-
-  background-color: var(--sbb-color-charcoal-default);
-  color: var(--sbb-color-white-default);
-}
-
-.scrollbar-light-thick {
-  @include sbb.scrollbar-light-thick;
 }
 
 .overflow-container {

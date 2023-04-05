@@ -31,7 +31,7 @@
 }
 
 .sbb-map-container__sidebar {
-  @include sbb.scrollbar-light;
+  @include sbb.scrollbar;
 
   grid-column: 1 / 3;
   grid-row: 2 / 3;

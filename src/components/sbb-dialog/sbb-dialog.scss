@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.scrollbar-variables-light;
+  @include sbb.scrollbar-variables;
 
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-dialog-color: var(--sbb-color-black-default);
@@ -67,7 +67,7 @@
 }
 
 :host([negative]:not([negative='false'])) {
-  @include sbb.scrollbar-variables-dark;
+  @include sbb.scrollbar-variables-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-dialog-color: var(--sbb-color-white-default);
@@ -213,7 +213,7 @@
 }
 
 .sbb-dialog__content {
-  @include sbb.scrollbar;
+  @include sbb.scrollbar-rules;
 
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);
