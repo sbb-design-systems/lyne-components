@@ -22,16 +22,14 @@ const defaultArgs = {
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
+  const queryTrigger = () =>
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
 
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
-  );
+  await waitForComponentsReady(queryTrigger);
 
-  await waitForStablePosition(() =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
-  );
+  await waitForStablePosition(queryTrigger);
 
-  const toggle = await canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
+  const toggle = await queryTrigger();
   userEvent.click(toggle);
 };
 
