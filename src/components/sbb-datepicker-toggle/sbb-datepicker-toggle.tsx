@@ -11,7 +11,10 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import {
+  documentLanguage,
+  SbbLanguageChangeEvent,
+} from '../../global/helpers/eventing/language-change-handler';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nShowCalendar } from '../../global/i18n';
 import { DateAdapter } from '../../global/interfaces/date-adapter';

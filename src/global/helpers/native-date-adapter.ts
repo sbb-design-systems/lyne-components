@@ -1,5 +1,5 @@
 import { DateAdapter } from '../interfaces/date-adapter';
-import { documentLanguage } from './language';
+import { documentLanguage } from './eventing/language-change-handler';
 
 export const DAYS_PER_WEEK = 7;
 

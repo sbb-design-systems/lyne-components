@@ -17,7 +17,10 @@ import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { DAYS_PER_WEEK, NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { Day, Weekday } from './sbb-calendar.custom';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import {
+  documentLanguage,
+  SbbLanguageChangeEvent,
+} from '../../global/helpers/eventing/language-change-handler';
 import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
 import { DateAdapter } from '../../global/interfaces/date-adapter';
 

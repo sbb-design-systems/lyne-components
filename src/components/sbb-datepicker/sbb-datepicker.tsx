@@ -16,7 +16,10 @@ import {
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import {
+  documentLanguage,
+  SbbLanguageChangeEvent,
+} from '../../global/helpers/eventing/language-change-handler';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { DateAdapter } from '../../global/interfaces/date-adapter';
 
