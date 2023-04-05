@@ -2,12 +2,11 @@
 
 @mixin scrollbar {
   --sbb-scrollbar-width: var(--sbb-spacing-fixed-4x);
-  --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(2)};
-  --sbb-scrollbar-thumb-width-hover: #{functions.px-to-rem-build(4)};
 
   &::-webkit-scrollbar {
     // Total width
     width: var(--sbb-scrollbar-width);
+    height: var(--sbb-scrollbar-width);
   }
 
   /* Scrollbar itself */
@@ -32,21 +31,73 @@
   }
 
   /* Styles for Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: var(--sbb-scrollbar-color-hover, var(--sbb-scrollbar-color, currentcolor))
-    transparent;
+  scrollbar-width: var(--sbb-scrollbar-firefox-width);
+  scrollbar-color: var(--sbb-scrollbar-color, currentcolor) transparent;
 }
 
-@mixin scrollbar-dark {
-  @include scrollbar;
+@mixin scrollbar-variables--size-thin {
+  --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(2)};
+  --sbb-scrollbar-thumb-width-hover: #{functions.px-to-rem-build(4)};
+  --sbb-scrollbar-firefox-width: thin;
+}
 
+@mixin scrollbar-variables--size-thick {
+  --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(8)};
+  --sbb-scrollbar-thumb-width-hover: var(--sbb-scrollbar-thumb-width);
+  --sbb-scrollbar-firefox-width: auto;
+}
+
+@mixin scrollbar-variables--color-dark {
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
 }
 
-@mixin scrollbar-light {
-  @include scrollbar;
-
+@mixin scrollbar-variables--color-light {
   --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
+}
+
+@mixin scrollbar-variables--color-light-thick {
+  --sbb-scrollbar-color: var(--sbb-color-cement-default);
+  --sbb-scrollbar-color-hover: var(--sbb-color-metal-default);
+}
+
+@mixin scrollbar-variables-light {
+  @include scrollbar-variables--size-thin;
+  @include scrollbar-variables--color-light;
+}
+
+@mixin scrollbar-variables-dark {
+  @include scrollbar-variables--size-thin;
+  @include scrollbar-variables--color-dark;
+}
+
+@mixin scrollbar-variables-dark-thick {
+  @include scrollbar-variables--size-thick;
+  @include scrollbar-variables--color-dark;
+}
+
+@mixin scrollbar-variables-light-thick {
+  @include scrollbar-variables--size-thick;
+  @include scrollbar-variables--color-light-thick;
+}
+
+@mixin scrollbar-dark {
+  @include scrollbar-variables-dark;
+  @include scrollbar;
+}
+
+@mixin scrollbar-light {
+  @include scrollbar-variables-light;
+  @include scrollbar;
+}
+
+@mixin scrollbar-dark-thick {
+  @include scrollbar-variables-dark-thick;
+  @include scrollbar;
+}
+
+@mixin scrollbar-light-thick {
+  @include scrollbar-variables-light-thick;
+  @include scrollbar;
 }
