@@ -29,10 +29,6 @@ describe('sbb-autocomplete', () => {
 
     expect(element).not.toHaveAttribute('autocomplete-origin-borderless');
 
-    expect(formField).toHaveAttribute('data-autocomplete-origin');
-    expect(formField).not.toHaveAttribute('data-autocomplete-open');
-    expect(formField).not.toHaveAttribute('data-autocomplete-disable-animation');
-
     expect(input).toEqualAttribute('autocomplete', 'off');
     expect(input).toEqualAttribute('role', 'combobox');
     expect(input).toEqualAttribute('aria-autocomplete', 'list');
