@@ -1,0 +1,34 @@
+@use '../../../global/styles' as sbb;
+
+.scrollbar-dark {
+  @include sbb.scrollbar-dark;
+
+  background-color: var(--sbb-color-charcoal-default);
+  color: var(--sbb-color-white-default);
+}
+
+.scrollbar-light {
+  @include sbb.scrollbar-light;
+}
+
+.scrollbar-dark-thick {
+  @include sbb.scrollbar-dark-thick;
+
+  background-color: var(--sbb-color-charcoal-default);
+  color: var(--sbb-color-white-default);
+}
+
+.scrollbar-light-thick {
+  @include sbb.scrollbar-light-thick;
+}
+
+.overflow-container {
+  padding: var(--sbb-spacing-responsive-xs);
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+}
+
+.inner-box {
+  width: 500px;
+}

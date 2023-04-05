@@ -26,7 +26,8 @@
   }
 
   /* Hide button (top and bottom of the scrollbar) */
-  &::-webkit-scrollbar-button {
+  &::-webkit-scrollbar-button,
+  &::-webkit-scrollbar-corner {
     display: none;
   }
 
