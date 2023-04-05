@@ -170,7 +170,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           }}
           trigger={this._triggerElement}
           disableAnimation={this.disableAnimation}
-          hideCloseButton={true}
+          hide-close-button={true}
         >
           <sbb-calendar
             data-now={this._now()?.valueOf()}

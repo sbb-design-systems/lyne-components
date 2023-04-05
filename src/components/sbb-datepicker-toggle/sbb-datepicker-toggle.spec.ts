@@ -14,7 +14,7 @@ describe('sbb-datepicker-toggle', () => {
       <sbb-datepicker-toggle slot="prefix">
         <mock:shadow-root>
           <sbb-tooltip-trigger aria-label="Show calendar" iconName="calendar-small" disabled=""></sbb-tooltip-trigger>
-          <sbb-tooltip data-hide-close-button="">
+          <sbb-tooltip hide-close-button="">
             <sbb-calendar></sbb-calendar>
           </sbb-tooltip>
         </mock:shadow-root>
@@ -40,7 +40,7 @@ describe('sbb-datepicker-toggle', () => {
         <sbb-datepicker-toggle slot="prefix">
           <mock:shadow-root>
             <sbb-tooltip-trigger aria-label="Show calendar" iconName="calendar-small"></sbb-tooltip-trigger>
-            <sbb-tooltip data-hide-close-button="">
+            <sbb-tooltip hide-close-button="">
               <sbb-calendar max="" min=""></sbb-calendar>
             </sbb-tooltip>
           </mock:shadow-root>
@@ -65,7 +65,7 @@ describe('sbb-datepicker-toggle', () => {
         <sbb-datepicker-toggle slot="prefix">
           <mock:shadow-root>
             <sbb-tooltip-trigger aria-label="Show calendar" iconName="calendar-small" disabled=""></sbb-tooltip-trigger>
-            <sbb-tooltip data-hide-close-button="">
+            <sbb-tooltip hide-close-button="">
               <sbb-calendar max="" min=""></sbb-calendar>
             </sbb-tooltip>
           </mock:shadow-root>
@@ -90,7 +90,7 @@ describe('sbb-datepicker-toggle', () => {
         <sbb-datepicker-toggle slot="prefix">
           <mock:shadow-root>
             <sbb-tooltip-trigger aria-label="Show calendar" iconName="calendar-small"></sbb-tooltip-trigger>
-            <sbb-tooltip data-hide-close-button="">
+            <sbb-tooltip hide-close-button="">
               <sbb-calendar min="1600000000" max="1700000000" wide=""></sbb-calendar>
             </sbb-tooltip>
           </mock:shadow-root>
