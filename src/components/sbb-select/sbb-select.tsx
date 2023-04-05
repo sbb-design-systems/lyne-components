@@ -15,7 +15,6 @@ import {
 } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isEventOnElement } from '../../global/helpers/position';
-import { assignId } from '../../global/helpers/assign-id';
 import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import {
@@ -413,11 +412,11 @@ export class SbbSelect implements ComponentInterface {
         aria-controls={this._overlayId}
         aria-owns={this._overlayId}
         data-state={this._state}
-        onClick={() => this._toggleOpening()}
         onKeydown={(event) => this._onHostKeydown(event)}
         tabindex="0"
       >
-        <div class="sbb-select__trigger">
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+        <div class="sbb-select__trigger" onClick={() => this._toggleOpening()}>
           {this._displayValue ?? (
             <span class="sbb-select__trigger--placeholder">{this.placeholder}</span>
           )}
@@ -435,10 +434,8 @@ export class SbbSelect implements ComponentInterface {
               role="listbox"
               aria-multiselectable={this.multiple}
               class="sbb-select__options"
-              ref={(containerRef) => {
-                assignId(() => this._overlayId);
-                this._optionContainer = containerRef;
-              }}
+              id={this._overlayId}
+              ref={(containerRef) => (this._optionContainer = containerRef)}
             >
               <slot onSlotchange={(): void => this._setSelectedOptionFromValue()}></slot>
             </div>

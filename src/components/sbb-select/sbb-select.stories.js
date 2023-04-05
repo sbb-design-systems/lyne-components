@@ -17,16 +17,31 @@ const playStory = async ({ canvasElement }) => {
   userEvent.click(label);
 };
 
+const borderless = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
 const value = {
   control: {
     type: 'inline-radio',
   },
   options: ['Option 1', 'Option 2'],
+  table: {
+    category: 'Select',
+  },
 };
 
 const multiple = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Select',
   },
 };
 
@@ -34,11 +49,17 @@ const placeholder = {
   control: {
     type: 'text',
   },
+  table: {
+    category: 'Select',
+  },
 };
 
 const disabled = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Select',
   },
 };
 
@@ -46,11 +67,17 @@ const required = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Select',
+  },
 };
 
 const readonly = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Select',
   },
 };
 
@@ -58,11 +85,17 @@ const disableAnimation = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Select',
+  },
 };
 
 const numberOfOptions = {
   control: {
     type: 'number',
+  },
+  table: {
+    category: 'Option',
   },
 };
 
@@ -70,11 +103,17 @@ const disableOption = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Option',
+  },
 };
 
 const withOptionGroup = {
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Option group',
   },
 };
 
@@ -82,9 +121,13 @@ const disableGroup = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Option group',
+  },
 };
 
 const defaultArgTypes = {
+  borderless,
   value,
   multiple,
   placeholder,
@@ -99,6 +142,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
+  borderless: false,
   value: undefined,
   multiple: false,
   placeholder: 'Please select value.',
@@ -159,9 +203,9 @@ const SelectTemplate = ({
   );
 };
 
-const FormFieldTemplate = (args) => [
+const FormFieldTemplate = ({ borderless, ...args }) => [
   <div style="padding: 2rem; background-color: #e6e6e6;">
-    <sbb-form-field label="Select" data-testid="form-field">
+    <sbb-form-field borderless={borderless} label="Select" data-testid="form-field">
       {SelectTemplate(args)}
     </sbb-form-field>
   </div>,
@@ -169,6 +213,7 @@ const FormFieldTemplate = (args) => [
 ];
 
 const FormFieldTemplateWithError = ({
+  borderless,
   numberOfOptions,
   disableOption,
   withOptionGroup,
@@ -178,7 +223,12 @@ const FormFieldTemplateWithError = ({
   const sbbFormError = <sbb-form-error>Error</sbb-form-error>;
   return (
     <div style="padding: 2rem; background-color: #e6e6e6;">
-      <sbb-form-field id="sbb-form-field" label="Select" data-testid="form-field">
+      <sbb-form-field
+        borderless={borderless}
+        id="sbb-form-field"
+        label="Select"
+        data-testid="form-field"
+      >
         <sbb-select
           {...args}
           id="sbb-select"
@@ -238,6 +288,11 @@ export const FormFieldReadonly = FormFieldTemplate.bind({});
 FormFieldReadonly.argTypes = defaultArgTypes;
 FormFieldReadonly.args = { ...defaultArgs, readonly: true };
 FormFieldReadonly.play = isChromatic() && playStory;
+
+export const FormFieldBorderless = FormFieldTemplate.bind({});
+FormFieldBorderless.argTypes = defaultArgTypes;
+FormFieldBorderless.args = { ...defaultArgs, borderless: true };
+FormFieldBorderless.play = isChromatic() && playStory;
 
 export const FormFieldOptionDisabled = FormFieldTemplate.bind({});
 FormFieldOptionDisabled.argTypes = defaultArgTypes;

@@ -18,6 +18,7 @@ describe('sbb-select', () => {
       <sbb-select aria-autocomplete="none"
                   aria-controls="sbb-select-1"
                   aria-expanded="false"
+                  aria-required="false"
                   aria-haspopup="listbox"
                   aria-owns="sbb-select-1"
                   data-state="closed"
@@ -29,7 +30,7 @@ describe('sbb-select', () => {
           </div>
           <div class="sbb-select__backdrop">
             <div class="sbb-select__panel">
-              <div class="sbb-select__options" role="listbox">
+              <div id="sbb-select-1" class="sbb-select__options" role="listbox">
                 <slot></slot>
               </div>
             </div>
@@ -61,6 +62,7 @@ describe('sbb-select', () => {
                   aria-autocomplete="none"
                   aria-controls="sbb-select-2"
                   aria-expanded="false"
+                  aria-required="false"
                   aria-haspopup="listbox"
                   aria-owns="sbb-select-2"
                   data-state="closed"
@@ -71,7 +73,7 @@ describe('sbb-select', () => {
           </div>
           <div class="sbb-select__backdrop">
             <div class="sbb-select__panel">
-              <div class="sbb-select__options" role="listbox" aria-multiselectable="">
+              <div id="sbb-select-2" class="sbb-select__options" role="listbox" aria-multiselectable="">
                 <slot></slot>
               </div>
             </div>
