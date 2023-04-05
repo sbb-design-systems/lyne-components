@@ -153,8 +153,11 @@
 
   @include sbb.mq($from: medium) {
     border-radius: var(--sbb-dialog-border-radius);
-    height: fit-content;
     overflow: hidden;
+
+    :host(:not([data-fullscreen])) & {
+      height: fit-content;
+    }
   }
 }
 
