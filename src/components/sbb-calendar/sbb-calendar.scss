@@ -78,7 +78,7 @@
   transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
 }
 
-.sbb-calendar__table-data:has(.sbb-calendar__day:not(.sbb-calendar__day-selected):active) {
+.sbb-calendar__table-data:not(.sbb-calendar__table-data-selected):active {
   --sbb-calendar-day-padding: #{sbb.px-to-rem-build(3)};
 }
 

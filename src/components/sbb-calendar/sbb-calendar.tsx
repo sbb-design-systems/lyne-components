@@ -276,7 +276,12 @@ export class SbbCalendar implements ComponentInterface {
       const selected: boolean = this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       return (
-        <td class="sbb-calendar__table-data">
+        <td
+          class={{
+            'sbb-calendar__table-data': true,
+            'sbb-calendar__table-data-selected': selected,
+          }}
+        >
           <button
             class={{
               'sbb-calendar__day': true,

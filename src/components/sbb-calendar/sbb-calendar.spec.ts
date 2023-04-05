@@ -158,7 +158,7 @@ describe('sbb-calendar', () => {
                       19
                     </button>
                   </td>
-                  <td class="sbb-calendar__table-data">
+                  <td class="sbb-calendar__table-data sbb-calendar__table-data-selected">
                     <button aria-disabled="false" aria-label="January 20, 2023" aria-pressed="true" class="sbb-calendar__day sbb-calendar__day-selected" data-day="20 1 2023" tabindex="0">
                       20
                     </button>
