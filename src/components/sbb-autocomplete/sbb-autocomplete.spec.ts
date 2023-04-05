@@ -18,11 +18,21 @@ describe('sbb-autocomplete', () => {
     expect(root).toEqualHtml(`
       <sbb-autocomplete data-state="closed" origin="autocomplete-origin" trigger="autocomplete-trigger">
         <mock:shadow-root>
-          <div class="sbb-autocomplete__gap-fix"></div>
           <div class="sbb-autocomplete__container">
+            <div class="sbb-autocomplete__gap-fix">
+              <div class="sbb-autocomplete__gap-fix-wrapper">
+                <div class="sbb-autocomplete__gap-fix-corner" id="left"></div>
+              </div>
+
+              <div class="sbb-autocomplete__gap-fix-wrapper">
+                <div class="sbb-autocomplete__gap-fix-corner" id="right"></div>
+              </div>
+            </div>
             <div class="sbb-autocomplete__panel">
-              <div class="sbb-autocomplete__options" role="listbox" id="sbb-autocomplete-1">
-                <slot></slot>
+              <div class="sbb-autocomplete__wrapper">
+                <div class="sbb-autocomplete__options" role="listbox" id="sbb-autocomplete-1">
+                  <slot></slot>
+                </div>
               </div>
             </div>
           </div>
@@ -50,11 +60,21 @@ describe('sbb-autocomplete', () => {
     expect(root).toEqualHtml(`
       <sbb-autocomplete data-state="closed">
         <mock:shadow-root>
-          <div class="sbb-autocomplete__gap-fix"></div>
           <div class="sbb-autocomplete__container">
+            <div class="sbb-autocomplete__gap-fix">
+              <div class="sbb-autocomplete__gap-fix-wrapper">
+                <div class="sbb-autocomplete__gap-fix-corner" id="left"></div>
+              </div>
+
+              <div class="sbb-autocomplete__gap-fix-wrapper">
+                <div class="sbb-autocomplete__gap-fix-corner" id="right"></div>
+              </div>
+            </div>
             <div class="sbb-autocomplete__panel">
-              <div class="sbb-autocomplete__options" id="sbb-autocomplete-2" role="listbox">
-                <slot></slot>
+              <div class="sbb-autocomplete__wrapper" id="sbb-autocomplete-2" role="listbox">
+                <div class="sbb-autocomplete__options">
+                  <slot></slot>
+                </div>
               </div>
             </div>
           </div>

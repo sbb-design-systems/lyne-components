@@ -320,6 +320,8 @@ export class SbbAutocomplete implements ComponentInterface {
     // Calculate and set the position
     const panelPosition = getElementPosition(this._optionContainer, this._originElement);
 
+    this._element.style.setProperty('--sbb-autocomplete-position-x', `${panelPosition.left}px`);
+    this._element.style.setProperty('--sbb-autocomplete-position-y', `${panelPosition.top}px`);
     this._element.style.setProperty('--sbb-autocomplete-max-height', panelPosition.maxHeight);
     this._element.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
     this._originElement.setAttribute(
@@ -470,19 +472,31 @@ export class SbbAutocomplete implements ComponentInterface {
       <Host data-state={this._state}>
         <div class="sbb-autocomplete__gap-fix"></div>
         <div class="sbb-autocomplete__container">
+          <div class="sbb-autocomplete__gap-fix">
+            <div class="sbb-autocomplete__gap-fix-wrapper">
+              <div class="sbb-autocomplete__gap-fix-corner" id="left"></div>
+            </div>
+
+            <div class="sbb-autocomplete__gap-fix-wrapper">
+              <div class="sbb-autocomplete__gap-fix-corner" id="right"></div>
+            </div>
+          </div>
+
           <div
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-autocomplete__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
-            <div
-              id={this._overlayId}
-              class="sbb-autocomplete__options"
-              role="listbox"
-              ref={(containerRef) => (this._optionContainer = containerRef)}
-            >
-              <slot />
+            <div class="sbb-autocomplete__wrapper">
+              <div
+                id={this._overlayId}
+                class="sbb-autocomplete__options"
+                role="listbox"
+                ref={(containerRef) => (this._optionContainer = containerRef)}
+              >
+                <slot />
+              </div>
             </div>
           </div>
         </div>
