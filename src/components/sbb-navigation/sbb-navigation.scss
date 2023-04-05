@@ -199,7 +199,7 @@
 
 .sbb-navigation__content {
   @include transition(transform);
-  @include sbb.scrollbar-negative;
+  @include sbb.scrollbar($negative: true);
 
   display: flex;
   flex-direction: column;

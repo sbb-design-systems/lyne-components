@@ -67,7 +67,7 @@
 }
 
 :host([negative]:not([negative='false'])) {
-  @include sbb.scrollbar-variables-negative;
+  @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-dialog-color: var(--sbb-color-white-default);

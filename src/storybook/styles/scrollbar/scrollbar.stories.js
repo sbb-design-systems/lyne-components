@@ -13,8 +13,12 @@ const Template = (args) => {
   if (args.negative) {
     scrollbarClass += '-negative';
   }
+  if (args.trackVisible) {
+    scrollbarClass += '-track-visible';
+  }
+
   return (
-    <div class={`overflow-container ${scrollbarClass}`}>
+    <div class={`overflow-container ${scrollbarClass}${args.negative ? ' negative' : ''}`}>
       <div class="inner-box">{text}</div>
     </div>
   );
@@ -33,14 +37,22 @@ const negative = {
   },
 };
 
+const trackVisible = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes = {
   size,
   negative,
+  trackVisible,
 };
 
 const defaultArgs = {
   size: size.options[0],
   negative: false,
+  trackVisible: false,
 };
 
 export const Thin = Template.bind({});
@@ -58,6 +70,27 @@ Thick.args = { ...defaultArgs, size: size.options[1] };
 export const ThickNegative = Template.bind({});
 ThickNegative.argTypes = defaultArgTypes;
 ThickNegative.args = { ...defaultArgs, size: size.options[1], negative: true };
+
+export const ThinTrackVisible = Template.bind({});
+ThinTrackVisible.argTypes = defaultArgTypes;
+ThinTrackVisible.args = { ...defaultArgs, trackVisible: true };
+
+export const ThinNegativeTrackVisible = Template.bind({});
+ThinNegativeTrackVisible.argTypes = defaultArgTypes;
+ThinNegativeTrackVisible.args = { ...defaultArgs, negative: true, trackVisible: true };
+
+export const ThickTrackVisible = Template.bind({});
+ThickTrackVisible.argTypes = defaultArgTypes;
+ThickTrackVisible.args = { ...defaultArgs, size: size.options[1], trackVisible: true };
+
+export const ThickNegativeTrackVisible = Template.bind({});
+ThickNegativeTrackVisible.argTypes = defaultArgTypes;
+ThickNegativeTrackVisible.args = {
+  ...defaultArgs,
+  size: size.options[1],
+  negative: true,
+  trackVisible: true,
+};
 
 export default {
   parameters: {

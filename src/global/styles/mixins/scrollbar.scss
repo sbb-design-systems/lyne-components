@@ -7,6 +7,11 @@
     // Total width
     width: var(--sbb-scrollbar-width);
     height: var(--sbb-scrollbar-width);
+    background-color: var(--sbb-scrollbar-track-color);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: var(--sbb-scrollbar-track-color);
   }
 
   /* Scrollbar itself */
@@ -33,7 +38,8 @@
 
   /* Styles for Firefox */
   scrollbar-width: var(--sbb-scrollbar-width-firefox);
-  scrollbar-color: var(--sbb-scrollbar-color, currentcolor) transparent;
+  scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
+    var(--sbb-scrollbar-track-color, transparent);
 }
 
 @mixin scrollbar-variables--size-thin {
@@ -53,52 +59,40 @@
   --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
 }
 
+@mixin scrollbar-variables--color-positive-track-visible {
+  --sbb-scrollbar-track-color: var(--sbb-color-cloud-default);
+}
+
 @mixin scrollbar-variables--color-negative {
   --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
   --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
 }
 
-@mixin scrollbar-variables--color-thick-positive {
-  --sbb-scrollbar-color: var(--sbb-color-cement-default);
-  --sbb-scrollbar-color-hover: var(--sbb-color-metal-default);
+@mixin scrollbar-variables--color-negative-track-visible {
+  --sbb-scrollbar-track-color: var(--sbb-color-iron-default);
 }
 
-@mixin scrollbar-variables {
-  @include scrollbar-variables--size-thin;
-  @include scrollbar-variables--color-positive;
+@mixin scrollbar-variables($size: thin, $negative: false, $track-visible: false) {
+  @if $size == thin {
+    @include scrollbar-variables--size-thin;
+  } @else {
+    @include scrollbar-variables--size-thick;
+  }
+
+  @if $negative {
+    @include scrollbar-variables--color-negative;
+  } @else {
+    @include scrollbar-variables--color-positive;
+  }
+
+  @if $track-visible and $negative {
+    @include scrollbar-variables--color-negative-track-visible;
+  } @else if $track-visible {
+    @include scrollbar-variables--color-positive-track-visible;
+  }
 }
 
-@mixin scrollbar-variables-negative {
-  @include scrollbar-variables--size-thin;
-  @include scrollbar-variables--color-negative;
-}
-
-@mixin scrollbar-variables-thick {
-  @include scrollbar-variables--size-thick;
-  @include scrollbar-variables--color-thick-positive;
-}
-
-@mixin scrollbar-variables-negative-thick {
-  @include scrollbar-variables--size-thick;
-  @include scrollbar-variables--color-negative;
-}
-
-@mixin scrollbar {
-  @include scrollbar-variables;
-  @include scrollbar-rules;
-}
-
-@mixin scrollbar-negative {
-  @include scrollbar-variables-negative;
-  @include scrollbar-rules;
-}
-
-@mixin scrollbar-thick {
-  @include scrollbar-variables-thick;
-  @include scrollbar-rules;
-}
-
-@mixin scrollbar-thick-negative {
-  @include scrollbar-variables-negative-thick;
+@mixin scrollbar($size: thin, $negative: false, $track-visible: false) {
+  @include scrollbar-variables($size, $negative, $track-visible);
   @include scrollbar-rules;
 }
