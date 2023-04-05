@@ -21,7 +21,7 @@ import {
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { SbbOverlayState } from '../../global/helpers/overlay';
+import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 let nextId = 0;
@@ -472,16 +472,7 @@ export class SbbAutocomplete implements ComponentInterface {
       <Host data-state={this._state}>
         <div class="sbb-autocomplete__gap-fix"></div>
         <div class="sbb-autocomplete__container">
-          <div class="sbb-autocomplete__gap-fix">
-            <div class="sbb-autocomplete__gap-fix-wrapper">
-              <div class="sbb-autocomplete__gap-fix-corner" id="left"></div>
-            </div>
-
-            <div class="sbb-autocomplete__gap-fix-wrapper">
-              <div class="sbb-autocomplete__gap-fix-corner" id="right"></div>
-            </div>
-          </div>
-
+          <div class="sbb-autocomplete__gap-fix">{overlayGapFixCorners()}</div>
           <div
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-autocomplete__panel"
