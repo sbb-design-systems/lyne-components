@@ -105,7 +105,6 @@
 .sbb-form-field__space-wrapper {
   display: flex;
   flex-direction: column;
-  transform: scale(1);
   @include sbb.zero-width-space;
 }
 
