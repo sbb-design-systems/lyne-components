@@ -4,33 +4,25 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-@mixin animation {
-  animation: {
-    name: var(--sbb-autocomplete-animation-name);
-    duration: var(--sbb-autocomplete-transition-duration);
-    timing-function: ease;
-  }
-}
-
 :host {
+  --sbb-autocomplete-position-x: 0;
+  --sbb-autocomplete-position-y: 0;
   --sbb-autocomplete-active-option-y: 0;
   --sbb-autocomplete-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
-  --sbb-autocomplete-min-height: #{sbb.px-to-rem-build(120)};
+  --sbb-autocomplete-min-height: var(--sbb-autocomplete-origin-height);
   --sbb-autocomplete-visibility: visible;
-  --sbb-autocomplete-internal-z-index: -1;
-  --sbb-autocomplete-width: fit-content;
-  --sbb-autocomplete-radius: var(--sbb-border-radius-4x);
-  --sbb-autocomplete-border-radius: 0 0 var(--sbb-autocomplete-radius)
-    var(--sbb-autocomplete-radius);
-  --sbb-autocomplete-transition-origin: center;
-  --sbb-autocomplete-transition-duration: var(--sbb-animation-duration-4x);
-  --sbb-autocomplete-gap-fix-inset-block-start: calc(
-    var(--sbb-autocomplete-origin-height) - var(--sbb-autocomplete-radius)
-  );
-}
-
-:host([data-state='opened']) {
   --sbb-autocomplete-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+  --sbb-autocomplete-width: fit-content;
+  --sbb-autocomplete-border-radius: var(--sbb-border-radius-4x);
+  --sbb-autocomplete-options-border-radius: 0 0 var(--sbb-autocomplete-border-radius)
+    var(--sbb-autocomplete-border-radius);
+  --sbb-autocomplete-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-autocomplete-animation-timing-function: ease;
+  --sbb-autocomplete-gap-fix-opacity: 0;
+  --sbb-autocomplete-gap-fix-transform: none;
+  --sbb-autocomplete-gap-fix-inset-block-start: calc(
+    var(--sbb-autocomplete-position-y) - var(--sbb-autocomplete-border-radius)
+  );
 }
 
 :host([data-state='closed']) {
@@ -45,25 +37,29 @@
   --sbb-autocomplete-animation-name: close;
 }
 
+:host([data-state='opened']),
+:host([data-state='opening']) {
+  --sbb-autocomplete-gap-fix-opacity: 1;
+}
+
 :host([data-autocomplete-position='below']) {
-  --sbb-autocomplete-transition-origin: top;
   --sbb-autocomplete-animation-transform: translateY(
     calc((var(--sbb-autocomplete-origin-height) / 2) * -1)
   );
 }
 
 :host([data-autocomplete-position='above']) {
-  --sbb-autocomplete-border-radius: var(--sbb-autocomplete-radius) var(--sbb-autocomplete-radius) 0
-    0;
-  --sbb-autocomplete-transition-origin: bottom;
-  --sbb-autocomplete-gap-fix-inset-block-start: 0;
+  --sbb-autocomplete-options-border-radius: var(--sbb-autocomplete-border-radius)
+    var(--sbb-autocomplete-border-radius) 0 0;
+  --sbb-autocomplete-gap-fix-inset-block-start: var(--sbb-autocomplete-max-height);
+  --sbb-autocomplete-gap-fix-transform: rotate(180deg);
   --sbb-autocomplete-animation-transform: translateY(
     calc(var(--sbb-autocomplete-origin-height) / 2)
   );
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-autocomplete-transition-duration: 0s;
+  --sbb-autocomplete-animation-duration: 0s;
 }
 
 ::slotted(sbb-divider) {
@@ -82,30 +78,59 @@
 }
 
 .sbb-autocomplete__gap-fix {
-  @include animation;
-
+  display: flex;
+  justify-content: space-between;
   position: fixed;
   visibility: var(--sbb-autocomplete-visibility);
+  opacity: var(--sbb-autocomplete-gap-fix-opacity);
+  background-color: transparent;
   width: var(--sbb-autocomplete-width);
-  height: var(--sbb-autocomplete-radius);
+  height: var(--sbb-autocomplete-border-radius);
   inset-block-start: var(--sbb-autocomplete-gap-fix-inset-block-start);
-  inset-inline-start: 0;
-  background-color: var(--sbb-color-white-default);
-  z-index: -1;
+  inset-inline-start: var(--sbb-autocomplete-position-x);
+  transform: var(--sbb-autocomplete-gap-fix-transform);
+  transition: opacity var(--sbb-autocomplete-animation-duration)
+    var(--sbb-autocomplete-animation-timing-function);
+}
+
+.sbb-autocomplete__gap-fix-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: var(--sbb-autocomplete-border-radius);
+  height: var(--sbb-autocomplete-border-radius);
+  background-color: transparent;
+}
+
+.sbb-autocomplete__gap-fix-corner {
+  position: absolute;
+  border-radius: 50%;
+  border: calc(var(--sbb-autocomplete-border-radius) / 2) solid var(--sbb-color-white-default);
+  width: calc(var(--sbb-autocomplete-border-radius) * 3);
+  height: calc(var(--sbb-autocomplete-border-radius) * 3);
+  inset-block-end: calc((var(--sbb-autocomplete-border-radius) / 2) * -1);
+}
+
+.sbb-autocomplete__gap-fix-corner#left {
+  inset-inline-start: calc((var(--sbb-autocomplete-border-radius) / 2) * -1);
+}
+
+.sbb-autocomplete__gap-fix-corner#right {
+  inset-inline-end: calc((var(--sbb-autocomplete-border-radius) / 2) * -1);
 }
 
 .sbb-autocomplete__panel {
-  @include animation;
-
   display: block;
   position: absolute;
   visibility: var(--sbb-autocomplete-visibility);
+  overflow: hidden;
   background-color: transparent;
   border: none;
-  border-radius: var(--sbb-autocomplete-radius);
-  inset-inline-start: 0;
+  border-radius: var(--sbb-autocomplete-border-radius);
+  inset-block-start: var(--sbb-autocomplete-position-y);
+  inset-inline-start: var(--sbb-autocomplete-position-x);
   width: var(--sbb-autocomplete-width);
-  transition: box-shadow var(--sbb-autocomplete-transition-duration) ease;
+  transition: box-shadow var(--sbb-autocomplete-animation-duration)
+    var(--sbb-autocomplete-animation-timing-function);
 
   &::before,
   &::after {
@@ -115,9 +140,10 @@
     width: 100%;
     height: var(--sbb-autocomplete-origin-height);
     background-color: transparent;
-    border-radius: var(--sbb-autocomplete-radius);
+    border-radius: var(--sbb-autocomplete-border-radius);
     pointer-events: none;
-    transition: box-shadow var(--sbb-autocomplete-transition-duration) ease;
+    transition: box-shadow var(--sbb-autocomplete-animation-duration)
+      var(--sbb-autocomplete-animation-timing-function);
     z-index: 1;
   }
 
@@ -127,7 +153,9 @@
   }
 
   :host([data-autocomplete-position='below']) & {
-    inset-block-start: 0;
+    inset-block-start: calc(
+      var(--sbb-autocomplete-position-y) - var(--sbb-autocomplete-origin-height)
+    );
 
     &::before {
       display: block;
@@ -135,8 +163,6 @@
   }
 
   :host([data-autocomplete-position='above']) & {
-    inset-block-end: 0;
-
     &::after {
       display: block;
     }
@@ -155,29 +181,38 @@
   }
 }
 
+.sbb-autocomplete__wrapper {
+  overflow: hidden;
+}
+
 .sbb-autocomplete__options {
   @include sbb.scrollbar-light;
 
   background-color: var(--sbb-color-white-default);
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: 0;
-  border-radius: var(--sbb-autocomplete-border-radius);
-  max-height: calc(var(--sbb-autocomplete-max-height) - var(--sbb-spacing-fixed-4x));
+  border-radius: var(--sbb-autocomplete-options-border-radius);
+
+  // TODO: add `var(--sbb-spacing-fixed-4x)` margin
+  max-height: var(--sbb-autocomplete-max-height);
   min-height: var(--sbb-autocomplete-min-height);
   pointer-events: all;
   overflow-y: auto;
+  animation: {
+    name: var(--sbb-autocomplete-animation-name);
+    duration: var(--sbb-autocomplete-animation-duration);
+    timing-function: var(--sbb-autocomplete-animation-timing-function);
+  }
 }
 
 @keyframes open {
   from {
     transform: var(--sbb-autocomplete-animation-transform);
-    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 0;
   }
 
   to {
     transform: translateY(0);
-    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 1;
   }
 }
@@ -185,13 +220,11 @@
 @keyframes close {
   from {
     transform: translateY(0);
-    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 1;
   }
 
   to {
     transform: var(--sbb-autocomplete-animation-transform);
-    transform-origin: var(--sbb-autocomplete-transition-origin);
     opacity: 0;
   }
 }

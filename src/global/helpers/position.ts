@@ -162,7 +162,7 @@ export function getElementPosition(
       availableSpaceAbove - verticalOffset >
         (responsiveHeight ? elementRec.clientHeight : elementRec.scrollHeight)) ||
     (availableSpaceAbove > availableSpaceBelow &&
-      availableSpaceBelow - verticalOffset < elementRec.clientHeight &&
+      availableSpaceBelow - verticalOffset < elementRec.scrollHeight &&
       !responsiveHeight)
   ) {
     elementYPosition =
