@@ -93,7 +93,7 @@ const defaultArgs = {
 
 const defaultDecorator = [
   (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6;'}>
+    <div style={'padding: 2rem; height: calc(100vh - 2rem);'}>
       <Story />
     </div>
   ),
@@ -101,11 +101,7 @@ const defaultDecorator = [
 
 const aboveDecorator = [
   (Story) => (
-    <div
-      style={
-        'padding: 2rem; height: calc(100vh - 4rem); background-color: #e6e6e6; display: flex; align-items: end'
-      }
-    >
+    <div style={'padding: 2rem; height: calc(100vh - 2rem); display: flex; align-items: end'}>
       <Story />
     </div>
   ),
@@ -115,7 +111,7 @@ const scrollDecorator = [
   (Story) => (
     <div
       style={
-        'padding: 2rem; height: calc(100vh * 1.5); background-color: #e6e6e6; display: flex; align-items: center'
+        'padding: 2rem; height: calc(100vh * 1.5); background-color: var(--sbb-color-milk-default); display: flex; align-items: center'
       }
     >
       <Story />
@@ -156,80 +152,52 @@ const createOptionGroup2 = () => {
   ];
 };
 
-const Template = (args) => [
-  <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-    <input placeholder="Placeholder" />
+const textBlockStyle = {
+  position: 'relative',
+  marginBlockStart: '1rem',
+  padding: '1rem',
+  backgroundColor: 'var(--sbb-color-milk-default)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  zIndex: '100',
+};
 
-    <sbb-autocomplete
-      disable-animation={args.disableAnimation}
-      preserve-icon-space={args.preserveIconSpace}
-    >
-      {createOptionGroup1(args.iconName, args.disabled)}
-      {createOptionGroup2()}
-    </sbb-autocomplete>
-  </sbb-form-field>,
+const codeStyle = {
+  padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+};
+
+const textBlock = () => {
+  return (
+    <div style={textBlockStyle}>
+      This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
+      it must always be covered by the autocomplete overlay.
+    </div>
+  );
+};
+
+const Template = (args) => [
+  <div>
+    <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+      <input placeholder="Placeholder" />
+
+      <sbb-autocomplete
+        disable-animation={args.disableAnimation}
+        preserve-icon-space={args.preserveIconSpace}
+      >
+        {createOptionGroup1(args.iconName, args.disabled)}
+        {createOptionGroup2()}
+      </sbb-autocomplete>
+    </sbb-form-field>
+    {textBlock()}
+  </div>,
 ];
 
 const OptionGroupTemplate = (args) => [
-  <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-    <input placeholder="Placeholder" />
-
-    <sbb-autocomplete
-      disable-animation={args.disableAnimation}
-      preserve-icon-space={args.preserveIconSpace}
-    >
-      <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
-        {createOptionGroup1(args.iconName, args.disabled)}
-      </sbb-option-group>
-      <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
-    </sbb-autocomplete>
-  </sbb-form-field>,
-];
-
-const MixedTemplate = (args) => [
-  <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-    <input placeholder="Placeholder" />
-
-    <sbb-autocomplete
-      disable-animation={args.disableAnimation}
-      preserve-icon-space={args.preserveIconSpace}
-    >
-      <sbb-option value="Option 1">
-        <sbb-icon slot="icon" name={args.iconName} style="color: #0279c7;" />
-        Option Value
-      </sbb-option>
-      <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
-        {createOptionGroup1(args.iconName, args.disabled)}
-      </sbb-option-group>
-      <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
-    </sbb-autocomplete>
-  </sbb-form-field>,
-];
-
-const RequiredTemplate = (args) => {
-  const sbbFormError = <sbb-form-error>This is a required field.</sbb-form-error>;
-
-  return [
-    <sbb-form-field
-      borderless={args.borderless}
-      label="Label"
-      data-testid="form-field"
-      id="sbb-form-field"
-    >
-      <input
-        id="sbb-autocomplete"
-        class="sbb-invalid"
-        placeholder="Placeholder"
-        onChange={(event) => {
-          if (event.currentTarget.value !== '') {
-            sbbFormError.remove();
-            document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
-          } else {
-            document.getElementById('sbb-form-field').append(sbbFormError);
-            document.getElementById('sbb-autocomplete').classList.add('sbb-invalid');
-          }
-        }}
-      />
+  <div>
+    <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+      <input placeholder="Placeholder" />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
@@ -240,8 +208,73 @@ const RequiredTemplate = (args) => {
         </sbb-option-group>
         <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
       </sbb-autocomplete>
-      {sbbFormError}
-    </sbb-form-field>,
+    </sbb-form-field>
+    {textBlock()}
+  </div>,
+];
+
+const MixedTemplate = (args) => [
+  <div>
+    <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+      <input placeholder="Placeholder" />
+
+      <sbb-autocomplete
+        disable-animation={args.disableAnimation}
+        preserve-icon-space={args.preserveIconSpace}
+      >
+        <sbb-option value="Option 1">
+          <sbb-icon slot="icon" name={args.iconName} style="color: #0279c7;" />
+          Option Value
+        </sbb-option>
+        <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+          {createOptionGroup1(args.iconName, args.disabled)}
+        </sbb-option-group>
+        <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
+      </sbb-autocomplete>
+    </sbb-form-field>
+    {textBlock()}
+  </div>,
+];
+
+const RequiredTemplate = (args) => {
+  const sbbFormError = <sbb-form-error>This is a required field.</sbb-form-error>;
+
+  return [
+    <div>
+      <sbb-form-field
+        borderless={args.borderless}
+        label="Label"
+        data-testid="form-field"
+        id="sbb-form-field"
+      >
+        <input
+          id="sbb-autocomplete"
+          class="sbb-invalid"
+          placeholder="Placeholder"
+          onChange={(event) => {
+            if (event.currentTarget.value !== '') {
+              sbbFormError.remove();
+              document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
+            } else {
+              document.getElementById('sbb-form-field').append(sbbFormError);
+              document.getElementById('sbb-autocomplete').classList.add('sbb-invalid');
+            }
+          }}
+        />
+
+        <sbb-autocomplete
+          disable-animation={args.disableAnimation}
+          preserve-icon-space={args.preserveIconSpace}
+        >
+          <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+            {createOptionGroup1(args.iconName, args.disabled)}
+          </sbb-option-group>
+          <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
+        </sbb-autocomplete>
+        {sbbFormError}
+      </sbb-form-field>
+      {textBlock()}
+    </div>,
   ];
 };
 
@@ -283,7 +316,7 @@ NoIconSpace.play = isChromatic() && playStory;
 
 export const Scroll = Template.bind({});
 Scroll.argTypes = defaultArgTypes;
-Scroll.args = { ...defaultArgs };
+Scroll.args = { ...defaultArgs, borderless: true };
 Scroll.decorators = scrollDecorator;
 Scroll.play = isChromatic() && playStory;
 
