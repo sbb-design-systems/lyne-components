@@ -11,7 +11,12 @@ import {
   State,
   EventEmitter,
 } from '@stencil/core';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 import { createNamedSlotState } from '../../global/helpers';
 import { i18nCollapsed, i18nExapnded } from '../../global/i18n';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
@@ -60,7 +65,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   /**
    * Emits whenever the content section starts the opening transition.
@@ -102,15 +107,16 @@ export class SbbSelectionPanel implements ComponentInterface {
   })
   public didClose: EventEmitter<{ closeTarget: HTMLElement }>;
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
   private _contentElement: HTMLElement;
 
   private get _input(): HTMLInputElement {
     return this._element.querySelector('sbb-checkbox, sbb-radio-button') as HTMLInputElement;
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   @Listen('state-change', { passive: true })
@@ -138,8 +144,16 @@ export class SbbSelectionPanel implements ComponentInterface {
     this._setExpandedStateForScreenReaders();
   }
 
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
   public componentDidLoad(): void {
     this._updateSelectionPanel();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _updateSelectionPanel(): void {

@@ -19,7 +19,11 @@ import {
   RadioButtonStateChange,
 } from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { createNamedSlotState } from '../../global/helpers';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -88,7 +92,7 @@ export class SbbRadioButton implements ComponentInterface {
     this._onRadioButtonAttributesChange.bind(this)
   );
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   /**
    * Internal event that emits whenever the state of the radio option
@@ -133,7 +137,13 @@ export class SbbRadioButton implements ComponentInterface {
     }
   }
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
     this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
@@ -142,6 +152,7 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._radioButtonAttributeObserver.disconnect();
   }
 
