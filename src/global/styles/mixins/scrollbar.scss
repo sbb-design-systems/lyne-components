@@ -1,17 +1,17 @@
 @use '../core/functions';
 
 @mixin scrollbar-rules {
-  --sbb-scrollbar-width: var(--sbb-spacing-fixed-4x);
+  --sbb-scrollbar-width: var(--sbb-spacing-fixed-3x);
 
   &::-webkit-scrollbar {
     // Total width
     width: var(--sbb-scrollbar-width);
     height: var(--sbb-scrollbar-width);
-    background-color: var(--sbb-scrollbar-track-color);
+    background-color: var(--sbb-scrollbar-track-color, transparent);
   }
 
   &::-webkit-scrollbar-corner {
-    background-color: var(--sbb-scrollbar-track-color);
+    background-color: var(--sbb-scrollbar-track-color, transparent);
   }
 
   /* Scrollbar itself */
