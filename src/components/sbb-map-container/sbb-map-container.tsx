@@ -3,7 +3,7 @@ import { Component, ComponentInterface, Element, h, JSX } from '@stencil/core';
 /**
  * @slot unnamed - Used for slotting the sidebar content.
  * @slot map - Used for slotting the map.
- * @slot button - Used for slotting the scroll up button on inside the sidebar.
+ * @slot button - Used for slotting the scroll up button.
  */
 @Component({
   shadow: true,

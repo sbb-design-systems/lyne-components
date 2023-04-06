@@ -12,11 +12,11 @@ be overriden with --sbb-map-container-margin-start if needed.
 
 ## Slots
 
-| Slot        | Description                                                   |
-| ----------- | ------------------------------------------------------------- |
-| `"button"`  | Used for slotting the scroll up button on inside the sidebar. |
-| `"map"`     | Used for slotting the map.                                    |
-| `"unnamed"` | Used for slotting the sidebar content.                        |
+| Slot        | Description                             |
+| ----------- | --------------------------------------- |
+| `"button"`  | Used for slotting the scroll up button. |
+| `"map"`     | Used for slotting the map.              |
+| `"unnamed"` | Used for slotting the sidebar content.  |
 
 
 ----------------------------------------------
