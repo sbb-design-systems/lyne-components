@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, h, JSX } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX } from '@stencil/core';
 
 /**
  * @slot unnamed - Used for slotting the sidebar content.
@@ -11,17 +11,30 @@ import { Component, ComponentInterface, h, JSX } from '@stencil/core';
   tag: 'sbb-map-container',
 })
 export class SbbMapContainer implements ComponentInterface {
+  @Element() private _element!: HTMLElement;
   private _sidebarButtonContainerElement: HTMLDivElement;
   private _intersector: HTMLSpanElement;
   private _buttonSlotted = false;
+  private _observer = new IntersectionObserver((entries) =>
+    this._toggleButtonVisibilityOnIntersect(entries)
+  );
+
+  /**
+   * Apply the click listener to the button wrapper element for the scroll up functionality.
+   * @private
+   */
+  private _addClickListener(): void {
+    this._sidebarButtonContainerElement.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /**
    * Apply the intersection observer to the trigger span in the sidebar
    * @private
    */
   private _applyIntersectionObserver() {
-    const observer = new IntersectionObserver(this._toggleButtonVisibilityOnIntersect.bind(this));
-    observer.observe(this._intersector);
+    this._observer.observe(this._intersector);
   }
 
   /**
@@ -33,6 +46,7 @@ export class SbbMapContainer implements ComponentInterface {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
       this._sidebarButtonContainerElement.classList.toggle('visible', mapIsHidden);
+      this._element.dataset.returnButtonVisible = mapIsHidden.toString();
       this._sidebarButtonContainerElement.setAttribute('aria-hidden', `${!mapIsHidden}`);
     });
   }
@@ -40,6 +54,7 @@ export class SbbMapContainer implements ComponentInterface {
   public componentDidLoad() {
     if (this._buttonSlotted) {
       this._applyIntersectionObserver();
+      this._addClickListener();
     }
   }
 

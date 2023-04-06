@@ -17,17 +17,16 @@ const Template = () => (
       ))}
     </div>
 
-    <div slot="button">
-      <sbb-button
-        variant="secondary"
-        size="l"
-        icon-name="location-pin-map-small"
-        type="button"
-        name="Button Name"
-      >
-        Show map
-      </sbb-button>
-    </div>
+    <sbb-button
+      slot="button"
+      variant="secondary"
+      size="l"
+      icon-name="location-pin-map-small"
+      type="button"
+      name="Button Name"
+    >
+      Show map
+    </sbb-button>
 
     <div slot="map" style="height: 100%;">
       <div style="background-color: grey; height: 100%; display: flex; align-items: center; justify-content: center;">
