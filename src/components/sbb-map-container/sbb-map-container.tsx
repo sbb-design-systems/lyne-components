@@ -3,11 +3,12 @@ import { Component, ComponentInterface, h, JSX } from '@stencil/core';
 /**
  * @slot unnamed - Used for slotting the sidebar content.
  * @slot map - Used for slotting the map.
+ * @slot button - Used for slotting the scroll up button on inside the sidebar.
  */
 @Component({
   shadow: true,
   styleUrl: 'sbb-map-container.scss',
-  tag: 'sbb-map-container'
+  tag: 'sbb-map-container',
 })
 export class SbbMapContainer implements ComponentInterface {
   private _sidebarButtonContainerElement: HTMLDivElement;
@@ -43,22 +44,29 @@ export class SbbMapContainer implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-
     return (
       <div class="sbb-map-container">
         <div class="sbb-map-container__sidebar">
-          <span ref={(el): void => {
-            this._intersector = el;
-          }}>
-          </span>
+          <span
+            ref={(el): void => {
+              this._intersector = el;
+            }}
+          ></span>
 
           <slot />
 
-
-          <div class="sbb-map-container__sidebar-button" ref={(el): void => {
-            this._sidebarButtonContainerElement = el;
-          }}>
-            <slot name="button" onSlotchange={(): void => {this._buttonSlotted = true;}}/>
+          <div
+            class="sbb-map-container__sidebar-button"
+            ref={(el): void => {
+              this._sidebarButtonContainerElement = el;
+            }}
+          >
+            <slot
+              name="button"
+              onSlotchange={(): void => {
+                this._buttonSlotted = true;
+              }}
+            />
           </div>
         </div>
         <div class="sbb-map-container__map">
