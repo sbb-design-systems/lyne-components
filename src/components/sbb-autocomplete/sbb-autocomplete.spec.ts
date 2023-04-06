@@ -19,6 +19,7 @@ describe('sbb-autocomplete', () => {
     expect(root).toEqualHtml(`
       <sbb-autocomplete data-state="closed" origin="autocomplete-origin" trigger="autocomplete-trigger">
         <mock:shadow-root>
+          <div class="sbb-autocomplete__gap-fix"></div>
           <div class="sbb-autocomplete__container">
             <div class="sbb-autocomplete__gap-fix">
               <div class="gap-fix-wrapper">
@@ -80,6 +81,7 @@ describe('sbb-autocomplete', () => {
           aria-owns="sbb-autocomplete-2" autocomplete="off" role="combobox">
         <sbb-autocomplete data-state="closed">
           <mock:shadow-root>
+            <div class="sbb-autocomplete__gap-fix"></div>
             <div class="sbb-autocomplete__container">
               <div class="sbb-autocomplete__gap-fix">
                 <div class="gap-fix-wrapper">
