@@ -62,7 +62,6 @@ describe('sbb-select', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(parentElement).toEqualAttribute('data-overlay-origin', '');
     expect(parentElement).toEqualAttribute('data-overlay-open', '');
     expect(element).toEqualAttribute('aria-expanded', 'true');
 
@@ -93,11 +92,14 @@ describe('sbb-select', () => {
     element = await page.find('sbb-select');
     await page.waitForChanges();
 
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
     await element.triggerEvent('click');
     await page.waitForChanges();
-
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
+
     expect(await element.getProperty('value')).toEqual('1');
     expect(element).toEqualAttribute('aria-activedescendant', 'option-1');
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
@@ -108,6 +110,8 @@ describe('sbb-select', () => {
     expect(secondOption).not.toHaveAttribute('selected');
 
     const selectionChange = await page.spyOnEvent(optEvents.selectionChange);
+    const willClose = await page.spyOnEvent(events.willClose);
+    const didClose = await page.spyOnEvent(events.didClose);
     await secondOption.triggerEvent('click');
     await page.waitForChanges();
 
@@ -117,6 +121,10 @@ describe('sbb-select', () => {
       selected: true,
       value: '2',
     });
+    await page.waitForChanges();
+    expect(willClose).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    expect(didClose).toHaveReceivedEventTimes(1);
     expect(await element.getProperty('value')).toEqual('2');
     expect(parentElement).toEqualAttribute('data-overlay-open', null);
     expect(element).toEqualAttribute('aria-expanded', 'false');
@@ -126,11 +134,14 @@ describe('sbb-select', () => {
     element.setAttribute('multiple', 'true');
     await page.waitForChanges();
 
+    const willOpen = await page.spyOnEvent(events.willOpen);
     const didOpen = await page.spyOnEvent(events.didOpen);
     await element.triggerEvent('click');
     await page.waitForChanges();
-
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
+
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
     expect(firstOption).not.toHaveAttribute('active');
     expect(firstOption).not.toHaveAttribute('selected');

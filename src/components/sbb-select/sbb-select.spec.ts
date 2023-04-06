@@ -28,7 +28,16 @@ describe('sbb-select', () => {
           <div class="sbb-select__trigger">
             <span class="sbb-select__trigger--placeholder"></span>
           </div>
-          <div class="sbb-select__backdrop">
+          <div class="sbb-select__gap-fix"></div>
+          <div class="sbb-select__container">
+            <div class="sbb-select__gap-fix">
+              <div class="gap-fix-wrapper">
+                <div class="gap-fix-corner" id="left"></div>
+              </div>
+              <div class="gap-fix-wrapper">
+                <div class="gap-fix-corner" id="right"></div>
+              </div>
+            </div>
             <div class="sbb-select__panel">
               <div id="sbb-select-1" class="sbb-select__options" role="listbox">
                 <slot></slot>
@@ -71,7 +80,16 @@ describe('sbb-select', () => {
           <div class="sbb-select__trigger">
             <span class="sbb-select__trigger--placeholder"></span>
           </div>
-          <div class="sbb-select__backdrop">
+          <div class="sbb-select__gap-fix"></div>
+          <div class="sbb-select__container">
+            <div class="sbb-select__gap-fix">
+              <div class="gap-fix-wrapper">
+                <div class="gap-fix-corner" id="left"></div>
+              </div>
+              <div class="gap-fix-wrapper">
+                <div class="gap-fix-corner" id="right"></div>
+              </div>
+            </div>
             <div class="sbb-select__panel">
               <div id="sbb-select-2" class="sbb-select__options" role="listbox" aria-multiselectable="">
                 <slot></slot>
