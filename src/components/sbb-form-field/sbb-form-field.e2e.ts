@@ -20,16 +20,16 @@ describe('sbb-form-field', () => {
       </sbb-form-field>
     `);
 
-    expect(await page.findAll('sbb-form-field >>> label')).toEqual([]);
+    expect(await page.findAll('sbb-form-field label')).toEqual([]);
 
     element = await page.find('sbb-form-field');
     expect(element.shadowRoot.querySelector('label')).toBeNull();
     element.setAttribute('label', 'Label');
     await page.waitForChanges();
-    expect(element.shadowRoot.querySelector('label')).not.toBeNull();
+    expect(await element.find('label')).not.toBeNull();
 
     element.removeAttribute('label');
     await page.waitForChanges();
-    expect(element.shadowRoot.querySelector('label')).toBeNull();
+    expect(await element.find('label')).toBeNull();
   });
 });

@@ -33,6 +33,20 @@ export const i18nBarrierFreeTravel: Record<string, string> = {
   it: 'Viaggio senza barriere.',
 };
 
+export const i18nSector: Record<string, string> = {
+  de: 'Sektor',
+  en: 'Sector',
+  fr: 'Secteur',
+  it: 'Settore',
+};
+
+export const i18nSectorShort: Record<string, string> = {
+  de: 'Skt.',
+  en: 'Sec.',
+  fr: 'Sect.',
+  it: 'Set.',
+};
+
 export const i18nClass: Record<string, Record<string, string>> = {
   first: {
     de: 'Erste Klasse',
@@ -48,27 +62,55 @@ export const i18nClass: Record<string, Record<string, string>> = {
   },
 };
 
-export const i18nWagonLabel = (wagonNumber: number): Record<string, string> => ({
-  de: `Wagen mit der Nummer ${wagonNumber}.`,
-  en: `Train coach with the number ${wagonNumber}.`,
-  fr: `Wagon de train avec numéro ${wagonNumber}.`,
-  it: `Vagone del treno con il numero ${wagonNumber}.`,
-});
+export const i18nTrain: Record<string, string> = {
+  de: 'Zug',
+  en: 'Train',
+  fr: 'Train',
+  it: 'Treno',
+};
+
+export const i18nTrains: Record<string, string> = {
+  de: 'Züge',
+  en: 'Trains',
+  fr: 'Trains',
+  it: 'Treni',
+};
+
+export const i18nWagonsLabel: Record<string, string> = {
+  de: 'Wagen des Zuges',
+  en: 'Coaches of the train',
+  fr: 'Wagons de train',
+  it: 'Carrozze del treno',
+};
+
+export const i18nWagonLabel: Record<string, string> = {
+  de: 'Wagen',
+  en: 'Train coach',
+  fr: 'Wagon de train',
+  it: 'Carrozza del treno',
+};
+
+export const i18nWagonLabelNumber: Record<string, string> = {
+  de: `Nummer`,
+  en: `Number`,
+  fr: `Numéro`,
+  it: `Numero`,
+};
 
 export const i18nClosedCompartmentLabel = (wagonNumber: number): Record<string, string> => {
   if (wagonNumber) {
     return {
-      de: `Geschlossener Wagen mit der Nummer ${wagonNumber}.`,
-      en: `Closed train coach with the number ${wagonNumber}.`,
-      fr: `Wagon de train fermé avec le numéro ${wagonNumber}.`,
-      it: `Vagone del treno chiuso con il numero ${wagonNumber}.`,
+      de: `Geschlossener Wagen mit der Nummer ${wagonNumber}`,
+      en: `Closed train coach with the number ${wagonNumber}`,
+      fr: `Wagon de train fermé avec le numéro ${wagonNumber}`,
+      it: `Carrozza del treno chiuso con il numero ${wagonNumber}`,
     };
   }
   return {
-    de: 'Geschlossener Zugwaggon.',
-    en: 'Closed train coach.',
-    fr: 'Wagon de train fermé.',
-    it: 'Vagone del treno chiuso.',
+    de: 'Geschlossener Zugwaggon',
+    en: 'Closed train coach',
+    fr: 'Wagon de train fermé',
+    it: 'Carrozza del treno chiuso',
   };
 };
 
@@ -81,22 +123,22 @@ export const i18nLocomotiveLabel: Record<string, string> = {
 
 export const i18nBlockedPassage: Record<string, Record<string, string>> = {
   previous: {
-    de: 'Kein Durchgang zum vorherigen Wagen.',
-    en: 'No passage to the previous train coach.',
-    fr: 'Pas de passage au wagon du train précédent.',
-    it: 'Nessun passaggio allo vagone del treno precedente.',
+    de: 'Kein Durchgang zum vorherigen Wagen',
+    en: 'No passage to the previous train coach',
+    fr: 'Pas de passage au wagon du train précédent',
+    it: 'Nessun passaggio alla carrozza del treno precedente',
   },
   next: {
-    de: 'Kein Durchgang zum nächsten Wagen.',
-    en: 'No passage to the next train coach.',
-    fr: 'Pas de passage au wagon de train suivant.',
-    it: 'Nessun passaggio allo vagone del treno successivo.',
+    de: 'Kein Durchgang zum nächsten Wagen',
+    en: 'No passage to the next train coach',
+    fr: 'Pas de passage au wagon de train suivant',
+    it: 'Nessun passaggio alla carrozza del treno successivo',
   },
   both: {
-    de: 'Kein Durchgang zum nächsten und vorherigen Wagen.',
-    en: 'No passage to the next and previous train coach.',
-    fr: 'Pas de passage au wagon de train suivant et précédent.',
-    it: 'Nessun passaggio allo vagone del treno successivo e precedente',
+    de: 'Kein Durchgang zum nächsten und vorherigen Wagen',
+    en: 'No passage to the next and previous train coach',
+    fr: 'Pas de passage au wagon de train suivant et précédent',
+    it: 'Nessun passaggio alla carrozza del treno successivo e precedente',
   },
 };
 
@@ -104,7 +146,7 @@ export const i18nAdditionalWagonInformationHeading: Record<string, string> = {
   de: 'Zusätzliche Wageninformation',
   en: 'Additional wagon information',
   fr: 'Informations supplémentaires sur les wagons',
-  it: 'Informazioni aggiuntive sul vagone',
+  it: 'Informazioni aggiuntive sulla carrozza del treno',
 };
 
 export const i18nConnectionsDepartOn: Record<string, string> = {
@@ -126,13 +168,6 @@ export const i18nDeparture: Record<string, string> = {
   en: 'Departure',
   fr: 'Départ',
   it: 'Partenza',
-};
-
-export const i18nDistance: Record<string, string> = {
-  de: 'Distanz',
-  en: 'Distance',
-  fr: 'Distance',
-  it: 'Distanza',
 };
 
 export const i18nDistanceMeter: Record<string, Record<string, Record<string, string>>> = {
@@ -228,6 +263,53 @@ export const i18nDurationHour: Record<string, Record<string, Record<string, stri
   },
 };
 
+export const i18nDurationDay: Record<string, Record<string, Record<string, string>>> = {
+  single: {
+    long: {
+      de: 'Tag',
+      en: 'Day',
+      fr: 'Jour',
+      it: 'Giorno',
+    },
+  },
+  multiple: {
+    long: {
+      de: 'Tage',
+      en: 'Days',
+      fr: 'Jours',
+      it: 'Giorni',
+    },
+  },
+};
+
+export const i18nTripQuayChange: Record<string, string> = {
+  de: 'Gleisänderung im Verlauf dieser Verbindung',
+  en: 'Track change in the course of this connection',
+  fr: 'Changement de voie sur le parcours de cette connexion',
+  it: 'Cambiamento di binario nel corso di questa connessione',
+};
+
+export const i18nTripDuration: Record<string, string> = {
+  de: 'Reisedauer',
+  en: 'Travel time',
+  fr: 'Durée du voyage',
+  it: 'Durata del viaggio',
+};
+
+export const i18nTransferProcedures: Record<string, string> = {
+  de: 'mal umsteigen',
+  en: 'changes',
+  fr: 'changement(s) de train',
+  it: 'cambi',
+};
+
+export const i18nNew: Record<string, string> = {
+  de: 'neu',
+  en: 'new',
+  fr: 'nouveau',
+  it: 'nuovo',
+};
+
 export const i18nFromPlatform: Record<string, Record<string, string>> = {
   long: {
     de: 'Von Gleis',
@@ -282,28 +364,97 @@ export const i18nNone: Record<string, string> = {
 
 export const i18nOccupancy: Record<string, Record<string, string>> = {
   unknown: {
-    de: 'Keine Belegungsprognose verfügbar.',
-    en: 'No occupancy forecast available.',
-    fr: "Aucune prévision d'occupation disponible.",
-    it: 'Nessuna previsione di occupazione disponibile.',
+    de: 'Keine Belegungsprognose verfügbar',
+    en: 'No occupancy forecast available',
+    fr: "Aucune prévision d'occupation disponible",
+    it: 'Nessuna previsione di occupazione disponibile',
   },
   low: {
-    de: 'Tiefe bis mittlere Belegung erwartet.',
-    en: 'Low to medium occupancy expected.',
-    fr: "On s'attend à un taux d'occupation faible à moyen.",
-    it: "Si prevede un'occupazione medio-bassa.",
+    de: 'Tiefe bis mittlere Belegung erwartet',
+    en: 'Low to medium occupancy expected',
+    fr: "On s'attend à un taux d'occupation faible à moyen",
+    it: "Si prevede un'occupazione medio-bassa",
   },
   medium: {
-    de: 'Hohe Belegung erwartet.',
-    en: 'High occupancy expected.',
-    fr: "Un taux d'occupation élevé est attendu.",
-    it: "Ci si aspetta un'alta occupazione.",
+    de: 'Hohe Belegung erwartet',
+    en: 'High occupancy expected',
+    fr: "Un taux d'occupation élevé est attendu",
+    it: "Ci si aspetta un'alta occupazione",
   },
   high: {
-    de: 'Sehr hohe Belegung erwartet.',
-    en: 'Very high occupancy expected.',
-    fr: "Un taux d'occupation très élevé est attendu.",
-    it: "Ci si aspetta un'occupazione molto alta.",
+    de: 'Sehr hohe Belegung erwartet',
+    en: 'Very high occupancy expected',
+    fr: "Un taux d'occupation très élevé est attendu",
+    it: "Ci si aspetta un'occupazione molto alta",
+  },
+};
+
+export const i18nMeansOfTransport: Record<string, Record<string, string>> = {
+  funicular: {
+    de: 'Seilbahn/Zahnradbahn',
+    en: 'Funicular/Cog railway',
+    fr: 'Funiculaire/Chemin de fer à crémaillère',
+    it: 'Funivia/Ferrovia a cremagliera',
+  },
+  ec_id: {
+    de: 'EC/IC',
+    en: 'EC/IC',
+    fr: 'EC/IC',
+    it: 'EC/IC',
+  },
+  bus: {
+    de: 'Bus',
+    en: 'Bus',
+    fr: 'Bus',
+    it: 'Bus',
+  },
+  re: {
+    de: 'RE',
+    en: 'RE',
+    fr: 'RE',
+    it: 'RE',
+  },
+  arz_ext: {
+    de: 'ARZ/EXT',
+    en: 'ARZ/EXT',
+    fr: 'ARZ/EXT',
+    it: 'ARZ/EXT',
+  },
+  ice_tgv_rjx: {
+    de: 'ICE/TGV/RJX',
+    en: 'ICE/TGV/RJX',
+    fr: 'ICE/TGV/RJX',
+    it: 'ICE/TGV/RJX',
+  },
+  ir_pe: {
+    de: 'IR/PE',
+    en: 'IR/PE',
+    fr: 'IR/PE',
+    it: 'IR/PE',
+  },
+  s_sn_r: {
+    de: 'S/SN/R',
+    en: 'S/SN/R',
+    fr: 'S/SN/R',
+    it: 'S/SN/R',
+  },
+  tram: {
+    de: 'Tram/Metro',
+    en: 'Tramway/Underground',
+    fr: 'Tram/Métro',
+    it: 'Tram/Metro',
+  },
+  ship: {
+    de: 'Schiff',
+    en: 'Ship',
+    fr: 'Bateau',
+    it: 'Battello',
+  },
+  train: {
+    de: 'Zug',
+    en: 'Train',
+    fr: 'Train',
+    it: 'Treno',
   },
 };
 
@@ -319,26 +470,6 @@ export const i18nTargetOpensInNewWindow: Record<string, string> = {
   en: 'Link target opens in new window.',
   fr: "Le lien s'ouvre dans une nouvelle fenêtre.",
   it: "L'obiettivo del link si apre in una nuova finestra.",
-};
-
-export const i18nXResultsAvailable = (resultsCount: number): Record<string, string> => ({
-  de: `${resultsCount} Resultate verfügbar.`,
-  en: `${resultsCount} results available.`,
-  fr: `${resultsCount} résultats disponibles.`,
-  it: `${resultsCount} sarà disponibile.`,
-});
-
-export const i18nUseArrowKeysToNavigate: Record<string, string> = {
-  de: 'Verwenden Sie Pfeiltasten nach oben und unten, um zu navigieren.',
-  en: 'Use up and down arrow keys to navigate.',
-  fr: 'Utilisez les touches fléchées haut et bas pour naviguer.',
-  it: 'Usa i tasti freccia su e giù per navigare.',
-};
-export const i18nWalk: Record<string, string> = {
-  de: 'Fussweg',
-  en: 'Walk',
-  fr: 'Parcours à pied',
-  it: 'Percorso a piedi',
 };
 
 export const i18nWalkingDistanceArrival: Record<string, string> = {

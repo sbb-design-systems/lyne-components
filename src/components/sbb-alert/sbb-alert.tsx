@@ -1,5 +1,6 @@
 import {
   Component,
+  Element,
   Event,
   EventEmitter,
   h,
@@ -9,13 +10,16 @@ import {
   ComponentInterface,
   Fragment,
   State,
-  Listen,
 } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
@@ -86,19 +90,31 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   })
   public dismissalRequested: EventEmitter<void>;
 
+  @Element() private _element!: HTMLElement;
+
+  @State() private _currentLanguage = documentLanguage();
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
   private _transitionWrapperElement!: HTMLElement;
   private _alertElement!: HTMLElement;
 
-  @State() private _currentLanguage = documentLanguage();
   private _firstRenderingDone = false;
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // Skip very first render where the animation elements are not yet ready.
     // Presentation is postponed to componentDidRender().
     if (this._transitionWrapperElement) {
       this._initFadeInTransitionStyles();
       this._present();
     }
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public componentDidRender(): void {
@@ -108,11 +124,6 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
       this._present();
     }
     this._firstRenderingDone = true;
-  }
-
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
   }
 
   /** Requests dismissal of the alert. */
@@ -167,7 +178,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
 
   private _linkProperties(): Record<string, string> {
     return {
-      ['accessibility-label']: this.accessibilityLabel,
+      ['aria-label']: this.accessibilityLabel,
       href: this.href,
       rel: this.rel,
       target: this.target,
@@ -223,7 +234,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
                 size="m"
                 icon-name="cross-small"
                 onClick={() => this.requestDismissal()}
-                accessibility-label={i18nCloseAlert[this._currentLanguage]}
+                aria-label={i18nCloseAlert[this._currentLanguage]}
                 class="sbb-alert__close-button"
               />
             </span>

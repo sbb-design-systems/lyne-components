@@ -25,6 +25,10 @@
   color: var(--sbb-pearl-chain-bullet-color);
   border-color: var(--sbb-pearl-chain-bullet-color);
   border-radius: 100%;
+
+  @include a11y.if-forced-colors {
+    --sbb-pearl-chain-bullet-color: CanvasText;
+  }
 }
 
 @mixin pearl-chain-bullet-start-end {
@@ -45,6 +49,10 @@
 
 @mixin pearl-chain-bullet-past {
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-color-past);
+
+  @include a11y.if-forced-colors {
+    --sbb-pearl-chain-bullet-color: GrayText !important;
+  }
 }
 
 @mixin pearl-chain-bullet-irrelevant {
@@ -53,6 +61,9 @@
 
 @mixin pearl-chain-bullet-disruption {
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-bullet-color-disruption);
+  @include a11y.if-forced-colors {
+    --sbb-pearl-chain-bullet-color: Highlight;
+  }
 }
 
 @mixin pearl-chain-bullet-skipped {
@@ -69,6 +80,10 @@
     background: var(--sbb-pearl-chain-bullet-color-disruption);
     height: var(--sbb-pearl-chain-bullet-crossed-height);
     width: var(--sbb-pearl-chain-bullet-crossed-width);
+
+    @include a11y.if-forced-colors {
+      background: Highlight;
+    }
   }
 }
 

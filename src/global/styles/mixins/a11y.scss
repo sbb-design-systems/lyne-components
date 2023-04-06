@@ -10,10 +10,6 @@
 @mixin focus-outline {
   outline-offset: var(--sbb-focus-outline-offset);
   outline: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
-
-  @include if-forced-colors {
-    outline-color: Highlight;
-  }
 }
 
 @mixin screen-reader-only {

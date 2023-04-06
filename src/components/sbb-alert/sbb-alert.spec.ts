@@ -25,7 +25,7 @@ describe('sbb-alert', () => {
                   <slot></slot>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
-                <sbb-button accessibility-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
+                <sbb-button aria-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
                 </span>
               </div>
             </div>
@@ -57,12 +57,12 @@ describe('sbb-alert', () => {
                   </sbb-title>
                   <slot></slot>
                   <span aria-hidden="true"></span>
-                  <sbb-link negative variant="inline" accessibility-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank">
+                  <sbb-link negative variant="inline" aria-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank">
                     Show much more
                   </sbb-link>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
-                <sbb-button accessibility-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
+                <sbb-button aria-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
                 </span>
               </div>
             </div>

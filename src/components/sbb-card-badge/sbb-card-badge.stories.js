@@ -19,7 +19,7 @@ const wrapperStyle = (context) => {
 /* Storybook controls                                */
 /* ************************************************* */
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -54,7 +54,7 @@ const price = {
 };
 
 const defaultArgTypes = {
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   appearance,
   'is-discount': isDiscount,
   price,
@@ -62,7 +62,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
+  'aria-label': 'Super saver sales ticket price starts at CHF 37.50',
   appearance: appearance.options[0],
 };
 
@@ -111,7 +111,7 @@ export const CardBadgeFullFledged = TemplateWithSlot.bind({});
 CardBadgeFullFledged.argTypes = defaultArgTypes;
 CardBadgeFullFledged.args = {
   ...defaultArgs,
-  'accessibility-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
+  'aria-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
   'is-discount': true,
   price: '92.50',
   text: 'from CHF',
@@ -132,7 +132,7 @@ export const CardBadgeDiscount = Template.bind({});
 CardBadgeDiscount.argTypes = defaultArgTypes;
 CardBadgeDiscount.args = {
   ...defaultArgs,
-  'accessibility-label': 'Super saver sales ticket.',
+  'aria-label': 'Super saver sales ticket.',
   'is-discount': true,
 };
 
@@ -151,7 +151,7 @@ export const CardBadgeDiscountNegative = Template.bind({});
 CardBadgeDiscountNegative.argTypes = defaultArgTypes;
 CardBadgeDiscountNegative.args = {
   ...defaultArgs,
-  'accessibility-label': 'Super saver sales ticket.',
+  'aria-label': 'Super saver sales ticket.',
   appearance: appearance.options[1],
   'is-discount': true,
 };
@@ -171,7 +171,7 @@ export const CardBadgeWithTextAndPrice = Template.bind({});
 CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPrice.args = {
   ...defaultArgs,
-  'accessibility-label': 'Super saver sales ticket price starts at CHF 37.50',
+  'aria-label': 'Super saver sales ticket price starts at CHF 37.50',
   price: '37.50',
   text: 'from CHF',
 };
@@ -191,7 +191,7 @@ export const CardBadgeWithTextAndPriceNegative = Template.bind({});
 CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
 CardBadgeWithTextAndPriceNegative.args = {
   ...defaultArgs,
-  'accessibility-label': 'Super saver sales ticket price starts at CHF 18.70',
+  'aria-label': 'Super saver sales ticket price starts at CHF 18.70',
   appearance: appearance.options[1],
   price: '18.70',
   text: 'from CHF',
@@ -212,7 +212,7 @@ export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
 CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
 CardBadgeDiscountWithSlot.args = {
   ...defaultArgs,
-  'accessibility-label': 'Super saver sales ticket Black Friday Special',
+  'aria-label': 'Super saver sales ticket Black Friday Special',
   'is-discount': true,
 };
 

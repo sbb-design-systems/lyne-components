@@ -1,6 +1,10 @@
-import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
@@ -31,9 +35,19 @@ export class SbbJourneyHeader {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {

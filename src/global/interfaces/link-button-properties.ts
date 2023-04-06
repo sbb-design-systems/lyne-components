@@ -1,17 +1,9 @@
-import { documentLanguage } from '../helpers/language';
 import getDocumentWritingMode from '../helpers/get-document-writing-mode';
-import { i18nTargetOpensInNewWindow } from '../i18n';
-import { AccessibilityProperties, getAccessibilityAttributeList } from './accessibility-properties';
 
 /**
  * Enumeration for type attribute in <button> HTML tag.
  */
 export type ButtonType = 'button' | 'reset' | 'submit';
-
-/**
- * Enumeration for the 'aria-haspopup' values on the <button> HTML tag.
- */
-export type PopupType = 'true' | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
 
 /**
  * Enumeration for 'target' attribute in <a> HTML tag.
@@ -21,7 +13,7 @@ export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 /**
  * The interface contains attributes that can be set on an <a> tag.
  */
-export interface LinkProperties extends AccessibilityProperties {
+export interface LinkProperties {
   /** The href value you want to link to. */
   href: string | undefined;
 
@@ -38,9 +30,9 @@ export interface LinkProperties extends AccessibilityProperties {
 /**
  * The interface contains attributes that can be set on an <button> tag.
  */
-export interface ButtonProperties extends AccessibilityProperties {
+export interface ButtonProperties {
   /** The type attribute to use for the button. */
-  type: ButtonType | undefined;
+  type?: ButtonType | undefined;
 
   /** Whether the button is disabled. */
   disabled?: boolean | undefined;
@@ -53,41 +45,20 @@ export interface ButtonProperties extends AccessibilityProperties {
 
   /** The <form> element to associate the button with. */
   form?: string | undefined;
-
-  /**
-   * Indicates the availability and type of interactive popup element that can be triggered
-   * by the element
-   */
-  accessibilityHaspopup?: PopupType | undefined;
-
-  /** The function triggered on button click. */
-  emitButtonClick?: ((event: Event) => void) | undefined;
 }
 
 /**
  * A component that implements LinkButtonProperties should use this interface to set useful variables for render function.
  */
 export interface LinkButtonRenderVariables {
-  /**
-   * The tag's name rendered by the component.
-   */
+  /** The tag's name rendered by the component. */
   tagName: 'a' | 'button' | 'span';
 
-  /**
-   * The tag's attributes; can be set using getLinkButtonBaseAttributeList(...),
-   * getLinkAttributeList(...) or getButtonAttributeList(...) methods.
-   */
+  /** The tag's attributes. */
   attributes: Record<string, string>;
 
-  /**
-   * The host's attributes.
-   */
+  /** The host's attributes. */
   hostAttributes?: Record<string, string>;
-
-  /**
-   * Indicates whether the screen reader has to announce that the link will open in a new window.
-   */
-  screenReaderNewWindowInfo?: boolean;
 }
 
 /**
@@ -98,203 +69,113 @@ export interface LinkButtonRenderVariables {
  */
 export interface LinkButtonProperties extends LinkProperties, ButtonProperties {}
 
-/**
- * Creates the basic attribute list for the link/button tag; undefined/null properties are not set.
- * @param accessibilityProps accessibility props
- */
-export function getLinkButtonBaseAttributeList(
-  accessibilityProps?: AccessibilityProperties | null
-): Record<string, string> {
-  return Object.assign(
-    { dir: getDocumentWritingMode() },
-    getAccessibilityAttributeList(accessibilityProps)
-  );
+/** Indicates that a class or object can be static/non-interactive. */
+export interface IsStaticProperty {
+  isStatic: boolean;
+}
+
+function filterUndefined(...objects: Record<string, string>[]): Record<string, string> {
+  const result: Record<string, string> = {};
+  for (const object of objects) {
+    for (const [key, value] of Object.entries(object)) {
+      if (value !== undefined) {
+        result[key] = value as string;
+      }
+    }
+  }
+  return result;
 }
 
 /**
  * Lists all attributes for a link; undefined/null properties are not set.
  * @param linkProperties link properties
- * @param currentLanguage language for accessibility texts.
- * @param buttonProperties? (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
  */
-export function getLinkAttributeList(
-  linkProperties: LinkProperties,
-  currentLanguage: string = documentLanguage(),
-  buttonProperties?: ButtonProperties
-): Record<string, string> {
-  const baseAttributeList = getLinkButtonBaseAttributeList(linkProperties);
+function getLinkAttributeList(linkProperties: LinkProperties): Record<string, string> {
+  const baseAttributeList = {
+    role: 'presentation',
+    tabIndex: '-1',
+  };
 
-  if (!linkProperties.href) {
-    return baseAttributeList;
-  }
-
-  let ariaLabel = baseAttributeList['aria-label'];
-  if (ariaLabel && linkProperties.target === '_blank') {
-    ariaLabel += `. ${i18nTargetOpensInNewWindow[currentLanguage]}`;
-  }
-
-  return Object.assign(baseAttributeList, {
-    href: linkProperties.href,
-    download: linkProperties.download ? '' : undefined,
-    tabIndex: buttonProperties?.disabled ? '-1' : undefined,
-    target: linkProperties.target,
-    rel: linkProperties.rel
-      ? linkProperties.rel
-      : linkProperties.target === '_blank'
-      ? 'external noopener nofollow'
-      : undefined,
-    'aria-label': ariaLabel,
-  });
+  return !linkProperties.href
+    ? baseAttributeList
+    : filterUndefined(baseAttributeList, {
+        href: linkProperties.href,
+        download: linkProperties.download ? '' : undefined,
+        target: linkProperties.target,
+        rel: linkProperties.rel
+          ? linkProperties.rel
+          : linkProperties.target === '_blank'
+          ? 'external noopener nofollow'
+          : undefined,
+      });
 }
 
-/**
- * Lists all attributes for a button; undefined/null properties are not set.
- * @param buttonProperties button properties
- */
-export function getButtonAttributeList(buttonProperties: ButtonProperties): Record<string, string> {
-  const baseAttributeList = getLinkButtonBaseAttributeList(buttonProperties);
-
-  return Object.assign(baseAttributeList, {
-    name: buttonProperties.name || undefined,
-    type: buttonProperties.type || 'button',
-    onClick: buttonProperties.emitButtonClick?.bind(buttonProperties),
-    form: buttonProperties.form || undefined,
-    disabled: buttonProperties.disabled ? 'true' : undefined,
-    value: buttonProperties.value ?? undefined,
-    'aria-haspopup': buttonProperties?.accessibilityHaspopup ?? undefined,
-  });
+function hostProperties(role: string, disabled: boolean): Record<string, string> {
+  return Object.assign(
+    { role, dir: getDocumentWritingMode() },
+    disabled ? { 'aria-disabled': 'true' } : { tabIndex: '0' }
+  );
 }
 
-/**
- * Set default render variables for link case.
- * @param linkProperties used to set the 'attributes' property.
- * @param currentLanguage language for accessibility texts.
- * @param buttonProperties? (optional) In the case of a mixed button and anchor variant, pass in also button properties, which enables the possibility of a disabled link
- */
-export function getLinkRenderVariables(
-  linkProperties: LinkProperties,
-  currentLanguage: string = documentLanguage(),
-  buttonProperties?: ButtonProperties
+/** Set default render variables for link case. */
+function resolveLinkRenderVariables(
+  properties: LinkProperties & Pick<ButtonProperties, 'disabled'>
 ): LinkButtonRenderVariables {
   return {
     tagName: 'a',
-    attributes: getLinkAttributeList(linkProperties, currentLanguage, buttonProperties),
-    hostAttributes: { role: 'link' },
-    screenReaderNewWindowInfo:
-      !linkProperties.accessibilityLabel && linkProperties.target === '_blank',
+    attributes: getLinkAttributeList(properties),
+    hostAttributes: hostProperties('link', properties.disabled),
   };
 }
 
-/**
- * Set default render variables for button case.
- * @param buttonProperties used to set the 'attributes' property.
- */
-export function getButtonRenderVariables(
-  buttonProperties: ButtonProperties
-): LinkButtonRenderVariables {
+/** Set default render variables when the element is static (button/link inside another button/link). */
+function resolveStaticRenderVariables(): LinkButtonRenderVariables {
   return {
-    tagName: 'button',
-    attributes: getButtonAttributeList(buttonProperties),
-    hostAttributes: { role: 'button' },
+    tagName: 'span',
+    attributes: {},
+    hostAttributes: { dir: getDocumentWritingMode() },
   };
 }
 
-/**
- * Set default render variables when the element is static (button/link inside another button/link).
- * @param accessibilityProperties used to set the 'attributes' property.
- */
-export function getLinkButtonStaticRenderVariables(
-  accessibilityProperties: AccessibilityProperties
+/** Set default render variables for button case. */
+export function resolveButtonRenderVariables(
+  properties: ButtonProperties
 ): LinkButtonRenderVariables {
   return {
     tagName: 'span',
-    attributes: getLinkButtonBaseAttributeList(accessibilityProperties),
+    attributes: {},
+    hostAttributes: hostProperties('button', properties.disabled),
   };
 }
 
 /**
- * Set default render variables based on the 'default' condition, checking first `isStatic` parameter, then the `href`.
- * @param linkButtonProperties used to set the 'attributes' property and to check for `href` value.
- * @param currentLanguage language for accessibility texts.
- * @param isStatic renders the default static variable whether is true.
+ * Set default render variables based on the 'default' condition, checking first `isStatic` property, then the `href`.
+ * @param properties used to set the 'attributes' property and to check for `href` value.
  */
 export function resolveRenderVariables(
-  linkButtonProperties: LinkButtonProperties,
-  currentLanguage: string = documentLanguage(),
-  isStatic = false
+  properties: LinkButtonProperties & Partial<IsStaticProperty>
 ): LinkButtonRenderVariables {
-  if (isStatic) {
-    return getLinkButtonStaticRenderVariables(linkButtonProperties);
-  } else if (linkButtonProperties.href) {
-    return getLinkRenderVariables(linkButtonProperties, currentLanguage, linkButtonProperties);
+  if (properties.isStatic) {
+    return resolveStaticRenderVariables();
+  } else if (properties.href) {
+    return resolveLinkRenderVariables(properties);
   }
-  return getButtonRenderVariables(linkButtonProperties);
+  return resolveButtonRenderVariables(properties);
 }
 
 /**
  * Returns the link render variables or static variables if there is no href property.
  * @param linkProperties used to set variables and to check if href property is set.
- * @param currentLanguage language for accessibility texts.
  */
-export function resolveLinkRenderVariables(
-  linkProperties: LinkProperties,
-  currentLanguage: string = documentLanguage()
+export function resolveLinkOrStaticRenderVariables(
+  linkProperties: LinkProperties
 ): LinkButtonRenderVariables {
-  if (linkProperties.href) {
-    return getLinkRenderVariables(linkProperties, currentLanguage);
-  }
-  return getLinkButtonStaticRenderVariables(linkProperties);
+  return linkProperties.href
+    ? resolveLinkRenderVariables(linkProperties)
+    : resolveStaticRenderVariables();
 }
 
-/**
- * Forwards a click on the host element to the nested action element in order to
- * simplify the API.
- */
-export function forwardHostEvent(
-  event: Event,
-  host: HTMLElement,
-  nestedActionElement: HTMLElement
-): void {
-  // Check if the click was triggered on the host element and not from inside the shadow DOM.
-  // The composed path includes the full path to the clicked element including shadow DOM.
-  if (event.composedPath()[0] !== host) {
-    return;
-  }
-  const eventConstructor = Object.getPrototypeOf(event).constructor;
-  let copiedEvent: Event;
-
-  if (event.cancelable) {
-    // If the event is cancelable, we immediatly cancel it, copy it and dispatch it on the nested
-    // action element. As all of our intended forwardable event types bubble, this ensures
-    // that an event which was dispatched on host, is forwarded to the intended nested action
-    // element and consumers can still add event listeners and deal with the bubbling event
-    // as desired.
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    copiedEvent = new eventConstructor(event.type, event);
-  } else {
-    // If the event cannot be cancelled, we just copy it and dispatch it non-bubbling on the nested
-    // action element. This ensures that an event that was programmatically dispatched on the host
-    // is also dispatched on the intended nested action element.
-    copiedEvent = new eventConstructor(event.type);
-  }
-
-  nestedActionElement.dispatchEvent(copiedEvent);
-}
-
-/**
- * Resolves the first anchor or button tag inside the shadow DOM of the given element.
- */
-export function actionElement(element: HTMLElement): HTMLElement | null {
-  return element.shadowRoot.querySelector('a,button');
-}
-
-/**
- * Resolves the first anchor or button tag inside the shadow DOM and calls the focus method if found.
- * Due to the `this` context handling with Safari when overwriting a method,
- * we need to specifically use a primitive function instead of a lexically bound arrow function.
- * The `this` inside the function will be bound to the context of the overwritten method.
- */
-export function focusActionElement(options: FocusOptions): void {
-  actionElement(this)?.focus(options);
+/** Returns true, if href is set and target is _blank. */
+export function targetsNewWindow(properties: LinkProperties): boolean {
+  return properties.href && properties.target === '_blank';
 }

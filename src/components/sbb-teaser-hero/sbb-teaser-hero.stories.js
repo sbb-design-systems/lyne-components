@@ -2,7 +2,7 @@ import { h } from 'jsx-dom';
 import readme from './readme.md';
 import sampleImages from '../../global/images';
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -63,7 +63,7 @@ const imageAlt = {
 };
 
 const defaultArgTypes = {
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   href,
   rel,
   target,
@@ -74,7 +74,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  'accessibility-label': undefined,
+  'aria-label': undefined,
   href: 'https://www.sbb.ch',
   rel: undefined,
   target: undefined,

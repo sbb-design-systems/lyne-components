@@ -27,14 +27,17 @@ describe('sbb-pearl-chain-time', () => {
           <div class="sbb-pearl-chain__time">
             <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
               <span class="sbb-screenreaderonly">
-                Departure
+                Departure:
               </span>
               12:00
             </time>
+            <span class="sbb-screenreaderonly">
+              0 changes
+            </span>
             <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
             <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="sbb-screenreaderonly">
-                Arrival
+                Arrival:
               </span>
               15:00
             </time>
@@ -80,14 +83,17 @@ describe('sbb-pearl-chain-time', () => {
               </span>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
                 <span class="sbb-screenreaderonly">
-                  Departure
+                  Departure:
                 </span>
                 12:00
               </time>
+              <span class="sbb-screenreaderonly">
+                0 changes
+              </span>
               <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
-                  Arrival
+                  Arrival:
                 </span>
                 15:00
               </time>
@@ -117,14 +123,17 @@ describe('sbb-pearl-chain-time', () => {
             <div class="sbb-pearl-chain__time">
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
                 <span class="sbb-screenreaderonly">
-                  Departure
+                  Departure:
                 </span>
                 12:00
               </time>
+              <span class="sbb-screenreaderonly">
+                0 changes
+              </span>
               <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
-                  Arrival
+                  Arrival:
                 </span>
                 15:00
               </time>
@@ -183,14 +192,17 @@ describe('sbb-pearl-chain-time', () => {
               </span>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T12:00:00">
                 <span class="sbb-screenreaderonly">
-                  Departure
+                  Departure:
                 </span>
                 12:00
               </time>
+              <span class="sbb-screenreaderonly">
+                0 changes
+              </span>
               <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
-                  Arrival
+                  Arrival:
                 </span>
                 15:00
               </time>

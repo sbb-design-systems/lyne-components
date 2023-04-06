@@ -19,11 +19,7 @@ import {
   RadioButtonStateChange,
 } from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+import { createNamedSlotState } from '../../global/helpers';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -118,11 +114,6 @@ export class SbbRadioButton implements ComponentInterface {
     }
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
   @Listen('click')
   public handleClick(event: Event): void {
     this.select();
@@ -147,7 +138,6 @@ export class SbbRadioButton implements ComponentInterface {
     this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
       this._withinSelectionPanel && !this._element.closest('[slot="content"]');
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._setupInitialStateAndAttributeObserver();
   }
 
@@ -182,15 +172,15 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const attributes = {
+      role: 'radio',
+      'aria-checked': this.checked?.toString() ?? 'false',
+      'aria-required': (this.required || this._requiredFromGroup).toString(),
+      'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      'data-is-selection-panel-input': this._isSelectionPanelInput,
+    };
     return (
-      <Host
-        data-is-selection-panel-input={this._isSelectionPanelInput}
-        /* eslint-disable jsx-a11y/aria-proptypes */
-        aria-checked={`${this.checked}`}
-        aria-disabled={`${this.disabled || this._disabledFromGroup}`}
-        /* eslint-enable jsx-a11y/aria-proptypes */
-        role="radio"
-      >
+      <Host {...attributes}>
         <label class="sbb-radio-button">
           <input
             type="radio"

@@ -1,10 +1,14 @@
-import { Component, h, JSX, Prop, Element, ComponentInterface, State, Listen } from '@stencil/core';
+import { Component, h, JSX, Prop, Element, ComponentInterface, State } from '@stencil/core';
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
 import { isTomorrow, isToday, isValid, format } from 'date-fns';
 
-import { i18nToday, i18nTomorrow } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
+import { i18nToday, i18nTomorrow, i18nTripDuration } from '../../global/i18n';
 import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -23,21 +27,29 @@ export class SbbJourneySummary implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _hostElement: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   private _hasContentSlot: boolean;
 
   public componentWillLoad(): void {
-    this._hasContentSlot = Boolean(this._hostElement.querySelector('[slot="content"]'));
+    this._hasContentSlot = Boolean(this._element.querySelector('[slot="content"]'));
   }
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _now(): number {
-    const dataNow = +this._hostElement.dataset?.now;
+    const dataNow = +this._element.dataset?.now;
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -90,12 +102,14 @@ export class SbbJourneySummary implements ComponentInterface {
       legs,
     } = this.config || {};
 
+    const durationObj = durationToTime(duration, this._currentLanguage);
+
     return (
       <div class="sbb-journey-summary">
         {origin && (
           <sbb-journey-header
             size="l"
-            level="4"
+            level="3"
             origin={origin}
             destination={destination}
           ></sbb-journey-header>
@@ -104,9 +118,12 @@ export class SbbJourneySummary implements ComponentInterface {
         <span class="sbb-journey-summary__date">
           {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
           {duration > 0 && (
-            <span>
-              , <time>{durationToTime(duration)}</time>
-            </span>
+            <time>
+              <span class="sbb-screenreaderonly">
+                {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+              </span>
+              <span aria-hidden="true">, {durationObj.short}</span>
+            </time>
           )}
         </span>
         <sbb-pearl-chain-time

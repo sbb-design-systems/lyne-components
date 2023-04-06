@@ -1,7 +1,9 @@
-import { Component, h, JSX, Listen, Prop, State } from '@stencil/core';
-
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
 
 @Component({
@@ -10,8 +12,6 @@ import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
   tag: 'sbb-timetable-duration',
 })
 export class SbbTimetableDuration {
-  @State() private _currentLanguage = documentLanguage();
-
   /**
    * Stringified JSON which defines most of the
    * content of the component. Please check the
@@ -20,9 +20,21 @@ export class SbbTimetableDuration {
    */
   @Prop() public config!: string;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  @State() private _currentLanguage = documentLanguage();
+
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {

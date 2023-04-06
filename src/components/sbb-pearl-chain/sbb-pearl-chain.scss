@@ -6,6 +6,12 @@
   background-repeat: repeat-x;
   background-size: calc(2 * var(--sbb-pearl-chain-spacing-small)) var(--sbb-pearl-chain-height);
   inset-inline-end: var(--sbb-pearl-chain-height);
+
+  @include sbb.if-forced-colors {
+    background: unset;
+    border-block-start: #{sbb.px-to-rem-build(1)} dashed Highlight;
+    transform: translateY(#{sbb.px-to-rem-build(1)});
+  }
 }
 
 // Default component properties, defined for :host. Properties which can not
@@ -51,10 +57,6 @@
   background-color: currentcolor;
   inset-block-start: 0;
   z-index: 3;
-
-  @include sbb.if-forced-colors {
-    background-color: CanvasText;
-  }
 }
 
 .sbb-pearl-chain__bullet:first-of-type {
@@ -77,7 +79,11 @@
   align-items: center;
 
   @include sbb.if-forced-colors {
-    color: CanvasText;
+    background-color: CanvasText;
+
+    .sbb-pearl-chain--past & {
+      background-color: GrayText;
+    }
   }
 }
 
@@ -94,8 +100,13 @@
   z-index: 2;
 }
 
+.sbb-pearl-chain__bullet--future {
+  @include sbb.pearl-chain-bullet;
+}
+
 .sbb-pearl-chain__leg--past,
 .sbb-pearl-chain--past,
+.sbb-pearl-chain__leg--past::after,
 .sbb-pearl-chain__leg--progress::after,
 .sbb-pearl-chain__leg--progress .sbb-pearl-chain__stop,
 .sbb-pearl-chain--progress,
@@ -105,12 +116,14 @@
   color: var(--sbb-pearl-chain-color-past);
 
   @include sbb.if-forced-colors {
-    color: GrayText;
+    background-color: GrayText !important;
   }
 }
 
 .sbb-pearl-chain__bullet--progress {
   @include sbb.pearl-chain-bullet-past;
+
+  background: var(--sbb-pearl-chain-bullet-color);
 }
 
 .sbb-pearl-chain__bullet--departure-disruption,
@@ -122,8 +135,17 @@
   color: var(--sbb-pearl-chain-color-disruption);
 
   @include sbb.if-forced-colors {
-    background-color: ActiveText;
+    color: Highlight;
+    background: Highlight;
   }
+}
+
+.sbb-pearl-chain__leg--disruption .sbb-pearl-chain__stop {
+  @include sbb.pearl-chain-bullet-disruption;
+}
+
+.sbb-pearl-chain__leg--past .sbb-pearl-chain__stop {
+  @include sbb.pearl-chain-bullet-past;
 }
 
 .sbb-pearl-chain__leg--disruption::after {
@@ -135,15 +157,6 @@
 
   &::after {
     @include sbb-pearl-chain-dotted;
-  }
-}
-
-.sbb-pearl-chain__leg--disruption::after,
-.sbb-pearl-chain--past .sbb-pearl-chain__leg--disruption::after {
-  @include sbb.if-forced-colors {
-    background: none;
-    border-block-start: #{sbb.px-to-rem-build(1)} dashed currentcolor;
-    transform: translateY(#{sbb.px-to-rem-build(1)});
   }
 }
 
@@ -198,12 +211,12 @@
 
   // --sbb-pearl-chain-status-position: defined in .tsx file
   inset-inline-start: var(--sbb-pearl-chain-status-position);
-
-  @include sbb.if-forced-colors {
-    background-color: ActiveText;
-  }
 }
 
 .sbb-pearl-chain__position--no-animation {
   animation: unset;
+}
+
+.sbb-screenreaderonly {
+  @include sbb.screen-reader-only;
 }

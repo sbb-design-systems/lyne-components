@@ -6,27 +6,26 @@ import {
   EventEmitter,
   h,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
 } from '@stencil/core';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { ScrollHandler } from '../../global/helpers/scroll';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import {
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -41,7 +40,7 @@ type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
   styleUrl: 'sbb-dialog.scss',
   tag: 'sbb-dialog',
 })
-export class SbbDialog implements ComponentInterface, AccessibilityProperties {
+export class SbbDialog implements ComponentInterface {
   /**
    * Dialog title.
    */
@@ -167,17 +166,16 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   private _hasActionGroup = false;
   private _openedByKeyboard = false;
 
+  // Last element which had focus before the dialog was opened.
+  private _lastFocusedElement?: HTMLElement;
+
   @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleNamedSlotChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /**
    * Opens the dialog element.
@@ -189,6 +187,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     }
 
     this._openedByKeyboard = event?.detail === 0;
+    this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
     this._dialog.show();
@@ -226,9 +225,9 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._state = 'closed';
     this._dialogController = new AbortController();
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
 
     this._hasTitle = !!this.titleContent || this._namedSlots['title'];
     toggleDatasetEntry(this._element, 'fullscreen', !this._hasTitle);
@@ -244,6 +243,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._dialogController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
@@ -294,6 +294,8 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._lastFocusedElement?.focus();
       this._dialog.close();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
@@ -338,7 +340,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
-        accessibility-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
+        aria-label={this.accessibilityCloseLabel || i18nCloseDialog[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"
@@ -351,7 +353,7 @@ export class SbbDialog implements ComponentInterface, AccessibilityProperties {
     const backButton = (
       <sbb-button
         class="sbb-dialog__back"
-        accessibility-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
+        aria-label={this.accessibilityBackLabel || i18nGoBack[this._currentLanguage]}
         variant={this.negative ? 'transparent' : 'secondary'}
         negative={this.negative}
         size="m"

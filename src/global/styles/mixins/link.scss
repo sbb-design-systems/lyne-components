@@ -31,9 +31,18 @@
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
+@mixin link-variables--button {
+  @include a11y.if-forced-colors {
+    --sbb-link-color-normal: ButtonText;
+    --sbb-link-color-hover: ButtonText;
+    --sbb-link-color-active: ButtonText;
+  }
+}
+
 @mixin link-base {
   color: var(--sbb-link-color-normal);
   text-decoration: var(--sbb-link-text-decoration);
+  user-select: none;
 }
 
 @mixin link-inline-base {
@@ -41,25 +50,34 @@
 }
 
 @mixin link-focus-visible {
-  &:focus-visible {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
     @include a11y.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
 
-@mixin link-hover {
+@mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
-    &:hover {
-      color: var(--sbb-link-color-hover);
-      text-decoration: underline;
-    }
+    color: var(--sbb-link-color-hover);
+    text-decoration: underline;
   }
+}
+
+@mixin link-hover {
+  &:hover {
+    @include link-hover-rules;
+  }
+}
+
+@mixin link-active-rules {
+  color: var(--sbb-link-color-active);
 }
 
 @mixin link-active {
   &:active {
-    color: var(--sbb-link-color-active);
+    @include link-active-rules;
   }
 }
 

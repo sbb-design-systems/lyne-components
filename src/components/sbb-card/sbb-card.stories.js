@@ -96,7 +96,7 @@ const rel = {
   },
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -146,7 +146,7 @@ const basicArgTypes = {
   download,
   target,
   rel,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
   name,
   type,
   form,
@@ -161,7 +161,7 @@ const basicArgs = {
   download: false,
   target: '_blank',
   rel: undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
   name: undefined,
   type: undefined,
   form: undefined,

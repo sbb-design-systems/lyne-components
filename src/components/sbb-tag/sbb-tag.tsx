@@ -13,17 +13,14 @@ import {
   Watch,
 } from '@stencil/core';
 import {
+  actionElementHandlerAspect,
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 import {
-  AccessibilityProperties,
-  getAccessibilityAttributeList,
-} from '../../global/interfaces/accessibility-properties';
-import {
-  focusActionElement,
-  forwardHostEvent,
+  ButtonProperties,
+  resolveButtonRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import { TagStateChange } from './sbb-tag.custom';
 
@@ -37,9 +34,15 @@ import { TagStateChange } from './sbb-tag.custom';
   styleUrl: 'sbb-tag.scss',
   tag: 'sbb-tag',
 })
-export class SbbTag implements ComponentInterface, AccessibilityProperties {
+export class SbbTag implements ComponentInterface, ButtonProperties {
+  /** The name attribute to use for the button. */
+  @Prop({ reflect: true }) public name: string | undefined;
+
   /** Value of the tag. */
   @Prop() public value?: string;
+
+  /** The <form> element to associate the button with. */
+  @Prop() public form?: string;
 
   /** Amount displayed inside the tag. */
   @Prop() public amount?: string;
@@ -59,10 +62,7 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
    */
   @Prop() public iconName?: string;
 
-  /** The aria-label prop for tag action element. */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
   @Watch('checked')
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
@@ -97,26 +97,27 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
   /** Change event emitter */
   @Event({ bubbles: true }) public change: EventEmitter;
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, this._button);
-  }
-
-  private _button: HTMLButtonElement;
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    // Forward focus call to button element
-    this._element.focus = focusActionElement;
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   /** Method triggered on button click. Inverts the checked value and emits events. */
-  public toggleClicked(): void {
+  @Listen('click')
+  public handleClick(): void {
+    if (this.disabled) {
+      return;
+    }
+
     const tagGroup = this._element.closest('sbb-tag-group') as HTMLSbbTagGroupElement;
 
     // Prevent deactivating on exclusive / radio mode
@@ -130,19 +131,13 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
   }
 
   public render(): JSX.Element {
+    const { hostAttributes } = resolveButtonRenderVariables(this);
+    // We have to ensure that the value is always present
+    hostAttributes['aria-pressed'] = this.checked.toString();
+
     return (
-      <Host role="presentation">
-        <button
-          type="button"
-          class="sbb-tag"
-          // We have to ensure that the value is always present
-          aria-pressed={this.checked.toString()}
-          disabled={this.disabled}
-          aria-disabled={this.disabled}
-          {...getAccessibilityAttributeList(this)}
-          ref={(element) => (this._button = element)}
-          onClick={(): void => this.toggleClicked()}
-        >
+      <Host {...hostAttributes}>
+        <span class="sbb-tag">
           {(this.iconName || this._namedSlots['icon']) && (
             <span class="sbb-tag__icon sbb-tag--shift">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
@@ -156,7 +151,7 @@ export class SbbTag implements ComponentInterface, AccessibilityProperties {
               <slot name="amount">{this.amount}</slot>
             </span>
           )}
-        </button>
+        </span>
       </Host>
     );
   }

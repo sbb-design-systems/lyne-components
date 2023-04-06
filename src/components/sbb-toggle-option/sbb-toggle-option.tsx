@@ -14,10 +14,9 @@ import {
 } from '@stencil/core';
 import {
   createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
 
 /**
@@ -30,7 +29,7 @@ import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
   styleUrl: 'sbb-toggle-option.scss',
   tag: 'sbb-toggle-option',
 })
-export class SbbToggleOption implements ComponentInterface, AccessibilityProperties {
+export class SbbToggleOption implements ComponentInterface {
   /**
    * Whether the toggle-option is checked.
    */
@@ -52,11 +51,6 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   @Prop() public value?: string;
 
   /**
-   * This will be forwarded as aria-label to the relevant nested element.
-   */
-  @Prop() public accessibilityLabel: string | undefined;
-
-  /**
    * Whether the toggle option has a label.
    */
   @State() private _hasLabel = false;
@@ -69,6 +63,11 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
   @Element() private _element!: HTMLElement;
 
   private _toggle?: HTMLSbbToggleElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /**
    * Internal event that emits whenever the state of the toggle option
@@ -118,16 +117,15 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
     this.checked = true;
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // We can use closest here, as we expect the parent sbb-toggle to be in light DOM.
     this._toggle = this._element.closest('sbb-toggle');
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
     this._verifyTabindex();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _verifyTabindex(): void {
@@ -153,11 +151,7 @@ export class SbbToggleOption implements ComponentInterface, AccessibilityPropert
           value={this.value}
           onClick={(event) => event.stopPropagation()}
         />
-        <label
-          class="sbb-toggle-option"
-          htmlFor="sbb-toggle-option-id"
-          aria-label={this.accessibilityLabel}
-        >
+        <label class="sbb-toggle-option" htmlFor="sbb-toggle-option-id">
           {(this.iconName || this._namedSlots.icon) && (
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           )}

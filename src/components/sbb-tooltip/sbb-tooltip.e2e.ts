@@ -90,7 +90,7 @@ describe('sbb-tooltip', () => {
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
-    const closeButton = await page.find('sbb-tooltip >>> .sbb-tooltip__close');
+    const closeButton = await page.find('sbb-tooltip >>> .sbb-tooltip__close sbb-button');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -274,6 +274,13 @@ describe('sbb-tooltip', () => {
     expect(dialog).toHaveAttribute('open');
 
     await page.waitForChanges();
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-link');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip');
+    expect(
+      await page.evaluate(
+        () =>
+          document.activeElement.shadowRoot.activeElement ===
+          document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]')
+      )
+    ).toBe(true);
   });
 });

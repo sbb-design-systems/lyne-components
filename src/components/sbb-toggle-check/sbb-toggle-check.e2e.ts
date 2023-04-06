@@ -5,7 +5,7 @@ describe('sbb-toggle-check', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-toggle-check id="outer-id"></sbb-toggle-check>');
+    await page.setContent('<sbb-toggle-check id="focus-id"></sbb-toggle-check>');
     element = await page.find('sbb-toggle-check');
   });
 
@@ -24,31 +24,24 @@ describe('sbb-toggle-check', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    it('should forward host click to input element', async () => {
-      const input = await page.find('sbb-toggle-check >>> input');
-      const changeSpy = await input.spyOnEvent('click');
+    it('should emit click on Space', async () => {
+      const changeSpy = await element.spyOnEvent('click');
 
-      element.triggerEvent('click');
+      element.press(' ');
       await page.waitForChanges();
 
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    it('should forward host focus event to the input element', async () => {
-      const input = await page.find('sbb-toggle-check >>> input');
-
-      const changeSpy = await input.spyOnEvent('focus');
+    it('should recieve focus', async () => {
+      const changeSpy = await element.spyOnEvent('focus');
 
       await element.focus();
       await page.waitForChanges();
 
       expect(changeSpy).toHaveReceivedEventTimes(1);
 
-      // Although the inner native button receives the focus, the active element is the host
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(
-        await page.evaluate(() => document.activeElement.shadowRoot.activeElement.tagName)
-      ).toBe('INPUT');
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
     });
   });
 });

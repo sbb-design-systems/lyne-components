@@ -11,7 +11,7 @@ let nextId = 0;
 export class SbbFormError {
   public render(): JSX.Element {
     return (
-      <Host aria-live="polite" slot="error" ref={assignId(() => `sbb-form-error-${++nextId}`)}>
+      <Host ref={assignId(() => `sbb-form-error-${++nextId}`)}>
         <span class="form-error__icon">
           <slot name="icon">
             <svg

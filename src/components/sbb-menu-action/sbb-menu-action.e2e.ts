@@ -5,24 +5,16 @@ describe('sbb-menu-action', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    await page.setContent('<sbb-menu-action id="outer-id">Menu Action</sbb-menu-action>');
-
-    // Set id of the inner-button for later comparing of active element
-    await page.evaluate(
-      () =>
-        (document.getElementById('outer-id').shadowRoot.querySelector('button,a').id = 'inner-id')
-    );
-
+    await page.setContent('<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>');
     element = await page.find('sbb-menu-action');
   });
 
   describe('events', () => {
     it('dispatches event on click', async () => {
       await page.waitForChanges();
-      const menuAction = await page.find('sbb-menu-action >>> .sbb-menu-action');
       const changeSpy = await page.spyOnEvent('click');
 
-      await menuAction.click();
+      await element.click();
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -31,50 +23,47 @@ describe('sbb-menu-action', () => {
 
       await page.waitForChanges();
 
-      const menuAction = await page.find('sbb-menu-action >>> .sbb-menu-action');
-      const changeSpy = await page.spyOnEvent('click');
-
-      await menuAction.click();
-      expect(changeSpy).not.toHaveReceivedEvent();
-    });
-
-    it('should stop propagating host click if disabled', async () => {
-      element.setProperty('disabled', true);
-
       const clickSpy = await page.spyOnEvent('click');
 
-      element.triggerEvent('click');
-      await page.waitForChanges();
-
+      element.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
       expect(clickSpy).not.toHaveReceivedEvent();
     });
 
-    it('should forward host click to action element', async () => {
-      const menuAction = await page.find('sbb-menu-action >>> .sbb-menu-action');
-
-      const changeSpy = await menuAction.spyOnEvent('click');
-
-      element.triggerEvent('click');
-      await page.waitForChanges();
-
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+    it('should dispatch click event on pressing Enter', async () => {
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(changeSpy).toHaveReceivedEvent();
     });
 
-    it('should forward host focus event to action element', async () => {
-      const menuAction = await page.find('sbb-menu-action >>> .sbb-menu-action');
+    it('should dispatch click event on pressing Space', async () => {
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(changeSpy).toHaveReceivedEvent();
+    });
 
-      const changeSpy = await menuAction.spyOnEvent('focus');
+    it('should dispatch click event on pressing Enter with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
 
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press('Enter');
+      expect(changeSpy).toHaveReceivedEvent();
+    });
+
+    it('should not dispatch click event on pressing Space with href', async () => {
+      element.setAttribute('href', 'test');
+      await page.waitForChanges();
+
+      const changeSpy = await page.spyOnEvent('click');
+      await element.press(' ');
+      expect(changeSpy).not.toHaveReceivedEvent();
+    });
+
+    it('should receive focus', async () => {
       await element.focus();
       await page.waitForChanges();
 
-      expect(changeSpy).toHaveReceivedEventTimes(1);
-
-      // Although the inner native button receives the focus, the active element is the host
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-      expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-        'inner-id'
-      );
+      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
     });
   });
 
@@ -85,9 +74,8 @@ describe('sbb-menu-action', () => {
     element = await page.find('sbb-menu-action');
     expect(element).toHaveClass('hydrated');
 
-    const button = await page.find('sbb-menu-action >>> button');
-    const clickedSpy = await page.spyOnEvent('click');
-    await button.click();
+    const clickedSpy = await element.spyOnEvent('click');
+    await element.click();
     expect(clickedSpy).toHaveReceivedEventTimes(1);
   });
 });

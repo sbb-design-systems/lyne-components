@@ -7,6 +7,10 @@
 :host {
   display: inline-block;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   --sbb-teaser-scale-hover: 1.02;
   --sbb-teaser-description-color: var(--sbb-color-granite-default);
   --sbb-teaser-flex-direction: row;
@@ -30,7 +34,8 @@
   display: flex;
   text-decoration: none;
 
-  &:focus-visible {
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-teaser-border-radius);

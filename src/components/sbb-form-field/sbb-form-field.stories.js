@@ -1,6 +1,28 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
+const TooltipTrigger = () => [
+  <sbb-tooltip-trigger
+    slot="suffix"
+    id="tooltip-trigger"
+    icon-name="circle-information-small"
+  ></sbb-tooltip-trigger>,
+  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger">
+    <span id="tooltip-content" class="sbb-text-s">
+      Simple info tooltip.
+      <sbb-link
+        text-size="s"
+        variant="block"
+        icon-name="chevron-small-right-small"
+        icon-placement="end"
+        sbb-tooltip-close
+      >
+        Learn More
+      </sbb-link>
+    </span>
+  </sbb-tooltip>,
+];
+
 const TemplateBasicInput = (args) => (
   <input
     class={args.class}
@@ -70,10 +92,10 @@ const TemplateInputWithErrorSpace = (args) => {
             onKeyUp={(event) => {
               if (event.currentTarget.value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field').classList.remove(args.class);
+                document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
                 document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field').classList.add(args.class);
+                document.getElementById('sbb-form-field-input').classList.add(args.class);
               }
             }}
             class={args.class}
@@ -93,7 +115,7 @@ const TemplateInputWithIcons = (args) => (
   <sbb-form-field {...args}>
     <sbb-icon slot="prefix" name="pie-small" />
     {TemplateBasicInput(args)}
-    <sbb-icon slot="suffix" name="circle-information-small" />
+    {TooltipTrigger()}
   </sbb-form-field>
 );
 
@@ -130,10 +152,10 @@ const TemplateSelectWithErrorSpace = (args) => {
             onChange={(event) => {
               if (event.currentTarget.value !== '') {
                 sbbFormError.remove();
-                document.getElementById('sbb-form-field').classList.remove(args.class);
+                document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
                 document.getElementById('sbb-form-field').append(sbbFormError);
-                document.getElementById('sbb-form-field').classList.add(args.class);
+                document.getElementById('sbb-form-field-input').classList.add(args.class);
               }
             }}
             class={args.class}
@@ -162,9 +184,7 @@ const TemplateSelectWithIcons = (args) => (
       <sbb-icon name="pie-small" />
     </span>
     {TemplateBasicSelect(args)}
-    <span slot="suffix">
-      <sbb-icon name="circle-information-small" />
-    </span>
+    <span slot="suffix">{TooltipTrigger()}</span>
   </sbb-form-field>
 );
 

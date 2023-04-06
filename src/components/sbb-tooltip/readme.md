@@ -87,6 +87,7 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 | `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                              | `string`                | `undefined` |
 | `closeDelay`              | `close-delay`               | Close the tooltip after a certain delay.                                                                       | `number`                | `0`         |
 | `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                              | `boolean`               | `false`     |
+| `hideCloseButton`         | `hide-close-button`         | Whether the close button should be hidden.                                                                     | `boolean`               | `false`     |
 | `hoverTrigger`            | `hover-trigger`             | Whether the tooltip should be triggered on hover.                                                              | `boolean`               | `false`     |
 | `openDelay`               | `open-delay`                | Open the tooltip after a certain delay.                                                                        | `number`                | `0`         |
 | `trigger`                 | `trigger`                   | The element that will trigger the tooltip dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
@@ -104,7 +105,7 @@ As the tooltip opens, the focus will automatically be set to the first focusable
 
 ## Methods
 
-### `close(target?: HTMLElement) => Promise<void>`
+### `close(closedByFocusOrigin?: SbbFocusOrigin, target?: HTMLElement) => Promise<void>`
 
 Closes the tooltip.
 
@@ -114,7 +115,7 @@ Type: `Promise<void>`
 
 
 
-### `open() => Promise<void>`
+### `open(focusOrigin?: SbbFocusOrigin) => Promise<void>`
 
 Opens the tooltip on trigger click.
 

@@ -15,18 +15,21 @@ import {
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
 import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
 import { ScrollHandler } from '../../global/helpers/scroll';
 import { i18nCloseNavigation } from '../../global/i18n';
-import { AccessibilityProperties } from '../../global/interfaces/accessibility-properties';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
   setAriaOverlayTriggerAttributes,
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbNavigationState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -47,7 +50,7 @@ let nextId = 0;
   styleUrl: 'sbb-navigation.scss',
   tag: 'sbb-navigation',
 })
-export class SbbNavigation implements ComponentInterface, AccessibilityProperties {
+export class SbbNavigation implements ComponentInterface {
   /**
    * The element that will trigger the navigation.
    * Accepts both a string (id of an element) or an HTML element.
@@ -133,12 +136,12 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   );
   private _navigationId = `sbb-navigation-${++nextId}`;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   /**
    * Opens the navigation.
@@ -241,6 +244,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
+      this._triggerElement?.focus();
       this._navigation.close();
       this.didClose.emit();
       this._windowEventsController?.abort();
@@ -340,12 +344,14 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._navigationObserver.observe(this._element, navigationObserverConfig);
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._navigationController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
@@ -356,9 +362,7 @@ export class SbbNavigation implements ComponentInterface, AccessibilityPropertie
     const closeButton = (
       <sbb-button
         class="sbb-navigation__close"
-        accessibility-label={
-          this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]
-        }
+        aria-label={this.accessibilityCloseLabel || i18nCloseNavigation[this._currentLanguage]}
         aria-controls="sbb-navigation-dialog-id"
         variant="transparent"
         negative={true}

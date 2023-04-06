@@ -1,6 +1,13 @@
 import { h, JSX } from '@stencil/core';
-import { Notice, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
-import { HimCus, PtSituation, Trip, VehicleModeEnum } from './sbb-timetable-row.custom';
+import { ITripItem, Notice } from '../../global/interfaces/timetable-properties';
+import { HimCus } from './sbb-timetable-row.custom';
+import {
+  VehicleModeEnum,
+  PtRideLeg,
+  PtSituation,
+} from '../../global/interfaces/timetable-properties';
+import { isRideLeg } from '../../global/helpers/timetable-helper';
+import { i18nTripQuayChange } from '../../global/i18n';
 
 export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
   switch (vehicleMode) {
@@ -64,7 +71,10 @@ export const renderIconProduct = (transport: string, line?: string | null): JSX.
   const dashLine = line ? '-' + line : '';
 
   return (
-    <sbb-icon class="sbb-timetable__row-transport" name={transport.toLowerCase() + dashLine} />
+    <span class="sbb-timetable__row-transport">
+      <sbb-icon name={transport.toLowerCase() + dashLine} />
+      <span class="sbb-screenreaderonly"> {transport.toLowerCase() + dashLine}</span>
+    </span>
   );
 };
 
@@ -85,9 +95,14 @@ const getReachableText = (legs: PtRideLeg[]): string => {
     ?.serviceAlteration?.reachableText;
 };
 
+const getDelayText = (legs: PtRideLeg[]): string => {
+  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.delayText)?.serviceJourney
+    ?.serviceAlteration?.delayText;
+};
+
 const getRedirectedText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedFormatted)
-    ?.serviceJourney?.serviceAlteration?.redirectedFormatted;
+  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)?.serviceJourney
+    ?.serviceAlteration?.redirectedText;
 };
 
 const getUnplannedStop = (legs: PtRideLeg[]): string => {
@@ -115,48 +130,57 @@ export const getHimIcon = (situation: PtSituation): HimCus => {
     case 'DISTURBANCE':
       return {
         name: 'disruption',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages?.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'INFORMATION':
       return {
         name: 'info',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'DELAY':
       return {
         name: 'delay',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'TRAIN_REPLACEMENT_BY_BUS':
       return {
         name: 'replacementbus',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     case 'CONSTRUCTION_SITE':
       return {
         name: 'construction',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
     default:
       return {
         name: 'info',
-        text: situation?.broadcastMessages ? situation?.broadcastMessages[0].title : '',
+        text: situation?.broadcastMessages.length ? situation?.broadcastMessages[0].title : '',
       };
   }
 };
 
-export const getCus = (trip: Trip): HimCus => {
-  const { legs, summary } = trip;
+export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
+  const { summary, legs } = trip;
+  const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
 
   if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
     return { name: 'cancellation', text: tripStatus?.cancelledText };
-  if (!isReachable(legs)) return { name: 'missed-connection', text: getReachableText(legs) };
+  if (!isReachable(rideLegs))
+    return { name: 'missed-connection', text: getReachableText(rideLegs) };
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
-  if (getRedirectedText(legs)) return { name: 'reroute', text: getRedirectedText(legs) };
-  if (getUnplannedStop(legs)) return { name: 'add-stop', text: getUnplannedStop(legs) };
-  if (tripStatus?.delayed || tripStatus?.delayedUnknown) return { name: 'delay', text: '' };
-  if (tripStatus?.quayChanged) return { name: 'platform-change', text: '' };
+  if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };
+  if (getUnplannedStop(rideLegs)) return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
+  if (tripStatus?.delayed || tripStatus?.delayedUnknown)
+    return { name: 'delay', text: getDelayText(rideLegs) };
+  if (tripStatus?.quayChanged) {
+    const departure = rideLegs[0].departure;
+    return {
+      name: 'platform-change',
+      text: departure.quayChanged ? departure.quayChangedText : i18nTripQuayChange[currentLanguage],
+    };
+  }
 
   return {} as HimCus;
 };
@@ -167,10 +191,7 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
   return notices.reduce((foundNotice, notice) => {
     if (foundNotice) return foundNotice;
     if (reservationNotice.includes(notice.name)) {
-      return {
-        name: 'RR',
-        text: notice.text?.template,
-      } as Notice;
+      return { ...notice, name: 'RR' } as Notice;
     }
   }, undefined);
 };

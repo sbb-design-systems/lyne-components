@@ -14,18 +14,13 @@ import {
 } from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
-import {
-  AccessibilityProperties,
-  getAccessibilityAttributeList,
-} from '../../global/interfaces/accessibility-properties';
 import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import { forwardEventToHost } from '../../global/helpers/forward-event';
-import { forwardHostEvent } from '../../global/interfaces/link-button-properties';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -43,7 +38,7 @@ const checkboxObserverConfig: MutationObserverInit = {
   styleUrl: 'sbb-checkbox.scss',
   tag: 'sbb-checkbox',
 })
-export class SbbCheckbox implements ComponentInterface, AccessibilityProperties {
+export class SbbCheckbox implements ComponentInterface {
   /** Value of checkbox. */
   @Prop() public value?: string;
 
@@ -66,11 +61,8 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   @Prop({ reflect: true }) public iconPlacement: InterfaceSbbCheckboxAttributes['iconPlacement'] =
     'end';
 
-  /** The aria-label prop for the hidden input. */
-  @Prop() public accessibilityLabel: string | undefined;
-
   /** Whether the checkbox is checked. */
-  @Prop({ mutable: true, reflect: true }) public checked: boolean;
+  @Prop({ mutable: true, reflect: true }) public checked = false;
 
   /** Label size variant, either m or s. */
   @Prop({ reflect: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
@@ -81,6 +73,9 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   /** Whether the component must be set required due required attribute on sbb-checkbox-group. */
   @State() private _requiredFromGroup = false;
 
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
+
   private _checkbox: HTMLInputElement;
 
   /** MutationObserver on data attributes. */
@@ -90,10 +85,7 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
   private _isSelectionPanelInput = false;
   private _withinSelectionPanel = false;
 
-  @Element() private _element: HTMLElement;
-
-  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
+  @Element() private _element!: HTMLElement;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -124,14 +116,10 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
     }
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
-  private _inputElement(): HTMLElement {
-    return this._element.shadowRoot.querySelector('input');
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
@@ -157,35 +145,61 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
     this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
       this._withinSelectionPanel && !this._element.closest('[slot="content"]');
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
-    this._element.focus = (options: FocusOptions) => this._inputElement().focus(options);
+    this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._checkboxAttributeObserver.disconnect();
   }
 
   @Listen('click')
   public handleClick(event: Event): void {
-    forwardHostEvent(event, this._element, this._checkbox);
+    if (!this.disabled && !this._disabledFromGroup && event.composedPath()[0] === this._element) {
+      this._checkbox.click();
+    }
   }
 
-  /** Method triggered on checkbox change. If not indeterminate, inverts the value; otherwise sets checked to true. */
-  public checkedChanged(event: Event): void {
-    if (this.indeterminate) {
-      this.checked = true;
-      this.indeterminate = false;
-    } else {
-      this.checked = this._checkbox?.checked;
+  @Listen('keyup')
+  public handleKeyup(event: KeyboardEvent): void {
+    // The native checkbox input toggles state on keyup with space.
+    if (!this.disabled && !this._disabledFromGroup && event.key === ' ') {
+      // The toggle needs to happen after the keyup event finishes, so we schedule
+      // it to be triggered after the current event loop.
+      setTimeout(() => this._checkbox.click());
     }
+  }
+
+  public handleChangeEvent(event: Event): void {
     forwardEventToHost(event, this._element);
     this.didChange.emit();
   }
 
+  /**
+   * Method triggered on checkbox input event.
+   * If not indeterminate, inverts the value; otherwise sets checked to true.
+   */
+  public handleInputEvent(): void {
+    if (this.indeterminate) {
+      this.checked = true;
+      this.indeterminate = false;
+    } else {
+      this.checked = this._checkbox?.checked ?? false;
+    }
+  }
+
   public render(): JSX.Element {
+    const attributes = {
+      role: 'checkbox',
+      'aria-checked': this.indeterminate ? 'mixed' : this.checked?.toString() ?? 'false',
+      'aria-required': (this.required || this._requiredFromGroup).toString(),
+      'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      'data-is-selection-panel-input': this._isSelectionPanelInput,
+      ...(this.disabled || this._disabledFromGroup ? undefined : { tabIndex: '0' }),
+    };
     return (
-      <Host data-is-selection-panel-input={this._isSelectionPanelInput}>
+      <Host {...attributes}>
         <span class="sbb-checkbox-wrapper">
           <label class="sbb-checkbox">
             <input
@@ -195,13 +209,16 @@ export class SbbCheckbox implements ComponentInterface, AccessibilityProperties 
                 this._checkbox.indeterminate = this.indeterminate;
               }}
               type="checkbox"
+              aria-hidden="true"
+              tabIndex={-1}
               disabled={this.disabled || this._disabledFromGroup}
-              aria-disabled={this.disabled || this._disabledFromGroup}
               required={this.required || this._requiredFromGroup}
               checked={this.checked}
               value={this.value}
-              {...getAccessibilityAttributeList(this)}
-              onChange={(event: Event): void => this.checkedChanged(event)}
+              onInput={() => this.handleInputEvent()}
+              onChange={(event) => this.handleChangeEvent(event)}
+              // Fix focus when using NVDA
+              onFocus={() => this._element.focus()}
             />
             <span class="sbb-checkbox__inner">
               <span class="sbb-checkbox__aligner">

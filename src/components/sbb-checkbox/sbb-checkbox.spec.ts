@@ -9,11 +9,11 @@ describe('sbb-checkbox', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-checkbox icon-placement="end" size="m">
+      <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-placement="end" role="checkbox" size="m" tabindex="0">
         <mock:shadow-root>
           <span class="sbb-checkbox-wrapper">
             <label class="sbb-checkbox">
-              <input type="checkbox"/>
+              <input aria-hidden="true" tabindex="-1" type="checkbox"/>
               <span class="sbb-checkbox__inner">
                 <span class="sbb-checkbox__aligner">
                   <span class="sbb-checkbox__selection">
@@ -41,11 +41,11 @@ describe('sbb-checkbox', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-checkbox icon-name="tickets-class-small" icon-placement="start" size="s">
+        <sbb-checkbox aria-checked="false" aria-disabled="false" aria-required="false" icon-name="tickets-class-small" icon-placement="start" role="checkbox" size="s" tabindex="0">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
               <label class="sbb-checkbox">
-                <input type="checkbox"/>
+                <input aria-hidden="true" tabindex="-1" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">
@@ -79,11 +79,11 @@ describe('sbb-checkbox', () => {
       });
 
       expect(root).toEqualHtml(`
-        <sbb-checkbox checked="" icon-placement="end" size="m">
+        <sbb-checkbox aria-checked="true" aria-disabled="false" aria-required="false" checked icon-placement="end" role="checkbox" size="m" tabindex="0">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
               <label class="sbb-checkbox">
-                <input checked="" type="checkbox"/>
+                <input aria-hidden="true" checked tabindex="-1" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">
@@ -117,11 +117,11 @@ describe('sbb-checkbox', () => {
       expect(input.indeterminate).toBe(true);
 
       expect(root).toEqualHtml(`
-        <sbb-checkbox indeterminate="" icon-placement="end" size="m">
+        <sbb-checkbox aria-checked="mixed" aria-disabled="false" aria-required="false" icon-placement="end" indeterminate role="checkbox" size="m" tabindex="0">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
               <label class="sbb-checkbox">
-                <input type="checkbox">
+                <input aria-hidden="true" tabindex="-1" type="checkbox">
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">
@@ -150,11 +150,11 @@ describe('sbb-checkbox', () => {
         html: '<sbb-checkbox disabled>Label</sbb-checkox>',
       });
       expect(root).toEqualHtml(`
-        <sbb-checkbox disabled="" icon-placement="end" size="m">
+        <sbb-checkbox aria-checked="false" aria-disabled="true" aria-required="false" disabled icon-placement="end" size="m" role="checkbox">
           <mock:shadow-root>
             <span class="sbb-checkbox-wrapper">
               <label class="sbb-checkbox">
-                <input disabled aria-disabled="" type="checkbox"/>
+                <input disabled aria-hidden="true" tabindex="-1" type="checkbox"/>
                 <span class="sbb-checkbox__inner">
                   <span class="sbb-checkbox__aligner">
                     <span class="sbb-checkbox__selection">

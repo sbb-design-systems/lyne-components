@@ -17,19 +17,24 @@ describe('sbb-timetable-row', () => {
       page.rootInstance.trip = defaultTrip;
       await page.waitForChanges();
       expect(page.root).toEqualHtml(`
-        <sbb-timetable-row data-now="1660662000000">
+        <sbb-timetable-row data-now="1660662000000" role="rowgroup">
           <mock:shadow-root>
-            <sbb-card role="rowgroup" size="l">
+            <sbb-card size="l">
               <div class="sbb-timetable__row" role="row">
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
                     <span class="sbb-timetable__row-transport-wrapper">
                       <sbb-icon class="sbb-timetable__row-transport-icon" name="picto:zug-right"></sbb-icon>
                       <span class="sbb-screenreaderonly">
-                        TRAIN
+                        Train
                       </span>
                     </span>
-                    <sbb-icon class="sbb-timetable__row-transport" name="ir-37"></sbb-icon>
+                    <span class="sbb-timetable__row-transport">
+                      <sbb-icon name="ir-37"></sbb-icon>
+                      <span class="sbb-screenreaderonly">
+                        ir-37
+                      </span>
+                    </span>
                   </div>
                   <p>
                     Direction Basel SBB
@@ -38,7 +43,12 @@ describe('sbb-timetable-row', () => {
                 <sbb-pearl-chain-time arrivaltime="2022-11-30T12:13:00+01:00" data-now="1660662000000" departuretime="2022-11-30T11:08:00+01:00" role="gridcell"></sbb-pearl-chain-time>
                 <div class="sbb-timetable__row-footer" role="gridcell">
                   <time>
-                    1 h 15 min
+                    <span class="sbb-screenreaderonly">
+                      Travel time 1 Hour 15 Minutes
+                    </span>
+                    <span aria-hidden="true">
+                      1 h 15 min
+                    </span>
                   </time>
                 </div>
               </div>
@@ -61,16 +71,16 @@ describe('sbb-timetable-row', () => {
       page.rootInstance.trip = BusTrip;
       await page.waitForChanges();
       expect(page.root).toEqualHtml(`
-        <sbb-timetable-row data-now="1660662000000">
+        <sbb-timetable-row data-now="1660662000000" role="rowgroup">
           <mock:shadow-root>
-            <sbb-card role="rowgroup" size="l">
+            <sbb-card size="l">
               <div class="sbb-timetable__row" role="row">
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
                     <span class="sbb-timetable__row-transport-wrapper">
                       <sbb-icon class="sbb-timetable__row-transport-icon" name="picto:bus-right"></sbb-icon>
                       <span class="sbb-screenreaderonly">
-                        BUS
+                        Bus
                       </span>
                     </span>
                     <span class="sbb-timetable__row-transportnumber">
@@ -84,39 +94,47 @@ describe('sbb-timetable-row', () => {
                 <sbb-pearl-chain-time arrivaltime="2022-11-30T17:06:00+01:00" arrivalwalk="0" data-now="1660662000000" departuretime="2022-11-30T16:30:00+01:00" departurewalk="0" role="gridcell"></sbb-pearl-chain-time>
                 <div class="sbb-timetable__row-footer" role="gridcell">
                   <span>
+                    <span class="sbb-screenreaderonly">
+                      Departure
+                    </span>
                     <span class="sbb-timetable__row--quay">
                       <span class="sbb-screenreaderonly">
                         from Stand
                       </span>
-                      Stand
+                      <span aria-hidden="true">
+                        Stand
+                      </span>
                     </span>
                     4
                   </span>
                   <ul class="sbb-timetable__row-occupancy" role="list">
                     <li>
-                      1.
+                      <span aria-hidden="true">
+                        1.
+                      </span>
                       <sbb-icon class="sbb-occupancy__item" name="utilization-low"></sbb-icon>
                       <span class="sbb-screenreaderonly">
-                        First Class
-                      </span>
-                      <span class="sbb-screenreaderonly">
-                        Low to medium occupancy expected.
+                        First Class Low to medium occupancy expected.
                       </span>
                     </li>
                     <li>
-                      2.
+                      <span aria-hidden="true">
+                        2.
+                      </span>
                       <sbb-icon class="sbb-occupancy__item" name="utilization-medium"></sbb-icon>
                       <span class="sbb-screenreaderonly">
-                        Second Class
-                      </span>
-                      <span class="sbb-screenreaderonly">
-                        High occupancy expected.
+                        Second Class High occupancy expected.
                       </span>
                     </li>
                   </ul>
                   <time>
-                    41 min
-                  </time>
+                  <span class="sbb-screenreaderonly">
+                    Travel time 41 Minutes
+                  </span>
+                  <span aria-hidden="true">
+                  41 min
+                  </span>
+                </time>
                 </div>
               </div>
             </sbb-card>

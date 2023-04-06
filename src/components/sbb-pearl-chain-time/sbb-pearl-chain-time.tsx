@@ -1,15 +1,21 @@
-import { Component, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import {
   i18nDeparture,
   i18nArrival,
   i18nWalkingDistanceDeparture,
   i18nWalkingDistanceArrival,
+  i18nTransferProcedures,
 } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { PtConnectionLeg, PtRideLeg } from '../../global/interfaces/pearl-chain-properties';
+import { Leg, PtConnectionLeg, PtRideLeg } from '../../global/interfaces/timetable-properties';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
+import { isConnectionLeg, isRideLeg } from '../../global/helpers/timetable-helper';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -25,7 +31,7 @@ export class SbbPearlChainTime {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: (PtRideLeg & PtConnectionLeg)[];
+  @Prop() public legs!: Leg[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
   @Prop() public departureTime?: string;
@@ -47,11 +53,19 @@ export class SbbPearlChainTime {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   private _now(): number {
@@ -70,13 +84,16 @@ export class SbbPearlChainTime {
         <sbb-icon name={icon}></sbb-icon>
         <time dateTime={duration + 'M'}>
           <span class="sbb-screenreaderonly">
-            {type && type === 'departure'
-              ? i18nWalkingDistanceDeparture[this._currentLanguage]
-              : i18nWalkingDistanceArrival[this._currentLanguage]}
-            {label && <span>{label}</span>}
+            {!label &&
+              type &&
+              (type === 'departure'
+                ? i18nWalkingDistanceDeparture[this._currentLanguage]
+                : i18nWalkingDistanceArrival[this._currentLanguage])}
+            {label && <span>{label}</span>}&nbsp;
           </span>
           {duration}
-          <span aria-label="min">'</span>
+          <span aria-hidden="true">'</span>
+          <span class="sbb-screenreaderonly">min</span>
         </time>
       </span>
     );
@@ -85,9 +102,10 @@ export class SbbPearlChainTime {
   public render(): JSX.Element {
     const legs =
       this.legs &&
-      this.legs.filter(
-        (leg) => leg.__typename === 'PTConnectionLeg' || leg.__typename === 'PTRideLeg'
-      );
+      (this.legs.filter((leg) => isRideLeg(leg) || isConnectionLeg(leg)) as (
+        | PtRideLeg
+        | PtConnectionLeg
+      )[]);
     const lastLeg = legs && legs[legs.length - 1];
 
     const departure: Date | undefined = this.departureTime
@@ -132,6 +150,7 @@ export class SbbPearlChainTime {
       ? connectionLastLeg?.notices?.filter((notice) => connectionLegNotice.includes(notice.name))[0]
       : undefined;
 
+    const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));
     return (
       <div class="sbb-pearl-chain__time">
         {connectionFirstLeg && (
@@ -169,19 +188,22 @@ export class SbbPearlChainTime {
 
         {departure && (
           <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
-            <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}</span>
+            <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}:&nbsp;</span>
             {format(departure, 'HH:mm')}
           </time>
         )}
+        <span class="sbb-screenreaderonly">
+          {`${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}`}
+        </span>
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
-          legs={legs}
+          legs={this.legs}
           disable-animation={this.disableAnimation}
           data-now={this._now()}
         />
         {arrival && (
           <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
-            <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}</span>
+            <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}:&nbsp;</span>
             {format(arrival, 'HH:mm')}
           </time>
         )}

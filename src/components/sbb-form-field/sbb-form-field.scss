@@ -70,7 +70,8 @@
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
 }
 
-:host(:focus-within) {
+:host(:focus-within),
+:host([data-has-popup-open]) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
 }
@@ -129,6 +130,13 @@
   color: var(--sbb-form-field-prefix-color);
 }
 
+@include sbb.if-forced-colors {
+  // Align with prefix color
+  ::slotted(*[slot='suffix']) {
+    color: var(--sbb-form-field-prefix-color);
+  }
+}
+
 .sbb-form-field__select-input-icon {
   @include sbb.absolute-center-y;
 
@@ -151,20 +159,18 @@
 
   display: flex;
   max-width: 100%;
+  cursor: default;
 
   // Moves label down and input up to meet positioning requirements
   margin-block-end: var(--sbb-form-field-label-to-input-gap);
   color: var(--sbb-form-field-label-color);
-  user-select: none;
-  pointer-events: none;
 
   :host([data-input-type='select']) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
 
-::slotted(*[slot='label']),
-slot[name='label'] > span {
+::slotted(*[slot='label']) {
   @include sbb.ellipsis;
 }
 

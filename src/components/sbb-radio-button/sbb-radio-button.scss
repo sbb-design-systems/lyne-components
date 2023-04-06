@@ -16,6 +16,10 @@
   --sbb-radio-button-icon-align: calc(
     (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-size)) / 2
   );
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
 }
 
 :host(:focus-visible:not([data-is-selection-panel-input])) {
@@ -60,6 +64,7 @@
 .sbb-radio-button {
   @include sbb.text-m--regular;
 
+  display: block;
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -73,6 +78,13 @@
   :host([data-group-disabled]) &,
   :host([disabled]:not([disabled='false'])) & {
     cursor: default;
+  }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
 

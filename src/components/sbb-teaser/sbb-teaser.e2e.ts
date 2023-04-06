@@ -3,48 +3,14 @@ import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 describe('sbb-teaser', () => {
   let element: E2EElement, page: E2EPage;
 
-  it('should forward host click to action element', async () => {
+  it('should receive focus', async () => {
     page = await newE2EPage();
-    await page.setContent(
-      '<sbb-teaser href="link" accessibility-label="label">Teaser content</sbb-teaser>'
-    );
-    const teaserHero = await page.find('sbb-teaser >>> .sbb-teaser');
-
-    const changeSpy = await teaserHero.spyOnEvent('click');
+    await page.setContent('<sbb-teaser href="link" id="focus-id">Hero content</sbb-teaser>');
 
     element = await page.find('sbb-teaser');
-    element.triggerEvent('click');
-
-    await page.waitForChanges();
-
-    expect(changeSpy).toHaveReceivedEventTimes(1);
-  });
-
-  it('should forward host focus event to action element', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      '<sbb-teaser href="link" id="outer-id" accessibility-label="label">Teaser content</sbb-teaser>'
-    );
-
-    // Set id of the inner-button for later comparing of active element
-    await page.evaluate(
-      () => (document.getElementById('outer-id').shadowRoot.querySelector('a').id = 'inner-id')
-    );
-
-    element = await page.find('sbb-teaser');
-    const link = await page.find('sbb-teaser >>> .sbb-teaser');
-
-    const changeSpy = await link.spyOnEvent('focus');
-
     await element.focus();
     await page.waitForChanges();
 
-    expect(changeSpy).toHaveReceivedEventTimes(1);
-
-    // Although the inner native link receives the focus, the active element is the host
-    expect(await page.evaluate(() => document.activeElement.id)).toBe('outer-id');
-    expect(await page.evaluate(() => document.activeElement.shadowRoot.activeElement.id)).toBe(
-      'inner-id'
-    );
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
   });
 });

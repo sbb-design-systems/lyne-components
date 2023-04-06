@@ -50,7 +50,7 @@ const defaultArgTypes = {
 const defaultArgs = {
   'direction-label': 'Direction of travel',
   'accessibility-label':
-    'The top of the train is in Sector A. The train leaves the station in this direction.',
+    'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
   direction: direction.options[0],
 };
@@ -61,7 +61,7 @@ train.args = defaultArgs;
 
 export const trainWithoutStation = Template.bind({});
 trainWithoutStation.argTypes = defaultArgTypes;
-trainWithoutStation.args = { ...defaultArgs, station: '' };
+trainWithoutStation.args = { ...defaultArgs, station: undefined };
 
 export default {
   decorators: [
@@ -79,5 +79,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/train-formation/sbb-train',
+  title: 'components/timetable/sbb-train',
 };

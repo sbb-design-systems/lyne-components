@@ -62,7 +62,7 @@ const iconPlacement = {
   options: ['start', 'end'],
 };
 
-const accessibilityLabel = {
+const ariaLabel = {
   control: {
     type: 'text',
   },
@@ -77,7 +77,7 @@ const defaultArgTypes = {
   value,
   'icon-name': icon,
   'icon-placement': iconPlacement,
-  'accessibility-label': accessibilityLabel,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs = {
@@ -89,7 +89,7 @@ const defaultArgs = {
   value: 'Value',
   'icon-name': undefined,
   'icon-placement': undefined,
-  'accessibility-label': undefined,
+  'aria-label': undefined,
 };
 
 /* ************************************************* */

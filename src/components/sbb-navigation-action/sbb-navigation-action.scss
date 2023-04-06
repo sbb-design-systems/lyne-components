@@ -5,11 +5,19 @@
 @include sbb.host-component-properties;
 
 :host {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   --sbb-navigation-action-color: var(--sbb-color-cloud-default);
 }
 
 :host([active]:not([active='false'])) {
   --sbb-navigation-action-color: var(--sbb-color-storm-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-navigation-action-color: AccentColor;
+  }
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -18,8 +26,13 @@
   }
 }
 
+:host([role='button']) {
+  @include sbb.if-forced-colors {
+    --sbb-navigation-action-color: ButtonText;
+  }
+}
+
 .sbb-navigation-action {
-  @include sbb.button-reset;
   @include sbb.title-4($exclude-spacing: true);
 
   cursor: pointer;
@@ -32,10 +45,8 @@
   text-align: left;
   color: var(--sbb-navigation-action-color);
 
-  &:focus-visible {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  @include sbb.if-forced-colors {
+    transition: none;
   }
 
   :host([size='m']) & {
@@ -45,4 +56,15 @@
   :host([size='s']) & {
     @include sbb.text-xxs--bold;
   }
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
+}
+
+.sbb-navigation-action__opens-in-new-window {
+  @include sbb.screen-reader-only;
 }

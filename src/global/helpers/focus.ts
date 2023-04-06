@@ -1,4 +1,6 @@
-export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]):not([tabindex="-1"]):not([static])`;
+export type SbbFocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
+
+export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]:not([disabled='false'])):not([tabindex="-1"]):not([static])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(
@@ -16,8 +18,11 @@ export function getFocusableElements(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
           filterFunc
         );
-      } else if (!filterFunc?.(el) && Array.from(el.children).length) {
-        getFocusables(Array.from(el.children) as HTMLElement[], filterFunc);
+      } else if (!filterFunc?.(el) && (el.children.length || el.shadowRoot?.children.length)) {
+        const children = Array.from(el.children).length
+          ? (Array.from(el.children) as HTMLElement[])
+          : (Array.from(el.shadowRoot.children) as HTMLElement[]);
+        getFocusables(children, filterFunc);
       }
     }
   }
@@ -41,13 +46,16 @@ export class FocusTrap {
         const elementChildren: HTMLElement[] = Array.from(element.shadowRoot.querySelectorAll('*'));
         const focusableElements = getFocusableElements(elementChildren, filterFunc);
         const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements.at(-1) as HTMLElement;
+        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
 
         const [pivot, next] = event.shiftKey
           ? [firstFocusable, lastFocusable]
           : [lastFocusable, firstFocusable];
 
-        if (element.shadowRoot?.activeElement === pivot || document.activeElement === pivot) {
+        if (
+          (firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
+          (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot
+        ) {
           next.focus();
           event.preventDefault();
         }
@@ -60,4 +68,32 @@ export class FocusTrap {
     this._controller.abort();
     this._controller = new AbortController();
   }
+}
+
+function isPointerEvent(event): event is PointerEvent {
+  return typeof PointerEvent !== 'undefined' && event instanceof PointerEvent;
+}
+
+function isMouseEvent(event): event is MouseEvent {
+  return typeof MouseEvent !== 'undefined' && event instanceof MouseEvent;
+}
+
+function isKeyboardEvent(event): event is KeyboardEvent {
+  return typeof KeyboardEvent !== 'undefined' && event instanceof KeyboardEvent;
+}
+
+// The current implementation does not cover all possible cases, so when more used, improve detection.
+// TODO: Improve detection
+export function detectFocusOrigin(event: Event): SbbFocusOrigin {
+  if (isMouseEvent(event) && !isPointerEvent(event)) {
+    return 'mouse';
+  } else if (isKeyboardEvent(event) || (isPointerEvent(event) && event.pointerId === -1)) {
+    return 'keyboard';
+  } else if (isPointerEvent(event) && event.pointerType === 'touch') {
+    return 'touch';
+  } else if (isPointerEvent(event) && event.pointerId >= 0) {
+    return 'mouse';
+  }
+
+  return null;
 }

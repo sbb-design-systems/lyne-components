@@ -9,13 +9,13 @@ describe('sbb-tooltip-trigger', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-tooltip-trigger role="button">
+        <sbb-tooltip-trigger role="button" tabindex="0" dir="ltr">
           <mock:shadow-root>
-            <button class="sbb-tooltip-trigger">
+            <span class="sbb-tooltip-trigger">
               <slot>
                 <sbb-icon name="circle-information-small"></sbb-icon>
               </slot>
-            </button>
+            </span>
           </mock:shadow-root>
         </sbb-tooltip-trigger>
       `);
@@ -28,13 +28,13 @@ describe('sbb-tooltip-trigger', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-tooltip-trigger role="button">
+        <sbb-tooltip-trigger role="button" tabindex="0" dir="ltr">
           <mock:shadow-root>
-            <button class="sbb-tooltip-trigger">
+            <span class="sbb-tooltip-trigger">
               <slot>
                 <sbb-icon name="circle-information-small"></sbb-icon>
               </slot>
-            </button>
+            </span>
           </mock:shadow-root>
           Custom Content
         </sbb-tooltip-trigger>

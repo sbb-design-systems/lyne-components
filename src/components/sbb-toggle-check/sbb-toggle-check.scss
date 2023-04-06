@@ -7,6 +7,10 @@
 :host {
   display: inline-block;
 
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
   --sbb-toggle-check-font-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-check-checked-color: var(--sbb-color-red-default);
   --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
@@ -79,6 +83,13 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
+  }
 }
 
 input[type='checkbox'] {
@@ -93,12 +104,6 @@ input[type='checkbox'] {
   gap: var(--sbb-toggle-check-gap);
   align-items: start;
   width: 100%;
-
-  input[type='checkbox']:focus-visible + & {
-    @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
 }
 
 .sbb-toggle-check__label {

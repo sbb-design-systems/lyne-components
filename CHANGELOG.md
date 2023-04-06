@@ -2,6 +2,134 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.31.2](https://github.com/lyne-design-system/lyne-components/compare/v0.31.1...v0.31.2) (2023-04-06)
+
+### Documentation
+
+- **sbb-map-container:** fix story ([#1701](https://github.com/lyne-design-system/lyne-components/issues/1701)) ([f0afa99](https://github.com/lyne-design-system/lyne-components/commit/f0afa9938172082a2ad9310c40e12d7d5edc28e0))
+
+### [0.31.1](https://github.com/lyne-design-system/lyne-components/compare/v0.31.0...v0.31.1) (2023-04-05)
+
+### Bug Fixes
+
+- **sbb-dialog:** fix fullscreen mode in Safari ([#1700](https://github.com/lyne-design-system/lyne-components/issues/1700)) ([1138e49](https://github.com/lyne-design-system/lyne-components/commit/1138e4907cdcfa95ee37bf97c50b130df9b01256))
+
+## [0.31.0](https://github.com/lyne-design-system/lyne-components/compare/v0.30.10...v0.31.0) (2023-04-05)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-train-formation:** - Component `sbb-wagon` was renamed to `sbb-train-wagon`
+
+* Component `sbb-wagon-blocked-passage` was renamed to `sbb-train-blocked-passage`
+* Component `sbb-sector` was completely removed. Now you have to set the sector as property / attribute on `sbb-train-wagon` and additionally now only the letter should be provided and not the word "sector".
+* Property `customAccessibilityText` of `sbb-train-wagon` has been removed without replacement.
+
+### Bug Fixes
+
+- **sbb-train-formation:** fix accessibility and overlapping sectors ([#1674](https://github.com/lyne-design-system/lyne-components/issues/1674)) ([8a09083](https://github.com/lyne-design-system/lyne-components/commit/8a0908323348e8ab33b003ff491849815ec03465)), closes [#1570](https://github.com/lyne-design-system/lyne-components/issues/1570) [#1638](https://github.com/lyne-design-system/lyne-components/issues/1638)
+
+### [0.30.10](https://github.com/lyne-design-system/lyne-components/compare/v0.30.9...v0.30.10) (2023-04-04)
+
+### Bug Fixes
+
+- improve focus trap class mechanism ([#1654](https://github.com/lyne-design-system/lyne-components/issues/1654)) ([29f02aa](https://github.com/lyne-design-system/lyne-components/commit/29f02aa099167e0e875cf047edf2810e7e19c8a6))
+
+### [0.30.9](https://github.com/lyne-design-system/lyne-components/compare/v0.30.8...v0.30.9) (2023-04-04)
+
+### Features
+
+- **sbb-map-container:** initial implementation ([#1691](https://github.com/lyne-design-system/lyne-components/issues/1691)) ([9404ade](https://github.com/lyne-design-system/lyne-components/commit/9404aded08b16bdd5c47faa8c31dd92a53d9e1f5))
+
+### [0.30.8](https://github.com/lyne-design-system/lyne-components/compare/v0.30.7...v0.30.8) (2023-04-04)
+
+### Documentation
+
+- **sbb-form-field:** fix wrong logic in error-space stories ([#1699](https://github.com/lyne-design-system/lyne-components/issues/1699)) ([f4b7c94](https://github.com/lyne-design-system/lyne-components/commit/f4b7c94d575294d66d7d7c3d5d75278211b597e3))
+
+### [0.30.7](https://github.com/lyne-design-system/lyne-components/compare/v0.30.6...v0.30.7) (2023-04-04)
+
+### Refactorings
+
+- adapt language change and named slot change to new repository pattern ([#1692](https://github.com/lyne-design-system/lyne-components/issues/1692)) ([f9439eb](https://github.com/lyne-design-system/lyne-components/commit/f9439ebd1d384f0738f26873ab1ae2747872e618))
+
+### [0.30.6](https://github.com/lyne-design-system/lyne-components/compare/v0.30.5...v0.30.6) (2023-04-04)
+
+### Bug Fixes
+
+- **sbb-pearl-chain-vertical:** improve spacing and a11y ([#1694](https://github.com/lyne-design-system/lyne-components/issues/1694)) ([b54b167](https://github.com/lyne-design-system/lyne-components/commit/b54b167382c08a2c6fb07e4cf9b711ef0b2eed13))
+- **sbb-pearl-chain:** fix high contrast mode for lines and bullets ([#1693](https://github.com/lyne-design-system/lyne-components/issues/1693)) ([ca05a8c](https://github.com/lyne-design-system/lyne-components/commit/ca05a8c318becc5ca1dfb0ded44d88115392016a))
+- **sbb-timetable-row:** improve a11y text for himcus icons ([#1698](https://github.com/lyne-design-system/lyne-components/issues/1698)) ([54ea913](https://github.com/lyne-design-system/lyne-components/commit/54ea913fd1248ce1a82d1c72b77a192cae7e07a3))
+
+### [0.30.5](https://github.com/lyne-design-system/lyne-components/compare/v0.30.4...v0.30.5) (2023-03-30)
+
+### Bug Fixes
+
+- only dispatch click on anchor when it is available ([#1690](https://github.com/lyne-design-system/lyne-components/issues/1690)) ([b79825f](https://github.com/lyne-design-system/lyne-components/commit/b79825f8cc9e20f3170e16cf4f88f3eead6c240b))
+
+### [0.30.4](https://github.com/lyne-design-system/lyne-components/compare/v0.30.3...v0.30.4) (2023-03-29)
+
+### Bug Fixes
+
+- **sbb-card:** change sbb-card-badge order ([#1687](https://github.com/lyne-design-system/lyne-components/issues/1687)) ([694786d](https://github.com/lyne-design-system/lyne-components/commit/694786d16ff9e2d5acd1e233c7eedba55048be6d))
+
+### [0.30.3](https://github.com/lyne-design-system/lyne-components/compare/v0.30.2...v0.30.3) (2023-03-29)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** add spacings for sr-only text ([#1686](https://github.com/lyne-design-system/lyne-components/issues/1686)) ([50338fa](https://github.com/lyne-design-system/lyne-components/commit/50338fafa60a3d4366bfc510094a73c7d1ed5c5e))
+
+### [0.30.2](https://github.com/lyne-design-system/lyne-components/compare/v0.30.1...v0.30.2) (2023-03-28)
+
+### Bug Fixes
+
+- refine accessibility changes on host elements ([#1685](https://github.com/lyne-design-system/lyne-components/issues/1685)) ([70f33c1](https://github.com/lyne-design-system/lyne-components/commit/70f33c15d789d408e4544031a6b45ef3138aa23b))
+
+### [0.30.1](https://github.com/lyne-design-system/lyne-components/compare/v0.30.0...v0.30.1) (2023-03-28)
+
+### Bug Fixes
+
+- stabilize positioning function ([#1684](https://github.com/lyne-design-system/lyne-components/issues/1684)) ([bb17e05](https://github.com/lyne-design-system/lyne-components/commit/bb17e059eb65401ec22354a05fb7d9cd779fbf8f))
+
+## [0.30.0](https://github.com/lyne-design-system/lyne-components/compare/v0.29.1...v0.30.0) (2023-03-24)
+
+### ⚠ BREAKING CHANGES
+
+- Almost all accessibility-label attributes were removed in favor of just using aria-label (exceptions are `<sbb-alert>`, `<sbb-dialog>`, `<sbb-logo>`, `<sbb-navigation>`, `<sbb-navigation-section>`, `<sbb-signet>` and `<sbb-train>`).
+
+Co-authored-by: Jeri Peier <jeremias.peier@sbb.ch>
+
+### Features
+
+- refactor accessibility features to reflect state on host ([#1670](https://github.com/lyne-design-system/lyne-components/issues/1670)) ([b149e8a](https://github.com/lyne-design-system/lyne-components/commit/b149e8ade3131229a0c4714c3a5864750a50a6d6)), closes [#1611](https://github.com/lyne-design-system/lyne-components/issues/1611)
+
+### [0.29.1](https://github.com/lyne-design-system/lyne-components/compare/v0.29.0...v0.29.1) (2023-03-23)
+
+### Bug Fixes
+
+- **sbb-icon:** empty icon on Safari ([#1681](https://github.com/lyne-design-system/lyne-components/issues/1681)) ([0975b00](https://github.com/lyne-design-system/lyne-components/commit/0975b007139d644da784a40ccf287f92f3822e70))
+
+## [0.29.0](https://github.com/lyne-design-system/lyne-components/compare/v0.28.6...v0.29.0) (2023-03-22)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-form-field:** It is now required to use a `<label>` to label an input in a `<sbb-form-field>`.
+
+### Bug Fixes
+
+- **sbb-form-field:** always use label to link to input ([#1680](https://github.com/lyne-design-system/lyne-components/issues/1680)) ([c416f68](https://github.com/lyne-design-system/lyne-components/commit/c416f68da95b9fd96c111c944a1c74fd6f0a39f6))
+
+### [0.28.6](https://github.com/lyne-design-system/lyne-components/compare/v0.28.5...v0.28.6) (2023-03-21)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** improve accessibility ([#1677](https://github.com/lyne-design-system/lyne-components/issues/1677)) ([d374853](https://github.com/lyne-design-system/lyne-components/commit/d37485389642d565bb44b44dd3511aab4bdfbd9c))
+
+### [0.28.5](https://github.com/lyne-design-system/lyne-components/compare/v0.28.4...v0.28.5) (2023-03-21)
+
+### Refactorings
+
+- **sbb-timetable:** use GetTripsQuery for types and interfaces ([#1678](https://github.com/lyne-design-system/lyne-components/issues/1678)) ([3476aff](https://github.com/lyne-design-system/lyne-components/commit/3476aff5e2a13cbca42321bf00b99149b00eb625))
+
 ### [0.28.4](https://github.com/lyne-design-system/lyne-components/compare/v0.28.3...v0.28.4) (2023-03-13)
 
 ### Features

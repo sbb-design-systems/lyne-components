@@ -24,11 +24,16 @@ The examples below show how to render the component:
 
 
 <sbb-form-field>
-  <span slot="label">Example</span>
+  <label>Example</label>
   <input />
   <sbb-form-error>This field is required!</sbb-form-error>
 </sbb-form-field>
 ```
+
+### Label
+
+Either use a `<label>` or the `label` attribute to provide a label for a form input. The
+`<sbb-form-field>` will automatically assign the correct id reference between label and input.
 
 ### Error messages
 
@@ -67,14 +72,14 @@ By itself, `<sbb-form-field>` does not apply any additional accessibility treatm
 element. However, several of the form field's optional features interact with the form element
 contained within the form field.
 
-When you provide a label via `label` attribute or `slot="label"`, `<sbb-form-field>` automatically
-associates this label with the field's form element via a native <label> element, using the for
+When you provide a label via `<label>` or the `label` attribute, `<sbb-form-field>` automatically
+associates this label with the field's form element via a native <label> element, using the `for`
 attribute to reference the control's ID.
 
 When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds
 these elements' IDs to the form element's aria-describedby attribute. Additionally, 
-`<sbb-form-error>` applies aria-live="polite" by default such that assistive technology will
-announce errors when they appear.
+`<sbb-form-error>` is slotted to an element having `aria-live="polite"` so that assistive
+technology will announce errors when they appear.
 
 <!-- Auto Generated Below -->
 

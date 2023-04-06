@@ -7,22 +7,30 @@ import {
   h,
   Host,
   JSX,
-  Listen,
   Method,
   Prop,
   State,
   Watch,
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import {
+  IS_FOCUSABLE_QUERY,
+  FocusTrap,
+  SbbFocusOrigin,
+  detectFocusOrigin,
+} from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
   setAriaOverlayTriggerAttributes,
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
 
 type SbbTooltipState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -45,6 +53,11 @@ export class SbbTooltip implements ComponentInterface {
    * Accepts both a string (id of an element) or an HTML element.
    */
   @Prop() public trigger: string | HTMLElement;
+
+  /**
+   * Whether the close button should be hidden.
+   */
+  @Prop() public hideCloseButton?: boolean = false;
 
   /**
    * Whether the tooltip should be triggered on hover.
@@ -131,7 +144,6 @@ export class SbbTooltip implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _tooltipContentElement: HTMLElement;
-  private _prevFocusedElement: HTMLElement;
   private _firstFocusable: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
@@ -139,6 +151,7 @@ export class SbbTooltip implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _openedByKeyboard = false;
+  private _closedByFocusOrigin: SbbFocusOrigin = null;
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
@@ -146,20 +159,21 @@ export class SbbTooltip implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   /**
    * Opens the tooltip on trigger click.
    */
   @Method()
-  public async open(): Promise<void> {
+  public async open(focusOrigin?: SbbFocusOrigin): Promise<void> {
     if ((this._state !== 'closed' && this._state !== 'closing') || !this._dialog) {
       return;
     }
 
+    this._openedByKeyboard = focusOrigin === 'keyboard';
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
@@ -171,16 +185,19 @@ export class SbbTooltip implements ComponentInterface {
    * Closes the tooltip.
    */
   @Method()
-  public async close(target?: HTMLElement): Promise<void> {
+  public async close(
+    closedByFocusOrigin: SbbFocusOrigin = null,
+    target?: HTMLElement
+  ): Promise<void> {
     if (this._state !== 'opened' && this._state !== 'opening') {
       return;
     }
 
     this._tooltipCloseElement = target;
+    this._closedByFocusOrigin = closedByFocusOrigin;
     this.willClose.emit({ closeTarget: this._tooltipCloseElement });
     this._state = 'closing';
     this._openedByKeyboard = false;
-    this._prevFocusedElement?.focus();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -191,7 +208,7 @@ export class SbbTooltip implements ComponentInterface {
     }
 
     if (event.key === 'Escape') {
-      this.close();
+      this.close('keyboard');
       return;
     }
   }
@@ -210,6 +227,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._state = 'closed';
@@ -223,6 +241,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
@@ -274,7 +293,7 @@ export class SbbTooltip implements ComponentInterface {
         'keydown',
         (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
-            this.open();
+            this.open('keyboard');
           }
         },
         {
@@ -284,24 +303,14 @@ export class SbbTooltip implements ComponentInterface {
     } else {
       this._triggerElement.addEventListener(
         'click',
-        () => {
-          this._state === 'closed' && this.open();
+        (event) => {
+          this._state === 'closed' && this.open(detectFocusOrigin(event));
         },
         {
           signal: this._tooltipController.signal,
         }
       );
     }
-
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._tooltipController.signal }
-    );
   }
 
   private _attachWindowEvents(): void {
@@ -332,7 +341,7 @@ export class SbbTooltip implements ComponentInterface {
     const target = event.target as HTMLElement;
     if (target.hasAttribute('sbb-tooltip-close') && !isValidAttribute(target, 'disabled')) {
       clearTimeout(this._closeTimeout);
-      this.close(target);
+      this.close(detectFocusOrigin(event), target);
     }
   }
 
@@ -345,13 +354,13 @@ export class SbbTooltip implements ComponentInterface {
   private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
       clearTimeout(this._closeTimeout);
-      this.close();
+      this.close(detectFocusOrigin(event));
     }
   };
 
   private _onTriggerMouseEnter = (): void => {
     if (this._state === 'closed' || this._state === 'closing') {
-      this._openTimeout = setTimeout(() => this.open(), this.openDelay);
+      this._openTimeout = setTimeout(() => this.open('mouse'), this.openDelay);
     } else {
       clearTimeout(this._closeTimeout);
     }
@@ -359,7 +368,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onTriggerMouseLeave = (): void => {
     if (this._state === 'opened' || this._state === 'opening') {
-      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
+      this._closeTimeout = setTimeout(() => this.close('mouse'), this.closeDelay);
     } else {
       clearTimeout(this._openTimeout);
     }
@@ -373,7 +382,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onDialogMouseLeave = (): void => {
     if (this._state !== 'opening') {
-      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
+      this._closeTimeout = setTimeout(() => this.close('mouse'), this.closeDelay);
     }
   };
 
@@ -389,7 +398,31 @@ export class SbbTooltip implements ComponentInterface {
     } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
+
+      // The element which should receive focus after closing based on where in the backdrop the user clicks.
+      const nextFocusedElement = document.activeElement as HTMLElement;
+      const elementToFocus = nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
+        ? nextFocusedElement
+        : this._triggerElement;
+
+      // Set focus origin to element which should receive focus
+      if (elementToFocus && this._closedByFocusOrigin !== null) {
+        elementToFocus.addEventListener(
+          'focus',
+          () => {
+            (elementToFocus.dataset.focusOrigin as SbbFocusOrigin) = this._closedByFocusOrigin;
+            elementToFocus.addEventListener(
+              'blur',
+              () => delete elementToFocus.dataset.focusOrigin,
+              { once: true }
+            );
+          },
+          { once: true }
+        );
+      }
       this._dialog.close();
+      // To enable focusing other element than the trigger, we need to call focus() a second time.
+      elementToFocus?.focus();
       this.didClose.emit({ closeTarget: this._tooltipCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
@@ -398,10 +431,9 @@ export class SbbTooltip implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
-    this._prevFocusedElement = document.activeElement as HTMLElement;
     this._firstFocusable =
-      this._element.querySelector(IS_FOCUSABLE_QUERY) ||
-      this._element.shadowRoot.querySelector('[sbb-tooltip-close]');
+      this._element.shadowRoot.querySelector('[sbb-tooltip-close]') ||
+      this._element.querySelector(IS_FOCUSABLE_QUERY);
 
     if (this._openedByKeyboard) {
       this._firstFocusable?.focus();
@@ -449,9 +481,7 @@ export class SbbTooltip implements ComponentInterface {
     const closeButton = (
       <span class="sbb-tooltip__close">
         <sbb-button
-          accessibility-label={
-            this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLanguage]
-          }
+          aria-label={this.accessibilityCloseLabel || i18nCloseTooltip[this._currentLanguage]}
           variant="secondary"
           size="m"
           type="button"
@@ -478,7 +508,7 @@ export class SbbTooltip implements ComponentInterface {
               <span>
                 <slot>No content</slot>
               </span>
-              {!this._hoverTrigger && closeButton}
+              {!this.hideCloseButton && !this._hoverTrigger && closeButton}
             </div>
           </dialog>
         </div>

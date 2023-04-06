@@ -1,17 +1,21 @@
-import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
-  actionElement,
-  focusActionElement,
-  forwardHostEvent,
   LinkProperties,
   LinkTargetType,
-  resolveLinkRenderVariables,
+  resolveLinkOrStaticRenderVariables,
+  targetsNewWindow,
 } from '../../global/interfaces/link-button-properties';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  linkHandlerAspect,
+} from '../../global/helpers';
 
 /**
+ * Generalized Teaser - for displaying an image, title and paragraph
  * @slot image - Slot used to render the image
  * @slot title - Slot used to render the title
  * @slot description - Slot used to render the description
@@ -21,10 +25,6 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
   styleUrl: 'sbb-teaser.scss',
   tag: 'sbb-teaser',
 })
-
-/**
- * Generalized Teaser - for displaying an image, title and paragraph
- */
 export class SbbTeaser implements ComponentInterface, LinkProperties {
   /**
    * Teaser variant -
@@ -47,64 +47,54 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
   /** The relationship of the linked URL as space-separated link types. */
   @Prop() public rel?: string | undefined;
 
-  /**
-   * The text which gets exposed to screen reader users. The text should
-   * reflect all the information
-   *
-   * Example text: Connection from X to Y, via Z, on date X.
-   * Ticket price starts at X.
-   */
-  @Prop() public accessibilityLabel: string;
-
   @State() private _currentLanguage = documentLanguage();
 
-  @Element() private _element!: HTMLElement;
+  @Element() private _element!: HTMLSbbTeaserElement;
 
-  @Listen('sbbLanguageChange', { target: 'document' })
-  public handleLanguageChange(event: SbbLanguageChangeEvent): void {
-    this._currentLanguage = event.detail;
-  }
-
-  @Listen('click')
-  public handleClick(event: Event): void {
-    if (this.href) {
-      forwardHostEvent(event, this._element, actionElement(this._element));
-    }
-  }
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    linkHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   public connectedCallback(): void {
-    // Forward focus call to action element
-    this._element.focus = focusActionElement;
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   public render(): JSX.Element {
     const {
       tagName: TAG_NAME,
       attributes,
-      screenReaderNewWindowInfo,
-    } = resolveLinkRenderVariables(this, this._currentLanguage);
+      hostAttributes,
+    } = resolveLinkOrStaticRenderVariables(this);
 
     return (
-      <TAG_NAME class="sbb-teaser" {...attributes}>
-        <span class="sbb-teaser__container">
-          <span class="sbb-teaser__image-wrapper">
-            <slot name="image" />
-          </span>
-          <span class="sbb-teaser__text">
-            <sbb-title level={this.titleLevel} visualLevel="5" class="sbb-teaser__lead">
-              <slot name="title" />
-            </sbb-title>
-            <span class="sbb-teaser__description">
-              <slot name="description" />
+      <Host {...hostAttributes}>
+        <TAG_NAME class="sbb-teaser" {...attributes}>
+          <span class="sbb-teaser__container">
+            <span class="sbb-teaser__image-wrapper">
+              <slot name="image" />
             </span>
-            {screenReaderNewWindowInfo && (
-              <span class="sbb-teaser__opens-in-new-window">
-                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+            <span class="sbb-teaser__text">
+              <sbb-title level={this.titleLevel} visualLevel="5" class="sbb-teaser__lead">
+                <slot name="title" />
+              </sbb-title>
+              <span class="sbb-teaser__description">
+                <slot name="description" />
               </span>
-            )}
+              {targetsNewWindow(this) && (
+                <span class="sbb-teaser__opens-in-new-window">
+                  . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+                </span>
+              )}
+            </span>
           </span>
-        </span>
-      </TAG_NAME>
+        </TAG_NAME>
+      </Host>
     );
   }
 }

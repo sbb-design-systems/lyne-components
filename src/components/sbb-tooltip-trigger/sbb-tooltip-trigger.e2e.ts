@@ -54,7 +54,7 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it('shows tooltip on keyboard event', async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
+    const tooltipTrigger = await page.find('sbb-tooltip-trigger');
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const changeSpy = await tooltipTrigger.spyOnEvent('focus');
 
@@ -69,7 +69,7 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it('shows tooltip on keyboard event with hover-trigger', async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
+    const tooltipTrigger = await page.find('sbb-tooltip-trigger');
     const tooltip = await page.find('sbb-tooltip');
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const changeSpy = await tooltipTrigger.spyOnEvent('focus');
@@ -88,7 +88,7 @@ describe('sbb-tooltip-trigger', () => {
   });
 
   it("doesn't focus tooltip-trigger on keyboard event when disabled", async () => {
-    const tooltipTrigger = await page.find('sbb-tooltip-trigger >>> button');
+    const tooltipTrigger = await page.find('sbb-tooltip-trigger');
     const tooltip = await page.find('sbb-tooltip');
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const changeSpy = await tooltipTrigger.spyOnEvent('focus');

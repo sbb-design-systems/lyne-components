@@ -11,7 +11,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
+import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -29,7 +29,7 @@ import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
+import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -37,22 +37,23 @@ import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.cu
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-import { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+import { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+import { SbbFocusOrigin } from "./global/helpers/focus";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-import { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
+import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-export { ButtonType, LinkTargetType, PopupType } from "./global/interfaces/link-button-properties";
+export { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -70,7 +71,7 @@ export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-export { PtConnectionLeg, PtRideLeg } from "./global/interfaces/pearl-chain-properties";
+export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -78,15 +79,16 @@ export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.cu
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
-export { Boarding, Price, Trip } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
+export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+export { SbbFocusOrigin } from "./global/helpers/focus";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-export { InterfaceSbbWagonAttributes } from "./components/sbb-wagon/sbb-wagon.custom.d";
+export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -208,14 +210,6 @@ export namespace Components {
     }
     interface SbbButton {
         /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup": PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Whether the button is disabled.
          */
         "disabled": boolean;
@@ -274,10 +268,6 @@ export namespace Components {
     }
     interface SbbCard {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Used to set the component's active state.
          */
         "active": boolean;
@@ -324,10 +314,6 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
-          * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Badge appearance
          */
         "appearance": InterfaceCardBadgeAttributes['appearance'];
@@ -349,10 +335,6 @@ export namespace Components {
         "text"?: string;
     }
     interface SbbCheckbox {
-        /**
-          * The aria-label prop for the hidden input.
-         */
-        "accessibilityLabel": string | undefined;
         /**
           * Whether the checkbox is checked.
          */
@@ -538,14 +520,6 @@ export namespace Components {
     }
     interface SbbHeaderAction {
         /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup": PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean;
@@ -713,14 +687,6 @@ export namespace Components {
     }
     interface SbbLink {
         /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup": PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Whether the button is disabled.
          */
         "disabled": boolean;
@@ -821,6 +787,8 @@ export namespace Components {
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
+    interface SbbMapContainer {
+    }
     interface SbbMenu {
         /**
           * Closes the menu.
@@ -840,14 +808,6 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbMenuAction {
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup": PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
         /**
           * Value shown as badge at component end.
          */
@@ -920,18 +880,6 @@ export namespace Components {
         "trigger": string | HTMLElement;
     }
     interface SbbNavigationAction {
-        /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls": string | undefined;
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup": PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
         /**
           * Whether the action is active.
          */
@@ -1026,7 +974,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": (PtRideLeg & PtConnectionLeg)[];
+        "legs": Leg[];
     }
     interface SbbPearlChainTime {
         /**
@@ -1052,7 +1000,7 @@ export namespace Components {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": (PtRideLeg & PtConnectionLeg)[];
+        "legs": Leg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -1155,10 +1103,6 @@ export namespace Components {
     }
     interface SbbSlider {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Disabled state for the inner HTMLInputElement.
          */
         "disabled"?: boolean;
@@ -1238,10 +1182,6 @@ export namespace Components {
     }
     interface SbbTag {
         /**
-          * The aria-label prop for tag action element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Amount displayed inside the tag.
          */
         "amount"?: string;
@@ -1254,9 +1194,17 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
         "iconName"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
         /**
           * Value of the tag.
          */
@@ -1272,11 +1220,10 @@ export namespace Components {
          */
         "value": string | string[] | null;
     }
+    /**
+     * Generalized Teaser - for displaying an image, title and paragraph
+     */
     interface SbbTeaser {
-        /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
-         */
-        "accessibilityLabel": string;
         /**
           * The href value you want to link to.
          */
@@ -1299,10 +1246,6 @@ export namespace Components {
         "titleLevel": InterfaceTitleAttributes['level'];
     }
     interface SbbTeaserHero {
-        /**
-          * This will be forwarded as aria-label to anchor tag.
-         */
-        "accessibilityLabel": string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -1329,10 +1272,6 @@ export namespace Components {
         "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimeInput {
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
         /**
           * Disabled state for the inner HTMLInputElement.
          */
@@ -1388,10 +1327,6 @@ export namespace Components {
     }
     interface SbbTimetableRow {
         /**
-          * This will be forwarded as aria-label to the relevant element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * When this prop is true the sbb-card will be in the active state.
          */
         "active"?: boolean;
@@ -1418,7 +1353,7 @@ export namespace Components {
         /**
           * The trip Prop
          */
-        "trip": Trip;
+        "trip": ITripItem;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -1507,10 +1442,6 @@ export namespace Components {
     }
     interface SbbToggleCheck {
         /**
-          * The aria-label prop for the hidden input.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Whether the toggle-check is checked.
          */
         "checked": boolean;
@@ -1541,10 +1472,6 @@ export namespace Components {
     }
     interface SbbToggleOption {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel": string | undefined;
-        /**
           * Whether the toggle-option is checked.
          */
         "checked": boolean;
@@ -1569,7 +1496,7 @@ export namespace Components {
         /**
           * Closes the tooltip.
          */
-        "close": (target?: HTMLElement) => Promise<void>;
+        "close": (closedByFocusOrigin?: SbbFocusOrigin, target?: HTMLElement) => Promise<void>;
         /**
           * Close the tooltip after a certain delay.
          */
@@ -1579,13 +1506,17 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
+          * Whether the close button should be hidden.
+         */
+        "hideCloseButton"?: boolean;
+        /**
           * Whether the tooltip should be triggered on hover.
          */
         "hoverTrigger"?: boolean;
         /**
           * Opens the tooltip on trigger click.
          */
-        "open": () => Promise<void>;
+        "open": (focusOrigin?: SbbFocusOrigin) => Promise<void>;
         /**
           * Open the tooltip after a certain delay.
          */
@@ -1604,6 +1535,10 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName": string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name": string | undefined;
     }
     interface SbbTrain {
         /**
@@ -1623,21 +1558,23 @@ export namespace Components {
          */
         "station"?: string;
     }
-    interface SbbTrainFormation {
+    interface SbbTrainBlockedPassage {
     }
-    interface SbbWagon {
+    interface SbbTrainFormation {
         /**
-          * Additional accessibility text which will be appended to the constructed default text.
+          * Option to hide all wagon labels.
          */
-        "additionalAccessibilityText": string;
+        "hideWagonLabel": boolean;
+    }
+    interface SbbTrainWagon {
+        /**
+          * Additional accessibility text which will be appended to the end.
+         */
+        "additionalAccessibilityText"?: string;
         /**
           * Accessibility text for blocked passages of the wagon.
          */
-        "blockedPassage": InterfaceSbbWagonAttributes['blockedPassage'];
-        /**
-          * Custom accessibility text to overwrite the constructed default text.
-         */
-        "customAccessibilityLabel": string;
+        "blockedPassage": InterfaceSbbTrainWagonAttributes['blockedPassage'];
         /**
           * Visible label for the wagon number. Not used by type locomotive or closed.
          */
@@ -1645,17 +1582,19 @@ export namespace Components {
         /**
           * Occupancy of a wagon.
          */
-        "occupancy": InterfaceSbbWagonAttributes['occupancy'];
+        "occupancy"?: InterfaceSbbTrainWagonAttributes['occupancy'];
+        /**
+          * Sector in which to wagon stops.
+         */
+        "sector": string;
         /**
           * Wagon type.
          */
-        "type": InterfaceSbbWagonAttributes['type'];
+        "type": InterfaceSbbTrainWagonAttributes['type'];
         /**
           * Visible class label of a wagon.
          */
         "wagonClass"?: '1' | '2';
-    }
-    interface SbbWagonBlockedPassage {
     }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
@@ -1729,6 +1668,14 @@ export interface SbbToggleOptionCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTooltipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTooltipElement;
+}
+export interface SbbTrainCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTrainElement;
+}
+export interface SbbTrainWagonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbTrainWagonElement;
 }
 declare global {
     interface HTMLSbbAccordionElement extends Components.SbbAccordion, HTMLStencilElement {
@@ -1887,6 +1834,12 @@ declare global {
         prototype: HTMLSbbLogoElement;
         new (): HTMLSbbLogoElement;
     };
+    interface HTMLSbbMapContainerElement extends Components.SbbMapContainer, HTMLStencilElement {
+    }
+    var HTMLSbbMapContainerElement: {
+        prototype: HTMLSbbMapContainerElement;
+        new (): HTMLSbbMapContainerElement;
+    };
     interface HTMLSbbMenuElement extends Components.SbbMenu, HTMLStencilElement {
     }
     var HTMLSbbMenuElement: {
@@ -2025,6 +1978,9 @@ declare global {
         prototype: HTMLSbbTagGroupElement;
         new (): HTMLSbbTagGroupElement;
     };
+    /**
+     * Generalized Teaser - for displaying an image, title and paragraph
+     */
     interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
     }
     var HTMLSbbTeaserElement: {
@@ -2151,23 +2107,23 @@ declare global {
         prototype: HTMLSbbTrainElement;
         new (): HTMLSbbTrainElement;
     };
+    interface HTMLSbbTrainBlockedPassageElement extends Components.SbbTrainBlockedPassage, HTMLStencilElement {
+    }
+    var HTMLSbbTrainBlockedPassageElement: {
+        prototype: HTMLSbbTrainBlockedPassageElement;
+        new (): HTMLSbbTrainBlockedPassageElement;
+    };
     interface HTMLSbbTrainFormationElement extends Components.SbbTrainFormation, HTMLStencilElement {
     }
     var HTMLSbbTrainFormationElement: {
         prototype: HTMLSbbTrainFormationElement;
         new (): HTMLSbbTrainFormationElement;
     };
-    interface HTMLSbbWagonElement extends Components.SbbWagon, HTMLStencilElement {
+    interface HTMLSbbTrainWagonElement extends Components.SbbTrainWagon, HTMLStencilElement {
     }
-    var HTMLSbbWagonElement: {
-        prototype: HTMLSbbWagonElement;
-        new (): HTMLSbbWagonElement;
-    };
-    interface HTMLSbbWagonBlockedPassageElement extends Components.SbbWagonBlockedPassage, HTMLStencilElement {
-    }
-    var HTMLSbbWagonBlockedPassageElement: {
-        prototype: HTMLSbbWagonBlockedPassageElement;
-        new (): HTMLSbbWagonBlockedPassageElement;
+    var HTMLSbbTrainWagonElement: {
+        prototype: HTMLSbbTrainWagonElement;
+        new (): HTMLSbbTrainWagonElement;
     };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
@@ -2196,6 +2152,7 @@ declare global {
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
         "sbb-logo": HTMLSbbLogoElement;
+        "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
         "sbb-navigation": HTMLSbbNavigationElement;
@@ -2240,9 +2197,9 @@ declare global {
         "sbb-tooltip": HTMLSbbTooltipElement;
         "sbb-tooltip-trigger": HTMLSbbTooltipTriggerElement;
         "sbb-train": HTMLSbbTrainElement;
+        "sbb-train-blocked-passage": HTMLSbbTrainBlockedPassageElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
-        "sbb-wagon": HTMLSbbWagonElement;
-        "sbb-wagon-blocked-passage": HTMLSbbWagonBlockedPassageElement;
+        "sbb-train-wagon": HTMLSbbTrainWagonElement;
     }
 }
 declare namespace LocalJSX {
@@ -2382,14 +2339,6 @@ declare namespace LocalJSX {
     }
     interface SbbButton {
         /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup"?: PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Whether the button is disabled.
          */
         "disabled"?: boolean;
@@ -2448,10 +2397,6 @@ declare namespace LocalJSX {
     }
     interface SbbCard {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Used to set the component's active state.
          */
         "active"?: boolean;
@@ -2498,10 +2443,6 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
-          * Accessibility label text. This text gets exposed to screen reader users. The text should reflect all the information which gets passed into the component (as text or within the slot) so which is visible in the card badge, either through text or iconography.  Example text: Sales ticket price starts at CHF 37.50
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Badge appearance
          */
         "appearance"?: InterfaceCardBadgeAttributes['appearance'];
@@ -2523,10 +2464,6 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface SbbCheckbox {
-        /**
-          * The aria-label prop for the hidden input.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the checkbox is checked.
          */
@@ -2732,14 +2669,6 @@ declare namespace LocalJSX {
     }
     interface SbbHeaderAction {
         /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup"?: PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean;
@@ -2907,14 +2836,6 @@ declare namespace LocalJSX {
     }
     interface SbbLink {
         /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup"?: PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Whether the button is disabled.
          */
         "disabled"?: boolean;
@@ -3015,6 +2936,8 @@ declare namespace LocalJSX {
          */
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
+    interface SbbMapContainer {
+    }
     interface SbbMenu {
         /**
           * Whether the animation is enabled.
@@ -3042,14 +2965,6 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLElement;
     }
     interface SbbMenuAction {
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup"?: PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Value shown as badge at component end.
          */
@@ -3131,18 +3046,6 @@ declare namespace LocalJSX {
     }
     interface SbbNavigationAction {
         /**
-          * When an interaction of this button has an impact on another element(s) in the document, the id of that element(s) needs to be set. The value will be forwarded to the 'aria-controls' attribute to the relevant nested element.
-         */
-        "accessibilityControls"?: string | undefined;
-        /**
-          * If you use the button to trigger another widget which itself is covering the page, you must provide an according attribute for aria-haspopup.
-         */
-        "accessibilityHaspopup"?: PopupType | undefined;
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Whether the action is active.
          */
         "active"?: boolean;
@@ -3222,7 +3125,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs"?: (PtRideLeg & PtConnectionLeg)[];
+        "legs"?: Leg[];
     }
     interface SbbPearlChainTime {
         /**
@@ -3248,7 +3151,7 @@ declare namespace LocalJSX {
         /**
           * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
-        "legs": (PtRideLeg & PtConnectionLeg)[];
+        "legs": Leg[];
     }
     interface SbbPearlChainVertical {
     }
@@ -3383,10 +3286,6 @@ declare namespace LocalJSX {
     }
     interface SbbSlider {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Disabled state for the inner HTMLInputElement.
          */
         "disabled"?: boolean;
@@ -3459,10 +3358,6 @@ declare namespace LocalJSX {
     }
     interface SbbTag {
         /**
-          * The aria-label prop for tag action element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Amount displayed inside the tag.
          */
         "amount"?: string;
@@ -3475,9 +3370,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * The <form> element to associate the button with.
+         */
+        "form"?: string;
+        /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
          */
         "iconName"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
         /**
           * Change event emitter
          */
@@ -3509,11 +3412,10 @@ declare namespace LocalJSX {
          */
         "value"?: string | string[] | null;
     }
+    /**
+     * Generalized Teaser - for displaying an image, title and paragraph
+     */
     interface SbbTeaser {
-        /**
-          * The text which gets exposed to screen reader users. The text should reflect all the information  Example text: Connection from X to Y, via Z, on date X. Ticket price starts at X.
-         */
-        "accessibilityLabel"?: string;
         /**
           * The href value you want to link to.
          */
@@ -3536,10 +3438,6 @@ declare namespace LocalJSX {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbTeaserHero {
-        /**
-          * This will be forwarded as aria-label to anchor tag.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * The href value you want to link to.
          */
@@ -3566,10 +3464,6 @@ declare namespace LocalJSX {
         "target"?: LinkTargetType | string | undefined;
     }
     interface SbbTimeInput {
-        /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
         /**
           * Disabled state for the inner HTMLInputElement.
          */
@@ -3629,10 +3523,6 @@ declare namespace LocalJSX {
     }
     interface SbbTimetableRow {
         /**
-          * This will be forwarded as aria-label to the relevant element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * When this prop is true the sbb-card will be in the active state.
          */
         "active"?: boolean;
@@ -3659,7 +3549,7 @@ declare namespace LocalJSX {
         /**
           * The trip Prop
          */
-        "trip"?: Trip;
+        "trip"?: ITripItem;
     }
     interface SbbTimetableRowColumnHeaders {
         /**
@@ -3757,10 +3647,6 @@ declare namespace LocalJSX {
     }
     interface SbbToggleCheck {
         /**
-          * The aria-label prop for the hidden input.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Whether the toggle-check is checked.
          */
         "checked"?: boolean;
@@ -3795,10 +3681,6 @@ declare namespace LocalJSX {
     }
     interface SbbToggleOption {
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
-         */
-        "accessibilityLabel"?: string | undefined;
-        /**
           * Whether the toggle-option is checked.
          */
         "checked"?: boolean;
@@ -3832,6 +3714,10 @@ declare namespace LocalJSX {
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Whether the close button should be hidden.
+         */
+        "hideCloseButton"?: boolean;
         /**
           * Whether the tooltip should be triggered on hover.
          */
@@ -3870,6 +3756,10 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */
         "iconName"?: string;
+        /**
+          * The name attribute to use for the button.
+         */
+        "name"?: string | undefined;
     }
     interface SbbTrain {
         /**
@@ -3884,26 +3774,29 @@ declare namespace LocalJSX {
           * General label for "driving direction".
          */
         "directionLabel": string;
+        "onTrainSlotChange"?: (event: SbbTrainCustomEvent<any>) => void;
         /**
           * Label for the destination station of the train.
          */
         "station"?: string;
     }
-    interface SbbTrainFormation {
+    interface SbbTrainBlockedPassage {
     }
-    interface SbbWagon {
+    interface SbbTrainFormation {
         /**
-          * Additional accessibility text which will be appended to the constructed default text.
+          * Option to hide all wagon labels.
+         */
+        "hideWagonLabel"?: boolean;
+    }
+    interface SbbTrainWagon {
+        /**
+          * Additional accessibility text which will be appended to the end.
          */
         "additionalAccessibilityText"?: string;
         /**
           * Accessibility text for blocked passages of the wagon.
          */
-        "blockedPassage"?: InterfaceSbbWagonAttributes['blockedPassage'];
-        /**
-          * Custom accessibility text to overwrite the constructed default text.
-         */
-        "customAccessibilityLabel"?: string;
+        "blockedPassage"?: InterfaceSbbTrainWagonAttributes['blockedPassage'];
         /**
           * Visible label for the wagon number. Not used by type locomotive or closed.
          */
@@ -3911,17 +3804,20 @@ declare namespace LocalJSX {
         /**
           * Occupancy of a wagon.
          */
-        "occupancy"?: InterfaceSbbWagonAttributes['occupancy'];
+        "occupancy"?: InterfaceSbbTrainWagonAttributes['occupancy'];
+        "onSectorChange"?: (event: SbbTrainWagonCustomEvent<any>) => void;
+        /**
+          * Sector in which to wagon stops.
+         */
+        "sector"?: string;
         /**
           * Wagon type.
          */
-        "type"?: InterfaceSbbWagonAttributes['type'];
+        "type"?: InterfaceSbbTrainWagonAttributes['type'];
         /**
           * Visible class label of a wagon.
          */
         "wagonClass"?: '1' | '2';
-    }
-    interface SbbWagonBlockedPassage {
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
@@ -3950,6 +3846,7 @@ declare namespace LocalJSX {
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
         "sbb-logo": SbbLogo;
+        "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
         "sbb-navigation": SbbNavigation;
@@ -3994,9 +3891,9 @@ declare namespace LocalJSX {
         "sbb-tooltip": SbbTooltip;
         "sbb-tooltip-trigger": SbbTooltipTrigger;
         "sbb-train": SbbTrain;
+        "sbb-train-blocked-passage": SbbTrainBlockedPassage;
         "sbb-train-formation": SbbTrainFormation;
-        "sbb-wagon": SbbWagon;
-        "sbb-wagon-blocked-passage": SbbWagonBlockedPassage;
+        "sbb-train-wagon": SbbTrainWagon;
     }
 }
 export { LocalJSX as JSX };
@@ -4029,6 +3926,7 @@ declare module "@stencil/core" {
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
+            "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
             "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
@@ -4052,6 +3950,9 @@ declare module "@stencil/core" {
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-tag": LocalJSX.SbbTag & JSXBase.HTMLAttributes<HTMLSbbTagElement>;
             "sbb-tag-group": LocalJSX.SbbTagGroup & JSXBase.HTMLAttributes<HTMLSbbTagGroupElement>;
+            /**
+             * Generalized Teaser - for displaying an image, title and paragraph
+             */
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-time-input": LocalJSX.SbbTimeInput & JSXBase.HTMLAttributes<HTMLSbbTimeInputElement>;
@@ -4073,9 +3974,9 @@ declare module "@stencil/core" {
             "sbb-tooltip": LocalJSX.SbbTooltip & JSXBase.HTMLAttributes<HTMLSbbTooltipElement>;
             "sbb-tooltip-trigger": LocalJSX.SbbTooltipTrigger & JSXBase.HTMLAttributes<HTMLSbbTooltipTriggerElement>;
             "sbb-train": LocalJSX.SbbTrain & JSXBase.HTMLAttributes<HTMLSbbTrainElement>;
+            "sbb-train-blocked-passage": LocalJSX.SbbTrainBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbTrainBlockedPassageElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
-            "sbb-wagon": LocalJSX.SbbWagon & JSXBase.HTMLAttributes<HTMLSbbWagonElement>;
-            "sbb-wagon-blocked-passage": LocalJSX.SbbWagonBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbWagonBlockedPassageElement>;
+            "sbb-train-wagon": LocalJSX.SbbTrainWagon & JSXBase.HTMLAttributes<HTMLSbbTrainWagonElement>;
         }
     }
 }
