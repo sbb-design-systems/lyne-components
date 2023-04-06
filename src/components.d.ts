@@ -1071,12 +1071,6 @@ export namespace Components {
          */
         "value"?: any | null;
     }
-    interface SbbSector {
-        /**
-          * Label for the sector.
-         */
-        "label": string;
-    }
     interface SbbSelectionPanel {
         /**
           * The background color of the panel.
@@ -1924,12 +1918,6 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
-    interface HTMLSbbSectorElement extends Components.SbbSector, HTMLStencilElement {
-    }
-    var HTMLSbbSectorElement: {
-        prototype: HTMLSbbSectorElement;
-        new (): HTMLSbbSectorElement;
-    };
     interface HTMLSbbSelectionPanelElement extends Components.SbbSelectionPanel, HTMLStencilElement {
     }
     var HTMLSbbSelectionPanelElement: {
@@ -2167,7 +2155,6 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
-        "sbb-sector": HTMLSbbSectorElement;
         "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
@@ -3238,12 +3225,6 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
-    interface SbbSector {
-        /**
-          * Label for the sector.
-         */
-        "label": string;
-    }
     interface SbbSelectionPanel {
         /**
           * The background color of the panel.
@@ -3861,7 +3842,6 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
-        "sbb-sector": SbbSector;
         "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
@@ -3941,7 +3921,6 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
-            "sbb-sector": LocalJSX.SbbSector & JSXBase.HTMLAttributes<HTMLSbbSectorElement>;
             "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;

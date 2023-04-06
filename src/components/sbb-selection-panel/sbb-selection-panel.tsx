@@ -11,12 +11,8 @@ import {
   State,
   EventEmitter,
 } from '@stencil/core';
-import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers/language';
-import {
-  createNamedSlotState,
-  queryAndObserveNamedSlotState,
-  queryNamedSlotState,
-} from '../../global/helpers/observe-named-slot-changes';
+import { documentLanguage, SbbLanguageChangeEvent } from '../../global/helpers';
+import { createNamedSlotState } from '../../global/helpers';
 import { i18nCollapsed, i18nExapnded } from '../../global/i18n';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
@@ -117,11 +113,6 @@ export class SbbSelectionPanel implements ComponentInterface {
     this._currentLanguage = event.detail;
   }
 
-  @Listen('sbbNamedSlotChange', { passive: true })
-  public handleSlotNameChange(event: CustomEvent<Set<string>>): void {
-    this._namedSlots = queryNamedSlotState(this._element, this._namedSlots, event.detail);
-  }
-
   @Listen('state-change', { passive: true })
   public onInputChange(event: CustomEvent<RadioButtonStateChange | CheckboxStateChange>): void {
     if (event.detail.type === 'disabled') {
@@ -145,10 +136,6 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     this._setExpandedStateForScreenReaders();
-  }
-
-  public connectedCallback(): void {
-    this._namedSlots = queryAndObserveNamedSlotState(this._element, this._namedSlots);
   }
 
   public componentDidLoad(): void {
