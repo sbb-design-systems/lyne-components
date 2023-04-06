@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.31.2](https://github.com/lyne-design-system/lyne-components/compare/v0.31.1...v0.31.2) (2023-04-06)
+
+### Documentation
+
+- **sbb-map-container:** fix story ([#1701](https://github.com/lyne-design-system/lyne-components/issues/1701)) ([f0afa99](https://github.com/lyne-design-system/lyne-components/commit/f0afa9938172082a2ad9310c40e12d7d5edc28e0))
+
+### [0.31.1](https://github.com/lyne-design-system/lyne-components/compare/v0.31.0...v0.31.1) (2023-04-05)
+
+### Bug Fixes
+
+- **sbb-dialog:** fix fullscreen mode in Safari ([#1700](https://github.com/lyne-design-system/lyne-components/issues/1700)) ([1138e49](https://github.com/lyne-design-system/lyne-components/commit/1138e4907cdcfa95ee37bf97c50b130df9b01256))
+
 ## [0.31.0](https://github.com/lyne-design-system/lyne-components/compare/v0.30.10...v0.31.0) (2023-04-05)
 
 ### ⚠ BREAKING CHANGES
