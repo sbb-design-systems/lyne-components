@@ -49,8 +49,8 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
     return (
-      <Host {...hostAttributes}>
-        <span class="sbb-tooltip-trigger" data-icon-small={this._isInFormField}>
+      <Host {...hostAttributes} data-icon-small={this._isInFormField}>
+        <span class="sbb-tooltip-trigger">
           <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </span>
       </Host>

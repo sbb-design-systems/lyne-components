@@ -21,68 +21,84 @@
 }
 
 @mixin icon-button {
-  @include button-reset;
-
-  --sbb-icon-button-background: transparent;
-  --sbb-icon-button-color: var(--sbb-color-black-default);
-  --sbb-icon-button-transition-duration: var(--sbb-animation-duration-2x);
-  --sbb-icon-button-transition-easing-function: var(--sbb-animation-easing);
-  --sbb-icon-button-inset: 0;
-  --sbb-icon-button-transform: none;
-  --sbb-icon-button-size: var(--sbb-size-icon-ui-small);
-  --sbb-icon-button-radius: var(--sbb-border-radius-infinity);
-
-  position: relative;
-  height: var(--sbb-icon-button-size);
-  width: var(--sbb-icon-button-size);
-  border-radius: var(--sbb-icon-button-radius);
-  cursor: pointer;
-  background-color: transparent;
-  color: var(--sbb-icon-button-color);
-
-  &::before {
-    content: '';
-    background-color: var(--sbb-icon-button-background);
-    position: absolute;
-    inset: var(--sbb-icon-button-inset);
-    border-radius: var(--sbb-icon-button-radius);
-    transition-duration: var(--sbb-icon-button-transition-duration);
-    transition-timing-function: var(--sbb-icon-button-transition-easing-function);
-  }
-
-  @include mediaqueries.hover-mq($hover: true) {
-    :host(:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
-      --sbb-icon-button-background: var(--sbb-color-milk-default);
-      --sbb-icon-button-transform: translateY(#{functions.px-to-rem-build(-1)});
-    }
-  }
+  @include icon-button-base('sbb-icon');
 
   :host([data-active]) &,
   :host(:active) & {
-    --sbb-icon-button-background: var(--sbb-color-cloud-default);
-    --sbb-icon-button-inset: #{functions.px-to-rem-build(1)};
-    --sbb-icon-button-transform: translateY(0);
+    @include icon-button-active;
   }
 
   :host([disabled]) & {
-    --sbb-icon-button-color: var(--sbb-color-graphite-default);
-    --sbb-icon-button-inset: 0;
-    --sbb-icon-button-transform: none;
-    --sbb-icon-button-background: transparent;
-
-    cursor: unset;
-    pointer-events: none;
+    @include icon-button-disabled;
   }
 
   :host(:focus-visible) & {
     @include a11y.focus-outline;
-
-    border-radius: var(--sbb-icon-button-radius);
   }
 
-  sbb-icon {
-    transition-duration: var(--sbb-icon-button-transition-duration);
-    transition-timing-function: var(--sbb-icon-button-transition-easing-function);
-    transform: var(--sbb-icon-button-transform);
+  :host(:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
+    @include icon-button-hover;
   }
+}
+
+@mixin icon-button-base($icon-selector) {
+  @include button-reset;
+
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-black-default);
+  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-button-inset: 0;
+  --sbb-button-transform: none;
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-cursor: pointer;
+  --sbb-button-pointer-events: unset;
+
+  position: relative;
+  height: var(--sbb-button-icon-size);
+  width: var(--sbb-button-icon-size);
+  border-radius: var(--sbb-button-border-radius);
+  cursor: var(--sbb-button-cursor);
+  pointer-events: var(--sbb-button-pointer-events);
+  background-color: transparent;
+  color: var(--sbb-button-color-default-text);
+
+  &::before {
+    content: '';
+    background-color: var(--sbb-button-color-default-background);
+    position: absolute;
+    inset: var(--sbb-button-inset);
+    border-radius: var(--sbb-button-border-radius);
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+  }
+
+  #{$icon-selector} {
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+    transform: var(--sbb-button-transform);
+  }
+}
+
+@mixin icon-button-hover {
+  @include mediaqueries.hover-mq($hover: true) {
+    --sbb-button-color-default-background: var(--sbb-color-milk-default);
+    --sbb-button-transform: translateY(#{functions.px-to-rem-build(-1)});
+  }
+}
+
+@mixin icon-button-disabled {
+  --sbb-button-color-default-text: var(--sbb-color-graphite-default);
+  --sbb-button-inset: 0;
+  --sbb-button-transform: none;
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-cursor: unset;
+  --sbb-button-pointer-events: none;
+}
+
+@mixin icon-button-active {
+  --sbb-button-color-default-background: var(--sbb-color-cloud-default);
+  --sbb-button-inset: #{functions.px-to-rem-build(1)};
+  --sbb-button-transform: translateY(0);
 }
