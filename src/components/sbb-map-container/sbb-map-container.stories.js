@@ -19,10 +19,22 @@ const Template = () => (
       </sbb-form-field>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
       {fakeSituationCards.map((value) => (
-        <div style={fakeSituationCardStyles}>
+        <a href="#" style={fakeSituationCardStyles}>
           <p>Situation {value}</p>
-        </div>
+        </a>
       ))}
+    </div>
+
+    <div slot="button">
+      <sbb-button
+        variant="secondary"
+        size="l"
+        icon-name="location-pin-map-small"
+        type="button"
+        name="Button Name"
+      >
+        Show map
+      </sbb-button>
     </div>
 
     <div slot="map" style="height: 100%;">

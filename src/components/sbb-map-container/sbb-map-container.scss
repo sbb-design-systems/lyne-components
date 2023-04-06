@@ -30,6 +30,23 @@
   }
 }
 
+.sbb-map-container__sidebar-button {
+  position: fixed;
+  inset-block-end: var(--sbb-spacing-fixed-5x);
+  inset-inline: 0;
+  text-align: center;
+  transition: opacity var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  @include sbb.mq($from: medium) {
+    display: none;
+  }
+}
+
 .sbb-map-container__sidebar {
   @include sbb.scrollbar-light;
 
