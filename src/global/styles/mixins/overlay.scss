@@ -1,3 +1,92 @@
+@mixin optionsPanelOverlayHost {
+  --sbb-options-panel-position-x: 0;
+  --sbb-options-panel-position-y: 0;
+  --sbb-options-panel-active-option-y: 0;
+  --sbb-options-panel-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
+  --sbb-options-panel-visibility: visible;
+  --sbb-options-panel-width: fit-content;
+  --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-options-panel-options-border-radius: 0 0 var(--sbb-options-panel-border-radius)
+    var(--sbb-options-panel-border-radius);
+  --sbb-options-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-options-panel-animation-timing-function: ease;
+  --sbb-options-panel-gap-fix-opacity: 0;
+  --sbb-options-panel-gap-fix-transform: none;
+  --sbb-options-panel-gap-fix-inset-block-start: calc(
+    var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
+  );
+}
+
+@mixin optionsPanelOverlayContainer {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: var(--sbb-options-panel-internal-z-index);
+}
+
+@mixin optionsPanelOverlayGap {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  visibility: var(--sbb-options-panel-visibility);
+  opacity: var(--sbb-options-panel-gap-fix-opacity);
+  background-color: transparent;
+  width: var(--sbb-options-panel-width);
+  height: var(--sbb-options-panel-border-radius);
+  inset-block-start: var(--sbb-options-panel-gap-fix-inset-block-start);
+  inset-inline-start: var(--sbb-options-panel-position-x);
+  transform: var(--sbb-options-panel-gap-fix-transform);
+  transition: opacity var(--sbb-options-panel-animation-duration)
+    var(--sbb-options-panel-animation-timing-function);
+}
+
+@mixin optionsPanelOverlay {
+  display: block;
+  position: absolute;
+  visibility: var(--sbb-options-panel-visibility);
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--sbb-options-panel-border-radius);
+  inset-block-start: var(--sbb-options-panel-position-y);
+  inset-inline-start: var(--sbb-options-panel-position-x);
+  width: var(--sbb-options-panel-width);
+  transition: box-shadow var(--sbb-options-panel-animation-duration)
+    var(--sbb-options-panel-animation-timing-function);
+
+  &::before,
+  &::after {
+    content: '';
+    display: none;
+    position: relative;
+    width: 100%;
+    height: var(--sbb-options-panel-origin-height);
+    background-color: transparent;
+    border-radius: var(--sbb-options-panel-border-radius);
+    pointer-events: none;
+    transition: box-shadow var(--sbb-options-panel-animation-duration)
+      var(--sbb-options-panel-animation-timing-function);
+    z-index: 1;
+  }
+}
+
+@mixin optionsOverlay {
+  background-color: var(--sbb-color-white-default);
+  padding-block: var(--sbb-spacing-fixed-3x);
+  padding-inline: 0;
+  border-radius: var(--sbb-options-panel-options-border-radius);
+  max-height: var(--sbb-options-panel-max-height);
+  min-height: var(--sbb-options-panel-min-height);
+  pointer-events: all;
+  overflow-y: auto;
+  animation: {
+    name: var(--sbb-options-panel-animation-name);
+    duration: var(--sbb-options-panel-animation-duration);
+    timing-function: var(--sbb-options-panel-animation-timing-function);
+  }
+}
+
 @mixin overlayGapFix($radius, $color: var(--sbb-color-white-default)) {
   .gap-fix-wrapper {
     position: relative;

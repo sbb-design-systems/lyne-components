@@ -21,7 +21,7 @@ import {
   attachOpenPanelEvents,
   setOverlayPosition,
 } from '../../global/helpers/overlay-option-panel';
-import {overlayGapFixCorners, SbbOverlayState} from '../../global/helpers/overlay';
+import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 
 let nextId = 0;
@@ -141,7 +141,9 @@ export class SbbSelect implements ComponentInterface {
 
   @Listen('option-click')
   public onOptionClick(event: CustomEvent<SbbOptionEventData>): void {
-    const clickedOption: HTMLSbbOptionElement = this._filteredOptions.find((option) => option.id === event.detail.id);
+    const clickedOption: HTMLSbbOptionElement = this._filteredOptions.find(
+      (option) => option.id === event.detail.id
+    );
     this._setActiveElement(clickedOption, this._filteredOptions[this._activeItemIndex]);
     this._activeItemIndex = this._filteredOptions.findIndex((option) => option === clickedOption);
     if (!this.multiple) {
@@ -193,6 +195,11 @@ export class SbbSelect implements ComponentInterface {
       this._element.parentElement;
     if (this._originElement) {
       toggleDatasetEntry(this._originElement, 'overlayOpen', false);
+      toggleDatasetEntry(
+        this._element,
+        'optionPanelOriginBorderless',
+        this._element.closest('sbb-form-field')?.hasAttribute('borderless')
+      );
     }
   }
 
@@ -389,7 +396,9 @@ export class SbbSelect implements ComponentInterface {
       const selectedOption = this._filteredOptions.find((option) => option.selected);
       if (selectedOption) {
         this._setActiveElement(selectedOption, this._filteredOptions[this._activeItemIndex]);
-        this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selectedOption);
+        this._activeItemIndex = this._filteredOptions.findIndex(
+          (option) => option === selectedOption
+        );
         this.value = selectedOption.value;
       }
     } else {

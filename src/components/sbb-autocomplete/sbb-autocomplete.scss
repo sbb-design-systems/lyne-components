@@ -6,64 +6,49 @@
 
 // Fixes the gap between the origin and the overlay by creating conjuction
 // corners based on the origin element border radius
-@include sbb.overlayGapFix(var(--sbb-autocomplete-border-radius));
+@include sbb.overlayGapFix(var(--sbb-options-panel-border-radius));
 
 :host {
-  --sbb-options-panel-position-x: 0;
-  --sbb-options-panel-position-y: 0;
-  --sbb-autocomplete-active-option-y: 0;
-  --sbb-options-panel-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
-  --sbb-autocomplete-min-height: var(--sbb-options-panel-origin-height);
-  --sbb-autocomplete-visibility: visible;
-  --sbb-autocomplete-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
-  --sbb-options-panel-width: fit-content;
-  --sbb-autocomplete-border-radius: var(--sbb-border-radius-4x);
-  --sbb-autocomplete-options-border-radius: 0 0 var(--sbb-autocomplete-border-radius)
-    var(--sbb-autocomplete-border-radius);
-  --sbb-autocomplete-animation-duration: var(--sbb-animation-duration-4x);
-  --sbb-autocomplete-animation-timing-function: ease;
-  --sbb-autocomplete-gap-fix-opacity: 0;
-  --sbb-autocomplete-gap-fix-transform: none;
-  --sbb-autocomplete-gap-fix-inset-block-start: calc(
-    var(--sbb-options-panel-position-y) - var(--sbb-autocomplete-border-radius)
-  );
+  @include sbb.optionsPanelOverlayHost;
+
+  --sbb-options-panel-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
 }
 
 :host([data-state='closed']) {
-  --sbb-autocomplete-visibility: hidden;
+  --sbb-options-panel-visibility: hidden;
 }
 
 :host([data-state='opening']) {
-  --sbb-autocomplete-animation-name: open;
+  --sbb-options-panel-animation-name: open;
 }
 
 :host([data-state='closing']) {
-  --sbb-autocomplete-animation-name: close;
+  --sbb-options-panel-animation-name: close;
 }
 
 :host([data-state='opened']),
 :host([data-state='opening']) {
-  --sbb-autocomplete-gap-fix-opacity: 1;
+  --sbb-options-panel-gap-fix-opacity: 1;
 }
 
 :host([data-options-panel-position='below']) {
-  --sbb-autocomplete-animation-transform: translateY(
+  --sbb-options-panel-animation-transform: translateY(
     calc((var(--sbb-options-panel-origin-height) / 2) * -1)
   );
 }
 
 :host([data-options-panel-position='above']) {
-  --sbb-autocomplete-options-border-radius: var(--sbb-autocomplete-border-radius)
-    var(--sbb-autocomplete-border-radius) 0 0;
-  --sbb-autocomplete-gap-fix-inset-block-start: var(--sbb-options-panel-max-height);
-  --sbb-autocomplete-gap-fix-transform: rotate(180deg);
-  --sbb-autocomplete-animation-transform: translateY(
+  --sbb-options-panel-options-border-radius: var(--sbb-options-panel-border-radius)
+    var(--sbb-options-panel-border-radius) 0 0;
+  --sbb-options-panel-gap-fix-inset-block-start: var(--sbb-options-panel-max-height);
+  --sbb-options-panel-gap-fix-transform: rotate(180deg);
+  --sbb-options-panel-animation-transform: translateY(
     calc(var(--sbb-options-panel-origin-height) / 2)
   );
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
-  --sbb-autocomplete-animation-duration: 0s;
+  --sbb-options-panel-animation-duration: 0s;
 }
 
 ::slotted(sbb-divider) {
@@ -75,56 +60,15 @@
 }
 
 .sbb-autocomplete__container {
-  position: fixed;
-  pointer-events: none;
-  inset: 0;
-  z-index: var(--sbb-autocomplete-internal-z-index);
+  @include sbb.optionsPanelOverlayContainer;
 }
 
 .sbb-autocomplete__gap-fix {
-  display: flex;
-  justify-content: space-between;
-  position: fixed;
-  visibility: var(--sbb-autocomplete-visibility);
-  opacity: var(--sbb-autocomplete-gap-fix-opacity);
-  background-color: transparent;
-  width: var(--sbb-options-panel-width);
-  height: var(--sbb-autocomplete-border-radius);
-  inset-block-start: var(--sbb-autocomplete-gap-fix-inset-block-start);
-  inset-inline-start: var(--sbb-options-panel-position-x);
-  transform: var(--sbb-autocomplete-gap-fix-transform);
-  transition: opacity var(--sbb-autocomplete-animation-duration)
-    var(--sbb-autocomplete-animation-timing-function);
+  @include sbb.optionsPanelOverlayGap;
 }
 
 .sbb-autocomplete__panel {
-  display: block;
-  position: absolute;
-  visibility: var(--sbb-autocomplete-visibility);
-  overflow: hidden;
-  background-color: transparent;
-  border: none;
-  border-radius: var(--sbb-autocomplete-border-radius);
-  inset-block-start: var(--sbb-options-panel-position-y);
-  inset-inline-start: var(--sbb-options-panel-position-x);
-  width: var(--sbb-options-panel-width);
-  transition: box-shadow var(--sbb-autocomplete-animation-duration)
-    var(--sbb-autocomplete-animation-timing-function);
-
-  &::before,
-  &::after {
-    content: '';
-    display: none;
-    position: relative;
-    width: 100%;
-    height: var(--sbb-options-panel-origin-height);
-    background-color: transparent;
-    border-radius: var(--sbb-autocomplete-border-radius);
-    pointer-events: none;
-    transition: box-shadow var(--sbb-autocomplete-animation-duration)
-      var(--sbb-autocomplete-animation-timing-function);
-    z-index: 1;
-  }
+  @include sbb.optionsPanelOverlay;
 
   :host([data-state='opened']) &,
   :host([data-state='opening']) & {
@@ -166,25 +110,12 @@
 
 .sbb-autocomplete__options {
   @include sbb.scrollbar-light;
-
-  background-color: var(--sbb-color-white-default);
-  padding-block: var(--sbb-spacing-fixed-3x);
-  padding-inline: 0;
-  border-radius: var(--sbb-autocomplete-options-border-radius);
-  max-height: var(--sbb-options-panel-max-height);
-  min-height: var(--sbb-autocomplete-min-height);
-  pointer-events: all;
-  overflow-y: auto;
-  animation: {
-    name: var(--sbb-autocomplete-animation-name);
-    duration: var(--sbb-autocomplete-animation-duration);
-    timing-function: var(--sbb-autocomplete-animation-timing-function);
-  }
+  @include sbb.optionsOverlay;
 }
 
 @keyframes open {
   from {
-    transform: var(--sbb-autocomplete-animation-transform);
+    transform: var(--sbb-options-panel-animation-transform);
     opacity: 0;
   }
 
@@ -201,7 +132,7 @@
   }
 
   to {
-    transform: var(--sbb-autocomplete-animation-transform);
+    transform: var(--sbb-options-panel-animation-transform);
     opacity: 0;
   }
 }
