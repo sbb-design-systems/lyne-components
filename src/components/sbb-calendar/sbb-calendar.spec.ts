@@ -5,11 +5,11 @@ describe('sbb-calendar', () => {
   it('renders', async () => {
     const page = await newSpecPage({
       components: [SbbCalendar],
-      html: "<sbb-calendar selected-date='2023-01-20T00:00:00' data-now='1672786800000'/>",
+      html: "<sbb-calendar selected-date='2023-01-20T00:00:00' data-now='1672790400000'/>",
     });
 
     expect(page.root).toEqualHtml(`
-    <sbb-calendar selected-date="2023-01-20T00:00:00" data-now="1672786800000">
+    <sbb-calendar selected-date="2023-01-20T00:00:00" data-now="1672790400000">
       <mock:shadow-root>
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
