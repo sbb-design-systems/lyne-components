@@ -1,25 +1,17 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const fakeSituationCardStyles =
-  'background-color: var(--sbb-color-milk-default); height: 116px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 16px;';
-const fakeSituationCards = [...Array(10).keys()];
-
 const Template = () => (
   <sbb-map-container>
-    <div style="padding: 16px">
-      <sbb-form-field placeholder="Type location..." style="width: 100%">
+    <div style="padding: var(--sbb-spacing-fixed-4x)">
+      <sbb-form-field style="width: 100%">
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
-        <input minLength="2" name="keyword" autoComplete="off" placeholder="Search" />
-        <sbb-icon
-          slot="suffix"
-          name="cross-medium"
-          className="custom-search-results__input-clear hidden"
-        ></sbb-icon>
+        <input minLength="2" name="keyword" autocomplete="off" placeholder="Search" />
+        <sbb-icon slot="suffix" name="cross-medium"></sbb-icon>
       </sbb-form-field>
       <sbb-title level="4">Operations & Disruptions</sbb-title>
-      {fakeSituationCards.map((value) => (
-        <div style={fakeSituationCardStyles}>
+      {[...Array(10).keys()].map((value) => (
+        <div style="background-color: var(--sbb-color-milk-default); height: 116px; display: flex; align-items: center; justify-content: center; border-radius: var(--sbb-border-radius-4x); margin-block-end: var(--sbb-spacing-fixed-4x)">
           <p>Situation {value}</p>
         </div>
       ))}
@@ -33,7 +25,7 @@ const Template = () => (
   </sbb-map-container>
 );
 
-export const story1 = Template.bind({});
+export const MapContainer = Template.bind({});
 
 export default {
   decorators: [
@@ -58,5 +50,5 @@ export default {
     },
     layout: 'fullscreen',
   },
-  title: 'sbb-map-container',
+  title: 'components/sbb-map-container',
 };
