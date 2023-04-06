@@ -59,29 +59,29 @@ export const Thin = Template.bind({});
 Thin.argTypes = defaultArgTypes;
 Thin.args = { ...defaultArgs };
 
-export const ThinNegative = Template.bind({});
-ThinNegative.argTypes = defaultArgTypes;
-ThinNegative.args = { ...defaultArgs, negative: true };
-
-export const Thick = Template.bind({});
-Thick.argTypes = defaultArgTypes;
-Thick.args = { ...defaultArgs, size: size.options[1] };
-
-export const ThickNegative = Template.bind({});
-ThickNegative.argTypes = defaultArgTypes;
-ThickNegative.args = { ...defaultArgs, size: size.options[1], negative: true };
-
 export const ThinTrackVisible = Template.bind({});
 ThinTrackVisible.argTypes = defaultArgTypes;
 ThinTrackVisible.args = { ...defaultArgs, trackVisible: true };
+
+export const ThinNegative = Template.bind({});
+ThinNegative.argTypes = defaultArgTypes;
+ThinNegative.args = { ...defaultArgs, negative: true };
 
 export const ThinNegativeTrackVisible = Template.bind({});
 ThinNegativeTrackVisible.argTypes = defaultArgTypes;
 ThinNegativeTrackVisible.args = { ...defaultArgs, negative: true, trackVisible: true };
 
+export const Thick = Template.bind({});
+Thick.argTypes = defaultArgTypes;
+Thick.args = { ...defaultArgs, size: size.options[1] };
+
 export const ThickTrackVisible = Template.bind({});
 ThickTrackVisible.argTypes = defaultArgTypes;
 ThickTrackVisible.args = { ...defaultArgs, size: size.options[1], trackVisible: true };
+
+export const ThickNegative = Template.bind({});
+ThickNegative.argTypes = defaultArgTypes;
+ThickNegative.args = { ...defaultArgs, size: size.options[1], negative: true };
 
 export const ThickNegativeTrackVisible = Template.bind({});
 ThickNegativeTrackVisible.argTypes = defaultArgTypes;
