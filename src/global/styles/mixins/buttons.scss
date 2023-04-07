@@ -109,8 +109,4 @@
   outline-offset: calc(
     var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
   ) !important;
-
-  @include a11y.if-forced-colors {
-    --sbb-button-color-default-background: ButtonText !important;
-  }
 }

@@ -97,6 +97,10 @@
       --sbb-calendar-day-background-color: var(--sbb-color-milk-default);
 
       padding-block-end: #{sbb.px-to-rem-build(1)};
+
+      @include sbb.if-forced-colors {
+        @include sbb.focus-outline;
+      }
     }
   }
 
@@ -112,6 +116,10 @@
   &:not(.sbb-calendar__day-selected, :disabled):active {
     --sbb-calendar-day-background-color: var(--sbb-color-cloud-default);
     --sbb-calendar-day-inset: #{sbb.px-to-rem-build(3)};
+
+    @include sbb.if-forced-colors {
+      @include sbb.focus-outline;
+    }
   }
 }
 
