@@ -180,6 +180,11 @@
     duration: var(--sbb-autocomplete-animation-duration);
     timing-function: var(--sbb-autocomplete-animation-timing-function);
   }
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid CanvasText;
+    border-top: none;
+  }
 }
 
 @keyframes open {
