@@ -33,7 +33,7 @@ export class SbbMapContainer implements ComponentInterface {
    * Apply the intersection observer to the trigger span in the sidebar
    * @private
    */
-  private _applyIntersectionObserver() {
+  private _applyIntersectionObserver(): void {
     this._observer.observe(this._intersector);
   }
 
@@ -51,7 +51,7 @@ export class SbbMapContainer implements ComponentInterface {
     });
   }
 
-  public componentDidLoad() {
+  public componentDidLoad(): void {
     if (this._buttonSlotted) {
       this._applyIntersectionObserver();
       this._addClickListener();
