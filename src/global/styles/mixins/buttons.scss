@@ -23,6 +23,10 @@
 @mixin icon-button {
   @include icon-button-base('sbb-icon');
 
+  :host(:focus-visible) & {
+    @include a11y.focus-outline;
+  }
+
   :host([data-active]) &,
   :host(:active) & {
     @include icon-button-active;
@@ -30,10 +34,6 @@
 
   :host([disabled]) & {
     @include icon-button-disabled;
-  }
-
-  :host(:focus-visible) & {
-    @include a11y.focus-outline;
   }
 
   :host(:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
@@ -63,6 +63,10 @@
   pointer-events: var(--sbb-button-pointer-events);
   background-color: transparent;
   color: var(--sbb-button-color-default-text);
+  outline-offset: var(--sbb-focus-outline-offset);
+  transition-property: outline-offset;
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
 
   &::before {
     content: '';
@@ -101,4 +105,12 @@
   --sbb-button-color-default-background: var(--sbb-color-cloud-default);
   --sbb-button-inset: #{functions.px-to-rem-build(1)};
   --sbb-button-transform: translateY(0);
+
+  outline-offset: calc(
+    var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
+  ) !important;
+
+  @include a11y.if-forced-colors {
+    --sbb-button-color-default-background: ButtonText !important;
+  }
 }
