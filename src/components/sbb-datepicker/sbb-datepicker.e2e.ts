@@ -28,6 +28,24 @@ describe('sbb-datepicker', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
+    it('renders and interpret two digit year correctly in 2000s', async () => {
+      const changeSpy = await element.spyOnEvent('change');
+      await input.type('20/01/12');
+      await button.focus();
+      await page.waitForChanges();
+      expect(await input.getProperty('value')).toEqual('20.01.2012');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('renders and interpret two digit year correctly in 1900s', async () => {
+      const changeSpy = await element.spyOnEvent('change');
+      await input.type('20/01/99');
+      await button.focus();
+      await page.waitForChanges();
+      expect(await input.getProperty('value')).toEqual('20.01.1999');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
     it('renders with no changes when typing letters', async () => {
       expect(await input.getProperty('value')).toEqual('');
       await input.focus();

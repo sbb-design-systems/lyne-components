@@ -66,11 +66,12 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Property     | Attribute | Description                                                | Type                      | Default      |
-| ------------ | --------- | ---------------------------------------------------------- | ------------------------- | ------------ |
-| `dateFilter` | --        | A function used to filter out dates.                       | `(date: Date) => boolean` | `() => true` |
-| `input`      | `input`   | Reference of the native input connected to the datepicker. | `HTMLElement \| string`   | `undefined`  |
-| `wide`       | `wide`    | If set to true, two months are displayed                   | `boolean`                 | `false`      |
+| Property           | Attribute            | Description                                                                                                                     | Type                      | Default      |
+| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
+| `cutoffYearOffset` | `cutoff-year-offset` | Cutoff year offset to interpret two digit values. e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999. | `number`                  | `15`         |
+| `dateFilter`       | --                   | A function used to filter out dates.                                                                                            | `(date: Date) => boolean` | `() => true` |
+| `input`            | `input`              | Reference of the native input connected to the datepicker.                                                                      | `HTMLElement \| string`   | `undefined`  |
+| `wide`             | `wide`               | If set to true, two months are displayed                                                                                        | `boolean`                 | `false`      |
 
 
 ## Events

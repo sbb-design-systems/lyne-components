@@ -76,6 +76,14 @@ const wide = {
     category: 'Datepicker attribute',
   },
 };
+const cutoffYearOffset = {
+  control: {
+    type: 'number',
+  },
+  table: {
+    category: 'Datepicker attribute',
+  },
+};
 
 const filterFunctions = [
   () => true,
@@ -175,6 +183,7 @@ const basicArgTypes = {
   'aria-label': ariaLabel,
   'data-now': dataNow,
   disableAnimation,
+  cutoffYearOffset: cutoffYearOffset,
 };
 
 const basicArgs = {
@@ -239,6 +248,7 @@ const Template = ({
   min,
   max,
   wide,
+  cutoffYearOffset,
   dateFilter,
   'data-now': dataNow,
   disableAnimation,
@@ -260,6 +270,7 @@ const Template = ({
           calendarRef.dateFilter = dateFilter;
         }}
         wide={wide}
+        cutoffYearOffset={cutoffYearOffset}
         onChange={(event) => changeEventHandler(event)}
         data-now={dataNow}
       ></sbb-datepicker>
@@ -279,6 +290,7 @@ const TemplateFormField = ({
   borderless,
   size,
   wide,
+  cutoffYearOffset,
   dateFilter,
   'data-now': dataNow,
   disableAnimation,
@@ -301,6 +313,7 @@ const TemplateFormField = ({
           calendarRef.dateFilter = dateFilter;
         }}
         wide={wide}
+        cutoffYearOffset={cutoffYearOffset}
         onChange={(event) => changeEventHandler(event)}
         data-now={dataNow}
       ></sbb-datepicker>

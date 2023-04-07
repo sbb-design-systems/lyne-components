@@ -36,6 +36,12 @@ export class SbbDatepicker implements ComponentInterface {
   /** If set to true, two months are displayed */
   @Prop() public wide = false;
 
+  /**
+   * Cutoff year offset to interpret two digit values.
+   * e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
+   */
+  @Prop() public cutoffYearOffset = 15;
+
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
 
@@ -199,7 +205,8 @@ export class SbbDatepicker implements ComponentInterface {
     const month: string = match[2].padStart(2, '0');
     let year: number = +match[3];
     if (!!year && year < 100 && year >= 0) {
-      year += 1900;
+      const shift = new Date().getFullYear() - 2000 + this.cutoffYearOffset;
+      year = year <= shift ? 2000 + year : 1900 + year;
     }
     return `${day}.${month}.${year || ''}`;
   }
