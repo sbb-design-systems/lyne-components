@@ -89,6 +89,10 @@
   @include mediaqueries.hover-mq($hover: true) {
     --sbb-button-color-default-background: var(--sbb-color-milk-default);
     --sbb-button-transform: translateY(#{functions.px-to-rem-build(-1)});
+
+    @include sbb.if-forced-colors {
+      @include sbb.focus-outline;
+    }
   }
 }
 
@@ -105,6 +109,10 @@
   --sbb-button-color-default-background: var(--sbb-color-cloud-default);
   --sbb-button-inset: #{functions.px-to-rem-build(1)};
   --sbb-button-transform: translateY(0);
+
+  @include sbb.if-forced-colors {
+    @include sbb.focus-outline;
+  }
 
   outline-offset: calc(
     var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
