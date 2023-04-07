@@ -121,6 +121,11 @@
 .sbb-select__options {
   @include sbb.scrollbar-light;
   @include sbb.optionsOverlay;
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid CanvasText;
+    border-top: none;
+  }
 }
 
 @keyframes open {
