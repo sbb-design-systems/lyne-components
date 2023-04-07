@@ -12,7 +12,7 @@
   --sbb-visual-checkbox-cursor: pointer;
 
   @include sbb.if-forced-colors {
-    --sbb-checkbox-selection-color: Canvas;
+    --sbb-visual-checkbox-selection-color: Canvas;
   }
 }
 
