@@ -108,7 +108,7 @@
     "style-loader": "2.0.0",
     "stylelint": "15.4.0",
     "stylelint-config-prettier-scss": "0.0.1",
-    "stylelint-config-standard-scss": "7.0.1",
+    "stylelint-config-standard-scss": "8.0.0",
     "stylelint-scss": "4.6.0",
     "ts-node": "10.9.1",
     "typescript": "5.0.4",
