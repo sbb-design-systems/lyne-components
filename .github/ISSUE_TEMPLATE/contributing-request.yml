@@ -60,7 +60,7 @@ body:
       label: Please describe the required properties (with type and value) for the component
       value: |
         Example:
-        variant (string): "primary" | "secondary" | "translucent" | "transparent"
+        variant (string): "primary" | "secondary" | "tertiary" | "transparent"
         size (string):  "s" | "m" | "l"
   - type: textarea
     id: markup-proposal
@@ -69,7 +69,7 @@ body:
       description: This input will be automatically formatted into html.
       render: html
       value: |
-        Example: 
+        Example:
         <sbb-button>
           <sbb-icon slot="icon" name="info"></sbb-icon>
           Label
