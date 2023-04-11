@@ -89,7 +89,6 @@ const innerContent = () => (
       variant="block"
       icon-name="chevron-small-right-small"
       icon-placement="end"
-      sbb-tooltip-close
     >
       Link
     </sbb-link>

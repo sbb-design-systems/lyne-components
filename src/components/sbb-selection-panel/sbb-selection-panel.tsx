@@ -220,9 +220,10 @@ export class SbbSelectionPanel implements ComponentInterface {
           {this._namedSlots['content'] && (
             <div
               class="sbb-selection-panel__content"
+              data-expanded={this._checked || this.forceOpen}
               ref={(el) => {
                 this._contentElement = el;
-                this._contentElement.inert = !this._checked;
+                this._contentElement.inert = !this._checked && !this.forceOpen; // TODO: check inert logic on FF
               }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
