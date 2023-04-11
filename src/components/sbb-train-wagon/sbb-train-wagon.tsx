@@ -112,7 +112,7 @@ export class SbbTrainWagon implements ComponentInterface {
       this._icons?.forEach((icon) => icon.removeAttribute('slot'));
     }
 
-    const label = (tagName: string) => {
+    const label = (tagName: string): JSX.Element => {
       const TAG_NAME = tagName;
       return (
         <TAG_NAME class="sbb-train-wagon__label" aria-hidden={(!this.label).toString()}>
