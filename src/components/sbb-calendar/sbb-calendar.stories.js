@@ -25,18 +25,6 @@ const Template = ({ min, max, selectedDate, dateFilter, ...args }) => (
   ></sbb-calendar>
 );
 
-const TemplateUnixTimestamp = ({ min, max, selectedDate, dateFilter, ...args }) => (
-  <sbb-calendar
-    min={min}
-    max={max}
-    selected-date={selectedDate}
-    {...args}
-    ref={(calendarRef) => {
-      calendarRef.dateFilter = dateFilter;
-    }}
-  ></sbb-calendar>
-);
-
 const TemplateFilterFunction = ({ dateFilter, ...args }) => (
   <sbb-calendar
     ref={(calendarRef) => {
@@ -76,33 +64,6 @@ const min = {
 const max = {
   control: {
     type: 'date',
-  },
-  table: {
-    category: 'Date filters',
-  },
-};
-
-const selectedDateAsString = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Calendar',
-  },
-};
-
-const minAsString = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Date filters',
-  },
-};
-
-const maxAsString = {
-  control: {
-    type: 'text',
   },
   table: {
     category: 'Date filters',
@@ -154,7 +115,6 @@ today.setDate(today.getDate() >= 15 ? 8 : 18);
 const defaultArgs = {
   wide: false,
   selectedDate: isChromatic() ? new Date(2023, 0, 20) : today,
-  dateFilter: dateFilter.options[0],
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
@@ -166,22 +126,8 @@ export const CalendarWithMinAndMax = Template.bind({});
 CalendarWithMinAndMax.argTypes = { ...defaultArgTypes };
 CalendarWithMinAndMax.args = {
   ...defaultArgs,
-  min: new Date(2023, 0, 9),
-  max: new Date(2023, 0, 29),
-};
-
-export const CalendarUnixTimestamp = TemplateUnixTimestamp.bind({});
-CalendarUnixTimestamp.argTypes = {
-  ...defaultArgTypes,
-  min: minAsString,
-  max: maxAsString,
-  selectedDate: selectedDateAsString,
-};
-CalendarUnixTimestamp.args = {
-  ...defaultArgs,
-  min: '1672873200',
-  max: '1674946800',
-  selectedDate: '1673996400',
+  min: isChromatic() ? new Date(2023, 0, 9) : new Date(today.getFullYear(), today.getMonth(), 5),
+  max: isChromatic() ? new Date(2023, 0, 29) : new Date(today.getFullYear(), today.getMonth(), 29),
 };
 
 export const CalendarWide = Template.bind({});
@@ -190,7 +136,12 @@ CalendarWide.args = { ...defaultArgs, wide: true };
 
 export const CalendarFilterFunction = TemplateFilterFunction.bind({});
 CalendarFilterFunction.argTypes = { ...defaultArgTypes, dateFilter };
-CalendarFilterFunction.args = { ...defaultArgs, dateFilter: dateFilter.options[2] };
+CalendarFilterFunction.args = {
+  ...defaultArgs,
+  // Workaround: On Chromatic mapping functions do not work, so assign function directly.
+  // TODO: Check if condition can be removed after refactoring Chromatic generation @kyubisation
+  dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options[2],
+};
 
 export default {
   parameters: {
