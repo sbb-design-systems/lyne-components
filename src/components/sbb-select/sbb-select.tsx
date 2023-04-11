@@ -166,6 +166,8 @@ export class SbbSelect implements ComponentInterface {
   private _openPanelEventsController: AbortController;
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
+  private _searchTimeout: ReturnType<typeof setTimeout>;
+  private _searchString = '';
 
   /** Gets all the HTMLSbbOptionElement projected in the select. */
   private get _options(): HTMLSbbOptionElement[] {
@@ -293,6 +295,18 @@ export class SbbSelect implements ComponentInterface {
       return;
     }
 
+    if (
+      event.key === 'Backspace' ||
+      event.key === 'Clear' ||
+      (event.key.length === 1 &&
+        event.key !== ' ' &&
+        !event.altKey &&
+        !event.ctrlKey &&
+        !event.metaKey)
+    ) {
+      return this._setNextActiveOptionByText(event);
+    }
+
     switch (event.key) {
       case 'Escape':
       case 'Tab':
@@ -321,6 +335,48 @@ export class SbbSelect implements ComponentInterface {
 
       default:
         break;
+    }
+  }
+
+  private _setNextActiveOptionByText(event): void {
+    // Set timeout and the string to search.
+    if (typeof this._searchTimeout === typeof setTimeout) {
+      clearTimeout(this._searchTimeout);
+    }
+    this._searchTimeout = setTimeout(() => (this._searchString = ''), 1000);
+    this._searchString += event.key;
+
+    // Reorder the _filteredOption array to have the last selected element at the bottom.
+    const indexForSlice: number = this._activeItemIndex + 1;
+    const filteredOptionsSorted: HTMLSbbOptionElement[] = [
+      ...this._filteredOptions.slice(indexForSlice),
+      ...this._filteredOptions.slice(0, indexForSlice),
+    ];
+
+    const match: HTMLSbbOptionElement = filteredOptionsSorted.find(
+      (option: HTMLSbbOptionElement) =>
+        option.textContent.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0
+    );
+    if (match) {
+      // If an exact match has been found, go to that option.
+      this._setNextActiveOption(event, this._filteredOptions.indexOf(match));
+    } else if (
+      this._searchString.length > 1 &&
+      new RegExp(`^${this._searchString.charAt(0)}*$`).test(this._searchString)
+    ) {
+      // If no exact match has been found but the string to search is made by the same repeated letter,
+      // go to the first element, if exists, that matches the letter.
+      const firstMatch: HTMLSbbOptionElement = filteredOptionsSorted.find(
+        (option: HTMLSbbOptionElement) =>
+          option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0
+      );
+      if (firstMatch) {
+        this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
+      }
+    } else {
+      // No match found, clear the timeout and the search term.
+      clearTimeout(this._searchTimeout);
+      this._searchString = '';
     }
   }
 

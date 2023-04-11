@@ -260,6 +260,24 @@ const FormFieldTemplateWithError = ({
   );
 };
 
+const KeyboardInteractionTemplate = (args) => (
+  <div style="padding: 2rem; background-color: #e6e6e6;">
+    <sbb-form-field label="Select" data-testid="form-field">
+      <sbb-select multiple={args.multiple} data-testid="select">
+        <sbb-option value="A">A</sbb-option>
+        <sbb-option value="B">B</sbb-option>
+        <sbb-option value="CA">CA</sbb-option>
+        <sbb-option value="CB">CB</sbb-option>
+        <sbb-option value="CD">CD</sbb-option>
+        <sbb-option value="CE">CE</sbb-option>
+        <sbb-option value="CF">CF</sbb-option>
+        <sbb-option value="CFA">CFA</sbb-option>
+        <sbb-option value="CFB">CFB</sbb-option>
+      </sbb-select>
+    </sbb-form-field>
+  </div>
+);
+
 export const FormFieldSingleSelect = FormFieldTemplate.bind({});
 FormFieldSingleSelect.argTypes = defaultArgTypes;
 FormFieldSingleSelect.args = { ...defaultArgs };
@@ -309,6 +327,11 @@ export const FormFieldOptionGroupDisabled = FormFieldTemplate.bind({});
 FormFieldOptionGroupDisabled.argTypes = defaultArgTypes;
 FormFieldOptionGroupDisabled.args = { ...defaultArgs, withOptionGroup: true, disableGroup: true };
 FormFieldOptionGroupDisabled.play = isChromatic() && playStory;
+
+export const KeyboardInteraction = KeyboardInteractionTemplate.bind({});
+KeyboardInteraction.argTypes = defaultArgTypes;
+KeyboardInteraction.args = { ...defaultArgs };
+KeyboardInteraction.play = isChromatic() && playStory;
 
 export default {
   decorators: [
