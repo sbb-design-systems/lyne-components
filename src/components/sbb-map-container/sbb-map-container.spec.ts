@@ -17,7 +17,7 @@ describe('sbb-map-container', () => {
               <slot></slot>
               <div class="sbb-map-container__sidebar-button">
                 <sbb-button
-                  variant="secondary" size="l"
+                  variant="tertiary" size="l"
                   icon-name="location-pin-map-small"
                   type="button">Show map</sbb-button>
               </div>
