@@ -254,6 +254,7 @@ export class SbbCheckbox implements ComponentInterface {
               </span>
             </span>
             {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
+            {/* For screen readers only */}
             <span data-selection-panel-expanded></span>
           </label>
         </span>

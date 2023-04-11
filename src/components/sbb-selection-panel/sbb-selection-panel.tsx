@@ -223,7 +223,7 @@ export class SbbSelectionPanel implements ComponentInterface {
               data-expanded={this._checked || this.forceOpen}
               ref={(el) => {
                 this._contentElement = el;
-                this._contentElement.inert = !this._checked && !this.forceOpen; // TODO: check inert logic on FF
+                this._contentElement.inert = !this._checked && !this.forceOpen;
               }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >

@@ -209,6 +209,7 @@ export class SbbRadioButton implements ComponentInterface {
             {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
           {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
+          {/* For screen readers only */}
           <span data-selection-panel-expanded></span>
         </label>
       </Host>
