@@ -64,10 +64,6 @@
     border-radius: var(--sbb-border-radius-4x);
   }
 
-  :host([data-icon-small]:hover) & {
-    @include sbb.icon-button-hover;
-  }
-
   :host([data-icon-small]:is(:active, [data-active])) & {
     @include sbb.icon-button-active;
   }
@@ -81,6 +77,10 @@
     )
     & {
     @include sbb.focus-outline;
+  }
+
+  :host([data-icon-small]:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
+    @include sbb.icon-button-hover;
   }
 }
 

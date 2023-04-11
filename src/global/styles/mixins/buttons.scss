@@ -20,6 +20,7 @@
   color: inherit;
 }
 
+// Icon-button style in form-field
 @mixin icon-button {
   @include icon-button-base('sbb-icon');
 
@@ -27,8 +28,7 @@
     @include a11y.focus-outline;
   }
 
-  :host([data-active]) &,
-  :host(:active) & {
+  :host(:is([data-active], :active)) & {
     @include icon-button-active;
   }
 
@@ -41,6 +41,7 @@
   }
 }
 
+// Default state for icon-button in form-field
 @mixin icon-button-base($icon-selector) {
   @include button-reset;
 
@@ -86,6 +87,7 @@
   }
 }
 
+// Hover state for icon-button in form-field (exclude active state)
 @mixin icon-button-hover {
   @include mediaqueries.hover-mq($hover: true) {
     --sbb-button-color-default-background: var(--sbb-color-milk-default);
@@ -97,6 +99,7 @@
   }
 }
 
+// Disabled state for icon-button in form-field
 @mixin icon-button-disabled {
   --sbb-button-color-default-text: var(--sbb-color-graphite-default);
   --sbb-button-inset: 0;
@@ -106,6 +109,7 @@
   --sbb-button-pointer-events: none;
 }
 
+// Active state for icon-button in form-field
 @mixin icon-button-active {
   --sbb-button-color-default-background: var(--sbb-color-cloud-default);
   --sbb-button-inset: #{functions.px-to-rem-build(1)};

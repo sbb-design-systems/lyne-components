@@ -159,6 +159,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
               this._openedByKeyboard = true;
             }
           }}
+          data-icon-small
         />
         <sbb-tooltip
           onWill-open={() => this._calendarElement.resetPosition()}

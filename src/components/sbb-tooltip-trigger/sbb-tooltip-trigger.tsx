@@ -37,7 +37,8 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
     this._handlerRepository.connect();
     this._isInFormField = !!(
       hostContext('sbb-form-field', this._element) ??
-      hostContext('[data-form-field]', this._element)
+      hostContext('[data-form-field]', this._element) ??
+      this._element.dataset.iconSmall === ''
     );
   }
 
