@@ -1,0 +1,49 @@
+@use '../../../global/styles' as sbb;
+
+.scrollbar {
+  @include sbb.scrollbar;
+}
+
+.scrollbar-negative {
+  @include sbb.scrollbar($negative: true);
+}
+
+.scrollbar-thick {
+  @include sbb.scrollbar($size: thick);
+}
+
+.scrollbar-thick-negative {
+  @include sbb.scrollbar($size: thick, $negative: true);
+}
+
+.scrollbar-track-visible {
+  @include sbb.scrollbar($track-visible: true);
+}
+
+.scrollbar-negative-track-visible {
+  @include sbb.scrollbar($negative: true, $track-visible: true);
+}
+
+.scrollbar-thick-track-visible {
+  @include sbb.scrollbar($size: thick, $track-visible: true);
+}
+
+.scrollbar-thick-negative-track-visible {
+  @include sbb.scrollbar($size: thick, $negative: true, $track-visible: true);
+}
+
+.negative {
+  background-color: var(--sbb-color-charcoal-default);
+  color: var(--sbb-color-white-default);
+}
+
+.overflow-container {
+  padding: var(--sbb-spacing-responsive-xs);
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+}
+
+.inner-box {
+  width: 500px;
+}

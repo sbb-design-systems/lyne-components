@@ -48,7 +48,7 @@
 }
 
 .sbb-map-container__sidebar {
-  @include sbb.scrollbar-light;
+  @include sbb.scrollbar;
 
   scroll-behavior: smooth;
   grid-column: 1 / 3;

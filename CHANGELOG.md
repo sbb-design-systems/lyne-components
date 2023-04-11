@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.33.0](https://github.com/lyne-design-system/lyne-components/compare/v0.32.0...v0.33.0) (2023-04-11)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-button:** `tranclucent` variant was removed and replaced by
+  a new `tertiary` button variant.
+
+### Features
+
+- **sbb-button:** replace variant `translucent` by `tertiary` ([#1708](https://github.com/lyne-design-system/lyne-components/issues/1708)) ([90b2328](https://github.com/lyne-design-system/lyne-components/commit/90b23283ceaf158269c25b44c48a27b686fd578d))
+
+## [0.32.0](https://github.com/lyne-design-system/lyne-components/compare/v0.31.2...v0.32.0) (2023-04-11)
+
+### ⚠ BREAKING CHANGES
+
+- - renamed SASS mixin `scrollbar` to `scrollbar-rules` which mainly is intended for internal use
+
+* renamed SASS mixin `scrollbar-light` to parameterized SASS mixin `scrollbar`
+* renamed SASS mixin `scrollbar-dark` to parameterized SASS mixin `scrollbar($negative: true)`
+
+### Features
+
+- introduce new scrollbar variants `size` and `track-visible` ([#1688](https://github.com/lyne-design-system/lyne-components/issues/1688)) ([78dd3bd](https://github.com/lyne-design-system/lyne-components/commit/78dd3bdd9655ef08cb4f33388bf747d46aa465d6)), closes [#1627](https://github.com/lyne-design-system/lyne-components/issues/1627)
+
+### Bug Fixes
+
+- glob import ([649d635](https://github.com/lyne-design-system/lyne-components/commit/649d6352abf6155c15bea521091317b3e6764a83))
+
 ### [0.31.2](https://github.com/lyne-design-system/lyne-components/compare/v0.31.1...v0.31.2) (2023-04-06)
 
 ### Documentation
