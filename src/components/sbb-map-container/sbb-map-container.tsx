@@ -91,7 +91,7 @@ export class SbbMapContainer implements ComponentInterface {
               }}
             >
               <sbb-button
-                variant="secondary"
+                variant="tertiary"
                 size="l"
                 icon-name="location-pin-map-small"
                 type="button"
