@@ -286,17 +286,14 @@
   }
 
   // Only apply shadow definitions where it is really used.
-  :host([variant='primary']:not([disabled]:not([disabled='false']), :active, [data-active])) &,
   :host(
-      [variant='secondary']:not(
-          [negative]:not([negative='false']),
+      :is([variant='primary'], [variant='secondary']:not([negative]), [variant='tertiary']):not(
           [disabled]:not([disabled='false']),
           :active,
           [data-active]
         )
     )
-    &,
-  :host([variant='tertiary']:not([disabled]:not([disabled='false']), :active, [data-active])) & {
+    & {
     &::before {
       box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
           var(--sbb-button-shadow-2-offset-y) var(--sbb-button-shadow-2-blur)
