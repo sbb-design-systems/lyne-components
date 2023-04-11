@@ -261,14 +261,20 @@ export class SbbFormField implements ComponentInterface {
     }
   }
 
+  private _slotHasContent(name: string): boolean {
+    return !!this._element.querySelector(`[slot="${name}"]`);
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div onClick={(event) => this._handleWrapperClick(event)} class="sbb-form-field__wrapper">
-          <div class="sbb-form-field__slot-container">
-            <slot name="prefix"></slot>
-          </div>
+          {this._slotHasContent('prefix') && (
+            <div class="sbb-form-field__slot-container">
+              <slot name="prefix"></slot>
+            </div>
+          )}
 
           <div class="sbb-form-field__input-container">
             {(this.label || this._namedSlots.label) && (
@@ -289,9 +295,11 @@ export class SbbFormField implements ComponentInterface {
               ></sbb-icon>
             )}
           </div>
-          <div class="sbb-form-field__slot-container">
-            <slot name="suffix"></slot>
-          </div>
+          {this._slotHasContent('suffix') && (
+            <div class="sbb-form-field__slot-container">
+              <slot name="suffix"></slot>
+            </div>
+          )}
         </div>
 
         <div class="sbb-form-field__error" aria-live="polite">

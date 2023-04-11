@@ -31,15 +31,15 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
   @Element() private _element!: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);
-  private _isInFormField = false;
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._isInFormField = !!(
+    if (
       hostContext('sbb-form-field', this._element) ??
-      hostContext('[data-form-field]', this._element) ??
-      this._element.dataset.iconSmall === ''
-    );
+      hostContext('[data-form-field]', this._element)
+    ) {
+      this._element.dataset.iconSmall = '';
+    }
   }
 
   public disconnectedCallback(): void {
@@ -50,7 +50,7 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
     return (
-      <Host {...hostAttributes} data-icon-small={this._isInFormField}>
+      <Host {...hostAttributes}>
         <span class="sbb-tooltip-trigger">
           <slot>{this.iconName && <sbb-icon name={this.iconName} />}</slot>
         </span>
