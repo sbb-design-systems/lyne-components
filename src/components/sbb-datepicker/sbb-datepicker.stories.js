@@ -392,8 +392,10 @@ export default {
       disable: true,
     },
     docs: {
+      iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/form elements/sbb-datepicker',
 };
