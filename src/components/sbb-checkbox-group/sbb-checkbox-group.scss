@@ -16,6 +16,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   @include horizontal-orientation;
 }
 
+:host(:not([data-has-selection-panel])) {
+  --sbb-checkbox-group-width: max-content;
+}
+
 :host([orientation='vertical']) {
   --sbb-checkbox-group-orientation: column;
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x);
