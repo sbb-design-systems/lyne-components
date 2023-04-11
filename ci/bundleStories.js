@@ -1,4 +1,4 @@
-const glob = require('glob');
+const { glob } = require('glob');
 const esbuild = require('esbuild');
 const fs = require('fs');
 const config = {

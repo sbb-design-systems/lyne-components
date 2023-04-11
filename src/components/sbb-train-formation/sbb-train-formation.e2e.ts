@@ -1,10 +1,7 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
-async function assertSectorsCollected(
-  page: E2EPage,
-  expectedSectorsCollected: Record<string, string>[]
-): Promise<void> {
-  const sectorsCollected = await page.evaluate(() =>
+async function extractAggregatedSectors(page: E2EPage): Promise<Record<string, string>[]> {
+  return await page.evaluate(() =>
     Array.from(
       document
         .querySelector('sbb-train-formation')
@@ -23,14 +20,11 @@ async function assertSectorsCollected(
       };
     })
   );
-
-  expect(sectorsCollected).toEqual(expectedSectorsCollected);
 }
 
-async function testSectorsCollected(
-  wagonsOrBlockedPassages: string[],
-  expectedSectorsCollected: Record<string, string>[]
-): Promise<void> {
+async function createAndExtractAggregatedSectors(
+  wagonsOrBlockedPassages: string[]
+): Promise<Record<string, string>[]> {
   const page = await newE2EPage();
   await page.setContent(`
       <sbb-train-formation>
@@ -42,7 +36,7 @@ async function testSectorsCollected(
 
   await page.waitForChanges();
 
-  await assertSectorsCollected(page, expectedSectorsCollected);
+  return await extractAggregatedSectors(page);
 }
 
 describe('sbb-train-formation', () => {
@@ -58,98 +52,96 @@ describe('sbb-train-formation', () => {
 
   describe('sectors building', () => {
     it('should collect wagons with one sector', async () => {
-      await testSectorsCollected(
-        [
-          '<sbb-train-wagon sector="A" />',
-          '<sbb-train-blocked-passage />',
-          '<sbb-train-wagon sector="A" />',
-          '<sbb-train-wagon sector="A" />',
-        ],
-        [
-          {
-            label: 'Sector A',
-            wagonCount: '3',
-            blockedPassageCount: '1',
-          },
-        ]
-      );
+      const aggregatedSectors = await createAndExtractAggregatedSectors([
+        '<sbb-train-wagon sector="A" />',
+        '<sbb-train-blocked-passage />',
+        '<sbb-train-wagon sector="A" />',
+        '<sbb-train-wagon sector="A" />',
+      ]);
+
+      expect(aggregatedSectors).toEqual([
+        {
+          label: 'Sector A',
+          wagonCount: '3',
+          blockedPassageCount: '1',
+        },
+      ]);
     });
 
     it('should collect wagons with two sectors', async () => {
-      await testSectorsCollected(
-        [
-          '<sbb-train-wagon sector="A" />',
-          '<sbb-train-blocked-passage />',
-          '<sbb-train-wagon sector="B" />',
-          '<sbb-train-wagon sector="B" />',
-        ],
-        [
-          {
-            label: 'Sec. A',
-            wagonCount: '1',
-            blockedPassageCount: '1',
-          },
-          {
-            label: 'Sector B',
-            wagonCount: '2',
-            blockedPassageCount: '0',
-          },
-        ]
-      );
+      const aggregatedSectors = await createAndExtractAggregatedSectors([
+        '<sbb-train-wagon sector="A" />',
+        '<sbb-train-blocked-passage />',
+        '<sbb-train-wagon sector="B" />',
+        '<sbb-train-wagon sector="B" />',
+      ]);
+
+      expect(aggregatedSectors).toEqual([
+        {
+          label: 'Sec. A',
+          wagonCount: '1',
+          blockedPassageCount: '1',
+        },
+        {
+          label: 'Sector B',
+          wagonCount: '2',
+          blockedPassageCount: '0',
+        },
+      ]);
     });
 
     it('should collect wagons when a middle sector name is missing', async () => {
-      await testSectorsCollected(
-        [
-          '<sbb-train-wagon sector="A" />',
-          '<sbb-train-blocked-passage />',
-          '<sbb-train-wagon />',
-          '<sbb-train-wagon sector="B" />',
-        ],
-        [
-          {
-            label: 'Sector A',
-            wagonCount: '2',
-            blockedPassageCount: '1',
-          },
-          {
-            label: 'Sec. B',
-            wagonCount: '1',
-            blockedPassageCount: '0',
-          },
-        ]
-      );
+      const aggregatedSectors = await createAndExtractAggregatedSectors([
+        '<sbb-train-wagon sector="A" />',
+        '<sbb-train-blocked-passage />',
+        '<sbb-train-wagon />',
+        '<sbb-train-wagon sector="B" />',
+      ]);
+
+      expect(aggregatedSectors).toEqual([
+        {
+          label: 'Sector A',
+          wagonCount: '2',
+          blockedPassageCount: '1',
+        },
+        {
+          label: 'Sec. B',
+          wagonCount: '1',
+          blockedPassageCount: '0',
+        },
+      ]);
     });
 
     it('should collect wagons when the first sector name is missing', async () => {
-      await testSectorsCollected(
-        [
-          '<sbb-train-wagon />',
-          '<sbb-train-blocked-passage />',
-          '<sbb-train-wagon sector="B" />',
-          '<sbb-train-wagon sector="B" />',
-        ],
-        [
-          {
-            label: 'Sector B',
-            wagonCount: '3',
-            blockedPassageCount: '1',
-          },
-        ]
-      );
+      const aggregatedSectors = await createAndExtractAggregatedSectors([
+        '<sbb-train-wagon />',
+        '<sbb-train-blocked-passage />',
+        '<sbb-train-wagon sector="B" />',
+        '<sbb-train-wagon sector="B" />',
+      ]);
+
+      expect(aggregatedSectors).toEqual([
+        {
+          label: 'Sector B',
+          wagonCount: '3',
+          blockedPassageCount: '1',
+        },
+      ]);
     });
 
     it('should collect wagons when skipping a wagon in the middle', async () => {
-      await testSectorsCollected(
-        ['<sbb-train-wagon sector="A"/>', '<sbb-train-wagon />', '<sbb-train-wagon sector="A" />'],
-        [
-          {
-            label: 'Sector A',
-            wagonCount: '3',
-            blockedPassageCount: '0',
-          },
-        ]
-      );
+      const aggregatedSectors = await createAndExtractAggregatedSectors([
+        '<sbb-train-wagon sector="A"/>',
+        '<sbb-train-wagon />',
+        '<sbb-train-wagon sector="A" />',
+      ]);
+      expect(aggregatedSectors).toEqual([
+        {
+          label: 'Sector A',
+          wagonCount: '3',
+          blockedPassageCount: '0',
+        },
+      ]);
     });
 
     it('should collect over multiple trains', async () => {
@@ -166,7 +158,7 @@ describe('sbb-train-formation', () => {
     `);
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sec. A',
           wagonCount: '1',
@@ -193,7 +185,7 @@ describe('sbb-train-formation', () => {
     `);
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -204,7 +196,7 @@ describe('sbb-train-formation', () => {
       (await page.find('sbb-train-wagon')).setProperty('sector', 'Z');
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sec. Z',
           wagonCount: '1',
@@ -231,7 +223,7 @@ describe('sbb-train-formation', () => {
     `);
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sector A',
           wagonCount: '3',
@@ -242,7 +234,7 @@ describe('sbb-train-formation', () => {
       (await page.find('sbb-train-wagon')).setAttribute('sector', 'Z');
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sec. Z',
           wagonCount: '1',
@@ -272,7 +264,7 @@ describe('sbb-train-formation', () => {
       await page.evaluate(() => document.querySelector('sbb-train-wagon').remove());
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sec. B',
           wagonCount: '1',
@@ -303,7 +295,7 @@ describe('sbb-train-formation', () => {
       await page.evaluate(() => document.querySelector('sbb-train').remove());
       await page.waitForChanges();
 
-      await assertSectorsCollected(page, [
+      expect(await extractAggregatedSectors(page)).toEqual([
         {
           label: 'Sec. B',
           wagonCount: '1',

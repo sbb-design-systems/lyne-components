@@ -1,7 +1,7 @@
 import { SbbTrainWagon } from './sbb-train-wagon';
 import { newSpecPage } from '@stencil/core/testing';
 
-async function assertAriaLabel(
+async function extractAriaLabels(
   properties: Partial<
     Pick<
       HTMLSbbTrainWagonElement,
@@ -13,9 +13,8 @@ async function assertAriaLabel(
       | 'label'
       | 'additionalAccessibilityText'
     >
-  >,
-  assertArray: string[] = []
-): Promise<void> {
+  >
+): Promise<string[]> {
   const attributes = [
     'type',
     'occupancy',
@@ -42,15 +41,13 @@ async function assertAriaLabel(
   });
 
   // Select all accessibility relevant text parts
-  const accessibilityTexts = Array.from(
+  return Array.from(
     root.shadowRoot.querySelectorAll(
       '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)'
     )
   ).map((entry) =>
     entry.hasAttribute('aria-label') ? entry.getAttribute('aria-label') : entry.textContent
   );
-
-  expect(accessibilityTexts).toEqual(assertArray);
 }
 
 describe('sbb-train-wagon', () => {
@@ -209,60 +206,70 @@ describe('sbb-train-wagon', () => {
   });
 
   it('should set aria labels correctly', async () => {
-    await assertAriaLabel({}, []);
-    await assertAriaLabel({ type: 'locomotive' }, ['Locomotive']);
-    await assertAriaLabel({ type: 'closed', additionalAccessibilityText: `Don't enter` }, [
-      'Closed train coach',
-      `, Don't enter`,
+    expect(await extractAriaLabels({})).toEqual([]);
+    expect(await extractAriaLabels({ type: 'locomotive' })).toEqual(['Locomotive']);
+    expect(
+      await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` })
+    ).toEqual(['Closed train coach', `, Don't enter`]);
+    expect(await extractAriaLabels({ type: 'wagon' })).toEqual(['Train coach']);
+
+    expect(await extractAriaLabels({ sector: 'A', type: 'locomotive' })).toEqual([
+      'Locomotive, Sector, A',
     ]);
-    await assertAriaLabel({ type: 'wagon' }, ['Train coach']);
+    expect(await extractAriaLabels({ sector: 'A', type: 'closed' })).toEqual([
+      'Closed train coach, Sector, A',
+    ]);
+    expect(await extractAriaLabels({ sector: 'A', type: 'wagon' })).toEqual([
+      'Train coach',
+      'Sector, A',
+    ]);
 
-    await assertAriaLabel({ sector: 'A', type: 'locomotive' }, ['Locomotive, Sector, A']);
-    await assertAriaLabel({ sector: 'A', type: 'closed' }, ['Closed train coach, Sector, A']);
-    await assertAriaLabel({ sector: 'A', type: 'wagon' }, ['Train coach', 'Sector, A']);
-
-    await assertAriaLabel(
-      {
+    expect(
+      await extractAriaLabels({
         sector: 'A',
         type: 'wagon',
         label: '38',
         wagonClass: '1',
         occupancy: 'unknown',
         blockedPassage: 'previous',
-      },
-      [
-        'Train coach',
-        'Sector, A',
-        'Number,\u00A038',
-        'First Class',
-        'No occupancy forecast available',
-        'No passage to the previous train coach',
-      ]
-    );
+      })
+    ).toEqual([
+      'Train coach',
+      'Sector, A',
+      'Number,\u00A038',
+      'First Class',
+      'No occupancy forecast available',
+      'No passage to the previous train coach',
+    ]);
 
-    await assertAriaLabel({ type: 'wagon', wagonClass: '2' }, ['Train coach', 'Second Class']);
+    expect(await extractAriaLabels({ type: 'wagon', wagonClass: '2' })).toEqual([
+      'Train coach',
+      'Second Class',
+    ]);
 
-    await assertAriaLabel({ type: 'wagon', occupancy: 'low' }, [
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'low' })).toEqual([
       'Train coach',
       'Low to medium occupancy expected',
     ]);
-    await assertAriaLabel({ type: 'wagon', occupancy: 'medium' }, [
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'medium' })).toEqual([
       'Train coach',
       'High occupancy expected',
     ]);
-    await assertAriaLabel({ type: 'wagon', occupancy: 'high' }, [
+    expect(await extractAriaLabels({ type: 'wagon', occupancy: 'high' })).toEqual([
       'Train coach',
       'Very high occupancy expected',
     ]);
 
-    await assertAriaLabel({ type: 'wagon', blockedPassage: 'next' }, [
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'next' })).toEqual([
       'Train coach',
       'No passage to the next train coach',
     ]);
-    await assertAriaLabel({ type: 'wagon', blockedPassage: 'both' }, [
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'both' })).toEqual([
       'Train coach',
       'No passage to the next and previous train coach',
     ]);
-    await assertAriaLabel({ type: 'wagon', blockedPassage: 'none' }, ['Train coach']);
+    expect(await extractAriaLabels({ type: 'wagon', blockedPassage: 'none' })).toEqual([
+      'Train coach',
+    ]);
   });
 });

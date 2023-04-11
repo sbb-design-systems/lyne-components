@@ -5,6 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
+  @include sbb.scrollbar-variables;
+
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-dialog-color: var(--sbb-color-black-default);
   --sbb-dialog-background-color: var(--sbb-color-white-default);
@@ -24,8 +26,6 @@
   --sbb-dialog-backdrop-color: transparent;
   --sbb-dialog-header-padding-block: var(--sbb-spacing-responsive-s) 0;
   --sbb-dialog-footer-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
-  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-black-alpha-60);
 
   // We use this rule to make the inner container element to appear as if it were a
   // direct child of the host's parent element. This is useful because the host
@@ -67,9 +67,9 @@
 }
 
 :host([negative]:not([negative='false'])) {
+  @include sbb.scrollbar-variables--color-negative;
+
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
-  --sbb-scrollbar-color-hover: var(--sbb-color-white-alpha-60);
   --sbb-dialog-color: var(--sbb-color-white-default);
   --sbb-dialog-background-color: var(--sbb-color-midnight-default);
   --sbb-dialog-footer-border: none;
@@ -216,7 +216,7 @@
 }
 
 .sbb-dialog__content {
-  @include sbb.scrollbar;
+  @include sbb.scrollbar-rules;
 
   padding-inline: var(--sbb-dialog-padding-inline);
   padding-block: var(--sbb-dialog-padding-block);
