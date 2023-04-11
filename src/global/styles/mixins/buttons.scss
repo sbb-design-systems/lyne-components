@@ -54,6 +54,7 @@
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-cursor: pointer;
   --sbb-button-pointer-events: unset;
+  --sbb-button-outline-offset: var(--sbb-focus-outline-offset);
 
   position: relative;
   height: var(--sbb-button-icon-size);
@@ -63,7 +64,7 @@
   pointer-events: var(--sbb-button-pointer-events);
   background-color: transparent;
   color: var(--sbb-button-color-default-text);
-  outline-offset: var(--sbb-focus-outline-offset);
+  outline-offset: var(--sbb-button-outline-offset) !important;
   transition-property: outline-offset;
   transition-duration: var(--sbb-button-transition-duration);
   transition-timing-function: var(--sbb-button-transition-easing-function);
@@ -109,12 +110,11 @@
   --sbb-button-color-default-background: var(--sbb-color-cloud-default);
   --sbb-button-inset: #{functions.px-to-rem-build(1)};
   --sbb-button-transform: translateY(0);
+  --sbb-button-outline-offset: calc(
+    var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
+  );
 
   @include a11y.if-forced-colors {
     @include a11y.focus-outline;
   }
-
-  outline-offset: calc(
-    var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
-  ) !important;
 }
