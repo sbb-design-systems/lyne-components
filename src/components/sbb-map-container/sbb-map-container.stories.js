@@ -1,8 +1,22 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = () => (
-  <sbb-map-container>
+const hideButton = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const defaultArgTypes = {
+  'hide-button': hideButton,
+};
+
+const defaultArgs = {
+  'hide-button': false,
+};
+
+const Template = (args) => (
+  <sbb-map-container {...args}>
     <div style="padding: var(--sbb-spacing-fixed-4x)">
       <sbb-form-field style="width: 100%">
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
@@ -17,17 +31,6 @@ const Template = () => (
       ))}
     </div>
 
-    <sbb-button
-      slot="button"
-      variant="secondary"
-      size="l"
-      icon-name="location-pin-map-small"
-      type="button"
-      name="Button Name"
-    >
-      Show map
-    </sbb-button>
-
     <div slot="map" style="height: 100%;">
       <div style="background-color: grey; height: 100%; display: flex; align-items: center; justify-content: center;">
         map
@@ -37,6 +40,16 @@ const Template = () => (
 );
 
 export const MapContainer = Template.bind({});
+MapContainer.argTypes = defaultArgTypes;
+MapContainer.args = {
+  ...defaultArgs,
+};
+
+export const MapContainerWithoutButton = Template.bind({});
+MapContainer.argTypes = defaultArgTypes;
+MapContainer.args = {
+  ...defaultArgs,
+};
 
 export default {
   decorators: [

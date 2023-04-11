@@ -569,3 +569,10 @@ export const i18nConnectionRoundtrip = (returnCity: string): Record<string, stri
   fr: `et retour à ${returnCity}.`,
   it: `e ritorno a ${returnCity}.`,
 });
+
+export const i18nMapContainerButtonLabel: Record<string, string> = {
+  de: 'Karte zeigen',
+  en: 'Show map',
+  fr: 'Afficher la carte',
+  it: 'Mostra la mappa',
+};

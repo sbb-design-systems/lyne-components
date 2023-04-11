@@ -1,9 +1,11 @@
-import { Component, ComponentInterface, Element, h, JSX } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { i18nMapContainerButtonLabel } from '../../global/i18n';
+import { AgnosticIntersectionObserver as IntersectionObserver } from '../../global/helpers/intersection-observer';
+import { documentLanguage } from '../../global/helpers';
 
 /**
  * @slot unnamed - Used for slotting the sidebar content.
  * @slot map - Used for slotting the map.
- * @slot button - Used for slotting the scroll up button.
  */
 @Component({
   shadow: true,
@@ -11,22 +13,27 @@ import { Component, ComponentInterface, Element, h, JSX } from '@stencil/core';
   tag: 'sbb-map-container',
 })
 export class SbbMapContainer implements ComponentInterface {
+  /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
+  @Prop({ reflect: true }) public hideButton = false;
+
+  /** Container element. */
   @Element() private _element!: HTMLElement;
+
+  /** Current document language used for translation of the button label. */
+  @State() private _currentLanguage = documentLanguage();
+
   private _sidebarButtonContainerElement: HTMLDivElement;
   private _intersector: HTMLSpanElement;
-  private _buttonSlotted = false;
   private _observer = new IntersectionObserver((entries) =>
     this._toggleButtonVisibilityOnIntersect(entries)
   );
 
   /**
-   * Apply the click listener to the button wrapper element for the scroll up functionality.
+   * Button click callback to trigger the scroll to container top
    * @private
    */
-  private _addClickListener(): void {
-    this._sidebarButtonContainerElement.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  private _onScrollButtonClick(): void {
+    this._element.scrollIntoView({ behavior: 'smooth' });
   }
 
   /**
@@ -45,16 +52,20 @@ export class SbbMapContainer implements ComponentInterface {
   private _toggleButtonVisibilityOnIntersect(entries): void {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
-      this._sidebarButtonContainerElement.classList.toggle('visible', mapIsHidden);
       this._element.dataset.returnButtonVisible = mapIsHidden.toString();
       this._sidebarButtonContainerElement.setAttribute('aria-hidden', `${!mapIsHidden}`);
     });
   }
 
   public componentDidLoad(): void {
-    if (this._buttonSlotted) {
+    if (!this.hideButton) {
       this._applyIntersectionObserver();
-      this._addClickListener();
+    }
+  }
+
+  public disconnectedCallback(): void {
+    if (!this.hideButton) {
+      this._observer.disconnect();
     }
   }
 
@@ -62,27 +73,34 @@ export class SbbMapContainer implements ComponentInterface {
     return (
       <div class="sbb-map-container">
         <div class="sbb-map-container__sidebar">
-          <span
-            ref={(el): void => {
-              this._intersector = el;
-            }}
-          ></span>
+          {!this.hideButton && (
+            <span
+              ref={(el): void => {
+                this._intersector = el;
+              }}
+            ></span>
+          )}
 
           <slot />
 
-          <div
-            class="sbb-map-container__sidebar-button"
-            ref={(el): void => {
-              this._sidebarButtonContainerElement = el;
-            }}
-          >
-            <slot
-              name="button"
-              onSlotchange={(): void => {
-                this._buttonSlotted = true;
+          {!this.hideButton && (
+            <div
+              class="sbb-map-container__sidebar-button"
+              ref={(el): void => {
+                this._sidebarButtonContainerElement = el;
               }}
-            />
-          </div>
+            >
+              <sbb-button
+                variant="secondary"
+                size="l"
+                icon-name="location-pin-map-small"
+                type="button"
+                onClick={() => this._onScrollButtonClick()}
+              >
+                {i18nMapContainerButtonLabel[this._currentLanguage]}
+              </sbb-button>
+            </div>
+          )}
         </div>
         <div class="sbb-map-container__map">
           <slot name="map" />
