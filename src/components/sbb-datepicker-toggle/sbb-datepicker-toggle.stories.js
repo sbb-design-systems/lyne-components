@@ -44,7 +44,11 @@ const StandaloneTemplate = (picker, args) => (
 const PickerAndButtonTemplate = (args) => (
   <div style="display: flex; gap: 1em;">
     {StandaloneTemplate('datepicker', args)}
-    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+    <sbb-datepicker
+      id="datepicker"
+      input="datepicker-input"
+      data-now={isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined}
+    ></sbb-datepicker>
     <input id="datepicker-input" />
   </div>
 );
@@ -70,7 +74,7 @@ InFormField.play = isChromatic() && playStory;
 export default {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
+      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh; min-width: 100vw;' : ''}`}>
         <Story />
       </div>
     ),
