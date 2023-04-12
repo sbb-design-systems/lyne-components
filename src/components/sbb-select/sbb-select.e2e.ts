@@ -198,6 +198,18 @@ describe('sbb-select', () => {
     await element.press('Tab');
     await page.waitForChanges();
     expect(didClose).toHaveReceivedEventTimes(2);
+
+    await element.press('1', { delay: 2000 });
+    await page.waitForChanges();
+    expect(didOpen).toHaveReceivedEventTimes(2);
+    expect(didClose).toHaveReceivedEventTimes(2);
+    expect(await page.find('sbb-select >>> .sbb-select__trigger')).toEqualText('1');
+
+    await element.press('2', { delay: 2000 });
+    await page.waitForChanges();
+    expect(didOpen).toHaveReceivedEventTimes(2);
+    expect(didClose).toHaveReceivedEventTimes(2);
+    expect(await page.find('sbb-select >>> .sbb-select__trigger')).toEqualText('2');
   });
 
   it('handles keyboard selection', async () => {
@@ -217,6 +229,24 @@ describe('sbb-select', () => {
     expect(displayValue).toEqualText('1');
     expect(parentElement).toEqualAttribute('data-overlay-open', '');
     expect(element).toEqualAttribute('aria-expanded', 'true');
+
+    const thirdOption = await page.find('sbb-select > sbb-option#option-3');
+    await element.press('3', { delay: 2000 });
+    await page.waitForChanges();
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    expect(displayValue).toEqualText('3');
+    expect(thirdOption).toHaveAttribute('active');
+    expect(thirdOption).toHaveAttribute('selected');
+    expect(await element.getProperty('value')).toEqual('3');
+
+    const secondOption = await page.find('sbb-select > sbb-option#option-2');
+    await element.press('2', { delay: 2000 });
+    await page.waitForChanges();
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    expect(displayValue).toEqualText('2');
+    expect(secondOption).toHaveAttribute('active');
+    expect(secondOption).toHaveAttribute('selected');
+    expect(await element.getProperty('value')).toEqual('2');
   });
 
   it('handles keyboard selection in multiple', async () => {
