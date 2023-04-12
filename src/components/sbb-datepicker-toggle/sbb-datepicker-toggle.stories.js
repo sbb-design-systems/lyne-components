@@ -56,7 +56,9 @@ const PickerAndButtonTemplate = (args) => (
 const FormFieldTemplate = (args) => (
   <sbb-form-field>
     <input />
-    <sbb-datepicker></sbb-datepicker>
+    <sbb-datepicker
+      data-now={isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined}
+    ></sbb-datepicker>
     {StandaloneTemplate(null, args)}
   </sbb-form-field>
 );
