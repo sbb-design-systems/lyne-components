@@ -52,7 +52,7 @@ export class SbbMapContainer implements ComponentInterface {
   private _toggleButtonVisibilityOnIntersect(entries): void {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
-      this._element.dataset.returnButtonVisible = mapIsHidden.toString();
+      toggleDatasetEntry(this._element, 'returnButtonVisible', mapIsHidden);
       this._sidebarButtonContainerElement.setAttribute('aria-hidden', `${!mapIsHidden}`);
     });
   }
