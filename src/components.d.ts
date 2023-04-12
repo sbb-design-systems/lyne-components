@@ -788,6 +788,10 @@ export namespace Components {
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
     interface SbbMapContainer {
+        /**
+          * Flag to show/hide the scroll up button inside the sidebar on mobile.
+         */
+        "hideScrollUpButton": boolean;
     }
     interface SbbMenu {
         /**
@@ -2895,6 +2899,10 @@ declare namespace LocalJSX {
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
     interface SbbMapContainer {
+        /**
+          * Flag to show/hide the scroll up button inside the sidebar on mobile.
+         */
+        "hideScrollUpButton"?: boolean;
     }
     interface SbbMenu {
         /**
