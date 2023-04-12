@@ -180,7 +180,7 @@ export class SbbDatepicker implements ComponentInterface {
     this._inputElement = getInput(this._element, this.input);
   }
 
-  public componentDidLoad(): void {
+  public componentWillLoad(): void {
     this.inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
