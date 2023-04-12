@@ -4043,10 +4043,10 @@
   dependencies:
     "@types/react" "^16"
 
-"@types/react@16.14.39", "@types/react@^16":
-  version "16.14.39"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.39.tgz#9cfb805f1ec14aa09b505fd87c6bd5a0a460f8d6"
-  integrity sha512-x7El4ktgDR1KhtMO/ytMvhGEdFt15nRiNcwKJL0rORvCNC9KDB242m6Lj/BqJ8/k4br1gmThdyHoz3fSUXZueQ==
+"@types/react@16.14.40", "@types/react@^16":
+  version "16.14.40"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.40.tgz#cbf1c6249e9a96eb1badc7f32f1055e532e21c72"
+  integrity sha512-elQj2VQHDuJ5xuEcn5Wxh/YQFNbEuPJFRKSdyG866awDm5dmtoqsMmuAJWb/l/qd2kDkZMfOTKygVfMIdBBPKg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
