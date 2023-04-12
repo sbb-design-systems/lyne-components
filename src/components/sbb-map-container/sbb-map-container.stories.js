@@ -1,18 +1,18 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const hideButton = {
+const hideScrollUpButton = {
   control: {
     type: 'boolean',
   },
 };
 
 const defaultArgTypes = {
-  'hide-button': hideButton,
+  'hide-scroll-up-button': hideScrollUpButton,
 };
 
 const defaultArgs = {
-  'hide-button': false,
+  'hide-scroll-up-button': false,
 };
 
 const Template = (args) => (

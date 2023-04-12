@@ -791,7 +791,7 @@ export namespace Components {
         /**
           * Flag to show/hide the scroll up button inside the sidebar on mobile.
          */
-        "hideButton": boolean;
+        "hideScrollUpButton": boolean;
     }
     interface SbbMenu {
         /**
@@ -2902,7 +2902,7 @@ declare namespace LocalJSX {
         /**
           * Flag to show/hide the scroll up button inside the sidebar on mobile.
          */
-        "hideButton"?: boolean;
+        "hideScrollUpButton"?: boolean;
     }
     interface SbbMenu {
         /**
