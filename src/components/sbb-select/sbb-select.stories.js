@@ -263,18 +263,21 @@ const FormFieldTemplateWithError = ({
 const KeyboardInteractionTemplate = (args) => (
   <div style="padding: 2rem; background-color: #e6e6e6;">
     <sbb-form-field label="Select" data-testid="form-field">
-      <sbb-select multiple={args.multiple} data-testid="select">
-        <sbb-option value="A">A</sbb-option>
-        <sbb-option value="B">B</sbb-option>
-        <sbb-option value="CA">CA</sbb-option>
-        <sbb-option value="CB">CB</sbb-option>
-        <sbb-option value="CD">CD</sbb-option>
-        <sbb-option value="CE">CE</sbb-option>
-        <sbb-option value="CF">CF</sbb-option>
-        <sbb-option value="CFA">CFA</sbb-option>
-        <sbb-option value="CFB">CFB</sbb-option>
+      <sbb-select multiple={args.multiple} placeholder={args.placeholder} data-testid="select">
+        <sbb-option value="Abarth">Abarth</sbb-option>
+        <sbb-option value="Alfa Romeo">Alfa Romeo</sbb-option>
+        <sbb-option value="Alpine">Alpine</sbb-option>
+        <sbb-option value="Aston Martin">Aston Martin</sbb-option>
+        <sbb-option value="Audi">Audi</sbb-option>
+        <sbb-option value="BMW">BMW</sbb-option>
+        <sbb-option value="Chevrolet">Chevrolet</sbb-option>
+        <sbb-option value="Daihatsu">Daihatsu</sbb-option>
+        <sbb-option value="Daimler">Daimler</sbb-option>
       </sbb-select>
     </sbb-form-field>
+    <div style="padding-block-start: 1rem">
+      Focus the select and type letters (A to D) with closed or open panel.
+    </div>
   </div>
 );
 

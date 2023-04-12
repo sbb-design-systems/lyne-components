@@ -271,8 +271,12 @@ export class SbbSelect implements ComponentInterface {
 
   private _onHostKeydown(event): void {
     event.preventDefault();
-    if (this._state !== 'closed') {
+    if (this.disabled || this.readonly || this._state !== 'closed') {
       return;
+    }
+
+    if (this._checkForLetterSelection(event)) {
+      return this._setNextActiveOptionByText(event);
     }
 
     switch (event.key) {
@@ -291,19 +295,11 @@ export class SbbSelect implements ComponentInterface {
   private _onKeydownEvent(event): void {
     event.preventDefault();
 
-    if (this._state !== 'opened') {
+    if (this.disabled || this.readonly || this._state !== 'opened') {
       return;
     }
 
-    if (
-      event.key === 'Backspace' ||
-      event.key === 'Clear' ||
-      (event.key.length === 1 &&
-        event.key !== ' ' &&
-        !event.altKey &&
-        !event.ctrlKey &&
-        !event.metaKey)
-    ) {
+    if (this._checkForLetterSelection(event)) {
       return this._setNextActiveOptionByText(event);
     }
 
@@ -336,6 +332,18 @@ export class SbbSelect implements ComponentInterface {
       default:
         break;
     }
+  }
+
+  private _checkForLetterSelection(event): boolean {
+    return (
+      event.key === 'Backspace' ||
+      event.key === 'Clear' ||
+      (event.key.length === 1 &&
+        event.key !== ' ' &&
+        !event.altKey &&
+        !event.ctrlKey &&
+        !event.metaKey)
+    );
   }
 
   private _setNextActiveOptionByText(event): void {
