@@ -71,6 +71,7 @@
 }
 
 .sbb-calendar__table-data {
+  position: relative;
   padding: var(--sbb-calendar-day-padding);
   height: var(--sbb-calendar-day-size);
   width: var(--sbb-calendar-day-size);
