@@ -99,7 +99,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
     this._hasText = Array.from(this._element.childNodes).some(
-      (n) => !(n as Element).slot && n.textContent
+      (n) => !(n as Element).slot && n.textContent.trim()
     );
     this._handlerRepository.connect();
   }
