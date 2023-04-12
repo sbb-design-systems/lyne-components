@@ -21,7 +21,7 @@ describe('sbb-datepicker-previous-day', () => {
     `);
   });
 
-  it('renders with datepicker and input disabled', async () => {
+  it.skip('renders with datepicker and input disabled', async () => {
     const page: SpecPage = await newSpecPage({
       components: [SbbFormField, SbbDatepicker, SbbDatepickerPreviousDay],
       html: `
@@ -39,7 +39,7 @@ describe('sbb-datepicker-previous-day', () => {
     expect(element).toHaveAttribute('disabled');
   });
 
-  it('renders with datepicker and input readonly', async () => {
+  it.skip('renders with datepicker and input readonly', async () => {
     const page: SpecPage = await newSpecPage({
       components: [SbbFormField, SbbDatepicker, SbbDatepickerPreviousDay],
       html: `

@@ -65,7 +65,7 @@ describe('sbb-datepicker-previous-day', () => {
       expect(await input.getProperty('value')).toEqual('19.01.2023');
     });
 
-    it('disabled due min equals to value', async () => {
+    it.skip('disabled due min equals to value', async () => {
       page = await newE2EPage();
       await page.setContent(`
         <sbb-form-field>

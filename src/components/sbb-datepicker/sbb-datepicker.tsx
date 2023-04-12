@@ -178,9 +178,6 @@ export class SbbDatepicker implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
-  }
-
-  public componentWillLoad(): void {
     this.inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
