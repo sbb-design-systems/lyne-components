@@ -5,6 +5,7 @@ import {
   ButtonProperties,
   resolveButtonRenderVariables,
 } from '../../global/interfaces/link-button-properties';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -38,7 +39,7 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
       hostContext('sbb-form-field', this._element) ??
       hostContext('[data-form-field]', this._element)
     ) {
-      this._element.dataset.iconSmall = '';
+      toggleDatasetEntry(this._element, 'iconSmall', true);
     }
   }
 
