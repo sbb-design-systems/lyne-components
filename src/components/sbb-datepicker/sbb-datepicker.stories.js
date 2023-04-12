@@ -378,7 +378,7 @@ WithoutFormField.args = { ...basicArgs };
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
         <Story />
       </div>
     ),
@@ -392,10 +392,10 @@ export default {
       disable: true,
     },
     docs: {
+      inlineStories: false,
       iframeHeight: '600px',
       extractComponentDescription: () => readme,
     },
-    layout: 'fullscreen',
   },
   title: 'components/form elements/sbb-datepicker',
 };
