@@ -17,6 +17,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
+              <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
@@ -25,6 +26,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
+              <slot name="suffix"></slot>
             </div>
             <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
@@ -56,6 +58,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
+              <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <label class="sbb-form-field__label">
                   <slot name="label">
@@ -66,6 +69,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
+              <slot name="suffix"></slot>
             </div>
             <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
@@ -94,6 +98,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
+              <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
@@ -102,6 +107,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
+              <slot name="suffix"></slot>
             </div>
             <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
@@ -133,6 +139,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
+              <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
@@ -141,6 +148,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
+              <slot name="suffix"></slot>
             </div>
             <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
@@ -176,11 +184,13 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
+              <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <div class="sbb-form-field__input">
                   <slot></slot>
                 </div>
               </div>
+              <slot name="suffix"></slot>
             </div>
             <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
@@ -214,6 +224,7 @@ describe('sbb-form-field', () => {
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
             <div class="sbb-form-field__wrapper">
+              <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
@@ -223,6 +234,7 @@ describe('sbb-form-field', () => {
                   <slot></slot>
                 </div>
               </div>
+              <slot name="suffix"></slot>
             </div>
             <div class="sbb-form-field__error" aria-live="polite">
               <slot name="error"></slot>
