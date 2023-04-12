@@ -45,12 +45,6 @@ MapContainer.args = {
   ...defaultArgs,
 };
 
-export const MapContainerWithoutButton = Template.bind({});
-MapContainer.argTypes = defaultArgTypes;
-MapContainer.args = {
-  ...defaultArgs,
-};
-
 export default {
   decorators: [
     (Story) => (
