@@ -58,6 +58,7 @@
   --sbb-button-outline-offset: var(--sbb-focus-outline-offset);
 
   position: relative;
+  display: flex;
   height: var(--sbb-button-icon-size);
   width: var(--sbb-button-icon-size);
   border-radius: var(--sbb-button-border-radius);
