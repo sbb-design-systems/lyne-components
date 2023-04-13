@@ -150,19 +150,19 @@ const defaultArgs = {
   'disable-animation': isChromatic(),
 };
 
-export const TransparentImage = Template.bind({});
-TransparentImage.argTypes = defaultArgTypes;
-TransparentImage.args = {
-  ...defaultArgs,
-  'image-src': imageSrc.options[9],
-};
-
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = {
   ...defaultArgs,
   caption:
     'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+};
+
+export const TransparentImage = Template.bind({});
+TransparentImage.argTypes = defaultArgTypes;
+TransparentImage.args = {
+  ...defaultArgs,
+  'image-src': imageSrc.options[9],
 };
 
 export const NoCaptionNoRadius = Template.bind({});
