@@ -168,6 +168,7 @@ export class SbbSelect implements ComponentInterface {
   private _activeItemIndex = -1;
   private _searchTimeout: ReturnType<typeof setTimeout>;
   private _searchString = '';
+  private _didLoad = false;
 
   /** Gets all the HTMLSbbOptionElement projected in the select. */
   private get _options(): HTMLSbbOptionElement[] {
@@ -181,8 +182,15 @@ export class SbbSelect implements ComponentInterface {
     );
   }
 
-  public connectedCallback(): void {
+  public componentDidLoad(): void {
     this._setupOrigin();
+    this._didLoad = true;
+  }
+
+  public connectedCallback(): void {
+    if (this._didLoad) {
+      this._setupOrigin();
+    }
     this.onValueChanged(this.value);
   }
 
@@ -193,7 +201,7 @@ export class SbbSelect implements ComponentInterface {
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
     this._originElement =
-      (this._element.closest('sbb-form-field') as HTMLSbbFormFieldElement) ||
+      this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#form-field-wrapper') ||
       this._element.parentElement;
     if (this._originElement) {
       toggleDatasetEntry(this._originElement, 'overlayOpen', false);
