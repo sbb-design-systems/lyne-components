@@ -1,17 +1,10 @@
-import images from '../../global/images';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
-    if (context.args.variant === 'translucent') {
-      return `background: url('${images[5]}');background-size: cover;`;
-    }
     return 'background-color: #484040;';
-  }
-
-  if (context.args.variant === 'translucent') {
-    return `background: url('${images[1]}');background-size: cover;`;
   }
   return 'background-color: var(--sbb-color-white-default);';
 };
@@ -24,7 +17,11 @@ const focusStyle = (context) => {
 
 // --- Component
 
-const Template = ({ text, ...args }) => <sbb-button {...args}>{text}</sbb-button>;
+const Template = ({ text, active, ...args }) => (
+  <sbb-button {...args} data-active={active}>
+    {text}
+  </sbb-button>
+);
 
 const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
   <sbb-button {...args}>
@@ -71,7 +68,7 @@ const variant = {
   control: {
     type: 'select',
   },
-  options: ['primary', 'secondary', 'translucent', 'transparent'],
+  options: ['primary', 'secondary', 'tertiary', 'transparent'],
 };
 
 const negative = {
@@ -226,180 +223,180 @@ const defaultArgs = {
   'aria-label': undefined,
 };
 
-export const primary = Template.bind({});
-primary.argTypes = defaultArgTypes;
-primary.args = {
+export const Primary = Template.bind({});
+Primary.argTypes = defaultArgTypes;
+Primary.args = {
   ...defaultArgs,
   variant: variant.options[0],
 };
 
-export const secondary = Template.bind({});
-secondary.argTypes = defaultArgTypes;
-secondary.args = {
+export const Secondary = Template.bind({});
+Secondary.argTypes = defaultArgTypes;
+Secondary.args = {
   ...defaultArgs,
   variant: variant.options[1],
 };
 
-export const translucent = Template.bind({});
-translucent.argTypes = defaultArgTypes;
-translucent.args = {
+export const Tertiary = Template.bind({});
+Tertiary.argTypes = defaultArgTypes;
+Tertiary.args = {
   ...defaultArgs,
   variant: variant.options[2],
 };
 
-export const transparent = Template.bind({});
-transparent.argTypes = defaultArgTypes;
-transparent.args = {
+export const Transparent = Template.bind({});
+Transparent.argTypes = defaultArgTypes;
+Transparent.args = {
   ...defaultArgs,
   variant: variant.options[3],
 };
 
-export const primaryNegative = Template.bind({});
-primaryNegative.argTypes = defaultArgTypes;
-primaryNegative.args = {
+export const PrimaryNegative = Template.bind({});
+PrimaryNegative.argTypes = defaultArgTypes;
+PrimaryNegative.args = {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
 };
 
-export const secondaryNegative = Template.bind({});
-secondaryNegative.argTypes = defaultArgTypes;
-secondaryNegative.args = {
+export const SecondaryNegative = Template.bind({});
+SecondaryNegative.argTypes = defaultArgTypes;
+SecondaryNegative.args = {
   ...defaultArgs,
   variant: variant.options[1],
   negative: true,
 };
 
-export const translucentNegative = Template.bind({});
-translucentNegative.argTypes = defaultArgTypes;
-translucentNegative.args = {
+export const TertiaryNegative = Template.bind({});
+TertiaryNegative.argTypes = defaultArgTypes;
+TertiaryNegative.args = {
   ...defaultArgs,
   variant: variant.options[2],
   negative: true,
 };
 
-export const transparentNegative = Template.bind({});
-transparentNegative.argTypes = defaultArgTypes;
-transparentNegative.args = {
+export const TransparentNegative = Template.bind({});
+TransparentNegative.argTypes = defaultArgTypes;
+TransparentNegative.args = {
   ...defaultArgs,
   variant: variant.options[3],
   negative: true,
 };
 
-export const iconOnly = Template.bind({});
-iconOnly.argTypes = defaultArgTypes;
-iconOnly.args = {
+export const IconOnly = Template.bind({});
+IconOnly.argTypes = defaultArgTypes;
+IconOnly.args = {
   ...defaultArgs,
   'icon-name': 'arrow-right-small',
   text: undefined,
 };
 
-export const primaryDisabled = Template.bind({});
-primaryDisabled.argTypes = defaultArgTypes;
-primaryDisabled.args = {
+export const PrimaryDisabled = Template.bind({});
+PrimaryDisabled.argTypes = defaultArgTypes;
+PrimaryDisabled.args = {
   ...defaultArgs,
   variant: variant.options[0],
   disabled: true,
 };
 
-export const secondaryDisabled = Template.bind({});
-secondaryDisabled.argTypes = defaultArgTypes;
-secondaryDisabled.args = {
+export const SecondaryDisabled = Template.bind({});
+SecondaryDisabled.argTypes = defaultArgTypes;
+SecondaryDisabled.args = {
   ...defaultArgs,
   variant: variant.options[1],
   disabled: true,
 };
 
-export const translucentDisabled = Template.bind({});
-translucentDisabled.argTypes = defaultArgTypes;
-translucentDisabled.args = {
+export const TertiaryDisabled = Template.bind({});
+TertiaryDisabled.argTypes = defaultArgTypes;
+TertiaryDisabled.args = {
   ...defaultArgs,
   variant: variant.options[2],
   disabled: true,
 };
 
-export const transparentDisabled = Template.bind({});
-transparentDisabled.argTypes = defaultArgTypes;
-transparentDisabled.args = {
+export const TransparentDisabled = Template.bind({});
+TransparentDisabled.argTypes = defaultArgTypes;
+TransparentDisabled.args = {
   ...defaultArgs,
   variant: variant.options[3],
   disabled: true,
 };
 
-export const primaryNegativeDisabled = Template.bind({});
-primaryNegativeDisabled.argTypes = defaultArgTypes;
-primaryNegativeDisabled.args = {
+export const PrimaryNegativeDisabled = Template.bind({});
+PrimaryNegativeDisabled.argTypes = defaultArgTypes;
+PrimaryNegativeDisabled.args = {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
   disabled: true,
 };
 
-export const secondaryNegativeDisabled = Template.bind({});
-secondaryNegativeDisabled.argTypes = defaultArgTypes;
-secondaryNegativeDisabled.args = {
+export const SecondaryNegativeDisabled = Template.bind({});
+SecondaryNegativeDisabled.argTypes = defaultArgTypes;
+SecondaryNegativeDisabled.args = {
   ...defaultArgs,
   variant: variant.options[1],
   negative: true,
   disabled: true,
 };
 
-export const translucentNegativeDisabled = Template.bind({});
-translucentNegativeDisabled.argTypes = defaultArgTypes;
-translucentNegativeDisabled.args = {
+export const TertiaryNegativeDisabled = Template.bind({});
+TertiaryNegativeDisabled.argTypes = defaultArgTypes;
+TertiaryNegativeDisabled.args = {
   ...defaultArgs,
   variant: variant.options[2],
   negative: true,
   disabled: true,
 };
 
-export const transparentNegativeDisabled = Template.bind({});
-transparentNegativeDisabled.argTypes = defaultArgTypes;
-transparentNegativeDisabled.args = {
+export const TransparentNegativeDisabled = Template.bind({});
+TransparentNegativeDisabled.argTypes = defaultArgTypes;
+TransparentNegativeDisabled.args = {
   ...defaultArgs,
   variant: variant.options[3],
   negative: true,
   disabled: true,
 };
 
-export const iconOnlyDisabled = Template.bind({});
-iconOnlyDisabled.argTypes = defaultArgTypes;
-iconOnlyDisabled.args = {
+export const IconOnlyDisabled = Template.bind({});
+IconOnlyDisabled.argTypes = defaultArgTypes;
+IconOnlyDisabled.args = {
   ...defaultArgs,
   'icon-name': 'arrow-right-small',
   text: undefined,
   disabled: true,
 };
 
-export const noIcon = Template.bind({});
-noIcon.argTypes = defaultArgTypes;
-noIcon.args = { ...defaultArgs, 'icon-name': undefined };
+export const NoIcon = Template.bind({});
+NoIcon.argTypes = defaultArgTypes;
+NoIcon.args = { ...defaultArgs, 'icon-name': undefined };
 
-export const sizeM = Template.bind({});
-sizeM.argTypes = defaultArgTypes;
-sizeM.args = {
+export const SizeM = Template.bind({});
+SizeM.argTypes = defaultArgTypes;
+SizeM.args = {
   ...defaultArgs,
   size: size.options[1],
 };
 
-export const fixedWidth = FixedWidthTemplate.bind({});
-fixedWidth.argTypes = defaultArgTypes;
-fixedWidth.args = {
+export const FixedWidth = FixedWidthTemplate.bind({});
+FixedWidth.argTypes = defaultArgTypes;
+FixedWidth.args = {
   ...defaultArgs,
   text: 'Button with long text',
   'icon-name': 'arrow-right-small',
 };
 
-export const withSlottedIcon = IconSlotTemplate.bind({});
-withSlottedIcon.argTypes = defaultArgTypes;
-withSlottedIcon.args = {
+export const WithSlottedIcon = IconSlotTemplate.bind({});
+WithSlottedIcon.argTypes = defaultArgTypes;
+WithSlottedIcon.args = {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
 };
 
-export const linkOpensInNewWindow = IconSlotTemplate.bind({});
-linkOpensInNewWindow.argTypes = defaultArgTypes;
-linkOpensInNewWindow.args = {
+export const LinkOpensInNewWindow = IconSlotTemplate.bind({});
+LinkOpensInNewWindow.argTypes = defaultArgTypes;
+LinkOpensInNewWindow.args = {
   ...defaultArgs,
   href: 'https://www.sbb.ch',
   'icon-name': 'chevron-small-right-small',
@@ -407,7 +404,76 @@ linkOpensInNewWindow.args = {
   'aria-label': undefined,
 };
 
-export default {
+export const PrimaryActive = Template.bind({});
+PrimaryActive.argTypes = defaultArgTypes;
+PrimaryActive.args = {
+  ...defaultArgs,
+  variant: variant.options[0],
+  active: true,
+};
+
+export const SecondaryActive = Template.bind({});
+SecondaryActive.argTypes = defaultArgTypes;
+SecondaryActive.args = {
+  ...defaultArgs,
+  variant: variant.options[1],
+  active: true,
+};
+
+export const TertiaryActive = Template.bind({});
+TertiaryActive.argTypes = defaultArgTypes;
+TertiaryActive.args = {
+  ...defaultArgs,
+  variant: variant.options[2],
+  active: true,
+};
+
+export const TransparentActive = Template.bind({});
+TransparentActive.argTypes = defaultArgTypes;
+TransparentActive.args = {
+  ...defaultArgs,
+  variant: variant.options[3],
+  active: true,
+};
+
+export const PrimaryNegativeActive = Template.bind({});
+PrimaryNegativeActive.argTypes = defaultArgTypes;
+PrimaryNegativeActive.args = {
+  ...defaultArgs,
+  variant: variant.options[0],
+  negative: true,
+  active: true,
+};
+
+export const SecondaryNegativeActive = Template.bind({});
+SecondaryNegativeActive.argTypes = defaultArgTypes;
+SecondaryNegativeActive.args = {
+  ...defaultArgs,
+  variant: variant.options[1],
+  negative: true,
+  active: true,
+};
+
+export const TertiaryNegativeActive = Template.bind({});
+TertiaryNegativeActive.argTypes = defaultArgTypes;
+TertiaryNegativeActive.args = {
+  ...defaultArgs,
+  variant: variant.options[2],
+  negative: true,
+  active: true,
+};
+
+export const TransparentNegativeActive = Template.bind({});
+TransparentNegativeActive.argTypes = defaultArgTypes;
+TransparentNegativeActive.args = {
+  ...defaultArgs,
+  variant: variant.options[3],
+  negative: true,
+  active: true,
+};
+
+const config = () => ({
+  excludeStories: isChromatic() ? [] : /.*Active$/,
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem;${focusStyle(context)}`}>
@@ -427,4 +493,6 @@ export default {
     },
   },
   title: 'components/sbb-button',
-};
+});
+
+export default config();

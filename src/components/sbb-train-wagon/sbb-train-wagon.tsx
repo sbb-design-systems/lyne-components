@@ -143,7 +143,7 @@ export class SbbTrainWagon implements ComponentInterface {
               class="sbb-train-wagon__compartment"
             >
               {this.sector && <li class="sbb-screenreaderonly">{sectorString}</li>}
-              {this.label && label('li')}
+              {label('li')}
               {this.wagonClass && (
                 <li class="sbb-train-wagon__class">
                   <span class="sbb-screenreaderonly">

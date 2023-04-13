@@ -45,22 +45,22 @@ sbb-button {
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                                            | Type                                                         | Default     |
-| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ | ----------- |
-| `disabled` | `disabled`  | Whether the button is disabled.                                                                                                                        | `boolean`                                                    | `false`     |
-| `download` | `download`  | Whether the browser will show the download dialog on click.                                                                                            | `boolean`                                                    | `undefined` |
-| `form`     | `form`      | The <form> element to associate the button with.                                                                                                       | `string`                                                     | `undefined` |
-| `href`     | `href`      | The href value you want to link to (if it is present, button becomes a link).                                                                          | `string`                                                     | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.              | `string`                                                     | `undefined` |
-| `isStatic` | `static`    | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). | `boolean`                                                    | `false`     |
-| `name`     | `name`      | The name attribute to use for the button.                                                                                                              | `string`                                                     | `undefined` |
-| `negative` | `negative`  | Negative coloring variant flag.                                                                                                                        | `boolean`                                                    | `false`     |
-| `rel`      | `rel`       | The relationship of the linked URL as space-separated link types.                                                                                      | `string`                                                     | `undefined` |
-| `size`     | `size`      | Size variant, either l or m.                                                                                                                           | `"l" \| "m"`                                                 | `'l'`       |
-| `target`   | `target`    | Where to display the linked URL.                                                                                                                       | `string`                                                     | `undefined` |
-| `type`     | `type`      | The type attribute to use for the button.                                                                                                              | `"button" \| "reset" \| "submit"`                            | `undefined` |
-| `value`    | `value`     | The value attribute to use for the button.                                                                                                             | `string`                                                     | `undefined` |
-| `variant`  | `variant`   | Variant of the button, like primary, secondary etc.                                                                                                    | `"primary" \| "secondary" \| "translucent" \| "transparent"` | `'primary'` |
+| Property   | Attribute   | Description                                                                                                                                            | Type                                                      | Default     |
+| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- | ----------- |
+| `disabled` | `disabled`  | Whether the button is disabled.                                                                                                                        | `boolean`                                                 | `false`     |
+| `download` | `download`  | Whether the browser will show the download dialog on click.                                                                                            | `boolean`                                                 | `undefined` |
+| `form`     | `form`      | The <form> element to associate the button with.                                                                                                       | `string`                                                  | `undefined` |
+| `href`     | `href`      | The href value you want to link to (if it is present, button becomes a link).                                                                          | `string`                                                  | `undefined` |
+| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.              | `string`                                                  | `undefined` |
+| `isStatic` | `static`    | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). | `boolean`                                                 | `false`     |
+| `name`     | `name`      | The name attribute to use for the button.                                                                                                              | `string`                                                  | `undefined` |
+| `negative` | `negative`  | Negative coloring variant flag.                                                                                                                        | `boolean`                                                 | `false`     |
+| `rel`      | `rel`       | The relationship of the linked URL as space-separated link types.                                                                                      | `string`                                                  | `undefined` |
+| `size`     | `size`      | Size variant, either l or m.                                                                                                                           | `"l" \| "m"`                                              | `'l'`       |
+| `target`   | `target`    | Where to display the linked URL.                                                                                                                       | `string`                                                  | `undefined` |
+| `type`     | `type`      | The type attribute to use for the button.                                                                                                              | `"button" \| "reset" \| "submit"`                         | `undefined` |
+| `value`    | `value`     | The value attribute to use for the button.                                                                                                             | `string`                                                  | `undefined` |
+| `variant`  | `variant`   | Variant of the button, like primary, secondary etc.                                                                                                    | `"primary" \| "secondary" \| "tertiary" \| "transparent"` | `'primary'` |
 
 
 ## Slots
@@ -77,6 +77,7 @@ sbb-button {
 
  - [sbb-alert](../sbb-alert)
  - [sbb-dialog](../sbb-dialog)
+ - [sbb-map-container](../sbb-map-container)
  - [sbb-navigation](../sbb-navigation)
  - [sbb-navigation-section](../sbb-navigation-section)
  - [sbb-tooltip](../sbb-tooltip)
@@ -91,6 +92,7 @@ graph TD;
   sbb-button --> sbb-icon
   sbb-alert --> sbb-button
   sbb-dialog --> sbb-button
+  sbb-map-container --> sbb-button
   sbb-navigation --> sbb-button
   sbb-navigation-section --> sbb-button
   sbb-tooltip --> sbb-button

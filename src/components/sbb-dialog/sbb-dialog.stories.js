@@ -220,6 +220,7 @@ const LongContentTemplate = (args) => [
       style={'margin-block: 1rem'}
       image-src={sampleImages[1]}
       alt="Natural landscape"
+      data-chromatic="ignore"
     ></sbb-image>
     He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels of
     blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
@@ -299,6 +300,7 @@ const FullScreenTemplate = (args) => [
       style={'margin-block: 1rem'}
       image-src={sampleImages[1]}
       alt="Natural landscape"
+      data-chromatic="ignore"
     ></sbb-image>
     He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels of
     blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and

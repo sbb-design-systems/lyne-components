@@ -233,6 +233,9 @@ export class SbbImage implements ComponentInterface {
    */
   @Prop() public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
 
+  /** Whether the fade animation from blurred to real image should be disabled. */
+  @Prop({ reflect: true }) public disableAnimation = false;
+
   private _logPerformanceMarks(): void {
     if (window.performance.mark && this.performanceMark) {
       performance.clearMarks(this.performanceMark);

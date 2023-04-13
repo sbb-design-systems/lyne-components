@@ -4,7 +4,7 @@ import { Config } from '@stencil/core';
 import { reactOutputTarget as react } from '@stencil/react-output-target';
 import { basename, dirname, join, resolve } from 'path';
 import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 export const config: Config = {
   globalStyle: 'src/global/styles/global.scss',

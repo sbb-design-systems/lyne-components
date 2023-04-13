@@ -6,7 +6,7 @@ describe('sbb-header', () => {
 
   beforeEach(async () => {
     page = await newE2EPage();
-    page.setViewport({ width: 1200, height: 600 });
+    await page.setViewport({ width: 1200, height: 600 });
   });
 
   it('renders', async () => {

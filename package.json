@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.32.0",
+  "version": "0.33.2",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -50,10 +50,10 @@
     "@babel/plugin-syntax-jsx": "7.21.4",
     "@babel/plugin-transform-react-jsx": "7.21.0",
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
-    "@commitlint/cli": "17.5.1",
-    "@commitlint/config-conventional": "17.4.4",
+    "@commitlint/cli": "17.6.0",
+    "@commitlint/config-conventional": "17.6.0",
     "@sbb-esta/lyne-design-tokens": "0.3.4",
-    "@stencil/core": "3.2.0",
+    "@stencil/core": "3.2.1",
     "@stencil/react-output-target": "0.5.0",
     "@stencil/sass": "3.0.1",
     "@storybook/addon-a11y": "6.5.16",
@@ -65,7 +65,7 @@
     "@storybook/testing-library": "0.0.13",
     "@types/jest": "27.5.2",
     "@types/puppeteer": "5.4.7",
-    "@types/react": "16.14.39",
+    "@types/react": "16.14.40",
     "@types/react-dom": "16.9.18",
     "@typescript-eslint/eslint-plugin": "5.58.0",
     "@typescript-eslint/parser": "5.58.0",
@@ -98,7 +98,7 @@
     "puppeteer": "19.8.5",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "sass": "1.61.0",
+    "sass": "1.62.0",
     "sass-loader": "10.4.1",
     "shelljs": "0.8.5",
     "simple-git": "3.17.0",
@@ -115,7 +115,7 @@
     "yargs": "17.7.1"
   },
   "resolutions": {
-    "**/@types/react": "16.14.39"
+    "**/@types/react": "16.14.40"
   },
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",

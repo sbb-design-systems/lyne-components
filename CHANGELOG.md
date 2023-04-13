@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.2](https://github.com/lyne-design-system/lyne-components/compare/v0.33.1...v0.33.2) (2023-04-13)
+
+### Bug Fixes
+
+- **sbb-train-formation:** render label correctly if empty ([#1712](https://github.com/lyne-design-system/lyne-components/issues/1712)) ([1db55fb](https://github.com/lyne-design-system/lyne-components/commit/1db55fb561f4bf68c962a571a8f842ae4839a05f))
+
+### [0.33.1](https://github.com/lyne-design-system/lyne-components/compare/v0.33.0...v0.33.1) (2023-04-12)
+
+### Features
+
+- **sbb-map-container:** provide scroll up button ([#1702](https://github.com/lyne-design-system/lyne-components/issues/1702)) ([7942b12](https://github.com/lyne-design-system/lyne-components/commit/7942b12cea5ddd98003bf686a14c4db08c52d536))
+
+## [0.33.0](https://github.com/lyne-design-system/lyne-components/compare/v0.32.0...v0.33.0) (2023-04-11)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-button:** `tranclucent` variant was removed and replaced by
+  a new `tertiary` button variant.
+
+### Features
+
+- **sbb-button:** replace variant `translucent` by `tertiary` ([#1708](https://github.com/lyne-design-system/lyne-components/issues/1708)) ([90b2328](https://github.com/lyne-design-system/lyne-components/commit/90b23283ceaf158269c25b44c48a27b686fd578d))
+
 ## [0.32.0](https://github.com/lyne-design-system/lyne-components/compare/v0.31.2...v0.32.0) (2023-04-11)
 
 ### ⚠ BREAKING CHANGES

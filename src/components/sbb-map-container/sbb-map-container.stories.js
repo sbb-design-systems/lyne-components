@@ -1,8 +1,22 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const Template = () => (
-  <sbb-map-container>
+const hideScrollUpButton = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const defaultArgTypes = {
+  'hide-scroll-up-button': hideScrollUpButton,
+};
+
+const defaultArgs = {
+  'hide-scroll-up-button': false,
+};
+
+const Template = (args) => (
+  <sbb-map-container {...args}>
     <div style="padding: var(--sbb-spacing-fixed-4x)">
       <sbb-form-field style="width: 100%">
         <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
@@ -26,6 +40,10 @@ const Template = () => (
 );
 
 export const MapContainer = Template.bind({});
+MapContainer.argTypes = defaultArgTypes;
+MapContainer.args = {
+  ...defaultArgs,
+};
 
 export default {
   decorators: [

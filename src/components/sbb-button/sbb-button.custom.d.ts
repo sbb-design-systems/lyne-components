@@ -1,4 +1,4 @@
 export interface InterfaceButtonAttributes {
-  variant: 'primary' | 'secondary' | 'translucent' | 'transparent';
+  variant: 'primary' | 'secondary' | 'tertiary' | 'transparent';
   size: 'l' | 'm';
 }

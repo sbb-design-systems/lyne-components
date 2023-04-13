@@ -613,6 +613,10 @@ export namespace Components {
          */
         "decoding": InterfaceImageAttributes['decoding'];
         /**
+          * Whether the fade animation from blurred to real image should be disabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug": boolean;
@@ -788,6 +792,10 @@ export namespace Components {
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
     interface SbbMapContainer {
+        /**
+          * Flag to show/hide the scroll up button inside the sidebar on mobile.
+         */
+        "hideScrollUpButton": boolean;
     }
     interface SbbMenu {
         /**
@@ -2749,6 +2757,10 @@ declare namespace LocalJSX {
          */
         "decoding"?: InterfaceImageAttributes['decoding'];
         /**
+          * Whether the fade animation from blurred to real image should be disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
           * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug"?: boolean;
@@ -2924,6 +2936,10 @@ declare namespace LocalJSX {
         "protectiveRoom"?: InterfaceLogoAttributes['protectiveRoom'];
     }
     interface SbbMapContainer {
+        /**
+          * Flag to show/hide the scroll up button inside the sidebar on mobile.
+         */
+        "hideScrollUpButton"?: boolean;
     }
     interface SbbMenu {
         /**

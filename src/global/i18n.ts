@@ -583,3 +583,10 @@ export const i18nCollapsed: Record<string, string> = {
   fr: 'condensé',
   it: 'compresso',
 };
+
+export const i18nMapContainerButtonLabel: Record<string, string> = {
+  de: 'Karte zeigen',
+  en: 'Show map',
+  fr: 'Afficher la carte',
+  it: 'Mostra la mappa',
+};
