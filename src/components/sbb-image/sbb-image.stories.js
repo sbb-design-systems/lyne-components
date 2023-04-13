@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import images from '../../global/images';
 import readme from './readme.md';
+import isChromatic from 'chromatic/isChromatic';
 
 const Template = (args) => <sbb-image {...args} />;
 
@@ -106,6 +107,12 @@ const performanceMark = {
   },
 };
 
+const disableAnimation = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes = {
   alt: '',
   caption: '',
@@ -121,12 +128,12 @@ const defaultArgTypes = {
   loading,
   lqip,
   'performance-mark': performanceMark,
+  'disable-animation': disableAnimation,
 };
 
 const defaultArgs = {
   alt: '',
-  caption:
-    'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+  caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
   'border-radius': 'true',
   'aspect-ratio': aspectRatio.options[0],
@@ -140,18 +147,22 @@ const defaultArgs = {
   loading: loading.options[1],
   lqip: true,
   'performance-mark': '',
+  'disable-animation': isChromatic(),
 };
 
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs, 'disable-animation': true };
+Default.args = {
+  ...defaultArgs,
+  caption:
+    'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+};
 
 export const NoCaptionNoRadius = Template.bind({});
 NoCaptionNoRadius.argTypes = defaultArgTypes;
 NoCaptionNoRadius.args = {
   ...defaultArgs,
   'border-radius': 'false',
-  caption: '',
 };
 
 export const TransparentImage = Template.bind({});
@@ -159,7 +170,6 @@ TransparentImage.argTypes = defaultArgTypes;
 TransparentImage.args = {
   ...defaultArgs,
   'image-src': imageSrc.options[9],
-  caption: '',
 };
 
 export default {

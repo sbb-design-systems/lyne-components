@@ -613,6 +613,10 @@ export namespace Components {
          */
         "decoding": InterfaceImageAttributes['decoding'];
         /**
+          * Whether the fade animation from blurred to real image should be disabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */
         "focalPointDebug": boolean;
@@ -2723,6 +2727,10 @@ declare namespace LocalJSX {
           * If the lazy property is set to true, the module will automatically change the decoding to async, otherwise the decoding is set to auto which leaves the handling up to the browser. Read more about the decoding attribute here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
          */
         "decoding"?: InterfaceImageAttributes['decoding'];
+        /**
+          * Whether the fade animation from blurred to real image should be disabled.
+         */
+        "disableAnimation"?: boolean;
         /**
           * Set this to true, to receive visual guidance where the custom focal point is currently set.
          */

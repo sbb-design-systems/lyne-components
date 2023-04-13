@@ -184,7 +184,7 @@ describe('sbb-tooltip', () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
-    page.setViewport({ width: 1200, height: 800 });
+    await page.setViewport({ width: 1200, height: 800 });
     const dialog = await page.find('sbb-tooltip >>> dialog');
 
     trigger.triggerEvent('click');
