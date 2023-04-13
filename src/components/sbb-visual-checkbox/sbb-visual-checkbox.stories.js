@@ -69,5 +69,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-visual-checkbox',
+  title: 'internals/sbb-visual-checkbox',
 };

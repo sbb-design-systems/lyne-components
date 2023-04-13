@@ -161,6 +161,50 @@ const changeEventHandler = (event) => {
   div.innerText = `current value is: ${event.target.value}`;
   document.getElementById('container-value').append(div);
 };
+const textBlockStyle = {
+  position: 'relative',
+  marginBlockStart: '1rem',
+  padding: '1rem',
+  backgroundColor: 'var(--sbb-color-milk-default)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  zIndex: '100',
+};
+
+const codeStyle = {
+  padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+};
+
+const aboveDecorator = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 2rem); display: flex; align-items: end'}>
+      <Story />
+    </div>
+  ),
+];
+
+const scrollDecorator = [
+  (Story) => (
+    <div
+      style={
+        'padding: 2rem; height: calc(100vh * 1.5); background-color: var(--sbb-color-milk-default); display: flex; align-items: center'
+      }
+    >
+      <Story />
+    </div>
+  ),
+];
+
+const textBlock = () => {
+  return (
+    <div style={textBlockStyle}>
+      This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
+      it must always be covered by the autocomplete overlay.
+    </div>
+  );
+};
 
 const createOptions = (numberOfOptions, disableOption, group, selectValue) => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
@@ -207,10 +251,11 @@ const SelectTemplate = ({
 };
 
 const FormFieldTemplate = ({ borderless, ...args }) => [
-  <div style="padding: 2rem; background-color: #e6e6e6;">
+  <div>
     <sbb-form-field borderless={borderless} label="Select" data-testid="form-field">
       {SelectTemplate(args)}
     </sbb-form-field>
+    {textBlock()}
   </div>,
   <div id="container-value" style="margin-block-start: 2rem;"></div>,
 ];
@@ -228,7 +273,7 @@ const FormFieldTemplateWithError = ({
   }
   const sbbFormError = <sbb-form-error>Error</sbb-form-error>;
   return (
-    <div style="padding: 2rem; background-color: #e6e6e6;">
+    <div>
       <sbb-form-field
         borderless={borderless}
         id="sbb-form-field"
@@ -256,6 +301,7 @@ const FormFieldTemplateWithError = ({
         </sbb-select>
         {sbbFormError}
       </sbb-form-field>
+      {textBlock()}
     </div>
   );
 };
@@ -321,6 +367,18 @@ FormFieldBorderless.argTypes = defaultArgTypes;
 FormFieldBorderless.args = { ...defaultArgs, borderless: true };
 FormFieldBorderless.play = isChromatic() && playStory;
 
+export const FormFieldBorderlessScroll = FormFieldTemplate.bind({});
+FormFieldBorderlessScroll.argTypes = defaultArgTypes;
+FormFieldBorderlessScroll.args = { ...defaultArgs, borderless: true };
+FormFieldBorderlessScroll.decorators = scrollDecorator;
+FormFieldBorderlessScroll.play = isChromatic() && playStory;
+
+export const FormFieldBorderlessOpenAbove = FormFieldTemplate.bind({});
+FormFieldBorderlessOpenAbove.argTypes = defaultArgTypes;
+FormFieldBorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
+FormFieldBorderlessOpenAbove.decorators = aboveDecorator;
+FormFieldBorderlessOpenAbove.play = isChromatic() && playStory;
+
 export const FormFieldOptionDisabled = FormFieldTemplate.bind({});
 FormFieldOptionDisabled.argTypes = defaultArgTypes;
 FormFieldOptionDisabled.args = { ...defaultArgs, disableOption: true };
@@ -339,7 +397,7 @@ KeyboardInteraction.play = isChromatic() && playStory;
 export default {
   decorators: [
     (Story) => (
-      <div>
+      <div style={'padding: 2rem; height: calc(100vh - 2rem);'}>
         <Story />
       </div>
     ),
