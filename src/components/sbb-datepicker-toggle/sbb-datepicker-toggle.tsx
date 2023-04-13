@@ -87,7 +87,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     if (!this._datePickerElement) {
       return;
     }
-    
+
     this._datePickerElement?.addEventListener(
       'inputUpdated',
       (event: CustomEvent<InputUpdateEvent>) => {
