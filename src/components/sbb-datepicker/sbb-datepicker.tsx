@@ -160,14 +160,19 @@ export class SbbDatepicker implements ComponentInterface {
     );
   }
 
-  @Listen('control-registered', { target: 'window' })
-  public controlRegistered(): void {
-    this._onInputPropertiesChange();
+  @Listen('datepicker-control-registered')
+  public onInputPropertiesChange(): void {
+    this.inputUpdated.emit({
+      disabled: this._inputElement?.disabled,
+      readonly: this._inputElement?.readOnly,
+      min: this._inputElement?.min,
+      max: this._inputElement?.max,
+    });
   }
 
   private _datePickerController: AbortController;
 
-  private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
+  private _inputObserver = new MutationObserver(this.onInputPropertiesChange.bind(this));
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
@@ -241,15 +246,6 @@ export class SbbDatepicker implements ComponentInterface {
       this._inputElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       this._inputElement.dispatchEvent(new CustomEvent('change', { bubbles: true }));
     }
-  }
-
-  private _onInputPropertiesChange(): void {
-    this.inputUpdated.emit({
-      disabled: this._inputElement?.disabled,
-      readonly: this._inputElement?.readOnly,
-      min: this._inputElement?.min,
-      max: this._inputElement?.max,
-    });
   }
 
   private _preventCharInsert(event): void {

@@ -23,6 +23,7 @@ import {
   resolveButtonRenderVariables,
 } from '../../global/interfaces/link-button-properties';
 import {
+  datepickerControlRegisteredEvent,
   findPreviousAvailableDate,
   getDatePicker,
   InputUpdateEvent,
@@ -132,7 +133,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
       },
       { signal: this._datePickerController.signal }
     );
-    this._element.dispatchEvent(new CustomEvent('control-registered', { bubbles: true }));
+    this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
   private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {

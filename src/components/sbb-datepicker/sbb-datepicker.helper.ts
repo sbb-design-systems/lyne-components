@@ -164,3 +164,8 @@ export function isDateAvailable(
 
   return dateFilter ? dateFilter(date) : true;
 }
+
+export const datepickerControlRegisteredEvent = new CustomEvent('datepicker-control-registered', {
+  bubbles: false,
+  composed: true,
+});
