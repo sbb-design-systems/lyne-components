@@ -39,8 +39,10 @@ describe('sbb-select', () => {
               </div>
             </div>
             <div class="sbb-select__panel">
-              <div id="sbb-select-1" class="sbb-select__options" role="listbox">
-                <slot></slot>
+              <div class="sbb-select__wrapper">
+                <div id="sbb-select-1" class="sbb-select__options" role="listbox">
+                  <slot></slot>
+                </div>
               </div>
             </div>
           </div>
@@ -91,8 +93,10 @@ describe('sbb-select', () => {
               </div>
             </div>
             <div class="sbb-select__panel">
-              <div id="sbb-select-2" class="sbb-select__options" role="listbox" aria-multiselectable="">
-                <slot></slot>
+              <div class="sbb-select__wrapper">
+                <div id="sbb-select-2" class="sbb-select__options" role="listbox" aria-multiselectable="">
+                  <slot></slot>
+                </div>
               </div>
             </div>
           </div>
