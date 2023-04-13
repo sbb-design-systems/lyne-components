@@ -1,6 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {

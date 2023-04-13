@@ -1,4 +1,4 @@
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import { h } from 'jsx-dom';
 
 export const TimetableInput = () => (

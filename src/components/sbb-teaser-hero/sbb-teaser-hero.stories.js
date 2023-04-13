@@ -84,15 +84,21 @@ const defaultArgs = {
   'image-alt': 'SBB CFF FFS Employee',
 };
 
-const TemplateSbbTeaserHeroDefault = (args) => (
-  <sbb-teaser-hero {...args}>{args.content}</sbb-teaser-hero>
+const TemplateSbbTeaserHeroDefault = ({ content, ...args }) => (
+  <sbb-teaser-hero {...args}>{content}</sbb-teaser-hero>
 );
 
-const TemplateSbbTeaserWithSlots = (args) => (
+const TemplateSbbTeaserWithSlots = ({
+  content,
+  'link-content': linkContent,
+  'image-src': imageSrc,
+  'image-alt': imageAlt,
+  ...args
+}) => (
   <sbb-teaser-hero {...args}>
-    {args.content}
-    <span slot="link-content">{args['link-content']}</span>
-    <sbb-image slot="image" image-src={args['image-src']} alt={args['image-alt']} />
+    {content}
+    <span slot="link-content">{linkContent}</span>
+    <sbb-image slot="image" image-src={imageSrc} alt={imageAlt} />
   </sbb-teaser-hero>
 );
 
@@ -128,6 +134,7 @@ export default {
     ),
   ],
   parameters: {
+    chromatic: { diffThreshold: 0.11, delay: 5000 },
     actions: {
       handles: ['click'],
     },

@@ -140,7 +140,7 @@ describe('sbb-menu', () => {
   it('is correctly positioned on desktop', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    page.setViewport({ width: 1200, height: 800 });
+    await page.setViewport({ width: 1200, height: 800 });
     const dialog = await page.find('sbb-menu >>> dialog');
 
     trigger.triggerEvent('click');
@@ -185,7 +185,7 @@ describe('sbb-menu', () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
-    page.setViewport({ width: 800, height: 600 });
+    await page.setViewport({ width: 800, height: 600 });
     const dialog = await page.find('sbb-menu >>> dialog');
 
     trigger.triggerEvent('click');

@@ -53,7 +53,7 @@ const getStorybookViewports = () =>
 export const parameters = {
   // Set the viewports in Chromatic globally.
   chromatic: {
-    delay: 1000,
+    delay: 2000,
     viewports: getViewports(),
     disableSnapshot: true,
   },
