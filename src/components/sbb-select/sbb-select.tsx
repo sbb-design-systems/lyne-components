@@ -234,6 +234,7 @@ export class SbbSelect implements ComponentInterface {
     this._element.setAttribute('aria-expanded', 'false');
     toggleDatasetEntry(this._originElement, 'overlayOpen', false);
     this._element.removeAttribute('aria-activedescendant');
+    this._optionContainer.scrollTop = 0;
     if (this.multiple) {
       this._resetActiveElement();
     }
