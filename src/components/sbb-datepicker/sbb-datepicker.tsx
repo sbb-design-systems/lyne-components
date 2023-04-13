@@ -161,7 +161,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   @Listen('datepicker-control-registered')
-  public onInputPropertiesChange(): void {
+  private _onInputPropertiesChange(): void {
     this.inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
@@ -172,7 +172,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _datePickerController: AbortController;
 
-  private _inputObserver = new MutationObserver(this.onInputPropertiesChange.bind(this));
+  private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
