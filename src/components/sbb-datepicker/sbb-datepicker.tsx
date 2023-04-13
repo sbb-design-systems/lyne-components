@@ -7,6 +7,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -159,6 +160,11 @@ export class SbbDatepicker implements ComponentInterface {
     );
   }
 
+  @Listen('control-registered', { target: 'window' })
+  public controlRegistered(): void {
+    this._onInputPropertiesChange();
+  }
+
   private _datePickerController: AbortController;
 
   private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
@@ -178,11 +184,6 @@ export class SbbDatepicker implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
-    this._onInputPropertiesChange();
-  }
-
-  public componentDidLoad(): void {
-    this._onInputPropertiesChange();
   }
 
   public disconnectedCallback(): void {

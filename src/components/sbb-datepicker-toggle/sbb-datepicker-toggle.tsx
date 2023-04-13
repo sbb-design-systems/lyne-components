@@ -100,6 +100,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
         this._configureCalendar(this._calendarElement, event.target as HTMLSbbDatepickerElement),
       { signal: this._datePickerController.signal }
     );
+    this._element.dispatchEvent(new CustomEvent('control-registered', { bubbles: true }));
   }
 
   private _configureCalendar(

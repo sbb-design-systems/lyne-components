@@ -132,6 +132,8 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
       },
       { signal: this._datePickerController.signal }
     );
+
+    this._element.dispatchEvent(new CustomEvent('control-registered', { bubbles: true }));
   }
 
   private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {
