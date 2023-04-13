@@ -65,7 +65,7 @@ describe('sbb-datepicker-next-day', () => {
       expect(await input.getProperty('value')).toEqual('22.01.2023');
     });
 
-    it.skip('disabled due max value equals to value', async () => {
+    it('disabled due max value equals to value', async () => {
       page = await newE2EPage();
       await page.setContent(`
         <sbb-form-field>
@@ -91,7 +91,7 @@ describe('sbb-datepicker-next-day', () => {
       expect(await input.getProperty('value')).toEqual('21-01-2023');
     });
 
-    it.skip('disabled due disabled picker', async () => {
+    it('disabled due disabled picker', async () => {
       expect(await input.getProperty('value')).toEqual('21-01-2023');
       await page.evaluate(() => document.querySelector('input').setAttribute('disabled', ''));
 

@@ -178,12 +178,11 @@ export class SbbDatepicker implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
-    this.inputUpdated.emit({
-      disabled: this._inputElement?.disabled,
-      readonly: this._inputElement?.readOnly,
-      min: this._inputElement?.min,
-      max: this._inputElement?.max,
-    });
+    this._onInputPropertiesChange();
+  }
+
+  public componentDidLoad(): void {
+    this._onInputPropertiesChange();
   }
 
   public disconnectedCallback(): void {
