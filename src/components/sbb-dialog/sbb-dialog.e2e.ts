@@ -1,5 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-dialog.events';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-dialog', () => {
   let element: E2EElement, page: E2EPage;
@@ -28,9 +29,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -48,9 +51,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -59,9 +64,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
+    await waitForCondition(() => willClose.events.length === 1);
     expect(willClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didClose.events.length === 1);
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -80,9 +87,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -91,9 +100,11 @@ describe('sbb-dialog', () => {
     closeButton.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willClose.events.length === 1);
     expect(willClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didClose.events.length === 1);
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -110,9 +121,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -124,9 +137,11 @@ describe('sbb-dialog', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    await waitForCondition(() => willClose.events.length === 1);
     expect(willClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didClose.events.length === 1);
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -141,9 +156,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -170,9 +187,11 @@ describe('sbb-dialog', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 

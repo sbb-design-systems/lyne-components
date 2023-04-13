@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-button', () => {
   let element: E2EElement, page: E2EPage;
@@ -19,6 +20,7 @@ describe('sbb-button', () => {
       const clickSpy = await page.spyOnEvent('click');
 
       await element.click();
+      await waitForCondition(() => clickSpy.events.length === 1);
       expect(clickSpy).toHaveReceivedEventTimes(1);
     });
 

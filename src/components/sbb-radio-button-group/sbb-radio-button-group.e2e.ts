@@ -1,4 +1,5 @@
 import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-radio-button-group', () => {
   let element: E2EElement, page: E2EPage;
@@ -40,7 +41,9 @@ describe('sbb-radio-button-group', () => {
       const inputSpy = await page.spyOnEvent('input');
 
       await checkedRadio.click();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      await waitForCondition(() => inputSpy.events.length === 1);
       expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstRadio.click();
