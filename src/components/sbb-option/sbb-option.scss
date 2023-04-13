@@ -55,7 +55,10 @@
 }
 
 :host([data-variant='select']) {
+  @include sbb.text-xs--regular;
+
   --sbb-option-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-option-column-gap: var(--sbb-spacing-fixed-3x);
   --sbb-option-justify-content: space-between;
 

@@ -517,6 +517,7 @@ export class SbbSelect implements ComponentInterface {
         aria-controls={this._overlayId}
         aria-owns={this._overlayId}
         data-state={this._state}
+        data-multiple={this.multiple}
         onKeydown={(event) => this._onHostKeydown(event)}
         onClick={() => this._toggleOpening()}
         tabindex="0"

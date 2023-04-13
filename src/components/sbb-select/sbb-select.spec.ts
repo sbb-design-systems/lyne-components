@@ -76,6 +76,7 @@ describe('sbb-select', () => {
                   aria-required="false"
                   aria-haspopup="listbox"
                   aria-owns="sbb-select-2"
+                  data-multiple
                   data-state="closed"
                   tabindex="0">
         <mock:shadow-root>

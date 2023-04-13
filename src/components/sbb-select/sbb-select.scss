@@ -122,6 +122,13 @@
   @include sbb.scrollbar-light;
   @include sbb.optionsOverlay;
 
+  padding-block: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-fixed-2x);
+
+  :host([data-multiple]:not([data-multiple='false'])) & {
+    // TBD
+  }
+
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
     border-top: none;
