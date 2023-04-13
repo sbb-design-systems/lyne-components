@@ -1,5 +1,6 @@
 import events from './sbb-tooltip.events';
 import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-tooltip', () => {
   let element: E2EElement, trigger: E2EElement, page: E2EPage;
@@ -28,9 +29,11 @@ describe('sbb-tooltip', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -45,9 +48,11 @@ describe('sbb-tooltip', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -64,9 +69,11 @@ describe('sbb-tooltip', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -75,9 +82,11 @@ describe('sbb-tooltip', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -95,9 +104,11 @@ describe('sbb-tooltip', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -106,9 +117,11 @@ describe('sbb-tooltip', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -125,9 +138,11 @@ describe('sbb-tooltip', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -139,9 +154,11 @@ describe('sbb-tooltip', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -159,9 +176,11 @@ describe('sbb-tooltip', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -171,9 +190,11 @@ describe('sbb-tooltip', () => {
     tooltipLink.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -190,9 +211,11 @@ describe('sbb-tooltip', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -233,9 +256,11 @@ describe('sbb-tooltip', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -265,9 +290,11 @@ describe('sbb-tooltip', () => {
     await page.keyboard.down('Enter');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 

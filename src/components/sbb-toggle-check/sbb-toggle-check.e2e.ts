@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-toggle-check', () => {
   let element: E2EElement, page: E2EPage;
@@ -21,6 +22,7 @@ describe('sbb-toggle-check', () => {
       const changeSpy = await page.spyOnEvent('change');
 
       await toggle.click();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -30,6 +32,7 @@ describe('sbb-toggle-check', () => {
       element.press(' ');
       await page.waitForChanges();
 
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -39,6 +42,7 @@ describe('sbb-toggle-check', () => {
       await element.focus();
       await page.waitForChanges();
 
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
 
       expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');

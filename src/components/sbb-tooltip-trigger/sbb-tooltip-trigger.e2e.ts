@@ -1,5 +1,6 @@
 import events from '../sbb-tooltip/sbb-tooltip.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-tooltip-trigger', () => {
   let element: E2EElement, page: E2EPage;
@@ -29,9 +30,11 @@ describe('sbb-tooltip-trigger', () => {
     await element.click();
 
     await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
@@ -47,6 +50,7 @@ describe('sbb-tooltip-trigger', () => {
     await element.click();
 
     await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 0);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(0);
 
     await page.waitForChanges();
@@ -60,6 +64,7 @@ describe('sbb-tooltip-trigger', () => {
 
     await tooltipTrigger.focus();
     await page.waitForChanges();
+    await waitForCondition(() => changeSpy.events.length === 1);
     expect(changeSpy).toHaveReceivedEventTimes(1);
 
     await page.keyboard.down('Enter');
@@ -79,6 +84,7 @@ describe('sbb-tooltip-trigger', () => {
 
     await tooltipTrigger.focus();
     await page.waitForChanges();
+    await waitForCondition(() => changeSpy.events.length === 1);
     expect(changeSpy).toHaveReceivedEventTimes(1);
 
     await page.keyboard.down('Enter');

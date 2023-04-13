@@ -1,5 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 import events from './sbb-alert-group.events';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-alert-group', () => {
   it('should handle events ond states on interacting with alerts', async () => {
@@ -53,6 +54,7 @@ describe('sbb-alert-group', () => {
     expect((await page.find('sbb-alert-group')).tabIndex).toBe(0);
     expect(await page.evaluate(() => document.activeElement.id)).toBe(alertGroupId);
     expect(await page.find('sbb-alert-group >>> .sbb-alert-group__title')).toBeNull();
+    await waitForCondition(() => didDismissAlertSpy.events.length === 2);
     expect(didDismissAlertSpy).toHaveReceivedEventTimes(2);
     expect(emptySpy).toHaveReceivedEvent();
 

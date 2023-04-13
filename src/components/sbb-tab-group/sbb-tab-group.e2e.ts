@@ -1,4 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-tab-group', () => {
   let element, page;
@@ -54,6 +55,7 @@ describe('sbb-tab-group', () => {
       const changeSpy = await page.spyOnEvent('did-change');
 
       await tab.click();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
