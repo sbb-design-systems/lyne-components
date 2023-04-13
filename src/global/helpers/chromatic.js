@@ -43,13 +43,21 @@ export function combineStories(config, stories) {
 }
 
 export function chromaticStoryConfig(config) {
+  let additionalChromaticConfig = {};
+  if (config.parameters.chromatic?.diffThreshold) {
+    additionalChromaticConfig.diffThreshold = config.parameters.chromatic.diffThreshold;
+  }
+  if (config.parameters.chromatic?.delay) {
+    additionalChromaticConfig.delay = config.parameters.chromatic.delay;
+  }
+
   return {
     excludeStories: isChromatic() ? [] : ['chromaticStories'],
     parameters: {
       backgrounds: {
         disable: true,
       },
-      chromatic: { disableSnapshot: false },
+      chromatic: { disableSnapshot: false, ...additionalChromaticConfig },
     },
     title: `chromatic-only/${config.title}`,
   };

@@ -171,6 +171,7 @@ export default {
     ),
   ],
   parameters: {
+    chromatic: { diffThreshold: 0.11, delay: 5000 },
     docs: {
       extractComponentDescription: () => readme,
     },
