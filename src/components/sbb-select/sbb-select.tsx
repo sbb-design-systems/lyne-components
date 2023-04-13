@@ -270,7 +270,6 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _onHostKeydown(event): void {
-    event.preventDefault();
     if (this.disabled || this.readonly || this._state !== 'closed') {
       return;
     }
@@ -284,6 +283,7 @@ export class SbbSelect implements ComponentInterface {
       case ' ':
       case 'ArrowDown':
       case 'ArrowUp':
+        event.preventDefault();
         this.open();
         break;
 
@@ -293,8 +293,6 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _onKeydownEvent(event): void {
-    event.preventDefault();
-
     if (this.disabled || this.readonly || this._state !== 'opened') {
       return;
     }
@@ -316,16 +314,19 @@ export class SbbSelect implements ComponentInterface {
 
       case 'ArrowDown':
       case 'ArrowUp':
+        event.preventDefault();
         this._setNextActiveOption(event);
         break;
 
       case 'Home':
       case 'PageUp':
+        event.preventDefault();
         this._setNextActiveOption(event, 0);
         break;
 
       case 'End':
       case 'PageDown':
+        event.preventDefault();
         this._setNextActiveOption(event, this._filteredOptions.length - 1);
         break;
 
@@ -525,14 +526,16 @@ export class SbbSelect implements ComponentInterface {
             data-open={this._state === 'opened' || this._state === 'opening'}
             ref={(dialogRef) => (this._dialog = dialogRef)}
           >
-            <div
-              role="listbox"
-              aria-multiselectable={this.multiple}
-              class="sbb-select__options"
-              id={this._overlayId}
-              ref={(containerRef) => (this._optionContainer = containerRef)}
-            >
-              <slot onSlotchange={(): void => this._setValueFromSelectedOption()}></slot>
+            <div class="sbb-select__wrapper">
+              <div
+                id={this._overlayId}
+                aria-multiselectable={this.multiple}
+                role="listbox"
+                class="sbb-select__options"
+                ref={(containerRef) => (this._optionContainer = containerRef)}
+              >
+                <slot onSlotchange={(): void => this._setValueFromSelectedOption()}></slot>
+              </div>
             </div>
           </div>
         </div>
