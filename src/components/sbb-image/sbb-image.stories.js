@@ -150,6 +150,13 @@ const defaultArgs = {
   'disable-animation': isChromatic(),
 };
 
+export const TransparentImage = Template.bind({});
+TransparentImage.argTypes = defaultArgTypes;
+TransparentImage.args = {
+  ...defaultArgs,
+  'image-src': imageSrc.options[9],
+};
+
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = {
@@ -163,13 +170,6 @@ NoCaptionNoRadius.argTypes = defaultArgTypes;
 NoCaptionNoRadius.args = {
   ...defaultArgs,
   'border-radius': 'false',
-};
-
-export const TransparentImage = Template.bind({});
-TransparentImage.argTypes = defaultArgTypes;
-TransparentImage.args = {
-  ...defaultArgs,
-  'image-src': imageSrc.options[9],
 };
 
 export default {
