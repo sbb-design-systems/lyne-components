@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.2](https://github.com/lyne-design-system/lyne-components/compare/v0.33.1...v0.33.2) (2023-04-13)
+
+### Bug Fixes
+
+- **sbb-train-formation:** render label correctly if empty ([#1712](https://github.com/lyne-design-system/lyne-components/issues/1712)) ([1db55fb](https://github.com/lyne-design-system/lyne-components/commit/1db55fb561f4bf68c962a571a8f842ae4839a05f))
+
 ### [0.33.1](https://github.com/lyne-design-system/lyne-components/compare/v0.33.0...v0.33.1) (2023-04-12)
 
 ### Features
