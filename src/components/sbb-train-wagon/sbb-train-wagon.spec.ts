@@ -103,6 +103,7 @@ describe('sbb-train-wagon', () => {
                 aria-label="Train coach"
                 class="sbb-train-wagon__compartment"
               >
+                <li aria-hidden="true" class="sbb-train-wagon__label"></li>
                 <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
               </ul>
               <span class="sbb-train-wagon__icons">
@@ -132,6 +133,7 @@ describe('sbb-train-wagon', () => {
                 aria-label="Train coach"
                 class="sbb-train-wagon__compartment"
               >
+                <li aria-hidden="true" class="sbb-train-wagon__label"></li>
                 <sbb-icon aria-hidden="false" aria-label="No occupancy forecast available" class="sbb-train-wagon__occupancy" name="utilization-none" role="listitem"></sbb-icon>
               </ul>
               <span class="sbb-train-wagon__icons">
