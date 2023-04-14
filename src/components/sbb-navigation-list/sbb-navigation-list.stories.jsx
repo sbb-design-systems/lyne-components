@@ -1,4 +1,4 @@
-import { h } from 'jsx-dom';
+import { Fragment, h } from 'jsx-dom';
 import readme from './readme.md';
 
 const label = {
@@ -15,24 +15,26 @@ const defaultArgs = {
   label: 'Label',
 };
 
-const navigationActions = [
-  <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>,
-  <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>,
-  <sbb-navigation-action>Travel information</sbb-navigation-action>,
-  <sbb-navigation-action>Help & Contact</sbb-navigation-action>,
-];
+const navigationActions = () => (
+  <Fragment>
+    <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>
+    <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
+    <sbb-navigation-action>Travel information</sbb-navigation-action>
+    <sbb-navigation-action>Help & Contact</sbb-navigation-action>
+  </Fragment>
+);
 
 const style =
   'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
 
 const DefaultTemplate = (args) => (
-  <sbb-navigation-list {...args}>{navigationActions}</sbb-navigation-list>
+  <sbb-navigation-list {...args}>{navigationActions()}</sbb-navigation-list>
 );
 
 const SlottedLabelTemplate = (args) => (
   <sbb-navigation-list {...args}>
     <span slot="label">Slotted label</span>
-    {navigationActions}
+    {navigationActions()}
   </sbb-navigation-list>
 );
 
