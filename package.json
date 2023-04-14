@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-components",
-  "version": "0.33.2",
+  "version": "0.33.4",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -50,8 +50,8 @@
     "@babel/plugin-syntax-jsx": "7.21.4",
     "@babel/plugin-transform-react-jsx": "7.21.0",
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
-    "@commitlint/cli": "17.6.0",
-    "@commitlint/config-conventional": "17.6.0",
+    "@commitlint/cli": "17.6.1",
+    "@commitlint/config-conventional": "17.6.1",
     "@sbb-esta/lyne-design-tokens": "0.3.4",
     "@stencil/core": "3.2.1",
     "@stencil/react-output-target": "0.5.0",
@@ -95,7 +95,7 @@
     "npm-run-all": "4.1.5",
     "postcss": "8.4.21",
     "prettier": "2.8.7",
-    "puppeteer": "19.8.5",
+    "puppeteer": "19.9.0",
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "sass": "1.62.0",

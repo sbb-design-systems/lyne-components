@@ -33,7 +33,7 @@ The examples below shows how to use the component with the `<sbb-icon>` and cust
 ```
 
 ### Accessibility
-In order to make screen readers announce the type of the trigger when is focused, provide the `aria-label` attribute inside the `<sbb-tooltip-trigger>` as shown below:
+In order to make screen readers announce the type of the trigger when is focused, use the `aria-label` attribute, as shown below:
 
 ```html
 <sbb-tooltip-trigger aria-label="Custom label" id="tooltip-trigger">
@@ -61,7 +61,7 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 | Property   | Attribute   | Description                                                                                                                               | Type      | Default                      |
 | ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------- |
-| `disabled` | `disabled`  | Whether the tooltip-trigger is disabled                                                                                                   | `boolean` | `false`                      |
+| `disabled` | `disabled`  | Whether the tooltip-trigger is disabled.                                                                                                  | `boolean` | `false`                      |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `'circle-information-small'` |
 | `name`     | `name`      | The name attribute to use for the button.                                                                                                 | `string`  | `undefined`                  |
 
@@ -75,6 +75,10 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 
 ## Dependencies
 
+### Used by
+
+ - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
+
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
@@ -83,6 +87,7 @@ associate the tooltip trigger with the tooltip via `aria-describedby` and an `id
 ```mermaid
 graph TD;
   sbb-tooltip-trigger --> sbb-icon
+  sbb-datepicker-toggle --> sbb-tooltip-trigger
   style sbb-tooltip-trigger fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

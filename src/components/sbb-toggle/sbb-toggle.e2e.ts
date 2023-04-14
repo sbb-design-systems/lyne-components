@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-toggle', () => {
   let element: E2EElement, page: E2EPage;
@@ -51,7 +52,9 @@ describe('sbb-toggle', () => {
       const inputSpy = await page.spyOnEvent('input');
 
       await secondOption.click();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      await waitForCondition(() => inputSpy.events.length === 1);
       expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstOption.click();
@@ -90,7 +93,9 @@ describe('sbb-toggle', () => {
       await page.waitForChanges();
 
       expect(secondOption).toHaveAttribute('checked');
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      await waitForCondition(() => inputSpy.events.length === 1);
       expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstOption.click();
@@ -110,7 +115,9 @@ describe('sbb-toggle', () => {
       await page.waitForChanges();
 
       expect(secondOption).toHaveAttribute('checked');
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      await waitForCondition(() => inputSpy.events.length === 1);
       expect(inputSpy).toHaveReceivedEventTimes(1);
 
       await firstOption.click();

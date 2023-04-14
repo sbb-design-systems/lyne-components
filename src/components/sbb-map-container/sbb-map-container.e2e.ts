@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-map-container', () => {
   let element: E2EElement, page: E2EPage;
@@ -34,6 +35,7 @@ describe('sbb-map-container', () => {
     await page.evaluate(() => (document.documentElement.scrollTop = 400));
     await page.waitForChanges();
 
+    await waitForCondition(async () => !(await getInert()));
     expect(element).toHaveAttribute('data-scroll-up-button-visible');
     expect(await getInert()).toBe(false);
   });

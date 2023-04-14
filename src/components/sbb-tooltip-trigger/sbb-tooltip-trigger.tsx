@@ -1,9 +1,11 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
 import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import { hostContext } from '../../global/helpers/host-context';
 import {
   ButtonProperties,
   resolveButtonRenderVariables,
 } from '../../global/interfaces/link-button-properties';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -24,9 +26,7 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
    */
   @Prop() public iconName = 'circle-information-small';
 
-  /**
-   * Whether the tooltip-trigger is disabled
-   */
+  /** Whether the tooltip-trigger is disabled. */
   @Prop({ reflect: true }) public disabled = false;
 
   @Element() private _element!: HTMLElement;
@@ -35,6 +35,12 @@ export class SbbTooltipTrigger implements ComponentInterface, ButtonProperties {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
+    if (
+      hostContext('sbb-form-field', this._element) ??
+      hostContext('[data-form-field]', this._element)
+    ) {
+      toggleDatasetEntry(this._element, 'iconSmall', true);
+    }
   }
 
   public disconnectedCallback(): void {

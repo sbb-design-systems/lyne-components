@@ -1,5 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 import events from './sbb-alert.events';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-alert', () => {
   let alert, page;
@@ -23,7 +24,9 @@ describe('sbb-alert', () => {
     await page.setContent(`<sbb-alert title-content="disruption">Interruption</sbb-alert>`);
     await page.waitForChanges();
 
+    await waitForCondition(() => willPresentSpy.events.length === 1);
     expect(willPresentSpy).toHaveReceivedEventTimes(1);
+    await waitForCondition(() => didPresentSpy.events.length === 1);
     expect(didPresentSpy).toHaveReceivedEventTimes(1);
   });
 });

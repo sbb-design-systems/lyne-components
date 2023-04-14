@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-toggle-option', () => {
   let element: E2EElement, page: E2EPage;
@@ -21,6 +22,7 @@ describe('sbb-toggle-option', () => {
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
+    await waitForCondition(() => onInput.events.length === 1);
     expect(onInput).toHaveReceivedEventTimes(1);
   });
 
@@ -31,12 +33,14 @@ describe('sbb-toggle-option', () => {
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
+    await waitForCondition(() => onInput.events.length === 1);
     expect(onInput).toHaveReceivedEventTimes(1);
 
     await element.click();
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
+    await waitForCondition(() => onInput.events.length === 1);
     expect(onInput).toHaveReceivedEventTimes(1);
   });
 });

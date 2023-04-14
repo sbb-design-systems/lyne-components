@@ -9,6 +9,14 @@ export function isArrowKeyPressed(event: KeyboardEvent): boolean {
 }
 
 /**
+ * Check if the key pressed is among those allowed for navigation.
+ * @param event The keyboard event to check.
+ */
+export function isArrowKeyOrPageKeysPressed(event: KeyboardEvent): boolean {
+  return isArrowKeyPressed(event) || ['PageUp', 'PageDown', 'Home', 'End'].includes(event.key);
+}
+
+/**
  * Calculate the index of the next element based on the given offset.
  * @param currentIndex The index of the current element.
  * @param maxIndex The maximum permitted value (e.g. array size).

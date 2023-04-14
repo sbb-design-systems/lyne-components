@@ -1,5 +1,6 @@
 import events from './sbb-navigation.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-navigation', () => {
   let element: E2EElement, page: E2EPage;
@@ -39,6 +40,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -54,6 +56,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -62,6 +65,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('close');
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -77,6 +81,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -85,6 +90,7 @@ describe('sbb-navigation', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -99,6 +105,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -110,6 +117,7 @@ describe('sbb-navigation', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -134,6 +142,7 @@ describe('sbb-navigation', () => {
     action.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -143,6 +152,7 @@ describe('sbb-navigation', () => {
     closeEl.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -161,6 +171,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -185,6 +196,7 @@ describe('sbb-navigation', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -221,6 +233,7 @@ describe('sbb-navigation', () => {
     action.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -230,6 +243,7 @@ describe('sbb-navigation', () => {
     await closeButton.click();
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -252,6 +266,7 @@ describe('sbb-navigation', () => {
     action.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -264,6 +279,7 @@ describe('sbb-navigation', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -288,6 +304,7 @@ describe('sbb-navigation', () => {
     action.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 

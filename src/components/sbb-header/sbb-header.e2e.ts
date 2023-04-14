@@ -1,5 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from '../sbb-menu/sbb-menu.events';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-header', () => {
   let element: E2EElement, page: E2EPage;
@@ -63,13 +64,11 @@ describe('sbb-header', () => {
   it('should close menu on scroll', async () => {
     await page.setContent(`
         <sbb-header hide-on-scroll="true">
-          <sbb-header-action id="language-menu-trigger">
-          English
-        </sbb-header-action>
-        <sbb-menu trigger="language-menu-trigger">
-          <sbb-menu-action>Deutsch</sbb-menu-action>
-          <sbb-menu-action>Français</sbb-menu-action>
-        </sbb-menu>
+          <sbb-header-action id="language-menu-trigger">English</sbb-header-action>
+          <sbb-menu trigger="language-menu-trigger" disable-animation>
+            <sbb-menu-action>Deutsch</sbb-menu-action>
+            <sbb-menu-action>Français</sbb-menu-action>
+          </sbb-menu>
         </sbb-header>
         <div style="height: 2000px;"></div>
     `);
@@ -89,10 +88,12 @@ describe('sbb-header', () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const menuTrigger = await page.find('sbb-header-action');
-    await menuTrigger.click();
+    await page.evaluate(() => document.querySelector('sbb-header-action').click());
     await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
     const menuId = menuTrigger.getAttribute('aria-controls');

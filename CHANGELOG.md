@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.4](https://github.com/lyne-design-system/lyne-components/compare/v0.33.3...v0.33.4) (2023-04-14)
+
+### Features
+
+- **sbb-datepicker:** component implementation ([#1630](https://github.com/lyne-design-system/lyne-components/issues/1630)) ([5022195](https://github.com/lyne-design-system/lyne-components/commit/50221957565f886b48b7b2b2a2959cea6fca5000))
+
+### [0.33.3](https://github.com/lyne-design-system/lyne-components/compare/v0.33.2...v0.33.3) (2023-04-13)
+
+### Documentation
+
+- **sbb-header:** add readme section about scroll-padding-top ([#1714](https://github.com/lyne-design-system/lyne-components/issues/1714)) ([ed0de04](https://github.com/lyne-design-system/lyne-components/commit/ed0de044abb7db1526451a63bed6bad3cf77c216))
+
 ### [0.33.2](https://github.com/lyne-design-system/lyne-components/compare/v0.33.1...v0.33.2) (2023-04-13)
 
 ### Bug Fixes

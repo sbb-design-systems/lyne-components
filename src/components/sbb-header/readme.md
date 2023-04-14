@@ -16,6 +16,10 @@ attribute: in this case, the box-shadow is still set, but the component disappea
 then reappears as soon as it's scrolled up. It's also possible to bind this behaviour to something other than the `document`, 
 using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of the element to search for.
 
+To avoid that tabbed/focused elements get hidden behind the header, it's recommended to set the CSS property `scroll-padding-top` 
+of the `<html>` tag to `var(--sbb-header-height)` or a greater value. With this it's ensured that content 
+will be visible all the time.
+
 ## Style
 
 The default `z-index` of the component is set to `10`; to specify a custom stack order, the `z-index` can

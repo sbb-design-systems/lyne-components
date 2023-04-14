@@ -1,5 +1,6 @@
 import events from './sbb-menu.events';
 import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-menu', () => {
   let element: E2EElement, trigger: E2EElement, page: E2EPage;
@@ -32,9 +33,11 @@ describe('sbb-menu', () => {
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
@@ -51,9 +54,11 @@ describe('sbb-menu', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -65,9 +70,11 @@ describe('sbb-menu', () => {
     await page.keyboard.down('Escape');
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -85,9 +92,11 @@ describe('sbb-menu', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -96,9 +105,11 @@ describe('sbb-menu', () => {
 
     menuAction.triggerEvent('click');
     await page.waitForChanges();
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
@@ -116,9 +127,11 @@ describe('sbb-menu', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -128,9 +141,11 @@ describe('sbb-menu', () => {
     menuLink.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
     expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -146,9 +161,11 @@ describe('sbb-menu', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -191,9 +208,11 @@ describe('sbb-menu', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -218,9 +237,11 @@ describe('sbb-menu', () => {
     trigger.triggerEvent('click');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
@@ -250,9 +271,11 @@ describe('sbb-menu', () => {
     await page.keyboard.down('Enter');
     await page.waitForChanges();
 
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
