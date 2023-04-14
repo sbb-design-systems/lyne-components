@@ -39,6 +39,8 @@ let nextId = 0;
 export class SbbFormField implements ComponentInterface {
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER', 'SBB-TIME-INPUT'];
+  // List of elements that should not focus input on click
+  private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];
 
   /**
    * Whether to reserve space for an error message.
@@ -157,23 +159,19 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _handleWrapperClick(event: Event): void {
-    if (
-      (event.target as Element).tagName !== 'LABEL' &&
-      !this._isButton(event.target as Element) &&
-      !this._isButton(event.composedPath()[0] as Element) &&
-      !this._isPopup(event)
-    ) {
+    if ((event.target as Element).tagName !== 'LABEL' && !this._isButtonOrPopup(event)) {
       this._input?.focus();
     }
   }
 
-  private _isButton(element: Element): boolean {
-    return element.tagName === 'BUTTON' || element.getAttribute('role') === 'button';
-  }
-
-  private _isPopup(event: Event): boolean {
-    const composedPathEls = event.composedPath().filter((el) => el instanceof window.HTMLElement);
-    return composedPathEls.some((el) => (el as HTMLElement).tagName === 'SBB-TOOLTIP');
+  private _isButtonOrPopup(event: Event): boolean {
+    return event
+      .composedPath()
+      .some(
+        (el) =>
+          (el instanceof window.HTMLElement && el.getAttribute('role') === 'button') ||
+          this._excludedFocusElements.includes((el as HTMLElement).tagName)
+      );
   }
 
   private _onSlotLabelChange(): void {
