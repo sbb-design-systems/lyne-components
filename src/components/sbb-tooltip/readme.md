@@ -18,7 +18,7 @@ The tooltip can show a simple message and a close button (if the `hover-trigger`
 </sbb-tooltip>
 ```
 
-The tooltip can be disimissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page. You can also indicate that an element within the tooltip content should close the tooltip when clicked by marking it with the `sbb-tooltip-close` attribute.
+The tooltip can be dismissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page. You can also indicate that an element within the tooltip content should close the tooltip when clicked by marking it with the `sbb-tooltip-close` attribute.
 
 You can also indicate that the tooltip should be shown on hover with the property `hover-trigger` and set a custom delay for the open and close animations (defaults to 0). If hover is not supported by the current device, the component will be triggered on click/tap as default:
 
@@ -135,6 +135,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [sbb-datepicker-toggle](../sbb-datepicker-toggle)
+
 ### Depends on
 
 - [sbb-button](../sbb-button)
@@ -144,6 +148,7 @@ Type: `Promise<void>`
 graph TD;
   sbb-tooltip --> sbb-button
   sbb-button --> sbb-icon
+  sbb-datepicker-toggle --> sbb-tooltip
   style sbb-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

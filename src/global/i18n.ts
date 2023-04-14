@@ -549,6 +549,48 @@ export const i18nTomorrow: Record<string, string> = {
   it: 'Domani',
 };
 
+export const i18nNextMonth: Record<string, string> = {
+  de: 'Zum nächsten Monat wechseln',
+  en: 'Change to the next month',
+  fr: 'Passer au mois suivant',
+  it: 'Passare al mese successivo',
+};
+
+export const i18nPreviousMonth: Record<string, string> = {
+  de: 'Zum letzten Monat wechseln',
+  en: 'Change to the previous month',
+  fr: 'Passer au mois précédent',
+  it: 'Passare al mese precedente',
+};
+
+export const i18nNextDay: Record<string, string> = {
+  de: 'Nächster Tag',
+  en: 'Next day',
+  fr: 'Le prochain jour',
+  it: 'Giorno successivo',
+};
+
+export const i18nPreviousDay: Record<string, string> = {
+  de: 'Vorheriger Tag',
+  en: 'Previous day',
+  fr: 'Jour précédent',
+  it: 'Giorno precedente',
+};
+
+export const i18nShowCalendar: Record<string, string> = {
+  de: 'Kalender anzeigen',
+  en: 'Show calendar',
+  fr: 'Afficher le calendrier',
+  it: 'Visualizzare calendario',
+};
+
+export const i18nDatePickerPlaceholder: Record<string, string> = {
+  de: 'TT.MM.JJJJ',
+  en: 'DD.MM.YYYY',
+  fr: 'JJ.MM.AAAA',
+  it: 'GG.MM.AAAA',
+};
+
 export const i18nConnectionFrom: Record<string, string> = {
   de: 'Verbindung von',
   en: 'Connection from',

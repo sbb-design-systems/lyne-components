@@ -38,17 +38,49 @@
 }
 
 .sbb-tooltip-trigger {
-  @include sbb.text-inherit;
+  :host([data-icon-small]) & {
+    @include sbb.icon-button-base('sbb-icon');
+  }
 
-  display: flex;
-  cursor: pointer;
-  color: var(--sbb-tooltip-color);
+  :host(:not([data-icon-small])) & {
+    @include sbb.text-inherit;
+
+    display: flex;
+    cursor: pointer;
+    color: var(--sbb-tooltip-color);
+  }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(
+      :focus-visible:not(
+          [data-icon-small],
+          [data-focus-origin='mouse'],
+          [data-focus-origin='touch']
+        )
+    )
+    & {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-4x);
+  }
+
+  :host([data-icon-small]:is(:active, [data-active])) & {
+    @include sbb.icon-button-active;
+  }
+
+  :host([data-icon-small][disabled]:not([disabled='false'])) & {
+    @include sbb.icon-button-disabled;
+  }
+
+  :host(
+      [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+    )
+    & {
+    @include sbb.focus-outline;
+  }
+
+  :host([data-icon-small]:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
+    @include sbb.icon-button-hover;
   }
 }
 

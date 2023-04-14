@@ -1,3 +1,7 @@
+@use './a11y.scss';
+@use '../core/mediaqueries.scss';
+@use '../core/functions.scss';
+
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
 // ----------------------------------------------------------------------------------------------------
@@ -14,4 +18,108 @@
   background: none;
   -webkit-tap-highlight-color: transparent;
   color: inherit;
+}
+
+// Icon-button style in form-field
+@mixin icon-button {
+  @include icon-button-base('sbb-icon');
+
+  :host(:focus-visible) & {
+    @include a11y.focus-outline;
+  }
+
+  :host(:is([data-active], :active)) & {
+    @include icon-button-active;
+  }
+
+  :host([disabled]) & {
+    @include icon-button-disabled;
+  }
+
+  :host(:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
+    @include icon-button-hover;
+  }
+}
+
+// Default state for icon-button in form-field
+@mixin icon-button-base($icon-selector) {
+  @include button-reset;
+
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-color-default-text: var(--sbb-color-black-default);
+  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-button-inset: 0;
+  --sbb-button-transform: none;
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-cursor: pointer;
+  --sbb-button-pointer-events: unset;
+  --sbb-button-outline-offset: var(--sbb-focus-outline-offset);
+
+  position: relative;
+  display: flex;
+  height: var(--sbb-button-icon-size);
+  width: var(--sbb-button-icon-size);
+  border-radius: var(--sbb-button-border-radius);
+  cursor: var(--sbb-button-cursor);
+  pointer-events: var(--sbb-button-pointer-events);
+  background-color: transparent;
+  color: var(--sbb-button-color-default-text);
+  outline-offset: var(--sbb-button-outline-offset) !important;
+  transition-property: outline-offset;
+  transition-duration: var(--sbb-button-transition-duration);
+  transition-timing-function: var(--sbb-button-transition-easing-function);
+
+  &::before {
+    content: '';
+    background-color: var(--sbb-button-color-default-background);
+    position: absolute;
+    inset: var(--sbb-button-inset);
+    border-radius: var(--sbb-button-border-radius);
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+  }
+
+  #{$icon-selector} {
+    transition-duration: var(--sbb-button-transition-duration);
+    transition-timing-function: var(--sbb-button-transition-easing-function);
+    transform: var(--sbb-button-transform);
+  }
+}
+
+// Hover state for icon-button in form-field (exclude active state)
+@mixin icon-button-hover {
+  @include mediaqueries.hover-mq($hover: true) {
+    --sbb-button-color-default-background: var(--sbb-color-milk-default);
+    --sbb-button-transform: translateY(#{functions.px-to-rem-build(-1)});
+
+    @include a11y.if-forced-colors {
+      @include a11y.focus-outline;
+    }
+  }
+}
+
+// Disabled state for icon-button in form-field
+@mixin icon-button-disabled {
+  --sbb-button-color-default-text: var(--sbb-color-graphite-default);
+  --sbb-button-inset: 0;
+  --sbb-button-transform: none;
+  --sbb-button-color-default-background: transparent;
+  --sbb-button-cursor: unset;
+  --sbb-button-pointer-events: none;
+}
+
+// Active state for icon-button in form-field
+@mixin icon-button-active {
+  --sbb-button-color-default-background: var(--sbb-color-cloud-default);
+  --sbb-button-inset: #{functions.px-to-rem-build(1)};
+  --sbb-button-transform: translateY(0);
+  --sbb-button-outline-offset: calc(
+    var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
+  );
+
+  @include a11y.if-forced-colors {
+    @include a11y.focus-outline;
+  }
 }
