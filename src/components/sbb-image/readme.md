@@ -1,5 +1,3 @@
-# sbb-image
-
 Render an image
 Mainly from cdn.img.sbb.ch (with `imageSrc`), but we can set an external image too.
 The size can be set with `pictureSizesConfig`.

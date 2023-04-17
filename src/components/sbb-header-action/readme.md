@@ -1,5 +1,3 @@
-# sbb-header-action
-
 The component represents an action element contained by the [sbb-header](../sbb-header/readme.md) component.
 
 As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link.

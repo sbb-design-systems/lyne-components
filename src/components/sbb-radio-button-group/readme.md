@@ -1,5 +1,3 @@
-# sbb-radio-button-group
-
 Radio buttons should be used within a `sbb-radio-button-group`. 
 Pressing a radio checks it and unchecks the previously selected radio, if any. 
 They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.

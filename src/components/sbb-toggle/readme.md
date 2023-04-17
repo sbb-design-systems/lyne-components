@@ -1,4 +1,3 @@
-# sbb-toggle
 The `<sbb-toggle>` component consists of a group of related options that the user can select. 
 
 Their behavior is similar to tabs or radio buttons, where selecting an option deselects the previously selected one. The `<sbb-toggle>` component is useful for switching between views within the content.

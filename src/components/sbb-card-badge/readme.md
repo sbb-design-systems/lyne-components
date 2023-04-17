@@ -1,4 +1,4 @@
-# sbb-card-badge
+to be documented...
 
 <!-- Auto Generated Below -->
 

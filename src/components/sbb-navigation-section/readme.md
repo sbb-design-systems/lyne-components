@@ -1,5 +1,3 @@
-# sbb-navigation-section
-
 The `<sbb-navigation-section>` is a container for both [sbb-navigation-list](../sbb-navigation-list/readme.md) and [sbb-button](../sbb-button/readme.md). 
 
 Optionally a label can be provided via slot.

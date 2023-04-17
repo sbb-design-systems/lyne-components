@@ -1,4 +1,3 @@
-# sbb-dialog
 The dialog component provides a way to present content on top of the app's content and can be used
 in several contexts. The dialog offers the following features:
 

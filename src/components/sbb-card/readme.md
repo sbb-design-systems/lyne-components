@@ -1,5 +1,3 @@
-# sbb-card
-
 The `sbb-card` component is a generic content container as an action element; its task is to contain HTML elements related to a single subject.
 
 Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute).

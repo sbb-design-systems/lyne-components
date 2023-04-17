@@ -1,5 +1,3 @@
-# sbb-pearl-chain-time
-
 The `<sbb-pearl-chain-time` component adds an optional walk icon and a duration in minutes before and/or after the pearl chain. The walk time indicates, that the user has to walk to get to the destination or to the station to begin the journey.
 
 ## Usage

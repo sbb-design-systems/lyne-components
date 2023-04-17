@@ -1,5 +1,3 @@
-# sbb-alert
-
 The alert component should be used to display important messages to a client. 
 There are two sizes available and a `sbb-alert` can optionally be hidden by a user. 
 It's possible to place an action, which by clicking navigates somewhere to display more information.

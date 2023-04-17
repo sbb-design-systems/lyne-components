@@ -16,7 +16,7 @@
   "ignorePatterns": ["**/react-library/**/*"],
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": ["*.js", "*.jsx"],
       "extends": ["prettier"],
       "rules": {
         "no-unused-vars": [

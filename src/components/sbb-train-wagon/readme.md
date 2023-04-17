@@ -1,4 +1,3 @@
-# sbb-train-wagon
 A sbb-train-wagon represents a train compartment. It can be a locomotive or a wagon. It is used inside the 
 sbb-train element. 
 

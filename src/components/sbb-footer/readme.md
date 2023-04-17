@@ -1,5 +1,3 @@
-# sbb-footer
-
 The `<sbb-footer>` component is used to display page related information like copyright, contact or other 
 content related links. There are two variants of the footer. The default, which displays the slotted content in regular 
 block element approach and the clock-columns variant, which uses a css-grid for displaying the content over different 

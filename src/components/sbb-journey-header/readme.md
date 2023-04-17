@@ -1,5 +1,3 @@
-# sbb-journey-header
-
 The `sbb-journey-header` is a component used to display the journey's details.
 
 The component has two required properties, named `origin` and `destination`, which are the two ends of the journey.

@@ -1,5 +1,3 @@
-# sbb-header
-
 The `sbb-header` component is a container for actions and a logo, and it is displayed at the top of the page.
 
 It has two slots: 

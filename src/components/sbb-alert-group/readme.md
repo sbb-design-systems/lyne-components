@@ -1,5 +1,3 @@
-# sbb-alert-group
-
 The `sbb-alert-group` manages the dismissal and accessibility of alerts and also its visual gap between each other.
 
 ```html
