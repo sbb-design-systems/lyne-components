@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.5](https://github.com/lyne-design-system/lyne-components/compare/v0.33.4...v0.33.5) (2023-04-17)
+
+### Bug Fixes
+
+- **sbb-datepicker:** fix focus outline in safari on selection ([#1715](https://github.com/lyne-design-system/lyne-components/issues/1715)) ([dc3d44e](https://github.com/lyne-design-system/lyne-components/commit/dc3d44e8aa2b454d78333a267f6928b8047982d2))
+
 ### [0.33.4](https://github.com/lyne-design-system/lyne-components/compare/v0.33.3...v0.33.4) (2023-04-14)
 
 ### Features
