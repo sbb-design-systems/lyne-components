@@ -4,9 +4,9 @@ import readme from './readme.md';
 
 const Template = (args) => <__name__ {...args}></__name__>;
 
-export const story1 = Template.bind({});
+export const Story1 = Template.bind({});
 
-story1.args = {
+Story1.args = {
   'some-prop': 'opt1',
 };
 

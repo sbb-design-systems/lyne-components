@@ -1,4 +1,4 @@
-import { Fragment, h } from 'jsx-dom';
+import { h } from 'jsx-dom';
 import readme from './readme.md';
 
 const label = {
@@ -15,14 +15,12 @@ const defaultArgs = {
   label: 'Label',
 };
 
-const navigationActions = () => (
-  <Fragment>
-    <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>
-    <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
-    <sbb-navigation-action>Travel information</sbb-navigation-action>
-    <sbb-navigation-action>Help & Contact</sbb-navigation-action>
-  </Fragment>
-);
+const navigationActions = () => [
+  <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>,
+  <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>,
+  <sbb-navigation-action>Travel information</sbb-navigation-action>,
+  <sbb-navigation-action>Help & Contact</sbb-navigation-action>,
+];
 
 const style =
   'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';

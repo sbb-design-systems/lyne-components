@@ -35,11 +35,15 @@ function walk(root: string, filter: RegExp): string[] {
   }, [] as string[]);
 }
 
-async function generateChromaticStory(storyFile: string): Promise<boolean> {
+async function generateChromaticStory(
+  storyFile: string
+): Promise<'no params found' | 'disabledSnapshot configured' | undefined> {
   const content: { default: Meta } = await import(storyFile);
   const { disableSnapshot, ...chromaticParameters } = content.default?.parameters?.chromatic ?? {};
-  if (!content.default?.parameters || disableSnapshot !== undefined) {
-    return false;
+  if (!content.default?.parameters) {
+    return 'no params found';
+  } else if (disableSnapshot !== undefined) {
+    return 'disabledSnapshot configured';
   }
 
   const targetStoryFile = storyFile.replace(/(\.stories\.[^.]+)$/, (_m, m) => `.chromatic${m}`);
@@ -51,7 +55,7 @@ async function generateChromaticStory(storyFile: string): Promise<boolean> {
     .join('');
   const storyFileContent = `import config, * as stories from './${relativeImport}';
 import { combineStories } from '${chromaticImport}';
-    
+
 const meta = {
   parameters: {
     backgrounds: {
@@ -67,7 +71,7 @@ export default meta;
 export const chromaticStories = combineStories(config, stories);
 `;
   writeFileSync(targetStoryFile, storyFileContent, 'utf-8');
-  return true;
+  return undefined;
 }
 
 async function generateChromaticStories(): Promise<void> {
@@ -81,11 +85,11 @@ async function generateChromaticStories(): Promise<void> {
     }
 
     try {
-      const generated = await generateChromaticStory(storyFile);
-      if (generated) {
+      const result = await generateChromaticStory(storyFile);
+      if (!result) {
         console.log(`- ${basename(storyFile)}`);
       } else {
-        console.log(`- ${basename(storyFile)} (Skipped)`);
+        console.log(`- ${basename(storyFile)} (Skipped due to ${result})`);
       }
     } catch (e) {
       console.log(`Failed ${storyFile}`);
