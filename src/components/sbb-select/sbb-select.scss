@@ -126,7 +126,8 @@
   padding-inline: var(--sbb-spacing-fixed-2x);
 
   :host([data-multiple]:not([data-multiple='false'])) & {
-    // TBD
+    padding-block: var(--sbb-spacing-fixed-4x);
+    padding-inline: var(--sbb-spacing-fixed-4x);
   }
 
   @include sbb.if-forced-colors {

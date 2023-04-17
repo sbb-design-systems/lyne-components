@@ -63,7 +63,7 @@
   --sbb-option-justify-content: space-between;
 
   .sbb-option[data-multiple] {
-    --sbb-option-padding-inline: var(--sbb-spacing-fixed-4x);
+    --sbb-option-padding-inline: 0;
     --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
     --sbb-option-justify-content: start;
   }
