@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.7](https://github.com/lyne-design-system/lyne-components/compare/v0.33.6...v0.33.7) (2023-04-17)
+
+### Bug Fixes
+
+- don't remove mjs files for container ([d3b9db2](https://github.com/lyne-design-system/lyne-components/commit/d3b9db27cc1983986684087377df109036b1fcfd))
+
 ### [0.33.6](https://github.com/lyne-design-system/lyne-components/compare/v0.33.5...v0.33.6) (2023-04-17)
 
 ### Bug Fixes
