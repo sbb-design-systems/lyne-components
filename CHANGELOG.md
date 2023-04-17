@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.6](https://github.com/lyne-design-system/lyne-components/compare/v0.33.5...v0.33.6) (2023-04-17)
+
+### Bug Fixes
+
+- ensure .mjs files can be served in our preview image ([f234059](https://github.com/lyne-design-system/lyne-components/commit/f234059e9409ba919bacada5a1162c7f257b7e81))
+
 ### [0.33.5](https://github.com/lyne-design-system/lyne-components/compare/v0.33.4...v0.33.5) (2023-04-17)
 
 ### Bug Fixes
