@@ -209,6 +209,7 @@ export const LiberoProduct = () => (
 export const TeaserHero = () => (
   <section class="sbb-page-spacing">
     <sbb-teaser-hero
+      data-chromatic="ignore"
       class="teaser-hero"
       link-content="Learn more"
       image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
