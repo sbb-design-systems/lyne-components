@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.8](https://github.com/lyne-design-system/lyne-components/compare/v0.33.7...v0.33.8) (2023-04-17)
+
+### Bug Fixes
+
+- add support for .mjs in nginx ([1b286f3](https://github.com/lyne-design-system/lyne-components/commit/1b286f322b508eb53151c554d9b5b1e1088af28a))
+
 ### [0.33.7](https://github.com/lyne-design-system/lyne-components/compare/v0.33.6...v0.33.7) (2023-04-17)
 
 ### Bug Fixes
