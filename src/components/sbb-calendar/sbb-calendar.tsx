@@ -297,6 +297,7 @@ export class SbbCalendar implements ComponentInterface {
             data-day={dayValue}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
+            sbb-tooltip-close
           >
             {day.dayValue}
           </button>
