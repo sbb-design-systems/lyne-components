@@ -94,7 +94,7 @@
     "lyne-helper-trigger-travis": "1.0.6",
     "lyne-icons": "4.40.0",
     "minimist": "1.2.8",
-    "netlify-cli": "13.2.2",
+    "netlify-cli": "14.0.0",
     "npm-run-all": "4.1.5",
     "postcss": "8.4.22",
     "prettier": "2.8.7",
