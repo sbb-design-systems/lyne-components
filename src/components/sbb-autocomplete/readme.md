@@ -1,5 +1,3 @@
-# sbb-autocomplete
-
 The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
 
 If the component is used within a `sbb-form-field`, it will automatically connect to the native `input` as trigger

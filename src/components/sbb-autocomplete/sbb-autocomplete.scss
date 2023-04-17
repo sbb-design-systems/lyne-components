@@ -165,7 +165,7 @@
 }
 
 .sbb-autocomplete__options {
-  @include sbb.scrollbar-light;
+  @include sbb.scrollbar;
 
   background-color: var(--sbb-color-white-default);
   padding-block: var(--sbb-spacing-fixed-3x);

@@ -1,5 +1,5 @@
 import { h } from 'jsx-dom';
-import events from './sbb-autocomplete.events.ts';
+import events from './sbb-autocomplete.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
