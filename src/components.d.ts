@@ -1785,6 +1785,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbAutocompleteCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbAutocompleteElement;
+}
 export interface SbbCalendarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbCalendarElement;
