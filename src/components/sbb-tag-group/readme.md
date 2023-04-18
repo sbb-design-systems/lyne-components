@@ -1,5 +1,3 @@
-# sbb-tag-group
-
 The `<sbb-tag-group>` component is used as a container for one or multiple `<sbb-tag>` components,
 which are projected inside the unnamed slot.
 

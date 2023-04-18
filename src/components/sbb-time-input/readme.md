@@ -1,5 +1,3 @@
-# sbb-time-input
-
 The `sbb-time-input` is a component that displays the typed value as a formatted time (HH:mm).
 
 The component allows the insertion of up to 4 numbers, possibly with a separator char like `.`, `:`, `,` or `-`, 

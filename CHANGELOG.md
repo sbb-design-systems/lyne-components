@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.9](https://github.com/lyne-design-system/lyne-components/compare/v0.33.8...v0.33.9) (2023-04-18)
+
+### Bug Fixes
+
+- fix story bundling for lyne-documentation ([1e249ec](https://github.com/lyne-design-system/lyne-components/commit/1e249ecf837e54754a7f3b3208ae58582db41e8b))
+
+### [0.33.8](https://github.com/lyne-design-system/lyne-components/compare/v0.33.7...v0.33.8) (2023-04-17)
+
+### Bug Fixes
+
+- add support for .mjs in nginx ([1b286f3](https://github.com/lyne-design-system/lyne-components/commit/1b286f322b508eb53151c554d9b5b1e1088af28a))
+
+### [0.33.7](https://github.com/lyne-design-system/lyne-components/compare/v0.33.6...v0.33.7) (2023-04-17)
+
+### Bug Fixes
+
+- don't remove mjs files for container ([d3b9db2](https://github.com/lyne-design-system/lyne-components/commit/d3b9db27cc1983986684087377df109036b1fcfd))
+
+### [0.33.6](https://github.com/lyne-design-system/lyne-components/compare/v0.33.5...v0.33.6) (2023-04-17)
+
+### Bug Fixes
+
+- ensure .mjs files can be served in our preview image ([f234059](https://github.com/lyne-design-system/lyne-components/commit/f234059e9409ba919bacada5a1162c7f257b7e81))
+
+### [0.33.5](https://github.com/lyne-design-system/lyne-components/compare/v0.33.4...v0.33.5) (2023-04-17)
+
+### Bug Fixes
+
+- **sbb-datepicker:** fix focus outline in safari on selection ([#1715](https://github.com/lyne-design-system/lyne-components/issues/1715)) ([dc3d44e](https://github.com/lyne-design-system/lyne-components/commit/dc3d44e8aa2b454d78333a267f6928b8047982d2))
+
 ### [0.33.4](https://github.com/lyne-design-system/lyne-components/compare/v0.33.3...v0.33.4) (2023-04-14)
 
 ### Features

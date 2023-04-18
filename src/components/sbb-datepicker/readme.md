@@ -1,5 +1,3 @@
-# sbb-datepicker
-
 The `sbb-datepicker` component can be used together with a native input element to display the typed value 
 as a formatted date (dd.MM.yyyy). 
 

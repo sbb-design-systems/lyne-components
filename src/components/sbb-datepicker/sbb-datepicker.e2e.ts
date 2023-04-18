@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {
@@ -23,7 +24,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = await element.spyOnEvent('change');
       await input.type('20/01/2023');
       await button.focus();
-      await page.waitForChanges();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(await input.getProperty('value')).toEqual('20.01.2023');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
@@ -32,7 +33,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = await element.spyOnEvent('change');
       await input.type('20/01/12');
       await button.focus();
-      await page.waitForChanges();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(await input.getProperty('value')).toEqual('20.01.2012');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
@@ -41,7 +42,7 @@ describe('sbb-datepicker', () => {
       const changeSpy = await element.spyOnEvent('change');
       await input.type('20/01/99');
       await button.focus();
-      await page.waitForChanges();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(await input.getProperty('value')).toEqual('20.01.1999');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
@@ -59,9 +60,11 @@ describe('sbb-datepicker', () => {
       const picker = await page.find('sbb-datepicker');
       picker.setProperty('wide', true);
       await page.waitForChanges();
+      await waitForCondition(() => datePickerUpdatedSpy.events.length === 1);
       expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(1);
       picker.setProperty('dateFilter', () => null);
       await page.waitForChanges();
+      await waitForCondition(() => datePickerUpdatedSpy.events.length === 2);
       expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(2);
     });
   };

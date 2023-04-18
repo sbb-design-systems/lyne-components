@@ -1,5 +1,3 @@
-# sbb-toggle-check
-
 `<sbb-toggle-check>` provides the same functionality as a native `<input type="checkbox">`
 enhanced with the SBB Design.
 

@@ -1,5 +1,3 @@
-# sbb-train
-
 A `<sbb-train>` is a container element for one to x `<sbb-train-wagon`> or `<sbb-train-blocked-passage>`.
 It has a direction indicator with a label for the travel direction and the destination station. 
 It is used inside the sbb-train-formation element.

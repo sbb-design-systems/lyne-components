@@ -1,5 +1,3 @@
-# sbb-radio-button
-
 Use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` component in order to display a radio input within a group.
 
 ```html

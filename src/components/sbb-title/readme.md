@@ -1,5 +1,3 @@
-# sbb-title
-
 The component renders a title according to the provided `level`.
 Internally this is represented by the heading elements: h1, h2, h3, h4, h5 and h6.
 In scenarios where the visual representation needs to be different from the semantic meaning of the title level,

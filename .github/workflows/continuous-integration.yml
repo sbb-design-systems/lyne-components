@@ -75,7 +75,7 @@ jobs:
         uses: ./.github/actions/yarn-install
 
       - name: Run build
-        run: yarn build
+        run: yarn build:chromatic-stories && yarn build
       - name: Store stencil artifacts
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v3

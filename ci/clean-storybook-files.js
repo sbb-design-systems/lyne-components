@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const allowedExtensions =
-  'css, gitignore, gitkeep, html, ico, jpg, js, json, png, scss, stackblitzrc, svg, ts, txt, map'
+  'css, gitignore, gitkeep, html, ico, jpg, js, mjs, json, png, scss, stackblitzrc, svg, ts, txt, map'
     .split(/[, ]+/g)
     .map((e) => `.${e}`);
 

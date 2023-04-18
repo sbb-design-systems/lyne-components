@@ -138,10 +138,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
     this._calendarElement.resetPosition();
   }
 
-  private _close(): void {
-    this._element.shadowRoot.querySelector('sbb-tooltip')?.close();
-  }
-
   private _hasDataNow(): boolean {
     if (!this._datePickerElement) {
       return false;
@@ -196,7 +192,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
               const newDate = new Date(d.detail);
               this._calendarElement.selectedDate = newDate;
               this._datePickerElement.setValueAsDate(newDate);
-              this._close();
             }}
           />
         </sbb-tooltip>

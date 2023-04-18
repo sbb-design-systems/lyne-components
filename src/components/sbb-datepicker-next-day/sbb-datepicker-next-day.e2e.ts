@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-datepicker-next-day', () => {
   describe('standalone', () => {
@@ -28,7 +29,7 @@ describe('sbb-datepicker-next-day', () => {
 
       const changeSpy = await input.spyOnEvent('change');
       await element.click();
-      await page.waitForChanges();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
 
       expect(await input.getProperty('value')).toEqual('01.01.2023');
@@ -60,7 +61,7 @@ describe('sbb-datepicker-next-day', () => {
       expect(await input.getProperty('value')).toEqual('21-01-2023');
       const changeSpy = await input.spyOnEvent('change');
       await element.click();
-      await page.waitForChanges();
+      await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
       expect(await input.getProperty('value')).toEqual('22.01.2023');
     });

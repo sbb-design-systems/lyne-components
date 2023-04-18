@@ -1,5 +1,3 @@
-# sbb-group
-
 The `sbb-group` is a simple layout component which has several variants of color and padding.
 
 ```html

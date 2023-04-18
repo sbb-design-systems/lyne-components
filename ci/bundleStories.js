@@ -4,7 +4,7 @@ const fs = require('fs');
 const config = {
   bundleDir: './dist/collection/storybundle',
   componentsFile: 'components.json',
-  componentsGlob: './src/components/**/*[!.chromatic].stories.js',
+  componentsGlob: './src/components/**/*[!.chromatic].stories.jsx',
   indexFile: 'index.js',
   storiesFileEnding: '.stories.js',
 };
@@ -17,7 +17,6 @@ const buildFiles = (files) => {
     format: 'cjs',
     jsxFactory: 'h',
     loader: {
-      '.js': 'jsx',
       '.md': 'text',
       '.png': 'binary',
     },

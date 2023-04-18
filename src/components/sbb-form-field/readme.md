@@ -1,5 +1,3 @@
-# sbb-form-field
-
 `<sbb-form-field>` is intended to be used as a form input wrapper with label and errors.
 
 In this document, "form field" refers to the wrapper component `<sbb-form-field>` and

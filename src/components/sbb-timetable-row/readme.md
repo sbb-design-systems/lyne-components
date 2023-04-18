@@ -1,5 +1,3 @@
-# sbb-timetable-row
-
 The `<sbb-timetable-row>` component displays a journey. The whole component is clickable and therefore emits a click-event. 
 A Journey consists of various icons that display information about the means of transport, 
 the occupancy in the first and second class, the most important warning for the trip and travel hints. 

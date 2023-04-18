@@ -86,7 +86,7 @@ function isKeyboardEvent(event): event is KeyboardEvent {
 // TODO: Improve detection
 export function detectFocusOrigin(event: Event): SbbFocusOrigin {
   if (isMouseEvent(event) && !isPointerEvent(event)) {
-    return 'mouse';
+    return event.detail === 0 ? 'keyboard' : 'mouse';
   } else if (isKeyboardEvent(event) || (isPointerEvent(event) && event.pointerId === -1)) {
     return 'keyboard';
   } else if (isPointerEvent(event) && event.pointerType === 'touch') {

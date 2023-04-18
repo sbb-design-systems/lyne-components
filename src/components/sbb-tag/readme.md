@@ -1,5 +1,3 @@
-# sbb-tag
-
 The `sbb-tag` is a component that can be used as a filter in order to categorize a large amount of information.
 It's intended to be used inside an `<sbb-tag-group>`.
 
