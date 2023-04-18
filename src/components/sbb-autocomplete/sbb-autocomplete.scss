@@ -109,7 +109,7 @@
 }
 
 .sbb-autocomplete__options {
-  @include sbb.scrollbar-light;
+  @include sbb.scrollbar;
   @include sbb.optionsOverlay;
 
   @include sbb.if-forced-colors {

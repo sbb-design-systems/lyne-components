@@ -119,7 +119,7 @@
 }
 
 .sbb-select__options {
-  @include sbb.scrollbar-light;
+  @include sbb.scrollbar;
   @include sbb.optionsOverlay;
 
   padding-block: var(--sbb-spacing-fixed-2x);

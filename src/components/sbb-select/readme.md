@@ -1,5 +1,3 @@
-# sbb-select
-
 The `sbb-select` is a component which provides a list of selectable options in an overlay panel, 
 emulating the behaviour of a native `select`. 
 

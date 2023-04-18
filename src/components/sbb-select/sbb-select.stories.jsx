@@ -1,4 +1,4 @@
-import events from './sbb-select.events.ts';
+import events from './sbb-select.events';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
@@ -402,6 +402,7 @@ export default {
       </div>
     ),
   ],
+  chromatic: { disableSnapshot: false },
   parameters: {
     actions: {
       handles: [events.change, events.didClose, events.didOpen, events.willClose, events.willOpen],
