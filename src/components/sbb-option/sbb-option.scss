@@ -15,6 +15,7 @@
   --sbb-option-justify-content: start;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
+  --sbb-option-border-radius: var(--sbb-border-radius-4x);
 }
 
 :host([active]:not([active='false'])) {
@@ -64,8 +65,13 @@
 
   .sbb-option[data-multiple] {
     --sbb-option-padding-inline: 0;
+    --sbb-option-padding-block: 0;
     --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
     --sbb-option-justify-content: start;
+    --sbb-option-border-radius: var(--sbb-spacing-fixed-1x);
+    --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
+
+    margin-block-end: var(--sbb-spacing-fixed-3x);
   }
 }
 
@@ -86,7 +92,7 @@
   :host([active]:not([active='false'])) & {
     @include sbb.focus-outline;
 
-    border-radius: var(--sbb-border-radius-4x);
+    border-radius: var(--sbb-option-border-radius);
   }
 }
 
