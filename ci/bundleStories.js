@@ -6,7 +6,7 @@ const config = {
   componentsFile: 'components.json',
   componentsGlob: './src/components/**/*[!.chromatic].stories.jsx',
   indexFile: 'index.js',
-  storiesFileEnding: '.stories.jsx',
+  storiesFileEnding: '.stories.js',
 };
 
 const buildFiles = (files) => {
