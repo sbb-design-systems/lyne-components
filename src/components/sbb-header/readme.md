@@ -75,7 +75,7 @@ The examples below shows how to use the component (with shadow on).
 <sbb-header shadow="true">
   <sbb-header-action
     icon-name="hamburger-menu-small"
-    href="https://lyne-icons.netlify.app/icons/hamburger-menu-small.svg"
+    href="https://sbb.ch/somewhere"
     target="_blank"
   >
     Menu

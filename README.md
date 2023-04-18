@@ -1,5 +1,3 @@
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release) [![codecov](https://codecov.io/gh/lyne-design-system/lyne-components/branch/master/graph/badge.svg)](https://codecov.io/gh/lyne-design-system/lyne-components) [![Lyne Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://lyne-components-storybook.netlify.com) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/lyne-design-system/lyne-components?label=release) [![license: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
 <h1 align="center">
   Lyne Components
 </h1>
@@ -34,7 +32,7 @@ Android: Android Accessibility Suite (formerly TalkBack) with Chrome.
 
 ## ⛩️ Storybook
 
-The latest still **🧪 experimental** version of the Storybook component browser for _Lyne Components_ can be found [here](https://lyne-components-storybook.netlify.com).
+The latest still **🧪 experimental** version of the Storybook component browser for _Lyne Components_ can be found [here](https://lyne-storybook.app.sbb.ch/).
 
 ## 🍱 npm
 
@@ -55,9 +53,3 @@ See our [contributing guide](/.github/CONTRIBUTING.md) and check also our [code 
 ## 📝 License
 
 This software is published by SBB-CFF-FFS under the [MIT](/LICENSE) licence and unsupported unless otherwise clearly stated. Use at your own risk.
-
-## 🕶️ Hall of Fame
-
-[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/0)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/0)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/1)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/1)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/2)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/2)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/3)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/3)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/4)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/4)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/5)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/5)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/6)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/6)[![](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/images/7)](https://sourcerer.io/fame/lyne-admin/lyne-design-system/lyne-components/links/7)
-
-Built with https://sourcerer.io/

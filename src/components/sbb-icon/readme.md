@@ -3,7 +3,7 @@ The component will dynamically load an SVG for each icon, avoiding multiple requ
 The icon components are not tied to specific icon sets; you can register custom namespaces
 and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`. 
 Note that if you do not provide a namespace, the default namespace will be used 
-pointing to the [SBB Icons CDN](https://lyne-icons.netlify.app/). 
+pointing to the `SBB Icons CDN` (Work in progress). 
 
 ## Usage
 

@@ -1,11 +1,12 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
-import chevronIcon from 'lyne-icons/dist/icons/chevron-small-down-small.svg';
 import events from './sbb-accordion-item.events';
 import { guid } from './guid';
 import { InterfaceAccordionItemAttributes } from './sbb-accordion-item.custom';
 import { SbbTypoScaleDefault } from '@sbb-esta/lyne-design-tokens';
 
 const iconSlotName = 'icon';
+const chevronIcon =
+  '<svg width="24" height="24" viewBox="0,0,24,24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m11.6406,14.6513-3.90403-3.95.71124-.70298,3.54849,3.59028,3.5484-3.5884.711.7032-3.904,3.948-.3556.3596-.3555-.3597z"/></svg>';
 
 /**
  * @slot icon - Pass an svg to display an icon left to the title.
