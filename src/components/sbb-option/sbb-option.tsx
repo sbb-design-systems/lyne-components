@@ -245,7 +245,6 @@ export class SbbOption implements ComponentInterface {
         <span class="sbb-option__label">
           <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
           {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
-
           {this._inertAriaGroups && this._groupLabel && (
             <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
           )}
@@ -266,6 +265,9 @@ export class SbbOption implements ComponentInterface {
         )}
         <span class="sbb-option__label">
           <slot />
+          {this._inertAriaGroups && this._groupLabel && (
+            <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
+          )}
         </span>
         {!isMultiple && this.selected && <sbb-icon name="tick-small" />}
       </div>
