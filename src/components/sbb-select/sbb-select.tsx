@@ -114,7 +114,6 @@ export class SbbSelect implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-    toggleDatasetEntry(this._originElement, 'overlayOpen', true);
   }
 
   /** Closes the selection panel. */
@@ -123,7 +122,6 @@ export class SbbSelect implements ComponentInterface {
       return;
     }
 
-    toggleDatasetEntry(this._originElement, 'overlayOpen', false);
     this._state = 'closing';
     this.willClose.emit();
     this._openPanelEventsController.abort();
@@ -140,12 +138,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   @Listen('option-click')
-  public onOptionClick(event: CustomEvent<SbbOptionEventData>): void {
-    const clickedOption: HTMLSbbOptionElement = this._filteredOptions.find(
-      (option) => option.id === event.detail.id
-    );
-    this._setActiveElement(clickedOption, this._filteredOptions[this._activeItemIndex]);
-    this._activeItemIndex = this._filteredOptions.findIndex((option) => option === clickedOption);
+  public onOptionClick(): void {
     if (!this.multiple) {
       this.close();
     }
@@ -207,7 +200,6 @@ export class SbbSelect implements ComponentInterface {
       this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#form-field-wrapper') ||
       this._element.parentElement;
     if (this._originElement) {
-      toggleDatasetEntry(this._originElement, 'overlayOpen', false);
       toggleDatasetEntry(
         this._element,
         'optionPanelOriginBorderless',
@@ -244,14 +236,17 @@ export class SbbSelect implements ComponentInterface {
       this._onKeydownEvent.bind(this)
     );
     this._triggerElement.setAttribute('aria-expanded', 'true');
+
+    if (this._activeItemIndex !== -1) {
+      this._setActiveElement(this._filteredOptions[this._activeItemIndex]);
+    }
+
     this.didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
-    this._openPanelEventsController?.abort();
     this._triggerElement.setAttribute('aria-expanded', 'false');
-    toggleDatasetEntry(this._originElement, 'overlayOpen', false);
     this._triggerElement.removeAttribute('aria-activedescendant');
     this._optionContainer.scrollTop = 0;
     if (this.multiple) {
@@ -274,6 +269,18 @@ export class SbbSelect implements ComponentInterface {
         this.value = [...this.value, optionSelectionChange.value];
       }
     }
+
+    // Set option as active
+    const selectedOption: HTMLSbbOptionElement = this._filteredOptions.find(
+      (option) => option.id === optionSelectionChange.id
+    );
+    this._setActiveElement(
+      selectedOption,
+      this._filteredOptions[this._activeItemIndex],
+      this._state === 'opened'
+    );
+    this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selectedOption);
+
     this.input.emit();
     this.change.emit();
   }
@@ -439,11 +446,15 @@ export class SbbSelect implements ComponentInterface {
 
   private _setActiveElement(
     nextActiveOption: HTMLSbbOptionElement,
-    lastActiveOption: HTMLSbbOptionElement
+    lastActiveOption: HTMLSbbOptionElement = null,
+    setActiveDescendant = true
   ): void {
     nextActiveOption.active = true;
-    this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
+
+    if (setActiveDescendant) {
+      this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+    }
 
     // Reset the previous
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
@@ -480,7 +491,6 @@ export class SbbSelect implements ComponentInterface {
     if (!this.multiple) {
       const selectedOption = this._filteredOptions.find((option) => option.selected);
       if (selectedOption) {
-        this._setActiveElement(selectedOption, this._filteredOptions[this._activeItemIndex]);
         this._activeItemIndex = this._filteredOptions.findIndex(
           (option) => option === selectedOption
         );
