@@ -201,7 +201,7 @@ const textBlock = () => {
   return (
     <div style={textBlockStyle}>
       This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
-      it must always be covered by the autocomplete overlay.
+      it must always be covered by the select overlay.
     </div>
   );
 };
