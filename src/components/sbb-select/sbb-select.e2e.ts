@@ -1,6 +1,7 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-select.events';
 import optEvents from '../sbb-option/sbb-option.events';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-select', () => {
   let element: E2EElement, focusableElement: E2EElement, comboBoxElement: E2EElement, page: E2EPage;
@@ -56,9 +57,11 @@ describe('sbb-select', () => {
     const didClose = await page.spyOnEvent(events.didClose);
     await element.triggerEvent('click');
     await page.waitForChanges();
+    await waitForCondition(() => willOpen.events.length === 1);
 
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 1);
 
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
@@ -67,9 +70,11 @@ describe('sbb-select', () => {
 
     await element.triggerEvent('click');
     await page.waitForChanges();
+    await waitForCondition(() => willClose.events.length === 1);
 
     expect(willClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+    await waitForCondition(() => didClose.events.length === 1);
 
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
@@ -97,8 +102,10 @@ describe('sbb-select', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     await element.triggerEvent('click');
     await page.waitForChanges();
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     expect(await element.getProperty('value')).toEqual('1');
@@ -123,8 +130,10 @@ describe('sbb-select', () => {
       value: '2',
     });
     await page.waitForChanges();
+    await waitForCondition(() => willClose.events.length === 1);
     expect(willClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+    await waitForCondition(() => didClose.events.length === 1);
     expect(didClose).toHaveReceivedEventTimes(1);
     expect(await element.getProperty('value')).toEqual('2');
     expect(comboBoxElement).toEqualAttribute('aria-expanded', 'false');
@@ -138,8 +147,10 @@ describe('sbb-select', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     await element.triggerEvent('click');
     await page.waitForChanges();
+    await waitForCondition(() => willOpen.events.length === 1);
     expect(willOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
@@ -184,18 +195,22 @@ describe('sbb-select', () => {
 
     await focusableElement.press('Enter');
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     await focusableElement.press('Escape');
     await page.waitForChanges();
+    await waitForCondition(() => didClose.events.length === 1);
     expect(didClose).toHaveReceivedEventTimes(1);
 
     await focusableElement.press('ArrowDown');
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 2);
     expect(didOpen).toHaveReceivedEventTimes(2);
 
     await focusableElement.press('Tab');
     await page.waitForChanges();
+    await waitForCondition(() => didClose.events.length === 2);
     expect(didClose).toHaveReceivedEventTimes(2);
 
     await focusableElement.press('1', { delay: 2000 });
@@ -215,6 +230,7 @@ describe('sbb-select', () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     await focusableElement.press(' ');
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
@@ -255,6 +271,7 @@ describe('sbb-select', () => {
     const didClose = await page.spyOnEvent(events.didClose);
     await focusableElement.press('ArrowUp');
     await page.waitForChanges();
+    await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
@@ -270,6 +287,7 @@ describe('sbb-select', () => {
     expect(displayValue).toEqualText('2');
     await focusableElement.press('Escape');
     await page.waitForChanges();
+    await waitForCondition(() => didClose.events.length === 1);
     expect(didClose).toHaveReceivedEventTimes(1);
 
     await element.press('ArrowDown');
