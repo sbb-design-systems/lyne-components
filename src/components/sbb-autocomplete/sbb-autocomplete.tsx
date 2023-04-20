@@ -14,6 +14,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
+import { assignId } from '../../global/helpers/assign-id';
 import {
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
@@ -480,7 +481,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host data-state={this._state}>
+      <Host role="listbox" data-state={this._state} ref={assignId(() => this._overlayId)}>
         <div class="sbb-autocomplete__gap-fix"></div>
         <div class="sbb-autocomplete__container">
           <div class="sbb-autocomplete__gap-fix">{overlayGapFixCorners()}</div>
@@ -492,9 +493,7 @@ export class SbbAutocomplete implements ComponentInterface {
           >
             <div class="sbb-autocomplete__wrapper">
               <div
-                id={this._overlayId}
                 class="sbb-autocomplete__options"
-                role="listbox"
                 ref={(containerRef) => (this._optionContainer = containerRef)}
               >
                 <slot />
