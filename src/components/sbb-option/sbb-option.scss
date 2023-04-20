@@ -88,6 +88,7 @@
   justify-content: var(--sbb-option-justify-content);
   color: var(--sbb-option-color);
   cursor: var(--sbb-option-cursor);
+  -webkit-tap-highlight-color: transparent;
 
   :host([active]:not([active='false'])) & {
     @include sbb.focus-outline;
