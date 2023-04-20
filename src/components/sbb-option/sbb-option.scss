@@ -56,22 +56,18 @@
 }
 
 :host([data-variant='select']) {
-  @include sbb.text-xs--regular;
+  @include sbb.text-s--regular;
 
-  --sbb-option-padding-inline: var(--sbb-spacing-fixed-3x);
-  --sbb-option-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   --sbb-option-column-gap: var(--sbb-spacing-fixed-3x);
   --sbb-option-justify-content: space-between;
 
   .sbb-option[data-multiple] {
-    --sbb-option-padding-inline: 0;
-    --sbb-option-padding-block: 0;
     --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
     --sbb-option-justify-content: start;
     --sbb-option-border-radius: var(--sbb-spacing-fixed-1x);
     --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
-
-    margin-block-end: var(--sbb-spacing-fixed-3x);
   }
 }
 
