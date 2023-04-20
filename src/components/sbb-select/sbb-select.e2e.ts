@@ -3,7 +3,7 @@ import events from './sbb-select.events';
 import optEvents from '../sbb-option/sbb-option.events';
 
 describe('sbb-select', () => {
-  let element: E2EElement, parentElement: E2EElement, page: E2EPage;
+  let element: E2EElement, focusableElement: E2EElement, comboBoxElement: E2EElement, page: E2EPage;
 
   beforeEach(async () => {
     page = await newE2EPage();
@@ -17,8 +17,9 @@ describe('sbb-select', () => {
       </div>
     `);
 
-    parentElement = await page.find('#parent');
     element = await page.find('sbb-select');
+    comboBoxElement = await page.find('[role="combobox"]');
+    focusableElement = comboBoxElement;
     await page.waitForChanges();
   });
 
@@ -62,8 +63,7 @@ describe('sbb-select', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(parentElement).toEqualAttribute('data-overlay-open', '');
-    expect(element).toEqualAttribute('aria-expanded', 'true');
+    expect(comboBoxElement).toEqualAttribute('aria-expanded', 'true');
 
     await element.triggerEvent('click');
     await page.waitForChanges();
@@ -74,8 +74,7 @@ describe('sbb-select', () => {
     expect(didClose).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
 
-    expect(parentElement).toEqualAttribute('data-overlay-open', null);
-    expect(element).toEqualAttribute('aria-expanded', 'false');
+    expect(comboBoxElement).toEqualAttribute('aria-expanded', 'false');
   });
 
   it('handles selection', async () => {
@@ -90,6 +89,8 @@ describe('sbb-select', () => {
       </div>
     `);
     element = await page.find('sbb-select');
+    comboBoxElement = await page.find('[role="combobox"]');
+    focusableElement = comboBoxElement;
     await page.waitForChanges();
 
     const willOpen = await page.spyOnEvent(events.willOpen);
@@ -101,7 +102,7 @@ describe('sbb-select', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     expect(await element.getProperty('value')).toEqual('1');
-    expect(element).toEqualAttribute('aria-activedescendant', 'option-1');
+    expect(comboBoxElement).toEqualAttribute('aria-activedescendant', 'option-1');
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
     expect(firstOption).toHaveAttribute('active');
     expect(firstOption).toHaveAttribute('selected');
@@ -126,8 +127,7 @@ describe('sbb-select', () => {
     await page.waitForChanges();
     expect(didClose).toHaveReceivedEventTimes(1);
     expect(await element.getProperty('value')).toEqual('2');
-    expect(parentElement).toEqualAttribute('data-overlay-open', null);
-    expect(element).toEqualAttribute('aria-expanded', 'false');
+    expect(comboBoxElement).toEqualAttribute('aria-expanded', 'false');
   });
 
   it('handles selection in multiple', async () => {
@@ -175,37 +175,36 @@ describe('sbb-select', () => {
     await page.waitForChanges();
     expect(await element.getProperty('value')).toEqual([]);
     // Panel is still open
-    expect(parentElement).toEqualAttribute('data-overlay-open', '');
-    expect(element).toEqualAttribute('aria-expanded', 'true');
+    expect(comboBoxElement).toEqualAttribute('aria-expanded', 'true');
   });
 
   it('handles keypress on host', async () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
     const didClose = await page.spyOnEvent(events.didClose);
 
-    await element.press('Enter');
+    await focusableElement.press('Enter');
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
 
-    await element.press('Escape');
+    await focusableElement.press('Escape');
     await page.waitForChanges();
     expect(didClose).toHaveReceivedEventTimes(1);
 
-    await element.press('ArrowDown');
+    await focusableElement.press('ArrowDown');
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(2);
 
-    await element.press('Tab');
+    await focusableElement.press('Tab');
     await page.waitForChanges();
     expect(didClose).toHaveReceivedEventTimes(2);
 
-    await element.press('1', { delay: 2000 });
+    await focusableElement.press('1', { delay: 2000 });
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(2);
     expect(didClose).toHaveReceivedEventTimes(2);
     expect(await page.find('sbb-select >>> .sbb-select__trigger')).toEqualText('1');
 
-    await element.press('2', { delay: 2000 });
+    await focusableElement.press('2', { delay: 2000 });
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(2);
     expect(didClose).toHaveReceivedEventTimes(2);
@@ -214,7 +213,7 @@ describe('sbb-select', () => {
 
   it('handles keyboard selection', async () => {
     const didOpen = await page.spyOnEvent(events.didOpen);
-    await element.press(' ');
+    await focusableElement.press(' ');
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
 
@@ -222,16 +221,15 @@ describe('sbb-select', () => {
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
     expect(firstOption).not.toHaveAttribute('active');
     expect(firstOption).not.toHaveAttribute('selected');
-    await element.press('ArrowDown');
+    await focusableElement.press('ArrowDown');
     expect(firstOption).toHaveAttribute('active');
     expect(firstOption).toHaveAttribute('selected');
     expect(await element.getProperty('value')).toEqual('1');
     expect(displayValue).toEqualText('1');
-    expect(parentElement).toEqualAttribute('data-overlay-open', '');
-    expect(element).toEqualAttribute('aria-expanded', 'true');
+    expect(comboBoxElement).toEqualAttribute('aria-expanded', 'true');
 
     const thirdOption = await page.find('sbb-select > sbb-option#option-3');
-    await element.press('3', { delay: 2000 });
+    await focusableElement.press('3', { delay: 2000 });
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
     expect(displayValue).toEqualText('3');
@@ -240,7 +238,7 @@ describe('sbb-select', () => {
     expect(await element.getProperty('value')).toEqual('3');
 
     const secondOption = await page.find('sbb-select > sbb-option#option-2');
-    await element.press('2', { delay: 2000 });
+    await focusableElement.press('2', { delay: 2000 });
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
     expect(displayValue).toEqualText('2');
@@ -255,7 +253,7 @@ describe('sbb-select', () => {
 
     const didOpen = await page.spyOnEvent(events.didOpen);
     const didClose = await page.spyOnEvent(events.didClose);
-    await element.press('ArrowUp');
+    await focusableElement.press('ArrowUp');
     await page.waitForChanges();
     expect(didOpen).toHaveReceivedEventTimes(1);
 
@@ -263,14 +261,14 @@ describe('sbb-select', () => {
     const secondOption = await page.find('sbb-select > sbb-option#option-2');
     expect(secondOption).not.toHaveAttribute('active');
     expect(secondOption).not.toHaveAttribute('selected');
-    await element.press('ArrowDown');
-    await element.press('ArrowDown');
-    await element.press('Enter');
+    await focusableElement.press('ArrowDown');
+    await focusableElement.press('ArrowDown');
+    await focusableElement.press('Enter');
     expect(secondOption).toHaveAttribute('active');
     expect(secondOption).toHaveAttribute('selected');
     expect(await element.getProperty('value')).toEqual(['2']);
     expect(displayValue).toEqualText('2');
-    await element.press('Escape');
+    await focusableElement.press('Escape');
     await page.waitForChanges();
     expect(didClose).toHaveReceivedEventTimes(1);
 
@@ -279,7 +277,6 @@ describe('sbb-select', () => {
     expect(didOpen).toHaveReceivedEventTimes(2);
     expect(secondOption).not.toHaveAttribute('active');
     expect(secondOption).toHaveAttribute('selected');
-    expect(parentElement).toEqualAttribute('data-overlay-open', '');
-    expect(element).toEqualAttribute('aria-expanded', 'true');
+    expect(comboBoxElement).toEqualAttribute('aria-expanded', 'true');
   });
 });

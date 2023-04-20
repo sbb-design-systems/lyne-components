@@ -15,17 +15,9 @@ describe('sbb-select', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-select aria-autocomplete="none"
-                  aria-controls="sbb-select-1"
-                  aria-expanded="false"
-                  aria-required="false"
-                  aria-haspopup="listbox"
-                  aria-owns="sbb-select-1"
-                  data-state="closed"
-                  role="combobox"
-                  tabindex="0">
+      <sbb-select data-state="closed">
         <mock:shadow-root>
-          <div class="sbb-select__trigger">
+          <div class="sbb-select__trigger" aria-hidden="true">
             <span class="sbb-select__trigger--placeholder"></span>
           </div>
           <div class="sbb-select__gap-fix"></div>
@@ -68,19 +60,11 @@ describe('sbb-select', () => {
 
     expect(root).toEqualHtml(`
       <sbb-select data-state="closed"
-                  role="combobox"
                   multiple=""
-                  aria-autocomplete="none"
-                  aria-controls="sbb-select-2"
-                  aria-expanded="false"
-                  aria-required="false"
-                  aria-haspopup="listbox"
-                  aria-owns="sbb-select-2"
                   data-multiple
-                  data-state="closed"
-                  tabindex="0">
+                  data-state="closed">
         <mock:shadow-root>
-          <div class="sbb-select__trigger">
+          <div class="sbb-select__trigger" aria-hidden="true">
             <span class="sbb-select__trigger--placeholder"></span>
           </div>
           <div class="sbb-select__gap-fix"></div>

@@ -163,6 +163,7 @@ export class SbbSelect implements ComponentInterface {
   private _dialog: HTMLElement;
   private _optionContainer: HTMLElement;
   private _originElement: HTMLElement;
+  private _triggerElement: HTMLElement;
   private _openPanelEventsController: AbortController;
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
@@ -184,6 +185,7 @@ export class SbbSelect implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._setupOrigin();
+    this._setupTrigger();
     this._didLoad = true;
   }
 
@@ -195,6 +197,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
+    this._triggerElement?.remove();
     this._openPanelEventsController?.abort();
   }
 
@@ -211,6 +214,14 @@ export class SbbSelect implements ComponentInterface {
         this._element.closest('sbb-form-field')?.hasAttribute('borderless')
       );
     }
+  }
+
+  /**
+   * To assess screen-readers problems caused by the interaction between aria patterns and shadow DOM,
+   * we are forced to move the 'combobox' element to the light DOM
+   */
+  private _setupTrigger(): void {
+    this._element.parentElement.appendChild(this._triggerElement);
   }
 
   private _setOverlayPosition(): void {
@@ -232,16 +243,16 @@ export class SbbSelect implements ComponentInterface {
       this._onBackdropClick.bind(this),
       this._onKeydownEvent.bind(this)
     );
-    this._element.setAttribute('aria-expanded', 'true');
+    this._triggerElement.setAttribute('aria-expanded', 'true');
     this.didOpen.emit();
   }
 
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
     this._openPanelEventsController?.abort();
-    this._element.setAttribute('aria-expanded', 'false');
+    this._triggerElement.setAttribute('aria-expanded', 'false');
     toggleDatasetEntry(this._originElement, 'overlayOpen', false);
-    this._element.removeAttribute('aria-activedescendant');
+    this._triggerElement.removeAttribute('aria-activedescendant');
     this._optionContainer.scrollTop = 0;
     if (this.multiple) {
       this._resetActiveElement();
@@ -278,7 +289,7 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _onHostKeydown(event): void {
+  private _onTriggerElementKeydown(event): void {
     if (this.disabled || this.readonly || this._state !== 'closed') {
       return;
     }
@@ -431,7 +442,7 @@ export class SbbSelect implements ComponentInterface {
     lastActiveOption: HTMLSbbOptionElement
   ): void {
     nextActiveOption.active = true;
-    this._element.setAttribute('aria-activedescendant', nextActiveOption.id);
+    this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous
@@ -491,6 +502,7 @@ export class SbbSelect implements ComponentInterface {
     if (this.disabled || this.readonly) {
       return;
     }
+    this._triggerElement?.focus();
 
     switch (this._state) {
       case 'opened': {
@@ -509,24 +521,32 @@ export class SbbSelect implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host
-        role="combobox"
-        aria-autocomplete="none"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        aria-required={this.required.toString()}
-        aria-controls={this._overlayId}
-        aria-owns={this._overlayId}
         data-state={this._state}
         data-multiple={this.multiple}
-        onKeydown={(event) => this._onHostKeydown(event)}
         onClick={() => this._toggleOpening()}
-        tabindex="0"
       >
-        <div class="sbb-select__trigger">
+        {/* This element is visually hidden and will be appended to the light DOM to allow screen readers to work properly */}
+        <div
+          class="sbb-screen-reader-only"
+          tabindex="0"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-required={this.required.toString()}
+          aria-controls={this._overlayId}
+          ref={(ref) => (this._triggerElement = ref)}
+          onKeyDown={(event) => this._onTriggerElementKeydown(event)}
+        >
+          {this._displayValue ?? <span>{this.placeholder}</span>}
+        </div>
+
+        {/* Visually display the value */}
+        <div class="sbb-select__trigger" aria-hidden="true">
           {this._displayValue ?? (
             <span class="sbb-select__trigger--placeholder">{this.placeholder}</span>
           )}
         </div>
+
         <div class="sbb-select__gap-fix"></div>
         <div class="sbb-select__container">
           <div class="sbb-select__gap-fix">{overlayGapFixCorners()}</div>
