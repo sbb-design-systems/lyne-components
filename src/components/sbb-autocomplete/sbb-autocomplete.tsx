@@ -24,6 +24,7 @@ import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { isSafari } from '../../global/helpers/platform';
 
 let nextId = 0;
 
@@ -101,6 +102,9 @@ export class SbbAutocomplete implements ComponentInterface {
   private _overlayId = `sbb-autocomplete-${++nextId}`;
   private _activeItemIndex = -1;
   private _didLoad = false;
+
+  // TODO: On Safari, the aria role 'listbox' must be on the host element or else VoiceOver won't read option groups
+  private _ariaRoleOnHost = isSafari();
 
   private get _options(): HTMLSbbOptionElement[] {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
@@ -481,7 +485,11 @@ export class SbbAutocomplete implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="listbox" data-state={this._state} ref={assignId(() => this._overlayId)}>
+      <Host
+        data-state={this._state}
+        role={this._ariaRoleOnHost ? 'listbox' : null}
+        ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
+      >
         <div class="sbb-autocomplete__gap-fix"></div>
         <div class="sbb-autocomplete__container">
           <div class="sbb-autocomplete__gap-fix">{overlayGapFixCorners()}</div>
@@ -495,6 +503,8 @@ export class SbbAutocomplete implements ComponentInterface {
               <div
                 class="sbb-autocomplete__options"
                 ref={(containerRef) => (this._optionContainer = containerRef)}
+                role={!this._ariaRoleOnHost ? 'listbox' : null}
+                id={!this._ariaRoleOnHost ? this._overlayId : null}
               >
                 <slot />
               </div>
