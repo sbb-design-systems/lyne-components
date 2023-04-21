@@ -23,6 +23,8 @@ import {
 } from '../../global/helpers/overlay-option-panel';
 import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { isSafari } from '../../global/helpers/platform';
+import { assignId } from '../../global/helpers/assign-id';
 
 let nextId = 0;
 
@@ -163,6 +165,9 @@ export class SbbSelect implements ComponentInterface {
   private _searchTimeout: ReturnType<typeof setTimeout>;
   private _searchString = '';
   private _didLoad = false;
+
+  // TODO: On Safari, the aria role 'listbox' must be on the host element or else VoiceOver won't read option groups
+  private _ariaRoleOnHost = isSafari();
 
   /** Gets all the HTMLSbbOptionElement projected in the select. */
   private get _options(): HTMLSbbOptionElement[] {
@@ -537,6 +542,8 @@ export class SbbSelect implements ComponentInterface {
       <Host
         data-state={this._state}
         data-multiple={this.multiple}
+        role={this._ariaRoleOnHost ? 'listbox' : null}
+        ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
         onClick={() => this._toggleOpening()}
       >
         {/* This element is visually hidden and will be appended to the light DOM to allow screen readers to work properly */}
@@ -548,6 +555,7 @@ export class SbbSelect implements ComponentInterface {
           aria-expanded="false"
           aria-required={this.required.toString()}
           aria-controls={this._overlayId}
+          aria-owns={this._overlayId}
           ref={(ref) => (this._triggerElement = ref)}
           onKeyDown={(event) => this._onTriggerElementKeydown(event)}
         >
@@ -572,10 +580,10 @@ export class SbbSelect implements ComponentInterface {
           >
             <div class="sbb-select__wrapper">
               <div
-                id={this._overlayId}
-                aria-multiselectable={this.multiple}
-                role="listbox"
+                id={!this._ariaRoleOnHost ? this._overlayId : null}
                 class="sbb-select__options"
+                role={!this._ariaRoleOnHost ? 'listbox' : null}
+                aria-multiselectable={this.multiple}
                 ref={(containerRef) => (this._optionContainer = containerRef)}
               >
                 <slot onSlotchange={(): void => this._setValueFromSelectedOption()}></slot>

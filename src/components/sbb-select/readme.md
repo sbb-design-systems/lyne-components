@@ -23,6 +23,7 @@ the current value can be read from `event.target.value`.
 ### Usage
 
 Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
+
 ```html
 <sbb-form-field label="Drinks">
   <sbb-select>
@@ -34,6 +35,7 @@ Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
 ```
 
 Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-option-group`:
+
 ```html
 <sbb-form-field label="Electronic devices">
   <sbb-select multiple>
@@ -51,6 +53,7 @@ Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-option-grou
 ```
 
 Required `sbb-select` inside a `sbb-form-field`:
+
 ```html
 <sbb-form-field label="Pick one:">
   <sbb-select placeholder="1st gen starters">
