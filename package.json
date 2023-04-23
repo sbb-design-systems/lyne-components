@@ -103,7 +103,7 @@
     "storybook": "7.0.6",
     "storybook-addon-breakpoints": "1.0.0",
     "style-loader": "3.3.2",
-    "stylelint": "15.5.0",
+    "stylelint": "15.6.0",
     "stylelint-config-prettier-scss": "0.0.1",
     "stylelint-config-standard-scss": "7.0.1",
     "stylelint-scss": "4.6.0",
