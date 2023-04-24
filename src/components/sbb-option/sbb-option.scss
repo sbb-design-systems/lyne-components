@@ -28,6 +28,10 @@
   }
 }
 
+:host(:active:not([disabled]:not([disabled='false']), [data-group-disabled])) {
+  --sbb-option-bg-color: var(--sbb-color-cloud-default);
+}
+
 // if the highlight is enabled, hide the slot content
 :host(:not([data-disable-highlight])),
 :host([data-disable-highlight='false']) {
@@ -66,8 +70,6 @@
   .sbb-option[data-multiple] {
     --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
     --sbb-option-justify-content: start;
-    --sbb-option-border-radius: var(--sbb-spacing-fixed-1x);
-    --sbb-focus-outline-offset: var(--sbb-spacing-fixed-1x);
   }
 }
 

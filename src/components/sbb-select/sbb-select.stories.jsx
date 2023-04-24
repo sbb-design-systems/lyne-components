@@ -347,6 +347,16 @@ FormFieldMultipleSelectGroup.argTypes = defaultArgTypes;
 FormFieldMultipleSelectGroup.args = { ...defaultArgs, multiple: true, withOptionGroup: true };
 FormFieldMultipleSelectGroup.play = isChromatic() && playStory;
 
+export const FormFieldMultipleSelectGroupDisabled = FormFieldTemplate.bind({});
+FormFieldMultipleSelectGroupDisabled.argTypes = defaultArgTypes;
+FormFieldMultipleSelectGroupDisabled.args = {
+  ...defaultArgs,
+  multiple: true,
+  withOptionGroup: true,
+  disableOption: true,
+};
+FormFieldMultipleSelectGroupDisabled.play = isChromatic() && playStory;
+
 export const FormFieldRequired = FormFieldTemplateWithError.bind({});
 FormFieldRequired.argTypes = defaultArgTypes;
 FormFieldRequired.args = { ...defaultArgs, required: true };
