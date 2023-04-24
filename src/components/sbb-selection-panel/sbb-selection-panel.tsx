@@ -195,8 +195,6 @@ export class SbbSelectionPanel implements ComponentInterface {
     if (this._checked) {
       this.didOpen.emit();
     } else {
-      console.log('Did close!');
-
       this.didClose.emit();
     }
   }
