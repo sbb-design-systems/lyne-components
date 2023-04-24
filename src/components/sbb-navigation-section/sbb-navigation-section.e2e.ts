@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-navigation-section', () => {
   let element: E2EElement, page: E2EPage;
@@ -29,7 +30,9 @@ describe('sbb-navigation-section', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
-    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
+      true
+    );
     expect(dialog).toHaveAttribute('open');
   });
 
@@ -39,12 +42,17 @@ describe('sbb-navigation-section', () => {
     await element.callMethod('open');
     await page.waitForChanges();
 
+    expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
+      true
+    );
     expect(dialog).toHaveAttribute('open');
 
     await element.callMethod('close');
     await page.waitForChanges();
 
-    expect(element).toEqualAttribute('data-state', 'closed');
+    expect(await waitForCondition(() => element.getAttribute('data-state') === 'closed')).toBe(
+      true
+    );
     expect(dialog).not.toHaveAttribute('open');
   });
 });

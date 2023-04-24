@@ -106,17 +106,3 @@ jobs:
         run: docker push $IMAGE_REPO:${{ steps.version.outputs.value }}
       - name: 'Container: Publish image as latest'
         run: docker push $IMAGE_REPO:latest
-
-      - name: Publish to netlify
-        run: ./ci/netlify_deploy.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      - name: Publish deployments to netlify
-        run: ./ci/deployments.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-# TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)
-# TODO: Trigger lyne-examples build (node ./ci/trigger_lyne_examples.js)
