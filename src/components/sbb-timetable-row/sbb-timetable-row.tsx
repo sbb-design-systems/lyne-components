@@ -298,7 +298,7 @@ export class SbbTimetableRow {
               )}
               {hasHimCus && (
                 <span class="sbb-timetable__row-warning">
-                  <sbb-icon name={himCus.name} aria-hidden="true" />
+                  <sbb-icon name={himCus.name} />
                   <span class="sbb-screenreaderonly">{himCus.text}</span>
                 </span>
               )}
