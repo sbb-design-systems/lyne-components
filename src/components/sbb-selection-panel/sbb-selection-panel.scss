@@ -10,6 +10,7 @@
   --sbb-selection-panel-border-color: var(--sbb-color-cloud-default);
   --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-selection-panel-badge-background: var(--sbb-color-black-default);
+  --sbb-selection-panel-border-width: var(--sbb-border-width-1x);
   --sbb-selection-panel-input-pointer-events: all;
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs);
@@ -71,7 +72,7 @@
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-panel-background);
-  border: var(--sbb-border-width-1x) solid var(--sbb-selection-panel-border-color);
+  border: var(--sbb-selection-panel-border-width) solid var(--sbb-selection-panel-border-color);
   border-radius: var(--sbb-border-radius-4x);
   transition: {
     duration: var(--sbb-selection-panel-animation-duration);
@@ -86,7 +87,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-border-width-1x));
+  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-selection-panel-border-width));
   overflow: hidden;
 }
 

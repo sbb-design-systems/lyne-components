@@ -2644,9 +2644,6 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
-        /**
-          * Internal event that emits whenever the state of the checkbox in relation to the parent selection panel changes.
-         */
         "onState-change"?: (event: SbbCheckboxCustomEvent<CheckboxStateChange>) => void;
         /**
           * Whether the checkbox is required.

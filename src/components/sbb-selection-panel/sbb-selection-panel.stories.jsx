@@ -7,7 +7,7 @@ const color = {
   control: {
     type: 'inline-radio',
   },
-  options: ['White', 'Milk'],
+  options: ['white', 'milk'],
 };
 
 const forceOpen = {
@@ -82,7 +82,7 @@ const suffixAndSubtext = () => [
 ];
 
 const innerContent = () => (
-  <div id="panel-content" slot="content">
+  <div slot="content">
     Inner Content
     <sbb-link
       text-size="s"

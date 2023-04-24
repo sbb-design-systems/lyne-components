@@ -202,15 +202,16 @@ export class SbbRadioButton implements ComponentInterface {
             checked={this.checked}
             value={this.value}
             class="sbb-radio-button__input"
-            onChange={(): void => console.log('Changed')}
           />
           <span class="sbb-radio-button__label-slot">
             <slot />
             {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
           {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
-          {/* For screen readers only */}
-          <span data-selection-panel-expanded></span>
+          {this._withinSelectionPanel && (
+            /* For screen readers only */
+            <span data-selection-panel-expanded></span>
+          )}
         </label>
       </Host>
     );

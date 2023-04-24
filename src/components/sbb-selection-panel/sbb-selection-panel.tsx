@@ -18,7 +18,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
 import { createNamedSlotState } from '../../global/helpers';
-import { i18nCollapsed, i18nExapnded } from '../../global/i18n';
+import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 
@@ -173,7 +173,7 @@ export class SbbSelectionPanel implements ComponentInterface {
       }
 
       selectionPanelExpandedEl.innerHTML = this._checked
-        ? ', ' + i18nExapnded[this._currentLanguage]
+        ? ', ' + i18nExpanded[this._currentLanguage]
         : ', ' + i18nCollapsed[this._currentLanguage];
     }
   }
@@ -195,6 +195,8 @@ export class SbbSelectionPanel implements ComponentInterface {
     if (this._checked) {
       this.didOpen.emit();
     } else {
+      console.log('Did close!');
+
       this.didClose.emit();
     }
   }

@@ -76,10 +76,9 @@ If you don't want the label to appear next to the checkbox, you can use
 
 ## Events
 
-| Event          | Description                                                                                                                         | Type                                                                     |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `didChange`    | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                                                       |
-| `state-change` | Internal event that emits whenever the state of the checkbox in relation to the parent selection panel changes.                     | `CustomEvent<CheckboxStateChangeChecked \| CheckboxStateChangeDisabled>` |
+| Event       | Description                                                                                                                         | Type               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
 
 
 ## Slots

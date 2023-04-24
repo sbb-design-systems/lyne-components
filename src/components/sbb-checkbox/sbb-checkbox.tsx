@@ -93,6 +93,7 @@ export class SbbCheckbox implements ComponentInterface {
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
   /**
+   * @internal
    * Internal event that emits whenever the state of the checkbox
    * in relation to the parent selection panel changes.
    */
@@ -254,8 +255,10 @@ export class SbbCheckbox implements ComponentInterface {
               </span>
             </span>
             {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
-            {/* For screen readers only */}
-            <span data-selection-panel-expanded></span>
+            {this._withinSelectionPanel && (
+              /* For screen readers only */
+              <span data-selection-panel-expanded></span>
+            )}
           </label>
         </span>
       </Host>

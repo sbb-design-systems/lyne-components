@@ -1,4 +1,6 @@
+import events from './sbb-selection-panel.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-selection-panel', () => {
   let element: E2EElement, page: E2EPage;
@@ -60,10 +62,31 @@ describe('sbb-selection-panel', () => {
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
       const content = await page.find('#sbb-selection-panel-2 >>> .sbb-selection-panel__content');
 
+      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+      const willClose = await page.spyOnEvent(events.willClose);
+      // const didClose = await page.spyOnEvent(events.didClose);
+
       expect(firstInput).toHaveAttribute('checked');
       expect(content).not.toHaveAttribute('data-expanded');
 
       await input.click();
+
+      await page.waitForChanges();
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await page.waitForChanges();
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await waitForCondition(() => willClose.events.length === 1);
+      expect(willClose).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+
+      // await waitForCondition(() => didClose.events.length === 1);
+      // expect(didClose).toHaveReceivedEventTimes(1);
+      // await page.waitForChanges();
 
       expect(input).toHaveAttribute('checked');
       expect(content).toHaveAttribute('data-expanded');
@@ -150,10 +173,32 @@ describe('sbb-selection-panel', () => {
       await page.waitForChanges();
       const input = (await page.find('sbb-selection-panel > #sbb-input-4')) as unknown as Element;
 
+      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+      const willClose = await page.spyOnEvent(events.willClose);
+      const didClose = await page.spyOnEvent(events.didClose);
+
       expect(await page.evaluate(() => document.activeElement.id)).toBe(input.id);
       expect(input).not.toHaveAttribute('checked');
 
       await element.press(' ');
+
+      await page.waitForChanges();
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await page.waitForChanges();
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await waitForCondition(() => willClose.events.length === 1);
+      expect(willClose).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+
+      await waitForCondition(() => didClose.events.length === 1);
+      expect(didClose).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+
       expect(input).toHaveAttribute('checked');
       expect(firstInput).not.toHaveAttribute('checked');
     });
@@ -167,10 +212,32 @@ describe('sbb-selection-panel', () => {
       await page.waitForChanges();
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
 
+      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+      const willClose = await page.spyOnEvent(events.willClose);
+      const didClose = await page.spyOnEvent(events.didClose);
+
       expect(await page.evaluate(() => document.activeElement.id)).toBe(input.id);
       expect(input).not.toHaveAttribute('checked');
 
       await element.press(' ');
+
+      await page.waitForChanges();
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await page.waitForChanges();
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await waitForCondition(() => willClose.events.length === 1);
+      expect(willClose).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+
+      await waitForCondition(() => didClose.events.length === 1);
+      expect(didClose).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+
       expect(input).toHaveAttribute('checked');
       expect(firstInput).not.toHaveAttribute('checked');
     });
@@ -207,14 +274,49 @@ describe('sbb-selection-panel', () => {
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
       const content = await page.find('#sbb-selection-panel-2 >>> .sbb-selection-panel__content');
 
+      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+
       expect(firstInput).toHaveAttribute('checked');
       expect(content).not.toHaveAttribute('data-expanded');
 
       await input.click();
 
+      await page.waitForChanges();
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await page.waitForChanges();
+      await waitForCondition(() => didOpenEventSpy.events.length === 2);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
+
       expect(input).toHaveAttribute('checked');
       expect(content).toHaveAttribute('data-expanded');
     });
+
+    // it('deselects input on click and hides related content', async () => {
+    //   const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+    //   const content = await page.find('#sbb-selection-panel-1 >>> .sbb-selection-panel__content');
+
+    //   const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    //   const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+    //   expect(firstInput).toHaveAttribute('checked');
+    //   expect(content).toHaveAttribute('data-expanded');
+
+    //   await firstInput.click();
+
+    //   await page.waitForChanges();
+    //   await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    //   expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+
+    //   await page.waitForChanges();
+    //   await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    //   expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+
+    //   expect(firstInput).not.toHaveAttribute('checked');
+    //   expect(content).not.toHaveAttribute('data-expanded');
+    // });
 
     it('always displays related content with forceOpen', async () => {
       const selectionPanel = await page.find('#sbb-selection-panel-1');
@@ -287,6 +389,9 @@ describe('sbb-selection-panel', () => {
     it('focuses input on left arrow key pressed and selects it on space key pressed', async () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
 
+      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+
       await firstInput.click();
       await page.keyboard.down('ArrowLeft');
 
@@ -297,11 +402,23 @@ describe('sbb-selection-panel', () => {
       expect(input).not.toHaveAttribute('checked');
 
       await element.press(' ');
+
+      await page.waitForChanges();
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await page.waitForChanges();
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+
       expect(input).toHaveAttribute('checked');
     });
 
     it('focuses input on right arrow key pressed and selects it on space key pressed', async () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+
+      const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+      const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
 
       await firstInput.click();
       await page.keyboard.down('ArrowRight');
@@ -313,6 +430,15 @@ describe('sbb-selection-panel', () => {
       expect(input).not.toHaveAttribute('checked');
 
       await element.press(' ');
+
+      await page.waitForChanges();
+      await waitForCondition(() => willOpenEventSpy.events.length === 1);
+      expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+
+      await page.waitForChanges();
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+
       expect(input).toHaveAttribute('checked');
     });
 

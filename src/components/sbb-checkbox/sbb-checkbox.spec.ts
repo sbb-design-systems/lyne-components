@@ -24,7 +24,6 @@ describe('sbb-checkbox', () => {
                   <slot></slot>
                 </span>
               </span>
-              <span data-selection-panel-expanded></span>
             </label>
           </span>
         </mock:shadow-root>
@@ -61,7 +60,6 @@ describe('sbb-checkbox', () => {
                     </span>
                   </span>
                 </span>
-                <span data-selection-panel-expanded></span>
               </label>
             </span>
           </mock:shadow-root>
@@ -98,7 +96,6 @@ describe('sbb-checkbox', () => {
                     <slot></slot>
                   </span>
                 </span>
-                <span data-selection-panel-expanded></span>
               </label>
             </span>
           </mock:shadow-root>
@@ -136,7 +133,6 @@ describe('sbb-checkbox', () => {
                     <slot></slot>
                   </span>
                 </span>
-                <span data-selection-panel-expanded></span>
               </label>
             </span>
           </mock:shadow-root>
@@ -165,7 +161,6 @@ describe('sbb-checkbox', () => {
                     <slot></slot>
                   </span>
                 </span>
-                <span data-selection-panel-expanded></span>
               </label>
             </span>
           </mock:shadow-root>

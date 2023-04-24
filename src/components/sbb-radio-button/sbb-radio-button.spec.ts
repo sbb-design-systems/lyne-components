@@ -16,7 +16,6 @@ describe('sbb-radio-button', () => {
               <span class="sbb-radio-button__label-slot">
                 <slot></slot>
               </span>
-              <span data-selection-panel-expanded></span>
             </label>
           </mock:shadow-root>
         </sbb-radio-button>

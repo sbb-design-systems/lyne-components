@@ -1,5 +1,3 @@
-# sbb-selection-panel
-
 The `sbb-selection-panel` component wraps either a `sbb-checkbox` or a `sbb-radio-button` that can optionally toggle a content section.
 
 The content section can be opened by checking the checkbox or if radio is selected. Additionally, clicking on all the upper area sets the checked state and therefore open the content; clicking on the content area does not toggle anything.

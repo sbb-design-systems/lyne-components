@@ -55,7 +55,13 @@
   }
 }
 
-:host([data-is-selection-panel-input]:focus-visible) .sbb-checkbox__inner::before {
+:host(
+    [data-is-selection-panel-input]:focus-visible:not(
+        [data-focus-origin='mouse'],
+        [data-focus-origin='touch']
+      )
+  )
+  .sbb-checkbox__inner::before {
   content: '';
   position: absolute;
   display: block;
