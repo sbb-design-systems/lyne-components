@@ -145,11 +145,8 @@ export class SbbSelectionPanel implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._handlerRepository.connect();
-  }
-
-  public componentDidLoad(): void {
     this._updateSelectionPanel();
+    this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
@@ -159,7 +156,6 @@ export class SbbSelectionPanel implements ComponentInterface {
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._disabled = this._input?.disabled;
-    this._setExpandedStateForScreenReaders();
   }
 
   private _setExpandedStateForScreenReaders(): void {
@@ -224,6 +220,7 @@ export class SbbSelectionPanel implements ComponentInterface {
               ref={(el) => {
                 this._contentElement = el;
                 this._contentElement.inert = !this._checked && !this.forceOpen;
+                this._setExpandedStateForScreenReaders();
               }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >

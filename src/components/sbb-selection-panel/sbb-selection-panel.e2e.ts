@@ -65,7 +65,7 @@ describe('sbb-selection-panel', () => {
       const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
       const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
       const willClose = await page.spyOnEvent(events.willClose);
-      // const didClose = await page.spyOnEvent(events.didClose);
+      const didClose = await page.spyOnEvent(events.didClose);
 
       expect(firstInput).toHaveAttribute('checked');
       expect(content).not.toHaveAttribute('data-expanded');
@@ -84,9 +84,9 @@ describe('sbb-selection-panel', () => {
       expect(willClose).toHaveReceivedEventTimes(1);
       await page.waitForChanges();
 
-      // await waitForCondition(() => didClose.events.length === 1);
-      // expect(didClose).toHaveReceivedEventTimes(1);
-      // await page.waitForChanges();
+      await waitForCondition(() => didClose.events.length === 1);
+      expect(didClose).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
 
       expect(input).toHaveAttribute('checked');
       expect(content).toHaveAttribute('data-expanded');
@@ -294,29 +294,29 @@ describe('sbb-selection-panel', () => {
       expect(content).toHaveAttribute('data-expanded');
     });
 
-    // it('deselects input on click and hides related content', async () => {
-    //   const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-    //   const content = await page.find('#sbb-selection-panel-1 >>> .sbb-selection-panel__content');
+    it('deselects input on click and hides related content', async () => {
+      const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
+      const content = await page.find('#sbb-selection-panel-1 >>> .sbb-selection-panel__content');
 
-    //   const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    //   const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+      const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+      const didCloseEventSpy = await page.spyOnEvent(events.didClose);
 
-    //   expect(firstInput).toHaveAttribute('checked');
-    //   expect(content).toHaveAttribute('data-expanded');
+      expect(firstInput).toHaveAttribute('checked');
+      expect(content).toHaveAttribute('data-expanded');
 
-    //   await firstInput.click();
+      await firstInput.click();
 
-    //   await page.waitForChanges();
-    //   await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    //   expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+      await waitForCondition(() => willCloseEventSpy.events.length === 1);
+      expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
 
-    //   await page.waitForChanges();
-    //   await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    //   expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+      await page.waitForChanges();
+      await waitForCondition(() => didCloseEventSpy.events.length === 1);
+      expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
 
-    //   expect(firstInput).not.toHaveAttribute('checked');
-    //   expect(content).not.toHaveAttribute('data-expanded');
-    // });
+      expect(firstInput).not.toHaveAttribute('checked');
+      expect(content).not.toHaveAttribute('data-expanded');
+    });
 
     it('always displays related content with forceOpen', async () => {
       const selectionPanel = await page.find('#sbb-selection-panel-1');

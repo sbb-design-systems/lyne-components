@@ -14,9 +14,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host {
   @include horizontal-orientation;
-}
 
-:host(:not([data-has-selection-panel])) {
   --sbb-checkbox-group-width: max-content;
 }
 

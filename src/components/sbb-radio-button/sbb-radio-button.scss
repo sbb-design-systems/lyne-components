@@ -22,6 +22,8 @@
   outline: none !important;
 }
 
+// Change the focus outline when the input is placed inside of a selection panel
+// as the main input element.
 :host(:focus-visible[data-is-selection-panel-input]) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
