@@ -29,5 +29,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: '__name__',
+  title: 'components/__name__',
 };

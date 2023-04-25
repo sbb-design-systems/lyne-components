@@ -17,6 +17,7 @@ import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
+import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
 import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -60,6 +61,7 @@ export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 export { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
+export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
 export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
 export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 export { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
@@ -417,6 +419,16 @@ export namespace Components {
           * Size variant, either m or s.
          */
         "size": InterfaceSbbCheckboxGroupAttributes['size'];
+    }
+    interface SbbChip {
+        /**
+          * Color of the chip.
+         */
+        "color": InterfaceSbbChipAttributes['color'];
+        /**
+          * Size of the chip.
+         */
+        "size": InterfaceSbbChipAttributes['size'];
     }
     interface SbbClock {
     }
@@ -1828,6 +1840,12 @@ declare global {
         prototype: HTMLSbbCheckboxGroupElement;
         new (): HTMLSbbCheckboxGroupElement;
     };
+    interface HTMLSbbChipElement extends Components.SbbChip, HTMLStencilElement {
+    }
+    var HTMLSbbChipElement: {
+        prototype: HTMLSbbChipElement;
+        new (): HTMLSbbChipElement;
+    };
     interface HTMLSbbClockElement extends Components.SbbClock, HTMLStencilElement {
     }
     var HTMLSbbClockElement: {
@@ -2239,6 +2257,7 @@ declare global {
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-checkbox": HTMLSbbCheckboxElement;
         "sbb-checkbox-group": HTMLSbbCheckboxGroupElement;
+        "sbb-chip": HTMLSbbChipElement;
         "sbb-clock": HTMLSbbClockElement;
         "sbb-datepicker": HTMLSbbDatepickerElement;
         "sbb-datepicker-next-day": HTMLSbbDatepickerNextDayElement;
@@ -2653,6 +2672,16 @@ declare namespace LocalJSX {
           * Size variant, either m or s.
          */
         "size"?: InterfaceSbbCheckboxGroupAttributes['size'];
+    }
+    interface SbbChip {
+        /**
+          * Color of the chip.
+         */
+        "color"?: InterfaceSbbChipAttributes['color'];
+        /**
+          * Size of the chip.
+         */
+        "size"?: InterfaceSbbChipAttributes['size'];
     }
     interface SbbClock {
     }
@@ -3999,6 +4028,7 @@ declare namespace LocalJSX {
         "sbb-card-badge": SbbCardBadge;
         "sbb-checkbox": SbbCheckbox;
         "sbb-checkbox-group": SbbCheckboxGroup;
+        "sbb-chip": SbbChip;
         "sbb-clock": SbbClock;
         "sbb-datepicker": SbbDatepicker;
         "sbb-datepicker-next-day": SbbDatepickerNextDay;
@@ -4082,6 +4112,7 @@ declare module "@stencil/core" {
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
             "sbb-checkbox-group": LocalJSX.SbbCheckboxGroup & JSXBase.HTMLAttributes<HTMLSbbCheckboxGroupElement>;
+            "sbb-chip": LocalJSX.SbbChip & JSXBase.HTMLAttributes<HTMLSbbChipElement>;
             "sbb-clock": LocalJSX.SbbClock & JSXBase.HTMLAttributes<HTMLSbbClockElement>;
             "sbb-datepicker": LocalJSX.SbbDatepicker & JSXBase.HTMLAttributes<HTMLSbbDatepickerElement>;
             "sbb-datepicker-next-day": LocalJSX.SbbDatepickerNextDay & JSXBase.HTMLAttributes<HTMLSbbDatepickerNextDayElement>;

@@ -1,0 +1,49 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  display: inline-block;
+}
+
+:host([color='milk']) {
+  @include sbb.chip-variables--color-milk;
+}
+
+:host([color='charcoal']) {
+  @include sbb.chip-variables--color-charcoal;
+}
+
+:host([color='white']) {
+  @include sbb.chip-variables--color-white;
+}
+
+:host([color='granite']) {
+  @include sbb.chip-variables--color-granite;
+}
+
+:host([size='xxs']) {
+  @include sbb.chip-variables--size-xxs;
+}
+
+:host([size='xs']) {
+  @include sbb.chip-variables--size-xs;
+}
+
+:host([size='s']) {
+  @include sbb.chip-variables--size-s;
+}
+
+// Avoid unwanted space
+.sbb-chip-wrapper {
+  display: flex;
+}
+
+.sbb-chip {
+  @include sbb.chip-rules;
+
+  display: block;
+  width: 100%;
+}

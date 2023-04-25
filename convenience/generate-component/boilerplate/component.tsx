@@ -29,7 +29,7 @@ export class __nameUpperCase__ implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <button class="some-class" onClick={this._clickHandler}>
+      <button class="__name__" onClick={this._clickHandler}>
         {this.someProp}
       </button>
     );

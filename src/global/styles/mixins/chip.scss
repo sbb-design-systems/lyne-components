@@ -1,0 +1,77 @@
+@use './a11y';
+@use './helpers';
+@use './typo';
+
+@mixin chip-variables--color-milk {
+  --sbb-chip-color: var(--sbb-color-granite-default);
+  --sbb-chip-background-color: var(--sbb-color-milk-default);
+}
+
+@mixin chip-variables--color-charcoal {
+  --sbb-chip-color: var(--sbb-color-white-default);
+  --sbb-chip-background-color: var(--sbb-color-charcoal-default);
+}
+
+@mixin chip-variables--color-white {
+  --sbb-chip-color: var(--sbb-color-granite-default);
+  --sbb-chip-background-color: var(--sbb-color-white-default);
+}
+
+@mixin chip-variables--color-granite {
+  --sbb-chip-color: var(--sbb-color-white-default);
+  --sbb-chip-background-color: var(--sbb-color-granite-default);
+}
+
+@mixin chip-variables--size-xxs {
+  --sbb-chip-padding: 0 var(--sbb-spacing-fixed-2x);
+  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
+}
+
+@mixin chip-variables--size-xs {
+  --sbb-chip-padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+  --sbb-text-font-size: var(--sbb-font-size-text-xs);
+}
+
+@mixin chip-variables--size-s {
+  --sbb-chip-padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-4x);
+  --sbb-text-font-size: var(--sbb-font-size-text-s);
+}
+
+@mixin chip-rules {
+  @include typo.text;
+  @include helpers.ellipsis;
+
+  display: inline-block;
+  text-align: center;
+  color: var(--sbb-chip-color);
+  background-color: var(--sbb-chip-background-color);
+  padding: var(--sbb-chip-padding);
+  border-radius: var(--sbb-border-radius-infinity);
+
+  @include a11y.if-forced-colors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+    outline-offset: calc(-1 * var(--sbb-border-width-1x));
+  }
+}
+
+@mixin chip($color: milk, $size: xxs) {
+  @if $color == milk {
+    @include chip-variables--color-milk;
+  } @else if $color == charcoal {
+    @include chip-variables--color-charcoal;
+  } @else if $color == white {
+    @include chip-variables--color-white;
+  } @else if $color == granite {
+    @include chip-variables--color-granite;
+  }
+
+  @if $size == xxs {
+    @include chip-variables--size-xxs;
+  } @else if $size == xs {
+    @include chip-variables--size-xs;
+  } @else if $size == s {
+    @include chip-variables--size-s;
+  }
+
+  @include chip-rules;
+}
