@@ -49,6 +49,7 @@ jobs:
               ...payload,
               ref: context.payload.workflow_run.head_sha,
               auto_merge: false,
+              required_contexts: ['integrity', 'build', 'test', 'lint']
             });
             await github.rest.repos.createDeploymentStatus({
               ...payload,
