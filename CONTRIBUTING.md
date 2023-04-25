@@ -38,7 +38,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 Providing the following information will increase the
 chances of your issue being dealt with quickly:
 
-- **Overview of the Issue** - if an error is being thrown a non-minified stack trace helps
+- **Overview of the Issues** - if an error is being thrown a non-minified stack trace helps
 - **@sbb-esta/lyne-components Version** - which version is affected
 - **Motivation for or Use Case** - explain what are you trying to do and why the current behavior
   is a bug for you
