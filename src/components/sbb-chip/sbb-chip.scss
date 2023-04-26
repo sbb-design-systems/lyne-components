@@ -36,14 +36,12 @@
   @include sbb.chip-variables--size-s;
 }
 
-// Avoid unwanted space
-.sbb-chip-wrapper {
-  display: flex;
-}
-
 .sbb-chip {
   @include sbb.chip-rules;
 
-  display: block;
-  width: 100%;
+  display: flex;
+}
+
+.sbb-chi__text-wrapper {
+  @include sbb.chip-rules-ellipsis;
 }

@@ -20,8 +20,8 @@ export class SbbChip implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <span class="sbb-chip-wrapper">
-        <span class="sbb-chip">
+      <span class="sbb-chip">
+        <span class="sbb-chip__text-wrapper">
           <slot></slot>
         </span>
       </span>

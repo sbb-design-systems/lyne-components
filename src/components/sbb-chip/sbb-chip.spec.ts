@@ -11,8 +11,8 @@ describe('sbb-chip', () => {
     expect(root).toEqualHtml(`
         <sbb-chip color="milk" size="xxs">
           <mock:shadow-root>
-            <span class="sbb-chip-wrapper">
-              <span class="sbb-chip">
+            <span class="sbb-chip">
+              <span class="sbb-chip__text-wrapper">
                 <slot></slot>
               </span>
             </span>
