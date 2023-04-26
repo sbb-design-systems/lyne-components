@@ -109,9 +109,8 @@ describe('sbb-select', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
 
     expect(await element.getProperty('value')).toEqual('1');
-    expect(comboBoxElement).toEqualAttribute('aria-activedescendant', 'option-1');
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
-    expect(firstOption).toHaveAttribute('active');
+    expect(firstOption).not.toHaveAttribute('active');
     expect(firstOption).toHaveAttribute('selected');
     const secondOption = await page.find('sbb-select > sbb-option#option-2');
     expect(secondOption).not.toHaveAttribute('active');

@@ -242,10 +242,6 @@ export class SbbSelect implements ComponentInterface {
     );
     this._triggerElement.setAttribute('aria-expanded', 'true');
 
-    if (this._activeItemIndex !== -1) {
-      this._setActiveElement(this._filteredOptions[this._activeItemIndex]);
-    }
-
     this.didOpen.emit();
   }
 
@@ -254,9 +250,7 @@ export class SbbSelect implements ComponentInterface {
     this._triggerElement.setAttribute('aria-expanded', 'false');
     this._triggerElement.removeAttribute('aria-activedescendant');
     this._optionContainer.scrollTop = 0;
-    if (this.multiple) {
-      this._resetActiveElement();
-    }
+    this._resetActiveElement();
     this.didClose.emit();
   }
 
@@ -274,7 +268,6 @@ export class SbbSelect implements ComponentInterface {
         this.value = [...this.value, optionSelectionChange.value];
       }
     }
-    this._setActiveElementOnSelectionChange(optionSelectionChange);
 
     this.input.emit();
     this.change.emit();
@@ -286,23 +279,10 @@ export class SbbSelect implements ComponentInterface {
       this.value = (this.value as string[]).filter(
         (el: string) => el !== optionSelectionChange.value
       );
-      this._setActiveElementOnSelectionChange(optionSelectionChange);
 
       this.input.emit();
       this.change.emit();
     }
-  }
-
-  private _setActiveElementOnSelectionChange(optionSelectionChange: SbbOptionEventData): void {
-    const selectedOption: HTMLSbbOptionElement = this._filteredOptions.find(
-      (option) => option.id === optionSelectionChange.id
-    );
-    this._setActiveElement(
-      selectedOption,
-      this._filteredOptions[this._activeItemIndex],
-      this._state === 'opened'
-    );
-    this._activeItemIndex = this._filteredOptions.findIndex((option) => option === selectedOption);
   }
 
   private _onTriggerElementKeydown(event): void {
