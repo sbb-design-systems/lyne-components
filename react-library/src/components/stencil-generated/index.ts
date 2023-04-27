@@ -19,6 +19,7 @@ export const SbbCard = /*@__PURE__*/createReactComponent<JSX.SbbCard, HTMLSbbCar
 export const SbbCardBadge = /*@__PURE__*/createReactComponent<JSX.SbbCardBadge, HTMLSbbCardBadgeElement>('sbb-card-badge');
 export const SbbCheckbox = /*@__PURE__*/createReactComponent<JSX.SbbCheckbox, HTMLSbbCheckboxElement>('sbb-checkbox');
 export const SbbCheckboxGroup = /*@__PURE__*/createReactComponent<JSX.SbbCheckboxGroup, HTMLSbbCheckboxGroupElement>('sbb-checkbox-group');
+export const SbbChip = /*@__PURE__*/createReactComponent<JSX.SbbChip, HTMLSbbChipElement>('sbb-chip');
 export const SbbClock = /*@__PURE__*/createReactComponent<JSX.SbbClock, HTMLSbbClockElement>('sbb-clock');
 export const SbbDatepicker = /*@__PURE__*/createReactComponent<JSX.SbbDatepicker, HTMLSbbDatepickerElement>('sbb-datepicker');
 export const SbbDatepickerNextDay = /*@__PURE__*/createReactComponent<JSX.SbbDatepickerNextDay, HTMLSbbDatepickerNextDayElement>('sbb-datepicker-next-day');
