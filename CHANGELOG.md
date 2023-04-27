@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.11](https://github.com/lyne-design-system/lyne-components/compare/v0.33.10...v0.33.11) (2023-04-27)
+
+### Features
+
+- **sbb-chip:** initial implementation ([#1721](https://github.com/lyne-design-system/lyne-components/issues/1721)) ([ac4bc7c](https://github.com/lyne-design-system/lyne-components/commit/ac4bc7c3af1e9fec84ac41f2bf89b0a2cd4eba33))
+
 ### [0.33.10](https://github.com/lyne-design-system/lyne-components/compare/v0.33.9...v0.33.10) (2023-04-24)
 
 ### Bug Fixes
