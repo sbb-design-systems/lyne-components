@@ -350,5 +350,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-autocomplete',
+  title: 'components/form elements/sbb-autocomplete',
 };
