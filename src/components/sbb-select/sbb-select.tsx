@@ -219,6 +219,12 @@ export class SbbSelect implements ComponentInterface {
    */
   private _setupTrigger(): void {
     this._element.parentElement.appendChild(this._triggerElement);
+
+    // Set the invisible trigger element dimension to match the parent (needed for screen readers)
+    const containerElement = this._element.closest('sbb-form-field') ?? this._element;
+    this._triggerElement.style.top = '0px';
+    this._triggerElement.style.height = `${containerElement.offsetHeight}px`;
+    this._triggerElement.style.width = `${containerElement.offsetWidth}px`;
   }
 
   private _setOverlayPosition(): void {
@@ -538,6 +544,7 @@ export class SbbSelect implements ComponentInterface {
           aria-owns={this._overlayId}
           ref={(ref) => (this._triggerElement = ref)}
           onKeyDown={(event) => this._onTriggerElementKeydown(event)}
+          onClick={() => this._toggleOpening()}
         >
           {this._displayValue ?? <span>{this.placeholder}</span>}
         </div>
