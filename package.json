@@ -47,9 +47,9 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@babel/core": "7.21.4",
+    "@babel/core": "7.21.5",
     "@babel/plugin-syntax-jsx": "7.21.4",
-    "@babel/plugin-transform-react-jsx": "7.21.0",
+    "@babel/plugin-transform-react-jsx": "7.21.5",
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
     "@commitlint/cli": "17.6.1",
     "@commitlint/config-conventional": "17.6.1",
