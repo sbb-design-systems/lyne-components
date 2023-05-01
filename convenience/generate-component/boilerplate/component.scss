@@ -5,9 +5,9 @@
 @include sbb.host-component-properties;
 
 :host {
-  --some-color-var: var(--color-black-default);
+  --__name__-some-color-var: var(--color-black-default);
 }
 
-.some-class {
-  color: var(--some-color-var);
+.__name__ {
+  color: var(--__name__-some-color-var);
 }

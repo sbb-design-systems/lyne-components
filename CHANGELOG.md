@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.11](https://github.com/lyne-design-system/lyne-components/compare/v0.33.10...v0.33.11) (2023-04-27)
+
+### Features
+
+- **sbb-chip:** initial implementation ([#1721](https://github.com/lyne-design-system/lyne-components/issues/1721)) ([ac4bc7c](https://github.com/lyne-design-system/lyne-components/commit/ac4bc7c3af1e9fec84ac41f2bf89b0a2cd4eba33))
+
+### [0.33.10](https://github.com/lyne-design-system/lyne-components/compare/v0.33.9...v0.33.10) (2023-04-24)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** use sr-only span for icon label ([#1717](https://github.com/lyne-design-system/lyne-components/issues/1717)) ([c5adc39](https://github.com/lyne-design-system/lyne-components/commit/c5adc39da522336554bc16be922b43c9a8517c12))
+
 ### [0.33.9](https://github.com/lyne-design-system/lyne-components/compare/v0.33.8...v0.33.9) (2023-04-18)
 
 ### Bug Fixes

@@ -20,13 +20,13 @@ jobs:
       github.event.workflow_run.conclusion == 'success' && (
         github.event.workflow_run.event == 'pull_request' || (
           github.event.workflow_run.event == 'push' &&
-          github.event.workflow_run.head_branch == 'main'
+          github.event.workflow_run.head_branch == 'master'
         )
       )
     env:
       PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
       IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook-preview
-      IMAGE_TAG: rev-${{ github.event.workflow_run.event == 'push' && 'main' || github.event.workflow_run.head_sha }}
+      IMAGE_TAG: rev-${{ github.event.workflow_run.event == 'push' && 'master' || github.event.workflow_run.head_sha }}
       IMAGE_PR_TAG: preview-pr${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
     steps:
       - uses: actions/checkout@v3
@@ -49,6 +49,7 @@ jobs:
               ...payload,
               ref: context.payload.workflow_run.head_sha,
               auto_merge: false,
+              required_contexts: ['integrity', 'build', 'test', 'lint']
             });
             await github.rest.repos.createDeploymentStatus({
               ...payload,
