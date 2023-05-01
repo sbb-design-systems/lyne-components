@@ -144,6 +144,8 @@ export class SbbTooltip implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _tooltipContentElement: HTMLElement;
+  // The element which should receive focus after closing based on where in the backdrop the user clicks.
+  private _nextFocusedElement?: HTMLElement;
   private _firstFocusable: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
@@ -179,6 +181,7 @@ export class SbbTooltip implements ComponentInterface {
     this._setTooltipPosition();
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._nextFocusedElement = undefined;
   }
 
   /**
@@ -357,6 +360,7 @@ export class SbbTooltip implements ComponentInterface {
   // Close tooltip on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
+      this._nextFocusedElement = document.activeElement as HTMLElement;
       clearTimeout(this._closeTimeout);
       this.close(detectFocusOrigin(event));
     }
@@ -403,10 +407,8 @@ export class SbbTooltip implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
-      // The element which should receive focus after closing based on where in the backdrop the user clicks.
-      const nextFocusedElement = document.activeElement as HTMLElement;
-      const elementToFocus = nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
-        ? nextFocusedElement
+      const elementToFocus = this._nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
+        ? this._nextFocusedElement
         : this._triggerElement;
 
       // Set focus origin to element which should receive focus
