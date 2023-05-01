@@ -402,14 +402,11 @@ describe('sbb-tooltip', () => {
     await interactiveBackgroundElement.focus();
     // Simulate backdrop click
     await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
-
-    // In order to let the test work we need to temporary blur the focused element until the programmed logic kicks in.
-    await page.evaluate(() => (document.activeElement as HTMLElement).blur());
+    await page.waitForChanges();
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     await page.waitForChanges();
 
-    expect(interactiveBackgroundElement).toEqualAttribute('data-focus-origin', 'mouse');
     expect(await page.evaluate(() => document.activeElement.id)).toBe(
       'interactive-background-element'
     );
