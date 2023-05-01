@@ -76,14 +76,18 @@ export class SbbCheckbox implements ComponentInterface {
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
 
+  /** Whether the input is the main input of a selection panel. */
+  @State() private _isSelectionPanelInput = false;
+
+  /** Whether the input is placed within a selection panel content. */
+  @State() private _withinSelectionPanel = false;
+
   private _checkbox: HTMLInputElement;
 
   /** MutationObserver on data attributes. */
   private _checkboxAttributeObserver = new MutationObserver(
     this._onCheckboxAttributesChange.bind(this)
   );
-  private _isSelectionPanelInput = false;
-  private _withinSelectionPanel = false;
 
   @Element() private _element!: HTMLElement;
 
@@ -145,7 +149,7 @@ export class SbbCheckbox implements ComponentInterface {
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
     this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
-      this._withinSelectionPanel && !this._element.closest('[slot="content"]');
+      this._withinSelectionPanel && !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
   }
