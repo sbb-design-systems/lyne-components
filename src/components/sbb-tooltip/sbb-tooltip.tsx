@@ -144,6 +144,8 @@ export class SbbTooltip implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _tooltipContentElement: HTMLElement;
+  // The element which should receive focus after closing based on where in the backdrop the user clicks.
+  private _nextFocusedElement?: HTMLElement;
   private _firstFocusable: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
@@ -179,6 +181,7 @@ export class SbbTooltip implements ComponentInterface {
     this._setTooltipPosition();
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._nextFocusedElement = undefined;
   }
 
   /**
@@ -202,13 +205,13 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      this.close('keyboard');
+      await this.close('keyboard');
       return;
     }
   }
@@ -274,7 +277,7 @@ export class SbbTooltip implements ComponentInterface {
       this._state
     );
 
-    // Check whether the trigger can be hovered. Some diveces might interpret the media query (hover: hover) differently,
+    // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
     // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !window.matchMedia('(pointer: coarse)').matches;
@@ -291,9 +294,9 @@ export class SbbTooltip implements ComponentInterface {
 
       this._triggerElement.addEventListener(
         'keydown',
-        (evt: KeyboardEvent) => {
+        async (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
-            this.open('keyboard');
+            await this.open('keyboard');
           }
         },
         {
@@ -337,7 +340,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
-  private _closeOnSbbTooltipCloseClick(event: Event): void {
+  private async _closeOnSbbTooltipCloseClick(event: Event): Promise<void> {
     const closeElement = event
       .composedPath()
       .find(
@@ -345,7 +348,7 @@ export class SbbTooltip implements ComponentInterface {
       ) as HTMLElement;
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       clearTimeout(this._closeTimeout);
-      this.close(detectFocusOrigin(event), closeElement);
+      await this.close(detectFocusOrigin(event), closeElement);
     }
   }
 
@@ -355,10 +358,11 @@ export class SbbTooltip implements ComponentInterface {
   };
 
   // Close tooltip on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
+      this._nextFocusedElement = document.activeElement as HTMLElement;
       clearTimeout(this._closeTimeout);
-      this.close(detectFocusOrigin(event));
+      await this.close(detectFocusOrigin(event));
     }
   };
 
@@ -403,10 +407,8 @@ export class SbbTooltip implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
-      // The element which should receive focus after closing based on where in the backdrop the user clicks.
-      const nextFocusedElement = document.activeElement as HTMLElement;
-      const elementToFocus = nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
-        ? nextFocusedElement
+      const elementToFocus = this._nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
+        ? this._nextFocusedElement
         : this._triggerElement;
 
       // Set focus origin to element which should receive focus
