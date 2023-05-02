@@ -227,6 +227,11 @@
     padding-inline: var(--sbb-layout-base-offset-responsive);
     height: 100vh;
   }
+
+  // Align content with header and footer by subtracting the scrollbar width
+  :host([data-overflows]) & {
+    padding-inline-end: calc(var(--sbb-dialog-padding-inline) - var(--sbb-scrollbar-width));
+  }
 }
 
 .sbb-dialog__footer {
