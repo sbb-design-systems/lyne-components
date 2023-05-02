@@ -103,6 +103,8 @@ export class SbbAutocomplete implements ComponentInterface {
   private _activeItemIndex = -1;
   private _didLoad = false;
 
+  private _activeColumn = 0;
+
   // TODO: On Safari, the aria role 'listbox' must be on the host element or else VoiceOver won't read option groups
   private _ariaRoleOnHost = isSafari();
 
@@ -425,6 +427,13 @@ export class SbbAutocomplete implements ComponentInterface {
         this._setNextActiveOption(event);
         break;
 
+      case 'ArrowRight':
+        this._activeColumn = 1;
+        break;
+      case 'ArrowLeft':
+        this._activeColumn = 0;
+        break;
+
       default:
         break;
     }
@@ -448,7 +457,10 @@ export class SbbAutocomplete implements ComponentInterface {
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
     const nextActiveOption = filteredOptions[next];
     nextActiveOption.active = true;
-    this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+    this._triggerElement.setAttribute(
+      'aria-activedescendant',
+      `${nextActiveOption.id}x${this._activeColumn}`
+    );
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
@@ -487,7 +499,7 @@ export class SbbAutocomplete implements ComponentInterface {
     return (
       <Host
         data-state={this._state}
-        role={this._ariaRoleOnHost ? 'listbox' : null}
+        role={this._ariaRoleOnHost ? 'grid' : null}
         ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
       >
         <div class="sbb-autocomplete__gap-fix"></div>
@@ -503,7 +515,7 @@ export class SbbAutocomplete implements ComponentInterface {
               <div
                 class="sbb-autocomplete__options"
                 ref={(containerRef) => (this._optionContainer = containerRef)}
-                role={!this._ariaRoleOnHost ? 'listbox' : null}
+                role={!this._ariaRoleOnHost ? 'grid' : null}
                 id={!this._ariaRoleOnHost ? this._overlayId : null}
               >
                 <slot />

@@ -13,7 +13,6 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { assignId } from '../../global/helpers/assign-id';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -36,7 +35,7 @@ const optionObserverConfig: MutationObserverInit = {
  * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
  */
 @Component({
-  shadow: true,
+  shadow: false,
   styleUrl: 'sbb-option.scss',
   tag: 'sbb-option',
 })
@@ -229,13 +228,16 @@ export class SbbOption implements ComponentInterface {
           >
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           </span>
-          <span class="sbb-option__label">
+          <span class="sbb-option__label" role="gridcell" id={`${this._optionId}x0`}>
             <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
             {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
 
             {this._inertAriaGroups && this._groupLabel && (
               <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
             )}
+          </span>
+          <span role="gridcell" id={`${this._optionId}x1`} aria-label="Mark as favourite">
+            <sbb-icon name="star-small" />
           </span>
         </div>
       </div>
@@ -249,11 +251,11 @@ export class SbbOption implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host
-        role="option"
+        role="row"
         tabindex={isAndroid() && !this.disabled && 0}
         data-variant={this._variant}
         data-disable-highlight={this._disableLabelHighlight}
-        ref={assignId(() => this._optionId)}
+        id={this._optionId}
         /* eslint-disable jsx-a11y/aria-proptypes */
         aria-selected={`${this.selected}`}
         aria-disabled={`${this.disabled || this._disabledFromGroup}`}
