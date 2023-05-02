@@ -100,7 +100,11 @@
 
   :host([data-state='closing']) & {
     pointer-events: none;
-    animation-name: close;
+    animation: {
+      name: close;
+      duration: var(--sbb-tooltip-animation-duration);
+      timing-function: var(--sbb-tooltip-animation-easing);
+    }
   }
 
   @include sbb.if-forced-colors {
