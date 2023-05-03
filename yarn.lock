@@ -3352,7 +3352,7 @@
     semver "^7.3.7"
     tsutils "^3.21.0"
 
-"@typescript-eslint/utils@5.59.2":
+"@typescript-eslint/utils@5.59.2", "@typescript-eslint/utils@^5.45.0":
   version "5.59.2"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.59.2.tgz#0c45178124d10cc986115885688db6abc37939f4"
   integrity sha512-kSuF6/77TZzyGPhGO4uVp+f0SBoYxCDf+lW3GKhtKru/L8k/Hd7NFQxyWUeY7Z/KGB2C6Fe3yf2vVi4V9TsCSQ==
@@ -3366,7 +3366,7 @@
     eslint-scope "^5.1.1"
     semver "^7.3.7"
 
-"@typescript-eslint/utils@^5.10.0", "@typescript-eslint/utils@^5.45.0":
+"@typescript-eslint/utils@^5.10.0":
   version "5.59.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.59.1.tgz#d89fc758ad23d2157cfae53f0b429bdf15db9473"
   integrity sha512-MkTe7FE+K1/GxZkP5gRj3rCztg45bEhsd8HYjczBuYm+qFHP5vtZmjx3B0yUCDotceQ4sHgTyz60Ycl225njmA==
@@ -5794,9 +5794,9 @@ eslint-plugin-react@7.32.2:
     string.prototype.matchall "^4.0.8"
 
 eslint-plugin-storybook@^0.6.11:
-  version "0.6.11"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-0.6.11.tgz#3c52fc3e994d1539d8a69c4028999402601eaacb"
-  integrity sha512-lIVmCqQgA0bhcuS1yWYBFrnPHBKPEQI+LHPDtlN81UE1/17onCqgwUW7Nyt7gS2OHjCAiOR4npjTGEoe0hssKw==
+  version "0.6.12"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-0.6.12.tgz#7bdb3392bb03bebde40ed19accfd61246e9d6301"
+  integrity sha512-XbIvrq6hNVG6rpdBr+eBw63QhOMLpZneQVSooEDow8aQCWGCk/5vqtap1yxpVydNfSxi3S/3mBBRLQqKUqQRww==
   dependencies:
     "@storybook/csf" "^0.0.1"
     "@typescript-eslint/utils" "^5.45.0"
