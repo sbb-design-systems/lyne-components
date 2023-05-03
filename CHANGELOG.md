@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.12](https://github.com/lyne-design-system/lyne-components/compare/v0.33.11...v0.33.12) (2023-05-03)
+
+### Bug Fixes
+
+- **sbb-tooltip:** fix Safari outline on trigger after closing ([#1727](https://github.com/lyne-design-system/lyne-components/issues/1727)) ([24ed9a1](https://github.com/lyne-design-system/lyne-components/commit/24ed9a18f4ac98be5d61941953211d030aca32d3))
+- **sbb-tooltip:** stabilize closing animation ([#1728](https://github.com/lyne-design-system/lyne-components/issues/1728)) ([104a1e9](https://github.com/lyne-design-system/lyne-components/commit/104a1e9df565207db4eceed5ed5fe29204ae7bfe))
+
 ### [0.33.11](https://github.com/lyne-design-system/lyne-components/compare/v0.33.10...v0.33.11) (2023-04-27)
 
 ### Features
