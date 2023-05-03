@@ -150,4 +150,22 @@ describe('sbb-button', () => {
           </sbb-button>
       `);
   });
+
+  it('should detect icon button', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `<sbb-button><sbb-icon name="app-icon-medium"></sbb-icon></sbb-button>`,
+    });
+
+    expect(root).toHaveAttribute('data-icon-only');
+  });
+
+  it('should detect icon button when there is space around icon', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `<sbb-button> <sbb-icon name="app-icon-medium"></sbb-icon> </sbb-button>`,
+    });
+
+    expect(root).toHaveAttribute('data-icon-only');
+  });
 });
