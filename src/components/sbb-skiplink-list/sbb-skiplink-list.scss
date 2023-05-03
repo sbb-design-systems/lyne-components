@@ -8,6 +8,7 @@
   --sbb-skiplink-height: 0;
   --sbb-skiplink-overflow: hidden;
   --sbb-skiplink-background: transparent;
+  --sbb-focus-outline-color: var(--sbb-color-white-default);
 }
 
 // Focused state
@@ -18,6 +19,8 @@
 }
 
 .sbb-skiplink-list {
+  @include sbb.shadow-level-5-hard;
+
   list-style: none;
   position: fixed;
   top: var(--sbb-spacing-fixed-4x);
@@ -27,11 +30,10 @@
   height: var(--sbb-skiplink-height);
   overflow: var(--sbb-skiplink-overflow);
   background-color: var(--sbb-skiplink-background);
-  border: 1px solid black;
+  border: var(--sbb-border-width-2x) solid var(--sbb-color-white-default);
 }
 
 ::slotted(sbb-link) {
   padding-block: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-responsive-xxs);
-  color: white;
 }

@@ -3,8 +3,12 @@ import readme from './readme.md';
 
 const Template = (args) => (
   <sbb-skiplink-list>
-    <sbb-link href={args.href1}>{args.label1}</sbb-link>
-    <sbb-link href={args.href2}>{args.label2}</sbb-link>
+    <sbb-link negative size="m" href={args.href1}>
+      {args.label1}
+    </sbb-link>
+    <sbb-link negative size="m" href={args.href2}>
+      {args.label2}
+    </sbb-link>
   </sbb-skiplink-list>
 );
 
