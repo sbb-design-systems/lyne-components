@@ -9,9 +9,16 @@ describe('sbb-card-badge', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-card-badge>
+        <sbb-card-badge slot="badge" color="charcoal" role="text" dir="ltr">
           <mock:shadow-root>
-            <span class="card-badge card-badge--primary card-badge--regular" dir="ltr" role="text"></span>
+            <span class="sbb-card-badge-wrapper">
+              <span class="sbb-card-badge">
+                <span class="sbb-card-badge-background" aria-hidden="true"></span>
+                <span class="sbb-card-badge-content">
+                  <slot />
+                </span>
+              </span>
+            </span>
           </mock:shadow-root>
         </sbb-card-badge>
       `);

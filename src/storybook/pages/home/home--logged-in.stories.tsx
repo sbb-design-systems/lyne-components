@@ -112,15 +112,19 @@ const Template = (args): JSX.Element => (
           </sbb-title>
           <ul class="current-tickets-list">
             <li>
-              <sbb-card
-                aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-                href="https://github.com/lyne-design-system/lyne-components"
-              >
-                <sbb-card-badge is-discount price="92.50" text="from CHF" slot="badge">
-                  <span slot="generic">
+              <sbb-card>
+                <sbb-card-badge>
+                  <span>%</span>
+                  <span>from CHF</span>
+                  <span>92.50</span>
+                  <span>
                     on <time dateTime="2021-11-25">Black Friday</time>
                   </span>
                 </sbb-card-badge>
+
+                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                  View Ticket
+                </sbb-card-action>
 
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -147,17 +151,18 @@ const Template = (args): JSX.Element => (
                       disable-animation={isChromatic()}
                     />
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small">
+                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
                     Ticket
                   </sbb-button>
                 </span>
               </sbb-card>
             </li>
             <li>
-              <sbb-card
-                aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-                href="https://github.com/lyne-design-system/lyne-components"
-              >
+              <sbb-card>
+                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                  Ticket
+                </sbb-card-action>
+
                 <span class="card-product">
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
                   <span class="content">
@@ -167,17 +172,18 @@ const Template = (args): JSX.Element => (
                     </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-button variant="secondary" icon-name="qrcode-small">
+                  <sbb-button variant="secondary" icon-name="qrcode-small" is-static>
                     Ticket
                   </sbb-button>
                 </span>
               </sbb-card>
             </li>
             <li>
-              <sbb-card
-                aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-                href="https://github.com/lyne-design-system/lyne-components"
-              >
+              <sbb-card>
+                <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                  Details
+                </sbb-card-action>
+
                 <span class="card-product">
                   <span class="content">
                     <sbb-journey-header
@@ -195,7 +201,9 @@ const Template = (args): JSX.Element => (
                       disable-animation={isChromatic()}
                     />
                   </span>
-                  <sbb-button variant="secondary">Details</sbb-button>
+                  <sbb-button variant="secondary" is-static>
+                    Details
+                  </sbb-button>
                 </span>
               </sbb-card>
             </li>
@@ -261,12 +269,11 @@ const Template = (args): JSX.Element => (
             <sbb-title level="3" visual-level="4" negative={args.negative}>
               Your subscriptions.
             </sbb-title>
-            <sbb-card
-              aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-              href="https://github.com/lyne-design-system/lyne-components"
-              color="milk"
-              size="s"
-            >
+            <sbb-card color="milk" size="s">
+              <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+                Edit subscription
+              </sbb-card-action>
+
               <span class="card-product-big">
                 <span class="content">
                   <sbb-title level="2" visual-level="1">
@@ -277,7 +284,9 @@ const Template = (args): JSX.Element => (
                   </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
-                <sbb-button variant="secondary">Edit subscription</sbb-button>
+                <sbb-button variant="secondary" is-static>
+                  Edit subscription
+                </sbb-button>
               </span>
             </sbb-card>
           </div>

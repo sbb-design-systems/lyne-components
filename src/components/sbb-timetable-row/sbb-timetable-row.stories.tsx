@@ -25,6 +25,12 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
+const cardActionLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const disableAnimation: InputType = {
   control: {
     type: 'boolean',
@@ -68,6 +74,7 @@ const boarding: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  'card-action-label': cardActionLabel,
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
@@ -78,6 +85,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
+  'card-action-label': '',
   'disable-animation': isChromatic(),
   'loading-trip': false,
   'loading-price': false,

@@ -14,7 +14,7 @@ import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custo
 import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
-import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
+import { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
@@ -22,7 +22,6 @@ import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.hel
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
-import { InterfaceSbbGroupAttributes } from "./components/sbb-group/sbb-group.custom.d";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
@@ -59,7 +58,7 @@ export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custo
 export { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
-export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
+export { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 export { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
@@ -67,7 +66,6 @@ export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.hel
 export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
 export { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 export { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
-export { InterfaceSbbGroupAttributes } from "./components/sbb-group/sbb-group.custom.d";
 export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
@@ -350,19 +348,25 @@ export namespace Components {
     }
     interface SbbCard {
         /**
-          * Used to set the component's active state.
-         */
-        "active": boolean;
-        /**
           * Option to set the component's background color.
          */
         "color": InterfaceSbbCardAttributes['color'];
+        /**
+          * Size variant, either xs, s, m, l, xl, xxl or xxxl.
+         */
+        "size"?: InterfaceSbbCardAttributes['size'];
+    }
+    interface SbbCardAction {
+        /**
+          * Whether the card is active.
+         */
+        "active": boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
         /**
-          * The <form> element to associate the button with.
+          * The <form> element to associate the button to it.
          */
         "form"?: string | undefined;
         /**
@@ -378,10 +382,6 @@ export namespace Components {
          */
         "rel"?: string | undefined;
         /**
-          * Size variant, either xs, s, m, l, xl or xxl.
-         */
-        "size"?: InterfaceSbbCardAttributes['size'];
-        /**
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
@@ -396,25 +396,9 @@ export namespace Components {
     }
     interface SbbCardBadge {
         /**
-          * Badge appearance
+          * Color of the card badge.
          */
-        "appearance": InterfaceCardBadgeAttributes['appearance'];
-        /**
-          * Mark as discount
-         */
-        "isDiscount"?: boolean;
-        /**
-          * Price text
-         */
-        "price"?: string;
-        /**
-          * Badge size
-         */
-        "size": InterfaceCardBadgeAttributes['size'];
-        /**
-          * From/above price text
-         */
-        "text"?: string;
+        "color": InterfaceSbbCardBadgeAttributes['color'];
     }
     interface SbbCheckbox {
         /**
@@ -657,16 +641,6 @@ export namespace Components {
           * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
          */
         "width": 'default' | 'collapse';
-    }
-    interface SbbGroup {
-        /**
-          * Background color of the group.
-         */
-        "color": InterfaceSbbGroupAttributes['color'];
-        /**
-          * Padding variant of the group.
-         */
-        "padding": InterfaceSbbGroupAttributes['padding'];
     }
     interface SbbHeader {
         /**
@@ -1630,6 +1604,10 @@ export namespace Components {
          */
         "boarding"?: Boarding;
         /**
+          * Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
+         */
+        "cardActionLabel"?: string;
+        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
@@ -2119,6 +2097,12 @@ declare global {
         prototype: HTMLSbbCardElement;
         new (): HTMLSbbCardElement;
     };
+    interface HTMLSbbCardActionElement extends Components.SbbCardAction, HTMLStencilElement {
+    }
+    var HTMLSbbCardActionElement: {
+        prototype: HTMLSbbCardActionElement;
+        new (): HTMLSbbCardActionElement;
+    };
     interface HTMLSbbCardBadgeElement extends Components.SbbCardBadge, HTMLStencilElement {
     }
     var HTMLSbbCardBadgeElement: {
@@ -2202,12 +2186,6 @@ declare global {
     var HTMLSbbFormFieldElement: {
         prototype: HTMLSbbFormFieldElement;
         new (): HTMLSbbFormFieldElement;
-    };
-    interface HTMLSbbGroupElement extends Components.SbbGroup, HTMLStencilElement {
-    }
-    var HTMLSbbGroupElement: {
-        prototype: HTMLSbbGroupElement;
-        new (): HTMLSbbGroupElement;
     };
     interface HTMLSbbHeaderElement extends Components.SbbHeader, HTMLStencilElement {
     }
@@ -2590,6 +2568,7 @@ declare global {
         "sbb-button": HTMLSbbButtonElement;
         "sbb-calendar": HTMLSbbCalendarElement;
         "sbb-card": HTMLSbbCardElement;
+        "sbb-card-action": HTMLSbbCardActionElement;
         "sbb-card-badge": HTMLSbbCardBadgeElement;
         "sbb-checkbox": HTMLSbbCheckboxElement;
         "sbb-checkbox-group": HTMLSbbCheckboxGroupElement;
@@ -2604,7 +2583,6 @@ declare global {
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
-        "sbb-group": HTMLSbbGroupElement;
         "sbb-header": HTMLSbbHeaderElement;
         "sbb-header-action": HTMLSbbHeaderActionElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -2947,19 +2925,25 @@ declare namespace LocalJSX {
     }
     interface SbbCard {
         /**
-          * Used to set the component's active state.
-         */
-        "active"?: boolean;
-        /**
           * Option to set the component's background color.
          */
         "color"?: InterfaceSbbCardAttributes['color'];
+        /**
+          * Size variant, either xs, s, m, l, xl, xxl or xxxl.
+         */
+        "size"?: InterfaceSbbCardAttributes['size'];
+    }
+    interface SbbCardAction {
+        /**
+          * Whether the card is active.
+         */
+        "active"?: boolean;
         /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean | undefined;
         /**
-          * The <form> element to associate the button with.
+          * The <form> element to associate the button to it.
          */
         "form"?: string | undefined;
         /**
@@ -2975,10 +2959,6 @@ declare namespace LocalJSX {
          */
         "rel"?: string | undefined;
         /**
-          * Size variant, either xs, s, m, l, xl or xxl.
-         */
-        "size"?: InterfaceSbbCardAttributes['size'];
-        /**
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
@@ -2993,25 +2973,9 @@ declare namespace LocalJSX {
     }
     interface SbbCardBadge {
         /**
-          * Badge appearance
+          * Color of the card badge.
          */
-        "appearance"?: InterfaceCardBadgeAttributes['appearance'];
-        /**
-          * Mark as discount
-         */
-        "isDiscount"?: boolean;
-        /**
-          * Price text
-         */
-        "price"?: string;
-        /**
-          * Badge size
-         */
-        "size"?: InterfaceCardBadgeAttributes['size'];
-        /**
-          * From/above price text
-         */
-        "text"?: string;
+        "color"?: InterfaceSbbCardBadgeAttributes['color'];
     }
     interface SbbCheckbox {
         /**
@@ -3272,16 +3236,6 @@ declare namespace LocalJSX {
           * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
          */
         "width"?: 'default' | 'collapse';
-    }
-    interface SbbGroup {
-        /**
-          * Background color of the group.
-         */
-        "color"?: InterfaceSbbGroupAttributes['color'];
-        /**
-          * Padding variant of the group.
-         */
-        "padding"?: InterfaceSbbGroupAttributes['padding'];
     }
     interface SbbHeader {
         /**
@@ -4299,6 +4253,10 @@ declare namespace LocalJSX {
          */
         "boarding"?: Boarding;
         /**
+          * Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
+         */
+        "cardActionLabel"?: string;
+        /**
           * This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.
          */
         "disableAnimation"?: boolean;
@@ -4663,6 +4621,7 @@ declare namespace LocalJSX {
         "sbb-button": SbbButton;
         "sbb-calendar": SbbCalendar;
         "sbb-card": SbbCard;
+        "sbb-card-action": SbbCardAction;
         "sbb-card-badge": SbbCardBadge;
         "sbb-checkbox": SbbCheckbox;
         "sbb-checkbox-group": SbbCheckboxGroup;
@@ -4677,7 +4636,6 @@ declare namespace LocalJSX {
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
-        "sbb-group": SbbGroup;
         "sbb-header": SbbHeader;
         "sbb-header-action": SbbHeaderAction;
         "sbb-icon": SbbIcon;
@@ -4756,6 +4714,7 @@ declare module "@stencil/core" {
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-calendar": LocalJSX.SbbCalendar & JSXBase.HTMLAttributes<HTMLSbbCalendarElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
+            "sbb-card-action": LocalJSX.SbbCardAction & JSXBase.HTMLAttributes<HTMLSbbCardActionElement>;
             "sbb-card-badge": LocalJSX.SbbCardBadge & JSXBase.HTMLAttributes<HTMLSbbCardBadgeElement>;
             "sbb-checkbox": LocalJSX.SbbCheckbox & JSXBase.HTMLAttributes<HTMLSbbCheckboxElement>;
             "sbb-checkbox-group": LocalJSX.SbbCheckboxGroup & JSXBase.HTMLAttributes<HTMLSbbCheckboxGroupElement>;
@@ -4770,7 +4729,6 @@ declare module "@stencil/core" {
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
-            "sbb-group": LocalJSX.SbbGroup & JSXBase.HTMLAttributes<HTMLSbbGroupElement>;
             "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
             "sbb-header-action": LocalJSX.SbbHeaderAction & JSXBase.HTMLAttributes<HTMLSbbHeaderActionElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;

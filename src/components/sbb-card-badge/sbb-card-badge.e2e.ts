@@ -1,7 +1,7 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-card-badge', () => {
-  let element, page;
+  let element: E2EElement, page: E2EPage;
 
   it('renders', async () => {
     page = await newE2EPage();

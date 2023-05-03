@@ -1,24 +1,42 @@
-to be documented...
+The `<sbb-card-badge>` can contain some information like prices 
+or discounts and is e.g. used in `<sbb-card>` or `<sbb-selection-panel>`.
+
+To achieve the correct spacing between elements inside the card badge, we recommend to use `<span>`-elements. 
+All content parts are presented with a predefined gap in between.
+
+## Accessibility
+
+It's recommended to place an `aria-label` on `<sbb-card-badge>` to describe
+the displayed information in a full sentence.
+
+### Example with `sbb-card`
+
+```html
+<sbb-card>
+  <sbb-card-badge aria-label="Super saver sales ticket price starts at CHF 19.99">
+    <span>%</span>
+    <span>from CHF</span>
+    <span>19.99</span>
+  </sbb-card-badge>
+  Card content...
+</sbb-card>
+```
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property     | Attribute     | Description           | Type                              | Default     |
-| ------------ | ------------- | --------------------- | --------------------------------- | ----------- |
-| `appearance` | `appearance`  | Badge appearance      | `"primary" \| "primary-negative"` | `'primary'` |
-| `isDiscount` | `is-discount` | Mark as discount      | `boolean`                         | `undefined` |
-| `price`      | `price`       | Price text            | `string`                          | `undefined` |
-| `size`       | `size`        | Badge size            | `"regular"`                       | `'regular'` |
-| `text`       | `text`        | From/above price text | `string`                          | `undefined` |
+| Property | Attribute | Description              | Type                    | Default      |
+| -------- | --------- | ------------------------ | ----------------------- | ------------ |
+| `color`  | `color`   | Color of the card badge. | `"charcoal" \| "white"` | `'charcoal'` |
 
 
 ## Slots
 
-| Slot        | Description                                                                                                                                                                                                             |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `"generic"` | Slot used to render generic content. Since this slot is wrapped within a `span` only inline elements are allowed to be passed within this slot. Check https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements |
+| Slot        | Description                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| `"unnamed"` | Content of the badge. Content parts should be wrapped in `<span>` tags to achieve correct spacings. |
 
 
 ## Dependencies

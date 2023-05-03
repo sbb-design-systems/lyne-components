@@ -20,6 +20,9 @@ describe('sbb-timetable-row', () => {
         <sbb-timetable-row data-now="1660662000000" role="rowgroup">
           <mock:shadow-root>
             <sbb-card size="l">
+              <sbb-card-action>
+                Departure: 11:08. Train. IR 37. Direction Basel SBB.
+              </sbb-card-action>
               <div class="sbb-timetable__row" role="row">
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
@@ -74,6 +77,9 @@ describe('sbb-timetable-row', () => {
         <sbb-timetable-row data-now="1660662000000" role="rowgroup">
           <mock:shadow-root>
             <sbb-card size="l">
+              <sbb-card-action>
+                Departure: 16:30. from Stand 4. Bus. B 19. Direction Spiegel, Blinzern.
+              </sbb-card-action>
               <div class="sbb-timetable__row" role="row">
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
@@ -155,7 +161,7 @@ describe('sbb-timetable-row', () => {
         <sbb-timetable-row loading-trip="true" loading-price="true" data-now="1660662000000">
           <mock:shadow-root>
             <sbb-card class="sbb-loading" size="l">
-            <sbb-card-badge class="sbb-loading__badge" slot="badge"></sbb-card-badge>
+              <sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>
               <div class="sbb-loading__wrapper">
                 <div class="sbb-loading__row"></div>
                 <div class="sbb-loading__row"></div>

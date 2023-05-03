@@ -160,12 +160,11 @@ export const Navigation = (): JSX.Element => (
 );
 
 export const DailyTicketProduct = (): JSX.Element => (
-  <sbb-card
-    aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    href="https://github.com/lyne-design-system/lyne-components"
-    color="milk"
-    size="s"
-  >
+  <sbb-card color="milk" size="s">
+    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+      Buy Daily Ticket
+    </sbb-card-action>
+
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
       <span class="content">
@@ -174,7 +173,7 @@ export const DailyTicketProduct = (): JSX.Element => (
         </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary">
+      <sbb-button size="m" variant="secondary" is-static>
         Buy
       </sbb-button>
     </span>
@@ -182,12 +181,11 @@ export const DailyTicketProduct = (): JSX.Element => (
 );
 
 export const BikeProduct = (): JSX.Element => (
-  <sbb-card
-    aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    href="https://github.com/lyne-design-system/lyne-components"
-    color="milk"
-    size="s"
-  >
+  <sbb-card color="milk" size="s">
+    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+      Buy Bike daily pass
+    </sbb-card-action>
+
     <span class="card-product">
       <sbb-icon name="bicycle-medium"></sbb-icon>
       <span class="content">
@@ -196,7 +194,7 @@ export const BikeProduct = (): JSX.Element => (
         </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary">
+      <sbb-button size="m" variant="secondary" is-static>
         Buy
       </sbb-button>
     </span>
@@ -204,12 +202,11 @@ export const BikeProduct = (): JSX.Element => (
 );
 
 export const LiberoProduct = (): JSX.Element => (
-  <sbb-card
-    aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    href="https://github.com/lyne-design-system/lyne-components"
-    color="milk"
-    size="s"
-  >
+  <sbb-card color="milk" size="s">
+    <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+      Buy Libero short distance ticket
+    </sbb-card-action>
+
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
       <span class="content">
@@ -218,7 +215,7 @@ export const LiberoProduct = (): JSX.Element => (
         </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-button size="m" variant="secondary">
+      <sbb-button size="m" variant="secondary" is-static>
         Buy
       </sbb-button>
     </span>

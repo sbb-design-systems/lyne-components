@@ -60,6 +60,12 @@ sbb-breadcrumb-group:not(.hydrated) {
   overflow: hidden;
 }
 
+// Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
+// This style enables accessing focusable elements inside an sbb-card.
+[data-card-focusable] {
+  pointer-events: all;
+}
+
 .sbb-text-xxs {
   @include typo.text-xxs--regular;
 }

@@ -1,28 +1,66 @@
-The `sbb-card` component is a generic content container as an action element; its task is to contain HTML elements related to a single subject.
+The `sbb-card` component is a generic content container; its task is to contain content related to a single subject. 
+There are various sizes (affecting paddings) and colors available.
 
-Internally, it is either rendered as an anchor (`<a>`, when used with a `href` attribute) or as a button (when used without a `href` attribute).
-When rendered as a button, it is possible to listen to the click event to add behavior.
+The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner.
+The badge is hidden with card sizes `xs` or `s`.
 
-There are six size variants available (from `xs` to `xxl`), which can be configured via the `size` attribute value,
-and two background variants, white by default and milk when the `color` attribute is set to `milk`.
-Set the `active` attribute to display the card in an active state, which is bordered and has no hover effect.
+## Action
 
-The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner. 
-The badge is hidden with sizes `xs` or `s`.
+To add an action to a card, add a `<sbb-card-action>` to the main slot. With the `<sbb-card-action>` 
+all the card area becomes clickable. 
+Consult [API docs of `sbb-card-action`](/docs/components-sbb-card-sbb-card-action--docs) for detailed information.
+
+
+## Accessibility
+
+It's **important** that a descriptive message is being slotted into the unnamed slot of `<sbb-card-action>` 
+as it is used for search engines and screen reader users. E.g. `<sbb-card-action>Buy a half-fare ticket now</sbb-card-action>`.
+
+Normally, a `<sbb-card>` should be a single action, however it's possible to place other interactive elements
+in the card content. Interactive content will automatically be detected and made accessible to click / focus.
+In cases where there should be only a visual button or link inside the card content without a different action, the 
+`is-static` attribute should be set (e.g. `<sbb-button is-static></sbb-button>`).
+
+### High Contrast Additions
+
+In high contrast mode all the content of a link or a button receives a specific color which overrides every other color. 
+However, as the content of the card is not directly inside the button or link, this does not happen 
+when the slotted content has a specific color set.
+To improve coloring it's needed to manually define styles for high contrast mode (setting `LinkText` or `ButtonText`).
+
 
 ## Usage
 
 The examples below shows how to use the component with and without the `<sbb-card-badge>` component.
 In the first one, the `sbb-card` will be internally rendered as a button, in the second one as a link. 
 
+Simple card:
+
 ```html
 <sbb-card size="xl" color="milk">
-  <sbb-card-badge slot="badge" appearance="primary" is-discount></sbb-card-badge>
   Card content
 </sbb-card>
+```
 
-<sbb-card size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank">
+Card with badge:
+
+```html
+<sbb-card size="m" color="white">
+  <sbb-card-badge>
+    <span>%</span>
+    <span>from CHF</span>
+    <span>19.99</span>
+  </sbb-card-badge>
   Card content
+</sbb-card>
+```
+
+Card with action:
+
+```html
+<sbb-card size="xl" color="milk">
+  <sbb-card-action href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-action>
+  Buy trips
 </sbb-card>
 ```
 
@@ -31,19 +69,10 @@ In the first one, the `sbb-card` will be internally rendered as a button, in the
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                     | Type                                         | Default     |
-| ---------- | ---------- | ------------------------------------------------------------------------------- | -------------------------------------------- | ----------- |
-| `active`   | `active`   | Used to set the component's active state.                                       | `boolean`                                    | `false`     |
-| `color`    | `color`    | Option to set the component's background color.                                 | `"milk" \| "white"`                          | `'white'`   |
-| `download` | `download` | Whether the browser will show the download dialog on click.                     | `boolean`                                    | `undefined` |
-| `form`     | `form`     | The <form> element to associate the button with.                                | `string`                                     | `undefined` |
-| `href`     | `href`     | The href value you want to link to.                                             | `string`                                     | `undefined` |
-| `name`     | `name`     | The name of the button.                                                         | `string`                                     | `undefined` |
-| `rel`      | `rel`      | The relationship of the linked URL as space-separated link types.               | `string`                                     | `undefined` |
-| `size`     | `size`     | Size variant, either xs, s, m, l, xl or xxl.                                    | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl"` | `'m'`       |
-| `target`   | `target`   | Where to display the linked URL.                                                | `string`                                     | `undefined` |
-| `type`     | `type`     | Default behaviour of the button.                                                | `"button" \| "reset" \| "submit"`            | `undefined` |
-| `value`    | `value`    | The value associated with button `name` when it's submitted with the form data. | `string`                                     | `undefined` |
+| Property | Attribute | Description                                        | Type                                                                           | Default   |
+| -------- | --------- | -------------------------------------------------- | ------------------------------------------------------------------------------ | --------- |
+| `color`  | `color`   | Option to set the component's background color.    | `"milk" \| "transparent-bordered" \| "transparent-bordered-dashed" \| "white"` | `'white'` |
+| `size`   | `size`    | Size variant, either xs, s, m, l, xl, xxl or xxxl. | `"l" \| "m" \| "s" \| "xl" \| "xs" \| "xxl" \| "xxxl"`                         | `'m'`     |
 
 
 ## Slots

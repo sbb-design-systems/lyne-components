@@ -60,7 +60,7 @@ export class SbbSelectionPanel implements ComponentInterface {
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
-  @State() private _namedSlots = createNamedSlotState('badge', 'content');
+  @State() private _namedSlots = createNamedSlotState('content');
 
   @Element() private _element!: HTMLElement;
 
@@ -185,11 +185,9 @@ export class SbbSelectionPanel implements ComponentInterface {
         data-disabled={this._disabled}
       >
         <div class="sbb-selection-panel">
-          {this._namedSlots['badge'] && (
-            <div class="sbb-selection-panel__badge">
-              <slot name="badge" />
-            </div>
-          )}
+          <div class="sbb-selection-panel__badge">
+            <slot name="badge" />
+          </div>
 
           <div class="sbb-selection-panel__input">
             <slot />

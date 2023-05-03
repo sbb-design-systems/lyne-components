@@ -4,20 +4,12 @@ import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-/* ************************************************* */
-/* Storybook component wrapper, used in Storybook    */
-/* ************************************************* */
-
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color':
-    context.args.appearance !== 'primary-negative'
+    context.args.color === 'charcoal'
       ? 'var(--sbb-color-white-default)'
       : 'var(--sbb-color-charcoal-default)',
 });
-
-/* ************************************************* */
-/* Storybook controls                                */
-/* ************************************************* */
 
 const ariaLabel: InputType = {
   control: {
@@ -25,152 +17,50 @@ const ariaLabel: InputType = {
   },
 };
 
-const appearance: InputType = {
+const color: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
-  options: ['primary', 'primary-negative'],
-  table: {
-    category: 'Appearance',
-  },
-};
-
-const isDiscount: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const text: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const price: InputType = {
-  control: {
-    type: 'text',
-  },
+  options: ['charcoal', 'white'],
 };
 
 const defaultArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
-  appearance,
-  'is-discount': isDiscount,
-  price,
-  text,
+  color,
 };
 
 const defaultArgs: Args = {
-  'aria-label': 'Super saver sales ticket price starts at CHF 37.50',
-  appearance: appearance.options[0],
+  'aria-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
+  color: color.options[0],
 };
 
-/* ************************************************* */
-/* Slot templates, used in Storybook template        */
-/* ************************************************* */
-
-/* --- generic slot -------------------------------- */
-
-const SlotGenericTemplate = (): JSX.Element => (
-  <span>
-    <time dateTime="2021-11-25">Black Friday</time> Special
-  </span>
-);
-
-/* ************************************************* */
-/* Storybook templates                               */
-/* ************************************************* */
-
-const Template = (args): JSX.Element => <sbb-card-badge {...args}></sbb-card-badge>;
-
-const TemplateWithSlot = (args): JSX.Element => (
+const Template = (args): JSX.Element => (
   <sbb-card-badge {...args}>
-    <div slot="generic">
-      <SlotGenericTemplate />
-    </div>
+    <span>%</span>
+    <span>from CHF</span>
+    <span>92.50</span>
+    <span>
+      <time dateTime="2021-11-25">Black Friday</time> Special
+    </span>
   </sbb-card-badge>
 );
 
-/* ************************************************* */
-/* The Stories                                       */
-/* ************************************************* */
-
-/* --- CardBadge full fledged ---------------------- */
-export const CardBadgeFullFledged: StoryObj = {
-  render: TemplateWithSlot,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'aria-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
-    'is-discount': true,
-    price: '92.50',
-    text: 'from CHF',
-  },
-};
-
-/* --- CardBadge discount ------------------ */
-export const CardBadgeDiscount: StoryObj = {
+export const Charcoal: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'aria-label': 'Super saver sales ticket.',
-    'is-discount': true,
   },
 };
 
-/* --- CardBadge discount negative -------- */
-export const CardBadgeDiscountNegative: StoryObj = {
+export const White: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'aria-label': 'Super saver sales ticket.',
-    appearance: appearance.options[1],
-    'is-discount': true,
+    color: color.options[1],
   },
 };
-
-/* --- CardBadge with text and price ------------ */
-export const CardBadgeWithTextAndPrice: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'aria-label': 'Super saver sales ticket price starts at CHF 37.50',
-    price: '37.50',
-    text: 'from CHF',
-  },
-};
-
-/* --- CardBadge with text and price negative ---------- */
-export const CardBadgeWithTextAndPriceNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'aria-label': 'Super saver sales ticket price starts at CHF 18.70',
-    appearance: appearance.options[1],
-    price: '18.70',
-    text: 'from CHF',
-  },
-};
-
-/* --- CardBadge discount with slot ------------------------- */
-export const CardBadgeDiscountWithSlot: StoryObj = {
-  render: TemplateWithSlot,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'aria-label': 'Super saver sales ticket Black Friday Special',
-    'is-discount': true,
-  },
-};
-
-/* ************************************************* */
-/* Render storybook section and stories              */
-/* ************************************************* */
 
 const meta: Meta = {
   decorators: [
@@ -178,7 +68,7 @@ const meta: Meta = {
       <div
         style={{
           ...wrapperStyle(context),
-          padding: '2rem',
+          padding: '0 0 2rem 2rem',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -195,7 +85,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-card/sbb-card-badge (Unfinished)',
+  title: 'components/sbb-card/sbb-card-badge',
 };
 
 export default meta;
