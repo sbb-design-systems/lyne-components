@@ -4,6 +4,34 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-skiplink-height: 0;
+  --sbb-skiplink-overflow: hidden;
+  --sbb-skiplink-background: transparent;
+}
+
+// Focused state
+:host([data-focus-visible]) {
+  --sbb-skiplink-height: auto;
+  --sbb-skiplink-overflow: visible;
+  --sbb-skiplink-background: var(--sbb-color-black-default);
+}
+
 .sbb-skiplink-list {
   list-style: none;
+  position: fixed;
+  top: var(--sbb-spacing-fixed-4x);
+  left: var(--sbb-spacing-fixed-4x);
+  border-radius: var(--sbb-border-radius-4x);
+  z-index: 20;
+  height: var(--sbb-skiplink-height);
+  overflow: var(--sbb-skiplink-overflow);
+  background-color: var(--sbb-skiplink-background);
+  border: 1px solid black;
+}
+
+::slotted(sbb-link) {
+  padding-block: var(--sbb-spacing-fixed-2x);
+  padding-inline: var(--sbb-spacing-responsive-xxs);
+  color: white;
 }

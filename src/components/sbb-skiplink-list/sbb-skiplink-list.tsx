@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, h, JSX, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, Host, h, JSX, State } from '@stencil/core';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -19,8 +19,7 @@ export class SbbSkiplinkList implements ComponentInterface {
     const links = Array.from(this._element.children).filter(
       (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK'
     );
-    // If the slotted sbb-link instances have not changed, we can skip syncing and updating
-    // the link reference list.
+    // Update links list
     if (
       this._links &&
       links.length === this._links.length &&
@@ -29,28 +28,29 @@ export class SbbSkiplinkList implements ComponentInterface {
       return;
     }
 
-    //this.syncLinks();
     this._links = links;
-
-    console.log(links);
+    //console.log(links);
   }
 
   public connectedCallback(): void {
-    //this._handlerRepository.connect();
     this._readLinks();
   }
+
+  private _focusedLink = true;
 
   public render(): JSX.Element {
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
-      <div class="sbb-skiplink-list">
+      <Host data-focus-visible={this._focusedLink}>
+        <span class="sbb-skiplink-list">
           {this._links.map((_, index) => (
             <li>
               <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
             </li>
           ))}
-      </div>
+        </span>
+      </Host>
     );
   }
 }
