@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.13](https://github.com/lyne-design-system/lyne-components/compare/v0.33.12...v0.33.13) (2023-05-03)
+
+### Bug Fixes
+
+- **sbb-button:** fix icon only detection with whitespaces in slot ([85e6999](https://github.com/lyne-design-system/lyne-components/commit/85e6999dfde964f142c5be37b76008f8e7922fb0))
+
 ### [0.33.12](https://github.com/lyne-design-system/lyne-components/compare/v0.33.11...v0.33.12) (2023-05-03)
 
 ### Bug Fixes
