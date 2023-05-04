@@ -12,6 +12,8 @@ export class SbbSkiplinkList implements ComponentInterface {
   /** Sbb-Link elements */
   @State() private _links: HTMLSbbLinkElement[];
 
+  @State() private _focusedLink;
+
   @Element() private _element: HTMLElement;
 
   /** Create an array with only the sbb-link children */
@@ -29,20 +31,21 @@ export class SbbSkiplinkList implements ComponentInterface {
     }
 
     this._links = links;
-    //console.log(links);
   }
 
   public connectedCallback(): void {
     this._readLinks();
   }
 
-  private _focusedLink = true;
-
   public render(): JSX.Element {
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
-      <Host data-focus-visible={this._focusedLink}>
+      <Host
+        data-focus-visible={this._focusedLink}
+        onFocusin={() => (this._focusedLink = true)}
+        onFocusout={() => (this._focusedLink = false)}
+      >
         <span class="sbb-skiplink-list">
           {this._links.map((_, index) => (
             <li>
