@@ -399,6 +399,10 @@ export const InputCollapsedWidth = TemplateInput.bind({});
 InputCollapsedWidth.argTypes = basicArgTypes;
 InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
 
+export const InputWithIconsDisabled = TemplateInputWithIcons.bind({});
+InputWithIconsDisabled.argTypes = basicArgTypes;
+InputWithIconsDisabled.args = { ...basicArgs, disabled: true };
+
 export default {
   decorators: [
     (Story) => (

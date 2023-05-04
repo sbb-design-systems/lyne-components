@@ -53,9 +53,9 @@
 }
 
 :host([data-disabled]) {
-  --sbb-form-field-label-color: var(--sbb-color-graphite-default);
-  --sbb-form-field-prefix-color: var(--sbb-color-graphite-default);
-  --sbb-form-field-text-color: var(--sbb-color-graphite-default);
+  --sbb-form-field-label-color: var(--sbb-color-granite-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
+  --sbb-form-field-text-color: var(--sbb-color-granite-default);
 
   @include sbb.if-forced-colors {
     --sbb-form-field-label-color: GrayText;
@@ -178,7 +178,6 @@
 
 .sbb-form-field__input ::slotted(:where(input, select)) {
   @include sbb.text-m--regular;
-  @include sbb.placeholder;
   @include sbb.ellipsis;
   @include sbb.input-reset;
 
@@ -186,6 +185,10 @@
   width: 100%;
   box-sizing: border-box;
   color: var(--sbb-form-field-text-color);
+
+  // Fill color needed for Safari
+  -webkit-text-fill-color: var(--sbb-form-field-text-color);
+  opacity: 1;
   background-color: var(--sbb-form-field-background-color);
 
   // To be more specific than the styles in normalize.scss we need to use !important
@@ -193,6 +196,20 @@
   font-size: var(--sbb-font-size-text-m) !important;
   font-family: var(--sbb-typo-type-face-sbb-roman) !important;
   line-height: var(--sbb-typo-line-height-body-text) !important;
+
+  &::placeholder {
+    @include sbb.placeholder;
+  }
+
+  :host([data-disabled]) & {
+    text-decoration: line-through !important;
+
+    &::placeholder {
+      color: var(--sbb-form-field-text-color) !important;
+      -webkit-text-fill-color: var(--sbb-form-field-text-color) !important;
+      text-decoration: line-through !important;
+    }
+  }
 }
 
 .sbb-form-field__input ::slotted(select) {
