@@ -84,7 +84,7 @@ export class SbbOption implements ComponentInterface {
   @State() private _label: string;
 
   /** The portion of the highlighted label. */
-  @State() private _highlightString: string;
+  // @State() private _highlightString: string;
 
   /** Disable the highlight of the label. */
   @State() private _disableLabelHighlight: boolean;
@@ -113,7 +113,8 @@ export class SbbOption implements ComponentInterface {
    */
   @Method()
   public async highlight(value: string): Promise<void> {
-    this._highlightString = value;
+    // this._highlightString = value;
+    console.log(value);
   }
 
   /**
@@ -195,30 +196,30 @@ export class SbbOption implements ComponentInterface {
     this._label = labelNode.wholeText;
   }
 
-  private _getHighlightedLabel(): JSX.Element {
-    if (!this._highlightString || !this._highlightString.trim()) {
-      return this._label;
-    }
+  // private _getHighlightedLabel(): JSX.Element {
+  //   if (!this._highlightString || !this._highlightString.trim()) {
+  //     return this._label;
+  //   }
 
-    const matchIndex = this._label.toLowerCase().indexOf(this._highlightString.toLowerCase());
+  //   const matchIndex = this._label.toLowerCase().indexOf(this._highlightString.toLowerCase());
 
-    if (matchIndex === -1) {
-      return this._label;
-    }
+  //   if (matchIndex === -1) {
+  //     return this._label;
+  //   }
 
-    const prefix = this._label.substring(0, matchIndex);
-    const highlighted = this._label.substring(
-      matchIndex,
-      matchIndex + this._highlightString.length
-    );
-    const postfix = this._label.substring(matchIndex + this._highlightString.length);
+  //   const prefix = this._label.substring(0, matchIndex);
+  //   const highlighted = this._label.substring(
+  //     matchIndex,
+  //     matchIndex + this._highlightString.length
+  //   );
+  //   const postfix = this._label.substring(matchIndex + this._highlightString.length);
 
-    return [
-      <span class="sbb-option__label--highlight">{prefix}</span>,
-      <span>{highlighted}</span>,
-      <span class="sbb-option__label--highlight">{postfix}</span>,
-    ];
-  }
+  //   return [
+  //     <span class="sbb-option__label--highlight">{prefix}</span>,
+  //     <span>{highlighted}</span>,
+  //     <span class="sbb-option__label--highlight">{postfix}</span>,
+  //   ];
+  // }
 
   private _renderAutocompleteOption(): JSX.Element {
     return (
