@@ -429,9 +429,17 @@ export class SbbAutocomplete implements ComponentInterface {
 
       case 'ArrowRight':
         this._activeColumn = 1;
+        this._triggerElement.setAttribute(
+          'aria-activedescendant',
+          `${this._options[this._activeItemIndex].id}x${this._activeColumn}`
+        );
         break;
       case 'ArrowLeft':
         this._activeColumn = 0;
+        this._triggerElement.setAttribute(
+          'aria-activedescendant',
+          `${this._options[this._activeItemIndex].id}x${this._activeColumn}`
+        );
         break;
 
       default:

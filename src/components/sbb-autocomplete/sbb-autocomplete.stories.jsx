@@ -171,8 +171,9 @@ const codeStyle = {
 const textBlock = () => {
   return (
     <div style={textBlockStyle}>
-      This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
-      it must always be covered by the autocomplete overlay.
+      Use <code style={codeStyle}>down/up arrows</code> to move between options and{' '}
+      <code style={codeStyle}>left/right arrows</code> arrow to move between the label and the
+      fovourite action
     </div>
   );
 };

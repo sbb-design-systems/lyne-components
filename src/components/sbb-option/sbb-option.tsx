@@ -162,6 +162,10 @@ export class SbbOption implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
+  public componentDidLoad(): void {
+    this._label = this._element.querySelector('.sbb-option__label').textContent;
+  }
+
   private _setVariantByContext(): void {
     if (this._element.closest('sbb-autocomplete')) {
       this._variant = 'autocomplete';
@@ -219,7 +223,12 @@ export class SbbOption implements ComponentInterface {
   private _renderAutocompleteOption(): JSX.Element {
     return (
       <div class="sbb-option__container">
-        <div class="sbb-option">
+        <div
+          class={{
+            'sbb-option': true,
+            'sbb-option-active': this.active,
+          }}
+        >
           <span
             class={{
               'sbb-option__icon': true,
@@ -230,14 +239,18 @@ export class SbbOption implements ComponentInterface {
           </span>
           <span class="sbb-option__label" role="gridcell" id={`${this._optionId}x0`}>
             <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
-            {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+            {/* {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()} */}
 
             {this._inertAriaGroups && this._groupLabel && (
               <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
             )}
           </span>
-          <span role="gridcell" id={`${this._optionId}x1`} aria-label="Mark as favourite">
-            <sbb-icon name="star-small" />
+          <span
+            role="gridcell"
+            id={`${this._optionId}x1`}
+            aria-label={`Mark ${this._label} as favourite`}
+          >
+            <sbb-icon name="star-small" aria-hidden="true" />
           </span>
         </div>
       </div>

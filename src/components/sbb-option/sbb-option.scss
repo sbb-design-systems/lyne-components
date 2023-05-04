@@ -62,12 +62,14 @@
   padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   color: var(--sbb-option-color);
   cursor: var(--sbb-option-cursor);
+}
 
-  :host([active]:not([active='false'])) & {
-    @include sbb.focus-outline;
+.sbb-option-active {
+  @include sbb.focus-outline;
 
-    border-radius: var(--sbb-border-radius-4x);
-  }
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+
+  border-radius: var(--sbb-border-radius-4x);
 }
 
 .sbb-option__icon {
