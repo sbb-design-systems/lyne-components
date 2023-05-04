@@ -137,8 +137,10 @@ export class SbbSelectionPanel implements ComponentInterface {
 
     if (this._checked) {
       this.willOpen.emit();
+      this.disableAnimation && this.didOpen.emit();
     } else {
       this.willClose.emit();
+      this.disableAnimation && this.didClose.emit();
     }
 
     this._setExpandedStateForScreenReaders();

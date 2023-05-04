@@ -10,7 +10,7 @@ describe('sbb-selection-panel', () => {
     <sbb-${inputType}-group name="input-group-name" ${
       inputType === 'radio-button' && 'value="Value one"'
     }>
-      <sbb-selection-panel id="sbb-selection-panel-1">
+      <sbb-selection-panel disable-animation id="sbb-selection-panel-1">
         <sbb-${inputType} id="sbb-input-1" value="Value one" ${
       inputType === 'checkbox' && 'checked'
     }>Value one</sbb-${inputType}>
@@ -20,7 +20,7 @@ describe('sbb-selection-panel', () => {
         </div>
       </sbb-selection-panel>
 
-      <sbb-selection-panel id="sbb-selection-panel-2">
+      <sbb-selection-panel disable-animation id="sbb-selection-panel-2">
         <sbb-${inputType} id="sbb-input-2" value="Value two">Value two</sbb-${inputType}>
         <div id="panel-content-2" slot="content">
           Inner Content
@@ -28,7 +28,7 @@ describe('sbb-selection-panel', () => {
         </div>
       </sbb-selection-panel>
 
-      <sbb-selection-panel id="sbb-selection-panel-3">
+      <sbb-selection-panel disable-animation id="sbb-selection-panel-3">
         <sbb-${inputType} id="sbb-input-3" value="Value three" disabled>Value three</sbb-${inputType}>
         <div id="panel-content-3" slot="content">
           Inner Content
@@ -36,7 +36,7 @@ describe('sbb-selection-panel', () => {
         </div>
       </sbb-selection-panel>
 
-      <sbb-selection-panel id="sbb-selection-panel-4">
+      <sbb-selection-panel disable-animation id="sbb-selection-panel-4">
         <sbb-${inputType} id="sbb-input-4" value="Value four">Value four</sbb-${inputType}>
         <div id="panel-content-4" slot="content">
           Inner Content
@@ -287,8 +287,8 @@ describe('sbb-selection-panel', () => {
       expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
 
       await page.waitForChanges();
-      await waitForCondition(() => didOpenEventSpy.events.length === 2);
-      expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
+      await waitForCondition(() => didOpenEventSpy.events.length === 1);
+      expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
 
       expect(input).toHaveAttribute('checked');
       expect(content).toHaveAttribute('data-expanded');
