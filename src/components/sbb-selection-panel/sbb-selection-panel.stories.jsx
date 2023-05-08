@@ -73,7 +73,7 @@ const suffixAndSubtext = () => [
   <span slot="subtext">Subtext</span>,
   <span slot="suffix" style="margin-inline-start: auto">
     <span style={suffixStyle}>
-      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-1x)" />
+      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x)" />
       <span class="sbb-text-m sbb-text--bold">
         <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
       </span>
@@ -193,14 +193,14 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
     <sbb-selection-panel {...args}>
       {cardbadge()}
       <sbb-checkbox checked={checkedInput}>
-        Sparen
+        Saving
         {suffixAndSubtext()}
       </sbb-checkbox>
       <div slot="content">
         <sbb-radio-button-group orientation="vertical">
           <sbb-radio-button value="non-flex" style="width: 100%">
             Non-Flex
-            <span slot="subtext">Keine Rückerstattung möglich</span>
+            <span slot="subtext">No refund possible</span>
             <span
               slot="suffix"
               style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
@@ -214,7 +214,7 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
           </sbb-radio-button>
           <sbb-radio-button value="semi-flex" style="width: 100%">
             Semi-Flex
-            <span slot="subtext">Teil-Rückerstattung möglich</span>
+            <span slot="subtext">Partial refund possible</span>
             <span
               slot="suffix"
               style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
@@ -230,10 +230,10 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
         <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs)" />
         <span style="color: var(--sbb-color-granite-default)">
           <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x)">
-            1 x 0 x Sparbillett, Halbtax{' '}
+            1 x 0 x Supersaver ticket, Half-Fare Card{' '}
             <sbb-tooltip-trigger id="tooltip-trigger-1" icon-name="circle-information-small" />
           </div>
-          <div>Gültig: Do., 03.11.2022 bis Fr., 04.11.2022 05:00</div>
+          <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-tooltip trigger="tooltip-trigger-1" hover-trigger>
           <span id="tooltip-content" class="sbb-text-s">
@@ -246,7 +246,7 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
     <sbb-selection-panel {...args}>
       {cardbadge()}
       <sbb-checkbox disabled={disabledInput}>
-        City Angebot
+        City offer
         {suffixAndSubtext()}
       </sbb-checkbox>
       <div slot="content">
@@ -281,10 +281,10 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
         <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs)" />
         <span style="color: var(--sbb-color-granite-default)">
           <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x)">
-            1 x 0 x City-Ticket inkl. City-Zuschlag Stadt, Halbtax{' '}
+            1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card{' '}
             <sbb-tooltip-trigger id="tooltip-trigger-2" icon-name="circle-information-small" />
           </div>
-          <div>Gültig: Do., 03.11.2022 bis Fr., 04.11.2022 05:00</div>
+          <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
         </span>
         <sbb-tooltip trigger="tooltip-trigger-2" hover-trigger>
           <span id="tooltip-content" class="sbb-text-s">
