@@ -5,9 +5,9 @@
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                             |
+| ----------- | --------------------------------------- |
+| `"unnamed"` | Use this to provide links for the list. |
 
 
 ----------------------------------------------
