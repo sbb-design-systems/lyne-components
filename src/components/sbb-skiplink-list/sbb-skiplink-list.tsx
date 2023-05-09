@@ -1,7 +1,7 @@
 import { Component, ComponentInterface, Element, Host, h, JSX, State } from '@stencil/core';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot unnamed - Use this to provide links for the list.
  */
 @Component({
   shadow: true,
@@ -9,14 +9,14 @@ import { Component, ComponentInterface, Element, Host, h, JSX, State } from '@st
   tag: 'sbb-skiplink-list',
 })
 export class SbbSkiplinkList implements ComponentInterface {
-  /** Sbb-Link elements */
+  /** sbb-link elements */
   @State() private _links: HTMLSbbLinkElement[];
 
   @State() private _focusedLink;
 
   @Element() private _element: HTMLElement;
 
-  /** Create an array with only the sbb-link children */
+  /** Create an array with only the sbb-link children. */
   private _readLinks(): void {
     const links = Array.from(this._element.children).filter(
       (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK'
