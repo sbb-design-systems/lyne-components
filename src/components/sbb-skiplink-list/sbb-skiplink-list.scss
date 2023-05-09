@@ -8,6 +8,7 @@
   --sbb-skiplink-height: 0;
   --sbb-skiplink-overflow: hidden;
   --sbb-skiplink-background: transparent;
+  --sbb-skiplink-border: unset;
   --sbb-focus-outline-color: var(--sbb-color-white-default);
 }
 
@@ -16,6 +17,7 @@
   --sbb-skiplink-height: auto;
   --sbb-skiplink-overflow: visible;
   --sbb-skiplink-background: var(--sbb-color-black-default);
+  --sbb-skiplink-border: var(--sbb-skiplink-border-width) solid var(--sbb-color-white-default);
 }
 
 .sbb-skiplink-list {
@@ -30,7 +32,7 @@
   height: var(--sbb-skiplink-height);
   overflow: var(--sbb-skiplink-overflow);
   background-color: var(--sbb-skiplink-background);
-  border: var(--sbb-border-width-2x) solid var(--sbb-color-white-default);
+  border: var(--sbb-skiplink-border);
 }
 
 ::slotted(sbb-link) {
