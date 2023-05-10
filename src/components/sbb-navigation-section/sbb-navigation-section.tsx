@@ -116,7 +116,7 @@ export class SbbNavigationSection implements ComponentInterface {
       return;
     }
 
-    this._resetMarker();
+    await this._resetMarker();
     this._state = 'closing';
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
@@ -193,12 +193,12 @@ export class SbbNavigationSection implements ComponentInterface {
   }
 
   // Check if the click was triggered on an element that should close the section.
-  private _handleNavigationSectionClose = (event: Event): void => {
+  private _handleNavigationSectionClose = async (event: Event): Promise<void> => {
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
     if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
-      this.close();
+      await this.close();
     }
   };
 
@@ -218,16 +218,16 @@ export class SbbNavigationSection implements ComponentInterface {
     );
   }
 
-  private _resetMarker(): void {
+  private async _resetMarker(): Promise<void> {
     if (isBreakpoint('zero', 'large')) {
-      (this._triggerElement?.parentElement as HTMLSbbNavigationMarkerElement)?.reset();
+      await (this._triggerElement?.parentElement as HTMLSbbNavigationMarkerElement)?.reset();
     }
   }
 
   // Closes the navigation on "Esc" key pressed.
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state === 'opened' && event.key === 'Escape') {
-      this.close();
+      await this.close();
     }
   }
 

@@ -14,7 +14,8 @@ import { HandlerRepository } from '../../global/helpers';
 import {
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../../global/helpers/eventing/language-change-handler';
+  sbbInputModalityDetector,
+} from '../../global/helpers';
 import { i18nShowCalendar } from '../../global/i18n';
 import {
   datepickerControlRegisteredEvent,
@@ -50,8 +51,6 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private _calendarElement: HTMLSbbCalendarElement;
 
-  private _openedByKeyboard = false;
-
   private _datePickerController: AbortController;
 
   private _handlerRepository = new HandlerRepository(
@@ -60,19 +59,18 @@ export class SbbDatepickerToggle implements ComponentInterface {
   );
 
   @Watch('datePicker')
-  public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+  public async findDatePicker(
+    newValue: string | HTMLElement,
+    oldValue: string | HTMLElement
+  ): Promise<void> {
     if (newValue !== oldValue) {
-      this._init(this.datePicker);
+      await this._init(this.datePicker);
     }
   }
 
-  public connectedCallback(): void {
+  public async connectedCallback(): Promise<void> {
     this._handlerRepository.connect();
-    this._init(this.datePicker);
-  }
-
-  public componentDidLoad(): void {
-    this._triggerElement = this._element.shadowRoot.querySelector('sbb-tooltip-trigger');
+    await this._init(this.datePicker);
   }
 
   public disconnectedCallback(): void {
@@ -124,8 +122,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private async _datePickerChanged(event: Event): Promise<void> {
     this._datePickerElement = event.target as HTMLSbbDatepickerElement;
-    const datepickerDate = await this._datePickerElement.getValueAsDate();
-    this._calendarElement.selectedDate = datepickerDate;
+    this._calendarElement.selectedDate = await this._datePickerElement.getValueAsDate();
   }
 
   private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
@@ -135,7 +132,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
     }
     this._calendarElement.selectedDate = await this._datePickerElement.getValueAsDate();
     this._configureCalendar(this._calendarElement, this._datePickerElement);
-    this._calendarElement.resetPosition();
+    await this._calendarElement.resetPosition();
   }
 
   private _hasDataNow(): boolean {
@@ -162,20 +159,16 @@ export class SbbDatepickerToggle implements ComponentInterface {
           aria-label={i18nShowCalendar[this._currentLanguage]}
           iconName="calendar-small"
           disabled={!this._datePickerElement || this._disabled}
-          onKeyDown={(event: KeyboardEvent) => {
-            if (event.code === 'Enter' || event.code === 'Space') {
-              this._openedByKeyboard = true;
-            }
+          ref={(trigger) => {
+            this._triggerElement = trigger;
           }}
           data-icon-small
         />
         <sbb-tooltip
           onWill-open={() => this._calendarElement.resetPosition()}
-          onDid-close={() => {
-            this._openedByKeyboard = false;
-          }}
           onDid-open={() => {
-            this._openedByKeyboard && this._calendarElement.focus();
+            sbbInputModalityDetector.mostRecentModality === 'keyboard' &&
+              this._calendarElement.focus();
           }}
           trigger={this._triggerElement}
           disableAnimation={this.disableAnimation}
@@ -188,10 +181,10 @@ export class SbbDatepickerToggle implements ComponentInterface {
             max={this._max}
             wide={this._datePickerElement?.wide}
             dateFilter={this._datePickerElement?.dateFilter}
-            onDate-selected={(d: SbbCalendarCustomEvent<Date>) => {
+            onDate-selected={async (d: SbbCalendarCustomEvent<Date>) => {
               const newDate = new Date(d.detail);
               this._calendarElement.selectedDate = newDate;
-              this._datePickerElement.setValueAsDate(newDate);
+              await this._datePickerElement.setValueAsDate(newDate);
             }}
           />
         </sbb-tooltip>

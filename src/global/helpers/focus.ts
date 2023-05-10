@@ -1,5 +1,3 @@
-export type SbbFocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
-
 export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]:not([disabled='false'])):not([tabindex="-1"]):not([static])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
@@ -68,32 +66,4 @@ export class FocusTrap {
     this._controller.abort();
     this._controller = new AbortController();
   }
-}
-
-function isPointerEvent(event): event is PointerEvent {
-  return typeof PointerEvent !== 'undefined' && event instanceof PointerEvent;
-}
-
-function isMouseEvent(event): event is MouseEvent {
-  return typeof MouseEvent !== 'undefined' && event instanceof MouseEvent;
-}
-
-function isKeyboardEvent(event): event is KeyboardEvent {
-  return typeof KeyboardEvent !== 'undefined' && event instanceof KeyboardEvent;
-}
-
-// The current implementation does not cover all possible cases, so when more used, improve detection.
-// TODO: Improve detection
-export function detectFocusOrigin(event: Event): SbbFocusOrigin {
-  if (isMouseEvent(event) && !isPointerEvent(event)) {
-    return event.detail === 0 ? 'keyboard' : 'mouse';
-  } else if (isKeyboardEvent(event) || (isPointerEvent(event) && event.pointerId === -1)) {
-    return 'keyboard';
-  } else if (isPointerEvent(event) && event.pointerType === 'touch') {
-    return 'touch';
-  } else if (isPointerEvent(event) && event.pointerId >= 0) {
-    return 'mouse';
-  }
-
-  return null;
 }
