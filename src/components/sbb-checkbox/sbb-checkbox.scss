@@ -129,7 +129,7 @@ slot[name='subtext'] {
           (var(--sbb-focus-outline-offset) * 2)
       );
       border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
-      border-radius: #{sbb.px-to-rem-build(10)};
+      border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
     }
   }
 }
