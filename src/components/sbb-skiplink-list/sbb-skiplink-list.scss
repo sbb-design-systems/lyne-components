@@ -20,22 +20,32 @@
   --sbb-skiplink-border: var(--sbb-border-width-2x) solid var(--sbb-color-white-default);
 }
 
-.sbb-skiplink-list {
+.sbb-skiplink-list__wrapper {
   @include sbb.shadow-level-5-hard;
 
-  list-style: none;
   position: fixed;
   top: var(--sbb-spacing-fixed-4x);
   left: var(--sbb-spacing-fixed-4x);
-  border-radius: var(--sbb-border-radius-4x);
   z-index: 20;
   height: var(--sbb-skiplink-height);
   overflow: var(--sbb-skiplink-overflow);
+  border-radius: var(--sbb-border-radius-4x);
   background-color: var(--sbb-skiplink-background);
   border: var(--sbb-skiplink-border);
 }
 
-::slotted(sbb-link) {
+.sbb-skiplink-list {
+  padding-inline: 0;
+  margin-block: 0;
+  list-style: none;
+}
+
+sbb-title {
+  margin: 0;
+}
+
+::slotted(sbb-link),
+sbb-title {
   padding-block: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-responsive-xxs);
 }

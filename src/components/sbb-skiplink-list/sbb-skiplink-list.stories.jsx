@@ -3,64 +3,86 @@ import readme from './readme.md';
 import { Navigation, TimetableInput } from '../../storybook/pages/home/home.common';
 import '../../storybook/pages/home/home.scss';
 
-const firstLinkLabel = {
+const size = {
+  control: {
+    type: 'select',
+  },
+  options: ['xs', 's', 'm'],
+};
+
+const titleContent = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'First link',
   },
 };
 
-const firstLinkHref = {
+const titleLevel = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [2, 3, 4, 5, 6],
+};
+
+const labelFirstLink = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'First link',
+    category: 'Links',
   },
 };
 
-const secondLinkLabel = {
+const hrefFirstLink = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Second link',
+    category: 'Links',
   },
 };
 
-const secondLinkHref = {
+const labelSecondLink = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Second link',
+    category: 'Links',
+  },
+};
+
+const hrefSecondLink = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Links',
   },
 };
 
 const defaultArgTypes = {
-  labelFirstLink: firstLinkLabel,
-  hrefFirstLink: firstLinkHref,
-  labelSecondLink: secondLinkLabel,
-  hrefSecondLink: secondLinkHref,
+  size,
+  'title-level': titleLevel,
+  'title-content': titleContent,
+  labelFirstLink,
+  hrefFirstLink,
+  labelSecondLink,
+  hrefSecondLink,
 };
 
 const defaultArgs = {
+  size: size.options[1],
+  'title-level': titleLevel.options[0],
+  'title-content': 'Skip',
   labelFirstLink: 'To content',
   hrefFirstLink: 'https://www.sbb.ch/',
   labelSecondLink: 'To contact',
   hrefSecondLink: 'https://www.sbb.ch/en/help-and-contact.html',
 };
 
-const Template = (args) => (
-  <sbb-skiplink-list>
-    <sbb-link negative size="m" href={args.hrefFirstLink}>
-      {args.labelFirstLink}
-    </sbb-link>
-    <sbb-link negative size="m" href={args.hrefSecondLink}>
-      {args.labelSecondLink}
-    </sbb-link>
+const Template = ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }) => (
+  <sbb-skiplink-list {...args}>
+    <sbb-link href={hrefFirstLink}>{labelFirstLink}</sbb-link>
+    <sbb-link href={hrefSecondLink}>{labelSecondLink}</sbb-link>
   </sbb-skiplink-list>
 );
 
@@ -74,7 +96,6 @@ export default {
       <div>
         <Story />
 
-        {/* HEADER */}
         <sbb-header hide-on-scroll="true">
           <sbb-header-action
             id="hamburger-menu"

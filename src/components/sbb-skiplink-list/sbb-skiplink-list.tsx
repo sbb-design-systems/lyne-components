@@ -1,4 +1,21 @@
-import { Component, ComponentInterface, Element, Host, h, JSX, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Host,
+  h,
+  JSX,
+  State,
+  Prop,
+  Watch,
+} from '@stencil/core';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
+import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 
 /**
  * @slot unnamed - Use this to provide links for the list.
@@ -9,12 +26,40 @@ import { Component, ComponentInterface, Element, Host, h, JSX, State } from '@st
   tag: 'sbb-skiplink-list',
 })
 export class SbbSkiplinkList implements ComponentInterface {
+  /** The title text we want to show before the list. */
+  @Prop() public titleContent?: string;
+
+  /** The semantic level of the title, e.g. 2 = h2. */
+  @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
+
+  /**
+   * Text size of the nested sbb-link instances. This will overwrite the size attribute of
+   * nested sbb-link instances.
+   */
+  @Prop({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 'm';
+
   /** sbb-link elements */
   @State() private _links: HTMLSbbLinkElement[];
 
   @State() private _focusedLink;
 
-  @Element() private _element: HTMLElement;
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('title');
+
+  @Element() private _element!: HTMLElement;
+
+  @Watch('size')
+  public syncLinks(): void {
+    this._element.querySelectorAll('sbb-link').forEach((link) => {
+      link.size = this.size;
+      link.negative = true;
+    });
+  }
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
 
   /** Create an array with only the sbb-link children. */
   private _readLinks(): void {
@@ -30,14 +75,27 @@ export class SbbSkiplinkList implements ComponentInterface {
       return;
     }
 
+    this.syncLinks();
     this._links = links;
   }
 
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._readLinks();
   }
 
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
+  }
+
   public render(): JSX.Element {
+    let ariaLabelledByAttribute: Record<string, string> = {};
+
+    if (this._namedSlots.title || this.titleContent) {
+      ariaLabelledByAttribute = {
+        'aria-labelledby': 'sbb-skiplink-list-title-id',
+      };
+    }
     this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
 
     return (
@@ -46,13 +104,26 @@ export class SbbSkiplinkList implements ComponentInterface {
         onFocusin={() => (this._focusedLink = true)}
         onFocusout={() => (this._focusedLink = false)}
       >
-        <span class="sbb-skiplink-list">
-          {this._links.map((_, index) => (
-            <li>
-              <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
-            </li>
-          ))}
-        </span>
+        <div class="sbb-skiplink-list__wrapper">
+          {(this._namedSlots.title || this.titleContent) && (
+            <sbb-title
+              class="sbb-link-list-title"
+              level={this.titleLevel}
+              visual-level="5"
+              negative
+              id="sbb-skiplink-list-title-id"
+            >
+              <slot name="title">{this.titleContent}</slot>
+            </sbb-title>
+          )}
+          <ul {...ariaLabelledByAttribute} class="sbb-skiplink-list">
+            {this._links.map((_, index) => (
+              <li>
+                <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </Host>
     );
   }

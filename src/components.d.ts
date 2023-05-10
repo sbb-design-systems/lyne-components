@@ -1206,6 +1206,18 @@ export namespace Components {
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
     }
     interface SbbSkiplinkList {
+        /**
+          * Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "size": InterfaceLinkAttributes['size'];
+        /**
+          * The title text we want to show before the list.
+         */
+        "titleContent"?: string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbSlider {
         /**
@@ -3544,6 +3556,18 @@ declare namespace LocalJSX {
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
     }
     interface SbbSkiplinkList {
+        /**
+          * Text size of the nested sbb-link instances. This will overwrite the size attribute of nested sbb-link instances.
+         */
+        "size"?: InterfaceLinkAttributes['size'];
+        /**
+          * The title text we want to show before the list.
+         */
+        "titleContent"?: string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbSlider {
         /**
