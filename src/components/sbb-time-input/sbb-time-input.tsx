@@ -10,7 +10,7 @@ import {
   Prop,
   Watch,
 } from '@stencil/core';
-import { forwardEventToHost } from '../../global/helpers/forward-event';
+import { forwardEventToHost } from '../../global/helpers';
 import { focusInputElement, inputElement } from '../../global/helpers/input-element';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;

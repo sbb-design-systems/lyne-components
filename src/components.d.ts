@@ -46,7 +46,6 @@ import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timeta
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-import { SbbFocusOrigin } from "./global/helpers/focus";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
@@ -90,7 +89,6 @@ export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timeta
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-export { SbbFocusOrigin } from "./global/helpers/focus";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export namespace Components {
@@ -524,7 +522,7 @@ export namespace Components {
         /**
           * Opens the dialog element.
          */
-        "open": (event?: PointerEvent) => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * Whether a back button is displayed next to the title.
          */
@@ -1602,7 +1600,7 @@ export namespace Components {
         /**
           * Closes the tooltip.
          */
-        "close": (closedByFocusOrigin?: SbbFocusOrigin, target?: HTMLElement) => Promise<void>;
+        "close": (target?: HTMLElement) => Promise<void>;
         /**
           * Close the tooltip after a certain delay.
          */
@@ -1622,7 +1620,7 @@ export namespace Components {
         /**
           * Opens the tooltip on trigger click.
          */
-        "open": (focusOrigin?: SbbFocusOrigin) => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * Open the tooltip after a certain delay.
          */

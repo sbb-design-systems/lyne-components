@@ -23,6 +23,7 @@ import {
   removeAriaOverlayTriggerAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { ScrollHandler } from '../../global/helpers/scroll';
+import { sbbInputModalityDetector } from '../../global/helpers';
 
 type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
 
@@ -104,7 +105,6 @@ export class SbbMenu implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
-  private _openedByKeyboard = false;
   private _menuId = `sbb-menu-${++nextId}`;
 
   @Element() private _element!: HTMLElement;
@@ -141,7 +141,6 @@ export class SbbMenu implements ComponentInterface {
 
     this.willClose.emit();
     this._state = 'closing';
-    this._openedByKeyboard = false;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -149,21 +148,21 @@ export class SbbMenu implements ComponentInterface {
    * Handles click and checks if its target is an sbb-menu-action.
    */
   @Listen('click')
-  public onClick(event: Event): void {
+  public async onClick(event: Event): Promise<void> {
     const target = event.target as HTMLElement | undefined;
     if (target?.tagName === 'SBB-MENU-ACTION') {
-      this.close();
+      await this.close();
     }
   }
 
   // Closes the menu on "Esc" key pressed and traps focus within the menu.
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      this.close();
+      await this.close();
       return;
     }
   }
@@ -222,15 +221,6 @@ export class SbbMenu implements ComponentInterface {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._menuController.signal,
     });
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._menuController.signal }
-    );
   }
 
   private _attachWindowEvents(): void {
@@ -257,10 +247,10 @@ export class SbbMenu implements ComponentInterface {
   }
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
-  private _closeOnInteractiveElementClick(event: Event): void {
+  private async _closeOnInteractiveElementClick(event: Event): Promise<void> {
     const target = event.target as HTMLElement;
     if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !isValidAttribute(target, 'disabled')) {
-      this.close();
+      await this.close();
     }
   }
 
@@ -270,9 +260,9 @@ export class SbbMenu implements ComponentInterface {
   };
 
   // Close menu on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
-      this.close();
+      await this.close();
     }
   };
 
@@ -304,7 +294,7 @@ export class SbbMenu implements ComponentInterface {
   private _setDialogFocus(): void {
     const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
 
-    if (this._openedByKeyboard) {
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       firstFocusable.focus();
     } else {
       // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else

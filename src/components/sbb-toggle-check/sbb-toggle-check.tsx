@@ -11,9 +11,9 @@ import {
   Host,
   Listen,
 } from '@stencil/core';
-import { forwardEventToHost } from '../../global/helpers/forward-event';
 import { inputElement } from '../../global/helpers/input-element';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
+import { forwardEventToHost, getEventTarget } from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -59,8 +59,8 @@ export class SbbToggleCheck implements ComponentInterface {
   }
 
   @Listen('click')
-  public handleClick(): void {
-    if (!this.disabled && event.composedPath()[0] === this._element) {
+  public handleClick(event: Event): void {
+    if (!this.disabled && getEventTarget(event) === this._element) {
       inputElement(this._element).click();
     }
   }
@@ -71,7 +71,7 @@ export class SbbToggleCheck implements ComponentInterface {
     if (!this.disabled && event.key === ' ') {
       // The toggle needs to happen after the keyup event finishes, so we schedule
       // it to be triggered after the current event loop.
-      setTimeout(() => this._element.shadowRoot.querySelector('input').click());
+      setTimeout(() => inputElement(this._element).click());
     }
   }
 
@@ -85,7 +85,7 @@ export class SbbToggleCheck implements ComponentInterface {
    * If not indeterminate, inverts the value; otherwise sets checked to true.
    */
   public handleInputEvent(): void {
-    this.checked = this._element.shadowRoot.querySelector('input')?.checked ?? false;
+    this.checked = inputElement(this._element)?.checked ?? false;
   }
 
   private _onLabelSlotChange(event: Event): void {

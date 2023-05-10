@@ -15,9 +15,10 @@ import {
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
-import { forwardEventToHost } from '../../global/helpers/forward-event';
 import {
   createNamedSlotState,
+  forwardEventToHost,
+  getEventTarget,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
@@ -164,7 +165,7 @@ export class SbbCheckbox implements ComponentInterface {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    if (!this.disabled && !this._disabledFromGroup && event.composedPath()[0] === this._element) {
+    if (!this.disabled && !this._disabledFromGroup && getEventTarget(event) === this._element) {
       this._checkbox.click();
     }
   }
