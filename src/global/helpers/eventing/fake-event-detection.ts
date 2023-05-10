@@ -1,3 +1,5 @@
+// This implementation is taken from https://github.com/angular/components/blob/main/src/cdk/a11y/fake-event-detection.ts
+
 /** Gets whether an event could be a faked `mousedown` event dispatched by a screen reader. */
 export function isFakeMousedownFromScreenReader(event: MouseEvent): boolean {
   // Some screen readers will dispatch a fake `mousedown` event when pressing enter or space on

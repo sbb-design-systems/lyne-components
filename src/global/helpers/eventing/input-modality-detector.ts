@@ -1,3 +1,5 @@
+// This implementation is inspired by https://github.com/angular/components/blob/main/src/cdk/a11y/input-modality/input-modality-detector.ts
+
 import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
