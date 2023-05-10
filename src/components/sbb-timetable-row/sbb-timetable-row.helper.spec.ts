@@ -10,12 +10,12 @@ import { walkTimeTrip, partiallyCancelled } from './sbb-timetable-row.sample-dat
 import { PtSituation } from '../../global/interfaces/timetable-properties';
 
 describe('getTransportIcon', () => {
-  it('should return schiff', () => {
-    expect(getTransportIcon('SHIP')).toBe('schiff-right');
+  it('should return ship / jetty', () => {
+    expect(getTransportIcon('SHIP', 'de')).toBe('jetty-right');
   });
 
   it('should return empty string', () => {
-    expect(getTransportIcon('UNKNOWN')).toBe('');
+    expect(getTransportIcon('UNKNOWN', 'de')).toBe('');
   });
 });
 

@@ -9,28 +9,31 @@ import {
 import { isRideLeg } from '../../global/helpers/timetable-helper';
 import { i18nTripQuayChange } from '../../global/i18n';
 
-export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
+export const getTransportIcon = (vehicleMode: VehicleModeEnum, language: string): string => {
+  // As there are no English pictograms, we fall back to German
+  const normalizedLanguage = language.replace('en', 'de');
+
   switch (vehicleMode) {
     case 'BUS':
       return 'bus-right';
     case 'CABLEWAY':
-      return 'standseilbahn-right';
+      return 'cableway-right';
     case 'CHAIRLIFT':
-      return 'sessellift-right';
+      return 'chair-lift-right';
     case 'COG_RAILWAY':
-      return 'zahnradbahn-right';
+      return 'cog-railway-right';
     case 'GONDOLA':
-      return 'gondelbahn-right';
+      return 'gondola-lift-right';
     case 'METRO':
-      return 'metro-right';
+      return `metro-right-${normalizedLanguage}`;
     case 'PLANE':
-      return 'flugzeug-right';
+      return 'aeroplane-right';
     case 'SHIP':
-      return 'schiff-right';
+      return 'jetty-right';
     case 'TAXI':
       return 'taxi-right';
     case 'TRAIN':
-      return 'zug-right';
+      return 'train-right';
     case 'TRAMWAY':
       return 'tram-right';
     case 'ELEVATOR':

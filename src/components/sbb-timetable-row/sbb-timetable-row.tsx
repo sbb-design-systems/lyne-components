@@ -175,11 +175,11 @@ export class SbbTimetableRow {
           <div class="sbb-timetable__row" role="row">
             <div class="sbb-timetable__row-header" role="gridcell">
               <div class="sbb-timetable__row-details">
-                {product && getTransportIcon(product.vehicleMode) && (
+                {product && getTransportIcon(product.vehicleMode, this._currentLanguage) && (
                   <span class="sbb-timetable__row-transport-wrapper">
                     <sbb-icon
                       class="sbb-timetable__row-transport-icon"
-                      name={'picto:' + getTransportIcon(product.vehicleMode)}
+                      name={'picto:' + getTransportIcon(product.vehicleMode, this._currentLanguage)}
                     />
                     <span class="sbb-screenreaderonly">
                       {product &&
