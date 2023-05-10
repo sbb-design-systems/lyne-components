@@ -12,6 +12,7 @@
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
   --sbb-checkbox-subtext-color: var(--sbb-color-granite-default);
+  --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
 
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: Canvas;
@@ -53,6 +54,10 @@
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: GrayText;
   }
+}
+
+:host([data-is-selection-panel-input]) {
+  --sbb-checkbox-label-gap: 0;
 }
 
 slot[name='subtext'] {
@@ -190,7 +195,7 @@ input[type='checkbox'] {
 
 .sbb-checkbox__label {
   display: flex;
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-checkbox-label-gap);
   color: var(--sbb-checkbox-label-color);
 
   // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
@@ -207,6 +212,6 @@ input[type='checkbox'] {
   }
 }
 
-span[data-selection-panel-expanded] {
+.sbb-checkbox__expanded-label {
   @include sbb.screen-reader-only;
 }

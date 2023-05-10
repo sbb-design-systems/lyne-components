@@ -82,6 +82,9 @@ export class SbbCheckbox implements ComponentInterface {
   /** Whether the input is placed within a selection panel content. */
   @State() private _withinSelectionPanel = false;
 
+  /** The label describing whether the selection panel is exapanded (for screen readers only). */
+  @State() private _selectionPanelExpandedLabel: string;
+
   private _checkbox: HTMLInputElement;
 
   /** MutationObserver on data attributes. */
@@ -212,6 +215,8 @@ export class SbbCheckbox implements ComponentInterface {
                 this._checkbox = checkbox;
                 // Forward indeterminate state to native input. As it is only a property, we have to set it programatically.
                 this._checkbox.indeterminate = this.indeterminate;
+                this._selectionPanelExpandedLabel =
+                  this._element.dataset.selectionPanelExpandedLabel;
               }}
               type="checkbox"
               aria-hidden="true"
@@ -259,9 +264,9 @@ export class SbbCheckbox implements ComponentInterface {
               </span>
             </span>
             {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
-            {this._withinSelectionPanel && (
+            {this._withinSelectionPanel && this._selectionPanelExpandedLabel && (
               /* For screen readers only */
-              <span data-selection-panel-expanded></span>
+              <span class="sbb-checkbox__expanded-label">{this._selectionPanelExpandedLabel}</span>
             )}
           </label>
         </span>

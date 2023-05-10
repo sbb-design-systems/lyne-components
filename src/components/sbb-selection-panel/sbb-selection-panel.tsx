@@ -115,8 +115,10 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _contentElement: HTMLElement;
 
-  private get _input(): HTMLInputElement {
-    return this._element.querySelector('sbb-checkbox, sbb-radio-button') as HTMLInputElement;
+  private get _input(): HTMLSbbCheckboxElement | HTMLSbbRadioButtonElement {
+    return this._element.querySelector('sbb-checkbox, sbb-radio-button') as
+      | HTMLSbbCheckboxElement
+      | HTMLSbbRadioButtonElement;
   }
 
   @Listen('state-change', { passive: true })
@@ -162,15 +164,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _setExpandedStateForScreenReaders(): void {
     if (this._contentElement) {
-      const selectionPanelExpandedEl = this._input.shadowRoot.querySelector(
-        '[data-selection-panel-expanded]'
-      );
-
-      if (!selectionPanelExpandedEl) {
-        return;
-      }
-
-      selectionPanelExpandedEl.innerHTML = this._checked
+      this._input.dataset.selectionPanelExpandedLabel = this._checked
         ? ', ' + i18nExpanded[this._currentLanguage]
         : ', ' + i18nCollapsed[this._currentLanguage];
     }
