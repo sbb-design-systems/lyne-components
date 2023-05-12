@@ -71,8 +71,8 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   size: size.options[1],
-  'title-level': titleLevel.options[0],
-  'title-content': 'Skip',
+  'title-level': undefined,
+  'title-content': undefined,
   labelFirstLink: 'To content',
   hrefFirstLink: 'https://www.sbb.ch/',
   labelSecondLink: 'To contact',
@@ -89,6 +89,14 @@ const Template = ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLi
 export const skiplinkList = Template.bind({});
 skiplinkList.argTypes = defaultArgTypes;
 skiplinkList.args = { ...defaultArgs };
+
+export const skiplinkListWithTitle = Template.bind({});
+skiplinkListWithTitle.argTypes = defaultArgTypes;
+skiplinkListWithTitle.args = {
+  ...defaultArgs,
+  'title-level': titleLevel.options[0],
+  'title-content': 'Skip',
+};
 
 export default {
   decorators: [
@@ -130,6 +138,10 @@ export default {
         <Navigation />
 
         <TimetableInput />
+
+        <section class="sbb-page-spacing">
+          <div class="top-products-container">Press TAB to open the skiplink panel</div>
+        </section>
       </div>
     ),
   ],
