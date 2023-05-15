@@ -26,8 +26,6 @@ jobs:
     env:
       PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
       IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook-preview
-      IMAGE_TAG: rev-${{ github.event.workflow_run.event == 'push' && 'master' || github.event.workflow_run.head_sha }}
-      IMAGE_PR_TAG: preview-pr${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
     steps:
       - uses: actions/checkout@v3
       - name: Download artifacts
@@ -40,10 +38,11 @@ jobs:
         run: node ./ci/clean-storybook-files.js
 
       - name: Create GitHub Deployment
+        id: tag-name
         uses: actions/github-script@v6
         with:
           script: |
-            const environment = process.env.PR_NUMBER ? process.env.IMAGE_PR_TAG : 'preview-main';
+            const environment = process.env.PR_NUMBER ? `preview-pr${process.env.PR_NUMBER}` : 'preview-main';
             const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
             const { data: deployment } = await github.rest.repos.createDeployment({
               ...payload,
@@ -57,21 +56,17 @@ jobs:
               state: 'in_progress',
               environment_url: `https://${context.repo.repo}-${environment}.app.sbb.ch`,
             });
+            return environment;
+          result-encoding: string
 
       - name: 'Container: Login to GitHub Container Repository'
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
-        run: docker build -t $IMAGE_REPO:$IMAGE_TAG .
+        run: docker build -t $IMAGE_REPO:${{ steps.tag-name.outputs.result }} .
         env:
           DOCKER_BUILDKIT: 1
-      - name: 'Container: Re-tag image'
-        if: env.PR_NUMBER != ''
-        run: docker tag $IMAGE_REPO:$IMAGE_TAG $IMAGE_REPO:$IMAGE_PR_TAG
       - name: 'Container: Publish image'
-        run: docker push $IMAGE_REPO:$IMAGE_TAG
-      - name: 'Container: Publish re-tagged image'
-        if: env.PR_NUMBER != ''
-        run: docker push $IMAGE_REPO:$IMAGE_PR_TAG
+        run: docker push $IMAGE_REPO:${{ steps.tag-name.outputs.result }}
 
       - name: "Add 'preview-available' label"
         if: env.PR_NUMBER != ''

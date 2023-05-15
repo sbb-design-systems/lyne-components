@@ -1,0 +1,19 @@
+name: Preview Image Cleanup
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 5 * * *'
+
+permissions:
+  packages: write
+
+jobs:
+  preview-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/delete-package-versions@v4
+        with:
+          package-name: 'storybook-preview'
+          package-type: 'container'
+          ignore-versions: '^preview-'
