@@ -12,8 +12,19 @@ jobs:
   preview-image:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const versions = github.rest.packages.getAllPackageVersionsForPackageOwnedByAuthenticatedUser({
+              package_type: 'container',
+              package_name: 'storybook-preview',
+            });
+            const result = await github.paginate(versions)
+            console.log(result)
+
       - uses: actions/delete-package-versions@v4
         with:
           package-name: 'storybook-preview'
           package-type: 'container'
-          ignore-versions: '^preview-'
+          min-versions-to-keep: 3
+          delete-only-untagged-versions: 'true'
