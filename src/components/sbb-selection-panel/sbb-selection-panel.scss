@@ -49,7 +49,7 @@
 }
 
 :host([data-has-content][force-open]:not([force-open='false'])),
-:host([data-has-content][data-checked]:not([data-checked='false'])) {
+:host([data-has-content][data-checked]) {
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs)
     var(--sbb-spacing-responsive-xxs);
