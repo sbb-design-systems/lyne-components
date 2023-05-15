@@ -30,16 +30,16 @@
   --sbb-selection-panel-background: var(--sbb-color-milk-default);
 }
 
-:host([data-checked]:not([data-checked='false'])) {
+:host([data-checked]) {
   --sbb-selection-panel-border-color: var(--sbb-color-charcoal-default);
 }
 
-:host([data-has-content][data-disabled]:not([data-disabled='false'])) {
+:host([data-has-content][data-disabled]) {
   --sbb-selection-panel-input-pointer-events: none;
   --sbb-selection-panel-border-color: var(--sbb-color-cloud-default);
 }
 
-:host([data-disabled]:not([data-disabled='false'])) {
+:host([data-disabled]) {
   --sbb-selection-panel-cursor: default;
   --sbb-selection-panel-badge-background: var(--sbb-color-smoke-default);
 }

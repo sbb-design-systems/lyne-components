@@ -21,9 +21,12 @@ import {
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import {
   createNamedSlotState,
+  documentLanguage,
   HandlerRepository,
+  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
+import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -92,10 +95,13 @@ export class SbbRadioButton implements ComponentInterface {
   @State() private _isSelectionPanelInput = false;
 
   /**
-   * Whether the input is placed within a selection panel content.
+   * The label describing whether the selection panel is exapanded (for screen readers only).
    */
-  @State() private _withinSelectionPanel = false;
+  @State() private _selectionPanelExpandedLabel: string;
 
+  @State() private _currentLanguage = documentLanguage();
+
+  private _selectionPanelElement: HTMLElement;
   private _radioButtonAttributeObserver = new MutationObserver(
     this._onRadioButtonAttributesChange.bind(this)
   );
@@ -116,6 +122,7 @@ export class SbbRadioButton implements ComponentInterface {
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
+      !!this._selectionPanelElement && this._updateExpandedLabel();
     }
   }
 
@@ -147,16 +154,22 @@ export class SbbRadioButton implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
   );
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
     // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
-    this._withinSelectionPanel = !!this._element.closest('sbb-selection-panel');
+    this._selectionPanelElement = this._element.closest('sbb-selection-panel');
     this._isSelectionPanelInput =
-      this._withinSelectionPanel && !this._element.closest('sbb-selection-panel [slot="content"]');
+      !!this._selectionPanelElement &&
+      !this._element.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
+  }
+
+  public componentDidLoad(): void {
+    !!this._selectionPanelElement && this._updateExpandedLabel();
   }
 
   public disconnectedCallback(): void {
@@ -190,6 +203,16 @@ export class SbbRadioButton implements ComponentInterface {
     }
   }
 
+  private _updateExpandedLabel(): void {
+    if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+      return;
+    }
+
+    this._selectionPanelExpandedLabel = this.checked
+      ? ', ' + i18nExpanded[this._currentLanguage]
+      : ', ' + i18nCollapsed[this._currentLanguage];
+  }
+
   public render(): JSX.Element {
     const attributes = {
       role: 'radio',
@@ -213,12 +236,14 @@ export class SbbRadioButton implements ComponentInterface {
           />
           <span class="sbb-radio-button__label-slot">
             <slot />
-            {this._withinSelectionPanel && this._namedSlots['suffix'] && <slot name="suffix" />}
+            {!!this._selectionPanelElement && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
-          {this._withinSelectionPanel && this._namedSlots['subtext'] && <slot name="subtext" />}
-          {this._withinSelectionPanel && (
+          {!!this._selectionPanelElement && this._namedSlots['subtext'] && <slot name="subtext" />}
+          {!!this._selectionPanelElement && this._selectionPanelExpandedLabel && (
             /* For screen readers only */
-            <span data-selection-panel-expanded></span>
+            <span class="sbb-radio-button__expanded-label">
+              {this._selectionPanelExpandedLabel}
+            </span>
           )}
         </label>
       </Host>

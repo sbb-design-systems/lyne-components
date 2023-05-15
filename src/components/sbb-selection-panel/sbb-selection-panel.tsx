@@ -11,14 +11,8 @@ import {
   State,
   EventEmitter,
 } from '@stencil/core';
-import {
-  documentLanguage,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+import { HandlerRepository, namedSlotChangeHandlerAspect } from '../../global/helpers';
 import { createNamedSlotState } from '../../global/helpers';
-import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 
@@ -62,8 +56,6 @@ export class SbbSelectionPanel implements ComponentInterface {
    * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
   @State() private _namedSlots = createNamedSlotState('badge', 'content');
-
-  @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element!: HTMLElement;
 
@@ -109,7 +101,6 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
   );
 
@@ -144,8 +135,6 @@ export class SbbSelectionPanel implements ComponentInterface {
       this.willClose.emit();
       this.disableAnimation && this.didClose.emit();
     }
-
-    this._setExpandedStateForScreenReaders();
   }
 
   public connectedCallback(): void {
@@ -160,14 +149,6 @@ export class SbbSelectionPanel implements ComponentInterface {
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._disabled = this._input?.disabled;
-  }
-
-  private _setExpandedStateForScreenReaders(): void {
-    if (this._contentElement) {
-      this._input.dataset.selectionPanelExpandedLabel = this._checked
-        ? ', ' + i18nExpanded[this._currentLanguage]
-        : ', ' + i18nCollapsed[this._currentLanguage];
-    }
   }
 
   private _setContentElementHeight(): void {
@@ -216,7 +197,6 @@ export class SbbSelectionPanel implements ComponentInterface {
               ref={(el) => {
                 this._contentElement = el;
                 this._contentElement.inert = !this._checked && !this.forceOpen;
-                this._setExpandedStateForScreenReaders();
               }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >

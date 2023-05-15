@@ -163,6 +163,6 @@ slot[name='subtext'] {
   }
 }
 
-span[data-selection-panel-expanded] {
+.sbb-radio-button__expanded-label {
   @include sbb.screen-reader-only;
 }
