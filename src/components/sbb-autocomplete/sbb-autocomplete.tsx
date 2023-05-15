@@ -167,7 +167,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     // Deselect the previous options
     this._options
-      .filter((option) => option.id !== event.detail.id)
+      .filter((option) => option.id !== event.detail.id && option.selected)
       .forEach((option) => (option.selected = false));
 
     // Set the option value
@@ -424,9 +424,6 @@ export class SbbAutocomplete implements ComponentInterface {
       case 'ArrowUp':
         this._setNextActiveOption(event);
         break;
-
-      default:
-        break;
     }
   }
 
@@ -439,9 +436,8 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _setNextActiveOption(event: KeyboardEvent): void {
-    const filteredOptions: HTMLSbbOptionElement[] = this._options.filter(
-      (opt: HTMLSbbOptionElement) =>
-        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+    const filteredOptions = this._options.filter(
+      (opt) => !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
     );
 
     // Get and activate the next active option
