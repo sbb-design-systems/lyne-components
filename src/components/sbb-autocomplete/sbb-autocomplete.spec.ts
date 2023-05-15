@@ -22,11 +22,11 @@ describe('sbb-autocomplete', () => {
           <div class="sbb-autocomplete__gap-fix"></div>
           <div class="sbb-autocomplete__container">
             <div class="sbb-autocomplete__gap-fix">
-              <div class="gap-fix-wrapper">
-                <div class="gap-fix-corner" id="left"></div>
+              <div class="sbb-gap-fix-wrapper">
+                <div class="sbb-gap-fix-corner" id="left"></div>
               </div>
-              <div class="gap-fix-wrapper">
-                <div class="gap-fix-corner" id="right"></div>
+              <div class="sbb-gap-fix-wrapper">
+                <div class="sbb-gap-fix-corner" id="right"></div>
               </div>
             </div>
             <div class="sbb-autocomplete__panel">
@@ -84,11 +84,11 @@ describe('sbb-autocomplete', () => {
             <div class="sbb-autocomplete__gap-fix"></div>
             <div class="sbb-autocomplete__container">
               <div class="sbb-autocomplete__gap-fix">
-                <div class="gap-fix-wrapper">
-                  <div class="gap-fix-corner" id="left"></div>
+                <div class="sbb-gap-fix-wrapper">
+                  <div class="sbb-gap-fix-corner" id="left"></div>
                 </div>
-                <div class="gap-fix-wrapper">
-                  <div class="gap-fix-corner" id="right"></div>
+                <div class="sbb-gap-fix-wrapper">
+                  <div class="sbb-gap-fix-corner" id="right"></div>
                 </div>
               </div>
               <div class="sbb-autocomplete__panel">
