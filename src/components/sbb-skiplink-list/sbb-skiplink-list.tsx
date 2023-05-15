@@ -1,21 +1,10 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Host,
-  h,
-  JSX,
-  State,
-  Prop,
-  Watch,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, Host, h, JSX, State, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
-import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 
 /**
  * @slot unnamed - Use this to provide links for the list.
@@ -32,12 +21,6 @@ export class SbbSkiplinkList implements ComponentInterface {
   /** The semantic level of the title, e.g. 2 = h2. */
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'] = '2';
 
-  /**
-   * Text size of the nested sbb-link instances. This will overwrite the size attribute of
-   * nested sbb-link instances.
-   */
-  @Prop({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 'm';
-
   /** sbb-link elements */
   @State() private _links: HTMLSbbLinkElement[];
 
@@ -48,10 +31,9 @@ export class SbbSkiplinkList implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  @Watch('size')
   public syncLinks(): void {
-    this._element.querySelectorAll('sbb-link').forEach((link) => {
-      link.size = this.size;
+    this._element.querySelectorAll('sbb-link').forEach((link: HTMLSbbLinkElement) => {
+      link.size = 'm';
       link.negative = true;
     });
   }

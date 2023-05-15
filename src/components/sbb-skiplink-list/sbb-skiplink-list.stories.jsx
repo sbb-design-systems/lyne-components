@@ -3,13 +3,6 @@ import readme from './readme.md';
 import { Navigation, TimetableInput } from '../../storybook/pages/home/home.common';
 import '../../storybook/pages/home/home.scss';
 
-const size = {
-  control: {
-    type: 'select',
-  },
-  options: ['xs', 's', 'm'],
-};
-
 const titleContent = {
   control: {
     type: 'text',
@@ -60,7 +53,6 @@ const hrefSecondLink = {
 };
 
 const defaultArgTypes = {
-  size,
   'title-level': titleLevel,
   'title-content': titleContent,
   labelFirstLink,
@@ -70,7 +62,6 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  size: size.options[1],
   'title-level': undefined,
   'title-content': undefined,
   labelFirstLink: 'To content',

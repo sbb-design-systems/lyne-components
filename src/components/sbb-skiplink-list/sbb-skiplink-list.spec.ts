@@ -13,7 +13,7 @@ describe('sbb-skiplink-list', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-skiplink-list size='m'>
+      <sbb-skiplink-list>
         <mock:shadow-root>
           <div class="sbb-skiplink-list__wrapper">
             <ul class="sbb-skiplink-list">
