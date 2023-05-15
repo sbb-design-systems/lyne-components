@@ -3,5 +3,8 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  stateChange: 'state-change',
+  didClose: 'did-close',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  willOpen: 'will-open',
 };

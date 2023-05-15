@@ -24,9 +24,9 @@ Use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` com
 
 ## Events
 
-| Event        | Description                                   | Type               |
-| ------------ | --------------------------------------------- | ------------------ |
-| `did-select` | Emits whenever the radio group value changes. | `CustomEvent<any>` |
+| Event          | Description                                                                                                         | Type                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `state-change` | Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes. | `CustomEvent<RadioButtonStateChangeChecked \| RadioButtonStateChangeDisabled>` |
 
 
 ## Methods
@@ -44,9 +44,11 @@ Type: `Promise<void>`
 
 ## Slots
 
-| Slot        | Description                               |
-| ----------- | ----------------------------------------- |
-| `"unnamed"` | Use this slot to provide the radio label. |
+| Slot        | Description                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| `"subtext"` | Slot used to render a subtext under the label (only visible within a selection panel).          |
+| `"suffix"`  | Slot used to render additional content after the label (only visible within a selection panel). |
+| `"unnamed"` | Use this slot to provide the radio label.                                                       |
 
 
 ----------------------------------------------

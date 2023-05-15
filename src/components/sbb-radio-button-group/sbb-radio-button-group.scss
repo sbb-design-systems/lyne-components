@@ -6,18 +6,28 @@
 
 @mixin horizontal-orientation {
   --sbb-radio-button-group-orientation: row;
-  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-6x);
 }
 
 $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
 
 :host {
   @include horizontal-orientation;
+
+  --sbb-radio-button-group-width: max-content;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
 }
 
 :host([orientation='vertical']) {
   --sbb-radio-button-group-orientation: column;
-  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-radio-button-group-width: 100%;
+}
+
+:host([data-has-selection-panel]) {
+  --sbb-radio-button-group-width: 100%;
+}
+
+:host([data-has-selection-panel][orientation='vertical']) {
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
 @each $breakpoint in $breakpoints {
@@ -25,6 +35,12 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
     // horizontal-from overrides orientation vertical
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
       @include horizontal-orientation;
+    }
+
+    :host(
+        [orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-selection-panel])
+      ) {
+      --sbb-radio-button-group-width: max-content;
     }
   }
 }
@@ -34,7 +50,7 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   flex-direction: var(--sbb-radio-button-group-orientation);
   gap: var(--sbb-radio-button-group-gap);
   align-items: flex-start;
-  width: max-content;
+  width: var(--sbb-radio-button-group-width);
 }
 
 .sbb-radio-group__error {

@@ -15,6 +15,7 @@ import {
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -76,6 +77,8 @@ export class SbbRadioButtonGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _hasSelectionPanel: boolean;
+
   @Watch('value')
   public valueChanged(value: any | undefined): void {
     for (const radio of this._radioButtons) {
@@ -83,9 +86,6 @@ export class SbbRadioButtonGroup implements ComponentInterface {
       radio.tabIndex = this._getRadioTabIndex(radio);
     }
     this._setFocusableRadio();
-    this.change.emit({ value });
-    this.input.emit({ value });
-    this.didChange.emit({ value });
   }
 
   @Watch('disabled')
@@ -152,6 +152,8 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   );
 
   public connectedCallback(): void {
+    this._hasSelectionPanel = !!this._element.querySelector('sbb-selection-panel');
+    toggleDatasetEntry(this._element, 'hasSelectionPanel', this._hasSelectionPanel);
     this._handlerRepository.connect();
   }
 
@@ -159,9 +161,28 @@ export class SbbRadioButtonGroup implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
-  @Listen('did-select', { passive: true })
-  public onRadioButtonSelect(event: CustomEvent<string>): void {
-    this.value = event.detail;
+  @Listen('state-change', { passive: true })
+  public onRadioButtonSelect(event: CustomEvent<RadioButtonStateChange>): void {
+    event.stopPropagation();
+    if (event.detail.type !== 'checked') {
+      return;
+    }
+
+    if (event.detail.checked) {
+      this.value = (event.target as HTMLInputElement).value;
+      this._emitChange(this.value);
+      return;
+    }
+
+    if (this.allowEmptySelection) {
+      this._emitChange();
+    }
+  }
+
+  private _emitChange(value?: string): void {
+    this.change.emit({ value });
+    this.input.emit({ value });
+    this.didChange.emit({ value });
   }
 
   private _updateRadios(): void {
@@ -194,7 +215,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _setFocusableRadio(): void {
-    const checked = this._radioButtons.find((radio) => radio.checked);
+    const checked = this._radioButtons.find((radio) => radio.checked && !radio.disabled);
 
     if (!checked && this._enabledRadios) {
       this._enabledRadios[0].tabIndex = 0;
@@ -202,7 +223,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private _getRadioTabIndex(radio: HTMLSbbRadioButtonElement): number {
-    return radio.checked && !radio.disabled && !this.disabled ? 0 : -1;
+    return (radio.checked || this._hasSelectionPanel) && !radio.disabled && !this.disabled ? 0 : -1;
   }
 
   @Listen('keydown')
@@ -213,21 +234,33 @@ export class SbbRadioButtonGroup implements ComponentInterface {
       !enabledRadios ||
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element)
+        (evt.target as HTMLElement).parentElement !== this._element &&
+        (evt.target as HTMLElement).parentElement.nodeName !== 'SBB-SELECTION-PANEL')
     ) {
       return;
     }
 
-    if (isArrowKeyPressed(evt)) {
+    if (!isArrowKeyPressed(evt)) {
+      return;
+    }
+
+    let current: number;
+    let nextIndex: number;
+
+    if (this._hasSelectionPanel) {
+      current = enabledRadios.findIndex((e: HTMLSbbRadioButtonElement) => e === evt.target);
+      nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
+    } else {
       const checked: number = enabledRadios.findIndex(
         (radio: HTMLSbbRadioButtonElement) => radio.checked
       );
-      const current: number = checked !== -1 ? checked : 0;
-      const nextIndex: number = getNextElementIndex(evt, current, enabledRadios.length);
+      current = checked !== -1 ? checked : 0;
+      nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
       enabledRadios[nextIndex].select();
-      enabledRadios[nextIndex].focus();
-      evt.preventDefault();
     }
+
+    enabledRadios[nextIndex].focus();
+    evt.preventDefault();
   }
 
   public render(): JSX.Element {

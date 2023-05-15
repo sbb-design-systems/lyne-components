@@ -15,7 +15,7 @@ import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-prop
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
 import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
@@ -33,7 +33,7 @@ import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
@@ -58,7 +58,7 @@ export { ButtonType, LinkTargetType } from "./global/interfaces/link-button-prop
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-export { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+export { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
 export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
@@ -76,7 +76,7 @@ export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
@@ -1181,6 +1181,20 @@ export namespace Components {
          */
         "value"?: any | null;
     }
+    interface SbbSelectionPanel {
+        /**
+          * The background color of the panel.
+         */
+        "color": 'white' | 'milk';
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the content section is always visible.
+         */
+        "forceOpen": boolean;
+    }
     interface SbbSignet {
         /**
           * Accessibility label which will be forwarded to the inner SVG signet.
@@ -1731,6 +1745,10 @@ export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
 }
+export interface SbbSelectionPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSelectionPanelElement;
+}
 export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbSliderElement;
@@ -2054,6 +2072,12 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
+    interface HTMLSbbSelectionPanelElement extends Components.SbbSelectionPanel, HTMLStencilElement {
+    }
+    var HTMLSbbSelectionPanelElement: {
+        prototype: HTMLSbbSelectionPanelElement;
+        new (): HTMLSbbSelectionPanelElement;
+    };
     interface HTMLSbbSignetElement extends Components.SbbSignet, HTMLStencilElement {
     }
     var HTMLSbbSignetElement: {
@@ -2291,6 +2315,7 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
+        "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
         "sbb-tab-amount": HTMLSbbTabAmountElement;
@@ -2636,6 +2661,7 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        "onState-change"?: (event: SbbCheckboxCustomEvent<CheckboxStateChange>) => void;
         /**
           * Whether the checkbox is required.
          */
@@ -3410,9 +3436,9 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Emits whenever the radio group value changes.
+          * Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes.
          */
-        "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        "onState-change"?: (event: SbbRadioButtonCustomEvent<RadioButtonStateChange>) => void;
         /**
           * Whether the radio button is required.
          */
@@ -3468,6 +3494,36 @@ declare namespace LocalJSX {
           * The value of the radio group.
          */
         "value"?: any | null;
+    }
+    interface SbbSelectionPanel {
+        /**
+          * The background color of the panel.
+         */
+        "color"?: 'white' | 'milk';
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the content section is always visible.
+         */
+        "forceOpen"?: boolean;
+        /**
+          * Emits whenever the content section is closed.
+         */
+        "onDid-close"?: (event: SbbSelectionPanelCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the content section is opened.
+         */
+        "onDid-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
+        /**
+          * Emits whenever the content section begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbSelectionPanelCustomEvent<{ closeTarget: HTMLElement }>) => void;
+        /**
+          * Emits whenever the content section starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
     }
     interface SbbSignet {
         /**
@@ -4062,6 +4118,7 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
+        "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
         "sbb-tab-amount": SbbTabAmount;
@@ -4146,6 +4203,7 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
+            "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;

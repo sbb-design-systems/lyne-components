@@ -17,46 +17,46 @@ describe('sbb-radio-button', () => {
   });
 
   it('selects radio on click', async () => {
-    const didSelect = await page.spyOnEvent(events.didSelect);
+    const stateChange = await page.spyOnEvent(events.stateChange);
 
     await element.click();
     await page.waitForChanges();
 
     expect(element).toHaveAttribute('checked');
-    await waitForCondition(() => didSelect.events.length === 1);
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    await waitForCondition(() => stateChange.events.length === 1);
+    expect(stateChange).toHaveReceivedEventTimes(1);
   });
 
   it('does not deselect radio if already checked', async () => {
-    const didSelect = await page.spyOnEvent(events.didSelect);
+    const stateChange = await page.spyOnEvent(events.stateChange);
 
     await element.click();
     await page.waitForChanges();
     expect(element).toHaveAttribute('checked');
-    await waitForCondition(() => didSelect.events.length === 1);
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    await waitForCondition(() => stateChange.events.length === 1);
+    expect(stateChange).toHaveReceivedEventTimes(1);
 
     await element.click();
     await page.waitForChanges();
     expect(element).toHaveAttribute('checked');
-    await waitForCondition(() => didSelect.events.length === 1);
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    await waitForCondition(() => stateChange.events.length === 1);
+    expect(stateChange).toHaveReceivedEventTimes(1);
   });
 
   it('allows empty selection', async () => {
-    const didSelect = await page.spyOnEvent(events.didSelect);
+    const stateChange = await page.spyOnEvent(events.stateChange);
 
     await element.setProperty('allowEmptySelection', true);
     await element.click();
     await page.waitForChanges();
     expect(element).toHaveAttribute('checked');
-    await waitForCondition(() => didSelect.events.length === 1);
-    expect(didSelect).toHaveReceivedEventTimes(1);
+    await waitForCondition(() => stateChange.events.length === 1);
+    expect(stateChange).toHaveReceivedEventTimes(1);
 
     await element.click();
     await page.waitForChanges();
     expect(element).not.toHaveAttribute('checked');
-    await waitForCondition(() => didSelect.events.length === 2);
-    expect(didSelect).toHaveReceivedEventTimes(2);
+    await waitForCondition(() => stateChange.events.length === 2);
+    expect(stateChange).toHaveReceivedEventTimes(2);
   });
 });
