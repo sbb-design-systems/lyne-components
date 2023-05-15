@@ -279,7 +279,10 @@ export class SbbMenu implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
       // Manually focus last focused element in order to avoid showing outline in Safari
-      this._triggerElement?.focus();
+      this._triggerElement?.focus({
+        // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
+        preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
+      });
       this._dialog.close();
       this.didClose.emit();
       this._windowEventsController?.abort();
