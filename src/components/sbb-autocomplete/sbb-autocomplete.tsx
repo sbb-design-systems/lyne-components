@@ -93,7 +93,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  private _dialog: HTMLElement;
+  private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
   private _originElement: HTMLElement;
   private _triggerElement: HTMLInputElement;
@@ -113,7 +113,7 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Opens the autocomplete. */
   @Method()
   public async open(): Promise<void> {
-    if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
+    if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
       return;
     }
 
@@ -317,7 +317,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    if (!this._dialog || !this._originElement) {
+    if (!this._overlay || !this._originElement) {
       return;
     }
 
@@ -400,7 +400,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** If the click is outside the autocomplete, closes the panel. */
   private _onBackdropClick = (event: PointerEvent): void => {
-    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
+    if (!isEventOnElement(this._overlay, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
     }
   };
@@ -497,7 +497,7 @@ export class SbbAutocomplete implements ComponentInterface {
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-autocomplete__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
-            ref={(dialogRef) => (this._dialog = dialogRef)}
+            ref={(overlayRef) => (this._overlay = overlayRef)}
           >
             <div class="sbb-autocomplete__wrapper">
               <div
