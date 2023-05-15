@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.14](https://github.com/lyne-design-system/lyne-components/compare/v0.33.13...v0.33.14) (2023-05-11)
+
+### Bug Fixes
+
+- detect screen reader keyboard events ([#1731](https://github.com/lyne-design-system/lyne-components/issues/1731)) ([85c9162](https://github.com/lyne-design-system/lyne-components/commit/85c91628e8d9a8571c211adfdb14d57b30eaefba))
+
 ### [0.33.13](https://github.com/lyne-design-system/lyne-components/compare/v0.33.12...v0.33.13) (2023-05-03)
 
 ### Bug Fixes
