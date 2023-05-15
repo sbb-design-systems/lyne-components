@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.16](https://github.com/lyne-design-system/lyne-components/compare/v0.33.15...v0.33.16) (2023-05-15)
+
+### Features
+
+- **sbb-selection-panel:** introduce sbb-selection-panel component ([#1673](https://github.com/lyne-design-system/lyne-components/issues/1673)) ([d1d5722](https://github.com/lyne-design-system/lyne-components/commit/d1d57228fa3775d9a1eff67f70b9d268f42024bb))
+
 ### [0.33.15](https://github.com/lyne-design-system/lyne-components/compare/v0.33.14...v0.33.15) (2023-05-15)
 
 ### Bug Fixes
