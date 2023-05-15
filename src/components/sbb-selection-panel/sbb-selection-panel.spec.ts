@@ -47,7 +47,7 @@ describe('sbb-selection-panel', () => {
           </div>
         </sbb-card-badge>
         
-        <sbb-checkbox data-selection-panel-expanded-label=", collapsed">Value one</sbb-checkbox>
+        <sbb-checkbox>Value one</sbb-checkbox>
 
         <span slot="subtext">Subtext</span>
         <span slot="suffix">Suffix</span>
