@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.33.15](https://github.com/lyne-design-system/lyne-components/compare/v0.33.14...v0.33.15) (2023-05-15)
+
+### Bug Fixes
+
+- **sbb-menu:** fixed the window snap on scrolling with an open menu ([#1736](https://github.com/lyne-design-system/lyne-components/issues/1736)) ([686e407](https://github.com/lyne-design-system/lyne-components/commit/686e407553b6e4f865de63a5804d12685623c43f))
+
 ### [0.33.14](https://github.com/lyne-design-system/lyne-components/compare/v0.33.13...v0.33.14) (2023-05-11)
 
 ### Bug Fixes
