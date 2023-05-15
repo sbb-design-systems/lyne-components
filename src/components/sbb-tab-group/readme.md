@@ -19,28 +19,25 @@ Tab panels can present different sections of content and include text, images, f
 A tab can be selected, unselected, or disabled. Disable a tab to mark it as unavailable. 
 Disabled tabs cannot be focused and may be invisible to assistive technologies such as screen readers.
 
-Tab buttons can show an icon on the left side of the label; provide an `sbb-icon` component 
-within the `sbb-tab-title` tag using the `slot="icon"` to include the icon. 
-They can also show numbers on the right side of the label by providing an `sbb-tab-amount` within the `sbb-tab-title` tag.
+Tab buttons can show an icon on the left side of the label; use the `icon-name` property of the `sbb-tab-title` or
+provide an `sbb-icon` component within the `sbb-tab-title` tag using the `slot="icon"` to include the icon. 
+They can also show numbers on the right side of the label by setting the `amount` on `sbb-tab-title` tag 
+or using the `amount` slot of the `sbb-tab-title`.
 
 ```html
 <!-- Icon - remember to use the 'small' version of the icon to make it fit correctly into the tab button -->
-<sbb-tab-title>
-  <sbb-icon name="app-icon-small" slot="icon"></sbb-icon>
+<sbb-tab-title icon-name="app-icon-small">
   Tab Label
 </sbb-tab-title>
 
 <!-- Amount -->
-<sbb-tab-title>
+<sbb-tab-title amount="123">
   Tab Label
-  <sbb-tab-amount>123</sbb-tab-amount>
 </sbb-tab-title>
 
 <!-- Icon and amount -->
-<sbb-tab-title>
-  <sbb-icon name="app-icon-small" slot="icon"></sbb-icon>
+<sbb-tab-title amount="123" icon-name="app-icon-small">
   Tab Label
-  <sbb-tab-amount>123</sbb-tab-amount>
 </sbb-tab-title>
 ```
 
