@@ -30,7 +30,7 @@ describe('sbb-autocomplete', () => {
 
     expect(element).not.toHaveAttribute('autocomplete-origin-borderless');
 
-    expect(input).toEqualAttribute('autocomplete', 'new-password');
+    expect(input).toEqualAttribute('autocomplete', 'off');
     expect(input).toEqualAttribute('role', 'combobox');
     expect(input).toEqualAttribute('aria-autocomplete', 'list');
     expect(input).toEqualAttribute('aria-haspopup', 'listbox');
