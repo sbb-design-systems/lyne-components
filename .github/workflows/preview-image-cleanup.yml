@@ -20,7 +20,7 @@ jobs:
               repo: context.repo.repo,
               state: 'open'
             });
-            const { data: pullRequests } = await github.paginate(pullRequestOptions);
+            const pullRequests = await github.paginate(pullRequestOptions);
             console.log(pullRequests)
             const { data: versions } = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
               package_type: 'container',
@@ -28,6 +28,14 @@ jobs:
               username: context.repo.owner,
             });
             console.log(versions)
+            const { execSync } = require('child_process');
+            for (const version of versions) {
+              const tags = version.metadata?.container?.tags ?? [];
+              const revTag = tags.find((t) => t.startsWith('rev-'));
+              if (revTag) {
+                execSync(`docker rmi ghcr.io/lyne-design-system/lyne-components/storybook-preview:${revTag}`, { stdio: 'inherit' });
+              }
+            }
       - uses: actions/delete-package-versions@v4
         with:
           package-name: 'lyne-components/storybook-preview'
