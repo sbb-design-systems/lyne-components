@@ -1,7 +1,6 @@
 @use './core/font-face';
 @use './mixins/layout';
 @use './mixins/lists';
-@use './mixins/overlay';
 @use './mixins/typo';
 
 @include font-face.font-declarations;

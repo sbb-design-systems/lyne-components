@@ -5,10 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.text-s--regular;
-
   --sbb-option-color: var(--sbb-color-charcoal-default);
-  --sbb-option-bg-color: inherit;
+  --sbb-option-background-color: inherit;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
   --sbb-option-icon-color: var(--sbb-color-metal-default);
@@ -20,13 +18,12 @@
 
 :host(:hover:not([disabled]:not([disabled='false']), [data-group-disabled])) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-option-bg-color: var(--sbb-color-milk-default);
+    --sbb-option-background-color: var(--sbb-color-milk-default);
   }
 }
 
 // if the highlight is enabled, hide the slot content
-:host(:not([data-disable-highlight])),
-:host([data-disable-highlight='false']) {
+:host(:not([data-disable-highlight])) {
   .sbb-option__label slot {
     display: none;
   }
@@ -52,10 +49,12 @@
 }
 
 .sbb-option__container {
-  background-color: var(--sbb-option-bg-color);
+  background-color: var(--sbb-option-background-color);
 }
 
 .sbb-option {
+  @include sbb.text-s--regular;
+
   display: flex;
   align-items: center;
   column-gap: var(--sbb-spacing-responsive-xxxs);
