@@ -1247,8 +1247,6 @@ export namespace Components {
          */
         "valueAsNumber"?: number;
     }
-    interface SbbTabAmount {
-    }
     interface SbbTabGroup {
         /**
           * Activates a tab by index.
@@ -1276,9 +1274,17 @@ export namespace Components {
          */
         "active"?: boolean;
         /**
+          * Amount displayed inside the tab.
+         */
+        "amount"?: string;
+        /**
           * Disabled tab state
          */
         "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string;
         /**
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
@@ -2090,12 +2096,6 @@ declare global {
         prototype: HTMLSbbSliderElement;
         new (): HTMLSbbSliderElement;
     };
-    interface HTMLSbbTabAmountElement extends Components.SbbTabAmount, HTMLStencilElement {
-    }
-    var HTMLSbbTabAmountElement: {
-        prototype: HTMLSbbTabAmountElement;
-        new (): HTMLSbbTabAmountElement;
-    };
     interface HTMLSbbTabGroupElement extends Components.SbbTabGroup, HTMLStencilElement {
     }
     var HTMLSbbTabGroupElement: {
@@ -2318,7 +2318,6 @@ declare global {
         "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
-        "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-tab-title": HTMLSbbTabTitleElement;
         "sbb-tag": HTMLSbbTagElement;
@@ -3581,8 +3580,6 @@ declare namespace LocalJSX {
          */
         "valueAsNumber"?: number;
     }
-    interface SbbTabAmount {
-    }
     interface SbbTabGroup {
         /**
           * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
@@ -3599,9 +3596,17 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * Amount displayed inside the tab.
+         */
+        "amount"?: string;
+        /**
           * Disabled tab state
          */
         "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string;
         /**
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
@@ -4121,7 +4126,6 @@ declare namespace LocalJSX {
         "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
-        "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
         "sbb-tab-title": SbbTabTitle;
         "sbb-tag": SbbTag;
@@ -4206,7 +4210,6 @@ declare module "@stencil/core" {
             "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
-            "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-tag": LocalJSX.SbbTag & JSXBase.HTMLAttributes<HTMLSbbTagElement>;
