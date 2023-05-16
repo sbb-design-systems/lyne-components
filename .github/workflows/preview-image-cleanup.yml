@@ -17,6 +17,7 @@ jobs:
           package-name: 'lyne-components/storybook-preview'
           package-type: 'container'
           ignore-versions: '^preview-'
+          min-versions-to-keep: 0
       - uses: actions/delete-package-versions@v4
         with:
           package-name: 'lyne-components/storybook-preview'
