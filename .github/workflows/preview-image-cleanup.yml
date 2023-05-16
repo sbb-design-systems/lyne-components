@@ -17,8 +17,14 @@ jobs:
           script: |
             const versions = github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
               package_type: 'container',
-              package_name: 'lyne-components%2Fstorybook-preview',
+              package_name: 'lyne-components/storybook-preview',
               username: context.repo.owner,
             });
             const result = await github.paginate(versions);
             console.log(result)
+
+      - uses: actions/delete-package-versions@v4
+        with:
+          package-name: 'lyne-components/storybook-preview'
+          package-type: 'container'
+          delete-only-untagged-versions: 'true'
