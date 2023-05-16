@@ -75,9 +75,10 @@ export class SbbOptionGroup implements ComponentInterface {
         <div class="sbb-option-group__divider">
           <sbb-divider></sbb-divider>
         </div>
-        <span class="sbb-option-group__label" aria-hidden="true">
-          {this.label}
-        </span>
+        <div class="sbb-option-group__label" aria-hidden="true">
+          <div class="sbb-option-group__icon-space"></div>
+          <span>{this.label}</span>
+        </div>
         <slot onSlotchange={() => this._proxyDisabledToOptions()} />
       </Host>
     );

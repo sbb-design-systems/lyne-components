@@ -20,7 +20,8 @@
 }
 
 .sbb-option-group__label {
-  display: block;
+  display: flex;
+  column-gap: var(--sbb-spacing-responsive-xxxs);
   @include sbb.text-xs--regular;
 
   // font size is fixed
@@ -33,4 +34,11 @@
 
 .sbb-option-group__divider {
   display: var(--sbb-option-group-divider-display);
+}
+
+// Align the group label to the option label
+.sbb-option-group__icon-space {
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
+  min-width: var(--sbb-size-icon-ui-small);
 }
