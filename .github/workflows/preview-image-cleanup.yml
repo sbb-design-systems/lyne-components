@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/delete-package-versions@v4
         with:
-          package-name: 'storybook-preview'
+          package-name: 'lyne-components%2Fstorybook-preview'
           package-type: 'container'
           min-versions-to-keep: 3
           delete-only-untagged-versions: 'true'
