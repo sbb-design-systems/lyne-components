@@ -1,4 +1,4 @@
-@mixin overlayGapFix($radius, $color: var(--sbb-color-white-default)) {
+@mixin overlay-gap-fix($radius, $color: var(--sbb-color-white-default)) {
   .sbb-gap-fix-wrapper {
     position: relative;
     overflow: hidden;
