@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.34.0](https://github.com/lyne-design-system/lyne-components/compare/v0.33.16...v0.34.0) (2023-05-16)
+
+### ⚠ BREAKING CHANGES
+
+- The `picto:`-namespace is now pointing to the new English named icons.
+  If the old german named icons should be used, you can access them by using
+  the namespace `picto-legacy:` (deprecated).
+
+### Refactorings
+
+- migrate to new English named pictograms, fix gondola picto ([#1738](https://github.com/lyne-design-system/lyne-components/issues/1738)) ([714cafe](https://github.com/lyne-design-system/lyne-components/commit/714cafefbaa26f4a04b08f5079cb4d41c1ac6f1d))
+
 ### [0.33.16](https://github.com/lyne-design-system/lyne-components/compare/v0.33.15...v0.33.16) (2023-05-15)
 
 ### Features
