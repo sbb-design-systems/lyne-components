@@ -1,6 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { Navigation, TimetableInput } from '../../storybook/pages/home/home.common';
+import { Navigation } from '../../storybook/pages/home/home.common';
 import '../../storybook/pages/home/home.scss';
 
 const titleContent = {
@@ -128,10 +128,20 @@ export default {
 
         <Navigation />
 
-        <TimetableInput />
+        <section class="timetable-section sbb-grid">
+          <div class="grid-reduced-width">
+            <div class="timetable-placeholder">
+              <h3 style="display: inline-block; text-align: center; width: 100%;">
+                Skiplink component
+              </h3>
+            </div>
+          </div>
+        </section>
 
-        <section class="sbb-page-spacing">
-          <div class="top-products-container">Press TAB to open the skiplink panel</div>
+        <section class="product-section-logged-in sbb-grid">
+          <div class="grid-reduced-width logged-in-overview">
+            <h2>Use TAB to see the skiplink box</h2>
+          </div>
         </section>
       </div>
     ),

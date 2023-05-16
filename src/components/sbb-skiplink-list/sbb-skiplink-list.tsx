@@ -72,20 +72,16 @@ export class SbbSkiplinkList implements ComponentInterface {
 
   public render(): JSX.Element {
     let ariaLabelledByAttribute: Record<string, string> = {};
-
     if (this._namedSlots.title || this.titleContent) {
-      ariaLabelledByAttribute = {
-        'aria-labelledby': 'sbb-skiplink-list-title-id',
-      };
+      ariaLabelledByAttribute = { 'aria-labelledby': 'sbb-skiplink-list-title-id' };
     }
-    this._links.forEach((link, index) => link.setAttribute('slot', `link-${index}`));
+    this._links.forEach((link, index) => {
+      link.setAttribute('slot', `link-${index}`);
+      link.setAttribute('id', 'sbb-skiplink-list-link' + index);
+    });
 
     return (
-      <Host
-        data-focus-visible={this._focusedLink}
-        onFocusin={() => (this._focusedLink = true)}
-        onFocusout={() => (this._focusedLink = false)}
-      >
+      <Host>
         <div class="sbb-skiplink-list__wrapper">
           {(this._namedSlots.title || this.titleContent) && (
             <sbb-title
@@ -99,8 +95,12 @@ export class SbbSkiplinkList implements ComponentInterface {
             </sbb-title>
           )}
           <ul {...ariaLabelledByAttribute} class="sbb-skiplink-list">
-            {this._links.map((_, index) => (
-              <li>
+            {this._links.map((link, index) => (
+              <li
+                data-focus-visible={this._focusedLink === link.getAttribute('id')}
+                onFocusin={() => (this._focusedLink = link.getAttribute('id'))}
+                onFocusout={() => (this._focusedLink = undefined)}
+              >
                 <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
               </li>
             ))}

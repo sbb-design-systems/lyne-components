@@ -9,15 +9,6 @@
   --sbb-skiplink-overflow: hidden;
   --sbb-skiplink-background: transparent;
   --sbb-skiplink-border: unset;
-  --sbb-focus-outline-color: var(--sbb-color-white-default);
-}
-
-// Focused state
-:host([data-focus-visible]) {
-  --sbb-skiplink-height: auto;
-  --sbb-skiplink-overflow: visible;
-  --sbb-skiplink-background: var(--sbb-color-black-default);
-  --sbb-skiplink-border: var(--sbb-border-width-2x) solid var(--sbb-color-white-default);
 }
 
 .sbb-skiplink-list__wrapper {
@@ -27,17 +18,31 @@
   top: var(--sbb-spacing-fixed-4x);
   left: var(--sbb-spacing-fixed-4x);
   z-index: 20;
-  height: var(--sbb-skiplink-height);
-  overflow: var(--sbb-skiplink-overflow);
-  border-radius: var(--sbb-border-radius-4x);
-  background-color: var(--sbb-skiplink-background);
-  border: var(--sbb-skiplink-border);
 }
 
 .sbb-skiplink-list {
   padding-inline: 0;
   margin-block: 0;
   list-style: none;
+
+  li {
+    height: var(--sbb-skiplink-height);
+    overflow: var(--sbb-skiplink-overflow);
+    border-radius: var(--sbb-border-radius-4x);
+    background-color: var(--sbb-skiplink-background);
+    border: var(--sbb-skiplink-border);
+
+    &[data-focus-visible] {
+      --sbb-skiplink-height: auto;
+      --sbb-skiplink-overflow: visible;
+      --sbb-skiplink-background: var(--sbb-color-black-default);
+      --sbb-skiplink-border: var(--sbb-border-width-2x) solid var(--sbb-color-white-default);
+    }
+  }
+}
+
+::slotted(sbb-link) {
+  --sbb-focus-outline-color: transparent;
 }
 
 sbb-title {
