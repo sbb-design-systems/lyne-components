@@ -11,11 +11,27 @@ import { PtSituation } from '../../global/interfaces/timetable-properties';
 
 describe('getTransportIcon', () => {
   it('should return ship / jetty', () => {
-    expect(getTransportIcon('SHIP', 'de')).toBe('jetty-right');
+    expect(getTransportIcon('SHIP', '', 'de')).toBe('jetty-right');
   });
 
   it('should return empty string', () => {
-    expect(getTransportIcon('UNKNOWN', 'de')).toBe('');
+    expect(getTransportIcon('UNKNOWN', '', 'de')).toBe('');
+  });
+
+  it('should return metro string', () => {
+    expect(getTransportIcon('METRO', 'PB', 'fr')).toBe('metro-right-fr');
+  });
+
+  it('should return metro en string', () => {
+    expect(getTransportIcon('METRO', 'PB', 'en')).toBe('metro-right-de');
+  });
+
+  it('should return cableway string', () => {
+    expect(getTransportIcon('GONDOLA', 'PB', 'de')).toBe('cableway-right');
+  });
+
+  it('should return gondola string', () => {
+    expect(getTransportIcon('GONDOLA', 'GB', 'de')).toBe('gondola-lift-right');
   });
 });
 

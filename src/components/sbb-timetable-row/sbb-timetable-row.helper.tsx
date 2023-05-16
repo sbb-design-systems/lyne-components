@@ -9,37 +9,42 @@ import {
 import { isRideLeg } from '../../global/helpers/timetable-helper';
 import { i18nTripQuayChange } from '../../global/i18n';
 
-export const getTransportIcon = (vehicleMode: VehicleModeEnum, language: string): string => {
+export const getTransportIcon = (
+  vehicleMode: VehicleModeEnum,
+  vehicleSubMode: string,
+  language: string
+): string => {
   // As there are no English pictograms, we fall back to German
   const normalizedLanguage = language.replace('en', 'de');
 
-  switch (vehicleMode) {
-    case 'BUS':
-      return 'bus-right';
-    case 'CABLEWAY':
-      return 'cableway-right';
-    case 'CHAIRLIFT':
-      return 'chair-lift-right';
-    case 'COG_RAILWAY':
-      return 'cog-railway-right';
-    case 'GONDOLA':
-      return 'gondola-lift-right';
-    case 'METRO':
-      return `metro-right-${normalizedLanguage}`;
-    case 'PLANE':
-      return 'aeroplane-right';
-    case 'SHIP':
-      return 'jetty-right';
-    case 'TAXI':
-      return 'taxi-right';
-    case 'TRAIN':
-      return 'train-right';
-    case 'TRAMWAY':
-      return 'tram-right';
-    case 'ELEVATOR':
-      return 'lift';
-    default:
-      return '';
+  if (vehicleMode === 'BUS') {
+    return 'bus-right';
+  } else if (vehicleMode === 'CABLEWAY') {
+    return 'funicular-railway-right';
+  } else if (vehicleMode === 'CHAIRLIFT') {
+    return 'chair-lift-right';
+  } else if (vehicleMode === 'COG_RAILWAY') {
+    return 'cog-railway-right';
+  } else if (vehicleMode === 'GONDOLA' && vehicleSubMode === 'PB') {
+    return 'cableway-right';
+  } else if (vehicleMode === 'GONDOLA') {
+    return 'gondola-lift-right';
+  } else if (vehicleMode === 'METRO') {
+    return `metro-right-${normalizedLanguage}`;
+  } else if (vehicleMode === 'PLANE') {
+    return 'aeroplane-right';
+  } else if (vehicleMode === 'SHIP') {
+    return 'jetty-right';
+  } else if (vehicleMode === 'TAXI') {
+    return 'taxi-right';
+  } else if (vehicleMode === 'TRAIN') {
+    return 'train-right';
+  } else if (vehicleMode === 'TRAMWAY') {
+    return 'tram-right';
+  } else if (vehicleMode === 'ELEVATOR') {
+    return 'lift';
+  } else {
+    return '';
   }
 };
 
