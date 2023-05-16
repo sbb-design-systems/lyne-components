@@ -15,12 +15,19 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const response = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
+            const pullRequestOptions = await github.rest.pulls.list.endpoint.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            const { data: pullRequests } = await github.paginate(pullRequestOptions);
+            console.log(pullRequests)
+            const { data: versions } = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
               package_type: 'container',
               package_name: 'lyne-components/storybook-preview',
               username: context.repo.owner,
             });
-            console.log(response)
+            console.log(versions)
       - uses: actions/delete-package-versions@v4
         with:
           package-name: 'lyne-components/storybook-preview'
