@@ -42,7 +42,7 @@ export function setAriaComboBoxAttributes(
     return;
   }
 
-  trigger.setAttribute('autocomplete', 'off');
+  trigger.setAttribute('autocomplete', 'new-password');
   trigger.setAttribute('role', 'combobox');
   trigger.setAttribute('aria-autocomplete', 'list');
   trigger.setAttribute('aria-haspopup', 'listbox');

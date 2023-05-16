@@ -78,7 +78,7 @@ describe('sbb-autocomplete', () => {
         </mock:shadow-root>
         <input
           aria-autocomplete="list" aria-controls="sbb-autocomplete-2" aria-expanded="false" aria-haspopup="listbox"
-          aria-owns="sbb-autocomplete-2" autocomplete="off" role="combobox">
+          aria-owns="sbb-autocomplete-2" autocomplete="new-password" role="combobox">
         <sbb-autocomplete data-state="closed">
           <mock:shadow-root>
             <div class="sbb-autocomplete__gap-fix"></div>
