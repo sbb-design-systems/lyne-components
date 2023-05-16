@@ -348,6 +348,7 @@ MixedSingleOptionWithOptionGroup.play = isChromatic() && playStory;
 
 export default {
   parameters: {
+    chromatic: { disableSnapshot: false },
     actions: {
       handles: [events.willOpen, events.didOpen, events.didClose, events.willClose, 'change'],
     },
