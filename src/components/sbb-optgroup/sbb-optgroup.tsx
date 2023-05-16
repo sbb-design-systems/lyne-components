@@ -8,10 +8,10 @@ import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
  */
 @Component({
   shadow: true,
-  styleUrl: 'sbb-option-group.scss',
-  tag: 'sbb-option-group',
+  styleUrl: 'sbb-optgroup.scss',
+  tag: 'sbb-optgroup',
 })
-export class SbbOptionGroup implements ComponentInterface {
+export class SbbOptGroup implements ComponentInterface {
   /** Option group label. */
   @Prop() public label: string;
 
@@ -72,11 +72,11 @@ export class SbbOptionGroup implements ComponentInterface {
         aria-label={!this._inertAriaGroups && this.label}
         aria-disabled={!this._inertAriaGroups && this.disabled.toString()}
       >
-        <div class="sbb-option-group__divider">
+        <div class="sbb-optgroup__divider">
           <sbb-divider></sbb-divider>
         </div>
-        <div class="sbb-option-group__label" aria-hidden="true">
-          <div class="sbb-option-group__icon-space" />
+        <div class="sbb-optgroup__label" aria-hidden="true">
+          <div class="sbb-optgroup__icon-space" />
           <span>{this.label}</span>
         </div>
         <slot onSlotchange={() => this._proxyDisabledToOptions()} />

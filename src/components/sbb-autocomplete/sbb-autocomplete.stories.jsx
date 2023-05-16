@@ -203,10 +203,10 @@ const OptionGroupTemplate = (args) => [
         disable-animation={args.disableAnimation}
         preserve-icon-space={args.preserveIconSpace}
       >
-        <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+        <sbb-optgroup label="Group 1" disabled={args.disabledFromGroup}>
           {createOptionGroup1(args.iconName, args.disabled)}
-        </sbb-option-group>
-        <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
+        </sbb-optgroup>
+        <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
       </sbb-autocomplete>
     </sbb-form-field>
     {textBlock()}
@@ -226,10 +226,10 @@ const MixedTemplate = (args) => [
           <sbb-icon slot="icon" name={args.iconName} style="color: #0279c7;" />
           Option Value
         </sbb-option>
-        <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+        <sbb-optgroup label="Group 1" disabled={args.disabledFromGroup}>
           {createOptionGroup1(args.iconName, args.disabled)}
-        </sbb-option-group>
-        <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
+        </sbb-optgroup>
+        <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
       </sbb-autocomplete>
     </sbb-form-field>
     {textBlock()}
@@ -266,10 +266,10 @@ const RequiredTemplate = (args) => {
           disable-animation={args.disableAnimation}
           preserve-icon-space={args.preserveIconSpace}
         >
-          <sbb-option-group label="Group 1" disabled={args.disabledFromGroup}>
+          <sbb-optgroup label="Group 1" disabled={args.disabledFromGroup}>
             {createOptionGroup1(args.iconName, args.disabled)}
-          </sbb-option-group>
-          <sbb-option-group label="Group 2">{createOptionGroup2()}</sbb-option-group>
+          </sbb-optgroup>
+          <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
         </sbb-autocomplete>
         {sbbFormError}
       </sbb-form-field>

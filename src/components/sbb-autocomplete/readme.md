@@ -47,7 +47,7 @@ Standalone, by setting the `origin` and `trigger` properties:
 </sbb-autocomplete>
 ```
 ### Option grouping
-`sbb-option` can be collected into groups using `sbb-option-group` element:
+`sbb-option` can be collected into groups using `sbb-optgroup` element:
 
 ```html
 <!-- Origin element -->
@@ -57,13 +57,13 @@ Standalone, by setting the `origin` and `trigger` properties:
   <input placeholder="Trigger element" />
 
   <sbb-autocomplete>
-    <sbb-option-group label="Group 1">
+    <sbb-optgroup label="Group 1">
       <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
       ...
-    </sbb-option-group>
-    <sbb-option-group label="Group 2">
+    </sbb-optgroup>
+    <sbb-optgroup label="Group 2">
       ...
-    </sbb-option-group>
+    </sbb-optgroup>
   </sbb-autocomplete>
 </sbb-form-field>
 ```

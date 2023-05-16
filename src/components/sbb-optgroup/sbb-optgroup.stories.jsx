@@ -88,12 +88,12 @@ const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }) =>
   });
 
 const Template = ({ label, disabled, ...args }) => [
-  <sbb-option-group label={label + ' 1'} disabled={disabled}>
+  <sbb-optgroup label={label + ' 1'} disabled={disabled}>
     {createOptions(args)}
-  </sbb-option-group>,
-  <sbb-option-group label={label + ' 2'} disabled={disabled}>
+  </sbb-optgroup>,
+  <sbb-optgroup label={label + ' 2'} disabled={disabled}>
     {createOptions(args)}
-  </sbb-option-group>,
+  </sbb-optgroup>,
 ];
 
 const TemplateAutocomplete = (args) => {
@@ -133,5 +133,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-option-group',
+  title: 'components/sbb-optgroup',
 };
