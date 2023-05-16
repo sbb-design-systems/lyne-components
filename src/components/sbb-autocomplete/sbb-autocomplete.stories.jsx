@@ -50,7 +50,7 @@ const borderless = {
   },
 };
 
-const disabledFromGroup = {
+const disableGroup = {
   control: {
     type: 'boolean',
   },
@@ -70,9 +70,13 @@ const defaultArgTypes = {
 
   // Form field args
   borderless,
+};
+
+const withGroupsArgTypes = {
+  ...defaultArgTypes,
 
   // Option group args
-  disabledFromGroup,
+  disableGroup,
 };
 
 const defaultArgs = {
@@ -86,9 +90,13 @@ const defaultArgs = {
 
   // Form field args
   borderless: false,
+};
+
+const withGroupsDefaultArgs = {
+  ...defaultArgs,
 
   // Option group args
-  disabledFromGroup: false,
+  disableGroup: false,
 };
 
 const defaultDecorator = [
@@ -203,7 +211,7 @@ const OptionGroupTemplate = (args) => [
         disable-animation={args.disableAnimation}
         preserve-icon-space={args.preserveIconSpace}
       >
-        <sbb-optgroup label="Group 1" disabled={args.disabledFromGroup}>
+        <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
           {createOptionGroup1(args.iconName, args.disabled)}
         </sbb-optgroup>
         <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
@@ -226,7 +234,7 @@ const MixedTemplate = (args) => [
           <sbb-icon slot="icon" name={args.iconName} style="color: #0279c7;" />
           Option Value
         </sbb-option>
-        <sbb-optgroup label="Group 1" disabled={args.disabledFromGroup}>
+        <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
           {createOptionGroup1(args.iconName, args.disabled)}
         </sbb-optgroup>
         <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
@@ -266,7 +274,7 @@ const RequiredTemplate = (args) => {
           disable-animation={args.disableAnimation}
           preserve-icon-space={args.preserveIconSpace}
         >
-          <sbb-optgroup label="Group 1" disabled={args.disabledFromGroup}>
+          <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
             {createOptionGroup1(args.iconName, args.disabled)}
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
@@ -297,8 +305,8 @@ Borderless.decorators = defaultDecorator;
 Borderless.play = isChromatic() && playStory;
 
 export const WithError = RequiredTemplate.bind({});
-WithError.argTypes = defaultArgTypes;
-WithError.args = { ...defaultArgs };
+WithError.argTypes = withGroupsArgTypes;
+WithError.args = { ...withGroupsDefaultArgs };
 WithError.decorators = defaultDecorator;
 WithError.play = isChromatic() && playStory;
 
@@ -321,20 +329,20 @@ Scroll.decorators = scrollDecorator;
 Scroll.play = isChromatic() && playStory;
 
 export const WithOptionGroup = OptionGroupTemplate.bind({});
-WithOptionGroup.argTypes = defaultArgTypes;
-WithOptionGroup.args = { ...defaultArgs };
+WithOptionGroup.argTypes = withGroupsArgTypes;
+WithOptionGroup.args = { ...withGroupsDefaultArgs };
 WithOptionGroup.decorators = defaultDecorator;
 WithOptionGroup.play = isChromatic() && playStory;
 
 export const WithOptionGroupOpenAbove = OptionGroupTemplate.bind({});
-WithOptionGroupOpenAbove.argTypes = defaultArgTypes;
-WithOptionGroupOpenAbove.args = { ...defaultArgs };
+WithOptionGroupOpenAbove.argTypes = withGroupsArgTypes;
+WithOptionGroupOpenAbove.args = { ...withGroupsDefaultArgs };
 WithOptionGroupOpenAbove.decorators = aboveDecorator;
 WithOptionGroupOpenAbove.play = isChromatic() && playStory;
 
 export const MixedSingleOptionWithOptionGroup = MixedTemplate.bind({});
-MixedSingleOptionWithOptionGroup.argTypes = defaultArgTypes;
-MixedSingleOptionWithOptionGroup.args = { ...defaultArgs };
+MixedSingleOptionWithOptionGroup.argTypes = withGroupsArgTypes;
+MixedSingleOptionWithOptionGroup.args = { ...withGroupsDefaultArgs };
 MixedSingleOptionWithOptionGroup.decorators = defaultDecorator;
 MixedSingleOptionWithOptionGroup.play = isChromatic() && playStory;
 
