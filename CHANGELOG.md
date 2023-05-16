@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.35.0](https://github.com/lyne-design-system/lyne-components/compare/v0.34.0...v0.35.0) (2023-05-16)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-tab-group:** removed `sbb-tab-amount` component which can be replaced by property `amount`
+  or slot `amount` of `sbb-tab-title` component.
+  e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
+  or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
+
+### Refactorings
+
+- **sbb-tab-group:** remove sbb-tab-amount, provide amount and iconName properties ([#1744](https://github.com/lyne-design-system/lyne-components/issues/1744)) ([12a4946](https://github.com/lyne-design-system/lyne-components/commit/12a494608e3f76f37210d8e6f4db1a2c588f577d))
+
 ## [0.34.0](https://github.com/lyne-design-system/lyne-components/compare/v0.33.16...v0.34.0) (2023-05-16)
 
 ### ⚠ BREAKING CHANGES
