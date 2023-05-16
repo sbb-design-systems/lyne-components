@@ -66,12 +66,12 @@
   --sbb-autocomplete-animation-duration: 0s;
 }
 
-::slotted(sbb-divider) {
-  margin-block: var(--sbb-spacing-fixed-3x);
-}
-
 :host([preserve-icon-space]:not([preserve-icon-space='false'])) {
   --sbb-option-icon-container-display: block;
+}
+
+::slotted(sbb-divider) {
+  margin-block: var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-autocomplete__container {
@@ -147,12 +147,7 @@
     }
   }
 
-  :host(
-      :is([data-state='opened'], [data-state='opening'])[data-autocomplete-origin-borderless]:not(
-          [data-autocomplete-origin-borderless='false']
-        )
-    )
-    & {
+  :host(:is([data-state='opened'], [data-state='opening'])[data-autocomplete-origin-borderless]) & {
     &::before,
     &::after {
       @include sbb.shadow-level-5-hard;
