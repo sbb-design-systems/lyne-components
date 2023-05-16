@@ -12,17 +12,11 @@ jobs:
   preview-image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v6
+      - uses: actions/delete-package-versions@v4
         with:
-          script: |
-            const versions = github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
-              package_type: 'container',
-              package_name: 'lyne-components/storybook-preview',
-              username: context.repo.owner,
-            });
-            const result = await github.paginate(versions);
-            console.log(result)
-
+          package-name: 'lyne-components/storybook-preview'
+          package-type: 'container'
+          ignore-versions: '^preview-'
       - uses: actions/delete-package-versions@v4
         with:
           package-name: 'lyne-components/storybook-preview'
