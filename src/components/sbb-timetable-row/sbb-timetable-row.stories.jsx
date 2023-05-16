@@ -20,6 +20,7 @@ import {
   skippedLastArrivalStopTrip,
 } from './sbb-timetable-row.sample-data';
 import isChromatic from 'chromatic/isChromatic';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const disableAnimation = {
   control: {
@@ -276,6 +277,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

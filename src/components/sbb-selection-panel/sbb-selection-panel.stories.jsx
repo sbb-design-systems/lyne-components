@@ -2,6 +2,7 @@ import events from './sbb-selection-panel.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const color = {
   control: {
@@ -506,6 +507,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

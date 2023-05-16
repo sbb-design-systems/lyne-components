@@ -60,6 +60,7 @@
     "@stencil/react-output-target": "0.5.0",
     "@stencil/sass": "3.0.2",
     "@storybook/addon-a11y": "7.0.12",
+    "@storybook/addon-actions": "7.0.12",
     "@storybook/addon-essentials": "7.0.12",
     "@storybook/addon-interactions": "7.0.12",
     "@storybook/addon-mdx-gfm": "7.0.12",

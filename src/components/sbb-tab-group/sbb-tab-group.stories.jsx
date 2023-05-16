@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import events from './sbb-tab-group.events.ts';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const firstTabTitle = ({ label, ...args }) => <sbb-tab-title {...args}>{label}</sbb-tab-title>;
 
@@ -155,6 +156,7 @@ const templateRes = [
       <Story />
     </div>
   ),
+  withActions,
 ];
 
 export const defaultTabs = DefaultTemplate.bind({});
@@ -181,6 +183,7 @@ tintedBackground.decorators = [
       <Story />
     </div>
   ),
+  withActions,
 ];
 
 export default {

@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const StandaloneTemplate = (picker = null) => (
   <sbb-datepicker-previous-day date-picker={picker}></sbb-datepicker-previous-day>
@@ -34,6 +35,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

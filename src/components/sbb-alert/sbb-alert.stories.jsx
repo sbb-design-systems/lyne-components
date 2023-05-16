@@ -1,6 +1,7 @@
 import events from './sbb-alert.events.ts';
 import readme from './readme.md';
 import { h } from 'jsx-dom';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const Default = ({ 'content-slot-text': contentSlotText, ...args }) => (
   <sbb-alert {...args}>{contentSlotText}</sbb-alert>
@@ -192,6 +193,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

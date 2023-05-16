@@ -4,6 +4,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import isChromatic from 'chromatic';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const disableAnimation = {
   control: {
@@ -80,6 +81,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },

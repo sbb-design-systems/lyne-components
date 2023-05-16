@@ -4,6 +4,7 @@ import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const value = {
   control: {
@@ -382,6 +383,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
