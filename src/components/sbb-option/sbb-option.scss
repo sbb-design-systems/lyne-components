@@ -11,6 +11,7 @@
   --sbb-option-bg-color: inherit;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
+  --sbb-option-icon-color: var(--sbb-color-metal-default);
 }
 
 :host([active]:not([active='false'])) {
@@ -74,6 +75,7 @@
   display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
 }
 
 .sbb-option__icon--empty {
