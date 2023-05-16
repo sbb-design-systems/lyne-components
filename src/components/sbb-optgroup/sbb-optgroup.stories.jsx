@@ -133,5 +133,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-optgroup',
+  title: 'components/form elements/sbb-optgroup',
 };

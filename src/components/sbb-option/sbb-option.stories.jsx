@@ -95,5 +95,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-option',
+  title: 'components/form elements/sbb-option',
 };
