@@ -1,6 +1,7 @@
 @use './a11y.scss';
 @use '../core/mediaqueries.scss';
 @use '../core/functions.scss';
+@use './typo.scss';
 
 // ----------------------------------------------------------------------------------------------------
 // Buttons Mixins
@@ -21,105 +22,192 @@
 }
 
 // Icon-button style in form-field
-@mixin icon-button {
-  @include icon-button-base('sbb-icon');
+@mixin icon-button($button-selector, $icon-selector) {
+  @include icon-button-base(':host', #{$button-selector}, #{$icon-selector});
 
-  :host(:focus-visible) & {
-    @include a11y.focus-outline;
+  :host([disabled]:not([disabled='false'])) {
+    @include icon-button-disabled(#{$button-selector});
   }
 
-  :host(:is([data-active], :active)) & {
-    @include icon-button-active;
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+    @include icon-button-focus-visible(#{$button-selector});
   }
 
-  :host([disabled]:not([disabled='false'])) & {
-    @include icon-button-disabled;
+  :host(:not([disabled]:not([disabled='false']), :active, [data-active]):hover) {
+    @include icon-button-hover(#{$button-selector});
   }
 
-  :host(:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
-    @include icon-button-hover;
+  :host(:not([disabled]:not([disabled='false'])):is(:active, [data-active])) {
+    @include icon-button-active(#{$button-selector});
+  }
+}
+
+// Variables used in the icon-button
+@mixin icon-button-variables {
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);
+  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-default-background: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
+  --sbb-button-color-hover-background: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-border: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-text: var(--sbb-color-charcoal-default);
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
+  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
+  --sbb-button-border-width: #{functions.px-to-rem-build(0)};
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-min-height: var(--sbb-size-icon-ui-small);
+  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-button-padding-block-min: 0;
+  --sbb-button-padding-inline: 0;
+  --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-button-inset: #{functions.px-to-rem-build(1)};
+  --icon-margin-inline-end: 0;
+
+  @include mediaqueries.mq($from: medium) {
+    --sbb-button-padding-inline: 0;
+  }
+
+  @include a11y.if-forced-colors {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
   }
 }
 
 // Default state for icon-button in form-field
-@mixin icon-button-base($icon-selector) {
-  @include button-reset;
+@mixin icon-button-base($host-selector, $button-selector, $icon-selector) {
+  #{$host-selector} {
+    display: inline-block;
 
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-text: var(--sbb-color-black-default);
-  --sbb-button-transition-duration: var(--sbb-animation-duration-2x);
-  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
-  --sbb-button-inset: 0;
-  --sbb-button-transform: none;
-  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-button-cursor: pointer;
-  --sbb-button-pointer-events: unset;
-  --sbb-button-outline-offset: var(--sbb-focus-outline-offset);
+    // Use !important here to not interfere with Firefox focus ring definition
+    // which appears in normalize css of several frameworks.
+    outline: none !important;
 
-  position: relative;
-  display: flex;
-  height: var(--sbb-button-icon-size);
-  width: var(--sbb-button-icon-size);
-  border-radius: var(--sbb-button-border-radius);
-  cursor: var(--sbb-button-cursor);
-  pointer-events: var(--sbb-button-pointer-events);
-  background-color: transparent;
-  color: var(--sbb-button-color-default-text);
-  outline-offset: var(--sbb-button-outline-offset) !important;
-  transition-property: outline-offset;
-  transition-duration: var(--sbb-button-transition-duration);
-  transition-timing-function: var(--sbb-button-transition-easing-function);
+    @include icon-button-variables;
 
-  &::before {
-    content: '';
-    background-color: var(--sbb-button-color-default-background);
-    position: absolute;
-    inset: var(--sbb-button-inset);
-    border-radius: var(--sbb-button-border-radius);
-    transition-duration: var(--sbb-button-transition-duration);
-    transition-timing-function: var(--sbb-button-transition-easing-function);
+    #{$button-selector} {
+      @include typo.text-xs--bold;
+      @include typo.font-smoothing;
+
+      // Reset for link variant
+      text-decoration: none;
+      width: 100%;
+      position: relative;
+      display: flex;
+      gap: var(--sbb-button-gap);
+      align-items: center;
+      justify-content: center;
+      text-align: left;
+      transition-duration: var(--sbb-button-transition-duration);
+      transition-timing-function: var(--sbb-button-transition-easing-function);
+      transition-property: color;
+      min-height: var(--sbb-button-min-height);
+      border-radius: var(--sbb-button-border-radius);
+
+      // The padding block value is only a minimal padding to preserve a padding if the content becomes larger than intended.
+      // Positioning of the content is made by flexbox vertical centering.
+      // The real padding displayed is larger than the defined value below.
+      padding-block: var(--sbb-button-padding-block-min);
+      padding-inline: var(--sbb-button-padding-inline);
+      color: var(--sbb-button-color-default-text);
+      cursor: pointer;
+      user-select: none;
+
+      // Renders background and border in the background absolute to enable the hover animation
+      &::before {
+        position: absolute;
+        content: '';
+        inset: var(--sbb-button-inset);
+        border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
+        border-radius: var(--sbb-button-border-radius);
+        background-color: var(--sbb-button-color-default-background);
+        transition-duration: var(--sbb-button-transition-duration);
+        transition-timing-function: var(--sbb-button-transition-easing-function);
+        transition-property: inset, background-color, border-color, box-shadow;
+      }
+    }
   }
 
   #{$icon-selector} {
-    transition-duration: var(--sbb-button-transition-duration);
-    transition-timing-function: var(--sbb-button-transition-easing-function);
-    transform: var(--sbb-button-transform);
-  }
-}
-
-// Hover state for icon-button in form-field (exclude active state)
-@mixin icon-button-hover {
-  @include mediaqueries.hover-mq($hover: true) {
-    --sbb-button-color-default-background: var(--sbb-color-milk-default);
-    --sbb-button-transform: translateY(#{functions.px-to-rem-build(-1)});
-
-    @include a11y.if-forced-colors {
-      @include a11y.focus-outline;
-    }
+    transition: transform var(--sbb-button-transition-duration)
+      var(--sbb-button-transition-easing-function);
+    transform: translateY(
+      var(--sbb-button-translate-y-content-hover, #{functions.px-to-rem-build(0)})
+    );
+    display: flex;
   }
 }
 
 // Disabled state for icon-button in form-field
-@mixin icon-button-disabled {
-  --sbb-button-color-default-text: var(--sbb-color-granite-default);
-  --sbb-button-inset: 0;
-  --sbb-button-transform: none;
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-cursor: unset;
-  --sbb-button-pointer-events: none;
+@mixin icon-button-disabled($button-selector) {
+  @include a11y.if-forced-colors {
+    --sbb-button-color-disabled-text: GrayText !important;
+  }
+
+  #{$button-selector} {
+    color: var(--sbb-button-color-disabled-text);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  #{$button-selector}::before {
+    background-color: var(--sbb-button-color-disabled-background);
+    border-color: var(--sbb-button-color-disabled-border);
+  }
+}
+
+@mixin icon-button-focus-visible($button-selector) {
+  #{$button-selector}::before {
+    @include a11y.focus-outline;
+  }
+}
+
+// Hover state for icon-button in form-field (exclude active state)
+@mixin icon-button-hover($button-selector) {
+  @include mediaqueries.hover-mq($hover: true) {
+    --sbb-button-translate-y-content-hover: #{functions.px-to-rem-build(-1)};
+    --sbb-button-shadow-1-offset-y: calc(
+      0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
+    );
+    --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
+    --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
+  }
+
+  @include a11y.if-forced-colors {
+    --sbb-button-color-hover-border: Highlight !important;
+  }
+
+  #{$button-selector}::before {
+    @include mediaqueries.hover-mq($hover: true) {
+      inset: calc(var(--sbb-button-border-width) * -1);
+      background-color: var(--sbb-button-color-hover-background);
+      border-color: var(--sbb-button-color-hover-border);
+    }
+  }
+
+  #{$button-selector} {
+    @include mediaqueries.hover-mq($hover: true) {
+      color: var(--sbb-button-color-hover-text);
+    }
+  }
 }
 
 // Active state for icon-button in form-field
-@mixin icon-button-active {
-  --sbb-button-color-default-background: var(--sbb-color-cloud-default);
-  --sbb-button-inset: #{functions.px-to-rem-build(1)};
-  --sbb-button-transform: translateY(0);
-  --sbb-button-outline-offset: calc(
-    var(--sbb-focus-outline-offset) - #{functions.px-to-rem-build(1)}
-  );
-
-  @include a11y.if-forced-colors {
-    @include a11y.focus-outline;
+@mixin icon-button-active($button-selector) {
+  #{$button-selector}::before {
+    color: var(--sbb-button-color-active-text);
+    background-color: var(--sbb-button-color-active-background);
+    border-color: var(--sbb-button-color-active-border);
   }
 }

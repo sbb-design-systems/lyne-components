@@ -291,6 +291,15 @@ IconOnly.args = {
   text: undefined,
 };
 
+export const FormField = Template.bind({});
+FormField.argTypes = defaultArgTypes;
+FormField.args = {
+  ...defaultArgs,
+  'icon-name': 'arrow-right-small',
+  text: undefined,
+  'data-icon-small': true,
+};
+
 export const PrimaryDisabled = Template.bind({});
 PrimaryDisabled.argTypes = defaultArgTypes;
 PrimaryDisabled.args = {

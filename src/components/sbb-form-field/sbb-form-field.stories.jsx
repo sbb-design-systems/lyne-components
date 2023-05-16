@@ -119,6 +119,13 @@ const TemplateInputWithIcons = (args) => (
   </sbb-form-field>
 );
 
+const TemplateInputWithButton = ({ disabled, readonly, ...args }) => (
+  <sbb-form-field {...args}>
+    {TemplateBasicInput({ ...args, disabled, readonly })}
+    <sbb-button slot="suffix" icon-name="cross-small" disabled={disabled || readonly} />
+  </sbb-form-field>
+);
+
 const TemplateSelect = (args) => (
   <sbb-form-field
     error-space={args['error-space']}
@@ -364,6 +371,10 @@ InputReadonly.args = { ...basicArgs, readonly: true };
 export const InputOptionalAndIcons = TemplateInputWithIcons.bind({});
 InputOptionalAndIcons.argTypes = basicArgTypes;
 InputOptionalAndIcons.args = { ...basicArgs, optional: true };
+
+export const InputWithButton = TemplateInputWithButton.bind({});
+InputWithButton.argTypes = basicArgTypes;
+InputWithButton.args = { ...basicArgs, optional: true };
 
 export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
 InputLongLabelAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
