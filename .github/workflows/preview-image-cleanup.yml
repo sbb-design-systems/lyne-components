@@ -15,13 +15,12 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const response = github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
+            const response = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
               package_type: 'container',
               package_name: 'lyne-components/storybook-preview',
               username: context.repo.owner,
             });
-            const versions = await github.paginate(response);
-            console.log(versions)
+            console.log(response)
       - uses: actions/delete-package-versions@v4
         with:
           package-name: 'lyne-components/storybook-preview'
