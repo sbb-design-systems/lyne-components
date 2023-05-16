@@ -10,6 +10,7 @@
   --sbb-radio-button-border: var(--sbb-border-width-1x);
   --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
   --sbb-radio-button-subtext-color: var(--sbb-color-granite-default);
+  --sbb-radio-button-text-decoration: none;
 
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
@@ -48,8 +49,9 @@
 
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-label-color: var(--sbb-color-granite-default);
   --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-text-decoration: line-through;
 }
 
 .sbb-radio-button__input {
@@ -101,6 +103,7 @@ slot[name='subtext'] {
   display: flex;
   align-items: flex-start;
   overflow: hidden;
+  text-decoration: var(--sbb-radio-button-text-decoration);
 
   // Unchecked style
   &::before {
@@ -141,7 +144,7 @@ slot[name='subtext'] {
     // We use the :checked pseudo-class to reflect the checked state
     :host([data-group-disabled]) .sbb-radio-button__input:checked + &,
     :host([disabled]:not([disabled='false'])) .sbb-radio-button__input:checked + & {
-      --sbb-radio-button-background-color: var(--sbb-color-graphite-default);
+      --sbb-radio-button-background-color: var(--sbb-color-granite-default);
 
       @include sbb.if-forced-colors {
         --sbb-radio-button-background-color: GrayText;

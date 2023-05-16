@@ -10,6 +10,7 @@
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
   --sbb-toggle-option-border-radius: var(--sbb-border-radius-infinity);
   --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
+  --sbb-toggle-option-text-decoration: none;
 
   display: inline-block;
   min-width: var(--sbb-toggle-min-width);
@@ -30,7 +31,8 @@
 
 :host([disabled]:not([disabled='false'])) {
   --sbb-toggle-option-cursor: unset;
-  --sbb-toggle-option-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-option-color: var(--sbb-color-granite-default);
+  --sbb-toggle-option-text-decoration: line-through;
 }
 
 input[type='radio'] {
@@ -57,11 +59,13 @@ input[type='radio'] {
 .sbb-toggle-option__label {
   @include sbb.ellipsis;
 
+  text-decoration: var(--sbb-toggle-option-text-decoration);
+
   // We need to use a ::before pseudo-element to show a single outline wrapping
   // the entire toggle when a toggle option receives :focus-visible.
   // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
   :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-    ::before {
+    &::before {
       content: '';
       position: absolute;
       pointer-events: none;

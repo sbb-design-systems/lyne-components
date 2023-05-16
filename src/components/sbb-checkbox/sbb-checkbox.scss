@@ -13,6 +13,7 @@
   --sbb-checkbox-cursor: pointer;
   --sbb-checkbox-subtext-color: var(--sbb-color-granite-default);
   --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-checkbox-text-decoration: none;
 
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: Canvas;
@@ -27,12 +28,12 @@
 
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-checkbox-color: var(--sbb-color-graphite-default);
-  --sbb-checkbox-border-color: var(--sbb-color-graphite-default);
-  --sbb-checkbox-selection-color: var(--sbb-color-graphite-default);
-  --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-selection-color: var(--sbb-color-granite-default);
+  --sbb-checkbox-label-color: var(--sbb-color-granite-default);
   --sbb-checkbox-cursor: default;
   --sbb-checkbox-subtext-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-text-decoration: line-through;
 
   @include sbb.if-forced-colors {
     --sbb-checkbox-selection-color: Canvas;
@@ -197,6 +198,7 @@ input[type='checkbox'] {
   display: flex;
   gap: var(--sbb-checkbox-label-gap);
   color: var(--sbb-checkbox-label-color);
+  text-decoration: var(--sbb-checkbox-text-decoration);
 
   // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
   line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
