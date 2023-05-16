@@ -12,6 +12,8 @@ jobs:
   preview-image:
     runs-on: ubuntu-latest
     steps:
+      - name: 'Container: Login to GitHub Container Repository'
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - uses: actions/github-script@v6
         with:
           script: |
@@ -21,19 +23,24 @@ jobs:
               state: 'open'
             });
             const pullRequests = await github.paginate(pullRequestOptions);
-            console.log(pullRequests)
+
             const { data: versions } = await github.rest.packages.getAllPackageVersionsForPackageOwnedByUser({
               package_type: 'container',
               package_name: 'lyne-components/storybook-preview',
               username: context.repo.owner,
             });
-            console.log(versions)
+
             const { execSync } = require('child_process');
             for (const version of versions) {
               const tags = version.metadata?.container?.tags ?? [];
               const revTag = tags.find((t) => t.startsWith('rev-'));
               if (revTag) {
                 execSync(`docker rmi ghcr.io/lyne-design-system/lyne-components/storybook-preview:${revTag}`, { stdio: 'inherit' });
+              }
+
+              const previewTag = tags.find((t) => t.startsWith('preview-pr'));
+              if (previewTag) {
+
               }
             }
       - uses: actions/delete-package-versions@v4
