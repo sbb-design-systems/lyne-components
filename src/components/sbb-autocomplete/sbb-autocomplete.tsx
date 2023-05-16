@@ -217,9 +217,7 @@ export class SbbAutocomplete implements ComponentInterface {
     let result: HTMLElement;
 
     if (!this.origin) {
-      result = this._element
-        .closest('sbb-form-field')
-        ?.shadowRoot.querySelector('#form-field-wrapper');
+      result = this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
     } else {
       result = typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
     }

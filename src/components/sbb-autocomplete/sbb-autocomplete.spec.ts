@@ -62,7 +62,7 @@ describe('sbb-autocomplete', () => {
       <sbb-form-field error-space="none" size="m" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper" id="form-field-wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <div class="sbb-form-field__input">
