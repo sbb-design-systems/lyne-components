@@ -39,8 +39,8 @@
   }
 }
 
-:host(:not(:is([disabled]:not([disabled='false']), [data-group-disabled]))) {
-  .sbb-option__label--highlight {
+.sbb-option__label--highlight {
+  :host(:not(:is([disabled]:not([disabled='false']), [data-group-disabled]))) & {
     @include sbb.text--bold;
     @include sbb.if-forced-colors {
       color: Highlight;
