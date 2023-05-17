@@ -45,7 +45,6 @@
 // Variables used in the icon-button
 @mixin icon-button-variables {
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);
   --sbb-button-color-active-background: var(--sbb-color-cloud-default);
   --sbb-button-color-active-border: var(--sbb-color-cloud-default);
   --sbb-button-color-active-text: var(--sbb-color-charcoal-default);

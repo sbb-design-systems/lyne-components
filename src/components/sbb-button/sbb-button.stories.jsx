@@ -1,4 +1,3 @@
-import { h } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 
@@ -289,15 +288,6 @@ IconOnly.args = {
   ...defaultArgs,
   'icon-name': 'arrow-right-small',
   text: undefined,
-};
-
-export const FormField = Template.bind({});
-FormField.argTypes = defaultArgTypes;
-FormField.args = {
-  ...defaultArgs,
-  'icon-name': 'arrow-right-small',
-  text: undefined,
-  'data-icon-small': true,
 };
 
 export const PrimaryDisabled = Template.bind({});

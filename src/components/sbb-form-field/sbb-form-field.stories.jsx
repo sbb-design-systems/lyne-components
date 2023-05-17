@@ -122,7 +122,12 @@ const TemplateInputWithIcons = (args) => (
 const TemplateInputWithButton = ({ disabled, readonly, ...args }) => (
   <sbb-form-field {...args}>
     {TemplateBasicInput({ ...args, disabled, readonly })}
-    <sbb-button slot="suffix" icon-name="cross-small" disabled={disabled || readonly} />
+    <sbb-button
+      slot="suffix"
+      icon-name="cross-small"
+      disabled={disabled || readonly}
+      aria-label="clear input"
+    />
   </sbb-form-field>
 );
 

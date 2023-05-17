@@ -185,8 +185,6 @@
 
 :host([data-icon-small]) {
   @include sbb.icon-button-variables;
-
-  --sbb-button-disabled-line-through-height: 0;
 }
 
 .sbb-button {
