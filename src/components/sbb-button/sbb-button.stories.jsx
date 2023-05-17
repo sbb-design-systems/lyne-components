@@ -1,3 +1,4 @@
+import { h } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 

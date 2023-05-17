@@ -119,7 +119,7 @@ const TemplateInputWithIcons = (args) => (
   </sbb-form-field>
 );
 
-const TemplateInputWithButton = ({ disabled, readonly, ...args }) => (
+const TemplateInputWithButton = ({ disabled, readonly, active, ...args }) => (
   <sbb-form-field {...args}>
     {TemplateBasicInput({ ...args, disabled, readonly })}
     <sbb-button
@@ -127,6 +127,13 @@ const TemplateInputWithButton = ({ disabled, readonly, ...args }) => (
       icon-name="cross-small"
       disabled={disabled || readonly}
       aria-label="clear input"
+      data-active={active}
+      onClick={() => {
+        const input = document.querySelector('input');
+        if (input) {
+          input.value = '';
+        }
+      }}
     />
   </sbb-form-field>
 );
@@ -379,7 +386,15 @@ InputOptionalAndIcons.args = { ...basicArgs, optional: true };
 
 export const InputWithButton = TemplateInputWithButton.bind({});
 InputWithButton.argTypes = basicArgTypes;
-InputWithButton.args = { ...basicArgs, optional: true };
+InputWithButton.args = { ...basicArgs };
+
+export const InputWithButtonDisabled = TemplateInputWithButton.bind({});
+InputWithButtonDisabled.argTypes = basicArgTypes;
+InputWithButtonDisabled.args = { ...basicArgs, disabled: true };
+
+export const InputWithButtonActive = TemplateInputWithButton.bind({});
+InputWithButtonActive.argTypes = basicArgTypes;
+InputWithButtonActive.args = { ...basicArgs, active: true };
 
 export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
 InputLongLabelAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
@@ -420,6 +435,7 @@ InputWithIconsDisabled.argTypes = basicArgTypes;
 InputWithIconsDisabled.args = { ...basicArgs, disabled: true };
 
 export default {
+  excludeStories: /.*Active$/,
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>

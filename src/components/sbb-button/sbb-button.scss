@@ -185,6 +185,13 @@
 
 :host([data-icon-small]) {
   @include sbb.icon-button-variables;
+
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
+  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
 }
 
 .sbb-button {

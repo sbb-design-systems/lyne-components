@@ -57,12 +57,6 @@
   --sbb-button-color-hover-background: var(--sbb-color-milk-default);
   --sbb-button-color-hover-border: var(--sbb-color-milk-default);
   --sbb-button-color-hover-text: var(--sbb-color-charcoal-default);
-  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
-  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
-  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
   --sbb-button-border-width: #{functions.px-to-rem-build(0)};
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-icon-ui-small);
@@ -132,7 +126,7 @@
         background-color: var(--sbb-button-color-default-background);
         transition-duration: var(--sbb-button-transition-duration);
         transition-timing-function: var(--sbb-button-transition-easing-function);
-        transition-property: inset, background-color, border-color, box-shadow;
+        transition-property: inset, background-color, border-color;
       }
     }
   }
@@ -175,11 +169,6 @@
 @mixin icon-button-hover($button-selector) {
   @include mediaqueries.hover-mq($hover: true) {
     --sbb-button-translate-y-content-hover: #{functions.px-to-rem-build(-1)};
-    --sbb-button-shadow-1-offset-y: calc(
-      0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-offset-y)
-    );
-    --sbb-button-shadow-1-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-1-blur));
-    --sbb-button-shadow-2-blur: calc(0.5 * var(--sbb-shadow-elevation-level-3-shadow-2-blur));
   }
 
   @include a11y.if-forced-colors {
