@@ -75,7 +75,7 @@ jobs:
         uses: ./.github/actions/yarn-install
 
       - name: Run build
-        run: yarn yarn build
+        run: yarn build
       - name: Store stencil artifacts
         uses: actions/upload-artifact@v3
         with:
