@@ -395,6 +395,26 @@ const WithRadiosErrorMessageTemplate = ({ checkedInput, disabledInput, ...args }
   );
 };
 
+const WithNoContentTemplate = ({ checkedInput, disabledInput, ...args }) => [
+  <sbb-selection-panel
+    {...args}
+    style={'display: block; margin-block-end: var(--sbb-spacing-fixed-4x)'}
+  >
+    {cardbadge()}
+    <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
+      Value one
+      {suffixAndSubtext()}
+    </sbb-checkbox>
+  </sbb-selection-panel>,
+  <sbb-selection-panel {...args}>
+    {cardbadge()}
+    <sbb-radio-button value="Value one" disabled={disabledInput}>
+      Value one
+      {suffixAndSubtext()}
+    </sbb-radio-button>
+  </sbb-selection-panel>,
+];
+
 export const WithCheckbox = WithCheckboxTemplate.bind({});
 WithCheckbox.argTypes = basicArgTypes;
 WithCheckbox.args = { ...basicArgs };
@@ -495,6 +515,10 @@ WithRadiosErrorMessage.args = {
   'force-open': true,
   disabledInput: true,
 };
+
+export const WithNoContent = WithNoContentTemplate.bind({});
+WithNoContent.argTypes = basicArgTypes;
+WithNoContent.args = { ...basicArgs, checkedInput: true };
 
 export const TicketsOptionsExample = TicketsOptionsExampleTemplate.bind({});
 TicketsOptionsExample.argTypes = basicArgTypes;
