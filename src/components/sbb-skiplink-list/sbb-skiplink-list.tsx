@@ -77,7 +77,7 @@ export class SbbSkiplinkList implements ComponentInterface {
     }
     this._links.forEach((link, index) => {
       link.setAttribute('slot', `link-${index}`);
-      link.setAttribute('id', 'sbb-skiplink-list-link' + index);
+      link.setAttribute('id', `sbb-skiplink-list-link-${index}`);
     });
 
     return (

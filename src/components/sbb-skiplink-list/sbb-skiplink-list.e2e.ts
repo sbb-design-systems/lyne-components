@@ -7,8 +7,9 @@ describe('sbb-skiplink-list', () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-skiplink-list>
-        <sbb-link href='1' id="link-1">Link 1</sbb-link>
+        <sbb-link href='1'>Link 1</sbb-link>
         <sbb-link href='2'>Link 2</sbb-link>
+        <sbb-link href='3'>Link 3</sbb-link>
       </sbb-skiplink-list>
       <button id="button">Focus me</button>
     `);
@@ -19,13 +20,30 @@ describe('sbb-skiplink-list', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('show/hide when focused/blurred', async () => {
-    const link = await page.find('sbb-skiplink-list > sbb-link#link-1');
-    await link.focus();
-    expect(element).toEqualAttribute('data-focus-visible', '');
+  it('show only focused link', async () => {
+    const listItemLinks = await page.findAll('sbb-skiplink-list >>> li');
+    expect(listItemLinks).toHaveLength(3);
+
+    const firstLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-0');
+    await firstLink.focus();
+    expect(listItemLinks[0]).toEqualAttribute('data-focus-visible', '');
+    expect(listItemLinks[1]).not.toHaveAttribute('data-focus-visible');
+    expect(listItemLinks[2]).not.toHaveAttribute('data-focus-visible');
+
+    const secondLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-1');
+    await secondLink.focus();
+    expect(listItemLinks[0]).not.toHaveAttribute('data-focus-visible');
+    expect(listItemLinks[1]).toEqualAttribute('data-focus-visible', '');
+    expect(listItemLinks[2]).not.toHaveAttribute('data-focus-visible');
+
+    const thirdLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-2');
+    await thirdLink.focus();
+    expect(listItemLinks[0]).not.toHaveAttribute('data-focus-visible');
+    expect(listItemLinks[1]).not.toHaveAttribute('data-focus-visible');
+    expect(listItemLinks[2]).toEqualAttribute('data-focus-visible', '');
 
     const button = await page.find('#button');
     await button.focus();
-    expect(button).not.toHaveAttribute('data-focus-visible');
+    listItemLinks.forEach((item) => expect(item).not.toHaveAttribute('data-focus-visible'));
   });
 });
