@@ -10,6 +10,10 @@ describe('sbb-button', () => {
     element = await page.find('sbb-button');
   });
 
+  it('should fail', () => {
+    expect(true).toBeFalsy();
+  });
+
   it('renders', async () => {
     expect(element).toHaveClass('hydrated');
   });
