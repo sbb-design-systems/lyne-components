@@ -389,6 +389,7 @@ export class SbbDialog implements ComponentInterface {
           aria-label={this.accessibilityLabel}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
+          role="presentation"
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div

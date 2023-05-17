@@ -276,6 +276,7 @@ export class SbbNavigationSection implements ComponentInterface {
             aria-label={this.accessibilityLabel}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation-section"
+            role="presentation"
           >
             <div
               ref={(navigationSectionWrapperRef) =>

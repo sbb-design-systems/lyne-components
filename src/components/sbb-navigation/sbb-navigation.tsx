@@ -377,6 +377,7 @@ export class SbbNavigation implements ComponentInterface {
             aria-label={this.accessibilityLabel}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation"
+            role="presentation"
           >
             <div class="sbb-navigation__header">{closeButton}</div>
             <div

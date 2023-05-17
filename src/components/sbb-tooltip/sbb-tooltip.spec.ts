@@ -13,7 +13,7 @@ describe('sbb-tooltip', () => {
         <sbb-tooltip data-state="closed" id="sbb-tooltip-1">
           <mock:shadow-root>
             <div class="sbb-tooltip__container">
-              <dialog class="sbb-tooltip">
+              <dialog class="sbb-tooltip" role="presentation">
                 <div class="sbb-tooltip__content">
                   <span>
                     <slot>
