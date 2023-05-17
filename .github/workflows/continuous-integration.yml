@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
@@ -70,7 +70,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
@@ -99,6 +99,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-install
       - name: Restore stencil artifacts
         uses: actions/download-artifact@v3
         with:

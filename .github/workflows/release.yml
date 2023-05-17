@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
           scope: sbb-esta
       - name: Yarn Install
