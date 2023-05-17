@@ -104,8 +104,8 @@ export class SbbAutocomplete implements ComponentInterface {
   private _didLoad = false;
 
   /**
-   * On Safari, the aria role 'listbox' must be on the host element or else VoiceOver won't work at all.
-   * On the other hand, JAWS and NVDA needs the role to be "closer" to the options or else optgroups won't work.
+   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
    */
   private _ariaRoleOnHost = isSafari();
 
