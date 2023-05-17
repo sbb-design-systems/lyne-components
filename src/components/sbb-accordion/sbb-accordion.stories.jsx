@@ -1,5 +1,6 @@
 import events from '../sbb-accordion-item/sbb-accordion-item.events.ts';
 import { h } from 'jsx-dom';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 import readme from './readme.md';
 
@@ -120,6 +121,7 @@ Default.decorators = [
       <Story />
     </div>
   ),
+  withActions,
 ];
 
 NonWhiteBackground.argTypes = {
@@ -143,6 +145,7 @@ NonWhiteBackground.decorators = [
       <Story />
     </div>
   ),
+  withActions,
 ];
 
 OnlyOneOpen.argTypes = {
@@ -166,6 +169,7 @@ OnlyOneOpen.decorators = [
       <Story />
     </div>
   ),
+  withActions,
 ];
 
 export default {

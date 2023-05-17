@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const getBasicTemplate = ({ text, ...args }, id, iconSlot) => (
   <sbb-menu-action {...args}>
@@ -230,6 +231,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

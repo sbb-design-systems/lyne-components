@@ -2,6 +2,7 @@ import events from './sbb-calendar.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const getCalendarAttr = (min, max) => {
   let attr = {};
@@ -144,6 +145,7 @@ CalendarFilterFunction.args = {
 };
 
 export default {
+  decorators: [withActions],
   parameters: {
     actions: {
       handles: [events.dateSelected],

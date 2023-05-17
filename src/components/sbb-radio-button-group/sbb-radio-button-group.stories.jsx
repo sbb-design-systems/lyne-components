@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const value = {
   control: {
@@ -175,6 +176,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

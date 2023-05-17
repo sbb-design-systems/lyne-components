@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const TemplateSingle = (args) => <sbb-header-action {...args}>{args.text}</sbb-header-action>;
 
@@ -183,6 +184,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {
