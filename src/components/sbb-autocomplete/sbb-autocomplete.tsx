@@ -180,8 +180,11 @@ export class SbbAutocomplete implements ComponentInterface {
     this.close();
   }
 
-  @Listen('option-click')
-  public onOptionClick(): void {
+  @Listen('click')
+  public onOptionClick(event): void {
+    if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
+      return;
+    }
     this.close();
   }
 

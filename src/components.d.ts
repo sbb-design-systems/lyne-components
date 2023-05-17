@@ -3523,10 +3523,6 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Emits when the option is clicked.
-         */
-        "onOption-click"?: (event: SbbOptionCustomEvent<SbbOptionEventData>) => void;
-        /**
           * Emits when the option selection status changes.
          */
         "onOption-selection-change"?: (event: SbbOptionCustomEvent<SbbOptionEventData>) => void;

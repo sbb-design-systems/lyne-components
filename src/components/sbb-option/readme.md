@@ -72,7 +72,6 @@ Disabled:
 
 | Event                     | Description                                     | Type                              |
 | ------------------------- | ----------------------------------------------- | --------------------------------- |
-| `option-click`            | Emits when the option is clicked.               | `CustomEvent<SbbOptionEventData>` |
 | `option-selection-change` | Emits when the option selection status changes. | `CustomEvent<SbbOptionEventData>` |
 
 

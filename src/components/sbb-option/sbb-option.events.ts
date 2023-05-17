@@ -3,6 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  optionClick: 'option-click',
   selectionChange: 'option-selection-change',
 };

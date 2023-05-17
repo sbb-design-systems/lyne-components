@@ -71,14 +71,6 @@ export class SbbOption implements ComponentInterface {
   })
   public selectionChange: EventEmitter<SbbOptionEventData>;
 
-  /** Emits when the option is clicked. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'option-click',
-  })
-  public optionClick: EventEmitter<SbbOptionEventData>;
-
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
@@ -133,12 +125,6 @@ export class SbbOption implements ComponentInterface {
     }
 
     this.selected = true;
-
-    this.optionClick.emit({
-      id: this._element.id,
-      value: this.value,
-      selected: this.selected,
-    });
   }
 
   @Watch('selected')
