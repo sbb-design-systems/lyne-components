@@ -193,7 +193,7 @@ export class SbbSelectionPanel implements ComponentInterface {
           {this._namedSlots['content'] && (
             <div
               class="sbb-selection-panel__content"
-              data-expanded={this._checked || this.forceOpen}
+              data-expanded={this._checked && !this.forceOpen}
               ref={(el) => {
                 this._contentElement = el;
                 this._contentElement.inert = !this._checked && !this.forceOpen;
@@ -201,7 +201,7 @@ export class SbbSelectionPanel implements ComponentInterface {
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
               <sbb-divider />
-              <slot name="content" onSlotchange={() => this._setContentElementHeight()} />
+              <slot name="content" />
             </div>
           )}
         </div>
