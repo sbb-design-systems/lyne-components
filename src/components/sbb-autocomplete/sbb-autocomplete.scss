@@ -12,6 +12,8 @@
   --sbb-autocomplete-position-x: 0;
   --sbb-autocomplete-position-y: 0;
   --sbb-autocomplete-active-option-y: 0;
+
+  // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-autocomplete-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-autocomplete-min-height: var(--sbb-autocomplete-origin-height);
   --sbb-autocomplete-visibility: visible;
