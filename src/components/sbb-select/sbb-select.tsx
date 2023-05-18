@@ -139,8 +139,12 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  @Listen('option-click')
-  public onOptionClick(): void {
+  @Listen('click')
+  public onOptionClick(event): void {
+    if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
+      return;
+    }
+
     if (!this.multiple) {
       this.close();
     }
@@ -202,7 +206,7 @@ export class SbbSelect implements ComponentInterface {
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
     this._originElement =
-      this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#form-field-wrapper') ||
+      this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor') ||
       this._element.parentElement;
     if (this._originElement) {
       toggleDatasetEntry(

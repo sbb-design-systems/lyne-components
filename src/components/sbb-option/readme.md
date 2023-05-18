@@ -108,11 +108,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
+- [sbb-visual-checkbox](../sbb-visual-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-option --> sbb-icon
+  sbb-option --> sbb-visual-checkbox
   style sbb-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

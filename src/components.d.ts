@@ -1251,6 +1251,44 @@ export namespace Components {
          */
         "value"?: any | null;
     }
+    interface SbbSelect {
+        /**
+          * Closes the selection panel.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the select is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Whether the select allows for multiple selection.
+         */
+        "multiple": boolean;
+        /**
+          * Opens the selection panel.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The placeholder used if no value has been selected.
+         */
+        "placeholder": string;
+        /**
+          * Whether the select is readonly.
+         */
+        "readonly": boolean;
+        /**
+          * Whether the select is required.
+         */
+        "required": boolean;
+        /**
+          * The value of the select component. If `multiple` is true, it's an array.
+         */
+        "value": string | string[];
+    }
     interface SbbSelectionPanel {
         /**
           * The background color of the panel.
@@ -1843,6 +1881,10 @@ export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
 }
+export interface SbbSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSelectElement;
+}
 export interface SbbSelectionPanelCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbSelectionPanelElement;
@@ -2188,6 +2230,12 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
+    interface HTMLSbbSelectElement extends Components.SbbSelect, HTMLStencilElement {
+    }
+    var HTMLSbbSelectElement: {
+        prototype: HTMLSbbSelectElement;
+        new (): HTMLSbbSelectElement;
+    };
     interface HTMLSbbSelectionPanelElement extends Components.SbbSelectionPanel, HTMLStencilElement {
     }
     var HTMLSbbSelectionPanelElement: {
@@ -2434,6 +2482,7 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
+        "sbb-select": HTMLSbbSelectElement;
         "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
@@ -3684,6 +3733,58 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
+    interface SbbSelect {
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the select is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether the select allows for multiple selection.
+         */
+        "multiple"?: boolean;
+        "onChange"?: (event: SbbSelectCustomEvent<any>) => void;
+        /**
+          * Emits whenever the select is closed.
+         */
+        "onDid-close"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * Emits whenever the select is opened.
+         */
+        "onDid-open"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbSelectCustomEvent<any>) => void;
+        "onInput"?: (event: SbbSelectCustomEvent<any>) => void;
+        /**
+          * Emits whenever the select begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * Emits whenever the select starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * The placeholder used if no value has been selected.
+         */
+        "placeholder"?: string;
+        /**
+          * Whether the select is readonly.
+         */
+        "readonly"?: boolean;
+        /**
+          * Whether the select is required.
+         */
+        "required"?: boolean;
+        /**
+          * The value of the select component. If `multiple` is true, it's an array.
+         */
+        "value"?: string | string[];
+    }
     interface SbbSelectionPanel {
         /**
           * The background color of the panel.
@@ -4330,6 +4431,7 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
+        "sbb-select": SbbSelect;
         "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
@@ -4418,6 +4520,7 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
+            "sbb-select": LocalJSX.SbbSelect & JSXBase.HTMLAttributes<HTMLSbbSelectElement>;
             "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;

@@ -6,7 +6,7 @@
 
 // Fixes the gap between the origin and the overlay by creating conjuction
 // corners based on the origin element border radius
-@include sbb.overlayGapFix(var(--sbb-options-panel-border-radius));
+@include sbb.overlay-gap-fix(var(--sbb-options-panel-border-radius));
 
 :host {
   @include sbb.optionsPanelOverlayHost;

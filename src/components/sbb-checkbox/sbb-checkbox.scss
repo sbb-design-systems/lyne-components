@@ -1,5 +1,3 @@
-/* stylelint-disable */
-
 @use '../../global/styles' as sbb;
 
 // Default component properties, defined for :host. Properties which can not
@@ -171,6 +169,7 @@ input[type='checkbox'] {
   @include sbb.screen-reader-only;
 }
 
+/* stylelint-disable-next-line */
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
   @include sbb.focus-outline;
 
