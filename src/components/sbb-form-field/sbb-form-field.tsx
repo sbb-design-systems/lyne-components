@@ -262,8 +262,13 @@ export class SbbFormField implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
+        {/* Queryed by id from the autocomplete/select to be used as the anchor element */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div onClick={(event) => this._handleWrapperClick(event)} class="sbb-form-field__wrapper">
+        <div
+          onClick={(event) => this._handleWrapperClick(event)}
+          class="sbb-form-field__wrapper"
+          id="overlay-anchor"
+        >
           <slot name="prefix"></slot>
           <div class="sbb-form-field__input-container">
             {(this.label || this._namedSlots.label) && (

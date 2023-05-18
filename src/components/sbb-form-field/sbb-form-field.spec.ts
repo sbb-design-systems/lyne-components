@@ -16,7 +16,7 @@ describe('sbb-form-field', () => {
       <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
@@ -57,7 +57,7 @@ describe('sbb-form-field', () => {
       <sbb-form-field error-space="none" size="m" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <label class="sbb-form-field__label">
@@ -97,7 +97,7 @@ describe('sbb-form-field', () => {
       <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
@@ -138,7 +138,7 @@ describe('sbb-form-field', () => {
       <sbb-form-field error-space="none" size="m" label="Fill input" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">
@@ -183,7 +183,7 @@ describe('sbb-form-field', () => {
       <sbb-form-field error-space="none" size="m" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <div class="sbb-form-field__input">
@@ -223,7 +223,7 @@ describe('sbb-form-field', () => {
       <sbb-form-field error-space="none" size="m" label="Select option:" optional="true" borderless="" width="default">
         <mock:shadow-root>
           <div class="sbb-form-field__space-wrapper">
-            <div class="sbb-form-field__wrapper">
+            <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
                 <span class="sbb-form-field__label">

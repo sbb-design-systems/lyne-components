@@ -1,0 +1,87 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-option-color: var(--sbb-color-charcoal-default);
+  --sbb-option-background-color: inherit;
+  --sbb-option-min-height: var(--sbb-size-button-m-min-height);
+  --sbb-option-cursor: pointer;
+  --sbb-option-icon-color: var(--sbb-color-metal-default);
+}
+
+:host([active]:not([active='false'])) {
+  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
+}
+
+:host(:hover:not([disabled]:not([disabled='false']), [data-group-disabled])) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-option-background-color: var(--sbb-color-milk-default);
+  }
+}
+
+// if the highlight is enabled, hide the slot content
+:host(:not([data-disable-highlight])) {
+  .sbb-option__label slot {
+    display: none;
+  }
+}
+
+:host([data-group-disabled]),
+:host([disabled]:not([disabled='false'])) {
+  --sbb-option-color: var(--sbb-color-graphite-default);
+  --sbb-option-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-option-color: GrayText;
+  }
+}
+
+.sbb-option__label--highlight {
+  :host(:not(:is([disabled]:not([disabled='false']), [data-group-disabled]))) & {
+    @include sbb.text--bold;
+    @include sbb.if-forced-colors {
+      color: Highlight;
+    }
+  }
+}
+
+.sbb-option__container {
+  background-color: var(--sbb-option-background-color);
+}
+
+.sbb-option {
+  @include sbb.text-s--regular;
+
+  display: flex;
+  align-items: center;
+  column-gap: var(--sbb-spacing-responsive-xxxs);
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+  padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+  color: var(--sbb-option-color);
+  cursor: var(--sbb-option-cursor);
+
+  :host([active]:not([active='false'])) & {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-4x);
+  }
+}
+
+.sbb-option__icon {
+  display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
+}
+
+.sbb-option__icon--empty {
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
+}
+
+.sbb-option__group-label--visually-hidden {
+  @include sbb.screen-reader-only;
+}

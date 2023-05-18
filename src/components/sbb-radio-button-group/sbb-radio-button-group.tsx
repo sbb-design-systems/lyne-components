@@ -254,8 +254,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
       const checked: number = enabledRadios.findIndex(
         (radio: HTMLSbbRadioButtonElement) => radio.checked
       );
-      current = checked !== -1 ? checked : 0;
-      nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
+      nextIndex = getNextElementIndex(evt, checked, enabledRadios.length);
       enabledRadios[nextIndex].select();
     }
 

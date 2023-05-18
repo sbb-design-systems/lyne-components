@@ -30,6 +30,7 @@ import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+import { SbbOptionEventData } from "./components/sbb-option/sbb-option.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -73,6 +74,7 @@ export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+export { SbbOptionEventData } from "./components/sbb-option/sbb-option.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -209,6 +211,32 @@ export namespace Components {
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
         "role": InterfaceSbbAlertGroupAttributes['role'];
+    }
+    interface SbbAutocomplete {
+        /**
+          * Closes the autocomplete.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Opens the autocomplete.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.
+         */
+        "origin": string | HTMLElement;
+        /**
+          * Whether the icon space is preserved when no icon is set.
+         */
+        "preserveIconSpace": boolean;
+        /**
+          * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
+         */
+        "trigger": string | HTMLInputElement;
     }
     interface SbbButton {
         /**
@@ -1065,6 +1093,48 @@ export namespace Components {
          */
         "trigger": string | HTMLElement;
     }
+    interface SbbOptgroup {
+        /**
+          * Whether the group is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Option group label.
+         */
+        "label": string;
+    }
+    interface SbbOption {
+        /**
+          * Whether the option is currently active.
+         */
+        "active"?: boolean;
+        /**
+          * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
+         */
+        "disabled"?: boolean;
+        /**
+          * Highlight the label of the option
+          * @param value the highlighted portion of the label
+         */
+        "highlight": (value: string) => Promise<void>;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string;
+        /**
+          * Whether the option is selected.
+         */
+        "selected": boolean;
+        /**
+          * Set the option group label (used for a11y)
+          * @param value the label of the option group
+         */
+        "setGroupLabel": (value: string) => Promise<void>;
+        /**
+          * Value of the option.
+         */
+        "value"?: string;
+    }
     interface SbbOverlay {
         /**
           * Dismiss the overlay.
@@ -1715,6 +1785,10 @@ export interface SbbAlertGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbAlertGroupElement;
 }
+export interface SbbAutocompleteCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbAutocompleteElement;
+}
 export interface SbbCalendarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbCalendarElement;
@@ -1738,6 +1812,10 @@ export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
 export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbNavigationElement;
+}
+export interface SbbOptionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbOptionElement;
 }
 export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1825,6 +1903,12 @@ declare global {
     var HTMLSbbAlertGroupElement: {
         prototype: HTMLSbbAlertGroupElement;
         new (): HTMLSbbAlertGroupElement;
+    };
+    interface HTMLSbbAutocompleteElement extends Components.SbbAutocomplete, HTMLStencilElement {
+    }
+    var HTMLSbbAutocompleteElement: {
+        prototype: HTMLSbbAutocompleteElement;
+        new (): HTMLSbbAutocompleteElement;
     };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
@@ -2035,6 +2119,18 @@ declare global {
     var HTMLSbbNavigationSectionElement: {
         prototype: HTMLSbbNavigationSectionElement;
         new (): HTMLSbbNavigationSectionElement;
+    };
+    interface HTMLSbbOptgroupElement extends Components.SbbOptgroup, HTMLStencilElement {
+    }
+    var HTMLSbbOptgroupElement: {
+        prototype: HTMLSbbOptgroupElement;
+        new (): HTMLSbbOptgroupElement;
+    };
+    interface HTMLSbbOptionElement extends Components.SbbOption, HTMLStencilElement {
+    }
+    var HTMLSbbOptionElement: {
+        prototype: HTMLSbbOptionElement;
+        new (): HTMLSbbOptionElement;
     };
     interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
     }
@@ -2273,6 +2369,7 @@ declare global {
         "sbb-action-group": HTMLSbbActionGroupElement;
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
+        "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-calendar": HTMLSbbCalendarElement;
         "sbb-card": HTMLSbbCardElement;
@@ -2308,6 +2405,8 @@ declare global {
         "sbb-navigation-list": HTMLSbbNavigationListElement;
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
         "sbb-navigation-section": HTMLSbbNavigationSectionElement;
+        "sbb-optgroup": HTMLSbbOptgroupElement;
+        "sbb-option": HTMLSbbOptionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
@@ -2482,6 +2581,40 @@ declare namespace LocalJSX {
           * The role attribute defines how to announce alerts to the user.  'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true.
          */
         "role"?: InterfaceSbbAlertGroupAttributes['role'];
+    }
+    interface SbbAutocomplete {
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Emits whenever the autocomplete is closed.
+         */
+        "onDid-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * Emits whenever the autocomplete is opened.
+         */
+        "onDid-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * Emits whenever the autocomplete begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * Emits whenever the autocomplete starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbAutocompleteCustomEvent<void>) => void;
+        /**
+          * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement. If not set, will search for the first 'sbb-form-field' ancestor.
+         */
+        "origin"?: string | HTMLElement;
+        /**
+          * Whether the icon space is preserved when no icon is set.
+         */
+        "preserveIconSpace"?: boolean;
+        /**
+          * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
+         */
+        "trigger"?: string | HTMLInputElement;
     }
     interface SbbButton {
         /**
@@ -3366,6 +3499,42 @@ declare namespace LocalJSX {
          */
         "trigger"?: string | HTMLElement;
     }
+    interface SbbOptgroup {
+        /**
+          * Whether the group is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Option group label.
+         */
+        "label"?: string;
+    }
+    interface SbbOption {
+        /**
+          * Whether the option is currently active.
+         */
+        "active"?: boolean;
+        /**
+          * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
+         */
+        "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string;
+        /**
+          * Emits when the option selection status changes.
+         */
+        "onOption-selection-change"?: (event: SbbOptionCustomEvent<SbbOptionEventData>) => void;
+        /**
+          * Whether the option is selected.
+         */
+        "selected"?: boolean;
+        /**
+          * Value of the option.
+         */
+        "value"?: string;
+    }
     interface SbbOverlay {
         "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
         "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
@@ -4081,6 +4250,7 @@ declare namespace LocalJSX {
         "sbb-action-group": SbbActionGroup;
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
+        "sbb-autocomplete": SbbAutocomplete;
         "sbb-button": SbbButton;
         "sbb-calendar": SbbCalendar;
         "sbb-card": SbbCard;
@@ -4116,6 +4286,8 @@ declare namespace LocalJSX {
         "sbb-navigation-list": SbbNavigationList;
         "sbb-navigation-marker": SbbNavigationMarker;
         "sbb-navigation-section": SbbNavigationSection;
+        "sbb-optgroup": SbbOptgroup;
+        "sbb-option": SbbOption;
         "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
@@ -4165,6 +4337,7 @@ declare module "@stencil/core" {
             "sbb-action-group": LocalJSX.SbbActionGroup & JSXBase.HTMLAttributes<HTMLSbbActionGroupElement>;
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
+            "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-calendar": LocalJSX.SbbCalendar & JSXBase.HTMLAttributes<HTMLSbbCalendarElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;
@@ -4200,6 +4373,8 @@ declare module "@stencil/core" {
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
             "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
+            "sbb-optgroup": LocalJSX.SbbOptgroup & JSXBase.HTMLAttributes<HTMLSbbOptgroupElement>;
+            "sbb-option": LocalJSX.SbbOption & JSXBase.HTMLAttributes<HTMLSbbOptionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;

@@ -1,0 +1,209 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+// Fixes the gap between the origin and the overlay by creating conjuction
+// corners based on the origin element border radius
+@include sbb.overlay-gap-fix(var(--sbb-autocomplete-border-radius));
+
+:host {
+  --sbb-autocomplete-position-x: 0;
+  --sbb-autocomplete-position-y: 0;
+  --sbb-autocomplete-active-option-y: 0;
+
+  // 85vh is not an exact value but looks optimized for mobile view.
+  --sbb-autocomplete-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  --sbb-autocomplete-min-height: var(--sbb-autocomplete-origin-height);
+  --sbb-autocomplete-visibility: visible;
+  --sbb-autocomplete-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+  --sbb-autocomplete-width: fit-content;
+  --sbb-autocomplete-border-radius: var(--sbb-border-radius-4x);
+  --sbb-autocomplete-options-border-radius: 0 0 var(--sbb-autocomplete-border-radius)
+    var(--sbb-autocomplete-border-radius);
+  --sbb-autocomplete-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-autocomplete-animation-timing-function: ease;
+  --sbb-autocomplete-gap-fix-opacity: 0;
+  --sbb-autocomplete-gap-fix-transform: none;
+  --sbb-autocomplete-gap-fix-inset-block-start: calc(
+    var(--sbb-autocomplete-position-y) - var(--sbb-autocomplete-border-radius)
+  );
+}
+
+:host([data-state='closed']) {
+  --sbb-autocomplete-visibility: hidden;
+}
+
+:host([data-state='opening']) {
+  --sbb-autocomplete-animation-name: open;
+}
+
+:host([data-state='closing']) {
+  --sbb-autocomplete-animation-name: close;
+}
+
+:host([data-state='opened']),
+:host([data-state='opening']) {
+  --sbb-autocomplete-gap-fix-opacity: 1;
+}
+
+:host([data-autocomplete-position='below']) {
+  --sbb-autocomplete-animation-transform: translateY(
+    calc((var(--sbb-autocomplete-origin-height) / 2) * -1)
+  );
+}
+
+:host([data-autocomplete-position='above']) {
+  --sbb-autocomplete-options-border-radius: var(--sbb-autocomplete-border-radius)
+    var(--sbb-autocomplete-border-radius) 0 0;
+  --sbb-autocomplete-gap-fix-inset-block-start: var(--sbb-autocomplete-max-height);
+  --sbb-autocomplete-gap-fix-transform: rotate(180deg);
+  --sbb-autocomplete-animation-transform: translateY(
+    calc(var(--sbb-autocomplete-origin-height) / 2)
+  );
+}
+
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-autocomplete-animation-duration: 0s;
+}
+
+:host([preserve-icon-space]:not([preserve-icon-space='false'])) {
+  --sbb-option-icon-container-display: block;
+}
+
+::slotted(sbb-divider) {
+  margin-block: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-autocomplete__container {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: var(--sbb-autocomplete-internal-z-index);
+}
+
+.sbb-autocomplete__gap-fix {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  visibility: var(--sbb-autocomplete-visibility);
+  opacity: var(--sbb-autocomplete-gap-fix-opacity);
+  background-color: transparent;
+  width: var(--sbb-autocomplete-width);
+  height: var(--sbb-autocomplete-border-radius);
+  inset-block-start: var(--sbb-autocomplete-gap-fix-inset-block-start);
+  inset-inline-start: var(--sbb-autocomplete-position-x);
+  transform: var(--sbb-autocomplete-gap-fix-transform);
+  transition: opacity var(--sbb-autocomplete-animation-duration)
+    var(--sbb-autocomplete-animation-timing-function);
+}
+
+.sbb-autocomplete__panel {
+  display: block;
+  position: absolute;
+  visibility: var(--sbb-autocomplete-visibility);
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--sbb-autocomplete-border-radius);
+  inset-block-start: var(--sbb-autocomplete-position-y);
+  inset-inline-start: var(--sbb-autocomplete-position-x);
+  width: var(--sbb-autocomplete-width);
+  transition: box-shadow var(--sbb-autocomplete-animation-duration)
+    var(--sbb-autocomplete-animation-timing-function);
+
+  &::before,
+  &::after {
+    content: '';
+    display: none;
+    position: relative;
+    width: 100%;
+    height: var(--sbb-autocomplete-origin-height);
+    background-color: transparent;
+    border-radius: var(--sbb-autocomplete-border-radius);
+    pointer-events: none;
+    transition: box-shadow var(--sbb-autocomplete-animation-duration)
+      var(--sbb-autocomplete-animation-timing-function);
+    z-index: 1;
+  }
+
+  :host([data-state='opened']) &,
+  :host([data-state='opening']) & {
+    @include sbb.shadow-level-5-hard;
+  }
+
+  :host([data-autocomplete-position='below']) & {
+    inset-block-start: calc(
+      var(--sbb-autocomplete-position-y) - var(--sbb-autocomplete-origin-height)
+    );
+
+    &::before {
+      display: block;
+    }
+  }
+
+  :host([data-autocomplete-position='above']) & {
+    &::after {
+      display: block;
+    }
+  }
+
+  :host(:is([data-state='opened'], [data-state='opening'])[data-autocomplete-origin-borderless]) & {
+    &::before,
+    &::after {
+      @include sbb.shadow-level-5-hard;
+    }
+  }
+}
+
+.sbb-autocomplete__wrapper {
+  overflow: hidden;
+}
+
+.sbb-autocomplete__options {
+  @include sbb.scrollbar;
+
+  background-color: var(--sbb-color-white-default);
+  padding-block: var(--sbb-spacing-fixed-3x);
+  padding-inline: 0;
+  border-radius: var(--sbb-autocomplete-options-border-radius);
+  max-height: var(--sbb-autocomplete-max-height);
+  min-height: var(--sbb-autocomplete-min-height);
+  pointer-events: all;
+  overflow-y: auto;
+  animation: {
+    name: var(--sbb-autocomplete-animation-name);
+    duration: var(--sbb-autocomplete-animation-duration);
+    timing-function: var(--sbb-autocomplete-animation-timing-function);
+  }
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid CanvasText;
+    border-top: none;
+  }
+}
+
+@keyframes open {
+  from {
+    transform: var(--sbb-autocomplete-animation-transform);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: var(--sbb-autocomplete-animation-transform);
+    opacity: 0;
+  }
+}
