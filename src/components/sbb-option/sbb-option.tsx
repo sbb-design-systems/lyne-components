@@ -95,6 +95,16 @@ export class SbbOption implements ComponentInterface {
   private _variant: SbbOptionVariant;
   private _inertAriaGroups = isSafari();
 
+  private get _isAutocomplete(): boolean {
+    return this._variant === 'autocomplete';
+  }
+  private get _isSelect(): boolean {
+    return this._variant === 'select';
+  }
+  private get _isMultiple(): boolean {
+    return this._isSelect && this._element.closest('sbb-select')?.hasAttribute('multiple');
+  }
+
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new MutationObserver(
     this._onOptionAttributesChange.bind(this)
@@ -124,7 +134,8 @@ export class SbbOption implements ComponentInterface {
       event.stopPropagation();
       return;
     }
-    if (this._isMultipleSelect()) {
+
+    if (this._isMultiple) {
       event.stopPropagation();
       this.selected = !this.selected;
     } else {
@@ -157,7 +168,10 @@ export class SbbOption implements ComponentInterface {
   private _setVariantByContext(): void {
     if (this._element.closest('sbb-autocomplete')) {
       this._variant = 'autocomplete';
-    } else if (this._element.closest('sbb-select')) {
+      return;
+    }
+
+    if (this._element.closest('sbb-select')) {
       this._variant = 'select';
       this._disableLabelHighlight = true;
     }
@@ -172,13 +186,11 @@ export class SbbOption implements ComponentInterface {
     }
   }
 
-  private _isMultipleSelect(): boolean {
-    return (
-      this._variant === 'select' && this._element.closest('sbb-select')?.hasAttribute('multiple')
-    );
-  }
-
   private _setupHighlightHandler(event): void {
+    if (!this._isAutocomplete) {
+      return;
+    }
+
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
     const labelNode = slotNodes.filter((el) => el.nodeType === Node.TEXT_NODE)[0] as Text;
 
@@ -215,56 +227,14 @@ export class SbbOption implements ComponentInterface {
     ];
   }
 
-  private _renderAutocompleteOption(): JSX.Element {
-    return (
-      <div class="sbb-option">
-        <span
-          class={{
-            'sbb-option__icon': true,
-            'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-          }}
-        >
-          <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-        </span>
-        <span class="sbb-option__label">
-          <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
-          {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
-
-          {this._inertAriaGroups && this._groupLabel && (
-            <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
-          )}
-        </span>
-      </div>
-    );
-  }
-
-  private _renderSelectOption(): JSX.Element {
-    const isMultiple = this._isMultipleSelect();
-    return (
-      <div data-multiple={isMultiple} class="sbb-option">
-        {isMultiple && (
-          <sbb-visual-checkbox
-            checked={this.selected}
-            disabled={this.disabled || this._disabledFromGroup}
-          ></sbb-visual-checkbox>
-        )}
-        <span class="sbb-option__label">
-          <slot />
-          {this._inertAriaGroups && this._groupLabel && (
-            <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
-          )}
-        </span>
-        {!isMultiple && this.selected && <sbb-icon name="tick-small" />}
-      </div>
-    );
-  }
-
   public render(): JSX.Element {
+    const isMultiple = this._isMultiple;
     return (
       <Host
         role="option"
         tabindex={isAndroid() && !this.disabled && 0}
         data-variant={this._variant}
+        data-multiple={isMultiple}
         data-disable-highlight={this._disableLabelHighlight}
         ref={assignId(() => this._optionId)}
         /* eslint-disable jsx-a11y/aria-proptypes */
@@ -273,9 +243,38 @@ export class SbbOption implements ComponentInterface {
         /* eslint-enable jsx-a11y/aria-proptypes */
       >
         <div class="sbb-option__container">
-          {this._variant && this._variant === 'select'
-            ? this._renderSelectOption()
-            : this._renderAutocompleteOption()}
+          <div class="sbb-option">
+            {/* Icon */}
+            <span
+              class={{
+                'sbb-option__icon': true,
+                'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
+              }}
+            >
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            </span>
+
+            {/* Checkbox */}
+            {isMultiple && (
+              <sbb-visual-checkbox
+                checked={this.selected}
+                disabled={this.disabled || this._disabledFromGroup}
+              ></sbb-visual-checkbox>
+            )}
+
+            {/* Label */}
+            <span class="sbb-option__label">
+              <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
+              {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+
+              {this._inertAriaGroups && this._groupLabel && (
+                <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
+              )}
+            </span>
+
+            {/* Selected tick */}
+            {this._isSelect && !isMultiple && this.selected && <sbb-icon name="tick-small" />}
+          </div>
         </div>
       </Host>
     );
