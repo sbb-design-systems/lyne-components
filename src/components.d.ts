@@ -239,6 +239,7 @@ export namespace Components {
         "trigger": string | HTMLInputElement;
     }
     interface SbbBreadcrumb {
+        "ariaCurrent": string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -259,6 +260,8 @@ export namespace Components {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
+    }
+    interface SbbBreadcrumbGroup {
     }
     interface SbbButton {
         /**
@@ -2037,6 +2040,12 @@ declare global {
         prototype: HTMLSbbBreadcrumbElement;
         new (): HTMLSbbBreadcrumbElement;
     };
+    interface HTMLSbbBreadcrumbGroupElement extends Components.SbbBreadcrumbGroup, HTMLStencilElement {
+    }
+    var HTMLSbbBreadcrumbGroupElement: {
+        prototype: HTMLSbbBreadcrumbGroupElement;
+        new (): HTMLSbbBreadcrumbGroupElement;
+    };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
     var HTMLSbbButtonElement: {
@@ -2516,6 +2525,7 @@ declare global {
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
         "sbb-breadcrumb": HTMLSbbBreadcrumbElement;
+        "sbb-breadcrumb-group": HTMLSbbBreadcrumbGroupElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-calendar": HTMLSbbCalendarElement;
         "sbb-card": HTMLSbbCardElement;
@@ -2766,6 +2776,7 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLInputElement;
     }
     interface SbbBreadcrumb {
+        "ariaCurrent"?: string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */
@@ -2786,6 +2797,8 @@ declare namespace LocalJSX {
           * Where to display the linked URL.
          */
         "target"?: LinkTargetType | string | undefined;
+    }
+    interface SbbBreadcrumbGroup {
     }
     interface SbbButton {
         /**
@@ -4531,6 +4544,7 @@ declare namespace LocalJSX {
         "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
         "sbb-breadcrumb": SbbBreadcrumb;
+        "sbb-breadcrumb-group": SbbBreadcrumbGroup;
         "sbb-button": SbbButton;
         "sbb-calendar": SbbCalendar;
         "sbb-card": SbbCard;
@@ -4622,6 +4636,7 @@ declare module "@stencil/core" {
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
             "sbb-breadcrumb": LocalJSX.SbbBreadcrumb & JSXBase.HTMLAttributes<HTMLSbbBreadcrumbElement>;
+            "sbb-breadcrumb-group": LocalJSX.SbbBreadcrumbGroup & JSXBase.HTMLAttributes<HTMLSbbBreadcrumbGroupElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-calendar": LocalJSX.SbbCalendar & JSXBase.HTMLAttributes<HTMLSbbCalendarElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;

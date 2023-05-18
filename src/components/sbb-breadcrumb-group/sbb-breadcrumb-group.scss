@@ -1,0 +1,17 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+.sbb-breadcrumb-group {
+  @include sbb.list-reset;
+
+  display: inline-flex;
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+.sbb-breadcrumb-group__item {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+}

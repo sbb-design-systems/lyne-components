@@ -64,12 +64,6 @@ const SlottedIconTemplate = ({ text, 'icon-name': iconName, ...args }) => (
   </sbb-breadcrumb>
 );
 
-const EllipsisTemplate = ({ text, ...args }) => (
-  <sbb-breadcrumb style="max-width: 200px" {...args}>
-    {text}
-  </sbb-breadcrumb>
-);
-
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
@@ -97,13 +91,20 @@ SlottedIconAndText.args = {
   text: 'Custom slotted icon',
 };
 
-export const Ellipsis = EllipsisTemplate.bind({});
+export const Ellipsis = Template.bind({});
 Ellipsis.argTypes = defaultArgTypes;
 Ellipsis.args = {
   ...defaultArgs,
   'icon-name': 'house-small',
   text: 'This label name is so long that it needs ellipsis to fit.',
 };
+Ellipsis.decorators = [
+  (Story) => (
+    <div style={'max-width: 200px'}>
+      <Story />
+    </div>
+  ),
+];
 
 export default {
   decorators: [
