@@ -4,7 +4,7 @@ The `<sbb-option>` component can be used to display items in components like `<s
 
 Like the native `option`, the component has a `value` property. The `selected`, `disabled` and `active` properties are 
 connected to the self-named states. When disabled, the selection via click is prevented.
-If the `sbb-option` is nested in a `sbb-option-group` component, it inherits from the parent the `disabled` state.
+If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from the parent the `disabled` state.
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot. 

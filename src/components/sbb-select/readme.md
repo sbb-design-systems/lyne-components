@@ -3,7 +3,7 @@ emulating the behaviour of a native `select`.
 
 If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it, 
 otherwise, the panel takes the component's parent element as origin. 
-Options or groups of options (see `sbb-option`/`sbb-option-group` components) can be provided via an unnamed slot.
+Options or groups of options (see `sbb-option`/`sbb-optgroup` components) can be provided via an unnamed slot.
 
 The component has a `value` property, which can be a string or a string array (when `multiple` is set to true).
 It is possible to display a placeholder if no value has been selected, using the `placeholder` property.
@@ -34,20 +34,20 @@ Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
 </sbb-form-field>
 ```
 
-Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-option-group`:
+Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-optgroup`:
 
 ```html
 <sbb-form-field label="Electronic devices">
   <sbb-select multiple>
-    <sbb-option-group label='Microsoft'>
+    <sbb-optgroup label='Microsoft'>
       <sbb-option value="Surface">Surface</sbb-option>
       <sbb-option value="Lumia">Lumia</sbb-option>
-    </sbb-option-group>
-    <sbb-option-group label='Apple'>
+    </sbb-optgroup>
+    <sbb-optgroup label='Apple'>
       <sbb-option value="MacBook">MacBook</sbb-option>
       <sbb-option value="iPad">iPad</sbb-option>
       <sbb-option value="iPhone">iPhone</sbb-option>
-    </sbb-option-group>
+    </sbb-optgroup>
   </sbb-select>
 </sbb-form-field>
 ```

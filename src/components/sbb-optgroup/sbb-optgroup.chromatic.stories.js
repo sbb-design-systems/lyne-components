@@ -1,4 +1,4 @@
-import config, * as stories from './sbb-option-group.stories';
+import config, * as stories from './sbb-optgroup.stories';
 import { chromaticStoryConfig, combineStories } from '../../global/helpers/chromatic';
 
 export const chromaticStories = combineStories(config, stories);

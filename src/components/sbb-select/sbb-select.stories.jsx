@@ -222,12 +222,12 @@ const createOptions = (numberOfOptions, disableOption, group, selectValue) => {
 
 const createOptionsGroup = (numberOfOptions, disableOption, disableGroup) => {
   return [
-    <sbb-option-group label="Group 1" disabled={disableGroup}>
+    <sbb-optgroup label="Group 1" disabled={disableGroup}>
       {createOptions(numberOfOptions, disableOption, '1')}
-    </sbb-option-group>,
-    <sbb-option-group label="Group 2">
+    </sbb-optgroup>,
+    <sbb-optgroup label="Group 2">
       {createOptions(numberOfOptions, disableOption, '2')}
-    </sbb-option-group>,
+    </sbb-optgroup>,
   ];
 };
 
