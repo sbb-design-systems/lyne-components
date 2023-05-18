@@ -23,11 +23,11 @@ describe('sbb-select', () => {
           <div class="sbb-select__gap-fix"></div>
           <div class="sbb-select__container">
             <div class="sbb-select__gap-fix">
-              <div class="gap-fix-wrapper">
-                <div class="gap-fix-corner" id="left"></div>
+              <div class="sbb-gap-fix-wrapper">
+                <div class="sbb-gap-fix-corner" id="left"></div>
               </div>
-              <div class="gap-fix-wrapper">
-                <div class="gap-fix-corner" id="right"></div>
+              <div class="sbb-gap-fix-wrapper">
+                <div class="sbb-gap-fix-corner" id="right"></div>
               </div>
             </div>
             <div class="sbb-select__panel">
@@ -70,11 +70,11 @@ describe('sbb-select', () => {
           <div class="sbb-select__gap-fix"></div>
           <div class="sbb-select__container">
             <div class="sbb-select__gap-fix">
-              <div class="gap-fix-wrapper">
-                <div class="gap-fix-corner" id="left"></div>
+              <div class="sbb-gap-fix-wrapper">
+                <div class="sbb-gap-fix-corner" id="left"></div>
               </div>
-              <div class="gap-fix-wrapper">
-                <div class="gap-fix-corner" id="right"></div>
+              <div class="sbb-gap-fix-wrapper">
+                <div class="sbb-gap-fix-corner" id="right"></div>
               </div>
             </div>
             <div class="sbb-select__panel">
