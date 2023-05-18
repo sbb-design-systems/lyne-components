@@ -57,6 +57,12 @@ const defaultArgs = {
 
 const Template = ({ text, ...args }) => <sbb-breadcrumb {...args}>{text}</sbb-breadcrumb>;
 
+const EllipsisTemplate = ({ text, ...args }) => (
+  <sbb-breadcrumb style="max-width: 200px" {...args}>
+    {text}
+  </sbb-breadcrumb>
+);
+
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
@@ -74,6 +80,14 @@ IconAndText.argTypes = defaultArgTypes;
 IconAndText.args = {
   ...defaultArgs,
   'icon-name': 'house-small',
+};
+
+export const Ellipsis = EllipsisTemplate.bind({});
+Ellipsis.argTypes = defaultArgTypes;
+Ellipsis.args = {
+  ...defaultArgs,
+  'icon-name': 'house-small',
+  text: 'This label name is so long that it needs ellipsis to fit.',
 };
 
 export default {

@@ -27,7 +27,7 @@
   border-radius: var(--sbb-border-radius-2x);
 }
 
-.sbb-breadcrumb__link {
+.sbb-breadcrumb {
   @include sbb.text-xs--regular;
   @include sbb.link-base;
 
@@ -47,6 +47,10 @@
   color: var(--sbb-breadcrumb-color);
 }
 
-.sbb-breadcrumb__link--opens-in-new-window {
+.sbb-breadcrumb__label {
+  @include sbb.ellipsis;
+}
+
+.sbb-breadcrumb__label--opens-in-new-window {
   @include sbb.screen-reader-only;
 }
