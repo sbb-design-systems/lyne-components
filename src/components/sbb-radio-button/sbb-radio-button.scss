@@ -9,6 +9,8 @@
   --sbb-radio-button-background-color: var(--sbb-color-white-default);
   --sbb-radio-button-border: var(--sbb-border-width-1x);
   --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
+  --sbb-radio-button-subtext-color: var(--sbb-color-granite-default);
+  --sbb-radio-button-text-decoration: none;
 
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
@@ -21,9 +23,35 @@
   outline: none !important;
 }
 
+// Change the focus outline when the input is placed inside of a selection panel
+// as the main input element.
+:host(:focus-visible[data-is-selection-panel-input]) {
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  .sbb-radio-button__label-slot::after {
+    content: '';
+    position: absolute;
+    display: block;
+    inset-block: calc(
+      (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    inset-inline: calc(
+      (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
+        (var(--sbb-focus-outline-offset) * 2)
+    );
+    border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+    border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
+  }
+}
+
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-radio-button-label-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-label-color: var(--sbb-color-granite-default);
+  --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-text-decoration: line-through;
 }
 
 .sbb-radio-button__input {
@@ -51,16 +79,31 @@
   }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(
+      :focus-visible:not(
+          [data-focus-origin='mouse'],
+          [data-focus-origin='touch'],
+          [data-is-selection-panel-input]
+        )
+    )
+    & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
 
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-radio-button-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
+}
+
 .sbb-radio-button__label-slot {
   display: flex;
   align-items: flex-start;
+  overflow: hidden;
+  text-decoration: var(--sbb-radio-button-text-decoration);
 
   // Unchecked style
   &::before {
@@ -101,7 +144,7 @@
     // We use the :checked pseudo-class to reflect the checked state
     :host([data-group-disabled]) .sbb-radio-button__input:checked + &,
     :host([disabled]:not([disabled='false'])) .sbb-radio-button__input:checked + & {
-      --sbb-radio-button-background-color: var(--sbb-color-graphite-default);
+      --sbb-radio-button-background-color: var(--sbb-color-granite-default);
 
       @include sbb.if-forced-colors {
         --sbb-radio-button-background-color: GrayText;
@@ -121,4 +164,8 @@
       }
     }
   }
+}
+
+.sbb-radio-button__expanded-label {
+  @include sbb.screen-reader-only;
 }

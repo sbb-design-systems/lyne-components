@@ -4,6 +4,7 @@ import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const LoremIpsumTemplate = () => [
   <div>
@@ -173,6 +174,7 @@ export default {
         <Story style={`${isChromatic() && 'min-height: 100vh'}`} />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },

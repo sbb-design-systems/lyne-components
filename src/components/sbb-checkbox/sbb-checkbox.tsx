@@ -9,17 +9,22 @@ import {
   Listen,
   EventEmitter,
   Event,
+  Watch,
   Host,
 } from '@stencil/core';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
-import { forwardEventToHost } from '../../global/helpers/forward-event';
+import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
 import {
   createNamedSlotState,
+  documentLanguage,
+  forwardEventToHost,
+  getEventTarget,
   HandlerRepository,
+  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
+import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -27,8 +32,10 @@ const checkboxObserverConfig: MutationObserverInit = {
 };
 
 /**
- * @slot icon - Slot used to render the checkbox icon.
  * @slot unnamed - Slot used to render the checkbox label's text.
+ * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
+ * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
+ * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
 @Component({
   shadow: true,
@@ -71,9 +78,18 @@ export class SbbCheckbox implements ComponentInterface {
   @State() private _requiredFromGroup = false;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @State() private _namedSlots = createNamedSlotState('icon', 'subtext', 'suffix');
+
+  @State() private _currentLanguage = documentLanguage();
+
+  /** Whether the input is the main input of a selection panel. */
+  @State() private _isSelectionPanelInput = false;
+
+  /** The label describing whether the selection panel is exapanded (for screen readers only). */
+  @State() private _selectionPanelExpandedLabel: string;
 
   private _checkbox: HTMLInputElement;
+  private _selectionPanelElement: HTMLElement;
 
   /** MutationObserver on data attributes. */
   private _checkboxAttributeObserver = new MutationObserver(
@@ -87,8 +103,35 @@ export class SbbCheckbox implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
+  /**
+   * @internal
+   * Internal event that emits whenever the state of the checkbox
+   * in relation to the parent selection panel changes.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'state-change',
+  })
+  public stateChange: EventEmitter<CheckboxStateChange>;
+
+  @Watch('checked')
+  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (this._isSelectionPanelInput && currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'checked', checked: currentValue });
+      !!this._selectionPanelElement && this._updateExpandedLabel();
+    }
+  }
+
+  @Watch('disabled')
+  public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (this._isSelectionPanelInput && currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'disabled', disabled: currentValue });
+    }
+  }
+
   private _handlerRepository = new HandlerRepository(
     this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
   );
 
@@ -112,8 +155,17 @@ export class SbbCheckbox implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
+    this._selectionPanelElement = this._element.closest('sbb-selection-panel');
+    this._isSelectionPanelInput =
+      !!this._selectionPanelElement &&
+      !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
+  }
+
+  public componentDidLoad(): void {
+    !!this._selectionPanelElement && this._updateExpandedLabel();
   }
 
   public disconnectedCallback(): void {
@@ -123,7 +175,7 @@ export class SbbCheckbox implements ComponentInterface {
 
   @Listen('click')
   public handleClick(event: Event): void {
-    if (!this.disabled && !this._disabledFromGroup && event.composedPath()[0] === this._element) {
+    if (!this.disabled && !this._disabledFromGroup && getEventTarget(event) === this._element) {
       this._checkbox.click();
     }
   }
@@ -156,12 +208,23 @@ export class SbbCheckbox implements ComponentInterface {
     }
   }
 
+  private _updateExpandedLabel(): void {
+    if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+      return;
+    }
+
+    this._selectionPanelExpandedLabel = this.checked
+      ? ', ' + i18nExpanded[this._currentLanguage]
+      : ', ' + i18nCollapsed[this._currentLanguage];
+  }
+
   public render(): JSX.Element {
     const attributes = {
       role: 'checkbox',
       'aria-checked': this.indeterminate ? 'mixed' : this.checked?.toString() ?? 'false',
       'aria-required': (this.required || this._requiredFromGroup).toString(),
       'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      'data-is-selection-panel-input': this._isSelectionPanelInput,
       ...(this.disabled || this._disabledFromGroup ? undefined : { tabIndex: '0' }),
     };
     return (
@@ -196,13 +259,23 @@ export class SbbCheckbox implements ComponentInterface {
               </span>
               <span class="sbb-checkbox__label">
                 <slot />
-                {(this.iconName || this._namedSlots.icon) && (
+                {(this.iconName || (this._namedSlots['icon'] && !this._isSelectionPanelInput)) && (
                   <span class="sbb-checkbox__label--icon">
                     <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
                   </span>
                 )}
+                {!!this._selectionPanelElement && this._namedSlots['suffix'] && (
+                  <slot name="suffix" />
+                )}
               </span>
             </span>
+            {!!this._selectionPanelElement && this._namedSlots['subtext'] && (
+              <slot name="subtext" />
+            )}
+            {!!this._selectionPanelElement && this._selectionPanelExpandedLabel && (
+              /* For screen readers only */
+              <span class="sbb-checkbox__expanded-label">{this._selectionPanelExpandedLabel}</span>
+            )}
           </label>
         </span>
       </Host>

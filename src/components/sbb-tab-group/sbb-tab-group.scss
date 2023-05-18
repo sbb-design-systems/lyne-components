@@ -25,12 +25,17 @@
     visibility: visible;
     opacity: 1;
     height: fit-content;
+    overflow: unset;
     transition: {
       duration: var(--sbb-animation-duration-4x);
       delay: var(--sbb-animation-duration-4x);
       timing-function: var(--sbb-animation-easing);
       property: opacity, visibility;
     }
+  }
+
+  ::slotted([role='tabpanel']:focus-visible) {
+    @include sbb.focus-outline;
   }
 }
 

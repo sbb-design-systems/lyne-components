@@ -193,8 +193,7 @@ export class SbbToggle implements ComponentInterface {
       const checked: number = enabledToggleOptions.findIndex(
         (toggleOption: HTMLSbbToggleOptionElement) => toggleOption.checked
       );
-      const current: number = checked !== -1 ? checked : 0;
-      const nextIndex: number = getNextElementIndex(evt, current, enabledToggleOptions.length);
+      const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {
         enabledToggleOptions[nextIndex].checked = true;
         enabledToggleOptions[nextIndex].focus();

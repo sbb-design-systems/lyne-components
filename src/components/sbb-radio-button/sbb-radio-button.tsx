@@ -11,10 +11,22 @@ import {
   Method,
   Prop,
   State,
+  Watch,
 } from '@stencil/core';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { InterfaceSbbRadioButtonAttributes } from './sbb-radio-button.custom';
+import {
+  InterfaceSbbRadioButtonAttributes,
+  RadioButtonStateChange,
+} from './sbb-radio-button.custom';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import {
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
+import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -23,6 +35,8 @@ const radioButtonObserverConfig: MutationObserverInit = {
 
 /**
  * @slot unnamed - Use this slot to provide the radio label.
+ * @slot subtext - Slot used to render a subtext under the label (only visible within a selection panel).
+ * @slot suffix - Slot used to render additional content after the label (only visible within a selection panel).
  */
 @Component({
   shadow: true,
@@ -71,20 +85,53 @@ export class SbbRadioButton implements ComponentInterface {
   @State() private _requiredFromGroup = false;
 
   /**
-   * Emits whenever the radio group value changes.
+   * State of listed named slots, by indicating whether any element for a named slot is defined.
    */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'did-select',
-  })
-  public didSelect: EventEmitter;
+  @State() private _namedSlots = createNamedSlotState('subtext', 'suffix');
 
+  /**
+   * Whether the input is the main input of a selection panel.
+   */
+  @State() private _isSelectionPanelInput = false;
+
+  /**
+   * The label describing whether the selection panel is exapanded (for screen readers only).
+   */
+  @State() private _selectionPanelExpandedLabel: string;
+
+  @State() private _currentLanguage = documentLanguage();
+
+  private _selectionPanelElement: HTMLElement;
   private _radioButtonAttributeObserver = new MutationObserver(
     this._onRadioButtonAttributesChange.bind(this)
   );
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
+
+  /**
+   * Internal event that emits whenever the state of the radio option
+   * in relation to the parent selection panel changes.
+   */
+  @Event({
+    bubbles: true,
+    eventName: 'state-change',
+  })
+  public stateChange: EventEmitter<RadioButtonStateChange>;
+
+  @Watch('checked')
+  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'checked', checked: currentValue });
+      !!this._selectionPanelElement && this._updateExpandedLabel();
+    }
+  }
+
+  @Watch('disabled')
+  public handleDisabledChange(currentValue: boolean, previousValue: boolean): void {
+    if (currentValue !== previousValue) {
+      this.stateChange.emit({ type: 'disabled', disabled: currentValue });
+    }
+  }
 
   @Listen('click')
   public handleClick(event: Event): void {
@@ -98,23 +145,35 @@ export class SbbRadioButton implements ComponentInterface {
       return;
     }
 
-    let value = this.value;
-
     if (this.allowEmptySelection) {
       this.checked = !this.checked;
-      value = this.checked ? value : undefined;
-      this.didSelect.emit(value);
     } else if (!this.checked) {
       this.checked = true;
-      this.didSelect.emit(value);
     }
   }
 
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
   public connectedCallback(): void {
+    this._handlerRepository.connect();
+    // We can use closest here, as we expect the parent sbb-selection-panel to be in light DOM.
+    this._selectionPanelElement = this._element.closest('sbb-selection-panel');
+    this._isSelectionPanelInput =
+      !!this._selectionPanelElement &&
+      !this._element.closest('sbb-selection-panel [slot="content"]');
     this._setupInitialStateAndAttributeObserver();
   }
 
+  public componentDidLoad(): void {
+    !!this._selectionPanelElement && this._updateExpandedLabel();
+  }
+
   public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
     this._radioButtonAttributeObserver.disconnect();
   }
 
@@ -144,12 +203,23 @@ export class SbbRadioButton implements ComponentInterface {
     }
   }
 
+  private _updateExpandedLabel(): void {
+    if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+      return;
+    }
+
+    this._selectionPanelExpandedLabel = this.checked
+      ? ', ' + i18nExpanded[this._currentLanguage]
+      : ', ' + i18nCollapsed[this._currentLanguage];
+  }
+
   public render(): JSX.Element {
     const attributes = {
       role: 'radio',
       'aria-checked': this.checked?.toString() ?? 'false',
       'aria-required': (this.required || this._requiredFromGroup).toString(),
       'aria-disabled': (this.disabled || this._disabledFromGroup).toString(),
+      'data-is-selection-panel-input': this._isSelectionPanelInput,
     };
     return (
       <Host {...attributes}>
@@ -166,7 +236,15 @@ export class SbbRadioButton implements ComponentInterface {
           />
           <span class="sbb-radio-button__label-slot">
             <slot />
+            {!!this._selectionPanelElement && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
+          {!!this._selectionPanelElement && this._namedSlots['subtext'] && <slot name="subtext" />}
+          {!!this._selectionPanelElement && this._selectionPanelExpandedLabel && (
+            /* For screen readers only */
+            <span class="sbb-radio-button__expanded-label">
+              {this._selectionPanelExpandedLabel}
+            </span>
+          )}
         </label>
       </Host>
     );

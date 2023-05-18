@@ -175,23 +175,35 @@ export class SbbTimetableRow {
           <div class="sbb-timetable__row" role="row">
             <div class="sbb-timetable__row-header" role="gridcell">
               <div class="sbb-timetable__row-details">
-                {product && getTransportIcon(product.vehicleMode) && (
-                  <span class="sbb-timetable__row-transport-wrapper">
-                    <sbb-icon
-                      class="sbb-timetable__row-transport-icon"
-                      name={'picto:' + getTransportIcon(product.vehicleMode)}
-                    />
-                    <span class="sbb-screenreaderonly">
-                      {product &&
-                        product.vehicleMode &&
-                        i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-                        i18nMeansOfTransport[summary.product.vehicleMode.toLowerCase()][
-                          this._currentLanguage
-                        ]}
-                      &nbsp;
+                {product &&
+                  getTransportIcon(
+                    product.vehicleMode,
+                    product.vehicleSubModeShortName,
+                    this._currentLanguage
+                  ) && (
+                    <span class="sbb-timetable__row-transport-wrapper">
+                      <sbb-icon
+                        class="sbb-timetable__row-transport-icon"
+                        name={
+                          'picto:' +
+                          getTransportIcon(
+                            product.vehicleMode,
+                            product.vehicleSubModeShortName,
+                            this._currentLanguage
+                          )
+                        }
+                      />
+                      <span class="sbb-screenreaderonly">
+                        {product &&
+                          product.vehicleMode &&
+                          i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
+                          i18nMeansOfTransport[summary.product.vehicleMode.toLowerCase()][
+                            this._currentLanguage
+                          ]}
+                        &nbsp;
+                      </span>
                     </span>
-                  </span>
-                )}
+                  )}
                 {product &&
                   product.vehicleSubModeShortName &&
                   (isProductIcon(product?.vehicleSubModeShortName?.toLocaleLowerCase())

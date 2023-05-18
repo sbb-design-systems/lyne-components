@@ -6,7 +6,7 @@
 
 // Fixes the gap between the origin and the overlay by creating conjuction
 // corners based on the origin element border radius
-@include sbb.overlayGapFix(var(--sbb-options-panel-border-radius));
+@include sbb.overlay-gap-fix(var(--sbb-options-panel-border-radius));
 
 :host {
   @include sbb.optionsPanelOverlayHost;
@@ -51,12 +51,12 @@
   --sbb-options-panel-animation-duration: 0s;
 }
 
-::slotted(sbb-divider) {
-  margin-block: var(--sbb-spacing-fixed-3x);
-}
-
 :host([preserve-icon-space]:not([preserve-icon-space='false'])) {
   --sbb-option-icon-container-display: block;
+}
+
+::slotted(sbb-divider) {
+  margin-block: var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-autocomplete__container {
@@ -91,12 +91,7 @@
     }
   }
 
-  :host(
-      :is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless]:not(
-          [data-option-panel-origin-borderless='false']
-        )
-    )
-    & {
+  :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless]) & {
     &::before,
     &::after {
       @include sbb.shadow-level-5-hard;

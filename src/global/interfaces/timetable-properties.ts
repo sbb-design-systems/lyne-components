@@ -98,15 +98,6 @@ export type OccupancyEnum = 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
 /** Type of Notice */
 export type NoticeTypeEnum = 'ATTRIBUTE' | 'INFO';
 
-export type TextArgumentEnum = 'EMAIL' | 'PHONE' | 'URL';
-
-/** key-value pair. Key is one of: (EMAIL,PHONE,URL) */
-export type TextArgument = {
-  __typename?: 'TextArgument';
-  type?: TextArgumentEnum;
-  values: string[];
-};
-
 /** Mode of public transportation */
 export type VehicleModeEnum =
   | 'BUS'

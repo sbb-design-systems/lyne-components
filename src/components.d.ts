@@ -15,7 +15,7 @@ import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-prop
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-import { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
 import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
@@ -34,7 +34,7 @@ import { SbbOptionEventData } from "./components/sbb-option/sbb-option.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-import { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
@@ -47,7 +47,6 @@ import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timeta
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-import { SbbFocusOrigin } from "./global/helpers/focus";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
@@ -60,7 +59,7 @@ export { ButtonType, LinkTargetType } from "./global/interfaces/link-button-prop
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
-export { InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
+export { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
 export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
 export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
@@ -79,7 +78,7 @@ export { SbbOptionEventData } from "./components/sbb-option/sbb-option.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
-export { InterfaceSbbRadioButtonAttributes } from "./components/sbb-radio-button/sbb-radio-button.custom";
+export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
@@ -92,7 +91,6 @@ export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timeta
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-export { SbbFocusOrigin } from "./global/helpers/focus";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export namespace Components {
@@ -552,7 +550,7 @@ export namespace Components {
         /**
           * Opens the dialog element.
          */
-        "open": (event?: PointerEvent) => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * Whether a back button is displayed next to the title.
          */
@@ -1253,43 +1251,19 @@ export namespace Components {
          */
         "value"?: any | null;
     }
-    interface SbbSelect {
+    interface SbbSelectionPanel {
         /**
-          * Closes the selection panel.
+          * The background color of the panel.
          */
-        "close": () => Promise<void>;
+        "color": 'white' | 'milk';
         /**
-          * Whether the animation is disabled.
+          * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
         /**
-          * Whether the select is disabled.
+          * Whether the content section is always visible.
          */
-        "disabled": boolean;
-        /**
-          * Whether the select allows for multiple selection.
-         */
-        "multiple": boolean;
-        /**
-          * Opens the selection panel.
-         */
-        "open": () => Promise<void>;
-        /**
-          * The placeholder used if no value has been selected.
-         */
-        "placeholder": string;
-        /**
-          * Whether the select is readonly.
-         */
-        "readonly": boolean;
-        /**
-          * Whether the select is required.
-         */
-        "required": boolean;
-        /**
-          * The value of the select component. If `multiple` is true, it's an array.
-         */
-        "value": string | string[];
+        "forceOpen": boolean;
     }
     interface SbbSignet {
         /**
@@ -1343,8 +1317,6 @@ export namespace Components {
          */
         "valueAsNumber"?: number;
     }
-    interface SbbTabAmount {
-    }
     interface SbbTabGroup {
         /**
           * Activates a tab by index.
@@ -1372,9 +1344,17 @@ export namespace Components {
          */
         "active"?: boolean;
         /**
+          * Amount displayed inside the tab.
+         */
+        "amount"?: string;
+        /**
           * Disabled tab state
          */
         "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string;
         /**
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
@@ -1696,7 +1676,7 @@ export namespace Components {
         /**
           * Closes the tooltip.
          */
-        "close": (closedByFocusOrigin?: SbbFocusOrigin, target?: HTMLElement) => Promise<void>;
+        "close": (target?: HTMLElement) => Promise<void>;
         /**
           * Close the tooltip after a certain delay.
          */
@@ -1716,7 +1696,7 @@ export namespace Components {
         /**
           * Opens the tooltip on trigger click.
          */
-        "open": (focusOrigin?: SbbFocusOrigin) => Promise<void>;
+        "open": () => Promise<void>;
         /**
           * Open the tooltip after a certain delay.
          */
@@ -1863,9 +1843,9 @@ export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
 }
-export interface SbbSelectCustomEvent<T> extends CustomEvent<T> {
+export interface SbbSelectionPanelCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLSbbSelectElement;
+    target: HTMLSbbSelectionPanelElement;
 }
 export interface SbbSliderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2208,11 +2188,11 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
-    interface HTMLSbbSelectElement extends Components.SbbSelect, HTMLStencilElement {
+    interface HTMLSbbSelectionPanelElement extends Components.SbbSelectionPanel, HTMLStencilElement {
     }
-    var HTMLSbbSelectElement: {
-        prototype: HTMLSbbSelectElement;
-        new (): HTMLSbbSelectElement;
+    var HTMLSbbSelectionPanelElement: {
+        prototype: HTMLSbbSelectionPanelElement;
+        new (): HTMLSbbSelectionPanelElement;
     };
     interface HTMLSbbSignetElement extends Components.SbbSignet, HTMLStencilElement {
     }
@@ -2225,12 +2205,6 @@ declare global {
     var HTMLSbbSliderElement: {
         prototype: HTMLSbbSliderElement;
         new (): HTMLSbbSliderElement;
-    };
-    interface HTMLSbbTabAmountElement extends Components.SbbTabAmount, HTMLStencilElement {
-    }
-    var HTMLSbbTabAmountElement: {
-        prototype: HTMLSbbTabAmountElement;
-        new (): HTMLSbbTabAmountElement;
     };
     interface HTMLSbbTabGroupElement extends Components.SbbTabGroup, HTMLStencilElement {
     }
@@ -2460,10 +2434,9 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
-        "sbb-select": HTMLSbbSelectElement;
+        "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-slider": HTMLSbbSliderElement;
-        "sbb-tab-amount": HTMLSbbTabAmountElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-tab-title": HTMLSbbTabTitleElement;
         "sbb-tag": HTMLSbbTagElement;
@@ -2841,6 +2814,7 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbCheckboxCustomEvent<any>) => void;
+        "onState-change"?: (event: SbbCheckboxCustomEvent<CheckboxStateChange>) => void;
         /**
           * Whether the checkbox is required.
          */
@@ -3570,10 +3544,6 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         /**
-          * Emits when the option is clicked.
-         */
-        "onOption-click"?: (event: SbbOptionCustomEvent<SbbOptionEventData>) => void;
-        /**
           * Emits when the option selection status changes.
          */
         "onOption-selection-change"?: (event: SbbOptionCustomEvent<SbbOptionEventData>) => void;
@@ -3655,9 +3625,9 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Emits whenever the radio group value changes.
+          * Internal event that emits whenever the state of the radio option in relation to the parent selection panel changes.
          */
-        "onDid-select"?: (event: SbbRadioButtonCustomEvent<any>) => void;
+        "onState-change"?: (event: SbbRadioButtonCustomEvent<RadioButtonStateChange>) => void;
         /**
           * Whether the radio button is required.
          */
@@ -3714,57 +3684,35 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
-    interface SbbSelect {
+    interface SbbSelectionPanel {
         /**
-          * Whether the animation is disabled.
+          * The background color of the panel.
+         */
+        "color"?: 'white' | 'milk';
+        /**
+          * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
         /**
-          * Whether the select is disabled.
+          * Whether the content section is always visible.
          */
-        "disabled"?: boolean;
+        "forceOpen"?: boolean;
         /**
-          * Whether the select allows for multiple selection.
+          * Emits whenever the content section is closed.
          */
-        "multiple"?: boolean;
-        "onChange"?: (event: SbbSelectCustomEvent<any>) => void;
+        "onDid-close"?: (event: SbbSelectionPanelCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
-          * Emits whenever the select is closed.
+          * Emits whenever the content section is opened.
          */
-        "onDid-close"?: (event: SbbSelectCustomEvent<void>) => void;
+        "onDid-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
         /**
-          * Emits whenever the select is opened.
+          * Emits whenever the content section begins the closing transition.
          */
-        "onDid-open"?: (event: SbbSelectCustomEvent<void>) => void;
+        "onWill-close"?: (event: SbbSelectionPanelCustomEvent<{ closeTarget: HTMLElement }>) => void;
         /**
-          * @deprecated only used for React. Will probably be removed once React 19 is available.
+          * Emits whenever the content section starts the opening transition.
          */
-        "onDidChange"?: (event: SbbSelectCustomEvent<any>) => void;
-        "onInput"?: (event: SbbSelectCustomEvent<any>) => void;
-        /**
-          * Emits whenever the select begins the closing transition.
-         */
-        "onWill-close"?: (event: SbbSelectCustomEvent<void>) => void;
-        /**
-          * Emits whenever the select starts the opening transition.
-         */
-        "onWill-open"?: (event: SbbSelectCustomEvent<void>) => void;
-        /**
-          * The placeholder used if no value has been selected.
-         */
-        "placeholder"?: string;
-        /**
-          * Whether the select is readonly.
-         */
-        "readonly"?: boolean;
-        /**
-          * Whether the select is required.
-         */
-        "required"?: boolean;
-        /**
-          * The value of the select component. If `multiple` is true, it's an array.
-         */
-        "value"?: string | string[];
+        "onWill-open"?: (event: SbbSelectionPanelCustomEvent<void>) => void;
     }
     interface SbbSignet {
         /**
@@ -3822,8 +3770,6 @@ declare namespace LocalJSX {
          */
         "valueAsNumber"?: number;
     }
-    interface SbbTabAmount {
-    }
     interface SbbTabGroup {
         /**
           * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
@@ -3840,9 +3786,17 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
+          * Amount displayed inside the tab.
+         */
+        "amount"?: string;
+        /**
           * Disabled tab state
          */
         "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+         */
+        "iconName"?: string;
         /**
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
@@ -4376,10 +4330,9 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
-        "sbb-select": SbbSelect;
+        "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
         "sbb-slider": SbbSlider;
-        "sbb-tab-amount": SbbTabAmount;
         "sbb-tab-group": SbbTabGroup;
         "sbb-tab-title": SbbTabTitle;
         "sbb-tag": SbbTag;
@@ -4465,10 +4418,9 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
-            "sbb-select": LocalJSX.SbbSelect & JSXBase.HTMLAttributes<HTMLSbbSelectElement>;
+            "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
-            "sbb-tab-amount": LocalJSX.SbbTabAmount & JSXBase.HTMLAttributes<HTMLSbbTabAmountElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-tag": LocalJSX.SbbTag & JSXBase.HTMLAttributes<HTMLSbbTagElement>;

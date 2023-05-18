@@ -1,10 +1,15 @@
-import { Component, h, Host, JSX, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop, State, Element } from '@stencil/core';
 import { InterfaceTabTitleAttributes } from './sbb-tab-title.custom';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/helpers';
 
 /**
  * @slot unnamed - This slot will show the provided tab title.
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
- * @slot amount - Provide an `sbb-tab-amount` to show an amount to the right of the title.
+ * @slot amount - Provide a number to show an amount to the right of the title.
  */
 
 @Component({
@@ -20,32 +25,58 @@ export class SbbTabTitle {
   @Prop() public level?: InterfaceTabTitleAttributes['level'] = '1';
 
   /** Active tab state */
-  @Prop()
-  public active?: boolean;
+  @Prop({ reflect: true }) public active?: boolean;
 
   /** Disabled tab state */
-  @Prop()
-  public disabled?: boolean;
+  @Prop({ reflect: true }) public disabled?: boolean;
+
+  /**
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://lyne.sbb.ch/tokens/icons/.
+   */
+  @Prop() public iconName?: string;
+
+  /** Amount displayed inside the tab. */
+  @Prop() public amount?: string;
+
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
+  @State() private _namedSlots = createNamedSlotState('icon', 'amount');
+
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
+  }
 
   public render(): JSX.Element {
     const TAGNAME = `h${Number(this.level) < 7 ? this.level : '1'}`;
 
     return (
-      <Host>
-        <TAGNAME
-          class={{
-            'sbb-tab-title': true,
-            'sbb-tab-title--active': !this.disabled && this.active,
-            'sbb-tab-title--disabled': this.disabled,
-          }}
-        >
-          <slot name="icon"></slot>
-          <span class="sbb-tab-title__text">
-            <slot></slot>
+      <TAGNAME class="sbb-tab-title">
+        {(this.iconName || this._namedSlots['icon']) && (
+          <span class="sbb-tab-title__icon">
+            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           </span>
-          <slot name="amount"></slot>
-        </TAGNAME>
-      </Host>
+        )}
+        <span class="sbb-tab-title__text">
+          <slot></slot>
+        </span>
+        {(this.amount || this._namedSlots['amount']) && (
+          <span class="sbb-tab-title__amount">
+            <slot name="amount">{this.amount}</slot>
+          </span>
+        )}
+      </TAGNAME>
     );
   }
 }

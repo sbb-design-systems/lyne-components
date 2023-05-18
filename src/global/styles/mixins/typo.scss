@@ -197,9 +197,9 @@
 }
 
 @mixin placeholder {
-  &::placeholder {
-    color: var(--sbb-color-metal-default);
-  }
+  color: var(--sbb-color-metal-default);
+  -webkit-text-fill-color: var(--sbb-color-metal-default);
+  opacity: 1;
 }
 
 @mixin clamp-lines($lines) {

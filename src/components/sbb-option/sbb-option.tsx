@@ -23,7 +23,6 @@ import { SbbOptionEventData, SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isAndroid, isSafari } from '../../global/helpers/platform';
-import { hostContext } from '../../global/helpers/host-context';
 
 let nextId = 0;
 
@@ -71,14 +70,6 @@ export class SbbOption implements ComponentInterface {
     eventName: 'option-selection-change',
   })
   public selectionChange: EventEmitter<SbbOptionEventData>;
-
-  /** Emits when the option is clicked. */
-  @Event({
-    bubbles: true,
-    composed: true,
-    eventName: 'option-click',
-  })
-  public optionClick: EventEmitter<SbbOptionEventData>;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
@@ -139,12 +130,6 @@ export class SbbOption implements ComponentInterface {
     } else {
       this.selected = true;
     }
-
-    this.optionClick.emit({
-      id: this._element.id,
-      value: this.value,
-      selected: this.selected,
-    });
   }
 
   @Watch('selected')
@@ -189,8 +174,7 @@ export class SbbOption implements ComponentInterface {
 
   private _isMultipleSelect(): boolean {
     return (
-      this._variant === 'select' &&
-      hostContext('sbb-select', this._element)?.hasAttribute('multiple')
+      this._variant === 'select' && this._element.closest('sbb-select')?.hasAttribute('multiple')
     );
   }
 
@@ -245,6 +229,7 @@ export class SbbOption implements ComponentInterface {
         <span class="sbb-option__label">
           <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
           {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+
           {this._inertAriaGroups && this._groupLabel && (
             <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
           )}

@@ -612,6 +612,20 @@ export const i18nConnectionRoundtrip = (returnCity: string): Record<string, stri
   it: `e ritorno a ${returnCity}.`,
 });
 
+export const i18nExpanded: Record<string, string> = {
+  de: 'erweitert',
+  en: 'expanded',
+  fr: 'est tiré',
+  it: 'esapnso',
+};
+
+export const i18nCollapsed: Record<string, string> = {
+  de: 'reduziert',
+  en: 'collapsed',
+  fr: 'condensé',
+  it: 'compresso',
+};
+
 export const i18nMapContainerButtonLabel: Record<string, string> = {
   de: 'Karte zeigen',
   en: 'Show map',

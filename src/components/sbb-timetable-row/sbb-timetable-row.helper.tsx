@@ -9,34 +9,42 @@ import {
 import { isRideLeg } from '../../global/helpers/timetable-helper';
 import { i18nTripQuayChange } from '../../global/i18n';
 
-export const getTransportIcon = (vehicleMode: VehicleModeEnum): string => {
-  switch (vehicleMode) {
-    case 'BUS':
-      return 'bus-right';
-    case 'CABLEWAY':
-      return 'standseilbahn-right';
-    case 'CHAIRLIFT':
-      return 'sessellift-right';
-    case 'COG_RAILWAY':
-      return 'zahnradbahn-right';
-    case 'GONDOLA':
-      return 'gondelbahn-right';
-    case 'METRO':
-      return 'metro-right';
-    case 'PLANE':
-      return 'flugzeug-right';
-    case 'SHIP':
-      return 'schiff-right';
-    case 'TAXI':
-      return 'taxi-right';
-    case 'TRAIN':
-      return 'zug-right';
-    case 'TRAMWAY':
-      return 'tram-right';
-    case 'ELEVATOR':
-      return 'lift';
-    default:
-      return '';
+export const getTransportIcon = (
+  vehicleMode: VehicleModeEnum,
+  vehicleSubMode: string,
+  language: string
+): string => {
+  // As there are no English pictograms, we fall back to German
+  const normalizedLanguage = language.replace('en', 'de');
+
+  if (vehicleMode === 'BUS') {
+    return 'bus-right';
+  } else if (vehicleMode === 'CABLEWAY') {
+    return 'funicular-railway-right';
+  } else if (vehicleMode === 'CHAIRLIFT') {
+    return 'chair-lift-right';
+  } else if (vehicleMode === 'COG_RAILWAY') {
+    return 'cog-railway-right';
+  } else if (vehicleMode === 'GONDOLA' && vehicleSubMode === 'PB') {
+    return 'cableway-right';
+  } else if (vehicleMode === 'GONDOLA') {
+    return 'gondola-lift-right';
+  } else if (vehicleMode === 'METRO') {
+    return `metro-right-${normalizedLanguage}`;
+  } else if (vehicleMode === 'PLANE') {
+    return 'aeroplane-right';
+  } else if (vehicleMode === 'SHIP') {
+    return 'jetty-right';
+  } else if (vehicleMode === 'TAXI') {
+    return 'taxi-right';
+  } else if (vehicleMode === 'TRAIN') {
+    return 'train-right';
+  } else if (vehicleMode === 'TRAMWAY') {
+    return 'tram-right';
+  } else if (vehicleMode === 'ELEVATOR') {
+    return 'lift';
+  } else {
+    return '';
   }
 };
 

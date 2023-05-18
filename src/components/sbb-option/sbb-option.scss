@@ -8,7 +8,7 @@
   @include sbb.text-s--regular;
 
   --sbb-option-color: var(--sbb-color-charcoal-default);
-  --sbb-option-bg-color: inherit;
+  --sbb-option-background-color: inherit;
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
@@ -16,6 +16,7 @@
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
+  --sbb-option-icon-color: var(--sbb-color-metal-default);
 }
 
 :host([active]:not([active='false'])) {
@@ -24,17 +25,16 @@
 
 :host(:hover:not([disabled]:not([disabled='false']), [data-group-disabled])) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-option-bg-color: var(--sbb-color-milk-default);
+    --sbb-option-background-color: var(--sbb-color-milk-default);
   }
 }
 
 :host(:active:not([disabled]:not([disabled='false']), [data-group-disabled])) {
-  --sbb-option-bg-color: var(--sbb-color-cloud-default);
+  --sbb-option-background-color: var(--sbb-color-cloud-default);
 }
 
 // if the highlight is enabled, hide the slot content
-:host(:not([data-disable-highlight])),
-:host([data-disable-highlight='false']) {
+:host(:not([data-disable-highlight])) {
   .sbb-option__label slot {
     display: none;
   }
@@ -50,8 +50,8 @@
   }
 }
 
-:host(:not(:is([disabled]:not([disabled='false']), [data-group-disabled]))) {
-  .sbb-option__label--highlight {
+.sbb-option__label--highlight {
+  :host(:not(:is([disabled]:not([disabled='false']), [data-group-disabled]))) & {
     @include sbb.text--bold;
     @include sbb.if-forced-colors {
       color: Highlight;
@@ -60,8 +60,6 @@
 }
 
 :host([data-variant='select']) {
-  @include sbb.text-s--regular;
-
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   --sbb-option-column-gap: var(--sbb-spacing-fixed-3x);
@@ -74,10 +72,12 @@
 }
 
 .sbb-option__container {
-  background-color: var(--sbb-option-bg-color);
+  background-color: var(--sbb-option-background-color);
 }
 
 .sbb-option {
+  @include sbb.text-s--regular;
+
   display: flex;
   align-items: center;
   column-gap: var(--sbb-option-column-gap);
@@ -99,6 +99,7 @@
   display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
 }
 
 .sbb-option__icon--empty {

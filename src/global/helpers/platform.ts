@@ -1,3 +1,6 @@
+// This file is freely inspired by Angular Material solution.
+// Reference: https://github.com/angular/components/blob/main/src/cdk/platform/platform.ts
+
 // Whether the current platform supports the V8 Break Iterator. The V8 check
 // is necessary to detect all Blink based browsers.
 let hasV8BreakIterator: boolean;

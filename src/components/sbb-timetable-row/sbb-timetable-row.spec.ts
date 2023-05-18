@@ -24,7 +24,7 @@ describe('sbb-timetable-row', () => {
                 <div class="sbb-timetable__row-header" role="gridcell">
                   <div class="sbb-timetable__row-details">
                     <span class="sbb-timetable__row-transport-wrapper">
-                      <sbb-icon class="sbb-timetable__row-transport-icon" name="picto:zug-right"></sbb-icon>
+                      <sbb-icon class="sbb-timetable__row-transport-icon" name="picto:train-right"></sbb-icon>
                       <span class="sbb-screenreaderonly">
                         Train
                       </span>

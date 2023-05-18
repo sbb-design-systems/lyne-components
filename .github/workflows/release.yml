@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
           scope: sbb-esta
       - name: Yarn Install
@@ -81,7 +81,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create versioned storybook
+      - name: Create versioned storybook for chromatic
         run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
@@ -93,6 +93,10 @@ jobs:
           autoAcceptChanges: true
           exitZeroOnChanges: true
 
+      - name: Remove chromatic stories
+        run: cd src/components && git clean -f -X
+      - name: Create versioned storybook for image
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
       - name: Remove files with forbidden extensions
         run: node ./ci/clean-storybook-files.js
 

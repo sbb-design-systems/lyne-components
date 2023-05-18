@@ -50,9 +50,6 @@ Disabled:
 <sbb-option value="value" disabled>Option label</sbb-option>
 ```
 
-## Accessibility
--- TBD --
-
 
 <!-- Auto Generated Below -->
 
@@ -72,7 +69,6 @@ Disabled:
 
 | Event                     | Description                                     | Type                              |
 | ------------------------- | ----------------------------------------------- | --------------------------------- |
-| `option-click`            | Emits when the option is clicked.               | `CustomEvent<SbbOptionEventData>` |
 | `option-selection-change` | Emits when the option selection status changes. | `CustomEvent<SbbOptionEventData>` |
 
 
@@ -112,13 +108,11 @@ Type: `Promise<void>`
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
-- [sbb-visual-checkbox](../sbb-visual-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-option --> sbb-icon
-  sbb-option --> sbb-visual-checkbox
   style sbb-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

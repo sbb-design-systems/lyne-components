@@ -1,6 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import events from './sbb-radio-button.events';
 
 const value = {
   control: {
@@ -97,9 +96,6 @@ export default {
     ),
   ],
   parameters: {
-    actions: {
-      handles: [events.didSelect],
-    },
     backgrounds: {
       disable: true,
     },

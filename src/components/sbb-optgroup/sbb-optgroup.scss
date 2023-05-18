@@ -34,11 +34,10 @@
 }
 
 .sbb-optgroup__label {
-  display: block;
-  @include sbb.text-xs--regular;
+  @include sbb.text-xxs--regular;
 
-  // font size is fixed
-  font-size: var(--sbb-optgroup-label-font-size);
+  display: flex;
+  column-gap: var(--sbb-spacing-responsive-xxxs);
   color: var(--sbb-color-metal-default);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
   padding-block-start: var(--sbb-optgroup-label-padding-start);
@@ -48,4 +47,11 @@
 .sbb-optgroup__divider {
   display: var(--sbb-optgroup-divider-display);
   padding-block: var(--sbb-optgroup-divider-spacing);
+}
+
+// Align the group label to the option label
+.sbb-optgroup__icon-space {
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
+  min-width: var(--sbb-size-icon-ui-small);
 }

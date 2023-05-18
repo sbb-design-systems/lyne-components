@@ -9,6 +9,7 @@ A `sbb-divider` is displayed at the bottom of the component.
 ## Usage
 
 Default:
+
 ```html
 <sbb-optgroup label="Group">
   <sbb-option value="1" selected>1</sbb-option>
@@ -18,6 +19,7 @@ Default:
 ```
 
 Disabled:
+
 ```html
 <sbb-optgroup label="Disabled group" disabled>
   <sbb-option value="A">A</sbb-option>

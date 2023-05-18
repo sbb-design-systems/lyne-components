@@ -10,12 +10,28 @@ import { walkTimeTrip, partiallyCancelled } from './sbb-timetable-row.sample-dat
 import { PtSituation } from '../../global/interfaces/timetable-properties';
 
 describe('getTransportIcon', () => {
-  it('should return schiff', () => {
-    expect(getTransportIcon('SHIP')).toBe('schiff-right');
+  it('should return ship / jetty', () => {
+    expect(getTransportIcon('SHIP', '', 'de')).toBe('jetty-right');
   });
 
   it('should return empty string', () => {
-    expect(getTransportIcon('UNKNOWN')).toBe('');
+    expect(getTransportIcon('UNKNOWN', '', 'de')).toBe('');
+  });
+
+  it('should return metro string', () => {
+    expect(getTransportIcon('METRO', 'PB', 'fr')).toBe('metro-right-fr');
+  });
+
+  it('should return metro en string', () => {
+    expect(getTransportIcon('METRO', 'PB', 'en')).toBe('metro-right-de');
+  });
+
+  it('should return cableway string', () => {
+    expect(getTransportIcon('GONDOLA', 'PB', 'de')).toBe('cableway-right');
+  });
+
+  it('should return gondola string', () => {
+    expect(getTransportIcon('GONDOLA', 'GB', 'de')).toBe('gondola-lift-right');
   });
 });
 

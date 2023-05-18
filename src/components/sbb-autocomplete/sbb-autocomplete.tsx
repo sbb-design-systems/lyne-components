@@ -97,7 +97,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  private _dialog: HTMLElement;
+  private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
   private _originElement: HTMLElement;
   private _triggerElement: HTMLInputElement;
@@ -107,7 +107,10 @@ export class SbbAutocomplete implements ComponentInterface {
   private _activeItemIndex = -1;
   private _didLoad = false;
 
-  // TODO: On Safari, the aria role 'listbox' must be on the host element or else VoiceOver won't read option groups
+  /**
+   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
+   */
   private _ariaRoleOnHost = isSafari();
 
   private get _options(): HTMLSbbOptionElement[] {
@@ -117,13 +120,14 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Opens the autocomplete. */
   @Method()
   public async open(): Promise<void> {
-    if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
+    if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
       return;
     }
 
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
+    toggleDatasetEntry(this._originElement, 'autocompleteOpen', true);
   }
 
   /** Closes the autocomplete. */
@@ -133,6 +137,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
+    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
     this._state = 'closing';
     this.willClose.emit();
     this._openPanelEventsController.abort();
@@ -169,23 +174,24 @@ export class SbbAutocomplete implements ComponentInterface {
 
     // Deselect the previous options
     this._options
-      .filter((option) => option.id !== event.detail.id)
+      .filter((option) => option.id !== event.detail.id && option.selected)
       .forEach((option) => (option.selected = false));
 
     // Set the option value
     this._triggerElement.value = event.detail.value;
 
     // Manually trigger the change events
-    this._triggerElement.dispatchEvent(
-      new window.Event('change', { bubbles: true, composed: false })
-    );
+    this._triggerElement.dispatchEvent(new window.Event('change', { bubbles: true }));
     this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
     this.close();
   }
 
-  @Listen('option-click')
-  public onOptionClick(): void {
+  @Listen('click')
+  public onOptionClick(event): void {
+    if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
+      return;
+    }
     this.close();
   }
 
@@ -221,9 +227,7 @@ export class SbbAutocomplete implements ComponentInterface {
     let result: HTMLElement;
 
     if (!this.origin) {
-      result = this._element
-        .closest('sbb-form-field')
-        ?.shadowRoot.querySelector('#form-field-wrapper');
+      result = this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
     } else {
       result = typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
     }
@@ -319,7 +323,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._dialog, this._originElement, this._optionContainer, this._element);
+    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this._element);
   }
 
   /** On open/close animation end. */
@@ -353,7 +357,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** If the click is outside the autocomplete, closes the panel. */
   private _onBackdropClick(event: PointerEvent): void {
-    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
+    if (!isEventOnElement(this._overlay, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
     }
   }
@@ -377,9 +381,6 @@ export class SbbAutocomplete implements ComponentInterface {
       case 'ArrowUp':
         this._setNextActiveOption(event);
         break;
-
-      default:
-        break;
     }
   }
 
@@ -392,9 +393,8 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   private _setNextActiveOption(event: KeyboardEvent): void {
-    const filteredOptions: HTMLSbbOptionElement[] = this._options.filter(
-      (opt: HTMLSbbOptionElement) =>
-        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+    const filteredOptions = this._options.filter(
+      (opt) => !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
     );
 
     // Get and activate the next active option
@@ -450,7 +450,7 @@ export class SbbAutocomplete implements ComponentInterface {
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-autocomplete__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
-            ref={(dialogRef) => (this._dialog = dialogRef)}
+            ref={(overlayRef) => (this._overlay = overlayRef)}
           >
             <div class="sbb-autocomplete__wrapper">
               <div

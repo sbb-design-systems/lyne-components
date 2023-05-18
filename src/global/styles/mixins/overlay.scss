@@ -87,8 +87,10 @@
   }
 }
 
-@mixin overlayGapFix($radius, $color: var(--sbb-color-white-default)) {
-  .gap-fix-wrapper {
+// Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete)
+// Works in conjuction with the 'overlayGapFixCorners()' function in 'overlay.tsx'
+@mixin overlay-gap-fix($radius, $color: var(--sbb-color-white-default)) {
+  .sbb-gap-fix-wrapper {
     position: relative;
     overflow: hidden;
     width: $radius;
@@ -96,7 +98,7 @@
     background-color: transparent;
   }
 
-  .gap-fix-corner {
+  .sbb-gap-fix-corner {
     position: absolute;
     border-radius: 50%;
     border: calc($radius / 2) solid $color;
@@ -105,11 +107,11 @@
     inset-block-end: calc(($radius / 2) * -1);
   }
 
-  .gap-fix-corner#left {
+  .sbb-gap-fix-corner#left {
     inset-inline-start: calc(($radius / 2) * -1);
   }
 
-  .gap-fix-corner#right {
+  .sbb-gap-fix-corner#right {
     inset-inline-end: calc(($radius / 2) * -1);
   }
 }

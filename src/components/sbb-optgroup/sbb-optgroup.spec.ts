@@ -22,7 +22,10 @@ describe('sbb-optgroup', () => {
             <div class="sbb-optgroup__divider">
               <sbb-divider></sbb-divider>
             </div>
-            <span aria-hidden="true" class="sbb-optgroup__label">Label</span>
+            <div class="sbb-optgroup__label" aria-hidden="true">
+              <div class="sbb-optgroup__icon-space"></div>
+              <span>Label</span>
+            </div>
             <slot></slot>
           </mock:shadow-root>
           <sbb-option value="1">1</sbb-option>
@@ -50,7 +53,10 @@ describe('sbb-optgroup', () => {
             <div class="sbb-optgroup__divider">
               <sbb-divider></sbb-divider>
             </div>
-            <span aria-hidden="true" class="sbb-optgroup__label">Label</span>
+            <div class="sbb-optgroup__label" aria-hidden="true">
+              <div class="sbb-optgroup__icon-space"></div>
+              <span>Label</span>
+            </div>
             <slot></slot>
           </mock:shadow-root>
           <sbb-option value="1">1</sbb-option>

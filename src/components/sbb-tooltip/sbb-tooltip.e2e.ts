@@ -379,6 +379,9 @@ describe('sbb-tooltip', () => {
     await page.waitForChanges();
 
     // Simulate backdrop click
+    await page.evaluate(() =>
+      document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }))
+    );
     await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);

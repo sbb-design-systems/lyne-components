@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import sampleImages from '../../global/images';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const ariaLabel = {
   control: {
@@ -132,6 +133,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 5000 },

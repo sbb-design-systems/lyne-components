@@ -1,5 +1,6 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -171,6 +172,7 @@ SbbToggleCheckBlockVariant.args = {
 
 export default {
   title: 'components/form elements/sbb-toggle-check',
+  decorators: [withActions],
   parameters: {
     backgrounds: {
       disable: true,

@@ -2,9 +2,12 @@ import { validateContent } from './sbb-icon-validate';
 import { readConfig, SbbIconConfig } from '../../global/helpers/config';
 
 const iconCdn = 'https://d1s1onrtynjaa8.cloudfront.net/';
+
+// TODO: remove picto-legacy namespace
 const iconNamespaces = new Map<string, string>()
   .set('default', `${iconCdn}icons/`)
-  .set('picto', `${iconCdn}pictograms/`);
+  .set('picto-legacy', `${iconCdn}pictograms/`)
+  .set('picto', `${iconCdn}picto/`);
 const requests = new Map<string, Promise<any>>();
 
 /** Fetches icon svg content from providers and asserts only one request per icon is made. */

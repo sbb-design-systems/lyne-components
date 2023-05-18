@@ -1,6 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-alert-group.events';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const Template = (args) => (
   <sbb-alert-group {...args}>
@@ -70,6 +71,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {

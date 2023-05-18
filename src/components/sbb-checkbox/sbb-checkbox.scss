@@ -1,3 +1,5 @@
+/* stylelint-disable */
+
 @use '../../global/styles' as sbb;
 
 // Default component properties, defined for :host. Properties which can not
@@ -8,6 +10,9 @@
   --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
+  --sbb-checkbox-subtext-color: var(--sbb-color-granite-default);
+  --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-checkbox-text-decoration: none;
 
   display: inline-block;
 
@@ -18,8 +23,43 @@
 
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-checkbox-label-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-selection-color: var(--sbb-color-granite-default);
+  --sbb-checkbox-label-color: var(--sbb-color-granite-default);
   --sbb-checkbox-cursor: default;
+  --sbb-checkbox-subtext-color: var(--sbb-color-smoke-default);
+  --sbb-checkbox-text-decoration: line-through;
+
+  @include sbb.if-forced-colors {
+    --sbb-checkbox-selection-color: Canvas;
+  }
+}
+
+:host([indeterminate]:not([indeterminate='false'])) {
+  @include sbb.if-forced-colors {
+    --sbb-checkbox-selection-color: ButtonBorder;
+  }
+}
+
+:host(
+    [indeterminate]:not([indeterminate='false']):is(
+        [data-group-disabled],
+        [disabled]:not([disabled='false'])
+      )
+  ) {
+  @include sbb.if-forced-colors {
+    --sbb-checkbox-selection-color: GrayText;
+  }
+}
+
+:host([data-is-selection-panel-input]) {
+  --sbb-checkbox-label-gap: 0;
+}
+
+slot[name='subtext'] {
+  display: block;
+  color: var(--sbb-checkbox-subtext-color);
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
 }
 
 .sbb-checkbox-wrapper {
@@ -28,7 +68,14 @@
   @include sbb.zero-width-space;
 
   // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(
+      :focus-visible:not(
+          [data-focus-origin='mouse'],
+          [data-focus-origin='touch'],
+          [data-is-selection-panel-input]
+        )
+    )
+    & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
@@ -55,6 +102,32 @@
   display: flex;
   align-items: start;
   gap: var(--sbb-spacing-fixed-2x);
+
+  // Change the focus outline when the input is placed inside of a selection panel
+  // as the main input element.
+  :host(
+      [data-is-selection-panel-input]:focus-visible:not(
+          [data-focus-origin='mouse'],
+          [data-focus-origin='touch']
+        )
+    )
+    & {
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset-block: calc(
+        (var(--sbb-spacing-responsive-xs) * -1) + var(--sbb-focus-outline-width) -
+          (var(--sbb-focus-outline-offset) * 2)
+      );
+      inset-inline: calc(
+        (var(--sbb-spacing-responsive-xxs) * -1) + var(--sbb-focus-outline-width) -
+          (var(--sbb-focus-outline-offset) * 2)
+      );
+      border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
+      border-radius: calc(var(--sbb-border-radius-4x) + var(--sbb-focus-outline-offset));
+    }
+  }
 }
 
 input[type='checkbox'] {
@@ -76,8 +149,9 @@ input[type='checkbox'] {
 
 .sbb-checkbox__label {
   display: flex;
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-checkbox-label-gap);
   color: var(--sbb-checkbox-label-color);
+  text-decoration: var(--sbb-checkbox-text-decoration);
 
   // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
   line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
@@ -91,6 +165,10 @@ input[type='checkbox'] {
     justify-content: flex-start;
     flex-grow: 1;
   }
+}
+
+.sbb-checkbox__expanded-label {
+  @include sbb.screen-reader-only;
 }
 
 input[type='checkbox']:focus-visible + .sbb-checkbox__inner {

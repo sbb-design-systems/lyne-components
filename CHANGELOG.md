@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.1](https://github.com/lyne-design-system/lyne-components/compare/v0.35.0...v0.35.1) (2023-05-16)
+
+### Bug Fixes
+
+- new disabled states ([#1733](https://github.com/lyne-design-system/lyne-components/issues/1733)) ([6deb6eb](https://github.com/lyne-design-system/lyne-components/commit/6deb6eb7a53f293bf800994d738e424aad82e9c2))
+
+## [0.35.0](https://github.com/lyne-design-system/lyne-components/compare/v0.34.0...v0.35.0) (2023-05-16)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-tab-group:** removed `sbb-tab-amount` component which can be replaced by property `amount`
+  or slot `amount` of `sbb-tab-title` component.
+  e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
+  or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
+
+### Refactorings
+
+- **sbb-tab-group:** remove sbb-tab-amount, provide amount and iconName properties ([#1744](https://github.com/lyne-design-system/lyne-components/issues/1744)) ([12a4946](https://github.com/lyne-design-system/lyne-components/commit/12a494608e3f76f37210d8e6f4db1a2c588f577d))
+
+## [0.34.0](https://github.com/lyne-design-system/lyne-components/compare/v0.33.16...v0.34.0) (2023-05-16)
+
+### ⚠ BREAKING CHANGES
+
+- The `picto:`-namespace is now pointing to the new English named icons.
+  If the old german named icons should be used, you can access them by using
+  the namespace `picto-legacy:` (deprecated).
+
+### Refactorings
+
+- migrate to new English named pictograms, fix gondola picto ([#1738](https://github.com/lyne-design-system/lyne-components/issues/1738)) ([714cafe](https://github.com/lyne-design-system/lyne-components/commit/714cafefbaa26f4a04b08f5079cb4d41c1ac6f1d))
+
+### [0.33.16](https://github.com/lyne-design-system/lyne-components/compare/v0.33.15...v0.33.16) (2023-05-15)
+
+### Features
+
+- **sbb-selection-panel:** introduce sbb-selection-panel component ([#1673](https://github.com/lyne-design-system/lyne-components/issues/1673)) ([d1d5722](https://github.com/lyne-design-system/lyne-components/commit/d1d57228fa3775d9a1eff67f70b9d268f42024bb))
+
+### [0.33.15](https://github.com/lyne-design-system/lyne-components/compare/v0.33.14...v0.33.15) (2023-05-15)
+
+### Bug Fixes
+
+- **sbb-menu:** fixed the window snap on scrolling with an open menu ([#1736](https://github.com/lyne-design-system/lyne-components/issues/1736)) ([686e407](https://github.com/lyne-design-system/lyne-components/commit/686e407553b6e4f865de63a5804d12685623c43f))
+
+### [0.33.14](https://github.com/lyne-design-system/lyne-components/compare/v0.33.13...v0.33.14) (2023-05-11)
+
+### Bug Fixes
+
+- detect screen reader keyboard events ([#1731](https://github.com/lyne-design-system/lyne-components/issues/1731)) ([85c9162](https://github.com/lyne-design-system/lyne-components/commit/85c91628e8d9a8571c211adfdb14d57b30eaefba))
+
 ### [0.33.13](https://github.com/lyne-design-system/lyne-components/compare/v0.33.12...v0.33.13) (2023-05-03)
 
 ### Bug Fixes

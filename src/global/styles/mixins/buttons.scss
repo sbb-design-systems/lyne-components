@@ -32,7 +32,7 @@
     @include icon-button-active;
   }
 
-  :host([disabled]) & {
+  :host([disabled]:not([disabled='false'])) & {
     @include icon-button-disabled;
   }
 
@@ -102,7 +102,7 @@
 
 // Disabled state for icon-button in form-field
 @mixin icon-button-disabled {
-  --sbb-button-color-default-text: var(--sbb-color-graphite-default);
+  --sbb-button-color-default-text: var(--sbb-color-granite-default);
   --sbb-button-inset: 0;
   --sbb-button-transform: none;
   --sbb-button-color-default-background: transparent;
