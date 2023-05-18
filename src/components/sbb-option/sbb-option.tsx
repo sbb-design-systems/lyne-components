@@ -53,6 +53,8 @@ export class SbbOption implements ComponentInterface {
   /** Whether the option is currently active. */
   @Prop({ reflect: true }) public active?: boolean;
 
+  @Prop({ reflect: true }) public activeColumn? = 0;
+
   /** Whether the option is selected. */
   @Prop({ mutable: true, reflect: true }) public selected = false;
 
@@ -91,6 +93,8 @@ export class SbbOption implements ComponentInterface {
 
   @State() private _groupLabel: string;
 
+  @State() private _starred: boolean;
+
   @Element() private _element!: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(
@@ -124,6 +128,11 @@ export class SbbOption implements ComponentInterface {
   @Method()
   public async setGroupLabel(value: string): Promise<void> {
     this._groupLabel = value;
+  }
+
+  @Method()
+  public async toggleFavourite(): Promise<void> {
+    this._starred = !this._starred;
   }
 
   @Listen('click', { passive: true })
@@ -227,7 +236,6 @@ export class SbbOption implements ComponentInterface {
         <div
           class={{
             'sbb-option': true,
-            'sbb-option-active': this.active,
           }}
         >
           <span
@@ -238,7 +246,14 @@ export class SbbOption implements ComponentInterface {
           >
             <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
           </span>
-          <span class="sbb-option__label" role="gridcell" id={`${this._optionId}x0`}>
+          <span
+            class={{
+              'sbb-option__label': true,
+              'sbb-option-active': this.active && this.activeColumn === 0,
+            }}
+            role="gridcell"
+            id={`${this._optionId}x0`}
+          >
             <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
             {/* {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()} */}
 
@@ -249,9 +264,19 @@ export class SbbOption implements ComponentInterface {
           <span
             role="gridcell"
             id={`${this._optionId}x1`}
-            aria-label={`Mark ${this._label} as favourite`}
+            aria-label={
+              this._starred
+                ? `Unmark ${this._label} as favourite`
+                : `Mark ${this._label} as favourite`
+            }
+            class={{
+              'sbb-option-active': this.active && this.activeColumn === 1,
+            }}
           >
-            <sbb-icon name="star-small" aria-hidden="true" />
+            <sbb-icon
+              name={this._starred ? 'ticket-star-medium' : 'star-small'}
+              aria-hidden="true"
+            />
           </span>
         </div>
       </div>

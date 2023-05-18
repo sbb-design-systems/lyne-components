@@ -1088,6 +1088,7 @@ export namespace Components {
           * Whether the option is currently active.
          */
         "active"?: boolean;
+        "activeColumn"?: number;
         /**
           * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */
@@ -1110,6 +1111,7 @@ export namespace Components {
           * @param value the label of the option group
          */
         "setGroupLabel": (value: string) => Promise<void>;
+        "toggleFavourite": () => Promise<void>;
         /**
           * Value of the option.
          */
@@ -3452,6 +3454,7 @@ declare namespace LocalJSX {
           * Whether the option is currently active.
          */
         "active"?: boolean;
+        "activeColumn"?: number;
         /**
           * Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.
          */

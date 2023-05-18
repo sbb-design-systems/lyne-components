@@ -429,20 +429,11 @@ export class SbbAutocomplete implements ComponentInterface {
 
       case 'ArrowRight':
         this._activeColumn = 1;
-        this._triggerElement.setAttribute(
-          'aria-activedescendant',
-          `${this._options[this._activeItemIndex].id}x${this._activeColumn}`
-        );
+        this._setActiveOption(this._options[this._activeItemIndex]);
         break;
       case 'ArrowLeft':
         this._activeColumn = 0;
-        this._triggerElement.setAttribute(
-          'aria-activedescendant',
-          `${this._options[this._activeItemIndex].id}x${this._activeColumn}`
-        );
-        break;
-
-      default:
+        this._setActiveOption(this._options[this._activeItemIndex]);
         break;
     }
   }
@@ -451,7 +442,11 @@ export class SbbAutocomplete implements ComponentInterface {
     const activeOption = this._options[this._activeItemIndex];
 
     if (activeOption) {
-      activeOption.selected = true;
+      if (this._activeColumn === 0) {
+        activeOption.selected = true;
+      } else {
+        activeOption.toggleFavourite();
+      }
     }
   }
 
@@ -464,11 +459,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Get and activate the next active option
     const next = getNextElementIndex(event, this._activeItemIndex, filteredOptions.length);
     const nextActiveOption = filteredOptions[next];
-    nextActiveOption.active = true;
-    this._triggerElement.setAttribute(
-      'aria-activedescendant',
-      `${nextActiveOption.id}x${this._activeColumn}`
-    );
+    this._setActiveOption(nextActiveOption);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     // Reset the previous active option
@@ -478,6 +469,15 @@ export class SbbAutocomplete implements ComponentInterface {
     }
 
     this._activeItemIndex = next;
+  }
+
+  private _setActiveOption(option: HTMLSbbOptionElement): void {
+    option.active = true;
+    option.activeColumn = this._activeColumn;
+    this._triggerElement.setAttribute(
+      'aria-activedescendant',
+      `${option.id}x${this._activeColumn}`
+    );
   }
 
   private _resetActiveElement(): void {

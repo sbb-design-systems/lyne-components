@@ -59,13 +59,14 @@ Disabled:
 
 ## Properties
 
-| Property   | Attribute   | Description                                                                                                                               | Type      | Default     |
-| ---------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `active`   | `active`    | Whether the option is currently active.                                                                                                   | `boolean` | `undefined` |
-| `disabled` | `disabled`  | Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.                               | `boolean` | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `undefined` |
-| `selected` | `selected`  | Whether the option is selected.                                                                                                           | `boolean` | `false`     |
-| `value`    | `value`     | Value of the option.                                                                                                                      | `string`  | `undefined` |
+| Property       | Attribute       | Description                                                                                                                               | Type      | Default     |
+| -------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `active`       | `active`        | Whether the option is currently active.                                                                                                   | `boolean` | `undefined` |
+| `activeColumn` | `active-column` |                                                                                                                                           | `number`  | `0`         |
+| `disabled`     | `disabled`      | Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.                               | `boolean` | `undefined` |
+| `iconName`     | `icon-name`     | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. | `string`  | `undefined` |
+| `selected`     | `selected`      | Whether the option is selected.                                                                                                           | `boolean` | `false`     |
+| `value`        | `value`         | Value of the option.                                                                                                                      | `string`  | `undefined` |
 
 
 ## Events
@@ -91,6 +92,16 @@ Type: `Promise<void>`
 ### `setGroupLabel(value: string) => Promise<void>`
 
 Set the option group label (used for a11y)
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `toggleFavourite() => Promise<void>`
+
+
 
 #### Returns
 
