@@ -57,6 +57,13 @@ const defaultArgs = {
 
 const Template = ({ text, ...args }) => <sbb-breadcrumb {...args}>{text}</sbb-breadcrumb>;
 
+const SlottedIconTemplate = ({ text, 'icon-name': iconName, ...args }) => (
+  <sbb-breadcrumb {...args}>
+    {text}
+    <sbb-icon slot="icon" name={iconName}></sbb-icon>
+  </sbb-breadcrumb>
+);
+
 const EllipsisTemplate = ({ text, ...args }) => (
   <sbb-breadcrumb style="max-width: 200px" {...args}>
     {text}
@@ -80,6 +87,14 @@ IconAndText.argTypes = defaultArgTypes;
 IconAndText.args = {
   ...defaultArgs,
   'icon-name': 'house-small',
+};
+
+export const SlottedIconAndText = SlottedIconTemplate.bind({});
+SlottedIconAndText.argTypes = defaultArgTypes;
+SlottedIconAndText.args = {
+  ...defaultArgs,
+  'icon-name': 'globe-small',
+  text: 'Custom slotted icon',
 };
 
 export const Ellipsis = EllipsisTemplate.bind({});
