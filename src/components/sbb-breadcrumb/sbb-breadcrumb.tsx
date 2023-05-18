@@ -76,18 +76,20 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
 
     return (
       <Host {...hostAttributes}>
-        <TAG_NAME class="sbb-breadcrumb__link" {...attributes}>
+        <TAG_NAME class="sbb-breadcrumb" {...attributes}>
           {(this.iconName || this._namedSlots.icon) && (
             <span class="sbb-breadcrumb__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </span>
           )}
-          <slot />
-          {targetsNewWindow(this) && (
-            <span class="sbb-breadcrumb__link--opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-            </span>
-          )}
+          <span class="sbb-breadcrumb__label">
+            <slot />
+            {targetsNewWindow(this) && (
+              <span class="sbb-breadcrumb__label--opens-in-new-window">
+                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
+              </span>
+            )}
+          </span>
         </TAG_NAME>
       </Host>
     );
