@@ -6,8 +6,6 @@
 
 :host {
   --sbb-breadcrumb-color: var(--sbb-color-granite-default);
-
-  display: inline-block;
 }
 
 @include sbb.hover-mq($hover: true) {
