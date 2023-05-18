@@ -21,8 +21,12 @@ export class SbbOptGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   private _variant: SbbOptionVariant;
-  // TODO: the problem that the `_inertAriaGroups` resolves is only present on Safari using VoiceOver.
-  //       We should periodically check if it has been solved and, if so, remove the property.
+
+  /**
+   * On safari, the groups labels are not read by VoiceOver.
+   * To solve the problem, we remove the role="group" and add an hidden span containing the group name
+   * We should periodically check if it has been solved and, if so, remove the property.
+   */
   private _inertAriaGroups = isSafari();
 
   @Watch('disabled')

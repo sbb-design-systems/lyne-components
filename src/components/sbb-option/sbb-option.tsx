@@ -93,6 +93,12 @@ export class SbbOption implements ComponentInterface {
 
   private _optionId = `sbb-option-${++nextId}`;
   private _variant: SbbOptionVariant;
+
+  /**
+   * On safari, the groups labels are not read by VoiceOver.
+   * To solve the problem, we remove the role="group" and add an hidden span containing the group name
+   * We should periodically check if it has been solved and, if so, remove the property.
+   */
   private _inertAriaGroups = isSafari();
 
   private get _isAutocomplete(): boolean {
@@ -265,7 +271,12 @@ export class SbbOption implements ComponentInterface {
             {/* Label */}
             <span class="sbb-option__label">
               <slot onSlotchange={(event) => this._setupHighlightHandler(event)} />
-              {this._label && !this._disableLabelHighlight && this._getHighlightedLabel()}
+
+              {/* Search highlight */}
+              {this._isAutocomplete &&
+                this._label &&
+                !this._disableLabelHighlight &&
+                this._getHighlightedLabel()}
 
               {this._inertAriaGroups && this._groupLabel && (
                 <span class="sbb-option__group-label--visually-hidden"> ({this._groupLabel})</span>
