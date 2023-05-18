@@ -46,6 +46,15 @@ const disabledSingle = {
   },
 };
 
+const multiple = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Select',
+  },
+};
+
 const numberOfOptions = {
   control: {
     type: 'number',
@@ -58,6 +67,7 @@ const defaultArgTypes = {
   value,
   disabled,
   disabledSingle,
+  multiple,
   numberOfOptions,
 };
 
@@ -67,6 +77,7 @@ const defaultArgs = {
   value: 'Option',
   disabled: false,
   disabledSingle: false,
+  multiple: false,
   numberOfOptions: 3,
 };
 
@@ -105,6 +116,16 @@ const TemplateAutocomplete = (args) => {
   );
 };
 
+const TemplateSelect = ({ multiple, ...args }) => {
+  return (
+    <sbb-form-field label="Select">
+      <sbb-select multiple={multiple} placeholder="Select">
+        {Template(args)}
+      </sbb-select>
+    </sbb-form-field>
+  );
+};
+
 export const Standalone = Template.bind({});
 Standalone.argTypes = { ...defaultArgTypes };
 Standalone.args = { ...defaultArgs };
@@ -113,6 +134,14 @@ Standalone.decorators = defaultDecorator;
 export const Autocomplete = TemplateAutocomplete.bind({});
 Autocomplete.argTypes = { ...defaultArgTypes };
 Autocomplete.args = { ...defaultArgs };
+
+export const Select = TemplateSelect.bind({});
+Select.argTypes = { ...defaultArgTypes };
+Select.args = { ...defaultArgs };
+
+export const MultipleSelect = TemplateSelect.bind({});
+MultipleSelect.argTypes = { ...defaultArgTypes };
+MultipleSelect.args = { ...defaultArgs, multiple: true };
 
 export default {
   decorators: [
