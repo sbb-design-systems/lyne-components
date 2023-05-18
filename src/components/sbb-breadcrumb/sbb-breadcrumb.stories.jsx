@@ -31,12 +31,19 @@ const download = {
   },
 };
 
+const iconName = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes = {
   text,
   href,
   target,
   rel,
   download,
+  'icon-name': iconName,
 };
 
 const defaultArgs = {
@@ -45,6 +52,7 @@ const defaultArgs = {
   target: '_blank',
   rel: undefined,
   download: false,
+  'icon-name': undefined,
 };
 
 const Template = ({ text, ...args }) => <sbb-breadcrumb {...args}>{text}</sbb-breadcrumb>;
@@ -52,6 +60,21 @@ const Template = ({ text, ...args }) => <sbb-breadcrumb {...args}>{text}</sbb-br
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
+
+export const Icon = Template.bind({});
+Icon.argTypes = defaultArgTypes;
+Icon.args = {
+  ...defaultArgs,
+  text: undefined,
+  'icon-name': 'house-small',
+};
+
+export const IconAndText = Template.bind({});
+IconAndText.argTypes = defaultArgTypes;
+IconAndText.args = {
+  ...defaultArgs,
+  'icon-name': 'house-small',
+};
 
 export default {
   decorators: [

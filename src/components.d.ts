@@ -248,6 +248,10 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+         */
+        "iconName"?: string;
+        /**
           * The relationship of the linked URL as space-separated link types.
          */
         "rel"?: string | undefined;
@@ -2691,6 +2695,10 @@ declare namespace LocalJSX {
           * The href value you want to link to.
          */
         "href"?: string | undefined;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+         */
+        "iconName"?: string;
         /**
           * The relationship of the linked URL as space-separated link types.
          */
