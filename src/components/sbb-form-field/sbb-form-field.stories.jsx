@@ -132,6 +132,7 @@ const TemplateInputWithButton = ({ disabled, readonly, active, ...args }) => (
         const input = document.querySelector('input');
         if (input) {
           input.value = '';
+          input.focus();
         }
       }}
     />
