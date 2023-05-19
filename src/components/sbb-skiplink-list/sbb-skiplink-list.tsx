@@ -24,8 +24,6 @@ export class SbbSkiplinkList implements ComponentInterface {
   /** sbb-link elements */
   @State() private _links: HTMLSbbLinkElement[];
 
-  @State() private _focusedLink;
-
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('title');
 
@@ -88,6 +86,7 @@ export class SbbSkiplinkList implements ComponentInterface {
               class="sbb-link-list-title"
               level={this.titleLevel}
               visual-level="5"
+              visually-hidden
               negative
               id="sbb-skiplink-list-title-id"
             >
@@ -95,12 +94,8 @@ export class SbbSkiplinkList implements ComponentInterface {
             </sbb-title>
           )}
           <ul {...ariaLabelledByAttribute} class="sbb-skiplink-list">
-            {this._links.map((link, index) => (
-              <li
-                data-focus-visible={this._focusedLink === link.getAttribute('id')}
-                onFocusin={() => (this._focusedLink = link.getAttribute('id'))}
-                onFocusout={() => (this._focusedLink = undefined)}
-              >
+            {this._links.map((_, index) => (
+              <li>
                 <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
               </li>
             ))}
