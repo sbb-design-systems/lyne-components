@@ -1,4 +1,5 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, State } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb.
@@ -13,6 +14,25 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
   @Element() private _element!: HTMLElement;
+
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    if (
+      !this._breadcrumbs ||
+      // don't trap nested handling
+      ((evt.target as HTMLElement) !== this._element &&
+        (evt.target as HTMLElement).parentElement !== this._element)
+    ) {
+      return;
+    }
+
+    if (isArrowKeyPressed(evt)) {
+      const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
+      const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
+      this._breadcrumbs[nextIndex]?.focus();
+      evt.preventDefault();
+    }
+  }
 
   public connectedCallback(): void {
     this._readBreadcrumb();
