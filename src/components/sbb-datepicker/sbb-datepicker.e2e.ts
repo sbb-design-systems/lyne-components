@@ -8,6 +8,45 @@ describe('sbb-datepicker', () => {
     expect(element).toHaveClass('hydrated');
   });
 
+  it('renders and formats date', async () => {
+    const page: E2EPage = await newE2EPage({
+      html: `
+        <input id="datepicker-input" value="01-01-2023"/>
+        <sbb-datepicker id='datepicker' input='datepicker-input'></sbb-datepicker>
+      `,
+    });
+
+    const input: E2EElement = await page.find('input');
+
+    expect(await input.getProperty('value')).toEqual('01.01.2023');
+  });
+
+  it('renders and interprets iso string date', async () => {
+    const page: E2EPage = await newE2EPage({
+      html: `
+        <input id="datepicker-input" value="2021-12-20"/>
+        <sbb-datepicker id='datepicker' input='datepicker-input'></sbb-datepicker>
+      `,
+    });
+
+    const input: E2EElement = await page.find('input');
+
+    expect(await input.getProperty('value')).toEqual('20.12.2021');
+  });
+
+  it('renders and interprets timestamp', async () => {
+    const page: E2EPage = await newE2EPage({
+      html: `
+        <input id="datepicker-input" value="1594512000000"/>
+        <sbb-datepicker id='datepicker' input='datepicker-input'></sbb-datepicker>
+      `,
+    });
+
+    const input: E2EElement = await page.find('input');
+
+    expect(await input.getProperty('value')).toEqual('12.07.2020');
+  });
+
   const commonBehaviorTest: (template: string) => void = (template: string) => {
     let element: E2EElement, input: E2EElement, button: E2EElement, page: E2EPage;
 

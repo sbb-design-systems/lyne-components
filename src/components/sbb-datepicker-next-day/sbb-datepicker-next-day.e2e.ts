@@ -25,7 +25,7 @@ describe('sbb-datepicker-next-day', () => {
       const input: E2EElement = await page.find('input');
       await page.waitForChanges();
       expect(element).toHaveClass('hydrated');
-      expect(await input.getProperty('value')).toEqual('31-12-2022');
+      expect(await input.getProperty('value')).toEqual('31.12.2022');
 
       const changeSpy = await input.spyOnEvent('change');
       await element.click();
@@ -58,7 +58,7 @@ describe('sbb-datepicker-next-day', () => {
     });
 
     it('click', async () => {
-      expect(await input.getProperty('value')).toEqual('21-01-2023');
+      expect(await input.getProperty('value')).toEqual('21.01.2023');
       const changeSpy = await input.spyOnEvent('change');
       await element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
@@ -78,7 +78,7 @@ describe('sbb-datepicker-next-day', () => {
       input = await page.find('input');
       await page.waitForChanges();
 
-      expect(await input.getProperty('value')).toEqual('21-01-2023');
+      expect(await input.getProperty('value')).toEqual('21.01.2023');
       await page.waitForChanges();
 
       expect(
@@ -89,11 +89,11 @@ describe('sbb-datepicker-next-day', () => {
 
       await element.click();
       await page.waitForChanges();
-      expect(await input.getProperty('value')).toEqual('21-01-2023');
+      expect(await input.getProperty('value')).toEqual('21.01.2023');
     });
 
     it('disabled due disabled picker', async () => {
-      expect(await input.getProperty('value')).toEqual('21-01-2023');
+      expect(await input.getProperty('value')).toEqual('21.01.2023');
       await page.evaluate(() => document.querySelector('input').setAttribute('disabled', ''));
 
       await page.waitForChanges();
@@ -101,7 +101,7 @@ describe('sbb-datepicker-next-day', () => {
       expect(element).toHaveAttribute('disabled');
       await element.click();
       await page.waitForChanges();
-      expect(await input.getProperty('value')).toEqual('21-01-2023');
+      expect(await input.getProperty('value')).toEqual('21.01.2023');
     });
   });
 });

@@ -169,7 +169,7 @@ export class SbbDatepicker implements ComponentInterface {
       max: this._inputElement?.max,
     });
 
-    if (mutationsList.some((e) => e.attributeName === 'value')) {
+    if (Array.from(mutationsList).some((e) => e.attributeName === 'value')) {
       this._inputElement.value = this._getValidValue(this._inputElement?.getAttribute('value'));
     }
   }
@@ -193,7 +193,9 @@ export class SbbDatepicker implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
-    this._inputElement.value = this._getValidValue(this._inputElement?.value);
+    if (this._inputElement) {
+      this._inputElement.value = this._getValidValue(this._inputElement?.value);
+    }
   }
 
   public disconnectedCallback(): void {
