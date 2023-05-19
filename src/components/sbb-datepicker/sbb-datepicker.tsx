@@ -96,7 +96,7 @@ export class SbbDatepicker implements ComponentInterface {
 
       this._inputObserver?.disconnect();
       this._inputObserver.observe(this._inputElement, {
-        attributeFilter: ['disabled', 'readonly', 'min', 'max'],
+        attributeFilter: ['disabled', 'readonly', 'min', 'max', 'value'],
       });
 
       this._inputElement.type = 'text';
@@ -161,13 +161,17 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   @Listen('datepicker-control-registered')
-  private _onInputPropertiesChange(): void {
+  private _onInputPropertiesChange(mutationsList: MutationRecord[]): void {
     this.inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
       min: this._inputElement?.min,
       max: this._inputElement?.max,
     });
+
+    if (mutationsList.some((e) => e.attributeName === 'value')) {
+      this._inputElement.value = this._getValidValue(this._inputElement?.getAttribute('value'));
+    }
   }
 
   private _datePickerController: AbortController;
@@ -189,6 +193,7 @@ export class SbbDatepicker implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
+    this._inputElement.value = this._getValidValue(this._inputElement?.value);
   }
 
   public disconnectedCallback(): void {
@@ -203,9 +208,12 @@ export class SbbDatepicker implements ComponentInterface {
       return value;
     }
 
-    const day: string = match[1].padStart(2, '0');
-    const month: string = match[2].padStart(2, '0');
-    let year: number = +match[3];
+    return this._composeValueString(match[1], match[2], +match[3]);
+  }
+
+  private _composeValueString(_day: string, _month: string, year: number): string {
+    const day: string = _day.padStart(2, '0');
+    const month: string = _month.padStart(2, '0');
     if (!!year && year < 100 && year >= 0) {
       const shift = new Date().getFullYear() - 2000 + this.cutoffYearOffset;
       year = year <= shift ? 2000 + year : 1900 + year;
@@ -251,6 +259,28 @@ export class SbbDatepicker implements ComponentInterface {
   private _preventCharInsert(event): void {
     const match = event.target.value.match(ALLOWED_CHARACTERS);
     event.target.value = match?.[0] ?? null;
+  }
+
+  private _getValidValue(value: string): string {
+    if (!value) {
+      return '';
+    }
+
+    const match: RegExpMatchArray = value.match(FORMAT_DATE);
+
+    if (match && match?.index === 0) {
+      return this._formatValue(value);
+    }
+
+    if (!Number.isNaN(+value) && Number.isInteger(+value)) {
+      const d = new Date(+value);
+      return this._composeValueString(`${d.getDate()}`, `${d.getMonth() + 1}`, d.getFullYear());
+    } else if (this._dateAdapter.isValid(new Date(value))) {
+      const d = new Date(value);
+      return this._composeValueString(`${d.getDate()}`, `${d.getMonth() + 1}`, d.getFullYear());
+    }
+
+    return value;
   }
 
   public render(): JSX.Element {
