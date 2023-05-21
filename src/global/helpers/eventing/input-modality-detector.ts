@@ -76,7 +76,7 @@ class SbbInputModalityDetector {
   public get mostRecentModality(): SbbInputModality | null {
     return this._mostRecentModality;
   }
-  private _mostRecentModality: SbbInputModality | null = null;
+  private _mostRecentModality: SbbInputModality | null = 'mouse';
 
   /**
    * The most recently detected input modality event target. Is null if no input modality has been
