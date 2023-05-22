@@ -1,7 +1,7 @@
 import { waitFor } from '@storybook/testing-library';
 
 export async function waitForStablePosition(
-  elementCallback: () => HTMLElement,
+  elementCallback: () => HTMLElement | Promise<HTMLElement>,
   stableDurationMs = 2000
 ): Promise<void> {
   const element = await waitFor(elementCallback);
