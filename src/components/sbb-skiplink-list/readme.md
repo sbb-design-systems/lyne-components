@@ -1,4 +1,15 @@
-# sbb-skiplink-list
+The `<sbb-skiplink-list>` is a collection of hidden sbb-links that become visible and readable only when focused, navigating elements with the tab button.
+It has an optional `<sbb-title>` element, which is visually hidden.
+
+```html
+<sbb-skiplink-list title-level="2" title-content="Title text">
+  <sbb-link href='https://www.sbb.ch/'>Content</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact.html'>Contact</sbb-link>
+  ...
+</sbb-sliplink-list>
+```
+  
+**NOTE**: When `<sbb-skiplink-list>` contains multiple link elements, only one of them is shown (the focused one) while the others stay visually hidden.
 
 <!-- Auto Generated Below -->
 
