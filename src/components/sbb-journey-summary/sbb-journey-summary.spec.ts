@@ -34,12 +34,122 @@ describe('sbb-journey-summary', () => {
       components: [SbbJourneySummary],
       html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
     });
-    page.rootInstance.config = data;
+    page.rootInstance.trip = data;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">
-        <mock:shadow-root>
-          <div class="sbb-journey-summary">
+      <mock:shadow-root>
+        <div class="sbb-journey-summary">
+          <div class="sbb-journey-summary__via-block">
+            <span class="sbb-journey-summary__via-text">
+              Via
+            </span>
+            <ul class="sbb-journey-summary__vias">
+              <li class="sbb-journey-summary__via">
+                via
+              </li>
+            </ul>
+          </div>
+          <span class="sbb-journey-summary__date">
+            <span>
+              <span>
+                Mon.
+              </span>
+              <span>
+                <time datetime="29 8">
+                  29.08.2022
+                </time>
+              </span>
+            </span>
+            <time>
+              <span class="sbb-screenreaderonly">
+                Travel time 1 Hour
+              </span>
+              <span aria-hidden="true">
+                , 1 h
+              </span>
+            </time>
+          </span>
+          <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+        </div>
+      </mock:shadow-root>
+    </sbb-journey-summary>`
+    );
+  });
+
+  it('renders without vias', async () => {
+    const page = await newSpecPage({
+      components: [SbbJourneySummary],
+      html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
+    });
+    page.rootInstance.trip = dataWithoutVia;
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(
+      `<sbb-journey-summary data-now="1661806800000">
+      <mock:shadow-root>
+        <div class="sbb-journey-summary">
+          <span class="sbb-journey-summary__date">
+            <span>
+              <span>
+                Mon.
+              </span>
+              <span>
+                <time datetime="29 8">
+                  29.08.2022
+                </time>
+              </span>
+            </span>
+            <time>
+              <span class="sbb-screenreaderonly">
+                Travel time 1 Hour 40 Minutes
+              </span>
+              <span aria-hidden="true">
+                , 1 h 40 min
+              </span>
+            </time>
+          </span>
+          <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+        </div>
+      </mock:shadow-root>
+    </sbb-journey-summary>`
+    );
+  });
+
+  it('renders with second journey', async () => {
+    const page = await newSpecPage({
+      components: [SbbJourneySummary],
+      html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
+    });
+    page.rootInstance.trip = dataWithoutVia;
+    page.rootInstance.return = data;
+    await page.waitForChanges();
+    expect(page.root).toEqualHtml(
+      `<sbb-journey-summary data-now="1661806800000">
+      <mock:shadow-root>
+        <div class="sbb-journey-summary">
+          <span class="sbb-journey-summary__date">
+            <span>
+              <span>
+                Mon.
+              </span>
+              <span>
+                <time datetime="29 8">
+                  29.08.2022
+                </time>
+              </span>
+            </span>
+            <time>
+              <span class="sbb-screenreaderonly">
+                Travel time 1 Hour 40 Minutes
+              </span>
+              <span aria-hidden="true">
+                , 1 h 40 min
+              </span>
+            </time>
+          </span>
+          <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
+          <div>
+            <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
             <div class="sbb-journey-summary__via-block">
               <span class="sbb-journey-summary__via-text">
                 Via
@@ -52,56 +162,29 @@ describe('sbb-journey-summary', () => {
             </div>
             <span class="sbb-journey-summary__date">
               <span>
-                <time datetime="29 8">
-                  29.08
-                </time>
+                <span>
+                  Mon.
+                </span>
+                <span>
+                  <time datetime="29 8">
+                    29.08.2022
+                  </time>
+                </span>
               </span>
-                <time>
-                  <span class="sbb-screenreaderonly">
-                    Travel time 1 Hour
-                  </span>
-                  <span aria-hidden="true">
-                    , 1 h
-                  </span>
-                </time>
+              <time>
+                <span class="sbb-screenreaderonly">
+                  Travel time 1 Hour
+                </span>
+                <span aria-hidden="true">
+                  , 1 h
+                </span>
+              </time>
             </span>
             <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
           </div>
-        </mock:shadow-root>
-      </sbb-journey-summary>`
-    );
-  });
-
-  it('renders without vias', async () => {
-    const page = await newSpecPage({
-      components: [SbbJourneySummary],
-      html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
-    });
-    page.rootInstance.config = dataWithoutVia;
-    await page.waitForChanges();
-    expect(page.root).toEqualHtml(
-      `<sbb-journey-summary data-now="1661806800000">
-        <mock:shadow-root>
-          <div class="sbb-journey-summary">
-            <span class="sbb-journey-summary__date">
-              <span>
-                <time datetime="29 8">
-                  29.08
-                </time>
-              </span>
-                <time>
-                  <span class="sbb-screenreaderonly">
-                    Travel time 1 Hour 40 Minutes
-                  </span>
-                  <span aria-hidden="true">
-                    , 1 h 40 min
-                  </span>
-                </time>
-            </span>
-            <sbb-pearl-chain-time arrivaltime="2022-08-29T22:30:00" arrivalwalk="0" data-now="1661806800000" departuretime="2022-08-29T20:30:00" departurewalk="0"></sbb-pearl-chain-time>
-          </div>
-        </mock:shadow-root>
-      </sbb-journey-summary>`
+        </div>
+      </mock:shadow-root>
+    </sbb-journey-summary>`
     );
   });
 });

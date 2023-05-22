@@ -35,6 +35,11 @@
   text-overflow: ellipsis;
 }
 
+.sbb-journey-summary__divider {
+  margin-top: var(--sbb-spacing-responsive-s);
+  margin-bottom: var(--sbb-spacing-responsive-s);
+}
+
 ul li {
   list-style: none;
   display: inline;

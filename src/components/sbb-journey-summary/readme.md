@@ -13,10 +13,11 @@ The Example below shows how to render the component with a button in the slot. T
 
 ## Properties
 
-| Property              | Attribute           | Description                                                                                                    | Type                                   | Default     |
-| --------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------- |
-| `config` _(required)_ | --                  | The config prop                                                                                                | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
-| `disableAnimation`    | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`                              | `undefined` |
+| Property            | Attribute           | Description                                                                                                    | Type                                   | Default     |
+| ------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------- |
+| `disableAnimation`  | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`                              | `undefined` |
+| `return`            | --                  | The return prop                                                                                                | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
+| `trip` _(required)_ | --                  | The trip prop                                                                                                  | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
 
 
 ## Dependencies
@@ -25,12 +26,14 @@ The Example below shows how to render the component with a button in the slot. T
 
 - [sbb-journey-header](../sbb-journey-header)
 - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
+- [sbb-divider](../sbb-divider)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-journey-summary --> sbb-journey-header
   sbb-journey-summary --> sbb-pearl-chain-time
+  sbb-journey-summary --> sbb-divider
   sbb-journey-header --> sbb-title
   sbb-journey-header --> sbb-icon
   sbb-pearl-chain-time --> sbb-icon
