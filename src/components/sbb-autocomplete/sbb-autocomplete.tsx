@@ -337,6 +337,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onOpenAnimationEnd(): void {
     this._state = 'opened';
+    // TODO: discuss if this factorization is really needed
     this._openPanelEventsController = attachOpenPanelEvents(
       this._setOverlayPosition.bind(this),
       this._onBackdropClick.bind(this),
