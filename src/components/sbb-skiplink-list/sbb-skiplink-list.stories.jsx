@@ -1,5 +1,9 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { userEvent, within } from '@storybook/testing-library';
+import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import isChromatic from 'chromatic';
 
 const titleContent = {
   control: {
@@ -68,24 +72,36 @@ const defaultArgs = {
   hrefSecondLink: 'https://www.sbb.ch/en/help-and-contact.html',
 };
 
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('skiplink').shadowRoot.querySelectorAll('.sbb-skiplink-list__wrapper')
+  );
+  await waitForStablePosition(() => canvas.getByTestId('skiplink'));
+  userEvent.tab();
+};
+
 const Template = ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }) => (
-  <sbb-skiplink-list {...args}>
+  <sbb-skiplink-list {...args} data-testid="skiplink">
     <sbb-link href={hrefFirstLink}>{labelFirstLink}</sbb-link>
     <sbb-link href={hrefSecondLink}>{labelSecondLink}</sbb-link>
   </sbb-skiplink-list>
 );
 
-export const skiplinkList = Template.bind({});
-skiplinkList.argTypes = defaultArgTypes;
-skiplinkList.args = { ...defaultArgs };
+export const SkiplinkList = Template.bind({});
+SkiplinkList.argTypes = defaultArgTypes;
+SkiplinkList.args = { ...defaultArgs };
+SkiplinkList.play = isChromatic() && playStory;
 
-export const skiplinkListWithTitle = Template.bind({});
-skiplinkListWithTitle.argTypes = defaultArgTypes;
-skiplinkListWithTitle.args = {
+export const SkiplinkListWithTitle = Template.bind({});
+SkiplinkListWithTitle.argTypes = defaultArgTypes;
+SkiplinkListWithTitle.args = {
   ...defaultArgs,
   'title-level': titleLevel.options[0],
   'title-content': 'Skip',
 };
+SkiplinkListWithTitle.play = isChromatic() && playStory;
 
 export default {
   decorators: [
