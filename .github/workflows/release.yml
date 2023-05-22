@@ -8,6 +8,7 @@ on:
     workflows: ['Continuous Integration']
     types: [completed]
     branches: [master]
+  workflow_dispatch: {}
 
 concurrency: release
 
@@ -15,7 +16,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: >
-      github.event.workflow_run.event == 'push' &&
+      (github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_sha == github.sha &&
       (
@@ -23,7 +24,7 @@ jobs:
         startsWith(github.event.workflow_run.head_commit.message, 'feat') ||
         startsWith(github.event.workflow_run.head_commit.message, 'fix') ||
         startsWith(github.event.workflow_run.head_commit.message, 'refactor')
-      )
+      )) || github.event_name == 'workflow_dispatch'
     env:
       IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook
     steps:
@@ -94,7 +95,7 @@ jobs:
           exitZeroOnChanges: true
 
       - name: Remove chromatic stories
-        run: cd src/components && git clean -f -X
+        run: cd src && git clean -f -X
       - name: Create versioned storybook for image
         run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
       - name: Remove files with forbidden extensions

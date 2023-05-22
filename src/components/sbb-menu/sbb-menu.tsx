@@ -25,7 +25,7 @@ import {
 import { ScrollHandler } from '../../global/helpers/scroll';
 import { sbbInputModalityDetector } from '../../global/helpers';
 
-type SbbMenuState = 'closed' | 'opening' | 'opened' | 'closing';
+import { SbbOverlayState } from '../../global/helpers/overlay';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -55,7 +55,7 @@ export class SbbMenu implements ComponentInterface {
   /**
    * The state of the menu.
    */
-  @State() private _state: SbbMenuState = 'closed';
+  @State() private _state: SbbOverlayState = 'closed';
 
   /**
    * Emits whenever the menu starts the opening transition.

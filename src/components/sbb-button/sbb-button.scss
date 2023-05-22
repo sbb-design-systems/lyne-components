@@ -40,6 +40,7 @@
   --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-button-inset: 0;
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
@@ -182,6 +183,17 @@
   }
 }
 
+:host([data-icon-small]) {
+  @include sbb.icon-button-variables;
+
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
+  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
+}
+
 .sbb-button {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
@@ -214,7 +226,7 @@
   &::before {
     position: absolute;
     content: '';
-    inset: 0;
+    inset: var(--sbb-button-inset);
     border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
     border-radius: var(--sbb-button-border-radius);
     background-color: var(--sbb-button-color-default-background);

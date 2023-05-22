@@ -22,9 +22,15 @@ export function isArrowKeyOrPageKeysPressed(event: KeyboardEvent): boolean {
  * @param maxIndex The maximum permitted value (e.g. array size).
  * @param offset The amount to move by.
  */
-function calcIndexInRange(currentIndex: number, maxIndex: number, offset: number): number {
+function calcNextIndexInRange(currentIndex: number, maxIndex: number, offset: number): number {
   return (currentIndex + offset + maxIndex) % maxIndex;
 }
+
+function getLastIndex(size: number): number {
+  return size - 1;
+}
+
+const firstIndex = 0;
 
 /**
  * Gets the index of the element to move to, based on the keyboard input, the current element in the list and the list size.
@@ -47,8 +53,8 @@ export function getNextElementIndex(event: KeyboardEvent, current: number, size:
   }
 
   if (event.key === prevKey || event.key === 'ArrowUp') {
-    return calcIndexInRange(current, size, -1);
+    return current < firstIndex ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
   } else if (event.key === nextKey || event.key === 'ArrowDown') {
-    return calcIndexInRange(current, size, 1);
+    return current >= size ? firstIndex : calcNextIndexInRange(current, size, 1);
   }
 }

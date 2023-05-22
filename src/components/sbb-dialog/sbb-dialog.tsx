@@ -27,8 +27,7 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
-
-type SbbDialogState = 'closed' | 'opening' | 'opened' | 'closing';
+import { SbbOverlayState } from '../../global/helpers/overlay';
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -94,11 +93,11 @@ export class SbbDialog implements ComponentInterface {
   /*
    * The state of the dialog.
    */
-  private set _state(state: SbbDialogState) {
+  private set _state(state: SbbOverlayState) {
     this._element.dataset.state = state;
   }
-  private get _state(): SbbDialogState {
-    return this._element.dataset.state as SbbDialogState;
+  private get _state(): SbbOverlayState {
+    return this._element.dataset.state as SbbOverlayState;
   }
 
   private _dialogContentResizeObserver = new ResizeObserver(() => this._setOverflowAttribute());
