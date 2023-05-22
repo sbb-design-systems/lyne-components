@@ -1207,7 +1207,7 @@ export namespace Components {
     }
     interface SbbSkiplinkList {
         /**
-          * The title text we want to show before the list.
+          * The title text we want to place before the list.
          */
         "titleContent"?: string;
         /**
@@ -3553,7 +3553,7 @@ declare namespace LocalJSX {
     }
     interface SbbSkiplinkList {
         /**
-          * The title text we want to show before the list.
+          * The title text we want to place before the list.
          */
         "titleContent"?: string;
         /**

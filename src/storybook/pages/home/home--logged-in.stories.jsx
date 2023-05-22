@@ -12,6 +12,7 @@ import {
   Footer,
   LiberoProduct,
   Navigation,
+  SkiplinkList,
   TeaserHero,
   TimetableInput,
   wrapperStyle,
@@ -41,6 +42,8 @@ const defaultArgs = {
 
 const Template = (args) => (
   <div>
+    <SkiplinkList />
+
     {/* *************************************************
     Header section
     ************************************************* */}

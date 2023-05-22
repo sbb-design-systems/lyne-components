@@ -1,7 +1,5 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import { Navigation } from '../../storybook/pages/home/home.common';
-import '../../storybook/pages/home/home.scss';
 
 const titleContent = {
   control: {
@@ -66,7 +64,7 @@ const defaultArgs = {
   'title-content': undefined,
   labelFirstLink: 'To content',
   hrefFirstLink: 'https://www.sbb.ch/',
-  labelSecondLink: 'To contact',
+  labelSecondLink: 'To help',
   hrefSecondLink: 'https://www.sbb.ch/en/help-and-contact.html',
 };
 
@@ -92,57 +90,9 @@ skiplinkListWithTitle.args = {
 export default {
   decorators: [
     (Story) => (
-      <div>
+      <div style={'padding: 2rem'}>
         <Story />
-
-        <sbb-header hide-on-scroll="true">
-          <sbb-header-action
-            id="hamburger-menu"
-            icon-name="hamburger-menu-small"
-            expand-from="small"
-          >
-            Menu
-          </sbb-header-action>
-          <div class="spacer" />
-          <sbb-header-action icon-name="magnifying-glass-small" href="/">
-            Search
-          </sbb-header-action>
-          <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
-          <sbb-header-action
-            icon-name="globe-small"
-            id="language-menu-trigger"
-            class="last-element"
-          >
-            English
-          </sbb-header-action>
-          <sbb-menu trigger="language-menu-trigger">
-            <sbb-menu-action>Deutsch</sbb-menu-action>
-            <sbb-menu-action>Français</sbb-menu-action>
-            <sbb-menu-action>Italiano</sbb-menu-action>
-            <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
-          </sbb-menu>
-          <a href="https://www.sbb.ch" slot="logo">
-            <sbb-logo protective-room="none"></sbb-logo>
-          </a>
-        </sbb-header>
-
-        <Navigation />
-
-        <section class="timetable-section sbb-grid">
-          <div class="grid-reduced-width">
-            <div class="timetable-placeholder">
-              <h3 style="display: inline-block; text-align: center; width: 100%;">
-                Skiplink component
-              </h3>
-            </div>
-          </div>
-        </section>
-
-        <section class="product-section-logged-in sbb-grid">
-          <div class="grid-reduced-width logged-in-overview">
-            <h2>Use TAB to see the skiplink box</h2>
-          </div>
-        </section>
+        <h2>Use TAB to see the skiplink box</h2>
       </div>
     ),
   ],
@@ -153,6 +103,7 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/sbb-skiplink-list',
 };
