@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.2](https://github.com/lyne-design-system/lyne-components/compare/v0.35.1...v0.35.2) (2023-05-22)
+
+### Features
+
+- **sbb-autocomplete:** component implementation ([#1667](https://github.com/lyne-design-system/lyne-components/issues/1667)) ([28ea027](https://github.com/lyne-design-system/lyne-components/commit/28ea027a66484b1c8c89eb38021601b9641fad8b))
+
+### Bug Fixes
+
+- add 'withActions' decorator for Storybook's actions tab ([#1747](https://github.com/lyne-design-system/lyne-components/issues/1747)) ([52e3529](https://github.com/lyne-design-system/lyne-components/commit/52e35292071e5bee8b7b75c39a18c2bdb797a6d8))
+- **sbb-selection-panel:** chromatic and force-open tests ([#1752](https://github.com/lyne-design-system/lyne-components/issues/1752)) ([d5f7e2a](https://github.com/lyne-design-system/lyne-components/commit/d5f7e2aec9bda3c5ee68c0cd9d7f32ef0aedd55e))
+
 ### [0.35.1](https://github.com/lyne-design-system/lyne-components/compare/v0.35.0...v0.35.1) (2023-05-16)
 
 ### Bug Fixes
