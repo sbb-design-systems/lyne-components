@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.3](https://github.com/lyne-design-system/lyne-components/compare/v0.35.2...v0.35.3) (2023-05-22)
+
+### Features
+
+- **sbb-button:** sbb-form-field integration ([#1746](https://github.com/lyne-design-system/lyne-components/issues/1746)) ([9c3fdb1](https://github.com/lyne-design-system/lyne-components/commit/9c3fdb14b310198d40e6e407f2d9922dae817cf5)), closes [#1683](https://github.com/lyne-design-system/lyne-components/issues/1683)
+
 ### [0.35.2](https://github.com/lyne-design-system/lyne-components/compare/v0.35.1...v0.35.2) (2023-05-22)
 
 ### Features
