@@ -259,6 +259,7 @@ const RequiredTemplate = (args) => {
       >
         <input
           id="sbb-autocomplete"
+          data-testid="autocomplete-input"
           class="sbb-invalid"
           placeholder="Placeholder"
           onChange={(event) => {
