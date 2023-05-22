@@ -3,7 +3,8 @@ import events from './sbb-autocomplete.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 const disableAnimation = {
   control: {
@@ -135,8 +136,9 @@ const playStory = async ({ canvasElement }) => {
     canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
   );
 
-  const label = await canvas.getByLabelText('Label');
-  userEvent.click(label);
+  await waitForStablePosition(() => canvas.getByTestId('autocomplete-input'));
+  await userEvent.type(canvas.getByTestId('autocomplete-input'), 'Opt');
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 const createOptionGroup1 = (iconName, disabled) => {
@@ -188,7 +190,7 @@ const textBlock = () => {
 const Template = (args) => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-      <input placeholder="Placeholder" />
+      <input placeholder="Placeholder" data-testid="autocomplete-input" />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
@@ -205,7 +207,7 @@ const Template = (args) => [
 const OptionGroupTemplate = (args) => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-      <input placeholder="Placeholder" />
+      <input placeholder="Placeholder" data-testid="autocomplete-input" />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
@@ -224,7 +226,7 @@ const OptionGroupTemplate = (args) => [
 const MixedTemplate = (args) => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-      <input placeholder="Placeholder" />
+      <input placeholder="Placeholder" data-testid="autocomplete-input" />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
