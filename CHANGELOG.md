@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.4](https://github.com/lyne-design-system/lyne-components/compare/v0.35.3...v0.35.4) (2023-05-22)
+
+### Bug Fixes
+
+- **styles:** exclude other elements than paragraph for gap in lists ([#1760](https://github.com/lyne-design-system/lyne-components/issues/1760)) ([5b7b379](https://github.com/lyne-design-system/lyne-components/commit/5b7b3796d9c4f7cec3026cf936a6d4fe371c134e)), closes [#1679](https://github.com/lyne-design-system/lyne-components/issues/1679)
+
 ### [0.35.3](https://github.com/lyne-design-system/lyne-components/compare/v0.35.2...v0.35.3) (2023-05-22)
 
 ### Features
