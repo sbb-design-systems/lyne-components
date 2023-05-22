@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Element, Host, h, JSX, State, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, State, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import {
   createNamedSlotState,
@@ -15,7 +15,7 @@ import {
   tag: 'sbb-skiplink-list',
 })
 export class SbbSkiplinkList implements ComponentInterface {
-  /** The title text we want to show before the list. */
+  /** The title text we want to place before the list. */
   @Prop() public titleContent?: string;
 
   /** The semantic level of the title, e.g. 2 = h2. */
@@ -79,29 +79,27 @@ export class SbbSkiplinkList implements ComponentInterface {
     });
 
     return (
-      <Host>
-        <div class="sbb-skiplink-list__wrapper">
-          {(this._namedSlots.title || this.titleContent) && (
-            <sbb-title
-              class="sbb-link-list-title"
-              level={this.titleLevel}
-              visual-level="5"
-              visually-hidden
-              negative
-              id="sbb-skiplink-list-title-id"
-            >
-              <slot name="title">{this.titleContent}</slot>
-            </sbb-title>
-          )}
-          <ul {...ariaLabelledByAttribute} class="sbb-skiplink-list">
-            {this._links.map((_, index) => (
-              <li>
-                <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Host>
+      <div class="sbb-skiplink-list__wrapper">
+        {(this._namedSlots.title || this.titleContent) && (
+          <sbb-title
+            class="sbb-link-list-title"
+            level={this.titleLevel}
+            visual-level="5"
+            visually-hidden
+            negative
+            id="sbb-skiplink-list-title-id"
+          >
+            <slot name="title">{this.titleContent}</slot>
+          </sbb-title>
+        )}
+        <ul {...ariaLabelledByAttribute} class="sbb-skiplink-list">
+          {this._links.map((_, index) => (
+            <li>
+              <slot name={`link-${index}`} onSlotchange={(): void => this._readLinks()} />
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }

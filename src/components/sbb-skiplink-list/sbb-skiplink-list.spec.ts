@@ -54,7 +54,7 @@ describe('sbb-skiplink-list', () => {
       <sbb-skiplink-list title-content="Skip to" title-level="3">
         <mock:shadow-root>
           <div class="sbb-skiplink-list__wrapper">
-            <sbb-title id="sbb-skiplink-list-title-id" level="3" negative="" visual-level="5" class="sbb-link-list-title">
+            <sbb-title id="sbb-skiplink-list-title-id" level="3" negative="" visual-level="5" class="sbb-link-list-title" visually-hidden>
               <slot name="title">
                 Skip to
               </slot>

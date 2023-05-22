@@ -13,15 +13,13 @@
 
 .sbb-skiplink-list__wrapper {
   position: fixed;
-  top: var(--sbb-spacing-fixed-4x);
-  left: var(--sbb-spacing-fixed-4x);
-  z-index: 20;
+  inset-block-start: var(--sbb-spacing-fixed-4x);
+  inset-inline-start: var(--sbb-spacing-fixed-4x);
+  z-index: calc(var(--sbb-skiplink-z-index, var(--sbb-overlay-z-index)) + 1);
 }
 
 .sbb-skiplink-list {
-  padding-inline: 0;
-  margin-block: 0;
-  list-style: none;
+  @include sbb.list-reset;
 
   li {
     @include sbb.shadow-level-5-hard;

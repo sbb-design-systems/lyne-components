@@ -153,6 +153,7 @@ export default {
     docs: {
       extractComponentDescription: () => readme,
     },
+    layout: 'fullscreen',
   },
   title: 'components/sbb-skiplink-list',
 };
