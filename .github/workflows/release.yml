@@ -95,7 +95,7 @@ jobs:
           exitZeroOnChanges: true
 
       - name: Remove chromatic stories
-        run: cd src/components && git clean -f -X
+        run: cd src && git clean -f -X
       - name: Create versioned storybook for image
         run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
       - name: Remove files with forbidden extensions
