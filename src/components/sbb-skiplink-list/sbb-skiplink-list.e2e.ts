@@ -19,4 +19,28 @@ describe('sbb-skiplink-list', () => {
   it('renders', async () => {
     expect(element).toHaveClass('hydrated');
   });
+
+  it('should be visible on focus', async () => {
+    const listItemLinks = await page.findAll('sbb-skiplink-list >>> li');
+    expect(listItemLinks).toHaveLength(3);
+
+    const getProperty = async (el: E2EElement, prop: string): Promise<string> => {
+      return (await el.getComputedStyle()).getPropertyValue(prop);
+    };
+
+    expect(await getProperty(listItemLinks[0], 'height')).toEqual('0px');
+    expect(await getProperty(listItemLinks[0], 'overflow')).toEqual('hidden');
+
+    const firstLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-0');
+    await firstLink.focus();
+    expect(await getProperty(listItemLinks[0], 'height')).not.toEqual('0px');
+    expect(await getProperty(listItemLinks[0], 'overflow')).toEqual('visible');
+
+    const secondLink = await page.find('sbb-skiplink-list > sbb-link#sbb-skiplink-list-link-1');
+    await secondLink.focus();
+    expect(await getProperty(listItemLinks[0], 'height')).toEqual('0px');
+    expect(await getProperty(listItemLinks[0], 'overflow')).toEqual('hidden');
+    expect(await getProperty(listItemLinks[1], 'height')).not.toEqual('0px');
+    expect(await getProperty(listItemLinks[1], 'overflow')).toEqual('visible');
+  });
 });
