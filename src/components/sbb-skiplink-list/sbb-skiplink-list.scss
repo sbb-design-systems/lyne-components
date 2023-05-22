@@ -29,6 +29,7 @@
     border-radius: var(--sbb-border-radius-4x);
     background-color: var(--sbb-skiplink-background);
     border: var(--sbb-skiplink-border);
+    width: fit-content;
 
     &:focus-within {
       --sbb-skiplink-height: auto;
@@ -41,7 +42,5 @@
 
 ::slotted(sbb-link) {
   --sbb-focus-outline-color: transparent;
-
-  padding-block: var(--sbb-spacing-fixed-2x);
-  padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
 }
