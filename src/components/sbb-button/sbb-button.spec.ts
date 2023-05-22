@@ -168,4 +168,17 @@ describe('sbb-button', () => {
 
     expect(root).toHaveAttribute('data-icon-only');
   });
+
+  it('should render form field button variant when inside of a form field', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbButton],
+      html: `
+      <sbb-form-field>
+        <input />
+        <sbb-button slot="suffix" icon-name="cross-small"/>
+      </sbb-form-field>`,
+    });
+
+    expect(root).toHaveAttribute('data-icon-small');
+  });
 });

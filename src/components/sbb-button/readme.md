@@ -2,6 +2,7 @@ If the `href` property is set, it will internally be rendered as link, otherwise
 If the `<sbb-button>` is placed inside another action element (e.g. button, link, ...),
 it is internally rendered as a `<span>` in order to not break HTML structure. 
 It's also possible to set the `<sbb-button>` manually into static state by applying `static` property.
+If the `<sbb-button>` is placed inside an `<sbb-form-field>`, it renders with the correct styling.
 
 ## Usage
 Simple button

@@ -19,6 +19,7 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Button Content
@@ -102,6 +103,9 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
       (n) => !(n as Element).slot && n.textContent?.trim()
     );
     this._handlerRepository.connect();
+    if (this._element.closest('sbb-form-field') || this._element.closest('[data-form-field]')) {
+      toggleDatasetEntry(this._element, 'iconSmall', true);
+    }
   }
 
   public disconnectedCallback(): void {
