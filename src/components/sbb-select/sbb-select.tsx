@@ -104,6 +104,35 @@ export class SbbSelect implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
+  private _dialog: HTMLElement;
+  private _optionContainer: HTMLElement;
+  private _originElement: HTMLElement;
+  private _triggerElement: HTMLElement;
+  private _openPanelEventsController: AbortController;
+  private _overlayId = `sbb-select-${++nextId}`;
+  private _activeItemIndex = -1;
+  private _searchTimeout: ReturnType<typeof setTimeout>;
+  private _searchString = '';
+  private _didLoad = false;
+
+  /**
+   * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
+   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
+   */
+  private _ariaRoleOnHost = isSafari();
+
+  /** Gets all the HTMLSbbOptionElement projected in the select. */
+  private get _options(): HTMLSbbOptionElement[] {
+    return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
+  }
+
+  private get _filteredOptions(): HTMLSbbOptionElement[] {
+    return this._options.filter(
+      (opt: HTMLSbbOptionElement) =>
+        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+    );
+  }
+
   /** Opens the selection panel. */
   @Method() public async open(): Promise<void> {
     if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
@@ -154,32 +183,6 @@ export class SbbSelect implements ComponentInterface {
     } else {
       this._displayValue = newValue.join(', ') || null;
     }
-  }
-
-  private _dialog: HTMLElement;
-  private _optionContainer: HTMLElement;
-  private _originElement: HTMLElement;
-  private _triggerElement: HTMLElement;
-  private _openPanelEventsController: AbortController;
-  private _overlayId = `sbb-select-${++nextId}`;
-  private _activeItemIndex = -1;
-  private _searchTimeout: ReturnType<typeof setTimeout>;
-  private _searchString = '';
-  private _didLoad = false;
-
-  // TODO: On Safari, the aria role 'listbox' must be on the host element or else VoiceOver won't read option groups
-  private _ariaRoleOnHost = isSafari();
-
-  /** Gets all the HTMLSbbOptionElement projected in the select. */
-  private get _options(): HTMLSbbOptionElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
-  }
-
-  private get _filteredOptions(): HTMLSbbOptionElement[] {
-    return this._options.filter(
-      (opt: HTMLSbbOptionElement) =>
-        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
-    );
   }
 
   public componentDidLoad(): void {
@@ -253,9 +256,8 @@ export class SbbSelect implements ComponentInterface {
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
     this._triggerElement.setAttribute('aria-expanded', 'false');
-    this._triggerElement.removeAttribute('aria-activedescendant');
-    this._optionContainer.scrollTop = 0;
     this._resetActiveElement();
+    this._optionContainer.scrollTop = 0;
     this.didClose.emit();
   }
 
@@ -334,9 +336,6 @@ export class SbbSelect implements ComponentInterface {
         event.preventDefault();
         this.open();
         break;
-
-      default:
-        break;
     }
   }
 
@@ -376,9 +375,6 @@ export class SbbSelect implements ComponentInterface {
       case 'PageDown':
         event.preventDefault();
         this._setNextActiveOption(event, this._filteredOptions.length - 1);
-        break;
-
-      default:
         break;
     }
   }
@@ -500,6 +496,7 @@ export class SbbSelect implements ComponentInterface {
       activeElement.active = false;
     }
     this._activeItemIndex = -1;
+    this._triggerElement.removeAttribute('aria-activedescendant');
   }
 
   private _onBackdropClick(event: MouseEvent): void {

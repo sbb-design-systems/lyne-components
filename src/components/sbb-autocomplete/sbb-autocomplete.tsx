@@ -124,7 +124,6 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', true);
   }
 
   /** Closes the autocomplete. */
@@ -134,7 +133,6 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
     this._state = 'closing';
     this.willClose.emit();
     this._openPanelEventsController.abort();
@@ -337,7 +335,6 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
-    this._openPanelEventsController?.abort();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
