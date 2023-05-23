@@ -17,10 +17,7 @@ import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
-import {
-  attachOpenPanelEvents,
-  setOverlayPosition,
-} from '../../global/helpers/overlay-option-panel';
+import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isSafari } from '../../global/helpers/platform';
@@ -245,11 +242,7 @@ export class SbbSelect implements ComponentInterface {
 
   private _onOpenAnimationEnd(): void {
     this._state = 'opened';
-    this._openPanelEventsController = attachOpenPanelEvents(
-      this._setOverlayPosition.bind(this),
-      this._onBackdropClick.bind(this),
-      this._onKeydownEvent.bind(this)
-    );
+    this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
 
     this.didOpen.emit();
@@ -295,11 +288,38 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _onTriggerElementKeydown(event): void {
-    if (this.disabled || this.readonly || this._state !== 'closed') {
+  private _attachOpenPanelEvents(): void {
+    this._openPanelEventsController = new AbortController();
+
+    // Recalculate the overlay position on scroll and window resize
+    document.addEventListener('scroll', () => this._setOverlayPosition(), {
+      passive: true,
+      signal: this._openPanelEventsController.signal,
+    });
+    window.addEventListener('resize', () => this._setOverlayPosition(), {
+      passive: true,
+      signal: this._openPanelEventsController.signal,
+    });
+
+    window.addEventListener('click', (event) => this._onBackdropClick(event), {
+      signal: this._openPanelEventsController.signal,
+    });
+  }
+
+  private _onKeyDown(event: KeyboardEvent): void {
+    if (this.disabled || this.readonly) {
       return;
     }
 
+    if (this._state === 'opened') {
+      this._openPanelKeyboardInteraction(event);
+    }
+    if (this._state === 'closed') {
+      this._closePanelKeyboardInteraction(event);
+    }
+  }
+
+  private _closePanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this._checkForLetterSelection(event)) {
       return this._setNextActiveOptionByText(event);
     }
@@ -318,7 +338,7 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _onKeydownEvent(event): void {
+  private _openPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this.disabled || this.readonly || this._state !== 'opened') {
       return;
     }
@@ -480,7 +500,7 @@ export class SbbSelect implements ComponentInterface {
     this._activeItemIndex = -1;
   }
 
-  private _onBackdropClick(event: PointerEvent): void {
+  private _onBackdropClick(event: MouseEvent): void {
     if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
     }
@@ -547,7 +567,7 @@ export class SbbSelect implements ComponentInterface {
           aria-controls={this._overlayId}
           aria-owns={this._overlayId}
           ref={(ref) => (this._triggerElement = ref)}
-          onKeyDown={(event) => this._onTriggerElementKeydown(event)}
+          onKeyDown={(event) => this._onKeyDown(event)}
           onClick={() => this._toggleOpening()}
         >
           {this._displayValue ?? <span>{this.placeholder}</span>}

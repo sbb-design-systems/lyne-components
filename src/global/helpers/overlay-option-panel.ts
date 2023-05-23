@@ -32,26 +32,3 @@ export function setOverlayPosition(
   element.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }
-
-export function attachOpenPanelEvents(
-  setOverlayPosition: () => void,
-  onBackdropClick: (event: PointerEvent) => void,
-  onKeydownEvent: (event: KeyboardEvent) => void
-): AbortController {
-  const openPanelEventsController = new AbortController();
-  document.addEventListener('scroll', () => setOverlayPosition(), {
-    passive: true,
-    signal: openPanelEventsController.signal,
-  });
-  window.addEventListener('resize', () => setOverlayPosition(), {
-    passive: true,
-    signal: openPanelEventsController.signal,
-  });
-  window.addEventListener('click', (event: PointerEvent) => onBackdropClick(event), {
-    signal: openPanelEventsController.signal,
-  });
-  window.addEventListener('keydown', (event: KeyboardEvent) => onKeydownEvent(event), {
-    signal: openPanelEventsController.signal,
-  });
-  return openPanelEventsController;
-}

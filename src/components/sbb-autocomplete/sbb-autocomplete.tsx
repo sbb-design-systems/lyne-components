@@ -24,10 +24,7 @@ import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers/overlay';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import {
-  attachOpenPanelEvents,
-  setOverlayPosition,
-} from '../../global/helpers/overlay-option-panel';
+import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { isSafari } from '../../global/helpers/platform';
 
 let nextId = 0;
@@ -312,11 +309,7 @@ export class SbbAutocomplete implements ComponentInterface {
     );
     this._triggerElement.addEventListener(
       'keydown',
-      (event: KeyboardEvent) => {
-        if (event.key === 'ArrowDown') {
-          this.open();
-        }
-      },
+      (event: KeyboardEvent) => this._closePanelKeyboardInteraction(event),
       { signal: this._triggerEventsController.signal }
     );
   }
@@ -337,12 +330,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onOpenAnimationEnd(): void {
     this._state = 'opened';
-    // TODO: discuss if this factorization is really needed
-    this._openPanelEventsController = attachOpenPanelEvents(
-      this._setOverlayPosition.bind(this),
-      this._onBackdropClick.bind(this),
-      this._onKeydownEvent.bind(this)
-    );
+    this._attachOpenPanelEvents();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this.didOpen.emit();
   }
@@ -356,14 +344,55 @@ export class SbbAutocomplete implements ComponentInterface {
     this.didClose.emit();
   }
 
+  private _attachOpenPanelEvents(): void {
+    this._openPanelEventsController = new AbortController();
+
+    // Recalculate the overlay position on scroll and window resize
+    document.addEventListener('scroll', () => this._setOverlayPosition(), {
+      passive: true,
+      signal: this._openPanelEventsController.signal,
+    });
+    window.addEventListener('resize', () => this._setOverlayPosition(), {
+      passive: true,
+      signal: this._openPanelEventsController.signal,
+    });
+
+    window.addEventListener('click', (event) => this._onBackdropClick(event), {
+      signal: this._openPanelEventsController.signal,
+    });
+
+    // Keyboard interactions
+    this._triggerElement.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => this._openPanelKeyboardInteraction(event),
+      {
+        signal: this._openPanelEventsController.signal,
+      }
+    );
+  }
+
   /** If the click is outside the autocomplete, closes the panel. */
-  private _onBackdropClick(event: PointerEvent): void {
+  private _onBackdropClick(event: MouseEvent): void {
     if (!isEventOnElement(this._overlay, event) && !isEventOnElement(this._originElement, event)) {
       this.close();
     }
   }
 
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private _closePanelKeyboardInteraction(event: KeyboardEvent): void {
+    if (this._state !== 'closed') {
+      return;
+    }
+
+    switch (event.key) {
+      case 'Enter':
+      case 'ArrowDown':
+      case 'ArrowUp':
+        this.open();
+        break;
+    }
+  }
+
+  private _openPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this._state !== 'opened') {
       return;
     }
