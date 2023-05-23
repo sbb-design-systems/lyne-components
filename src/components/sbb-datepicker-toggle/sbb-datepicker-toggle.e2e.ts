@@ -36,6 +36,35 @@ describe('sbb-datepicker-toggle', () => {
     expect(tooltip).toEqualAttribute('data-state', 'opened');
   });
 
+  it('renders and opens tooltip programmatically', async () => {
+    const page: E2EPage = await newE2EPage({
+      html: `
+          <sbb-datepicker-toggle date-picker="datepicker" disable-animation></sbb-datepicker-toggle>
+          <sbb-datepicker input='datepicker-input' id='datepicker' value="01-01-2023"></sbb-datepicker>
+          <input id="datepicker-input">
+        `,
+    });
+    const element: E2EElement = await page.find('sbb-datepicker-toggle');
+    const tooltipTrigger: E2EElement = await page.find(
+      'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
+    );
+    const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
+    await page.waitForChanges();
+    expect(element).toHaveClass('hydrated');
+    expect(tooltipTrigger).not.toHaveAttribute('disabled');
+    expect(tooltip).toEqualAttribute('data-state', 'closed');
+
+    await page.evaluate(() =>
+      (
+        document.querySelector('sbb-datepicker-toggle') as HTMLSbbDatepickerToggleElement
+      ).openCalendar()
+    );
+
+    await page.waitForChanges();
+
+    expect(tooltip).toEqualAttribute('data-state', 'opened');
+  });
+
   it('renders in form field, open calendar and change date', async () => {
     const page: E2EPage = await newE2EPage();
     await page.setContent(`
