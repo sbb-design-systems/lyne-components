@@ -6,6 +6,24 @@ import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-co
 import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
+const disabled = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
+const readonly = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const disableAnimation = {
   control: {
     type: 'boolean',
@@ -33,7 +51,7 @@ const iconName = {
   },
 };
 
-const disabled = {
+const disableOption = {
   control: {
     type: 'boolean',
   },
@@ -62,12 +80,14 @@ const disableGroup = {
 
 const defaultArgTypes = {
   // Autocomplete args
+  disabled,
+  readonly,
   disableAnimation,
   preserveIconSpace,
 
   // Option args
   iconName,
-  disabled,
+  disableOption,
 
   // Form field args
   borderless,
@@ -82,12 +102,14 @@ const withGroupsArgTypes = {
 
 const defaultArgs = {
   // Autocomplete args
+  disabled: false,
+  readonly: false,
   disableAnimation: isChromatic(),
 
   // Option args
   iconName: 'clock-small',
   preserveIconSpace: true,
-  disabled: false,
+  disableOption: false,
 
   // Form field args
   borderless: false,
@@ -141,12 +163,12 @@ const playStory = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const createOptionGroup1 = (iconName, disabled) => {
+const createOptionGroup1 = (iconName, disableOption) => {
   return [
     <sbb-option icon-name={iconName} value="Option 1">
       Option 1
     </sbb-option>,
-    <sbb-option icon-name={iconName} disabled={disabled} value="Option 2">
+    <sbb-option icon-name={iconName} disabled={disableOption} value="Option 2">
       Option 2
     </sbb-option>,
     <sbb-option value="Option 3">
@@ -190,13 +212,18 @@ const textBlock = () => {
 const Template = (args) => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-      <input placeholder="Placeholder" data-testid="autocomplete-input" />
+      <input
+        placeholder="Placeholder"
+        data-testid="autocomplete-input"
+        disabled={args.disabled}
+        readonly={args.readonly}
+      />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
         preserve-icon-space={args.preserveIconSpace}
       >
-        {createOptionGroup1(args.iconName, args.disabled)}
+        {createOptionGroup1(args.iconName, args.disableOption)}
         {createOptionGroup2()}
       </sbb-autocomplete>
     </sbb-form-field>
@@ -207,14 +234,19 @@ const Template = (args) => [
 const OptionGroupTemplate = (args) => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-      <input placeholder="Placeholder" data-testid="autocomplete-input" />
+      <input
+        placeholder="Placeholder"
+        data-testid="autocomplete-input"
+        disabled={args.disabled}
+        readonly={args.readonly}
+      />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
         preserve-icon-space={args.preserveIconSpace}
       >
         <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
-          {createOptionGroup1(args.iconName, args.disabled)}
+          {createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
         <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
       </sbb-autocomplete>
@@ -226,7 +258,12 @@ const OptionGroupTemplate = (args) => [
 const MixedTemplate = (args) => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
-      <input placeholder="Placeholder" data-testid="autocomplete-input" />
+      <input
+        placeholder="Placeholder"
+        data-testid="autocomplete-input"
+        disabled={args.disabled}
+        readonly={args.readonly}
+      />
 
       <sbb-autocomplete
         disable-animation={args.disableAnimation}
@@ -237,7 +274,7 @@ const MixedTemplate = (args) => [
           Option Value
         </sbb-option>
         <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
-          {createOptionGroup1(args.iconName, args.disabled)}
+          {createOptionGroup1(args.iconName, args.disableOption)}
         </sbb-optgroup>
         <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
       </sbb-autocomplete>
@@ -262,6 +299,8 @@ const RequiredTemplate = (args) => {
           data-testid="autocomplete-input"
           class="sbb-invalid"
           placeholder="Placeholder"
+          disabled={args.disabled}
+          readonly={args.readonly}
           onChange={(event) => {
             if (event.currentTarget.value !== '') {
               sbbFormError.remove();
@@ -278,7 +317,7 @@ const RequiredTemplate = (args) => {
           preserve-icon-space={args.preserveIconSpace}
         >
           <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
-            {createOptionGroup1(args.iconName, args.disabled)}
+            {createOptionGroup1(args.iconName, args.disableOption)}
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">{createOptionGroup2()}</sbb-optgroup>
         </sbb-autocomplete>
@@ -312,6 +351,18 @@ WithError.argTypes = withGroupsArgTypes;
 WithError.args = { ...withGroupsDefaultArgs };
 WithError.decorators = defaultDecorator;
 WithError.play = isChromatic() && playStory;
+
+export const Disabled = Template.bind({});
+Disabled.argTypes = defaultArgTypes;
+Disabled.args = { ...defaultArgs, disabled: true };
+Disabled.decorators = defaultDecorator;
+Disabled.play = isChromatic() && playStory;
+
+export const Readonly = Template.bind({});
+Readonly.argTypes = defaultArgTypes;
+Readonly.args = { ...defaultArgs, readonly: true };
+Readonly.decorators = defaultDecorator;
+Readonly.play = isChromatic() && playStory;
 
 export const BorderlessOpenAbove = Template.bind({});
 BorderlessOpenAbove.argTypes = defaultArgTypes;

@@ -129,4 +129,36 @@ describe('sbb-autocomplete', () => {
     expect(input.getAttribute('aria-expanded')).toEqual('false');
     expect(input).not.toHaveAttribute('aria-activedescendant');
   });
+
+  it('disabled', async () => {
+    await page.$eval('input', (e) => e.setAttribute('disabled', 'true'));
+
+    await input.focus();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await input.click();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await element.press('ArrowDown');
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+  });
+
+  it('readonly', async () => {
+    await page.$eval('input', (e) => e.setAttribute('readonly', 'true'));
+
+    await input.focus();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await input.click();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await element.press('ArrowDown');
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+  });
 });
