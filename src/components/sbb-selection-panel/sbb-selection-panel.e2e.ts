@@ -257,6 +257,71 @@ describe('sbb-selection-panel', () => {
     });
   });
 
+  describe('with nested radio buttons', () => {
+    beforeEach(async () => {
+      page = await newE2EPage();
+      await page.setContent(`
+  <sbb-radio-button-group orientation="vertical" horizontal-from="large">
+    <sbb-selection-panel disable-animation>
+      <sbb-radio-button value="main1" checked="true">
+        Main Option 1
+      </sbb-radio-button>
+      <sbb-radio-button-group orientation="vertical" slot="content">
+        <sbb-radio-button value="sub1" checked>Suboption 1</sbb-radio-button>
+        <sbb-radio-button value="sub2">Suboption 2</sbb-radio-button>
+      </sbb-radio-button-group>
+    </sbb-selection-panel>
+
+    <sbb-selection-panel disable-animation>
+      <sbb-radio-button value="main2">
+        Main Option 2
+      </sbb-radio-button>
+      <sbb-radio-button-group orientation="vertical" slot="content">
+        <sbb-radio-button value="sub3">Suboption 3</sbb-radio-button>
+        <sbb-radio-button value="sub4">Suboption 4</sbb-radio-button>
+      </sbb-radio-button-group>
+    </sbb-selection-panel>
+  </sbb-radio-button-group>
+`);
+      element = await page.find('sbb-radio-button-group');
+
+      await page.waitForChanges();
+    });
+
+    it('should mark only outer group children as disabled', async () => {
+      element.setAttribute('disabled', '');
+
+      await page.waitForChanges();
+
+      const radiobuttons = await page.findAll('sbb-radio-button');
+
+      expect(radiobuttons.length).toBe(6);
+      expect(radiobuttons[0]).toHaveAttribute('data-group-disabled');
+      expect(radiobuttons[1]).not.toHaveAttribute('data-group-disabled');
+      expect(radiobuttons[2]).not.toHaveAttribute('data-group-disabled');
+      expect(radiobuttons[3]).toHaveAttribute('data-group-disabled');
+      expect(radiobuttons[4]).not.toHaveAttribute('data-group-disabled');
+      expect(radiobuttons[5]).not.toHaveAttribute('data-group-disabled');
+    });
+
+    it('should not with interfere content on selection', async () => {
+      const main1 = await page.find('sbb-radio-button[value="main1"]');
+      const main2 = await page.find('sbb-radio-button[value="main2"]');
+      const sub1 = await page.find('sbb-radio-button[value="sub1"]');
+
+      expect(main1).toHaveAttribute('checked');
+      expect(main2).not.toHaveAttribute('checked');
+      expect(sub1).toHaveAttribute('checked');
+
+      await main2.setProperty('checked', 'true');
+      await page.waitForChanges();
+
+      expect(main1).not.toHaveAttribute('checked');
+      expect(main2).toHaveAttribute('checked');
+      expect(sub1).toHaveAttribute('checked');
+    });
+  });
+
   describe('with checkboxes', () => {
     beforeEach(async () => {
       page = await newE2EPage();
@@ -453,6 +518,54 @@ describe('sbb-selection-panel', () => {
       await page.waitForChanges();
 
       expect(await page.evaluate(() => document.activeElement.id)).toBe(firstInput.id);
+    });
+  });
+
+  describe('with nested checkboxes', () => {
+    beforeEach(async () => {
+      page = await newE2EPage();
+      await page.setContent(`
+  <sbb-checkbox-group orientation="vertical" horizontal-from="large">
+    <sbb-selection-panel disable-animation>
+      <sbb-checkbox value="main1" checked="true">
+        Main Option 1
+      </sbb-checkbox>
+      <sbb-checkbox-group orientation="vertical" slot="content">
+        <sbb-checkbox value="sub1" checked>Suboption 1</sbb-checkbox>
+        <sbb-checkbox value="sub2">Suboption 2</sbb-checkbox>
+      </sbb-checkbox-group>
+    </sbb-selection-panel>
+
+    <sbb-selection-panel disable-animation>
+      <sbb-checkbox value="main2">
+        Main Option 2
+      </sbb-checkbox>
+      <sbb-checkbox-group orientation="vertical" slot="content">
+        <sbb-checkbox value="sub3">Suboption 3</sbb-checkbox>
+        <sbb-checkbox value="sub4">Suboption 4</sbb-checkbox>
+      </sbb-checkbox-group>
+    </sbb-selection-panel>
+  </sbb-checkbox-group>
+`);
+      element = await page.find('sbb-checkbox-group');
+
+      await page.waitForChanges();
+    });
+
+    it('should mark only outer group children as disabled', async () => {
+      element.setAttribute('disabled', '');
+
+      await page.waitForChanges();
+
+      const checkboxes = await page.findAll('sbb-checkbox');
+
+      expect(checkboxes.length).toBe(6);
+      expect(checkboxes[0]).toHaveAttribute('data-group-disabled');
+      expect(checkboxes[1]).not.toHaveAttribute('data-group-disabled');
+      expect(checkboxes[2]).not.toHaveAttribute('data-group-disabled');
+      expect(checkboxes[3]).toHaveAttribute('data-group-disabled');
+      expect(checkboxes[4]).not.toHaveAttribute('data-group-disabled');
+      expect(checkboxes[5]).not.toHaveAttribute('data-group-disabled');
     });
   });
 });
