@@ -1,5 +1,5 @@
-import events from './sbb-select.events';
 import { h } from 'jsx-dom';
+import events from './sbb-select.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
@@ -14,8 +14,8 @@ const playStory = async ({ canvasElement }) => {
     canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
   );
 
-  await waitForStablePosition(() => canvas.getByTestId('form-field').querySelector('sbb-select'));
-  const select = await canvas.getByTestId('form-field').querySelector('sbb-select');
+  await waitForStablePosition(() => canvas.getByTestId('select'));
+  const select = await canvas.getByTestId('select');
   userEvent.click(select);
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
