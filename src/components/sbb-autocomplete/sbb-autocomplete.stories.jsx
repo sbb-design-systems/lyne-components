@@ -6,6 +6,19 @@ import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-co
 import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
+  );
+
+  await waitForStablePosition(() => canvas.getByTestId('autocomplete-input'));
+  await userEvent.type(canvas.getByTestId('autocomplete-input'), 'Opt');
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+};
+
 const disabled = {
   control: {
     type: 'boolean',
@@ -149,19 +162,6 @@ const scrollDecorator = [
     </div>
   ),
 ];
-
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-
-  await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
-  );
-
-  await waitForStablePosition(() => canvas.getByTestId('autocomplete-input'));
-  await userEvent.type(canvas.getByTestId('autocomplete-input'), 'Opt');
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-};
 
 const createOptionGroup1 = (iconName, disableOption) => {
   return [

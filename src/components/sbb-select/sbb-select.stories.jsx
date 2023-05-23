@@ -4,6 +4,7 @@ import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import isChromatic from 'chromatic';
+import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
@@ -13,8 +14,10 @@ const playStory = async ({ canvasElement }) => {
     canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
   );
 
-  const label = await canvas.getByTestId('select');
-  userEvent.click(label);
+  await waitForStablePosition(() => canvas.getByTestId('form-field').querySelector('sbb-select'));
+  const select = await canvas.getByTestId('form-field').querySelector('sbb-select');
+  userEvent.click(select);
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 const borderless = {
