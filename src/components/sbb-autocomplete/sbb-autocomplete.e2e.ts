@@ -130,7 +130,7 @@ describe('sbb-autocomplete', () => {
     expect(input).not.toHaveAttribute('aria-activedescendant');
   });
 
-  it('disabled', async () => {
+  it('should stay closed when disabled', async () => {
     await page.$eval('input', (e) => e.setAttribute('disabled', 'true'));
 
     await input.focus();
@@ -146,7 +146,7 @@ describe('sbb-autocomplete', () => {
     expect(input.getAttribute('aria-expanded')).toEqual('false');
   });
 
-  it('readonly', async () => {
+  it('should stay closed when readonly', async () => {
     await page.$eval('input', (e) => e.setAttribute('readonly', 'true'));
 
     await input.focus();

@@ -109,9 +109,9 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   private _ariaRoleOnHost = isSafari();
 
-  /** The autocomplete is 'readonly' if the trigger is 'readonly' */
+  /** The autocomplete should inherit 'readonly' state from the trigger. */
   private get _readonly(): boolean {
-    return this._triggerElement?.hasAttribute('readonly');
+    return this._triggerElement && isValidAttribute(this._triggerElement, 'readonly');
   }
 
   private get _options(): HTMLSbbOptionElement[] {
