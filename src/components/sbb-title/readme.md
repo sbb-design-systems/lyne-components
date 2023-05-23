@@ -27,6 +27,7 @@ via simple CSS rules.
  - [sbb-dialog](../sbb-dialog)
  - [sbb-journey-header](../sbb-journey-header)
  - [sbb-link-list](../sbb-link-list)
+ - [sbb-skiplink-list](../sbb-skiplink-list)
  - [sbb-teaser](../sbb-teaser)
 
 ### Graph
@@ -36,6 +37,7 @@ graph TD;
   sbb-dialog --> sbb-title
   sbb-journey-header --> sbb-title
   sbb-link-list --> sbb-title
+  sbb-skiplink-list --> sbb-title
   sbb-teaser --> sbb-title
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
 ```

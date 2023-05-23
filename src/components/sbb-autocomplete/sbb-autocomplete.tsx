@@ -22,7 +22,7 @@ import {
 import { isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers/overlay';
+import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { isSafari } from '../../global/helpers/platform';
@@ -110,6 +110,11 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   private _ariaRoleOnHost = isSafari();
 
+  /** The autocomplete should inherit 'readonly' state from the trigger. */
+  private get _readonly(): boolean {
+    return this._triggerElement && isValidAttribute(this._triggerElement, 'readonly');
+  }
+
   private get _options(): HTMLSbbOptionElement[] {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
   }
@@ -117,7 +122,12 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Opens the autocomplete. */
   @Method()
   public async open(): Promise<void> {
-    if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
+    if (
+      this._state !== 'closed' ||
+      !this._overlay ||
+      this._options.length === 0 ||
+      this._readonly
+    ) {
       return;
     }
 
@@ -162,7 +172,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** When an option is selected, update the input value and close the autocomplete. */
   @Listen('option-selection-change')
-  public onOptionSelected(event: CustomEvent<SbbOptionEventData>): void {
+  public async onOptionSelected(event: CustomEvent<SbbOptionEventData>): Promise<void> {
     if (!event.detail.selected) {
       return;
     }
@@ -179,15 +189,15 @@ export class SbbAutocomplete implements ComponentInterface {
     this._triggerElement.dispatchEvent(new window.Event('change', { bubbles: true }));
     this._triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
-    this.close();
+    await this.close();
   }
 
   @Listen('click')
-  public onOptionClick(event): void {
+  public async onOptionClick(event): Promise<void> {
     if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
       return;
     }
-    this.close();
+    await this.close();
   }
 
   public componentDidLoad(): void {
@@ -299,8 +309,8 @@ export class SbbAutocomplete implements ComponentInterface {
     });
     this._triggerElement.addEventListener(
       'input',
-      (ev) => {
-        this.open();
+      async (ev) => {
+        await this.open();
         this._highlightOptions((ev.target as HTMLInputElement).value);
       },
       { signal: this._triggerEventsController.signal }
@@ -369,13 +379,13 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   /** If the click is outside the autocomplete, closes the panel. */
-  private _onBackdropClick(event: MouseEvent): void {
+  private _onBackdropClick = async (event: MouseEvent): Promise<void> => {
     if (!isEventOnElement(this._overlay, event) && !isEventOnElement(this._originElement, event)) {
-      this.close();
+      await this.close();
     }
-  }
+  };
 
-  private _closePanelKeyboardInteraction(event: KeyboardEvent): void {
+  private async _closePanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'closed') {
       return;
     }
@@ -384,12 +394,12 @@ export class SbbAutocomplete implements ComponentInterface {
       case 'Enter':
       case 'ArrowDown':
       case 'ArrowUp':
-        this.open();
+        await this.open();
         break;
     }
   }
 
-  private _openPanelKeyboardInteraction(event: KeyboardEvent): void {
+  private async _openPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
@@ -397,7 +407,7 @@ export class SbbAutocomplete implements ComponentInterface {
     switch (event.key) {
       case 'Escape':
       case 'Tab':
-        this.close();
+        await this.close();
         break;
 
       case 'Enter':

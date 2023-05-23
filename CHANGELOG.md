@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.5](https://github.com/lyne-design-system/lyne-components/compare/v0.35.4...v0.35.5) (2023-05-23)
+
+### Features
+
+- sbb-skiplink implementation ([#1740](https://github.com/lyne-design-system/lyne-components/issues/1740)) ([76baa8c](https://github.com/lyne-design-system/lyne-components/commit/76baa8cb7762c68acd07b687d48aad73461d3011))
+
+### [0.35.4](https://github.com/lyne-design-system/lyne-components/compare/v0.35.3...v0.35.4) (2023-05-22)
+
+### Bug Fixes
+
+- **styles:** exclude other elements than paragraph for gap in lists ([#1760](https://github.com/lyne-design-system/lyne-components/issues/1760)) ([5b7b379](https://github.com/lyne-design-system/lyne-components/commit/5b7b3796d9c4f7cec3026cf936a6d4fe371c134e)), closes [#1679](https://github.com/lyne-design-system/lyne-components/issues/1679)
+
+### [0.35.3](https://github.com/lyne-design-system/lyne-components/compare/v0.35.2...v0.35.3) (2023-05-22)
+
+### Features
+
+- **sbb-button:** sbb-form-field integration ([#1746](https://github.com/lyne-design-system/lyne-components/issues/1746)) ([9c3fdb1](https://github.com/lyne-design-system/lyne-components/commit/9c3fdb14b310198d40e6e407f2d9922dae817cf5)), closes [#1683](https://github.com/lyne-design-system/lyne-components/issues/1683)
+
+### [0.35.2](https://github.com/lyne-design-system/lyne-components/compare/v0.35.1...v0.35.2) (2023-05-22)
+
+### Features
+
+- **sbb-autocomplete:** component implementation ([#1667](https://github.com/lyne-design-system/lyne-components/issues/1667)) ([28ea027](https://github.com/lyne-design-system/lyne-components/commit/28ea027a66484b1c8c89eb38021601b9641fad8b))
+
+### Bug Fixes
+
+- add 'withActions' decorator for Storybook's actions tab ([#1747](https://github.com/lyne-design-system/lyne-components/issues/1747)) ([52e3529](https://github.com/lyne-design-system/lyne-components/commit/52e35292071e5bee8b7b75c39a18c2bdb797a6d8))
+- **sbb-selection-panel:** chromatic and force-open tests ([#1752](https://github.com/lyne-design-system/lyne-components/issues/1752)) ([d5f7e2a](https://github.com/lyne-design-system/lyne-components/commit/d5f7e2aec9bda3c5ee68c0cd9d7f32ef0aedd55e))
+
 ### [0.35.1](https://github.com/lyne-design-system/lyne-components/compare/v0.35.0...v0.35.1) (2023-05-16)
 
 ### Bug Fixes

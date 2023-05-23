@@ -9,7 +9,7 @@ describe('sbb-autocomplete', () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-form-field>
-        <input/>
+        <input />
         <sbb-autocomplete id="myAutocomplete">
           <sbb-option id="option-1" value="1">1</sbb-option>
           <sbb-option id="option-2" value="2">2</sbb-option>
@@ -128,5 +128,37 @@ describe('sbb-autocomplete', () => {
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     expect(input.getAttribute('aria-expanded')).toEqual('false');
     expect(input).not.toHaveAttribute('aria-activedescendant');
+  });
+
+  it('should stay closed when disabled', async () => {
+    await page.$eval('input', (e) => e.setAttribute('disabled', 'true'));
+
+    await input.focus();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await input.click();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await element.press('ArrowDown');
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+  });
+
+  it('should stay closed when readonly', async () => {
+    await page.$eval('input', (e) => e.setAttribute('readonly', 'true'));
+
+    await input.focus();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await input.click();
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
+
+    await element.press('ArrowDown');
+    await page.waitForChanges();
+    expect(input.getAttribute('aria-expanded')).toEqual('false');
   });
 });

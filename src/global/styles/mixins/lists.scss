@@ -34,7 +34,7 @@
         }
 
         // P has to be redefined to be more specific
-        > :is(p, *) + * {
+        > * + p {
           margin-block-start: var(--sbb-spacing-responsive-xxxs);
         }
       }
@@ -157,7 +157,7 @@
     }
 
     // P has to be redefined to be more specific
-    > :is(p, *) + * {
+    > * + p {
       margin-block-start: var(--sbb-spacing-responsive-xxxs);
     }
   }
