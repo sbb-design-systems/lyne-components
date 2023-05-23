@@ -153,11 +153,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   /** Set the input value to the correctly formatted value. */
   @Method() public async setValueAsDate(date: Date): Promise<void> {
-    await this._formatAndUpdateValue(
-      `${this._dateAdapter.getDate(date)}.${
-        this._dateAdapter.getMonth(date) + 1
-      }.${this._dateAdapter.getYear(date)}`
-    );
+    await this._formatAndUpdateValue(this._createAndComposeDate(date));
   }
 
   @Listen('datepicker-control-registered')
@@ -211,6 +207,15 @@ export class SbbDatepicker implements ComponentInterface {
     }
 
     return this._composeValueString(match[1], match[2], +match[3]);
+  }
+
+  private _createAndComposeDate(value: string | number | Date): string {
+    const date = new Date(value);
+    return this._composeValueString(
+      `${this._dateAdapter.getDate(date)}`,
+      `${this._dateAdapter.getMonth(date) + 1}`,
+      this._dateAdapter.getYear(date)
+    );
   }
 
   private _composeValueString(_day: string, _month: string, year: number): string {
@@ -275,11 +280,9 @@ export class SbbDatepicker implements ComponentInterface {
     }
 
     if (!Number.isNaN(+value) && Number.isInteger(+value)) {
-      const d = new Date(+value);
-      return this._composeValueString(`${d.getDate()}`, `${d.getMonth() + 1}`, d.getFullYear());
+      return this._createAndComposeDate(+value);
     } else if (this._dateAdapter.isValid(new Date(value))) {
-      const d = new Date(value);
-      return this._composeValueString(`${d.getDate()}`, `${d.getMonth() + 1}`, d.getFullYear());
+      return this._createAndComposeDate(value);
     }
 
     return value;
