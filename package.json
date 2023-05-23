@@ -99,7 +99,7 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "sass": "1.62.1",
-    "sass-loader": "13.2.2",
+    "sass-loader": "13.3.0",
     "standard-version": "9.5.0",
     "stencil-inline-svg": "1.1.0",
     "storybook": "7.0.14",
