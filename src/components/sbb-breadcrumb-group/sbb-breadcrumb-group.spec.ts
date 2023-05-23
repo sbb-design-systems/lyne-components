@@ -23,6 +23,10 @@ describe('sbb-breadcrumb-group', () => {
             </li>
             <li class="sbb-breadcrumb-group__item">
               <sbb-icon name="chevron-small-right-small"></sbb-icon>
+              <sbb-breadcrumb>…</sbb-breadcrumb>
+            </li>
+            <li class="sbb-breadcrumb-group__item">
+              <sbb-icon name="chevron-small-right-small"></sbb-icon>
               <slot name="breadcrumb-1"></slot>
             </li>
             <li class="sbb-breadcrumb-group__item">

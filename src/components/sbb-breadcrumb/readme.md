@@ -25,6 +25,10 @@ to be documented...
 
 ## Dependencies
 
+### Used by
+
+ - [sbb-breadcrumb-group](../sbb-breadcrumb-group)
+
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
@@ -33,6 +37,7 @@ to be documented...
 ```mermaid
 graph TD;
   sbb-breadcrumb --> sbb-icon
+  sbb-breadcrumb-group --> sbb-breadcrumb
   style sbb-breadcrumb fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
