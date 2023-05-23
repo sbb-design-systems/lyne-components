@@ -17,10 +17,9 @@
 }
 
 :host([disabled]:not([disabled='false'])) {
-  --sbb-visual-checkbox-color: var(--sbb-color-graphite-default);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-graphite-default);
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-graphite-default);
-  --sbb-visual-checkbox-label-color: var(--sbb-color-smoke-default);
+  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-granite-default);
+  --sbb-visual-checkbox-label-color: var(--sbb-color-granite-default);
   --sbb-visual-checkbox-cursor: default;
 
   @include sbb.if-forced-colors {
