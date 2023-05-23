@@ -66,6 +66,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     });
   }
 
+  private _expandBreadcrumbs(): void {
+    return;
+  }
+
   public render(): JSX.Element {
     const slotName = (index): string => `breadcrumb-${index}`;
     this._breadcrumbs.forEach((breadcrumb, index) =>
@@ -75,12 +79,18 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     return (
       <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
-          {this._breadcrumbs.map((_, index) => (
+          {this._breadcrumbs.map((_, index) => [
             <li class="sbb-breadcrumb-group__item">
               {index !== 0 && <sbb-icon name="chevron-small-right-small"></sbb-icon>}
               <slot name={slotName(index)} onSlotchange={(): void => this._readBreadcrumb()} />
-            </li>
-          ))}
+            </li>,
+            index === 0 && (
+              <li class="sbb-breadcrumb-group__item">
+                <sbb-icon name="chevron-small-right-small"></sbb-icon>
+                <sbb-breadcrumb onClick={() => this._expandBreadcrumbs()}>&hellip;</sbb-breadcrumb>
+              </li>
+            ),
+          ])}
         </ol>
         <span hidden>
           <slot onSlotchange={(): void => this._readBreadcrumb()} />
