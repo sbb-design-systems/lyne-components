@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.6](https://github.com/lyne-design-system/lyne-components/compare/v0.35.5...v0.35.6) (2023-05-23)
+
+### Bug Fixes
+
+- **sbb-autocomplete:** handle readonly state ([#1764](https://github.com/lyne-design-system/lyne-components/issues/1764)) ([ad43efd](https://github.com/lyne-design-system/lyne-components/commit/ad43efd4fd03f75d0d9bea86f5d5be7cd8d38dc3))
+
 ### [0.35.5](https://github.com/lyne-design-system/lyne-components/compare/v0.35.4...v0.35.5) (2023-05-23)
 
 ### Features
