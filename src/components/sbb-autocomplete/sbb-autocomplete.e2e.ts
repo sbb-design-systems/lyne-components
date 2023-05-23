@@ -9,7 +9,7 @@ describe('sbb-autocomplete', () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-form-field>
-        <input/>
+        <input />
         <sbb-autocomplete id="myAutocomplete">
           <sbb-option id="option-1" value="1">1</sbb-option>
           <sbb-option id="option-2" value="2">2</sbb-option>
