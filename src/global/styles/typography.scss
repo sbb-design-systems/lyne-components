@@ -25,10 +25,17 @@ sup {
 }
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
-sbb-form-field input:disabled::placeholder {
-  color: var(--sbb-color-granite-default);
-  -webkit-text-fill-color: var(--sbb-color-granite-default);
-  text-decoration: line-through;
+sbb-form-field {
+  input:disabled::placeholder {
+    color: var(--sbb-color-granite-default);
+    -webkit-text-fill-color: var(--sbb-color-granite-default);
+    text-decoration: line-through;
+  }
+
+  &[floating-label]:not([floating-label='false']) input::placeholder {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 // Hiding components until they are instantiated
