@@ -191,12 +191,13 @@ export class SbbSelect implements ComponentInterface {
   public connectedCallback(): void {
     if (this._didLoad) {
       this._setupOrigin();
+      this._setupTrigger();
     }
     this.onValueChanged(this.value);
   }
 
   public disconnectedCallback(): void {
-    this._triggerElement?.remove();
+    this._element.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
     this._openPanelEventsController?.abort();
   }
 
@@ -216,10 +217,11 @@ export class SbbSelect implements ComponentInterface {
 
   /**
    * To assess screen-readers problems caused by the interaction between aria patterns and shadow DOM,
-   * we are forced to move the 'combobox' element to the light DOM
+   * we are forced to move the 'combobox' trigger element to the light DOM
    */
   private _setupTrigger(): void {
-    this._element.parentElement.appendChild(this._triggerElement);
+    // Move the trigger before the sbb-select
+    this._element.parentElement.insertBefore(this._triggerElement, this._element);
 
     // Set the invisible trigger element dimension to match the parent (needed for screen readers)
     const containerElement = this._element.closest('sbb-form-field') ?? this._element;
