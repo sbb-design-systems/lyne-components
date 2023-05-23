@@ -815,13 +815,13 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * The return prop
-         */
-        "return"?: InterfaceSbbJourneySummaryAttributes;
-        /**
           * The trip prop
          */
         "trip": InterfaceSbbJourneySummaryAttributes;
+        /**
+          * The return prop
+         */
+        "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
     interface SbbLink {
         /**
@@ -3219,13 +3219,13 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * The return prop
-         */
-        "return"?: InterfaceSbbJourneySummaryAttributes;
-        /**
           * The trip prop
          */
         "trip": InterfaceSbbJourneySummaryAttributes;
+        /**
+          * The return prop
+         */
+        "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
     interface SbbLink {
         /**

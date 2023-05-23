@@ -20,7 +20,7 @@ export class SbbJourneySummary implements ComponentInterface {
   @Prop() public trip!: InterfaceSbbJourneySummaryAttributes;
 
   /**  The return prop */
-  @Prop() public return?: InterfaceSbbJourneySummaryAttributes;
+  @Prop() public tripBack?: InterfaceSbbJourneySummaryAttributes;
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
@@ -104,7 +104,7 @@ export class SbbJourneySummary implements ComponentInterface {
 
     const durationObj = durationToTime(duration, this._currentLanguage);
     const durationObjReturn =
-      this.return && durationToTime(this.return.duration, this._currentLanguage);
+      this.tripBack && durationToTime(this.tripBack.duration, this._currentLanguage);
 
     return (
       <div class="sbb-journey-summary">
@@ -114,7 +114,7 @@ export class SbbJourneySummary implements ComponentInterface {
             level="3"
             origin={origin}
             destination={destination}
-            roundTrip={!!this.return}
+            roundTrip={!!this.tripBack}
           ></sbb-journey-header>
         )}
         {vias?.length > 0 && this._renderJourneyVias(vias)}
@@ -138,13 +138,13 @@ export class SbbJourneySummary implements ComponentInterface {
           disableAnimation={this.disableAnimation}
           data-now={this._now()}
         />
-        {this.return && (
+        {this.tripBack && (
           <div>
             <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
-            {this.return.vias?.length > 0 && this._renderJourneyVias(this.return.vias)}
+            {this.tripBack.vias?.length > 0 && this._renderJourneyVias(this.tripBack.vias)}
             <span class="sbb-journey-summary__date">
-              {this._renderJourneyStart(removeTimezoneFromISOTimeString(this.return.departure))}
-              {this.return.duration > 0 && (
+              {this._renderJourneyStart(removeTimezoneFromISOTimeString(this.tripBack.departure))}
+              {this.tripBack.duration > 0 && (
                 <time>
                   <span class="sbb-screenreaderonly">
                     {`${i18nTripDuration[this._currentLanguage]} ${durationObjReturn.long}`}
@@ -154,11 +154,11 @@ export class SbbJourneySummary implements ComponentInterface {
               )}
             </span>
             <sbb-pearl-chain-time
-              arrivalTime={this.return.arrival}
-              departureTime={this.return.departure}
-              departureWalk={this.return.departureWalk}
-              arrivalWalk={this.return.arrivalWalk}
-              legs={this.return.legs}
+              arrivalTime={this.tripBack.arrival}
+              departureTime={this.tripBack.departure}
+              departureWalk={this.tripBack.departureWalk}
+              arrivalWalk={this.tripBack.arrivalWalk}
+              legs={this.tripBack.legs}
               disableAnimation={this.disableAnimation}
               data-now={this._now()}
             />

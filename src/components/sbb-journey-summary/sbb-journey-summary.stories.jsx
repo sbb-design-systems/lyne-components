@@ -61,14 +61,13 @@ const TemplateNoSlot = ({
 const TemplateRoundtrip = ({
   'disable-animation': disableAnimation,
   'data-now': dataNow,
-  trip: trip,
-  return: returnTrip,
+  ...args
 }) => (
   <sbb-journey-summary
     disable-animation={disableAnimation}
     data-now={dataNow}
-    trip={trip}
-    return={returnTrip}
+    trip={args.trip}
+    tripBack={args.tripBack}
   ></sbb-journey-summary>
 );
 
@@ -156,19 +155,19 @@ summaryRoundtrip.args = {
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4'],
     legs: [pastLeg, progressLeg, futureLeg],
-    origin: 'Station',
-    destination: 'Station',
+    origin: 'Bern',
+    destination: 'Basel',
     departure: '2022-09-19T20:30:00+02:00',
     arrival: '2022-09-19T22:30:00+02:00',
     duration: 120,
   },
-  return: {
+  tripBack: {
     vias: ['via5', 'via6', 'via7', 'via8'],
     legs: [pastLeg, progressLeg, futureLeg],
-    origin: 'Station',
-    destination: 'Station',
-    departure: '2022-09-20T18:30:00+02:00',
-    arrival: '2022-09-20T20:30:00+02:00',
+    origin: 'Basel',
+    destination: 'Bern',
+    departure: '2022-09-20T22:30:00+02:00',
+    arrival: '2022-09-20T00:30:00+02:00',
     duration: 120,
   },
 };

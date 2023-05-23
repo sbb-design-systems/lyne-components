@@ -16,8 +16,8 @@ The Example below shows how to render the component with a button in the slot. T
 | Property            | Attribute           | Description                                                                                                    | Type                                   | Default     |
 | ------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ----------- |
 | `disableAnimation`  | `disable-animation` | Per default, the current location has a pulsating animation. You can disable the animation with this property. | `boolean`                              | `undefined` |
-| `return`            | --                  | The return prop                                                                                                | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
 | `trip` _(required)_ | --                  | The trip prop                                                                                                  | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
+| `tripBack`          | --                  | The return prop                                                                                                | `InterfaceSbbJourneySummaryAttributes` | `undefined` |
 
 
 ## Dependencies

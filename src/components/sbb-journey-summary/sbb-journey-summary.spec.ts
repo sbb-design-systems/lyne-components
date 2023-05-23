@@ -121,7 +121,7 @@ describe('sbb-journey-summary', () => {
       html: `<sbb-journey-summary data-now="${now}"></sbb-journey-summary>`,
     });
     page.rootInstance.trip = dataWithoutVia;
-    page.rootInstance.return = data;
+    page.rootInstance.tripBack = data;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">
