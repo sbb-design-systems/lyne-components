@@ -356,6 +356,7 @@ export class SbbSelect implements ComponentInterface {
 
       case 'Enter':
       case ' ':
+        event.preventDefault();
         this._selectByKeyboard();
         break;
 
