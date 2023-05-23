@@ -55,9 +55,7 @@ describe('sbb-datepicker-toggle', () => {
     expect(tooltip).toEqualAttribute('data-state', 'closed');
 
     await page.evaluate(() =>
-      (
-        document.querySelector('sbb-datepicker-toggle') as HTMLSbbDatepickerToggleElement
-      ).openCalendar()
+      (document.querySelector('sbb-datepicker-toggle') as HTMLSbbDatepickerToggleElement).open()
     );
 
     await page.waitForChanges();

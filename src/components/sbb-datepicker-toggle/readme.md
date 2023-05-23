@@ -40,7 +40,7 @@ Inside `sbb-form-field`:
 
 ## Methods
 
-### `openCalendar() => Promise<void>`
+### `open() => Promise<void>`
 
 Opens the calendar.
 

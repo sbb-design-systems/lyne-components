@@ -73,7 +73,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
    * Opens the calendar.
    */
   @Method()
-  public async openCalendar(): Promise<void> {
+  public async open(): Promise<void> {
     if (!this._triggerElement) {
       this._triggerElement = this._element.shadowRoot.querySelector('sbb-tooltip-trigger');
     }

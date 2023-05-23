@@ -524,7 +524,7 @@ export namespace Components {
         /**
           * Opens the calendar.
          */
-        "openCalendar": () => Promise<void>;
+        "open": () => Promise<void>;
     }
     interface SbbDialog {
         /**
