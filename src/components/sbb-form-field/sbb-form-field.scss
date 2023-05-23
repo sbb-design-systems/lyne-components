@@ -165,7 +165,8 @@
   margin-block-end: var(--sbb-form-field-label-to-input-gap);
   color: var(--sbb-form-field-label-color);
 
-  :host([data-input-type='select'][data-input-type='sbb-select']) & {
+  :host([data-input-type='select']) &,
+  :host([data-input-type='sbb-select']) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
