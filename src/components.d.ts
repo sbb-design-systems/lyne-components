@@ -1275,6 +1275,16 @@ export namespace Components {
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
     }
+    interface SbbSkiplinkList {
+        /**
+          * The title text we want to place before the list.
+         */
+        "titleContent"?: string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
     interface SbbSlider {
         /**
           * Disabled state for the inner HTMLInputElement.
@@ -2186,6 +2196,12 @@ declare global {
         prototype: HTMLSbbSignetElement;
         new (): HTMLSbbSignetElement;
     };
+    interface HTMLSbbSkiplinkListElement extends Components.SbbSkiplinkList, HTMLStencilElement {
+    }
+    var HTMLSbbSkiplinkListElement: {
+        prototype: HTMLSbbSkiplinkListElement;
+        new (): HTMLSbbSkiplinkListElement;
+    };
     interface HTMLSbbSliderElement extends Components.SbbSlider, HTMLStencilElement {
     }
     var HTMLSbbSliderElement: {
@@ -2416,6 +2432,7 @@ declare global {
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
         "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
+        "sbb-skiplink-list": HTMLSbbSkiplinkListElement;
         "sbb-slider": HTMLSbbSliderElement;
         "sbb-tab-group": HTMLSbbTabGroupElement;
         "sbb-tab-title": HTMLSbbTabTitleElement;
@@ -3703,6 +3720,16 @@ declare namespace LocalJSX {
          */
         "protectiveRoom"?: InterfaceSignetAttributes['protectiveRoom'];
     }
+    interface SbbSkiplinkList {
+        /**
+          * The title text we want to place before the list.
+         */
+        "titleContent"?: string;
+        /**
+          * The semantic level of the title, e.g. 2 = h2.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
     interface SbbSlider {
         /**
           * Disabled state for the inner HTMLInputElement.
@@ -4297,6 +4324,7 @@ declare namespace LocalJSX {
         "sbb-radio-button-group": SbbRadioButtonGroup;
         "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
+        "sbb-skiplink-list": SbbSkiplinkList;
         "sbb-slider": SbbSlider;
         "sbb-tab-group": SbbTabGroup;
         "sbb-tab-title": SbbTabTitle;
@@ -4384,6 +4412,7 @@ declare module "@stencil/core" {
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
             "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
+            "sbb-skiplink-list": LocalJSX.SbbSkiplinkList & JSXBase.HTMLAttributes<HTMLSbbSkiplinkListElement>;
             "sbb-slider": LocalJSX.SbbSlider & JSXBase.HTMLAttributes<HTMLSbbSliderElement>;
             "sbb-tab-group": LocalJSX.SbbTabGroup & JSXBase.HTMLAttributes<HTMLSbbTabGroupElement>;
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;

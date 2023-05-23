@@ -1,6 +1,13 @@
 import isChromatic from 'chromatic/isChromatic';
 import { h } from 'jsx-dom';
 
+export const SkiplinkList = () => (
+  <sbb-skiplink-list title-level="2" title-content="Skip to">
+    <sbb-link href="/">Skip to content</sbb-link>
+    <sbb-link href="/">Go to help page</sbb-link>
+  </sbb-skiplink-list>
+);
+
 export const TimetableInput = () => (
   <section class="timetable-section sbb-grid">
     <div class="grid-reduced-width">
