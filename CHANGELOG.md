@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.5](https://github.com/lyne-design-system/lyne-components/compare/v0.35.4...v0.35.5) (2023-05-23)
+
+### Features
+
+- sbb-skiplink implementation ([#1740](https://github.com/lyne-design-system/lyne-components/issues/1740)) ([76baa8c](https://github.com/lyne-design-system/lyne-components/commit/76baa8cb7762c68acd07b687d48aad73461d3011))
+
 ### [0.35.4](https://github.com/lyne-design-system/lyne-components/compare/v0.35.3...v0.35.4) (2023-05-22)
 
 ### Bug Fixes
