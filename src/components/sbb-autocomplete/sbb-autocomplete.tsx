@@ -109,6 +109,11 @@ export class SbbAutocomplete implements ComponentInterface {
    */
   private _ariaRoleOnHost = isSafari();
 
+  /** The autocomplete should inherit 'readonly' state from the trigger. */
+  private get _readonly(): boolean {
+    return this._triggerElement && isValidAttribute(this._triggerElement, 'readonly');
+  }
+
   private get _options(): HTMLSbbOptionElement[] {
     return Array.from(this._element.querySelectorAll('sbb-option')) as HTMLSbbOptionElement[];
   }
@@ -116,7 +121,12 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Opens the autocomplete. */
   @Method()
   public async open(): Promise<void> {
-    if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
+    if (
+      this._state !== 'closed' ||
+      !this._overlay ||
+      this._options.length === 0 ||
+      this._readonly
+    ) {
       return;
     }
 
