@@ -12,6 +12,7 @@ describe('sbb-tooltip', () => {
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
         Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
+      <sbb-link href="#somewhere" id="interactive-background-element">Other interactive element</sbb-link>
     `);
     trigger = await page.find('sbb-button');
     element = await page.find('sbb-tooltip');
@@ -99,7 +100,7 @@ describe('sbb-tooltip', () => {
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const dialog = await page.find('sbb-tooltip >>> dialog');
-    const closeButton = await page.find('sbb-tooltip >>> .sbb-tooltip__close sbb-button');
+    const closeButton = await page.find('sbb-tooltip >>> [sbb-tooltip-close]');
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -126,6 +127,32 @@ describe('sbb-tooltip', () => {
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
+    expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
+  });
+
+  it('closes the tooltip on close button click by keyboard', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const closeButton = await page.find('sbb-tooltip >>> [sbb-tooltip-close]');
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await closeButton.focus();
+    await page.keyboard.down('Enter');
+    await page.waitForChanges();
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
   });
 
   it('closes on Esc keypress', async () => {
@@ -163,6 +190,8 @@ describe('sbb-tooltip', () => {
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
+    expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
   });
 
   it('closes on interactive element click', async () => {
@@ -173,7 +202,7 @@ describe('sbb-tooltip', () => {
     const dialog = await page.find('sbb-tooltip >>> dialog');
     const tooltipLink = await page.find('sbb-tooltip > sbb-link');
 
-    trigger.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
+    await trigger.triggerEvent('click');
     await page.waitForChanges();
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
@@ -187,7 +216,7 @@ describe('sbb-tooltip', () => {
     expect(dialog).toHaveAttribute('open');
     expect(tooltipLink).not.toBeNull();
 
-    tooltipLink.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
+    await tooltipLink.click();
     await page.waitForChanges();
 
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
@@ -199,6 +228,34 @@ describe('sbb-tooltip', () => {
     await page.waitForChanges();
 
     expect(dialog).not.toHaveAttribute('open');
+    expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
+  });
+
+  it('closes on interactive element click by keyboard', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const tooltipLink = await page.find('sbb-tooltip > sbb-link');
+
+    await trigger.triggerEvent('click');
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(tooltipLink).not.toBeNull();
+
+    await tooltipLink.focus();
+    await page.keyboard.down('Enter');
+    await page.waitForChanges();
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(trigger).toEqualAttribute('data-focus-origin', 'keyboard');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
   });
 
   it('is correctly positioned on screen', async () => {
@@ -309,5 +366,52 @@ describe('sbb-tooltip', () => {
           document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]')
       )
     ).toBe(true);
+  });
+
+  it('should set correct focus attribute on trigger after backdrop click', async () => {
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await page.waitForChanges();
+
+    // Simulate backdrop click
+    await page.evaluate(() =>
+      document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }))
+    );
+    await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await page.waitForChanges();
+
+    expect(trigger).toEqualAttribute('data-focus-origin', 'mouse');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('tooltip-trigger');
+  });
+
+  it('should set correct focus attribute on trigger after backdrop click on an interactive element', async () => {
+    const interactiveBackgroundElement = await page.find('#interactive-background-element');
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    await page.waitForChanges();
+
+    await interactiveBackgroundElement.focus();
+    // Simulate backdrop click
+    await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
+    await page.waitForChanges();
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    await page.waitForChanges();
+
+    expect(await page.evaluate(() => document.activeElement.id)).toBe(
+      'interactive-background-element'
+    );
   });
 });

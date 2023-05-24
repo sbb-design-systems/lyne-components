@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-datepicker-toggle', () => {
   it('renders standalone', async () => {
@@ -22,6 +23,7 @@ describe('sbb-datepicker-toggle', () => {
         `,
     });
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
+    const didOpenEventSpy = await element.spyOnEvent('did-open');
     const tooltipTrigger: E2EElement = await page.find(
       'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
     );
@@ -33,6 +35,37 @@ describe('sbb-datepicker-toggle', () => {
 
     await tooltipTrigger.click();
     await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    expect(tooltip).toEqualAttribute('data-state', 'opened');
+  });
+
+  it('renders and opens tooltip programmatically', async () => {
+    const page: E2EPage = await newE2EPage({
+      html: `
+          <sbb-datepicker-toggle date-picker="datepicker" disable-animation></sbb-datepicker-toggle>
+          <sbb-datepicker input='datepicker-input' id='datepicker' value="01-01-2023"></sbb-datepicker>
+          <input id="datepicker-input">
+        `,
+    });
+    const element: E2EElement = await page.find('sbb-datepicker-toggle');
+    const didOpenEventSpy = await element.spyOnEvent('did-open');
+    const tooltipTrigger: E2EElement = await page.find(
+      'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
+    );
+    const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
+    await page.waitForChanges();
+    expect(element).toHaveClass('hydrated');
+    expect(tooltipTrigger).not.toHaveAttribute('disabled');
+    expect(tooltip).toEqualAttribute('data-state', 'closed');
+
+    await page.evaluate(() =>
+      (document.querySelector('sbb-datepicker-toggle') as HTMLSbbDatepickerToggleElement).open()
+    );
+
+    await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
     expect(tooltip).toEqualAttribute('data-state', 'opened');
   });
 
@@ -49,6 +82,7 @@ describe('sbb-datepicker-toggle', () => {
     const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
     expect(tooltip).toEqualAttribute('data-state', 'closed');
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
+    const didOpenEventSpy = await element.spyOnEvent('did-open');
     expect(element).toHaveClass('hydrated');
 
     const tooltipTrigger: E2EElement = await page.find(
@@ -56,6 +90,7 @@ describe('sbb-datepicker-toggle', () => {
     );
     await tooltipTrigger.click();
     await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
     expect(tooltip).toEqualAttribute('data-state', 'opened');
 
     const calendar: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-calendar');

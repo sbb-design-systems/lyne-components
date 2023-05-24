@@ -13,12 +13,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import {
-  IS_FOCUSABLE_QUERY,
-  FocusTrap,
-  SbbFocusOrigin,
-  detectFocusOrigin,
-} from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
@@ -30,6 +25,8 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  sbbInputModalityDetector,
+  SbbInputModality,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -143,14 +140,14 @@ export class SbbTooltip implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _triggerElement: HTMLElement;
   private _tooltipContentElement: HTMLElement;
+  // The element which should receive focus after closing based on where in the backdrop the user clicks.
+  private _nextFocusedElement?: HTMLElement;
   private _firstFocusable: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
   private _tooltipController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
-  private _openedByKeyboard = false;
-  private _closedByFocusOrigin: SbbFocusOrigin = null;
   private _hoverTrigger = false;
   private _openTimeout: ReturnType<typeof setTimeout>;
   private _closeTimeout: ReturnType<typeof setTimeout>;
@@ -167,47 +164,42 @@ export class SbbTooltip implements ComponentInterface {
    * Opens the tooltip on trigger click.
    */
   @Method()
-  public async open(focusOrigin?: SbbFocusOrigin): Promise<void> {
+  public async open(): Promise<void> {
     if ((this._state !== 'closed' && this._state !== 'closing') || !this._dialog) {
       return;
     }
 
-    this._openedByKeyboard = focusOrigin === 'keyboard';
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
+    this._nextFocusedElement = undefined;
   }
 
   /**
    * Closes the tooltip.
    */
   @Method()
-  public async close(
-    closedByFocusOrigin: SbbFocusOrigin = null,
-    target?: HTMLElement
-  ): Promise<void> {
+  public async close(target?: HTMLElement): Promise<void> {
     if (this._state !== 'opened' && this._state !== 'opening') {
       return;
     }
 
     this._tooltipCloseElement = target;
-    this._closedByFocusOrigin = closedByFocusOrigin;
     this.willClose.emit({ closeTarget: this._tooltipCloseElement });
     this._state = 'closing';
-    this._openedByKeyboard = false;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
   // Closes the tooltip on "Esc" key pressed and traps focus within the tooltip.
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      this.close('keyboard');
+      await this.close();
       return;
     }
   }
@@ -273,7 +265,7 @@ export class SbbTooltip implements ComponentInterface {
       this._state
     );
 
-    // Check whether the trigger can be hovered. Some diveces might interpret the media query (hover: hover) differently,
+    // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
     // and not respect the fallback mechanism on the click. Therefore, the following is preferred to identify
     // all non-touchscreen devices.
     this._hoverTrigger = this.hoverTrigger && !window.matchMedia('(pointer: coarse)').matches;
@@ -290,9 +282,9 @@ export class SbbTooltip implements ComponentInterface {
 
       this._triggerElement.addEventListener(
         'keydown',
-        (evt: KeyboardEvent) => {
+        async (evt: KeyboardEvent) => {
           if (evt.code === 'Space' || evt.code === 'Enter') {
-            this.open('keyboard');
+            await this.open();
           }
         },
         {
@@ -302,8 +294,8 @@ export class SbbTooltip implements ComponentInterface {
     } else {
       this._triggerElement.addEventListener(
         'click',
-        (event) => {
-          this._state === 'closed' && this.open(detectFocusOrigin(event));
+        () => {
+          this._state === 'closed' && this.open();
         },
         {
           signal: this._tooltipController.signal,
@@ -336,11 +328,15 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
-  private _closeOnSbbTooltipCloseClick(event: Event): void {
-    const target = event.target as HTMLElement;
-    if (target.hasAttribute('sbb-tooltip-close') && !isValidAttribute(target, 'disabled')) {
+  private async _closeOnSbbTooltipCloseClick(event: Event): Promise<void> {
+    const closeElement = event
+      .composedPath()
+      .find(
+        (e) => e instanceof window.HTMLElement && e.hasAttribute('sbb-tooltip-close')
+      ) as HTMLElement;
+    if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       clearTimeout(this._closeTimeout);
-      this.close(detectFocusOrigin(event), target);
+      await this.close(closeElement);
     }
   }
 
@@ -350,16 +346,17 @@ export class SbbTooltip implements ComponentInterface {
   };
 
   // Close tooltip on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
+      this._nextFocusedElement = document.activeElement as HTMLElement;
       clearTimeout(this._closeTimeout);
-      this.close(detectFocusOrigin(event));
+      await this.close();
     }
   };
 
   private _onTriggerMouseEnter = (): void => {
     if (this._state === 'closed' || this._state === 'closing') {
-      this._openTimeout = setTimeout(() => this.open('mouse'), this.openDelay);
+      this._openTimeout = setTimeout(() => this.open(), this.openDelay);
     } else {
       clearTimeout(this._closeTimeout);
     }
@@ -367,7 +364,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onTriggerMouseLeave = (): void => {
     if (this._state === 'opened' || this._state === 'opening') {
-      this._closeTimeout = setTimeout(() => this.close('mouse'), this.closeDelay);
+      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     } else {
       clearTimeout(this._openTimeout);
     }
@@ -381,7 +378,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _onDialogMouseLeave = (): void => {
     if (this._state !== 'opening') {
-      this._closeTimeout = setTimeout(() => this.close('mouse'), this.closeDelay);
+      this._closeTimeout = setTimeout(() => this.close(), this.closeDelay);
     }
   };
 
@@ -398,18 +395,18 @@ export class SbbTooltip implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
-      // The element which should receive focus after closing based on where in the backdrop the user clicks.
-      const nextFocusedElement = document.activeElement as HTMLElement;
-      const elementToFocus = nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
-        ? nextFocusedElement
+      const elementToFocus = this._nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
+        ? this._nextFocusedElement
         : this._triggerElement;
 
+      const closedByModality = sbbInputModalityDetector.mostRecentModality;
+
       // Set focus origin to element which should receive focus
-      if (elementToFocus && this._closedByFocusOrigin !== null) {
+      if (elementToFocus && closedByModality !== null) {
         elementToFocus.addEventListener(
           'focus',
           () => {
-            (elementToFocus.dataset.focusOrigin as SbbFocusOrigin) = this._closedByFocusOrigin;
+            (elementToFocus.dataset.focusOrigin as SbbInputModality) = closedByModality;
             elementToFocus.addEventListener(
               'blur',
               () => delete elementToFocus.dataset.focusOrigin,
@@ -434,7 +431,7 @@ export class SbbTooltip implements ComponentInterface {
       this._element.shadowRoot.querySelector('[sbb-tooltip-close]') ||
       this._element.querySelector(IS_FOCUSABLE_QUERY);
 
-    if (this._openedByKeyboard) {
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else

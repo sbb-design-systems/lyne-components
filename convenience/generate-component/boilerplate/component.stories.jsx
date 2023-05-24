@@ -1,6 +1,7 @@
 import events from './__name__.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const Template = (args) => <__name__ {...args}></__name__>;
 
@@ -17,6 +18,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     actions: {
@@ -29,5 +31,5 @@ export default {
       extractComponentDescription: () => readme,
     },
   },
-  title: '__name__',
+  title: 'components/__name__',
 };

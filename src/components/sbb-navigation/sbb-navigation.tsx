@@ -28,6 +28,7 @@ import {
 import {
   documentLanguage,
   HandlerRepository,
+  sbbInputModalityDetector,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
@@ -128,7 +129,6 @@ export class SbbNavigation implements ComponentInterface {
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
-  private _openedByKeyboard = false;
   private _isPointerDownEventOnDialog: boolean;
   private _navigationObserver = new MutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList)
@@ -172,7 +172,6 @@ export class SbbNavigation implements ComponentInterface {
 
     this.willClose.emit();
     this._state = 'closing';
-    this._openedByKeyboard = false;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
   }
 
@@ -219,15 +218,6 @@ export class SbbNavigation implements ComponentInterface {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationController.signal,
     });
-    this._triggerElement.addEventListener(
-      'keydown',
-      (event: KeyboardEvent) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
-          this._openedByKeyboard = true;
-        }
-      },
-      { signal: this._navigationController.signal }
-    );
   }
 
   private _trapFocusFilter = (el: HTMLElement): boolean => {
@@ -262,12 +252,12 @@ export class SbbNavigation implements ComponentInterface {
   }
 
   @Listen('click')
-  public handleNavigationClose(event: Event): void {
+  public async handleNavigationClose(event: Event): Promise<void> {
     const composedPathElements = event
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
     if (composedPathElements.some((el) => this._isCloseElement(el as HTMLElement))) {
-      this.close();
+      await this.close();
     }
   }
 
@@ -279,9 +269,9 @@ export class SbbNavigation implements ComponentInterface {
   }
 
   // Closes the navigation on "Esc" key pressed.
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state === 'opened' && event.key === 'Escape') {
-      this.close();
+      await this.close();
     }
   }
 
@@ -291,7 +281,7 @@ export class SbbNavigation implements ComponentInterface {
       IS_FOCUSABLE_QUERY
     ) as HTMLElement;
 
-    if (this._openedByKeyboard) {
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._firstFocusable.focus();
     } else {
       // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
@@ -320,9 +310,9 @@ export class SbbNavigation implements ComponentInterface {
   };
 
   // Close navigation on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._navigation, event)) {
-      this.close();
+      await this.close();
     }
   };
 

@@ -78,7 +78,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
 
   @Listen('click')
   public async handleClick(): Promise<void> {
-    if (!this._datePickerElement) {
+    if (!this._datePickerElement || this.disabled) {
       return;
     }
     const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();

@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;
@@ -87,7 +88,7 @@ describe('sbb-calendar', () => {
     const newSelectedDate = await page.find('sbb-calendar >>> button[data-day="18 1 2023"]');
     expect(newSelectedDate).not.toHaveClass('sbb-calendar__day-selected');
     await newSelectedDate.click();
-    await page.waitForChanges();
+    await waitForCondition(() => selectedSpy.events.length === 1);
 
     expect(selectedDate).not.toHaveClass('sbb-calendar__day-selected');
     expect(newSelectedDate).toHaveClass('sbb-calendar__day-selected');

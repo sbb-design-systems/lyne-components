@@ -12,7 +12,6 @@
   outline: none !important;
 
   --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-button-disabled-line-through-height: var(--sbb-border-width-2x);
 
   // we use primary button styles as default values
   --sbb-button-color-active-background: var(--sbb-color-red150-default);
@@ -22,8 +21,8 @@
   --sbb-button-color-default-border: var(--sbb-color-red-default);
   --sbb-button-color-default-text: var(--sbb-color-white-default);
   --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
+  --sbb-button-color-disabled-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
   --sbb-button-color-hover-background: var(--sbb-color-red125-default);
   --sbb-button-color-hover-border: var(--sbb-color-red125-default);
   --sbb-button-color-hover-text: var(--sbb-color-milk-default);
@@ -41,6 +40,7 @@
   --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
   --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-button-inset: 0;
 
   @include sbb.mq($from: medium) {
     --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
@@ -52,6 +52,12 @@
   }
 }
 
+:host([negative]:not([negative='false'])) {
+  --sbb-button-color-disabled-background: var(--sbb-color-anthracite-default);
+  --sbb-button-color-disabled-border: var(--sbb-color-granite-default);
+  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
+}
+
 :host([variant='primary'][negative]:not([negative='false'])) {
   --sbb-button-color-active-background: var(--sbb-color-cloud-default);
   --sbb-button-color-active-border: var(--sbb-color-cloud-default);
@@ -59,9 +65,6 @@
   --sbb-button-color-default-background: var(--sbb-color-white-default);
   --sbb-button-color-default-border: var(--sbb-color-white-default);
   --sbb-button-color-default-text: var(--sbb-color-red-default);
-  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
-  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
-  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
   --sbb-button-color-hover-background: var(--sbb-color-milk-default);
   --sbb-button-color-hover-border: var(--sbb-color-milk-default);
   --sbb-button-color-hover-text: var(--sbb-color-red125-default);
@@ -76,9 +79,6 @@
   --sbb-button-color-default-background: var(--sbb-color-white-default);
   --sbb-button-color-default-border: var(--sbb-color-cloud-default);
   --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
-  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
   --sbb-button-color-hover-background: var(--sbb-color-white-default);
   --sbb-button-color-hover-border: var(--sbb-color-cloud-default);
   --sbb-button-color-hover-text: var(--sbb-color-iron-default);
@@ -93,9 +93,6 @@
   --sbb-button-color-default-background: transparent;
   --sbb-button-color-default-border: var(--sbb-color-white-default);
   --sbb-button-color-default-text: var(--sbb-color-white-default);
-  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
-  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
-  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
   --sbb-button-color-hover-background: transparent;
   --sbb-button-color-hover-border: var(--sbb-color-milk-default);
   --sbb-button-color-hover-text: var(--sbb-color-milk-default);
@@ -108,20 +105,11 @@
   --sbb-button-color-default-background: var(--sbb-color-charcoal-default);
   --sbb-button-color-default-border: var(--sbb-color-cloud-default);
   --sbb-button-color-default-text: var(--sbb-color-white-default);
-  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-text: var(--sbb-color-platinum-default);
   --sbb-button-color-hover-background: var(--sbb-color-midnight-default);
   --sbb-button-color-hover-border: var(--sbb-color-cloud-default);
   --sbb-button-color-hover-text: var(--sbb-color-milk-default);
   --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
   --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
-}
-
-:host([variant='tertiary'][negative]:not([negative='false'])) {
-  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-10);
-  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
-  --sbb-button-color-disabled-text: var(--sbb-color-aluminium-default);
 }
 
 :host([variant='transparent']) {
@@ -131,9 +119,6 @@
   --sbb-button-color-default-background: transparent;
   --sbb-button-color-default-border: transparent;
   --sbb-button-color-default-text: var(--sbb-color-black-default);
-  --sbb-button-color-disabled-background: transparent;
-  --sbb-button-color-disabled-border: transparent;
-  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
   --sbb-button-color-hover-background: var(--sbb-color-milk-default);
   --sbb-button-color-hover-border: var(--sbb-color-milk-default);
   --sbb-button-color-hover-text: var(--sbb-color-black-default);
@@ -146,9 +131,6 @@
   --sbb-button-color-default-background: transparent;
   --sbb-button-color-default-border: transparent;
   --sbb-button-color-default-text: var(--sbb-color-white-default);
-  --sbb-button-color-disabled-background: transparent;
-  --sbb-button-color-disabled-border: transparent;
-  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
   --sbb-button-color-hover-background: var(--sbb-color-charcoal-default);
   --sbb-button-color-hover-border: var(--sbb-color-charcoal-default);
   --sbb-button-color-hover-text: var(--sbb-color-white-default);
@@ -201,6 +183,17 @@
   }
 }
 
+:host([data-icon-small]) {
+  @include sbb.icon-button-variables;
+
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-1-spread);
+  --sbb-button-shadow-1-color: var(--sbb-color-black-alpha-0);
+  --sbb-button-shadow-2-color: var(--sbb-color-black-alpha-0);
+}
+
 .sbb-button {
   @include sbb.text-xs--bold;
   @include sbb.font-smoothing;
@@ -233,7 +226,7 @@
   &::before {
     position: absolute;
     content: '';
-    inset: 0;
+    inset: var(--sbb-button-inset);
     border: var(--sbb-button-border-width) solid var(--sbb-button-color-default-border);
     border-radius: var(--sbb-button-border-radius);
     background-color: var(--sbb-button-color-default-background);
@@ -283,24 +276,6 @@
     }
   }
 
-  &::after {
-    :host([disabled]:not([disabled='false'])) & {
-      @include sbb.absolute-center-y;
-
-      content: '';
-      background-color: var(--sbb-button-color-disabled-text);
-      height: var(--sbb-button-disabled-line-through-height);
-      inset-inline: var(--sbb-button-padding-inline);
-    }
-
-    :host([data-icon-only][disabled]:not([disabled='false'])) & {
-      inset-inline: unset;
-
-      // Width of line through is fixed in icon variant
-      width: var(--sbb-button-icon-size);
-    }
-  }
-
   :host([data-icon-only]) & {
     width: var(--sbb-button-min-height);
     justify-content: center;
@@ -310,6 +285,7 @@
     color: var(--sbb-button-color-disabled-text);
     cursor: default;
     pointer-events: none;
+    text-decoration: line-through;
   }
 
   :host(:not([disabled]:not([disabled='false']), :active, [data-active]):hover) & {
@@ -327,8 +303,9 @@
 }
 
 .sbb-button__label {
-  display: block;
   @include sbb.ellipsis;
+
+  display: block;
 
   :host([data-icon-only]) & {
     display: none;

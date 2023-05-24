@@ -120,7 +120,7 @@ Type: `Promise<any>`
 
 
 
-### `open(event?: PointerEvent) => Promise<void>`
+### `open() => Promise<void>`
 
 Opens the dialog element.
 

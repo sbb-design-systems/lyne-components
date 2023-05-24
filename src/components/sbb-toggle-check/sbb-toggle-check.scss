@@ -25,6 +25,7 @@
   --sbb-toggle-check-cursor: pointer;
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-toggle-check-text-decoration: none;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-background-color: CanvasText;
@@ -52,12 +53,13 @@
 }
 
 :host([disabled]:not([disabled='false'])) {
-  --sbb-toggle-check-font-color: var(--sbb-color-graphite-default);
+  --sbb-toggle-check-font-color: var(--sbb-color-granite-default);
   --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
   --sbb-toggle-check-circle-background-color: var(--sbb-color-milk-default);
-  --sbb-toggle-check-icon-color: var(--sbb-color-smoke-default);
+  --sbb-toggle-check-icon-color: var(--sbb-color-granite-default);
   --sbb-toggle-check-cursor: default;
+  --sbb-toggle-check-text-decoration: line-through;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-icon-color: GrayText;
@@ -111,6 +113,7 @@ input[type='checkbox'] {
   padding-block-start: calc(
     (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
   );
+  text-decoration: var(--sbb-toggle-check-text-decoration);
 }
 
 .sbb-toggle-check__track {

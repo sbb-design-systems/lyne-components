@@ -15,8 +15,8 @@
   --sbb-datepicker-control-color: var(--sbb-color-black-default);
 }
 
-.sbb-datepicker-next-day {
-  @include sbb.icon-button;
+@include sbb.icon-button('.sbb-datepicker-next-day', 'sbb-icon');
 
+.sbb-datepicker-next-day {
   margin: auto;
 }

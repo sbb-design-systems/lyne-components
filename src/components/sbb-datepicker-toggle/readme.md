@@ -38,6 +38,19 @@ Inside `sbb-form-field`:
 | `disableAnimation` | `disable-animation` | Whether the animation is disabled. | `boolean`               | `false`     |
 
 
+## Methods
+
+### `open() => Promise<void>`
+
+Opens the calendar.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on

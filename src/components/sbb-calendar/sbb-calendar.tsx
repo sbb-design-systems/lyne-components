@@ -1,4 +1,3 @@
-import { JSXElement } from '@babel/types';
 import {
   Component,
   ComponentInterface,
@@ -222,7 +221,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the calendar table. */
-  private _createTable(weeks: Day[][]): JSXElement {
+  private _createTable(weeks: Day[][]): JSX.Element {
     return (
       <table
         class="sbb-calendar__table"
@@ -297,6 +296,7 @@ export class SbbCalendar implements ComponentInterface {
             data-day={dayValue}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
+            sbb-tooltip-close
           >
             {day.dayValue}
           </button>
@@ -306,7 +306,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the month label. */
-  private _createMonthLabel(d: Date): JSXElement {
+  private _createMonthLabel(d: Date): JSX.Element {
     const monthLabel = `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
       d
     )}`;
@@ -410,7 +410,7 @@ export class SbbCalendar implements ComponentInterface {
       this._element.shadowRoot.querySelector('.sbb-calendar__day-selected') ??
       this._element.shadowRoot.querySelector('.sbb-calendar__day-today');
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable = this._element.shadowRoot.querySelector('.sbb-calendar__day:not([disabled]');
+      firstFocusable = this._element.shadowRoot.querySelector('.sbb-calendar__day:not([disabled])');
     }
     return (firstFocusable as HTMLButtonElement) || null;
   }

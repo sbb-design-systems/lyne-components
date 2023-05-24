@@ -119,6 +119,26 @@ const TemplateInputWithIcons = (args) => (
   </sbb-form-field>
 );
 
+const TemplateInputWithButton = ({ disabled, readonly, active, ...args }) => (
+  <sbb-form-field {...args}>
+    {TemplateBasicInput({ ...args, disabled, readonly })}
+    <sbb-button
+      slot="suffix"
+      icon-name="cross-small"
+      disabled={disabled || readonly}
+      aria-label="clear input"
+      data-active={active}
+      onClick={() => {
+        const input = document.querySelector('input');
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+      }}
+    />
+  </sbb-form-field>
+);
+
 const TemplateSelect = (args) => (
   <sbb-form-field
     error-space={args['error-space']}
@@ -365,6 +385,18 @@ export const InputOptionalAndIcons = TemplateInputWithIcons.bind({});
 InputOptionalAndIcons.argTypes = basicArgTypes;
 InputOptionalAndIcons.args = { ...basicArgs, optional: true };
 
+export const InputWithButton = TemplateInputWithButton.bind({});
+InputWithButton.argTypes = basicArgTypes;
+InputWithButton.args = { ...basicArgs };
+
+export const InputWithButtonDisabled = TemplateInputWithButton.bind({});
+InputWithButtonDisabled.argTypes = basicArgTypes;
+InputWithButtonDisabled.args = { ...basicArgs, disabled: true };
+
+export const InputWithButtonActive = TemplateInputWithButton.bind({});
+InputWithButtonActive.argTypes = basicArgTypes;
+InputWithButtonActive.args = { ...basicArgs, active: true };
+
 export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
 InputLongLabelAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
 InputLongLabelAndErrorSpace.args = {
@@ -399,7 +431,12 @@ export const InputCollapsedWidth = TemplateInput.bind({});
 InputCollapsedWidth.argTypes = basicArgTypes;
 InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
 
+export const InputWithIconsDisabled = TemplateInputWithIcons.bind({});
+InputWithIconsDisabled.argTypes = basicArgTypes;
+InputWithIconsDisabled.args = { ...basicArgs, disabled: true };
+
 export default {
+  excludeStories: /.*Active$/,
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>

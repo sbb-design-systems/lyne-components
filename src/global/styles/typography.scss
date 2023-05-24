@@ -22,7 +22,14 @@ sup {
 
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 ::placeholder {
-  color: var(--sbb-color-metal-default);
+  @include typo.placeholder;
+}
+
+// TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+sbb-form-field input:disabled::placeholder {
+  color: var(--sbb-color-granite-default);
+  -webkit-text-fill-color: var(--sbb-color-granite-default);
+  text-decoration: line-through;
 }
 
 // Hiding components until they are instantiated

@@ -8,6 +8,7 @@ on:
     workflows: ['Continuous Integration']
     types: [completed]
     branches: [master]
+  workflow_dispatch: {}
 
 concurrency: release
 
@@ -15,7 +16,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: >
-      github.event.workflow_run.event == 'push' &&
+      (github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_sha == github.sha &&
       (
@@ -23,7 +24,7 @@ jobs:
         startsWith(github.event.workflow_run.head_commit.message, 'feat') ||
         startsWith(github.event.workflow_run.head_commit.message, 'fix') ||
         startsWith(github.event.workflow_run.head_commit.message, 'refactor')
-      )
+      )) || github.event_name == 'workflow_dispatch'
     env:
       IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook
     steps:
@@ -39,7 +40,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
           scope: sbb-esta
       - name: Yarn Install
@@ -81,7 +82,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create versioned storybook
+      - name: Create versioned storybook for chromatic
         run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
         # Send storybook to chromatic. These snapshots should be accepted as new
         # baseline in storybook.
@@ -93,6 +94,10 @@ jobs:
           autoAcceptChanges: true
           exitZeroOnChanges: true
 
+      - name: Remove chromatic stories
+        run: cd src && git clean -f -X
+      - name: Create versioned storybook for image
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
       - name: Remove files with forbidden extensions
         run: node ./ci/clean-storybook-files.js
 
@@ -106,17 +111,3 @@ jobs:
         run: docker push $IMAGE_REPO:${{ steps.version.outputs.value }}
       - name: 'Container: Publish image as latest'
         run: docker push $IMAGE_REPO:latest
-
-      - name: Publish to netlify
-        run: ./ci/netlify_deploy.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      - name: Publish deployments to netlify
-        run: ./ci/deployments.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-# TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)
-# TODO: Trigger lyne-examples build (node ./ci/trigger_lyne_examples.js)

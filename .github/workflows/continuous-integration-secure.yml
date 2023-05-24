@@ -8,6 +8,11 @@ on:
     workflows: ['Continuous Integration']
     types: [completed]
 
+permissions:
+  deployments: write
+  packages: write
+  pull-requests: write
+
 jobs:
   preview-image:
     runs-on: ubuntu-latest
@@ -15,12 +20,12 @@ jobs:
       github.event.workflow_run.conclusion == 'success' && (
         github.event.workflow_run.event == 'pull_request' || (
           github.event.workflow_run.event == 'push' &&
-          github.event.workflow_run.head_branch == 'main'
+          github.event.workflow_run.head_branch == 'master'
         )
       )
     env:
+      PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
       IMAGE_REPO: ghcr.io/${{ github.repository }}/storybook-preview
-      IMAGE_TAG: rev-${{ github.event.workflow_run.head_sha }}
     steps:
       - uses: actions/checkout@v3
       - name: Download artifacts
@@ -32,14 +37,44 @@ jobs:
       - name: Remove files with forbidden extensions
         run: node ./ci/clean-storybook-files.js
 
+      - name: Create GitHub Deployment
+        id: tag-name
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const environment = process.env.PR_NUMBER ? `preview-pr${process.env.PR_NUMBER}` : 'preview-main';
+            const payload = { owner: context.repo.owner, repo: context.repo.repo, environment };
+            const { data: deployment } = await github.rest.repos.createDeployment({
+              ...payload,
+              ref: context.payload.workflow_run.head_sha,
+              auto_merge: false,
+              required_contexts: ['integrity', 'build', 'test', 'lint']
+            });
+            await github.rest.repos.createDeploymentStatus({
+              ...payload,
+              deployment_id: deployment.id,
+              state: 'in_progress',
+              environment_url: `https://${context.repo.repo}-${environment}.app.sbb.ch`,
+            });
+            return environment;
+          result-encoding: string
+
       - name: 'Container: Login to GitHub Container Repository'
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
-        run: docker build -t $IMAGE_REPO:$IMAGE_TAG .
+        run: docker build -t $IMAGE_REPO:${{ steps.tag-name.outputs.result }} .
         env:
           DOCKER_BUILDKIT: 1
       - name: 'Container: Publish image'
-        run: docker push $IMAGE_REPO:$IMAGE_TAG
+        run: docker push $IMAGE_REPO:${{ steps.tag-name.outputs.result }}
+
+      - name: "Add 'preview-available' label"
+        if: env.PR_NUMBER != ''
+        # This label is used for filtering deployments in ArgoCD
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: 'preview-available'
+          number: ${{ env.PR_NUMBER }}
 
   codecov:
     runs-on: ubuntu-latest

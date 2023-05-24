@@ -1,6 +1,7 @@
 import events from './sbb-accordion-item.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const Template = (args) => (
   <sbb-accordion-item {...args}>
@@ -52,6 +53,7 @@ Default.args = {
 };
 
 export default {
+  decorators: [withActions],
   parameters: {
     actions: {
       handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],

@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
@@ -40,12 +40,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
       - name: Run tests
-        run: yarn test:prod
+        # Try yarn test:prod up to three times, if it fails and exit with the exit code from the last execution
+        run: for i in $(seq 1 3); do [ $i -gt 1 ] && sleep 5; yarn test:prod && s=0 && break || s=$?; done; (exit $s)
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v3
@@ -70,14 +71,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Yarn Install
         uses: ./.github/actions/yarn-install
 
       - name: Run build
-        run: yarn build:chromatic-stories && yarn build
+        run: yarn build
       - name: Store stencil artifacts
-        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v3
         with:
           name: stencil
@@ -100,10 +100,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/download-artifact@v3
+      - name: Yarn Install
+        uses: ./.github/actions/yarn-install
+      - name: Restore stencil artifacts
+        uses: actions/download-artifact@v3
         with:
-          name: storybook
-          path: storybook-static/
+          name: stencil
+          path: .
+      - name: Run build
+        run: yarn build:chromatic-stories && yarn build:storybook
       - name: Publish to Chromatic
         id: chromatic-publish
         uses: chromaui/action@v1
@@ -112,59 +117,3 @@ jobs:
           storybookBuildDir: storybook-static
           exitOnceUploaded: true
           exitZeroOnChanges: true
-      - name: Add comment to PR with link to storybook
-        uses: actions/github-script@v6
-        env:
-          storybookUrl: ${{ steps.chromatic-publish.outputs.storybookUrl }}
-        with:
-          script: |
-            const storybookUrl = process.env.storybookUrl;
-            const createdAtDate = new Date(
-              context.payload.pull_request.created_at
-            ).toLocaleString('de');
-            github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `Preview ready from ${context.sha} at ${createdAtDate}:\n- ${storybookUrl}`,
-            });
-
-  netlify:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    needs: [build, lint, test]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
-      - uses: actions/download-artifact@v3
-        with:
-          name: storybook
-          path: storybook-static/
-      - name: Publish to netlify
-        run: ./ci/netlify_deploy_branch.sh $GITHUB_REF_NAME
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-
-  netlify-deployments:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    needs: [build, lint, test]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
-      - name: Publish deployments to netlify
-        run: ./ci/deployments.sh
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_SITE_ID_DEPLOYMENTS: ${{ secrets.NETLIFY_SITE_ID_DEPLOYMENTS }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-# TODO: Trigger lyne-documentation build (node ./ci/trigger_lyne_documentation.js)

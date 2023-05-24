@@ -2,6 +2,157 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.8](https://github.com/lyne-design-system/lyne-components/compare/v0.35.7...v0.35.8) (2023-05-24)
+
+### Bug Fixes
+
+- set most recent input modality initial value ([#1758](https://github.com/lyne-design-system/lyne-components/issues/1758)) ([e7d1388](https://github.com/lyne-design-system/lyne-components/commit/e7d138860116580483f81380147c7e589f9adb61))
+
+### [0.35.7](https://github.com/lyne-design-system/lyne-components/compare/v0.35.6...v0.35.7) (2023-05-24)
+
+### Features
+
+- **sbb-datepicker-toggle:** allow opening calendar programmatically ([#1762](https://github.com/lyne-design-system/lyne-components/issues/1762)) ([390ce46](https://github.com/lyne-design-system/lyne-components/commit/390ce461d845697bcad4309d4e2bc4ed6c9e7497))
+
+### [0.35.6](https://github.com/lyne-design-system/lyne-components/compare/v0.35.5...v0.35.6) (2023-05-23)
+
+### Bug Fixes
+
+- **sbb-autocomplete:** handle readonly state ([#1764](https://github.com/lyne-design-system/lyne-components/issues/1764)) ([ad43efd](https://github.com/lyne-design-system/lyne-components/commit/ad43efd4fd03f75d0d9bea86f5d5be7cd8d38dc3))
+
+### [0.35.5](https://github.com/lyne-design-system/lyne-components/compare/v0.35.4...v0.35.5) (2023-05-23)
+
+### Features
+
+- sbb-skiplink implementation ([#1740](https://github.com/lyne-design-system/lyne-components/issues/1740)) ([76baa8c](https://github.com/lyne-design-system/lyne-components/commit/76baa8cb7762c68acd07b687d48aad73461d3011))
+
+### [0.35.4](https://github.com/lyne-design-system/lyne-components/compare/v0.35.3...v0.35.4) (2023-05-22)
+
+### Bug Fixes
+
+- **styles:** exclude other elements than paragraph for gap in lists ([#1760](https://github.com/lyne-design-system/lyne-components/issues/1760)) ([5b7b379](https://github.com/lyne-design-system/lyne-components/commit/5b7b3796d9c4f7cec3026cf936a6d4fe371c134e)), closes [#1679](https://github.com/lyne-design-system/lyne-components/issues/1679)
+
+### [0.35.3](https://github.com/lyne-design-system/lyne-components/compare/v0.35.2...v0.35.3) (2023-05-22)
+
+### Features
+
+- **sbb-button:** sbb-form-field integration ([#1746](https://github.com/lyne-design-system/lyne-components/issues/1746)) ([9c3fdb1](https://github.com/lyne-design-system/lyne-components/commit/9c3fdb14b310198d40e6e407f2d9922dae817cf5)), closes [#1683](https://github.com/lyne-design-system/lyne-components/issues/1683)
+
+### [0.35.2](https://github.com/lyne-design-system/lyne-components/compare/v0.35.1...v0.35.2) (2023-05-22)
+
+### Features
+
+- **sbb-autocomplete:** component implementation ([#1667](https://github.com/lyne-design-system/lyne-components/issues/1667)) ([28ea027](https://github.com/lyne-design-system/lyne-components/commit/28ea027a66484b1c8c89eb38021601b9641fad8b))
+
+### Bug Fixes
+
+- add 'withActions' decorator for Storybook's actions tab ([#1747](https://github.com/lyne-design-system/lyne-components/issues/1747)) ([52e3529](https://github.com/lyne-design-system/lyne-components/commit/52e35292071e5bee8b7b75c39a18c2bdb797a6d8))
+- **sbb-selection-panel:** chromatic and force-open tests ([#1752](https://github.com/lyne-design-system/lyne-components/issues/1752)) ([d5f7e2a](https://github.com/lyne-design-system/lyne-components/commit/d5f7e2aec9bda3c5ee68c0cd9d7f32ef0aedd55e))
+
+### [0.35.1](https://github.com/lyne-design-system/lyne-components/compare/v0.35.0...v0.35.1) (2023-05-16)
+
+### Bug Fixes
+
+- new disabled states ([#1733](https://github.com/lyne-design-system/lyne-components/issues/1733)) ([6deb6eb](https://github.com/lyne-design-system/lyne-components/commit/6deb6eb7a53f293bf800994d738e424aad82e9c2))
+
+## [0.35.0](https://github.com/lyne-design-system/lyne-components/compare/v0.34.0...v0.35.0) (2023-05-16)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-tab-group:** removed `sbb-tab-amount` component which can be replaced by property `amount`
+  or slot `amount` of `sbb-tab-title` component.
+  e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
+  or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
+
+### Refactorings
+
+- **sbb-tab-group:** remove sbb-tab-amount, provide amount and iconName properties ([#1744](https://github.com/lyne-design-system/lyne-components/issues/1744)) ([12a4946](https://github.com/lyne-design-system/lyne-components/commit/12a494608e3f76f37210d8e6f4db1a2c588f577d))
+
+## [0.34.0](https://github.com/lyne-design-system/lyne-components/compare/v0.33.16...v0.34.0) (2023-05-16)
+
+### ⚠ BREAKING CHANGES
+
+- The `picto:`-namespace is now pointing to the new English named icons.
+  If the old german named icons should be used, you can access them by using
+  the namespace `picto-legacy:` (deprecated).
+
+### Refactorings
+
+- migrate to new English named pictograms, fix gondola picto ([#1738](https://github.com/lyne-design-system/lyne-components/issues/1738)) ([714cafe](https://github.com/lyne-design-system/lyne-components/commit/714cafefbaa26f4a04b08f5079cb4d41c1ac6f1d))
+
+### [0.33.16](https://github.com/lyne-design-system/lyne-components/compare/v0.33.15...v0.33.16) (2023-05-15)
+
+### Features
+
+- **sbb-selection-panel:** introduce sbb-selection-panel component ([#1673](https://github.com/lyne-design-system/lyne-components/issues/1673)) ([d1d5722](https://github.com/lyne-design-system/lyne-components/commit/d1d57228fa3775d9a1eff67f70b9d268f42024bb))
+
+### [0.33.15](https://github.com/lyne-design-system/lyne-components/compare/v0.33.14...v0.33.15) (2023-05-15)
+
+### Bug Fixes
+
+- **sbb-menu:** fixed the window snap on scrolling with an open menu ([#1736](https://github.com/lyne-design-system/lyne-components/issues/1736)) ([686e407](https://github.com/lyne-design-system/lyne-components/commit/686e407553b6e4f865de63a5804d12685623c43f))
+
+### [0.33.14](https://github.com/lyne-design-system/lyne-components/compare/v0.33.13...v0.33.14) (2023-05-11)
+
+### Bug Fixes
+
+- detect screen reader keyboard events ([#1731](https://github.com/lyne-design-system/lyne-components/issues/1731)) ([85c9162](https://github.com/lyne-design-system/lyne-components/commit/85c91628e8d9a8571c211adfdb14d57b30eaefba))
+
+### [0.33.13](https://github.com/lyne-design-system/lyne-components/compare/v0.33.12...v0.33.13) (2023-05-03)
+
+### Bug Fixes
+
+- **sbb-button:** fix icon only detection with whitespaces in slot ([85e6999](https://github.com/lyne-design-system/lyne-components/commit/85e6999dfde964f142c5be37b76008f8e7922fb0))
+
+### [0.33.12](https://github.com/lyne-design-system/lyne-components/compare/v0.33.11...v0.33.12) (2023-05-03)
+
+### Bug Fixes
+
+- **sbb-tooltip:** fix Safari outline on trigger after closing ([#1727](https://github.com/lyne-design-system/lyne-components/issues/1727)) ([24ed9a1](https://github.com/lyne-design-system/lyne-components/commit/24ed9a18f4ac98be5d61941953211d030aca32d3))
+- **sbb-tooltip:** stabilize closing animation ([#1728](https://github.com/lyne-design-system/lyne-components/issues/1728)) ([104a1e9](https://github.com/lyne-design-system/lyne-components/commit/104a1e9df565207db4eceed5ed5fe29204ae7bfe))
+
+### [0.33.11](https://github.com/lyne-design-system/lyne-components/compare/v0.33.10...v0.33.11) (2023-04-27)
+
+### Features
+
+- **sbb-chip:** initial implementation ([#1721](https://github.com/lyne-design-system/lyne-components/issues/1721)) ([ac4bc7c](https://github.com/lyne-design-system/lyne-components/commit/ac4bc7c3af1e9fec84ac41f2bf89b0a2cd4eba33))
+
+### [0.33.10](https://github.com/lyne-design-system/lyne-components/compare/v0.33.9...v0.33.10) (2023-04-24)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** use sr-only span for icon label ([#1717](https://github.com/lyne-design-system/lyne-components/issues/1717)) ([c5adc39](https://github.com/lyne-design-system/lyne-components/commit/c5adc39da522336554bc16be922b43c9a8517c12))
+
+### [0.33.9](https://github.com/lyne-design-system/lyne-components/compare/v0.33.8...v0.33.9) (2023-04-18)
+
+### Bug Fixes
+
+- fix story bundling for lyne-documentation ([1e249ec](https://github.com/lyne-design-system/lyne-components/commit/1e249ecf837e54754a7f3b3208ae58582db41e8b))
+
+### [0.33.8](https://github.com/lyne-design-system/lyne-components/compare/v0.33.7...v0.33.8) (2023-04-17)
+
+### Bug Fixes
+
+- add support for .mjs in nginx ([1b286f3](https://github.com/lyne-design-system/lyne-components/commit/1b286f322b508eb53151c554d9b5b1e1088af28a))
+
+### [0.33.7](https://github.com/lyne-design-system/lyne-components/compare/v0.33.6...v0.33.7) (2023-04-17)
+
+### Bug Fixes
+
+- don't remove mjs files for container ([d3b9db2](https://github.com/lyne-design-system/lyne-components/commit/d3b9db27cc1983986684087377df109036b1fcfd))
+
+### [0.33.6](https://github.com/lyne-design-system/lyne-components/compare/v0.33.5...v0.33.6) (2023-04-17)
+
+### Bug Fixes
+
+- ensure .mjs files can be served in our preview image ([f234059](https://github.com/lyne-design-system/lyne-components/commit/f234059e9409ba919bacada5a1162c7f257b7e81))
+
+### [0.33.5](https://github.com/lyne-design-system/lyne-components/compare/v0.33.4...v0.33.5) (2023-04-17)
+
+### Bug Fixes
+
+- **sbb-datepicker:** fix focus outline in safari on selection ([#1715](https://github.com/lyne-design-system/lyne-components/issues/1715)) ([dc3d44e](https://github.com/lyne-design-system/lyne-components/commit/dc3d44e8aa2b454d78333a267f6928b8047982d2))
+
 ### [0.33.4](https://github.com/lyne-design-system/lyne-components/compare/v0.33.3...v0.33.4) (2023-04-14)
 
 ### Features

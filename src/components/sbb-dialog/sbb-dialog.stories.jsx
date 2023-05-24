@@ -6,6 +6,7 @@ import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
@@ -366,6 +367,7 @@ export default {
         <Story />
       </div>
     ),
+    withActions,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },

@@ -23,6 +23,7 @@ import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
+  sbbInputModalityDetector,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
@@ -129,7 +130,7 @@ export class SbbDialog implements ComponentInterface {
     composed: true,
     eventName: 'will-close',
   })
-  public willClose: EventEmitter<any>;
+  public willClose: EventEmitter;
 
   /**
    * Emits whenever the dialog is closed.
@@ -139,7 +140,7 @@ export class SbbDialog implements ComponentInterface {
     composed: true,
     eventName: 'did-close',
   })
-  public didClose: EventEmitter<any>;
+  public didClose: EventEmitter;
 
   /**
    * Emits whenever the back button is clicked.
@@ -163,7 +164,6 @@ export class SbbDialog implements ComponentInterface {
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
   private _hasActionGroup = false;
-  private _openedByKeyboard = false;
 
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
@@ -180,12 +180,10 @@ export class SbbDialog implements ComponentInterface {
    * Opens the dialog element.
    */
   @Method()
-  public async open(event?: PointerEvent): Promise<void> {
+  public async open(): Promise<void> {
     if (this._state === 'closing' || !this._dialog) {
       return;
     }
-
-    this._openedByKeyboard = event?.detail === 0;
     this._lastFocusedElement = document.activeElement as HTMLElement;
     this.willOpen.emit();
     this._state = 'opening';
@@ -208,17 +206,16 @@ export class SbbDialog implements ComponentInterface {
     this._dialogCloseElement = target;
     this.willClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
     this._state = 'closing';
-    this._openedByKeyboard = false;
   }
 
   // Closes the dialog on "Esc" key pressed.
-  private _onKeydownEvent(event: KeyboardEvent): void {
+  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      this.close();
+      await this.close();
       return;
     }
   }
@@ -261,14 +258,14 @@ export class SbbDialog implements ComponentInterface {
   };
 
   // Close dialog on backdrop click.
-  private _closeOnBackdropClick = (event: PointerEvent): void => {
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._dialog, event)) {
-      this.close();
+      await this.close();
     }
   };
 
   // Close the dialog on click of any element that has the 'sbb-dialog-close' attribute.
-  private _closeOnSbbDialogCloseClick(event: Event): void {
+  private async _closeOnSbbDialogCloseClick(event: Event): Promise<void> {
     const target = event.target as HTMLElement;
 
     if (target.hasAttribute('sbb-dialog-close') && !isValidAttribute(target, 'disabled')) {
@@ -277,7 +274,7 @@ export class SbbDialog implements ComponentInterface {
         target.getAttribute('type') === 'submit'
           ? (hostContext('form', target) as HTMLFormElement)
           : undefined;
-      this.close(closestForm, target);
+      await this.close(closestForm, target);
     }
   }
 
@@ -311,7 +308,7 @@ export class SbbDialog implements ComponentInterface {
       IS_FOCUSABLE_QUERY
     ) as HTMLElement;
 
-    if (this._openedByKeyboard) {
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._firstFocusable.focus();
     } else {
       // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else

@@ -7,10 +7,100 @@
 :host {
   --sbb-tab-title-height: #{sbb.px-to-rem-build(40)};
   --sbb-tab-title-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-tab-title-color: var(--sbb-color-charcoal-default);
+  --sbb-tab-title-icon-color: var(--sbb-color-black-default);
+  --sbb-tab-title-background-color: var(--sbb-color-white-default);
+  --sbb-tab-title-border-color: var(--sbb-color-cloud-default);
+  --sbb-tab-title-cursor: pointer;
+  --sbb-tab-title-pointer-events: unset;
+  --sbb-tab-title-shift: translateY(0);
+  --sbb-tab-title-inset: 0;
+  --sbb-tab-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-tab-title-text-decoration: none;
+  --sbb-tab-title-animation-duration: var(--sbb-animation-duration-2x);
+  --sbb-tab-title-animation-easing: var(--sbb-animation-easing);
+  --sbb-tab-title-amount-color: var(--sbb-color-metal-default);
 
   display: inline-block;
   max-width: 100%;
   -webkit-tap-highlight-color: transparent;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize css of several frameworks.
+  outline: none !important;
+
+  @include sbb.if-forced-colors {
+    --sbb-tab-title-color: ButtonText;
+    --sbb-tab-title-icon-color: ButtonText;
+    --sbb-tab-title-amount-color: ButtonText;
+    --sbb-tab-title-border-color: CanvasText;
+  }
+}
+
+:host([disabled]:not([disabled='false'])) {
+  --sbb-tab-title-color: var(--sbb-color-granite-default);
+  --sbb-tab-title-icon-color: var(--sbb-color-granite-default);
+  --sbb-tab-title-background-color: var(--sbb-color-milk-default);
+  --sbb-tab-title-border-color: var(--sbb-color-cloud-default);
+  --sbb-tab-title-cursor: unset;
+  --sbb-tab-title-pointer-events: none;
+  --sbb-tab-title-amount-color: var(--sbb-color-granite-default);
+  --sbb-tab-title-text-decoration: line-through;
+
+  @include sbb.if-forced-colors {
+    --sbb-tab-title-color: GrayText;
+    --sbb-tab-title-icon-color: GrayText;
+    --sbb-tab-title-amount-color: GrayText;
+    --sbb-tab-title-border-color: GrayText;
+  }
+}
+
+// If active and not disabled
+:host([active]:not([active='false'], [disabled]:not([disabled='false']))) {
+  --sbb-tab-title-color: var(--sbb-color-white-default);
+  --sbb-tab-title-icon-color: var(--sbb-tab-title-color);
+  --sbb-tab-title-background-color: var(--sbb-color-black-default);
+  --sbb-tab-title-border-color: var(--sbb-color-black-default);
+  --sbb-tab-title-amount-color: var(--sbb-color-cement-default);
+  --sbb-tab-title-cursor: unset;
+  --sbb-tab-title-pointer-events: none;
+
+  @include sbb.if-forced-colors {
+    --sbb-tab-title-color: ButtonText;
+    --sbb-tab-title-icon-color: ButtonText;
+    --sbb-tab-title-amount-color: ButtonText;
+    --sbb-tab-title-border-color: Highlight;
+  }
+}
+
+// Hover if not disabled, not active and not pressed
+:host(
+    :hover:not(
+        [disabled]:not([disabled='false']),
+        [data-active],
+        :active,
+        [active]:not([active='false'])
+      )
+  ) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-tab-title-shift: translateY(calc(-1 * #{sbb.px-to-rem-build(1)}));
+    --sbb-tab-title-inset: calc(-1 * #{sbb.px-to-rem-build(2)});
+    --sbb-tab-title-background-color: var(--sbb-color-milk-default);
+
+    @include sbb.if-forced-colors {
+      --sbb-tab-title-border-color: Highlight;
+    }
+  }
+}
+
+// Pressed/active state
+:host(:is([data-active], :active)) {
+  --sbb-tab-title-border-color: var(--sbb-color-black-default);
+  --sbb-tab-title-background-color: var(--sbb-color-white-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-tab-title-border-color: Highlight;
+  }
 }
 
 .sbb-tab-title {
@@ -21,127 +111,64 @@
   align-items: center;
   padding-block: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-fixed-5x);
-  gap: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-tab-title-gap);
   user-select: none;
-  cursor: pointer;
-  transition: color var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
+  cursor: var(--sbb-tab-title-cursor);
+  transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
+  color: var(--sbb-tab-title-icon-color);
+  pointer-events: var(--sbb-tab-title-pointer-events);
 
   &::before {
     position: absolute;
     content: '';
-    inset: 0;
-    border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+    inset: var(--sbb-tab-title-inset);
+    border: var(--sbb-border-width-1x) solid var(--sbb-tab-title-border-color);
     border-radius: var(--sbb-tab-title-border-radius);
-    background-color: var(--sbb-color-white-default);
-    transition-duration: var(--sbb-animation-duration-4x);
-    transition-timing-function: var(--sbb-animation-easing);
+    background-color: var(--sbb-tab-title-background-color);
+    transition-duration: var(--sbb-tab-title-animation-duration);
+    transition-timing-function: var(--sbb-tab-title-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
-  }
 
-  .sbb-tab-title__text {
-    @include sbb.text-xs--bold;
-    @include sbb.font-smoothing;
-    @include sbb.ellipsis;
-  }
-
-  ::slotted(*),
-  .sbb-tab-title__text {
-    transition: transform var(--sbb-animation-duration-4x) var(--sbb-animation-easing);
-    transform: translateY(0);
-    will-change: transform;
-  }
-}
-
-// If the the device can hover over elements with ease
-@include sbb.hover-mq($hover: true) {
-  .sbb-tab-title:hover {
-    ::slotted(*),
-    .sbb-tab-title__text {
-      transform: translateY(calc(var(--sbb-border-width-1x) * -1));
-    }
-
-    &::before {
-      inset: calc(var(--sbb-border-width-2x) * -1);
-
-      @include sbb.if-forced-colors {
-        border-color: Highlight;
-      }
-    }
-
-    &:not(.sbb-tab-title--active)::before {
-      background-color: var(--sbb-color-milk-default);
-    }
-  }
-
-  .sbb-tab-title:not(.sbb-tab-title--active):active {
-    &::before {
-      border-color: var(--sbb-color-black-default);
-      background-color: var(--sbb-color-white-default);
-    }
-  }
-}
-
-.sbb-tab-title--active {
-  color: var(--sbb-color-white-default);
-
-  &::before {
-    border-color: var(--sbb-color-black-default);
-    background-color: var(--sbb-color-black-default);
-  }
-
-  ::slotted(sbb-tab-amount) {
-    --sbb-amount-color-override: var(--sbb-color-cement-default);
-  }
-}
-
-.sbb-tab-title--disabled {
-  cursor: unset;
-  position: relative;
-  pointer-events: none;
-  color: var(--sbb-color-platinum-default);
-
-  ::slotted(sbb-tab-amount) {
-    --sbb-amount-color-override: var(--sbb-color-platinum-default);
-
-    @include sbb.if-forced-colors {
-      --sbb-amount-color-override: GrayText;
-    }
-  }
-
-  &::before {
-    border-color: var(--sbb-color-milk-default);
-    background-color: var(--sbb-color-milk-default);
-
-    @include sbb.if-forced-colors {
-      border-color: GrayText;
-    }
-  }
-
-  // Line through content
-  &::after {
-    content: '';
-    inset: 50% var(--sbb-spacing-fixed-5x);
-    border-block-end: var(--sbb-border-width-2x) solid var(--sbb-color-platinum-default);
-    @include sbb.absolute-center-y;
-    @include sbb.if-forced-colors {
-      border-color: GrayText;
-    }
-  }
-
-  @include sbb.if-forced-colors {
-    color: GrayText;
-  }
-}
-
-// Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize css of several frameworks.
-  outline: none !important;
-
-  .sbb-tab-title {
-    &::before {
+    // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+    :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
       @include sbb.focus-outline;
     }
+
+    @include sbb.if-forced-colors {
+      border-width: var(--sbb-border-width-2x);
+    }
   }
+}
+
+.sbb-tab-title__icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.sbb-tab-title__text {
+  @include sbb.text-xs--bold;
+  @include sbb.font-smoothing;
+  @include sbb.ellipsis;
+
+  color: var(--sbb-tab-title-color);
+  transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
+}
+
+.sbb-tab-title__amount {
+  @include sbb.text-xs--regular;
+  @include sbb.font-smoothing;
+
+  display: flex;
+  color: var(--sbb-tab-title-amount-color);
+  transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
+}
+
+.sbb-tab-title__icon,
+.sbb-tab-title__text,
+.sbb-tab-title__amount {
+  transition: transform var(--sbb-tab-title-animation-duration)
+    var(--sbb-tab-title-animation-easing);
+  transform: var(--sbb-tab-title-shift);
+  will-change: transform;
+  text-decoration: var(--sbb-tab-title-text-decoration);
 }

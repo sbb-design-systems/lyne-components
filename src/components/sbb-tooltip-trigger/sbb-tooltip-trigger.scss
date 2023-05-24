@@ -37,11 +37,27 @@
   pointer-events: none;
 }
 
-.sbb-tooltip-trigger {
-  :host([data-icon-small]) & {
-    @include sbb.icon-button-base('sbb-icon');
-  }
+@include sbb.icon-button-base(':host([data-icon-small])', '.sbb-tooltip-trigger', 'sbb-icon');
 
+:host([data-icon-small][disabled]:not([disabled='false'])) {
+  @include sbb.icon-button-disabled('.sbb-tooltip-trigger');
+}
+
+:host(
+    [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+  ) {
+  @include sbb.icon-button-focus-visible('.sbb-tooltip-trigger');
+}
+
+:host([data-icon-small]:not([disabled]:not([disabled='false']), :active, [data-active]):hover) {
+  @include sbb.icon-button-hover('.sbb-tooltip-trigger');
+}
+
+:host([data-icon-small]:is(:active, [data-active])) {
+  @include sbb.icon-button-active('.sbb-tooltip-trigger');
+}
+
+.sbb-tooltip-trigger {
   :host(:not([data-icon-small])) & {
     @include sbb.text-inherit;
 
@@ -62,25 +78,6 @@
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-4x);
-  }
-
-  :host([data-icon-small]:is(:active, [data-active])) & {
-    @include sbb.icon-button-active;
-  }
-
-  :host([data-icon-small][disabled]:not([disabled='false'])) & {
-    @include sbb.icon-button-disabled;
-  }
-
-  :host(
-      [data-icon-small]:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-    )
-    & {
-    @include sbb.focus-outline;
-  }
-
-  :host([data-icon-small]:not([disabled]:not([disabled='false']), :active, [data-active])) &:hover {
-    @include sbb.icon-button-hover;
   }
 }
 
