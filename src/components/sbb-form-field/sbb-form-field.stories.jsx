@@ -454,9 +454,9 @@ InputFloatingLongLabel.args = {
   label: 'This is a very long label which receives ellipsis',
 };
 
-export const InputFloatingLongLabelWithIcons = TemplateInputWithIcons.bind({});
-InputFloatingLongLabelWithIcons.argTypes = basicArgTypes;
-InputFloatingLongLabelWithIcons.args = {
+export const InputFloatingWithIcons = TemplateInputWithIcons.bind({});
+InputFloatingWithIcons.argTypes = basicArgTypes;
+InputFloatingWithIcons.args = {
   ...basicArgs,
   'floating-label': true,
   value: undefined,
