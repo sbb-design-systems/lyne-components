@@ -173,7 +173,7 @@ const textBlock = () => {
     <div style={textBlockStyle}>
       Use <code style={codeStyle}>down/up arrows</code> to move between options and{' '}
       <code style={codeStyle}>left/right arrows</code> arrow to move between the label and the
-      fovourite action
+      fovourite action. Press <code style={codeStyle}>enter</code> to toggle favourites.
     </div>
   );
 };
