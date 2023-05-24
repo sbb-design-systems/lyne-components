@@ -17,7 +17,7 @@ const playStory = async ({ canvasElement }) => {
   await waitForStablePosition(() => canvas.getByTestId('select'));
   const select = await canvas.getByTestId('select');
   userEvent.click(select);
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 6000));
 };
 
 const borderless = {
