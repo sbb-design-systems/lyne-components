@@ -247,9 +247,7 @@ export class SbbFormField implements ComponentInterface {
       this._element,
       'inputEmpty',
       (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) &&
-        ['', undefined, null].some(
-          (v) => (this._input as HTMLInputElement | HTMLSelectElement).value === v
-        )
+        ['', undefined, null].includes((this._input as HTMLInputElement | HTMLSelectElement).value)
     );
   }
 
