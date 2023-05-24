@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.7](https://github.com/lyne-design-system/lyne-components/compare/v0.35.6...v0.35.7) (2023-05-24)
+
+### Features
+
+- **sbb-datepicker-toggle:** allow opening calendar programmatically ([#1762](https://github.com/lyne-design-system/lyne-components/issues/1762)) ([390ce46](https://github.com/lyne-design-system/lyne-components/commit/390ce461d845697bcad4309d4e2bc4ed6c9e7497))
+
 ### [0.35.6](https://github.com/lyne-design-system/lyne-components/compare/v0.35.5...v0.35.6) (2023-05-23)
 
 ### Bug Fixes
