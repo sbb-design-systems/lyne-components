@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.8](https://github.com/lyne-design-system/lyne-components/compare/v0.35.7...v0.35.8) (2023-05-24)
+
+### Bug Fixes
+
+- set most recent input modality initial value ([#1758](https://github.com/lyne-design-system/lyne-components/issues/1758)) ([e7d1388](https://github.com/lyne-design-system/lyne-components/commit/e7d138860116580483f81380147c7e589f9adb61))
+
 ### [0.35.7](https://github.com/lyne-design-system/lyne-components/compare/v0.35.6...v0.35.7) (2023-05-24)
 
 ### Features
