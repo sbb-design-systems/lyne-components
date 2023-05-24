@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.9](https://github.com/lyne-design-system/lyne-components/compare/v0.35.8...v0.35.9) (2023-05-24)
+
+### Bug Fixes
+
+- **sbb-selection-panel:** allow nested checkbox and radio groups ([#1767](https://github.com/lyne-design-system/lyne-components/issues/1767)) ([a81a987](https://github.com/lyne-design-system/lyne-components/commit/a81a987c77c409f48907a3466612b622ce7669cd))
+
 ### [0.35.8](https://github.com/lyne-design-system/lyne-components/compare/v0.35.7...v0.35.8) (2023-05-24)
 
 ### Bug Fixes
