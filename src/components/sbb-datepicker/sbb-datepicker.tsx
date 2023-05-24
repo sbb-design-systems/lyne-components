@@ -157,7 +157,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   @Listen('datepicker-control-registered')
-  private _onInputPropertiesChange(mutationsList: MutationRecord[]): void {
+  private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
     this.inputUpdated.emit({
       disabled: this._inputElement?.disabled,
       readonly: this._inputElement?.readOnly,
@@ -165,7 +165,7 @@ export class SbbDatepicker implements ComponentInterface {
       max: this._inputElement?.max,
     });
 
-    if (Array.from(mutationsList).some((e) => e.attributeName === 'value')) {
+    if (mutationsList && Array.from(mutationsList).some((e) => e.attributeName === 'value')) {
       this._inputElement.value = this._getValidValue(this._inputElement?.getAttribute('value'));
     }
   }
@@ -190,7 +190,7 @@ export class SbbDatepicker implements ComponentInterface {
     this._handlerRepository.connect();
     this._inputElement = getInput(this._element, this.input);
     if (this._inputElement) {
-      this._inputElement.value = this._getValidValue(this._inputElement?.value);
+      this._inputElement.value = this._getValidValue(this._inputElement.value);
     }
   }
 
@@ -277,9 +277,7 @@ export class SbbDatepicker implements ComponentInterface {
 
     if (match?.index === 0) {
       return this._formatValue(value);
-    }
-
-    if (Number.isInteger(+value)) {
+    } else if (Number.isInteger(+value)) {
       return this._createAndComposeDate(+value);
     } else if (this._dateAdapter.isValid(new Date(value))) {
       return this._createAndComposeDate(value);
