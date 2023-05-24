@@ -24,20 +24,20 @@ The Example below shows how to render the component with a button in the slot. T
 
 ### Depends on
 
-- [sbb-journey-header](../sbb-journey-header)
 - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
+- [sbb-journey-header](../sbb-journey-header)
 - [sbb-divider](../sbb-divider)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-journey-summary --> sbb-journey-header
   sbb-journey-summary --> sbb-pearl-chain-time
+  sbb-journey-summary --> sbb-journey-header
   sbb-journey-summary --> sbb-divider
-  sbb-journey-header --> sbb-title
-  sbb-journey-header --> sbb-icon
   sbb-pearl-chain-time --> sbb-icon
   sbb-pearl-chain-time --> sbb-pearl-chain
+  sbb-journey-header --> sbb-title
+  sbb-journey-header --> sbb-icon
   style sbb-journey-summary fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

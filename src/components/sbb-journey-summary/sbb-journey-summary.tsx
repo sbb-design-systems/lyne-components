@@ -89,23 +89,40 @@ export class SbbJourneySummary implements ComponentInterface {
     );
   }
 
-  public render(): JSX.Element {
-    const {
-      vias,
-      origin,
-      destination,
-      duration,
-      departureWalk,
-      departure,
-      arrivalWalk,
-      arrival,
-      legs,
-    } = this.trip || {};
+  private _renderJourneyInformation(trip: InterfaceSbbJourneySummaryAttributes): JSX.Element {
+    const { vias, duration, departureWalk, departure, arrivalWalk, arrival, legs } = trip || {};
 
     const durationObj = durationToTime(duration, this._currentLanguage);
-    const durationObjReturn =
-      this.tripBack && durationToTime(this.tripBack.duration, this._currentLanguage);
 
+    return (
+      <div>
+        {vias?.length > 0 && this._renderJourneyVias(vias)}
+        <div class="sbb-journey-summary__date">
+          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
+          {duration > 0 && (
+            <time>
+              <span class="sbb-screenreaderonly">
+                {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
+              </span>
+              <span aria-hidden="true">, {durationObj.short}</span>
+            </time>
+          )}
+        </div>
+        <sbb-pearl-chain-time
+          arrivalTime={arrival}
+          departureTime={departure}
+          departureWalk={departureWalk}
+          arrivalWalk={arrivalWalk}
+          legs={legs}
+          disableAnimation={this.disableAnimation}
+          data-now={this._now()}
+        />
+      </div>
+    );
+  }
+
+  public render(): JSX.Element {
+    const { origin, destination } = this.trip || {};
     return (
       <div class="sbb-journey-summary">
         {origin && (
@@ -117,51 +134,11 @@ export class SbbJourneySummary implements ComponentInterface {
             roundTrip={!!this.tripBack}
           ></sbb-journey-header>
         )}
-        {vias?.length > 0 && this._renderJourneyVias(vias)}
-        <span class="sbb-journey-summary__date">
-          {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
-          {duration > 0 && (
-            <time>
-              <span class="sbb-screenreaderonly">
-                {`${i18nTripDuration[this._currentLanguage]} ${durationObj.long}`}
-              </span>
-              <span aria-hidden="true">, {durationObj.short}</span>
-            </time>
-          )}
-        </span>
-        <sbb-pearl-chain-time
-          arrivalTime={arrival}
-          departureTime={departure}
-          departureWalk={departureWalk}
-          arrivalWalk={arrivalWalk}
-          legs={legs}
-          disableAnimation={this.disableAnimation}
-          data-now={this._now()}
-        />
+        {this._renderJourneyInformation(this.trip)}
         {this.tripBack && (
           <div>
             <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
-            {this.tripBack.vias?.length > 0 && this._renderJourneyVias(this.tripBack.vias)}
-            <span class="sbb-journey-summary__date">
-              {this._renderJourneyStart(removeTimezoneFromISOTimeString(this.tripBack.departure))}
-              {this.tripBack.duration > 0 && (
-                <time>
-                  <span class="sbb-screenreaderonly">
-                    {`${i18nTripDuration[this._currentLanguage]} ${durationObjReturn.long}`}
-                  </span>
-                  <span aria-hidden="true">, {durationObjReturn.short}</span>
-                </time>
-              )}
-            </span>
-            <sbb-pearl-chain-time
-              arrivalTime={this.tripBack.arrival}
-              departureTime={this.tripBack.departure}
-              departureWalk={this.tripBack.departureWalk}
-              arrivalWalk={this.tripBack.arrivalWalk}
-              legs={this.tripBack.legs}
-              disableAnimation={this.disableAnimation}
-              data-now={this._now()}
-            />
+            {this._renderJourneyInformation(this.tripBack)}
           </div>
         )}
         {this._hasContentSlot && (
