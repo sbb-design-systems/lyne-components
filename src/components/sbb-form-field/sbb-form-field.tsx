@@ -1,14 +1,14 @@
 import {
   Component,
+  ComponentInterface,
   Element,
+  Fragment,
   h,
   JSX,
+  Listen,
   Prop,
   State,
-  ComponentInterface,
   Watch,
-  Listen,
-  Fragment,
 } from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
@@ -229,23 +229,28 @@ export class SbbFormField implements ComponentInterface {
     }
   }
 
-  private _checkInputEmpty(): void {
-    if (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) {
-      toggleDatasetEntry(this._element, 'inputEmpty', this._input.value === '');
-    }
-  }
-
   private _registerInputListener(): void {
     if (!this._input) {
       return;
     }
     this._inputAbortController.abort();
     this._inputAbortController = new AbortController();
-    this._checkInputEmpty();
+    this._checkAndUpdateInputEmpty();
 
-    this._input.addEventListener('input', () => this._checkInputEmpty(), {
+    this._input.addEventListener('input', () => this._checkAndUpdateInputEmpty(), {
       signal: this._inputAbortController.signal,
     });
+  }
+
+  private _checkAndUpdateInputEmpty(): void {
+    toggleDatasetEntry(
+      this._element,
+      'inputEmpty',
+      (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) &&
+        ['', undefined, null].some(
+          (v) => (this._input as HTMLInputElement | HTMLSelectElement).value === v
+        )
+    );
   }
 
   private _assignSlots(): void {

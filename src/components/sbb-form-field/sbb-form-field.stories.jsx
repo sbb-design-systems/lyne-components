@@ -441,9 +441,30 @@ InputLongLabelAndErrorSpace.args = {
   value: 'This input value is so long that it needs ellipsis to fit.',
 };
 
+export const InputFloatingLabel = TemplateInput.bind({});
+InputFloatingLabel.argTypes = basicArgTypes;
+InputFloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
+
+export const InputFloatingLongLabel = TemplateInput.bind({});
+InputFloatingLongLabel.argTypes = basicArgTypes;
+InputFloatingLongLabel.args = {
+  ...basicArgs,
+  'floating-label': true,
+  value: undefined,
+  label: 'This is a very long label which receives ellipsis',
+};
+
+export const InputFloatingLongLabelWithIcons = TemplateInputWithIcons.bind({});
+InputFloatingLongLabelWithIcons.argTypes = basicArgTypes;
+InputFloatingLongLabelWithIcons.args = {
+  ...basicArgs,
+  'floating-label': true,
+  value: undefined,
+};
+
 export const Select = TemplateSelect.bind({});
 Select.argTypes = basicArgTypes;
-Select.args = JSON.parse(JSON.stringify(basicArgs));
+Select.args = { ...basicArgs };
 
 export const SelectWithoutBorder = TemplateSelect.bind({});
 SelectWithoutBorder.argTypes = basicArgTypes;
@@ -457,6 +478,10 @@ export const SelectErrorSpace = TemplateSelectWithErrorSpace.bind({});
 SelectErrorSpace.argTypes = basicArgTypes;
 SelectErrorSpace.args = { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' };
 
+export const SelectFloatingLabel = TemplateSelectWithErrorSpace.bind({});
+SelectFloatingLabel.argTypes = basicArgTypes;
+SelectFloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
+
 export const SelectOptionalAndIcons = TemplateSelectWithIcons.bind({});
 SelectOptionalAndIcons.argTypes = basicArgTypes;
 SelectOptionalAndIcons.args = { ...basicArgs, optional: true };
@@ -468,10 +493,6 @@ InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
 export const InputWithIconsDisabled = TemplateInputWithIcons.bind({});
 InputWithIconsDisabled.argTypes = basicArgTypes;
 InputWithIconsDisabled.args = { ...basicArgs, disabled: true };
-
-export const FloatingLabel = TemplateInput.bind({});
-FloatingLabel.argTypes = basicArgTypes;
-FloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
 
 export default {
   excludeStories: /.*Active$/,
