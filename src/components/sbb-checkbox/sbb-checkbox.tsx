@@ -162,6 +162,7 @@ export class SbbCheckbox implements ComponentInterface {
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
+    this._setParametersFromParentGroup();
   }
 
   public componentDidLoad(): void {
@@ -216,6 +217,15 @@ export class SbbCheckbox implements ComponentInterface {
     this._selectionPanelExpandedLabel = this.checked
       ? ', ' + i18nExpanded[this._currentLanguage]
       : ', ' + i18nCollapsed[this._currentLanguage];
+  }
+
+  private _setParametersFromParentGroup(): void {
+    const parentGroup = this._element.closest('sbb-checkbox-group');
+    if (parentGroup) {
+      this._requiredFromGroup = parentGroup.hasAttribute('required');
+      this._disabledFromGroup = parentGroup.hasAttribute('disabled');
+      this.size = parentGroup.getAttribute('size') as InterfaceSbbCheckboxAttributes['size'];
+    }
   }
 
   public render(): JSX.Element {
