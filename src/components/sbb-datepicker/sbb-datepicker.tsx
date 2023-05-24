@@ -275,11 +275,11 @@ export class SbbDatepicker implements ComponentInterface {
 
     const match: RegExpMatchArray = value.match(FORMAT_DATE);
 
-    if (match && match?.index === 0) {
+    if (match?.index === 0) {
       return this._formatValue(value);
     }
 
-    if (!Number.isNaN(+value) && Number.isInteger(+value)) {
+    if (Number.isInteger(+value)) {
       return this._createAndComposeDate(+value);
     } else if (this._dateAdapter.isValid(new Date(value))) {
       return this._createAndComposeDate(value);
