@@ -112,12 +112,10 @@ const ErrorMessageTemplate = (args) => {
 export const Horizontal = DefaultTemplate.bind({});
 Horizontal.argTypes = defaultArgTypes;
 Horizontal.args = { ...defaultArgs };
-Horizontal.documentation = { title: 'Horizontal Orientation' };
 
 export const Vertical = DefaultTemplate.bind({});
 Vertical.argTypes = defaultArgTypes;
 Vertical.args = { ...defaultArgs, orientation: orientation.options[1] };
-Vertical.documentation = { title: 'Vertical Orientation' };
 
 export const VerticalToHorizontal = DefaultTemplate.bind({});
 VerticalToHorizontal.argTypes = defaultArgTypes;
@@ -126,27 +124,22 @@ VerticalToHorizontal.args = {
   orientation: orientation.options[1],
   'horizontal-from': horizontalFrom.options[4],
 };
-VerticalToHorizontal.documentation = { title: 'Vertical To Horizontal' };
 
 export const HorizontalSizeS = DefaultTemplate.bind({});
 HorizontalSizeS.argTypes = defaultArgTypes;
 HorizontalSizeS.args = { ...defaultArgs, size: size.options[1] };
-HorizontalSizeS.documentation = { title: 'Horizontal Orientation - Size S' };
 
 export const VerticalSizeS = DefaultTemplate.bind({});
 VerticalSizeS.argTypes = defaultArgTypes;
 VerticalSizeS.args = { ...defaultArgs, orientation: orientation.options[1], size: size.options[1] };
-VerticalSizeS.documentation = { title: 'Vertical Orientation - Size S' };
 
 export const Disabled = DefaultTemplate.bind({});
 Disabled.argTypes = defaultArgTypes;
 Disabled.args = { ...defaultArgs, disabled: true };
-Disabled.documentation = { title: 'Disabled Radio Group' };
 
 export const AllowEmptySelection = DefaultTemplate.bind({});
 AllowEmptySelection.argTypes = defaultArgTypes;
 AllowEmptySelection.args = { ...defaultArgs, value: undefined, 'allow-empty-selection': true };
-AllowEmptySelection.documentation = { title: 'Allow Empty Selection Radio Group' };
 
 export const ErrorMessage = ErrorMessageTemplate.bind({});
 ErrorMessage.argTypes = defaultArgTypes;
@@ -156,7 +149,6 @@ ErrorMessage.args = {
   required: true,
   'allow-empty-selection': true,
 };
-ErrorMessage.documentation = { title: 'Error Message Radio Group' };
 
 export const ErrorMessageVertical = ErrorMessageTemplate.bind({});
 ErrorMessageVertical.argTypes = defaultArgTypes;
@@ -167,7 +159,6 @@ ErrorMessageVertical.args = {
   orientation: orientation.options[1],
   'allow-empty-selection': true,
 };
-ErrorMessageVertical.documentation = { title: 'Error Message Vertical Radio Group' };
 
 export default {
   decorators: [
