@@ -521,6 +521,10 @@ export namespace Components {
           * Whether the animation is disabled.
          */
         "disableAnimation": boolean;
+        /**
+          * Opens the calendar.
+         */
+        "open": () => Promise<void>;
     }
     interface SbbDialog {
         /**
