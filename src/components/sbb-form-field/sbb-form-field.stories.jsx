@@ -46,28 +46,48 @@ const TemplateBasicSelect = (args) => (
   </select>
 );
 
-const TemplateInput = (args) => (
+const TemplateInput = ({
+  'error-space': errorSpace,
+  label,
+  optional,
+  size,
+  borderless,
+  width,
+  'floating-label': floatingLabel,
+  ...args
+}) => (
   <sbb-form-field
-    error-space={args['error-space']}
-    label={args.label}
-    optional={args.optional}
-    size={args.size}
-    borderless={args.borderless}
-    width={args.width}
+    error-space={errorSpace}
+    label={label}
+    optional={optional}
+    size={size}
+    borderless={borderless}
+    width={width}
+    floating-label={floatingLabel}
   >
     {TemplateBasicInput(args)}
   </sbb-form-field>
 );
 
-const TemplateInputWithSlottedLabel = (args) => (
+const TemplateInputWithSlottedLabel = ({
+  'error-space': errorSpace,
+  label,
+  optional,
+  size,
+  borderless,
+  width,
+  'floating-label': floatingLabel,
+  ...args
+}) => (
   <sbb-form-field
-    error-space={args['error-space']}
-    optional={args.optional}
-    size={args.size}
-    borderless={args.borderless}
-    width={args.width}
+    error-space={errorSpace}
+    optional={optional}
+    size={size}
+    borderless={borderless}
+    width={width}
+    floating-label={floatingLabel}
   >
-    <span slot="label">{args.label}</span>
+    <span slot="label">{label}</span>
     {TemplateBasicInput(args)}
   </sbb-form-field>
 );
@@ -86,6 +106,7 @@ const TemplateInputWithErrorSpace = (args) => {
           size={args.size}
           borderless={args.borderless}
           width={args.width}
+          floating-label={args['floating-label']}
         >
           <input
             id="sbb-form-field-input"
@@ -147,6 +168,7 @@ const TemplateSelect = (args) => (
     size={args.size}
     borderless={args.borderless}
     width={args.width}
+    floating-label={args['floating-label']}
   >
     {TemplateBasicSelect(args)}
   </sbb-form-field>
@@ -166,6 +188,7 @@ const TemplateSelectWithErrorSpace = (args) => {
           size={args.size}
           borderless={args.borderless}
           width={args.width}
+          floating-label={args['floating-label']}
         >
           <select
             id="sbb-form-field-input"
@@ -291,6 +314,15 @@ const labelArg = {
   },
 };
 
+const floatingLabelArg = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const optionalArg = {
   control: {
     type: 'boolean',
@@ -322,6 +354,7 @@ const sizeArg = {
 const basicArgTypes = {
   'error-space': errorSpaceArg,
   label: labelArg,
+  'floating-label': floatingLabelArg,
   optional: optionalArg,
   borderless: borderlessArg,
   size: sizeArg,
@@ -337,6 +370,7 @@ const basicArgTypes = {
 const basicArgs = {
   'error-space': 'none',
   label: 'Input name',
+  'floating-label': false,
   optional: false,
   borderless: false,
   size: sizeArg.options[0],
@@ -407,9 +441,30 @@ InputLongLabelAndErrorSpace.args = {
   value: 'This input value is so long that it needs ellipsis to fit.',
 };
 
+export const InputFloatingLabel = TemplateInput.bind({});
+InputFloatingLabel.argTypes = basicArgTypes;
+InputFloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
+
+export const InputFloatingLongLabel = TemplateInput.bind({});
+InputFloatingLongLabel.argTypes = basicArgTypes;
+InputFloatingLongLabel.args = {
+  ...basicArgs,
+  'floating-label': true,
+  value: undefined,
+  label: 'This is a very long label which receives ellipsis',
+};
+
+export const InputFloatingWithIcons = TemplateInputWithIcons.bind({});
+InputFloatingWithIcons.argTypes = basicArgTypes;
+InputFloatingWithIcons.args = {
+  ...basicArgs,
+  'floating-label': true,
+  value: undefined,
+};
+
 export const Select = TemplateSelect.bind({});
 Select.argTypes = basicArgTypes;
-Select.args = JSON.parse(JSON.stringify(basicArgs));
+Select.args = { ...basicArgs };
 
 export const SelectWithoutBorder = TemplateSelect.bind({});
 SelectWithoutBorder.argTypes = basicArgTypes;
@@ -422,6 +477,10 @@ SelectDisabled.args = { ...basicArgs, disabled: true };
 export const SelectErrorSpace = TemplateSelectWithErrorSpace.bind({});
 SelectErrorSpace.argTypes = basicArgTypes;
 SelectErrorSpace.args = { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' };
+
+export const SelectFloatingLabel = TemplateSelectWithErrorSpace.bind({});
+SelectFloatingLabel.argTypes = basicArgTypes;
+SelectFloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
 
 export const SelectOptionalAndIcons = TemplateSelectWithIcons.bind({});
 SelectOptionalAndIcons.argTypes = basicArgTypes;

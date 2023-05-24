@@ -1,13 +1,14 @@
 import {
   Component,
+  ComponentInterface,
   Element,
+  Fragment,
   h,
   JSX,
+  Listen,
   Prop,
   State,
-  ComponentInterface,
   Watch,
-  Listen,
 } from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
@@ -75,6 +76,9 @@ export class SbbFormField implements ComponentInterface {
    * - `collapse`: the component adapts itself to its inner input content. */
   @Prop({ reflect: true }) public width: 'default' | 'collapse' = 'default';
 
+  /** Whether the label should float. If activated, the placeholder of the input is hidden. */
+  @Prop({ reflect: true }) public floatingLabel = false;
+
   /**
    * It is used internally to get the `error` slot.
    */
@@ -113,14 +117,18 @@ export class SbbFormField implements ComponentInterface {
     }
   });
 
+  private _inputAbortController = new AbortController();
+
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this.renderLabel(this.label);
+    this._registerInputListener();
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
     this._formFieldAttributeObserver.disconnect();
+    this._inputAbortController.abort();
   }
 
   @Watch('label')
@@ -202,6 +210,7 @@ export class SbbFormField implements ComponentInterface {
     this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
     this._applyAriaDescribedby();
     this._readInputState();
+    this._registerInputListener();
 
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
@@ -218,6 +227,32 @@ export class SbbFormField implements ComponentInterface {
     if (label) {
       label.htmlFor = this._input.id;
     }
+  }
+
+  private _registerInputListener(): void {
+    if (!this._input) {
+      return;
+    }
+    this._inputAbortController.abort();
+    this._inputAbortController = new AbortController();
+    this._checkAndUpdateInputEmpty();
+
+    this._input.addEventListener('input', () => this._checkAndUpdateInputEmpty(), {
+      signal: this._inputAbortController.signal,
+    });
+
+    this._input.addEventListener('blur', () => this._checkAndUpdateInputEmpty(), {
+      signal: this._inputAbortController.signal,
+    });
+  }
+
+  private _checkAndUpdateInputEmpty(): void {
+    toggleDatasetEntry(
+      this._element,
+      'inputEmpty',
+      (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) &&
+        ['', undefined, null].includes((this._input as HTMLInputElement | HTMLSelectElement).value)
+    );
   }
 
   private _assignSlots(): void {
@@ -262,7 +297,7 @@ export class SbbFormField implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
-        {/* Queryed by id from the autocomplete/select to be used as the anchor element */}
+        {/* Queried by id from the autocomplete/select to be used as the anchor element */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div
           onClick={(event) => this._handleWrapperClick(event)}
@@ -272,12 +307,15 @@ export class SbbFormField implements ComponentInterface {
           <slot name="prefix"></slot>
           <div class="sbb-form-field__input-container">
             {(this.label || this._namedSlots.label) && (
-              <span class="sbb-form-field__label">
-                <slot name="label" onSlotchange={() => this._onSlotLabelChange()}></slot>
-                {this.optional && (
-                  <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                )}
-              </span>
+              <Fragment>
+                <span class="sbb-form-field__label-spacer" aria-hidden="true"></span>
+                <span class="sbb-form-field__label">
+                  <slot name="label" onSlotchange={() => this._onSlotLabelChange()}></slot>
+                  {this.optional && (
+                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                  )}
+                </span>
+              </Fragment>
             )}
             <div class="sbb-form-field__input">
               <slot onSlotchange={(event) => this._onSlotInputChange(event)}></slot>
