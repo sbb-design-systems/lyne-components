@@ -10,12 +10,8 @@ import { waitForStablePosition } from '../../global/helpers/testing/wait-for-sta
 const playStory = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
 
-  await waitForComponentsReady(
-    () =>
-      canvas
-        .getByTestId('form-field')
-        .shadowRoot.querySelector('div.sbb-form-field__space-wrapper') &&
-      canvas.getByTestId('select').shadowRoot.querySelector('div.sbb-select__trigger')
+  await waitForComponentsReady(() =>
+    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
   );
 
   await waitForStablePosition(() => canvas.getByTestId('select'));
