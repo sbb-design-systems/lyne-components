@@ -297,7 +297,7 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
   </sbb-checkbox-group>
 );
 
-const NestedRadioExampleTemplate = ({ disabledInput, ...args }) => (
+const NestedRadioTemplate = ({ disabledInput, ...args }) => (
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       <sbb-radio-button value="mainoption1" checked={checkedInput}>
@@ -321,7 +321,7 @@ const NestedRadioExampleTemplate = ({ disabledInput, ...args }) => (
   </sbb-radio-button-group>
 );
 
-const NestedCheckboxExampleTemplate = ({ disabledInput, ...args }) => (
+const NestedCheckboxTemplate = ({ disabledInput, ...args }) => (
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       <sbb-checkbox value="mainoption1" checked={checkedInput}>
@@ -572,13 +572,13 @@ export const TicketsOptionsExample = TicketsOptionsExampleTemplate.bind({});
 TicketsOptionsExample.argTypes = basicArgTypes;
 TicketsOptionsExample.args = { ...basicArgs, checkedInput: true };
 
-export const NestedRadiosExample = NestedRadioExampleTemplate.bind({});
-NestedRadiosExample.argTypes = basicArgTypes;
-NestedRadiosExample.args = { ...basicArgs };
+export const NestedRadios = NestedRadioTemplate.bind({});
+NestedRadios.argTypes = basicArgTypes;
+NestedRadios.args = { ...basicArgs };
 
-export const NestedCheckboxesExample = NestedCheckboxExampleTemplate.bind({});
-NestedCheckboxesExample.argTypes = basicArgTypes;
-NestedCheckboxesExample.args = { ...basicArgs };
+export const NestedCheckboxes = NestedCheckboxTemplate.bind({});
+NestedCheckboxes.argTypes = basicArgTypes;
+NestedCheckboxes.args = { ...basicArgs };
 
 export default {
   decorators: [
