@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.10](https://github.com/lyne-design-system/lyne-components/compare/v0.35.9...v0.35.10) (2023-05-24)
+
+### Features
+
+- **sbb-datepicker:** parse ISO dates ([#1763](https://github.com/lyne-design-system/lyne-components/issues/1763)) ([322af78](https://github.com/lyne-design-system/lyne-components/commit/322af78c05f1d3b0100cf2f7fd0581700e22c459))
+- **sbb-form-field:** provide option for floating labels ([#1765](https://github.com/lyne-design-system/lyne-components/issues/1765)) ([d6ef480](https://github.com/lyne-design-system/lyne-components/commit/d6ef4803cbf4a6a5066308f7745b2b6ef8acedba))
+
 ### [0.35.9](https://github.com/lyne-design-system/lyne-components/compare/v0.35.8...v0.35.9) (2023-05-24)
 
 ### Bug Fixes
