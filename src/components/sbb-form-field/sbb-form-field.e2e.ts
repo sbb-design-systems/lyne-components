@@ -40,5 +40,18 @@ describe('sbb-form-field', () => {
     await input.press('Backspace');
     await page.waitForChanges();
     expect(element.getAttribute('data-input-empty')).not.toBeNull();
+
+    await input.type('v');
+    await page.waitForChanges();
+    expect(element.getAttribute('data-input-empty')).toBeNull();
+
+    // Clearing value programmatically which does not trigger input event but can be caught by blur event.
+    await page.evaluate(() => {
+      const htmlInputElement = document.querySelector('input');
+      htmlInputElement.value = '';
+      htmlInputElement.blur();
+    });
+    await page.waitForChanges();
+    expect(element.getAttribute('data-input-empty')).not.toBeNull();
   });
 });

@@ -240,6 +240,10 @@ export class SbbFormField implements ComponentInterface {
     this._input.addEventListener('input', () => this._checkAndUpdateInputEmpty(), {
       signal: this._inputAbortController.signal,
     });
+
+    this._input.addEventListener('blur', () => this._checkAndUpdateInputEmpty(), {
+      signal: this._inputAbortController.signal,
+    });
   }
 
   private _checkAndUpdateInputEmpty(): void {
