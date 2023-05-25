@@ -60,4 +60,24 @@ describe('sbb-checkbox', () => {
       expect(await element.getProperty('indeterminate')).toBe(true);
     });
   });
+
+  it('should prevent scrolling on space bar press', async () => {
+    page = await newE2EPage();
+    await page.setContent(
+      `<div style="height: 100px; overflow: scroll" id="scroll-context">
+              <div style="height: 500px">
+                <sbb-checkbox></sbb-checkbox>
+              </div>
+            </div>`
+    );
+    element = await page.find('sbb-checkbox');
+    expect(element).not.toHaveAttribute('checked');
+    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+
+    await element.press(' ');
+    await page.waitForChanges();
+
+    expect(element).toHaveAttribute('checked');
+    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+  });
 });
