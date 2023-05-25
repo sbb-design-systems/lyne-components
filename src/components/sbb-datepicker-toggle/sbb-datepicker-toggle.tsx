@@ -5,6 +5,7 @@ import {
   h,
   Host,
   JSX,
+  Method,
   Prop,
   State,
   Watch,
@@ -66,6 +67,17 @@ export class SbbDatepickerToggle implements ComponentInterface {
     if (newValue !== oldValue) {
       await this._init(this.datePicker);
     }
+  }
+
+  /**
+   * Opens the calendar.
+   */
+  @Method()
+  public async open(): Promise<void> {
+    if (!this._triggerElement) {
+      this._triggerElement = this._element.shadowRoot.querySelector('sbb-tooltip-trigger');
+    }
+    this._triggerElement.click();
   }
 
   public async connectedCallback(): Promise<void> {

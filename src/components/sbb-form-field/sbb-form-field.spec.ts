@@ -19,6 +19,7 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
+                <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
                 </span>
@@ -60,6 +61,7 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
+                <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <label class="sbb-form-field__label">
                   <slot name="label">
                     <span></span>
@@ -100,6 +102,7 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
+                <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
                 </span>
@@ -141,6 +144,7 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
+                <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
                 </span>
@@ -226,6 +230,7 @@ describe('sbb-form-field', () => {
             <div class="sbb-form-field__wrapper" id="overlay-anchor">
               <slot name="prefix"></slot>
               <div class="sbb-form-field__input-container">
+                <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
                   <slot name="label"></slot>
                   <span aria-hidden="true">&nbsp;(optional)</span>

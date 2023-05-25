@@ -1,5 +1,5 @@
 The `<sbb-skiplink-list>` is a collection of hidden `sbb-link`s that become visible only when focused, 
-for example using the <kbd>Tab</kbd> button.  It has an optional `<sbb-title>` element, which is visually hidden too, 
+for example using the TAB-key.  It has an optional `<sbb-title>` element, which is visually hidden too, 
 but it's read from screen-readers.
 
 When `<sbb-skiplink-list>` contains multiple link elements, only one of them is shown (the focused one), while the others stay visually hidden.
@@ -14,7 +14,7 @@ to specify a custom stack order, the `z-index` can be changed by defining the CS
   <sbb-link href='https://www.sbb.ch/'>Content</sbb-link>
   <sbb-link href='https://www.sbb.ch/en/help-and-contact.html'>Contact</sbb-link>
   ...
-</sbb-sliplink-list>
+</sbb-skiplink-list>
 ```
 
 <!-- Auto Generated Below -->

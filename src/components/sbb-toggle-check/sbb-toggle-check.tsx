@@ -13,7 +13,12 @@ import {
 } from '@stencil/core';
 import { inputElement } from '../../global/helpers/input-element';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
-import { forwardEventToHost, getEventTarget } from '../../global/helpers';
+import {
+  formElementHandlerAspect,
+  forwardEventToHost,
+  getEventTarget,
+  HandlerRepository,
+} from '../../global/helpers';
 
 @Component({
   shadow: true,
@@ -52,10 +57,17 @@ export class SbbToggleCheck implements ComponentInterface {
 
   @State() private _hasLabelText = false;
 
+  private _handlerRepository = new HandlerRepository(this._element, formElementHandlerAspect);
+
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._hasLabelText = Array.from(this._element.childNodes).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent
     );
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
   }
 
   @Listen('click')

@@ -84,14 +84,15 @@ technology will announce errors when they appear.
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                                                                                                           | Type                      | Default     |
-| ------------ | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
-| `borderless` | `borderless`  | Whether to display the form field without a border.                                                                                                                   | `boolean`                 | `false`     |
-| `errorSpace` | `error-space` | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                | `"none" \| "reserve"`     | `'none'`    |
-| `label`      | `label`       | Label text for the input which is internally rendered as `<label>`.                                                                                                   | `string`                  | `undefined` |
-| `optional`   | `optional`    | Indicates whether the input is optional.                                                                                                                              | `boolean`                 | `undefined` |
-| `size`       | `size`        | Size variant, either l or m.                                                                                                                                          | `"l" \| "m"`              | `'m'`       |
-| `width`      | `width`       | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. | `"collapse" \| "default"` | `'default'` |
+| Property        | Attribute        | Description                                                                                                                                                           | Type                      | Default     |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------- |
+| `borderless`    | `borderless`     | Whether to display the form field without a border.                                                                                                                   | `boolean`                 | `false`     |
+| `errorSpace`    | `error-space`    | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                | `"none" \| "reserve"`     | `'none'`    |
+| `floatingLabel` | `floating-label` | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 | `boolean`                 | `false`     |
+| `label`         | `label`          | Label text for the input which is internally rendered as `<label>`.                                                                                                   | `string`                  | `undefined` |
+| `optional`      | `optional`       | Indicates whether the input is optional.                                                                                                                              | `boolean`                 | `undefined` |
+| `size`          | `size`           | Size variant, either l or m.                                                                                                                                          | `"l" \| "m"`              | `'m'`       |
+| `width`         | `width`          | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. | `"collapse" \| "default"` | `'default'` |
 
 
 ## Slots

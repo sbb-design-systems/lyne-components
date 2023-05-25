@@ -140,7 +140,9 @@ export class SbbCheckboxGroup implements ComponentInterface {
   }
 
   private get _checkboxes(): HTMLSbbCheckboxElement[] {
-    return Array.from(this._element.querySelectorAll('sbb-checkbox')) as HTMLSbbCheckboxElement[];
+    return (
+      Array.from(this._element.querySelectorAll('sbb-checkbox')) as HTMLSbbCheckboxElement[]
+    ).filter((el) => el.closest('sbb-checkbox-group') === this._element);
   }
 
   public render(): JSX.Element {

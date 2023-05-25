@@ -203,9 +203,9 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   private get _radioButtons(): HTMLSbbRadioButtonElement[] {
-    return Array.from(
-      this._element.querySelectorAll('sbb-radio-button')
-    ) as HTMLSbbRadioButtonElement[];
+    return (
+      Array.from(this._element.querySelectorAll('sbb-radio-button')) as HTMLSbbRadioButtonElement[]
+    ).filter((el) => el.closest('sbb-radio-button-group') === this._element);
   }
 
   private get _enabledRadios(): HTMLSbbRadioButtonElement[] | undefined {

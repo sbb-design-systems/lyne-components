@@ -51,7 +51,7 @@ export class SbbNavigationSection implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
-   * This will be forwarded as aria-label to the relevant nested element.
+   * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
    */
   @Prop() public accessibilityLabel: string | undefined;
 
@@ -259,11 +259,18 @@ export class SbbNavigationSection implements ComponentInterface {
     const labelElement = (
       <div class="sbb-navigation-section__header">
         {backButton}
-        <span class="sbb-navigation-section__title">
+        <span class="sbb-navigation-section__title" id="title">
           <slot name="title">{this.titleContent}</slot>
         </span>
       </div>
     );
+
+    // Accessibility label should win over aria-labelledby
+    let accessibilityAttributes: Record<string, string> = { 'aria-labelledby': 'title' };
+    if (this.accessibilityLabel) {
+      accessibilityAttributes = { 'aria-label': this.accessibilityLabel };
+    }
+
     return (
       <Host
         slot="navigation-section"
@@ -273,9 +280,10 @@ export class SbbNavigationSection implements ComponentInterface {
         <div class="sbb-navigation-section__container">
           <dialog
             ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
-            aria-label={this.accessibilityLabel}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation-section"
+            role="group"
+            {...accessibilityAttributes}
           >
             <div
               ref={(navigationSectionWrapperRef) =>

@@ -521,6 +521,10 @@ export namespace Components {
           * Whether the animation is disabled.
          */
         "disableAnimation": boolean;
+        /**
+          * Opens the calendar.
+         */
+        "open": () => Promise<void>;
     }
     interface SbbDialog {
         /**
@@ -607,6 +611,10 @@ export namespace Components {
           * Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
+        /**
+          * Whether the label should float. If activated, the placeholder of the input is hidden.
+         */
+        "floatingLabel": boolean;
         /**
           * Label text for the input which is internally rendered as `<label>`.
          */
@@ -997,7 +1005,7 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -1072,7 +1080,7 @@ export namespace Components {
          */
         "accessibilityBackLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -3095,6 +3103,10 @@ declare namespace LocalJSX {
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
         /**
+          * Whether the label should float. If activated, the placeholder of the input is hidden.
+         */
+        "floatingLabel"?: boolean;
+        /**
           * Label text for the input which is internally rendered as `<label>`.
          */
         "label"?: string;
@@ -3492,7 +3504,7 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
          */
         "accessibilityLabel"?: string | undefined;
         /**
@@ -3573,7 +3585,7 @@ declare namespace LocalJSX {
          */
         "accessibilityBackLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
          */
         "accessibilityLabel"?: string | undefined;
         /**

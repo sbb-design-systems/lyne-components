@@ -18,6 +18,7 @@ import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-check
 import {
   createNamedSlotState,
   documentLanguage,
+  formElementHandlerAspect,
   forwardEventToHost,
   getEventTarget,
   HandlerRepository,
@@ -132,7 +133,8 @@ export class SbbCheckbox implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
+    formElementHandlerAspect
   );
 
   // Set up the initial disabled/required values and start observe attributes changes.

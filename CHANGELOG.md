@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.14](https://github.com/lyne-design-system/lyne-components/compare/v0.35.13...v0.35.14) (2023-05-25)
+
+### Bug Fixes
+
+- avoid reading all overlay content for screen readers ([#1748](https://github.com/lyne-design-system/lyne-components/issues/1748)) ([863c7f8](https://github.com/lyne-design-system/lyne-components/commit/863c7f85a0c1f665cf467822e55a819a309d43bd)), closes [#1595](https://github.com/lyne-design-system/lyne-components/issues/1595)
+
+### Documentation
+
+- **sbb-skiplink-list:** fix typo in docs ([03ae786](https://github.com/lyne-design-system/lyne-components/commit/03ae78619857e74811b66e1b9dfe08e7dd329409))
+
+### [0.35.13](https://github.com/lyne-design-system/lyne-components/compare/v0.35.12...v0.35.13) (2023-05-25)
+
+### Bug Fixes
+
+- **sbb-title:** improve accessibility by setting heading role ([#1773](https://github.com/lyne-design-system/lyne-components/issues/1773)) ([6bbab18](https://github.com/lyne-design-system/lyne-components/commit/6bbab18bf684273e7a4728ebe4fb2ed86f6ff36a))
+
+### [0.35.12](https://github.com/lyne-design-system/lyne-components/compare/v0.35.11...v0.35.12) (2023-05-25)
+
+### Documentation
+
+- **sbb-header-action:** fix component name in readme.md ([#1775](https://github.com/lyne-design-system/lyne-components/issues/1775)) ([5769f02](https://github.com/lyne-design-system/lyne-components/commit/5769f0247fc80ce6652c75640a5ad969cd6725d1))
+
+### [0.35.11](https://github.com/lyne-design-system/lyne-components/compare/v0.35.10...v0.35.11) (2023-05-25)
+
+### Bug Fixes
+
+- **sbb-checkbox, sbb-toggle-check:** prevent scrolling on space bar click ([#1774](https://github.com/lyne-design-system/lyne-components/issues/1774)) ([91cc682](https://github.com/lyne-design-system/lyne-components/commit/91cc682fc682379ec6ff070e23f20567bb853d36))
+
+### [0.35.10](https://github.com/lyne-design-system/lyne-components/compare/v0.35.9...v0.35.10) (2023-05-24)
+
+### Features
+
+- **sbb-datepicker:** parse ISO dates ([#1763](https://github.com/lyne-design-system/lyne-components/issues/1763)) ([322af78](https://github.com/lyne-design-system/lyne-components/commit/322af78c05f1d3b0100cf2f7fd0581700e22c459))
+- **sbb-form-field:** provide option for floating labels ([#1765](https://github.com/lyne-design-system/lyne-components/issues/1765)) ([d6ef480](https://github.com/lyne-design-system/lyne-components/commit/d6ef4803cbf4a6a5066308f7745b2b6ef8acedba))
+
+### [0.35.9](https://github.com/lyne-design-system/lyne-components/compare/v0.35.8...v0.35.9) (2023-05-24)
+
+### Bug Fixes
+
+- **sbb-selection-panel:** allow nested checkbox and radio groups ([#1767](https://github.com/lyne-design-system/lyne-components/issues/1767)) ([a81a987](https://github.com/lyne-design-system/lyne-components/commit/a81a987c77c409f48907a3466612b622ce7669cd))
+
+### [0.35.8](https://github.com/lyne-design-system/lyne-components/compare/v0.35.7...v0.35.8) (2023-05-24)
+
+### Bug Fixes
+
+- set most recent input modality initial value ([#1758](https://github.com/lyne-design-system/lyne-components/issues/1758)) ([e7d1388](https://github.com/lyne-design-system/lyne-components/commit/e7d138860116580483f81380147c7e589f9adb61))
+
+### [0.35.7](https://github.com/lyne-design-system/lyne-components/compare/v0.35.6...v0.35.7) (2023-05-24)
+
+### Features
+
+- **sbb-datepicker-toggle:** allow opening calendar programmatically ([#1762](https://github.com/lyne-design-system/lyne-components/issues/1762)) ([390ce46](https://github.com/lyne-design-system/lyne-components/commit/390ce461d845697bcad4309d4e2bc4ed6c9e7497))
+
+### [0.35.6](https://github.com/lyne-design-system/lyne-components/compare/v0.35.5...v0.35.6) (2023-05-23)
+
+### Bug Fixes
+
+- **sbb-autocomplete:** handle readonly state ([#1764](https://github.com/lyne-design-system/lyne-components/issues/1764)) ([ad43efd](https://github.com/lyne-design-system/lyne-components/commit/ad43efd4fd03f75d0d9bea86f5d5be7cd8d38dc3))
+
 ### [0.35.5](https://github.com/lyne-design-system/lyne-components/compare/v0.35.4...v0.35.5) (2023-05-23)
 
 ### Features
