@@ -222,8 +222,8 @@ export class SbbCheckbox implements ComponentInterface {
   private _setParametersFromParentGroup(): void {
     const parentGroup = this._element.closest('sbb-checkbox-group');
     if (parentGroup) {
-      this._requiredFromGroup = parentGroup.hasAttribute('required');
-      this._disabledFromGroup = parentGroup.hasAttribute('disabled');
+      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
       this.size = parentGroup.getAttribute('size') as InterfaceSbbCheckboxAttributes['size'];
     }
   }

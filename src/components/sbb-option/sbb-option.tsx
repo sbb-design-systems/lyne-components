@@ -95,9 +95,9 @@ export class SbbOption implements ComponentInterface {
   private _variant: SbbOptionVariant;
 
   /**
-   * On safari, the groups labels are not read by VoiceOver.
+   * On Safari, the groups labels are not read by VoiceOver.
    * To solve the problem, we remove the role="group" and add an hidden span containing the group name
-   * We should periodically check if it has been solved and, if so, remove the property.
+   * TODO: We should periodically check if it has been solved and, if so, remove the property.
    */
   private _inertAriaGroups = isSafari();
 

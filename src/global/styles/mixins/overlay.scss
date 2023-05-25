@@ -2,6 +2,8 @@
   --sbb-options-panel-position-x: 0;
   --sbb-options-panel-position-y: 0;
   --sbb-options-panel-active-option-y: 0;
+
+  // 85vh is not an exact value but looks optimized for mobile view.
   --sbb-options-panel-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
   --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
   --sbb-options-panel-visibility: visible;

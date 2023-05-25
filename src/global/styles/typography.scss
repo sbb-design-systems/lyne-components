@@ -2,7 +2,6 @@
 @use './mixins/a11y';
 @use './mixins/layout';
 @use './mixins/lists';
-@use './mixins/overlay';
 @use './mixins/typo';
 
 @include font-face.font-declarations;

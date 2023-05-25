@@ -5,8 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  @include sbb.text-s--regular;
-
   --sbb-option-color: var(--sbb-color-charcoal-default);
   --sbb-option-background-color: inherit;
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
