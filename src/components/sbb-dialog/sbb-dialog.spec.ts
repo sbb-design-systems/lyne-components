@@ -13,7 +13,7 @@ describe('sbb-dialog', () => {
       <sbb-dialog data-state="closed" data-fullscreen>
         <mock:shadow-root>
           <div class="sbb-dialog__container">
-            <dialog class="sbb-dialog">
+            <dialog class="sbb-dialog" role="group" aria-labelledby="title">
               <div class="sbb-dialog__wrapper">
                 <div class="sbb-dialog__header">
                   <sbb-button

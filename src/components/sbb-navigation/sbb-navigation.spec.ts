@@ -20,7 +20,7 @@ describe('sbb-navigation', () => {
         <sbb-navigation trigger="nav-trigger" role="navigation" data-state="closed" id="sbb-navigation-1">
           <mock:shadow-root>
             <div class="sbb-navigation__container">
-              <dialog class="sbb-navigation" id="sbb-navigation-dialog-id">
+              <dialog class="sbb-navigation" id="sbb-navigation-dialog-id" role="group">
                 <div class="sbb-navigation__header">
                   <sbb-button
                     aria-label="Close navigation"

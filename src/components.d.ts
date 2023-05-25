@@ -1005,7 +1005,7 @@ export namespace Components {
          */
         "accessibilityCloseLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -1080,7 +1080,7 @@ export namespace Components {
          */
         "accessibilityBackLabel": string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
          */
         "accessibilityLabel": string | undefined;
         /**
@@ -3434,7 +3434,7 @@ declare namespace LocalJSX {
          */
         "accessibilityCloseLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
          */
         "accessibilityLabel"?: string | undefined;
         /**
@@ -3515,7 +3515,7 @@ declare namespace LocalJSX {
          */
         "accessibilityBackLabel"?: string | undefined;
         /**
-          * This will be forwarded as aria-label to the relevant nested element.
+          * This will be forwarded as aria-label to the dialog and is read as a title of the navigation-section.
          */
         "accessibilityLabel"?: string | undefined;
         /**

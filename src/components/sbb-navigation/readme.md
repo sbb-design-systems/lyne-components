@@ -49,7 +49,7 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 | Property                  | Attribute                   | Description                                                                                                | Type                    | Default     |
 | ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
 | `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.                                          | `string`                | `undefined` |
-| `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.                                       | `string`                | `undefined` |
+| `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the dialog and is read as a title of the navigation.               | `string`                | `undefined` |
 | `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                                                          | `boolean`               | `false`     |
 | `trigger`                 | `trigger`                   | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 

@@ -58,7 +58,7 @@ export class SbbNavigation implements ComponentInterface {
   @Prop() public trigger: string | HTMLElement;
 
   /**
-   * This will be forwarded as aria-label to the relevant nested element.
+   * This will be forwarded as aria-label to the dialog and is read as a title of the navigation.
    */
   @Prop() public accessibilityLabel: string | undefined;
 
@@ -377,6 +377,7 @@ export class SbbNavigation implements ComponentInterface {
             aria-label={this.accessibilityLabel}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-navigation"
+            role="group"
           >
             <div class="sbb-navigation__header">{closeButton}</div>
             <div

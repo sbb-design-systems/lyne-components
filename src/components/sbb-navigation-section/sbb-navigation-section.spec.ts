@@ -12,7 +12,7 @@ describe('sbb-navigation-section', () => {
         <sbb-navigation-section slot="navigation-section" data-state="closed" id="sbb-navigation-section-1">
           <mock:shadow-root>
             <div class="sbb-navigation-section__container">
-              <dialog class="sbb-navigation-section">
+              <dialog class="sbb-navigation-section" role="group" aria-labelledby="title">
                 <div class="sbb-navigation-section__wrapper">
                   <div class="sbb-navigation-section__content">
                     <slot></slot>
