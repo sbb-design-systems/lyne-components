@@ -11,17 +11,15 @@ describe('sbb-toggle-check', () => {
   });
 
   it('renders', async () => {
-    element = await page.find('sbb-toggle-check');
     expect(element).toHaveClass('hydrated');
   });
 
   describe('events', () => {
     it('emit event on click', async () => {
       await page.waitForChanges();
-      const toggle = await page.find('sbb-toggle-check');
       const changeSpy = await page.spyOnEvent('change');
 
-      await toggle.click();
+      await element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
@@ -29,7 +27,7 @@ describe('sbb-toggle-check', () => {
     it('should emit click on Space', async () => {
       const changeSpy = await element.spyOnEvent('click');
 
-      element.press(' ');
+      await element.press(' ');
       await page.waitForChanges();
 
       await waitForCondition(() => changeSpy.events.length === 1);
@@ -47,5 +45,25 @@ describe('sbb-toggle-check', () => {
 
       expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
     });
+  });
+
+  it('should prevent scrolling on space bar press', async () => {
+    page = await newE2EPage();
+    await page.setContent(
+      `<div style="height: 100px; overflow: scroll" id="scroll-context">
+              <div style="height: 500px">
+                <sbb-toggle-check></sbb-toggle-check>
+              </div>
+            </div>`
+    );
+    element = await page.find('sbb-toggle-check');
+    expect(element).not.toHaveAttribute('checked');
+    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+
+    await element.press(' ');
+    await page.waitForChanges();
+
+    expect(element).toHaveAttribute('checked');
+    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
   });
 });

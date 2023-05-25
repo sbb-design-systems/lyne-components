@@ -1,6 +1,7 @@
 export * from './action-element-handlers';
 export * from './event-target';
 export * from './fake-event-detection';
+export * from './form-element-handlers';
 export * from './forward-event';
 export * from './handler-repository';
 export * from './input-modality-detector';
