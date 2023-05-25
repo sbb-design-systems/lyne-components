@@ -177,7 +177,7 @@
 
 // Input
 
-.sbb-form-field__input ::slotted(:where(input, select)) {
+.sbb-form-field__input ::slotted(:where(input, select, sbb-select)) {
   @include sbb.text-m--regular;
   @include sbb.ellipsis;
   @include sbb.input-reset;

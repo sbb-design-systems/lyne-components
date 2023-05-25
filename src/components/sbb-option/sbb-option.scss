@@ -17,6 +17,7 @@
   --sbb-option-cursor: pointer;
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
   --sbb-option-icon-color: var(--sbb-color-metal-default);
+  --sbb-option-text-decoration: none;
 }
 
 :host([active]:not([active='false'])) {
@@ -42,8 +43,9 @@
 
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-option-color: var(--sbb-color-graphite-default);
+  --sbb-option-color: var(--sbb-color-metal-default);
   --sbb-option-cursor: default;
+  --sbb-option-text-decoration: line-through;
 
   @include sbb.if-forced-colors {
     --sbb-option-color: GrayText;
@@ -85,9 +87,11 @@
   padding-block: var(--sbb-option-padding-block);
   justify-content: var(--sbb-option-justify-content);
   color: var(--sbb-option-color);
+  text-decoration: var(--sbb-option-text-decoration);
   background-color: var(--sbb-option-background-color);
   cursor: var(--sbb-option-cursor);
   -webkit-tap-highlight-color: transparent;
+  -webkit-text-fill-color: var(--sbb-option-color);
 
   :host([active]:not([active='false'])) & {
     @include sbb.focus-outline;
