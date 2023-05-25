@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.14](https://github.com/lyne-design-system/lyne-components/compare/v0.35.13...v0.35.14) (2023-05-25)
+
+### Bug Fixes
+
+- avoid reading all overlay content for screen readers ([#1748](https://github.com/lyne-design-system/lyne-components/issues/1748)) ([863c7f8](https://github.com/lyne-design-system/lyne-components/commit/863c7f85a0c1f665cf467822e55a819a309d43bd)), closes [#1595](https://github.com/lyne-design-system/lyne-components/issues/1595)
+
+### Documentation
+
+- **sbb-skiplink-list:** fix typo in docs ([03ae786](https://github.com/lyne-design-system/lyne-components/commit/03ae78619857e74811b66e1b9dfe08e7dd329409))
+
 ### [0.35.13](https://github.com/lyne-design-system/lyne-components/compare/v0.35.12...v0.35.13) (2023-05-25)
 
 ### Bug Fixes
