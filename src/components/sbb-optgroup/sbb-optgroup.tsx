@@ -29,6 +29,12 @@ export class SbbOptGroup implements ComponentInterface {
    */
   private _inertAriaGroups = isSafari();
 
+  private get _isMultiple(): boolean {
+    return (
+      this._variant === 'select' && this._element.closest('sbb-select')?.hasAttribute('multiple')
+    );
+  }
+
   @Watch('disabled')
   public updateDisabled(): void {
     this._proxyDisabledToOptions();
@@ -73,6 +79,7 @@ export class SbbOptGroup implements ComponentInterface {
       <Host
         role={!this._inertAriaGroups ? 'group' : null}
         data-variant={this._variant}
+        data-multiple={this._isMultiple}
         aria-label={!this._inertAriaGroups && this.label}
         aria-disabled={!this._inertAriaGroups && this.disabled.toString()}
       >

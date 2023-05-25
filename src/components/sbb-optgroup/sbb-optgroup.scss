@@ -10,6 +10,7 @@
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
+  --sbb-optgroup-label-color: var(--sbb-color-metal-default);
 }
 
 :host(:first-child) {
@@ -38,10 +39,19 @@
 
   display: flex;
   column-gap: var(--sbb-spacing-responsive-xxxs);
-  color: var(--sbb-color-metal-default);
+  color: var(--sbb-optgroup-label-color);
+  -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
   padding-block-start: var(--sbb-optgroup-label-padding-start);
   padding-block-end: var(--sbb-spacing-fixed-2x);
+
+  :host([data-variant='select'][data-multiple]) & {
+    @include sbb.text-xs--regular;
+
+    padding-inline-start: calc(
+      var(--sbb-spacing-responsive-xxxs) * 2 + var(--sbb-spacing-fixed-6x)
+    );
+  }
 }
 
 .sbb-optgroup__divider {
