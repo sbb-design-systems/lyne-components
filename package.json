@@ -70,7 +70,7 @@
     "@storybook/preset-scss": "1.0.3",
     "@storybook/testing-library": "0.1.0",
     "@types/jest": "27.5.2",
-    "@types/react": "16.14.41",
+    "@types/react": "16.14.42",
     "@types/react-dom": "16.9.19",
     "@typescript-eslint/eslint-plugin": "5.59.7",
     "@typescript-eslint/parser": "5.59.7",
@@ -113,7 +113,7 @@
     "typescript": "5.0.4"
   },
   "resolutions": {
-    "**/@types/react": "16.14.41"
+    "**/@types/react": "16.14.42"
   },
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.js",
