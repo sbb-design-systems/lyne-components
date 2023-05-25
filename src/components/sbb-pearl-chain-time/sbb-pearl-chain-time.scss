@@ -61,6 +61,8 @@
 
 .sbb-pearl-chain__time-time {
   @include sbb.text-s--bold;
+
+  color: var(--sbb-color-charcoal-default);
 }
 
 .sbb-screenreaderonly {
