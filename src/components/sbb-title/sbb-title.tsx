@@ -1,4 +1,4 @@
-import { Component, h, JSX, Prop } from '@stencil/core';
+import { Component, h, Host, JSX, Prop } from '@stencil/core';
 import { InterfaceTitleAttributes } from './sbb-title.custom';
 
 @Component({
@@ -27,9 +27,11 @@ export class SbbTitle {
     const TAGNAME = `h${this.level}`;
 
     return (
-      <TAGNAME class="sbb-title">
-        <slot />
-      </TAGNAME>
+      <Host role="heading" aria-level={this.level}>
+        <TAGNAME class="sbb-title" role="presentation">
+          <slot />
+        </TAGNAME>
+      </Host>
     );
   }
 }
