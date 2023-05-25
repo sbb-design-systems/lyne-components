@@ -117,7 +117,7 @@ export class SbbSelect implements ComponentInterface {
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
-   * On the other hand, JAWS and NVDA need the role to be "closer" to the options, or else optgroups won't work.
+   * On the other hand, JAWS and NVDA need the role to be an "immediate parent" to the options, or else optgroups won't work.
    */
   private _ariaRoleOnHost = isSafari();
 
