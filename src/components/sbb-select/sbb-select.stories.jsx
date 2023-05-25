@@ -17,7 +17,7 @@ const playStory = async ({ canvasElement }) => {
   await waitForStablePosition(() => canvas.getByTestId('select'));
   const select = await canvas.getByTestId('select');
   userEvent.click(select);
-  await new Promise((resolve) => setTimeout(resolve, 6000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 const borderless = {
@@ -179,6 +179,14 @@ const codeStyle = {
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
+
+const defaultDecorator = [
+  (Story) => (
+    <div style={'padding: 2rem; height: calc(100vh - 2rem);'}>
+      <Story />
+    </div>
+  ),
+];
 
 const aboveDecorator = [
   (Story) => (
@@ -408,15 +416,9 @@ KeyboardInteraction.args = { ...defaultArgs };
 KeyboardInteraction.play = isChromatic() && playStory;
 
 export default {
-  decorators: [
-    (Story) => (
-      <div style={'padding: 2rem; height: calc(100vh - 2rem);'}>
-        <Story />
-      </div>
-    ),
-  ],
-  chromatic: { disableSnapshot: false },
+  decorators: defaultDecorator,
   parameters: {
+    chromatic: { disableSnapshot: false },
     actions: {
       handles: [events.change, events.didClose, events.didOpen, events.willClose, events.willOpen],
     },
