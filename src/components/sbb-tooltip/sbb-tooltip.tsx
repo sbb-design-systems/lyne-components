@@ -494,7 +494,7 @@ export class SbbTooltip implements ComponentInterface {
             onAnimationEnd={(event: AnimationEvent) => this._onTooltipAnimationEnd(event)}
             ref={(dialogRef) => (this._dialog = dialogRef)}
             class="sbb-tooltip"
-            role="presentation"
+            role="tooltip"
           >
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div
