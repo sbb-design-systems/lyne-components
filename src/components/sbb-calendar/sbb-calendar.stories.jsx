@@ -1,7 +1,7 @@
 import events from './sbb-calendar.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 
 const getCalendarAttr = (min, max) => {

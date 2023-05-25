@@ -3,7 +3,7 @@ import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 
 const titleContent = {
   control: {
