@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.13](https://github.com/lyne-design-system/lyne-components/compare/v0.35.12...v0.35.13) (2023-05-25)
+
+### Bug Fixes
+
+- **sbb-title:** improve accessibility by setting heading role ([#1773](https://github.com/lyne-design-system/lyne-components/issues/1773)) ([6bbab18](https://github.com/lyne-design-system/lyne-components/commit/6bbab18bf684273e7a4728ebe4fb2ed86f6ff36a))
+
 ### [0.35.12](https://github.com/lyne-design-system/lyne-components/compare/v0.35.11...v0.35.12) (2023-05-25)
 
 ### Documentation
