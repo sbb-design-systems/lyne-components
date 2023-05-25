@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.11](https://github.com/lyne-design-system/lyne-components/compare/v0.35.10...v0.35.11) (2023-05-25)
+
+### Bug Fixes
+
+- **sbb-checkbox, sbb-toggle-check:** prevent scrolling on space bar click ([#1774](https://github.com/lyne-design-system/lyne-components/issues/1774)) ([91cc682](https://github.com/lyne-design-system/lyne-components/commit/91cc682fc682379ec6ff070e23f20567bb853d36))
+
 ### [0.35.10](https://github.com/lyne-design-system/lyne-components/compare/v0.35.9...v0.35.10) (2023-05-24)
 
 ### Features
