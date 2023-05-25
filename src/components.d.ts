@@ -814,12 +814,13 @@ export namespace Components {
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        "roundTrip"?: boolean;
         /**
           * The trip prop
          */
         "trip": InterfaceSbbJourneySummaryAttributes;
         /**
-          * The return prop
+          * The tripBack prop
          */
         "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
@@ -3218,12 +3219,13 @@ declare namespace LocalJSX {
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        "roundTrip"?: boolean;
         /**
           * The trip prop
          */
         "trip": InterfaceSbbJourneySummaryAttributes;
         /**
-          * The return prop
+          * The tripBack prop
          */
         "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }

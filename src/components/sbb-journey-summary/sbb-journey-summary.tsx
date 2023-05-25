@@ -19,8 +19,10 @@ export class SbbJourneySummary implements ComponentInterface {
   /**  The trip prop */
   @Prop() public trip!: InterfaceSbbJourneySummaryAttributes;
 
-  /**  The return prop */
+  /**  The tripBack prop */
   @Prop() public tripBack?: InterfaceSbbJourneySummaryAttributes;
+
+  @Prop() public roundTrip?: boolean;
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
@@ -131,7 +133,7 @@ export class SbbJourneySummary implements ComponentInterface {
             level="3"
             origin={origin}
             destination={destination}
-            roundTrip={!!this.tripBack}
+            roundTrip={this.roundTrip}
           ></sbb-journey-header>
         )}
         {this._renderJourneyInformation(this.trip)}

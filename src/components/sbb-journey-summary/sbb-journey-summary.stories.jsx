@@ -68,6 +68,7 @@ const TemplateRoundtrip = ({
     data-now={dataNow}
     trip={args.trip}
     tripBack={args.tripBack}
+    round-trip={args.roundTrip}
   ></sbb-journey-summary>
 );
 
@@ -77,6 +78,7 @@ export const summaryNoVias = Template.bind({});
 export const summaryNoArrivalWalk = Template.bind({});
 export const summaryPosition = Template.bind({});
 export const summaryRoundtrip = TemplateRoundtrip.bind({});
+export const summaryRoundtripOneJourney = TemplateRoundtrip.bind({});
 
 summaryNoSlot.argTypes = defaultArgTypes;
 summaryNoSlot.args = {
@@ -170,6 +172,21 @@ summaryRoundtrip.args = {
     arrival: '2022-09-20T00:30:00+02:00',
     duration: 120,
   },
+  roundTrip: true,
+};
+
+summaryRoundtripOneJourney.args = {
+  ...defaultArgs,
+  trip: {
+    vias: ['via1', 'via2', 'via3', 'via4'],
+    legs: [pastLeg, progressLeg, futureLeg],
+    origin: 'Bern',
+    destination: 'Basel',
+    departure: '2022-09-19T20:30:00+02:00',
+    arrival: '2022-09-19T22:30:00+02:00',
+    duration: 120,
+  },
+  roundTrip: true,
 };
 
 /* ************************************************* */

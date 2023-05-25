@@ -126,6 +126,7 @@ describe('sbb-journey-summary', () => {
     });
     page.rootInstance.trip = dataWithoutVia;
     page.rootInstance.tripBack = data;
+    page.rootInstance.roundTrip = true;
     await page.waitForChanges();
     expect(page.root).toEqualHtml(
       `<sbb-journey-summary data-now="1661806800000">
