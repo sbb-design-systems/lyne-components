@@ -368,6 +368,7 @@ export class SbbDialog implements ComponentInterface {
             level={this.titleLevel}
             visual-level="3"
             negative={this.negative}
+            id="title"
           >
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
@@ -382,14 +383,20 @@ export class SbbDialog implements ComponentInterface {
       </div>
     );
 
+    // Accessibility label should win over aria-labelledby
+    let accessibilityAttributes: Record<string, string> = { 'aria-labelledby': 'title' };
+    if (this.accessibilityLabel) {
+      accessibilityAttributes = { 'aria-label': this.accessibilityLabel };
+    }
+
     return (
       <div class="sbb-dialog__container">
         <dialog
           ref={(dialogRef) => (this._dialog = dialogRef)}
-          aria-label={this.accessibilityLabel}
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
-          role="presentation"
+          role="group"
+          {...accessibilityAttributes}
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
