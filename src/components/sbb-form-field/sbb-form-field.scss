@@ -213,7 +213,7 @@
   }
 }
 
-.sbb-form-field__input ::slotted(select, sbb-select) {
+.sbb-form-field__input ::slotted(:where(select, sbb-select)) {
   padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
 }
 
