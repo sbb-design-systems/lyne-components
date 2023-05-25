@@ -8,6 +8,7 @@
   @include sbb.list-reset;
 
   display: inline-flex;
+  flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-2x);
 }
 
