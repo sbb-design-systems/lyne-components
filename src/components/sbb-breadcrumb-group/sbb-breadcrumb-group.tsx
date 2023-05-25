@@ -13,6 +13,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Local instance of slotted sbb-breadcrumb elements */
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
+  @State() private _hasEllipsis: boolean;
+
   @Element() private _element!: HTMLElement;
 
   @Listen('keydown')
@@ -36,6 +38,19 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public connectedCallback(): void {
     this._readBreadcrumb();
+  }
+
+  public componentDidLoad(): void {
+    const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
+    const breadcrumbsWidth =
+      Array.from(li)
+        .map((e) => e.clientWidth)
+        .reduce((a, b) => a + b, 0) +
+      20 * (li.length - 1);
+    this._hasEllipsis =
+      this._breadcrumbs &&
+      this._breadcrumbs.length > 2 &&
+      this._element.clientWidth < breadcrumbsWidth;
   }
 
   /**
@@ -67,10 +82,40 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   private _expandBreadcrumbs(): void {
-    return;
+    this._hasEllipsis = false;
   }
 
-  public render(): JSX.Element {
+  private _renderEllipsis(): JSX.Element {
+    const lastElementIndex = this._breadcrumbs.length - 1;
+    this._breadcrumbs[0].setAttribute('slot', `breadcrumb-0`);
+    this._breadcrumbs[lastElementIndex].setAttribute('slot', `breadcrumb-2`);
+    for (let i = 1; i < lastElementIndex; i++) {
+      this._breadcrumbs[i].removeAttribute('slot');
+    }
+
+    return (
+      <Host role="navigation">
+        <ol class="sbb-breadcrumb-group">
+          <li class="sbb-breadcrumb-group__item">
+            <slot name="breadcrumb-0" onSlotchange={(): void => this._readBreadcrumb()} />
+          </li>
+          <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
+            <sbb-icon name="chevron-small-right-small"></sbb-icon>
+            <sbb-breadcrumb onClick={() => this._expandBreadcrumbs()}>&hellip;</sbb-breadcrumb>
+          </li>
+          <li class="sbb-breadcrumb-group__item">
+            <sbb-icon name="chevron-small-right-small"></sbb-icon>
+            <slot name="breadcrumb-2" onSlotchange={(): void => this._readBreadcrumb()} />
+          </li>
+        </ol>
+        <span hidden>
+          <slot onSlotchange={(): void => this._readBreadcrumb()} />
+        </span>
+      </Host>
+    );
+  }
+
+  private _renderNoEllipsis(): JSX.Element {
     const slotName = (index): string => `breadcrumb-${index}`;
     this._breadcrumbs.forEach((breadcrumb, index) =>
       breadcrumb.setAttribute('slot', slotName(index))
@@ -79,23 +124,27 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     return (
       <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
-          {this._breadcrumbs.map((_, index) => [
+          {this._breadcrumbs.map((_, index) => (
             <li class="sbb-breadcrumb-group__item">
-              {index !== 0 && <sbb-icon name="chevron-small-right-small"></sbb-icon>}
               <slot name={slotName(index)} onSlotchange={(): void => this._readBreadcrumb()} />
-            </li>,
-            index === 0 && (
-              <li class="sbb-breadcrumb-group__item">
+              {index !== this._breadcrumbs.length - 1 && (
                 <sbb-icon name="chevron-small-right-small"></sbb-icon>
-                <sbb-breadcrumb onClick={() => this._expandBreadcrumbs()}>&hellip;</sbb-breadcrumb>
-              </li>
-            ),
-          ])}
+              )}
+            </li>
+          ))}
         </ol>
         <span hidden>
           <slot onSlotchange={(): void => this._readBreadcrumb()} />
         </span>
       </Host>
     );
+  }
+
+  public render(): JSX.Element {
+    if (this._hasEllipsis) {
+      return this._renderEllipsis();
+    } else {
+      return this._renderNoEllipsis();
+    }
   }
 }
