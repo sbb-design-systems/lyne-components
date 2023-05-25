@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.12](https://github.com/lyne-design-system/lyne-components/compare/v0.35.11...v0.35.12) (2023-05-25)
+
+### Documentation
+
+- **sbb-header-action:** fix component name in readme.md ([#1775](https://github.com/lyne-design-system/lyne-components/issues/1775)) ([5769f02](https://github.com/lyne-design-system/lyne-components/commit/5769f0247fc80ce6652c75640a5ad969cd6725d1))
+
 ### [0.35.11](https://github.com/lyne-design-system/lyne-components/compare/v0.35.10...v0.35.11) (2023-05-25)
 
 ### Bug Fixes
