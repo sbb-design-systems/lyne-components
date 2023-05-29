@@ -1,5 +1,10 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  isNextArrowKeyPressed,
+  isPreviousArrowKeyPressed,
+} from '../../global/helpers/arrow-navigation';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb.
@@ -29,11 +34,44 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     }
 
     if (isArrowKeyPressed(evt)) {
-      const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
-      const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
-      this._breadcrumbs[nextIndex]?.focus();
-      evt.preventDefault();
+      if (this._hasEllipsis) {
+        this._focusNextEllipsis(evt);
+        return;
+      }
+      this._focusNextNoEllipsis(evt);
     }
+  }
+
+  private _focusNextEllipsis(evt: KeyboardEvent): void {
+    const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
+    let elementToFocus: HTMLSbbBreadcrumbElement;
+    if (
+      (current === 0 && isNextArrowKeyPressed(evt)) ||
+      (current === this._breadcrumbs.length - 1 && isPreviousArrowKeyPressed(evt))
+    ) {
+      elementToFocus = this._element.shadowRoot.querySelector(
+        '#sbb-breadcrumb-ellipsis'
+      ) as HTMLSbbBreadcrumbElement;
+    } else if (
+      (current === 0 && isPreviousArrowKeyPressed(evt)) ||
+      (current === this._breadcrumbs.length - 1 && isNextArrowKeyPressed(evt))
+    ) {
+      const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
+      elementToFocus = this._breadcrumbs[nextIndex];
+    } else {
+      elementToFocus = isPreviousArrowKeyPressed(evt)
+        ? this._breadcrumbs[0]
+        : this._breadcrumbs[this._breadcrumbs.length - 1];
+    }
+    elementToFocus?.focus();
+    evt.preventDefault();
+  }
+
+  private _focusNextNoEllipsis(evt: KeyboardEvent): void {
+    const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
+    const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
+    this._breadcrumbs[nextIndex]?.focus();
+    evt.preventDefault();
   }
 
   public connectedCallback(): void {
@@ -85,6 +123,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._hasEllipsis = false;
   }
 
+  // FIXME see https://github.com/ionic-team/stencil/issues/4426
   private _renderEllipsis(): JSX.Element {
     const lastElementIndex = this._breadcrumbs.length - 1;
     this._breadcrumbs[0].setAttribute('slot', `breadcrumb-0`);
@@ -101,7 +140,14 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
           </li>
           <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
-            <sbb-breadcrumb onClick={() => this._expandBreadcrumbs()}>&hellip;</sbb-breadcrumb>
+            <sbb-breadcrumb
+              id="sbb-breadcrumb-ellipsis"
+              role="link"
+              tabindex="0"
+              onClick={() => this._expandBreadcrumbs()}
+            >
+              &hellip;
+            </sbb-breadcrumb>
           </li>
           <li class="sbb-breadcrumb-group__item">
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
