@@ -9,6 +9,22 @@ export function isArrowKeyPressed(event: KeyboardEvent): boolean {
 }
 
 /**
+ * Check if the key pressed should move the navigation to the next element.
+ * @param event The keyboard event to check.
+ */
+export function isPreviousArrowKeyPressed(event: KeyboardEvent): boolean {
+  return ['ArrowLeft', 'ArrowUp'].includes(event.key);
+}
+
+/**
+ * Check if the key pressed should move the navigation to the next element.
+ * @param event The keyboard event to check.
+ */
+export function isNextArrowKeyPressed(event: KeyboardEvent): boolean {
+  return ['ArrowRight', 'ArrowDown'].includes(event.key);
+}
+
+/**
  * Check if the key pressed is among those allowed for navigation.
  * @param event The keyboard event to check.
  */
