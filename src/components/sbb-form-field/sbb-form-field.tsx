@@ -261,10 +261,8 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _isInputEmpty(): boolean {
-    return (
-      ['', undefined, null].includes((this._input as HTMLInputElement | HTMLSelectElement).value) ||
-      (this._input as HTMLSbbSelectElement).value.length === 0
-    );
+    const value = (this._input as { value }).value;
+    return ['', undefined, null].includes(value) || (Array.isArray(value) && value.length === 0);
   }
 
   private _assignSlots(): void {
