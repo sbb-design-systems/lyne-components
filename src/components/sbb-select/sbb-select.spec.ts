@@ -15,7 +15,7 @@ describe('sbb-select', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-select data-state="closed">
+      <sbb-select data-state="closed" dir="ltr">
         <mock:shadow-root>
           <div class="sbb-select__trigger" aria-hidden="true">
             <span class="sbb-select__trigger--placeholder"></span>
@@ -62,7 +62,8 @@ describe('sbb-select', () => {
       <sbb-select data-state="closed"
                   multiple=""
                   data-multiple
-                  data-state="closed">
+                  data-state="closed"
+                  dir="ltr">
         <mock:shadow-root>
           <div class="sbb-select__trigger" aria-hidden="true">
             <span class="sbb-select__trigger--placeholder"></span>
