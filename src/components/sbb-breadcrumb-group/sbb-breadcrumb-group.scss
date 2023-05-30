@@ -4,11 +4,22 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-breadcrumb-visibility: hidden;
+  --sbb-breadcrumb-wrap: nowrap;
+}
+
+:host([loaded='true']) {
+  --sbb-breadcrumb-visibility: visible;
+  --sbb-breadcrumb-wrap: wrap;
+}
+
 .sbb-breadcrumb-group {
   @include sbb.list-reset;
 
   display: inline-flex;
-  flex-wrap: wrap;
+  visibility: var(--sbb-breadcrumb-visibility);
+  flex-wrap: var(--sbb-breadcrumb-wrap);
   gap: var(--sbb-spacing-fixed-1x);
 }
 
