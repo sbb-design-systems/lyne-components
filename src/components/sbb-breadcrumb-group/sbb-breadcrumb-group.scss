@@ -9,12 +9,12 @@
 
   display: inline-flex;
   flex-wrap: wrap;
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-breadcrumb-group__item {
   display: flex;
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-spacing-fixed-1x);
 }
 
 #sbb-breadcrumb-ellipsis:focus-visible:not(
