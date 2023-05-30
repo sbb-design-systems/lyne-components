@@ -297,7 +297,7 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
   </sbb-checkbox-group>
 );
 
-const NestedRadioTemplate = ({ disabledInput, ...args }) => (
+const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }) => (
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       <sbb-radio-button value="mainoption1" checked={checkedInput}>
@@ -321,7 +321,7 @@ const NestedRadioTemplate = ({ disabledInput, ...args }) => (
   </sbb-radio-button-group>
 );
 
-const NestedCheckboxTemplate = ({ disabledInput, ...args }) => (
+const NestedCheckboxTemplate = ({ checkedInput, disabledInput, ...args }) => (
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       <sbb-checkbox value="mainoption1" checked={checkedInput}>
@@ -574,11 +574,11 @@ TicketsOptionsExample.args = { ...basicArgs, checkedInput: true };
 
 export const NestedRadios = NestedRadioTemplate.bind({});
 NestedRadios.argTypes = basicArgTypes;
-NestedRadios.args = { ...basicArgs };
+NestedRadios.args = { ...basicArgs, checkedInput: true };
 
 export const NestedCheckboxes = NestedCheckboxTemplate.bind({});
 NestedCheckboxes.argTypes = basicArgTypes;
-NestedCheckboxes.args = { ...basicArgs };
+NestedCheckboxes.args = { ...basicArgs, checkedInput: true };
 
 export default {
   decorators: [
