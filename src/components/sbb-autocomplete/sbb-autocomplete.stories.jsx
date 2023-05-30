@@ -376,11 +376,11 @@ NoIconSpace.args = { ...defaultArgs, preserveIconSpace: false };
 NoIconSpace.decorators = defaultDecorator;
 NoIconSpace.play = isChromatic() && playStory;
 
-export const Scroll = Template.bind({});
-Scroll.argTypes = defaultArgTypes;
-Scroll.args = { ...defaultArgs, borderless: true };
-Scroll.decorators = scrollDecorator;
-Scroll.play = isChromatic() && playStory;
+export const InScrollContainer = Template.bind({});
+InScrollContainer.argTypes = defaultArgTypes;
+InScrollContainer.args = { ...defaultArgs, borderless: true };
+InScrollContainer.decorators = scrollDecorator;
+InScrollContainer.play = isChromatic() && playStory;
 
 export const WithOptionGroup = OptionGroupTemplate.bind({});
 WithOptionGroup.argTypes = withGroupsArgTypes;
