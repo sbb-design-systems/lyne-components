@@ -1,12 +1,12 @@
 import { Component, h, JSX, Prop, Element, ComponentInterface, State } from '@stencil/core';
 import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.custom';
-import { isTomorrow, isToday, isValid, format } from 'date-fns';
+import { isValid, format } from 'date-fns';
 
-import { i18nToday, i18nTomorrow, i18nTripDuration } from '../../global/i18n';
+import { i18nTripDuration } from '../../global/i18n';
 import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 import {
-  documentLanguage,
   HandlerRepository,
+  documentLanguage,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
 
@@ -16,9 +16,16 @@ import {
   tag: 'sbb-journey-summary',
 })
 export class SbbJourneySummary implements ComponentInterface {
-  /**  The config prop */
-  @Prop() public config!: InterfaceSbbJourneySummaryAttributes;
+  /**  The trip prop */
+  @Prop() public trip!: InterfaceSbbJourneySummaryAttributes;
 
+  /**  The tripBack prop */
+  @Prop() public tripBack?: InterfaceSbbJourneySummaryAttributes;
+
+  /**
+   * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
+   */
+  @Prop() public roundTrip?: boolean;
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
@@ -55,19 +62,17 @@ export class SbbJourneySummary implements ComponentInterface {
 
   /**  renders the date of the journey or if it is the current or next day */
   private _renderJourneyStart(departureTime: Date): JSX.Element {
-    if (isTomorrow(departureTime) || isToday(departureTime)) {
-      return isTomorrow(departureTime) ? (
-        <span>{i18nTomorrow[this._currentLanguage]}</span>
-      ) : (
-        <span>{i18nToday[this._currentLanguage]}</span>
-      );
-    }
     if (isValid(departureTime))
       return (
         <span>
-          <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
-            {format(departureTime, 'dd.MM')}
-          </time>
+          <span>
+            {departureTime.toLocaleDateString(this._currentLanguage, { weekday: 'short' })}.{' '}
+          </span>
+          <span>
+            <time dateTime={format(departureTime, 'd') + ' ' + format(departureTime, 'M')}>
+              {format(departureTime, 'dd.MM.yyyy')}
+            </time>
+          </span>
         </span>
       );
   }
@@ -89,33 +94,15 @@ export class SbbJourneySummary implements ComponentInterface {
     );
   }
 
-  public render(): JSX.Element {
-    const {
-      vias,
-      origin,
-      destination,
-      duration,
-      departureWalk,
-      departure,
-      arrivalWalk,
-      arrival,
-      legs,
-    } = this.config || {};
+  private _renderJourneyInformation(trip: InterfaceSbbJourneySummaryAttributes): JSX.Element {
+    const { vias, duration, departureWalk, departure, arrivalWalk, arrival, legs } = trip || {};
 
     const durationObj = durationToTime(duration, this._currentLanguage);
 
     return (
-      <div class="sbb-journey-summary">
-        {origin && (
-          <sbb-journey-header
-            size="l"
-            level="3"
-            origin={origin}
-            destination={destination}
-          ></sbb-journey-header>
-        )}
+      <div>
         {vias?.length > 0 && this._renderJourneyVias(vias)}
-        <span class="sbb-journey-summary__date">
+        <div class="sbb-journey-summary__date">
           {this._renderJourneyStart(removeTimezoneFromISOTimeString(departure))}
           {duration > 0 && (
             <time>
@@ -125,7 +112,7 @@ export class SbbJourneySummary implements ComponentInterface {
               <span aria-hidden="true">, {durationObj.short}</span>
             </time>
           )}
-        </span>
+        </div>
         <sbb-pearl-chain-time
           arrivalTime={arrival}
           departureTime={departure}
@@ -135,6 +122,30 @@ export class SbbJourneySummary implements ComponentInterface {
           disableAnimation={this.disableAnimation}
           data-now={this._now()}
         />
+      </div>
+    );
+  }
+
+  public render(): JSX.Element {
+    const { origin, destination } = this.trip || {};
+    return (
+      <div class="sbb-journey-summary">
+        {origin && (
+          <sbb-journey-header
+            size="l"
+            level="3"
+            origin={origin}
+            destination={destination}
+            roundTrip={this.roundTrip}
+          ></sbb-journey-header>
+        )}
+        {this._renderJourneyInformation(this.trip)}
+        {this.tripBack && (
+          <div>
+            <sbb-divider class="sbb-journey-summary__divider"></sbb-divider>
+            {this._renderJourneyInformation(this.tripBack)}
+          </div>
+        )}
         {this._hasContentSlot && (
           <div class="sbb-journey-summary__slot">
             <slot name="content" />

@@ -50,7 +50,7 @@ describe('sbb-journey-header', () => {
                 </span>
                 B
               </span>
-              <sbb-icon name="arrows-left-right-small"></sbb-icon>
+              <sbb-icon name="arrows-long-right-left-small"></sbb-icon>
               <span class="sbb-journey-header__destination">
                 <span class="sbb-journey-header__connection--visually-hidden">
                   to

@@ -18,12 +18,14 @@ Based on the orientation property, the `sbb-divider` can be displayed vertically
 
 ### Used by
 
+ - [sbb-journey-summary](../sbb-journey-summary)
  - [sbb-optgroup](../sbb-optgroup)
  - [sbb-selection-panel](../sbb-selection-panel)
 
 ### Graph
 ```mermaid
 graph TD;
+  sbb-journey-summary --> sbb-divider
   sbb-optgroup --> sbb-divider
   sbb-selection-panel --> sbb-divider
   style sbb-divider fill:#f9f,stroke:#333,stroke-width:4px

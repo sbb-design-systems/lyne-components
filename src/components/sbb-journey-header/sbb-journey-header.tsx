@@ -51,7 +51,7 @@ export class SbbJourneyHeader {
   }
 
   public render(): JSX.Element {
-    const iconName = this.roundTrip ? 'arrows-left-right-small' : 'arrow-long-right-small';
+    const iconName = this.roundTrip ? 'arrows-long-right-left-small' : 'arrow-long-right-small';
 
     return (
       <sbb-title

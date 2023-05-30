@@ -819,13 +819,21 @@ export namespace Components {
     }
     interface SbbJourneySummary {
         /**
-          * The config prop
-         */
-        "config": InterfaceSbbJourneySummaryAttributes;
-        /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        /**
+          * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
+         */
+        "roundTrip"?: boolean;
+        /**
+          * The trip prop
+         */
+        "trip": InterfaceSbbJourneySummaryAttributes;
+        /**
+          * The tripBack prop
+         */
+        "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
     interface SbbLink {
         /**
@@ -3240,13 +3248,21 @@ declare namespace LocalJSX {
     }
     interface SbbJourneySummary {
         /**
-          * The config prop
-         */
-        "config": InterfaceSbbJourneySummaryAttributes;
-        /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        /**
+          * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
+         */
+        "roundTrip"?: boolean;
+        /**
+          * The trip prop
+         */
+        "trip": InterfaceSbbJourneySummaryAttributes;
+        /**
+          * The tripBack prop
+         */
+        "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
     interface SbbLink {
         /**

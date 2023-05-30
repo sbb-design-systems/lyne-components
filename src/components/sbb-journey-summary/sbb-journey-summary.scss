@@ -25,7 +25,7 @@
 }
 
 .sbb-journey-summary__date {
-  margin-block-end: var(--sbb-spacing-fixed-1x);
+  margin-block-end: var(--sbb-spacing-fixed-2x);
 }
 
 .sbb-journey-summary__via {
@@ -33,6 +33,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.sbb-journey-summary__divider {
+  margin-block: var(--sbb-spacing-fixed-6x);
 }
 
 ul li {
