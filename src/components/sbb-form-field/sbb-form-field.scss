@@ -246,6 +246,10 @@
   :host([data-disabled]) & {
     text-decoration: line-through !important;
   }
+
+  :host([floating-label]:not([floating-label='false'])) & {
+    --sbb-select-placeholder-color: transparent;
+  }
 }
 
 .sbb-form-field__input ::slotted(:where(select, sbb-select)) {

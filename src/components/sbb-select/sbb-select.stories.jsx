@@ -29,6 +29,15 @@ const borderless = {
   },
 };
 
+const floatingLabel = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
 const value = {
   control: {
     type: 'inline-radio',
@@ -131,6 +140,7 @@ const disableGroup = {
 
 const defaultArgTypes = {
   borderless,
+  floatingLabel,
   value,
   multiple,
   placeholder,
@@ -146,6 +156,7 @@ const defaultArgTypes = {
 
 const defaultArgs = {
   borderless: false,
+  floatingLabel: false,
   value: undefined,
   multiple: false,
   placeholder: 'Please select value.',
@@ -261,9 +272,14 @@ const SelectTemplate = ({
   );
 };
 
-const FormFieldTemplate = ({ borderless, ...args }) => [
+const FormFieldTemplate = ({ borderless, floatingLabel, ...args }) => [
   <div>
-    <sbb-form-field borderless={borderless} label="Select" data-testid="form-field">
+    <sbb-form-field
+      borderless={borderless}
+      floating-label={floatingLabel}
+      label="Select"
+      data-testid="form-field"
+    >
       {SelectTemplate(args)}
     </sbb-form-field>
     {textBlock()}

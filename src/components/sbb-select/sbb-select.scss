@@ -11,7 +11,6 @@
 :host {
   @include sbb.optionsPanelOverlayHost;
 
-  --sbb-select-placeholder-color: var(--sbb-color-metal-default);
   --sbb-options-panel-internal-z-index: var(--sbb-select-z-index, var(--sbb-overlay-z-index));
 }
 
@@ -67,8 +66,8 @@
 }
 
 .sbb-select__trigger--placeholder {
-  color: var(--sbb-select-placeholder-color);
-  -webkit-text-fill-color: var(--sbb-select-placeholder-color);
+  color: var(--sbb-select-placeholder-color, var(--sbb-color-metal-default));
+  -webkit-text-fill-color: var(--sbb-select-placeholder-color, var(--sbb-color-metal-default));
 }
 
 .sbb-select__container {

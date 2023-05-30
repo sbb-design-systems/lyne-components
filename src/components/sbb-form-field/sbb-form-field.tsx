@@ -256,8 +256,14 @@ export class SbbFormField implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'inputEmpty',
-      (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) &&
-        ['', undefined, null].includes((this._input as HTMLInputElement | HTMLSelectElement).value)
+      this._supportedInputElements.includes(this._input.tagName) && this._isInputEmpty()
+    );
+  }
+
+  private _isInputEmpty(): boolean {
+    return (
+      ['', undefined, null].includes((this._input as HTMLInputElement | HTMLSelectElement).value) ||
+      (this._input as HTMLSbbSelectElement).value.length === 0
     );
   }
 
