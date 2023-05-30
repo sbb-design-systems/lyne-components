@@ -22,6 +22,7 @@ import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import {
   createNamedSlotState,
   documentLanguage,
+  formElementHandlerAspect,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
@@ -155,7 +156,8 @@ export class SbbRadioButton implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
+    formElementHandlerAspect
   );
 
   public connectedCallback(): void {
