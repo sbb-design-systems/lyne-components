@@ -84,11 +84,15 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       Array.from(li)
         .map((e) => e.clientWidth)
         .reduce((a, b) => a + b, 0) +
-      20 * (li.length - 1);
+      4 * (li.length - 1);
     this._hasEllipsis =
       this._breadcrumbs &&
       this._breadcrumbs.length > 2 &&
       this._element.clientWidth < breadcrumbsWidth;
+  }
+
+  public componentDidUpdate(): void {
+    this._element.setAttribute('loaded', 'true');
   }
 
   /**

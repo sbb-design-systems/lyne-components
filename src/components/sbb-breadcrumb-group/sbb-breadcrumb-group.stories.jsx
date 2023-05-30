@@ -99,6 +99,7 @@ export default {
     (Story) => (
       <div style={'padding: 2rem'}>
         <Story />
+        page content
       </div>
     ),
   ],
