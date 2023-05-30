@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.18](https://github.com/lyne-design-system/lyne-components/compare/v0.35.17...v0.35.18) (2023-05-30)
+
+### Bug Fixes
+
+- **sbb-menu,sbb-tooltip:** fix overlay position when direction="rtl" ([#1783](https://github.com/lyne-design-system/lyne-components/issues/1783)) ([e53a4b3](https://github.com/lyne-design-system/lyne-components/commit/e53a4b363b9968eb3a7b84f0b0e5593a9fb73617))
+
 ### [0.35.17](https://github.com/lyne-design-system/lyne-components/compare/v0.35.16...v0.35.17) (2023-05-30)
 
 ### Features
