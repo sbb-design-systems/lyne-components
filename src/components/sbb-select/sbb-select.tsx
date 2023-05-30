@@ -188,6 +188,9 @@ export class SbbSelect implements ComponentInterface {
   public componentDidLoad(): void {
     this._setupOrigin();
     this._setupTrigger();
+
+    // Override the default focus behavior
+    this._element.focus = () => this._triggerElement.focus();
     this._didLoad = true;
   }
 
