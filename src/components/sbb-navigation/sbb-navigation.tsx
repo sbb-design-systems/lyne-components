@@ -30,6 +30,7 @@ import {
   HandlerRepository,
   sbbInputModalityDetector,
   languageChangeHandlerAspect,
+  SbbInputModality,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -233,8 +234,28 @@ export class SbbNavigation implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
-      this._triggerElement?.focus();
+
+      const closedByModality = sbbInputModalityDetector.mostRecentModality;
+
+      // Set focus origin to element which should receive focus
+      if (this._triggerElement && closedByModality !== null) {
+        this._triggerElement.addEventListener(
+          'focus',
+          () => {
+            (this._triggerElement.dataset.focusOrigin as SbbInputModality) = closedByModality;
+            this._triggerElement.addEventListener(
+              'blur',
+              () => delete this._triggerElement.dataset.focusOrigin,
+              { once: true }
+            );
+          },
+          { once: true }
+        );
+      }
+
       this._navigation.close();
+      // To enable focusing other element than the trigger, we need to call focus() a second time.
+      this._triggerElement?.focus();
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
