@@ -22,6 +22,9 @@ export class SbbJourneySummary implements ComponentInterface {
   /**  The tripBack prop */
   @Prop() public tripBack?: InterfaceSbbJourneySummaryAttributes;
 
+  /**
+   * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
+   */
   @Prop() public roundTrip?: boolean;
   /**
    * Per default, the current location has a pulsating animation. You can

@@ -14,20 +14,27 @@ const disableAnimation = {
   },
 };
 
+const roundTrip = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const now = {
   control: {
     type: 'date',
   },
 };
-
 const defaultArgTypes = {
   'disable-animation': disableAnimation,
   'data-now': now,
+  'round-trip': roundTrip,
 };
 
 const defaultArgs = {
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  'round-trip': false,
 };
 
 const Template = ({ 'disable-animation': disableAnimation, 'data-now': dataNow, ...args }) => (
@@ -46,39 +53,15 @@ const Template = ({ 'disable-animation': disableAnimation, 'data-now': dataNow, 
   </sbb-journey-summary>
 );
 
-const TemplateNoSlot = ({
-  'disable-animation': disableAnimation,
-  'data-now': dataNow,
-  trip: trip,
-}) => (
-  <sbb-journey-summary
-    disable-animation={disableAnimation}
-    data-now={dataNow}
-    trip={trip}
-  ></sbb-journey-summary>
-);
-
-const TemplateRoundtrip = ({
-  'disable-animation': disableAnimation,
-  'data-now': dataNow,
-  ...args
-}) => (
-  <sbb-journey-summary
-    disable-animation={disableAnimation}
-    data-now={dataNow}
-    trip={args.trip}
-    tripBack={args.tripBack}
-    round-trip={args.roundTrip}
-  ></sbb-journey-summary>
-);
+const TemplateNoSlot = (args) => <sbb-journey-summary {...args}></sbb-journey-summary>;
 
 export const summaryNoSlot = TemplateNoSlot.bind({});
 export const summary = Template.bind({});
 export const summaryNoVias = Template.bind({});
 export const summaryNoArrivalWalk = Template.bind({});
 export const summaryPosition = Template.bind({});
-export const summaryRoundtrip = TemplateRoundtrip.bind({});
-export const summaryRoundtripOneJourney = TemplateRoundtrip.bind({});
+export const summaryRoundtrip = TemplateNoSlot.bind({});
+export const summaryRoundtripOneJourney = TemplateNoSlot.bind({});
 
 summaryNoSlot.argTypes = defaultArgTypes;
 summaryNoSlot.args = {
@@ -172,7 +155,7 @@ summaryRoundtrip.args = {
     arrival: '2022-09-20T00:30:00+02:00',
     duration: 120,
   },
-  roundTrip: true,
+  'round-trip': true,
 };
 
 summaryRoundtripOneJourney.args = {
@@ -186,7 +169,7 @@ summaryRoundtripOneJourney.args = {
     arrival: '2022-09-19T22:30:00+02:00',
     duration: 120,
   },
-  roundTrip: true,
+  'round-trip': true,
 };
 
 /* ************************************************* */
