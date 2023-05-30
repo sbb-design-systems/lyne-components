@@ -26,6 +26,7 @@ import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { isSafari } from '../../global/helpers/platform';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 let nextId = 0;
 
@@ -479,6 +480,7 @@ export class SbbAutocomplete implements ComponentInterface {
         data-state={this._state}
         role={this._ariaRoleOnHost ? 'listbox' : null}
         ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
+        dir={getDocumentWritingMode()}
       >
         <div class="sbb-autocomplete__gap-fix"></div>
         <div class="sbb-autocomplete__container">

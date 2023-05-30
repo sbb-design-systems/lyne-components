@@ -15,7 +15,7 @@
   --sbb-options-panel-animation-timing-function: ease;
   --sbb-options-panel-gap-fix-opacity: 0;
   --sbb-options-panel-gap-fix-transform: none;
-  --sbb-options-panel-gap-fix-inset-block-start: calc(
+  --sbb-options-panel-gap-fix-top: calc(
     var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
   );
 }
@@ -36,8 +36,8 @@
   background-color: transparent;
   width: var(--sbb-options-panel-width);
   height: var(--sbb-options-panel-border-radius);
-  inset-block-start: var(--sbb-options-panel-gap-fix-inset-block-start);
-  inset-inline-start: var(--sbb-options-panel-position-x);
+  top: var(--sbb-options-panel-gap-fix-top);
+  left: var(--sbb-options-panel-position-x);
   transform: var(--sbb-options-panel-gap-fix-transform);
   transition: opacity var(--sbb-options-panel-animation-duration)
     var(--sbb-options-panel-animation-timing-function);
@@ -51,8 +51,8 @@
   background-color: transparent;
   border: none;
   border-radius: var(--sbb-options-panel-border-radius);
-  inset-block-start: var(--sbb-options-panel-position-y);
-  inset-inline-start: var(--sbb-options-panel-position-x);
+  top: var(--sbb-options-panel-position-y);
+  left: var(--sbb-options-panel-position-x);
   width: var(--sbb-options-panel-width);
   transition: box-shadow var(--sbb-options-panel-animation-duration)
     var(--sbb-options-panel-animation-timing-function);
@@ -106,14 +106,24 @@
     border: calc($radius / 2) solid $color;
     width: calc($radius * 3);
     height: calc($radius * 3);
-    inset-block-end: calc(($radius / 2) * -1);
+    bottom: calc(($radius / 2) * -1);
   }
 
   .sbb-gap-fix-corner#left {
-    inset-inline-start: calc(($radius / 2) * -1);
+    left: calc(($radius / 2) * -1);
+
+    :host([dir='rtl']) & {
+      right: calc(($radius / 2) * -1);
+      left: unset;
+    }
   }
 
   .sbb-gap-fix-corner#right {
-    inset-inline-end: calc(($radius / 2) * -1);
+    right: calc(($radius / 2) * -1);
+
+    :host([dir='rtl']) & {
+      left: calc(($radius / 2) * -1);
+      right: unset;
+    }
   }
 }

@@ -22,6 +22,7 @@ import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers/over
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isSafari } from '../../global/helpers/platform';
 import { assignId } from '../../global/helpers/assign-id';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 let nextId = 0;
 
@@ -558,6 +559,7 @@ export class SbbSelect implements ComponentInterface {
         role={this._ariaRoleOnHost ? 'listbox' : null}
         ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
         onClick={() => this._toggleOpening()}
+        dir={getDocumentWritingMode()}
       >
         {/* This element is visually hidden and will be appended to the light DOM to allow screen readers to work properly */}
         <div
