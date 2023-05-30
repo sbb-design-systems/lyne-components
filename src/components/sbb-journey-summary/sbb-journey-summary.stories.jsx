@@ -37,8 +37,8 @@ const defaultArgs = {
   'round-trip': false,
 };
 
-const Template = ({ 'disable-animation': disableAnimation, 'data-now': dataNow, ...args }) => (
-  <sbb-journey-summary disable-animation={disableAnimation} data-now={dataNow} trip={args.trip}>
+const Template = (args) => (
+  <sbb-journey-summary {...args}>
     <div
       style={{
         display: 'flex',
