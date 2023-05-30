@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.17](https://github.com/lyne-design-system/lyne-components/compare/v0.35.16...v0.35.17) (2023-05-30)
+
+### Features
+
+- **sbb-journey-summary:** add additional prop to display round trip ([#1761](https://github.com/lyne-design-system/lyne-components/issues/1761)) ([2869eb1](https://github.com/lyne-design-system/lyne-components/commit/2869eb1745fc82edaee9d7e3458baf3dd1ed5d7c))
+
 ### [0.35.16](https://github.com/lyne-design-system/lyne-components/compare/v0.35.15...v0.35.16) (2023-05-30)
 
 ### Documentation
