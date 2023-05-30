@@ -133,16 +133,16 @@
   }
 
   @include sbb.mq($from: medium) {
-    inset-block-start: 0;
-    inset-block-end: unset;
-    inset-inline-start: 0;
-    inset-inline-end: unset;
+    top: 0;
+    bottom: unset;
+    left: 0;
+    right: unset;
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
     &[open] {
-      inset-block-start: var(--sbb-menu-position-y);
-      inset-inline-start: var(--sbb-menu-position-x);
+      top: var(--sbb-menu-position-y);
+      left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }

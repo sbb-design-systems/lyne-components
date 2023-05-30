@@ -84,23 +84,29 @@ const tooltip = (args) => (
   </sbb-tooltip>
 );
 
-const StartBelowTemplate = (args) => [tooltipTrigger('left: 2rem'), tooltip(args)];
+const StartBelowTemplate = (args) => [tooltipTrigger('inset-inline-start: 2rem'), tooltip(args)];
 
-const CenterBelowTemplate = (args) => [tooltipTrigger('left: calc(50% - 44px)'), tooltip(args)];
-
-const EndBelowTemplate = (args) => [tooltipTrigger('right: 2rem'), tooltip(args)];
-
-const StartAboveTemplate = (args) => [tooltipTrigger('bottom: 2rem'), tooltip(args)];
-
-const CenterAboveTemplate = (args) => [
-  tooltipTrigger('left: calc(50% - 44px); bottom: 2rem'),
+const CenterBelowTemplate = (args) => [
+  tooltipTrigger('inset-inline-start: calc(50% - 44px)'),
   tooltip(args),
 ];
 
-const EndAboveTemplate = (args) => [tooltipTrigger('right: 2rem; bottom: 2rem'), tooltip(args)];
+const EndBelowTemplate = (args) => [tooltipTrigger('inset-inline-end: 2rem'), tooltip(args)];
+
+const StartAboveTemplate = (args) => [tooltipTrigger('inset-block-end: 2rem'), tooltip(args)];
+
+const CenterAboveTemplate = (args) => [
+  tooltipTrigger('inset-inline-start: calc(50% - 44px); inset-block-end: 2rem'),
+  tooltip(args),
+];
+
+const EndAboveTemplate = (args) => [
+  tooltipTrigger('inset-inline-end: 2rem; inset-block-end: 2rem'),
+  tooltip(args),
+];
 
 const LongContentTemplate = (args) => [
-  tooltipTrigger('left: 2rem'),
+  tooltipTrigger('inset-inline-start: 2rem'),
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
     <p id="tooltip-content" style={'margin: 0; font-size: var(--sbb-font-size-text-s);'}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -110,7 +116,7 @@ const LongContentTemplate = (args) => [
   </sbb-tooltip>,
 ];
 
-const HoverTriggerTemplate = (args) => [tooltipTrigger('left: 2rem'), tooltip(args)];
+const HoverTriggerTemplate = (args) => [tooltipTrigger('inset-inline-start: 2rem'), tooltip(args)];
 
 export const StartBelow = StartBelowTemplate.bind({});
 StartBelow.argTypes = defaultArgTypes;
