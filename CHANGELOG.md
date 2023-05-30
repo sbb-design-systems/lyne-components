@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.35.16](https://github.com/lyne-design-system/lyne-components/compare/v0.35.15...v0.35.16) (2023-05-30)
+
+### Documentation
+
+- **sbb-selection-panel:** fix nested radios and checkboxes stories rendering ([#1781](https://github.com/lyne-design-system/lyne-components/issues/1781)) ([10ee887](https://github.com/lyne-design-system/lyne-components/commit/10ee887a474a22e6b664d639efe556347765a9ae))
+
 ### [0.35.15](https://github.com/lyne-design-system/lyne-components/compare/v0.35.14...v0.35.15) (2023-05-30)
 
 ### Bug Fixes
