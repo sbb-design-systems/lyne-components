@@ -9,7 +9,7 @@ See also the `sbb-alert-group` which automatically removes an alert after clicki
 ## Accessibility
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning. 
-Depending on which elements are going to be slotted, it can violate semantic rules (e.g. slotting in a `<div>` element).
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
 ## Usage
 

@@ -6,7 +6,7 @@ You can either use slots or props to render the `sbb-teaser-hero` component.
 ## Accessibility
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
-Depending on which elements are going to be slotted, it can violate semantic rules (e.g. slotting in a `<div>` element).
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
 
 ## Usage with props
 
