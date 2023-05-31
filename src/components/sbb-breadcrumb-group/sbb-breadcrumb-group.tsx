@@ -22,6 +22,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _breadcrumbGroupController: AbortController;
+
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     if (
@@ -40,6 +42,55 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       }
       this._focusNextNoEllipsis(evt);
     }
+  }
+
+  public connectedCallback(): void {
+    this._readBreadcrumb();
+    this._breadcrumbGroupController = new AbortController();
+    window.addEventListener('resize', () => this._evaluateEllipsis(), {
+      passive: true,
+      signal: this._breadcrumbGroupController.signal,
+    });
+  }
+
+  public componentDidLoad(): void {
+    this._evaluateEllipsis();
+  }
+
+  public componentDidUpdate(): void {
+    this._element.setAttribute('loaded', 'true');
+  }
+
+  public disconnectedCallback(): void {
+    this._breadcrumbGroupController.abort();
+  }
+
+  /**
+   * Create an array with only the sbb-breadcrumb children
+   */
+  private _readBreadcrumb(): void {
+    const breadcrumbs = Array.from(this._element.children).filter(
+      (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB'
+    );
+    // If the slotted sbb-breadcrumb instances have not changed,
+    // we can skip syncing and updating the breadcrumbs reference list.
+    if (
+      this._breadcrumbs &&
+      breadcrumbs.length === this._breadcrumbs.length &&
+      this._breadcrumbs.every((e, i) => breadcrumbs[i] === e)
+    ) {
+      return;
+    }
+    this._syncBreadcrumbs();
+    this._breadcrumbs = breadcrumbs;
+  }
+
+  private _syncBreadcrumbs(): void {
+    const breadcrumbs = this._element.querySelectorAll('sbb-breadcrumb');
+    const length = breadcrumbs.length - 1;
+    breadcrumbs.forEach((breadcrumb, index) => {
+      breadcrumb.ariaCurrent = index === length ? 'page' : undefined;
+    });
   }
 
   private _focusNextEllipsis(evt: KeyboardEvent): void {
@@ -74,11 +125,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     evt.preventDefault();
   }
 
-  public connectedCallback(): void {
-    this._readBreadcrumb();
+  private _expandBreadcrumbs(): void {
+    this._hasEllipsis = false;
   }
 
-  public componentDidLoad(): void {
+  private _evaluateEllipsis(): void {
     const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
     const breadcrumbsWidth =
       Array.from(li)
@@ -89,42 +140,6 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       this._breadcrumbs &&
       this._breadcrumbs.length > 2 &&
       this._element.clientWidth < breadcrumbsWidth;
-  }
-
-  public componentDidUpdate(): void {
-    this._element.setAttribute('loaded', 'true');
-  }
-
-  /**
-   * Create an array with only the sbb-breadcrumb children
-   */
-  private _readBreadcrumb(): void {
-    const breadcrumbs = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB'
-    );
-    // If the slotted sbb-breadcrumb instances have not changed,
-    // we can skip syncing and updating the breadcrumbs reference list.
-    if (
-      this._breadcrumbs &&
-      breadcrumbs.length === this._breadcrumbs.length &&
-      this._breadcrumbs.every((e, i) => breadcrumbs[i] === e)
-    ) {
-      return;
-    }
-    this._syncBreadcrumbs();
-    this._breadcrumbs = breadcrumbs;
-  }
-
-  private _syncBreadcrumbs(): void {
-    const breadcrumbs = this._element.querySelectorAll('sbb-breadcrumb');
-    const length = breadcrumbs.length - 1;
-    breadcrumbs.forEach((breadcrumb, index) => {
-      breadcrumb.ariaCurrent = index === length ? 'page' : undefined;
-    });
-  }
-
-  private _expandBreadcrumbs(): void {
-    this._hasEllipsis = false;
   }
 
   // FIXME see https://github.com/ionic-team/stencil/issues/4426
