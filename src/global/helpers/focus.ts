@@ -31,7 +31,8 @@ export function getFocusableElements(
   return [...focusableEls];
 }
 
-export function focusAndSetCloseModality(
+// Focus an element and set the input modality in order to avoid showing the outline in Safari.
+export function focusAndSetModality(
   elementToFocus: HTMLElement,
   focusOptions?: FocusOptions
 ): void {
@@ -39,16 +40,16 @@ export function focusAndSetCloseModality(
     return;
   }
 
-  const closedByModality = sbbInputModalityDetector.mostRecentModality;
+  const mostRecentModality = sbbInputModalityDetector.mostRecentModality;
 
   // Set focus origin to element which should receive focus
-  if (!(elementToFocus && closedByModality !== null)) {
+  if (!(elementToFocus && mostRecentModality !== null)) {
     return;
   }
   elementToFocus.addEventListener(
     'focus',
     () => {
-      (elementToFocus.dataset.focusOrigin as SbbInputModality) = closedByModality;
+      (elementToFocus.dataset.focusOrigin as SbbInputModality) = mostRecentModality;
       elementToFocus.addEventListener('blur', () => delete elementToFocus.dataset.focusOrigin, {
         once: true,
       });

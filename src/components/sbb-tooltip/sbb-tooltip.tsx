@@ -13,11 +13,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import {
-  IS_FOCUSABLE_QUERY,
-  FocusTrap,
-  focusAndSetCloseModality,
-} from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap, focusAndSetModality } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
@@ -402,10 +398,8 @@ export class SbbTooltip implements ComponentInterface {
         ? this._nextFocusedElement
         : this._triggerElement;
 
-      focusAndSetCloseModality(elementToFocus);
+      focusAndSetModality(elementToFocus);
       this._dialog.close();
-      // To enable focusing other element than the trigger, we need to call focus() a second time.
-      elementToFocus?.focus();
       this.didClose.emit({ closeTarget: this._tooltipCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();

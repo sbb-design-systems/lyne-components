@@ -14,11 +14,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import {
-  focusAndSetCloseModality,
-  FocusTrap,
-  IS_FOCUSABLE_QUERY,
-} from '../../global/helpers/focus';
+import { focusAndSetModality, FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
 import { ScrollHandler } from '../../global/helpers/scroll';
@@ -237,7 +233,7 @@ export class SbbNavigation implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
-      focusAndSetCloseModality(this._triggerElement);
+      focusAndSetModality(this._triggerElement);
       this._navigation.close();
       this.didClose.emit();
       this._windowEventsController?.abort();
