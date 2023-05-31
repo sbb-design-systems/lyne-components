@@ -41,6 +41,10 @@
 
 .sbb-teaser-hero__panel-text {
   @include sbb.panel-text;
+
+  display: inline;
+  margin: 0;
+  padding: 0;
 }
 
 .sbb-teaser-hero__panel-link {

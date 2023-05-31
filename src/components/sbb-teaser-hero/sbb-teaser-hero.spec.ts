@@ -32,9 +32,9 @@ describe('sbb-teaser-hero', () => {
               tabindex="-1"
             >
               <span class="sbb-teaser-hero__panel">
-                <span class="sbb-teaser-hero__panel-text">
+                <p class="sbb-teaser-hero__panel-text">
                   <slot></slot>
-                </span>
+                </p>
                 <sbb-link
                   class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
@@ -69,9 +69,9 @@ describe('sbb-teaser-hero', () => {
           <mock:shadow-root>
             <span class="sbb-teaser-hero">
               <span class="sbb-teaser-hero__panel">
-                <span class="sbb-teaser-hero__panel-text">
+                <p class="sbb-teaser-hero__panel-text">
                   <slot></slot>
-                </span>
+                </p>
               </span>
              <slot name="image">
                <sbb-image image-src="${sampleImages[1]}" alt="SBB CFF FFS Employee"></sbb-image>
@@ -99,9 +99,9 @@ describe('sbb-teaser-hero', () => {
               tabindex="-1"
             >
               <span class="sbb-teaser-hero__panel">
-                <span class="sbb-teaser-hero__panel-text">
+                <p class="sbb-teaser-hero__panel-text">
                   <slot></slot>
-                </span>
+                </p>
                 <sbb-link
                   class="sbb-teaser-hero__panel-link"
                   icon-name="chevron-small-right-small"
