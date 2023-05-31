@@ -99,12 +99,14 @@
 }
 
 .sbb-teaser__description {
-  @include sbb.text-s--regular;
-  @include sbb.clamp-lines($lines: 2);
-
+  // Reset paragraph styles
   display: inline;
   margin: 0;
   padding: 0;
+
+  @include sbb.text-s--regular;
+  @include sbb.clamp-lines($lines: 2);
+
   color: var(--sbb-teaser-description-color);
 }
 

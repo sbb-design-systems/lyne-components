@@ -42,6 +42,7 @@
 .sbb-teaser-hero__panel-text {
   @include sbb.panel-text;
 
+  // Reset paragraph styles
   display: inline;
   margin: 0;
   padding: 0;
