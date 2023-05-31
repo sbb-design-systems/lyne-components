@@ -96,7 +96,7 @@ export class SbbRadioButton implements ComponentInterface {
   @State() private _isSelectionPanelInput = false;
 
   /**
-   * The label describing whether the selection panel is exapanded (for screen readers only).
+   * The label describing whether the selection panel is expanded (for screen readers only).
    */
   @State() private _selectionPanelExpandedLabel: string;
 
@@ -135,9 +135,9 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   @Listen('click')
-  public handleClick(event: Event): void {
-    this.select();
+  public async handleClick(event: Event): Promise<void> {
     event.preventDefault();
+    await this.select();
   }
 
   @Method()
@@ -180,9 +180,9 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
+  public async handleKeyDown(evt: KeyboardEvent): Promise<void> {
     if (evt.code === 'Space') {
-      this.select();
+      await this.select();
     }
   }
 
