@@ -26,6 +26,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
+import { getFocusableElements } from '../../global/helpers/focus';
 
 let nextId = 0;
 
@@ -76,6 +77,8 @@ export class SbbNavigationSection implements ComponentInterface {
   @State() private _namedSlots = createNamedSlotState('title');
 
   @State() private _currentLanguage = documentLanguage();
+
+  @State() private _renderBackButton = isBreakpoint('zero', 'large');
 
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionWrapperElement: HTMLElement;
@@ -163,6 +166,33 @@ export class SbbNavigationSection implements ComponentInterface {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
+    this._element.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key !== 'Tab') {
+          return;
+        }
+
+        // Dynamically get first and last focusable element, as this might have changed since opening overlay
+        const elementChildren: HTMLElement[] = Array.from(
+          this._element.shadowRoot.querySelectorAll('*')
+        );
+        const focusableElements = getFocusableElements(elementChildren);
+        const firstFocusable = focusableElements[0] as HTMLElement;
+        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        const pivot = event.shiftKey ? firstFocusable : lastFocusable;
+
+        if (
+          (firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
+          (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot
+        ) {
+          this._triggerElement.focus();
+          event.preventDefault();
+        }
+      },
+      { signal: this._navigationSectionController.signal }
+    );
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
@@ -189,6 +219,14 @@ export class SbbNavigationSection implements ComponentInterface {
     window.addEventListener('click', this._handleNavigationSectionClose, {
       signal: this._windowEventsController.signal,
     });
+
+    window.addEventListener(
+      'resize',
+      () => {
+        this._renderBackButton = isBreakpoint('zero', 'large');
+      },
+      { signal: this._windowEventsController.signal }
+    );
   }
 
   // Check if the click was triggered on an element that should close the section.
@@ -258,7 +296,7 @@ export class SbbNavigationSection implements ComponentInterface {
 
     const labelElement = (
       <div class="sbb-navigation-section__header">
-        {backButton}
+        {this._renderBackButton && backButton}
         <span class="sbb-navigation-section__title" id="title">
           <slot name="title">{this.titleContent}</slot>
         </span>

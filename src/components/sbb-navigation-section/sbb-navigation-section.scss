@@ -175,10 +175,6 @@
 .sbb-navigation-section__back {
   position: absolute;
   transform: translateX(calc((100% + var(--sbb-spacing-fixed-1x)) * -1));
-
-  @include sbb.mq($from: large) {
-    display: none;
-  }
 }
 
 .sbb-navigation-section__title {
