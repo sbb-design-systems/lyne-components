@@ -1,4 +1,38 @@
-to be documented...
+The `sbb-breadcrumb` is a component used to display a link to a page; 
+used within a `sbb-breadcrumb-group`, it can display the list of the links the used visited to arrive at the current page.
+
+It is possible to provide a text via an unnamed slot; the component can optionally display a `<sbb-icon>`
+at the component start using the `iconName` property or via custom content using the `icon` slot.
+Text and icon are not exclusive and can be used together.
+
+It's possible to set all the link related properties (`download`, `href`, `rel` and `target`);
+the `ariaCurrent` is used to make the breadcrumb read correctly by screen-readers when the componentn
+is used in a `sbb-breadcrumb-group`.
+
+## Usage
+
+Breadcrumb with text:
+
+```html
+<sbb-breadcrumb href='/contact' target='_blank'>
+  Contact us
+</sbb-breadcrumb>
+```
+
+Breadcrumb with text and slotted icon:
+
+```html
+<sbb-breadcrumb href='/download' download icon-name='download-small'></sbb-breadcrumb>
+```
+
+Breadcrumb with text and slotted icon:
+
+```html
+<sbb-breadcrumb href='/info' target='_blank' rel='help'>
+  Info
+  <sbb-icon slot="icon" name="circle-information-small"></sbb-icon>
+</sbb-breadcrumb>
+```
 
 <!-- Auto Generated Below -->
 
