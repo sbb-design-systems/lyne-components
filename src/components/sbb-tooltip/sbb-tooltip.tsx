@@ -13,7 +13,11 @@ import {
   Watch,
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import {
+  IS_FOCUSABLE_QUERY,
+  FocusTrap,
+  focusAndSetCloseModality,
+} from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
@@ -26,7 +30,6 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   sbbInputModalityDetector,
-  SbbInputModality,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -399,23 +402,7 @@ export class SbbTooltip implements ComponentInterface {
         ? this._nextFocusedElement
         : this._triggerElement;
 
-      const closedByModality = sbbInputModalityDetector.mostRecentModality;
-
-      // Set focus origin to element which should receive focus
-      if (elementToFocus && closedByModality !== null) {
-        elementToFocus.addEventListener(
-          'focus',
-          () => {
-            (elementToFocus.dataset.focusOrigin as SbbInputModality) = closedByModality;
-            elementToFocus.addEventListener(
-              'blur',
-              () => delete elementToFocus.dataset.focusOrigin,
-              { once: true }
-            );
-          },
-          { once: true }
-        );
-      }
+      focusAndSetCloseModality(elementToFocus);
       this._dialog.close();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       elementToFocus?.focus();

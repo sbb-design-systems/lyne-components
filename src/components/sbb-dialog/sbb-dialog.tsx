@@ -12,7 +12,11 @@ import {
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
+import {
+  IS_FOCUSABLE_QUERY,
+  FocusTrap,
+  focusAndSetCloseModality,
+} from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -290,8 +294,7 @@ export class SbbDialog implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
-      // Manually focus last focused element in order to avoid showing outline in Safari
-      this._lastFocusedElement?.focus();
+      focusAndSetCloseModality(this._lastFocusedElement);
       this._dialog.close();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();

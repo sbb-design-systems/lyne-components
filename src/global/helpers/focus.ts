@@ -1,3 +1,5 @@
+import { SbbInputModality, sbbInputModalityDetector } from './eventing';
+
 export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]:not([disabled='false'])):not([tabindex="-1"]):not([static])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
@@ -27,6 +29,33 @@ export function getFocusableElements(
   getFocusables(elements, filterFunc);
 
   return [...focusableEls];
+}
+
+export function focusAndSetCloseModality(
+  elementToFocus: HTMLElement,
+  focusOptions?: FocusOptions
+): void {
+  if (!elementToFocus) {
+    return;
+  }
+
+  const closedByModality = sbbInputModalityDetector.mostRecentModality;
+
+  // Set focus origin to element which should receive focus
+  if (!(elementToFocus && closedByModality !== null)) {
+    return;
+  }
+  elementToFocus.addEventListener(
+    'focus',
+    () => {
+      (elementToFocus.dataset.focusOrigin as SbbInputModality) = closedByModality;
+      elementToFocus.addEventListener('blur', () => delete elementToFocus.dataset.focusOrigin, {
+        once: true,
+      });
+    },
+    { once: true }
+  );
+  elementToFocus?.focus(focusOptions);
 }
 
 export class FocusTrap {
