@@ -3,6 +3,11 @@ The hero teaser should be an eye-catcher and should have an emotional effect on 
 The `sbb-teaser-hero` is a link with a description, an action call and a background image.
 You can either use slots or props to render the `sbb-teaser-hero` component.
 
+## Accessibility
+
+The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
+
 ## Usage with props
 
 ```html

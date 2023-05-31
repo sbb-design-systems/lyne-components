@@ -19,7 +19,7 @@ describe('sbb-teaser', () => {
                   <sbb-title class="sbb-teaser__lead" level="5" visuallevel="5">
                     <slot name='title'/>
                   </sbb-title>
-                <span class='sbb-teaser__description'><slot name='description'/></span>
+                <p class='sbb-teaser__description'><slot name='description'/></p>
               </span>
             </a>
           </mock:shadow-root>
@@ -44,7 +44,7 @@ describe('sbb-teaser', () => {
                     <sbb-title class="sbb-teaser__lead" level="5" visuallevel="5">
                       <slot name='title'/>
                     </sbb-title>
-                  <span class='sbb-teaser__description'><slot name='description'/></span>
+                  <p class='sbb-teaser__description'><slot name='description'/></p>
                 </span>
               </span>
             </a>

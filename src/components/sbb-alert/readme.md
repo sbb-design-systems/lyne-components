@@ -6,6 +6,11 @@ It's possible to place an action, which by clicking navigates somewhere to displ
 of the library consumer to do it by reacting to the specific event. 
 See also the `sbb-alert-group` which automatically removes an alert after clicking the close button.
 
+## Accessibility
+
+The description text is wrapped into an `<p>` element to guarantee the semantic meaning. 
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
+
 ## Usage
 
 Default with link:

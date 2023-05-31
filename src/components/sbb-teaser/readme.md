@@ -2,6 +2,11 @@ The sbb-teaser acts as a link containing an image next to a title and a descript
 It's important to set the accessibilityLabel which describes the teaser for screenreader users.
 The title level can be set by the consumer.
 
+## Accessibility
+
+The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
+Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
+
 <!-- Auto Generated Below -->
 
 
