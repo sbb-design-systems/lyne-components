@@ -29,6 +29,7 @@ via simple CSS rules.
  - [sbb-link-list](../sbb-link-list)
  - [sbb-skiplink-list](../sbb-skiplink-list)
  - [sbb-teaser](../sbb-teaser)
+ - [sbb-train](../sbb-train)
 
 ### Graph
 ```mermaid
@@ -39,6 +40,7 @@ graph TD;
   sbb-link-list --> sbb-title
   sbb-skiplink-list --> sbb-title
   sbb-teaser --> sbb-title
+  sbb-train --> sbb-title
   style sbb-title fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

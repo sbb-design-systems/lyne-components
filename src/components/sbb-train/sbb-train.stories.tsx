@@ -15,6 +15,17 @@ const directionLabel: InputType = {
   },
 };
 
+
+const directionLabelLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [2, 3, 4, 5, 6],
+  table: {
+    category: 'Direction indicator',
+  },
+};
+
 const station: InputType = {
   control: {
     type: 'text',
@@ -48,6 +59,7 @@ const defaultArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
   station,
   direction,
+  directionLabelLevel,
 };
 
 const defaultArgs: Args = {
@@ -56,6 +68,7 @@ const defaultArgs: Args = {
     'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
   direction: direction.options[0],
+  'direction-label-level': directionLabelLevel.options[1],
 };
 
 export const train: StoryObj = {

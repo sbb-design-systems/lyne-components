@@ -16,6 +16,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
  * @slot unnamed - Used for slotting sbb-train-wagons.
@@ -29,6 +30,9 @@ import {
 export class SbbTrain implements ComponentInterface {
   /** General label for "driving direction". */
   @Prop() public directionLabel!: string;
+
+  /** Heading level of the direction label, used for screenreaders. */
+  @Prop() public directionLabelLevel: InterfaceTitleAttributes['level'] = '3';
 
   /** Label for the destination station of the train. */
   @Prop() public station?: string;
@@ -110,7 +114,9 @@ export class SbbTrain implements ComponentInterface {
 
     return (
       <div class="sbb-train">
-        <span class="sbb-screenreaderonly">{this._getDirectionAriaLabel()}</span>
+        <sbb-title visually-hidden level={this.directionLabelLevel}>
+          {this._getDirectionAriaLabel()}
+        </sbb-title>
         <ul class="sbb-train__wagons" aria-label={i18nWagonsLabel[this._currentLanguage]}>
           {this._wagons.map((_, index) => (
             <li>

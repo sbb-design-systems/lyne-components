@@ -12,7 +12,7 @@ describe('sbb-train', () => {
       <sbb-train direction-label="Driving direction" station="Bern" direction="left">
         <mock:shadow-root>
           <div class="sbb-train">
-            <span class="sbb-screenreaderonly">Train, Driving direction Bern.</span>
+            <sbb-title visually-hidden level="3">Train, Driving direction Bern.</sbb-title>
             <ul class="sbb-train__wagons" aria-label="Coaches of the train"></ul>
             <span hidden>
               <slot />
@@ -80,7 +80,7 @@ describe('sbb-train', () => {
         html: '<sbb-train />',
       });
 
-      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual('Train.');
+      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual('Train.');
     });
 
     it('should create aria label with direction-label and no accessibility-label', async () => {
@@ -89,7 +89,7 @@ describe('sbb-train', () => {
         html: '<sbb-train direction-label="Direction of Travel"/>',
       });
 
-      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual('Train.');
+      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual('Train.');
     });
 
     it('should create aria label with direction-label, station and no accessibility-label', async () => {
@@ -98,7 +98,7 @@ describe('sbb-train', () => {
         html: '<sbb-train direction-label="Direction of Travel" station="Bern"/>',
       });
 
-      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual(
+      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual(
         'Train, Direction of Travel Bern.'
       );
     });
@@ -109,7 +109,7 @@ describe('sbb-train', () => {
         html: '<sbb-train direction-label="Direction of Travel" station="Bern" accessibility-label="Additional label"/>',
       });
 
-      expect(root.shadowRoot.querySelector('.sbb-screenreaderonly').textContent).toEqual(
+      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual(
         'Train, Direction of Travel Bern, Additional label.'
       );
     });

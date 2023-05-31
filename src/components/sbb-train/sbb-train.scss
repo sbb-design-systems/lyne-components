@@ -127,7 +127,3 @@
   overflow: hidden;
   padding: 0 var(--sbb-train-direction-station-padding);
 }
-
-.sbb-screenreaderonly {
-  @include sbb.screen-reader-only;
-}
