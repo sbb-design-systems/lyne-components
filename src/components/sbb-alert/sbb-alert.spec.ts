@@ -22,7 +22,9 @@ describe('sbb-alert', () => {
                   <sbb-title class="sbb-alert__title" level="3" negative visual-level="5">
                     <slot name="title">Interruption</slot>
                   </sbb-title>
-                  <slot></slot>
+                  <p class="sbb-alert__content-slot">
+                    <slot></slot>
+                  </p>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
                 <sbb-button aria-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
@@ -55,7 +57,9 @@ describe('sbb-alert', () => {
                   <sbb-title class="sbb-alert__title" level="2" negative visual-level="3">
                     <slot name="title">Interruption</slot>
                   </sbb-title>
-                  <slot></slot>
+                  <p class="sbb-alert__content-slot">
+                    <slot></slot>
+                  </p>
                   <span aria-hidden="true"></span>
                   <sbb-link negative variant="inline" aria-label="label" href="https://www.sbb.ch" rel="noopener" target="_blank">
                     Show much more

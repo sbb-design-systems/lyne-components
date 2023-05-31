@@ -76,6 +76,12 @@
   flex: 1;
 }
 
+.sbb-alert__content-slot {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 .sbb-alert__title {
   // Overwrite sbb-title default margin
   margin: 0;
