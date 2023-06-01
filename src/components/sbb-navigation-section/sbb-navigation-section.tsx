@@ -78,7 +78,7 @@ export class SbbNavigationSection implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
-  @State() private _renderBackButton = isBreakpoint('zero', 'large');
+  @State() private _renderBackButton = this._isZeroToLargeBreakpoint();
 
   private _navigationSection: HTMLDialogElement;
   private _navigationSectionWrapperElement: HTMLElement;
@@ -223,7 +223,7 @@ export class SbbNavigationSection implements ComponentInterface {
     window.addEventListener(
       'resize',
       () => {
-        this._renderBackButton = isBreakpoint('zero', 'large');
+        this._renderBackButton = this._isZeroToLargeBreakpoint();
       },
       { signal: this._windowEventsController.signal }
     );
@@ -255,8 +255,12 @@ export class SbbNavigationSection implements ComponentInterface {
     );
   }
 
+  private _isZeroToLargeBreakpoint(): boolean {
+    return isBreakpoint('zero', 'large');
+  }
+
   private async _resetMarker(): Promise<void> {
-    if (isBreakpoint('zero', 'large')) {
+    if (this._isZeroToLargeBreakpoint()) {
       await (this._triggerElement?.parentElement as HTMLSbbNavigationMarkerElement)?.reset();
     }
   }

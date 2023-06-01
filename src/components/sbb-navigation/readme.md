@@ -27,9 +27,9 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
   <sbb-navigation-marker>
   
   <sbb-navigation-marker>
-    <sbb-navigation-action aria-selected="true">Language 1</sbb-navigation-action>
-    <sbb-navigation-action aria-selected="false">Language 2</sbb-navigation-action>
-    <sbb-navigation-action aria-selected="false">Language 3</sbb-navigation-action>
+    <sbb-navigation-action aria-pressed="true">Language 1</sbb-navigation-action>
+    <sbb-navigation-action aria-pressed="false">Language 2</sbb-navigation-action>
+    <sbb-navigation-action aria-pressed="false">Language 3</sbb-navigation-action>
   <sbb-navigation-marker>
 
   <sbb-navigation-section trigger="nav-section-1">
@@ -49,7 +49,7 @@ The default `z-index` of the component is set to `1000`; to specify a custom sta
 
 ## Accessibility
 
-When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language) `aria-selected` should be set on that action.
+When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language) `aria-pressed` should be set on that action.
 
 <!-- Auto Generated Below -->
 
