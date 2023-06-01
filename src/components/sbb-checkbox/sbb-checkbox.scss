@@ -168,10 +168,3 @@ input[type='checkbox'] {
 .sbb-checkbox__expanded-label {
   @include sbb.screen-reader-only;
 }
-
-/* stylelint-disable-next-line */
-input[type='checkbox']:focus-visible + .sbb-checkbox__inner {
-  @include sbb.focus-outline;
-
-  border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-}

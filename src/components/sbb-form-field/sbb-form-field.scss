@@ -91,6 +91,10 @@
   --sbb-form-field-error-padding-block-start: 0;
 }
 
+:host([floating-label]:not([floating-label='false'])) {
+  --sbb-select-placeholder-color: transparent;
+}
+
 // Should be after other definitions to override border style
 
 :host(:is([borderless], [data-input-type='sbb-slider'])) {
@@ -245,10 +249,6 @@
 
   :host([data-disabled]) & {
     text-decoration: line-through !important;
-  }
-
-  :host([floating-label]:not([floating-label='false'])) & {
-    --sbb-select-placeholder-color: transparent;
   }
 }
 

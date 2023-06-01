@@ -33,7 +33,7 @@
   }
 }
 
-:host([indeterminate]:not([indeterminate='false']):is([disabled]:not([disabled='false']))) {
+:host([indeterminate]:not([indeterminate='false'])[disabled]:not([disabled='false'])) {
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: GrayText;
   }

@@ -108,7 +108,7 @@ export class SbbOption implements ComponentInterface {
     return this._variant === 'select';
   }
   private get _isMultiple(): boolean {
-    return this._isSelect && this._element.closest('sbb-select')?.hasAttribute('multiple');
+    return this._element.closest('sbb-select')?.hasAttribute('multiple');
   }
 
   /** MutationObserver on data attributes. */
@@ -251,14 +251,16 @@ export class SbbOption implements ComponentInterface {
         <div class="sbb-option__container">
           <div class="sbb-option">
             {/* Icon */}
-            <span
-              class={{
-                'sbb-option__icon': true,
-                'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
-              }}
-            >
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
+            {!isMultiple && (
+              <span
+                class={{
+                  'sbb-option__icon': true,
+                  'sbb-option__icon--empty': !this._namedSlots.icon && !this.iconName,
+                }}
+              >
+                <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+              </span>
+            )}
 
             {/* Checkbox */}
             {isMultiple && (

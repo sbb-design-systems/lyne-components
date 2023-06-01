@@ -51,14 +51,11 @@
 }
 
 :host([data-variant='select']) {
-  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
-  --sbb-option-column-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
   --sbb-option-justify-content: space-between;
 }
 
 :host([data-variant='select'][data-multiple]) {
-  --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
   --sbb-option-justify-content: start;
 }
 
