@@ -348,12 +348,10 @@ export class SbbTooltip implements ComponentInterface {
   // Close tooltip on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
-      const composedPathElements = event
+      this._nextFocusedElement = event
         .composedPath()
-        .filter((el) => el instanceof window.HTMLElement);
-      this._nextFocusedElement = composedPathElements.find((el) =>
-        (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)
-      ) as HTMLElement;
+        .filter((el) => el instanceof window.HTMLElement)
+        .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
       clearTimeout(this._closeTimeout);
       await this.close();
     }
