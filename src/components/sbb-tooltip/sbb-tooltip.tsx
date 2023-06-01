@@ -26,7 +26,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   sbbInputModalityDetector,
-  SbbInputModality,
+  setModalityOnNextFocus,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -348,7 +348,10 @@ export class SbbTooltip implements ComponentInterface {
   // Close tooltip on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
-      this._nextFocusedElement = document.activeElement as HTMLElement;
+      this._nextFocusedElement = event
+        .composedPath()
+        .filter((el) => el instanceof window.HTMLElement)
+        .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
       clearTimeout(this._closeTimeout);
       await this.close();
     }
@@ -395,27 +398,9 @@ export class SbbTooltip implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
-      const elementToFocus = this._nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
-        ? this._nextFocusedElement
-        : this._triggerElement;
+      const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
-      const closedByModality = sbbInputModalityDetector.mostRecentModality;
-
-      // Set focus origin to element which should receive focus
-      if (elementToFocus && closedByModality !== null) {
-        elementToFocus.addEventListener(
-          'focus',
-          () => {
-            (elementToFocus.dataset.focusOrigin as SbbInputModality) = closedByModality;
-            elementToFocus.addEventListener(
-              'blur',
-              () => delete elementToFocus.dataset.focusOrigin,
-              { once: true }
-            );
-          },
-          { once: true }
-        );
-      }
+      setModalityOnNextFocus(elementToFocus);
       this._dialog.close();
       // To enable focusing other element than the trigger, we need to call focus() a second time.
       elementToFocus?.focus();

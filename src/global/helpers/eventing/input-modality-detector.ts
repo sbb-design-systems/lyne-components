@@ -165,3 +165,27 @@ class SbbInputModalityDetector {
 }
 
 export const sbbInputModalityDetector = new SbbInputModalityDetector();
+
+// Set the input modality in order to avoid showing the outline in Safari.
+export function setModalityOnNextFocus(elementToFocus: HTMLElement): void {
+  if (!elementToFocus) {
+    return;
+  }
+
+  const mostRecentModality = sbbInputModalityDetector.mostRecentModality;
+
+  // Set focus origin to element which should receive focus
+  if (!(elementToFocus && mostRecentModality !== null)) {
+    return;
+  }
+  elementToFocus.addEventListener(
+    'focus',
+    () => {
+      (elementToFocus.dataset.focusOrigin as SbbInputModality) = mostRecentModality;
+      elementToFocus.addEventListener('blur', () => delete elementToFocus.dataset.focusOrigin, {
+        once: true,
+      });
+    },
+    { once: true }
+  );
+}
