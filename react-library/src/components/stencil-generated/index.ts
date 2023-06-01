@@ -51,6 +51,7 @@ export const SbbNavigationAction = /*@__PURE__*/createReactComponent<JSX.SbbNavi
 export const SbbNavigationList = /*@__PURE__*/createReactComponent<JSX.SbbNavigationList, HTMLSbbNavigationListElement>('sbb-navigation-list');
 export const SbbNavigationMarker = /*@__PURE__*/createReactComponent<JSX.SbbNavigationMarker, HTMLSbbNavigationMarkerElement>('sbb-navigation-marker');
 export const SbbNavigationSection = /*@__PURE__*/createReactComponent<JSX.SbbNavigationSection, HTMLSbbNavigationSectionElement>('sbb-navigation-section');
+export const SbbNotification = /*@__PURE__*/createReactComponent<JSX.SbbNotification, HTMLSbbNotificationElement>('sbb-notification');
 export const SbbOptgroup = /*@__PURE__*/createReactComponent<JSX.SbbOptgroup, HTMLSbbOptgroupElement>('sbb-optgroup');
 export const SbbOption = /*@__PURE__*/createReactComponent<JSX.SbbOption, HTMLSbbOptionElement>('sbb-option');
 export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
