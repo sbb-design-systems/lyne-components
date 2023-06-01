@@ -175,6 +175,7 @@ const changeEventHandler = (event) => {
   div.innerText = `current value is: ${event.target.value}`;
   document.getElementById('container-value').append(div);
 };
+
 const textBlockStyle = {
   position: 'relative',
   marginBlockStart: '1rem',
@@ -218,6 +219,8 @@ const scrollDecorator = [
     </div>
   ),
 ];
+
+const valueEllipsis = 'This label name is so long that it needs ellipsis to fit.';
 
 const textBlock = () => {
   return (
@@ -286,6 +289,43 @@ const FormFieldTemplate = ({ borderless, floatingLabel, ...args }) => [
   </div>,
   <div id="container-value" style="margin-block-start: 2rem;"></div>,
 ];
+
+const SelectEllipsisTemplate = ({
+  borderless,
+  floatingLabel,
+  numberOfOptions,
+  disableOption,
+  withOptionGroup,
+  disableGroup,
+  ...args
+}) => {
+  const ellipsisSelected = valueEllipsis === args.value;
+  if (args.multiple && args.value) {
+    args.value = [args.value];
+  }
+
+  return [
+    <div>
+      <sbb-form-field
+        borderless={borderless}
+        floating-label={floatingLabel}
+        label="Select"
+        data-testid="form-field"
+      >
+        <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
+          <sbb-option value={valueEllipsis} selected={ellipsisSelected}>
+            {valueEllipsis}
+          </sbb-option>
+          {withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption, false, args.value)}
+        </sbb-select>
+      </sbb-form-field>
+      {textBlock()}
+    </div>,
+    <div id="container-value" style="margin-block-start: 2rem;"></div>,
+  ];
+};
 
 const FormFieldTemplateWithError = ({
   borderless,
@@ -380,6 +420,22 @@ export const MultipleSelectWithGrouping = FormFieldTemplate.bind({});
 MultipleSelectWithGrouping.argTypes = defaultArgTypes;
 MultipleSelectWithGrouping.args = { ...defaultArgs, multiple: true, withOptionGroup: true };
 MultipleSelectWithGrouping.play = isChromatic() && playStory;
+
+export const SingleSelectEllipsis = SelectEllipsisTemplate.bind({});
+SingleSelectEllipsis.argTypes = {
+  ...defaultArgTypes,
+  value: { ...value, options: [...value.options, valueEllipsis] },
+};
+SingleSelectEllipsis.args = { ...defaultArgs, value: valueEllipsis };
+SingleSelectEllipsis.play = isChromatic() && playStory;
+
+export const MultipleSelectEllipsis = SelectEllipsisTemplate.bind({});
+MultipleSelectEllipsis.argTypes = {
+  ...defaultArgTypes,
+  value: { ...value, options: [...value.options, valueEllipsis] },
+};
+MultipleSelectEllipsis.args = { ...defaultArgs, multiple: true, value: valueEllipsis };
+MultipleSelectEllipsis.play = isChromatic() && playStory;
 
 export const Required = FormFieldTemplateWithError.bind({});
 Required.argTypes = defaultArgTypes;
