@@ -28,7 +28,7 @@ It should refer to the section where the locomotive is placed.
 | `accessibilityLabel`          | `accessibility-label`   | Accessibility label for additional information regarding the leaving direction of the train. | `string`                                 | `undefined` |
 | `direction`                   | `direction`             | Controls the direction indicator to show the arrow left or right. Default is left.           | `"left" \| "right"`                      | `'left'`    |
 | `directionLabel` _(required)_ | `direction-label`       | General label for "driving direction".                                                       | `string`                                 | `undefined` |
-| `directionLabelLevel`         | `direction-label-level` | Heading level of the direction label, used for screen readers.                               | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
+| `directionLabelLevel`         | `direction-label-level` | Heading level of the direction label, used for screen readers.                               | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'6'`       |
 | `station`                     | `station`               | Label for the destination station of the train.                                              | `string`                                 | `undefined` |
 
 
