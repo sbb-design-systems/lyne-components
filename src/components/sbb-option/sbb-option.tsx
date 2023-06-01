@@ -179,7 +179,6 @@ export class SbbOption implements ComponentInterface {
 
     if (this._element.closest('sbb-select')) {
       this._variant = 'select';
-      this._disableLabelHighlight = true;
     }
   }
 
@@ -194,6 +193,7 @@ export class SbbOption implements ComponentInterface {
 
   private _setupHighlightHandler(event): void {
     if (!this._isAutocomplete) {
+      this._disableLabelHighlight = true;
       return;
     }
 

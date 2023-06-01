@@ -85,18 +85,18 @@ const createOptions = ({
 
 const StandaloneTemplate = (args) => createOptions(args);
 
-const AutocompleteTemplate = (args) => (
-  <sbb-form-field>
-    <input />
-    <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
-  </sbb-form-field>
-);
+// const AutocompleteTemplate = (args) => (
+//   <sbb-form-field label="sbb-autocomplete field">
+//     <input />
+//     <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
+//   </sbb-form-field>
+// );
 
-const SelectTemplate = (args) => (
-  <sbb-form-field label="sbb-select field">
-    <sbb-select placeholder="Please select.">{createOptions(args)}</sbb-select>
-  </sbb-form-field>
-);
+// const SelectTemplate = (args) => (
+//   <sbb-form-field label="sbb-select field">
+//     <sbb-select placeholder="Please select.">{createOptions(args)}</sbb-select>
+//   </sbb-form-field>
+// );
 
 const defaultDecorator = [
   (Story) => (
@@ -130,14 +130,6 @@ export const WithIconSpace = StandaloneTemplate.bind({});
 WithIconSpace.argTypes = defaultArgTypes;
 WithIconSpace.args = { ...defaultArgs, preserveIconSpace: true };
 WithIconSpace.decorators = defaultDecorator;
-
-export const Autocomplete = AutocompleteTemplate.bind({});
-Autocomplete.argTypes = defaultArgTypes;
-Autocomplete.args = { ...defaultArgs };
-
-export const Select = SelectTemplate.bind({});
-Select.argTypes = defaultArgTypes;
-Select.args = { ...defaultArgs };
 
 export default {
   decorators: [

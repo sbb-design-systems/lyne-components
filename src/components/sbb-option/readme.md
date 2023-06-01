@@ -36,16 +36,19 @@ If the label slot contains only a **text node**, it is possible to search for te
 ## Usage
 
 Default:
+
 ```html
 <sbb-option value="value">Option label</sbb-option>
 ```
 
 Selected and active with icon:
+
 ```html
 <sbb-option value="value" icon-name="info" selected active>Option label</sbb-option>
 ```
 
 Disabled:
+
 ```html
 <sbb-option value="value" disabled>Option label</sbb-option>
 ```
