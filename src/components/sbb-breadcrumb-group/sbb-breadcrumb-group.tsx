@@ -102,6 +102,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     const length = breadcrumbs.length - 1;
     breadcrumbs.forEach((breadcrumb, index) => {
       breadcrumb.ariaCurrent = index === length ? 'page' : undefined;
+      breadcrumb.id = `sbb-breadcrumb-${index}`;
     });
   }
 
@@ -169,20 +170,24 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     console.log('endloop: ' + this._hasEllipsis);
   }
 
-  // FIXME see https://github.com/ionic-team/stencil/issues/4426
   private _renderEllipsis(): JSX.Element {
-    const lastElementIndex = this._breadcrumbs.length - 1;
-    this._breadcrumbs[0].setAttribute('slot', `breadcrumb-0`);
-    this._breadcrumbs[lastElementIndex].setAttribute('slot', `breadcrumb-2`);
-    for (let i = 1; i < lastElementIndex; i++) {
-      this._breadcrumbs[i].removeAttribute('slot');
+    for (let i = 0; i < this._breadcrumbs.length; i++) {
+      if (i === 0 || i === this._breadcrumbs.length - 1) {
+        this._breadcrumbs[i].setAttribute('slot', `breadcrumb-${i}`);
+      } else {
+        this._breadcrumbs[i].removeAttribute('slot');
+      }
     }
 
     return (
       <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
           <li class="sbb-breadcrumb-group__item">
-            <slot name="breadcrumb-0" onSlotchange={(): void => this._readBreadcrumb()} />
+            <slot
+              name="breadcrumb-0"
+              key="breadcrumb-0"
+              onSlotchange={(): void => this._readBreadcrumb()}
+            />
           </li>
           <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
@@ -197,7 +202,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
           </li>
           <li class="sbb-breadcrumb-group__item">
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
-            <slot name="breadcrumb-2" onSlotchange={(): void => this._readBreadcrumb()} />
+            <slot
+              name={`breadcrumb-${this._breadcrumbs.length - 1}`}
+              key={`breadcrumb-${this._breadcrumbs.length - 1}`}
+              onSlotchange={(): void => this._readBreadcrumb()}
+            />
           </li>
         </ol>
         <span hidden>
@@ -216,8 +225,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     return (
       <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
-          {this._breadcrumbs.map((_, index) => (
-            <li class="sbb-breadcrumb-group__item">
+          {this._breadcrumbs.map((element: HTMLSbbBreadcrumbElement, index: number) => (
+            <li class="sbb-breadcrumb-group__item" key={element.id}>
               <slot name={slotName(index)} onSlotchange={(): void => this._readBreadcrumb()} />
               {index !== this._breadcrumbs.length - 1 && (
                 <sbb-icon name="chevron-small-right-small"></sbb-icon>
