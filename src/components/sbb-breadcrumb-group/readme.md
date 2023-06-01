@@ -1,9 +1,9 @@
 The `sbb-breadcrumb-group` component is a container for one or more `sbb-breadcrumb`,
-which are meant to represent the hierarchy of page visited before arriving to the current page.
+which are meant to represent the hierarchy of visited pages before arriving to the current one.
 
-If the nested breadcrumbs total width exceeds the container width, 
-only the first and the last breadcrumb are displayed and a new one with the ellipsis symbol appears between them. 
-CLicking on this breadcrumb will make it disappear and will restore the full list (the action is not reversible).
+If the with of all the nested breadcrumbs exceeds the container width, only the first and the last breadcrumb are displayed,
+and a new one with the ellipsis symbol appears between them. 
+Clicking on this breadcrumb will make it disappear and will restore the full list (the action is not reversible).
 
 ## Usage
 
