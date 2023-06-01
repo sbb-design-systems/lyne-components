@@ -42,6 +42,7 @@
 
 .sbb-breadcrumb__icon {
   display: flex;
+  flex-shrink: 0;
   cursor: pointer;
   color: var(--sbb-breadcrumb-color);
 }
