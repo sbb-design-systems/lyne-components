@@ -12,7 +12,7 @@ describe('sbb-train', () => {
       <sbb-train direction-label="Driving direction" station="Bern" direction="left">
         <mock:shadow-root>
           <div class="sbb-train">
-            <sbb-title visually-hidden level="3">Train, Driving direction Bern.</sbb-title>
+            <sbb-title visually-hidden level="6">Train, Driving direction Bern.</sbb-title>
             <ul class="sbb-train__wagons" aria-label="Coaches of the train"></ul>
             <span hidden>
               <slot />

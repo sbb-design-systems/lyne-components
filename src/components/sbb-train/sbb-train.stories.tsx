@@ -68,7 +68,7 @@ const defaultArgs: Args = {
     'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
   direction: direction.options[0],
-  'direction-label-level': directionLabelLevel.options[1],
+  'direction-label-level': directionLabelLevel.options[4],
 };
 
 export const train: StoryObj = {
