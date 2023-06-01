@@ -41,7 +41,7 @@ Breadcrumb with text and slotted icon:
 
 | Property      | Attribute      | Description                                                                                                                                                                     | Type      | Default     |
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `ariaCurrent` | `aria-current` |                                                                                                                                                                                 | `string`  | `undefined` |
+| `ariaCurrent` | `aria-current` | Sets the aria-current attribute.                                                                                                                                                | `string`  | `undefined` |
 | `download`    | `download`     | Whether the browser will show the download dialog on click.                                                                                                                     | `boolean` | `undefined` |
 | `href`        | `href`         | The href value you want to link to.                                                                                                                                             | `string`  | `undefined` |
 | `iconName`    | `icon-name`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons. | `string`  | `undefined` |
