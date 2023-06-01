@@ -320,14 +320,14 @@ export class SbbSelect implements ComponentInterface {
     }
 
     if (this._state === 'opened') {
-      this._openPanelKeyboardInteraction(event);
+      this._openedPanelKeyboardInteraction(event);
     }
     if (this._state === 'closed') {
-      this._closePanelKeyboardInteraction(event);
+      this._closedPanelKeyboardInteraction(event);
     }
   }
 
-  private _closePanelKeyboardInteraction(event: KeyboardEvent): void {
+  private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this._checkForLetterSelection(event)) {
       return this._setNextActiveOptionByText(event);
     }
@@ -343,7 +343,7 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _openPanelKeyboardInteraction(event: KeyboardEvent): void {
+  private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
     if (this.disabled || this.readonly || this._state !== 'opened') {
       return;
     }

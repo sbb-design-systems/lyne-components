@@ -318,7 +318,7 @@ export class SbbAutocomplete implements ComponentInterface {
     );
     this._triggerElement.addEventListener(
       'keydown',
-      (event: KeyboardEvent) => this._closePanelKeyboardInteraction(event),
+      (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       { signal: this._triggerEventsController.signal }
     );
   }
@@ -372,7 +372,7 @@ export class SbbAutocomplete implements ComponentInterface {
     // Keyboard interactions
     this._triggerElement.addEventListener(
       'keydown',
-      (event: KeyboardEvent) => this._openPanelKeyboardInteraction(event),
+      (event: KeyboardEvent) => this._openedPanelKeyboardInteraction(event),
       {
         signal: this._openPanelEventsController.signal,
       }
@@ -386,7 +386,7 @@ export class SbbAutocomplete implements ComponentInterface {
     }
   };
 
-  private async _closePanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+  private async _closedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'closed') {
       return;
     }
@@ -400,7 +400,7 @@ export class SbbAutocomplete implements ComponentInterface {
     }
   }
 
-  private async _openPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+  private async _openedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
