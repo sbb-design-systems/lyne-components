@@ -9,7 +9,7 @@
 @include sbb.overlay-gap-fix;
 
 :host {
-  @include sbb.optionsPanelOverlayHost;
+  @include sbb.options-panel-overlay-variables;
 
   --sbb-options-panel-internal-z-index: var(--sbb-select-z-index, var(--sbb-overlay-z-index));
 }
@@ -77,15 +77,15 @@
 }
 
 .sbb-select__container {
-  @include sbb.optionsPanelOverlayContainer;
+  @include sbb.options-panel-overlay-container;
 }
 
 .sbb-select__gap-fix {
-  @include sbb.optionsPanelOverlayGap;
+  @include sbb.options-panel-overlay-gap;
 }
 
 .sbb-select__panel {
-  @include sbb.optionsPanelOverlay;
+  @include sbb.options-panel-overlay;
 
   :host([data-state='opened']) &,
   :host([data-state='opening']) & {

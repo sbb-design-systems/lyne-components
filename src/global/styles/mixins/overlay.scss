@@ -1,4 +1,4 @@
-@mixin optionsPanelOverlayHost {
+@mixin options-panel-overlay-variables {
   --sbb-options-panel-position-x: 0;
   --sbb-options-panel-position-y: 0;
   --sbb-options-panel-active-option-y: 0;
@@ -20,14 +20,14 @@
   );
 }
 
-@mixin optionsPanelOverlayContainer {
+@mixin options-panel-overlay-container {
   position: fixed;
   pointer-events: none;
   inset: 0;
   z-index: var(--sbb-options-panel-internal-z-index);
 }
 
-@mixin optionsPanelOverlayGap {
+@mixin options-panel-overlay-gap {
   display: flex;
   justify-content: space-between;
   position: fixed;
@@ -43,7 +43,7 @@
     var(--sbb-options-panel-animation-timing-function);
 }
 
-@mixin optionsPanelOverlay {
+@mixin options-panel-overlay {
   display: block;
   position: absolute;
   visibility: var(--sbb-options-panel-visibility);

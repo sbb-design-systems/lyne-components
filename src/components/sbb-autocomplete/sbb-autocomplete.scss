@@ -9,7 +9,7 @@
 @include sbb.overlay-gap-fix;
 
 :host {
-  @include sbb.optionsPanelOverlayHost;
+  @include sbb.options-panel-overlay-variables;
 
   --sbb-options-panel-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
 }
@@ -60,15 +60,15 @@
 }
 
 .sbb-autocomplete__container {
-  @include sbb.optionsPanelOverlayContainer;
+  @include sbb.options-panel-overlay-container;
 }
 
 .sbb-autocomplete__gap-fix {
-  @include sbb.optionsPanelOverlayGap;
+  @include sbb.options-panel-overlay-gap;
 }
 
 .sbb-autocomplete__panel {
-  @include sbb.optionsPanelOverlay;
+  @include sbb.options-panel-overlay;
 
   :host([data-state='opened']) &,
   :host([data-state='opening']) & {
