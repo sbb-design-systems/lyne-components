@@ -76,7 +76,7 @@ jobs:
         uses: ./.github/actions/yarn-install
 
       - name: Run build
-        run: yarn build
+        run: STORYBOOK_COMPONENTS_VERSION=$(git rev-parse --short HEAD) yarn build
       - name: Store stencil artifacts
         uses: actions/upload-artifact@v3
         with:
