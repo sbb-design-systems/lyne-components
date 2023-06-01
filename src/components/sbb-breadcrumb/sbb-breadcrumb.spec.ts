@@ -57,21 +57,41 @@ describe('sbb-breadcrumb', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-breadcrumb dir="ltr" role="link" tabindex="0" href="/" icon-name="house-small">
-          <mock:shadow-root>
-            <a role="presentation" tabindex="-1" class="sbb-breadcrumb" href="/">
-              <span class="sbb-breadcrumb__icon">
-                <slot name="icon">
-                  <sbb-icon name="house-small"></sbb-icon>
-                </slot>
-              </span>
-              <span class="sbb-breadcrumb__label">
-                <slot></slot>
-              </span>
-            </a>
-          </mock:shadow-root>
-          Home
-        </sbb-breadcrumb>
-      `);
+      <sbb-breadcrumb dir="ltr" role="link" tabindex="0" href="/" icon-name="house-small">
+        <mock:shadow-root>
+          <a role="presentation" tabindex="-1" class="sbb-breadcrumb" href="/">
+            <span class="sbb-breadcrumb__icon">
+              <slot name="icon">
+                <sbb-icon name="house-small"></sbb-icon>
+              </slot>
+            </span>
+            <span class="sbb-breadcrumb__label">
+              <slot></slot>
+            </span>
+          </a>
+        </mock:shadow-root>
+        Home
+      </sbb-breadcrumb>
+    `);
+  });
+
+  it('renders as span if no href is provided', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbBreadcrumb],
+      html: '<sbb-breadcrumb>Breadcrumb</sbb-breadcrumb>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-breadcrumb dir="ltr">
+        <mock:shadow-root>
+          <span class="sbb-breadcrumb">
+            <span class="sbb-breadcrumb__label">
+              <slot></slot>
+            </span>
+          </span>
+        </mock:shadow-root>
+        Breadcrumb
+      </sbb-breadcrumb>
+    `);
   });
 });
