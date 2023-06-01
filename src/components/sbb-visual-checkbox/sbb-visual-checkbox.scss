@@ -42,7 +42,7 @@
 .sbb-visual-checkbox {
   display: block;
   position: relative;
-  min-width: var(--sbb-visual-checkbox-dimension);
+  width: var(--sbb-visual-checkbox-dimension);
   height: var(--sbb-visual-checkbox-dimension);
   border-radius: var(--sbb-border-radius-2x);
   box-shadow: var(--sbb-visual-checkbox-border-color) 0 0 0 var(--sbb-visual-checkbox-border-width)

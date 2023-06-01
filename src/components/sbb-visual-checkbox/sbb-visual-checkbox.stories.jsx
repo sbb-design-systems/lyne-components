@@ -31,11 +31,7 @@ const defaultArgs = {
   disabled: false,
 };
 
-const Template = (args) => (
-  <div style="display: flex">
-    <sbb-visual-checkbox {...args}></sbb-visual-checkbox>
-  </div>
-);
+const Template = (args) => <sbb-visual-checkbox {...args}></sbb-visual-checkbox>;
 
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
