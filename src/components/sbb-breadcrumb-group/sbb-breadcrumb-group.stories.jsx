@@ -1,7 +1,7 @@
 import { h } from 'jsx-dom';
 import readme from './readme.md';
 
-const numberOfBreadcrumb = {
+const numberOfBreadcrumbs = {
   control: {
     type: 'number',
   },
@@ -62,7 +62,7 @@ const iconName = {
 };
 
 const defaultArgTypes = {
-  numberOfBreadcrumb,
+  numberOfBreadcrumbs,
   text,
   href,
   target,
@@ -72,7 +72,7 @@ const defaultArgTypes = {
 };
 
 const defaultArgs = {
-  numberOfBreadcrumb: 8,
+  numberOfBreadcrumbs: 3,
   text: 'Breadcrumb',
   href: 'https://github.com/lyne-design-system/lyne-components',
   target: '_blank',
@@ -81,11 +81,15 @@ const defaultArgs = {
   'icon-name': undefined,
 };
 
-const breadcrumbTemplate = ({ text, ...args }) => <sbb-breadcrumb {...args}>{text}</sbb-breadcrumb>;
+const breadcrumbTemplate = ({ text, ...args }, i) => (
+  <sbb-breadcrumb {...args}>
+    {text} {i}
+  </sbb-breadcrumb>
+);
 
-const createBreadcrumbs = ({ numberOfBreadcrumb, ...args }) => [
+const createBreadcrumbs = ({ numberOfBreadcrumbs, ...args }) => [
   <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>,
-  new Array(numberOfBreadcrumb - 1).fill(undefined).map(() => breadcrumbTemplate(args)),
+  new Array(numberOfBreadcrumbs - 1).fill(undefined).map((_, i) => breadcrumbTemplate(args, i + 1)),
 ];
 
 const Template = (args) => <sbb-breadcrumb-group>{createBreadcrumbs(args)}</sbb-breadcrumb-group>;
@@ -93,6 +97,10 @@ const Template = (args) => <sbb-breadcrumb-group>{createBreadcrumbs(args)}</sbb-
 export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
+
+export const WithEllipsis = Template.bind({});
+WithEllipsis.argTypes = defaultArgTypes;
+WithEllipsis.args = { ...defaultArgs, numberOfBreadcrumbs: 25 };
 
 export default {
   decorators: [
