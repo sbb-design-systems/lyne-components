@@ -18,6 +18,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Local instance of slotted sbb-breadcrumb elements */
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
+  /* Check if the list needs to be shortened with the ellipsis breadcrumb. */
   @State() private _hasEllipsis: boolean;
 
   @Element() private _element!: HTMLElement;
@@ -65,9 +66,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._breadcrumbGroupController.abort();
   }
 
-  /**
-   * Create an array with only the sbb-breadcrumb children
-   */
+  /** Creates and sets an array with only the sbb-breadcrumb children. */
   private _readBreadcrumb(): void {
     const breadcrumbs = Array.from(this._element.children).filter(
       (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB'
@@ -85,6 +84,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._breadcrumbs = breadcrumbs;
   }
 
+  /** Apply the aria-current attribute to the last sbb-breadcrumb element. */
   private _syncBreadcrumbs(): void {
     const breadcrumbs = this._element.querySelectorAll('sbb-breadcrumb');
     const length = breadcrumbs.length - 1;
@@ -93,6 +93,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     });
   }
 
+  /**
+   * Sets the focus on the correct element when the ellipsis breadcrumb is displayed
+   * and the user is navigating with keyboard's arrows.
+   */
   private _focusNextEllipsis(evt: KeyboardEvent): void {
     const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
     let elementToFocus: HTMLSbbBreadcrumbElement;
@@ -125,6 +129,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     evt.preventDefault();
   }
 
+  /** Displays the full breadcrumb list by resetting the _hasEllipsis value. */
   private _expandBreadcrumbs(): void {
     this._hasEllipsis = false;
   }

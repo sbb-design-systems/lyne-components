@@ -45,6 +45,7 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
    */
   @Prop() public iconName?: string;
 
+  /** Sets the aria-current attribute. */
   @Prop() public ariaCurrent: string | undefined;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
