@@ -23,6 +23,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  @State() private _bcWidth: number;
+
   private _breadcrumbGroupController: AbortController;
 
   @Listen('keydown')
@@ -48,13 +50,23 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   public connectedCallback(): void {
     this._readBreadcrumb();
     this._breadcrumbGroupController = new AbortController();
-    window.addEventListener('resize', () => this._evaluateEllipsis(), {
-      passive: true,
-      signal: this._breadcrumbGroupController.signal,
-    });
+    window.addEventListener(
+      'resize',
+      () => {
+        // reset
+        this._hasEllipsis = false;
+
+        this._evaluateEllipsis();
+      },
+      {
+        passive: true,
+        signal: this._breadcrumbGroupController.signal,
+      }
+    );
   }
 
   public componentDidLoad(): void {
+    this._measureBreadcrumbs();
     this._evaluateEllipsis();
   }
 
@@ -134,17 +146,27 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._hasEllipsis = false;
   }
 
-  private _evaluateEllipsis(): void {
+  private _measureBreadcrumbs(): void {
     const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
-    const breadcrumbsWidth =
+
+    this._bcWidth =
       Array.from(li)
         .map((e) => e.clientWidth)
         .reduce((a, b) => a + b, 0) +
       4 * (li.length - 1);
+  }
+
+  private _evaluateEllipsis(): void {
+    console.log(this._hasEllipsis);
+
+    console.log('page width: ' + this._element.clientWidth);
+    console.log('BC width: ' + this._bcWidth);
     this._hasEllipsis =
       this._breadcrumbs &&
       this._breadcrumbs.length > 2 &&
-      this._element.clientWidth < breadcrumbsWidth;
+      this._element.clientWidth < this._bcWidth;
+
+    console.log('endloop: ' + this._hasEllipsis);
   }
 
   // FIXME see https://github.com/ionic-team/stencil/issues/4426
