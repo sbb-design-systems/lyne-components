@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.1](https://github.com/lyne-design-system/lyne-components/compare/v0.36.0...v0.36.1) (2023-06-01)
+
+### Bug Fixes
+
+- **sbb-navigation:** focus outline on the trigger element in Safari ([#1784](https://github.com/lyne-design-system/lyne-components/issues/1784)) ([64db143](https://github.com/lyne-design-system/lyne-components/commit/64db1439b33ee057a4ceee63196e18a230092ab6))
+
 ## [0.36.0](https://github.com/lyne-design-system/lyne-components/compare/v0.35.18...v0.36.0) (2023-05-31)
 
 ### ⚠ BREAKING CHANGES
