@@ -69,7 +69,7 @@ export class SbbSelect implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  @Event({ bubbles: true, cancelable: true }) public change: EventEmitter;
+  @Event({ bubbles: true }) public change: EventEmitter;
 
   @Event({ bubbles: true, composed: true }) public input: EventEmitter;
 

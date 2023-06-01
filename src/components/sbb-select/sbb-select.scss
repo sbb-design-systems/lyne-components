@@ -102,12 +102,7 @@
     }
   }
 
-  :host(
-      :is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless]:not(
-          [data-option-panel-origin-borderless='false']
-        )
-    )
-    & {
+  :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless]) & {
     &::before,
     &::after {
       @include sbb.shadow-level-5-hard;
@@ -127,7 +122,7 @@
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
-    border-top: none;
+    border-block-start: none;
   }
 }
 

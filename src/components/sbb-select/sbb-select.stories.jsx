@@ -3,7 +3,7 @@ import events from './sbb-select.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
-import isChromatic from 'chromatic';
+import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 
 // Story interaction executed after the story renders
