@@ -5,6 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
+  display: flex;
+
   --sbb-breadcrumb-color: var(--sbb-color-granite-default);
 }
 
