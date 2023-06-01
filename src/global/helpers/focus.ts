@@ -1,5 +1,3 @@
-import { SbbInputModality, sbbInputModalityDetector } from './eventing';
-
 export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex], sbb-button, sbb-link, sbb-menu-action, sbb-navigation-action):not([disabled]:not([disabled='false'])):not([tabindex="-1"]):not([static])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
@@ -29,30 +27,6 @@ export function getFocusableElements(
   getFocusables(elements, filterFunc);
 
   return [...focusableEls];
-}
-
-// Set the input modality in order to avoid showing the outline in Safari.
-export function seModalityOnNextFocus(elementToFocus: HTMLElement): void {
-  if (!elementToFocus) {
-    return;
-  }
-
-  const mostRecentModality = sbbInputModalityDetector.mostRecentModality;
-
-  // Set focus origin to element which should receive focus
-  if (!(elementToFocus && mostRecentModality !== null)) {
-    return;
-  }
-  elementToFocus.addEventListener(
-    'focus',
-    () => {
-      (elementToFocus.dataset.focusOrigin as SbbInputModality) = mostRecentModality;
-      elementToFocus.addEventListener('blur', () => delete elementToFocus.dataset.focusOrigin, {
-        once: true,
-      });
-    },
-    { once: true }
-  );
 }
 
 export class FocusTrap {

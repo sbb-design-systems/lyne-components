@@ -12,7 +12,7 @@ describe('sbb-tooltip', () => {
       <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
         Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
       </sbb-tooltip>
-      <sbb-link href="#somewhere" id="interactive-background-element">Other interactive element</sbb-link>
+      <sbb-link href="#somewhere" id="interactive-background-element">Other interactive elemento</sbb-link>
     `);
     trigger = await page.find('sbb-button');
     element = await page.find('sbb-tooltip');
@@ -402,9 +402,7 @@ describe('sbb-tooltip', () => {
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await page.waitForChanges();
 
-    await interactiveBackgroundElement.focus();
-    // Simulate backdrop click
-    await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
+    await interactiveBackgroundElement.click();
     await page.waitForChanges();
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);

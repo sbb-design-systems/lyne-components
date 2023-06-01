@@ -12,7 +12,7 @@ import {
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, FocusTrap, seModalityOnNextFocus } from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import { hostContext } from '../../global/helpers/host-context';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -26,6 +26,7 @@ import {
   sbbInputModalityDetector,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
+  setModalityOnNextFocus,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -290,10 +291,10 @@ export class SbbDialog implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
-      seModalityOnNextFocus(this._lastFocusedElement);
+      setModalityOnNextFocus(this._lastFocusedElement);
+      this._dialog.close();
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._lastFocusedElement?.focus();
-      this._dialog.close();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
