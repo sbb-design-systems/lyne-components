@@ -1760,7 +1760,7 @@ export namespace Components {
          */
         "directionLabel": string;
         /**
-          * Heading level of the direction label, used for screenreaders.
+          * Heading level of the direction label, used for screen readers.
          */
         "directionLabelLevel": InterfaceTitleAttributes['level'];
         /**
@@ -4259,7 +4259,7 @@ declare namespace LocalJSX {
          */
         "directionLabel": string;
         /**
-          * Heading level of the direction label, used for screenreaders.
+          * Heading level of the direction label, used for screen readers.
          */
         "directionLabelLevel"?: InterfaceTitleAttributes['level'];
         "onTrainSlotChange"?: (event: SbbTrainCustomEvent<any>) => void;

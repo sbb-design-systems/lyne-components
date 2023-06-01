@@ -31,7 +31,7 @@ export class SbbTrain implements ComponentInterface {
   /** General label for "driving direction". */
   @Prop() public directionLabel!: string;
 
-  /** Heading level of the direction label, used for screenreaders. */
+  /** Heading level of the direction label, used for screen readers. */
   @Prop() public directionLabelLevel: InterfaceTitleAttributes['level'] = '3';
 
   /** Label for the destination station of the train. */
