@@ -144,12 +144,16 @@ export class SbbNotification implements ComponentInterface {
     return (
       <div class="sbb-notification">
         <sbb-icon class="sbb-notification__icon" name={this._iconName} />
-        <sbb-title class="sbb-notification__title" level={this.titleLevel} visualLevel="5">
-          <slot name="title">{this.titleContent}</slot>
-        </sbb-title>
-        <slot />
+
+        <span class="sbb-notification__content">
+          <sbb-title class="sbb-notification__title" level={this.titleLevel} visualLevel="5">
+            <slot name="title">{this.titleContent}</slot>
+          </sbb-title>
+          <slot />
+        </span>
+
         <span class="sbb-notification__close-wrapper">
-          <sbb-divider orientation="vertical"></sbb-divider>
+          <sbb-divider orientation="vertical" />
           <sbb-button
             variant="transparent"
             negative={this._negative}

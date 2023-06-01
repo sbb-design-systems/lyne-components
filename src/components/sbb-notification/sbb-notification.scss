@@ -5,9 +5,50 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-notification-some-color-var: var(--color-black-default);
+  --sbb-notification-color: var(--sbb-color-black-default);
+  --sbb-notification-background: var(--sbb-color-white-default);
+  --sbb-notification-border: var(--sbb-color-smoke-default) solid var(--sbb-border-width-1x);
+  --sbb-notification-type-color: var(--sbb-color-black-default);
+}
+
+:host([variant='transparent']) {
+  --sbb-notification-background: transparent;
+  --sbb-notification-border: var(--sbb-color-white-default) solid var(--sbb-border-width-1x);
+}
+
+:host([variant='colorful']) {
+  --sbb-notification-color: var(--sbb-color-white-default);
+  --sbb-notification-background: var(--sbb-notification-type-color);
+  --sbb-notification-border: var(--sbb-color-white-default) solid var(--sbb-border-width-1x);
 }
 
 .sbb-notification {
-  color: var(--sbb-notification-some-color-var);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  padding-block: var(--sbb-spacing-responsive-xxs);
+  padding-inline: var(--sbb-spacing-responsive-xs);
+  color: var(--sbb-notification-color);
+  background-color: var(--sbb-notification-background);
+  border: var(--sbb-notification-border);
+  border-radius: var(--sbb-border-radius-4x);
+}
+
+.sbb-notification__icon {
+  color: var(--sbb-notification-type-color);
+}
+
+.sbb-notification__title {
+  --sbb-title-margin-block-start: 0;
+}
+
+.sbb-notification__content {
+  padding-inline: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs);
+}
+
+.sbb-notification__close-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: var(--sbb-spacing-responsive-xxs);
 }
