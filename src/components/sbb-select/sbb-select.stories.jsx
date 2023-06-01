@@ -289,6 +289,7 @@ const FormFieldTemplate = ({ borderless, floatingLabel, ...args }) => [
 
 const FormFieldTemplateWithError = ({
   borderless,
+  floatingLabel,
   numberOfOptions,
   disableOption,
   withOptionGroup,
@@ -303,6 +304,7 @@ const FormFieldTemplateWithError = ({
     <div>
       <sbb-form-field
         borderless={borderless}
+        floating-label={floatingLabel}
         id="sbb-form-field"
         label="Select"
         data-testid="form-field"
@@ -333,9 +335,14 @@ const FormFieldTemplateWithError = ({
   );
 };
 
-const KeyboardInteractionTemplate = (args) => (
+const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }) => (
   <div style="padding: 2rem; background-color: #e6e6e6;">
-    <sbb-form-field label="Select" data-testid="form-field">
+    <sbb-form-field
+      borderless={borderless}
+      floating-label={floatingLabel}
+      label="Select"
+      data-testid="form-field"
+    >
       <sbb-select multiple={args.multiple} placeholder={args.placeholder} data-testid="select">
         <sbb-option value="Abarth">Abarth</sbb-option>
         <sbb-option value="Alfa Romeo">Alfa Romeo</sbb-option>
