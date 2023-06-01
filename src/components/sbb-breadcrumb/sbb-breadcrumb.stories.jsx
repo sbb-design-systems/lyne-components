@@ -106,6 +106,10 @@ Ellipsis.decorators = [
   ),
 ];
 
+export const NoLink = Template.bind({});
+NoLink.argTypes = defaultArgTypes;
+NoLink.args = { ...defaultArgs, href: undefined, target: undefined };
+
 export default {
   decorators: [
     (Story) => (
