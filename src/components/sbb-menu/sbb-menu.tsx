@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { IS_FOCUSABLE_QUERY, FocusTrap, focusAndSetModality } from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap, seModalityOnNextFocus } from '../../global/helpers/focus';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -278,9 +278,10 @@ export class SbbMenu implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
-      // Manually focus last focused element in order to avoid showing outline in Safari.
-      // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page.
-      focusAndSetModality(this._triggerElement, {
+      seModalityOnNextFocus(this._triggerElement);
+      // Manually focus last focused element in order to avoid showing outline in Safari
+      this._triggerElement?.focus({
+        // When inside the sbb-header, we prevent the scroll to avoid the snapping to the top of the page
         preventScroll: this._triggerElement.tagName === 'SBB-HEADER-ACTION',
       });
       this._dialog.close();

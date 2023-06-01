@@ -31,11 +31,8 @@ export function getFocusableElements(
   return [...focusableEls];
 }
 
-// Focus an element and set the input modality in order to avoid showing the outline in Safari.
-export function focusAndSetModality(
-  elementToFocus: HTMLElement,
-  focusOptions?: FocusOptions
-): void {
+// Set the input modality in order to avoid showing the outline in Safari.
+export function seModalityOnNextFocus(elementToFocus: HTMLElement): void {
   if (!elementToFocus) {
     return;
   }
@@ -56,7 +53,6 @@ export function focusAndSetModality(
     },
     { once: true }
   );
-  elementToFocus?.focus(focusOptions);
 }
 
 export class FocusTrap {

@@ -14,7 +14,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { focusAndSetModality, FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
+import { seModalityOnNextFocus, FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isEventOnElement } from '../../global/helpers/position';
 import { ScrollHandler } from '../../global/helpers/scroll';
@@ -233,8 +233,10 @@ export class SbbNavigation implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
-      focusAndSetModality(this._triggerElement);
+      seModalityOnNextFocus(this._triggerElement);
       this._navigation.close();
+      // To enable focusing other element than the trigger, we need to call focus() a second time.
+      this._triggerElement?.focus();
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();

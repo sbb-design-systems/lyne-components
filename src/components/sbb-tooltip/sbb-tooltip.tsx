@@ -13,7 +13,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, FocusTrap, focusAndSetModality } from '../../global/helpers/focus';
+import { IS_FOCUSABLE_QUERY, FocusTrap, seModalityOnNextFocus } from '../../global/helpers/focus';
 import { i18nCloseTooltip } from '../../global/i18n';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { assignId } from '../../global/helpers/assign-id';
@@ -347,7 +347,12 @@ export class SbbTooltip implements ComponentInterface {
   // Close tooltip on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnTooltip && !isEventOnElement(this._dialog, event)) {
-      this._nextFocusedElement = document.activeElement as HTMLElement;
+      const composedPathElements = event
+        .composedPath()
+        .filter((el) => el instanceof window.HTMLElement);
+      this._nextFocusedElement = composedPathElements.find((el) =>
+        (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)
+      ) as HTMLElement;
       clearTimeout(this._closeTimeout);
       await this.close();
     }
@@ -394,12 +399,12 @@ export class SbbTooltip implements ComponentInterface {
       this._state = 'closed';
       this._dialog.firstElementChild.scrollTo(0, 0);
 
-      const elementToFocus = this._nextFocusedElement?.matches(IS_FOCUSABLE_QUERY)
-        ? this._nextFocusedElement
-        : this._triggerElement;
+      const elementToFocus = this._nextFocusedElement || this._triggerElement;
 
-      focusAndSetModality(elementToFocus);
+      seModalityOnNextFocus(elementToFocus);
       this._dialog.close();
+      // To enable focusing other element than the trigger, we need to call focus() a second time.
+      elementToFocus?.focus();
       this.didClose.emit({ closeTarget: this._tooltipCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
