@@ -36,6 +36,7 @@
   gap: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-breadcrumb-color);
   align-items: center;
+  overflow: hidden;
 
   @include sbb.if-forced-colors {
     --sbb-breadcrumb-color: ButtonText;
