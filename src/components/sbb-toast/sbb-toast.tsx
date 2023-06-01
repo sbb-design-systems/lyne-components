@@ -94,13 +94,21 @@ export class SbbToast implements ComponentInterface {
 
   @Method() public async open(): Promise<void> {
     // TODO
+    this._state = 'opened';
   }
 
   @Method() public async close(): Promise<void> {
     // TODO
+    this._state = 'closed';
   }
 
   public render(): JSX.Element {
-    return <Host>TODO</Host>;
+    return (
+      <Host data-state={this._state}>
+        <div class="sbb-toast__overlay-container">
+          <div class="sbb-toast"></div>
+        </div>
+      </Host>
+    );
   }
 }

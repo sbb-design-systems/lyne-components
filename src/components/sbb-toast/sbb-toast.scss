@@ -5,9 +5,20 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-toast-some-color-var: var(--color-black-default);
+  --sbb-toast-z-index: var(--sbb-overlay-z-index);
+}
+
+.sbb-toast__overlay-container {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: var(--sbb-toast-z-index);
 }
 
 .sbb-toast {
-  color: var(--sbb-toast-some-color-var);
+  display: none;
+
+  :host(:not([data-state='closed'])) & {
+    display: block;
+  }
 }
