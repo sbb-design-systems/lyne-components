@@ -68,35 +68,40 @@ const createOptions = ({
   ...args
 }) => {
   const style = preserveIconSpace ? '--sbb-option-icon-container-display: block;' : '';
-  return new Array(numberOfOptions).fill(null).map((_, i) => {
-    return (
-      <sbb-option
-        style={style}
-        active={active && i === 0}
-        disabled={disabled && i === 0}
-        {...args}
-        value={`${value} ${i + 1}`}
-      >
-        {`${value} ${i + 1}`}
-      </sbb-option>
-    );
-  });
+  return [
+    ...new Array(numberOfOptions).fill(null).map((_, i) => {
+      return (
+        <sbb-option
+          style={style}
+          active={active && i === 0}
+          disabled={disabled && i === 0}
+          {...args}
+          value={`${value} ${i + 1}`}
+        >
+          {`${value} ${i + 1}`}
+        </sbb-option>
+      );
+    }),
+    <sbb-option style={style} {...args} value="long-value">
+      Option Lorem ipsum dolor sit amet.
+    </sbb-option>,
+  ];
 };
 
 const StandaloneTemplate = (args) => createOptions(args);
 
-// const AutocompleteTemplate = (args) => (
-//   <sbb-form-field label="sbb-autocomplete field">
-//     <input />
-//     <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
-//   </sbb-form-field>
-// );
+const AutocompleteTemplate = (args) => (
+  <sbb-form-field label="sbb-autocomplete">
+    <input placeholder="Please select." />
+    <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
+  </sbb-form-field>
+);
 
-// const SelectTemplate = (args) => (
-//   <sbb-form-field label="sbb-select field">
-//     <sbb-select placeholder="Please select.">{createOptions(args)}</sbb-select>
-//   </sbb-form-field>
-// );
+const SelectTemplate = (args) => (
+  <sbb-form-field label="sbb-select">
+    <sbb-select placeholder="Please select.">{createOptions(args)}</sbb-select>
+  </sbb-form-field>
+);
 
 const defaultDecorator = [
   (Story) => (
@@ -131,10 +136,18 @@ WithIconSpace.argTypes = defaultArgTypes;
 WithIconSpace.args = { ...defaultArgs, preserveIconSpace: true };
 WithIconSpace.decorators = defaultDecorator;
 
+export const Autocomplete = AutocompleteTemplate.bind({});
+Autocomplete.argTypes = defaultArgTypes;
+Autocomplete.args = { ...defaultArgs };
+
+export const Select = SelectTemplate.bind({});
+Select.argTypes = defaultArgTypes;
+Select.args = { ...defaultArgs };
+
 export default {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={'padding: 2rem; width: 350px'}>
         <Story />
       </div>
     ),

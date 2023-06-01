@@ -107,6 +107,10 @@
   display: var(--sbb-option-icon-container-display, none);
 }
 
+.sbb-option__label {
+  white-space: initial;
+}
+
 .sbb-option__group-label--visually-hidden {
   @include sbb.screen-reader-only;
 }
