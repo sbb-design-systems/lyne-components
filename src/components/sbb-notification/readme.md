@@ -37,6 +37,16 @@ Type: `Promise<void>`
 
 
 
+### `open() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Slots
 

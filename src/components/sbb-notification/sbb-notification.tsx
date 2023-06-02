@@ -5,6 +5,7 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Method,
   Prop,
@@ -14,9 +15,11 @@ import {
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { i18nCloseNotification } from '../../global/i18n';
 import {
+  createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
 import { InterfaceNotificationAttributes } from './sbb-notification.custom';
 
@@ -65,26 +68,39 @@ export class SbbNotification implements ComponentInterface {
   /**
    * Whether the animation is enabled.
    */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @Prop({ reflect: true, mutable: true }) public disableAnimation = false;
 
-  @Element() private _element!: HTMLElement;
+  /**
+   * State of listed named slots, by indicating whether any element for a named slot is defined.
+   */
+  @State() private _namedSlots = createNamedSlotState('title');
+
+  /**
+   * The state of the notification.
+   */
+  @State() private _state: InterfaceNotificationAttributes['state'] = 'opened';
 
   @State() private _iconName: NotificationIconName = NotificationIconName[this.type];
 
-  @State() private _negative = this.variant === 'colorful' && this.type === 'warn';
+  @State() private _hasTitle = false;
+
+  @State() private _negative = this._isNegative();
 
   @State() private _currentLanguage = documentLanguage();
 
-  @Method()
-  public async close(): Promise<void> {
-    console.log('Close!');
-  }
+  @State() private _resizeDisableAnimation = false;
+
+  @Element() private _element!: HTMLElement;
+
+  private _notificationElement: HTMLElement;
+  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _notificationResizeObserver = new ResizeObserver(() => this._onNotificationResize());
 
   @Watch('variant')
   @Watch('type')
   public updateNotificationState(): void {
     this._iconName = NotificationIconName[this.type];
-    this._negative = this.variant === 'colorful' && this.type === 'warn';
+    this._negative = this._isNegative();
   }
 
   /**
@@ -127,44 +143,144 @@ export class SbbNotification implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
+  @Method()
+  public async open(): Promise<void> {
+    if (this._state === 'closed') {
+      this._state = 'opening';
+      this.willOpen.emit();
+      this.disableAnimation && this._handleOpening();
+    }
+  }
+
+  @Method()
+  public async close(): Promise<void> {
+    if (this._state === 'opened') {
+      this._state = 'closing';
+      this.willClose.emit();
+      this.disableAnimation && this._handleClosing();
+    }
+  }
+
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
   );
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
+    this._hasTitle = !!this.titleContent || this._namedSlots['title'];
+  }
+
+  public componentDidLoad(): void {
+    this._setNotificationHeight();
+    this._notificationResizeObserver.observe(this._notificationElement);
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
+    this._notificationResizeObserver.disconnect();
+  }
+
+  private _isNegative(): boolean {
+    return this.variant === 'colorful' && this.type !== 'warn';
+  }
+
+  private _setNotificationHeight(): void {
+    if (this._state === 'closed' || this._state === 'closing') {
+      return;
+    }
+
+    this._element.style.setProperty(
+      '--sbb-notification-height',
+      `${this._notificationElement.scrollHeight}px`
+    );
+  }
+
+  private _onNotificationResize(): void {
+    if (this._state !== 'opened') {
+      return;
+    }
+
+    clearTimeout(this._resizeObserverTimeout);
+
+    this._resizeDisableAnimation = true;
+    this._setNotificationHeight();
+
+    this._resizeObserverTimeout = setTimeout(() => (this._resizeDisableAnimation = false), 150);
+  }
+
+  private _onNotificationTransitionEnd(event: TransitionEvent): void {
+    if (this._state === 'opening' && event.propertyName === 'opacity') {
+      this._handleOpening();
+    } else if (this._state === 'closing' && event.propertyName === 'max-height') {
+      this._handleClosing();
+    }
+  }
+
+  private _handleOpening() {
+    this._setNotificationHeight();
+    this._state = 'opened';
+    this.didOpen.emit();
+    this._notificationResizeObserver.observe(this._notificationElement);
+  }
+
+  private _handleClosing() {
+    this._state = 'closed';
+    this.didClose.emit();
+    this._notificationResizeObserver.unobserve(this._notificationElement);
   }
 
   public render(): JSX.Element {
     return (
-      <div class="sbb-notification">
-        <sbb-icon class="sbb-notification__icon" name={this._iconName} />
+      <Host
+        data-state={this._state}
+        data-resize-disable-animation={this._resizeDisableAnimation}
+        data-has-title={this._hasTitle}
+      >
+        <div
+          class="sbb-notification"
+          onTransitionEnd={(event) => this._onNotificationTransitionEnd(event)}
+          ref={(el) => {
+            this._notificationElement = el;
+          }}
+        >
+          <sbb-icon class="sbb-notification__icon" name={this._iconName} />
 
-        <span class="sbb-notification__content">
-          <sbb-title class="sbb-notification__title" level={this.titleLevel} visualLevel="5">
-            <slot name="title">{this.titleContent}</slot>
-          </sbb-title>
-          <slot />
-        </span>
+          <span class="sbb-notification__content">
+            {this._hasTitle && (
+              <sbb-title
+                class="sbb-notification__title"
+                level={this.titleLevel}
+                visualLevel="5"
+                negative={this._negative}
+              >
+                <slot name="title">{this.titleContent}</slot>
+              </sbb-title>
+            )}
+            <slot />
+          </span>
 
-        <span class="sbb-notification__close-wrapper">
-          <sbb-divider orientation="vertical" />
-          <sbb-button
-            variant="transparent"
-            negative={this._negative}
-            size="m"
-            icon-name="cross-small"
-            onClick={() => this.close()}
-            aria-label={i18nCloseNotification[this._currentLanguage]}
-            class="sbb-notification__close"
-          />
-        </span>
-      </div>
+          {!this.readonly && (
+            <span class="sbb-notification__close-wrapper">
+              <sbb-divider
+                class="sbb-notification__divider"
+                orientation="vertical"
+                negative={this.variant === 'colorful' && this.type === 'warn'}
+              />
+              <sbb-button
+                variant="transparent"
+                negative={this._negative}
+                size="m"
+                icon-name="cross-small"
+                onClick={() => this.close()}
+                aria-label={i18nCloseNotification[this._currentLanguage]}
+                class="sbb-notification__close"
+              />
+            </span>
+          )}
+        </div>
+      </Host>
     );
   }
 }

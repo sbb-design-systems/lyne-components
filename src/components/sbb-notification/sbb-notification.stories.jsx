@@ -12,16 +12,22 @@ const titleContent = {
 
 const type = {
   control: {
-    type: 'select',
+    type: 'radio',
   },
   options: ['info', 'success', 'warn', 'error'],
 };
 
 const variant = {
   control: {
-    type: 'select',
+    type: 'radio',
   },
   options: ['default', 'transparent', 'colorful'],
+};
+
+const readonly = {
+  control: {
+    type: 'boolean',
+  },
 };
 
 const disableAnimation = {
@@ -34,6 +40,7 @@ const basicArgTypes = {
   'title-content': titleContent,
   type: type,
   variant: variant,
+  readonly: readonly,
   'disable-animation': disableAnimation,
 };
 
@@ -41,10 +48,22 @@ const basicArgs = {
   'title-content': 'Title',
   type: type.options[0],
   variant: variant.options[0],
+  readonly: false,
   'disable-animation': isChromatic(),
 };
 
-const DefaultTemplate = (args) => (
+const trigger = () => (
+  <sbb-button
+    size="m"
+    style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}
+    onClick={() => document.querySelector('sbb-notification').open()}
+  >
+    Trigger
+  </sbb-button>
+);
+
+const DefaultTemplate = (args) => [
+  trigger(),
   <sbb-notification {...args}>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
     <sbb-link href="/" variant="inline">
@@ -58,8 +77,13 @@ const DefaultTemplate = (args) => (
     <sbb-link href="/" variant="inline">
       Link three
     </sbb-link>
-  </sbb-notification>
-);
+  </sbb-notification>,
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+  </p>,
+];
 
 export const Default = DefaultTemplate.bind({});
 Default.argTypes = basicArgTypes;

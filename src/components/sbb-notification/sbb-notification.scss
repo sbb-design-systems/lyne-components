@@ -5,15 +5,51 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-notification-visibility: hidden;
+  --sbb-notification-opacity: 0;
+  --sbb-notification-max-height: 0;
+  --sbb-notification-padding-block: 0;
+  --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-black-default);
   --sbb-notification-background: var(--sbb-color-white-default);
   --sbb-notification-border: var(--sbb-color-smoke-default) solid var(--sbb-border-width-1x);
-  --sbb-notification-type-color: var(--sbb-color-black-default);
+  --sbb-notification-type-color: var(--sbb-color-granite-default);
+  --sbb-notification-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-notification-timing-function: ease-in;
+  --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
+      var(--sbb-animation-duration-2x) var(--sbb-notification-timing-function),
+    padding var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
+      var(--sbb-notification-timing-function),
+    visibility var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
+    opacity var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function);
 }
+
+:host(:is([data-state='opened'], [data-state='opening'])) {
+  --sbb-notification-visibility: visible;
+  --sbb-notification-opacity: 1;
+  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
+  --sbb-notification-max-height: calc(
+    (var(--sbb-notification-padding-block) + var(--sbb-border-width-1x)) * 2 +
+      var(--sbb-notification-height)
+  );
+  --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
+      var(--sbb-notification-timing-function),
+    padding var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
+    opacity var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
+      var(--sbb-notification-timing-function);
+}
+
+:host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
+  --sbb-notification-animation-duration: 0s;
+}
+
+/* Variants */
 
 :host([variant='transparent']) {
   --sbb-notification-background: transparent;
   --sbb-notification-border: var(--sbb-color-white-default) solid var(--sbb-border-width-1x);
+  --sbb-notification-padding-block: 0px;
+  --sbb-notification-padding-inline: 0px;
 }
 
 :host([variant='colorful']) {
@@ -22,28 +58,78 @@
   --sbb-notification-border: var(--sbb-color-white-default) solid var(--sbb-border-width-1x);
 }
 
+/* Types */
+
+:host([type='info']) {
+  --sbb-notification-type-color: var(--sbb-color-granite-default);
+}
+
+:host([type='success']) {
+  --sbb-notification-type-color: var(--sbb-color-green-default);
+}
+
+:host([type='warn']) {
+  --sbb-notification-type-color: var(--sbb-color-peach-default);
+  --sbb-notification-color: var(--sbb-color-black-default);
+}
+
+:host([type='error']) {
+  --sbb-notification-type-color: var(--sbb-color-red-default);
+}
+
 .sbb-notification {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: flex-start;
-  padding-block: var(--sbb-spacing-responsive-xxs);
-  padding-inline: var(--sbb-spacing-responsive-xs);
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  visibility: var(--sbb-notification-visibility);
+  opacity: var(--sbb-notification-opacity);
+  padding-block: var(--sbb-notification-padding-block);
+  padding-inline: var(--sbb-notification-padding-inline);
+  max-height: var(--sbb-notification-max-height);
   color: var(--sbb-notification-color);
   background-color: var(--sbb-notification-background);
   border: var(--sbb-notification-border);
   border-radius: var(--sbb-border-radius-4x);
+  transition: var(--sbb-notification-transition);
+
+  @include sbb.mq($from: small) {
+    grid-template-columns: auto 1fr auto;
+    align-items: flex-start;
+  }
 }
 
 .sbb-notification__icon {
-  color: var(--sbb-notification-type-color);
+  :host(:not([variant='colorful'])) & {
+    color: var(--sbb-notification-type-color);
+  }
+
+  @include sbb.mq($from: small) {
+    margin-block-start: calc(
+      ((var(--sbb-typo-scale-default) * var(--sbb-typo-line-height-body-text)) - 24px) / 2
+    );
+
+    :host([data-has-title]) & {
+      margin-block-start: calc(
+        ((var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - 24px) / 2
+      );
+    }
+  }
 }
 
 .sbb-notification__title {
-  --sbb-title-margin-block-start: 0;
+  // Overwrite sbb-title default margin
+  margin: 0;
 }
 
 .sbb-notification__content {
-  padding-inline: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs);
+  order: 3;
+  grid-area: 2 / 1 / 3 / 3;
+
+  @include sbb.mq($from: small) {
+    order: initial;
+    grid-area: initial;
+    padding-inline: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs);
+  }
 }
 
 .sbb-notification__close-wrapper {
@@ -51,4 +137,12 @@
   align-items: center;
   height: 100%;
   gap: var(--sbb-spacing-responsive-xxs);
+}
+
+.sbb-notification__divider {
+  height: calc(var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x));
+
+  @include sbb.mq($from: small) {
+    height: 100%;
+  }
 }
