@@ -22,6 +22,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
 import { InterfaceNotificationAttributes } from './sbb-notification.custom';
+import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 enum NotificationIconName {
   info = 'circle-information-small',
@@ -170,6 +171,7 @@ export class SbbNotification implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._hasTitle = !!this.titleContent || this._namedSlots['title'];
+    this._element.querySelectorAll('sbb-link').forEach((link) => (link.variant = 'inline'));
   }
 
   public componentDidLoad(): void {
@@ -241,9 +243,7 @@ export class SbbNotification implements ComponentInterface {
         <div
           class="sbb-notification"
           onTransitionEnd={(event) => this._onNotificationTransitionEnd(event)}
-          ref={(el) => {
-            this._notificationElement = el;
-          }}
+          ref={(el) => (this._notificationElement = el)}
         >
           <sbb-icon class="sbb-notification__icon" name={this._iconName} />
 
