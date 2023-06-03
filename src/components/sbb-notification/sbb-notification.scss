@@ -12,13 +12,17 @@
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-granite-default);
   --sbb-notification-background: var(--sbb-color-white-default);
-  --sbb-notification-border: var(--sbb-color-smoke-default) solid var(--sbb-border-width-1x);
+  --sbb-notification-border-width: 0px;
+  --sbb-notification-border: var(--sbb-color-smoke-default) solid
+    var(--sbb-notification-border-width);
   --sbb-notification-type-color: var(--sbb-color-granite-default);
   --sbb-notification-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
       var(--sbb-animation-duration-2x) var(--sbb-notification-timing-function),
     padding var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
+      var(--sbb-notification-timing-function),
+    border var(--sbb-notification-animation-duration) var(--sbb-animation-duration-2x)
       var(--sbb-notification-timing-function),
     visibility var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function);
@@ -27,6 +31,7 @@
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-notification-visibility: visible;
   --sbb-notification-opacity: 1;
+  --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-max-height: calc(
     (var(--sbb-notification-padding-block) + var(--sbb-border-width-1x)) * 2 +
@@ -35,6 +40,7 @@
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function),
     padding var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
+    border var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function);
 }
