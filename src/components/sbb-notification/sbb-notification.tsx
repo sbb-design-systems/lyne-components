@@ -193,6 +193,10 @@ export class SbbNotification implements ComponentInterface {
       return;
     }
 
+    if (!this._notificationElement.scrollHeight) {
+      return;
+    }
+
     this._element.style.setProperty(
       '--sbb-notification-height',
       `${this._notificationElement.scrollHeight}px`
@@ -220,14 +224,14 @@ export class SbbNotification implements ComponentInterface {
     }
   }
 
-  private _handleOpening() {
+  private _handleOpening(): void {
     this._setNotificationHeight();
     this._state = 'opened';
     this.didOpen.emit();
     this._notificationResizeObserver.observe(this._notificationElement);
   }
 
-  private _handleClosing() {
+  private _handleClosing(): void {
     this._state = 'closed';
     this.didClose.emit();
     this._notificationResizeObserver.unobserve(this._notificationElement);

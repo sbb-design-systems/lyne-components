@@ -25,6 +25,20 @@ describe('sbb-notification', () => {
   it('shows the notification', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
+
+    await closeButton.click();
+    await page.waitForChanges();
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
 
     await element.callMethod('open');
     await page.waitForChanges();
@@ -43,6 +57,20 @@ describe('sbb-notification', () => {
   it('shows on trigger click', async () => {
     const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
+
+    await closeButton.click();
+    await page.waitForChanges();
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
 
     trigger.triggerEvent('click');
     await page.waitForChanges();
@@ -59,21 +87,8 @@ describe('sbb-notification', () => {
   });
 
   it('closes the notification', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
-
-    await element.callMethod('open');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
 
@@ -92,22 +107,9 @@ describe('sbb-notification', () => {
   });
 
   it('closes the notification on close button click', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
-
-    await element.callMethod('open');
-    await page.waitForChanges();
-
-    await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'opened');
 
@@ -126,23 +128,24 @@ describe('sbb-notification', () => {
   });
 
   it('closes the notification on close button click by keyboard', async () => {
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
-
-    await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(element).toEqualAttribute('data-state', 'opened');
 
     await closeButton.focus();
     await page.keyboard.down('Enter');
     await page.waitForChanges();
 
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
+
+    expect(element).toEqualAttribute('data-state', 'closed');
   });
 });

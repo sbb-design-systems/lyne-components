@@ -75,7 +75,7 @@ const titleStyle = {
 
 const DefaultTemplate = (args) => [
   trigger(),
-  <sbb-notification {...args} data-state="opened">
+  <sbb-notification {...args}>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
     <sbb-link href="/" variant="inline">
       Link one
@@ -98,7 +98,7 @@ const DefaultTemplate = (args) => [
 
 const SlottedTitleTemplate = (args) => [
   trigger(),
-  <sbb-notification {...args} data-state="opened">
+  <sbb-notification {...args}>
     <span slot="title" style={titleStyle}>
       Slotted title <sbb-icon name="face-grinning-small" />
     </span>
