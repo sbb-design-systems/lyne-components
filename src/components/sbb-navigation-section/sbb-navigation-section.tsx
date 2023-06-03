@@ -181,13 +181,17 @@ export class SbbNavigationSection implements ComponentInterface {
         const firstFocusable = focusableElements[0] as HTMLElement;
         const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
 
+        const actionToFocus = event.shiftKey
+          ? this._triggerElement
+          : (this._triggerElement.nextElementSibling as HTMLElement);
         const pivot = event.shiftKey ? firstFocusable : lastFocusable;
 
         if (
-          (firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
-          (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot
+          !!actionToFocus &&
+          ((firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
+            (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot)
         ) {
-          this._triggerElement.focus();
+          actionToFocus.focus();
           event.preventDefault();
         }
       },
