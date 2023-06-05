@@ -104,6 +104,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _overlayId = `sbb-autocomplete-${++nextId}`;
   private _activeItemIndex = -1;
   private _didLoad = false;
+  private _isPointerDownEventOnMenu: boolean;
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -365,7 +366,11 @@ export class SbbAutocomplete implements ComponentInterface {
       signal: this._openPanelEventsController.signal,
     });
 
-    window.addEventListener('click', (event) => this._onBackdropClick(event), {
+    // Close autocomplete on backdrop click
+    window.addEventListener('pointerdown', (ev) => this._pointerDownListener(ev), {
+      signal: this._openPanelEventsController.signal,
+    });
+    window.addEventListener('pointerup', (ev) => this._closeOnBackdropClick(ev), {
       signal: this._openPanelEventsController.signal,
     });
 
@@ -379,9 +384,18 @@ export class SbbAutocomplete implements ComponentInterface {
     );
   }
 
-  /** If the click is outside the autocomplete, closes the panel. */
-  private _onBackdropClick = async (event: MouseEvent): Promise<void> => {
-    if (!isEventOnElement(this._overlay, event) && !isEventOnElement(this._originElement, event)) {
+  // Check if the pointerdown event target is triggered on the menu.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._isPointerDownEventOnMenu = isEventOnElement(this._overlay, event);
+  };
+
+  // If the click is outside the autocomplete, closes the panel.
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+    if (
+      !this._isPointerDownEventOnMenu &&
+      !isEventOnElement(this._overlay, event) &&
+      !isEventOnElement(this._originElement, event)
+    ) {
       await this.close();
     }
   };

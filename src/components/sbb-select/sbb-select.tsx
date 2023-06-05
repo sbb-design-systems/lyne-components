@@ -105,7 +105,7 @@ export class SbbSelect implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  private _dialog: HTMLElement;
+  private _overlay: HTMLElement;
   private _optionContainer: HTMLElement;
   private _originElement: HTMLElement;
   private _triggerElement: HTMLElement;
@@ -115,6 +115,7 @@ export class SbbSelect implements ComponentInterface {
   private _searchTimeout: ReturnType<typeof setTimeout>;
   private _searchString = '';
   private _didLoad = false;
+  private _isPointerDownEventOnMenu: boolean;
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -136,7 +137,7 @@ export class SbbSelect implements ComponentInterface {
 
   /** Opens the selection panel. */
   @Method() public async open(): Promise<void> {
-    if (this._state !== 'closed' || !this._dialog || this._options.length === 0) {
+    if (this._state !== 'closed' || !this._overlay || this._options.length === 0) {
       return;
     }
 
@@ -238,7 +239,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   private _setOverlayPosition(): void {
-    setOverlayPosition(this._dialog, this._originElement, this._optionContainer, this._element);
+    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this._element);
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
@@ -309,7 +310,11 @@ export class SbbSelect implements ComponentInterface {
       signal: this._openPanelEventsController.signal,
     });
 
-    window.addEventListener('click', (event) => this._onBackdropClick(event), {
+    // Close menu on backdrop click
+    window.addEventListener('pointerdown', (ev) => this._pointerDownListener(ev), {
+      signal: this._openPanelEventsController.signal,
+    });
+    window.addEventListener('pointerup', (ev) => this._closeOnBackdropClick(ev), {
       signal: this._openPanelEventsController.signal,
     });
   }
@@ -504,11 +509,17 @@ export class SbbSelect implements ComponentInterface {
     this._triggerElement.removeAttribute('aria-activedescendant');
   }
 
-  private _onBackdropClick(event: MouseEvent): void {
-    if (!isEventOnElement(this._dialog, event) && !isEventOnElement(this._originElement, event)) {
-      this.close();
+  // Check if the pointerdown event target is triggered on the menu.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._isPointerDownEventOnMenu = isEventOnElement(this._overlay, event);
+  };
+
+  // Close menu on backdrop click.
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._overlay, event)) {
+      // await this.close();
     }
-  }
+  };
 
   private _setValueFromSelectedOption(): void {
     if (!this.multiple) {
@@ -592,7 +603,7 @@ export class SbbSelect implements ComponentInterface {
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
             class="sbb-select__panel"
             data-open={this._state === 'opened' || this._state === 'opening'}
-            ref={(dialogRef) => (this._dialog = dialogRef)}
+            ref={(dialogRef) => (this._overlay = dialogRef)}
           >
             <div class="sbb-select__wrapper">
               <div
