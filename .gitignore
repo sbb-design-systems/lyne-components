@@ -15,6 +15,7 @@ log.txt
 *.sublime-project
 *.sublime-workspace
 **/*.chromatic.stories.jsx
+**/*.chromatic.stories.tsx
 package-lock.json
 
 .stencil/

@@ -85,6 +85,7 @@ The examples below shows how to use the component (with shadow on).
 ```
 
 Header with logo link and slotted sbb-logo:
+
 ```html
 <sbb-header shadow="true">
   <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>

@@ -53,10 +53,12 @@ async function generateChromaticStory(
   const chromaticConfig = Object.entries(chromaticParameters)
     .map(([key, value]) => `${key}: ${JSON.stringify(value)}, `)
     .join('');
-  const storyFileContent = `import config, * as stories from './${relativeImport}';
+  const storyFileContent = `/** @jsx h */
+import type { Meta, StoryObj } from '@storybook/html';
+import config, * as stories from './${relativeImport}';
 import { combineStories } from '${chromaticImport}';
 
-const meta = {
+const meta: Meta = {
   parameters: {
     backgrounds: {
       disable: true,
@@ -68,7 +70,9 @@ const meta = {
 
 export default meta;
 
-export const chromaticStories = combineStories(config, stories);
+export const chromaticStories: StoryObj = {
+  render: combineStories(config, stories)
+};
 `;
   writeFileSync(targetStoryFile, storyFileContent, 'utf-8');
   return undefined;

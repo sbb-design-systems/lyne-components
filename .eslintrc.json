@@ -111,6 +111,12 @@
           }
         ]
       }
+    },
+    {
+      "files": ["*.stories.tsx"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
     }
   ]
 }
