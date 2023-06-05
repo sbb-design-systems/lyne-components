@@ -174,24 +174,37 @@ export class SbbNavigationSection implements ComponentInterface {
         }
 
         // Dynamically get first and last focusable element, as this might have changed since opening overlay
-        const elementChildren: HTMLElement[] = Array.from(
+        const navigationChildren: HTMLElement[] = Array.from(
+          this._element.parentElement.shadowRoot.querySelectorAll('*')
+        );
+        const navigationFocusableElements = getFocusableElements(
+          navigationChildren,
+          (el) => el.nodeName === 'SBB-NAVIGATION-SECTION'
+        );
+
+        const sectionChildren: HTMLElement[] = Array.from(
           this._element.shadowRoot.querySelectorAll('*')
         );
-        const focusableElements = getFocusableElements(elementChildren);
-        const firstFocusable = focusableElements[0] as HTMLElement;
-        const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
+        const sectionFocusableElements = getFocusableElements(sectionChildren);
 
-        const actionToFocus = event.shiftKey
+        const firstFocusable = sectionFocusableElements[0] as HTMLElement;
+        const lastFocusable = sectionFocusableElements[
+          sectionFocusableElements.length - 1
+        ] as HTMLElement;
+
+        const elementToFocus = event.shiftKey
           ? this._triggerElement
-          : (this._triggerElement.nextElementSibling as HTMLElement);
+          : navigationFocusableElements[
+              navigationFocusableElements.indexOf(this._triggerElement) + 1
+            ];
         const pivot = event.shiftKey ? firstFocusable : lastFocusable;
 
         if (
-          !!actionToFocus &&
+          !!elementToFocus &&
           ((firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
             (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot)
         ) {
-          actionToFocus.focus();
+          elementToFocus.focus();
           event.preventDefault();
         }
       },
