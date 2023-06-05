@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const dataNow: InputType = {
@@ -11,7 +11,7 @@ const dataNow: InputType = {
   },
 };
 
-const Template = (args) => <sbb-clock {...args} />;
+const Template = (args): JSX.Element => <sbb-clock {...args} />;
 
 export const Default: StoryObj = {
   render: Template,
@@ -19,17 +19,11 @@ export const Default: StoryObj = {
   args: { 'data-now': undefined },
 };
 
-
-
-
 export const Paused: StoryObj = {
   render: Template,
   argTypes: { 'data-now': dataNow },
   args: { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() },
 };
-
-
-
 
 /**
  * Stop the clock for Chromatic visual regression tests
@@ -41,10 +35,10 @@ if (isChromatic()) {
   };
 }
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'max-width': '600px'}}>
+      <div style={{ 'max-width': '600px' }}>
         <Story />
       </div>
     ),

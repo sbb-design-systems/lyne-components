@@ -1,16 +1,14 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const wrapperStyle = (context) => {
-  if (context.args.negative) {
-    return `background-color: var(--sbb-color-charcoal-default);`;
-  }
-
-  return `background-color:  var(--sbb-color-white-default);`;
-};
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-charcoal-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const origin: InputType = {
   control: {
@@ -68,7 +66,7 @@ const defaultArgs: Args = {
   negative: false,
 };
 
-const Template = (args) => <sbb-journey-header {...args} />;
+const Template = (args): JSX.Element => <sbb-journey-header {...args} />;
 
 export const SizeM: StoryObj = {
   render: Template,
@@ -76,15 +74,11 @@ export const SizeM: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const SizeMRoundTrip: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'round-trip': true },
 };
-
-
 
 export const SizeMNegative: StoryObj = {
   render: Template,
@@ -92,20 +86,16 @@ export const SizeMNegative: StoryObj = {
   args: { ...defaultArgs, negative: true },
 };
 
-
-
 export const SizeMRoundTripShortText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  origin: 'Bern',
-  destination: 'Thun',
-  'round-trip': true,
-},
+    ...defaultArgs,
+    origin: 'Bern',
+    destination: 'Thun',
+    'round-trip': true,
+  },
 };
-
-
 
 export const SizeL: StoryObj = {
   render: Template,
@@ -113,26 +103,22 @@ export const SizeL: StoryObj = {
   args: { ...defaultArgs, size: size.options[1] },
 };
 
-
-
 export const SizeLRoundTripShortText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  origin: 'Bern',
-  destination: 'Thun',
-  'round-trip': true,
-  size: size.options[1],
-},
+    ...defaultArgs,
+    origin: 'Bern',
+    destination: 'Thun',
+    'round-trip': true,
+    size: size.options[1],
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

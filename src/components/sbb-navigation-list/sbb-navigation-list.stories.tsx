@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const label: InputType = {
@@ -25,8 +25,11 @@ const navigationActions = (): JSX.Element[] => [
   <sbb-navigation-action>Help & Contact</sbb-navigation-action>,
 ];
 
-const style =
-  'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
+const style = {
+  'background-color': 'var(--sbb-color-midnight-default)',
+  width: 'max-content',
+  padding: '2rem',
+};
 
 const DefaultTemplate = (args): JSX.Element => (
   <sbb-navigation-list {...args}>{navigationActions()}</sbb-navigation-list>
@@ -45,19 +48,13 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
 export const SlottedLabel: StoryObj = {
   render: SlottedLabelTemplate,
   argTypes: defaultArgTypes,
   args: {},
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={style}>

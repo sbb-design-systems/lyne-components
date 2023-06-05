@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const size: InputType = {
@@ -19,8 +19,11 @@ const defaultArgs: Args = {
   size: size.options[0],
 };
 
-const style =
-  'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
+const style = {
+  'background-color': 'var(--sbb-color-midnight-default)',
+  width: 'max-content',
+  padding: '2rem',
+};
 
 const navigationActionsL = (active): JSX.Element[] => [
   <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
@@ -62,17 +65,11 @@ export const SizeL: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
 export const SizeS: StoryObj = {
   render: SizeSTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
 };
-
-
-
 
 export const SizeLActive: StoryObj = {
   render: SizeLActiveTemplate,
@@ -80,19 +77,13 @@ export const SizeLActive: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
 export const SizeSActive: StoryObj = {
   render: SizeSActiveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={style}>

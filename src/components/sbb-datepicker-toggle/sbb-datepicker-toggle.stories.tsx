@@ -24,16 +24,16 @@ const defaultArgs: Args = {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
-  const queryTrigger = () =>
+  const queryTrigger = (): HTMLSbbTooltipTriggerElement =>
     canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');
 
   await waitForComponentsReady(queryTrigger);
 
   await waitForStablePosition(queryTrigger);
 
-  const toggle = await queryTrigger();
+  const toggle = queryTrigger();
   userEvent.click(toggle);
 };
 
@@ -46,7 +46,7 @@ const StandaloneTemplate = (picker, args): JSX.Element => (
 );
 
 const PickerAndButtonTemplate = (args): JSX.Element => (
-  <div style={{display: 'flex', gap: '1em'}}>
+  <div style={{ display: 'flex', gap: '1em' }}>
     {StandaloneTemplate('datepicker', args)}
     <sbb-datepicker
       id="datepicker"
@@ -74,9 +74,6 @@ export const WithPicker: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
 export const InFormField: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
@@ -84,13 +81,15 @@ export const InFormField: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh; min-width: 100vw;' : ''}`}>
+      <div
+        style={{
+          padding: '2rem',
+          ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
+        }}
+      >
         <Story />
       </div>
     ),
@@ -105,8 +104,7 @@ const meta: Meta =  {
       disable: true,
     },
     docs: {
-      story: { inline: false, iframeHeight: '600px', },
-      
+      story: { inline: false, iframeHeight: '600px' },
       extractComponentDescription: () => readme,
     },
   },

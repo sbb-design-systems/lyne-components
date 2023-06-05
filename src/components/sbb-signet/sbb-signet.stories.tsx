@@ -1,10 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const Template = (args) => <sbb-signet {...args} />;
+const Template = (args): JSX.Element => <sbb-signet {...args} />;
 
 const protectiveRoom: InputType = {
   control: {
@@ -35,15 +35,11 @@ export const NoProtectiveRoom: StoryObj = {
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options[0] },
 };
 
-
-
 export const MinimalProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
 };
-
-
 
 export const IdealProtectiveRoom: StoryObj = {
   render: Template,
@@ -51,12 +47,10 @@ export const IdealProtectiveRoom: StoryObj = {
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'max-width': '300px'}}>
+      <div style={{ 'max-width': '300px' }}>
         <Story />
       </div>
     ),

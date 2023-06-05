@@ -6,7 +6,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const disabled: InputType = {
@@ -127,7 +127,7 @@ const withGroupsDefaultArgs = {
 
 const defaultDecorator = [
   (Story) => (
-    <div style={{padding: '2rem', height: 'calc(100vh - 2rem)'}}>
+    <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
       <Story />
     </div>
   ),
@@ -135,7 +135,14 @@ const defaultDecorator = [
 
 const aboveDecorator = [
   (Story) => (
-    <div style={{padding: '2rem', height: 'calc(100vh - 2rem)', display: 'flex', 'align-items': 'end'}}>
+    <div
+      style={{
+        padding: '2rem',
+        height: 'calc(100vh - 2rem)',
+        display: 'flex',
+        'align-items': 'end',
+      }}
+    >
       <Story />
     </div>
   ),
@@ -144,9 +151,13 @@ const aboveDecorator = [
 const scrollDecorator = [
   (Story) => (
     <div
-      style={
-        'padding: 2rem; height: calc(100vh * 1.5); background-color: var(--sbb-color-milk-default); display: flex; align-items: center'
-      }
+      style={{
+        padding: '2rem',
+        height: 'calc(100vh * 1.5)',
+        'background-color': 'var(--sbb-color-milk-default)',
+        display: 'flex',
+        'align-items': 'center',
+      }}
     >
       <Story />
     </div>
@@ -154,7 +165,7 @@ const scrollDecorator = [
 ];
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -166,7 +177,7 @@ const playStory = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const createOptionGroup1 = (iconName, disableOption) => {
+const createOptionGroup1 = (iconName, disableOption): JSX.Element[] => {
   return [
     <sbb-option icon-name={iconName} value="Option 1">
       Option 1
@@ -180,7 +191,7 @@ const createOptionGroup1 = (iconName, disableOption) => {
     </sbb-option>,
   ];
 };
-const createOptionGroup2 = () => {
+const createOptionGroup2 = (): JSX.Element[] => {
   return [
     <sbb-option value="Option 4">Option 4</sbb-option>,
     <sbb-option value="Option 5">Option 5</sbb-option>,
@@ -203,16 +214,14 @@ const codeStyle: Args = {
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const textBlock = () => {
-  return (
-    <div style={textBlockStyle}>
-      This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
-      it must always be covered by the autocomplete overlay.
-    </div>
-  );
-};
+const textBlock = (): JSX.Element => (
+  <div style={textBlockStyle}>
+    This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but it
+    must always be covered by the autocomplete overlay.
+  </div>
+);
 
-const Template = (args): JSX.Element[] => [
+const Template = (args): JSX.Element => (
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
       <input
@@ -231,10 +240,10 @@ const Template = (args): JSX.Element[] => [
       </sbb-autocomplete>
     </sbb-form-field>
     {textBlock()}
-  </div>,
-];
+  </div>
+);
 
-const OptionGroupTemplate = (args): JSX.Element[] => [
+const OptionGroupTemplate = (args): JSX.Element => (
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
       <input
@@ -255,10 +264,10 @@ const OptionGroupTemplate = (args): JSX.Element[] => [
       </sbb-autocomplete>
     </sbb-form-field>
     {textBlock()}
-  </div>,
-];
+  </div>
+);
 
-const MixedTemplate = (args): JSX.Element[] => [
+const MixedTemplate = (args): JSX.Element => (
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
       <input
@@ -273,7 +282,7 @@ const MixedTemplate = (args): JSX.Element[] => [
         preserve-icon-space={args.preserveIconSpace}
       >
         <sbb-option value="Option 1">
-          <sbb-icon slot="icon" name={args.iconName} style={{color: '#0279c7'}} />
+          <sbb-icon slot="icon" name={args.iconName} style={{ color: '#0279c7' }} />
           Option Value
         </sbb-option>
         <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
@@ -283,13 +292,13 @@ const MixedTemplate = (args): JSX.Element[] => [
       </sbb-autocomplete>
     </sbb-form-field>
     {textBlock()}
-  </div>,
-];
+  </div>
+);
 
-const RequiredTemplate = (args) => {
+const RequiredTemplate = (args): JSX.Element => {
   const sbbFormError = <sbb-form-error>This is a required field.</sbb-form-error>;
 
-  return [
+  return (
     <div>
       <sbb-form-field
         borderless={args.borderless}
@@ -305,7 +314,7 @@ const RequiredTemplate = (args) => {
           disabled={args.disabled}
           readonly={args.readonly}
           onChange={(event) => {
-            if (event.currentTarget.value !== '') {
+            if ((event.currentTarget as HTMLInputElement).value !== '') {
               sbbFormError.remove();
               document.getElementById('sbb-autocomplete').classList.remove('sbb-invalid');
             } else {
@@ -327,8 +336,8 @@ const RequiredTemplate = (args) => {
         {sbbFormError}
       </sbb-form-field>
       {textBlock()}
-    </div>,
-  ];
+    </div>
+  );
 };
 
 export const Basic: StoryObj = {
@@ -339,10 +348,6 @@ export const Basic: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const BasicOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -350,10 +355,6 @@ export const BasicOpenAbove: StoryObj = {
   decorators: aboveDecorator,
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const Borderless: StoryObj = {
   render: Template,
@@ -363,10 +364,6 @@ export const Borderless: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
@@ -374,10 +371,6 @@ export const WithError: StoryObj = {
   decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const Disabled: StoryObj = {
   render: Template,
@@ -387,10 +380,6 @@ export const Disabled: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -398,10 +387,6 @@ export const Readonly: StoryObj = {
   decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const BorderlessOpenAbove: StoryObj = {
   render: Template,
@@ -411,10 +396,6 @@ export const BorderlessOpenAbove: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const NoIconSpace: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -422,10 +403,6 @@ export const NoIconSpace: StoryObj = {
   decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const Scroll: StoryObj = {
   render: Template,
@@ -435,10 +412,6 @@ export const Scroll: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const WithOptionGroup: StoryObj = {
   render: OptionGroupTemplate,
   argTypes: withGroupsArgTypes,
@@ -446,10 +419,6 @@ export const WithOptionGroup: StoryObj = {
   decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const WithOptionGroupOpenAbove: StoryObj = {
   render: OptionGroupTemplate,
@@ -459,10 +428,6 @@ export const WithOptionGroupOpenAbove: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const MixedSingleOptionWithOptionGroup: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
@@ -471,11 +436,7 @@ export const MixedSingleOptionWithOptionGroup: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {

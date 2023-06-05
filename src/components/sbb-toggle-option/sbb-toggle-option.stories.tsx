@@ -80,15 +80,11 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const IconOnly: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] },
 };
-
-
 
 export const LabelAndIcon: StoryObj = {
   render: DefaultTemplate,
@@ -96,15 +92,11 @@ export const LabelAndIcon: StoryObj = {
   args: { ...defaultArgs, 'icon-name': iconName.options[1] },
 };
 
-
-
 export const IconOnlySlotted: StoryObj = {
   render: SlottedIconTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] },
 };
-
-
 
 export const LabelAndIconSlotted: StoryObj = {
   render: SlottedIconTemplate,
@@ -112,12 +104,10 @@ export const LabelAndIconSlotted: StoryObj = {
   args: { ...defaultArgs, 'icon-name': iconName.options[1] },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

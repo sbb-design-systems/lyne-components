@@ -5,10 +5,12 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const TemplateSingle = (args) => <sbb-header-action {...args}>{args.text}</sbb-header-action>;
+const TemplateSingle = (args): JSX.Element => (
+  <sbb-header-action {...args}>{args.text}</sbb-header-action>
+);
 
 const TemplateMultiple = (args): JSX.Element => (
-  <div style={{display: 'flex', gap: '2rem'}}>
+  <div style={{ display: 'flex', gap: '2rem' }}>
     <sbb-header-action {...args}>{args.text} 1</sbb-header-action>
     <sbb-header-action {...args}>{args.text} 2</sbb-header-action>
     <sbb-header-action {...args}>{args.text} 3</sbb-header-action>
@@ -158,17 +160,11 @@ export const sbbHeaderActionLink: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-
 export const sbbHeaderActionButton: StoryObj = {
   render: TemplateSingle,
   argTypes: basicArgTypes,
   args: { ...basicArgsButton },
 };
-
-
-
 
 export const sbbHeaderActionLinkMultiple: StoryObj = {
   render: TemplateMultiple,
@@ -176,22 +172,16 @@ export const sbbHeaderActionLinkMultiple: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-
 export const sbbHeaderActionButtonMultiple: StoryObj = {
   render: TemplateMultiple,
   argTypes: basicArgTypes,
   args: { ...basicArgsButton },
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-travel-hints.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const Template = (args): JSX.Element => (
@@ -48,20 +48,15 @@ export const TravelHintsList: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData[0],
-},
+    ...defaultArgs,
+    config: sampleData[0],
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

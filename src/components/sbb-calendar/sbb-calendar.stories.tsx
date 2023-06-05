@@ -1,5 +1,5 @@
 /** @jsx h */
-import events from './sbb-calendar.events.ts';
+import events from './sbb-calendar.events';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
@@ -7,8 +7,8 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const getCalendarAttr = (min, max) => {
-  let attr = {};
+const getCalendarAttr = (min, max): Record<string, Date> => {
+  const attr: Record<string, Date> = {};
   if (min) {
     attr.min = new Date(min);
   }
@@ -128,19 +128,17 @@ export const Calendar: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const CalendarWithMinAndMax: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: {
-  ...defaultArgs,
-  min: isChromatic() ? new Date(2023, 0, 9) : new Date(today.getFullYear(), today.getMonth(), 5),
-  max: isChromatic() ? new Date(2023, 0, 29) : new Date(today.getFullYear(), today.getMonth(), 29),
-},
+    ...defaultArgs,
+    min: isChromatic() ? new Date(2023, 0, 9) : new Date(today.getFullYear(), today.getMonth(), 5),
+    max: isChromatic()
+      ? new Date(2023, 0, 29)
+      : new Date(today.getFullYear(), today.getMonth(), 29),
+  },
 };
-
-
 
 export const CalendarWide: StoryObj = {
   render: Template,
@@ -148,23 +146,19 @@ export const CalendarWide: StoryObj = {
   args: { ...defaultArgs, wide: true },
 };
 
-
-
 export const CalendarFilterFunction: StoryObj = {
   render: TemplateFilterFunction,
   argTypes: { ...defaultArgTypes, dateFilter },
   args: {
-  ...defaultArgs,
-  // Workaround: On Chromatic mapping functions do not work, so assign function directly.
-  // TODO: Check if condition can be removed after refactoring Chromatic generation @kyubisation
-  dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options[2],
-},
+    ...defaultArgs,
+    // Workaround: On Chromatic mapping functions do not work, so assign function directly.
+    // TODO: Check if condition can be removed after refactoring Chromatic generation @kyubisation
+    dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options[2],
+  },
 };
 
-
-
-const meta: Meta =  {
-  decorators: [withActions],
+const meta: Meta = {
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [events.dateSelected],

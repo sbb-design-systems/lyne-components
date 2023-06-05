@@ -2,8 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-barrier-free.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, Args } from '@storybook/html';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-barrier-free config={JSON.stringify(args.config)}></sbb-timetable-barrier-free>
@@ -26,68 +25,43 @@ export const BarrierFree: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[0],
-},
+    config: sampleData[0],
+  },
 };
-
-
-
-
-
 
 export const BarrierFreePartially: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[1],
-},
+    config: sampleData[1],
+  },
 };
-
-
-
-
-
 
 export const BarrierFreeReservation: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[2],
-},
+    config: sampleData[2],
+  },
 };
-
-
-
-
-
 
 export const nonBarrierFree: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[3],
-},
+    config: sampleData[3],
+  },
 };
-
-
-
-
-
 
 export const BarrierFreeUnkonwn: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[4],
-},
+    config: sampleData[4],
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {

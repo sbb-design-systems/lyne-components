@@ -1,27 +1,17 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const documentationPlatformContainerStyle = (context) => {
-  if (context.args.negative) {
-    return {};
-  }
-
-  return 'background-color: var(--sbb-color-white-default);';
-};
-
-const wrapperStyle = (context) => {
-  if (context.args.negative) {
-    return 'background-color: var(--sbb-color-charcoal-default);';
-  }
-
-  return 'background-color: var(--sbb-color-white-default);';
-};
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-charcoal-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const Template = (args): JSX.Element => (
-  <div style={{height: '340px', padding: '20px'}}>
+  <div style={{ height: '340px', padding: '20px' }}>
     <sbb-divider {...args} />
   </div>
 );
@@ -58,39 +48,28 @@ export const dividerHorizontal: StoryObj = {
   argTypes: defaultArgTypes,
 };
 
-
-
-
-
 export const dividerVertical: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  orientation: 'vertical',
-},
+    ...defaultArgs,
+    orientation: 'vertical',
+  },
 };
-
-
-
 
 export const dividerNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  negative: true,
-},
+    ...defaultArgs,
+    negative: true,
+  },
 };
 
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}`}>
+      <div style={wrapperStyle(context)}>
         <Story />
       </div>
     ),

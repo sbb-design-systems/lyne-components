@@ -69,12 +69,10 @@ export const multipleAlerts: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

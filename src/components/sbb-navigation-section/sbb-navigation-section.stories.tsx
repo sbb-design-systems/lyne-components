@@ -1,15 +1,15 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
-const playStory = async (trigger, canvasElement) => {
+const playStory = async (trigger, canvasElement): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -87,89 +87,90 @@ const navigationList = (label): JSX.Element[] => [
   </sbb-navigation-list>,
 ];
 
-const onNavigationClose = (dialog) => {
+const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
-    document.getElementById('nav-marker').reset();
+    (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
   });
 };
 
-const DefaultTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation
-    data-testid="navigation"
-    id="navigation"
-    trigger="navigation-trigger-1"
-    disable-animation={args['disable-animation']}
-    ref={(dialog) => onNavigationClose(dialog)}
-  >
-    <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
-
-    <sbb-navigation-section
-      title-content="Title one"
-      data-testid="navigation-section"
-      id="navigation-section"
-      trigger="nav-1"
-      {...args}
+const DefaultTemplate = (args): JSX.Element => (
+  <Fragment>
+    {triggerButton('navigation-trigger-1')}
+    <sbb-navigation
+      data-testid="navigation"
+      id="navigation"
+      trigger="navigation-trigger-1"
+      disable-animation={args['disable-animation']}
+      ref={(dialog) => onNavigationClose(dialog)}
     >
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
+      <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
 
-      <sbb-button size="m" style={{width: 'fit-content'}}>
-        Button
-      </sbb-button>
-    </sbb-navigation-section>
+      <sbb-navigation-section
+        title-content="Title one"
+        data-testid="navigation-section"
+        id="navigation-section"
+        trigger="nav-1"
+        {...args}
+      >
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
 
-    <sbb-navigation-section
-      title-content="Title two"
-      id="navigation-section"
-      trigger="nav-2"
-      {...args}
-    >
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
+        <sbb-button size="m" style={{ width: 'fit-content' }}>
+          Button
+        </sbb-button>
+      </sbb-navigation-section>
 
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
+      <sbb-navigation-section
+        title-content="Title two"
+        id="navigation-section"
+        trigger="nav-2"
+        {...args}
+      >
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
 
-      {navigationList('Label')}
-      {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
 
-      <sbb-button size="m" variant="secondary" style={{width: 'fit-content'}} sbb-navigation-close>
-        Close navigation
-      </sbb-button>
-    </sbb-navigation-section>
-  </sbb-navigation>,
-];
+        {navigationList('Label')}
+        {navigationList('Label')}
+
+        <sbb-button
+          size="m"
+          variant="secondary"
+          style={{ width: 'fit-content' }}
+          sbb-navigation-close
+        >
+          Close navigation
+        </sbb-button>
+      </sbb-navigation-section>
+    </sbb-navigation>
+  </Fragment>
+);
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
   play: ({ canvasElement }) =>
-  isChromatic() && playStory('navigation-section-trigger-1', canvasElement),
+    isChromatic() && playStory('navigation-section-trigger-1', canvasElement),
 };
-
-
-
 
 export const LongContent: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
   play: ({ canvasElement }) =>
-  isChromatic() && playStory('navigation-section-trigger-2', canvasElement),
+    isChromatic() && playStory('navigation-section-trigger-2', canvasElement),
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem', height: '100vh'}}>
+      <div style={{ padding: '2rem', height: '100vh' }}>
         <Story />
       </div>
     ),
@@ -180,8 +181,8 @@ const meta: Meta =  {
       disable: true,
     },
     docs: {
-      story: { inline: false, iframeHeight: '600px', },
-      
+      story: { inline: false, iframeHeight: '600px' },
+
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',

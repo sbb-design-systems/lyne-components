@@ -1,6 +1,6 @@
 /** @jsx h */
-import events from './sbb-tooltip.events.ts';
-import { h, JSX } from 'jsx-dom';
+import events from './sbb-tooltip.events';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
@@ -11,7 +11,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html'
 import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -62,17 +62,17 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
-const tooltipTrigger = (position): JSX.Element => (
+const tooltipTrigger = (position: Record<string, string>): JSX.Element => (
   <sbb-tooltip-trigger
     data-testid="tooltip-trigger"
-    style={`margin-inline: 2rem; position: absolute; cursor: pointer; ${position};`}
+    style={{ 'margin-inline': '2rem', position: 'absolute', cursor: 'pointer', ...position }}
     id="tooltip-trigger"
   ></sbb-tooltip-trigger>
 );
 
 const tooltip = (args): JSX.Element => (
   <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
-    <p id="tooltip-content" style={{margin: '0', 'font-size': 'var(--sbb-font-size-text-s)'}}>
+    <p id="tooltip-content" style={{ margin: '0', 'font-size': 'var(--sbb-font-size-text-s)' }}>
       Simple information tooltip with link.{' '}
       <sbb-link
         size="s"
@@ -87,39 +87,67 @@ const tooltip = (args): JSX.Element => (
   </sbb-tooltip>
 );
 
-const StartBelowTemplate = (args) => [tooltipTrigger('inset-inline-start: 2rem'), tooltip(args)];
+const StartBelowTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-start': '2rem' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
-const CenterBelowTemplate = (args) => [
-  tooltipTrigger('inset-inline-start: calc(50% - 44px)'),
-  tooltip(args),
-];
+const CenterBelowTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-start': 'calc(50% - 44px)' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
-const EndBelowTemplate = (args) => [tooltipTrigger('inset-inline-end: 2rem'), tooltip(args)];
+const EndBelowTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-end': '2rem' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
-const StartAboveTemplate = (args) => [tooltipTrigger('inset-block-end: 2rem'), tooltip(args)];
+const StartAboveTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-block-end': '2rem' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
-const CenterAboveTemplate = (args) => [
-  tooltipTrigger('inset-inline-start: calc(50% - 44px); inset-block-end: 2rem'),
-  tooltip(args),
-];
+const CenterAboveTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-start': 'calc(50% - 44px)', 'inset-block-end': '2rem' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
-const EndAboveTemplate = (args) => [
-  tooltipTrigger('inset-inline-end: 2rem; inset-block-end: 2rem'),
-  tooltip(args),
-];
+const EndAboveTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-end': '2rem', 'inset-block-end': '2rem' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
-const LongContentTemplate = (args) => [
-  tooltipTrigger('inset-inline-start: 2rem'),
-  <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
-    <p id="tooltip-content" style={{margin: '0', 'font-size': 'var(--sbb-font-size-text-s)'}}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat.
-    </p>
-  </sbb-tooltip>,
-];
+const LongContentTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-end': '2rem', 'inset-block-end': '2rem' })}
+    <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
+      <p id="tooltip-content" style={{ margin: '0', 'font-size': 'var(--sbb-font-size-text-s)' }}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+    </sbb-tooltip>
+  </Fragment>
+);
 
-const HoverTriggerTemplate = (args) => [tooltipTrigger('inset-inline-start: 2rem'), tooltip(args)];
+const HoverTriggerTemplate = (args): JSX.Element => (
+  <Fragment>
+    {tooltipTrigger({ 'inset-inline-start': '2rem' })}
+    {tooltip(args)}
+  </Fragment>
+);
 
 export const StartBelow: StoryObj = {
   render: StartBelowTemplate,
@@ -128,20 +156,12 @@ export const StartBelow: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const CenterBelow: StoryObj = {
   render: CenterBelowTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const EndBelow: StoryObj = {
   render: EndBelowTemplate,
@@ -150,20 +170,12 @@ export const EndBelow: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const StartAbove: StoryObj = {
   render: StartAboveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const CenterAbove: StoryObj = {
   render: CenterAboveTemplate,
@@ -172,20 +184,12 @@ export const CenterAbove: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const EndAbove: StoryObj = {
   render: EndAboveTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
   play: isChromatic() && playStory,
 };
-
-
-
-
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
@@ -194,30 +198,22 @@ export const LongContent: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
-
 export const HoverTrigger: StoryObj = {
   render: HoverTriggerTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'hover-trigger': true,
-  'open-delay': 0,
-  'close-delay': 0,
-},
+    ...defaultArgs,
+    'hover-trigger': true,
+    'open-delay': 0,
+    'close-delay': 0,
+  },
   play: isChromatic() && playStory,
 };
 
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem', position: 'relative', 'min-height': 'calc(100vh - 2rem)'}}>
+      <div style={{ padding: '2rem', position: 'relative', 'min-height': 'calc(100vh - 2rem)' }}>
         <Story />
       </div>
     ),
@@ -232,8 +228,8 @@ const meta: Meta =  {
       disable: true,
     },
     docs: {
-      story: { inline: false, iframeHeight: '250px', },
-      
+      story: { inline: false, iframeHeight: '250px' },
+
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',

@@ -1,10 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const Template = (args) => <sbb-train-wagon {...args}></sbb-train-wagon>;
+const Template = (args): JSX.Element => <sbb-train-wagon {...args}></sbb-train-wagon>;
 const WagonIconsTemplate = (args): JSX.Element => (
   <sbb-train-wagon {...args}>
     <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
@@ -82,51 +82,41 @@ export const wagonLowOccupancy: StoryObj = {
   args: defaultArgs,
 };
 
-
-
 export const wagonMediumOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  occupancy: occupancy.options[1],
-},
+    ...defaultArgs,
+    occupancy: occupancy.options[1],
+  },
 };
-
-
 
 export const wagonHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  occupancy: occupancy.options[0],
-},
+    ...defaultArgs,
+    occupancy: occupancy.options[0],
+  },
 };
-
-
 
 export const wagonUnknownOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  occupancy: occupancy.options[3],
-},
+    ...defaultArgs,
+    occupancy: occupancy.options[3],
+  },
 };
-
-
 
 export const wagonUndefinedOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  occupancy: '',
-},
+    ...defaultArgs,
+    occupancy: '',
+  },
 };
-
-
 
 export const wagonOneIcon: StoryObj = {
   render: WagonOneIconTemplate,
@@ -134,64 +124,52 @@ export const wagonOneIcon: StoryObj = {
   args: defaultArgs,
 };
 
-
-
 export const wagonMultipleIcons: StoryObj = {
   render: WagonIconsTemplate,
   argTypes: defaultArgTypes,
   args: defaultArgs,
 };
 
-
-
 export const wagonFirstClass: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'wagon-class': wagonClass.options[0],
-},
+    ...defaultArgs,
+    'wagon-class': wagonClass.options[0],
+  },
 };
-
-
 
 export const wagonUndefinedClass: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'wagon-class': undefined,
-},
+    ...defaultArgs,
+    'wagon-class': undefined,
+  },
 };
-
-
 
 export const locomotive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  type: type.options[0],
-},
+    ...defaultArgs,
+    type: type.options[0],
+  },
 };
-
-
 
 export const closed: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  type: type.options[1],
-},
+    ...defaultArgs,
+    type: type.options[1],
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

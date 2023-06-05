@@ -2,15 +2,14 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, Decorator } from '@storybook/html';
 
 const StandaloneTemplate = (picker = null): JSX.Element => (
   <sbb-datepicker-previous-day date-picker={picker}></sbb-datepicker-previous-day>
 );
 
 const PickerAndButtonTemplate = (): JSX.Element => (
-  <div style={{display: 'flex', gap: '1em'}}>
+  <div style={{ display: 'flex', gap: '1em' }}>
     {StandaloneTemplate('datepicker')}
     <input id="datepicker-input" />
     <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
@@ -37,10 +36,10 @@ export const InFormField: StoryObj = {
   render: FormFieldTemplate,
 };
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

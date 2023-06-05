@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }): JSX.Element => (
@@ -81,15 +81,11 @@ export const Default: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
 export const Active: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: { ...basicArgs, active: true },
 };
-
-
 
 export const Disabled: StoryObj = {
   render: Template,
@@ -97,15 +93,11 @@ export const Disabled: StoryObj = {
   args: { ...basicArgs, disabled: true },
 };
 
-
-
 export const ActiveAndDisabled: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true, active: true },
 };
-
-
 
 export const WithoutIcon: StoryObj = {
   render: Template,
@@ -113,15 +105,11 @@ export const WithoutIcon: StoryObj = {
   args: { ...basicArgs, 'icon-name': undefined },
 };
 
-
-
 export const WithoutAmount: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: undefined },
 };
-
-
 
 export const WithoutIconAndWithoutAmount: StoryObj = {
   render: Template,
@@ -129,19 +117,15 @@ export const WithoutIconAndWithoutAmount: StoryObj = {
   args: { ...basicArgs, amount: undefined, 'icon-name': undefined },
 };
 
-
-
 export const SlottedIcon: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: {
-  ...basicArgs,
-  'icon-name': undefined,
-  iconSlot: 'train-small',
-},
+    ...basicArgs,
+    'icon-name': undefined,
+    iconSlot: 'train-small',
+  },
 };
-
-
 
 export const SlottedAmount: StoryObj = {
   render: Template,
@@ -149,39 +133,32 @@ export const SlottedAmount: StoryObj = {
   args: { ...basicArgs, amount: undefined, amountSlot: 123 },
 };
 
-
-
 export const SlottedAmountDisabled: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: undefined, amountSlot: 123, disabled: true },
 };
 
-
-
 export const WithEllipsis: StoryObj = {
   render: Template,
   argTypes: basicArgTypes,
   args: {
-  ...basicArgs,
-  label: `A very long label which gets ellipsis when there is no more space to display it`,
-},
-  decorators: [
-  (Story) => (
-    <div style={{'max-width': '400px'}}>
-      <Story />
-    </div>
-  ),
-],
-};
-
-
-
-
-const meta: Meta =  {
+    ...basicArgs,
+    label: `A very long label which gets ellipsis when there is no more space to display it`,
+  },
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ 'max-width': '400px' }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+const meta: Meta = {
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

@@ -144,15 +144,11 @@ export const SizeM: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, size: size.options[1] },
 };
-
-
 
 export const Disabled: StoryObj = {
   render: DefaultTemplate,
@@ -160,15 +156,11 @@ export const Disabled: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
-
-
 export const DisabledSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, disabled: true, size: size.options[1] },
 };
-
-
 
 export const Even: StoryObj = {
   render: DefaultTemplate,
@@ -176,15 +168,11 @@ export const Even: StoryObj = {
   args: { ...defaultArgs, even: true },
 };
 
-
-
 export const EvenSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, even: true, size: size.options[1] },
 };
-
-
 
 export const LabelAndIcon: StoryObj = {
   render: DefaultTemplate,
@@ -192,15 +180,11 @@ export const LabelAndIcon: StoryObj = {
   args: { ...defaultArgs, iconName: iconName.options[0] },
 };
 
-
-
 export const LabelAndIconSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, iconName: iconName.options[0], size: size.options[1] },
 };
-
-
 
 export const LabelAndIconSlotted: StoryObj = {
   render: SlottedIconTemplate,
@@ -208,79 +192,67 @@ export const LabelAndIconSlotted: StoryObj = {
   args: { ...defaultArgs, iconName: iconName.options[1] },
 };
 
-
-
 export const IconsOnly: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: {
-  ...defaultArgs,
-  iconName: iconName.options[0],
-  label: undefined,
-  labelTwo: undefined,
-},
+    ...defaultArgs,
+    iconName: iconName.options[0],
+    label: undefined,
+    labelTwo: undefined,
+  },
 };
-
-
 
 export const IconsOnlySizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: {
-  ...defaultArgs,
-  iconName: iconName.options[0],
-  size: size.options[1],
-  label: undefined,
-  labelTwo: undefined,
-},
+    ...defaultArgs,
+    iconName: iconName.options[0],
+    size: size.options[1],
+    label: undefined,
+    labelTwo: undefined,
+  },
 };
-
-
 
 export const IconsOnlySlotted: StoryObj = {
   render: SlottedIconTemplate,
   argTypes: { ...defaultArgTypes },
   args: {
-  ...defaultArgs,
-  iconName: iconName.options[1],
-  label: undefined,
-  labelTwo: undefined,
-},
+    ...defaultArgs,
+    iconName: iconName.options[1],
+    label: undefined,
+    labelTwo: undefined,
+  },
 };
-
-
 
 export const DynamicWidth: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: {
-  ...defaultArgs,
-  label: 'Zürich',
-  labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
-  iconName: iconName.options[1],
-},
+    ...defaultArgs,
+    label: 'Zürich',
+    labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
+    iconName: iconName.options[1],
+  },
 };
-
-
 
 export const DynamicWidthSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: { ...defaultArgTypes },
   args: {
-  ...defaultArgs,
-  size: size.options[1],
-  label: 'Zürich',
-  labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
-  iconName: iconName.options[1],
-},
+    ...defaultArgs,
+    size: size.options[1],
+    label: 'Zürich',
+    labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
+    iconName: iconName.options[1],
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

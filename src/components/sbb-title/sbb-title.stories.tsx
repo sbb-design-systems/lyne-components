@@ -1,19 +1,17 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const wrapperStyle = (context) => {
-  if (context.args.negative) {
-    return 'background-color: var(--sbb-color-charcoal-default);';
-  }
-
-  return 'background-color: var(--sbb-color-white-default);';
-};
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-charcoal-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
-const Template = ({ text, ...args }) => <sbb-title {...args}>{text}</sbb-title>;
+const Template = ({ text, ...args }): JSX.Element => <sbb-title {...args}>{text}</sbb-title>;
 
 const level: InputType = {
   control: {
@@ -48,19 +46,14 @@ export const h1: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
 export const h1Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  negative: true,
-},
+    ...defaultArgs,
+    negative: true,
+  },
 };
-
-
 
 export const h2: StoryObj = {
   render: Template,
@@ -68,15 +61,11 @@ export const h2: StoryObj = {
   args: { ...defaultArgs, level: level.options[1] },
 };
 
-
-
 export const h3: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, level: level.options[2] },
 };
-
-
 
 export const h4: StoryObj = {
   render: Template,
@@ -84,15 +73,11 @@ export const h4: StoryObj = {
   args: { ...defaultArgs, level: level.options[3] },
 };
 
-
-
 export const h5: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, level: level.options[4] },
 };
-
-
 
 export const h6: StoryObj = {
   render: Template,
@@ -100,20 +85,16 @@ export const h6: StoryObj = {
   args: { ...defaultArgs, level: level.options[5] },
 };
 
-
-
 export const h6VisualLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, level: level.options[0], 'visual-level': level.options[5] },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}padding: 2rem`}>
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

@@ -1,18 +1,16 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const wrapperStyle = (context) => {
-  if (context.args.negative) {
-    return 'background-color: var(--sbb-color-charcoal-default);';
-  }
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-charcoal-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
-  return ``;
-};
-
-const Template = (args) => <sbb-logo {...args} />;
+const Template = (args): JSX.Element => <sbb-logo {...args} />;
 
 const negative: InputType = {
   control: {
@@ -51,15 +49,11 @@ export const NoProtectiveRoom: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const MinimalProtectiveRoom: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
 };
-
-
 
 export const IdealProtectiveRoom: StoryObj = {
   render: Template,
@@ -67,24 +61,20 @@ export const IdealProtectiveRoom: StoryObj = {
   args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
 };
 
-
-
 export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  negative: true,
-  'protective-room': protectiveRoom.options[2],
-},
+    ...defaultArgs,
+    negative: true,
+    'protective-room': protectiveRoom.options[2],
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)};max-width: 300px;`}>
+      <div style={{ ...wrapperStyle(context), 'max-width': '300px' }}>
         <Story />
       </div>
     ),

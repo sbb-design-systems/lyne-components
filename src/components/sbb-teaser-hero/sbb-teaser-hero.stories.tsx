@@ -114,37 +114,31 @@ export const defaultTeaser: StoryObj = {
   render: TemplateSbbTeaserHeroDefault,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
 
 export const openInNewWindow: StoryObj = {
   render: TemplateSbbTeaserHeroDefault,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  target: '_blank',
-},
+    ...defaultArgs,
+    target: '_blank',
+  },
 };
-
-
 
 export const withSlots: StoryObj = {
   render: TemplateSbbTeaserWithSlots,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '1em'}}>
+      <div style={{ padding: '1em' }}>
         <Story />
       </div>
     ),

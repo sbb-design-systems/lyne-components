@@ -1,12 +1,14 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import events from './sbb-tab-group.events.ts';
+import events from './sbb-tab-group.events';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const firstTabTitle = ({ label, ...args }) => <sbb-tab-title {...args}>{label}</sbb-tab-title>;
+const firstTabTitle = ({ label, ...args }): JSX.Element => (
+  <sbb-tab-title {...args}>{label}</sbb-tab-title>
+);
 
 const tabPanelOne = (): JSX.Element => (
   <div>
@@ -155,7 +157,7 @@ const basicArgs: Args = {
 
 const templateRes = [
   (Story) => (
-    <div style={{padding: '2rem'}}>
+    <div style={{ padding: '2rem' }}>
       <Story />
     </div>
   ),
@@ -169,18 +171,12 @@ export const defaultTabs: StoryObj = {
   decorators: templateRes,
 };
 
-
-
-
 export const numbersAndIcons: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
   decorators: templateRes,
 };
-
-
-
 
 export const nestedTabGroups: StoryObj = {
   render: NestedTemplate,
@@ -189,27 +185,21 @@ export const nestedTabGroups: StoryObj = {
   decorators: templateRes,
 };
 
-
-
-
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
   decorators: [
-  (Story) => (
-    <div style={{background: 'var(--sbb-color-milk-default)', padding: '2rem'}}>
-      <Story />
-    </div>
-  ),
-  withActions as Decorator,
-],
+    (Story) => (
+      <div style={{ background: 'var(--sbb-color-milk-default)', padding: '2rem' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   parameters: {
     actions: {
       handles: [events.selectedTabChanged],

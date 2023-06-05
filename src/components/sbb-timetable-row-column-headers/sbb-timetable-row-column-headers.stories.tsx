@@ -3,8 +3,7 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 
 import sampleData from './sbb-timetable-row-column-headers.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, Args } from '@storybook/html';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-row-column-headers
@@ -29,16 +28,11 @@ export const SbbTimetableRowColumnHeaders: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData,
-},
+    config: sampleData,
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {

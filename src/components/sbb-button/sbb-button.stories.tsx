@@ -3,20 +3,16 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { InputType, StoryContext } from '@storybook/types';
 
-const wrapperStyle = (context) => {
-  if (context.args.negative) {
-    return 'background-color: #484040;';
-  }
-  return 'background-color: var(--sbb-color-white-default);';
-};
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
+});
 
-const focusStyle = (context) => {
-  if (context.args.negative) {
-    return `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);`;
-  }
-};
+const focusStyle = (context: StoryContext): Record<string, string> =>
+  context.args.negative
+    ? { '--sbb-focus-outline-color': 'var(--sbb-focus-outline-color-dark)' }
+    : {};
 
 // --- Component
 
@@ -230,218 +226,182 @@ export const Primary: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+  },
 };
-
-
 
 export const Secondary: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[1],
-},
+    ...defaultArgs,
+    variant: variant.options[1],
+  },
 };
-
-
 
 export const Tertiary: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[2],
-},
+    ...defaultArgs,
+    variant: variant.options[2],
+  },
 };
-
-
 
 export const Transparent: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[3],
-},
+    ...defaultArgs,
+    variant: variant.options[3],
+  },
 };
-
-
 
 export const PrimaryNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  negative: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    negative: true,
+  },
 };
-
-
 
 export const SecondaryNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[1],
-  negative: true,
-},
+    ...defaultArgs,
+    variant: variant.options[1],
+    negative: true,
+  },
 };
-
-
 
 export const TertiaryNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[2],
-  negative: true,
-},
+    ...defaultArgs,
+    variant: variant.options[2],
+    negative: true,
+  },
 };
-
-
 
 export const TransparentNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[3],
-  negative: true,
-},
+    ...defaultArgs,
+    variant: variant.options[3],
+    negative: true,
+  },
 };
-
-
 
 export const IconOnly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'icon-name': 'arrow-right-small',
-  text: undefined,
-},
+    ...defaultArgs,
+    'icon-name': 'arrow-right-small',
+    text: undefined,
+  },
 };
-
-
 
 export const PrimaryDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    disabled: true,
+  },
 };
-
-
 
 export const SecondaryDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[1],
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[1],
+    disabled: true,
+  },
 };
-
-
 
 export const TertiaryDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[2],
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[2],
+    disabled: true,
+  },
 };
-
-
 
 export const TransparentDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[3],
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[3],
+    disabled: true,
+  },
 };
-
-
 
 export const PrimaryNegativeDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  negative: true,
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    negative: true,
+    disabled: true,
+  },
 };
-
-
 
 export const SecondaryNegativeDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[1],
-  negative: true,
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[1],
+    negative: true,
+    disabled: true,
+  },
 };
-
-
 
 export const TertiaryNegativeDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[2],
-  negative: true,
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[2],
+    negative: true,
+    disabled: true,
+  },
 };
-
-
 
 export const TransparentNegativeDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[3],
-  negative: true,
-  disabled: true,
-},
+    ...defaultArgs,
+    variant: variant.options[3],
+    negative: true,
+    disabled: true,
+  },
 };
-
-
 
 export const IconOnlyDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'icon-name': 'arrow-right-small',
-  text: undefined,
-  disabled: true,
-},
+    ...defaultArgs,
+    'icon-name': 'arrow-right-small',
+    text: undefined,
+    disabled: true,
+  },
 };
-
-
 
 export const NoIcon: StoryObj = {
   render: Template,
@@ -449,161 +409,135 @@ export const NoIcon: StoryObj = {
   args: { ...defaultArgs, 'icon-name': undefined },
 };
 
-
-
 export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  size: size.options[1],
-},
+    ...defaultArgs,
+    size: size.options[1],
+  },
 };
-
-
 
 export const FixedWidth: StoryObj = {
   render: FixedWidthTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  text: 'Button with long text',
-  'icon-name': 'arrow-right-small',
-},
+    ...defaultArgs,
+    text: 'Button with long text',
+    'icon-name': 'arrow-right-small',
+  },
 };
-
-
 
 export const WithSlottedIcon: StoryObj = {
   render: IconSlotTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'icon-name': 'chevron-small-right-small',
-},
+    ...defaultArgs,
+    'icon-name': 'chevron-small-right-small',
+  },
 };
-
-
 
 export const LinkOpensInNewWindow: StoryObj = {
   render: IconSlotTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  href: 'https://www.sbb.ch',
-  'icon-name': 'chevron-small-right-small',
-  target: '_blank',
-  'aria-label': undefined,
-},
+    ...defaultArgs,
+    href: 'https://www.sbb.ch',
+    'icon-name': 'chevron-small-right-small',
+    target: '_blank',
+    'aria-label': undefined,
+  },
 };
-
-
 
 export const PrimaryActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    active: true,
+  },
 };
-
-
 
 export const SecondaryActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[1],
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[1],
+    active: true,
+  },
 };
-
-
 
 export const TertiaryActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[2],
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[2],
+    active: true,
+  },
 };
-
-
 
 export const TransparentActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[3],
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[3],
+    active: true,
+  },
 };
-
-
 
 export const PrimaryNegativeActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  negative: true,
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    negative: true,
+    active: true,
+  },
 };
-
-
 
 export const SecondaryNegativeActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[1],
-  negative: true,
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[1],
+    negative: true,
+    active: true,
+  },
 };
-
-
 
 export const TertiaryNegativeActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[2],
-  negative: true,
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[2],
+    negative: true,
+    active: true,
+  },
 };
-
-
 
 export const TransparentNegativeActive: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[3],
-  negative: true,
-  active: true,
-},
+    ...defaultArgs,
+    variant: variant.options[3],
+    negative: true,
+    active: true,
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   excludeStories: /.*Active$/,
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}padding: 2rem;${focusStyle(context)}`}>
+      <div style={{ ...wrapperStyle(context), ...focusStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

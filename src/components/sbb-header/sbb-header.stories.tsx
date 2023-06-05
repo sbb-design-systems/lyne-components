@@ -9,7 +9,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const LoremIpsumTemplate = () => [
+const LoremIpsumTemplate = (): JSX.Element[] => [
   <div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
     eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
@@ -74,7 +74,7 @@ const TemplateWithUserMenu = (args): JSX.Element => (
 );
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -114,7 +114,7 @@ const scrollOrigin: InputType = {
   },
 };
 
-const basicArgTypes: ArgTypes = {
+const argTypes: ArgTypes = {
   expanded,
   'hide-on-scroll': hideOnScroll,
   'scroll-origin': scrollOrigin,
@@ -129,77 +129,64 @@ const basicArgs: Args = {
 
 export const Basic: StoryObj = {
   render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  argTypes,
+  args: basicArgs,
 };
-
-
 
 export const Expanded: StoryObj = {
   render: Template,
-  argTypes: basicArgTypes,
+  argTypes,
   args: {
-  ...basicArgs,
-  expanded: true,
-  attributes: { class: 'sbb-page-spacing-expanded' },
-},
+    ...basicArgs,
+    expanded: true,
+    attributes: { class: 'sbb-page-spacing-expanded' },
+  },
 };
-
-
 
 export const WithUserMenu: StoryObj = {
   render: TemplateWithUserMenu,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  argTypes,
+  args: basicArgs,
   play: isChromatic() && playStory,
 };
 
-
-
-
 export const BasicScrollHide: StoryObj = {
   render: Template,
-  argTypes: basicArgTypes,
+  argTypes,
   args: { ...basicArgs, 'hide-on-scroll': true },
 };
 
-
-
 export const ExpandedScrollHide: StoryObj = {
   render: Template,
-  argTypes: basicArgTypes,
+  argTypes,
   args: {
-  ...basicArgs,
-  expanded: true,
-  'hide-on-scroll': true,
-  attributes: { class: 'sbb-page-spacing-expanded' },
-},
+    ...basicArgs,
+    expanded: true,
+    'hide-on-scroll': true,
+    attributes: { class: 'sbb-page-spacing-expanded' },
+  },
 };
-
-
 
 export const ContainerScrollOriginScrollHide: StoryObj = {
   render: Template,
-  argTypes: basicArgTypes,
+  argTypes,
   args: {
-  ...basicArgs,
-  'hide-on-scroll': true,
-  'scroll-origin': 'container',
-  attributes: {
-    id: 'container',
-    class: 'sbb-page-spacing',
-    style: 'height: 200px; overflow: auto;',
+    ...basicArgs,
+    'hide-on-scroll': true,
+    'scroll-origin': 'container',
+    attributes: {
+      id: 'container',
+      class: 'sbb-page-spacing',
+      style: 'height: 200px; overflow: auto;',
+    },
   },
-},
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
       <div>
-        <Story style={`${isChromatic() && 'min-height: 100vh'}`} />
+        <Story style={isChromatic() ? { 'min-height': '100vh' } : undefined} />
       </div>
     ),
     withActions as Decorator,
@@ -213,8 +200,10 @@ const meta: Meta =  {
       handles: ['click'],
     },
     docs: {
-      story: { inline: false, iframeHeight: '250px', },
-      
+      story: {
+        inline: false,
+        iframeHeight: '250px',
+      },
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',

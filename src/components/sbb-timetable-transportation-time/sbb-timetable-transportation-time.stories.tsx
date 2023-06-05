@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-transportation-time.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const Template = (args): JSX.Element => (
@@ -41,61 +41,41 @@ export const SbbTimetableDepartureTimeFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData[0],
-},
+    ...defaultArgs,
+    config: sampleData[0],
+  },
 };
-
-
-
-
-
 
 export const SbbTimetableArrivalTimeFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData[1],
-},
+    ...defaultArgs,
+    config: sampleData[1],
+  },
 };
-
-
-
-
-
 
 export const SbbTimetableDepartureTimeSecondLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  config: sampleData[2],
-},
+    ...defaultArgs,
+    appearance: appearance.options[1],
+    config: sampleData[2],
+  },
 };
-
-
-
-
-
 
 export const SbbTimetableArrivalTimeSecondLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  config: sampleData[3],
-},
+    ...defaultArgs,
+    appearance: appearance.options[1],
+    config: sampleData[3],
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {

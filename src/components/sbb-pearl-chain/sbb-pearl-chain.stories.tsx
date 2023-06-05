@@ -11,7 +11,7 @@ import {
   redirectedOnArrivalLeg,
 } from './sbb-pearl-chain.sample-data';
 import isChromatic from 'chromatic/isChromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const disableAnimation: InputType = {
@@ -36,7 +36,7 @@ const defaultArgs: Args = {
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = (args) => {
+const Template = (args): JSX.Element => {
   return <sbb-pearl-chain {...args} />;
 };
 
@@ -44,135 +44,112 @@ export const NoStops: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [futureLeg],
-},
+    ...defaultArgs,
+    legs: [futureLeg],
+  },
 };
-
-
-
 
 export const ManyStops: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [futureLeg, longFutureLeg, futureLeg, futureLeg],
-},
+    ...defaultArgs,
+    legs: [futureLeg, longFutureLeg, futureLeg, futureLeg],
+  },
 };
-
-
 
 export const Cancelled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [cancelledLeg],
-},
+    ...defaultArgs,
+    legs: [cancelledLeg],
+  },
 };
-
-
 
 export const CancelledManyStops: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [futureLeg, cancelledLeg, futureLeg, cancelledLeg],
-},
+    ...defaultArgs,
+    legs: [futureLeg, cancelledLeg, futureLeg, cancelledLeg],
+  },
 };
-
-
 
 export const withPosition: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [progressLeg],
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [progressLeg],
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const Past: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [pastLeg, pastLeg],
-  'data-now': new Date('2023-11-01T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [pastLeg, pastLeg],
+    'data-now': new Date('2023-11-01T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const DepartureStopSkipped: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnDepartureLeg, futureLeg],
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnDepartureLeg, futureLeg],
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const ArrivalStopSkipped: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnArrivalLeg, futureLeg],
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [pastLeg, progressLeg, longFutureLeg, redirectedOnArrivalLeg, futureLeg],
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const FirstStopSkipped: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [redirectedOnDepartureLeg, futureLeg, longFutureLeg],
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [redirectedOnDepartureLeg, futureLeg, longFutureLeg],
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const LastStopSkipped: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [futureLeg, longFutureLeg, redirectedOnArrivalLeg],
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [futureLeg, longFutureLeg, redirectedOnArrivalLeg],
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const Mixed: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  legs: [pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg],
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    legs: [pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg],
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'max-width': '80%'}}>
+      <div style={{ 'max-width': '80%' }}>
         <Story />
       </div>
     ),

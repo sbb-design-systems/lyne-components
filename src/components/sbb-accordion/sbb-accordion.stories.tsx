@@ -1,11 +1,10 @@
 /** @jsx h */
-import events from '../sbb-accordion-item/sbb-accordion-item.events.ts';
+import events from '../sbb-accordion-item/sbb-accordion-item.events';
 import { h, JSX } from 'jsx-dom';
 import { withActions } from '@storybook/addon-actions/decorator';
 
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, Args, Decorator } from '@storybook/html';
 
 const ItemTemplate = (args): JSX.Element => (
   <sbb-accordion-item {...args}>
@@ -43,85 +42,6 @@ const Template = (args): JSX.Element => (
   </sbb-accordion>
 );
 
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: {
-  items: {
-    table,
-  },
-  'non-white-background': {
-    table,
-  },
-},
-  args: {
-  items,
-  'non-white-background': false,
-  'only-one-open': false,
-},
-  decorators: [
-  (Story) => (
-    <div style={{padding: '2rem'}}>
-      <Story />
-    </div>
-  ),
-  withActions as Decorator,
-],
-};
-export const NonWhiteBackground: StoryObj = {
-  render: Template,
-  argTypes: {
-  items: {
-    table,
-  },
-  'non-white-background': {
-    table,
-  },
-},
-  args: {
-  items,
-  'non-white-background': true,
-  'only-one-open': true,
-},
-  decorators: [
-  (Story) => (
-    <div style={{background: '#dcdcdc', padding: '2rem'}}>
-      <Story />
-    </div>
-  ),
-  withActions as Decorator,
-],
-};
-export const OnlyOneOpen: StoryObj = {
-  render: Template,
-  argTypes: {
-  items: {
-    table,
-  },
-  'non-white-background': {
-    table,
-  },
-},
-  args: {
-  items,
-  'non-white-background': false,
-  'only-one-open': true,
-},
-  decorators: [
-  (Story) => (
-    <div style={{padding: '2rem'}}>
-      <Story />
-    </div>
-  ),
-  withActions as Decorator,
-],
-};
-
-
-
-
-
-
-
 const items = [
   {
     'event-id': 'id1',
@@ -149,25 +69,82 @@ const table: Args = {
   disable: true,
 };
 
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: {
+    items: {
+      table,
+    },
+    'non-white-background': {
+      table,
+    },
+  },
+  args: {
+    items,
+    'non-white-background': false,
+    'only-one-open': false,
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '2rem' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
+};
 
+export const NonWhiteBackground: StoryObj = {
+  render: Template,
+  argTypes: {
+    items: {
+      table,
+    },
+    'non-white-background': {
+      table,
+    },
+  },
+  args: {
+    items,
+    'non-white-background': true,
+    'only-one-open': true,
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ background: '#dcdcdc', padding: '2rem' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
+};
 
+export const OnlyOneOpen: StoryObj = {
+  render: Template,
+  argTypes: {
+    items: {
+      table,
+    },
+    'non-white-background': {
+      table,
+    },
+  },
+  args: {
+    items,
+    'non-white-background': false,
+    'only-one-open': true,
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '2rem' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   parameters: {
     actions: {
       handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],

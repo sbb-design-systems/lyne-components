@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const size: InputType = {
@@ -35,10 +35,15 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const Template = (args) => <sbb-navigation-action {...args}>Label</sbb-navigation-action>;
+const Template = (args): JSX.Element => (
+  <sbb-navigation-action {...args}>Label</sbb-navigation-action>
+);
 
-const style =
-  'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 1rem 2rem';
+const style = {
+  'background-color': 'var(--sbb-color-midnight-default)',
+  width: 'max-content',
+  padding: '1rem 2rem',
+};
 
 export const SizeL: StoryObj = {
   render: Template,
@@ -46,15 +51,11 @@ export const SizeL: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
 };
-
-
 
 export const SizeS: StoryObj = {
   render: Template,
@@ -62,17 +63,13 @@ export const SizeS: StoryObj = {
   args: { ...defaultArgs, size: size.options[2] },
 };
 
-
-
 export const Link: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, href: 'https://www.sbb.ch' },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={style}>

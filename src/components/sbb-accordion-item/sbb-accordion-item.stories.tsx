@@ -1,10 +1,9 @@
 /** @jsx h */
-import events from './sbb-accordion-item.events.ts';
+import events from './sbb-accordion-item.events';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Decorator, Meta, StoryObj } from '@storybook/html';
 
 const Template = (args): JSX.Element => (
   <sbb-accordion-item {...args}>
@@ -37,21 +36,17 @@ const Template = (args): JSX.Element => (
 export const Default: StoryObj = {
   render: Template,
   args: {
-  disabled: false,
-  'event-id': 'id1',
-  heading: 'Accordion Item',
-  'heading-level': '2',
-  icon: true,
-  open: false,
-},
+    disabled: false,
+    'event-id': 'id1',
+    heading: 'Accordion Item',
+    'heading-level': '2',
+    icon: true,
+    open: false,
+  },
 };
 
-
-
-
-
-const meta: Meta =  {
-  decorators: [withActions],
+const meta: Meta = {
+  decorators: [withActions as Decorator],
   parameters: {
     actions: {
       handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],

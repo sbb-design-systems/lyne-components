@@ -1,22 +1,22 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const changeEventHandler = (event) => {
+const changeEventHandler = (event): void => {
   const div = document.createElement('div');
   div.innerText = `value is: ${event.target.value}; valueAsDate is: ${event.target.valueAsDate}.`;
   document.getElementById('container-value').append(div);
 };
 
-const setValueAsDate = () => {
+const setValueAsDate = (): void => {
   const timeInput = document.getElementsByTagName('sbb-time-input')[0];
   timeInput.valueAsDate = new Date();
 };
 
-const setValue = () => {
+const setValue = (): void => {
   const timeInput = document.getElementsByTagName('sbb-time-input')[0];
   timeInput.value = '0';
 };
@@ -187,34 +187,36 @@ const TemplateSbbTimeInput = ({
   size,
   errorClass,
   ...args
-}): JSX.Element[] => [
-  <sbb-form-field
-    size={size}
-    label={label}
-    optional={optional}
-    borderless={borderless}
-    width="collapse"
-  >
-    {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
-    <sbb-time-input
-      class={errorClass}
-      {...args}
-      onChange={(event) => changeEventHandler(event)}
-    ></sbb-time-input>
-    {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
-    {errorClass && <sbb-form-error>Error</sbb-form-error>}
-  </sbb-form-field>,
-  <div style={{display: 'flex', gap: '1em', 'margin-block-start': '2rem'}}>
-    <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
-      Set valueAsDate to current datetime
-    </sbb-button>
-    <sbb-button variant="secondary" size="m" onClick={() => setValue()}>
-      Set value to 0
-    </sbb-button>
-  </div>,
-  <div style={{'margin-block-start': '1rem'}}>Change time in input:</div>,
-  <div id="container-value"></div>,
-];
+}): JSX.Element => (
+  <Fragment>
+    <sbb-form-field
+      size={size}
+      label={label}
+      optional={optional}
+      borderless={borderless}
+      width="collapse"
+    >
+      {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
+      <sbb-time-input
+        class={errorClass}
+        {...args}
+        onChange={(event) => changeEventHandler(event)}
+      ></sbb-time-input>
+      {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
+      {errorClass && <sbb-form-error>Error</sbb-form-error>}
+    </sbb-form-field>
+    <div style={{ display: 'flex', gap: '1em', 'margin-block-start': '2rem' }}>
+      <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
+        Set valueAsDate to current datetime
+      </sbb-button>
+      <sbb-button variant="secondary" size="m" onClick={() => setValue()}>
+        Set value to 0
+      </sbb-button>
+    </div>
+    <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
+    <div id="container-value"></div>
+  </Fragment>
+);
 
 export const SbbTimeInput: StoryObj = {
   render: TemplateSbbTimeInput,
@@ -222,64 +224,52 @@ export const SbbTimeInput: StoryObj = {
   args: { ...formFieldBasicArgs },
 };
 
-
-
 export const SbbTimeInputWithIcons: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgsWithIcons },
 };
 
-
-
 export const SbbTimeInputBorderless: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
-  ...formFieldBasicArgsWithIcons,
-  borderless: true,
-},
+    ...formFieldBasicArgsWithIcons,
+    borderless: true,
+  },
 };
-
-
 
 export const SbbTimeInputDisabled: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
-  ...formFieldBasicArgsWithIcons,
-  disabled: true,
-},
+    ...formFieldBasicArgsWithIcons,
+    disabled: true,
+  },
 };
-
-
 
 export const SbbTimeInputReadonly: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
-  ...formFieldBasicArgsWithIcons,
-  readonly: true,
-},
+    ...formFieldBasicArgsWithIcons,
+    readonly: true,
+  },
 };
-
-
 
 export const SbbTimeInputWithError: StoryObj = {
   render: TemplateSbbTimeInput,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
-  ...formFieldBasicArgsWithIcons,
-  errorClass: 'sbb-invalid',
-},
+    ...formFieldBasicArgsWithIcons,
+    errorClass: 'sbb-invalid',
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

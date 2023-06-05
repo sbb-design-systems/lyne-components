@@ -73,7 +73,7 @@ const defaultArgsIconAndAmount = {
   'icon-name': 'dog-small',
 };
 
-const Template = ({ label, ...args }) => <sbb-tag {...args}>{label}</sbb-tag>;
+const Template = ({ label, ...args }): JSX.Element => <sbb-tag {...args}>{label}</sbb-tag>;
 
 const TemplateSlottedIconAndAmount = ({ label, ...args }): JSX.Element => (
   <sbb-tag {...args}>
@@ -89,15 +89,11 @@ export const basicTag: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const checkedTag: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, checked: true },
 };
-
-
 
 export const disabledTag: StoryObj = {
   render: Template,
@@ -105,15 +101,11 @@ export const disabledTag: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
-
-
 export const checkedAndDisabledTag: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, checked: true, disabled: true },
 };
-
-
 
 export const withAmount: StoryObj = {
   render: Template,
@@ -121,15 +113,11 @@ export const withAmount: StoryObj = {
   args: { ...defaultArgs, amount: 123 },
 };
 
-
-
 export const withIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'dog-small' },
 };
-
-
 
 export const withAmountAndIcon: StoryObj = {
   render: Template,
@@ -137,15 +125,11 @@ export const withAmountAndIcon: StoryObj = {
   args: { ...defaultArgsIconAndAmount },
 };
 
-
-
 export const withAmountAndIconSlotted: StoryObj = {
   render: TemplateSlottedIconAndAmount,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
-
-
 
 export const withAmountAndIconChecked: StoryObj = {
   render: Template,
@@ -153,32 +137,26 @@ export const withAmountAndIconChecked: StoryObj = {
   args: { ...defaultArgsIconAndAmount, checked: true },
 };
 
-
-
 export const withAmountAndIconDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgsIconAndAmount, disabled: true },
 };
 
-
-
 export const withAmountAndIconCheckedAndDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgsIconAndAmount,
-  checked: true,
-  disabled: true,
-},
+    ...defaultArgsIconAndAmount,
+    checked: true,
+    disabled: true,
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

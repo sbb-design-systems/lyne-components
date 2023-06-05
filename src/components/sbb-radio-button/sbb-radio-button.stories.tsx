@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const value: InputType = {
@@ -51,7 +51,7 @@ const defaultArgs: Args = {
   'aria-label': undefined,
 };
 
-const DefaultTemplate = (args) => <sbb-radio-button {...args}>Value</sbb-radio-button>;
+const DefaultTemplate = (args): JSX.Element => <sbb-radio-button {...args}>Value</sbb-radio-button>;
 
 const MultilineLabelTemplate = (args): JSX.Element => (
   <sbb-radio-button {...args}>
@@ -66,17 +66,11 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
 export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
 };
-
-
-
 
 export const Checked: StoryObj = {
   render: DefaultTemplate,
@@ -84,17 +78,11 @@ export const Checked: StoryObj = {
   args: { ...defaultArgs, checked: true },
 };
 
-
-
-
 export const Disabled: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
 };
-
-
-
 
 export const CheckedDisabled: StoryObj = {
   render: DefaultTemplate,
@@ -102,22 +90,16 @@ export const CheckedDisabled: StoryObj = {
   args: { ...defaultArgs, checked: true, disabled: true },
 };
 
-
-
-
 export const MultilineLabel: StoryObj = {
   render: MultilineLabelTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, checked: true },
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem', 'max-width': '1050px'}}>
+      <div style={{ padding: '2rem', 'max-width': '1050px' }}>
         <Story />
       </div>
     ),

@@ -87,11 +87,11 @@ const radioButtons = (): JSX.Element[] => [
   <sbb-radio-button value="Value four">Value four</sbb-radio-button>,
 ];
 
-const DefaultTemplate = (args): JSX.Element[] => [
-  <sbb-radio-button-group {...args}>{radioButtons()}</sbb-radio-button-group>,
-];
+const DefaultTemplate = (args): JSX.Element => (
+  <sbb-radio-button-group {...args}>{radioButtons()}</sbb-radio-button-group>
+);
 
-const ErrorMessageTemplate = (args) => {
+const ErrorMessageTemplate = (args): JSX.Element => {
   const sbbFormError = <sbb-form-error slot="error">This is a required field.</sbb-form-error>;
 
   return (
@@ -118,27 +118,21 @@ export const Horizontal: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const Vertical: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, orientation: orientation.options[1] },
 };
 
-
-
 export const VerticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  orientation: orientation.options[1],
-  'horizontal-from': horizontalFrom.options[4],
-},
+    ...defaultArgs,
+    orientation: orientation.options[1],
+    'horizontal-from': horizontalFrom.options[4],
+  },
 };
-
-
 
 export const HorizontalSizeS: StoryObj = {
   render: DefaultTemplate,
@@ -146,15 +140,11 @@ export const HorizontalSizeS: StoryObj = {
   args: { ...defaultArgs, size: size.options[1] },
 };
 
-
-
 export const VerticalSizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, orientation: orientation.options[1], size: size.options[1] },
 };
-
-
 
 export const Disabled: StoryObj = {
   render: DefaultTemplate,
@@ -162,47 +152,39 @@ export const Disabled: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
-
-
 export const AllowEmptySelection: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, value: undefined, 'allow-empty-selection': true },
 };
 
-
-
 export const ErrorMessage: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  value: undefined,
-  required: true,
-  'allow-empty-selection': true,
-},
+    ...defaultArgs,
+    value: undefined,
+    required: true,
+    'allow-empty-selection': true,
+  },
 };
-
-
 
 export const ErrorMessageVertical: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  value: undefined,
-  required: true,
-  orientation: orientation.options[1],
-  'allow-empty-selection': true,
-},
+    ...defaultArgs,
+    value: undefined,
+    required: true,
+    orientation: orientation.options[1],
+    'allow-empty-selection': true,
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

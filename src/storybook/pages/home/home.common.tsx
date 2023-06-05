@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/** @jsx h */
+import { StoryContext } from '@storybook/html';
 import isChromatic from 'chromatic/isChromatic';
-import { h } from 'jsx-dom';
+import { JSX, h } from 'jsx-dom';
 
-export const SkiplinkList = () => (
+export const SkiplinkList = (): JSX.Element => (
   <sbb-skiplink-list title-level="2" title-content="Skip to">
     <sbb-link href="/">Skip to content</sbb-link>
     <sbb-link href="/">Go to help page</sbb-link>
   </sbb-skiplink-list>
 );
 
-export const TimetableInput = () => (
+export const TimetableInput = (): JSX.Element => (
   <section class="timetable-section sbb-grid">
     <div class="grid-reduced-width">
       <div class="timetable-placeholder"></div>
@@ -16,13 +19,13 @@ export const TimetableInput = () => (
   </section>
 );
 
-const onNavigationClose = (dialog) => {
+const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
-    document.getElementById('nav-marker').reset();
+    (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
   });
 };
 
-export const Navigation = () => (
+export const Navigation = (): JSX.Element => (
   <sbb-navigation trigger="hamburger-menu" ref={(dialog) => onNavigationClose(dialog)}>
     <sbb-navigation-marker id="nav-marker">
       <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
@@ -147,7 +150,7 @@ export const Navigation = () => (
   </sbb-navigation>
 );
 
-export const DailyTicketProduct = () => (
+export const DailyTicketProduct = (): JSX.Element => (
   <sbb-card
     aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
     href="https://github.com/lyne-design-system/lyne-components"
@@ -169,7 +172,7 @@ export const DailyTicketProduct = () => (
   </sbb-card>
 );
 
-export const BikeProduct = () => (
+export const BikeProduct = (): JSX.Element => (
   <sbb-card
     aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
     href="https://github.com/lyne-design-system/lyne-components"
@@ -191,7 +194,7 @@ export const BikeProduct = () => (
   </sbb-card>
 );
 
-export const LiberoProduct = () => (
+export const LiberoProduct = (): JSX.Element => (
   <sbb-card
     aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
     href="https://github.com/lyne-design-system/lyne-components"
@@ -213,7 +216,7 @@ export const LiberoProduct = () => (
   </sbb-card>
 );
 
-export const TeaserHero = () => (
+export const TeaserHero = (): JSX.Element => (
   <section class="sbb-page-spacing">
     <sbb-teaser-hero
       data-chromatic="ignore"
@@ -227,7 +230,7 @@ export const TeaserHero = () => (
   </section>
 );
 
-export const Footer = (args) => (
+export const Footer = (args): JSX.Element => (
   <sbb-footer accessibility-title="Footer" variant="clock-columns" negative={args.negative}>
     <div class="sbb-link-list-button-group">
       <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative={args.negative}>
@@ -358,10 +361,8 @@ export const Footer = (args) => (
   </sbb-footer>
 );
 
-export const wrapperStyle = (context) => {
-  if (!context.args.negative) {
-    return `background-color: var(--sbb-color-white-default);`;
-  }
-
-  return `background-color: var(--sbb-color-charcoal-default);`;
-};
+export const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-charcoal-default)'
+    : 'var(--sbb-color-white-default)',
+});

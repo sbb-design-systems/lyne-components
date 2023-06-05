@@ -1,7 +1,7 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const label: InputType = {
@@ -75,13 +75,13 @@ const defaultArgs: Args = {
 
 const defaultDecorator = [
   (Story) => (
-    <div style={{border: '3px solid red'}}>
+    <div style={{ border: '3px solid red' }}>
       <Story />
     </div>
   ),
 ];
 
-const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }) =>
+const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }): JSX.Element[] =>
   new Array(numberOfOptions).fill(null).map((_, i) => {
     return (
       <sbb-option {...args} value={`${value} ${i + 1}`} disabled={disabledSingle && i === 0}>
@@ -90,16 +90,18 @@ const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }) =>
     );
   });
 
-const Template = ({ label, disabled, ...args }): JSX.Element[] => [
-  <sbb-optgroup label={label + ' 1'} disabled={disabled}>
-    {createOptions(args)}
-  </sbb-optgroup>,
-  <sbb-optgroup label={label + ' 2'} disabled={disabled}>
-    {createOptions(args)}
-  </sbb-optgroup>,
-];
+const Template = ({ label, disabled, ...args }): JSX.Element => (
+  <Fragment>
+    <sbb-optgroup label={label + ' 1'} disabled={disabled}>
+      {createOptions(args as any)}
+    </sbb-optgroup>
+    <sbb-optgroup label={label + ' 2'} disabled={disabled}>
+      {createOptions(args as any)}
+    </sbb-optgroup>
+  </Fragment>
+);
 
-const TemplateAutocomplete = (args) => {
+const TemplateAutocomplete = (args): JSX.Element => {
   return (
     <sbb-form-field label="Autocomplete">
       <input placeholder="Placeholder" />
@@ -115,21 +117,16 @@ export const Standalone: StoryObj = {
   decorators: defaultDecorator,
 };
 
-
-
-
 export const Autocomplete: StoryObj = {
   render: TemplateAutocomplete,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

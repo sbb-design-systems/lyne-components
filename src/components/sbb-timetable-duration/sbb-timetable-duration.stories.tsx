@@ -2,8 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-duration.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, Args } from '@storybook/html';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-duration config={JSON.stringify(args.config)}></sbb-timetable-duration>
@@ -26,42 +25,27 @@ export const MinutesOnly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[0],
-},
+    config: sampleData[0],
+  },
 };
-
-
-
-
-
 
 export const OneHourOneMinute: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[1],
-},
+    config: sampleData[1],
+  },
 };
-
-
-
-
-
 
 export const HoursAndMinutes: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[2],
-},
+    config: sampleData[2],
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {

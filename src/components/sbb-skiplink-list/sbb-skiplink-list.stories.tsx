@@ -5,7 +5,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import isChromatic from 'chromatic/isChromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const titleContent: InputType = {
@@ -76,7 +76,7 @@ const defaultArgs: Args = {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
   await waitForComponentsReady(() =>
     canvas.getByTestId('skiplink').shadowRoot.querySelectorAll('.sbb-skiplink-list__wrapper')
@@ -85,7 +85,13 @@ const playStory = async ({ canvasElement }) => {
   userEvent.tab();
 };
 
-const Template = ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }): JSX.Element => (
+const Template = ({
+  labelFirstLink,
+  hrefFirstLink,
+  labelSecondLink,
+  hrefSecondLink,
+  ...args
+}): JSX.Element => (
   <sbb-skiplink-list {...args} data-testid="skiplink">
     <sbb-link href={hrefFirstLink}>{labelFirstLink}</sbb-link>
     <sbb-link href={hrefSecondLink}>{labelSecondLink}</sbb-link>
@@ -99,27 +105,21 @@ export const SkiplinkList: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
 export const SkiplinkListWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'title-level': titleLevel.options[0],
-  'title-content': 'Skip',
-},
+    ...defaultArgs,
+    'title-level': titleLevel.options[0],
+    'title-content': 'Skip',
+  },
   play: isChromatic() && playStory,
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
         <h2>Use TAB to see the skiplink box</h2>
       </div>

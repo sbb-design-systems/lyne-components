@@ -80,7 +80,7 @@ const defaultArgs: Args = {
 };
 
 // TEMPLATES
-const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
+const Template = (args): JSX.Element => <sbb-timetable-row {...args}></sbb-timetable-row>;
 
 /* ************************************************* */
 /* The Stories                                       */
@@ -89,294 +89,244 @@ export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
 
 export const Active: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  active: true,
-},
+    ...defaultArgs,
+    active: true,
+  },
 };
-
-
 
 export const Price: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  price: { price: '39.90', text: 'ab CHF', isDiscount: false },
-},
+    ...defaultArgs,
+    price: { price: '39.90', text: 'ab CHF', isDiscount: false },
+  },
 };
-
-
 
 export const Discount: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  price: { isDiscount: true },
-},
+    ...defaultArgs,
+    price: { isDiscount: true },
+  },
 };
-
-
 
 export const discountPrice: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
-},
+    ...defaultArgs,
+    price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+  },
 };
-
-
 
 export const LoadingPrice: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'loading-price': true,
-  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
-},
+    ...defaultArgs,
+    'loading-price': true,
+    price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+  },
 };
-
-
 
 export const LoadingTrip: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'loading-trip': true,
-},
+    ...defaultArgs,
+    'loading-trip': true,
+  },
 };
-
-
 
 export const LoadingTripPrice: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'loading-trip': true,
-  'loading-price': true,
-  price: { price: '39.90', text: 'ab CHF', isDiscount: true },
-},
+    ...defaultArgs,
+    'loading-trip': true,
+    'loading-price': true,
+    price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+  },
 };
-
-
 
 export const Position: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: progressTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: progressTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const PositionDisabledAnimation: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'disable-animation': true,
-  trip: progressTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    'disable-animation': true,
+    trip: progressTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const Cancelled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: cancelledTrip,
-},
+    ...defaultArgs,
+    trip: cancelledTrip,
+  },
 };
-
-
 
 export const PartiallyCancelled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: partiallyCancelled,
-},
+    ...defaultArgs,
+    trip: partiallyCancelled,
+  },
 };
-
-
 
 export const Past: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: pastTrip,
-  'data-now': new Date('2023-12-01T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: pastTrip,
+    'data-now': new Date('2023-12-01T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const Disturbance: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: disturbanceTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: disturbanceTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const SkippedDepartureStop: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: skippedDepartureStopTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: skippedDepartureStopTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const SkippedArrivalStop: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: skippedArrivalStopTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: skippedArrivalStopTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const SkippedLastArrivalStop: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: skippedLastArrivalStopTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: skippedLastArrivalStopTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const SkippedFirstDepartureStop: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: skippedFirstDepartureStopTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: skippedFirstDepartureStopTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const QuayChanged: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: quayChangeTrip,
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-},
+    ...defaultArgs,
+    trip: quayChangeTrip,
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+  },
 };
-
-
 
 export const Train: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: TrainTrip,
-},
+    ...defaultArgs,
+    trip: TrainTrip,
+  },
 };
-
-
 
 export const Bus: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: BusTrip,
-},
+    ...defaultArgs,
+    trip: BusTrip,
+  },
 };
-
-
 
 export const Ship: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: ShipTrip,
-},
+    ...defaultArgs,
+    trip: ShipTrip,
+  },
 };
-
-
 
 export const WalkTime: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: walkTimeTrip,
-},
+    ...defaultArgs,
+    trip: walkTimeTrip,
+  },
 };
-
-
 
 export const ExtendedEnterTime: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: extendedEnterTimeTrip,
-},
+    ...defaultArgs,
+    trip: extendedEnterTimeTrip,
+  },
 };
-
-
 
 export const Notices: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  trip: NoticesTrip,
-  boarding: { name: 'sa-rs', text: 'boarding' },
-},
+    ...defaultArgs,
+    trip: NoticesTrip,
+    boarding: { name: 'sa-rs', text: 'boarding' },
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{background: '#f6f6f6', padding: '2rem'}}>
+      <div style={{ background: '#f6f6f6', padding: '2rem' }}>
         <Story />
       </div>
     ),

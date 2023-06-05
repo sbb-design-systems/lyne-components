@@ -1,5 +1,5 @@
 /** @jsx h */
-import events from './sbb-alert.events.ts';
+import events from './sbb-alert.events';
 import readme from './readme.md';
 import { h, JSX } from 'jsx-dom';
 import { withActions } from '@storybook/addon-actions/decorator';
@@ -10,7 +10,7 @@ const Default = ({ 'content-slot-text': contentSlotText, ...args }): JSX.Element
   <sbb-alert {...args}>{contentSlotText}</sbb-alert>
 );
 
-const DefaultWithOtherContent = (args) => {
+const DefaultWithOtherContent = (args): JSX.Element => {
   return (
     <div>
       <Default {...args}></Default>
@@ -163,15 +163,11 @@ export const defaultAlert: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const sizeL: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: 'l' },
 };
-
-
 
 export const withoutCloseButton: StoryObj = {
   render: Default,
@@ -179,15 +175,11 @@ export const withoutCloseButton: StoryObj = {
   args: { ...defaultArgs, readonly: true },
 };
 
-
-
 export const withDisabledAnimation: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'disable-animation': true },
 };
-
-
 
 export const withoutLink: StoryObj = {
   render: Default,
@@ -195,15 +187,11 @@ export const withoutLink: StoryObj = {
   args: { ...defaultArgs, href: undefined },
 };
 
-
-
 export const withCustomLinkText: StoryObj = {
   render: Default,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, ['link-content']: 'Follow this link (custom text)' },
 };
-
-
 
 export const iconAndTitleAsSlot: StoryObj = {
   render: CustomSlots,
@@ -217,10 +205,10 @@ delete iconAndTitleAsSlot.argTypes['icon-name'];
 // Remove icon name as it has no purpose in slotted variant
 delete iconAndTitleAsSlot.args['icon-name'];
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

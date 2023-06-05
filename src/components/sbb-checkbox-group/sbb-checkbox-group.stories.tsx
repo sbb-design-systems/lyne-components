@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
@@ -33,7 +33,14 @@ const checkboxes = (checked, disabledSingle, iconName, iconPlacement, label): JS
   </sbb-checkbox>,
 ];
 
-const DefaultTemplate = ({ checked, disabledSingle, iconName, iconPlacement, label, ...args }): JSX.Element => (
+const DefaultTemplate = ({
+  checked,
+  disabledSingle,
+  iconName,
+  iconPlacement,
+  label,
+  ...args
+}): JSX.Element => (
   <sbb-checkbox-group {...args}>
     {checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
   </sbb-checkbox-group>
@@ -55,7 +62,7 @@ const ErrorMessageTemplate = ({
 
 let selectedCheckboxes = ['checkbox-1'];
 
-const childCheck = (event) => {
+const childCheck = (event): void => {
   if (event.target.checked) {
     selectedCheckboxes.push(event.target.value);
   } else {
@@ -69,7 +76,7 @@ const childCheck = (event) => {
     .setAttribute('checked', String(selectedCheckboxes.length === 2));
 };
 
-const parentCheck = (event) => {
+const parentCheck = (event): void => {
   if (event.target.checked) {
     selectedCheckboxes = ['checkbox-1', 'checkbox-2'];
   } else {
@@ -85,48 +92,50 @@ const IndeterminateGroupTemplate = ({
   iconPlacement,
   label,
   ...args
-}): JSX.Element[] => [
-  <div style={{'margin-block-end': '1rem'}}>
-    <div>Check/uncheck all the children checkboxes and the parent will be checked/unchecked.</div>
-    <div>Check a single child and the parent will be indeterminate.</div>
-  </div>,
-  <sbb-checkbox-group {...args} id="sbb-checkbox-group">
-    <sbb-checkbox
-      id="parent"
-      value="parent"
-      checked="false"
-      indeterminate="true"
-      onChange={(event) => parentCheck(event)}
-      icon-name={iconName}
-      icon-placement={iconPlacement}
-    >
-      Parent checkbox
-    </sbb-checkbox>
-    <sbb-checkbox
-      id="checkbox-1"
-      value="checkbox-1"
-      checked="true"
-      onChange={(event) => childCheck(event)}
-      icon-name={iconName}
-      icon-placement={iconPlacement}
-      disabled={disabledSingle}
-      style={{'margin-inline-start': '2rem'}}
-    >
-      {label} option 1
-    </sbb-checkbox>
-    <sbb-checkbox
-      id="checkbox-2"
-      value="checkbox-2"
-      checked="false"
-      onChange={(event) => childCheck(event)}
-      icon-name={iconName}
-      icon-placement={iconPlacement}
-      style={{'margin-inline-start': '2rem'}}
-    >
-      {label} option 2
-    </sbb-checkbox>
-  </sbb-checkbox-group>,
-];
+}): JSX.Element => (
+  <Fragment>
+    <div style={{ 'margin-block-end': '1rem' }}>
+      <div>Check/uncheck all the children checkboxes and the parent will be checked/unchecked.</div>
+      <div>Check a single child and the parent will be indeterminate.</div>
+    </div>
+    <sbb-checkbox-group {...args} id="sbb-checkbox-group">
+      <sbb-checkbox
+        id="parent"
+        value="parent"
+        checked={false}
+        indeterminate={true}
+        onChange={(event) => parentCheck(event)}
+        icon-name={iconName}
+        icon-placement={iconPlacement}
+      >
+        Parent checkbox
+      </sbb-checkbox>
+      <sbb-checkbox
+        id="checkbox-1"
+        value="checkbox-1"
+        checked={true}
+        onChange={(event) => childCheck(event)}
+        icon-name={iconName}
+        icon-placement={iconPlacement}
+        disabled={disabledSingle}
+        style={{ 'margin-inline-start': '2rem' }}
+      >
+        {label} option 1
+      </sbb-checkbox>
+      <sbb-checkbox
+        id="checkbox-2"
+        value="checkbox-2"
+        checked={false}
+        onChange={(event) => childCheck(event)}
+        icon-name={iconName}
+        icon-placement={iconPlacement}
+        style={{ 'margin-inline-start': '2rem' }}
+      >
+        {label} option 2
+      </sbb-checkbox>
+    </sbb-checkbox-group>
+  </Fragment>
+);
 
 const disabled: InputType = {
   control: {
@@ -269,17 +278,11 @@ export const horizontal: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-
 export const vertical: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical },
 };
-
-
-
 
 export const verticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
@@ -287,17 +290,11 @@ export const verticalToHorizontal: StoryObj = {
   args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
 };
 
-
-
-
 export const horizontalSizeM: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, size: 'm' },
 };
-
-
-
 
 export const horizontalDisabled: StoryObj = {
   render: DefaultTemplate,
@@ -305,17 +302,11 @@ export const horizontalDisabled: StoryObj = {
   args: { ...basicArgs, disabled: true, disabledSingle: true },
 };
 
-
-
-
 export const verticalDisabled: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, disabled: true, disabledSingle: true },
 };
-
-
-
 
 export const horizontalIconStart: StoryObj = {
   render: DefaultTemplate,
@@ -323,17 +314,11 @@ export const horizontalIconStart: StoryObj = {
   args: { ...basicArgs, ...iconStart },
 };
 
-
-
-
 export const verticalIconStart: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, ...iconStart },
 };
-
-
-
 
 export const horizontalIconEnd: StoryObj = {
   render: DefaultTemplate,
@@ -341,17 +326,11 @@ export const horizontalIconEnd: StoryObj = {
   args: { ...basicArgs, ...iconEnd },
 };
 
-
-
-
 export const verticalIconEnd: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, ...iconEnd },
 };
-
-
-
 
 export const verticalIconEndLongLabel: StoryObj = {
   render: DefaultTemplate,
@@ -359,17 +338,11 @@ export const verticalIconEndLongLabel: StoryObj = {
   args: { ...basicArgsVertical, ...iconEnd, label: longLabelText },
 };
 
-
-
-
 export const horizontalWithSbbFormError: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, required: true },
 };
-
-
-
 
 export const verticalWithSbbFormError: StoryObj = {
   render: ErrorMessageTemplate,
@@ -377,24 +350,19 @@ export const verticalWithSbbFormError: StoryObj = {
   args: { ...basicArgsVertical, required: true },
 };
 
-
-
-
 export const indeterminateGroup: StoryObj = {
   render: IndeterminateGroupTemplate,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgsVertical },
 };
 
-
 delete indeterminateGroup.args.checked;
 delete indeterminateGroup.argTypes.checked;
 
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

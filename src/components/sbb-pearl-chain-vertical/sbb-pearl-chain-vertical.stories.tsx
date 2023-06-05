@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const lineType: InputType = {
@@ -67,16 +67,19 @@ const defaultArgs: Args = {
   disableAnimation: isChromatic(),
 };
 
-const Template = ({ disableAnimation, ...args }) => {
+const Template = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           slot for content
           <div>more</div>
@@ -90,25 +93,25 @@ const Template = ({ disableAnimation, ...args }) => {
   );
 };
 
-const TemplateWithoutContent = ({ disableAnimation, ...args }) => {
+const TemplateWithoutContent = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       ></sbb-pearl-chain-vertical-item>
     </sbb-pearl-chain-vertical>
   );
 };
 
-const TemplateLeftSlot = ({ disableAnimation, ...args }) => {
+const TemplateLeftSlot = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
-        <div slot="left" style={{'--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}>
+        <div slot="left" style={{ '--sbb-pearl-chain-vertical-left-item-inline-end': '10px' }}>
           slot for content
         </div>
       </sbb-pearl-chain-vertical-item>
@@ -116,16 +119,19 @@ const TemplateLeftSlot = ({ disableAnimation, ...args }) => {
   );
 };
 
-const TemplateTwoDots = ({ disableAnimation, ...args }) => {
+const TemplateTwoDots = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           slot for content
           <div>more</div>
@@ -141,7 +147,7 @@ const TemplateTwoDots = ({ disableAnimation, ...args }) => {
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
-          minHeight: '100px',
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -151,16 +157,19 @@ const TemplateTwoDots = ({ disableAnimation, ...args }) => {
   );
 };
 
-const TemplateLeftSecondSlot = ({ disableAnimation, ...args }) => {
+const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-8px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-8px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           slot for content
           <div>more</div>
@@ -171,7 +180,10 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }) => {
         </div>
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-8px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           19:00
         </div>
@@ -182,7 +194,7 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }) => {
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
-          minHeight: '100px',
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -190,7 +202,10 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }) => {
       >
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-8px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           20:00
         </div>
@@ -199,16 +214,19 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }) => {
   );
 };
 
-const connectionDetailTemplate = ({ disableAnimation, ...args }) => {
+const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-8px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-8px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -246,7 +264,10 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }) => {
         </div>
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-8px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           19:00
         </div>
@@ -256,7 +277,7 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'disruption',
-          minHeight: '100px',
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'stop',
           position: 0,
@@ -264,14 +285,23 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }) => {
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-20px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px', display: 'flex', 'flex-direction': 'row', 'justify-content': 'space-between'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-20px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+            display: 'flex',
+            'flex-direction': 'row',
+            'justify-content': 'space-between',
+          }}
         >
           <div> Station</div>
           <div> Pl. 12</div>
         </div>
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-20px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-20px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           20:00
         </div>
@@ -280,7 +310,7 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }) => {
   );
 };
 
-const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
+const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
@@ -288,25 +318,31 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'past',
-          minHeight: '39',
+          minHeight: 39,
           hideLine: false,
           bulletSize: 'stop',
         }}
       >
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '15px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '15px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           10:31
         </div>
       </sbb-pearl-chain-vertical-item>
       <sbb-pearl-chain-vertical-item
-        pearlChainVerticalItemAttributes={args}
+        pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -327,7 +363,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
         </div>
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-10px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
@@ -338,7 +377,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'default',
-          minHeight: '89',
+          minHeight: 89,
           hideLine: false,
           bulletType: 'default',
           bulletSize: 'stop',
@@ -346,7 +385,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -368,7 +410,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
 
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-10px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
@@ -379,7 +424,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'past',
-          minHeight: '89',
+          minHeight: 89,
           hideLine: false,
           bulletType: 'default',
           bulletSize: 'start-end',
@@ -387,7 +432,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -403,7 +451,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
 
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-10px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
@@ -414,7 +465,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
         pearlChainVerticalItemAttributes={{
           lineType: 'thin',
           lineColor: 'past',
-          minHeight: '39',
+          minHeight: 39,
           hideLine: false,
           bulletSize: 'stop',
           bulletType: 'irrelevant',
@@ -422,7 +473,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -437,7 +491,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
         </div>
         <div
           slot="left"
-          style={{'--sbb-pearl-chain-vertical-left-item-block-start': '-10px', '--sbb-pearl-chain-vertical-left-item-inline-end': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
+          }}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
         </div>
@@ -446,7 +503,7 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }) => {
   );
 };
 
-const TimetableChange = () => {
+const TimetableChange = (): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item
@@ -454,16 +511,20 @@ const TimetableChange = () => {
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'walk',
-          bulletType: 'thick',
-          minHeight: '122',
-          false: true,
+          // TODO: Check if bug?
+          bulletType: 'thick' as any,
+          minHeight: 122,
+          hideLine: false,
           bulletSize: 'stop',
           position: 0,
         }}
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -511,8 +572,9 @@ const TimetableChange = () => {
         pearlChainVerticalItemAttributes={{
           lineType: 'dotted',
           lineColor: 'walk',
-          bulletType: 'standard',
-          minHeight: '100px',
+          // TODO: Check if bug?
+          bulletType: 'standard' as any,
+          minHeight: 100,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -520,7 +582,10 @@ const TimetableChange = () => {
       >
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           <div
             style={{
@@ -543,125 +608,125 @@ export const defaultPearlChainRightSlot: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 export const defaultPearlChainWithoutContent: StoryObj = {
   render: TemplateWithoutContent,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 
 export const defaultPearlChainLeftSlot: StoryObj = {
   render: TemplateLeftSlot,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  lineColor: 'disruption',
-  bulletType: 'disruption',
-  minHeight: '100',
-},
+    ...defaultArgs,
+    lineColor: 'disruption',
+    bulletType: 'disruption',
+    minHeight: '100',
+  },
 };
 export const defaultPearlChainTwoDots: StoryObj = {
   render: TemplateTwoDots,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  lineColor: 'disruption',
-  bulletType: 'disruption',
-},
+    ...defaultArgs,
+    lineColor: 'disruption',
+    bulletType: 'disruption',
+  },
 };
 export const defaultPearlChainLeftSecondSlot: StoryObj = {
   render: TemplateLeftSecondSlot,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 export const charcoalPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  bulletType: 'thick',
-},
+    ...defaultArgs,
+    bulletType: 'thick',
+  },
 };
 export const dottedPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  lineType: 'dotted',
-  lineColor: 'disruption',
-  bulletType: 'disruption',
-  bulletSize: 'start-end',
-},
+    ...defaultArgs,
+    lineType: 'dotted',
+    lineColor: 'disruption',
+    bulletType: 'disruption',
+    bulletSize: 'start-end',
+  },
 };
 export const thinPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  lineType: 'thin',
-  lineColor: 'disruption',
-  bulletType: 'disruption',
-  bulletSize: 'stop',
-},
+    ...defaultArgs,
+    lineType: 'thin',
+    lineColor: 'disruption',
+    bulletType: 'disruption',
+    bulletSize: 'stop',
+  },
 };
 export const thickBulletPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  bulletSize: 'stop',
-},
+    ...defaultArgs,
+    bulletSize: 'stop',
+  },
 };
 export const thinBulletPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  bulletType: 'irrelevant',
-  bulletSize: 'stop',
-},
+    ...defaultArgs,
+    bulletType: 'irrelevant',
+    bulletSize: 'stop',
+  },
 };
 export const crossedBulletPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  bulletType: 'skipped',
-  lineType: 'dotted',
-  lineColor: 'disruption',
-},
+    ...defaultArgs,
+    bulletType: 'skipped',
+    lineType: 'dotted',
+    lineColor: 'disruption',
+  },
 };
 
 export const positionPearlChain: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  position: 75,
-},
+    ...defaultArgs,
+    position: 75,
+  },
 };
 
 export const connectionDetail: StoryObj = {
   render: connectionDetailTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 
 export const timetableConnection: StoryObj = {
   render: thirdLevelTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  minHeight: '89',
-},
+    ...defaultArgs,
+    minHeight: '89',
+  },
 };
 
 export const timetableChange: StoryObj = {
@@ -670,49 +735,13 @@ export const timetableChange: StoryObj = {
 
 /** All kinds oft possible slot and bullet combinations */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** additional bullet types */
-
-
-
-
-
 
 /** additional dot types */
 
-
-
-
-
-
-
-
-
 /** position */
 
-
-
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {

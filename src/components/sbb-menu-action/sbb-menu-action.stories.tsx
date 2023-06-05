@@ -5,7 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const getBasicTemplate = ({ text, ...args }, id, iconSlot): JSX.Element => (
+const getBasicTemplate = ({ text, ...args }, id, iconSlot = false): JSX.Element => (
   <sbb-menu-action {...args}>
     {text} {id}
     {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
@@ -153,7 +153,7 @@ const defaultArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs: ArgTypes = {
+const defaultArgs: Args = {
   text: 'Details',
   amount: '99',
   'icon-name': 'tick-small',
@@ -169,7 +169,7 @@ const defaultArgs: ArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const buttonArgs = {
+const buttonArgs: Args = {
   ...defaultArgs,
   href: undefined,
   type: type.options[0],
@@ -181,33 +181,24 @@ const buttonArgs = {
 export const menuActionLink: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  args: defaultArgs,
 };
-
-
-
 
 export const menuActionButton: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
-  args: { ...buttonArgs },
+  args: buttonArgs,
 };
-
-
-
 
 export const menuActionLinkCustomIconNoAmount: StoryObj = {
   render: TemplateMenuActionCustomIcon,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  amount: undefined,
-  'icon-name': undefined,
-},
+    ...defaultArgs,
+    amount: undefined,
+    'icon-name': undefined,
+  },
 };
-
-
-
 
 export const menuActionLinkNoIconNoAmount: StoryObj = {
   render: TemplateMenuAction,
@@ -215,34 +206,25 @@ export const menuActionLinkNoIconNoAmount: StoryObj = {
   args: { ...defaultArgs, 'icon-name': undefined, amount: undefined },
 };
 
-
-
-
 export const menuActionButtonDisabled: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
   args: { ...buttonArgs, disabled: true },
 };
 
-
-
-
 export const menuActionButtonEllipsis: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
   args: {
-  ...buttonArgs,
-  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-},
+    ...buttonArgs,
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'background-color': 'var(--sbb-color-black-default)', width: '320px'}}>
+      <div style={{ 'background-color': 'var(--sbb-color-black-default)', width: '320px' }}>
         <Story />
       </div>
     ),

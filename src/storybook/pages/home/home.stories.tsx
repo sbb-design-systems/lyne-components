@@ -13,7 +13,7 @@ import {
   wrapperStyle,
 } from './home.common';
 import './home.scss';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 /* ************************************************* */
@@ -210,18 +210,14 @@ export const home: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
-
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}`}>
+      <div style={wrapperStyle(context)}>
         <Story />
       </div>
     ),

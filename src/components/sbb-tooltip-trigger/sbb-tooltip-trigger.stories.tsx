@@ -1,7 +1,7 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const ariaLabel: InputType = {
@@ -51,23 +51,29 @@ const tooltip = (): JSX.Element => (
   </sbb-tooltip>
 );
 
-const Template = (args) => [
-  <span class="sbb-text-s" style={{display: 'flex', 'align-items': 'center'}}>
-    <span style={{'margin-inline-end': 'var(--sbb-spacing-fixed-1x)'}}>This is a demo text.</span>
-    <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>
-  </span>,
-  tooltip(),
-];
+const Template = (args): JSX.Element => (
+  <Fragment>
+    <span class="sbb-text-s" style={{ display: 'flex', 'align-items': 'center' }}>
+      <span style={{ 'margin-inline-end': 'var(--sbb-spacing-fixed-1x)' }}>
+        This is a demo text.
+      </span>
+      <sbb-tooltip-trigger id="tooltip-trigger" {...args}></sbb-tooltip-trigger>
+    </span>
+    {tooltip()}
+  </Fragment>
+);
 
-const TemplateWithCustomContent = (args) => [
-  <div class="sbb-text-xl" style={{color: 'var(--sbb-color-sky-default)'}}>
-    <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
-      This is a long tooltip trigger text which should wrap at a certain viewport. It inherits all
-      the font styles from the parent element.
-    </sbb-tooltip-trigger>
-  </div>,
-  tooltip(),
-];
+const TemplateWithCustomContent = (args): JSX.Element => (
+  <Fragment>
+    <div class="sbb-text-xl" style={{ color: 'var(--sbb-color-sky-default)' }}>
+      <sbb-tooltip-trigger id="tooltip-trigger" {...args}>
+        This is a long tooltip trigger text which should wrap at a certain viewport. It inherits all
+        the font styles from the parent element.
+      </sbb-tooltip-trigger>
+    </div>
+    {tooltip()}
+  </Fragment>
+);
 
 export const IconSizeS: StoryObj = {
   render: Template,
@@ -75,15 +81,11 @@ export const IconSizeS: StoryObj = {
   args: defaultArgs,
 };
 
-
-
 export const IconSizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'circle-information-medium' },
 };
-
-
 
 export const IconSizeL: StoryObj = {
   render: Template,
@@ -91,15 +93,11 @@ export const IconSizeL: StoryObj = {
   args: { ...defaultArgs, 'icon-name': 'circle-information-large' },
 };
 
-
-
 export const CustomContent: StoryObj = {
   render: TemplateWithCustomContent,
   argTypes: defaultArgTypes,
   args: defaultArgs,
 };
-
-
 
 export const Disabled: StoryObj = {
   render: Template,
@@ -107,12 +105,10 @@ export const Disabled: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

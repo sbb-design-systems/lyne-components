@@ -1,6 +1,6 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
-import events from './sbb-navigation.events.ts';
+import { Fragment, h, JSX } from 'jsx-dom';
+import events from './sbb-navigation.events';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
@@ -11,7 +11,7 @@ import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html'
 import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -26,7 +26,7 @@ const playStory = async ({ canvasElement }) => {
   );
 };
 
-const playStoryWithSection = async ({ canvasElement }) => {
+const playStoryWithSection = async ({ canvasElement }): Promise<void> => {
   await playStory({ canvasElement });
   const canvas = within(canvasElement);
 
@@ -86,8 +86,8 @@ const triggerButton = (id): JSX.Element => (
     variant="secondary"
     size="l"
     icon-name="hamburger-menu-small"
-    accessibilityLabel="trigger navigation"
-    accessibilityHaspopup="true"
+    aria-label="trigger navigation"
+    aria-haspopup="true"
   ></sbb-button>
 );
 
@@ -121,7 +121,7 @@ const navigationList = (label): JSX.Element[] => [
   </sbb-navigation-list>,
 ];
 
-const actionLabels = (num) => {
+const actionLabels = (num): JSX.Element[] => {
   const labels = [
     <sbb-navigation-action data-testid="navigation-section-trigger-2">Label</sbb-navigation-action>,
   ];
@@ -131,95 +131,106 @@ const actionLabels = (num) => {
   return labels;
 };
 
-const onNavigationClose = (dialog) => {
+const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
-    document.getElementById('nav-marker').reset();
+    (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
   });
 };
 
-const DefaultTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation
-    data-testid="navigation"
-    id="navigation"
-    trigger="navigation-trigger-1"
-    ref={(dialog) => onNavigationClose(dialog)}
-    {...args}
-  >
-    <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
-    <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
-  </sbb-navigation>,
-];
-
-const LongContentTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation data-testid="navigation" id="navigation" trigger="navigation-trigger-1" {...args}>
-    <sbb-navigation-marker>{navigationActionsL()}</sbb-navigation-marker>
-    <sbb-navigation-marker size="s">{actionLabels(20)}</sbb-navigation-marker>
-  </sbb-navigation>,
-];
-
-const WithNavigationSectionTemplate = (args) => [
-  triggerButton('navigation-trigger-1'),
-  <sbb-navigation
-    data-testid="navigation"
-    id="navigation"
-    trigger="navigation-trigger-1"
-    ref={(dialog) => onNavigationClose(dialog)}
-    {...args}
-  >
-    <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
-    <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
-
-    <sbb-navigation-section
-      data-testid="navigation-section"
-      trigger="nav-1"
-      title-content="Title one"
-      disable-animation={args['disable-animation']}
+const DefaultTemplate = (args): JSX.Element => (
+  <Fragment>
+    {triggerButton('navigation-trigger-1')}
+    <sbb-navigation
+      data-testid="navigation"
+      id="navigation"
+      trigger="navigation-trigger-1"
+      ref={(dialog) => onNavigationClose(dialog)}
+      {...args}
     >
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
+      <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
+      <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
+    </sbb-navigation>
+  </Fragment>
+);
 
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-      <sbb-button size="m" style={{width: 'fit-content'}}>
-        All Tickets & Offers
-      </sbb-button>
-    </sbb-navigation-section>
-
-    <sbb-navigation-section
-      trigger="nav-2"
-      title-content="Title two"
-      disable-animation={args['disable-animation']}
+const LongContentTemplate = (args): JSX.Element => (
+  <Fragment>
+    {triggerButton('navigation-trigger-1')}
+    <sbb-navigation
+      data-testid="navigation"
+      id="navigation"
+      trigger="navigation-trigger-1"
+      {...args}
     >
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-    </sbb-navigation-section>
+      <sbb-navigation-marker>{navigationActionsL()}</sbb-navigation-marker>
+      <sbb-navigation-marker size="s">{actionLabels(20)}</sbb-navigation-marker>
+    </sbb-navigation>
+  </Fragment>
+);
 
-    <sbb-navigation-section
-      trigger="nav-3"
-      title-content="Title three"
-      disable-animation={args['disable-animation']}
+const WithNavigationSectionTemplate = (args): JSX.Element => (
+  <Fragment>
+    {triggerButton('navigation-trigger-1')}
+    <sbb-navigation
+      data-testid="navigation"
+      id="navigation"
+      trigger="navigation-trigger-1"
+      ref={(dialog) => onNavigationClose(dialog)}
+      {...args}
     >
-      {navigationList('Label')}
-      {navigationList('Label')}
-      {navigationList('Label')}
-      <sbb-button
-        size="m"
-        variant="secondary"
-        icon-name="circle-information-small"
-        style={{width: 'fit-content'}}
+      <sbb-navigation-marker id="nav-marker">{navigationActionsL()}</sbb-navigation-marker>
+      <sbb-navigation-marker size="s">{navigationActionsS()}</sbb-navigation-marker>
+
+      <sbb-navigation-section
+        data-testid="navigation-section"
+        trigger="nav-1"
+        title-content="Title one"
+        disable-animation={args['disable-animation']}
       >
-        Travel Information
-      </sbb-button>
-    </sbb-navigation-section>
-  </sbb-navigation>,
-];
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+        <sbb-button size="m" style={{ width: 'fit-content' }}>
+          All Tickets & Offers
+        </sbb-button>
+      </sbb-navigation-section>
+
+      <sbb-navigation-section
+        trigger="nav-2"
+        title-content="Title two"
+        disable-animation={args['disable-animation']}
+      >
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+      </sbb-navigation-section>
+
+      <sbb-navigation-section
+        trigger="nav-3"
+        title-content="Title three"
+        disable-animation={args['disable-animation']}
+      >
+        {navigationList('Label')}
+        {navigationList('Label')}
+        {navigationList('Label')}
+        <sbb-button
+          size="m"
+          variant="secondary"
+          icon-name="circle-information-small"
+          style={{ width: 'fit-content' }}
+        >
+          Travel Information
+        </sbb-button>
+      </sbb-navigation-section>
+    </sbb-navigation>
+  </Fragment>
+);
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
@@ -228,18 +239,12 @@ export const Default: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
   play: isChromatic() && playStory,
 };
-
-
-
 
 export const WithNavigationSection: StoryObj = {
   render: WithNavigationSectionTemplate,
@@ -248,13 +253,10 @@ export const WithNavigationSection: StoryObj = {
   play: isChromatic() && playStoryWithSection,
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem', height: '100vh'}}>
+      <div style={{ padding: '2rem', height: '100vh' }}>
         <Story />
       </div>
     ),
@@ -269,8 +271,8 @@ const meta: Meta =  {
       disable: true,
     },
     docs: {
-      story: { inline: false, iframeHeight: '600px', },
-      
+      story: { inline: false, iframeHeight: '600px' },
+
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',

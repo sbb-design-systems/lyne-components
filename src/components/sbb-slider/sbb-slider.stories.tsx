@@ -1,23 +1,25 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const changeEventHandler = (event) => {
+const changeEventHandler = (event): void => {
   const div = document.createElement('div');
   div.innerText = `current value is: ${event.target.value}. Min is: ${event.target.min}. Max is ${event.target.max}.`;
   document.getElementById('container-value').prepend(div);
 };
 
-const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
+const TemplateSbbSlider = (args): JSX.Element => <sbb-slider {...args}></sbb-slider>;
 
-const TemplateSbbSliderChangeEvent = (args): JSX.Element[] => [
-  <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>,
-  <div style={{'margin-block-start': '2rem'}}>Change slider position:</div>,
-  <div id="container-value"></div>,
-];
+const TemplateSbbSliderChangeEvent = (args): JSX.Element => (
+  <Fragment>
+    <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>
+    <div style={{ 'margin-block-start': '2rem' }}>Change slider position:</div>
+    <div id="container-value"></div>
+  </Fragment>
+);
 
 const TemplateSlottedIcons = (args): JSX.Element => (
   <sbb-slider {...args}>
@@ -173,15 +175,11 @@ export const sbbSlider: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
 export const sbbSliderChangeEvent: StoryObj = {
   render: TemplateSbbSliderChangeEvent,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs },
 };
-
-
 
 export const sbbSliderWithoutIcons: StoryObj = {
   render: TemplateSbbSlider,
@@ -189,15 +187,11 @@ export const sbbSliderWithoutIcons: StoryObj = {
   args: { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined },
 };
 
-
-
 export const sbbSliderSlottedIcons: StoryObj = {
   render: TemplateSlottedIcons,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined },
 };
-
-
 
 export const sbbSliderDisabled: StoryObj = {
   render: TemplateSbbSlider,
@@ -205,15 +199,11 @@ export const sbbSliderDisabled: StoryObj = {
   args: { ...basicArgs, disabled: true },
 };
 
-
-
 export const sbbSliderReadonly: StoryObj = {
   render: TemplateSbbSlider,
   argTypes: { ...basicArgTypes },
   args: { ...basicArgs, readonly: true },
 };
-
-
 
 export const sbbSliderInFormField: StoryObj = {
   render: TemplateSbbSliderInFormField,
@@ -221,19 +211,15 @@ export const sbbSliderInFormField: StoryObj = {
   args: formFieldBasicArgs,
 };
 
-
-
 export const sbbSliderInFormFieldNoIcon: StoryObj = {
   render: TemplateSbbSliderInFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
-  ...formFieldBasicArgs,
-  'start-icon': undefined,
-  'end-icon': undefined,
-},
+    ...formFieldBasicArgs,
+    'start-icon': undefined,
+    'end-icon': undefined,
+  },
 };
-
-
 
 export const sbbSliderInFormFieldDisabled: StoryObj = {
   render: TemplateSbbSliderInFormField,
@@ -241,12 +227,10 @@ export const sbbSliderInFormFieldDisabled: StoryObj = {
   args: { ...formFieldBasicArgs, disabled: true },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

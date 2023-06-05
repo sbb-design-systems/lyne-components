@@ -1,13 +1,13 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const MountedFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>
     <sbb-train
-      direction-label="Direction of travel"
+      directionLabel="Direction of travel"
       station="Bern"
       direction="left"
       accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
@@ -116,7 +116,7 @@ const MountedFormationTemplate = (args): JSX.Element => (
       ></sbb-train-wagon>
     </sbb-train>
     <sbb-train
-      direction-label="Direction of travel"
+      directionLabel="Direction of travel"
       station="Luzern"
       direction="left"
       accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction"
@@ -207,7 +207,7 @@ const MountedFormationTemplate = (args): JSX.Element => (
 const SingleFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>
     <sbb-train
-      direction-label="Direction of travel"
+      directionLabel="Direction of travel"
       station=""
       direction="left"
       accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
@@ -336,37 +336,31 @@ export const TrainFormation: StoryObj = {
   render: MountedFormationTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
 
 export const SingleFormation: StoryObj = {
   render: SingleFormationTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
 
 export const TrainFormationHideWagonLabel: StoryObj = {
   render: MountedFormationTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'hide-wagon-label': true,
-},
+    ...defaultArgs,
+    'hide-wagon-label': true,
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

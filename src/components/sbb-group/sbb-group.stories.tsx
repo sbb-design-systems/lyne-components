@@ -1,21 +1,21 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const wrapperStyle = (context) => {
+const wrapperStyle = (context): Record<string, string> => {
   if (context.args.color === 'white') {
-    return `background-color: var(--sbb-color-milk-default);`;
+    return { 'background-color': 'var(--sbb-color-milk-default)' };
   } else if (context.args.color === 'milk') {
-    return `background-color: var(--sbb-color-white-default);`;
+    return { 'background-color': 'var(--sbb-color-white-default)' };
   }
 
-  return `background-color: var(--sbb-color-platinum-default);`;
+  return { 'background-color': 'var(--sbb-color-platinum-default)' };
 };
 
 const GroupTemplate = (args): JSX.Element => (
-  <sbb-group {...args} style={{'max-width': '20rem'}}>
+  <sbb-group {...args} style={{ 'max-width': '20rem' }}>
     <span class="sbb-text-m">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       <br />
@@ -51,115 +51,95 @@ export const ColorWhite: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
 
 export const ColorMilk: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  color: color.options[1],
-},
+    ...defaultArgs,
+    color: color.options[1],
+  },
 };
-
-
 
 export const ColorTransparent: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  color: color.options[2],
-},
+    ...defaultArgs,
+    color: color.options[2],
+  },
 };
-
-
 
 export const Padding3X_XXS: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[0],
-},
+    ...defaultArgs,
+    padding: padding.options[0],
+  },
 };
-
-
 
 export const PaddingXXXS_XXS: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[1],
-},
+    ...defaultArgs,
+    padding: padding.options[1],
+  },
 };
-
-
 
 export const Padding4X_XXS: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[2],
-},
+    ...defaultArgs,
+    padding: padding.options[2],
+  },
 };
-
-
 
 export const PaddingXXS_XXS: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[3],
-},
+    ...defaultArgs,
+    padding: padding.options[3],
+  },
 };
-
-
 
 export const PaddingXXXS_S: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[4],
-},
+    ...defaultArgs,
+    padding: padding.options[4],
+  },
 };
-
-
 
 export const PaddingS_S: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[5],
-},
+    ...defaultArgs,
+    padding: padding.options[5],
+  },
 };
-
-
 
 export const PaddingL_L: StoryObj = {
   render: GroupTemplate,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  padding: padding.options[6],
-},
+    ...defaultArgs,
+    padding: padding.options[6],
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}padding: 2rem;`}>
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

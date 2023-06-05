@@ -87,17 +87,12 @@ const defaultArgs: Args = {
 /* Storybook templates                               */
 /* ************************************************* */
 
-const TemplateDefaultTeaser = (args) => {
+const TemplateDefaultTeaser = (args): JSX.Element => {
   const { title, description, ...remainingArgs } = args;
-
-  const sbbTeaserImageArgs = {
-    src: placeholderImage,
-    alt: '400x300 image',
-  };
 
   return (
     <sbb-teaser {...remainingArgs}>
-      <img slot="image" src={sbbTeaserImageArgs.src} alt={sbbTeaserImageArgs.alt} />
+      <img slot="image" src={placeholderImage} alt="400x300" />
       <span slot="title">{title}</span>
       <p slot="description">{description}</p>
     </sbb-teaser>
@@ -105,7 +100,14 @@ const TemplateDefaultTeaser = (args) => {
 };
 
 const TemplateTeaserList = (args): JSX.Element => (
-  <ul style={{display: 'grid', 'list-style': 'none', 'grid-template-columns': 'repeat(auto-fit, 20rem)', gap: '2rem'}}>
+  <ul
+    style={{
+      display: 'grid',
+      'list-style': 'none',
+      'grid-template-columns': 'repeat(auto-fit, 20rem)',
+      gap: '2rem',
+    }}
+  >
     {[...Array(6)].map(() => (
       <li>
         <TemplateDefaultTeaser {...args} style="" />
@@ -115,7 +117,14 @@ const TemplateTeaserList = (args): JSX.Element => (
 );
 
 const TemplateTeaserListIsStacked = (args): JSX.Element => (
-  <ul style={{display: 'grid', 'list-style': 'none', 'grid-template-columns': 'repeat(auto-fit, 20rem)', gap: '2rem'}}>
+  <ul
+    style={{
+      display: 'grid',
+      'list-style': 'none',
+      'grid-template-columns': 'repeat(auto-fit, 20rem)',
+      gap: '2rem',
+    }}
+  >
     {[...Array(4)].map(() => (
       <li>
         <TemplateDefaultTeaser {...args} style="" />
@@ -133,56 +142,44 @@ export const defaultTeaser: StoryObj = {
   render: TemplateDefaultTeaser,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 export const TeaserWithLongText: StoryObj = {
   render: TemplateDefaultTeaser,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  title:
-    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-  description:
-    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-},
+    ...defaultArgs,
+    title:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+    description:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+  },
 };
 export const teaserList: StoryObj = {
   render: TemplateTeaserList,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'is-stacked': false,
-},
+    ...defaultArgs,
+    'is-stacked': false,
+  },
 };
 export const teaserListIsStacked: StoryObj = {
   render: TemplateTeaserListIsStacked,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem', 'max-width': '760px'}}>
+      <div style={{ padding: '2rem', 'max-width': '760px' }}>
         <Story />
       </div>
     ),

@@ -2,7 +2,7 @@
 import readme from './readme.md';
 import { h, JSX } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const variant: InputType = {
@@ -162,11 +162,11 @@ const TemplateClockColumns = ({ ...args }): JSX.Element => (
           level="2"
           visual-level="5"
           negative={args.negative}
-          style={{margin: '0 0 var(--sbb-spacing-fixed-3x)'}}
+          style={{ margin: '0 0 var(--sbb-spacing-fixed-3x)' }}
         >
           Newsletter.
         </sbb-title>
-        <p style={{margin: '0'}}>
+        <p style={{ margin: '0' }}>
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
@@ -227,18 +227,14 @@ export const FooterClockColumns: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
 export const FooterClockColumnsNegative: StoryObj = {
   render: TemplateClockColumns,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  negative: true,
-},
+    ...defaultArgs,
+    negative: true,
+  },
 };
-
-
 
 export const FooterClockColumnsExpanded: StoryObj = {
   render: TemplateClockColumns,
@@ -246,48 +242,36 @@ export const FooterClockColumnsExpanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
-
-
 export const FooterDefault: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+  },
 };
-
-
 
 export const FooterDefaultNegative: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  negative: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    negative: true,
+  },
 };
-
-
 
 export const FooterDefaultExpanded: StoryObj = {
   render: TemplateDefault,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  variant: variant.options[0],
-  expanded: true,
-},
+    ...defaultArgs,
+    variant: variant.options[0],
+    expanded: true,
+  },
 };
 
-
-
-/* ************************************************* */
-/* Render storybook section and stories              */
-/* ************************************************* */
-
-const meta: Meta =  {
+const meta: Meta = {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

@@ -1,8 +1,8 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-option.events';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const iconName: InputType = {
@@ -43,12 +43,12 @@ const defaultArgs: Args = {
   numberOfOptions: 5,
 };
 
-const createOptions = ({ value, numberOfOptions, ...args }) =>
+const createOptions = ({ value, numberOfOptions, ...args }): JSX.Element[] =>
   new Array(numberOfOptions).fill(null).map((_, i) => {
     return <sbb-option {...args} value={`${value} ${i + 1}`}>{`${value} ${i + 1}`}</sbb-option>;
   });
 
-const StandaloneTemplate = (args) => createOptions(args);
+const StandaloneTemplate = (args): JSX.Element => <Fragment>{createOptions(args)}</Fragment>;
 
 const AutocompleteTemplate = (args): JSX.Element => (
   <sbb-form-field>
@@ -59,7 +59,7 @@ const AutocompleteTemplate = (args): JSX.Element => (
 
 const defaultDecorator = [
   (Story) => (
-    <div style={{border: '3px solid red'}}>
+    <div style={{ border: '3px solid red' }}>
       <Story />
     </div>
   ),
@@ -72,9 +72,6 @@ export const Standalone: StoryObj = {
   decorators: defaultDecorator,
 };
 
-
-
-
 export const WithIcon: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
@@ -82,21 +79,16 @@ export const WithIcon: StoryObj = {
   decorators: defaultDecorator,
 };
 
-
-
-
 export const Autocomplete: StoryObj = {
   render: AutocompleteTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

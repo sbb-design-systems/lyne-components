@@ -1,19 +1,20 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj } from '@storybook/html';
 
-const Template = (args) => <sbb-train-blocked-passage {...args}></sbb-train-blocked-passage>;
+const Template = (args): JSX.Element => (
+  <sbb-train-blocked-passage {...args}></sbb-train-blocked-passage>
+);
 
 export const blockedPassage: StoryObj = {
   render: Template,
 };
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

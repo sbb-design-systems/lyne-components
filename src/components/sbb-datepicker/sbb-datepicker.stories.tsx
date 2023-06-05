@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
@@ -221,8 +221,8 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const getInputAttributes = (min, max) => {
-  let attr = {};
+const getInputAttributes = (min, max): Record<string, number> => {
+  const attr: Record<string, number> = {};
   if (min) {
     attr.min = new Date(min).getTime() / 1000;
   }
@@ -233,7 +233,7 @@ const getInputAttributes = (min, max) => {
 };
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -248,6 +248,12 @@ const playStory = async ({ canvasElement }) => {
   userEvent.click(toggle);
 };
 
+const changeEventHandler = async (event): Promise<void> => {
+  const div = document.createElement('div');
+  div.innerText = `valueAsDate is: ${await event.target.getValueAsDate()}.`;
+  document.getElementById('container-value').append(div);
+};
+
 const Template = ({
   min,
   max,
@@ -257,33 +263,35 @@ const Template = ({
   'data-now': dataNow,
   disableAnimation,
   ...args
-}) => {
-  return [
-    <div style={{display: 'flex', gap: '0.25rem'}}>
-      <sbb-datepicker-previous-day date-picker="datepicker" />
-      <sbb-datepicker-toggle
-        date-picker="datepicker"
-        data-testid="toggle"
-        disable-animation={disableAnimation}
-      />
-      <input {...args} id="datepicker-input" {...getInputAttributes(min, max)} />
-      <sbb-datepicker
-        id="datepicker"
-        input="datepicker-input"
-        ref={(calendarRef) => {
-          calendarRef.dateFilter = dateFilter;
-        }}
-        wide={wide}
-        cutoffYearOffset={cutoffYearOffset}
-        onChange={(event) => changeEventHandler(event)}
-        data-now={dataNow}
-      ></sbb-datepicker>
-      <sbb-datepicker-next-day date-picker="datepicker" />
-    </div>,
-    <div id="container-value" style={{'margin-block-start': '1rem'}}>
-      Change date to get the latest value:
-    </div>,
-  ];
+}): JSX.Element => {
+  return (
+    <Fragment>
+      <div style={{ display: 'flex', gap: '0.25rem' }}>
+        <sbb-datepicker-previous-day date-picker="datepicker" />
+        <sbb-datepicker-toggle
+          date-picker="datepicker"
+          data-testid="toggle"
+          disable-animation={disableAnimation}
+        />
+        <input {...args} id="datepicker-input" {...getInputAttributes(min, max)} />
+        <sbb-datepicker
+          id="datepicker"
+          input="datepicker-input"
+          ref={(calendarRef) => {
+            calendarRef.dateFilter = dateFilter;
+          }}
+          wide={wide}
+          cutoffYearOffset={cutoffYearOffset}
+          onChange={(event) => changeEventHandler(event)}
+          data-now={dataNow}
+        ></sbb-datepicker>
+        <sbb-datepicker-next-day date-picker="datepicker" />
+      </div>
+      <div id="container-value" style={{ 'margin-block-start': '1rem' }}>
+        Change date to get the latest value:
+      </div>
+    </Fragment>
+  );
 };
 
 const TemplateFormField = ({
@@ -299,39 +307,35 @@ const TemplateFormField = ({
   'data-now': dataNow,
   disableAnimation,
   ...args
-}) => {
-  return [
-    <sbb-form-field
-      size={size}
-      label={label}
-      optional={optional}
-      borderless={borderless}
-      width="collapse"
-    >
-      <sbb-datepicker-previous-day />
-      <sbb-datepicker-next-day />
-      <sbb-datepicker-toggle data-testid="toggle" disable-animation={disableAnimation} />
-      <input {...args} {...getInputAttributes(min, max)} />
-      <sbb-datepicker
-        ref={(calendarRef) => {
-          calendarRef.dateFilter = dateFilter;
-        }}
-        wide={wide}
-        cutoffYearOffset={cutoffYearOffset}
-        onChange={(event) => changeEventHandler(event)}
-        data-now={dataNow}
-      ></sbb-datepicker>
-    </sbb-form-field>,
-    <div id="container-value" style={{'margin-block-start': '1rem'}}>
-      Change date to get the latest value:
-    </div>,
-  ];
-};
-
-const changeEventHandler = async (event) => {
-  const div = document.createElement('div');
-  div.innerText = `valueAsDate is: ${await event.target.getValueAsDate()}.`;
-  document.getElementById('container-value').append(div);
+}): JSX.Element => {
+  return (
+    <Fragment>
+      <sbb-form-field
+        size={size}
+        label={label}
+        optional={optional}
+        borderless={borderless}
+        width="collapse"
+      >
+        <sbb-datepicker-previous-day />
+        <sbb-datepicker-next-day />
+        <sbb-datepicker-toggle data-testid="toggle" disable-animation={disableAnimation} />
+        <input {...args} {...getInputAttributes(min, max)} />
+        <sbb-datepicker
+          ref={(calendarRef) => {
+            calendarRef.dateFilter = dateFilter;
+          }}
+          wide={wide}
+          cutoffYearOffset={cutoffYearOffset}
+          onChange={(event) => changeEventHandler(event)}
+          data-now={dataNow}
+        ></sbb-datepicker>
+      </sbb-form-field>
+      <div id="container-value" style={{ 'margin-block-start': '1rem' }}>
+        Change date to get the latest value:
+      </div>
+    </Fragment>
+  );
 };
 
 export const InFormField: StoryObj = {
@@ -341,16 +345,11 @@ export const InFormField: StoryObj = {
   play: isChromatic() && playStory,
 };
 
-
-
-
 export const InFormFieldDisabled: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, disabled: true },
 };
-
-
 
 export const InFormFieldReadonly: StoryObj = {
   render: TemplateFormField,
@@ -358,27 +357,21 @@ export const InFormFieldReadonly: StoryObj = {
   args: { ...formFieldBasicArgs, readonly: true },
 };
 
-
-
 export const InFormFieldWide: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, wide: true },
 };
 
-
-
 export const InFormFieldWithMinAndMax: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
-  ...formFieldBasicArgs,
-  min: new Date(2023, 1, 8),
-  max: new Date(2023, 1, 22),
-},
+    ...formFieldBasicArgs,
+    min: new Date(2023, 1, 8),
+    max: new Date(2023, 1, 22),
+  },
 };
-
-
 
 export const InFormFieldWithDateFilter: StoryObj = {
   render: TemplateFormField,
@@ -386,15 +379,11 @@ export const InFormFieldWithDateFilter: StoryObj = {
   args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
 };
 
-
-
 export const InFormFieldLarge: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, size: size.options[1] },
 };
-
-
 
 export const InFormFieldOptional: StoryObj = {
   render: TemplateFormField,
@@ -402,15 +391,11 @@ export const InFormFieldOptional: StoryObj = {
   args: { ...formFieldBasicArgs, optional: true },
 };
 
-
-
 export const InFormFieldBorderless: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, borderless: true },
 };
-
-
 
 export const WithoutFormField: StoryObj = {
   render: Template,
@@ -418,12 +403,10 @@ export const WithoutFormField: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
+      <div style={{ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined }}>
         <Story />
       </div>
     ),
@@ -438,8 +421,8 @@ const meta: Meta =  {
       disable: true,
     },
     docs: {
-      story: { inline: false, iframeHeight: '600px', },
-      
+      story: { inline: false, iframeHeight: '600px' },
+
       extractComponentDescription: () => readme,
     },
   },

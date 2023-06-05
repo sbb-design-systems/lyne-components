@@ -100,136 +100,98 @@ const defaultArgs: Args = {
 /* Storybook templates                               */
 /* ************************************************* */
 
-const Template = ({ label, ...args }) => <sbb-checkbox {...args}>{label}</sbb-checkbox>;
+const Template = ({ label, ...args }): JSX.Element => (
+  <sbb-checkbox {...args}>{label}</sbb-checkbox>
+);
 
 export const defaultUnchecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
 export const defaultChecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  checked: true,
-},
+    ...defaultArgs,
+    checked: true,
+  },
 };
 export const defaultIndeterminate: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  indeterminate: true,
-},
+    ...defaultArgs,
+    indeterminate: true,
+  },
 };
 export const sizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  size: size.options[0],
-},
+    ...defaultArgs,
+    size: size.options[0],
+  },
 };
 export const longLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  label: longLabelText,
-},
+    ...defaultArgs,
+    label: longLabelText,
+  },
 };
 export const withIconEnd: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'icon-name': 'tickets-class-small',
-},
+    ...defaultArgs,
+    'icon-name': 'tickets-class-small',
+  },
 };
 export const checkedWithIconStart: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  checked: true,
-  'icon-name': 'tickets-class-small',
-  'icon-placement': iconPlacement.options[0],
-},
+    ...defaultArgs,
+    checked: true,
+    'icon-name': 'tickets-class-small',
+    'icon-placement': iconPlacement.options[0],
+  },
 };
 export const disabledChecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  disabled: true,
-  checked: true,
-},
+    ...defaultArgs,
+    disabled: true,
+    checked: true,
+  },
 };
 export const disabledUnchecked: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  disabled: true,
-},
+    ...defaultArgs,
+    disabled: true,
+  },
 };
 export const disabledIndeterminate: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  disabled: true,
-  indeterminate: true,
-},
+    ...defaultArgs,
+    disabled: true,
+    indeterminate: true,
+  },
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

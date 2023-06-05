@@ -3,7 +3,7 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { extendedLeg, progressLeg } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const departureWalk: InputType = {
@@ -59,7 +59,7 @@ const defaultArgs: Args = {
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
 };
 
-const Template = (args) => {
+const Template = (args): JSX.Element => {
   return <sbb-pearl-chain-time {...args} />;
 };
 
@@ -67,66 +67,56 @@ export const minimal: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-},
+    ...defaultArgs,
+  },
 };
-
-
 
 export const withDepartureWalk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'departure-walk': '10',
-},
+    ...defaultArgs,
+    'departure-walk': '10',
+  },
 };
-
-
 
 export const withArrivalWalk: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'arrival-walk': '5',
-},
+    ...defaultArgs,
+    'arrival-walk': '5',
+  },
 };
-
-
 
 export const mixed: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'departure-walk': '0',
-  'arrival-walk': '5',
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-  legs: [progressLeg],
-},
+    ...defaultArgs,
+    'departure-walk': '0',
+    'arrival-walk': '5',
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    legs: [progressLeg],
+  },
 };
-
-
 
 export const extendedEnter: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'departure-walk': '10',
-  'arrival-walk': '5',
-  'data-now': new Date('2022-12-05T12:11:00').valueOf(),
-  legs: [extendedLeg],
-},
+    ...defaultArgs,
+    'departure-walk': '10',
+    'arrival-walk': '5',
+    'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+    legs: [extendedLeg],
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'max-width': '20rem'}}>
+      <div style={{ 'max-width': '20rem' }}>
         <Story />
       </div>
     ),

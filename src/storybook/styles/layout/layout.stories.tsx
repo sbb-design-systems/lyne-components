@@ -1,9 +1,8 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import './layout.scss';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj } from '@storybook/html';
 
 const PageSpacingTemplate = (): JSX.Element => (
   <section class="sbb-page-spacing visualized-page-spacing">
@@ -17,7 +16,7 @@ const PageSpacingExpandedTemplate = (): JSX.Element => (
   </section>
 );
 
-const GridContent = () => {
+const GridContent = (): JSX.Element[] => {
   return [...Array(16)].map(() => <div></div>);
 };
 
@@ -35,24 +34,26 @@ const Warning = (): JSX.Element => (
   </span>
 );
 
-const GridTemplate = (): JSX.Element[] => [
-  <div class="sbb-grid visualized-grid">
-    <GridContent />
-  </div>,
-  <p class="sbb-page-spacing">
-    <Warning />
-  </p>,
-];
-
-const GridExpandedTemplate = (): JSX.Element[] => [
-  <div class="sbb-grid-expanded visualized-grid">
-    <GridContent />
-  </div>,
-  <p class="sbb-page-spacing-expanded">
-    <Warning />
-  </p>,
-];
-
+const GridTemplate = (): JSX.Element => (
+  <Fragment>
+    <div class="sbb-grid visualized-grid">
+      <GridContent />
+    </div>
+    <p class="sbb-page-spacing">
+      <Warning />
+    </p>
+  </Fragment>
+);
+const GridExpandedTemplate = (): JSX.Element => (
+  <Fragment>
+    <div class="sbb-grid-expanded visualized-grid">
+      <GridContent />
+    </div>
+    <p class="sbb-page-spacing-expanded">
+      <Warning />
+    </p>
+  </Fragment>
+);
 export const PageSpacing: StoryObj = {
   render: PageSpacingTemplate,
 };
@@ -66,10 +67,10 @@ export const GridExpanded: StoryObj = {
   render: GridExpandedTemplate,
 };
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'padding-block': '2rem'}}>
+      <div style={{ 'padding-block': '2rem' }}>
         <Story />
       </div>
     ),

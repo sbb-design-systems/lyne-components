@@ -18,7 +18,7 @@ import {
   TimetableInput,
   wrapperStyle,
 } from './home.common';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 /* ************************************************* */
@@ -114,13 +114,7 @@ const Template = (args): JSX.Element => (
                 aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
                 href="https://github.com/lyne-design-system/lyne-components"
               >
-                <sbb-card-badge
-                  is-discount
-                  price="92.50"
-                  slotgeneric='<span>on <time datetime="2021-11-25">Black Friday</time></span>'
-                  text="from CHF"
-                  slot="badge"
-                >
+                <sbb-card-badge is-discount price="92.50" text="from CHF" slot="badge">
                   <span slot="generic">
                     on <time dateTime="2021-11-25">Black Friday</time>
                   </span>
@@ -207,7 +201,7 @@ const Template = (args): JSX.Element => (
           <sbb-button
             variant="secondary"
             class="all-purchased-tickets-button"
-            onClick={(event) => document.getElementById('my-dialog').open(event)}
+            onClick={() => (document.getElementById('my-dialog') as HTMLSbbDialogElement).open()}
           >
             All purchased tickets
           </sbb-button>
@@ -312,18 +306,14 @@ export const homeLoggedIn: StoryObj = {
   args: { ...defaultArgs },
 };
 
-
-
-
-
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story, context) => (
-      <div style={`${wrapperStyle(context)}`}>
+      <div style={wrapperStyle(context)}>
         <Story />
       </div>
     ),

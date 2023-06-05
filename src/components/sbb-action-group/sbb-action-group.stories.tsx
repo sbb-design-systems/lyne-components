@@ -11,7 +11,9 @@ const secondaryButtonTemplate = (alignSelf): JSX.Element => (
   </sbb-button>
 );
 
-const buttonTemplate = (alignSelf) => <sbb-button align-self={alignSelf}>Button 2</sbb-button>;
+const buttonTemplate = (alignSelf): JSX.Element => (
+  <sbb-button align-self={alignSelf}>Button 2</sbb-button>
+);
 
 const linkTemplate = (alignSelf): JSX.Element => (
   <sbb-link
@@ -23,13 +25,17 @@ const linkTemplate = (alignSelf): JSX.Element => (
   </sbb-link>
 );
 
-const TemplateTwoElements = (alignSelfFirst, alignSelfSecond) => [
+const TemplateTwoElements = (alignSelfFirst?, alignSelfSecond?): JSX.Element[] => [
   secondaryButtonTemplate(alignSelfFirst),
   buttonTemplate(alignSelfSecond),
 ];
 
-const TemplateThreeElements = (alignSelfFirst, alignSelfSecond, alignSelfThird) => [
-  TemplateTwoElements(alignSelfFirst, alignSelfSecond),
+const TemplateThreeElements = (
+  alignSelfFirst?,
+  alignSelfSecond?,
+  alignSelfThird?
+): JSX.Element[] => [
+  ...TemplateTwoElements(alignSelfFirst, alignSelfSecond),
   linkTemplate(alignSelfThird),
 ];
 
@@ -136,17 +142,11 @@ export const HorizontalAllocation3_0_0: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-
 export const HorizontalAllocation1_1_1: StoryObj = {
   render: TemplateHorizontalAllocation111,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
-
-
-
 
 export const HorizontalAllocation2_0_1: StoryObj = {
   render: TemplateHorizontalAllocation201,
@@ -154,17 +154,11 @@ export const HorizontalAllocation2_0_1: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-
 export const HorizontalAllocation1_0_2: StoryObj = {
   render: TemplateHorizontalAllocation102,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'align-group': 'end' },
 };
-
-
-
 
 export const HorizontalAllocation2_0_0: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
@@ -172,17 +166,11 @@ export const HorizontalAllocation2_0_0: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
-
 export const HorizontalAllocation1_0_1: StoryObj = {
   render: TemplateHorizontalAllocation101,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
-
-
-
 
 export const VerticalAllocation3_0_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
@@ -190,17 +178,11 @@ export const VerticalAllocation3_0_0: StoryObj = {
   args: { ...basicArgsVertical, 'align-group': 'start' },
 };
 
-
-
-
 export const VerticalAllocation2_0_0: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, 'align-group': 'start' },
 };
-
-
-
 
 export const VerticalAllocation0_3_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
@@ -208,17 +190,11 @@ export const VerticalAllocation0_3_0: StoryObj = {
   args: { ...basicArgsVertical, 'align-group': 'center' },
 };
 
-
-
-
 export const VerticalAllocation0_2_0: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, 'align-group': 'center' },
 };
-
-
-
 
 export const VerticalAllocation0_0_3: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
@@ -226,17 +202,11 @@ export const VerticalAllocation0_0_3: StoryObj = {
   args: { ...basicArgsVertical, 'align-group': 'end' },
 };
 
-
-
-
 export const VerticalAllocation0_0_2: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVertical, 'align-group': 'end' },
 };
-
-
-
 
 export const VerticalAllocation3_0_0FullWidth: StoryObj = {
   render: TemplateVerticalAllocation300FullWidth,
@@ -244,17 +214,11 @@ export const VerticalAllocation3_0_0FullWidth: StoryObj = {
   args: { ...basicArgsVerticalFullWidth },
 };
 
-
-
-
 export const VerticalAllocation2_0_0FullWidth: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVerticalFullWidth },
 };
-
-
-
 
 export const VerticalAllocation0_3_0FullWidth: StoryObj = {
   render: TemplateVerticalAllocation030FullWidth,
@@ -262,17 +226,11 @@ export const VerticalAllocation0_3_0FullWidth: StoryObj = {
   args: { ...basicArgsVerticalFullWidth },
 };
 
-
-
-
 export const VerticalAllocation0_2_0FullWidth: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVerticalFullWidth },
 };
-
-
-
 
 export const VerticalAllocation0_0_3FullWidth: StoryObj = {
   render: TemplateVerticalAllocation003FullWidth,
@@ -280,17 +238,11 @@ export const VerticalAllocation0_0_3FullWidth: StoryObj = {
   args: { ...basicArgsVerticalFullWidth },
 };
 
-
-
-
 export const VerticalAllocation0_0_2FullWidth: StoryObj = {
   render: CommonTemplateTwoElementsAllocation,
   argTypes: basicArgTypes,
   args: { ...basicArgsVerticalFullWidth },
 };
-
-
-
 
 export const VerticalToHorizontal3_0_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
@@ -298,13 +250,10 @@ export const VerticalToHorizontal3_0_0: StoryObj = {
   args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
 };
 
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

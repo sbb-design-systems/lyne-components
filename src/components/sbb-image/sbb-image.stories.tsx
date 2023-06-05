@@ -3,10 +3,10 @@ import { h, JSX } from 'jsx-dom';
 import images from '../../global/images';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const Template = (args) => <sbb-image {...args} />;
+const Template = (args): JSX.Element => <sbb-image {...args} />;
 
 const imageSrc: InputType = {
   control: {
@@ -117,8 +117,8 @@ const disableAnimation: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  alt: '',
-  caption: '',
+  alt: {},
+  caption: {},
   'border-radius': borderRadius,
   'aspect-ratio': aspectRatio,
   copyright,
@@ -157,40 +157,34 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  caption:
-    'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
-},
+    ...defaultArgs,
+    caption:
+      'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+  },
 };
-
-
 
 export const TransparentImage: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'image-src': imageSrc.options[9],
-},
+    ...defaultArgs,
+    'image-src': imageSrc.options[9],
+  },
 };
-
-
 
 export const NoCaptionNoRadius: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  'border-radius': 'false',
-},
+    ...defaultArgs,
+    'border-radius': 'false',
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{'max-width': '1000px'}}>
+      <div style={{ 'max-width': '1000px' }}>
         <Story />
       </div>
     ),

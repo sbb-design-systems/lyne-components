@@ -1,18 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const Template = (args) => <sbb-icon {...args}></sbb-icon>;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-  name: iconName.options[0],
-},
-};
+const Template = (args): JSX.Element => <sbb-icon {...args}></sbb-icon>;
 
 const iconName: InputType = {
   control: {
@@ -31,13 +23,18 @@ const defaultArgTypes: ArgTypes = {
   name: iconName,
 };
 
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    name: iconName.options[0],
+  },
+};
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

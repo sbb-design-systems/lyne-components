@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const TooltipTrigger = (): JSX.Element[] => [
@@ -26,7 +26,7 @@ const TooltipTrigger = (): JSX.Element[] => [
   </sbb-tooltip>,
 ];
 
-const TemplateBasicInput = (args) => (
+const TemplateBasicInput = (args): JSX.Element => (
   <input
     class={args.class}
     placeholder={args.placeholder}
@@ -37,12 +37,7 @@ const TemplateBasicInput = (args) => (
 );
 
 const TemplateBasicSelect = (args): JSX.Element => (
-  <select
-    class={args.class}
-    placeholder={args.placeholder}
-    disabled={args.disabled}
-    readonly={args.readonly}
-  >
+  <select class={args.class} disabled={args.disabled}>
     <option value="1">Value 1</option>
     <option value="2">Value 2</option>
     <option value="3">Value 3</option>
@@ -95,7 +90,7 @@ const TemplateInputWithSlottedLabel = ({
   </sbb-form-field>
 );
 
-const TemplateInputWithErrorSpace = (args) => {
+const TemplateInputWithErrorSpace = (args): JSX.Element => {
   const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
 
   return (
@@ -114,7 +109,7 @@ const TemplateInputWithErrorSpace = (args) => {
           <input
             id="sbb-form-field-input"
             onKeyUp={(event) => {
-              if (event.currentTarget.value !== '') {
+              if ((event.currentTarget as HTMLInputElement).value !== '') {
                 sbbFormError.remove();
                 document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
@@ -177,7 +172,7 @@ const TemplateSelect = (args): JSX.Element => (
   </sbb-form-field>
 );
 
-const TemplateSelectWithErrorSpace = (args) => {
+const TemplateSelectWithErrorSpace = (args): JSX.Element => {
   const sbbFormError = <sbb-form-error>{args.errortext}</sbb-form-error>;
 
   return (
@@ -196,7 +191,7 @@ const TemplateSelectWithErrorSpace = (args) => {
           <select
             id="sbb-form-field-input"
             onChange={(event) => {
-              if (event.currentTarget.value !== '') {
+              if ((event.currentTarget as HTMLSelectElement).value !== '') {
                 sbbFormError.remove();
                 document.getElementById('sbb-form-field-input').classList.remove(args.class);
               } else {
@@ -205,8 +200,6 @@ const TemplateSelectWithErrorSpace = (args) => {
               }
             }}
             class={args.class}
-            placeholder={args.placeholder}
-            readonly={args.readonly}
             disabled={args.disabled}
           >
             <option>{''}</option>
@@ -392,19 +385,15 @@ export const Input: StoryObj = {
   args: { ...basicArgs, value: 'This input value is so long that it needs ellipsis to fit.' },
 };
 
-
-
 export const InputSizeL: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
   args: {
-  ...basicArgs,
-  value: 'This input value is so long that it needs ellipsis to fit.',
-  size: 'l',
-},
+    ...basicArgs,
+    value: 'This input value is so long that it needs ellipsis to fit.',
+    size: 'l',
+  },
 };
-
-
 
 export const InputNoLabel: StoryObj = {
   render: TemplateInput,
@@ -412,15 +401,11 @@ export const InputNoLabel: StoryObj = {
   args: { ...basicArgs, label: '' },
 };
 
-
-
 export const InputWithSlottedLabel: StoryObj = {
   render: TemplateInputWithSlottedLabel,
   argTypes: basicArgTypes,
   args: { ...basicArgs, value: 'Random value' },
 };
-
-
 
 export const InputWithoutBorder: StoryObj = {
   render: TemplateInput,
@@ -428,15 +413,11 @@ export const InputWithoutBorder: StoryObj = {
   args: { ...basicArgs, borderless: true },
 };
 
-
-
 export const InputDisabled: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
 };
-
-
 
 export const InputReadonly: StoryObj = {
   render: TemplateInput,
@@ -444,15 +425,11 @@ export const InputReadonly: StoryObj = {
   args: { ...basicArgs, readonly: true },
 };
 
-
-
 export const InputOptionalAndIcons: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
 };
-
-
 
 export const InputWithButton: StoryObj = {
   render: TemplateInputWithButton,
@@ -460,15 +437,11 @@ export const InputWithButton: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
 export const InputWithButtonDisabled: StoryObj = {
   render: TemplateInputWithButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
 };
-
-
 
 export const InputWithButtonActive: StoryObj = {
   render: TemplateInputWithButton,
@@ -476,21 +449,17 @@ export const InputWithButtonActive: StoryObj = {
   args: { ...basicArgs, active: true },
 };
 
-
-
 export const InputLongLabelAndErrorSpace: StoryObj = {
   render: TemplateInputWithErrorSpace,
   argTypes: { ...basicArgTypes, 'error-space': errorSpaceArg },
   args: {
-  ...basicArgs,
-  'error-space': 'reserve',
-  class: 'sbb-invalid',
-  label: 'This label name is so long that it needs ellipsis to fit.',
-  value: 'This input value is so long that it needs ellipsis to fit.',
-},
+    ...basicArgs,
+    'error-space': 'reserve',
+    class: 'sbb-invalid',
+    label: 'This label name is so long that it needs ellipsis to fit.',
+    value: 'This input value is so long that it needs ellipsis to fit.',
+  },
 };
-
-
 
 export const InputFloatingLabel: StoryObj = {
   render: TemplateInput,
@@ -498,32 +467,26 @@ export const InputFloatingLabel: StoryObj = {
   args: { ...basicArgs, 'floating-label': true, value: undefined },
 };
 
-
-
 export const InputFloatingLongLabel: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
   args: {
-  ...basicArgs,
-  'floating-label': true,
-  value: undefined,
-  label: 'This is a very long label which receives ellipsis',
-},
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+    label: 'This is a very long label which receives ellipsis',
+  },
 };
-
-
 
 export const InputFloatingWithIcons: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: {
-  ...basicArgs,
-  'floating-label': true,
-  value: undefined,
-},
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+  },
 };
-
-
 
 export const Select: StoryObj = {
   render: TemplateSelect,
@@ -531,15 +494,11 @@ export const Select: StoryObj = {
   args: { ...basicArgs },
 };
 
-
-
 export const SelectWithoutBorder: StoryObj = {
   render: TemplateSelect,
   argTypes: basicArgTypes,
   args: { ...basicArgs, borderless: true },
 };
-
-
 
 export const SelectDisabled: StoryObj = {
   render: TemplateSelect,
@@ -547,15 +506,11 @@ export const SelectDisabled: StoryObj = {
   args: { ...basicArgs, disabled: true },
 };
 
-
-
 export const SelectErrorSpace: StoryObj = {
   render: TemplateSelectWithErrorSpace,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' },
 };
-
-
 
 export const SelectFloatingLabel: StoryObj = {
   render: TemplateSelectWithErrorSpace,
@@ -563,15 +518,11 @@ export const SelectFloatingLabel: StoryObj = {
   args: { ...basicArgs, 'floating-label': true, value: undefined },
 };
 
-
-
 export const SelectOptionalAndIcons: StoryObj = {
   render: TemplateSelectWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
 };
-
-
 
 export const InputCollapsedWidth: StoryObj = {
   render: TemplateInput,
@@ -579,21 +530,17 @@ export const InputCollapsedWidth: StoryObj = {
   args: { ...basicArgs, width: widthArg.options[1] },
 };
 
-
-
 export const InputWithIconsDisabled: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   excludeStories: /.*Active$/,
   decorators: [
     (Story) => (
-      <div style={{padding: '2rem'}}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

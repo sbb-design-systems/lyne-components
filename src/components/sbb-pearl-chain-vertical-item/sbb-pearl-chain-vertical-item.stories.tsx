@@ -1,16 +1,18 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj } from '@storybook/html';
 
-const Template = (args) => {
+const Template = (args): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div
           slot="right"
-          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
+          style={{
+            '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
+            '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
+          }}
         >
           slot for content
           <div>more</div>
@@ -27,18 +29,16 @@ const Template = (args) => {
 export const pearlChainItem: StoryObj = {
   render: Template,
   args: {
-  lineType: 'standard',
-  lineColor: 'default',
-  bulletType: 'default',
-  minHeight: '100',
-  hideLine: false,
-  bulletSize: 'start-end',
-},
+    lineType: 'standard',
+    lineColor: 'default',
+    bulletType: 'default',
+    minHeight: '100',
+    hideLine: false,
+    bulletSize: 'start-end',
+  },
 };
 
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {

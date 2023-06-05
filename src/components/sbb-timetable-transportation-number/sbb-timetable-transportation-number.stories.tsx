@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-transportation-number.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const Template = (args): JSX.Element => (
@@ -41,119 +41,79 @@ export const BusFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData.bus,
-},
+    ...defaultArgs,
+    config: sampleData.bus,
+  },
 };
-
-
-
-
-
 
 export const BusSecondLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  config: sampleData.bus,
-},
+    ...defaultArgs,
+    appearance: appearance.options[1],
+    config: sampleData.bus,
+  },
 };
-
-
-
-
-
 
 export const CableCarFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData.cableCar,
-},
+    ...defaultArgs,
+    config: sampleData.cableCar,
+  },
 };
-
-
-
-
-
 
 export const CableCarSecondLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  config: sampleData.cableCar,
-},
+    ...defaultArgs,
+    appearance: appearance.options[1],
+    config: sampleData.cableCar,
+  },
 };
-
-
-
-
-
 
 export const TrainFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData.train,
-},
+    ...defaultArgs,
+    config: sampleData.train,
+  },
 };
-
-
-
-
-
 
 export const TrainSecondLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  config: sampleData.train,
-},
+    ...defaultArgs,
+    appearance: appearance.options[1],
+    config: sampleData.train,
+  },
 };
-
-
-
-
-
 
 export const TramFirstLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  config: sampleData.tram,
-},
+    ...defaultArgs,
+    config: sampleData.tram,
+  },
 };
-
-
-
-
-
 
 export const TramSecondLevel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  ...defaultArgs,
-  appearance: appearance.options[1],
-  config: sampleData.tram,
-},
+    ...defaultArgs,
+    appearance: appearance.options[1],
+    config: sampleData.tram,
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     backgrounds: {

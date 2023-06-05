@@ -2,8 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-occupancy.sample-data';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import type { InputType } from '@storybook/types';
+import type { Meta, StoryObj, Args } from '@storybook/html';
 
 const Template = (args): JSX.Element => (
   <sbb-timetable-occupancy config={JSON.stringify(args.config)}></sbb-timetable-occupancy>
@@ -26,107 +25,67 @@ export const NoneNoneOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[0],
-},
+    config: sampleData[0],
+  },
 };
-
-
-
-
-
 
 export const NonLowOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[1],
-},
+    config: sampleData[1],
+  },
 };
-
-
-
-
-
 
 export const LowLowOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[2],
-},
+    config: sampleData[2],
+  },
 };
-
-
-
-
-
 
 export const LowMediumOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[3],
-},
+    config: sampleData[3],
+  },
 };
-
-
-
-
-
 
 export const MediumMediumOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[4],
-},
+    config: sampleData[4],
+  },
 };
-
-
-
-
-
 
 export const LowHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[5],
-},
+    config: sampleData[5],
+  },
 };
-
-
-
-
-
 
 export const MediumHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[6],
-},
+    config: sampleData[6],
+  },
 };
-
-
-
-
-
 
 export const HighHighOccupancy: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-  config: sampleData[7],
-},
+    config: sampleData[7],
+  },
 };
 
-
-
-
-
-
-const meta: Meta =  {
+const meta: Meta = {
   decorators: [(Story) => <Story />],
   parameters: {
     backgrounds: {
