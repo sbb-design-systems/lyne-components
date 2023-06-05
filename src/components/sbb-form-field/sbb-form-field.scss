@@ -200,7 +200,7 @@
   }
 }
 
-::slotted(*[slot='label']) {
+.sbb-form-field__label-ellipsis {
   @include sbb.ellipsis;
 }
 
