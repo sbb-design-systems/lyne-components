@@ -150,24 +150,28 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   private _measureBreadcrumbs(): void {
     const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
 
+    /** get gap value between breadcrumb elements */
+    const breadcrumbGap = parseInt(
+      getComputedStyle(
+        this._element.shadowRoot.querySelector('.sbb-breadcrumb-group')
+      ).getPropertyValue('gap'),
+      10
+    );
+
+    /** calculate total width of the breadcrubm element */
     this._bcWidth =
       Array.from(li)
         .map((e) => e.clientWidth)
         .reduce((a, b) => a + b, 0) +
-      4 * (li.length - 1);
+      breadcrumbGap * (li.length - 1);
   }
 
+  /** evaluate if the expandend breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateEllipsis(): void {
-    console.log(this._hasEllipsis);
-
-    console.log('page width: ' + this._element.clientWidth);
-    console.log('BC width: ' + this._bcWidth);
     this._hasEllipsis =
       this._breadcrumbs &&
       this._breadcrumbs.length > 2 &&
       this._element.clientWidth < this._bcWidth;
-
-    console.log('endloop: ' + this._hasEllipsis);
   }
 
   private _renderEllipsis(): JSX.Element {
