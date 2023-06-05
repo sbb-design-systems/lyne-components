@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.2](https://github.com/lyne-design-system/lyne-components/compare/v0.36.1...v0.36.2) (2023-06-05)
+
+### Bug Fixes
+
+- **sbb-form-field:** include optional info in ellipsis ([#1790](https://github.com/lyne-design-system/lyne-components/issues/1790)) ([c44d231](https://github.com/lyne-design-system/lyne-components/commit/c44d2313218b1b4b4cfd9eaa5273641482c0a4c9))
+
 ### [0.36.1](https://github.com/lyne-design-system/lyne-components/compare/v0.36.0...v0.36.1) (2023-06-01)
 
 ### Bug Fixes
