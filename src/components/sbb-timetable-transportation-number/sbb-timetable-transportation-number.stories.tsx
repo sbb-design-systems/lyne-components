@@ -1,140 +1,159 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-transportation-number.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-transportation-number
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   ></sbb-timetable-transportation-number>
 );
 
-const appearance = {
+const appearance: InputType = {
   control: {
     type: 'select',
   },
   options: ['first-level', 'second-level'],
 };
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   appearance,
   config,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   appearance: appearance.options[0],
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const BusFirstLevel = Template.bind({});
-
-BusFirstLevel.argTypes = defaultArgTypes;
-BusFirstLevel.args = {
+export const BusFirstLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData.bus,
+},
 };
 
-BusFirstLevel.documentation = {
-  title: 'Bus - First Level',
-};
 
-export const BusSecondLevel = Template.bind({});
 
-BusSecondLevel.argTypes = defaultArgTypes;
-BusSecondLevel.args = {
+
+
+
+export const BusSecondLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData.bus,
+},
 };
 
-BusSecondLevel.documentation = {
-  title: 'Bus - Second Level',
-};
 
-export const CableCarFirstLevel = Template.bind({});
 
-CableCarFirstLevel.argTypes = defaultArgTypes;
-CableCarFirstLevel.args = {
+
+
+
+export const CableCarFirstLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData.cableCar,
+},
 };
 
-CableCarFirstLevel.documentation = {
-  title: 'Cable Car - First Level',
-};
 
-export const CableCarSecondLevel = Template.bind({});
 
-CableCarSecondLevel.argTypes = defaultArgTypes;
-CableCarSecondLevel.args = {
+
+
+
+export const CableCarSecondLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData.cableCar,
+},
 };
 
-CableCarSecondLevel.documentation = {
-  title: 'Cable Car - Second Level',
-};
 
-export const TrainFirstLevel = Template.bind({});
 
-TrainFirstLevel.argTypes = defaultArgTypes;
-TrainFirstLevel.args = {
+
+
+
+export const TrainFirstLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData.train,
+},
 };
 
-TrainFirstLevel.documentation = {
-  title: 'Train - First Level',
-};
 
-export const TrainSecondLevel = Template.bind({});
 
-TrainSecondLevel.argTypes = defaultArgTypes;
-TrainSecondLevel.args = {
+
+
+
+export const TrainSecondLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData.train,
+},
 };
 
-TrainSecondLevel.documentation = {
-  title: 'Train - Second Level',
-};
 
-export const TramFirstLevel = Template.bind({});
 
-TramFirstLevel.argTypes = defaultArgTypes;
-TramFirstLevel.args = {
+
+
+
+export const TramFirstLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData.tram,
+},
 };
 
-TramFirstLevel.documentation = {
-  title: 'Tram - First Level',
-};
 
-export const TramSecondLevel = Template.bind({});
 
-TramSecondLevel.argTypes = defaultArgTypes;
-TramSecondLevel.args = {
+
+
+
+export const TramSecondLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData.tram,
+},
 };
 
-TramSecondLevel.documentation = {
-  title: 'Tram - Second Level',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     backgrounds: {
@@ -147,3 +166,5 @@ export default {
   },
   title: 'internals/sbb-timetable-transportation-number',
 };
+
+export default meta;

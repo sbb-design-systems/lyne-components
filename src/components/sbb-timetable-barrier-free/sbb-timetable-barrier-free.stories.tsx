@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-barrier-free.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-barrier-free config={JSON.stringify(args.config)}></sbb-timetable-barrier-free>
 );
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
@@ -19,62 +22,72 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const BarrierFree = Template.bind({});
-
-BarrierFree.argTypes = defaultArgTypes;
-BarrierFree.args = {
+export const BarrierFree: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[0],
+},
 };
 
-BarrierFree.documentation = {
-  title: 'Barrier free',
-};
 
-export const BarrierFreePartially = Template.bind({});
 
-BarrierFreePartially.argTypes = defaultArgTypes;
-BarrierFreePartially.args = {
+
+
+
+export const BarrierFreePartially: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[1],
+},
 };
 
-BarrierFreePartially.documentation = {
-  title: 'Partially barrier free',
-};
 
-export const BarrierFreeReservation = Template.bind({});
 
-BarrierFreeReservation.argTypes = defaultArgTypes;
-BarrierFreeReservation.args = {
+
+
+
+export const BarrierFreeReservation: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[2],
+},
 };
 
-BarrierFreeReservation.documentation = {
-  title: 'Barrier free on request',
-};
 
-export const nonBarrierFree = Template.bind({});
 
-nonBarrierFree.argTypes = defaultArgTypes;
-nonBarrierFree.args = {
+
+
+
+export const nonBarrierFree: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[3],
+},
 };
 
-nonBarrierFree.documentation = {
-  title: 'Non barrier free',
-};
 
-export const BarrierFreeUnkonwn = Template.bind({});
 
-BarrierFreeUnkonwn.argTypes = defaultArgTypes;
-BarrierFreeUnkonwn.args = {
+
+
+
+export const BarrierFreeUnkonwn: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[4],
+},
 };
 
-BarrierFreeUnkonwn.documentation = {
-  title: 'Barrier free status unknown',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -84,3 +97,5 @@ export default {
   },
   title: 'Internals/sbb-timetable-barrier-free',
 };
+
+export default meta;

@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-occupancy.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-occupancy config={JSON.stringify(args.config)}></sbb-timetable-occupancy>
 );
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
@@ -19,95 +22,111 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const NoneNoneOccupancy = Template.bind({});
-
-NoneNoneOccupancy.argTypes = defaultArgTypes;
-NoneNoneOccupancy.args = {
+export const NoneNoneOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[0],
+},
 };
 
-NoneNoneOccupancy.documentation = {
-  title: 'None/None Occupancy Information',
-};
 
-export const NonLowOccupancy = Template.bind({});
 
-NonLowOccupancy.argTypes = defaultArgTypes;
-NonLowOccupancy.args = {
+
+
+
+export const NonLowOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[1],
+},
 };
 
-NonLowOccupancy.documentation = {
-  title: 'None/None Occupancy Information',
-};
 
-export const LowLowOccupancy = Template.bind({});
 
-LowLowOccupancy.argTypes = defaultArgTypes;
-LowLowOccupancy.args = {
+
+
+
+export const LowLowOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[2],
+},
 };
 
-LowLowOccupancy.documentation = {
-  title: 'Low/Low Occupancy',
-};
 
-export const LowMediumOccupancy = Template.bind({});
 
-LowMediumOccupancy.argTypes = defaultArgTypes;
-LowMediumOccupancy.args = {
+
+
+
+export const LowMediumOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[3],
+},
 };
 
-LowMediumOccupancy.documentation = {
-  title: 'Low/Medium Occupancy',
-};
 
-export const MediumMediumOccupancy = Template.bind({});
 
-MediumMediumOccupancy.argTypes = defaultArgTypes;
-MediumMediumOccupancy.args = {
+
+
+
+export const MediumMediumOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[4],
+},
 };
 
-MediumMediumOccupancy.documentation = {
-  title: 'Medium/Medium Occupancy',
-};
 
-export const LowHighOccupancy = Template.bind({});
 
-LowHighOccupancy.argTypes = defaultArgTypes;
-LowHighOccupancy.args = {
+
+
+
+export const LowHighOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[5],
+},
 };
 
-LowHighOccupancy.documentation = {
-  title: 'Low/High Occupancy',
-};
 
-export const MediumHighOccupancy = Template.bind({});
 
-MediumHighOccupancy.argTypes = defaultArgTypes;
-MediumHighOccupancy.args = {
+
+
+
+export const MediumHighOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[6],
+},
 };
 
-MediumHighOccupancy.documentation = {
-  title: 'Medium/High Occupancy',
-};
 
-export const HighHighOccupancy = Template.bind({});
 
-HighHighOccupancy.argTypes = defaultArgTypes;
-HighHighOccupancy.args = {
+
+
+
+export const HighHighOccupancy: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[7],
+},
 };
 
-HighHighOccupancy.documentation = {
-  title: 'High/High Occupancy',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     backgrounds: {
@@ -120,3 +139,5 @@ export default {
   },
   title: 'internals/sbb-timetable-occupancy',
 };
+
+export default meta;

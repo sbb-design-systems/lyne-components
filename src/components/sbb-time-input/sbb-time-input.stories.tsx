@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const changeEventHandler = (event) => {
   const div = document.createElement('div');
@@ -18,7 +21,7 @@ const setValue = () => {
   timeInput.value = '0';
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -27,7 +30,7 @@ const value = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -36,7 +39,7 @@ const form = {
   },
 };
 
-const readonly = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -45,7 +48,7 @@ const readonly = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -54,7 +57,7 @@ const disabled = {
   },
 };
 
-const required = {
+const required: InputType = {
   control: {
     type: 'boolean',
   },
@@ -63,7 +66,7 @@ const required = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -72,7 +75,7 @@ const ariaLabel = {
   },
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -82,7 +85,7 @@ const size = {
   },
 };
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -91,7 +94,7 @@ const label = {
   },
 };
 
-const optional = {
+const optional: InputType = {
   control: {
     type: 'boolean',
   },
@@ -100,7 +103,7 @@ const optional = {
   },
 };
 
-const borderless = {
+const borderless: InputType = {
   control: {
     type: 'boolean',
   },
@@ -109,7 +112,7 @@ const borderless = {
   },
 };
 
-const iconStart = {
+const iconStart: InputType = {
   control: {
     type: 'text',
   },
@@ -118,7 +121,7 @@ const iconStart = {
   },
 };
 
-const iconEnd = {
+const iconEnd: InputType = {
   control: {
     type: 'text',
   },
@@ -127,7 +130,7 @@ const iconEnd = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   value,
   form,
   disabled,
@@ -136,7 +139,7 @@ const basicArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const formFieldBasicArgsTypes = {
+const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label,
   size,
@@ -146,7 +149,7 @@ const formFieldBasicArgsTypes = {
   iconEnd,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   value: '12:00',
   form: undefined,
   disabled: false,
@@ -184,7 +187,7 @@ const TemplateSbbTimeInput = ({
   size,
   errorClass,
   ...args
-}) => [
+}): JSX.Element[] => [
   <sbb-form-field
     size={size}
     label={label}
@@ -201,7 +204,7 @@ const TemplateSbbTimeInput = ({
     {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
     {errorClass && <sbb-form-error>Error</sbb-form-error>}
   </sbb-form-field>,
-  <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
+  <div style={{display: 'flex', gap: '1em', 'margin-block-start': '2rem'}}>
     <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
       Set valueAsDate to current datetime
     </sbb-button>
@@ -209,54 +212,78 @@ const TemplateSbbTimeInput = ({
       Set value to 0
     </sbb-button>
   </div>,
-  <div style="margin-block-start: 1rem;">Change time in input:</div>,
+  <div style={{'margin-block-start': '1rem'}}>Change time in input:</div>,
   <div id="container-value"></div>,
 ];
 
-export const SbbTimeInput = TemplateSbbTimeInput.bind({});
-SbbTimeInput.argTypes = { ...formFieldBasicArgsTypes };
-SbbTimeInput.args = { ...formFieldBasicArgs };
+export const SbbTimeInput: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs },
+};
 
-export const SbbTimeInputWithIcons = TemplateSbbTimeInput.bind({});
-SbbTimeInputWithIcons.argTypes = { ...formFieldBasicArgsTypes };
-SbbTimeInputWithIcons.args = { ...formFieldBasicArgsWithIcons };
 
-export const SbbTimeInputBorderless = TemplateSbbTimeInput.bind({});
-SbbTimeInputBorderless.argTypes = { ...formFieldBasicArgsTypes };
-SbbTimeInputBorderless.args = {
+
+export const SbbTimeInputWithIcons: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgsWithIcons },
+};
+
+
+
+export const SbbTimeInputBorderless: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
   ...formFieldBasicArgsWithIcons,
   borderless: true,
+},
 };
 
-export const SbbTimeInputDisabled = TemplateSbbTimeInput.bind({});
-SbbTimeInputDisabled.argTypes = { ...formFieldBasicArgsTypes };
-SbbTimeInputDisabled.args = {
+
+
+export const SbbTimeInputDisabled: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
   ...formFieldBasicArgsWithIcons,
   disabled: true,
+},
 };
 
-export const SbbTimeInputReadonly = TemplateSbbTimeInput.bind({});
-SbbTimeInputReadonly.argTypes = { ...formFieldBasicArgsTypes };
-SbbTimeInputReadonly.args = {
+
+
+export const SbbTimeInputReadonly: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
   ...formFieldBasicArgsWithIcons,
   readonly: true,
+},
 };
 
-export const SbbTimeInputWithError = TemplateSbbTimeInput.bind({});
-SbbTimeInputWithError.argTypes = { ...formFieldBasicArgsTypes };
-SbbTimeInputWithError.args = {
+
+
+export const SbbTimeInputWithError: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
   ...formFieldBasicArgsWithIcons,
   errorClass: 'sbb-invalid',
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -271,3 +298,5 @@ export default {
   },
   title: 'components/form elements/sbb-time-input',
 };
+
+export default meta;

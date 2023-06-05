@@ -1,38 +1,32 @@
+/** @jsx h */
 import events from './sbb-selection-panel.events.ts';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const color = {
+const color: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['white', 'milk'],
 };
 
-const forceOpen = {
+const forceOpen: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const checkedInput = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Input',
-  },
-};
-
-const disabledInput = {
+const checkedInput: InputType = {
   control: {
     type: 'boolean',
   },
@@ -41,7 +35,16 @@ const disabledInput = {
   },
 };
 
-const basicArgTypes = {
+const disabledInput: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input',
+  },
+};
+
+const basicArgTypes: ArgTypes = {
   color: color,
   'force-open': forceOpen,
   'disable-animation': disableAnimation,
@@ -49,7 +52,7 @@ const basicArgTypes = {
   disabledInput,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   color: color.options[0],
   'force-open': false,
   'disable-animation': isChromatic(),
@@ -57,12 +60,12 @@ const basicArgs = {
   disabledInput: false,
 };
 
-const suffixStyle = {
+const suffixStyle: Args = {
   display: 'flex',
   alignItems: 'center',
 };
 
-const cardbadge = () => (
+const cardbadge = (): JSX.Element => (
   <sbb-card-badge slot="badge">
     <div slot="generic">
       <span>%</span>
@@ -70,11 +73,11 @@ const cardbadge = () => (
   </sbb-card-badge>
 );
 
-const suffixAndSubtext = () => [
+const suffixAndSubtext = (): JSX.Element[] => [
   <span slot="subtext">Subtext</span>,
-  <span slot="suffix" style="margin-inline-start: auto">
+  <span slot="suffix" style={{'margin-inline-start': 'auto'}}>
     <span style={suffixStyle}>
-      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x)" />
+      <sbb-icon name="diamond-small" style={{'margin-inline': 'var(--sbb-spacing-fixed-2x)'}} />
       <span class="sbb-text-m sbb-text--bold">
         <span class="sbb-text-xs sbb-text--bold">CHF</span> 40.00
       </span>
@@ -82,7 +85,7 @@ const suffixAndSubtext = () => [
   </span>,
 ];
 
-const innerContent = () => (
+const innerContent = (): JSX.Element => (
   <div slot="content">
     Inner Content
     <sbb-link
@@ -96,7 +99,7 @@ const innerContent = () => (
   </div>
 );
 
-const WithCheckboxTemplate = ({ checkedInput, disabledInput, ...args }) => (
+const WithCheckboxTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
   <sbb-selection-panel {...args}>
     {cardbadge()}
     <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
@@ -107,7 +110,7 @@ const WithCheckboxTemplate = ({ checkedInput, disabledInput, ...args }) => (
   </sbb-selection-panel>
 );
 
-const WithRadioButtonTemplate = ({ checkedInput, disabledInput, ...args }) => (
+const WithRadioButtonTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
   <sbb-selection-panel {...args}>
     {cardbadge()}
     <sbb-radio-button value="Value one" checked={checkedInput} disabled={disabledInput}>
@@ -118,7 +121,7 @@ const WithRadioButtonTemplate = ({ checkedInput, disabledInput, ...args }) => (
   </sbb-selection-panel>
 );
 
-const WithCheckboxGroupTemplate = ({ checkedInput, disabledInput, ...args }) => (
+const WithCheckboxGroupTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       {cardbadge()}
@@ -154,7 +157,7 @@ const WithRadioButtonGroupTemplate = ({
   disabledInput,
   allowEmptySelection,
   ...args
-}) => (
+}): JSX.Element => (
   <sbb-radio-button-group
     orientation="vertical"
     horizontal-from="large"
@@ -189,7 +192,7 @@ const WithRadioButtonGroupTemplate = ({
   </sbb-radio-button-group>
 );
 
-const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args }) => (
+const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       {cardbadge()}
@@ -199,12 +202,12 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
       </sbb-checkbox>
       <div slot="content">
         <sbb-radio-button-group orientation="vertical">
-          <sbb-radio-button value="non-flex" style="width: 100%">
+          <sbb-radio-button value="non-flex" style={{width: '100%'}}>
             Non-Flex
             <span slot="subtext">No refund possible</span>
             <span
               slot="suffix"
-              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+              style={{'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)'}}
             >
               <span style={suffixStyle}>
                 <span class="sbb-text-m">
@@ -213,12 +216,12 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
               </span>
             </span>
           </sbb-radio-button>
-          <sbb-radio-button value="semi-flex" style="width: 100%">
+          <sbb-radio-button value="semi-flex" style={{width: '100%'}}>
             Semi-Flex
             <span slot="subtext">Partial refund possible</span>
             <span
               slot="suffix"
-              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+              style={{'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)'}}
             >
               <span style={suffixStyle}>
                 <span class="sbb-text-m">
@@ -228,9 +231,9 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
             </span>
           </sbb-radio-button>
         </sbb-radio-button-group>
-        <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs)" />
-        <span style="color: var(--sbb-color-granite-default)">
-          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x)">
+        <sbb-divider style={{'margin-block': 'var(--sbb-spacing-responsive-xxs)'}} />
+        <span style={{color: 'var(--sbb-color-granite-default)'}}>
+          <div style={{display: 'flex', 'align-items': 'center', gap: 'var(--sbb-spacing-fixed-1x)'}}>
             1 x 0 x Supersaver ticket, Half-Fare Card{' '}
             <sbb-tooltip-trigger id="tooltip-trigger-1" icon-name="circle-information-small" />
           </div>
@@ -252,11 +255,11 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
       </sbb-checkbox>
       <div slot="content">
         <sbb-checkbox-group orientation="vertical">
-          <sbb-checkbox value="option-1" style="width: 100%">
+          <sbb-checkbox value="option-1" style={{width: '100%'}}>
             Option one
             <span
               slot="suffix"
-              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+              style={{'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)'}}
             >
               <span style={suffixStyle}>
                 <span class="sbb-text-m">
@@ -265,11 +268,11 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
               </span>
             </span>
           </sbb-checkbox>
-          <sbb-checkbox value="option-2" style="width: 100%">
+          <sbb-checkbox value="option-2" style={{width: '100%'}}>
             Option two
             <span
               slot="suffix"
-              style="margin-inline-start: auto; color: var(--sbb-color-granite-default)"
+              style={{'margin-inline-start': 'auto', color: 'var(--sbb-color-granite-default)'}}
             >
               <span style={suffixStyle}>
                 <span class="sbb-text-m">
@@ -279,9 +282,9 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
             </span>
           </sbb-checkbox>
         </sbb-checkbox-group>
-        <sbb-divider style="margin-block: var(--sbb-spacing-responsive-xxs)" />
-        <span style="color: var(--sbb-color-granite-default)">
-          <div style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x)">
+        <sbb-divider style={{'margin-block': 'var(--sbb-spacing-responsive-xxs)'}} />
+        <span style={{color: 'var(--sbb-color-granite-default)'}}>
+          <div style={{display: 'flex', 'align-items': 'center', gap: 'var(--sbb-spacing-fixed-1x)'}}>
             1 x 0 x City Ticket incl. City Supplement City, Half-Fare Card{' '}
             <sbb-tooltip-trigger id="tooltip-trigger-2" icon-name="circle-information-small" />
           </div>
@@ -297,7 +300,7 @@ const TicketsOptionsExampleTemplate = ({ checkedInput, disabledInput, ...args })
   </sbb-checkbox-group>
 );
 
-const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }) => (
+const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
   <sbb-radio-button-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       <sbb-radio-button value="mainoption1" checked={checkedInput}>
@@ -321,7 +324,7 @@ const NestedRadioTemplate = ({ checkedInput, disabledInput, ...args }) => (
   </sbb-radio-button-group>
 );
 
-const NestedCheckboxTemplate = ({ checkedInput, disabledInput, ...args }) => (
+const NestedCheckboxTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element => (
   <sbb-checkbox-group orientation="vertical" horizontal-from="large">
     <sbb-selection-panel {...args}>
       <sbb-checkbox value="mainoption1" checked={checkedInput}>
@@ -443,10 +446,10 @@ const WithRadiosErrorMessageTemplate = ({ checkedInput, disabledInput, ...args }
   );
 };
 
-const WithNoContentTemplate = ({ checkedInput, disabledInput, ...args }) => [
+const WithNoContentTemplate = ({ checkedInput, disabledInput, ...args }): JSX.Element[] => [
   <sbb-selection-panel
     {...args}
-    style={'display: block; margin-block-end: var(--sbb-spacing-fixed-4x)'}
+    style={{display: 'block', 'margin-block-end': 'var(--sbb-spacing-fixed-4x)'}}
   >
     {cardbadge()}
     <sbb-checkbox checked={checkedInput} disabled={disabledInput}>
@@ -463,131 +466,215 @@ const WithNoContentTemplate = ({ checkedInput, disabledInput, ...args }) => [
   </sbb-selection-panel>,
 ];
 
-export const WithCheckbox = WithCheckboxTemplate.bind({});
-WithCheckbox.argTypes = basicArgTypes;
-WithCheckbox.args = { ...basicArgs };
+export const WithCheckbox: StoryObj = {
+  render: WithCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
 
-export const WithRadioButton = WithRadioButtonTemplate.bind({});
-WithRadioButton.argTypes = basicArgTypes;
-WithRadioButton.args = { ...basicArgs };
 
-export const WithCheckboxChecked = WithCheckboxTemplate.bind({});
-WithCheckboxChecked.argTypes = basicArgTypes;
-WithCheckboxChecked.args = { ...basicArgs, checkedInput: true };
 
-export const WithRadioButtonChecked = WithRadioButtonTemplate.bind({});
-WithRadioButtonChecked.argTypes = basicArgTypes;
-WithRadioButtonChecked.args = { ...basicArgs, checkedInput: true };
+export const WithRadioButton: StoryObj = {
+  render: WithRadioButtonTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
 
-export const WithCheckboxDisabled = WithCheckboxTemplate.bind({});
-WithCheckboxDisabled.argTypes = basicArgTypes;
-WithCheckboxDisabled.args = { ...basicArgs, disabledInput: true };
 
-export const WithRadioButtonDisabled = WithRadioButtonTemplate.bind({});
-WithRadioButtonDisabled.argTypes = basicArgTypes;
-WithRadioButtonDisabled.args = { ...basicArgs, disabledInput: true };
 
-export const WithCheckboxCheckedDisabled = WithCheckboxTemplate.bind({});
-WithCheckboxCheckedDisabled.argTypes = basicArgTypes;
-WithCheckboxCheckedDisabled.args = { ...basicArgs, checkedInput: true, disabledInput: true };
+export const WithCheckboxChecked: StoryObj = {
+  render: WithCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
 
-export const WithRadioButtonCheckedDisabled = WithRadioButtonTemplate.bind({});
-WithRadioButtonCheckedDisabled.argTypes = basicArgTypes;
-WithRadioButtonCheckedDisabled.args = { ...basicArgs, checkedInput: true, disabledInput: true };
 
-export const WithCheckboxGroup = WithCheckboxGroupTemplate.bind({});
-WithCheckboxGroup.argTypes = basicArgTypes;
-WithCheckboxGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
 
-export const WithRadioButtonGroup = WithRadioButtonGroupTemplate.bind({});
-WithRadioButtonGroup.argTypes = basicArgTypes;
-WithRadioButtonGroup.args = { ...basicArgs, checkedInput: true, disabledInput: true };
+export const WithRadioButtonChecked: StoryObj = {
+  render: WithRadioButtonTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
 
-export const WithCheckboxGroupForceOpen = WithCheckboxGroupTemplate.bind({});
-WithCheckboxGroupForceOpen.argTypes = basicArgTypes;
-WithCheckboxGroupForceOpen.args = {
+
+
+export const WithCheckboxDisabled: StoryObj = {
+  render: WithCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabledInput: true },
+};
+
+
+
+export const WithRadioButtonDisabled: StoryObj = {
+  render: WithRadioButtonTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabledInput: true },
+};
+
+
+
+export const WithCheckboxCheckedDisabled: StoryObj = {
+  render: WithCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+
+
+export const WithRadioButtonCheckedDisabled: StoryObj = {
+  render: WithRadioButtonTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+
+
+export const WithCheckboxGroup: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+
+
+export const WithRadioButtonGroup: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true, disabledInput: true },
+};
+
+
+
+export const WithCheckboxGroupForceOpen: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'force-open': true,
   checkedInput: true,
   disabledInput: true,
+},
 };
 
-export const WithRadioButtonGroupForceOpen = WithRadioButtonGroupTemplate.bind({});
-WithRadioButtonGroupForceOpen.argTypes = basicArgTypes;
-WithRadioButtonGroupForceOpen.args = {
+
+
+export const WithRadioButtonGroupForceOpen: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'force-open': true,
   checkedInput: true,
   disabledInput: true,
+},
 };
 
-export const WithRadioButtonGroupAllowEmpty = WithRadioButtonGroupTemplate.bind({});
-WithRadioButtonGroupAllowEmpty.argTypes = basicArgTypes;
-WithRadioButtonGroupAllowEmpty.args = {
+
+
+export const WithRadioButtonGroupAllowEmpty: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   allowEmptySelection: true,
   checkedInput: true,
   disabledInput: true,
+},
 };
 
-export const WithCheckboxGroupMilk = WithCheckboxGroupTemplate.bind({});
-WithCheckboxGroupMilk.argTypes = basicArgTypes;
-WithCheckboxGroupMilk.args = {
+
+
+export const WithCheckboxGroupMilk: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   color: color.options[1],
   checkedInput: true,
   disabledInput: true,
+},
 };
 
-export const WithRadioButtonGroupMilk = WithRadioButtonGroupTemplate.bind({});
-WithRadioButtonGroupMilk.argTypes = basicArgTypes;
-WithRadioButtonGroupMilk.args = {
+
+
+export const WithRadioButtonGroupMilk: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   color: color.options[1],
   checkedInput: true,
   disabledInput: true,
+},
 };
 
-export const WithCheckboxesErrorMessage = WithCheckboxesErrorMessageTemplate.bind({});
-WithCheckboxesErrorMessage.argTypes = basicArgTypes;
-WithCheckboxesErrorMessage.args = {
+
+
+export const WithCheckboxesErrorMessage: StoryObj = {
+  render: WithCheckboxesErrorMessageTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'force-open': true,
   disabledInput: true,
+},
 };
 
-export const WithRadiosErrorMessage = WithRadiosErrorMessageTemplate.bind({});
-WithRadiosErrorMessage.argTypes = basicArgTypes;
-WithRadiosErrorMessage.args = {
+
+
+export const WithRadiosErrorMessage: StoryObj = {
+  render: WithRadiosErrorMessageTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'force-open': true,
   disabledInput: true,
+},
 };
 
-export const WithNoContent = WithNoContentTemplate.bind({});
-WithNoContent.argTypes = basicArgTypes;
-WithNoContent.args = { ...basicArgs, checkedInput: true };
 
-export const TicketsOptionsExample = TicketsOptionsExampleTemplate.bind({});
-TicketsOptionsExample.argTypes = basicArgTypes;
-TicketsOptionsExample.args = { ...basicArgs, checkedInput: true };
 
-export const NestedRadios = NestedRadioTemplate.bind({});
-NestedRadios.argTypes = basicArgTypes;
-NestedRadios.args = { ...basicArgs, checkedInput: true };
+export const WithNoContent: StoryObj = {
+  render: WithNoContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
 
-export const NestedCheckboxes = NestedCheckboxTemplate.bind({});
-NestedCheckboxes.argTypes = basicArgTypes;
-NestedCheckboxes.args = { ...basicArgs, checkedInput: true };
 
-export default {
+
+export const TicketsOptionsExample: StoryObj = {
+  render: TicketsOptionsExampleTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
+
+
+
+export const NestedRadios: StoryObj = {
+  render: NestedRadioTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
+
+
+
+export const NestedCheckboxes: StoryObj = {
+  render: NestedCheckboxTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, checkedInput: true },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -602,3 +689,5 @@ export default {
   },
   title: 'components/sbb-selection-panel',
 };
+
+export default meta;

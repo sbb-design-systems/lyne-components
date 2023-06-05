@@ -1,62 +1,67 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-travel-hints.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-travel-hints
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   ></sbb-timetable-travel-hints>
 );
 
-const appearance = {
+const appearance: InputType = {
   control: {
     type: 'select',
   },
   options: ['first-level-list', 'second-level-list'],
 };
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
 };
 
-const gridCellRole = {
+const gridCellRole: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   appearance,
   config,
   gridCellRole,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   appearance: appearance.options[0],
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const TravelHintsList = Template.bind({});
-
-TravelHintsList.argTypes = defaultArgTypes;
-TravelHintsList.args = {
+export const TravelHintsList: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData[0],
+},
 };
 
-TravelHintsList.documentation = {
-  title: 'Travel Hints Icon List',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -69,3 +74,5 @@ export default {
   },
   title: 'internals/sbb-timetable-travel-hints',
 };
+
+export default meta;

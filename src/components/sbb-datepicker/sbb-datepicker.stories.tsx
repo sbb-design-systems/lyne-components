@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
 import isChromatic from 'chromatic/isChromatic';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -15,7 +18,7 @@ const value = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -24,7 +27,7 @@ const disabled = {
   },
 };
 
-const readonly = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -33,7 +36,7 @@ const readonly = {
   },
 };
 
-const required = {
+const required: InputType = {
   control: {
     type: 'boolean',
   },
@@ -42,7 +45,7 @@ const required = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -51,7 +54,7 @@ const form = {
   },
 };
 
-const min = {
+const min: InputType = {
   control: {
     type: 'date',
   },
@@ -60,7 +63,7 @@ const min = {
   },
 };
 
-const max = {
+const max: InputType = {
   control: {
     type: 'date',
   },
@@ -69,7 +72,7 @@ const max = {
   },
 };
 
-const wide = {
+const wide: InputType = {
   control: {
     type: 'boolean',
   },
@@ -77,7 +80,7 @@ const wide = {
     category: 'Datepicker attribute',
   },
 };
-const cutoffYearOffset = {
+const cutoffYearOffset: InputType = {
   control: {
     type: 'number',
   },
@@ -91,7 +94,7 @@ const filterFunctions = [
   (d) => d.getDay() !== 6 && d.getDay() !== 0,
   (d) => d.getDate() % 2 === 1,
 ];
-const dateFilter = {
+const dateFilter: InputType = {
   options: Object.keys(filterFunctions),
   mapping: filterFunctions,
   control: {
@@ -107,7 +110,7 @@ const dateFilter = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -116,7 +119,7 @@ const ariaLabel = {
   },
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -126,7 +129,7 @@ const size = {
   },
 };
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -135,7 +138,7 @@ const label = {
   },
 };
 
-const optional = {
+const optional: InputType = {
   control: {
     type: 'boolean',
   },
@@ -144,7 +147,7 @@ const optional = {
   },
 };
 
-const borderless = {
+const borderless: InputType = {
   control: {
     type: 'boolean',
   },
@@ -153,7 +156,7 @@ const borderless = {
   },
 };
 
-const dataNow = {
+const dataNow: InputType = {
   control: {
     type: 'date',
   },
@@ -162,7 +165,7 @@ const dataNow = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -171,7 +174,7 @@ const disableAnimation = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   value,
   form,
   disabled,
@@ -187,7 +190,7 @@ const basicArgTypes = {
   cutoffYearOffset: cutoffYearOffset,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   value: `15.02.2023`,
   form: undefined,
   disabled: false,
@@ -202,7 +205,7 @@ const basicArgs = {
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
-const formFieldBasicArgsTypes = {
+const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label,
   size,
@@ -256,7 +259,7 @@ const Template = ({
   ...args
 }) => {
   return [
-    <div style="display: flex; gap: 0.25rem;">
+    <div style={{display: 'flex', gap: '0.25rem'}}>
       <sbb-datepicker-previous-day date-picker="datepicker" />
       <sbb-datepicker-toggle
         date-picker="datepicker"
@@ -277,7 +280,7 @@ const Template = ({
       ></sbb-datepicker>
       <sbb-datepicker-next-day date-picker="datepicker" />
     </div>,
-    <div id="container-value" style="margin-block-start: 1rem;">
+    <div id="container-value" style={{'margin-block-start': '1rem'}}>
       Change date to get the latest value:
     </div>,
   ];
@@ -319,7 +322,7 @@ const TemplateFormField = ({
         data-now={dataNow}
       ></sbb-datepicker>
     </sbb-form-field>,
-    <div id="container-value" style="margin-block-start: 1rem;">
+    <div id="container-value" style={{'margin-block-start': '1rem'}}>
       Change date to get the latest value:
     </div>,
   ];
@@ -331,59 +334,100 @@ const changeEventHandler = async (event) => {
   document.getElementById('container-value').append(div);
 };
 
-export const InFormField = TemplateFormField.bind({});
-InFormField.argTypes = { ...formFieldBasicArgsTypes };
-InFormField.args = { ...formFieldBasicArgs };
-InFormField.play = isChromatic() && playStory;
+export const InFormField: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs },
+  play: isChromatic() && playStory,
+};
 
-export const InFormFieldDisabled = TemplateFormField.bind({});
-InFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldDisabled.args = { ...formFieldBasicArgs, disabled: true };
 
-export const InFormFieldReadonly = TemplateFormField.bind({});
-InFormFieldReadonly.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldReadonly.args = { ...formFieldBasicArgs, readonly: true };
 
-export const InFormFieldWide = TemplateFormField.bind({});
-InFormFieldWide.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldWide.args = { ...formFieldBasicArgs, wide: true };
 
-export const InFormFieldWithMinAndMax = TemplateFormField.bind({});
-InFormFieldWithMinAndMax.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldWithMinAndMax.args = {
+export const InFormFieldDisabled: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, disabled: true },
+};
+
+
+
+export const InFormFieldReadonly: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, readonly: true },
+};
+
+
+
+export const InFormFieldWide: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, wide: true },
+};
+
+
+
+export const InFormFieldWithMinAndMax: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
   ...formFieldBasicArgs,
   min: new Date(2023, 1, 8),
   max: new Date(2023, 1, 22),
+},
 };
 
-export const InFormFieldWithDateFilter = TemplateFormField.bind({});
-InFormFieldWithDateFilter.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldWithDateFilter.args = { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] };
 
-export const InFormFieldLarge = TemplateFormField.bind({});
-InFormFieldLarge.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldLarge.args = { ...formFieldBasicArgs, size: size.options[1] };
 
-export const InFormFieldOptional = TemplateFormField.bind({});
-InFormFieldOptional.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldOptional.args = { ...formFieldBasicArgs, optional: true };
+export const InFormFieldWithDateFilter: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
+};
 
-export const InFormFieldBorderless = TemplateFormField.bind({});
-InFormFieldBorderless.argTypes = { ...formFieldBasicArgsTypes };
-InFormFieldBorderless.args = { ...formFieldBasicArgs, borderless: true };
 
-export const WithoutFormField = Template.bind({});
-WithoutFormField.argTypes = { ...basicArgTypes };
-WithoutFormField.args = { ...basicArgs };
 
-export default {
+export const InFormFieldLarge: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, size: size.options[1] },
+};
+
+
+
+export const InFormFieldOptional: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, optional: true },
+};
+
+
+
+export const InFormFieldBorderless: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, borderless: true },
+};
+
+
+
+export const WithoutFormField: StoryObj = {
+  render: Template,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -394,10 +438,12 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '600px',
+      story: { inline: false, iframeHeight: '600px', },
+      
       extractComponentDescription: () => readme,
     },
   },
   title: 'components/form elements/sbb-datepicker',
 };
+
+export default meta;

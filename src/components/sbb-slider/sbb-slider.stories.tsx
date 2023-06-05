@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const changeEventHandler = (event) => {
   const div = document.createElement('div');
@@ -10,26 +13,26 @@ const changeEventHandler = (event) => {
 
 const TemplateSbbSlider = (args) => <sbb-slider {...args}></sbb-slider>;
 
-const TemplateSbbSliderChangeEvent = (args) => [
+const TemplateSbbSliderChangeEvent = (args): JSX.Element[] => [
   <sbb-slider {...args} onChange={(event) => changeEventHandler(event)}></sbb-slider>,
-  <div style="margin-block-start: 2rem;">Change slider position:</div>,
+  <div style={{'margin-block-start': '2rem'}}>Change slider position:</div>,
   <div id="container-value"></div>,
 ];
 
-const TemplateSlottedIcons = (args) => (
+const TemplateSlottedIcons = (args): JSX.Element => (
   <sbb-slider {...args}>
     <sbb-icon slot="prefix" name="battery-level-empty-small" />
     <sbb-icon slot="suffix" name="battery-level-high-small" />
   </sbb-slider>
 );
 
-const TemplateSbbSliderInFormField = ({ label, optional, ...args }) => (
+const TemplateSbbSliderInFormField = ({ label, optional, ...args }): JSX.Element => (
   <sbb-form-field label={label} optional={optional}>
     {TemplateSbbSlider(args)}
   </sbb-form-field>
 );
 
-const valueArg = {
+const valueArg: InputType = {
   control: {
     type: 'text',
   },
@@ -38,7 +41,7 @@ const valueArg = {
   },
 };
 
-const valueAsNumberArg = {
+const valueAsNumberArg: InputType = {
   control: {
     type: 'number',
   },
@@ -47,7 +50,7 @@ const valueAsNumberArg = {
   },
 };
 
-const minArg = {
+const minArg: InputType = {
   control: {
     type: 'text',
   },
@@ -56,7 +59,7 @@ const minArg = {
   },
 };
 
-const maxArg = {
+const maxArg: InputType = {
   control: {
     type: 'text',
   },
@@ -65,7 +68,7 @@ const maxArg = {
   },
 };
 
-const disabledArg = {
+const disabledArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -74,7 +77,7 @@ const disabledArg = {
   },
 };
 
-const readonlyArg = {
+const readonlyArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -83,7 +86,7 @@ const readonlyArg = {
   },
 };
 
-const startIconArg = {
+const startIconArg: InputType = {
   control: {
     type: 'text',
   },
@@ -92,7 +95,7 @@ const startIconArg = {
   },
 };
 
-const endIconArg = {
+const endIconArg: InputType = {
   control: {
     type: 'text',
   },
@@ -101,7 +104,7 @@ const endIconArg = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -110,7 +113,7 @@ const ariaLabel = {
   },
 };
 
-const labelArgArg = {
+const labelArgArg: InputType = {
   control: {
     type: 'text',
   },
@@ -119,7 +122,7 @@ const labelArgArg = {
   },
 };
 
-const optionalArg = {
+const optionalArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -128,7 +131,7 @@ const optionalArg = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   max: maxArg,
   min: minArg,
   disabled: disabledArg,
@@ -140,13 +143,13 @@ const basicArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const formFieldBasicArgsTypes = {
+const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label: labelArgArg,
   optional: optionalArg,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   max: '100',
   min: '0',
   disabled: false,
@@ -164,54 +167,90 @@ const formFieldBasicArgs = {
   optional: undefined,
 };
 
-export const sbbSlider = TemplateSbbSlider.bind({});
-sbbSlider.argTypes = { ...basicArgTypes };
-sbbSlider.args = { ...basicArgs };
+export const sbbSlider: StoryObj = {
+  render: TemplateSbbSlider,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs },
+};
 
-export const sbbSliderChangeEvent = TemplateSbbSliderChangeEvent.bind({});
-sbbSliderChangeEvent.argTypes = { ...basicArgTypes };
-sbbSliderChangeEvent.args = { ...basicArgs };
 
-export const sbbSliderWithoutIcons = TemplateSbbSlider.bind({});
-sbbSliderWithoutIcons.argTypes = { ...basicArgTypes };
-sbbSliderWithoutIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
 
-export const sbbSliderSlottedIcons = TemplateSlottedIcons.bind({});
-sbbSliderSlottedIcons.argTypes = { ...basicArgTypes };
-sbbSliderSlottedIcons.args = { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined };
+export const sbbSliderChangeEvent: StoryObj = {
+  render: TemplateSbbSliderChangeEvent,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs },
+};
 
-export const sbbSliderDisabled = TemplateSbbSlider.bind({});
-sbbSliderDisabled.argTypes = { ...basicArgTypes };
-sbbSliderDisabled.args = { ...basicArgs, disabled: true };
 
-export const sbbSliderReadonly = TemplateSbbSlider.bind({});
-sbbSliderReadonly.argTypes = { ...basicArgTypes };
-sbbSliderReadonly.args = { ...basicArgs, readonly: true };
 
-export const sbbSliderInFormField = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormField.argTypes = { ...formFieldBasicArgsTypes };
-sbbSliderInFormField.args = formFieldBasicArgs;
+export const sbbSliderWithoutIcons: StoryObj = {
+  render: TemplateSbbSlider,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined },
+};
 
-export const sbbSliderInFormFieldNoIcon = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormFieldNoIcon.argTypes = { ...formFieldBasicArgsTypes };
-sbbSliderInFormFieldNoIcon.args = {
+
+
+export const sbbSliderSlottedIcons: StoryObj = {
+  render: TemplateSlottedIcons,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs, 'start-icon': undefined, 'end-icon': undefined },
+};
+
+
+
+export const sbbSliderDisabled: StoryObj = {
+  render: TemplateSbbSlider,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs, disabled: true },
+};
+
+
+
+export const sbbSliderReadonly: StoryObj = {
+  render: TemplateSbbSlider,
+  argTypes: { ...basicArgTypes },
+  args: { ...basicArgs, readonly: true },
+};
+
+
+
+export const sbbSliderInFormField: StoryObj = {
+  render: TemplateSbbSliderInFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: formFieldBasicArgs,
+};
+
+
+
+export const sbbSliderInFormFieldNoIcon: StoryObj = {
+  render: TemplateSbbSliderInFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
   ...formFieldBasicArgs,
   'start-icon': undefined,
   'end-icon': undefined,
+},
 };
 
-export const sbbSliderInFormFieldDisabled = TemplateSbbSliderInFormField.bind({});
-sbbSliderInFormFieldDisabled.argTypes = { ...formFieldBasicArgsTypes };
-sbbSliderInFormFieldDisabled.args = { ...formFieldBasicArgs, disabled: true };
 
-export default {
+
+export const sbbSliderInFormFieldDisabled: StoryObj = {
+  render: TemplateSbbSliderInFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, disabled: true },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -226,3 +265,5 @@ export default {
   },
   title: 'components/form elements/sbb-slider',
 };
+
+export default meta;

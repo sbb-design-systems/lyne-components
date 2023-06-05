@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
@@ -17,20 +20,20 @@ const focusStyle = (context) => {
 
 // --- Component
 
-const Template = ({ text, active, ...args }) => (
+const Template = ({ text, active, ...args }): JSX.Element => (
   <sbb-button {...args} data-active={active}>
     {text}
   </sbb-button>
 );
 
-const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element => (
   <sbb-button {...args}>
     {text}
     <sbb-icon slot="icon" name={iconName}></sbb-icon>
   </sbb-button>
 );
 
-const FixedWidthTemplate = ({ text, ...args }) => (
+const FixedWidthTemplate = ({ text, ...args }): JSX.Element => (
   <div>
     <p>
       <sbb-button
@@ -58,37 +61,37 @@ const FixedWidthTemplate = ({ text, ...args }) => (
 
 // --- Arg types
 
-const text = {
+const text: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const variant = {
+const variant: InputType = {
   control: {
     type: 'select',
   },
   options: ['primary', 'secondary', 'tertiary', 'transparent'],
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['l', 'm'],
 };
 
-const isStatic = {
+const isStatic: InputType = {
   control: { type: 'boolean' },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -97,7 +100,7 @@ const iconName = {
   },
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -106,7 +109,7 @@ const href = {
   },
 };
 
-const target = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -115,7 +118,7 @@ const target = {
   },
 };
 
-const rel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -124,7 +127,7 @@ const rel = {
   },
 };
 
-const download = {
+const download: InputType = {
   control: {
     type: 'boolean',
   },
@@ -133,7 +136,7 @@ const download = {
   },
 };
 
-const type = {
+const type: InputType = {
   control: {
     type: 'select',
   },
@@ -143,7 +146,7 @@ const type = {
   },
 };
 
-const disabledArgType = {
+const disabledArgType: InputType = {
   control: {
     type: 'boolean',
   },
@@ -152,7 +155,7 @@ const disabledArgType = {
   },
 };
 
-const name = {
+const name: InputType = {
   control: {
     type: 'text',
   },
@@ -161,7 +164,7 @@ const name = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -170,7 +173,7 @@ const value = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -179,13 +182,13 @@ const form = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   text,
   variant,
   negative,
@@ -204,7 +207,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   text: 'Button',
   variant: variant.options[0],
   negative: false,
@@ -223,256 +226,380 @@ const defaultArgs = {
   'aria-label': undefined,
 };
 
-export const Primary = Template.bind({});
-Primary.argTypes = defaultArgTypes;
-Primary.args = {
+export const Primary: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
+},
 };
 
-export const Secondary = Template.bind({});
-Secondary.argTypes = defaultArgTypes;
-Secondary.args = {
+
+
+export const Secondary: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[1],
+},
 };
 
-export const Tertiary = Template.bind({});
-Tertiary.argTypes = defaultArgTypes;
-Tertiary.args = {
+
+
+export const Tertiary: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[2],
+},
 };
 
-export const Transparent = Template.bind({});
-Transparent.argTypes = defaultArgTypes;
-Transparent.args = {
+
+
+export const Transparent: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[3],
+},
 };
 
-export const PrimaryNegative = Template.bind({});
-PrimaryNegative.argTypes = defaultArgTypes;
-PrimaryNegative.args = {
+
+
+export const PrimaryNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
+},
 };
 
-export const SecondaryNegative = Template.bind({});
-SecondaryNegative.argTypes = defaultArgTypes;
-SecondaryNegative.args = {
+
+
+export const SecondaryNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[1],
   negative: true,
+},
 };
 
-export const TertiaryNegative = Template.bind({});
-TertiaryNegative.argTypes = defaultArgTypes;
-TertiaryNegative.args = {
+
+
+export const TertiaryNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[2],
   negative: true,
+},
 };
 
-export const TransparentNegative = Template.bind({});
-TransparentNegative.argTypes = defaultArgTypes;
-TransparentNegative.args = {
+
+
+export const TransparentNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[3],
   negative: true,
+},
 };
 
-export const IconOnly = Template.bind({});
-IconOnly.argTypes = defaultArgTypes;
-IconOnly.args = {
+
+
+export const IconOnly: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'arrow-right-small',
   text: undefined,
+},
 };
 
-export const PrimaryDisabled = Template.bind({});
-PrimaryDisabled.argTypes = defaultArgTypes;
-PrimaryDisabled.args = {
+
+
+export const PrimaryDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   disabled: true,
+},
 };
 
-export const SecondaryDisabled = Template.bind({});
-SecondaryDisabled.argTypes = defaultArgTypes;
-SecondaryDisabled.args = {
+
+
+export const SecondaryDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[1],
   disabled: true,
+},
 };
 
-export const TertiaryDisabled = Template.bind({});
-TertiaryDisabled.argTypes = defaultArgTypes;
-TertiaryDisabled.args = {
+
+
+export const TertiaryDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[2],
   disabled: true,
+},
 };
 
-export const TransparentDisabled = Template.bind({});
-TransparentDisabled.argTypes = defaultArgTypes;
-TransparentDisabled.args = {
+
+
+export const TransparentDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[3],
   disabled: true,
+},
 };
 
-export const PrimaryNegativeDisabled = Template.bind({});
-PrimaryNegativeDisabled.argTypes = defaultArgTypes;
-PrimaryNegativeDisabled.args = {
+
+
+export const PrimaryNegativeDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
   disabled: true,
+},
 };
 
-export const SecondaryNegativeDisabled = Template.bind({});
-SecondaryNegativeDisabled.argTypes = defaultArgTypes;
-SecondaryNegativeDisabled.args = {
+
+
+export const SecondaryNegativeDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[1],
   negative: true,
   disabled: true,
+},
 };
 
-export const TertiaryNegativeDisabled = Template.bind({});
-TertiaryNegativeDisabled.argTypes = defaultArgTypes;
-TertiaryNegativeDisabled.args = {
+
+
+export const TertiaryNegativeDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[2],
   negative: true,
   disabled: true,
+},
 };
 
-export const TransparentNegativeDisabled = Template.bind({});
-TransparentNegativeDisabled.argTypes = defaultArgTypes;
-TransparentNegativeDisabled.args = {
+
+
+export const TransparentNegativeDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[3],
   negative: true,
   disabled: true,
+},
 };
 
-export const IconOnlyDisabled = Template.bind({});
-IconOnlyDisabled.argTypes = defaultArgTypes;
-IconOnlyDisabled.args = {
+
+
+export const IconOnlyDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'arrow-right-small',
   text: undefined,
   disabled: true,
+},
 };
 
-export const NoIcon = Template.bind({});
-NoIcon.argTypes = defaultArgTypes;
-NoIcon.args = { ...defaultArgs, 'icon-name': undefined };
 
-export const SizeM = Template.bind({});
-SizeM.argTypes = defaultArgTypes;
-SizeM.args = {
+
+export const NoIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'icon-name': undefined },
+};
+
+
+
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[1],
+},
 };
 
-export const FixedWidth = FixedWidthTemplate.bind({});
-FixedWidth.argTypes = defaultArgTypes;
-FixedWidth.args = {
+
+
+export const FixedWidth: StoryObj = {
+  render: FixedWidthTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   text: 'Button with long text',
   'icon-name': 'arrow-right-small',
+},
 };
 
-export const WithSlottedIcon = IconSlotTemplate.bind({});
-WithSlottedIcon.argTypes = defaultArgTypes;
-WithSlottedIcon.args = {
+
+
+export const WithSlottedIcon: StoryObj = {
+  render: IconSlotTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
+},
 };
 
-export const LinkOpensInNewWindow = IconSlotTemplate.bind({});
-LinkOpensInNewWindow.argTypes = defaultArgTypes;
-LinkOpensInNewWindow.args = {
+
+
+export const LinkOpensInNewWindow: StoryObj = {
+  render: IconSlotTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   href: 'https://www.sbb.ch',
   'icon-name': 'chevron-small-right-small',
   target: '_blank',
   'aria-label': undefined,
+},
 };
 
-export const PrimaryActive = Template.bind({});
-PrimaryActive.argTypes = defaultArgTypes;
-PrimaryActive.args = {
+
+
+export const PrimaryActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   active: true,
+},
 };
 
-export const SecondaryActive = Template.bind({});
-SecondaryActive.argTypes = defaultArgTypes;
-SecondaryActive.args = {
+
+
+export const SecondaryActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[1],
   active: true,
+},
 };
 
-export const TertiaryActive = Template.bind({});
-TertiaryActive.argTypes = defaultArgTypes;
-TertiaryActive.args = {
+
+
+export const TertiaryActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[2],
   active: true,
+},
 };
 
-export const TransparentActive = Template.bind({});
-TransparentActive.argTypes = defaultArgTypes;
-TransparentActive.args = {
+
+
+export const TransparentActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[3],
   active: true,
+},
 };
 
-export const PrimaryNegativeActive = Template.bind({});
-PrimaryNegativeActive.argTypes = defaultArgTypes;
-PrimaryNegativeActive.args = {
+
+
+export const PrimaryNegativeActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
   active: true,
+},
 };
 
-export const SecondaryNegativeActive = Template.bind({});
-SecondaryNegativeActive.argTypes = defaultArgTypes;
-SecondaryNegativeActive.args = {
+
+
+export const SecondaryNegativeActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[1],
   negative: true,
   active: true,
+},
 };
 
-export const TertiaryNegativeActive = Template.bind({});
-TertiaryNegativeActive.argTypes = defaultArgTypes;
-TertiaryNegativeActive.args = {
+
+
+export const TertiaryNegativeActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[2],
   negative: true,
   active: true,
+},
 };
 
-export const TransparentNegativeActive = Template.bind({});
-TransparentNegativeActive.argTypes = defaultArgTypes;
-TransparentNegativeActive.args = {
+
+
+export const TransparentNegativeActive: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[3],
   negative: true,
   active: true,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   excludeStories: /.*Active$/,
   decorators: [
     (Story, context) => (
@@ -480,7 +607,7 @@ export default {
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -495,3 +622,5 @@ export default {
   },
   title: 'components/sbb-button',
 };
+
+export default meta;

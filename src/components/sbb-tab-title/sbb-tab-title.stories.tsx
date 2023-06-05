@@ -1,7 +1,10 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = ({ iconSlot, label, amountSlot, ...args }) => (
+const Template = ({ iconSlot, label, amountSlot, ...args }): JSX.Element => (
   <sbb-tab-title {...args}>
     {iconSlot && <sbb-icon slot="icon" name={iconSlot}></sbb-icon>}
     {label}
@@ -9,32 +12,32 @@ const Template = ({ iconSlot, label, amountSlot, ...args }) => (
   </sbb-tab-title>
 );
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'select',
   },
   options: ['app-icon-small', 'train-small', 'swisspass-small', 'pie-small'],
 };
 
-const amount = {
+const amount: InputType = {
   control: {
     type: 'number',
   },
 };
 
-const amountSlot = {
+const amountSlot: InputType = {
   control: {
     type: 'number',
   },
 };
 
-const activeArg = {
+const activeArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -43,7 +46,7 @@ const activeArg = {
   },
 };
 
-const disabledArg = {
+const disabledArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -52,7 +55,7 @@ const disabledArg = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   iconSlot: iconName,
@@ -62,7 +65,7 @@ const basicArgTypes = {
   disabled: disabledArg,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   label: 'Tab title',
   'icon-name': iconName.options[0],
   iconSlot: undefined,
@@ -72,68 +75,113 @@ const basicArgs = {
   disabled: false,
 };
 
-export const Default = Template.bind({});
-Default.argTypes = basicArgTypes;
-Default.args = { ...basicArgs };
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
 
-export const Active = Template.bind({});
-Active.argTypes = basicArgTypes;
-Active.args = { ...basicArgs, active: true };
 
-export const Disabled = Template.bind({});
-Disabled.argTypes = basicArgTypes;
-Disabled.args = { ...basicArgs, disabled: true };
 
-export const ActiveAndDisabled = Template.bind({});
-ActiveAndDisabled.argTypes = basicArgTypes;
-ActiveAndDisabled.args = { ...basicArgs, disabled: true, active: true };
+export const Active: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, active: true },
+};
 
-export const WithoutIcon = Template.bind({});
-WithoutIcon.argTypes = basicArgTypes;
-WithoutIcon.args = { ...basicArgs, 'icon-name': undefined };
 
-export const WithoutAmount = Template.bind({});
-WithoutAmount.argTypes = basicArgTypes;
-WithoutAmount.args = { ...basicArgs, amount: undefined };
 
-export const WithoutIconAndWithoutAmount = Template.bind({});
-WithoutIconAndWithoutAmount.argTypes = basicArgTypes;
-WithoutIconAndWithoutAmount.args = { ...basicArgs, amount: undefined, 'icon-name': undefined };
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
 
-export const SlottedIcon = Template.bind({});
-SlottedIcon.argTypes = basicArgTypes;
-SlottedIcon.args = {
+
+
+export const ActiveAndDisabled: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, active: true },
+};
+
+
+
+export const WithoutIcon: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'icon-name': undefined },
+};
+
+
+
+export const WithoutAmount: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: undefined },
+};
+
+
+
+export const WithoutIconAndWithoutAmount: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: undefined, 'icon-name': undefined },
+};
+
+
+
+export const SlottedIcon: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'icon-name': undefined,
   iconSlot: 'train-small',
+},
 };
 
-export const SlottedAmount = Template.bind({});
-SlottedAmount.argTypes = basicArgTypes;
-SlottedAmount.args = { ...basicArgs, amount: undefined, amountSlot: 123 };
 
-export const SlottedAmountDisabled = Template.bind({});
-SlottedAmountDisabled.argTypes = basicArgTypes;
-SlottedAmountDisabled.args = { ...basicArgs, amount: undefined, amountSlot: 123, disabled: true };
 
-export const WithEllipsis = Template.bind({});
-WithEllipsis.argTypes = basicArgTypes;
-WithEllipsis.args = {
+export const SlottedAmount: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: undefined, amountSlot: 123 },
+};
+
+
+
+export const SlottedAmountDisabled: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: undefined, amountSlot: 123, disabled: true },
+};
+
+
+
+export const WithEllipsis: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   label: `A very long label which gets ellipsis when there is no more space to display it`,
-};
-WithEllipsis.decorators = [
+},
+  decorators: [
   (Story) => (
-    <div style={'max-width: 400px'}>
+    <div style={{'max-width': '400px'}}>
       <Story />
     </div>
   ),
-];
+],
+};
 
-export default {
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -148,3 +196,5 @@ export default {
   },
   title: 'components/sbb-tab-title',
 };
+
+export default meta;

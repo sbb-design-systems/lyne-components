@@ -1,47 +1,62 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const Template = (args) => <sbb-signet {...args} />;
 
-const protectiveRoom = {
+const protectiveRoom: InputType = {
   control: {
     type: 'select',
   },
   options: ['none', 'minimal', 'ideal'],
 };
 
-const accessibilityLabel = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'protective-room': protectiveRoom,
   'accessibility-label': accessibilityLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'protective-room': protectiveRoom.options[0],
   'accessibility-label': undefined,
 };
 
-export const NoProtectiveRoom = Template.bind({});
-NoProtectiveRoom.argTypes = defaultArgTypes;
-NoProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[0] };
+export const NoProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[0] },
+};
 
-export const MinimalProtectiveRoom = Template.bind({});
-MinimalProtectiveRoom.argTypes = defaultArgTypes;
-MinimalProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[1] };
 
-export const IdealProtectiveRoom = Template.bind({});
-IdealProtectiveRoom.argTypes = defaultArgTypes;
-IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
 
-export default {
+export const MinimalProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
+};
+
+
+
+export const IdealProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style="max-width: 300px;">
+      <div style={{'max-width': '300px'}}>
         <Story />
       </div>
     ),
@@ -56,3 +71,5 @@ export default {
   },
   title: 'components/sbb-signet',
 };
+
+export default meta;

@@ -1,9 +1,12 @@
+/** @jsx h */
 import events from './sbb-alert.events.ts';
 import readme from './readme.md';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Default = ({ 'content-slot-text': contentSlotText, ...args }) => (
+const Default = ({ 'content-slot-text': contentSlotText, ...args }): JSX.Element => (
   <sbb-alert {...args}>{contentSlotText}</sbb-alert>
 );
 
@@ -26,7 +29,7 @@ const CustomSlots = ({
   'title-content': titleContent,
   'content-slot-text': contentSlotText,
   ...args
-}) => (
+}): JSX.Element => (
   <sbb-alert {...args}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
     <span slot="title">{titleContent}</span>
@@ -34,60 +37,51 @@ const CustomSlots = ({
   </sbb-alert>
 );
 
-const titleContent = {
+const titleContent: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const titleLevel = {
+const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'select',
   },
   options: ['m', 'l'],
 };
 
-const readonly = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const contentSlotText = {
+const contentSlotText: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const linkContent = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const href = {
+const linkContent: InputType = {
   control: {
     type: 'text',
   },
@@ -96,7 +90,7 @@ const href = {
   },
 };
 
-const target = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -105,7 +99,7 @@ const target = {
   },
 };
 
-const rel = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -114,7 +108,7 @@ const rel = {
   },
 };
 
-const accessibilityLabel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -123,7 +117,16 @@ const accessibilityLabel = {
   },
 };
 
-const defaultArgTypes = {
+const accessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
   size,
@@ -138,7 +141,7 @@ const defaultArgTypes = {
   'accessibility-label': accessibilityLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'title-content': 'Interruption between Berne and Olten',
   'title-level': 3,
   size: size.options[0],
@@ -154,46 +157,74 @@ const defaultArgs = {
   'accessibility-label': undefined,
 };
 
-export const defaultAlert = DefaultWithOtherContent.bind({});
-defaultAlert.argTypes = defaultArgTypes;
-defaultAlert.args = { ...defaultArgs };
+export const defaultAlert: StoryObj = {
+  render: DefaultWithOtherContent,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const sizeL = Default.bind({});
-sizeL.argTypes = defaultArgTypes;
-sizeL.args = { ...defaultArgs, size: 'l' };
 
-export const withoutCloseButton = Default.bind({});
-withoutCloseButton.argTypes = defaultArgTypes;
-withoutCloseButton.args = { ...defaultArgs, readonly: true };
 
-export const withDisabledAnimation = Default.bind({});
-withDisabledAnimation.argTypes = defaultArgTypes;
-withDisabledAnimation.args = { ...defaultArgs, 'disable-animation': true };
+export const sizeL: StoryObj = {
+  render: Default,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: 'l' },
+};
 
-export const withoutLink = Default.bind({});
-withoutLink.argTypes = defaultArgTypes;
-withoutLink.args = { ...defaultArgs, href: undefined };
 
-export const withCustomLinkText = Default.bind({});
-withCustomLinkText.argTypes = defaultArgTypes;
-withCustomLinkText.args = { ...defaultArgs, ['link-content']: 'Follow this link (custom text)' };
 
-export const iconAndTitleAsSlot = CustomSlots.bind({});
-iconAndTitleAsSlot.argTypes = defaultArgTypes;
+export const withoutCloseButton: StoryObj = {
+  render: Default,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, readonly: true },
+};
+
+
+
+export const withDisabledAnimation: StoryObj = {
+  render: Default,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'disable-animation': true },
+};
+
+
+
+export const withoutLink: StoryObj = {
+  render: Default,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, href: undefined },
+};
+
+
+
+export const withCustomLinkText: StoryObj = {
+  render: Default,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, ['link-content']: 'Follow this link (custom text)' },
+};
+
+
+
+export const iconAndTitleAsSlot: StoryObj = {
+  render: CustomSlots,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
 // Remove icon name as it has no purpose in slotted variant
 delete iconAndTitleAsSlot.argTypes['icon-name'];
-iconAndTitleAsSlot.args = { ...defaultArgs };
+
 // Remove icon name as it has no purpose in slotted variant
 delete iconAndTitleAsSlot.args['icon-name'];
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -208,3 +239,5 @@ export default {
   },
   title: 'components/sbb-alert',
 };
+
+export default meta;

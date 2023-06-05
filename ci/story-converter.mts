@@ -237,7 +237,7 @@ function convert() {
               .map((s) => s.trim())
               .filter((s) => !!s)
               .map((s) => {
-                const [property, value] = s.split(':', 1).map((s) => s.trim());
+                const [property, value] = s.split(':', 2).map((s) => s.trim());
                 return `${property.includes('-') ? `'${property}'` : property}: '${value}'`;
               })
               .join(', ')}}}`;

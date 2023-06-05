@@ -1,7 +1,10 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const TooltipTrigger = () => [
+const TooltipTrigger = (): JSX.Element[] => [
   <sbb-tooltip-trigger
     slot="suffix"
     id="tooltip-trigger"
@@ -33,7 +36,7 @@ const TemplateBasicInput = (args) => (
   />
 );
 
-const TemplateBasicSelect = (args) => (
+const TemplateBasicSelect = (args): JSX.Element => (
   <select
     class={args.class}
     placeholder={args.placeholder}
@@ -55,7 +58,7 @@ const TemplateInput = ({
   width,
   'floating-label': floatingLabel,
   ...args
-}) => (
+}): JSX.Element => (
   <sbb-form-field
     error-space={errorSpace}
     label={label}
@@ -78,7 +81,7 @@ const TemplateInputWithSlottedLabel = ({
   width,
   'floating-label': floatingLabel,
   ...args
-}) => (
+}): JSX.Element => (
   <sbb-form-field
     error-space={errorSpace}
     optional={optional}
@@ -132,7 +135,7 @@ const TemplateInputWithErrorSpace = (args) => {
   );
 };
 
-const TemplateInputWithIcons = (args) => (
+const TemplateInputWithIcons = (args): JSX.Element => (
   <sbb-form-field {...args}>
     <sbb-icon slot="prefix" name="pie-small" />
     {TemplateBasicInput(args)}
@@ -140,7 +143,7 @@ const TemplateInputWithIcons = (args) => (
   </sbb-form-field>
 );
 
-const TemplateInputWithButton = ({ disabled, readonly, active, ...args }) => (
+const TemplateInputWithButton = ({ disabled, readonly, active, ...args }): JSX.Element => (
   <sbb-form-field {...args}>
     {TemplateBasicInput({ ...args, disabled, readonly })}
     <sbb-button
@@ -160,7 +163,7 @@ const TemplateInputWithButton = ({ disabled, readonly, active, ...args }) => (
   </sbb-form-field>
 );
 
-const TemplateSelect = (args) => (
+const TemplateSelect = (args): JSX.Element => (
   <sbb-form-field
     error-space={args['error-space']}
     label={args.label}
@@ -221,7 +224,7 @@ const TemplateSelectWithErrorSpace = (args) => {
   );
 };
 
-const TemplateSelectWithIcons = (args) => (
+const TemplateSelectWithIcons = (args): JSX.Element => (
   <sbb-form-field {...args}>
     <span slot="prefix">
       <sbb-icon name="pie-small" />
@@ -231,7 +234,7 @@ const TemplateSelectWithIcons = (args) => (
   </sbb-form-field>
 );
 
-const placeholderArg = {
+const placeholderArg: InputType = {
   control: {
     type: 'text',
   },
@@ -240,7 +243,7 @@ const placeholderArg = {
   },
 };
 
-const classArg = {
+const classArg: InputType = {
   control: {
     type: 'text',
   },
@@ -249,7 +252,7 @@ const classArg = {
   },
 };
 
-const disabledArg = {
+const disabledArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -258,7 +261,7 @@ const disabledArg = {
   },
 };
 
-const readonlyArg = {
+const readonlyArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -267,7 +270,7 @@ const readonlyArg = {
   },
 };
 
-const valueArg = {
+const valueArg: InputType = {
   control: {
     type: 'text',
   },
@@ -276,7 +279,7 @@ const valueArg = {
   },
 };
 
-const errortextArg = {
+const errortextArg: InputType = {
   control: {
     type: 'text',
   },
@@ -285,7 +288,7 @@ const errortextArg = {
   },
 };
 
-const errorSpaceArg = {
+const errorSpaceArg: InputType = {
   control: {
     type: 'select',
   },
@@ -295,7 +298,7 @@ const errorSpaceArg = {
   },
 };
 
-const widthArg = {
+const widthArg: InputType = {
   control: {
     type: 'select',
   },
@@ -305,7 +308,7 @@ const widthArg = {
   },
 };
 
-const labelArg = {
+const labelArg: InputType = {
   control: {
     type: 'text',
   },
@@ -314,7 +317,7 @@ const labelArg = {
   },
 };
 
-const floatingLabelArg = {
+const floatingLabelArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -323,7 +326,7 @@ const floatingLabelArg = {
   },
 };
 
-const optionalArg = {
+const optionalArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -332,7 +335,7 @@ const optionalArg = {
   },
 };
 
-const borderlessArg = {
+const borderlessArg: InputType = {
   control: {
     type: 'boolean',
   },
@@ -341,7 +344,7 @@ const borderlessArg = {
   },
 };
 
-const sizeArg = {
+const sizeArg: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -351,7 +354,7 @@ const sizeArg = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   'error-space': errorSpaceArg,
   label: labelArg,
   'floating-label': floatingLabelArg,
@@ -367,7 +370,7 @@ const basicArgTypes = {
   width: widthArg,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   'error-space': 'none',
   label: 'Input name',
   'floating-label': false,
@@ -383,122 +386,214 @@ const basicArgs = {
   width: widthArg.options[0],
 };
 
-export const Input = TemplateInput.bind({});
-Input.argTypes = basicArgTypes;
-Input.args = { ...basicArgs, value: 'This input value is so long that it needs ellipsis to fit.' };
+export const Input: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, value: 'This input value is so long that it needs ellipsis to fit.' },
+};
 
-export const InputSizeL = TemplateInput.bind({});
-InputSizeL.argTypes = basicArgTypes;
-InputSizeL.args = {
+
+
+export const InputSizeL: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   value: 'This input value is so long that it needs ellipsis to fit.',
   size: 'l',
+},
 };
 
-export const InputNoLabel = TemplateInput.bind({});
-InputNoLabel.argTypes = basicArgTypes;
-InputNoLabel.args = { ...basicArgs, label: '' };
 
-export const InputWithSlottedLabel = TemplateInputWithSlottedLabel.bind({});
-InputWithSlottedLabel.argTypes = basicArgTypes;
-InputWithSlottedLabel.args = { ...basicArgs, value: 'Random value' };
 
-export const InputWithoutBorder = TemplateInput.bind({});
-InputWithoutBorder.argTypes = basicArgTypes;
-InputWithoutBorder.args = { ...basicArgs, borderless: true };
+export const InputNoLabel: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, label: '' },
+};
 
-export const InputDisabled = TemplateInput.bind({});
-InputDisabled.argTypes = basicArgTypes;
-InputDisabled.args = { ...basicArgs, disabled: true };
 
-export const InputReadonly = TemplateInput.bind({});
-InputReadonly.argTypes = basicArgTypes;
-InputReadonly.args = { ...basicArgs, readonly: true };
 
-export const InputOptionalAndIcons = TemplateInputWithIcons.bind({});
-InputOptionalAndIcons.argTypes = basicArgTypes;
-InputOptionalAndIcons.args = { ...basicArgs, optional: true };
+export const InputWithSlottedLabel: StoryObj = {
+  render: TemplateInputWithSlottedLabel,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, value: 'Random value' },
+};
 
-export const InputWithButton = TemplateInputWithButton.bind({});
-InputWithButton.argTypes = basicArgTypes;
-InputWithButton.args = { ...basicArgs };
 
-export const InputWithButtonDisabled = TemplateInputWithButton.bind({});
-InputWithButtonDisabled.argTypes = basicArgTypes;
-InputWithButtonDisabled.args = { ...basicArgs, disabled: true };
 
-export const InputWithButtonActive = TemplateInputWithButton.bind({});
-InputWithButtonActive.argTypes = basicArgTypes;
-InputWithButtonActive.args = { ...basicArgs, active: true };
+export const InputWithoutBorder: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, borderless: true },
+};
 
-export const InputLongLabelAndErrorSpace = TemplateInputWithErrorSpace.bind({});
-InputLongLabelAndErrorSpace.argTypes = { ...basicArgTypes, 'error-space': errorSpaceArg };
-InputLongLabelAndErrorSpace.args = {
+
+
+export const InputDisabled: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+
+
+export const InputReadonly: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, readonly: true },
+};
+
+
+
+export const InputOptionalAndIcons: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true },
+};
+
+
+
+export const InputWithButton: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+
+
+export const InputWithButtonDisabled: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+
+
+export const InputWithButtonActive: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, active: true },
+};
+
+
+
+export const InputLongLabelAndErrorSpace: StoryObj = {
+  render: TemplateInputWithErrorSpace,
+  argTypes: { ...basicArgTypes, 'error-space': errorSpaceArg },
+  args: {
   ...basicArgs,
   'error-space': 'reserve',
   class: 'sbb-invalid',
   label: 'This label name is so long that it needs ellipsis to fit.',
   value: 'This input value is so long that it needs ellipsis to fit.',
+},
 };
 
-export const InputFloatingLabel = TemplateInput.bind({});
-InputFloatingLabel.argTypes = basicArgTypes;
-InputFloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
 
-export const InputFloatingLongLabel = TemplateInput.bind({});
-InputFloatingLongLabel.argTypes = basicArgTypes;
-InputFloatingLongLabel.args = {
+
+export const InputFloatingLabel: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'floating-label': true, value: undefined },
+};
+
+
+
+export const InputFloatingLongLabel: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'floating-label': true,
   value: undefined,
   label: 'This is a very long label which receives ellipsis',
+},
 };
 
-export const InputFloatingWithIcons = TemplateInputWithIcons.bind({});
-InputFloatingWithIcons.argTypes = basicArgTypes;
-InputFloatingWithIcons.args = {
+
+
+export const InputFloatingWithIcons: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'floating-label': true,
   value: undefined,
+},
 };
 
-export const Select = TemplateSelect.bind({});
-Select.argTypes = basicArgTypes;
-Select.args = { ...basicArgs };
 
-export const SelectWithoutBorder = TemplateSelect.bind({});
-SelectWithoutBorder.argTypes = basicArgTypes;
-SelectWithoutBorder.args = { ...basicArgs, borderless: true };
 
-export const SelectDisabled = TemplateSelect.bind({});
-SelectDisabled.argTypes = basicArgTypes;
-SelectDisabled.args = { ...basicArgs, disabled: true };
+export const Select: StoryObj = {
+  render: TemplateSelect,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
 
-export const SelectErrorSpace = TemplateSelectWithErrorSpace.bind({});
-SelectErrorSpace.argTypes = basicArgTypes;
-SelectErrorSpace.args = { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' };
 
-export const SelectFloatingLabel = TemplateSelectWithErrorSpace.bind({});
-SelectFloatingLabel.argTypes = basicArgTypes;
-SelectFloatingLabel.args = { ...basicArgs, 'floating-label': true, value: undefined };
 
-export const SelectOptionalAndIcons = TemplateSelectWithIcons.bind({});
-SelectOptionalAndIcons.argTypes = basicArgTypes;
-SelectOptionalAndIcons.args = { ...basicArgs, optional: true };
+export const SelectWithoutBorder: StoryObj = {
+  render: TemplateSelect,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, borderless: true },
+};
 
-export const InputCollapsedWidth = TemplateInput.bind({});
-InputCollapsedWidth.argTypes = basicArgTypes;
-InputCollapsedWidth.args = { ...basicArgs, width: widthArg.options[1] };
 
-export const InputWithIconsDisabled = TemplateInputWithIcons.bind({});
-InputWithIconsDisabled.argTypes = basicArgTypes;
-InputWithIconsDisabled.args = { ...basicArgs, disabled: true };
 
-export default {
+export const SelectDisabled: StoryObj = {
+  render: TemplateSelect,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+
+
+export const SelectErrorSpace: StoryObj = {
+  render: TemplateSelectWithErrorSpace,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid' },
+};
+
+
+
+export const SelectFloatingLabel: StoryObj = {
+  render: TemplateSelectWithErrorSpace,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'floating-label': true, value: undefined },
+};
+
+
+
+export const SelectOptionalAndIcons: StoryObj = {
+  render: TemplateSelectWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true },
+};
+
+
+
+export const InputCollapsedWidth: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, width: widthArg.options[1] },
+};
+
+
+
+export const InputWithIconsDisabled: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+
+
+const meta: Meta =  {
   excludeStories: /.*Active$/,
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -513,3 +608,5 @@ export default {
   },
   title: 'components/form elements/sbb-form-field',
 };
+
+export default meta;

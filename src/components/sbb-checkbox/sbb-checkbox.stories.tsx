@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -13,63 +16,63 @@ Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
 /* Storybook controls                                */
 /* ************************************************* */
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['m', 's'],
 };
 
-const checked = {
+const checked: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const indeterminate = {
+const indeterminate: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const icon = {
+const icon: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const iconPlacement = {
+const iconPlacement: InputType = {
   control: {
     type: 'select',
   },
   options: ['start', 'end'],
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   size,
   checked,
   indeterminate,
@@ -81,7 +84,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   size: size.options[1],
   checked: false,
   indeterminate: false,
@@ -99,118 +102,138 @@ const defaultArgs = {
 
 const Template = ({ label, ...args }) => <sbb-checkbox {...args}>{label}</sbb-checkbox>;
 
-export const defaultUnchecked = Template.bind({});
-export const defaultChecked = Template.bind({});
-export const defaultIndeterminate = Template.bind({});
-export const sizeM = Template.bind({});
-export const longLabel = Template.bind({});
-export const withIconEnd = Template.bind({});
-export const checkedWithIconStart = Template.bind({});
-export const disabledChecked = Template.bind({});
-export const disabledUnchecked = Template.bind({});
-export const disabledIndeterminate = Template.bind({});
-
-defaultUnchecked.argTypes = defaultArgTypes;
-defaultUnchecked.args = {
+export const defaultUnchecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
-defaultUnchecked.documentation = {
-  title: 'Checkbox unchecked',
-};
-
-defaultChecked.argTypes = defaultArgTypes;
-defaultChecked.args = {
+export const defaultChecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   checked: true,
+},
 };
-defaultChecked.documentation = {
-  title: 'Checkbox checked',
-};
-
-defaultIndeterminate.argTypes = defaultArgTypes;
-defaultIndeterminate.args = {
+export const defaultIndeterminate: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   indeterminate: true,
+},
 };
-defaultIndeterminate.documentation = {
-  title: 'Checkbox in indeterminate state',
-};
-
-sizeM.argTypes = defaultArgTypes;
-sizeM.args = {
+export const sizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[0],
+},
 };
-sizeM.documentation = {
-  title: 'Checkbox with medium size',
-};
-
-longLabel.argTypes = defaultArgTypes;
-longLabel.args = {
+export const longLabel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   label: longLabelText,
+},
 };
-longLabel.documentation = {
-  title: 'Checkbox with long label',
-};
-
-withIconEnd.argTypes = defaultArgTypes;
-withIconEnd.args = {
+export const withIconEnd: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'tickets-class-small',
+},
 };
-withIconEnd.documentation = {
-  title: 'Checkbox unchecked with icon at start',
-};
-
-checkedWithIconStart.argTypes = defaultArgTypes;
-checkedWithIconStart.args = {
+export const checkedWithIconStart: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   checked: true,
   'icon-name': 'tickets-class-small',
   'icon-placement': iconPlacement.options[0],
+},
 };
-checkedWithIconStart.documentation = {
-  title: 'Checkbox checked with icon at end',
-};
-
-disabledChecked.argTypes = defaultArgTypes;
-disabledChecked.args = {
+export const disabledChecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   disabled: true,
   checked: true,
+},
 };
-disabledChecked.documentation = {
-  title: 'Checkbox disabled and unchecked',
-};
-
-disabledUnchecked.argTypes = defaultArgTypes;
-disabledUnchecked.args = {
+export const disabledUnchecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   disabled: true,
+},
 };
-disabledChecked.documentation = {
-  title: 'Checkbox disabled and unchecked',
-};
-
-disabledIndeterminate.argTypes = defaultArgTypes;
-disabledIndeterminate.args = {
+export const disabledIndeterminate: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   disabled: true,
   indeterminate: true,
-};
-disabledIndeterminate.documentation = {
-  title: 'Checkbox disabled and in indeterminate state',
+},
 };
 
-export default {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem`}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -225,3 +248,5 @@ export default {
   },
   title: 'components/form elements/sbb-checkbox',
 };
+
+export default meta;

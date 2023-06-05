@@ -1,22 +1,25 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'disable-animation': isChromatic(),
 };
 
@@ -34,7 +37,7 @@ const playStory = async ({ canvasElement }) => {
   userEvent.click(toggle);
 };
 
-const StandaloneTemplate = (picker, args) => (
+const StandaloneTemplate = (picker, args): JSX.Element => (
   <sbb-datepicker-toggle
     {...args}
     date-picker={picker}
@@ -42,8 +45,8 @@ const StandaloneTemplate = (picker, args) => (
   ></sbb-datepicker-toggle>
 );
 
-const PickerAndButtonTemplate = (args) => (
-  <div style="display: flex; gap: 1em;">
+const PickerAndButtonTemplate = (args): JSX.Element => (
+  <div style={{display: 'flex', gap: '1em'}}>
     {StandaloneTemplate('datepicker', args)}
     <sbb-datepicker
       id="datepicker"
@@ -54,7 +57,7 @@ const PickerAndButtonTemplate = (args) => (
   </div>
 );
 
-const FormFieldTemplate = (args) => (
+const FormFieldTemplate = (args): JSX.Element => (
   <sbb-form-field>
     <input />
     <sbb-datepicker
@@ -64,24 +67,34 @@ const FormFieldTemplate = (args) => (
   </sbb-form-field>
 );
 
-export const WithPicker = PickerAndButtonTemplate.bind({});
-WithPicker.argTypes = defaultArgTypes;
-WithPicker.args = { ...defaultArgs };
-WithPicker.play = isChromatic() && playStory;
+export const WithPicker: StoryObj = {
+  render: PickerAndButtonTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  play: isChromatic() && playStory,
+};
 
-export const InFormField = FormFieldTemplate.bind({});
-InFormField.argTypes = defaultArgTypes;
-InFormField.args = { ...defaultArgs };
-InFormField.play = isChromatic() && playStory;
 
-export default {
+
+
+export const InFormField: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh; min-width: 100vw;' : ''}`}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -92,10 +105,12 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '600px',
+      story: { inline: false, iframeHeight: '600px', },
+      
       extractComponentDescription: () => readme,
     },
   },
   title: 'components/form elements/sbb-datepicker-toggle',
 };
+
+export default meta;

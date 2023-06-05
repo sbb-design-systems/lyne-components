@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const documentationPlatformContainerStyle = (context) => {
   if (context.args.negative) {
@@ -17,20 +20,20 @@ const wrapperStyle = (context) => {
   return 'background-color: var(--sbb-color-white-default);';
 };
 
-const Template = (args) => (
-  <div style="height: 340px; padding: 20px;">
+const Template = (args): JSX.Element => (
+  <div style={{height: '340px', padding: '20px'}}>
     <sbb-divider {...args} />
   </div>
 );
 
-const orientation = {
+const orientation: InputType = {
   control: {
     type: 'select',
   },
   options: ['horizontal', 'vertical'],
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
@@ -39,55 +42,52 @@ const negative = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   orientation,
   negative,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   orientation: orientation.options[0],
   negative: false,
 };
 
-export const dividerHorizontal = Template.bind({});
-
-dividerHorizontal.args = { ...defaultArgs };
-dividerHorizontal.argTypes = defaultArgTypes;
-dividerHorizontal.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Divider Horizontal',
+export const dividerHorizontal: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs },
+  argTypes: defaultArgTypes,
 };
 
-export const dividerVertical = Template.bind({});
-dividerVertical.argTypes = defaultArgTypes;
-dividerVertical.args = {
+
+
+
+
+export const dividerVertical: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   orientation: 'vertical',
-};
-dividerVertical.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Divider Vertical',
+},
 };
 
-export const dividerNegative = Template.bind({});
 
-dividerNegative.argTypes = defaultArgTypes;
-dividerNegative.args = {
+
+
+export const dividerNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   negative: true,
-};
-dividerNegative.documentation = {
-  container: {
-    styles: (context) => documentationPlatformContainerStyle(context),
-  },
-  title: 'Divider Negative',
+},
 };
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}`}>
@@ -105,3 +105,5 @@ export default {
   },
   title: 'components/sbb-divider',
 };
+
+export default meta;

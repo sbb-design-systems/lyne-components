@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
@@ -11,58 +14,74 @@ const wrapperStyle = (context) => {
 
 const Template = (args) => <sbb-logo {...args} />;
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const protectiveRoom = {
+const protectiveRoom: InputType = {
   control: {
     type: 'select',
   },
   options: ['none', 'minimal', 'ideal'],
 };
 
-const accessibilityLabel = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   negative,
   'protective-room': protectiveRoom,
   'accessibility-label': accessibilityLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   negative: false,
   'protective-room': protectiveRoom.options[0],
   'accessibility-label': undefined,
 };
 
-export const NoProtectiveRoom = Template.bind({});
-NoProtectiveRoom.argTypes = defaultArgTypes;
-NoProtectiveRoom.args = { ...defaultArgs };
+export const NoProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const MinimalProtectiveRoom = Template.bind({});
-MinimalProtectiveRoom.argTypes = defaultArgTypes;
-MinimalProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[1] };
 
-export const IdealProtectiveRoom = Template.bind({});
-IdealProtectiveRoom.argTypes = defaultArgTypes;
-IdealProtectiveRoom.args = { ...defaultArgs, 'protective-room': protectiveRoom.options[2] };
 
-export const Negative = Template.bind({});
-Negative.argTypes = defaultArgTypes;
-Negative.args = {
+export const MinimalProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[1] },
+};
+
+
+
+export const IdealProtectiveRoom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'protective-room': protectiveRoom.options[2] },
+};
+
+
+
+export const Negative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   negative: true,
   'protective-room': protectiveRoom.options[2],
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)};max-width: 300px;`}>
@@ -80,3 +99,5 @@ export default {
   },
   title: 'components/sbb-logo',
 };
+
+export default meta;

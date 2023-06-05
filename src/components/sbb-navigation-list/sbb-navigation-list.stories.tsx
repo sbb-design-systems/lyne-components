@@ -1,21 +1,24 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   label,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   label: 'Label',
 };
 
-const navigationActions = () => [
+const navigationActions = (): JSX.Element[] => [
   <sbb-navigation-action>Tickets & Offers</sbb-navigation-action>,
   <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>,
   <sbb-navigation-action>Travel information</sbb-navigation-action>,
@@ -25,28 +28,36 @@ const navigationActions = () => [
 const style =
   'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
 
-const DefaultTemplate = (args) => (
+const DefaultTemplate = (args): JSX.Element => (
   <sbb-navigation-list {...args}>{navigationActions()}</sbb-navigation-list>
 );
 
-const SlottedLabelTemplate = (args) => (
+const SlottedLabelTemplate = (args): JSX.Element => (
   <sbb-navigation-list {...args}>
     <span slot="label">Slotted label</span>
     {navigationActions()}
   </sbb-navigation-list>
 );
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs };
-Default.documentation = { title: 'Default' };
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const SlottedLabel = SlottedLabelTemplate.bind({});
-SlottedLabel.argTypes = defaultArgTypes;
-SlottedLabel.args = {};
-SlottedLabel.documentation = { title: 'Slotted label' };
 
-export default {
+
+
+export const SlottedLabel: StoryObj = {
+  render: SlottedLabelTemplate,
+  argTypes: defaultArgTypes,
+  args: {},
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={style}>
@@ -64,3 +75,5 @@ export default {
   },
   title: 'components/sbb-navigation-list',
 };
+
+export default meta;

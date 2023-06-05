@@ -1,30 +1,33 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import images from '../../global/images';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const Template = (args) => <sbb-image {...args} />;
 
-const imageSrc = {
+const imageSrc: InputType = {
   control: {
     type: 'select',
   },
   options: images,
 };
 
-const borderRadius = {
+const borderRadius: InputType = {
   control: {
     type: 'select',
   },
   options: ['true', 'false'],
 };
 
-const aspectRatio = {
+const aspectRatio: InputType = {
   control: { type: 'select' },
   options: ['free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16', '16-9'],
 };
 
-const copyright = {
+const copyright: InputType = {
   control: {
     type: 'text',
   },
@@ -33,7 +36,7 @@ const copyright = {
   },
 };
 
-const copyrightHolder = {
+const copyrightHolder: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -43,7 +46,7 @@ const copyrightHolder = {
   },
 };
 
-const customFocalPoint = {
+const customFocalPoint: InputType = {
   control: {
     type: 'boolean',
   },
@@ -52,7 +55,7 @@ const customFocalPoint = {
   },
 };
 
-const focalPointDebug = {
+const focalPointDebug: InputType = {
   control: {
     type: 'boolean',
   },
@@ -61,7 +64,7 @@ const focalPointDebug = {
   },
 };
 
-const focalPointX = {
+const focalPointX: InputType = {
   control: {
     type: 'number',
   },
@@ -70,7 +73,7 @@ const focalPointX = {
   },
 };
 
-const focalPointY = {
+const focalPointY: InputType = {
   control: {
     type: 'number',
   },
@@ -79,7 +82,7 @@ const focalPointY = {
   },
 };
 
-const loading = {
+const loading: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -89,7 +92,7 @@ const loading = {
   },
 };
 
-const lqip = {
+const lqip: InputType = {
   control: {
     type: 'boolean',
   },
@@ -98,7 +101,7 @@ const lqip = {
   },
 };
 
-const performanceMark = {
+const performanceMark: InputType = {
   control: {
     type: 'text',
   },
@@ -107,13 +110,13 @@ const performanceMark = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   alt: '',
   caption: '',
   'border-radius': borderRadius,
@@ -131,7 +134,7 @@ const defaultArgTypes = {
   'disable-animation': disableAnimation,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   alt: '',
   caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
@@ -150,32 +153,44 @@ const defaultArgs = {
   'disable-animation': isChromatic(),
 };
 
-export const Default = Template.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = {
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   caption:
     'Mit Ihrem Halbtax profitieren Sie zudem von attraktiven Zusatzleistungen und Rabatten. Wenn Sie unter 25 Jahre jung sind, können Sie zu Ihrem Halbtax das beliebte <a href="https://www.sbb.ch/abos-billette/abonnemente/gleis-7-freie-fahrt-ab-19-uhr.html#jahrg_nger_halbtax">Gleis 7</a> dazu kaufen.',
+},
 };
 
-export const TransparentImage = Template.bind({});
-TransparentImage.argTypes = defaultArgTypes;
-TransparentImage.args = {
+
+
+export const TransparentImage: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'image-src': imageSrc.options[9],
+},
 };
 
-export const NoCaptionNoRadius = Template.bind({});
-NoCaptionNoRadius.argTypes = defaultArgTypes;
-NoCaptionNoRadius.args = {
+
+
+export const NoCaptionNoRadius: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'border-radius': 'false',
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style="max-width: 1000px;">
+      <div style={{'max-width': '1000px'}}>
         <Story />
       </div>
     ),
@@ -188,3 +203,5 @@ export default {
   },
   title: 'components/sbb-image',
 };
+
+export default meta;

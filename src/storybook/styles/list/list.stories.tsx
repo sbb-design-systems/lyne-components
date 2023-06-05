@@ -1,7 +1,10 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const ListContent = () => [
+const ListContent = (): JSX.Element[] => [
   <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>,
   <li>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</p>
@@ -52,7 +55,7 @@ const StepsTemplate = () =>
     </ol>,
   ]);
 
-const DescriptionListTemplate = () => (
+const DescriptionListTemplate = (): JSX.Element => (
   <dl class="sbb-list">
     <dt>Label:</dt>
     <dd>Description of the label.</dd>
@@ -70,15 +73,23 @@ const DescriptionListTemplate = () => (
   </dl>
 );
 
-export const UnorderedList = UnorderedListTemplate.bind({});
-export const OrderedList = OrderedListTemplate.bind({});
-export const StepList = StepsTemplate.bind({});
-export const DescriptionList = DescriptionListTemplate.bind({});
+export const UnorderedList: StoryObj = {
+  render: UnorderedListTemplate,
+};
+export const OrderedList: StoryObj = {
+  render: OrderedListTemplate,
+};
+export const StepList: StoryObj = {
+  render: StepsTemplate,
+};
+export const DescriptionList: StoryObj = {
+  render: DescriptionListTemplate,
+};
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'margin: 2rem'}>
+      <div style={{margin: '2rem'}}>
         <Story />
       </div>
     ),
@@ -92,3 +103,5 @@ export default {
   },
   title: 'styles/list',
 };
+
+export default meta;

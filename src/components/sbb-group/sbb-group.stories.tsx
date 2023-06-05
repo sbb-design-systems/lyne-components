@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (context.args.color === 'white') {
@@ -11,8 +14,8 @@ const wrapperStyle = (context) => {
   return `background-color: var(--sbb-color-platinum-default);`;
 };
 
-const GroupTemplate = (args) => (
-  <sbb-group {...args} style="max-width:20rem;">
+const GroupTemplate = (args): JSX.Element => (
+  <sbb-group {...args} style={{'max-width': '20rem'}}>
     <span class="sbb-text-m">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       <br />
@@ -21,99 +24,139 @@ const GroupTemplate = (args) => (
   </sbb-group>
 );
 
-const color = {
+const color: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['white', 'milk', 'transparent'],
 };
 
-const padding = {
+const padding: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['3x-xxs', 'xxxs-xxs', '4x-xxs', 'xxs-xxs', 'xxxs-s', 's-s', 'l-l'],
 };
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   color,
   padding,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   color: color.options[0],
   padding: padding.options[3],
 };
 
-export const ColorWhite = GroupTemplate.bind({});
-ColorWhite.argTypes = defaultArgTypes;
-ColorWhite.args = {
+export const ColorWhite: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const ColorMilk = GroupTemplate.bind({});
-ColorMilk.argTypes = defaultArgTypes;
-ColorMilk.args = {
+
+
+export const ColorMilk: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   color: color.options[1],
+},
 };
 
-export const ColorTransparent = GroupTemplate.bind({});
-ColorTransparent.argTypes = defaultArgTypes;
-ColorTransparent.args = {
+
+
+export const ColorTransparent: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   color: color.options[2],
+},
 };
 
-export const Padding3X_XXS = GroupTemplate.bind({});
-Padding3X_XXS.argTypes = defaultArgTypes;
-Padding3X_XXS.args = {
+
+
+export const Padding3X_XXS: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[0],
+},
 };
 
-export const PaddingXXXS_XXS = GroupTemplate.bind({});
-PaddingXXXS_XXS.argTypes = defaultArgTypes;
-PaddingXXXS_XXS.args = {
+
+
+export const PaddingXXXS_XXS: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[1],
+},
 };
 
-export const Padding4X_XXS = GroupTemplate.bind({});
-Padding4X_XXS.argTypes = defaultArgTypes;
-Padding4X_XXS.args = {
+
+
+export const Padding4X_XXS: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[2],
+},
 };
 
-export const PaddingXXS_XXS = GroupTemplate.bind({});
-PaddingXXS_XXS.argTypes = defaultArgTypes;
-PaddingXXS_XXS.args = {
+
+
+export const PaddingXXS_XXS: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[3],
+},
 };
 
-export const PaddingXXXS_S = GroupTemplate.bind({});
-PaddingXXXS_S.argTypes = defaultArgTypes;
-PaddingXXXS_S.args = {
+
+
+export const PaddingXXXS_S: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[4],
+},
 };
 
-export const PaddingS_S = GroupTemplate.bind({});
-PaddingS_S.argTypes = defaultArgTypes;
-PaddingS_S.args = {
+
+
+export const PaddingS_S: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[5],
+},
 };
 
-export const PaddingL_L = GroupTemplate.bind({});
-PaddingL_L.argTypes = defaultArgTypes;
-PaddingL_L.args = {
+
+
+export const PaddingL_L: StoryObj = {
+  render: GroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   padding: padding.options[6],
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem;`}>
@@ -131,3 +174,5 @@ export default {
   },
   title: 'components/sbb-group',
 };
+
+export default meta;

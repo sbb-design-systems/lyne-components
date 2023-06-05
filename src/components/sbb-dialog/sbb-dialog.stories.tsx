@@ -1,5 +1,6 @@
+/** @jsx h */
 import events from './sbb-dialog.events.ts';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleImages from '../../global/images';
 import isChromatic from 'chromatic/isChromatic';
@@ -7,6 +8,8 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
@@ -22,32 +25,32 @@ const playStory = async ({ canvasElement }) => {
   await userEvent.click(button);
 };
 
-const titleContent = {
+const titleContent: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const titleLevel = {
+const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const titleBackButton = {
+const titleBackButton: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const accessibilityLabel = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -56,7 +59,7 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityCloseLabel = {
+const accessibilityCloseLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -65,7 +68,7 @@ const accessibilityCloseLabel = {
   },
 };
 
-const accessibilityBackLabel = {
+const accessibilityBackLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -74,13 +77,13 @@ const accessibilityBackLabel = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
   'title-back-button': titleBackButton,
@@ -91,7 +94,7 @@ const basicArgTypes = {
   'disable-animation': disableAnimation,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   'title-content': 'A describing title of the dialog',
   'title-level': undefined,
   'title-back-button': true,
@@ -120,7 +123,7 @@ const onFormDialogClose = (dialog) => {
   });
 };
 
-const triggerButton = (dialogId) => (
+const triggerButton = (dialogId): JSX.Element => (
   <sbb-button
     data-testid="dialog-trigger"
     size="m"
@@ -131,7 +134,7 @@ const triggerButton = (dialogId) => (
   </sbb-button>
 );
 
-const actionGroup = (negative) => (
+const actionGroup = (negative): JSX.Element => (
   <sbb-action-group
     slot="action-group"
     align-group="stretch"
@@ -157,21 +160,21 @@ const actionGroup = (negative) => (
   </sbb-action-group>
 );
 
-const codeStyle = {
+const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   marginInline: 'var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const formDetailsStyle = {
+const formDetailsStyle: Args = {
   marginTop: 'var(--sbb-spacing-fixed-4x)',
   padding: 'var(--sbb-spacing-fixed-4x)',
   borderRadius: 'var(--sbb-border-radius-8x)',
   backgroundColor: 'var(--sbb-color-milk-default)',
 };
 
-const formStyle = {
+const formStyle: Args = {
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'center',
@@ -181,7 +184,7 @@ const formStyle = {
 const DefaultTemplate = (args) => [
   triggerButton('my-dialog-1'),
   <sbb-dialog data-testid="dialog" id="my-dialog-1" {...args}>
-    <p id="dialog-content-1" style={'margin: 0'}>
+    <p id="dialog-content-1" style={{margin: '0'}}>
       Dialog content
     </p>
     {actionGroup(args.negative, 'my-dialog-1')}
@@ -194,11 +197,11 @@ const SlottedTitleTemplate = (args) => [
     <span slot="title">
       <sbb-icon
         name="book-medium"
-        style={'vertical-align: sub; margin-inline-end: 0.5rem;'}
+        style={{'vertical-align': 'sub', 'margin-inline-end': '0.5rem'}}
       ></sbb-icon>
       The Catcher in the Rye
     </span>
-    <p id="dialog-content-2" style={'margin: 0'}>
+    <p id="dialog-content-2" style={{margin: '0'}}>
       “What really knocks me out is a book that, when you're all done reading it, you wish the
       author that wrote it was a terrific friend of yours and you could call him up on the phone
       whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher in
@@ -218,7 +221,7 @@ const LongContentTemplate = (args) => [
     Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and pierced
     his heart.
     <sbb-image
-      style={'margin-block: 1rem'}
+      style={{'margin-block': '1rem'}}
       image-src={sampleImages[1]}
       alt="Natural landscape"
       data-chromatic="ignore"
@@ -249,7 +252,7 @@ const FormTemplate = (args) => [
     {...args}
     ref={(dialog) => onFormDialogClose(dialog)}
   >
-    <div style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}>
+    <div style={{'margin-block-end': 'var(--sbb-spacing-fixed-4x)'}}>
       Submit the form below to close the dialog box using the
       <code style={codeStyle}>close(result?: any, target?: HTMLElement)</code>
       method and returning the form values to update the details.
@@ -276,7 +279,7 @@ const FormTemplate = (args) => [
 const NoFooterTemplate = (args) => [
   triggerButton('my-dialog-5'),
   <sbb-dialog data-testid="dialog" id="my-dialog-5" {...args}>
-    <p id="dialog-content-5" style={'margin: 0'}>
+    <p id="dialog-content-5" style={{margin: '0'}}>
       “What really knocks me out is a book that, when you're all done reading it, you wish the
       author that wrote it was a terrific friend of yours and you could call him up on the phone
       whenever you felt like it. That doesn't happen much, though.” ― J.D. Salinger, The Catcher in
@@ -288,7 +291,7 @@ const NoFooterTemplate = (args) => [
 const FullScreenTemplate = (args) => [
   triggerButton('my-dialog-6'),
   <sbb-dialog data-testid="dialog" id="my-dialog-6" {...args}>
-    <sbb-title visual-level="2" negative={args.negative} style="margin-block-start:0">
+    <sbb-title visual-level="2" negative={args.negative} style={{'margin-block-start': '0'}}>
       Many Meetings
     </sbb-title>
     Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
@@ -298,7 +301,7 @@ const FullScreenTemplate = (args) => [
     Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and pierced
     his heart.
     <sbb-image
-      style={'margin-block: 1rem'}
+      style={{'margin-block': '1rem'}}
       image-src={sampleImages[1]}
       alt="Natural landscape"
       data-chromatic="ignore"
@@ -311,56 +314,91 @@ const FullScreenTemplate = (args) => [
   </sbb-dialog>,
 ];
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = basicArgTypes;
-Default.args = basicArgs;
-Default.play = isChromatic() && playStory;
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: basicArgs,
+  play: isChromatic() && playStory,
+};
 
-export const Negative = DefaultTemplate.bind({});
-Negative.argTypes = basicArgTypes;
-Negative.args = {
+
+
+
+export const Negative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   negative: true,
+},
+  play: isChromatic() && playStory,
 };
-Negative.play = isChromatic() && playStory;
 
-export const SlottedTitle = SlottedTitleTemplate.bind({});
-SlottedTitle.argTypes = basicArgTypes;
-SlottedTitle.args = {
+
+
+
+export const SlottedTitle: StoryObj = {
+  render: SlottedTitleTemplate,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'title-content': undefined,
   'title-back-button': false,
+},
+  play: isChromatic() && playStory,
 };
-SlottedTitle.play = isChromatic() && playStory;
 
-export const LongContent = LongContentTemplate.bind({});
-LongContent.argTypes = basicArgTypes;
-LongContent.args = { ...basicArgs };
-LongContent.play = isChromatic() && playStory;
 
-export const Form = FormTemplate.bind({});
-Form.argTypes = basicArgTypes;
-Form.args = { ...basicArgs };
-Form.play = isChromatic() && playStory;
 
-export const NoFooter = NoFooterTemplate.bind({});
-NoFooter.argTypes = basicArgTypes;
-NoFooter.args = { ...basicArgs };
-NoFooter.play = isChromatic() && playStory;
 
-export const FullScreen = FullScreenTemplate.bind({});
-FullScreen.argTypes = basicArgTypes;
-FullScreen.args = { ...basicArgs, 'title-content': undefined };
-FullScreen.play = isChromatic() && playStory;
+export const LongContent: StoryObj = {
+  render: LongContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStory,
+};
 
-export default {
+
+
+
+export const Form: StoryObj = {
+  render: FormTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+export const NoFooter: StoryObj = {
+  render: NoFooterTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+export const FullScreen: StoryObj = {
+  render: FullScreenTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'title-content': undefined },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -377,11 +415,13 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '600px',
+      story: { inline: false, iframeHeight: '600px', },
+      
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',
   },
   title: 'components/sbb-dialog',
 };
+
+export default meta;

@@ -1,9 +1,12 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
 const playStory = async (trigger, canvasElement) => {
@@ -29,7 +32,7 @@ const playStory = async (trigger, canvasElement) => {
   userEvent.click(action);
 };
 
-const accessibilityLabel = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -38,23 +41,23 @@ const accessibilityLabel = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
   'disable-animation': disableAnimation,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   'accessibility-label': undefined,
   'disable-animation': isChromatic(),
 };
 
-const triggerButton = (id) => (
+const triggerButton = (id): JSX.Element => (
   <sbb-button
     data-testid="navigation-trigger"
     id={id}
@@ -64,7 +67,7 @@ const triggerButton = (id) => (
   ></sbb-button>
 );
 
-const navigationActionsL = () => [
+const navigationActionsL = (): JSX.Element[] => [
   <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
     Label
   </sbb-navigation-action>,
@@ -74,7 +77,7 @@ const navigationActionsL = () => [
   <sbb-navigation-action id="nav-3">Label</sbb-navigation-action>,
 ];
 
-const navigationList = (label) => [
+const navigationList = (label): JSX.Element[] => [
   <sbb-navigation-list label={label}>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
@@ -112,7 +115,7 @@ const DefaultTemplate = (args) => [
       {navigationList('Label')}
       {navigationList('Label')}
 
-      <sbb-button size="m" style="width: fit-content">
+      <sbb-button size="m" style={{width: 'fit-content'}}>
         Button
       </sbb-button>
     </sbb-navigation-section>
@@ -134,29 +137,39 @@ const DefaultTemplate = (args) => [
       {navigationList('Label')}
       {navigationList('Label')}
 
-      <sbb-button size="m" variant="secondary" style="width: fit-content" sbb-navigation-close>
+      <sbb-button size="m" variant="secondary" style={{width: 'fit-content'}} sbb-navigation-close>
         Close navigation
       </sbb-button>
     </sbb-navigation-section>
   </sbb-navigation>,
 ];
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = basicArgTypes;
-Default.args = { ...basicArgs };
-Default.play = ({ canvasElement }) =>
-  isChromatic() && playStory('navigation-section-trigger-1', canvasElement);
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: ({ canvasElement }) =>
+  isChromatic() && playStory('navigation-section-trigger-1', canvasElement),
+};
 
-export const LongContent = DefaultTemplate.bind({});
-LongContent.argTypes = basicArgTypes;
-LongContent.args = { ...basicArgs };
-LongContent.play = ({ canvasElement }) =>
-  isChromatic() && playStory('navigation-section-trigger-2', canvasElement);
 
-export default {
+
+
+export const LongContent: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: ({ canvasElement }) =>
+  isChromatic() && playStory('navigation-section-trigger-2', canvasElement),
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; height: 100vh'}>
+      <div style={{padding: '2rem', height: '100vh'}}>
         <Story />
       </div>
     ),
@@ -167,11 +180,13 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '600px',
+      story: { inline: false, iframeHeight: '600px', },
+      
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',
   },
   title: 'components/sbb-navigation-section',
 };
+
+export default meta;

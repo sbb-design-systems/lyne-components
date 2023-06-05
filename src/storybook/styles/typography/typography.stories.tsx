@@ -1,7 +1,10 @@
+/** @jsx h */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import './typo-internal.scss';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.`;
 
@@ -21,7 +24,7 @@ const TextBoldTemplate = () =>
     <p class={`sbb-text-${textSize} sbb-text--bold`}>{text}</p>,
   ]);
 
-const LegendSubSupTemplate = () => [
+const LegendSubSupTemplate = (): JSX.Element[] => [
   <p class="sbb-text-m">
     A sentence with a<sub>subscript</sub> character.
   </p>,
@@ -30,7 +33,7 @@ const LegendSubSupTemplate = () => [
   </span>,
 ];
 
-const LinkInlineTemplate = () => (
+const LinkInlineTemplate = (): JSX.Element => (
   <p class="sbb-text-m">
     A text with a link inside{' '}
     <a href="" class="sbb-link-inline">
@@ -40,10 +43,10 @@ const LinkInlineTemplate = () => (
   </p>
 );
 
-const LinkInlineNegativeTemplate = () => (
+const LinkInlineNegativeTemplate = (): JSX.Element => (
   <p
     class="sbb-text-m"
-    style="background-color:var(--sbb-color-charcoal-default);color:var(--sbb-color-white-default);padding:1rem;"
+    style={{'background-color': 'var(--sbb-color-charcoal-default)', color: 'var(--sbb-color-white-default)', padding: '1rem'}}
   >
     A text with a negative link inside{' '}
     <a href="" class="sbb-link-inline-negative">
@@ -53,17 +56,27 @@ const LinkInlineNegativeTemplate = () => (
   </p>
 );
 
-export const Text = TextTemplate.bind({});
-export const TextBold = TextBoldTemplate.bind({});
-export const LegendSubSup = LegendSubSupTemplate.bind({});
-export const LinkInline = LinkInlineTemplate.bind({});
-export const LinkInlineNegative = LinkInlineNegativeTemplate.bind({});
+export const Text: StoryObj = {
+  render: TextTemplate,
+};
+export const TextBold: StoryObj = {
+  render: TextBoldTemplate,
+};
+export const LegendSubSup: StoryObj = {
+  render: LegendSubSupTemplate,
+};
+export const LinkInline: StoryObj = {
+  render: LinkInlineTemplate,
+};
+export const LinkInlineNegative: StoryObj = {
+  render: LinkInlineNegativeTemplate,
+};
 
-export default {
+const meta: Meta =  {
   excludeStories: ['LinkInline', 'LinkInlineNegative'],
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -76,3 +89,5 @@ export default {
   },
   title: 'styles/typography',
 };
+
+export default meta;

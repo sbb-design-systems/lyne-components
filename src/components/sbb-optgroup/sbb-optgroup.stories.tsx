@@ -1,7 +1,10 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -10,7 +13,7 @@ const label = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -19,7 +22,7 @@ const disabled = {
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -28,7 +31,7 @@ const iconName = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -37,7 +40,7 @@ const value = {
   },
 };
 
-const disabledSingle = {
+const disabledSingle: InputType = {
   control: {
     type: 'boolean',
   },
@@ -46,13 +49,13 @@ const disabledSingle = {
   },
 };
 
-const numberOfOptions = {
+const numberOfOptions: InputType = {
   control: {
     type: 'number',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   value,
@@ -61,7 +64,7 @@ const defaultArgTypes = {
   numberOfOptions,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   label: 'Option group',
   'icon-name': undefined,
   value: 'Option',
@@ -72,7 +75,7 @@ const defaultArgs = {
 
 const defaultDecorator = [
   (Story) => (
-    <div style={'border: 3px solid red'}>
+    <div style={{border: '3px solid red'}}>
       <Story />
     </div>
   ),
@@ -87,7 +90,7 @@ const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }) =>
     );
   });
 
-const Template = ({ label, disabled, ...args }) => [
+const Template = ({ label, disabled, ...args }): JSX.Element[] => [
   <sbb-optgroup label={label + ' 1'} disabled={disabled}>
     {createOptions(args)}
   </sbb-optgroup>,
@@ -105,19 +108,28 @@ const TemplateAutocomplete = (args) => {
   );
 };
 
-export const Standalone = Template.bind({});
-Standalone.argTypes = { ...defaultArgTypes };
-Standalone.args = { ...defaultArgs };
-Standalone.decorators = defaultDecorator;
+export const Standalone: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+  decorators: defaultDecorator,
+};
 
-export const Autocomplete = TemplateAutocomplete.bind({});
-Autocomplete.argTypes = { ...defaultArgTypes };
-Autocomplete.args = { ...defaultArgs };
 
-export default {
+
+
+export const Autocomplete: StoryObj = {
+  render: TemplateAutocomplete,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -135,3 +147,5 @@ export default {
   },
   title: 'components/form elements/sbb-optgroup',
 };
+
+export default meta;

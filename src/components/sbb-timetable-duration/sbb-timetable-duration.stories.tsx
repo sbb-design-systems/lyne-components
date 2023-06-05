@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-duration.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-duration config={JSON.stringify(args.config)}></sbb-timetable-duration>
 );
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
@@ -19,40 +22,46 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const MinutesOnly = Template.bind({});
-
-MinutesOnly.argTypes = defaultArgTypes;
-MinutesOnly.args = {
+export const MinutesOnly: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[0],
+},
 };
 
-MinutesOnly.documentation = {
-  title: 'Minutes',
-};
 
-export const OneHourOneMinute = Template.bind({});
 
-OneHourOneMinute.argTypes = defaultArgTypes;
-OneHourOneMinute.args = {
+
+
+
+export const OneHourOneMinute: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[1],
+},
 };
 
-OneHourOneMinute.documentation = {
-  title: 'One Hour / One Minute',
-};
 
-export const HoursAndMinutes = Template.bind({});
 
-HoursAndMinutes.argTypes = defaultArgTypes;
-HoursAndMinutes.args = {
+
+
+
+export const HoursAndMinutes: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[2],
+},
 };
 
-HoursAndMinutes.documentation = {
-  title: 'Hours and Minutes',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -62,3 +71,5 @@ export default {
   },
   title: 'internals/sbb-timetable-duration',
 };
+
+export default meta;

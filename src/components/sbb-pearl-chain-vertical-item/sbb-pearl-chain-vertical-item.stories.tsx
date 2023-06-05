@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const Template = (args) => {
   return (
@@ -7,7 +10,7 @@ const Template = (args) => {
       <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={args}>
         <div
           slot="right"
-          style="--sbb-pearl-chain-vertical-right-item-block-start:-10px; --sbb-pearl-chain-vertical-right-item-inline-start:10px"
+          style={{'--sbb-pearl-chain-vertical-right-item-block-start': '-10px', '--sbb-pearl-chain-vertical-right-item-inline-start': '10px'}}
         >
           slot for content
           <div>more</div>
@@ -21,18 +24,21 @@ const Template = (args) => {
   );
 };
 
-export const pearlChainItem = Template.bind({});
-
-pearlChainItem.args = {
+export const pearlChainItem: StoryObj = {
+  render: Template,
+  args: {
   lineType: 'standard',
   lineColor: 'default',
   bulletType: 'default',
   minHeight: '100',
   hideLine: false,
   bulletSize: 'start-end',
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -59,3 +65,5 @@ export default {
   },
   title: 'components/timetable/sbb-pearl-chain-vertical-item',
 };
+
+export default meta;

@@ -1,9 +1,12 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleImages from '../../global/images';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -12,7 +15,7 @@ const ariaLabel = {
   },
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -21,7 +24,7 @@ const href = {
   },
 };
 
-const rel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -30,7 +33,7 @@ const rel = {
   },
 };
 
-const target = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -39,31 +42,31 @@ const target = {
   },
 };
 
-const content = {
+const content: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const linkContent = {
+const linkContent: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const imageSrc = {
+const imageSrc: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const imageAlt = {
+const imageAlt: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
   href,
   rel,
@@ -74,7 +77,7 @@ const defaultArgTypes = {
   'image-alt': imageAlt,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'aria-label': undefined,
   href: 'https://www.sbb.ch',
   rel: undefined,
@@ -85,7 +88,7 @@ const defaultArgs = {
   'image-alt': 'SBB CFF FFS Employee',
 };
 
-const TemplateSbbTeaserHeroDefault = ({ content, ...args }) => (
+const TemplateSbbTeaserHeroDefault = ({ content, ...args }): JSX.Element => (
   <sbb-teaser-hero {...args}>{content}</sbb-teaser-hero>
 );
 
@@ -95,7 +98,7 @@ const TemplateSbbTeaserWithSlots = ({
   'image-src': imageSrc,
   'image-alt': imageAlt,
   ...args
-}) => (
+}): JSX.Element => (
   <sbb-teaser-hero {...args}>
     {content}
     <span slot="link-content">{linkContent}</span>
@@ -107,33 +110,45 @@ const TemplateSbbTeaserWithSlots = ({
 /* The Stories                                       */
 /* ************************************************* */
 
-export const defaultTeaser = TemplateSbbTeaserHeroDefault.bind({});
-defaultTeaser.argTypes = defaultArgTypes;
-defaultTeaser.args = {
+export const defaultTeaser: StoryObj = {
+  render: TemplateSbbTeaserHeroDefault,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const openInNewWindow = TemplateSbbTeaserHeroDefault.bind({});
-openInNewWindow.argTypes = defaultArgTypes;
-openInNewWindow.args = {
+
+
+export const openInNewWindow: StoryObj = {
+  render: TemplateSbbTeaserHeroDefault,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   target: '_blank',
+},
 };
 
-export const withSlots = TemplateSbbTeaserWithSlots.bind({});
-withSlots.argTypes = defaultArgTypes;
-withSlots.args = {
+
+
+export const withSlots: StoryObj = {
+  render: TemplateSbbTeaserWithSlots,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style="padding: 1em">
+      <div style={{padding: '1em'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { diffThreshold: 0.11, delay: 5000 },
@@ -147,3 +162,5 @@ export default {
   },
   title: 'components/sbb-teaser-hero',
 };
+
+export default meta;

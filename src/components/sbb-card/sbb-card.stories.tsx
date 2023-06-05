@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (context.args.color === 'white') {
@@ -19,21 +22,21 @@ const Content = () => [<sbb-title level="4">Example text</sbb-title>, ContentTex
 
 const Template = (args) => <sbb-card {...args}>{Content()}</sbb-card>;
 
-const TemplateFixedHeight = (args) => (
-  <sbb-card {...args} style="height:250px;">
+const TemplateFixedHeight = (args): JSX.Element => (
+  <sbb-card {...args} style={{height: '250px'}}>
     {Content()}
   </sbb-card>
 );
 
-const TemplateWithBadge = (args) => (
+const TemplateWithBadge = (args): JSX.Element => (
   <sbb-card {...args}>
     <sbb-card-badge slot="badge" appearance="primary" is-discount price="19.99" text="from CHF" />
     {Content()}
   </sbb-card>
 );
 
-const TemplateMultipleCards = (args) => (
-  <div style="display: flex; gap: 1rem;">
+const TemplateMultipleCards = (args): JSX.Element => (
+  <div style={{display: 'flex', gap: '1rem'}}>
     {TemplateWithBadge(args)}
     {TemplateWithBadge({ ...args, active: true })}
     {TemplateWithBadge(args)}
@@ -41,27 +44,27 @@ const TemplateMultipleCards = (args) => (
   </div>
 );
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['xs', 's', 'm', 'l', 'xl', 'xxl'],
 };
 
-const active = {
+const active: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const color = {
+const color: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['white', 'milk'],
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -70,7 +73,7 @@ const href = {
   },
 };
 
-const download = {
+const download: InputType = {
   control: {
     type: 'boolean',
   },
@@ -79,7 +82,7 @@ const download = {
   },
 };
 
-const target = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -88,7 +91,7 @@ const target = {
   },
 };
 
-const rel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -97,13 +100,13 @@ const rel = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const name = {
+const name: InputType = {
   control: {
     type: 'text',
   },
@@ -112,7 +115,7 @@ const name = {
   },
 };
 
-const type = {
+const type: InputType = {
   control: {
     type: 'select',
   },
@@ -122,7 +125,7 @@ const type = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -131,7 +134,7 @@ const form = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -139,7 +142,7 @@ const value = {
     category: 'Button',
   },
 };
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   size,
   active,
   color,
@@ -154,7 +157,7 @@ const basicArgTypes = {
   value,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   size: 'm',
   active: false,
   color: color.options[0],
@@ -190,74 +193,134 @@ const basicArgsButtonMilk = {
   color: color.options[1],
 };
 
-export const sbbCardLink = Template.bind({});
-sbbCardLink.argTypes = basicArgTypes;
-sbbCardLink.args = { ...basicArgs };
+export const sbbCardLink: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
 
-export const sbbCardLinkMilk = Template.bind({});
-sbbCardLinkMilk.argTypes = basicArgTypes;
-sbbCardLinkMilk.args = { ...basicArgsMilk };
 
-export const sbbCardButton = Template.bind({});
-sbbCardButton.argTypes = basicArgTypes;
-sbbCardButton.args = { ...basicArgsButton };
 
-export const sbbCardButtonMilk = Template.bind({});
-sbbCardButtonMilk.argTypes = basicArgTypes;
-sbbCardButtonMilk.args = { ...basicArgsButtonMilk };
+export const sbbCardLinkMilk: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsMilk },
+};
 
-export const sbbCardButtonActive = Template.bind({});
-sbbCardButtonActive.argTypes = basicArgTypes;
-sbbCardButtonActive.args = { ...basicArgsButton, active: true };
 
-export const sbbCardButtonActiveMilk = Template.bind({});
-sbbCardButtonActiveMilk.argTypes = basicArgTypes;
-sbbCardButtonActiveMilk.args = { ...basicArgsButtonMilk, active: true };
 
-export const sbbCardWithSbbBadgeLink = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeLink.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeLink.args = { ...basicArgs };
+export const sbbCardButton: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButton },
+};
 
-export const sbbCardWithSbbBadgeLinkMilk = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeLinkMilk.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeLinkMilk.args = { ...basicArgsMilk };
 
-export const sbbCardWithSbbBadgeButton = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeButton.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeButton.args = { ...basicArgsButton };
 
-export const sbbCardWithSbbBadgeButtonMilk = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeButtonMilk.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeButtonMilk.args = { ...basicArgsButtonMilk };
+export const sbbCardButtonMilk: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButtonMilk },
+};
 
-export const sbbCardWithSbbBadgeLinkActive = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeLinkActive.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeLinkActive.args = { ...basicArgs, active: true };
 
-export const sbbCardWithSbbBadgeLinkActiveMilk = TemplateWithBadge.bind({});
-sbbCardWithSbbBadgeLinkActiveMilk.argTypes = basicArgTypes;
-sbbCardWithSbbBadgeLinkActiveMilk.args = { ...basicArgsMilk, active: true };
 
-export const sbbCardFixedHeight = TemplateFixedHeight.bind({});
-sbbCardFixedHeight.argTypes = basicArgTypes;
-sbbCardFixedHeight.args = { ...basicArgsButton };
+export const sbbCardButtonActive: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButton, active: true },
+};
 
-export const sbbCardMultiple = TemplateMultipleCards.bind({});
-sbbCardMultiple.argTypes = basicArgTypes;
-sbbCardMultiple.args = { ...basicArgs };
 
-export const sbbCardMultipleMilk = TemplateMultipleCards.bind({});
-sbbCardMultipleMilk.argTypes = basicArgTypes;
-sbbCardMultipleMilk.args = { ...basicArgsMilk };
 
-export default {
+export const sbbCardButtonActiveMilk: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButtonMilk, active: true },
+};
+
+
+
+export const sbbCardWithSbbBadgeLink: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+
+
+export const sbbCardWithSbbBadgeLinkMilk: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsMilk },
+};
+
+
+
+export const sbbCardWithSbbBadgeButton: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButton },
+};
+
+
+
+export const sbbCardWithSbbBadgeButtonMilk: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButtonMilk },
+};
+
+
+
+export const sbbCardWithSbbBadgeLinkActive: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, active: true },
+};
+
+
+
+export const sbbCardWithSbbBadgeLinkActiveMilk: StoryObj = {
+  render: TemplateWithBadge,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsMilk, active: true },
+};
+
+
+
+export const sbbCardFixedHeight: StoryObj = {
+  render: TemplateFixedHeight,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButton },
+};
+
+
+
+export const sbbCardMultiple: StoryObj = {
+  render: TemplateMultipleCards,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+
+
+export const sbbCardMultipleMilk: StoryObj = {
+  render: TemplateMultipleCards,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsMilk },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)} padding: 2rem`}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -269,3 +332,5 @@ export default {
   },
   title: 'components/sbb-card',
 };
+
+export default meta;

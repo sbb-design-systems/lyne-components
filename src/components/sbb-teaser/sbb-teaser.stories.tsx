@@ -1,8 +1,11 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 
 import placeholderImage from './stories/placeholder.png';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -10,7 +13,7 @@ import placeholderImage from './stories/placeholder.png';
 
 /* --- General ------------------------------------- */
 
-const title = {
+const title: InputType = {
   control: {
     type: 'text',
   },
@@ -19,7 +22,7 @@ const title = {
   },
 };
 
-const description = {
+const description: InputType = {
   control: {
     type: 'text',
   },
@@ -28,7 +31,7 @@ const description = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -39,7 +42,7 @@ const ariaLabel = {
 
 /* --- Layout ------------------------------------- */
 
-const isStacked = {
+const isStacked: InputType = {
   control: {
     type: 'boolean',
   },
@@ -47,7 +50,7 @@ const isStacked = {
 
 /* --- Link ---------------------------------------- */
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -59,7 +62,7 @@ const href = {
 /* --- Style and positioning ----------------------- */
 
 /* eslint-disable sort-keys */
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   title,
   description,
   'aria-label': ariaLabel,
@@ -67,7 +70,7 @@ const defaultArgTypes = {
   href,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   title: 'This is a title',
   description: 'This is a paragraph',
   'aria-label':
@@ -101,8 +104,8 @@ const TemplateDefaultTeaser = (args) => {
   );
 };
 
-const TemplateTeaserList = (args) => (
-  <ul style="display:grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;">
+const TemplateTeaserList = (args): JSX.Element => (
+  <ul style={{display: 'grid', 'list-style': 'none', 'grid-template-columns': 'repeat(auto-fit, 20rem)', gap: '2rem'}}>
     {[...Array(6)].map(() => (
       <li>
         <TemplateDefaultTeaser {...args} style="" />
@@ -111,8 +114,8 @@ const TemplateTeaserList = (args) => (
   </ul>
 );
 
-const TemplateTeaserListIsStacked = (args) => (
-  <ul style="display:grid; list-style: none; grid-template-columns: repeat(auto-fit, 20rem); gap: 2rem;">
+const TemplateTeaserListIsStacked = (args): JSX.Element => (
+  <ul style={{display: 'grid', 'list-style': 'none', 'grid-template-columns': 'repeat(auto-fit, 20rem)', gap: '2rem'}}>
     {[...Array(4)].map(() => (
       <li>
         <TemplateDefaultTeaser {...args} style="" />
@@ -126,48 +129,64 @@ const TemplateTeaserListIsStacked = (args) => (
 /* ************************************************* */
 
 /* --- Teaser, Journey --------- */
-export const defaultTeaser = TemplateDefaultTeaser.bind({});
-export const TeaserWithLongText = TemplateDefaultTeaser.bind({});
-export const teaserList = TemplateTeaserList.bind({});
-export const teaserListIsStacked = TemplateTeaserListIsStacked.bind({});
-
-defaultTeaser.argTypes = defaultArgTypes;
-defaultTeaser.args = {
+export const defaultTeaser: StoryObj = {
+  render: TemplateDefaultTeaser,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
-
-TeaserWithLongText.argTypes = defaultArgTypes;
-TeaserWithLongText.args = {
+export const TeaserWithLongText: StoryObj = {
+  render: TemplateDefaultTeaser,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   title:
     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
   description:
     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+},
 };
-
-teaserList.argTypes = defaultArgTypes;
-teaserList.args = {
+export const teaserList: StoryObj = {
+  render: TemplateTeaserList,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'is-stacked': false,
+},
+};
+export const teaserListIsStacked: StoryObj = {
+  render: TemplateTeaserListIsStacked,
+  argTypes: defaultArgTypes,
+  args: {
+  ...defaultArgs,
+},
 };
 
-teaserListIsStacked.argTypes = defaultArgTypes;
-teaserListIsStacked.args = {
-  ...defaultArgs,
-};
+
+
+
+
+
+
+
+
+
+
+
 
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={`padding: 2rem; max-width: 760px`}>
+      <div style={{padding: '2rem', 'max-width': '760px'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -182,3 +201,5 @@ export default {
   },
   title: 'components/sbb-teaser',
 };
+
+export default meta;

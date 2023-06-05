@@ -1,39 +1,42 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const checked = {
+const checked: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'select',
   },
   options: ['arrow-right-small', 'app-icon-small', 'train-small', 'swisspass-small'],
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -42,7 +45,7 @@ const ariaLabel = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   label,
   value,
   checked,
@@ -51,7 +54,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   label: 'Option',
   value: 'Value',
   checked: false,
@@ -60,45 +63,65 @@ const defaultArgs = {
   'aria-label': undefined,
 };
 
-const DefaultTemplate = ({ label, ...args }) => (
+const DefaultTemplate = ({ label, ...args }): JSX.Element => (
   <sbb-toggle-option {...args}>{label}</sbb-toggle-option>
 );
 
-const SlottedIconTemplate = ({ label, 'icon-name': iconName, ...args }) => (
+const SlottedIconTemplate = ({ label, 'icon-name': iconName, ...args }): JSX.Element => (
   <sbb-toggle-option {...args}>
     <sbb-icon slot="icon" name={iconName}></sbb-icon>
     {label}
   </sbb-toggle-option>
 );
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = { ...defaultArgTypes, value };
-Default.args = { ...defaultArgs };
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes, value },
+  args: { ...defaultArgs },
+};
 
-export const IconOnly = DefaultTemplate.bind({});
-IconOnly.argTypes = { ...defaultArgTypes };
-IconOnly.args = { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] };
 
-export const LabelAndIcon = DefaultTemplate.bind({});
-LabelAndIcon.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
-LabelAndIcon.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
-export const IconOnlySlotted = SlottedIconTemplate.bind({});
-IconOnlySlotted.argTypes = { ...defaultArgTypes };
-IconOnlySlotted.args = { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] };
+export const IconOnly: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] },
+};
 
-export const LabelAndIconSlotted = SlottedIconTemplate.bind({});
-LabelAndIconSlotted.argTypes = { ...defaultArgTypes, 'icon-name': iconName, value };
-LabelAndIconSlotted.args = { ...defaultArgs, 'icon-name': iconName.options[1] };
 
-export default {
+
+export const LabelAndIcon: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes, 'icon-name': iconName, value },
+  args: { ...defaultArgs, 'icon-name': iconName.options[1] },
+};
+
+
+
+export const IconOnlySlotted: StoryObj = {
+  render: SlottedIconTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, label: undefined, 'icon-name': iconName.options[1] },
+};
+
+
+
+export const LabelAndIconSlotted: StoryObj = {
+  render: SlottedIconTemplate,
+  argTypes: { ...defaultArgTypes, 'icon-name': iconName, value },
+  args: { ...defaultArgs, 'icon-name': iconName.options[1] },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -113,3 +136,5 @@ export default {
   },
   title: 'components/form elements/sbb-toggle-option',
 };
+
+export default meta;

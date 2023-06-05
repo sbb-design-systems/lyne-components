@@ -1,39 +1,42 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-option.events';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const active = {
+const active: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const numberOfOptions = {
+const numberOfOptions: InputType = {
   control: {
     type: 'number',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   value,
   'icon-name': iconName,
   active: active,
   numberOfOptions,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   value: 'Value',
   'icon-name': undefined,
   active: false,
@@ -47,7 +50,7 @@ const createOptions = ({ value, numberOfOptions, ...args }) =>
 
 const StandaloneTemplate = (args) => createOptions(args);
 
-const AutocompleteTemplate = (args) => (
+const AutocompleteTemplate = (args): JSX.Element => (
   <sbb-form-field>
     <input />
     <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
@@ -56,30 +59,44 @@ const AutocompleteTemplate = (args) => (
 
 const defaultDecorator = [
   (Story) => (
-    <div style={'border: 3px solid red'}>
+    <div style={{border: '3px solid red'}}>
       <Story />
     </div>
   ),
 ];
 
-export const Standalone = StandaloneTemplate.bind({});
-Standalone.argTypes = defaultArgTypes;
-Standalone.args = { ...defaultArgs };
-Standalone.decorators = defaultDecorator;
+export const Standalone: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  decorators: defaultDecorator,
+};
 
-export const WithIcon = StandaloneTemplate.bind({});
-WithIcon.argTypes = defaultArgTypes;
-WithIcon.args = { ...defaultArgs, 'icon-name': 'clock-small' };
-WithIcon.decorators = defaultDecorator;
 
-export const Autocomplete = AutocompleteTemplate.bind({});
-Autocomplete.argTypes = defaultArgTypes;
-Autocomplete.args = { ...defaultArgs };
 
-export default {
+
+export const WithIcon: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'icon-name': 'clock-small' },
+  decorators: defaultDecorator,
+};
+
+
+
+
+export const Autocomplete: StoryObj = {
+  render: AutocompleteTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -97,3 +114,5 @@ export default {
   },
   title: 'components/form elements/sbb-option',
 };
+
+export default meta;

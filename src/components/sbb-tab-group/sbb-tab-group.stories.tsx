@@ -1,11 +1,14 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import events from './sbb-tab-group.events.ts';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const firstTabTitle = ({ label, ...args }) => <sbb-tab-title {...args}>{label}</sbb-tab-title>;
 
-const tabPanelOne = () => (
+const tabPanelOne = (): JSX.Element => (
   <div>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -18,7 +21,7 @@ const tabPanelOne = () => (
   </div>
 );
 
-const tabPanelTwo = () => (
+const tabPanelTwo = (): JSX.Element => (
   <section>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -26,7 +29,7 @@ const tabPanelTwo = () => (
   </section>
 );
 
-const tabPanelFour = () => (
+const tabPanelFour = (): JSX.Element => (
   <article>
     Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
     elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
@@ -35,7 +38,7 @@ const tabPanelFour = () => (
   </article>
 );
 
-const DefaultTemplate = (args) => (
+const DefaultTemplate = (args): JSX.Element => (
   <sbb-tab-group initial-selected-index="0">
     {firstTabTitle(args)}
     {tabPanelOne()}
@@ -51,7 +54,7 @@ const DefaultTemplate = (args) => (
   </sbb-tab-group>
 );
 
-const IconsAndNumbersTemplate = (args) => (
+const IconsAndNumbersTemplate = (args): JSX.Element => (
   <sbb-tab-group initial-selected-index="0">
     {firstTabTitle(args)}
     {tabPanelOne()}
@@ -73,7 +76,7 @@ const IconsAndNumbersTemplate = (args) => (
   </sbb-tab-group>
 );
 
-const NestedTemplate = (args) => (
+const NestedTemplate = (args): JSX.Element => (
   <sbb-tab-group initial-selected-index="0">
     {firstTabTitle(args)}
     <sbb-tab-group initial-selected-index="1">
@@ -110,7 +113,7 @@ const NestedTemplate = (args) => (
   </sbb-tab-group>
 );
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -119,7 +122,7 @@ const label = {
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'select',
   },
@@ -129,7 +132,7 @@ const iconName = {
   },
 };
 
-const amount = {
+const amount: InputType = {
   control: {
     type: 'number',
   },
@@ -138,13 +141,13 @@ const amount = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   amount: amount,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   label: 'Tab label one',
   'icon-name': undefined,
   amount: undefined,
@@ -152,41 +155,61 @@ const basicArgs = {
 
 const templateRes = [
   (Story) => (
-    <div style={'padding: 2rem'}>
+    <div style={{padding: '2rem'}}>
       <Story />
     </div>
   ),
-  withActions,
+  withActions as Decorator,
 ];
 
-export const defaultTabs = DefaultTemplate.bind({});
-defaultTabs.argTypes = basicArgTypes;
-defaultTabs.args = { ...basicArgs };
-defaultTabs.decorators = templateRes;
+export const defaultTabs: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  decorators: templateRes,
+};
 
-export const numbersAndIcons = IconsAndNumbersTemplate.bind({});
-numbersAndIcons.argTypes = basicArgTypes;
-numbersAndIcons.args = { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] };
-numbersAndIcons.decorators = templateRes;
 
-export const nestedTabGroups = NestedTemplate.bind({});
-nestedTabGroups.argTypes = basicArgTypes;
-nestedTabGroups.args = { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] };
-nestedTabGroups.decorators = templateRes;
 
-export const tintedBackground = IconsAndNumbersTemplate.bind({});
-tintedBackground.argTypes = basicArgTypes;
-tintedBackground.args = { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] };
-tintedBackground.decorators = [
+
+export const numbersAndIcons: StoryObj = {
+  render: IconsAndNumbersTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  decorators: templateRes,
+};
+
+
+
+
+export const nestedTabGroups: StoryObj = {
+  render: NestedTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  decorators: templateRes,
+};
+
+
+
+
+export const tintedBackground: StoryObj = {
+  render: IconsAndNumbersTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  decorators: [
   (Story) => (
-    <div style={'background: var(--sbb-color-milk-default); padding: 2rem'}>
+    <div style={{background: 'var(--sbb-color-milk-default)', padding: '2rem'}}>
       <Story />
     </div>
   ),
-  withActions,
-];
+  withActions as Decorator,
+],
+};
 
-export default {
+
+
+
+const meta: Meta =  {
   parameters: {
     actions: {
       handles: [events.selectedTabChanged],
@@ -200,3 +223,5 @@ export default {
   },
   title: 'components/sbb-tab-group',
 };
+
+export default meta;

@@ -1,46 +1,40 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const TemplateSingle = (args) => <sbb-header-action {...args}>{args.text}</sbb-header-action>;
 
-const TemplateMultiple = (args) => (
-  <div style="display: flex; gap: 2rem;">
+const TemplateMultiple = (args): JSX.Element => (
+  <div style={{display: 'flex', gap: '2rem'}}>
     <sbb-header-action {...args}>{args.text} 1</sbb-header-action>
     <sbb-header-action {...args}>{args.text} 2</sbb-header-action>
     <sbb-header-action {...args}>{args.text} 3</sbb-header-action>
   </div>
 );
 
-const text = {
+const text: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const expandFrom = {
+const expandFrom: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const href = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Link',
-  },
-};
-
-const target = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -49,7 +43,7 @@ const target = {
   },
 };
 
-const rel = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -58,7 +52,16 @@ const rel = {
   },
 };
 
-const download = {
+const rel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Link',
+  },
+};
+
+const download: InputType = {
   control: {
     type: 'boolean',
   },
@@ -67,7 +70,7 @@ const download = {
   },
 };
 
-const type = {
+const type: InputType = {
   control: {
     type: 'select',
   },
@@ -77,7 +80,7 @@ const type = {
   },
 };
 
-const name = {
+const name: InputType = {
   control: {
     type: 'text',
   },
@@ -86,7 +89,7 @@ const name = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -95,7 +98,7 @@ const value = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -104,11 +107,11 @@ const form = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: { type: 'text' },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   text,
   'expand-from': expandFrom,
   'icon-name': iconName,
@@ -123,7 +126,7 @@ const basicArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   text: 'Menu',
   'expand-from': expandFrom.options[0],
   'icon-name': 'hamburger-menu-small',
@@ -149,42 +152,50 @@ const basicArgsButton = {
   form: 'form',
 };
 
-export const sbbHeaderActionLink = TemplateSingle.bind({});
-sbbHeaderActionLink.argTypes = basicArgTypes;
-sbbHeaderActionLink.args = { ...basicArgs };
-sbbHeaderActionLink.documentation = {
-  title: 'Header action (link version)',
+export const sbbHeaderActionLink: StoryObj = {
+  render: TemplateSingle,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
-export const sbbHeaderActionButton = TemplateSingle.bind({});
-sbbHeaderActionButton.argTypes = basicArgTypes;
-sbbHeaderActionButton.args = { ...basicArgsButton };
-sbbHeaderActionButton.documentation = {
-  title: 'Header action (button version)',
+
+
+
+export const sbbHeaderActionButton: StoryObj = {
+  render: TemplateSingle,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButton },
 };
 
-export const sbbHeaderActionLinkMultiple = TemplateMultiple.bind({});
-sbbHeaderActionLinkMultiple.argTypes = basicArgTypes;
-sbbHeaderActionLinkMultiple.args = { ...basicArgs };
-sbbHeaderActionLinkMultiple.documentation = {
-  title: 'Header action multiple (link version)',
+
+
+
+export const sbbHeaderActionLinkMultiple: StoryObj = {
+  render: TemplateMultiple,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
-export const sbbHeaderActionButtonMultiple = TemplateMultiple.bind({});
-sbbHeaderActionButtonMultiple.argTypes = basicArgTypes;
-sbbHeaderActionButtonMultiple.args = { ...basicArgsButton };
-sbbHeaderActionButtonMultiple.documentation = {
-  title: 'Header action multiple (button version)',
+
+
+
+export const sbbHeaderActionButtonMultiple: StoryObj = {
+  render: TemplateMultiple,
+  argTypes: basicArgTypes,
+  args: { ...basicArgsButton },
 };
 
-export default {
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -199,3 +210,5 @@ export default {
   },
   title: 'components/sbb-header-action',
 };
+
+export default meta;

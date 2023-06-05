@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-row-header.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-row-header config={JSON.stringify(args.config)}></sbb-timetable-row-header>
 );
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
@@ -19,18 +22,20 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const SbbTimetableRowHeader = Template.bind({});
-
-SbbTimetableRowHeader.argTypes = defaultArgTypes;
-SbbTimetableRowHeader.args = {
+export const SbbTimetableRowHeader: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[0],
+},
 };
 
-SbbTimetableRowHeader.documentation = {
-  title: 'SBB Timetable Row Header',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -40,3 +45,5 @@ export default {
   },
   title: 'internals/sbb-timetable-row-header',
 };
+
+export default meta;

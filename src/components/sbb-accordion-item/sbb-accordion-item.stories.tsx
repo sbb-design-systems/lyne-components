@@ -1,9 +1,12 @@
+/** @jsx h */
 import events from './sbb-accordion-item.events.ts';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-accordion-item {...args}>
     <p slot="content">
       1 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae
@@ -31,28 +34,23 @@ const Template = (args) => (
   </sbb-accordion-item>
 );
 
-export const Default = Template.bind({});
-
-Default.documentation = {
-  container: {
-    styles: {
-      'background-color': 'var(--sbb-color-white-default);',
-      border: '2px solid var(--sbb-color-milk-default);',
-    },
-  },
-  title: 'Default Accordion Item',
-};
-
-Default.args = {
+export const Default: StoryObj = {
+  render: Template,
+  args: {
   disabled: false,
   'event-id': 'id1',
   heading: 'Accordion Item',
   'heading-level': '2',
   icon: true,
   open: false,
+},
 };
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [withActions],
   parameters: {
     actions: {
@@ -64,3 +62,5 @@ export default {
   },
   title: 'components/sbb-accordion-item (Unfinished)',
 };
+
+export default meta;

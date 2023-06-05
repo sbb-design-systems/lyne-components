@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (!context.args.negative) {
@@ -18,20 +21,20 @@ const paragraphStyle = (negative) => {
 
 const Template = ({ text, ...args }) => <sbb-link {...args}>{text}</sbb-link>;
 
-const FixedWidthTemplate = ({ text, ...args }) => (
-  <sbb-link {...args} style="width: 200px;">
+const FixedWidthTemplate = ({ text, ...args }): JSX.Element => (
+  <sbb-link {...args} style={{width: '200px'}}>
     {text}
   </sbb-link>
 );
 
-const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }) => (
+const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element => (
   <sbb-link {...args}>
     {text}
     <sbb-icon slot="icon" name={iconName}></sbb-icon>
   </sbb-link>
 );
 
-const InlineTemplate = ({ text, ...args }) => (
+const InlineTemplate = ({ text, ...args }): JSX.Element => (
   <p style={paragraphStyle(args.negative)} class="sbb-text-m">
     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
     ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
@@ -40,37 +43,37 @@ const InlineTemplate = ({ text, ...args }) => (
   </p>
 );
 
-const text = {
+const text: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const variant = {
+const variant: InputType = {
   control: {
     type: 'select',
   },
   options: ['block', 'inline'],
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'select',
   },
   options: ['xs', 's', 'm'],
 };
 
-const isStatic = {
+const isStatic: InputType = {
   control: { type: 'boolean' },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -79,7 +82,7 @@ const iconName = {
   },
 };
 
-const iconPlacement = {
+const iconPlacement: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -89,7 +92,7 @@ const iconPlacement = {
   },
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -98,7 +101,7 @@ const href = {
   },
 };
 
-const target = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -107,7 +110,7 @@ const target = {
   },
 };
 
-const rel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -116,7 +119,7 @@ const rel = {
   },
 };
 
-const download = {
+const download: InputType = {
   control: {
     type: 'boolean',
   },
@@ -125,7 +128,7 @@ const download = {
   },
 };
 
-const type = {
+const type: InputType = {
   control: {
     type: 'select',
   },
@@ -135,7 +138,7 @@ const type = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -144,7 +147,7 @@ const disabled = {
   },
 };
 
-const name = {
+const name: InputType = {
   control: {
     type: 'text',
   },
@@ -153,7 +156,7 @@ const name = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -162,7 +165,7 @@ const value = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -171,13 +174,13 @@ const form = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   text,
   variant,
   negative,
@@ -197,7 +200,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   text: 'Travelcards & tickets',
   variant: variant.options[0],
   negative: false,
@@ -220,167 +223,239 @@ const defaultArgs = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const BlockXS = Template.bind({});
-BlockXS.argTypes = defaultArgTypes;
-BlockXS.args = {
+export const BlockXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[0],
+},
 };
 
-export const BlockS = Template.bind({});
-BlockS.argTypes = defaultArgTypes;
-BlockS.args = {
+
+
+export const BlockS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[1],
+},
 };
 
-export const BlockM = Template.bind({});
-BlockM.argTypes = defaultArgTypes;
-BlockM.args = {
+
+
+export const BlockM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[2],
+},
 };
 
-export const BlockXSIcon = Template.bind({});
-BlockXSIcon.argTypes = defaultArgTypes;
-BlockXSIcon.args = {
+
+
+export const BlockXSIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[0],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
+},
 };
 
-export const BlockSIcon = Template.bind({});
-BlockSIcon.argTypes = defaultArgTypes;
-BlockSIcon.args = {
+
+
+export const BlockSIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[1],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
+},
 };
 
-export const BlockMIcon = Template.bind({});
-BlockMIcon.argTypes = defaultArgTypes;
-BlockMIcon.args = {
+
+
+export const BlockMIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[2],
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
+},
 };
 
-export const BlockIconStart = Template.bind({});
-BlockIconStart.argTypes = defaultArgTypes;
-BlockIconStart.args = {
+
+
+export const BlockIconStart: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'chevron-small-left-small',
+},
 };
 
-export const BlockNegative = Template.bind({});
-BlockNegative.argTypes = defaultArgTypes;
-BlockNegative.args = {
+
+
+export const BlockNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   negative: true,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
+},
 };
 
-export const BlockWithSlottedIcon = IconSlotTemplate.bind({});
-BlockWithSlottedIcon.argTypes = defaultArgTypes;
-BlockWithSlottedIcon.args = {
+
+
+export const BlockWithSlottedIcon: StoryObj = {
+  render: IconSlotTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
+},
 };
 
-export const BlockLinkOpensInNewWindow = IconSlotTemplate.bind({});
-BlockLinkOpensInNewWindow.argTypes = defaultArgTypes;
-BlockLinkOpensInNewWindow.args = {
+
+
+export const BlockLinkOpensInNewWindow: StoryObj = {
+  render: IconSlotTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
   target: '_blank',
   'aria-label': undefined,
+},
 };
 
-export const BlockFixedWidth = FixedWidthTemplate.bind({});
-BlockFixedWidth.argTypes = defaultArgTypes;
-BlockFixedWidth.args = {
+
+
+export const BlockFixedWidth: StoryObj = {
+  render: FixedWidthTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   text: 'A lot of link text to show what happens if there is not enough space.',
   'icon-name': 'chevron-small-left-small',
+},
 };
 
-export const BlockButton = Template.bind({});
-BlockButton.argTypes = defaultArgTypes;
-BlockButton.args = {
+
+
+export const BlockButton: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   href: undefined,
   'icon-name': 'chevron-small-right-small',
   'icon-placement': iconPlacement.options[1],
+},
 };
 
-export const BlockButtonNegative = Template.bind({});
-BlockButtonNegative.argTypes = defaultArgTypes;
-BlockButtonNegative.args = {
+
+
+export const BlockButtonNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   negative: true,
   href: undefined,
   'icon-name': 'chevron-small-left-small',
+},
 };
 
-export const BlockButtonFixedWidth = FixedWidthTemplate.bind({});
-BlockButtonFixedWidth.argTypes = defaultArgTypes;
-BlockButtonFixedWidth.args = {
+
+
+export const BlockButtonFixedWidth: StoryObj = {
+  render: FixedWidthTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   href: undefined,
   text: 'A lot of link text to show what happens if there is not enough space.',
   'icon-name': 'chevron-small-left-small',
+},
 };
 
-export const Inline = InlineTemplate.bind({});
-Inline.argTypes = defaultArgTypes;
-Inline.args = {
+
+
+export const Inline: StoryObj = {
+  render: InlineTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   text: 'Show more',
   variant: variant.options[1],
+},
 };
 
-export const InlineNegative = InlineTemplate.bind({});
-InlineNegative.argTypes = defaultArgTypes;
-InlineNegative.args = {
+
+
+export const InlineNegative: StoryObj = {
+  render: InlineTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   text: 'Show more',
   variant: variant.options[1],
   negative: true,
+},
 };
 
-export const InlineButton = InlineTemplate.bind({});
-InlineButton.argTypes = defaultArgTypes;
-InlineButton.args = {
+
+
+export const InlineButton: StoryObj = {
+  render: InlineTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   text: 'Show more',
   variant: 'inline',
   href: undefined,
+},
 };
 
-export const InlineButtonNegative = InlineTemplate.bind({});
-InlineButtonNegative.argTypes = defaultArgTypes;
-InlineButtonNegative.args = {
+
+
+export const InlineButtonNegative: StoryObj = {
+  render: InlineTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   text: 'Show more',
   variant: 'inline',
   href: undefined,
   negative: true,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -392,3 +467,5 @@ export default {
   },
   title: 'components/sbb-link',
 };
+
+export default meta;

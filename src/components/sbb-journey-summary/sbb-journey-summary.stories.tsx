@@ -1,4 +1,5 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import {
   futureLeg,
   longFutureLeg,
@@ -7,37 +8,39 @@ import {
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const roundTrip = {
+const roundTrip: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const now = {
+const now: InputType = {
   control: {
     type: 'date',
   },
 };
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
   'data-now': now,
   'round-trip': roundTrip,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
 };
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-journey-summary {...args}>
     <div
       style={{
@@ -55,16 +58,10 @@ const Template = (args) => (
 
 const TemplateNoSlot = (args) => <sbb-journey-summary {...args}></sbb-journey-summary>;
 
-export const summaryNoSlot = TemplateNoSlot.bind({});
-export const summary = Template.bind({});
-export const summaryNoVias = Template.bind({});
-export const summaryNoArrivalWalk = Template.bind({});
-export const summaryPosition = Template.bind({});
-export const summaryRoundtrip = TemplateNoSlot.bind({});
-export const summaryRoundtripOneJourney = TemplateNoSlot.bind({});
-
-summaryNoSlot.argTypes = defaultArgTypes;
-summaryNoSlot.args = {
+export const summaryNoSlot: StoryObj = {
+  render: TemplateNoSlot,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'via6'],
@@ -75,10 +72,12 @@ summaryNoSlot.args = {
     arrival: '2022-08-29T20:35:00+02:00',
     duration: 60,
   },
+},
 };
-
-summary.argTypes = defaultArgTypes;
-summary.args = {
+export const summary: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4', 'via5', 'vi6'],
@@ -89,10 +88,12 @@ summary.args = {
     arrival: '2022-08-29T20:35:00+02:00',
     duration: 120,
   },
+},
 };
-
-summaryNoVias.argTypes = defaultArgTypes;
-summaryNoVias.args = {
+export const summaryNoVias: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: {
     origin: 'Station',
@@ -104,10 +105,12 @@ summaryNoVias.args = {
     arrival: '2022-08-29T22:30:00+02:00',
     duration: 120,
   },
+},
 };
-
-summaryNoArrivalWalk.argTypes = defaultArgTypes;
-summaryNoArrivalWalk.args = {
+export const summaryNoArrivalWalk: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: {
     origin: 'Station',
@@ -118,10 +121,12 @@ summaryNoArrivalWalk.args = {
     arrival: '2022-08-29T22:30:00+02:00',
     duration: 120,
   },
+},
 };
-
-summaryPosition.argTypes = defaultArgTypes;
-summaryPosition.args = {
+export const summaryPosition: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4'],
@@ -132,10 +137,12 @@ summaryPosition.args = {
     arrival: '2022-09-19T22:30:00+02:00',
     duration: 120,
   },
+},
 };
-
-summaryRoundtrip.argTypes = defaultArgTypes;
-summaryRoundtrip.args = {
+export const summaryRoundtrip: StoryObj = {
+  render: TemplateNoSlot,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4'],
@@ -156,9 +163,11 @@ summaryRoundtrip.args = {
     duration: 120,
   },
   'round-trip': true,
+},
 };
-
-summaryRoundtripOneJourney.args = {
+export const summaryRoundtripOneJourney: StoryObj = {
+  render: TemplateNoSlot,
+  args: {
   ...defaultArgs,
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4'],
@@ -170,13 +179,34 @@ summaryRoundtripOneJourney.args = {
     duration: 120,
   },
   'round-trip': true,
+},
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-export default {
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     backgrounds: {
@@ -188,3 +218,5 @@ export default {
   },
   title: 'components/timetable/sbb-journey-summary (Unfinished)',
 };
+
+export default meta;

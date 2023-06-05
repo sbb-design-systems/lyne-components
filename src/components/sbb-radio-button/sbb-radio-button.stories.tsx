@@ -1,38 +1,41 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const checked = {
+const checked: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['m', 's'],
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   value,
   checked,
   disabled,
@@ -40,7 +43,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   value: 'First value',
   checked: false,
   disabled: false,
@@ -50,47 +53,71 @@ const defaultArgs = {
 
 const DefaultTemplate = (args) => <sbb-radio-button {...args}>Value</sbb-radio-button>;
 
-const MultilineLabelTemplate = (args) => (
+const MultilineLabelTemplate = (args): JSX.Element => (
   <sbb-radio-button {...args}>
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
     the industry's standard dummy text ever since the 1500s.
   </sbb-radio-button>
 );
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs };
-Default.documentation = { title: 'Default Radio Button' };
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const SizeS = DefaultTemplate.bind({});
-SizeS.argTypes = defaultArgTypes;
-SizeS.args = { ...defaultArgs, size: size.options[1] };
-SizeS.documentation = { title: 'Radio Button - Size S' };
 
-export const Checked = DefaultTemplate.bind({});
-Checked.argTypes = defaultArgTypes;
-Checked.args = { ...defaultArgs, checked: true };
-Checked.documentation = { title: 'Checked Radio Button' };
 
-export const Disabled = DefaultTemplate.bind({});
-Disabled.argTypes = defaultArgTypes;
-Disabled.args = { ...defaultArgs, disabled: true };
-Disabled.documentation = { title: 'Disabled Radio Button' };
 
-export const CheckedDisabled = DefaultTemplate.bind({});
-CheckedDisabled.argTypes = defaultArgTypes;
-CheckedDisabled.args = { ...defaultArgs, checked: true, disabled: true };
-CheckedDisabled.documentation = { title: 'Checked Disabled Radio Button' };
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
+};
 
-export const MultilineLabel = MultilineLabelTemplate.bind({});
-MultilineLabel.argTypes = defaultArgTypes;
-MultilineLabel.args = { ...defaultArgs, checked: true };
-MultilineLabel.documentation = { title: 'Multiline Label Radio Button' };
 
-export default {
+
+
+export const Checked: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, checked: true },
+};
+
+
+
+
+export const Disabled: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+
+
+
+export const CheckedDisabled: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, checked: true, disabled: true },
+};
+
+
+
+
+export const MultilineLabel: StoryObj = {
+  render: MultilineLabelTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, checked: true },
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; max-width: 1050px'}>
+      <div style={{padding: '2rem', 'max-width': '1050px'}}>
         <Story />
       </div>
     ),
@@ -105,3 +132,5 @@ export default {
   },
   title: 'components/form elements/sbb-radio-button',
 };
+
+export default meta;

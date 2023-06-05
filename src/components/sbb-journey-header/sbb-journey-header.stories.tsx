@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
@@ -9,45 +12,45 @@ const wrapperStyle = (context) => {
   return `background-color:  var(--sbb-color-white-default);`;
 };
 
-const origin = {
+const origin: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const destination = {
+const destination: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const roundTrip = {
+const roundTrip: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const level = {
+const level: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['1', '2', '3', '4', '5', '6'],
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['m', 'l'],
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   origin,
   destination,
   'round-trip': roundTrip,
@@ -56,7 +59,7 @@ const defaultArgTypes = {
   negative,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   origin: 'La Chaux de Fonds',
   destination: 'Loèche-les-Bains',
   'round-trip': false,
@@ -67,42 +70,66 @@ const defaultArgs = {
 
 const Template = (args) => <sbb-journey-header {...args} />;
 
-export const SizeM = Template.bind({});
-SizeM.argTypes = defaultArgTypes;
-SizeM.args = { ...defaultArgs };
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const SizeMRoundTrip = Template.bind({});
-SizeMRoundTrip.argTypes = defaultArgTypes;
-SizeMRoundTrip.args = { ...defaultArgs, 'round-trip': true };
 
-export const SizeMNegative = Template.bind({});
-SizeMNegative.argTypes = defaultArgTypes;
-SizeMNegative.args = { ...defaultArgs, negative: true };
 
-export const SizeMRoundTripShortText = Template.bind({});
-SizeMRoundTripShortText.argTypes = defaultArgTypes;
-SizeMRoundTripShortText.args = {
+export const SizeMRoundTrip: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'round-trip': true },
+};
+
+
+
+export const SizeMNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+};
+
+
+
+export const SizeMRoundTripShortText: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   origin: 'Bern',
   destination: 'Thun',
   'round-trip': true,
+},
 };
 
-export const SizeL = Template.bind({});
-SizeL.argTypes = defaultArgTypes;
-SizeL.args = { ...defaultArgs, size: size.options[1] };
 
-export const SizeLRoundTripShortText = Template.bind({});
-SizeLRoundTripShortText.argTypes = defaultArgTypes;
-SizeLRoundTripShortText.args = {
+
+export const SizeL: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
+};
+
+
+
+export const SizeLRoundTripShortText: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   origin: 'Bern',
   destination: 'Thun',
   'round-trip': true,
   size: size.options[1],
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
@@ -117,3 +144,5 @@ export default {
   },
   title: 'components/sbb-journey-header',
 };
+
+export default meta;

@@ -1,90 +1,101 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-transportation-time.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-transportation-time
     appearance={args.appearance}
     config={JSON.stringify(args.config)}
   ></sbb-timetable-transportation-time>
 );
 
-const appearance = {
+const appearance: InputType = {
   control: {
     type: 'select',
   },
   options: ['first-level', 'second-level'],
 };
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   appearance,
   config,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   appearance: appearance.options[0],
 };
 
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const SbbTimetableDepartureTimeFirstLevel = Template.bind({});
-
-SbbTimetableDepartureTimeFirstLevel.argTypes = defaultArgTypes;
-SbbTimetableDepartureTimeFirstLevel.args = {
+export const SbbTimetableDepartureTimeFirstLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData[0],
+},
 };
 
-SbbTimetableDepartureTimeFirstLevel.documentation = {
-  title: 'SBB Timetable Departure Time - First Level',
-};
 
-export const SbbTimetableArrivalTimeFirstLevel = Template.bind({});
 
-SbbTimetableArrivalTimeFirstLevel.argTypes = defaultArgTypes;
-SbbTimetableArrivalTimeFirstLevel.args = {
+
+
+
+export const SbbTimetableArrivalTimeFirstLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   config: sampleData[1],
+},
 };
 
-SbbTimetableArrivalTimeFirstLevel.documentation = {
-  title: 'SBB Timetable Arrival Time - First Level',
-};
 
-export const SbbTimetableDepartureTimeSecondLevel = Template.bind({});
 
-SbbTimetableDepartureTimeSecondLevel.argTypes = defaultArgTypes;
-SbbTimetableDepartureTimeSecondLevel.args = {
+
+
+
+export const SbbTimetableDepartureTimeSecondLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[2],
+},
 };
 
-SbbTimetableDepartureTimeSecondLevel.documentation = {
-  title: 'SBB Timetable Departure Time - Second Level',
-};
 
-export const SbbTimetableArrivalTimeSecondLevel = Template.bind({});
 
-SbbTimetableArrivalTimeSecondLevel.argTypes = defaultArgTypes;
-SbbTimetableArrivalTimeSecondLevel.args = {
+
+
+
+export const SbbTimetableArrivalTimeSecondLevel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   appearance: appearance.options[1],
   config: sampleData[3],
+},
 };
 
-SbbTimetableArrivalTimeSecondLevel.documentation = {
-  title: 'SBB Timetable Arrival Time - Second Level',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -94,3 +105,5 @@ export default {
   },
   title: 'internals/sbb-timetable-transportation-time',
 };
+
+export default meta;

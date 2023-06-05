@@ -1,4 +1,5 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import events from './sbb-navigation.events.ts';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
@@ -6,6 +7,8 @@ import { userEvent, waitFor, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
@@ -40,7 +43,7 @@ const playStoryWithSection = async ({ canvasElement }) => {
   userEvent.click(actionS);
 };
 
-const accessibilityLabel = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -49,7 +52,7 @@ const accessibilityLabel = {
   },
 };
 
-const accessibilityCloseLabel = {
+const accessibilityCloseLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -58,25 +61,25 @@ const accessibilityCloseLabel = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   'accessibility-label': accessibilityLabel,
   'accessibility-close-label': accessibilityCloseLabel,
   'disable-animation': disableAnimation,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   'accessibility-label': undefined,
   'accessibility-close-label': undefined,
   'disable-animation': isChromatic(),
 };
 
-const triggerButton = (id) => (
+const triggerButton = (id): JSX.Element => (
   <sbb-button
     data-testid="navigation-trigger"
     id={id}
@@ -88,7 +91,7 @@ const triggerButton = (id) => (
   ></sbb-button>
 );
 
-const navigationActionsL = () => [
+const navigationActionsL = (): JSX.Element[] => [
   <sbb-navigation-action id="nav-1" data-testid="navigation-section-trigger-1">
     Tickets & Offers
   </sbb-navigation-action>,
@@ -99,7 +102,7 @@ const navigationActionsL = () => [
   </sbb-navigation-action>,
 ];
 
-const navigationActionsS = () => [
+const navigationActionsS = (): JSX.Element[] => [
   <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>,
   <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>,
   <sbb-navigation-action id="nav-7" data-testid="navigation-section-trigger-2">
@@ -108,7 +111,7 @@ const navigationActionsS = () => [
   <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
 ];
 
-const navigationList = (label) => [
+const navigationList = (label): JSX.Element[] => [
   <sbb-navigation-list label={label}>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
     <sbb-navigation-action size="m">Label</sbb-navigation-action>
@@ -181,7 +184,7 @@ const WithNavigationSectionTemplate = (args) => [
       {navigationList('Label')}
       {navigationList('Label')}
       {navigationList('Label')}
-      <sbb-button size="m" style="width: fit-content">
+      <sbb-button size="m" style={{width: 'fit-content'}}>
         All Tickets & Offers
       </sbb-button>
     </sbb-navigation-section>
@@ -210,7 +213,7 @@ const WithNavigationSectionTemplate = (args) => [
         size="m"
         variant="secondary"
         icon-name="circle-information-small"
-        style="width: fit-content"
+        style={{width: 'fit-content'}}
       >
         Travel Information
       </sbb-button>
@@ -218,29 +221,44 @@ const WithNavigationSectionTemplate = (args) => [
   </sbb-navigation>,
 ];
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = basicArgTypes;
-Default.args = { ...basicArgs };
-Default.play = isChromatic() && playStory;
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStory,
+};
 
-export const LongContent = LongContentTemplate.bind({});
-LongContent.argTypes = basicArgTypes;
-LongContent.args = { ...basicArgs };
-LongContent.play = isChromatic() && playStory;
 
-export const WithNavigationSection = WithNavigationSectionTemplate.bind({});
-WithNavigationSection.argTypes = basicArgTypes;
-WithNavigationSection.args = { ...basicArgs };
-WithNavigationSection.play = isChromatic() && playStoryWithSection;
 
-export default {
+
+export const LongContent: StoryObj = {
+  render: LongContentTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+export const WithNavigationSection: StoryObj = {
+  render: WithNavigationSectionTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStoryWithSection,
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem; height: 100vh'}>
+      <div style={{padding: '2rem', height: '100vh'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -251,11 +269,13 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '600px',
+      story: { inline: false, iframeHeight: '600px', },
+      
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',
   },
   title: 'components/sbb-navigation',
 };
+
+export default meta;

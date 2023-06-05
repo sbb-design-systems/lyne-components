@@ -1,15 +1,18 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const getBasicTemplate = ({ text, ...args }, id, iconSlot) => (
+const getBasicTemplate = ({ text, ...args }, id, iconSlot): JSX.Element => (
   <sbb-menu-action {...args}>
     {text} {id}
     {iconSlot && <sbb-icon slot="icon" name="pie-small" />}
   </sbb-menu-action>
 );
 
-const TemplateMenuAction = (args) => (
+const TemplateMenuAction = (args): JSX.Element => (
   <div>
     {getBasicTemplate(args, 1)}
     {getBasicTemplate(args, 2)}
@@ -17,7 +20,7 @@ const TemplateMenuAction = (args) => (
   </div>
 );
 
-const TemplateMenuActionCustomIcon = (args) => (
+const TemplateMenuActionCustomIcon = (args): JSX.Element => (
   <div>
     {getBasicTemplate(args, 1, true)}
     {getBasicTemplate(args, 2, false)}
@@ -25,19 +28,19 @@ const TemplateMenuActionCustomIcon = (args) => (
   </div>
 );
 
-const text = {
+const text: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const amount = {
+const amount: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -46,7 +49,7 @@ const iconName = {
   },
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -55,7 +58,7 @@ const href = {
   },
 };
 
-const target = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -64,7 +67,7 @@ const target = {
   },
 };
 
-const rel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -73,7 +76,7 @@ const rel = {
   },
 };
 
-const download = {
+const download: InputType = {
   control: {
     type: 'boolean',
   },
@@ -82,7 +85,7 @@ const download = {
   },
 };
 
-const type = {
+const type: InputType = {
   control: {
     type: 'select',
   },
@@ -92,7 +95,7 @@ const type = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -101,7 +104,7 @@ const disabled = {
   },
 };
 
-const name = {
+const name: InputType = {
   control: {
     type: 'text',
   },
@@ -110,7 +113,7 @@ const name = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -119,7 +122,7 @@ const value = {
   },
 };
 
-const form = {
+const form: InputType = {
   control: {
     type: 'text',
   },
@@ -128,13 +131,13 @@ const form = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   text,
   amount,
   'icon-name': iconName,
@@ -150,7 +153,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: ArgTypes = {
   text: 'Details',
   amount: '99',
   'icon-name': 'tick-small',
@@ -175,63 +178,75 @@ const buttonArgs = {
   form: 'form-name',
 };
 
-export const menuActionLink = TemplateMenuAction.bind({});
-menuActionLink.argTypes = defaultArgTypes;
-menuActionLink.args = { ...defaultArgs };
-menuActionLink.documentation = {
-  title: 'Menu action - link mode',
+export const menuActionLink: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
-export const menuActionButton = TemplateMenuAction.bind({});
-menuActionButton.argTypes = defaultArgTypes;
-menuActionButton.args = { ...buttonArgs };
-menuActionButton.documentation = {
-  title: 'Menu action - button mode',
+
+
+
+export const menuActionButton: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: { ...buttonArgs },
 };
 
-export const menuActionLinkCustomIconNoAmount = TemplateMenuActionCustomIcon.bind({});
-menuActionLinkCustomIconNoAmount.argTypes = defaultArgTypes;
-menuActionLinkCustomIconNoAmount.args = {
+
+
+
+export const menuActionLinkCustomIconNoAmount: StoryObj = {
+  render: TemplateMenuActionCustomIcon,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   amount: undefined,
   'icon-name': undefined,
-};
-menuActionLinkCustomIconNoAmount.documentation = {
-  title: 'Menu action - link mode, custom icon, no amount',
+},
 };
 
-export const menuActionLinkNoIconNoAmount = TemplateMenuAction.bind({});
-menuActionLinkNoIconNoAmount.argTypes = defaultArgTypes;
-menuActionLinkNoIconNoAmount.args = { ...defaultArgs, 'icon-name': undefined, amount: undefined };
-menuActionLinkNoIconNoAmount.documentation = {
-  title: 'Menu action - link mode, no icon, no amount',
+
+
+
+export const menuActionLinkNoIconNoAmount: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'icon-name': undefined, amount: undefined },
 };
 
-export const menuActionButtonDisabled = TemplateMenuAction.bind({});
-menuActionButtonDisabled.argTypes = defaultArgTypes;
-menuActionButtonDisabled.args = { ...buttonArgs, disabled: true };
-menuActionButtonDisabled.documentation = {
-  title: 'Menu action - button mode (disabled)',
+
+
+
+export const menuActionButtonDisabled: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: { ...buttonArgs, disabled: true },
 };
 
-export const menuActionButtonEllipsis = TemplateMenuAction.bind({});
-menuActionButtonEllipsis.argTypes = defaultArgTypes;
-menuActionButtonEllipsis.args = {
+
+
+
+export const menuActionButtonEllipsis: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: {
   ...buttonArgs,
   text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-};
-menuActionButtonEllipsis.documentation = {
-  title: 'Menu action - button mode (disabled)',
+},
 };
 
-export default {
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'background-color: var(--sbb-color-black-default); width: 320px;'}>
+      <div style={{'background-color': 'var(--sbb-color-black-default)', width: '320px'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -246,3 +261,5 @@ export default {
   },
   title: 'components/sbb-menu-action',
 };
+
+export default meta;

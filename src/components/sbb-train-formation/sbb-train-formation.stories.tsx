@@ -1,7 +1,10 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const MountedFormationTemplate = (args) => (
+const MountedFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>
     <sbb-train
       direction-label="Direction of travel"
@@ -201,7 +204,7 @@ const MountedFormationTemplate = (args) => (
   </sbb-train-formation>
 );
 
-const SingleFormationTemplate = (args) => (
+const SingleFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>
     <sbb-train
       direction-label="Direction of travel"
@@ -315,43 +318,55 @@ const SingleFormationTemplate = (args) => (
   </sbb-train-formation>
 );
 
-const hideWagonLabel = {
+const hideWagonLabel: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'hide-wagon-label': hideWagonLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'hide-wagon-label': false,
 };
 
-export const TrainFormation = MountedFormationTemplate.bind({});
-TrainFormation.argTypes = defaultArgTypes;
-TrainFormation.args = {
+export const TrainFormation: StoryObj = {
+  render: MountedFormationTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const SingleFormation = SingleFormationTemplate.bind({});
-SingleFormation.argTypes = defaultArgTypes;
-SingleFormation.args = {
+
+
+export const SingleFormation: StoryObj = {
+  render: SingleFormationTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const TrainFormationHideWagonLabel = MountedFormationTemplate.bind({});
-TrainFormationHideWagonLabel.argTypes = defaultArgTypes;
-TrainFormationHideWagonLabel.args = {
+
+
+export const TrainFormationHideWagonLabel: StoryObj = {
+  render: MountedFormationTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'hide-wagon-label': true,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -366,3 +381,5 @@ export default {
   },
   title: 'components/timetable/sbb-train-formation',
 };
+
+export default meta;

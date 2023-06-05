@@ -1,47 +1,50 @@
+/** @jsx h */
 import readme from './readme.md';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const variant = {
+const variant: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['default', 'clock-columns'],
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const expanded = {
+const expanded: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const accessibilityTitle = {
+const accessibilityTitle: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   variant,
   negative,
   expanded,
   'accessibility-title': accessibilityTitle,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   variant: variant.options[1],
   negative: false,
   expanded: false,
   'accessibility-title': 'Footer',
 };
 
-const TemplateDefault = (args) => (
+const TemplateDefault = (args): JSX.Element => (
   <sbb-footer {...args}>
     <sbb-link-list horizontal-from="large" negative={args.negative}>
       <sbb-link
@@ -78,7 +81,7 @@ const TemplateDefault = (args) => (
   </sbb-footer>
 );
 
-const TemplateClockColumns = ({ ...args }) => (
+const TemplateClockColumns = ({ ...args }): JSX.Element => (
   <sbb-footer {...args}>
     <div class="sbb-link-list-button-group">
       <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative={args.negative}>
@@ -159,11 +162,11 @@ const TemplateClockColumns = ({ ...args }) => (
           level="2"
           visual-level="5"
           negative={args.negative}
-          style="margin:0 0 var(--sbb-spacing-fixed-3x)"
+          style={{margin: '0 0 var(--sbb-spacing-fixed-3x)'}}
         >
           Newsletter.
         </sbb-title>
-        <p style="margin:0">
+        <p style={{margin: '0'}}>
           Our newsletter regularly informs you of attractive offers from SBB via e-mail.
         </p>
       </span>
@@ -218,49 +221,73 @@ const TemplateClockColumns = ({ ...args }) => (
 /* The Stories                                       */
 /* ************************************************* */
 
-export const FooterClockColumns = TemplateClockColumns.bind({});
-FooterClockColumns.argTypes = defaultArgTypes;
-FooterClockColumns.args = { ...defaultArgs };
+export const FooterClockColumns: StoryObj = {
+  render: TemplateClockColumns,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const FooterClockColumnsNegative = TemplateClockColumns.bind({});
-FooterClockColumnsNegative.argTypes = defaultArgTypes;
-FooterClockColumnsNegative.args = {
+
+
+export const FooterClockColumnsNegative: StoryObj = {
+  render: TemplateClockColumns,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   negative: true,
+},
 };
 
-export const FooterClockColumnsExpanded = TemplateClockColumns.bind({});
-FooterClockColumnsExpanded.argTypes = defaultArgTypes;
-FooterClockColumnsExpanded.args = { ...defaultArgs, expanded: true };
 
-export const FooterDefault = TemplateDefault.bind({});
-FooterDefault.argTypes = defaultArgTypes;
-FooterDefault.args = {
+
+export const FooterClockColumnsExpanded: StoryObj = {
+  render: TemplateClockColumns,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, expanded: true },
+};
+
+
+
+export const FooterDefault: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
+},
 };
 
-export const FooterDefaultNegative = TemplateDefault.bind({});
-FooterDefaultNegative.argTypes = defaultArgTypes;
-FooterDefaultNegative.args = {
+
+
+export const FooterDefaultNegative: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   negative: true,
+},
 };
 
-export const FooterDefaultExpanded = TemplateDefault.bind({});
-FooterDefaultExpanded.argTypes = defaultArgTypes;
-FooterDefaultExpanded.args = {
+
+
+export const FooterDefaultExpanded: StoryObj = {
+  render: TemplateDefault,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   variant: variant.options[0],
   expanded: true,
+},
 };
+
+
 
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-export default {
+const meta: Meta =  {
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
@@ -269,3 +296,5 @@ export default {
   },
   title: 'components/sbb-footer',
 };
+
+export default meta;

@@ -1,4 +1,5 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import {
   BikeProduct,
@@ -12,22 +13,24 @@ import {
   wrapperStyle,
 } from './home.common';
 import './home.scss';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 /* ************************************************* */
 /* Storybook controls                                */
 /* ************************************************* */
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   negative,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   negative: false,
 };
 
@@ -35,7 +38,7 @@ const defaultArgs = {
 /* Storybook template                                */
 /* ************************************************* */
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <div>
     <SkiplinkList />
 
@@ -201,19 +204,21 @@ const Template = (args) => (
 /* ************************************************* */
 
 /* --- Home ------------------------ */
-export const home = Template.bind({});
-
-home.argTypes = defaultArgTypes;
-home.args = { ...defaultArgs };
-home.documentation = {
-  title: 'Home 2.0',
+export const home: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
+
+
+
+
 
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}`}>
@@ -230,3 +235,5 @@ export default {
   },
   title: 'pages/home',
 };
+
+export default meta;

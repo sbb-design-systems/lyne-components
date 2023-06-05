@@ -1,9 +1,12 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-alert-group.events';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-alert-group {...args}>
     <sbb-alert
       title-content="Interruption between Genève and Lausanne"
@@ -20,58 +23,62 @@ const Template = (args) => (
   </sbb-alert-group>
 );
 
-const accessibilityTitle = {
+const accessibilityTitle: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const accessibilityTitleLevel = {
+const accessibilityTitleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const role = {
+const role: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const ariaLive = {
+const ariaLive: InputType = {
   control: {
     type: 'select',
   },
   options: ['off', 'polite', 'assertive'],
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'accessibility-title': accessibilityTitle,
   'accessibility-title-level': accessibilityTitleLevel,
   role,
   'aria-live': ariaLive,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'accessibility-title': 'Disruptions',
   'accessibility-title-level': accessibilityTitleLevel.options[1],
   role: 'status',
   'aria-live': undefined,
 };
 
-export const multipleAlerts = Template.bind({});
-multipleAlerts.argTypes = defaultArgTypes;
-multipleAlerts.args = { ...defaultArgs };
+export const multipleAlerts: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -86,3 +93,5 @@ export default {
   },
   title: 'components/sbb-alert-group',
 };
+
+export default meta;

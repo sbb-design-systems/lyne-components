@@ -1,4 +1,5 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import {
   defaultTrip,
@@ -21,44 +22,46 @@ import {
 } from './sbb-timetable-row.sample-data';
 import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const loadingTrip = {
+const loadingTrip: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const loadingPrice = {
+const loadingPrice: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const active = {
+const active: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const now = {
+const now: InputType = {
   control: {
     type: 'date',
   },
 };
 
-const boarding = {
+const boarding: InputType = {
   control: {
     type: 'object',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
@@ -67,7 +70,7 @@ const defaultArgTypes = {
   boarding,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'disable-animation': isChromatic(),
   'loading-trip': false,
   'loading-price': false,
@@ -82,202 +85,302 @@ const Template = (args) => <sbb-timetable-row {...args}></sbb-timetable-row>;
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const Basic = Template.bind({});
-Basic.argTypes = defaultArgTypes;
-Basic.args = {
+export const Basic: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const Active = Template.bind({});
-Active.argTypes = defaultArgTypes;
-Active.args = {
+
+
+export const Active: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   active: true,
+},
 };
 
-export const Price = Template.bind({});
-Price.argTypes = defaultArgTypes;
-Price.args = {
+
+
+export const Price: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   price: { price: '39.90', text: 'ab CHF', isDiscount: false },
+},
 };
 
-export const Discount = Template.bind({});
-Discount.argTypes = defaultArgTypes;
-Discount.args = {
+
+
+export const Discount: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   price: { isDiscount: true },
+},
 };
 
-export const discountPrice = Template.bind({});
-discountPrice.argTypes = defaultArgTypes;
-discountPrice.args = {
+
+
+export const discountPrice: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+},
 };
 
-export const LoadingPrice = Template.bind({});
-LoadingPrice.argTypes = defaultArgTypes;
-LoadingPrice.args = {
+
+
+export const LoadingPrice: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'loading-price': true,
   price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+},
 };
 
-export const LoadingTrip = Template.bind({});
-LoadingTrip.argTypes = defaultArgTypes;
-LoadingTrip.args = {
+
+
+export const LoadingTrip: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'loading-trip': true,
+},
 };
 
-export const LoadingTripPrice = Template.bind({});
-LoadingTripPrice.argTypes = defaultArgTypes;
-LoadingTripPrice.args = {
+
+
+export const LoadingTripPrice: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'loading-trip': true,
   'loading-price': true,
   price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+},
 };
 
-export const Position = Template.bind({});
-Position.argTypes = defaultArgTypes;
-Position.args = {
+
+
+export const Position: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: progressTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const PositionDisabledAnimation = Template.bind({});
-PositionDisabledAnimation.argTypes = defaultArgTypes;
-PositionDisabledAnimation.args = {
+
+
+export const PositionDisabledAnimation: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'disable-animation': true,
   trip: progressTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const Cancelled = Template.bind({});
-Cancelled.argTypes = defaultArgTypes;
-Cancelled.args = {
+
+
+export const Cancelled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: cancelledTrip,
+},
 };
 
-export const PartiallyCancelled = Template.bind({});
-PartiallyCancelled.argTypes = defaultArgTypes;
-PartiallyCancelled.args = {
+
+
+export const PartiallyCancelled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: partiallyCancelled,
+},
 };
 
-export const Past = Template.bind({});
-Past.argTypes = defaultArgTypes;
-Past.args = {
+
+
+export const Past: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: pastTrip,
   'data-now': new Date('2023-12-01T12:11:00').valueOf(),
+},
 };
 
-export const Disturbance = Template.bind({});
-Disturbance.argTypes = defaultArgTypes;
-Disturbance.args = {
+
+
+export const Disturbance: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: disturbanceTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const SkippedDepartureStop = Template.bind({});
-SkippedDepartureStop.argTypes = defaultArgTypes;
-SkippedDepartureStop.args = {
+
+
+export const SkippedDepartureStop: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: skippedDepartureStopTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const SkippedArrivalStop = Template.bind({});
-SkippedArrivalStop.argTypes = defaultArgTypes;
-SkippedArrivalStop.args = {
+
+
+export const SkippedArrivalStop: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: skippedArrivalStopTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const SkippedLastArrivalStop = Template.bind({});
-SkippedLastArrivalStop.argTypes = defaultArgTypes;
-SkippedLastArrivalStop.args = {
+
+
+export const SkippedLastArrivalStop: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: skippedLastArrivalStopTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const SkippedFirstDepartureStop = Template.bind({});
-SkippedFirstDepartureStop.argTypes = defaultArgTypes;
-SkippedFirstDepartureStop.args = {
+
+
+export const SkippedFirstDepartureStop: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: skippedFirstDepartureStopTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const QuayChanged = Template.bind({});
-QuayChanged.argTypes = defaultArgTypes;
-QuayChanged.args = {
+
+
+export const QuayChanged: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: quayChangeTrip,
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
+},
 };
 
-export const Train = Template.bind({});
-Train.argTypes = defaultArgTypes;
-Train.args = {
+
+
+export const Train: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: TrainTrip,
+},
 };
 
-export const Bus = Template.bind({});
-Bus.argTypes = defaultArgTypes;
-Bus.args = {
+
+
+export const Bus: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: BusTrip,
+},
 };
 
-export const Ship = Template.bind({});
-Ship.argTypes = defaultArgTypes;
-Ship.args = {
+
+
+export const Ship: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: ShipTrip,
+},
 };
 
-export const WalkTime = Template.bind({});
-WalkTime.argTypes = defaultArgTypes;
-WalkTime.args = {
+
+
+export const WalkTime: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: walkTimeTrip,
+},
 };
 
-export const ExtendedEnterTime = Template.bind({});
-ExtendedEnterTime.argTypes = defaultArgTypes;
-ExtendedEnterTime.args = {
+
+
+export const ExtendedEnterTime: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: extendedEnterTimeTrip,
+},
 };
 
-export const Notices = Template.bind({});
-Notices.argTypes = defaultArgTypes;
-Notices.args = {
+
+
+export const Notices: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   trip: NoticesTrip,
   boarding: { name: 'sa-rs', text: 'boarding' },
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style="background: #f6f6f6; padding: 2rem;">
+      <div style={{background: '#f6f6f6', padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -289,3 +392,5 @@ export default {
   },
   title: 'components/timetable/sbb-timetable-row',
 };
+
+export default meta;

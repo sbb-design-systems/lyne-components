@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import events from './sbb-autocomplete.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -15,7 +18,7 @@ const disabled = {
   },
 };
 
-const readonly = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -24,7 +27,7 @@ const readonly = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -33,7 +36,7 @@ const disableAnimation = {
   },
 };
 
-const preserveIconSpace = {
+const preserveIconSpace: InputType = {
   control: {
     type: 'boolean',
   },
@@ -42,7 +45,7 @@ const preserveIconSpace = {
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -51,7 +54,7 @@ const iconName = {
   },
 };
 
-const disableOption = {
+const disableOption: InputType = {
   control: {
     type: 'boolean',
   },
@@ -60,7 +63,7 @@ const disableOption = {
   },
 };
 
-const borderless = {
+const borderless: InputType = {
   control: {
     type: 'boolean',
   },
@@ -69,7 +72,7 @@ const borderless = {
   },
 };
 
-const disableGroup = {
+const disableGroup: InputType = {
   control: {
     type: 'boolean',
   },
@@ -78,7 +81,7 @@ const disableGroup = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   // Autocomplete args
   disabled,
   readonly,
@@ -93,14 +96,14 @@ const defaultArgTypes = {
   borderless,
 };
 
-const withGroupsArgTypes = {
+const withGroupsArgTypes: ArgTypes = {
   ...defaultArgTypes,
 
   // Option group args
   disableGroup,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   // Autocomplete args
   disabled: false,
   readonly: false,
@@ -124,7 +127,7 @@ const withGroupsDefaultArgs = {
 
 const defaultDecorator = [
   (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 2rem);'}>
+    <div style={{padding: '2rem', height: 'calc(100vh - 2rem)'}}>
       <Story />
     </div>
   ),
@@ -132,7 +135,7 @@ const defaultDecorator = [
 
 const aboveDecorator = [
   (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 2rem); display: flex; align-items: end'}>
+    <div style={{padding: '2rem', height: 'calc(100vh - 2rem)', display: 'flex', 'align-items': 'end'}}>
       <Story />
     </div>
   ),
@@ -184,7 +187,7 @@ const createOptionGroup2 = () => {
   ];
 };
 
-const textBlockStyle = {
+const textBlockStyle: Args = {
   position: 'relative',
   marginBlockStart: '1rem',
   padding: '1rem',
@@ -194,7 +197,7 @@ const textBlockStyle = {
   zIndex: '100',
 };
 
-const codeStyle = {
+const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
@@ -209,7 +212,7 @@ const textBlock = () => {
   );
 };
 
-const Template = (args) => [
+const Template = (args): JSX.Element[] => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
       <input
@@ -231,7 +234,7 @@ const Template = (args) => [
   </div>,
 ];
 
-const OptionGroupTemplate = (args) => [
+const OptionGroupTemplate = (args): JSX.Element[] => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
       <input
@@ -255,7 +258,7 @@ const OptionGroupTemplate = (args) => [
   </div>,
 ];
 
-const MixedTemplate = (args) => [
+const MixedTemplate = (args): JSX.Element[] => [
   <div>
     <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
       <input
@@ -270,7 +273,7 @@ const MixedTemplate = (args) => [
         preserve-icon-space={args.preserveIconSpace}
       >
         <sbb-option value="Option 1">
-          <sbb-icon slot="icon" name={args.iconName} style="color: #0279c7;" />
+          <sbb-icon slot="icon" name={args.iconName} style={{color: '#0279c7'}} />
           Option Value
         </sbb-option>
         <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
@@ -328,79 +331,151 @@ const RequiredTemplate = (args) => {
   ];
 };
 
-export const Basic = Template.bind({});
-Basic.argTypes = defaultArgTypes;
-Basic.args = { ...defaultArgs };
-Basic.decorators = defaultDecorator;
-Basic.play = isChromatic() && playStory;
+export const Basic: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
 
-export const BasicOpenAbove = Template.bind({});
-BasicOpenAbove.argTypes = defaultArgTypes;
-BasicOpenAbove.args = { ...defaultArgs };
-BasicOpenAbove.decorators = aboveDecorator;
-BasicOpenAbove.play = isChromatic() && playStory;
 
-export const Borderless = Template.bind({});
-Borderless.argTypes = defaultArgTypes;
-Borderless.args = { ...defaultArgs, borderless: true };
-Borderless.decorators = defaultDecorator;
-Borderless.play = isChromatic() && playStory;
 
-export const WithError = RequiredTemplate.bind({});
-WithError.argTypes = withGroupsArgTypes;
-WithError.args = { ...withGroupsDefaultArgs };
-WithError.decorators = defaultDecorator;
-WithError.play = isChromatic() && playStory;
 
-export const Disabled = Template.bind({});
-Disabled.argTypes = defaultArgTypes;
-Disabled.args = { ...defaultArgs, disabled: true };
-Disabled.decorators = defaultDecorator;
-Disabled.play = isChromatic() && playStory;
 
-export const Readonly = Template.bind({});
-Readonly.argTypes = defaultArgTypes;
-Readonly.args = { ...defaultArgs, readonly: true };
-Readonly.decorators = defaultDecorator;
-Readonly.play = isChromatic() && playStory;
+export const BasicOpenAbove: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  decorators: aboveDecorator,
+  play: isChromatic() && playStory,
+};
 
-export const BorderlessOpenAbove = Template.bind({});
-BorderlessOpenAbove.argTypes = defaultArgTypes;
-BorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
-BorderlessOpenAbove.decorators = aboveDecorator;
-BorderlessOpenAbove.play = isChromatic() && playStory;
 
-export const NoIconSpace = Template.bind({});
-NoIconSpace.argTypes = defaultArgTypes;
-NoIconSpace.args = { ...defaultArgs, preserveIconSpace: false };
-NoIconSpace.decorators = defaultDecorator;
-NoIconSpace.play = isChromatic() && playStory;
 
-export const Scroll = Template.bind({});
-Scroll.argTypes = defaultArgTypes;
-Scroll.args = { ...defaultArgs, borderless: true };
-Scroll.decorators = scrollDecorator;
-Scroll.play = isChromatic() && playStory;
 
-export const WithOptionGroup = OptionGroupTemplate.bind({});
-WithOptionGroup.argTypes = withGroupsArgTypes;
-WithOptionGroup.args = { ...withGroupsDefaultArgs };
-WithOptionGroup.decorators = defaultDecorator;
-WithOptionGroup.play = isChromatic() && playStory;
 
-export const WithOptionGroupOpenAbove = OptionGroupTemplate.bind({});
-WithOptionGroupOpenAbove.argTypes = withGroupsArgTypes;
-WithOptionGroupOpenAbove.args = { ...withGroupsDefaultArgs };
-WithOptionGroupOpenAbove.decorators = aboveDecorator;
-WithOptionGroupOpenAbove.play = isChromatic() && playStory;
+export const Borderless: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
 
-export const MixedSingleOptionWithOptionGroup = MixedTemplate.bind({});
-MixedSingleOptionWithOptionGroup.argTypes = withGroupsArgTypes;
-MixedSingleOptionWithOptionGroup.args = { ...withGroupsDefaultArgs };
-MixedSingleOptionWithOptionGroup.decorators = defaultDecorator;
-MixedSingleOptionWithOptionGroup.play = isChromatic() && playStory;
 
-export default {
+
+
+
+export const WithError: StoryObj = {
+  render: RequiredTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const Readonly: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, readonly: true },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const BorderlessOpenAbove: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+  decorators: aboveDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const NoIconSpace: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, preserveIconSpace: false },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const Scroll: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+  decorators: scrollDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const WithOptionGroup: StoryObj = {
+  render: OptionGroupTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const WithOptionGroupOpenAbove: StoryObj = {
+  render: OptionGroupTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs },
+  decorators: aboveDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const MixedSingleOptionWithOptionGroup: StoryObj = {
+  render: MixedTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+const meta: Meta =  {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
@@ -415,3 +490,5 @@ export default {
   },
   title: 'components/form elements/sbb-autocomplete',
 };
+
+export default meta;

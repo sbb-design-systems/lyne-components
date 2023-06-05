@@ -1,24 +1,27 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import isChromatic from 'chromatic/isChromatic';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const titleContent = {
+const titleContent: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const titleLevel = {
+const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [2, 3, 4, 5, 6],
 };
 
-const labelFirstLink = {
+const labelFirstLink: InputType = {
   control: {
     type: 'text',
   },
@@ -27,7 +30,7 @@ const labelFirstLink = {
   },
 };
 
-const hrefFirstLink = {
+const hrefFirstLink: InputType = {
   control: {
     type: 'text',
   },
@@ -36,7 +39,7 @@ const hrefFirstLink = {
   },
 };
 
-const labelSecondLink = {
+const labelSecondLink: InputType = {
   control: {
     type: 'text',
   },
@@ -45,7 +48,7 @@ const labelSecondLink = {
   },
 };
 
-const hrefSecondLink = {
+const hrefSecondLink: InputType = {
   control: {
     type: 'text',
   },
@@ -54,7 +57,7 @@ const hrefSecondLink = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'title-level': titleLevel,
   'title-content': titleContent,
   labelFirstLink,
@@ -63,7 +66,7 @@ const defaultArgTypes = {
   hrefSecondLink,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'title-level': undefined,
   'title-content': undefined,
   labelFirstLink: 'To content',
@@ -82,31 +85,41 @@ const playStory = async ({ canvasElement }) => {
   userEvent.tab();
 };
 
-const Template = ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }) => (
+const Template = ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }): JSX.Element => (
   <sbb-skiplink-list {...args} data-testid="skiplink">
     <sbb-link href={hrefFirstLink}>{labelFirstLink}</sbb-link>
     <sbb-link href={hrefSecondLink}>{labelSecondLink}</sbb-link>
   </sbb-skiplink-list>
 );
 
-export const SkiplinkList = Template.bind({});
-SkiplinkList.argTypes = defaultArgTypes;
-SkiplinkList.args = { ...defaultArgs };
-SkiplinkList.play = isChromatic() && playStory;
+export const SkiplinkList: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  play: isChromatic() && playStory,
+};
 
-export const SkiplinkListWithTitle = Template.bind({});
-SkiplinkListWithTitle.argTypes = defaultArgTypes;
-SkiplinkListWithTitle.args = {
+
+
+
+export const SkiplinkListWithTitle: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'title-level': titleLevel.options[0],
   'title-content': 'Skip',
+},
+  play: isChromatic() && playStory,
 };
-SkiplinkListWithTitle.play = isChromatic() && playStory;
 
-export default {
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
         <h2>Use TAB to see the skiplink box</h2>
       </div>
@@ -124,3 +137,5 @@ export default {
   },
   title: 'components/sbb-skiplink-list',
 };
+
+export default meta;

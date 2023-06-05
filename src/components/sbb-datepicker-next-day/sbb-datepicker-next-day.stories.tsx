@@ -1,20 +1,23 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const StandaloneTemplate = (picker = null) => (
+const StandaloneTemplate = (picker = null): JSX.Element => (
   <sbb-datepicker-next-day date-picker={picker}></sbb-datepicker-next-day>
 );
 
-const PickerAndButtonTemplate = () => (
-  <div style="display: flex; gap: 1em;">
+const PickerAndButtonTemplate = (): JSX.Element => (
+  <div style={{display: 'flex', gap: '1em'}}>
     <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
     <input id="datepicker-input" />
     {StandaloneTemplate('datepicker')}
   </div>
 );
 
-const FormFieldTemplate = () => (
+const FormFieldTemplate = (): JSX.Element => (
   <sbb-form-field>
     <input />
     <sbb-datepicker></sbb-datepicker>
@@ -22,20 +25,26 @@ const FormFieldTemplate = () => (
   </sbb-form-field>
 );
 
-export const Standalone = StandaloneTemplate.bind({});
+export const Standalone: StoryObj = {
+  render: StandaloneTemplate,
+};
 
-export const WithPicker = PickerAndButtonTemplate.bind({});
+export const WithPicker: StoryObj = {
+  render: PickerAndButtonTemplate,
+};
 
-export const InFormField = FormFieldTemplate.bind({});
+export const InFormField: StoryObj = {
+  render: FormFieldTemplate,
+};
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -50,3 +59,5 @@ export default {
   },
   title: 'components/form elements/sbb-datepicker-next-day',
 };
+
+export default meta;

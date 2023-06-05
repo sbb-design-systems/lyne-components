@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const wrapperStyle = (context) => {
   if (context.args.negative) {
@@ -9,14 +12,14 @@ const wrapperStyle = (context) => {
   return `background-color:  var(--sbb-color-white-default);`;
 };
 
-const LinkTemplate = (args) => (
+const LinkTemplate = (args): JSX.Element => (
   <sbb-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
     {args.linkTitle}
   </sbb-link>
 );
 
 // SlottedTitle
-const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }) => (
+const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }): JSX.Element => (
   <sbb-link-list {...args}>
     <span slot="title">{titleContent}</span>
     {links.map((linkTitle) => (
@@ -26,7 +29,7 @@ const TemplateSlottedTitle = ({ 'title-content': titleContent, ...args }) => (
 );
 
 // TitleAsProperty
-const Template = ({ ...args }) => (
+const Template = ({ ...args }): JSX.Element => (
   <sbb-link-list {...args}>
     {links.map((linkTitle) => (
       <LinkTemplate {...{ linkTitle }} />
@@ -36,35 +39,35 @@ const Template = ({ ...args }) => (
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
-const orientation = {
+const orientation: InputType = {
   control: {
     type: 'select',
   },
   options: ['vertical', 'horizontal'],
 };
 
-const horizontalFrom = {
+const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
   options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const negative = {
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
   options: [true, false],
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'select',
   },
   options: ['xs', 's', 'm'],
 };
 
-const titleContent = {
+const titleContent: InputType = {
   control: {
     type: 'text',
   },
@@ -73,7 +76,7 @@ const titleContent = {
   },
 };
 
-const titleLevel = {
+const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -83,7 +86,7 @@ const titleLevel = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   orientation,
   'horizontal-from': horizontalFrom,
   size,
@@ -92,7 +95,7 @@ const defaultArgTypes = {
   'title-content': titleContent,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   orientation: orientation.options[0],
   'horizontal-from': undefined,
   size: size.options[1],
@@ -101,47 +104,71 @@ const defaultArgs = {
   'title-content': 'Help & Contact',
 };
 
-export const LinkListDefault = Template.bind({});
-LinkListDefault.argTypes = defaultArgTypes;
-LinkListDefault.args = {
+export const LinkListDefault: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const LinkListXS = Template.bind({});
-LinkListXS.argTypes = defaultArgTypes;
-LinkListXS.args = {
+
+
+export const LinkListXS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   size: size.options[0],
+},
 };
 
-export const LinkListNoTitle = Template.bind({});
-LinkListNoTitle.argTypes = defaultArgTypes;
-LinkListNoTitle.args = {
+
+
+export const LinkListNoTitle: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'title-content': undefined,
+},
 };
 
-export const LinkListNegative = Template.bind({});
-LinkListNegative.argTypes = defaultArgTypes;
-LinkListNegative.args = {
+
+
+export const LinkListNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   negative: true,
+},
 };
 
-export const LinkListHorizontalFrom = Template.bind({});
-LinkListHorizontalFrom.argTypes = defaultArgTypes;
-LinkListHorizontalFrom.args = {
+
+
+export const LinkListHorizontalFrom: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'horizontal-from': 'medium',
+},
 };
 
-export const LinkListWithSlottedTitle = TemplateSlottedTitle.bind({});
-LinkListWithSlottedTitle.argTypes = defaultArgTypes;
-LinkListWithSlottedTitle.args = {
+
+
+export const LinkListWithSlottedTitle: StoryObj = {
+  render: TemplateSlottedTitle,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)}padding: 2rem`}>
@@ -156,3 +183,5 @@ export default {
   },
   title: 'components/sbb-link-list',
 };
+
+export default meta;

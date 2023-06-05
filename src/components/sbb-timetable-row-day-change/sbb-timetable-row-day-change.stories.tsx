@@ -1,12 +1,15 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleData from './sbb-timetable-row-day-change.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-row-day-change config={JSON.stringify(args.config)}></sbb-timetable-row-day-change>
 );
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
@@ -19,40 +22,46 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const currentDayHidden = Template.bind({});
-
-currentDayHidden.argTypes = defaultArgTypes;
-currentDayHidden.args = {
+export const currentDayHidden: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[0],
+},
 };
 
-currentDayHidden.documentation = {
-  title: 'Current Day Hidden',
-};
 
-export const currentDayVisible = Template.bind({});
 
-currentDayVisible.argTypes = defaultArgTypes;
-currentDayVisible.args = {
+
+
+
+export const currentDayVisible: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[1],
+},
 };
 
-currentDayVisible.documentation = {
-  title: 'Current Day Visible',
-};
 
-export const dayChange = Template.bind({});
 
-dayChange.argTypes = defaultArgTypes;
-dayChange.args = {
+
+
+
+export const dayChange: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData[2],
+},
 };
 
-dayChange.documentation = {
-  title: 'Day Change',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -62,3 +71,5 @@ export default {
   },
   title: 'internals/sbb-timetable-row-day-change',
 };
+
+export default meta;

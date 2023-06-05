@@ -1,11 +1,14 @@
+/** @jsx h */
 import events from './sbb-menu.events.ts';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }) => {
@@ -21,7 +24,7 @@ const playStory = async ({ canvasElement }) => {
   await userEvent.click(button);
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -30,7 +33,7 @@ const iconName = {
   },
 };
 
-const amount = {
+const amount: InputType = {
   control: {
     type: 'text',
   },
@@ -39,7 +42,7 @@ const amount = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -48,37 +51,37 @@ const disabled = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: { type: 'boolean' },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   amount,
   disabled,
   'disable-animation': disableAnimation,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'icon-name': 'link-small',
   amount: '123',
   disabled: false,
   'disable-animation': isChromatic(),
 };
 
-const userNameStyle = {
+const userNameStyle: Args = {
   fontFamily: 'var(--sbb-typo-type-face-sbb-bold)',
   fontSize: 'var(--sbb-font-size-text-xs)',
   marginTop: 'var(--sbb-spacing-fixed-1x)',
 };
 
-const userInfoStyle = {
+const userInfoStyle: Args = {
   color: 'var(--sbb-color-graphite-default)',
   fontFamily: 'var(--sbb-typo-type-face-sbb-regular)',
   fontSize: 'var(--sbb-font-size-text-xxs)',
 };
 
-const triggerButton = (id) => (
+const triggerButton = (id): JSX.Element => (
   <sbb-button data-testid="menu-trigger" id={id} size="m">
     Menu trigger
   </sbb-button>
@@ -197,38 +200,58 @@ const EllipsisTemplate = (args) => [
   </sbb-menu>,
 ];
 
-export const Default = DefaultTemplate.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs, disabled: true };
-Default.documentation = { title: 'Default' };
-Default.play = isChromatic() && playStory;
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+  play: isChromatic() && playStory,
+};
 
-export const CustomContent = CustomContentTemplate.bind({});
-CustomContent.argTypes = defaultArgTypes;
-CustomContent.args = { ...defaultArgs, amount: '2' };
-CustomContent.documentation = { title: 'Custom Content' };
-CustomContent.play = isChromatic() && playStory;
 
-export const LongContent = LongContentTemplate.bind({});
-LongContent.argTypes = defaultArgTypes;
-LongContent.args = { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined };
-LongContent.documentation = { title: 'Long Content' };
-LongContent.play = isChromatic() && playStory;
 
-export const Ellipsis = EllipsisTemplate.bind({});
-Ellipsis.argTypes = defaultArgTypes;
-Ellipsis.args = { ...defaultArgs };
-Ellipsis.documentation = { title: 'Ellipsis' };
-Ellipsis.play = isChromatic() && playStory;
 
-export default {
+
+export const CustomContent: StoryObj = {
+  render: CustomContentTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, amount: '2' },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const LongContent: StoryObj = {
+  render: LongContentTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+export const Ellipsis: StoryObj = {
+  render: EllipsisTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={`padding: 2rem; ${isChromatic() ? 'min-height: 100vh' : ''}`}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -239,10 +262,12 @@ export default {
       disable: true,
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '400px',
+      story: { inline: false, iframeHeight: '400px', },
+      
       extractComponentDescription: () => readme,
     },
   },
   title: 'components/sbb-menu',
 };
+
+export default meta;

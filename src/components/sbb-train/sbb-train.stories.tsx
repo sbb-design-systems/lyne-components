@@ -1,9 +1,12 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const Template = (args) => <sbb-train {...args}></sbb-train>;
 
-const directionLabel = {
+const directionLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -12,7 +15,7 @@ const directionLabel = {
   },
 };
 
-const station = {
+const station: InputType = {
   control: {
     type: 'text',
   },
@@ -21,7 +24,7 @@ const station = {
   },
 };
 
-const accessibilityLabel = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -30,7 +33,7 @@ const accessibilityLabel = {
   },
 };
 
-const direction = {
+const direction: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -40,14 +43,14 @@ const direction = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'direction-label': directionLabel,
   'accessibility-label': accessibilityLabel,
   station,
   direction,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'direction-label': 'Direction of travel',
   'accessibility-label':
     'The top of the train is in Sector A. The train leaves the station in this direction',
@@ -55,18 +58,26 @@ const defaultArgs = {
   direction: direction.options[0],
 };
 
-export const train = Template.bind({});
-train.argTypes = defaultArgTypes;
-train.args = defaultArgs;
+export const train: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: defaultArgs,
+};
 
-export const trainWithoutStation = Template.bind({});
-trainWithoutStation.argTypes = defaultArgTypes;
-trainWithoutStation.args = { ...defaultArgs, station: undefined };
 
-export default {
+
+export const trainWithoutStation: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, station: undefined },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -81,3 +92,5 @@ export default {
   },
   title: 'components/timetable/sbb-train',
 };
+
+export default meta;

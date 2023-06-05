@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 /* ************************************************* */
 /* Storybook controls                                */
@@ -9,44 +12,44 @@ import { withActions } from '@storybook/addon-actions/decorator';
 const longLabel =
   'For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum. In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor. Pellentesque urna justo, lacinia at velit eu, sagittis tempus nibh. Quisque vitae massa et turpis fermentum tristique.';
 
-const checked = {
+const checked: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const labelPosition = {
+const labelPosition: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['before', 'after'],
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   checked,
   disabled,
   'label-position': labelPosition,
@@ -55,7 +58,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   checked: false,
   disabled: false,
   'label-position': labelPosition.options[1],
@@ -68,26 +71,26 @@ const defaultArgs = {
 /* Storybook templates                               */
 /* ************************************************* */
 
-const ToggleCheckDefaultTemplate = ({ label, ...args }) => (
+const ToggleCheckDefaultTemplate = ({ label, ...args }): JSX.Element => (
   <sbb-toggle-check {...args}>{label}</sbb-toggle-check>
 );
 
 const ToggleCheckWithoutLabelTemplate = (args) => <sbb-toggle-check {...args}></sbb-toggle-check>;
 
-const ToggleCheckCustomIconTemplate = ({ label, ...args }) => (
+const ToggleCheckCustomIconTemplate = ({ label, ...args }): JSX.Element => (
   <sbb-toggle-check {...args}>
     <sbb-icon slot="icon" name="eye-small"></sbb-icon>
     {label}
   </sbb-toggle-check>
 );
 
-const ToggleCheckBlockVariantTemplate = (args) => (
+const ToggleCheckBlockVariantTemplate = (args): JSX.Element => (
   <div>
-    <sbb-toggle-check {...args} style="display:block">
-      <sbb-title level="5" style="margin: 0">
+    <sbb-toggle-check {...args} style={{display: 'block'}}>
+      <sbb-title level="5" style={{margin: '0'}}>
         Accessible Connection.
       </sbb-title>
-      <span class="sbb-text-s" style="color: var(--sbb-color-iron-default);">
+      <span class="sbb-text-s" style={{color: 'var(--sbb-color-iron-default)'}}>
         Show connections for accessible journeys.
       </span>
     </sbb-toggle-check>
@@ -98,79 +101,119 @@ const ToggleCheckBlockVariantTemplate = (args) => (
   </div>
 );
 
-export const SbbToggleCheckDefault = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckDefault.argTypes = defaultArgTypes;
-SbbToggleCheckDefault.args = {
+export const SbbToggleCheckDefault: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const SbbToggleCheckDefaultChecked = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckDefaultChecked.argTypes = defaultArgTypes;
-SbbToggleCheckDefaultChecked.args = {
+
+
+export const SbbToggleCheckDefaultChecked: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   checked: true,
+},
 };
 
-export const SbbToggleCheckDefaultLongLabel = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckDefaultLongLabel.argTypes = defaultArgTypes;
-SbbToggleCheckDefaultLongLabel.args = {
+
+
+export const SbbToggleCheckDefaultLongLabel: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   label: longLabel,
+},
 };
 
-export const SbbToggleCheckLabelBefore = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckLabelBefore.argTypes = defaultArgTypes;
-SbbToggleCheckLabelBefore.args = {
+
+
+export const SbbToggleCheckLabelBefore: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'label-position': 'before',
+},
 };
 
-export const SbbToggleCheckWithoutLabel = ToggleCheckWithoutLabelTemplate.bind({});
-SbbToggleCheckWithoutLabel.argTypes = defaultArgTypes;
-SbbToggleCheckWithoutLabel.args = {
+
+
+export const SbbToggleCheckWithoutLabel: StoryObj = {
+  render: ToggleCheckWithoutLabelTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
+},
 };
 
-export const SbbToggleCheckDisabled = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckDisabled.argTypes = defaultArgTypes;
-SbbToggleCheckDisabled.args = {
+
+
+export const SbbToggleCheckDisabled: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   disabled: true,
+},
 };
 
-export const SbbToggleCheckDisabledChecked = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckDisabledChecked.argTypes = defaultArgTypes;
-SbbToggleCheckDisabledChecked.args = {
+
+
+export const SbbToggleCheckDisabledChecked: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   disabled: true,
   checked: true,
+},
 };
 
-export const SbbToggleCheckCustomIcon = ToggleCheckDefaultTemplate.bind({});
-SbbToggleCheckCustomIcon.argTypes = defaultArgTypes;
-SbbToggleCheckCustomIcon.args = {
+
+
+export const SbbToggleCheckCustomIcon: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   checked: true,
   'icon-name': 'face-smiling-small',
+},
 };
 
-export const SbbToggleCheckCustomIconSlotted = ToggleCheckCustomIconTemplate.bind({});
-SbbToggleCheckCustomIconSlotted.argTypes = defaultArgTypes;
-SbbToggleCheckCustomIconSlotted.args = {
+
+
+export const SbbToggleCheckCustomIconSlotted: StoryObj = {
+  render: ToggleCheckCustomIconTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   checked: true,
   iconName: undefined,
+},
 };
 
-export const SbbToggleCheckBlockVariant = ToggleCheckBlockVariantTemplate.bind({});
-SbbToggleCheckBlockVariant.argTypes = defaultArgTypes;
-SbbToggleCheckBlockVariant.args = {
+
+
+export const SbbToggleCheckBlockVariant: StoryObj = {
+  render: ToggleCheckBlockVariantTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'label-position': 'before',
   label: undefined,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   title: 'components/form elements/sbb-toggle-check',
   decorators: [withActions],
   parameters: {
@@ -185,3 +228,5 @@ export default {
     },
   },
 };
+
+export default meta;

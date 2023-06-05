@@ -1,8 +1,11 @@
+/** @jsx h */
 import events from './sbb-calendar.events.ts';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const getCalendarAttr = (min, max) => {
   let attr = {};
@@ -15,7 +18,7 @@ const getCalendarAttr = (min, max) => {
   return attr;
 };
 
-const Template = ({ min, max, selectedDate, dateFilter, ...args }) => (
+const Template = ({ min, max, selectedDate, dateFilter, ...args }): JSX.Element => (
   <sbb-calendar
     selectedDate={new Date(selectedDate)}
     {...getCalendarAttr(min, max)}
@@ -26,7 +29,7 @@ const Template = ({ min, max, selectedDate, dateFilter, ...args }) => (
   ></sbb-calendar>
 );
 
-const TemplateFilterFunction = ({ dateFilter, ...args }) => (
+const TemplateFilterFunction = ({ dateFilter, ...args }): JSX.Element => (
   <sbb-calendar
     ref={(calendarRef) => {
       calendarRef.dateFilter = dateFilter;
@@ -35,7 +38,7 @@ const TemplateFilterFunction = ({ dateFilter, ...args }) => (
   ></sbb-calendar>
 );
 
-const wide = {
+const wide: InputType = {
   control: {
     type: 'boolean',
   },
@@ -44,7 +47,7 @@ const wide = {
   },
 };
 
-const selectedDate = {
+const selectedDate: InputType = {
   control: {
     type: 'date',
   },
@@ -53,7 +56,7 @@ const selectedDate = {
   },
 };
 
-const min = {
+const min: InputType = {
   control: {
     type: 'date',
   },
@@ -62,7 +65,7 @@ const min = {
   },
 };
 
-const max = {
+const max: InputType = {
   control: {
     type: 'date',
   },
@@ -71,7 +74,7 @@ const max = {
   },
 };
 
-const dataNow = {
+const dataNow: InputType = {
   control: {
     type: 'date',
   },
@@ -85,7 +88,7 @@ const filterFunctions = [
   (d) => d.getDay() !== 6 && d.getDay() !== 0,
   (d) => d.getDate() % 2 === 1,
 ];
-const dateFilter = {
+const dateFilter: InputType = {
   options: Object.keys(filterFunctions),
   mapping: filterFunctions,
   control: {
@@ -101,7 +104,7 @@ const dateFilter = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   wide,
   selectedDate,
   min,
@@ -113,38 +116,54 @@ const defaultArgTypes = {
 const today = new Date();
 today.setDate(today.getDate() >= 15 ? 8 : 18);
 
-const defaultArgs = {
+const defaultArgs: Args = {
   wide: false,
   selectedDate: isChromatic() ? new Date(2023, 0, 20) : today,
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
 };
 
-export const Calendar = Template.bind({});
-Calendar.argTypes = { ...defaultArgTypes };
-Calendar.args = { ...defaultArgs };
+export const Calendar: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
 
-export const CalendarWithMinAndMax = Template.bind({});
-CalendarWithMinAndMax.argTypes = { ...defaultArgTypes };
-CalendarWithMinAndMax.args = {
+
+
+export const CalendarWithMinAndMax: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: {
   ...defaultArgs,
   min: isChromatic() ? new Date(2023, 0, 9) : new Date(today.getFullYear(), today.getMonth(), 5),
   max: isChromatic() ? new Date(2023, 0, 29) : new Date(today.getFullYear(), today.getMonth(), 29),
+},
 };
 
-export const CalendarWide = Template.bind({});
-CalendarWide.argTypes = { ...defaultArgTypes };
-CalendarWide.args = { ...defaultArgs, wide: true };
 
-export const CalendarFilterFunction = TemplateFilterFunction.bind({});
-CalendarFilterFunction.argTypes = { ...defaultArgTypes, dateFilter };
-CalendarFilterFunction.args = {
+
+export const CalendarWide: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true },
+};
+
+
+
+export const CalendarFilterFunction: StoryObj = {
+  render: TemplateFilterFunction,
+  argTypes: { ...defaultArgTypes, dateFilter },
+  args: {
   ...defaultArgs,
   // Workaround: On Chromatic mapping functions do not work, so assign function directly.
   // TODO: Check if condition can be removed after refactoring Chromatic generation @kyubisation
   dateFilter: isChromatic() ? filterFunctions[1] : dateFilter.options[2],
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [withActions],
   parameters: {
     actions: {
@@ -159,3 +178,5 @@ export default {
   },
   title: 'components/form elements/sbb-calendar',
 };
+
+export default meta;

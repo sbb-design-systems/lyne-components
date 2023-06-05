@@ -1,15 +1,18 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 
 import sampleData from './sbb-timetable-row-column-headers.sample-data';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-timetable-row-column-headers
     config={JSON.stringify(args.config)}
   ></sbb-timetable-row-column-headers>
 );
 
-const config = {
+const config: Args = {
   table: {
     disable: false,
   },
@@ -22,18 +25,20 @@ const defaultArgTypes = {
 /* ************************************************* */
 /* The Stories                                       */
 /* ************************************************* */
-export const SbbTimetableRowColumnHeaders = Template.bind({});
-
-SbbTimetableRowColumnHeaders.argTypes = defaultArgTypes;
-SbbTimetableRowColumnHeaders.args = {
+export const SbbTimetableRowColumnHeaders: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   config: sampleData,
+},
 };
 
-SbbTimetableRowColumnHeaders.documentation = {
-  title: 'SBB Timetable Row Column Headers',
-};
 
-export default {
+
+
+
+
+const meta: Meta =  {
   decorators: [(Story) => <Story />],
   parameters: {
     docs: {
@@ -43,3 +48,5 @@ export default {
   },
   title: 'internals/sbb-timetable-row-column-headers',
 };
+
+export default meta;

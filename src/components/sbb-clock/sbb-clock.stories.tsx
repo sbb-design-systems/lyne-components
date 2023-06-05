@@ -1,8 +1,11 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import isChromatic from 'chromatic/isChromatic';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const dataNow = {
+const dataNow: InputType = {
   control: {
     type: 'date',
   },
@@ -10,19 +13,23 @@ const dataNow = {
 
 const Template = (args) => <sbb-clock {...args} />;
 
-export const Default = Template.bind({});
-Default.argTypes = { 'data-now': dataNow };
-Default.args = { 'data-now': undefined };
-Default.documentation = {
-  title: 'Default',
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: { 'data-now': dataNow },
+  args: { 'data-now': undefined },
 };
 
-export const Paused = Template.bind({});
-Paused.argTypes = { 'data-now': dataNow };
-Paused.args = { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() };
-Paused.documentation = {
-  title: 'Paused',
+
+
+
+export const Paused: StoryObj = {
+  render: Template,
+  argTypes: { 'data-now': dataNow },
+  args: { 'data-now': new Date('2023-01-24T10:10:30+01:00').valueOf() },
 };
+
+
+
 
 /**
  * Stop the clock for Chromatic visual regression tests
@@ -34,10 +41,10 @@ if (isChromatic()) {
   };
 }
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style="max-width: 600px;">
+      <div style={{'max-width': '600px'}}>
         <Story />
       </div>
     ),
@@ -49,3 +56,5 @@ export default {
   },
   title: 'components/sbb-clock',
 };
+
+export default meta;

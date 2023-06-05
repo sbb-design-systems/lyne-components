@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -10,45 +13,49 @@ Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
 
 const TemplateError = (args) => <sbb-form-error>{args.errorText}</sbb-form-error>;
 
-const TemplateErrorWithIcon = (args) => (
+const TemplateErrorWithIcon = (args): JSX.Element => (
   <sbb-form-error>
     <sbb-icon name={args.iconName} slot="icon" />
     {args.errorText}
   </sbb-form-error>
 );
 
-const iconNameArg = {
+const iconNameArg: InputType = {
   control: {
     type: 'text',
   },
 };
-const errorTextArg = {
+const errorTextArg: InputType = {
   control: {
     type: 'text',
   },
 };
 
-export const Error = TemplateError.bind({});
-Error.argTypes = { errorText: iconNameArg };
-Error.args = { errorText: 'Required field.' };
-Error.documentation = {
-  title: 'sbb-form-error component with default icon',
+export const Error: StoryObj = {
+  render: TemplateError,
+  argTypes: { errorText: iconNameArg },
+  args: { errorText: 'Required field.' },
 };
 
-export const ErrorWithCustomIconAndLongMessage = TemplateErrorWithIcon.bind({});
-ErrorWithCustomIconAndLongMessage.argTypes = { errorText: iconNameArg, iconName: errorTextArg };
-ErrorWithCustomIconAndLongMessage.args = {
+
+
+
+export const ErrorWithCustomIconAndLongMessage: StoryObj = {
+  render: TemplateErrorWithIcon,
+  argTypes: { errorText: iconNameArg, iconName: errorTextArg },
+  args: {
   errorText: longText,
   iconName: 'chevron-small-right-small',
-};
-ErrorWithCustomIconAndLongMessage.documentation = {
-  title: 'sbb-form-error component with custom icon and long message',
+},
 };
 
-export default {
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
@@ -63,3 +70,5 @@ export default {
   },
   title: 'components/form elements/sbb-form-error',
 };
+
+export default meta;

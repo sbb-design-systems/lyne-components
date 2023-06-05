@@ -1,59 +1,62 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const required = {
+const required: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const allowEmptySelection = {
+const allowEmptySelection: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const orientation = {
+const orientation: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['horizontal', 'vertical'],
 };
 
-const horizontalFrom = {
+const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
   options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['m', 's'],
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   value,
   required,
   disabled,
@@ -64,7 +67,7 @@ const defaultArgTypes = {
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   value: 'Value two',
   required: false,
   disabled: false,
@@ -75,7 +78,7 @@ const defaultArgs = {
   'aria-label': undefined,
 };
 
-const radioButtons = () => [
+const radioButtons = (): JSX.Element[] => [
   <sbb-radio-button value="Value one">Value one</sbb-radio-button>,
   <sbb-radio-button value="Value two">Value two</sbb-radio-button>,
   <sbb-radio-button value="Value three" disabled>
@@ -84,7 +87,7 @@ const radioButtons = () => [
   <sbb-radio-button value="Value four">Value four</sbb-radio-button>,
 ];
 
-const DefaultTemplate = (args) => [
+const DefaultTemplate = (args): JSX.Element[] => [
   <sbb-radio-button-group {...args}>{radioButtons()}</sbb-radio-button-group>,
 ];
 
@@ -109,65 +112,101 @@ const ErrorMessageTemplate = (args) => {
   );
 };
 
-export const Horizontal = DefaultTemplate.bind({});
-Horizontal.argTypes = defaultArgTypes;
-Horizontal.args = { ...defaultArgs };
+export const Horizontal: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const Vertical = DefaultTemplate.bind({});
-Vertical.argTypes = defaultArgTypes;
-Vertical.args = { ...defaultArgs, orientation: orientation.options[1] };
 
-export const VerticalToHorizontal = DefaultTemplate.bind({});
-VerticalToHorizontal.argTypes = defaultArgTypes;
-VerticalToHorizontal.args = {
+
+export const Vertical: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options[1] },
+};
+
+
+
+export const VerticalToHorizontal: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   orientation: orientation.options[1],
   'horizontal-from': horizontalFrom.options[4],
+},
 };
 
-export const HorizontalSizeS = DefaultTemplate.bind({});
-HorizontalSizeS.argTypes = defaultArgTypes;
-HorizontalSizeS.args = { ...defaultArgs, size: size.options[1] };
 
-export const VerticalSizeS = DefaultTemplate.bind({});
-VerticalSizeS.argTypes = defaultArgTypes;
-VerticalSizeS.args = { ...defaultArgs, orientation: orientation.options[1], size: size.options[1] };
 
-export const Disabled = DefaultTemplate.bind({});
-Disabled.argTypes = defaultArgTypes;
-Disabled.args = { ...defaultArgs, disabled: true };
+export const HorizontalSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
+};
 
-export const AllowEmptySelection = DefaultTemplate.bind({});
-AllowEmptySelection.argTypes = defaultArgTypes;
-AllowEmptySelection.args = { ...defaultArgs, value: undefined, 'allow-empty-selection': true };
 
-export const ErrorMessage = ErrorMessageTemplate.bind({});
-ErrorMessage.argTypes = defaultArgTypes;
-ErrorMessage.args = {
+
+export const VerticalSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, orientation: orientation.options[1], size: size.options[1] },
+};
+
+
+
+export const Disabled: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+
+
+export const AllowEmptySelection: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, value: undefined, 'allow-empty-selection': true },
+};
+
+
+
+export const ErrorMessage: StoryObj = {
+  render: ErrorMessageTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   value: undefined,
   required: true,
   'allow-empty-selection': true,
+},
 };
 
-export const ErrorMessageVertical = ErrorMessageTemplate.bind({});
-ErrorMessageVertical.argTypes = defaultArgTypes;
-ErrorMessageVertical.args = {
+
+
+export const ErrorMessageVertical: StoryObj = {
+  render: ErrorMessageTemplate,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   value: undefined,
   required: true,
   orientation: orientation.options[1],
   'allow-empty-selection': true,
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -182,3 +221,5 @@ export default {
   },
   title: 'components/form elements/sbb-radio-button-group',
 };
+
+export default meta;

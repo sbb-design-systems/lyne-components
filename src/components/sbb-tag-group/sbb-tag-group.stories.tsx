@@ -1,6 +1,9 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const uncheckAllTag = () => {
   document.getElementById('all').removeAttribute('checked');
@@ -14,74 +17,74 @@ const uncheckTags = () => {
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`;
 
-const multiple = {
+const multiple: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const numberOfTagsInGroup = {
+const numberOfTagsInGroup: InputType = {
   control: {
     type: 'number',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   multiple,
   value,
   'aria-label': ariaLabel,
   numberOfTagsInGroup,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   multiple: true,
   value: undefined,
   'aria-label': 'Select your desired filter',
   numberOfTagsInGroup: 8,
 };
 
-const tagTemplate = (label, checked = false) => (
+const tagTemplate = (label, checked = false): JSX.Element => (
   <sbb-tag checked={checked} value={label} amount="123" icon-name="pie-small">
     {label}
   </sbb-tag>
 );
 
-const tagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => (
+const tagGroupTemplate = ({ numberOfTagsInGroup, ...args }): JSX.Element => (
   <sbb-tag-group {...args}>
     {new Array(numberOfTagsInGroup).fill(0).map((e, i) => tagTemplate(`Label ${i + 1}`, i === 0))}
   </sbb-tag-group>
 );
 
-const tagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }) => (
+const tagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }): JSX.Element => (
   <sbb-tag-group {...args}>
     {tagTemplate(longLabelText, true)}
     {new Array(numberOfTagsInGroup - 1).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>
 );
 
-const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
+const exclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): JSX.Element[] => [
   <sbb-tag-group {...args}>
     {new Array(numberOfTagsInGroup).fill(0).map((_e, i) => tagTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>,
-  <div style="margin-block-start: 1rem;">
+  <div style={{'margin-block-start': '1rem'}}>
     This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
     unchecked.
   </div>,
 ];
 
-const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
+const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }): JSX.Element[] => [
   <sbb-tag-group {...args}>
     <sbb-tag id="all" onChange={() => uncheckTags()} value="All" checked>
       All
@@ -94,39 +97,55 @@ const allChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }) => [
       );
     })}
   </sbb-tag-group>,
-  <div style="margin-block-start: 1rem;">
+  <div style={{'margin-block-start': '1rem'}}>
     This sbb-tag-group permits to select the 'All' option, or to select multiple values removing the
     'All' selection.
   </div>,
 ];
 
-export const tagGroup = tagGroupTemplate.bind({});
-tagGroup.argTypes = defaultArgTypes;
-tagGroup.args = { ...defaultArgs };
-
-export const ellipsisLabel = tagGroupTemplateEllipsis.bind({});
-ellipsisLabel.argTypes = defaultArgTypes;
-ellipsisLabel.args = { ...defaultArgs };
-
-export const exclusiveTagGroup = exclusiveTagGroupTemplate.bind({});
-exclusiveTagGroup.argTypes = defaultArgTypes;
-exclusiveTagGroup.args = {
-  ...defaultArgs,
-  multiple: false,
+export const tagGroup: StoryObj = {
+  render: tagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
-export const allChoiceTagGroup = allChoiceTagGroupTemplate.bind({});
-allChoiceTagGroup.argTypes = defaultArgTypes;
-allChoiceTagGroup.args = { ...defaultArgs };
 
-export default {
+
+export const ellipsisLabel: StoryObj = {
+  render: tagGroupTemplateEllipsis,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+
+
+export const exclusiveTagGroup: StoryObj = {
+  render: exclusiveTagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+  ...defaultArgs,
+  multiple: false,
+},
+};
+
+
+
+export const allChoiceTagGroup: StoryObj = {
+  render: allChoiceTagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -138,3 +157,5 @@ export default {
   },
   title: 'components/sbb-tag-group',
 };
+
+export default meta;

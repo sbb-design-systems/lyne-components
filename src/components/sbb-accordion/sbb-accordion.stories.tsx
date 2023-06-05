@@ -1,10 +1,13 @@
+/** @jsx h */
 import events from '../sbb-accordion-item/sbb-accordion-item.events.ts';
-import { h } from 'jsx-dom';
+import { h, JSX } from 'jsx-dom';
 import { withActions } from '@storybook/addon-actions/decorator';
 
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const ItemTemplate = (args) => (
+const ItemTemplate = (args): JSX.Element => (
   <sbb-accordion-item {...args}>
     <p slot="content">
       1 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae
@@ -32,7 +35,7 @@ const ItemTemplate = (args) => (
   </sbb-accordion-item>
 );
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <sbb-accordion {...args}>
     {args.items.map((item) => (
       <ItemTemplate {...item} />
@@ -40,38 +43,84 @@ const Template = (args) => (
   </sbb-accordion>
 );
 
-export const Default = Template.bind({});
-export const NonWhiteBackground = Template.bind();
-export const OnlyOneOpen = Template.bind();
-
-Default.documentation = {
-  container: {
-    styles: {
-      'background-color': 'var(--sbb-color-white-default);',
-      border: '2px solid var(--sbb-color-milk-default);',
-    },
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: {
+  items: {
+    table,
   },
-  title: 'Default Accordion',
+  'non-white-background': {
+    table,
+  },
+},
+  args: {
+  items,
+  'non-white-background': false,
+  'only-one-open': false,
+},
+  decorators: [
+  (Story) => (
+    <div style={{padding: '2rem'}}>
+      <Story />
+    </div>
+  ),
+  withActions as Decorator,
+],
+};
+export const NonWhiteBackground: StoryObj = {
+  render: Template,
+  argTypes: {
+  items: {
+    table,
+  },
+  'non-white-background': {
+    table,
+  },
+},
+  args: {
+  items,
+  'non-white-background': true,
+  'only-one-open': true,
+},
+  decorators: [
+  (Story) => (
+    <div style={{background: '#dcdcdc', padding: '2rem'}}>
+      <Story />
+    </div>
+  ),
+  withActions as Decorator,
+],
+};
+export const OnlyOneOpen: StoryObj = {
+  render: Template,
+  argTypes: {
+  items: {
+    table,
+  },
+  'non-white-background': {
+    table,
+  },
+},
+  args: {
+  items,
+  'non-white-background': false,
+  'only-one-open': true,
+},
+  decorators: [
+  (Story) => (
+    <div style={{padding: '2rem'}}>
+      <Story />
+    </div>
+  ),
+  withActions as Decorator,
+],
 };
 
-NonWhiteBackground.documentation = {
-  container: {
-    styles: {
-      'background-color': 'var(--sbb-color-milk-default);',
-    },
-  },
-  title: 'Accordion on non-white background',
-};
 
-OnlyOneOpen.documentation = {
-  container: {
-    styles: {
-      'background-color': 'var(--sbb-color-white-default);',
-      border: '2px solid var(--sbb-color-milk-default);',
-    },
-  },
-  title: 'Only one item open at a time',
-};
+
+
+
+
 
 const items = [
   {
@@ -96,83 +145,29 @@ const items = [
   },
 ];
 
-const table = {
+const table: Args = {
   disable: true,
 };
 
-Default.argTypes = {
-  items: {
-    table,
-  },
-  'non-white-background': {
-    table,
-  },
-};
 
-Default.args = {
-  items,
-  'non-white-background': false,
-  'only-one-open': false,
-};
 
-Default.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem;'}>
-      <Story />
-    </div>
-  ),
-  withActions,
-];
 
-NonWhiteBackground.argTypes = {
-  items: {
-    table,
-  },
-  'non-white-background': {
-    table,
-  },
-};
 
-NonWhiteBackground.args = {
-  items,
-  'non-white-background': true,
-  'only-one-open': true,
-};
 
-NonWhiteBackground.decorators = [
-  (Story) => (
-    <div style={'background: #dcdcdc; padding: 2rem;'}>
-      <Story />
-    </div>
-  ),
-  withActions,
-];
 
-OnlyOneOpen.argTypes = {
-  items: {
-    table,
-  },
-  'non-white-background': {
-    table,
-  },
-};
 
-OnlyOneOpen.args = {
-  items,
-  'non-white-background': false,
-  'only-one-open': true,
-};
 
-OnlyOneOpen.decorators = [
-  (Story) => (
-    <div style={'padding: 2rem;'}>
-      <Story />
-    </div>
-  ),
-  withActions,
-];
 
-export default {
+
+
+
+
+
+
+
+
+
+const meta: Meta =  {
   parameters: {
     actions: {
       handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
@@ -183,3 +178,5 @@ export default {
   },
   title: 'components/sbb-accordion (Unfinished)',
 };
+
+export default meta;

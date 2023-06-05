@@ -1,9 +1,12 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -12,7 +15,7 @@ const disabled = {
   },
 };
 
-const even = {
+const even: InputType = {
   control: {
     type: 'boolean',
   },
@@ -21,7 +24,7 @@ const even = {
   },
 };
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -31,7 +34,7 @@ const size = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'text',
   },
@@ -40,7 +43,7 @@ const value = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -49,7 +52,7 @@ const disableAnimation = {
   },
 };
 
-const label = {
+const label: InputType = {
   control: {
     type: 'text',
   },
@@ -58,7 +61,7 @@ const label = {
   },
 };
 
-const labelTwo = {
+const labelTwo: InputType = {
   control: {
     type: 'text',
   },
@@ -67,7 +70,7 @@ const labelTwo = {
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'select',
   },
@@ -77,7 +80,7 @@ const iconName = {
   },
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -86,7 +89,7 @@ const ariaLabel = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   disabled,
   even,
   size,
@@ -98,7 +101,7 @@ const defaultArgTypes = {
   ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   disabled: false,
   even: false,
   size: size.options[0],
@@ -110,7 +113,7 @@ const defaultArgs = {
   ariaLabel: undefined,
 };
 
-const DefaultTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }) => (
+const DefaultTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }): JSX.Element => (
   <sbb-toggle {...args}>
     <sbb-toggle-option icon-name={iconName} aria-label={ariaLabel} value="Value 1">
       {label}
@@ -121,7 +124,7 @@ const DefaultTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }) => (
   </sbb-toggle>
 );
 
-const SlottedIconTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }) => (
+const SlottedIconTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }): JSX.Element => (
   <sbb-toggle {...args}>
     <sbb-toggle-option value="Value 1" aria-label={ariaLabel}>
       <sbb-icon slot="icon" name={iconName}></sbb-icon>
@@ -135,97 +138,153 @@ const SlottedIconTemplate = ({ label, labelTwo, iconName, ariaLabel, ...args }) 
   </sbb-toggle>
 );
 
-export const SizeM = DefaultTemplate.bind({});
-SizeM.argTypes = { ...defaultArgTypes };
-SizeM.args = { ...defaultArgs };
+export const SizeM: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
 
-export const SizeS = DefaultTemplate.bind({});
-SizeS.argTypes = { ...defaultArgTypes };
-SizeS.args = { ...defaultArgs, size: size.options[1] };
 
-export const Disabled = DefaultTemplate.bind({});
-Disabled.argTypes = { ...defaultArgTypes };
-Disabled.args = { ...defaultArgs, disabled: true };
 
-export const DisabledSizeS = DefaultTemplate.bind({});
-DisabledSizeS.argTypes = { ...defaultArgTypes };
-DisabledSizeS.args = { ...defaultArgs, disabled: true, size: size.options[1] };
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, size: size.options[1] },
+};
 
-export const Even = DefaultTemplate.bind({});
-Even.argTypes = { ...defaultArgTypes };
-Even.args = { ...defaultArgs, even: true };
 
-export const EvenSizeS = DefaultTemplate.bind({});
-EvenSizeS.argTypes = { ...defaultArgTypes };
-EvenSizeS.args = { ...defaultArgs, even: true, size: size.options[1] };
 
-export const LabelAndIcon = DefaultTemplate.bind({});
-LabelAndIcon.argTypes = { ...defaultArgTypes };
-LabelAndIcon.args = { ...defaultArgs, iconName: iconName.options[0] };
+export const Disabled: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, disabled: true },
+};
 
-export const LabelAndIconSizeS = DefaultTemplate.bind({});
-LabelAndIconSizeS.argTypes = { ...defaultArgTypes };
-LabelAndIconSizeS.args = { ...defaultArgs, iconName: iconName.options[0], size: size.options[1] };
 
-export const LabelAndIconSlotted = SlottedIconTemplate.bind({});
-LabelAndIconSlotted.argTypes = { ...defaultArgTypes };
-LabelAndIconSlotted.args = { ...defaultArgs, iconName: iconName.options[1] };
 
-export const IconsOnly = DefaultTemplate.bind({});
-IconsOnly.argTypes = { ...defaultArgTypes };
-IconsOnly.args = {
+export const DisabledSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, disabled: true, size: size.options[1] },
+};
+
+
+
+export const Even: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, even: true },
+};
+
+
+
+export const EvenSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, even: true, size: size.options[1] },
+};
+
+
+
+export const LabelAndIcon: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, iconName: iconName.options[0] },
+};
+
+
+
+export const LabelAndIconSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, iconName: iconName.options[0], size: size.options[1] },
+};
+
+
+
+export const LabelAndIconSlotted: StoryObj = {
+  render: SlottedIconTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, iconName: iconName.options[1] },
+};
+
+
+
+export const IconsOnly: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
   ...defaultArgs,
   iconName: iconName.options[0],
   label: undefined,
   labelTwo: undefined,
+},
 };
 
-export const IconsOnlySizeS = DefaultTemplate.bind({});
-IconsOnlySizeS.argTypes = { ...defaultArgTypes };
-IconsOnlySizeS.args = {
+
+
+export const IconsOnlySizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
   ...defaultArgs,
   iconName: iconName.options[0],
   size: size.options[1],
   label: undefined,
   labelTwo: undefined,
+},
 };
 
-export const IconsOnlySlotted = SlottedIconTemplate.bind({});
-IconsOnlySlotted.argTypes = { ...defaultArgTypes };
-IconsOnlySlotted.args = {
+
+
+export const IconsOnlySlotted: StoryObj = {
+  render: SlottedIconTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
   ...defaultArgs,
   iconName: iconName.options[1],
   label: undefined,
   labelTwo: undefined,
+},
 };
 
-export const DynamicWidth = DefaultTemplate.bind({});
-DynamicWidth.argTypes = { ...defaultArgTypes };
-DynamicWidth.args = {
+
+
+export const DynamicWidth: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
   ...defaultArgs,
   label: 'Zürich',
   labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
   iconName: iconName.options[1],
+},
 };
 
-export const DynamicWidthSizeS = DefaultTemplate.bind({});
-DynamicWidthSizeS.argTypes = { ...defaultArgTypes };
-DynamicWidthSizeS.args = {
+
+
+export const DynamicWidthSizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
   ...defaultArgs,
   size: size.options[1],
   label: 'Zürich',
   labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
   iconName: iconName.options[1],
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{padding: '2rem'}}>
         <Story />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     actions: {
@@ -240,3 +299,5 @@ export default {
   },
   title: 'components/form elements/sbb-toggle',
 };
+
+export default meta;

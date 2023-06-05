@@ -1,25 +1,28 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['l', 's'],
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   size,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   size: size.options[0],
 };
 
 const style =
   'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 2rem';
 
-const navigationActionsL = (active) => [
+const navigationActionsL = (active): JSX.Element[] => [
   <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>,
   <sbb-navigation-action id="nav-2" active={active}>
     Vacations & Recreation
@@ -28,7 +31,7 @@ const navigationActionsL = (active) => [
   <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>,
 ];
 
-const navigationActionsS = (active) => [
+const navigationActionsS = (active): JSX.Element[] => [
   <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>,
   <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>,
   <sbb-navigation-action id="nav-7" active={active}>
@@ -37,43 +40,59 @@ const navigationActionsS = (active) => [
   <sbb-navigation-action id="nav-8">English</sbb-navigation-action>,
 ];
 
-const SizeLTemplate = (args) => (
+const SizeLTemplate = (args): JSX.Element => (
   <sbb-navigation-marker {...args}>{navigationActionsL(false)}</sbb-navigation-marker>
 );
 
-const SizeSTemplate = (args) => (
+const SizeSTemplate = (args): JSX.Element => (
   <sbb-navigation-marker {...args}>{navigationActionsS(false)}</sbb-navigation-marker>
 );
 
-const SizeLActiveTemplate = (args) => (
+const SizeLActiveTemplate = (args): JSX.Element => (
   <sbb-navigation-marker {...args}>{navigationActionsL(true)}</sbb-navigation-marker>
 );
 
-const SizeSActiveTemplate = (args) => (
+const SizeSActiveTemplate = (args): JSX.Element => (
   <sbb-navigation-marker {...args}>{navigationActionsS(true)}</sbb-navigation-marker>
 );
 
-export const SizeL = SizeLTemplate.bind({});
-SizeL.argTypes = defaultArgTypes;
-SizeL.args = { ...defaultArgs };
-SizeL.documentation = { title: 'Size L' };
+export const SizeL: StoryObj = {
+  render: SizeLTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const SizeS = SizeSTemplate.bind({});
-SizeS.argTypes = defaultArgTypes;
-SizeS.args = { ...defaultArgs, size: size.options[1] };
-SizeS.documentation = { title: 'Size S' };
 
-export const SizeLActive = SizeLActiveTemplate.bind({});
-SizeLActive.argTypes = defaultArgTypes;
-SizeLActive.args = { ...defaultArgs };
-SizeLActive.documentation = { title: 'Size L Active' };
 
-export const SizeSActive = SizeSActiveTemplate.bind({});
-SizeSActive.argTypes = defaultArgTypes;
-SizeSActive.args = { ...defaultArgs, size: size.options[1] };
-SizeSActive.documentation = { title: 'Size S Active' };
 
-export default {
+export const SizeS: StoryObj = {
+  render: SizeSTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
+};
+
+
+
+
+export const SizeLActive: StoryObj = {
+  render: SizeLActiveTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+
+
+
+export const SizeSActive: StoryObj = {
+  render: SizeSActiveTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
+};
+
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={style}>
@@ -91,3 +110,5 @@ export default {
   },
   title: 'components/sbb-navigation-marker',
 };
+
+export default meta;

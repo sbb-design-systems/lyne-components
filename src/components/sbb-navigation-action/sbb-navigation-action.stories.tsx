@@ -1,32 +1,35 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const size = {
+const size: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['l', 'm', 's'],
 };
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   size,
   href,
   'aria-label': ariaLabel,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   size: size.options[0],
   href: undefined,
   'aria-label': undefined,
@@ -37,23 +40,39 @@ const Template = (args) => <sbb-navigation-action {...args}>Label</sbb-navigatio
 const style =
   'background-color: var(--sbb-color-midnight-default); width: max-content; padding: 1rem 2rem';
 
-export const SizeL = Template.bind({});
-SizeL.argTypes = defaultArgTypes;
-SizeL.args = { ...defaultArgs };
+export const SizeL: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const SizeM = Template.bind({});
-SizeM.argTypes = defaultArgTypes;
-SizeM.args = { ...defaultArgs, size: size.options[1] };
 
-export const SizeS = Template.bind({});
-SizeS.argTypes = defaultArgTypes;
-SizeS.args = { ...defaultArgs, size: size.options[2] };
 
-export const Link = Template.bind({});
-Link.argTypes = defaultArgTypes;
-Link.args = { ...defaultArgs, href: 'https://www.sbb.ch' };
+export const SizeM: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
+};
 
-export default {
+
+
+export const SizeS: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[2] },
+};
+
+
+
+export const Link: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, href: 'https://www.sbb.ch' },
+};
+
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div style={style}>
@@ -71,3 +90,5 @@ export default {
   },
   title: 'components/sbb-navigation-action',
 };
+
+export default meta;

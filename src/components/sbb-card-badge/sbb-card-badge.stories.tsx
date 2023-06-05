@@ -1,5 +1,8 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 /* ************************************************* */
 /* Storybook component wrapper, used in Storybook    */
@@ -19,13 +22,13 @@ const wrapperStyle = (context) => {
 /* Storybook controls                                */
 /* ************************************************* */
 
-const ariaLabel = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const appearance = {
+const appearance: InputType = {
   control: {
     type: 'select',
   },
@@ -35,25 +38,25 @@ const appearance = {
   },
 };
 
-const isDiscount = {
+const isDiscount: InputType = {
   control: {
     type: 'boolean',
   },
 };
 
-const text = {
+const text: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const price = {
+const price: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   'aria-label': ariaLabel,
   appearance,
   'is-discount': isDiscount,
@@ -61,7 +64,7 @@ const defaultArgTypes = {
   text,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   'aria-label': 'Super saver sales ticket price starts at CHF 37.50',
   appearance: appearance.options[0],
 };
@@ -70,7 +73,7 @@ const defaultArgs = {
 /* Documentation platform                            */
 /* ************************************************* */
 
-const defaultDocumentationStyles = {
+const defaultDocumentationStyles: Args = {
   overflow: 'hidden',
   position: 'relative',
 };
@@ -81,7 +84,7 @@ const defaultDocumentationStyles = {
 
 /* --- generic slot -------------------------------- */
 
-const SlotGenericTemplate = () => (
+const SlotGenericTemplate = (): JSX.Element => (
   <span>
     <time datetime="2021-11-25">Black Friday</time> Special
   </span>
@@ -93,7 +96,7 @@ const SlotGenericTemplate = () => (
 
 const Template = (args) => <sbb-card-badge {...args}></sbb-card-badge>;
 
-const TemplateWithSlot = (args) => (
+const TemplateWithSlot = (args): JSX.Element => (
   <sbb-card-badge {...args}>
     <div slot="generic">
       <SlotGenericTemplate />
@@ -106,130 +109,112 @@ const TemplateWithSlot = (args) => (
 /* ************************************************* */
 
 /* --- CardBadge full fledged ---------------------- */
-export const CardBadgeFullFledged = TemplateWithSlot.bind({});
-
-CardBadgeFullFledged.argTypes = defaultArgTypes;
-CardBadgeFullFledged.args = {
+export const CardBadgeFullFledged: StoryObj = {
+  render: TemplateWithSlot,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'aria-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
   'is-discount': true,
   price: '92.50',
   text: 'from CHF',
+},
 };
 
-CardBadgeFullFledged.documentation = {
-  container: {
-    styles: {
-      ...defaultDocumentationStyles,
-    },
-  },
-  title: 'Card badge full fledged',
-};
+
+
+
+
 
 /* --- CardBadge discount ------------------ */
-export const CardBadgeDiscount = Template.bind({});
-
-CardBadgeDiscount.argTypes = defaultArgTypes;
-CardBadgeDiscount.args = {
+export const CardBadgeDiscount: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'aria-label': 'Super saver sales ticket.',
   'is-discount': true,
+},
 };
 
-CardBadgeDiscount.documentation = {
-  container: {
-    styles: {
-      ...defaultDocumentationStyles,
-    },
-  },
-  title: 'Card badge with discount',
-};
+
+
+
+
 
 /* --- CardBadge discount negative -------- */
-export const CardBadgeDiscountNegative = Template.bind({});
-
-CardBadgeDiscountNegative.argTypes = defaultArgTypes;
-CardBadgeDiscountNegative.args = {
+export const CardBadgeDiscountNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'aria-label': 'Super saver sales ticket.',
   appearance: appearance.options[1],
   'is-discount': true,
+},
 };
 
-CardBadgeDiscountNegative.documentation = {
-  container: {
-    styles: {
-      ...defaultDocumentationStyles,
-    },
-  },
-  title: 'Card badge with discount negative',
-};
+
+
+
+
 
 /* --- CardBadge with text and price ------------ */
-export const CardBadgeWithTextAndPrice = Template.bind({});
-
-CardBadgeWithTextAndPrice.argTypes = defaultArgTypes;
-CardBadgeWithTextAndPrice.args = {
+export const CardBadgeWithTextAndPrice: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'aria-label': 'Super saver sales ticket price starts at CHF 37.50',
   price: '37.50',
   text: 'from CHF',
+},
 };
 
-CardBadgeWithTextAndPrice.documentation = {
-  container: {
-    styles: {
-      ...defaultDocumentationStyles,
-    },
-  },
-  title: 'Card badge with text and price',
-};
+
+
+
+
 
 /* --- CardBadge with text and price negative ---------- */
-export const CardBadgeWithTextAndPriceNegative = Template.bind({});
-
-CardBadgeWithTextAndPriceNegative.argTypes = defaultArgTypes;
-CardBadgeWithTextAndPriceNegative.args = {
+export const CardBadgeWithTextAndPriceNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'aria-label': 'Super saver sales ticket price starts at CHF 18.70',
   appearance: appearance.options[1],
   price: '18.70',
   text: 'from CHF',
+},
 };
 
-CardBadgeWithTextAndPriceNegative.documentation = {
-  container: {
-    styles: {
-      ...defaultDocumentationStyles,
-    },
-  },
-  title: 'Card badge with text and price negative',
-};
+
+
+
+
 
 /* --- CardBadge discount with slot ------------------------- */
-export const CardBadgeDiscountWithSlot = TemplateWithSlot.bind({});
-
-CardBadgeDiscountWithSlot.argTypes = defaultArgTypes;
-CardBadgeDiscountWithSlot.args = {
+export const CardBadgeDiscountWithSlot: StoryObj = {
+  render: TemplateWithSlot,
+  argTypes: defaultArgTypes,
+  args: {
   ...defaultArgs,
   'aria-label': 'Super saver sales ticket Black Friday Special',
   'is-discount': true,
+},
 };
 
-CardBadgeDiscountWithSlot.documentation = {
-  container: {
-    styles: {
-      ...defaultDocumentationStyles,
-    },
-  },
-  title: 'Card badge discount with slot',
-};
+
+
+
+
 
 /* ************************************************* */
 /* Render storybook section and stories              */
 /* ************************************************* */
 
-export default {
+const meta: Meta =  {
   decorators: [
     (Story, context) => (
       <div style={`${wrapperStyle(context)} padding: 2rem; position: relative; overflow: hidden;`}>
@@ -247,3 +232,5 @@ export default {
   },
   title: 'components/sbb-card-badge (Unfinished)',
 };
+
+export default meta;

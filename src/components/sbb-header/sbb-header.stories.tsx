@@ -1,10 +1,13 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import isChromatic from 'chromatic/isChromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 const LoremIpsumTemplate = () => [
   <div>
@@ -20,7 +23,7 @@ const LoremIpsumTemplate = () => [
   <br />,
 ];
 
-const HeaderBasicTemplate = ({ children, attributes, ...args }) => [
+const HeaderBasicTemplate = ({ children, attributes, ...args }): JSX.Element[] => [
   <sbb-header {...args}>
     <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
@@ -41,13 +44,13 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }) => [
   <div {...attributes}>{new Array(12).fill(null).map(LoremIpsumTemplate)}</div>,
 ];
 
-const Template = (args) => (
+const Template = (args): JSX.Element => (
   <HeaderBasicTemplate {...args}>
     <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
   </HeaderBasicTemplate>
 );
 
-const TemplateWithUserMenu = (args) => (
+const TemplateWithUserMenu = (args): JSX.Element => (
   <HeaderBasicTemplate {...args}>
     <sbb-header-action
       icon-name="user-small"
@@ -84,7 +87,7 @@ const playStory = async ({ canvasElement }) => {
   await userEvent.click(button);
 };
 
-const expanded = {
+const expanded: InputType = {
   control: {
     type: 'boolean',
   },
@@ -93,7 +96,7 @@ const expanded = {
   },
 };
 
-const hideOnScroll = {
+const hideOnScroll: InputType = {
   control: {
     type: 'boolean',
   },
@@ -102,7 +105,7 @@ const hideOnScroll = {
   },
 };
 
-const scrollOrigin = {
+const scrollOrigin: InputType = {
   control: {
     type: 'text',
   },
@@ -111,52 +114,74 @@ const scrollOrigin = {
   },
 };
 
-const basicArgTypes = {
+const basicArgTypes: ArgTypes = {
   expanded,
   'hide-on-scroll': hideOnScroll,
   'scroll-origin': scrollOrigin,
 };
 
-const basicArgs = {
+const basicArgs: Args = {
   expanded: false,
   'hide-on-scroll': false,
   'scroll-origin': undefined,
   attributes: { class: 'sbb-page-spacing' },
 };
 
-export const Basic = Template.bind({});
-Basic.argTypes = basicArgTypes;
-Basic.args = { ...basicArgs };
+export const Basic: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
 
-export const Expanded = Template.bind({});
-Expanded.argTypes = basicArgTypes;
-Expanded.args = {
+
+
+export const Expanded: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   expanded: true,
   attributes: { class: 'sbb-page-spacing-expanded' },
+},
 };
 
-export const WithUserMenu = TemplateWithUserMenu.bind({});
-WithUserMenu.argTypes = basicArgTypes;
-WithUserMenu.args = { ...basicArgs };
-WithUserMenu.play = isChromatic() && playStory;
 
-export const BasicScrollHide = Template.bind({});
-BasicScrollHide.argTypes = basicArgTypes;
-BasicScrollHide.args = { ...basicArgs, 'hide-on-scroll': true };
 
-export const ExpandedScrollHide = Template.bind({});
-ExpandedScrollHide.argTypes = basicArgTypes;
-ExpandedScrollHide.args = {
+export const WithUserMenu: StoryObj = {
+  render: TemplateWithUserMenu,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  play: isChromatic() && playStory,
+};
+
+
+
+
+export const BasicScrollHide: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'hide-on-scroll': true },
+};
+
+
+
+export const ExpandedScrollHide: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   expanded: true,
   'hide-on-scroll': true,
   attributes: { class: 'sbb-page-spacing-expanded' },
+},
 };
 
-export const ContainerScrollOriginScrollHide = Template.bind({});
-ContainerScrollOriginScrollHide.argTypes = basicArgTypes;
-ContainerScrollOriginScrollHide.args = {
+
+
+export const ContainerScrollOriginScrollHide: StoryObj = {
+  render: Template,
+  argTypes: basicArgTypes,
+  args: {
   ...basicArgs,
   'hide-on-scroll': true,
   'scroll-origin': 'container',
@@ -165,16 +190,19 @@ ContainerScrollOriginScrollHide.args = {
     class: 'sbb-page-spacing',
     style: 'height: 200px; overflow: auto;',
   },
+},
 };
 
-export default {
+
+
+const meta: Meta =  {
   decorators: [
     (Story) => (
       <div>
         <Story style={`${isChromatic() && 'min-height: 100vh'}`} />
       </div>
     ),
-    withActions,
+    withActions as Decorator,
   ],
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -185,11 +213,13 @@ export default {
       handles: ['click'],
     },
     docs: {
-      inlineStories: false,
-      iframeHeight: '250px',
+      story: { inline: false, iframeHeight: '250px', },
+      
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',
   },
   title: 'components/sbb-header',
 };
+
+export default meta;
