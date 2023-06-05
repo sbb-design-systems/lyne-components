@@ -76,11 +76,11 @@ const DefaultTemplate = (args) => [
   trigger(),
   <sbb-notification {...args}>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="inline">
+    <sbb-link href="/" variant="block">
       Link one
     </sbb-link>
     &nbsp;
-    <sbb-link href="/" variant="block">
+    <sbb-link href="/" variant="inline">
       Link two
     </sbb-link>
     &nbsp;
@@ -90,8 +90,11 @@ const DefaultTemplate = (args) => [
   </sbb-notification>,
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
+    <sbb-link href="/" variant="inline">
+      link
+    </sbb-link>{' '}
+    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>,
 ];
 
@@ -102,11 +105,11 @@ const SlottedTitleTemplate = (args) => [
       Slotted title <sbb-icon name="face-grinning-small" />
     </span>
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="inline">
+    <sbb-link href="/" variant="block">
       Link one
     </sbb-link>
     &nbsp;
-    <sbb-link href="/" variant="block">
+    <sbb-link href="/" variant="inline">
       Link two
     </sbb-link>
     &nbsp;
@@ -116,8 +119,11 @@ const SlottedTitleTemplate = (args) => [
   </sbb-notification>,
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
+    <sbb-link href="/" variant="inline">
+      link
+    </sbb-link>{' '}
+    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>,
 ];
 

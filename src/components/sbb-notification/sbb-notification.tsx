@@ -243,6 +243,8 @@ export class SbbNotification implements ComponentInterface {
         data-state={this._state}
         data-resize-disable-animation={this._resizeDisableAnimation}
         data-has-title={this._hasTitle}
+        inert={this._state !== 'opened'}
+        aria-hidden={this._state !== 'opened'}
       >
         <div
           class="sbb-notification"
