@@ -1,7 +1,6 @@
 import events from './sbb-notification.events.ts';
 import { h } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic/isChromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 
 const titleContent = {
@@ -49,7 +48,7 @@ const basicArgs = {
   type: type.options[0],
   variant: variant.options[0],
   readonly: false,
-  'disable-animation': isChromatic(),
+  'disable-animation': false,
 };
 
 const trigger = () => (

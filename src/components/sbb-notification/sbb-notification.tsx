@@ -171,7 +171,7 @@ export class SbbNotification implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._hasTitle = !!this.titleContent || this._namedSlots['title'];
-    this._element.querySelectorAll('sbb-link').forEach((link) => (link.variant = 'inline'));
+    this._element.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
   }
 
   public componentDidLoad(): void {

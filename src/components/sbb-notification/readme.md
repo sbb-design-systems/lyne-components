@@ -1,4 +1,33 @@
-The `sbb-notification` component...
+Use the `sbb-notification` component to inform users of updates. A notification is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.
+
+Inline notifications show up in task flows, to notify users of the status of an action or other informations. They usually appear at the top of the primary content area or close to the item needing attention.
+
+The `sbb-notification` is structured in the following way:
+- Icon: informs users of the kind of notification at a glance.
+- Title (optional): gives users a quick overview of the notification.
+- Close button (optional): closes the notification.
+- Message: provides additional detail and actionable steps for the user to take.
+
+### Usage
+The `sbb-notification` supports four types: "info" (default), "success", "warn" and "error" based on the type of the information displayed. There are also three variants to choose from: "default", "colorful" and "transparent".
+
+Here is an example of how to use the component:
+
+```html
+<sbb-notification type="success" variant="colorful" title-content="Notification title">
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+  <sbb-link variant="inline" href="/">Link one</sbb-link>
+  <sbb-link variant="inline" href="/">Link two</sbb-link>
+  <sbb-link variant="inline" href="/">Link three</sbb-link>
+</sbb-notification>
+```
+
+Note that the notification only supports inline links, therefore any slotted link will be forced to be an inline variant link.
+
+### Dismissal
+Inline notifications do not dismiss automatically. They persist on the page until the user dismisses them or takes action that resolves the notification.
+
+By default, a close button is displayed to dismiss inline notifications. Including the close button is optional and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
 
 <!-- Auto Generated Below -->
 
