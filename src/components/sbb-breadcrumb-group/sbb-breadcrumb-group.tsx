@@ -23,7 +23,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  @State() private _bcWidth: number;
+  private _bcWidth: number;
 
   private _breadcrumbGroupController: AbortController;
 
@@ -53,9 +53,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     window.addEventListener(
       'resize',
       () => {
-        // reset
         this._hasEllipsis = false;
-
         this._evaluateEllipsis();
       },
       {
@@ -102,8 +100,30 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     const length = breadcrumbs.length - 1;
     breadcrumbs.forEach((breadcrumb, index) => {
       breadcrumb.ariaCurrent = index === length ? 'page' : undefined;
-      breadcrumb.id = `sbb-breadcrumb-${index}`;
+      if (!breadcrumb.id) {
+        breadcrumb.id = `sbb-breadcrumb-${index}`;
+      }
     });
+  }
+  private _measureBreadcrumbs(): void {
+    const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
+
+    if (li && li.length > 0) {
+      /** get gap value between breadcrumb elements */
+      const breadcrumbGap = parseInt(
+        getComputedStyle(
+          this._element.shadowRoot.querySelector('.sbb-breadcrumb-group')
+        ).getPropertyValue('gap'),
+        10
+      );
+
+      /** calculate total width of the breadcrubm element */
+      this._bcWidth =
+        Array.from(li)
+          .map((e) => e.clientWidth)
+          .reduce((a, b) => a + b, 0) +
+        breadcrumbGap * (li.length - 1);
+    }
   }
 
   /**
@@ -147,26 +167,6 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._hasEllipsis = false;
   }
 
-  private _measureBreadcrumbs(): void {
-    const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
-
-    /** get gap value between breadcrumb elements */
-    const breadcrumbGap = parseInt(
-      getComputedStyle(
-        this._element.shadowRoot.querySelector('.sbb-breadcrumb-group')
-      ).getPropertyValue('gap'),
-      10
-    );
-
-    /** calculate total width of the breadcrubm element */
-    this._bcWidth =
-      Array.from(li)
-        .map((e) => e.clientWidth)
-        .reduce((a, b) => a + b, 0) +
-      breadcrumbGap * (li.length - 1);
-  }
-
-  /** evaluate if the expandend breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateEllipsis(): void {
     this._hasEllipsis =
       this._breadcrumbs &&
@@ -189,7 +189,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
           <li class="sbb-breadcrumb-group__item">
             <slot
               name="breadcrumb-0"
-              key="breadcrumb-0"
+              key="sbb-breadcrumb-0"
               onSlotchange={(): void => this._readBreadcrumb()}
             />
           </li>
@@ -208,7 +208,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
             <slot
               name={`breadcrumb-${this._breadcrumbs.length - 1}`}
-              key={`breadcrumb-${this._breadcrumbs.length - 1}`}
+              key={`sbb-breadcrumb-${this._breadcrumbs.length - 1}`}
               onSlotchange={(): void => this._readBreadcrumb()}
             />
           </li>
