@@ -157,7 +157,8 @@ const TemplateTwoDots = ({ disableAnimation, ...args }): JSX.Element => {
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
-          minHeight: 100,
+          // TODO: Check if bug?
+          minHeight: '100px' as any,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -204,7 +205,8 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
           lineType: 'standard',
           lineColor: 'disruption',
           bulletType: 'disruption',
-          minHeight: 100,
+          // TODO: Check if bug?
+          minHeight: '100px' as any,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
@@ -287,7 +289,8 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element =>
         pearlChainVerticalItemAttributes={{
           lineType: 'standard',
           lineColor: 'disruption',
-          minHeight: 100,
+          // TODO: Check if bug?
+          minHeight: '100px' as any,
           hideLine: true,
           bulletSize: 'stop',
           position: 0,
@@ -584,7 +587,8 @@ const TimetableChange = (): JSX.Element => {
           lineColor: 'walk',
           // TODO: Check if bug?
           bulletType: 'standard' as any,
-          minHeight: 100,
+          // TODO: Check if bug?
+          minHeight: '100px' as any,
           hideLine: true,
           bulletSize: 'start-end',
           position: 0,
