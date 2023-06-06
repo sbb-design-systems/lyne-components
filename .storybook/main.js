@@ -3,7 +3,6 @@ module.exports = {
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
-    'storybook-addon-breakpoints',
     '@storybook/addon-interactions',
     '@storybook/preset-scss',
     '@storybook/addon-mdx-gfm',

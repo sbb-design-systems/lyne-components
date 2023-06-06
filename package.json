@@ -103,7 +103,6 @@
     "standard-version": "9.5.0",
     "stencil-inline-svg": "1.1.0",
     "storybook": "7.0.18",
-    "storybook-addon-breakpoints": "1.0.0",
     "style-loader": "3.3.3",
     "stylelint": "15.7.0",
     "stylelint-config-prettier-scss": "1.0.0",
