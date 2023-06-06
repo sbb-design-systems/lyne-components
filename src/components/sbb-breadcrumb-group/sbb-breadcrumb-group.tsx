@@ -122,7 +122,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         Array.from(li)
           .map((e) => e.clientWidth)
           .reduce((a: number, b: number) => a + (b || 0), 0) +
-        breadcrumbGap * (li.length - 1);
+        breadcrumbGap * li.length;
     }
   }
 
