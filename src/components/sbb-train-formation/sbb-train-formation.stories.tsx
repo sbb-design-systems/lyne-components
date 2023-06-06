@@ -7,7 +7,8 @@ import type { InputType } from '@storybook/types';
 const MountedFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>
     <sbb-train
-      directionLabel="Direction of travel"
+      directionLabel="This attribute seems to be necessary due to a bug"
+      direction-label="Direction of travel"
       station="Bern"
       direction="left"
       accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
@@ -116,7 +117,8 @@ const MountedFormationTemplate = (args): JSX.Element => (
       ></sbb-train-wagon>
     </sbb-train>
     <sbb-train
-      directionLabel="Direction of travel"
+      directionLabel="This attribute seems to be necessary due to a bug"
+      direction-label="Direction of travel"
       station="Luzern"
       direction="left"
       accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction"
@@ -207,7 +209,8 @@ const MountedFormationTemplate = (args): JSX.Element => (
 const SingleFormationTemplate = (args): JSX.Element => (
   <sbb-train-formation {...args}>
     <sbb-train
-      directionLabel="Direction of travel"
+      directionLabel="This attribute seems to be necessary due to a bug"
+      direction-label="Direction of travel"
       station=""
       direction="left"
       accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"

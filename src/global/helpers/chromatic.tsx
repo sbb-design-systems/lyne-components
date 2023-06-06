@@ -51,7 +51,10 @@ export function combineStories(config: Meta, stories: StoryParameter): StoryObj[
         .map((name) => ({ name, story: stories[name] }))
         .filter((s) => typeof s.story.render === 'function')
         // eslint-disable-next-line no-unused-vars
-        .map(({ name, story }) => reduceDecorators(name, story, context)(args, context))}
+        .map(({ name, story }) => {
+          const storyContext = { ...context, args: story.args };
+          return reduceDecorators(name, story, storyContext)(args, storyContext);
+        })}
     </div>
   );
 

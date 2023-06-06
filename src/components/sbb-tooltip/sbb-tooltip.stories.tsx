@@ -131,7 +131,7 @@ const EndAboveTemplate = (args): JSX.Element => (
 
 const LongContentTemplate = (args): JSX.Element => (
   <Fragment>
-    {tooltipTrigger({ 'inset-inline-end': '2rem', 'inset-block-end': '2rem' })}
+    {tooltipTrigger({ 'inset-inline-start': '2rem' })}
     <sbb-tooltip data-testid="tooltip" trigger="tooltip-trigger" {...args}>
       <p id="tooltip-content" style={{ margin: '0', 'font-size': 'var(--sbb-font-size-text-s)' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

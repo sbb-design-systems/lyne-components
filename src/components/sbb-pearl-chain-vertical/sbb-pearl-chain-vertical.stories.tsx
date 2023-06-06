@@ -67,6 +67,13 @@ const defaultArgs: Args = {
   disableAnimation: isChromatic(),
 };
 
+// We need to lie to the compiler in order for the CSS variables to work.
+// Remove once https://github.com/alex-kinokon/jsx-dom/pull/90 is merged and released.
+const styleHack = (args: Record<string, string>): Record<string, string> =>
+  Object.entries(args)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join(';') as unknown as Record<string, string>;
+
 const Template = ({ disableAnimation, ...args }): JSX.Element => {
   return (
     <sbb-pearl-chain-vertical>
@@ -76,10 +83,10 @@ const Template = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           slot for content
           <div>more</div>
@@ -111,7 +118,10 @@ const TemplateLeftSlot = ({ disableAnimation, ...args }): JSX.Element => {
         pearlChainVerticalItemAttributes={args as any}
         disable-animation={disableAnimation}
       >
-        <div slot="left" style={{ '--sbb-pearl-chain-vertical-left-item-inline-end': '10px' }}>
+        <div
+          slot="left"
+          style={styleHack({ '--sbb-pearl-chain-vertical-left-item-inline-end': '10px' })}
+        >
           slot for content
         </div>
       </sbb-pearl-chain-vertical-item>
@@ -128,10 +138,10 @@ const TemplateTwoDots = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           slot for content
           <div>more</div>
@@ -166,10 +176,10 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-8px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           slot for content
           <div>more</div>
@@ -180,10 +190,10 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
         </div>
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           19:00
         </div>
@@ -202,10 +212,10 @@ const TemplateLeftSecondSlot = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           20:00
         </div>
@@ -223,10 +233,10 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element =>
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-8px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
@@ -264,10 +274,10 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element =>
         </div>
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-8px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           19:00
         </div>
@@ -285,23 +295,23 @@ const connectionDetailTemplate = ({ disableAnimation, ...args }): JSX.Element =>
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-20px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
             display: 'flex',
             'flex-direction': 'row',
             'justify-content': 'space-between',
-          }}
+          })}
         >
           <div> Station</div>
           <div> Pl. 12</div>
         </div>
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-20px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           20:00
         </div>
@@ -325,10 +335,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '15px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           10:31
         </div>
@@ -339,10 +349,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
@@ -363,10 +373,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
         </div>
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
@@ -385,10 +395,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
@@ -410,10 +420,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
 
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
@@ -432,10 +442,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
@@ -451,10 +461,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
 
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
           <div style={{ marginTop: '40px' }}>10:31</div>
@@ -473,10 +483,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
@@ -491,10 +501,10 @@ const thirdLevelTemplate = ({ disableAnimation, ...args }): JSX.Element => {
         </div>
         <div
           slot="left"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-left-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-left-item-inline-end': '10px',
-          }}
+          })}
         >
           <div style={{ fontWeight: 'bold' }}>19:00</div>
         </div>
@@ -521,10 +531,10 @@ const TimetableChange = (): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
@@ -582,10 +592,10 @@ const TimetableChange = (): JSX.Element => {
       >
         <div
           slot="right"
-          style={{
+          style={styleHack({
             '--sbb-pearl-chain-vertical-right-item-block-start': '-10px',
             '--sbb-pearl-chain-vertical-right-item-inline-start': '10px',
-          }}
+          })}
         >
           <div
             style={{
