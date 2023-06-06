@@ -139,8 +139,12 @@ export class SbbCheckbox implements ComponentInterface {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
-    this._requiredFromGroup = !!this._element.dataset.groupRequired;
+    const parentGroup = this._element.closest('sbb-checkbox-group');
+    if (parentGroup) {
+      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this.size = parentGroup.getAttribute('size') as InterfaceSbbCheckboxAttributes['size'];
+    }
     this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
   }
 
@@ -164,7 +168,6 @@ export class SbbCheckbox implements ComponentInterface {
       !this._element.closest('sbb-selection-panel [slot="content"]');
     this._handlerRepository.connect();
     this._setupInitialStateAndAttributeObserver();
-    this._setParametersFromParentGroup();
   }
 
   public componentDidLoad(): void {
@@ -219,15 +222,6 @@ export class SbbCheckbox implements ComponentInterface {
     this._selectionPanelExpandedLabel = this.checked
       ? ', ' + i18nExpanded[this._currentLanguage]
       : ', ' + i18nCollapsed[this._currentLanguage];
-  }
-
-  private _setParametersFromParentGroup(): void {
-    const parentGroup = this._element.closest('sbb-checkbox-group');
-    if (parentGroup) {
-      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
-      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
-      this.size = parentGroup.getAttribute('size') as InterfaceSbbCheckboxAttributes['size'];
-    }
   }
 
   public render(): JSX.Element {
