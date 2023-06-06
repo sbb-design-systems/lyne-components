@@ -188,8 +188,11 @@ export class SbbRadioButton implements ComponentInterface {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
-    this._requiredFromGroup = !!this._element.dataset.groupRequired;
+    const parentGroup = this._element.closest('sbb-radio-button-group');
+    if (parentGroup) {
+      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+    }
     this._radioButtonAttributeObserver.observe(this._element, radioButtonObserverConfig);
   }
 
