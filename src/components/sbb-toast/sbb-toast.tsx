@@ -10,8 +10,14 @@ import {
   Method,
   Prop,
   State,
+  Watch,
 } from '@stencil/core';
-import { SbbOverlayState } from '../../global/helpers';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+  SbbOverlayState,
+} from '../../global/helpers';
 import { AriaPoliteness, ToastPosition } from './sbb-toast.custom';
 
 /**
@@ -35,7 +41,7 @@ export class SbbToast implements ComponentInterface {
    */
   @Prop() public iconName?: string;
 
-  @Prop() public position: ToastPosition = 'bottom-center';
+  @Prop({ reflect: true }) public position: ToastPosition = 'bottom-center';
 
   /** Whether the toast has a close button. */
   @Prop() public dismissible = false;
@@ -56,7 +62,9 @@ export class SbbToast implements ComponentInterface {
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
    * JAWS does not read out aria-live message.
    */
-  @State() private _role?: 'status' | 'alert';
+  // @State() private _role?: 'status' | 'alert';
+
+  @State() private _namedSlots = createNamedSlotState('icon');
 
   /** Emits whenever the autocomplete starts the opening transition. */
   @Event({
@@ -90,23 +98,159 @@ export class SbbToast implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  @Element() private _element: HTMLElement;
+  @Element() private _element!: HTMLElement;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+  );
+
+  private _triggerElement: HTMLElement;
+  private _triggerEventsController: AbortController;
+  private _closeTimeout: ReturnType<typeof setTimeout>;
 
   @Method() public async open(): Promise<void> {
-    // TODO
-    this._state = 'opened';
+    if (this._state !== 'closed') {
+      return;
+    }
+
+    this._state = 'opening';
+    this.willOpen.emit();
   }
 
   @Method() public async close(): Promise<void> {
-    // TODO
-    this._state = 'closed';
+    if (this._state !== 'opened') {
+      return;
+    }
+
+    clearTimeout(this._closeTimeout);
+
+    this._state = 'closing';
+    this.willClose.emit();
+  }
+
+  @Watch('trigger')
+  public onTriggerChange(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+    if (newValue !== oldValue) {
+      this._setupTrigger();
+    }
+  }
+
+  public connectedCallback(): void {
+    this._setupTrigger();
+    this._handlerRepository.connect();
+  }
+
+  public disconnectedCallback(): void {
+    this._triggerEventsController.abort();
+    clearTimeout(this._closeTimeout);
+    this._handlerRepository.disconnect();
+  }
+
+  private _setupTrigger(): void {
+    this._triggerElement = this._getTriggerElement();
+
+    if (!this._triggerElement) {
+      return;
+    }
+
+    this._triggerEventsController?.abort();
+    this._triggerEventsController = new AbortController();
+
+    this._triggerElement.addEventListener('click', () => this.open(), {
+      signal: this._triggerEventsController.signal,
+    });
+  }
+
+  /**
+   * Retrieve the element that will trigger the autocomplete opening.
+   * @returns 'trigger' or the first 'input' inside the origin element.
+   */
+  private _getTriggerElement(): HTMLElement {
+    if (!this.trigger) {
+      return;
+    }
+
+    const result =
+      typeof this.trigger === 'string'
+        ? (document.getElementById(this.trigger) as HTMLElement)
+        : this.trigger;
+
+    if (!result) {
+      throw new Error(`Cannot find the trigger element with '${this.trigger}' id.`);
+    }
+
+    return result;
+  }
+
+  private _onActionSlotChange(event: Event): void {
+    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
+
+    // Force the state on the slotted buttons
+    slotNodes
+      .filter((el) => el.nodeName === 'SBB-BUTTON')
+      .forEach((btn: HTMLSbbButtonElement) => {
+        btn.variant = 'transparent';
+        btn.negative = true;
+        btn.size = 'm';
+      });
+
+    // Force the state on the slotted links
+    slotNodes
+      .filter((el) => el.nodeName === 'SBB-LINK')
+      .forEach((link: HTMLSbbLinkElement) => {
+        link.variant = 'inline';
+        link.negative = true;
+      });
+  }
+
+  private _onToastAnimationEnd(event: AnimationEvent): void {
+    // On toast opened
+    if (event.animationName === 'open') {
+      this._state = 'opened';
+      this.didOpen.emit();
+
+      // Start the countdown to close it
+      if (this.timeout) {
+        this._closeTimeout = setTimeout(() => this.close(), this.timeout);
+      }
+    }
+
+    // On toast closed
+    if (event.animationName === 'close') {
+      this._state = 'closed';
+      this.didClose.emit();
+    }
   }
 
   public render(): JSX.Element {
     return (
-      <Host data-state={this._state}>
+      <Host data-state={this._state} data-has-icon={this._namedSlots.icon || !!this.iconName}>
         <div class="sbb-toast__overlay-container">
-          <div class="sbb-toast"></div>
+          <div
+            class="sbb-toast"
+            onAnimationEnd={(event: AnimationEvent) => this._onToastAnimationEnd(event)}
+          >
+            <div class="sbb-toast__icon">
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            </div>
+
+            <div class="sbb-toast__content">
+              <slot />
+            </div>
+
+            <slot name="action" onSlotchange={(event) => this._onActionSlotChange(event)}>
+              {this.dismissible && (
+                <sbb-button
+                  iconName="cross-small"
+                  variant="transparent"
+                  negative={true}
+                  size="m"
+                  onClick={() => this.close()}
+                ></sbb-button>
+              )}
+            </slot>
+          </div>
         </div>
       </Host>
     );

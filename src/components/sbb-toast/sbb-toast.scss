@@ -6,19 +6,125 @@
 
 :host {
   --sbb-toast-z-index: var(--sbb-overlay-z-index);
+  --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
+}
+
+::slotted(sbb-button) {
+  margin-inline: var(--sbb-spacing-fixed-2x);
+}
+
+::slotted(sbb-link) {
+  margin-inline-start: var(--sbb-spacing-fixed-4x);
 }
 
 .sbb-toast__overlay-container {
   position: fixed;
   pointer-events: none;
   inset: 0;
-  z-index: var(--sbb-toast-z-index);
+  display: flex;
+
+  :host([data-state='closed']) & {
+    display: none;
+  }
+
+  :host([position='bottom-left']) & {
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  :host([position='bottom-center']) & {
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  :host([position='bottom-right']) & {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  :host([position='top-left']) & {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  :host([position='top-center']) & {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  :host([position='top-right']) & {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
 }
 
 .sbb-toast {
-  display: none;
+  z-index: var(--sbb-toast-z-index);
+  pointer-events: initial;
+  margin: var(--sbb-spacing-responsive-s);
+  padding-block: var(--sbb-spacing-responsive-xxxs);
+  padding-inline: var(--sbb-spacing-responsive-xs); // Not true if dismissable
+  border-radius: var(--sbb-border-radius-4x);
+  max-width: var(--sbb-toast-max-width);
+  display: flex;
+  color: var(--sbb-color-milk-default);
+  background-color: var(--sbb-color-midnight-default);
 
-  :host(:not([data-state='closed'])) & {
-    display: block;
+  :host([data-state='opening']) & {
+    animation: {
+      name: open;
+      duration: var(--sbb-animation-duration-6x);
+      timing-function: ease;
+    }
+  }
+
+  :host([data-state='closing']) & {
+    animation: {
+      name: close;
+      duration: var(--sbb-animation-duration-6x);
+      timing-function: ease;
+    }
+  }
+}
+
+.sbb-toast__icon {
+  margin-inline-end: var(--sbb-spacing-fixed-2x);
+
+  :host(:not([data-has-icon])) & {
+    display: none;
+  }
+}
+
+.sbb-toast__content {
+  @include sbb.title-6($exclude-spacing: true);
+
+  flex: 1 1 0;
+}
+
+@keyframes open {
+  from {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-2x));
+  }
+
+  to {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes close {
+  from {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(var(--sbb-spacing-fixed-2x));
   }
 }

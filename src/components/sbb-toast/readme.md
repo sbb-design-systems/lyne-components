@@ -56,6 +56,22 @@ Type: `Promise<void>`
 | `"unnamed"` | Use this to document a slot. |
 
 
+## Dependencies
+
+### Depends on
+
+- [sbb-icon](../sbb-icon)
+- [sbb-button](../sbb-button)
+
+### Graph
+```mermaid
+graph TD;
+  sbb-toast --> sbb-icon
+  sbb-toast --> sbb-button
+  sbb-button --> sbb-icon
+  style sbb-toast fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 

@@ -7,14 +7,26 @@ import isChromatic from 'chromatic';
 const position = {
   control: {
     type: 'select',
-    options: [
-      'bottom-left',
-      'bottom-center',
-      'bottom-right',
-      'top-left',
-      'top-center',
-      'top-right',
-    ],
+  },
+  options: ['bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'],
+};
+
+const iconName = {
+  control: {
+    type: 'text',
+  },
+};
+
+const dismissible = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const timeout = {
+  control: {
+    type: 'number',
+    step: 500,
   },
 };
 
@@ -24,33 +36,68 @@ const disableAnimation = {
   },
 };
 
-const iconName = {
-  control: {
-    type: 'text',
-  },
-};
-
 const defaultArgTypes = {
   position,
+  'icon-name': iconName,
+  dismissible,
+  timeout,
   disableAnimation,
-  iconName,
 };
 
 const defaultArgs = {
   position: 'bottom-center',
+  'icon-name': 'circle-tick-small',
+  dismissible: false,
+  timeout: 0,
   disableAnimation: isChromatic(),
-  iconName: 'clock-small',
 };
 
-const Template = (args) => [
-  <sbb-button id="show-btn">Show toast</sbb-button>,
-  <sbb-toast {...args} trigger="show-btn"></sbb-toast>,
-];
+const triggerBtnTemplate = () => <sbb-button id="show-btn">Show toast</sbb-button>;
+
+const toastTemplate = (args, action, contentLength = 's') => (
+  <sbb-toast {...args} trigger="show-btn">
+    {contentLength === 's'
+      ? 'Lorem ipsum dolor'
+      : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}
+
+    {action === 'button' && <sbb-button slot="action" icon-name="clock-small"></sbb-button>}
+
+    {action === 'link' && <sbb-link slot="action">Link action</sbb-link>}
+  </sbb-toast>
+);
+
+const Template = (args) => [triggerBtnTemplate(), toastTemplate(args, null, 's')];
+
+const LongContentTemplate = (args) => [triggerBtnTemplate(), toastTemplate(args, 'button', 'l')];
+
+const ActionButtonTemplate = (args) => [triggerBtnTemplate(), toastTemplate(args, 'button', 's')];
+
+const ActionLinkTemplate = (args) => [triggerBtnTemplate(), toastTemplate(args, 'link', 's')];
 
 export const Basic = Template.bind({});
 Basic.argTypes = defaultArgTypes;
 Basic.args = { ...defaultArgs };
 Basic.play = isChromatic();
+
+export const Dismissible = Template.bind({});
+Dismissible.argTypes = defaultArgTypes;
+Dismissible.args = { ...defaultArgs, dismissible: true };
+Dismissible.play = isChromatic();
+
+export const LongContent = LongContentTemplate.bind({});
+LongContent.argTypes = defaultArgTypes;
+LongContent.args = { ...defaultArgs };
+LongContent.play = isChromatic();
+
+export const WithActionButton = ActionButtonTemplate.bind({});
+WithActionButton.argTypes = defaultArgTypes;
+WithActionButton.args = { ...defaultArgs };
+WithActionButton.play = isChromatic();
+
+export const WithActionLink = ActionLinkTemplate.bind({});
+WithActionLink.argTypes = defaultArgTypes;
+WithActionLink.args = { ...defaultArgs };
+WithActionLink.play = isChromatic();
 
 export default {
   decorators: [

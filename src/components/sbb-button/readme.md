@@ -80,6 +80,7 @@ sbb-button {
  - [sbb-map-container](../sbb-map-container)
  - [sbb-navigation](../sbb-navigation)
  - [sbb-navigation-section](../sbb-navigation-section)
+ - [sbb-toast](../sbb-toast)
  - [sbb-tooltip](../sbb-tooltip)
 
 ### Depends on
@@ -96,6 +97,7 @@ graph TD;
   sbb-map-container --> sbb-button
   sbb-navigation --> sbb-button
   sbb-navigation-section --> sbb-button
+  sbb-toast --> sbb-button
   sbb-tooltip --> sbb-button
   style sbb-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
