@@ -34,12 +34,12 @@ describe('sbb-breadcrumb-group', () => {
             <slot></slot>
           </span>
         </mock:shadow-root>
-        <sbb-breadcrumb href="/" icon-name="pie-small" slot="breadcrumb-0">
+        <sbb-breadcrumb id="sbb-breadcrumb-0" href="/" icon-name="pie-small" slot="breadcrumb-0">
         </sbb-breadcrumb>
-        <sbb-breadcrumb href="/one" slot="breadcrumb-1">
+        <sbb-breadcrumb id="sbb-breadcrumb-1" href="/one" slot="breadcrumb-1">
           One
         </sbb-breadcrumb>
-        <sbb-breadcrumb href="/one" slot="breadcrumb-2">
+        <sbb-breadcrumb id="sbb-breadcrumb-2" href="/one" slot="breadcrumb-2">
           Two
         </sbb-breadcrumb>
       </sbb-breadcrumb-group>
