@@ -18,7 +18,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Local instance of slotted sbb-breadcrumb elements */
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
-  /* Check if the list needs to be shortened with the ellipsis breadcrumb. */
+  /** Check if the list needs to be shortened with the ellipsis breadcrumb. */
   @State() private _hasEllipsis: boolean;
 
   @Element() private _element!: HTMLElement;
@@ -40,8 +40,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
     if (isArrowKeyPressed(evt)) {
       if (this._hasEllipsis) {
-        this._focusNextEllipsis(evt);
-        return;
+        return this._focusNextEllipsis(evt);
       }
       this._focusNextNoEllipsis(evt);
     }
@@ -105,11 +104,12 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       }
     });
   }
+
   private _measureBreadcrumbs(): void {
     const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
 
     if (li && li.length > 0) {
-      /** get gap value between breadcrumb elements */
+      // Get gap value between breadcrumb elements
       const breadcrumbGap = parseInt(
         getComputedStyle(
           this._element.shadowRoot.querySelector('.sbb-breadcrumb-group')
@@ -117,11 +117,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         10
       );
 
-      /** calculate total width of the breadcrubm element */
+      // Calculate total width of the breadcrumb elements
       this._bcWidth =
         Array.from(li)
           .map((e) => e.clientWidth)
-          .reduce((a, b) => a + b, 0) +
+          .reduce((a: number, b: number) => a + (b || 0), 0) +
         breadcrumbGap * (li.length - 1);
     }
   }
@@ -167,6 +167,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._hasEllipsis = false;
   }
 
+  /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateEllipsis(): void {
     this._hasEllipsis =
       this._breadcrumbs &&
