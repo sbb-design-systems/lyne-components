@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-breadcrumb-group', () => {
   let element: E2EElement, page: E2EPage;
@@ -76,5 +77,39 @@ describe('sbb-breadcrumb-group', () => {
 
     await page.keyboard.down('ArrowRight');
     expect(await page.evaluate(() => document.activeElement.id)).toEqual(first.id);
+  });
+
+  it('expand breadcrumbs with ellipsis', async () => {
+    const page = await newE2EPage();
+    await page.setViewport({ width: 320, height: 600 });
+    await page.setContent(`
+      <sbb-breadcrumb-group id='sbb-breadcrumb-group'>
+        <sbb-breadcrumb href="/" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+        <sbb-breadcrumb href="/" id="breadcrumb-1">First</sbb-breadcrumb>
+        <sbb-breadcrumb href="/" id="breadcrumb-2">Second</sbb-breadcrumb>
+        <sbb-breadcrumb href="/" id="breadcrumb-3">Third</sbb-breadcrumb>
+        <sbb-breadcrumb href="/" id="breadcrumb-4">Fourth</sbb-breadcrumb>
+        <sbb-breadcrumb href="/" id="breadcrumb-5">Fifth</sbb-breadcrumb>
+        <sbb-breadcrumb href="/" id="breadcrumb-6">Sixth</sbb-breadcrumb>
+      </sbb-breadcrumb-group>
+    `);
+
+    await page.waitForChanges();
+
+    let ellipsisElement = await page.find(
+      'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis'
+    );
+    let ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
+    expect(ellipsisElement).not.toBeNull();
+    expect(ellipsisBreadcrumb).not.toBeNull();
+
+    const changeSpy = await ellipsisBreadcrumb.spyOnEvent('click');
+    await ellipsisBreadcrumb.click();
+    await waitForCondition(() => changeSpy.events.length === 1);
+
+    ellipsisElement = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis');
+    ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
+    expect(ellipsisElement).toBeNull();
+    expect(ellipsisBreadcrumb).toBeNull();
   });
 });
