@@ -12,7 +12,7 @@ describe('sbb-train', () => {
       <sbb-train direction-label="Driving direction" station="Bern" direction="left">
         <mock:shadow-root>
           <div class="sbb-train">
-            <sbb-title visually-hidden level="6">Train, Driving direction Bern.</sbb-title>
+            <h6 class="sbb-train__direction-label-sr">Train, Driving direction Bern.</h6>
             <ul class="sbb-train__wagons" aria-label="Coaches of the train"></ul>
             <span hidden>
               <slot />
@@ -80,7 +80,9 @@ describe('sbb-train', () => {
         html: '<sbb-train />',
       });
 
-      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual('Train.');
+      expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
+        'Train.'
+      );
     });
 
     it('should create aria label with direction-label and no accessibility-label', async () => {
@@ -89,7 +91,9 @@ describe('sbb-train', () => {
         html: '<sbb-train direction-label="Direction of Travel"/>',
       });
 
-      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual('Train.');
+      expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
+        'Train.'
+      );
     });
 
     it('should create aria label with direction-label, station and no accessibility-label', async () => {
@@ -98,7 +102,7 @@ describe('sbb-train', () => {
         html: '<sbb-train direction-label="Direction of Travel" station="Bern"/>',
       });
 
-      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual(
+      expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
         'Train, Direction of Travel Bern.'
       );
     });
@@ -109,7 +113,7 @@ describe('sbb-train', () => {
         html: '<sbb-train direction-label="Direction of Travel" station="Bern" accessibility-label="Additional label"/>',
       });
 
-      expect(root.shadowRoot.querySelector('sbb-title').textContent).toEqual(
+      expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
         'Train, Direction of Travel Bern, Additional label.'
       );
     });

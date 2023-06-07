@@ -110,13 +110,14 @@ export class SbbTrain implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const TITLE_TAG_NAME = `h${this.directionLabelLevel}`;
     this._wagons.forEach((wagon, index) => wagon.setAttribute('slot', `wagon-${index}`));
 
     return (
       <div class="sbb-train">
-        <sbb-title visually-hidden level={this.directionLabelLevel}>
+        <TITLE_TAG_NAME class="sbb-train__direction-label-sr">
           {this._getDirectionAriaLabel()}
-        </sbb-title>
+        </TITLE_TAG_NAME>
         <ul class="sbb-train__wagons" aria-label={i18nWagonsLabel[this._currentLanguage]}>
           {this._wagons.map((_, index) => (
             <li>

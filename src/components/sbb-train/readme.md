@@ -43,13 +43,11 @@ It should refer to the section where the locomotive is placed.
 
 ### Depends on
 
-- [sbb-title](../sbb-title)
 - [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-train --> sbb-title
   sbb-train --> sbb-icon
   style sbb-train fill:#f9f,stroke:#333,stroke-width:4px
 ```
