@@ -26,6 +26,7 @@ import { ScrollHandler } from '../../global/helpers/scroll';
 import { sbbInputModalityDetector, setModalityOnNextFocus } from '../../global/helpers';
 
 import { SbbOverlayState } from '../../global/helpers/overlay';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -56,6 +57,9 @@ export class SbbMenu implements ComponentInterface {
    * The state of the menu.
    */
   @State() private _state: SbbOverlayState = 'closed';
+
+  /** Sbb-Link elements */
+  @State() private _content: Element[];
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -106,6 +110,7 @@ export class SbbMenu implements ComponentInterface {
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _menuId = `sbb-menu-${++nextId}`;
+  private _menuActions: JSX.Element;
 
   @Element() private _element!: HTMLElement;
 
@@ -155,6 +160,20 @@ export class SbbMenu implements ComponentInterface {
     }
   }
 
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    if (!isArrowKeyPressed(evt)) {
+      return;
+    }
+    evt.preventDefault();
+
+    const enabledActions: Element[] = this._content.filter((e: HTMLElement) => e.tabIndex === 0);
+    const current = enabledActions.findIndex((e: Element) => e === evt.target);
+    const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+
+    (enabledActions[nextIndex] as HTMLElement).focus();
+  }
+
   // Closes the menu on "Esc" key pressed and traps focus within the menu.
   private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
@@ -183,6 +202,7 @@ export class SbbMenu implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._readActions();
   }
 
   public disconnectedCallback(): void {
@@ -336,6 +356,42 @@ export class SbbMenu implements ComponentInterface {
     this._element.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
   }
 
+  /**
+   * Create an array with only the sbb-menu-action children
+   */
+  private _readActions(): void {
+    const content = Array.from(this._element.children);
+    // If the slotted content has not changed, we can skip syncing and updating the content.
+    if (
+      this._content &&
+      content.length === this._content.length &&
+      this._content.every((e, i) => content[i] === e)
+    ) {
+      return;
+    }
+
+    this._content = content;
+
+    if (this._content.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
+      this._menuActions = [
+        <ul class="sbb-menu-list">
+          {this._content.map((_, index) => (
+            <li>
+              <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
+            </li>
+          ))}
+        </ul>,
+        <span hidden>
+          <slot onSlotchange={(): void => this._readActions()} />
+        </span>,
+      ];
+
+      this._content.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
+    } else {
+      this._menuActions = undefined;
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <Host data-state={this._state} ref={assignId(() => this._menuId)}>
@@ -352,7 +408,7 @@ export class SbbMenu implements ComponentInterface {
               ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
               class="sbb-menu__content"
             >
-              <slot />
+              {this._menuActions ?? <slot onSlotchange={(): void => this._readActions()} />}
             </div>
           </dialog>
         </div>

@@ -5,6 +5,8 @@ On mobile, the menu is displayed as a sheet with a backdrop;
 on desktop it will be shown as a floating menu and will calculate the optimal position relative to the trigger element 
 by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
 
+If only `sbb-menu-action` components are provided inside the menu, the items are automatically grouped within a list using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
+
 ## Usage
 
 The menu component allows you to open a custom menu that allows you to perform actions relevant to the current task 

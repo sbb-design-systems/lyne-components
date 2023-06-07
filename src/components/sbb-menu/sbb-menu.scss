@@ -178,6 +178,10 @@
   }
 }
 
+.sbb-menu-list {
+  @include sbb.list-reset;
+}
+
 @keyframes open {
   from {
     visibility: hidden;

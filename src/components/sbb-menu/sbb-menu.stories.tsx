@@ -110,6 +110,28 @@ const DefaultTemplate = (args): JSX.Element => (
   </Fragment>
 );
 
+const ListTemplate = (args): JSX.Element => (
+  <Fragment>
+    {triggerButton('menu-trigger-1')}
+    <sbb-menu
+      trigger="menu-trigger-1"
+      data-testid="menu"
+      disable-animation={args['disable-animation']}
+    >
+      <sbb-menu-action icon-name={args['icon-name']} href="https://www.sbb.ch/en">
+        View
+      </sbb-menu-action>
+      <sbb-menu-action icon-name="pen-small" amount="16" disabled={args.disabled}>
+        Edit
+      </sbb-menu-action>
+      <sbb-menu-action icon-name="swisspass-small" amount={args.amount}>
+        Details
+      </sbb-menu-action>
+      <sbb-menu-action icon-name="cross-small">Cancel</sbb-menu-action>
+    </sbb-menu>
+  </Fragment>
+);
+
 const CustomContentTemplate = (args): JSX.Element => (
   <Fragment>
     {triggerButton('menu-trigger-2')}
@@ -210,6 +232,13 @@ const EllipsisTemplate = (args): JSX.Element => (
 
 export const Default: StoryObj = {
   render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+  play: isChromatic() && playStory,
+};
+
+export const List: StoryObj = {
+  render: ListTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
   play: isChromatic() && playStory,

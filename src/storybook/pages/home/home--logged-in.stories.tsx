@@ -79,7 +79,9 @@ const Template = (args): JSX.Element => (
         <sbb-menu-action>Deutsch</sbb-menu-action>
         <sbb-menu-action>Français</sbb-menu-action>
         <sbb-menu-action>Italiano</sbb-menu-action>
-        <sbb-menu-action icon-name="tick-small">English</sbb-menu-action>
+        <sbb-menu-action icon-name="tick-small" aria-pressed>
+          English
+        </sbb-menu-action>
       </sbb-menu>
       <a href="https://www.sbb.ch" slot="logo">
         <sbb-logo protective-room="none"></sbb-logo>
