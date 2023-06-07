@@ -48,19 +48,60 @@ const basicArgs = {
   type: type.options[0],
   variant: variant.options[0],
   readonly: false,
-  'disable-animation': false,
+  'disable-animation': true,
 };
 
-const trigger = () => (
+const trigger = (
   <sbb-button
     size="m"
+    variant="secondary"
     style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}
-    onClick={() => document.querySelector('sbb-notification').open()}
+    onClick={() => appendNotification()}
     icon-name="circle-information-small"
   >
-    Show notification
+    Add notification
   </sbb-button>
 );
+
+const notification = (args) => (
+  <sbb-notification {...args} style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
+    <sbb-link href="/" variant="block">
+      Link one
+    </sbb-link>
+    &nbsp;
+    <sbb-link href="/" variant="inline">
+      Link two
+    </sbb-link>
+    &nbsp;
+    <sbb-link href="/" variant="inline">
+      Link three
+    </sbb-link>
+  </sbb-notification>
+);
+
+const pageContent = (
+  <p style={'margin: 0'}>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
+    <sbb-link href="/" variant="inline">
+      link
+    </sbb-link>{' '}
+    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </p>
+);
+
+const appendNotification = () => {
+  const newNotification = document.createElement('SBB-NOTIFICATION');
+  newNotification.style.setProperty(
+    '--sbb-notification-margin',
+    '0 0 var(--sbb-spacing-fixed-4x) 0'
+  );
+  newNotification.titleContent = 'Title';
+  newNotification.innerHTML =
+    'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
+  document.querySelector('.notification-container').append(newNotification);
+};
 
 const titleStyle = {
   display: 'flex',
@@ -73,58 +114,36 @@ const titleStyle = {
 };
 
 const DefaultTemplate = (args) => [
-  trigger(),
-  <sbb-notification {...args}>
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="block">
-      Link one
-    </sbb-link>
-    &nbsp;
-    <sbb-link href="/" variant="inline">
-      Link two
-    </sbb-link>
-    &nbsp;
-    <sbb-link href="/" variant="inline">
-      Link three
-    </sbb-link>
-  </sbb-notification>,
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
-    <sbb-link href="/" variant="inline">
-      link
-    </sbb-link>{' '}
-    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </p>,
+  trigger,
+  <div class="notification-container" style={'display: flex; flex-direction: column'}>
+    {notification(args)}
+  </div>,
+  pageContent,
 ];
 
 const SlottedTitleTemplate = (args) => [
-  trigger(),
-  <sbb-notification {...args}>
-    <span slot="title" style={titleStyle}>
-      Slotted title <sbb-icon name="face-grinning-small" />
-    </span>
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/" variant="block">
-      Link one
-    </sbb-link>
-    &nbsp;
-    <sbb-link href="/" variant="inline">
-      Link two
-    </sbb-link>
-    &nbsp;
-    <sbb-link href="/" variant="inline">
-      Link three
-    </sbb-link>
-  </sbb-notification>,
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-    labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
-    <sbb-link href="/" variant="inline">
-      link
-    </sbb-link>{' '}
-    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  </p>,
+  trigger,
+  <div class="notification-container" style={'display: flex; flex-direction: column'}>
+    <sbb-notification {...args} style={'margin-block-end: var(--sbb-spacing-fixed-4x)'}>
+      <span slot="title" style={titleStyle}>
+        Slotted title <sbb-icon name="face-grinning-small" />
+      </span>
+      The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+      dog.&nbsp;
+      <sbb-link href="/" variant="block">
+        Link one
+      </sbb-link>
+      &nbsp;
+      <sbb-link href="/" variant="inline">
+        Link two
+      </sbb-link>
+      &nbsp;
+      <sbb-link href="/" variant="inline">
+        Link three
+      </sbb-link>
+    </sbb-notification>
+  </div>,
+  pageContent,
 ];
 
 export const InfoDefault = DefaultTemplate.bind({});

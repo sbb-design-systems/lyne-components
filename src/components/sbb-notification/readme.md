@@ -66,22 +66,13 @@ Type: `Promise<void>`
 
 
 
-### `open() => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot        | Description                                          |
+| ----------- | ---------------------------------------------------- |
+| `"title"`   | Use this to provide a notification title (optional). |
+| `"unnamed"` | Use this to provide the notification message.        |
 
 
 ## Dependencies

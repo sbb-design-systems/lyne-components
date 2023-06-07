@@ -8,11 +8,12 @@
   --sbb-notification-visibility: hidden;
   --sbb-notification-opacity: 0;
   --sbb-notification-max-height: 0;
-  --sbb-notification-padding-block: 0;
+  --sbb-notification-margin: 0;
+  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-granite-default);
   --sbb-notification-background: var(--sbb-color-white-default);
-  --sbb-notification-border-width: 0px;
+  --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-color-smoke-default) solid
     var(--sbb-notification-border-width);
   --sbb-notification-type-color: var(--sbb-color-granite-default);
@@ -26,23 +27,24 @@
       var(--sbb-notification-timing-function),
     visibility var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function);
+
+  margin: 0;
+  transition: margin var(--sbb-notification-animation-duration)
+    var(--sbb-notification-timing-function);
 }
 
 :host(:is([data-state='opened'], [data-state='opening'])) {
   --sbb-notification-visibility: visible;
   --sbb-notification-opacity: 1;
-  --sbb-notification-border-width: var(--sbb-border-width-1x);
-  --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
-  --sbb-notification-max-height: calc(
-    (var(--sbb-notification-padding-block) + var(--sbb-border-width-1x)) * 2 +
-      var(--sbb-notification-height)
-  );
+  --sbb-notification-max-height: var(--sbb-notification-height);
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function),
     padding var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     border var(--sbb-notification-animation-duration) var(--sbb-notification-timing-function),
     opacity var(--sbb-notification-animation-duration) var(--sbb-notification-animation-duration)
       var(--sbb-notification-timing-function);
+
+  margin: var(--sbb-notification-margin);
 }
 
 :host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
@@ -61,7 +63,7 @@
 :host([variant='colorful']) {
   --sbb-notification-color: var(--sbb-color-white-default);
   --sbb-notification-background: var(--sbb-notification-type-color);
-  --sbb-notification-border: var(--sbb-color-white-default) solid var(--sbb-border-width-1x);
+  --sbb-notification-border: transparent solid var(--sbb-border-width-1x);
 }
 
 :host([variant='colorful'][type='warn']) {
@@ -86,22 +88,26 @@
   --sbb-notification-type-color: var(--sbb-color-red-default);
 }
 
+.sbb-notification__wrapper {
+  visibility: var(--sbb-notification-visibility);
+  opacity: var(--sbb-notification-opacity);
+  max-height: var(--sbb-notification-max-height);
+  transition: var(--sbb-notification-transition);
+}
+
 .sbb-notification {
   @include sbb.text-s--regular;
 
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  visibility: var(--sbb-notification-visibility);
-  opacity: var(--sbb-notification-opacity);
   padding-block: var(--sbb-notification-padding-block);
   padding-inline: var(--sbb-notification-padding-inline);
-  max-height: var(--sbb-notification-max-height);
   color: var(--sbb-notification-color);
   background-color: var(--sbb-notification-background);
   border: var(--sbb-notification-border);
   border-radius: var(--sbb-border-radius-4x);
-  transition: var(--sbb-notification-transition);
+  overflow: hidden;
 
   @include sbb.mq($from: small) {
     grid-template-columns: auto 1fr auto;

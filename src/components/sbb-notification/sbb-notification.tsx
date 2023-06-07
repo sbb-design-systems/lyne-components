@@ -32,7 +32,8 @@ enum NotificationIconName {
 }
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot title - Use this to provide a notification title (optional).
+ * @slot unnamed - Use this to provide the notification message.
  */
 @Component({
   shadow: true,
@@ -79,7 +80,7 @@ export class SbbNotification implements ComponentInterface {
   /**
    * The state of the notification.
    */
-  @State() private _state: InterfaceNotificationAttributes['state'] = 'opened';
+  @State() private _state: InterfaceNotificationAttributes['state'] = 'closed';
 
   @State() private _iconName: NotificationIconName = NotificationIconName[this.type];
 
@@ -144,8 +145,7 @@ export class SbbNotification implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  @Method()
-  public async open(): Promise<void> {
+  private _open(): void {
     if (this._state === 'closed') {
       this._state = 'opening';
       this.willOpen.emit();
@@ -176,6 +176,7 @@ export class SbbNotification implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._setNotificationHeight();
+    this._open();
     this._notificationResizeObserver.observe(this._notificationElement);
   }
 
@@ -189,18 +190,11 @@ export class SbbNotification implements ComponentInterface {
   }
 
   private _setNotificationHeight(): void {
-    if (this._state === 'closed' || this._state === 'closing') {
-      return;
-    }
-
-    if (!this._notificationElement.scrollHeight) {
-      return;
-    }
-
-    this._element.style.setProperty(
-      '--sbb-notification-height',
-      `${this._notificationElement.scrollHeight}px`
-    );
+    const notificationHeight =
+      this._notificationElement.scrollHeight && !this.disableAnimation
+        ? `${this._notificationElement.scrollHeight}px`
+        : 'auto';
+    this._element.style.setProperty('--sbb-notification-height', notificationHeight);
   }
 
   private _onNotificationResize(): void {
@@ -225,7 +219,6 @@ export class SbbNotification implements ComponentInterface {
   }
 
   private _handleOpening(): void {
-    this._setNotificationHeight();
     this._state = 'opened';
     this.didOpen.emit();
     this._notificationResizeObserver.observe(this._notificationElement);
@@ -235,6 +228,7 @@ export class SbbNotification implements ComponentInterface {
     this._state = 'closed';
     this.didClose.emit();
     this._notificationResizeObserver.unobserve(this._notificationElement);
+    this._element.remove();
   }
 
   public render(): JSX.Element {
@@ -247,44 +241,46 @@ export class SbbNotification implements ComponentInterface {
         aria-hidden={this._state !== 'opened'}
       >
         <div
-          class="sbb-notification"
-          onTransitionEnd={(event) => this._onNotificationTransitionEnd(event)}
+          class="sbb-notification__wrapper"
           ref={(el) => (this._notificationElement = el)}
+          onTransitionEnd={(event) => this._onNotificationTransitionEnd(event)}
         >
-          <sbb-icon class="sbb-notification__icon" name={this._iconName} />
+          <div class="sbb-notification">
+            <sbb-icon class="sbb-notification__icon" name={this._iconName} />
 
-          <span class="sbb-notification__content">
-            {this._hasTitle && (
-              <sbb-title
-                class="sbb-notification__title"
-                level={this.titleLevel}
-                visualLevel="5"
-                negative={this._negative}
-              >
-                <slot name="title">{this.titleContent}</slot>
-              </sbb-title>
-            )}
-            <slot />
-          </span>
-
-          {!this.readonly && (
-            <span class="sbb-notification__close-wrapper">
-              <sbb-divider
-                class="sbb-notification__divider"
-                orientation="vertical"
-                negative={this.variant === 'colorful' && this.type === 'warn'}
-              />
-              <sbb-button
-                variant="transparent"
-                negative={this._negative}
-                size="m"
-                icon-name="cross-small"
-                onClick={() => this.close()}
-                aria-label={i18nCloseNotification[this._currentLanguage]}
-                class="sbb-notification__close"
-              />
+            <span class="sbb-notification__content">
+              {this._hasTitle && (
+                <sbb-title
+                  class="sbb-notification__title"
+                  level={this.titleLevel}
+                  visualLevel="5"
+                  negative={this._negative}
+                >
+                  <slot name="title">{this.titleContent}</slot>
+                </sbb-title>
+              )}
+              <slot />
             </span>
-          )}
+
+            {!this.readonly && (
+              <span class="sbb-notification__close-wrapper">
+                <sbb-divider
+                  class="sbb-notification__divider"
+                  orientation="vertical"
+                  negative={this.variant === 'colorful' && this.type === 'warn'}
+                />
+                <sbb-button
+                  variant="transparent"
+                  negative={this._negative}
+                  size="m"
+                  icon-name="cross-small"
+                  onClick={() => this.close()}
+                  aria-label={i18nCloseNotification[this._currentLanguage]}
+                  class="sbb-notification__close"
+                />
+              </span>
+            )}
+          </div>
         </div>
       </Host>
     );

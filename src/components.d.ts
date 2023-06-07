@@ -1151,7 +1151,6 @@ export namespace Components {
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
-        "open": () => Promise<void>;
         /**
           * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
