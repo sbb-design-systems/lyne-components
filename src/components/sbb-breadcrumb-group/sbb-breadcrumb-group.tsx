@@ -188,11 +188,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
           <li class="sbb-breadcrumb-group__item">
-            <slot
-              name="breadcrumb-0"
-              key="sbb-breadcrumb-0"
-              onSlotchange={(): void => this._readBreadcrumb()}
-            />
+            <slot name="breadcrumb-0" onSlotchange={(): void => this._readBreadcrumb()} />
           </li>
           <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
@@ -209,7 +205,6 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
             <sbb-icon name="chevron-small-right-small"></sbb-icon>
             <slot
               name={`breadcrumb-${this._breadcrumbs.length - 1}`}
-              key={`sbb-breadcrumb-${this._breadcrumbs.length - 1}`}
               onSlotchange={(): void => this._readBreadcrumb()}
             />
           </li>
