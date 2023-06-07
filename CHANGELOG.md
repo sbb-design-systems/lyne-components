@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.3](https://github.com/lyne-design-system/lyne-components/compare/v0.36.2...v0.36.3) (2023-06-07)
+
+### Refactorings
+
+- convert storybook stories to TypeScript ([#1792](https://github.com/lyne-design-system/lyne-components/issues/1792)) ([5179d93](https://github.com/lyne-design-system/lyne-components/commit/5179d9362a5ae69dd56ba1e2a8a36d3d5f00c5d0))
+
 ### [0.36.2](https://github.com/lyne-design-system/lyne-components/compare/v0.36.1...v0.36.2) (2023-06-05)
 
 ### Bug Fixes
