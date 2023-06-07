@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, JSX, Prop } from '@stencil/core';
 import { InterfaceFooterAttributes } from './sbb-footer.custom';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 

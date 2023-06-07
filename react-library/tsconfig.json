@@ -12,6 +12,10 @@
     "skipLibCheck": true,
     "jsx": "react",
     "jsxFactory": "React.createElement",
+    "types": [
+      "node",
+      "react"
+    ],
     "paths": {
       "@sbb-esta/lyne-components": [".."],
       "@sbb-esta/lyne-components/*": ["../*"]

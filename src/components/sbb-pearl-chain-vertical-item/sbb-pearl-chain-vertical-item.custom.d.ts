@@ -1,6 +1,6 @@
 export type LineType = 'dotted' | 'standard' | 'thin';
 
-export type BulletType = 'default' | 'past' | 'irrelevant' | 'skipped';
+export type BulletType = 'default' | 'past' | 'irrelevant' | 'skipped' | 'disruption';
 
 export type LineColor = 'default' | 'past' | 'disruption' | 'walk';
 
