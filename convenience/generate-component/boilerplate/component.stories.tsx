@@ -14,7 +14,7 @@ export const Story1: StoryObj = {
   },
 };
 
-export default {
+const meta: Meta = {
   decorators: [
     (Story) => (
       <div style={{ padding: '2rem' }}>
@@ -36,3 +36,5 @@ export default {
   },
   title: 'components/__name__',
 };
+
+export default meta;
