@@ -470,10 +470,6 @@ export namespace Components {
         /**
           * Gets the input value with the correct date format.
          */
-        "getValue": () => Promise<string>;
-        /**
-          * Gets the input value with the correct date format.
-         */
         "getValueAsDate": () => Promise<Date>;
         /**
           * Reference of the native input connected to the datepicker.
@@ -482,11 +478,7 @@ export namespace Components {
         /**
           * Set the input value to the correctly formatted value.
          */
-        "setValue": (value: string) => Promise<void>;
-        /**
-          * Set the input value to the correctly formatted value.
-         */
-        "setValueAsDate": (date: Date) => Promise<void>;
+        "setValueAsDate": (date: Date | number | string) => Promise<void>;
         /**
           * If set to true, two months are displayed
          */

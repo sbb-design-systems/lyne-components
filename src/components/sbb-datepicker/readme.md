@@ -14,10 +14,9 @@ date, the `sbb-invalid` class is added to the input. The component also listens 
  `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
 
 Consumers can listen to the native `change` event on the `sbb-datepicker` component to intercept the date change `event`;
-the current value can be read from the async method `event.target.getValueAsDate()` or `event.target.getValue()`.
-In order to set the value programmatically it's recommended to use the `setValue()` or `setValueAsDate()`
-method of the `<sbb-datepicker>` as setting it only on the `<input>` does not trigger a change event
-and so interpreting of the date can be missed. 
+the current value can be read from the async method `event.target.getValueAsDate()`.
+In order to set the value programmatically it's recommended to use the `setValueAsDate()`
+method of the `<sbb-datepicker>`.
 
 Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
 
@@ -87,16 +86,6 @@ This is helpful if you need a specific state of the component.
 
 ## Methods
 
-### `getValue() => Promise<string>`
-
-Gets the input value with the correct date format.
-
-#### Returns
-
-Type: `Promise<string>`
-
-
-
 ### `getValueAsDate() => Promise<Date>`
 
 Gets the input value with the correct date format.
@@ -107,17 +96,7 @@ Type: `Promise<Date>`
 
 
 
-### `setValue(value: string) => Promise<void>`
-
-Set the input value to the correctly formatted value.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
-### `setValueAsDate(date: Date) => Promise<void>`
+### `setValueAsDate(date: Date | number | string) => Promise<void>`
 
 Set the input value to the correctly formatted value.
 
