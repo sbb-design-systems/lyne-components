@@ -46,7 +46,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
 
   /**
    * Name of the icon which will be forward to the nested `sbb-icon`.
-   * Choose the icons from https://lyne.sbb.ch/tokens/icons/.
+   * Choose the icons from https://icons.app.sbb.ch.
    * Styling is optimized for icons of type HIM-CUS.
    */
   @Prop() public iconName?: string;

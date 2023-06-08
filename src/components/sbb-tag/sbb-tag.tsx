@@ -58,7 +58,7 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
 
   /**
    * The icon name we want to use, choose from the small icon variants from the ui-icons category
-   * from here https://lyne.sbb.ch/tokens/icons (optional).
+   * from https://icons.app.sbb.ch (optional).
    */
   @Prop() public iconName?: string;
 

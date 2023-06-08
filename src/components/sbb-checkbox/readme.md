@@ -62,16 +62,16 @@ If you don't want the label to appear next to the checkbox, you can use
 
 ## Properties
 
-| Property        | Attribute        | Description                                                                                                                                         | Type               | Default     |
-| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
-| `checked`       | `checked`        | Whether the checkbox is checked.                                                                                                                    | `boolean`          | `false`     |
-| `disabled`      | `disabled`       | Whether the checkbox is disabled.                                                                                                                   | `boolean`          | `false`     |
-| `iconName`      | `icon-name`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional). | `string`           | `undefined` |
-| `iconPlacement` | `icon-placement` | The label position relative to the labelIcon. Defaults to end                                                                                       | `"end" \| "start"` | `'end'`     |
-| `indeterminate` | `indeterminate`  | Whether the checkbox is indeterminate.                                                                                                              | `boolean`          | `false`     |
-| `required`      | `required`       | Whether the checkbox is required.                                                                                                                   | `boolean`          | `false`     |
-| `size`          | `size`           | Label size variant, either m or s.                                                                                                                  | `"m" \| "s"`       | `'m'`       |
-| `value`         | `value`          | Value of checkbox.                                                                                                                                  | `string`           | `undefined` |
+| Property        | Attribute        | Description                                                                                                                            | Type               | Default     |
+| --------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------- |
+| `checked`       | `checked`        | Whether the checkbox is checked.                                                                                                       | `boolean`          | `false`     |
+| `disabled`      | `disabled`       | Whether the checkbox is disabled.                                                                                                      | `boolean`          | `false`     |
+| `iconName`      | `icon-name`      | The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional). | `string`           | `undefined` |
+| `iconPlacement` | `icon-placement` | The label position relative to the labelIcon. Defaults to end                                                                          | `"end" \| "start"` | `'end'`     |
+| `indeterminate` | `indeterminate`  | Whether the checkbox is indeterminate.                                                                                                 | `boolean`          | `false`     |
+| `required`      | `required`       | Whether the checkbox is required.                                                                                                      | `boolean`          | `false`     |
+| `size`          | `size`           | Label size variant, either m or s.                                                                                                     | `"m" \| "s"`       | `'m'`       |
+| `value`         | `value`          | Value of checkbox.                                                                                                                     | `string`           | `undefined` |
 
 
 ## Events

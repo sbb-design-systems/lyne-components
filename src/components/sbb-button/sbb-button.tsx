@@ -49,7 +49,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
+   * https://icons.app.sbb.ch.
    */
   @Prop() public iconName?: string;
 
