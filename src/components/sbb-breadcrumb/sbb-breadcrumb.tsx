@@ -89,8 +89,8 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
     } = resolveLinkOrStaticRenderVariables(this);
 
     return (
-      <Host {...hostAttributes}>
-        <TAG_NAME class="sbb-breadcrumb" {...attributes} aria-current={this.ariaCurrent}>
+      <Host {...hostAttributes} aria-current={this.ariaCurrent}>
+        <TAG_NAME class="sbb-breadcrumb" {...attributes}>
           {(this.iconName || this._namedSlots.icon) && (
             <span class="sbb-breadcrumb__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>

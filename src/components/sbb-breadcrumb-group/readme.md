@@ -5,6 +5,11 @@ If the width of all the nested breadcrumbs exceeds the container width, only the
 and a new one with the ellipsis symbol appears between them. 
 Clicking on this breadcrumb will make the ellipsis disappear and will restore the full list (the action is not reversible).
 
+## Accessibility
+
+Whenever the `sbb-breadcrumb` list within the component is loaded or updated, the last element of the list 
+receive the attribute `aria-current` set to `page`.
+
 ## Usage
 
 `sbb-breadcrumb-group` with home icon as first `sbb-breadcrumb`:
@@ -12,7 +17,7 @@ Clicking on this breadcrumb will make the ellipsis disappear and will restore th
 ```html
 <sbb-breadcrumb-group>
   <sbb-breadcrumb href='/' icon-name='house-small'></sbb-breadcrumb>
-  <sbb-breadcrumb href='/workwithus'>
+  <sbb-breadcrumb href='/work-with-us'>
     Work with us
   </sbb-breadcrumb>
   <sbb-breadcrumb href='/apply' target='_blank'>
