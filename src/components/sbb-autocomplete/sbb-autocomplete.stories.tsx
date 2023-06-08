@@ -72,6 +72,15 @@ const borderless: InputType = {
   },
 };
 
+const floatingLabel: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
 const disableGroup: InputType = {
   control: {
     type: 'boolean',
@@ -94,6 +103,7 @@ const defaultArgTypes: ArgTypes = {
 
   // Form field args
   borderless,
+  floatingLabel,
 };
 
 const withGroupsArgTypes: ArgTypes = {
@@ -116,6 +126,7 @@ const defaultArgs: Args = {
 
   // Form field args
   borderless: false,
+  floatingLabel: false,
 };
 
 const withGroupsDefaultArgs = {
@@ -223,7 +234,12 @@ const textBlock = (): JSX.Element => (
 
 const Template = (args): JSX.Element => (
   <div>
-    <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+    <sbb-form-field
+      borderless={args.borderless}
+      floating-label={args.floatingLabel}
+      label="Label"
+      data-testid="form-field"
+    >
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -245,7 +261,12 @@ const Template = (args): JSX.Element => (
 
 const OptionGroupTemplate = (args): JSX.Element => (
   <div>
-    <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+    <sbb-form-field
+      borderless={args.borderless}
+      floating-label={args.floatingLabel}
+      label="Label"
+      data-testid="form-field"
+    >
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -269,7 +290,12 @@ const OptionGroupTemplate = (args): JSX.Element => (
 
 const MixedTemplate = (args): JSX.Element => (
   <div>
-    <sbb-form-field borderless={args.borderless} label="Label" data-testid="form-field">
+    <sbb-form-field
+      borderless={args.borderless}
+      floating-label={args.floatingLabel}
+      label="Label"
+      data-testid="form-field"
+    >
       <input
         placeholder="Placeholder"
         data-testid="autocomplete-input"
@@ -282,7 +308,11 @@ const MixedTemplate = (args): JSX.Element => (
         preserve-icon-space={args.preserveIconSpace}
       >
         <sbb-option value="Option 1">
-          <sbb-icon slot="icon" name={args.iconName} style={{ color: '#0279c7' }} />
+          <sbb-icon
+            slot="icon"
+            name={args.iconName}
+            style={{ color: 'var(--sbb-color-sky-default)' }}
+          />
           Option Value
         </sbb-option>
         <sbb-optgroup label="Group 1" disabled={args.disableGroup}>
@@ -302,6 +332,7 @@ const RequiredTemplate = (args): JSX.Element => {
     <div>
       <sbb-form-field
         borderless={args.borderless}
+        floating-label={args.floatingLabel}
         label="Label"
         data-testid="form-field"
         id="sbb-form-field"
@@ -360,6 +391,14 @@ export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
+  decorators: defaultDecorator,
+  play: isChromatic() && playStory,
+};
+
+export const FloatingLabel: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, floatingLabel: true },
   decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
