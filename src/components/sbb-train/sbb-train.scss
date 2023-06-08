@@ -128,6 +128,6 @@
   padding: 0 var(--sbb-train-direction-station-padding);
 }
 
-.sbb-screenreaderonly {
+.sbb-train__direction-label-sr {
   @include sbb.screen-reader-only;
 }

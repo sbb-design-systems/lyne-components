@@ -21,7 +21,9 @@ describe('sbb-form-field', () => {
               <div class="sbb-form-field__input-container">
                 <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
-                  <slot name="label"></slot>
+                  <span class="sbb-form-field__label-ellipsis">
+                    <slot name="label"></slot>
+                  </span>
                 </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
@@ -63,9 +65,11 @@ describe('sbb-form-field', () => {
               <div class="sbb-form-field__input-container">
                 <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <label class="sbb-form-field__label">
-                  <slot name="label">
-                    <span></span>
-                  </slot>
+                  <span class="sbb-form-field__label-ellipsis">
+                    <slot name="label">
+                      <span></span>
+                    </slot>
+                  </span>
                 </label>
                 <div class="sbb-form-field__input">
                   <slot></slot>
@@ -104,7 +108,9 @@ describe('sbb-form-field', () => {
               <div class="sbb-form-field__input-container">
                 <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
-                  <slot name="label"></slot>
+                  <span class="sbb-form-field__label-ellipsis">
+                    <slot name="label"></slot>
+                  </span>
                 </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
@@ -146,7 +152,9 @@ describe('sbb-form-field', () => {
               <div class="sbb-form-field__input-container">
                 <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
-                  <slot name="label"></slot>
+                  <span class="sbb-form-field__label-ellipsis">
+                    <slot name="label"></slot>
+                  </span>
                 </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>
@@ -232,8 +240,10 @@ describe('sbb-form-field', () => {
               <div class="sbb-form-field__input-container">
                 <span aria-hidden="true" class="sbb-form-field__label-spacer"></span>
                 <span class="sbb-form-field__label">
-                  <slot name="label"></slot>
-                  <span aria-hidden="true">&nbsp;(optional)</span>
+                  <span class="sbb-form-field__label-ellipsis">
+                    <slot name="label"></slot>
+                    <span aria-hidden="true">&nbsp;(optional)</span>
+                  </span>
                 </span>
                 <div class="sbb-form-field__input">
                   <slot></slot>

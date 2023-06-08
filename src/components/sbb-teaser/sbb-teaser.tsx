@@ -83,9 +83,9 @@ export class SbbTeaser implements ComponentInterface, LinkProperties {
               <sbb-title level={this.titleLevel} visualLevel="5" class="sbb-teaser__lead">
                 <slot name="title" />
               </sbb-title>
-              <span class="sbb-teaser__description">
+              <p class="sbb-teaser__description">
                 <slot name="description" />
-              </span>
+              </p>
               {targetsNewWindow(this) && (
                 <span class="sbb-teaser__opens-in-new-window">
                   . {i18nTargetOpensInNewWindow[this._currentLanguage]}

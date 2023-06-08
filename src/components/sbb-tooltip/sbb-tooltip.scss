@@ -64,10 +64,10 @@
 
   position: var(--sbb-tooltip-position);
   pointer-events: all;
-  inset-block-start: var(--sbb-tooltip-position-y);
-  inset-block-end: unset;
-  inset-inline-start: var(--sbb-tooltip-position-x);
-  inset-inline-end: unset;
+  top: var(--sbb-tooltip-position-y);
+  bottom: unset;
+  left: var(--sbb-tooltip-position-x);
+  right: unset;
   border: none;
   border-radius: var(--sbb-tooltip-border-radius);
   padding: 0;

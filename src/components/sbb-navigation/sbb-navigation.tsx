@@ -30,6 +30,7 @@ import {
   HandlerRepository,
   sbbInputModalityDetector,
   languageChangeHandlerAspect,
+  setModalityOnNextFocus,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -233,8 +234,10 @@ export class SbbNavigation implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
-      this._triggerElement?.focus();
+      setModalityOnNextFocus(this._triggerElement);
       this._navigation.close();
+      // To enable focusing other element than the trigger, we need to call focus() a second time.
+      this._triggerElement?.focus();
       this.didClose.emit();
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();

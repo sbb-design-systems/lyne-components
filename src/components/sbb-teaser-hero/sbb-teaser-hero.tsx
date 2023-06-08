@@ -72,9 +72,9 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
       <Host {...hostAttributes}>
         <TAG_NAME class="sbb-teaser-hero" {...attributes}>
           <span class="sbb-teaser-hero__panel">
-            <span class="sbb-teaser-hero__panel-text">
+            <p class="sbb-teaser-hero__panel-text">
               <slot />
-            </span>
+            </p>
             {this.href && (
               <sbb-link
                 class="sbb-teaser-hero__panel-link"

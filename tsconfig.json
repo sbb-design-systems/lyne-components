@@ -13,7 +13,11 @@
     "jsx": "react",
     "jsxFactory": "h",
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["@stencil/core", "jsx-dom"],
+    "paths": {
+      "@sbb-esta/lyne-components": ["."]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules"]

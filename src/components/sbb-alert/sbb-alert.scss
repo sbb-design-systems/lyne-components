@@ -76,6 +76,13 @@
   flex: 1;
 }
 
+.sbb-alert__content-slot {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 .sbb-alert__title {
   // Overwrite sbb-title default margin
   margin: 0;

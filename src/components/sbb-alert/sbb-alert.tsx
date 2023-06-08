@@ -216,7 +216,9 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
             >
               <slot name="title">{this.titleContent}</slot>
             </sbb-title>
-            <slot />
+            <p class="sbb-alert__content-slot">
+              <slot />
+            </p>
             {this.href && (
               <Fragment>
                 <span aria-hidden="true">&nbsp;</span>

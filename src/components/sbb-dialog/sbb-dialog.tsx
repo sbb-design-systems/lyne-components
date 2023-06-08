@@ -26,6 +26,7 @@ import {
   sbbInputModalityDetector,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
+  setModalityOnNextFocus,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
@@ -290,9 +291,10 @@ export class SbbDialog implements ComponentInterface {
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
+      setModalityOnNextFocus(this._lastFocusedElement);
+      this._dialog.close();
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._lastFocusedElement?.focus();
-      this._dialog.close();
       this.didClose.emit({ returnValue: this._returnValue, closeTarget: this._dialogCloseElement });
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();

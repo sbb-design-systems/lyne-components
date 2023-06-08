@@ -2,6 +2,70 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.4](https://github.com/lyne-design-system/lyne-components/compare/v0.36.3...v0.36.4) (2023-06-08)
+
+### Bug Fixes
+
+- **sbb-train:** improve accessibility by replacing `span` with heading tag ([#1787](https://github.com/lyne-design-system/lyne-components/issues/1787)) ([fb93a9e](https://github.com/lyne-design-system/lyne-components/commit/fb93a9eae3b8d3cc67daefbe3eddea2fd1e6a03a))
+
+### [0.36.3](https://github.com/lyne-design-system/lyne-components/compare/v0.36.2...v0.36.3) (2023-06-07)
+
+### Refactorings
+
+- convert storybook stories to TypeScript ([#1792](https://github.com/lyne-design-system/lyne-components/issues/1792)) ([5179d93](https://github.com/lyne-design-system/lyne-components/commit/5179d9362a5ae69dd56ba1e2a8a36d3d5f00c5d0))
+
+### [0.36.2](https://github.com/lyne-design-system/lyne-components/compare/v0.36.1...v0.36.2) (2023-06-05)
+
+### Bug Fixes
+
+- **sbb-form-field:** include optional info in ellipsis ([#1790](https://github.com/lyne-design-system/lyne-components/issues/1790)) ([c44d231](https://github.com/lyne-design-system/lyne-components/commit/c44d2313218b1b4b4cfd9eaa5273641482c0a4c9))
+
+### [0.36.1](https://github.com/lyne-design-system/lyne-components/compare/v0.36.0...v0.36.1) (2023-06-01)
+
+### Bug Fixes
+
+- **sbb-navigation:** focus outline on the trigger element in Safari ([#1784](https://github.com/lyne-design-system/lyne-components/issues/1784)) ([64db143](https://github.com/lyne-design-system/lyne-components/commit/64db1439b33ee057a4ceee63196e18a230092ab6))
+
+## [0.36.0](https://github.com/lyne-design-system/lyne-components/compare/v0.35.18...v0.36.0) (2023-05-31)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-alert, sbb-teaser, sbb-teaser-hero:** Internally we wrapped slotted content with a `<p>` tag in sbb-alert, sbb-teaser and sbb-teaser-hero to guarantee semantic meaning of descriptions. This should not be a problem as long there are no other semantic elements slotted. Anyways, basically only textual elements are intended to be slotted by design.
+
+Please check your usages:
+
+- `sbb-alert`: default slot
+- `sbb-teaser`: `description` slot
+- `sbb-teaser-hero:`: default slot
+
+### Bug Fixes
+
+- **sbb-alert, sbb-teaser, sbb-teaser-hero:** use paragraph for content slot due to semantic reasons ([#1785](https://github.com/lyne-design-system/lyne-components/issues/1785)) ([7c7c962](https://github.com/lyne-design-system/lyne-components/commit/7c7c962086ac26f79aecd5a78bd8f570f0273825))
+
+### [0.35.18](https://github.com/lyne-design-system/lyne-components/compare/v0.35.17...v0.35.18) (2023-05-30)
+
+### Bug Fixes
+
+- **sbb-menu,sbb-tooltip:** fix overlay position when direction="rtl" ([#1783](https://github.com/lyne-design-system/lyne-components/issues/1783)) ([e53a4b3](https://github.com/lyne-design-system/lyne-components/commit/e53a4b363b9968eb3a7b84f0b0e5593a9fb73617))
+
+### [0.35.17](https://github.com/lyne-design-system/lyne-components/compare/v0.35.16...v0.35.17) (2023-05-30)
+
+### Features
+
+- **sbb-journey-summary:** add additional prop to display round trip ([#1761](https://github.com/lyne-design-system/lyne-components/issues/1761)) ([2869eb1](https://github.com/lyne-design-system/lyne-components/commit/2869eb1745fc82edaee9d7e3458baf3dd1ed5d7c))
+
+### [0.35.16](https://github.com/lyne-design-system/lyne-components/compare/v0.35.15...v0.35.16) (2023-05-30)
+
+### Documentation
+
+- **sbb-selection-panel:** fix nested radios and checkboxes stories rendering ([#1781](https://github.com/lyne-design-system/lyne-components/issues/1781)) ([10ee887](https://github.com/lyne-design-system/lyne-components/commit/10ee887a474a22e6b664d639efe556347765a9ae))
+
+### [0.35.15](https://github.com/lyne-design-system/lyne-components/compare/v0.35.14...v0.35.15) (2023-05-30)
+
+### Bug Fixes
+
+- **sbb-radio-button:** prevent scrolling on spacebar press ([#1778](https://github.com/lyne-design-system/lyne-components/issues/1778)) ([7c00f54](https://github.com/lyne-design-system/lyne-components/commit/7c00f5472e59c6164763ca6fd3201cd38b0d67ec))
+
 ### [0.35.14](https://github.com/lyne-design-system/lyne-components/compare/v0.35.13...v0.35.14) (2023-05-25)
 
 ### Bug Fixes

@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, JSX } from '@stencil/core';
 @Component({
   shadow: true,
   styleUrl: 'sbb-pearl-chain-vertical.scss',

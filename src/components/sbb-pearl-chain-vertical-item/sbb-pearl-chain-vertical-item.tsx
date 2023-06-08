@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Host, JSX, Prop } from '@stencil/core';
 import { PearlChainVerticalItemAttributes } from './sbb-pearl-chain-vertical-item.custom';
 
 /**

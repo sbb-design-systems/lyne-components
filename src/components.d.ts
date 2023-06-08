@@ -819,13 +819,21 @@ export namespace Components {
     }
     interface SbbJourneySummary {
         /**
-          * The config prop
-         */
-        "config": InterfaceSbbJourneySummaryAttributes;
-        /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        /**
+          * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
+         */
+        "roundTrip"?: boolean;
+        /**
+          * The trip prop
+         */
+        "trip": InterfaceSbbJourneySummaryAttributes;
+        /**
+          * The tripBack prop
+         */
+        "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
     interface SbbLink {
         /**
@@ -1789,6 +1797,10 @@ export namespace Components {
           * General label for "driving direction".
          */
         "directionLabel": string;
+        /**
+          * Heading level of the direction label, used for screen readers.
+         */
+        "directionLabelLevel": InterfaceTitleAttributes['level'];
         /**
           * Label for the destination station of the train.
          */
@@ -3310,13 +3322,21 @@ declare namespace LocalJSX {
     }
     interface SbbJourneySummary {
         /**
-          * The config prop
-         */
-        "config": InterfaceSbbJourneySummaryAttributes;
-        /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        /**
+          * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
+         */
+        "roundTrip"?: boolean;
+        /**
+          * The trip prop
+         */
+        "trip": InterfaceSbbJourneySummaryAttributes;
+        /**
+          * The tripBack prop
+         */
+        "tripBack"?: InterfaceSbbJourneySummaryAttributes;
     }
     interface SbbLink {
         /**
@@ -4360,6 +4380,10 @@ declare namespace LocalJSX {
           * General label for "driving direction".
          */
         "directionLabel": string;
+        /**
+          * Heading level of the direction label, used for screen readers.
+         */
+        "directionLabelLevel"?: InterfaceTitleAttributes['level'];
         "onTrainSlotChange"?: (event: SbbTrainCustomEvent<any>) => void;
         /**
           * Label for the destination station of the train.

@@ -320,10 +320,12 @@ export class SbbFormField implements ComponentInterface {
               <Fragment>
                 <span class="sbb-form-field__label-spacer" aria-hidden="true"></span>
                 <span class="sbb-form-field__label">
-                  <slot name="label" onSlotchange={() => this._onSlotLabelChange()}></slot>
-                  {this.optional && (
-                    <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                  )}
+                  <span class="sbb-form-field__label-ellipsis">
+                    <slot name="label" onSlotchange={() => this._onSlotLabelChange()}></slot>
+                    {this.optional && (
+                      <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
+                    )}
+                  </span>
                 </span>
               </Fragment>
             )}

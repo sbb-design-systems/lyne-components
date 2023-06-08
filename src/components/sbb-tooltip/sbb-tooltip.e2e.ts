@@ -402,9 +402,7 @@ describe('sbb-tooltip', () => {
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
     await page.waitForChanges();
 
-    await interactiveBackgroundElement.focus();
-    // Simulate backdrop click
-    await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
+    await interactiveBackgroundElement.click();
     await page.waitForChanges();
 
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
