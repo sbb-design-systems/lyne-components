@@ -156,6 +156,16 @@ export class SbbDatepicker implements ComponentInterface {
     await this._formatAndUpdateValue(this._createAndComposeDate(date));
   }
 
+  /** Gets the input value with the correct date format. */
+  @Method() public async getValue(): Promise<string> {
+    return this._formatValue(this._inputElement?.value);
+  }
+
+  /** Set the input value to the correctly formatted value. */
+  @Method() public async setValue(value: string): Promise<void> {
+    await this._formatAndUpdateValue(value);
+  }
+
   @Listen('datepicker-control-registered')
   private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
     this.inputUpdated.emit({
