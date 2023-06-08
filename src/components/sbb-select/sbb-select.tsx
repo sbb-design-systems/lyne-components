@@ -517,7 +517,7 @@ export class SbbSelect implements ComponentInterface {
   // Close menu on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
     if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._overlay, event)) {
-      // await this.close();
+      await this.close();
     }
   };
 
