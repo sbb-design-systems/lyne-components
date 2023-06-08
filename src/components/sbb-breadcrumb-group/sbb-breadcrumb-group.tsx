@@ -199,7 +199,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         <sbb-icon name="chevron-small-right-small"></sbb-icon>
         <sbb-breadcrumb
           id="sbb-breadcrumb-ellipsis"
-          role="link"
+          role="button"
           tabindex="0"
           onClick={() => this._expandBreadcrumbs()}
         >
