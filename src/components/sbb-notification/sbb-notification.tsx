@@ -80,7 +80,7 @@ export class SbbNotification implements ComponentInterface {
   /**
    * The state of the notification.
    */
-  @State() private _state: InterfaceNotificationAttributes['state'] = 'closed';
+  @State() private _state: InterfaceNotificationAttributes['state'] = 'opened';
 
   @State() private _iconName: NotificationIconName = NotificationIconName[this.type];
 
@@ -145,14 +145,6 @@ export class SbbNotification implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  private _open(): void {
-    if (this._state === 'closed') {
-      this._state = 'opening';
-      this.willOpen.emit();
-      this.disableAnimation && this._handleOpening();
-    }
-  }
-
   @Method()
   public async close(): Promise<void> {
     if (this._state === 'opened') {
@@ -176,7 +168,6 @@ export class SbbNotification implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._setNotificationHeight();
-    this._open();
     this._notificationResizeObserver.observe(this._notificationElement);
   }
 
