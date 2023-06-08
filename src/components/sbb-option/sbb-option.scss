@@ -41,7 +41,7 @@
 
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-option-color: var(--sbb-color-metal-default);
+  --sbb-option-color: var(--sbb-color-granite-default);
   --sbb-option-cursor: default;
   --sbb-option-text-decoration: line-through;
 
