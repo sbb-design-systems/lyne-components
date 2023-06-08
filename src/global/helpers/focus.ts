@@ -9,14 +9,23 @@ export function getFocusableElements(
 
   function getFocusables(elements: HTMLElement[], filterFunc?: (el: HTMLElement) => boolean): void {
     for (const el of elements) {
-      if (el.matches(IS_FOCUSABLE_QUERY)) {
-        focusableEls.add(el);
-      } else if (el.nodeName === 'SLOT') {
+      if (filterFunc?.(el)) {
+        continue;
+      }
+
+      if (el.nodeName === 'SLOT') {
         getFocusables(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
           filterFunc
         );
-      } else if (!filterFunc?.(el) && (el.children.length || el.shadowRoot?.children.length)) {
+        continue;
+      }
+
+      if (el.matches(IS_FOCUSABLE_QUERY)) {
+        focusableEls.add(el);
+      }
+
+      if (el.children.length || el.shadowRoot?.children.length) {
         const children = Array.from(el.children).length
           ? (Array.from(el.children) as HTMLElement[])
           : (Array.from(el.shadowRoot.children) as HTMLElement[]);
@@ -41,7 +50,9 @@ export class FocusTrap {
         }
 
         // Dynamically get first and last focusable element, as this might have changed since opening overlay
-        const elementChildren: HTMLElement[] = Array.from(element.shadowRoot.querySelectorAll('*'));
+        const elementChildren: HTMLElement[] = Array.from(
+          element.shadowRoot.children
+        ) as HTMLElement[];
         const focusableElements = getFocusableElements(elementChildren, filterFunc);
         const firstFocusable = focusableElements[0] as HTMLElement;
         const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;

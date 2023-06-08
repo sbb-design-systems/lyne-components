@@ -175,16 +175,16 @@ export class SbbNavigationSection implements ComponentInterface {
 
         // Dynamically get first and last focusable element, as this might have changed since opening overlay
         const navigationChildren: HTMLElement[] = Array.from(
-          this._element.parentElement.shadowRoot.querySelectorAll('*')
-        );
+          this._element.closest('sbb-navigation').shadowRoot.children
+        ) as HTMLElement[];
         const navigationFocusableElements = getFocusableElements(
           navigationChildren,
           (el) => el.nodeName === 'SBB-NAVIGATION-SECTION'
         );
 
         const sectionChildren: HTMLElement[] = Array.from(
-          this._element.shadowRoot.querySelectorAll('*')
-        );
+          this._element.shadowRoot.children
+        ) as HTMLElement[];
         const sectionFocusableElements = getFocusableElements(sectionChildren);
 
         const firstFocusable = sectionFocusableElements[0] as HTMLElement;
