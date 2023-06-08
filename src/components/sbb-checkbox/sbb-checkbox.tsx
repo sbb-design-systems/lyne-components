@@ -70,7 +70,7 @@ export class SbbCheckbox implements ComponentInterface {
   @Prop({ mutable: true, reflect: true }) public checked = false;
 
   /** Label size variant, either m or s. */
-  @Prop({ reflect: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
+  @Prop({ reflect: true, mutable: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
 
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @State() private _disabledFromGroup = false;
@@ -141,8 +141,8 @@ export class SbbCheckbox implements ComponentInterface {
   private _setupInitialStateAndAttributeObserver(): void {
     const parentGroup = this._element.closest('sbb-checkbox-group');
     if (parentGroup) {
-      this._requiredFromGroup = parentGroup.required;
-      this._disabledFromGroup = parentGroup.disabled;
+      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
       this.size = parentGroup.size;
     }
     this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
