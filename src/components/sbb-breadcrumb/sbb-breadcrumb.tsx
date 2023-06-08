@@ -45,9 +45,6 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
    */
   @Prop() public iconName?: string;
 
-  /** Sets the aria-current attribute. */
-  @Prop() public ariaCurrent: string | undefined;
-
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
@@ -89,7 +86,7 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
     } = resolveLinkOrStaticRenderVariables(this);
 
     return (
-      <Host {...hostAttributes} aria-current={this.ariaCurrent}>
+      <Host {...hostAttributes}>
         <TAG_NAME class="sbb-breadcrumb" {...attributes}>
           {(this.iconName || this._namedSlots.icon) && (
             <span class="sbb-breadcrumb__icon">
