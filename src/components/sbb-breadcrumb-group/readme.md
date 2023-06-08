@@ -26,9 +26,9 @@ Clicking on this breadcrumb will make the ellipsis disappear and will restore th
 
 ## Slots
 
-| Slot        | Description                          |
-| ----------- | ------------------------------------ |
-| `"unnamed"` | Use this to slot the sbb-breadcrumb. |
+| Slot        | Description                                   |
+| ----------- | --------------------------------------------- |
+| `"unnamed"` | Use this to slot the sbb-breadcrumb elements. |
 
 
 ## Dependencies
