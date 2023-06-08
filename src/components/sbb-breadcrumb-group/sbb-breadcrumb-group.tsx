@@ -1,6 +1,12 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/helpers';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -17,11 +23,19 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Whether the list needs to be shortened with the ellipsis breadcrumb. */
   @State() private _isCollapsed: boolean;
 
+  /** Current document language used for translation of the button label. */
+  @State() private _currentLanguage = documentLanguage();
+
   @Element() private _element!: HTMLElement;
 
   private _totalBreadcrumbsWidth: number;
 
   private _breadcrumbGroupController: AbortController;
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+  );
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
@@ -56,6 +70,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         signal: this._breadcrumbGroupController.signal,
       }
     );
+    this._handlerRepository.connect();
   }
 
   public componentDidLoad(): void {
@@ -69,6 +84,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._breadcrumbGroupController.abort();
+    this._handlerRepository.disconnect();
   }
 
   /** Creates and sets an array with only the sbb-breadcrumb children. */
@@ -201,6 +217,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
           id="sbb-breadcrumb-ellipsis"
           role="button"
           tabindex="0"
+          aria-label={i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
           onClick={() => this._expandBreadcrumbs()}
         >
           &hellip;

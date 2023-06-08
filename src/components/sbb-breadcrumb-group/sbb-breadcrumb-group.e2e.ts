@@ -67,7 +67,7 @@ describe('sbb-breadcrumb-group', () => {
               </li>
               <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
                 <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
-                <sbb-breadcrumb class="hydrated" dir="ltr" id="sbb-breadcrumb-ellipsis" role="link" tabindex="0">
+                <sbb-breadcrumb class="hydrated" dir="ltr" id="sbb-breadcrumb-ellipsis" role="button" tabindex="0" aria-label="Show more breadcrumbs">
                   …
                 </sbb-breadcrumb>
               </li>
