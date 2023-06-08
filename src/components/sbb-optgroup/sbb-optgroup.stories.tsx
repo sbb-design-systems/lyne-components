@@ -144,19 +144,19 @@ export const Standalone: StoryObj = {
 
 export const Autocomplete: StoryObj = {
   render: TemplateAutocomplete,
-  argTypes: { ...defaultArgTypes },
+  argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
 export const Select: StoryObj = {
   render: TemplateSelect,
-  argTypes: { ...defaultArgTypes },
+  argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
 export const MultipleSelect: StoryObj = {
   render: TemplateSelect,
-  argTypes: { ...defaultArgTypes },
+  argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true },
 };
 
