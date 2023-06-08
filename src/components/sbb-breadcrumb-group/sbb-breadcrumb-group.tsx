@@ -7,7 +7,7 @@ import {
 } from '../../global/helpers/arrow-navigation';
 
 /**
- * @slot unnamed - Use this to slot the sbb-breadcrumb.
+ * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
  */
 @Component({
   shadow: true,
@@ -18,12 +18,12 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Local instance of slotted sbb-breadcrumb elements */
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
-  /** Check if the list needs to be shortened with the ellipsis breadcrumb. */
+  /** Whether the list needs to be shortened with the ellipsis breadcrumb. */
   @State() private _hasEllipsis: boolean;
 
   @Element() private _element!: HTMLElement;
 
-  private _bcWidth: number;
+  private _totalBreadcrumbsWidth: number;
 
   private _breadcrumbGroupController: AbortController;
 
@@ -106,9 +106,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   private _measureBreadcrumbs(): void {
-    const li = this._element.shadowRoot.querySelectorAll('li:not(#sbb-breadcrumb-group-ellipsis)');
+    const listElements = this._element.shadowRoot.querySelectorAll(
+      'li:not(#sbb-breadcrumb-group-ellipsis)'
+    );
 
-    if (li && li.length > 0) {
+    if (listElements?.length > 0) {
       // Get gap value between breadcrumb elements
       const breadcrumbGap = parseInt(
         getComputedStyle(
@@ -118,11 +120,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       );
 
       // Calculate total width of the breadcrumb elements
-      this._bcWidth =
-        Array.from(li)
+      this._totalBreadcrumbsWidth =
+        Array.from(listElements)
           .map((e) => e.clientWidth)
           .reduce((a: number, b: number) => a + (b || 0), 0) +
-        breadcrumbGap * li.length;
+        breadcrumbGap * listElements.length;
     }
   }
 
@@ -170,9 +172,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateEllipsis(): void {
     this._hasEllipsis =
-      this._breadcrumbs &&
-      this._breadcrumbs.length > 2 &&
-      this._element.clientWidth < this._bcWidth;
+      this._breadcrumbs?.length > 2 && this._element.clientWidth < this._totalBreadcrumbsWidth;
   }
 
   private _renderEllipsis(): JSX.Element {
