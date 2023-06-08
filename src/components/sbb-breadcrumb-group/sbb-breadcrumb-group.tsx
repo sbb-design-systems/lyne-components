@@ -170,6 +170,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Displays the full breadcrumb list by resetting the _hasEllipsis value. */
   private _expandBreadcrumbs(): void {
     this._isCollapsed = false;
+    this._breadcrumbGroupController.abort();
   }
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
