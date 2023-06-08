@@ -98,7 +98,9 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     const breadcrumbs = this._element.querySelectorAll('sbb-breadcrumb');
     const length = breadcrumbs.length - 1;
     breadcrumbs.forEach((breadcrumb, index) => {
-      breadcrumb.ariaCurrent = index === length ? 'page' : undefined;
+      if (index === length) {
+        breadcrumb.ariaCurrent = 'page';
+      }
       if (!breadcrumb.id) {
         breadcrumb.id = `sbb-breadcrumb-${index}`;
       }

@@ -5,9 +5,11 @@ It is possible to provide a text via an unnamed slot; the component can optional
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 Text and icon are not exclusive and can be used together.
 
-It's possible to set all the link related properties (`download`, `href`, `rel` and `target`);
-the `ariaCurrent` property is used to make the breadcrumb read correctly by screen-readers when the component
+It's possible to set all the link related properties (`download`, `href`, `rel` and `target`).
+
+The `ariaCurrent` property is used to make the breadcrumb read correctly by screen-readers when the component
 is used in the `sbb-breadcrumb-group`.
+By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on the last slotted `sbb-breadcrumb`.
 
 ## Usage
 
@@ -22,7 +24,7 @@ Breadcrumb with text:
 Breadcrumb with icon:
 
 ```html
-<sbb-breadcrumb href='/download' download icon-name='download-small'></sbb-breadcrumb>
+<sbb-breadcrumb href='/book-your-trip' icon-name='travel-backpack-medium'></sbb-breadcrumb>
 ```
 
 Breadcrumb with text and slotted icon:
