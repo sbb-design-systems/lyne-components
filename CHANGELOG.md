@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.4](https://github.com/lyne-design-system/lyne-components/compare/v0.36.3...v0.36.4) (2023-06-08)
+
+### Bug Fixes
+
+- **sbb-train:** improve accessibility by replacing `span` with heading tag ([#1787](https://github.com/lyne-design-system/lyne-components/issues/1787)) ([fb93a9e](https://github.com/lyne-design-system/lyne-components/commit/fb93a9eae3b8d3cc67daefbe3eddea2fd1e6a03a))
+
 ### [0.36.3](https://github.com/lyne-design-system/lyne-components/compare/v0.36.2...v0.36.3) (2023-06-07)
 
 ### Refactorings
