@@ -187,10 +187,18 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         this._breadcrumbs[i].removeAttribute('slot');
       }
     }
+    const idFirstElement = this._breadcrumbs[0].id ?? `sbb-breadcrumb-0`;
+    const idLastElement =
+      this._breadcrumbs[this._breadcrumbs.length - 1].id ??
+      `sbb-breadcrumb-${this._breadcrumbs.length - 1}`;
 
     return [
       <li class="sbb-breadcrumb-group__item">
-        <slot name="breadcrumb-0" onSlotchange={(): void => this._readBreadcrumb()} />
+        <slot
+          name="breadcrumb-0"
+          key={idFirstElement}
+          onSlotchange={(): void => this._readBreadcrumb()}
+        />
       </li>,
       <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
         <sbb-icon name="chevron-small-right-small"></sbb-icon>
@@ -207,6 +215,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         <sbb-icon name="chevron-small-right-small"></sbb-icon>
         <slot
           name={`breadcrumb-${this._breadcrumbs.length - 1}`}
+          key={idLastElement}
           onSlotchange={(): void => this._readBreadcrumb()}
         />
       </li>,
