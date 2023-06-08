@@ -1,7 +1,3 @@
-export interface InterfaceSbbToastAttributes {
-  someInterface: 'opt1' | 'opt2';
-}
-
 export type ToastPosition =
   | 'top-left'
   | 'top-center'
