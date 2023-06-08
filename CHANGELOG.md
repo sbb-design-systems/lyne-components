@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.9](https://github.com/lyne-design-system/lyne-components/compare/v0.36.8...v0.36.9) (2023-06-08)
+
+### Features
+
+- **sbb-datepicker:** provide `setValue` and `getValue` on `sbb-datepicker` ([#1804](https://github.com/lyne-design-system/lyne-components/issues/1804)) ([b793a65](https://github.com/lyne-design-system/lyne-components/commit/b793a65f7b147813ce95b7579f88a17aa48850b8))
+
 ### [0.36.8](https://github.com/lyne-design-system/lyne-components/compare/v0.36.7...v0.36.8) (2023-06-08)
 
 ### Documentation
