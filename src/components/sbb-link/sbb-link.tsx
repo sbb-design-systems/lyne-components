@@ -51,7 +51,7 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStat
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
+   * https://icons.app.sbb.ch.
    * Inline variant doesn't support icons.
    */
   @Prop() public iconName?: string;

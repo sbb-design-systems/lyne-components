@@ -162,7 +162,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
+          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
         /**
@@ -256,7 +256,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -400,7 +400,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional).
          */
         "iconName"?: string;
         /**
@@ -674,7 +674,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -853,7 +853,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. Inline variant doesn't support icons.
          */
         "iconName"?: string;
         /**
@@ -983,7 +983,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string | undefined;
         /**
@@ -1134,7 +1134,7 @@ export namespace Components {
          */
         "highlight": (value: string) => Promise<void>;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -1378,7 +1378,7 @@ export namespace Components {
          */
         "disabled"?: boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -1404,7 +1404,7 @@ export namespace Components {
          */
         "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional).
          */
         "iconName"?: string;
         /**
@@ -1738,7 +1738,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName": string;
         /**
@@ -2553,7 +2553,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://lyne.sbb.ch/tokens/icons/. Styling is optimized for icons of type HIM-CUS.
+          * Name of the icon which will be forward to the nested `sbb-icon`. Choose the icons from https://icons.app.sbb.ch. Styling is optimized for icons of type HIM-CUS.
          */
         "iconName"?: string;
         /**
@@ -2671,7 +2671,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -2815,7 +2815,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional).
          */
         "iconName"?: string;
         /**
@@ -3107,7 +3107,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -3286,7 +3286,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. Inline variant doesn't support icons.
          */
         "iconName"?: string;
         /**
@@ -3424,7 +3424,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string | undefined;
         /**
@@ -3568,7 +3568,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -3832,7 +3832,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -3858,7 +3858,7 @@ declare namespace LocalJSX {
          */
         "form"?: string;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons (optional).
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from https://icons.app.sbb.ch (optional).
          */
         "iconName"?: string;
         /**
@@ -4237,7 +4237,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**

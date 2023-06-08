@@ -28,7 +28,7 @@ Slotted amount:
 | `active`   | `active`    | Active tab state                                                                                                                                              | `boolean`                                | `undefined` |
 | `amount`   | `amount`    | Amount displayed inside the tab.                                                                                                                              | `string`                                 | `undefined` |
 | `disabled` | `disabled`  | Disabled tab state                                                                                                                                            | `boolean`                                | `undefined` |
-| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.                     | `string`                                 | `undefined` |
+| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              | `string`                                 | `undefined` |
 | `level`    | `level`     | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'1'`       |
 
 
