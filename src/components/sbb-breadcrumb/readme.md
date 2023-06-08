@@ -7,7 +7,8 @@ Text and icon are not exclusive and can be used together.
 
 It's possible to set all the link related properties (`download`, `href`, `rel` and `target`).
 
-The `ariaCurrent` property is used to make the breadcrumb read correctly by screen-readers when the component
+## Accessibility 
+The `aria-current` property should be used to make the breadcrumb read correctly by screen-readers when the component
 is used in the `sbb-breadcrumb-group`.
 By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on the last slotted `sbb-breadcrumb`.
 
@@ -41,14 +42,13 @@ Breadcrumb with text and slotted icon:
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                                                                                     | Type      | Default     |
-| ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `ariaCurrent` | `aria-current` | Sets the aria-current attribute.                                                                                                                                                | `string`  | `undefined` |
-| `download`    | `download`     | Whether the browser will show the download dialog on click.                                                                                                                     | `boolean` | `undefined` |
-| `href`        | `href`         | The href value you want to link to.                                                                                                                                             | `string`  | `undefined` |
-| `iconName`    | `icon-name`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons. | `string`  | `undefined` |
-| `rel`         | `rel`          | The relationship of the linked URL as space-separated link types.                                                                                                               | `string`  | `undefined` |
-| `target`      | `target`       | Where to display the linked URL.                                                                                                                                                | `string`  | `undefined` |
+| Property   | Attribute   | Description                                                                                                                                                                     | Type      | Default     |
+| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `download` | `download`  | Whether the browser will show the download dialog on click.                                                                                                                     | `boolean` | `undefined` |
+| `href`     | `href`      | The href value you want to link to.                                                                                                                                             | `string`  | `undefined` |
+| `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons. | `string`  | `undefined` |
+| `rel`      | `rel`       | The relationship of the linked URL as space-separated link types.                                                                                                               | `string`  | `undefined` |
+| `target`   | `target`    | Where to display the linked URL.                                                                                                                                                | `string`  | `undefined` |
 
 
 ## Slots

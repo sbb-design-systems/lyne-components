@@ -240,10 +240,6 @@ export namespace Components {
     }
     interface SbbBreadcrumb {
         /**
-          * Sets the aria-current attribute.
-         */
-        "ariaCurrent": string | undefined;
-        /**
           * Whether the browser will show the download dialog on click.
          */
         "download"?: boolean;
@@ -2779,10 +2775,6 @@ declare namespace LocalJSX {
         "trigger"?: string | HTMLInputElement;
     }
     interface SbbBreadcrumb {
-        /**
-          * Sets the aria-current attribute.
-         */
-        "ariaCurrent"?: string | undefined;
         /**
           * Whether the browser will show the download dialog on click.
          */

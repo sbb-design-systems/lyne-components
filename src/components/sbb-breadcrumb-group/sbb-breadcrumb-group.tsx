@@ -99,7 +99,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     const length = breadcrumbs.length - 1;
     breadcrumbs.forEach((breadcrumb, index) => {
       if (index === length) {
-        breadcrumb.ariaCurrent = 'page';
+        breadcrumb['aria-current'] = 'page';
       }
       if (!breadcrumb.id) {
         breadcrumb.id = `sbb-breadcrumb-${index}`;
