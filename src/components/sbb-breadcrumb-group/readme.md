@@ -3,7 +3,7 @@ which are meant to represent the hierarchy of visited pages before arriving to t
 
 If the width of all the nested breadcrumbs exceeds the container width, only the first and the last breadcrumb are displayed,
 and a new one with the ellipsis symbol appears between them. 
-Clicking on this breadcrumb will make it disappear and will restore the full list (the action is not reversible).
+Clicking on this breadcrumb will make the ellipsis disappear and will restore the full list (the action is not reversible).
 
 ## Usage
 
