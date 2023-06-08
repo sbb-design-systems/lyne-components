@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.6](https://github.com/lyne-design-system/lyne-components/compare/v0.36.5...v0.36.6) (2023-06-08)
+
+### Documentation
+
+- fix story bundling script ([7e3a305](https://github.com/lyne-design-system/lyne-components/commit/7e3a3052c99a100d15ddaf8c95b554e42df0adee))
+
 ### [0.36.5](https://github.com/lyne-design-system/lyne-components/compare/v0.36.4...v0.36.5) (2023-06-08)
 
 ### Bug Fixes
