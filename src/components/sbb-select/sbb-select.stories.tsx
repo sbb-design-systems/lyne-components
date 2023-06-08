@@ -1,13 +1,16 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { Fragment, h, JSX } from 'jsx-dom';
 import events from './sbb-select.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
-const playStory = async ({ canvasElement }) => {
+const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -20,7 +23,7 @@ const playStory = async ({ canvasElement }) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const borderless = {
+const borderless: InputType = {
   control: {
     type: 'boolean',
   },
@@ -29,7 +32,7 @@ const borderless = {
   },
 };
 
-const floatingLabel = {
+const floatingLabel: InputType = {
   control: {
     type: 'boolean',
   },
@@ -38,7 +41,7 @@ const floatingLabel = {
   },
 };
 
-const value = {
+const value: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -48,7 +51,7 @@ const value = {
   },
 };
 
-const multiple = {
+const multiple: InputType = {
   control: {
     type: 'boolean',
   },
@@ -57,7 +60,7 @@ const multiple = {
   },
 };
 
-const placeholder = {
+const placeholder: InputType = {
   control: {
     type: 'text',
   },
@@ -66,7 +69,7 @@ const placeholder = {
   },
 };
 
-const disabled = {
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -75,7 +78,7 @@ const disabled = {
   },
 };
 
-const required = {
+const required: InputType = {
   control: {
     type: 'boolean',
   },
@@ -84,7 +87,7 @@ const required = {
   },
 };
 
-const readonly = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -93,7 +96,7 @@ const readonly = {
   },
 };
 
-const disableAnimation = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -102,7 +105,7 @@ const disableAnimation = {
   },
 };
 
-const numberOfOptions = {
+const numberOfOptions: InputType = {
   control: {
     type: 'number',
   },
@@ -111,7 +114,7 @@ const numberOfOptions = {
   },
 };
 
-const disableOption = {
+const disableOption: InputType = {
   control: {
     type: 'boolean',
   },
@@ -120,7 +123,7 @@ const disableOption = {
   },
 };
 
-const withOptionGroup = {
+const withOptionGroup: InputType = {
   control: {
     type: 'boolean',
   },
@@ -129,7 +132,7 @@ const withOptionGroup = {
   },
 };
 
-const disableGroup = {
+const disableGroup: InputType = {
   control: {
     type: 'boolean',
   },
@@ -138,7 +141,7 @@ const disableGroup = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   borderless,
   floatingLabel,
   value,
@@ -154,7 +157,7 @@ const defaultArgTypes = {
   disableGroup,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   borderless: false,
   floatingLabel: false,
   value: undefined,
@@ -170,13 +173,13 @@ const defaultArgs = {
   disableGroup: false,
 };
 
-const changeEventHandler = (event) => {
+const changeEventHandler = (event): void => {
   const div = document.createElement('div');
   div.innerText = `current value is: ${event.target.value}`;
   document.getElementById('container-value').append(div);
 };
 
-const textBlockStyle = {
+const textBlockStyle: Args = {
   position: 'relative',
   marginBlockStart: '1rem',
   padding: '1rem',
@@ -186,34 +189,45 @@ const textBlockStyle = {
   zIndex: '100',
 };
 
-const codeStyle = {
+const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const defaultDecorator = [
+const defaultDecorator: Decorator[] = [
   (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 2rem);'}>
+    <div style={{ padding: 'undefined', height: 'undefined' }}>
       <Story />
     </div>
   ),
 ];
 
-const aboveDecorator = [
-  (Story) => (
-    <div style={'padding: 2rem; height: calc(100vh - 2rem); display: flex; align-items: end'}>
-      <Story />
-    </div>
-  ),
-];
-
-const scrollDecorator = [
+const aboveDecorator: Decorator[] = [
   (Story) => (
     <div
-      style={
-        'padding: 2rem; height: calc(100vh * 1.5); background-color: var(--sbb-color-milk-default); display: flex; align-items: center'
-      }
+      style={{
+        padding: 'undefined',
+        height: 'undefined',
+        display: 'undefined',
+        'align-items': 'undefined',
+      }}
+    >
+      <Story />
+    </div>
+  ),
+];
+
+const scrollDecorator: Decorator[] = [
+  (Story) => (
+    <div
+      style={{
+        padding: '2rem',
+        height: 'calc(100vh * 1.5)',
+        'background-color': 'var(--sbb-color-milk-default)',
+        display: 'flex',
+        'align-items': 'center',
+      }}
     >
       <Story />
     </div>
@@ -222,7 +236,7 @@ const scrollDecorator = [
 
 const valueEllipsis = 'This label name is so long that it needs ellipsis to fit.';
 
-const textBlock = () => {
+const textBlock = (): JSX.Element => {
   return (
     <div style={textBlockStyle}>
       This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
@@ -231,7 +245,12 @@ const textBlock = () => {
   );
 };
 
-const createOptions = (numberOfOptions, disableOption, group, selectValue) => {
+const createOptions = (
+  numberOfOptions,
+  disableOption,
+  group,
+  selectValue = null
+): JSX.Element[] => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
     const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;
     const selected = Array.isArray(selectValue)
@@ -245,7 +264,7 @@ const createOptions = (numberOfOptions, disableOption, group, selectValue) => {
   });
 };
 
-const createOptionsGroup = (numberOfOptions, disableOption, disableGroup) => {
+const createOptionsGroup = (numberOfOptions, disableOption, disableGroup): JSX.Element[] => {
   return [
     <sbb-optgroup label="Group 1" disabled={disableGroup}>
       {createOptions(numberOfOptions, disableOption, '1')}
@@ -256,39 +275,34 @@ const createOptionsGroup = (numberOfOptions, disableOption, disableGroup) => {
   ];
 };
 
-const SelectTemplate = ({
+const FormFieldTemplate = ({
+  borderless,
+  floatingLabel,
   numberOfOptions,
   disableOption,
   withOptionGroup,
   disableGroup,
   ...args
-}) => {
-  if (args.multiple && args.value) {
-    args.value = [args.value];
-  }
-  return (
-    <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
-      {withOptionGroup
-        ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-        : createOptions(numberOfOptions, disableOption, false, args.value)}
-    </sbb-select>
-  );
-};
-
-const FormFieldTemplate = ({ borderless, floatingLabel, ...args }) => [
-  <div>
-    <sbb-form-field
-      borderless={borderless}
-      floating-label={floatingLabel}
-      label="Select"
-      data-testid="form-field"
-    >
-      {SelectTemplate(args)}
-    </sbb-form-field>
-    {textBlock()}
-  </div>,
-  <div id="container-value" style="margin-block-start: 2rem;"></div>,
-];
+}): JSX.Element => (
+  <Fragment>
+    <div>
+      <sbb-form-field
+        borderless={borderless}
+        floating-label={floatingLabel}
+        label="Select"
+        data-testid="form-field"
+      >
+        <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
+          {withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption, false, args.value)}
+        </sbb-select>
+      </sbb-form-field>
+      {textBlock()}
+    </div>
+    <div id="container-value" style={{ 'margin-block-start': 'undefined' }}></div>
+  </Fragment>
+);
 
 const SelectEllipsisTemplate = ({
   borderless,
@@ -298,33 +312,39 @@ const SelectEllipsisTemplate = ({
   withOptionGroup,
   disableGroup,
   ...args
-}) => {
+}): JSX.Element => {
   const ellipsisSelected = valueEllipsis === args.value;
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
 
-  return [
-    <div>
-      <sbb-form-field
-        borderless={borderless}
-        floating-label={floatingLabel}
-        label="Select"
-        data-testid="form-field"
-      >
-        <sbb-select {...args} onChange={(event) => changeEventHandler(event)} data-testid="select">
-          <sbb-option value={valueEllipsis} selected={ellipsisSelected}>
-            {valueEllipsis}
-          </sbb-option>
-          {withOptionGroup
-            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
-            : createOptions(numberOfOptions, disableOption, false, args.value)}
-        </sbb-select>
-      </sbb-form-field>
-      {textBlock()}
-    </div>,
-    <div id="container-value" style="margin-block-start: 2rem;"></div>,
-  ];
+  return (
+    <Fragment>
+      <div>
+        <sbb-form-field
+          borderless={borderless}
+          floating-label={floatingLabel}
+          label="Select"
+          data-testid="form-field"
+        >
+          <sbb-select
+            {...args}
+            onChange={(event) => changeEventHandler(event)}
+            data-testid="select"
+          >
+            <sbb-option value={valueEllipsis} selected={ellipsisSelected}>
+              {valueEllipsis}
+            </sbb-option>
+            {withOptionGroup
+              ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+              : createOptions(numberOfOptions, disableOption, false, args.value)}
+          </sbb-select>
+        </sbb-form-field>
+        {textBlock()}
+      </div>
+      <div id="container-value" style={{ 'margin-block-start': 'undefined' }}></div>,
+    </Fragment>
+  );
 };
 
 const FormFieldTemplateWithError = ({
@@ -335,7 +355,7 @@ const FormFieldTemplateWithError = ({
   withOptionGroup,
   disableGroup,
   ...args
-}) => {
+}): JSX.Element => {
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
@@ -375,8 +395,8 @@ const FormFieldTemplateWithError = ({
   );
 };
 
-const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }) => (
-  <div style="padding: 2rem; background-color: #e6e6e6;">
+const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JSX.Element => (
+  <div style={{ padding: 'undefined', 'background-color': 'undefined' }}>
     <sbb-form-field
       borderless={borderless}
       floating-label={floatingLabel}
@@ -395,106 +415,138 @@ const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }) => 
         <sbb-option value="Daimler">Daimler</sbb-option>
       </sbb-select>
     </sbb-form-field>
-    <div style="padding-block-start: 1rem">
+    <div style={{ 'padding-block-start': 'undefined' }}>
       Focus the select and type letters (A to D) with closed or open panel.
     </div>
   </div>
 );
 
-export const SingleSelect = FormFieldTemplate.bind({});
-SingleSelect.argTypes = defaultArgTypes;
-SingleSelect.args = { ...defaultArgs };
-SingleSelect.play = isChromatic() && playStory;
-
-export const MultipleSelect = FormFieldTemplate.bind({});
-MultipleSelect.argTypes = defaultArgTypes;
-MultipleSelect.args = { ...defaultArgs, multiple: true };
-MultipleSelect.play = isChromatic() && playStory;
-
-export const SingleSelectWithGrouping = FormFieldTemplate.bind({});
-SingleSelectWithGrouping.argTypes = defaultArgTypes;
-SingleSelectWithGrouping.args = { ...defaultArgs, withOptionGroup: true };
-SingleSelectWithGrouping.play = isChromatic() && playStory;
-
-export const MultipleSelectWithGrouping = FormFieldTemplate.bind({});
-MultipleSelectWithGrouping.argTypes = defaultArgTypes;
-MultipleSelectWithGrouping.args = { ...defaultArgs, multiple: true, withOptionGroup: true };
-MultipleSelectWithGrouping.play = isChromatic() && playStory;
-
-export const SingleSelectEllipsis = SelectEllipsisTemplate.bind({});
-SingleSelectEllipsis.argTypes = {
-  ...defaultArgTypes,
-  value: { ...value, options: [...value.options, valueEllipsis] },
+export const SingleSelect: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  play: isChromatic() && playStory,
 };
-SingleSelectEllipsis.args = { ...defaultArgs, value: valueEllipsis };
-SingleSelectEllipsis.play = isChromatic() && playStory;
 
-export const MultipleSelectEllipsis = SelectEllipsisTemplate.bind({});
-MultipleSelectEllipsis.argTypes = {
-  ...defaultArgTypes,
-  value: { ...value, options: [...value.options, valueEllipsis] },
+export const MultipleSelect: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true },
+  play: isChromatic() && playStory,
 };
-MultipleSelectEllipsis.args = { ...defaultArgs, multiple: true, value: valueEllipsis };
-MultipleSelectEllipsis.play = isChromatic() && playStory;
 
-export const Required = FormFieldTemplateWithError.bind({});
-Required.argTypes = defaultArgTypes;
-Required.args = { ...defaultArgs, required: true };
-Required.play = isChromatic() && playStory;
-
-export const Disabled = FormFieldTemplate.bind({});
-Disabled.argTypes = defaultArgTypes;
-Disabled.args = { ...defaultArgs, disabled: true };
-Disabled.play = isChromatic() && playStory;
-
-export const Readonly = FormFieldTemplate.bind({});
-Readonly.argTypes = defaultArgTypes;
-Readonly.args = { ...defaultArgs, readonly: true };
-Readonly.play = isChromatic() && playStory;
-
-export const Borderless = FormFieldTemplate.bind({});
-Borderless.argTypes = defaultArgTypes;
-Borderless.args = { ...defaultArgs, borderless: true };
-Borderless.play = isChromatic() && playStory;
-
-export const BorderlessOpenAbove = FormFieldTemplate.bind({});
-BorderlessOpenAbove.argTypes = defaultArgTypes;
-BorderlessOpenAbove.args = { ...defaultArgs, borderless: true };
-BorderlessOpenAbove.decorators = aboveDecorator;
-BorderlessOpenAbove.play = isChromatic() && playStory;
-
-export const InScrollableContainer = FormFieldTemplate.bind({});
-InScrollableContainer.argTypes = defaultArgTypes;
-InScrollableContainer.args = { ...defaultArgs, borderless: true };
-InScrollableContainer.decorators = scrollDecorator;
-InScrollableContainer.play = isChromatic() && playStory;
-
-export const DisableOption = FormFieldTemplate.bind({});
-DisableOption.argTypes = defaultArgTypes;
-DisableOption.args = { ...defaultArgs, disableOption: true };
-DisableOption.play = isChromatic() && playStory;
-
-export const DisableOptionGroup = FormFieldTemplate.bind({});
-DisableOptionGroup.argTypes = defaultArgTypes;
-DisableOptionGroup.args = { ...defaultArgs, withOptionGroup: true, disableGroup: true };
-DisableOptionGroup.play = isChromatic() && playStory;
-
-export const DisableMultipleOption = FormFieldTemplate.bind({});
-DisableMultipleOption.argTypes = defaultArgTypes;
-DisableMultipleOption.args = {
-  ...defaultArgs,
-  multiple: true,
-  withOptionGroup: true,
-  disableOption: true,
+export const SingleSelectWithGrouping: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withOptionGroup: true },
+  play: isChromatic() && playStory,
 };
-DisableMultipleOption.play = isChromatic() && playStory;
 
-export const KeyboardInteraction = KeyboardInteractionTemplate.bind({});
-KeyboardInteraction.argTypes = defaultArgTypes;
-KeyboardInteraction.args = { ...defaultArgs };
-KeyboardInteraction.play = isChromatic() && playStory;
+export const MultipleSelectWithGrouping: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true, withOptionGroup: true },
+  play: isChromatic() && playStory,
+};
 
-export default {
+export const SingleSelectEllipsis: StoryObj = {
+  render: SelectEllipsisTemplate,
+  argTypes: {
+    ...defaultArgTypes,
+    value: { ...value, options: [...value.options, valueEllipsis] },
+  },
+  args: { ...defaultArgs, value: valueEllipsis },
+  play: isChromatic() && playStory,
+};
+
+export const MultipleSelectEllipsis: StoryObj = {
+  render: SelectEllipsisTemplate,
+  argTypes: {
+    ...defaultArgTypes,
+    value: { ...value, options: [...value.options, valueEllipsis] },
+  },
+  args: { ...defaultArgs, multiple: true, value: valueEllipsis },
+  play: isChromatic() && playStory,
+};
+
+export const Required: StoryObj = {
+  render: FormFieldTemplateWithError,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, required: true },
+  play: isChromatic() && playStory,
+};
+
+export const Disabled: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+  play: isChromatic() && playStory,
+};
+
+export const Readonly: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, readonly: true },
+  play: isChromatic() && playStory,
+};
+
+export const Borderless: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+  play: isChromatic() && playStory,
+};
+
+export const BorderlessOpenAbove: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+  decorators: aboveDecorator,
+  play: isChromatic() && playStory,
+};
+
+export const InScrollableContainer: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+  decorators: scrollDecorator,
+  play: isChromatic() && playStory,
+};
+
+export const DisableOption: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disableOption: true },
+  play: isChromatic() && playStory,
+};
+
+export const DisableOptionGroup: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withOptionGroup: true, disableGroup: true },
+  play: isChromatic() && playStory,
+};
+
+export const DisableMultipleOption: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    multiple: true,
+    withOptionGroup: true,
+    disableOption: true,
+  },
+  play: isChromatic() && playStory,
+};
+
+export const KeyboardInteraction: StoryObj = {
+  render: KeyboardInteractionTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  play: isChromatic() && playStory,
+};
+
+const meta: Meta = {
   decorators: defaultDecorator,
   parameters: {
     chromatic: { disableSnapshot: false },
@@ -510,3 +562,5 @@ export default {
   },
   title: 'components/form elements/sbb-select',
 };
+
+export default meta;

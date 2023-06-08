@@ -6,7 +6,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const disabled: InputType = {
@@ -118,14 +118,14 @@ const defaultArgs: Args = {
   borderless: false,
 };
 
-const withGroupsDefaultArgs = {
+const withGroupsDefaultArgs: Args = {
   ...defaultArgs,
 
   // Option group args
   disableGroup: false,
 };
 
-const defaultDecorator = [
+const defaultDecorator: Decorator[] = [
   (Story) => (
     <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
       <Story />
@@ -133,7 +133,7 @@ const defaultDecorator = [
   ),
 ];
 
-const aboveDecorator = [
+const aboveDecorator: Decorator[] = [
   (Story) => (
     <div
       style={{
@@ -148,7 +148,7 @@ const aboveDecorator = [
   ),
 ];
 
-const scrollDecorator = [
+const scrollDecorator: Decorator[] = [
   (Story) => (
     <div
       style={{
