@@ -91,14 +91,14 @@ SlottedIconAndText.args = {
   text: 'Custom slotted icon',
 };
 
-export const Ellipsis = Template.bind({});
-Ellipsis.argTypes = defaultArgTypes;
-Ellipsis.args = {
+export const LongContent = Template.bind({});
+LongContent.argTypes = defaultArgTypes;
+LongContent.args = {
   ...defaultArgs,
   'icon-name': 'house-small',
   text: 'This label name is so long that it needs ellipsis to fit.',
 };
-Ellipsis.decorators = [
+LongContent.decorators = [
   (Story) => (
     <div style={'max-width: 200px'}>
       <Story />

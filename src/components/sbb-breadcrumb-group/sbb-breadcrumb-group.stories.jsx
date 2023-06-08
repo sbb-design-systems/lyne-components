@@ -98,16 +98,16 @@ export const Default = Template.bind({});
 Default.argTypes = defaultArgTypes;
 Default.args = { ...defaultArgs };
 
-export const WithEllipsis = Template.bind({});
-WithEllipsis.argTypes = defaultArgTypes;
-WithEllipsis.args = { ...defaultArgs, numberOfBreadcrumbs: 25 };
+export const CollapsedState = Template.bind({});
+CollapsedState.argTypes = defaultArgTypes;
+CollapsedState.args = { ...defaultArgs, numberOfBreadcrumbs: 25 };
 
 export default {
   decorators: [
     (Story) => (
       <div style={'padding: 2rem'}>
         <Story />
-        page content
+        Page content
       </div>
     ),
   ],

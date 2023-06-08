@@ -59,7 +59,7 @@ describe('sbb-breadcrumb-group', () => {
 
     it('renders', async () => {
       expect(element).toEqualHtml(`
-        <sbb-breadcrumb-group class="hydrated" id="sbb-breadcrumb-group" loaded="true" role="navigation">
+        <sbb-breadcrumb-group class="hydrated" id="sbb-breadcrumb-group" data-loaded role="navigation">
           <mock:shadow-root>
             <ol class="sbb-breadcrumb-group">
               <li class="sbb-breadcrumb-group__item">
