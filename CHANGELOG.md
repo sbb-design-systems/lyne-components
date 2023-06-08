@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.7](https://github.com/lyne-design-system/lyne-components/compare/v0.36.6...v0.36.7) (2023-06-08)
+
+### Documentation
+
+- fix icon link ([#1802](https://github.com/lyne-design-system/lyne-components/issues/1802)) ([d871c61](https://github.com/lyne-design-system/lyne-components/commit/d871c61b8791c08cc040db0ab2c7e51ea7f431fb))
+- **sbb-image:** fix tokens in sample config ([#1803](https://github.com/lyne-design-system/lyne-components/issues/1803)) ([3539af1](https://github.com/lyne-design-system/lyne-components/commit/3539af1227f5e0a48b4413cb029ffffa440813c5))
+
 ### [0.36.6](https://github.com/lyne-design-system/lyne-components/compare/v0.36.5...v0.36.6) (2023-06-08)
 
 ### Documentation
