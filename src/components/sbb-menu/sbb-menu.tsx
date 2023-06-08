@@ -59,7 +59,7 @@ export class SbbMenu implements ComponentInterface {
   @State() private _state: SbbOverlayState = 'closed';
 
   /** Sbb-Link elements */
-  @State() private _content: Element[];
+  @State() private _actions: HTMLSbbMenuActionElement[];
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -110,7 +110,6 @@ export class SbbMenu implements ComponentInterface {
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _menuId = `sbb-menu-${++nextId}`;
-  private _menuActions: JSX.Element;
 
   @Element() private _element!: HTMLElement;
 
@@ -167,7 +166,9 @@ export class SbbMenu implements ComponentInterface {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = this._content.filter((e: HTMLElement) => e.tabIndex === 0);
+    const enabledActions: Element[] = Array.from(this._element.children).filter(
+      (e: HTMLElement) => e.tabIndex === 0
+    );
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
 
@@ -360,39 +361,28 @@ export class SbbMenu implements ComponentInterface {
    * Create an array with only the sbb-menu-action children
    */
   private _readActions(): void {
-    const content = Array.from(this._element.children);
-    // If the slotted content has not changed, we can skip syncing and updating the content.
+    const actions = Array.from(this._element.children);
+    // If the slotted actions have not changed, we can skip syncing and updating the actions.
     if (
-      this._content &&
-      content.length === this._content.length &&
-      this._content.every((e, i) => content[i] === e)
+      this._actions &&
+      actions.length === this._actions.length &&
+      this._actions.every((e, i) => actions[i] === e)
     ) {
       return;
     }
 
-    this._content = content;
-
-    if (this._content.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
-      this._menuActions = [
-        <ul class="sbb-menu-list">
-          {this._content.map((_, index) => (
-            <li>
-              <slot name={`action-${index}`} onSlotchange={(): void => this._readActions()} />
-            </li>
-          ))}
-        </ul>,
-        <span hidden>
-          <slot onSlotchange={(): void => this._readActions()} />
-        </span>,
-      ];
-
-      this._content.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
+    if (actions.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
+      this._actions = actions as HTMLSbbMenuActionElement[];
     } else {
-      this._menuActions = undefined;
+      this._actions = undefined;
     }
   }
 
   public render(): JSX.Element {
+    if (this._actions) {
+      this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
+    }
+
     return (
       <Host data-state={this._state} ref={assignId(() => this._menuId)}>
         <div class="sbb-menu__container">
@@ -408,7 +398,25 @@ export class SbbMenu implements ComponentInterface {
               ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
               class="sbb-menu__content"
             >
-              {this._menuActions ?? <slot onSlotchange={(): void => this._readActions()} />}
+              {this._actions ? (
+                [
+                  <ul class="sbb-menu-list">
+                    {this._actions.map((_, index) => (
+                      <li>
+                        <slot
+                          name={`action-${index}`}
+                          onSlotchange={(): void => this._readActions()}
+                        />
+                      </li>
+                    ))}
+                  </ul>,
+                  <span hidden>
+                    <slot onSlotchange={(): void => this._readActions()} />
+                  </span>,
+                ]
+              ) : (
+                <slot onSlotchange={(): void => this._readActions()} />
+              )}
             </div>
           </dialog>
         </div>
