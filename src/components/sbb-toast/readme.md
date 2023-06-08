@@ -13,7 +13,6 @@ to be documented...
 | `politeness`       | `politeness`        | TODO: Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info               | `"assertive" \| "off" \| "polite"`                                                                | `undefined`       |
 | `position`         | `position`          |                                                                                                                                           | `"bottom-center" \| "bottom-left" \| "bottom-right" \| "top-center" \| "top-left" \| "top-right"` | `'bottom-center'` |
 | `timeout`          | `timeout`           | TODO                                                                                                                                      | `number`                                                                                          | `3000`            |
-| `trigger`          | `trigger`           |                                                                                                                                           | `HTMLInputElement \| string`                                                                      | `undefined`       |
 
 
 ## Events

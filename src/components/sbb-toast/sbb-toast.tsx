@@ -10,7 +10,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
 } from '@stencil/core';
 import {
   createNamedSlotState,
@@ -31,8 +30,6 @@ import { AriaPoliteness, ToastPosition } from './sbb-toast.custom';
 export class SbbToast implements ComponentInterface {
   /** TODO */
   @Prop() public timeout = 3000;
-
-  @Prop() public trigger: string | HTMLInputElement;
 
   /**
    * The icon name we want to use, choose from the small icon variants
@@ -105,8 +102,6 @@ export class SbbToast implements ComponentInterface {
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
   );
 
-  private _triggerElement: HTMLElement;
-  private _triggerEventsController: AbortController;
   private _closeTimeout: ReturnType<typeof setTimeout>;
 
   @Method() public async open(): Promise<void> {
@@ -129,58 +124,13 @@ export class SbbToast implements ComponentInterface {
     this.willClose.emit();
   }
 
-  @Watch('trigger')
-  public onTriggerChange(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
-    if (newValue !== oldValue) {
-      this._setupTrigger();
-    }
-  }
-
   public connectedCallback(): void {
-    this._setupTrigger();
     this._handlerRepository.connect();
   }
 
   public disconnectedCallback(): void {
-    this._triggerEventsController.abort();
     clearTimeout(this._closeTimeout);
     this._handlerRepository.disconnect();
-  }
-
-  private _setupTrigger(): void {
-    this._triggerElement = this._getTriggerElement();
-
-    if (!this._triggerElement) {
-      return;
-    }
-
-    this._triggerEventsController?.abort();
-    this._triggerEventsController = new AbortController();
-
-    this._triggerElement.addEventListener('click', () => this.open(), {
-      signal: this._triggerEventsController.signal,
-    });
-  }
-
-  /**
-   * Retrieve the element that will trigger the autocomplete opening.
-   * @returns 'trigger' or the first 'input' inside the origin element.
-   */
-  private _getTriggerElement(): HTMLElement {
-    if (!this.trigger) {
-      return;
-    }
-
-    const result =
-      typeof this.trigger === 'string'
-        ? (document.getElementById(this.trigger) as HTMLElement)
-        : this.trigger;
-
-    if (!result) {
-      throw new Error(`Cannot find the trigger element with '${this.trigger}' id.`);
-    }
-
-    return result;
   }
 
   private _onActionSlotChange(event: Event): void {

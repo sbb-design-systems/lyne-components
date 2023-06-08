@@ -1654,7 +1654,6 @@ export namespace Components {
           * TODO
          */
         "timeout": number;
-        "trigger": string | HTMLInputElement;
     }
     interface SbbToggle {
         /**
@@ -4183,7 +4182,6 @@ declare namespace LocalJSX {
           * TODO
          */
         "timeout"?: number;
-        "trigger"?: string | HTMLInputElement;
     }
     interface SbbToggle {
         /**
