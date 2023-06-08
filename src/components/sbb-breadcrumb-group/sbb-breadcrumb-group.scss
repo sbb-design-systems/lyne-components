@@ -20,12 +20,12 @@
   display: inline-flex;
   visibility: var(--sbb-breadcrumb-visibility);
   flex-wrap: var(--sbb-breadcrumb-wrap);
-  gap: var(--sbb-spacing-fixed-1x);
+  column-gap: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-breadcrumb-group__item {
   display: flex;
-  gap: var(--sbb-spacing-fixed-1x);
+  column-gap: var(--sbb-spacing-fixed-1x);
 }
 
 #sbb-breadcrumb-ellipsis:focus-visible:not(
