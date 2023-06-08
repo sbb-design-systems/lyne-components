@@ -22,13 +22,16 @@ export const TimetableInput = (): JSX.Element => (
 const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
     (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
+    document.getElementById('nav-1').setAttribute('active', '');
   });
 };
 
 export const Navigation = (): JSX.Element => (
   <sbb-navigation trigger="hamburger-menu" ref={(dialog) => onNavigationClose(dialog)}>
     <sbb-navigation-marker id="nav-marker">
-      <sbb-navigation-action id="nav-1">Tickets & Offers</sbb-navigation-action>
+      <sbb-navigation-action aria-current="page" id="nav-1" active>
+        Tickets & Offers
+      </sbb-navigation-action>
       <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
       <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
       <sbb-navigation-action id="nav-4" href="https://www.sbb.ch/en/">
@@ -40,7 +43,7 @@ export const Navigation = (): JSX.Element => (
       <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
       <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
       <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
-      <sbb-navigation-action id="nav-8" active>
+      <sbb-navigation-action aria-selected="true" id="nav-8" active>
         English
       </sbb-navigation-action>
     </sbb-navigation-marker>
