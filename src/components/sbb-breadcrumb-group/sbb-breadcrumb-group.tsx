@@ -1,10 +1,5 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
-import {
-  getNextElementIndex,
-  isArrowKeyPressed,
-  isNextArrowKeyPressed,
-  isPreviousArrowKeyPressed,
-} from '../../global/helpers/arrow-navigation';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
@@ -132,31 +127,21 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   /**
-   * Sets the focus on the correct element when the ellipsis breadcrumb is displayed
-   * and the user is navigating with keyboard's arrows.
+   * Sets the focus on the correct element when the ellipsis breadcrumb is displayed and the user is navigating with keyboard's arrows.
    */
   private _focusNextCollapsed(evt: KeyboardEvent): void {
-    const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
-    let elementToFocus: HTMLSbbBreadcrumbElement;
-    if (
-      (current === 0 && isNextArrowKeyPressed(evt)) ||
-      (current === this._breadcrumbs.length - 1 && isPreviousArrowKeyPressed(evt))
-    ) {
-      elementToFocus = this._element.shadowRoot.querySelector(
+    const arrayCollapsed: HTMLSbbBreadcrumbElement[] = [
+      this._breadcrumbs[0],
+      this._element.shadowRoot.querySelector(
         '#sbb-breadcrumb-ellipsis'
-      ) as HTMLSbbBreadcrumbElement;
-    } else if (
-      (current === 0 && isPreviousArrowKeyPressed(evt)) ||
-      (current === this._breadcrumbs.length - 1 && isNextArrowKeyPressed(evt))
-    ) {
-      const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
-      elementToFocus = this._breadcrumbs[nextIndex];
-    } else {
-      elementToFocus = isPreviousArrowKeyPressed(evt)
-        ? this._breadcrumbs[0]
-        : this._breadcrumbs[this._breadcrumbs.length - 1];
-    }
-    elementToFocus?.focus();
+      ) as HTMLSbbBreadcrumbElement,
+      this._breadcrumbs[this._breadcrumbs.length - 1],
+    ];
+    const current: number = arrayCollapsed.findIndex(
+      (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement
+    );
+    const nextIndex: number = getNextElementIndex(evt, current, arrayCollapsed.length);
+    arrayCollapsed[nextIndex]?.focus();
     evt.preventDefault();
   }
 
