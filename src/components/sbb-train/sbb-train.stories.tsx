@@ -15,7 +15,6 @@ const directionLabel: InputType = {
   },
 };
 
-
 const directionLabelLevel: InputType = {
   control: {
     type: 'inline-radio',
