@@ -9,7 +9,7 @@
   --sbb-breadcrumb-wrap: nowrap;
 }
 
-:host([loaded='true']) {
+:host([data-loaded]) {
   --sbb-breadcrumb-visibility: visible;
   --sbb-breadcrumb-wrap: wrap;
 }

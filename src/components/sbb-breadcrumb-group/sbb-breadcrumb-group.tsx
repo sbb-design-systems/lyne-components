@@ -5,6 +5,7 @@ import {
   isNextArrowKeyPressed,
   isPreviousArrowKeyPressed,
 } from '../../global/helpers/arrow-navigation';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -19,7 +20,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
   /** Whether the list needs to be shortened with the ellipsis breadcrumb. */
-  @State() private _hasEllipsis: boolean;
+  @State() private _isCollapsed: boolean;
 
   @Element() private _element!: HTMLElement;
 
@@ -39,10 +40,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     }
 
     if (isArrowKeyPressed(evt)) {
-      if (this._hasEllipsis) {
-        return this._focusNextEllipsis(evt);
+      if (this._isCollapsed) {
+        return this._focusNextCollapsed(evt);
       }
-      this._focusNextNoEllipsis(evt);
+      this._focusNextExpanded(evt);
     }
   }
 
@@ -52,8 +53,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     window.addEventListener(
       'resize',
       () => {
-        this._hasEllipsis = false;
-        this._evaluateEllipsis();
+        this._isCollapsed = false;
+        this._evaluateCollapsedState();
       },
       {
         passive: true,
@@ -64,11 +65,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._measureBreadcrumbs();
-    this._evaluateEllipsis();
+    this._evaluateCollapsedState();
   }
 
   public componentDidUpdate(): void {
-    this._element.setAttribute('loaded', 'true');
+    toggleDatasetEntry(this._element, 'loaded', true);
   }
 
   public disconnectedCallback(): void {
@@ -134,7 +135,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
    * Sets the focus on the correct element when the ellipsis breadcrumb is displayed
    * and the user is navigating with keyboard's arrows.
    */
-  private _focusNextEllipsis(evt: KeyboardEvent): void {
+  private _focusNextCollapsed(evt: KeyboardEvent): void {
     const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
     let elementToFocus: HTMLSbbBreadcrumbElement;
     if (
@@ -159,7 +160,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     evt.preventDefault();
   }
 
-  private _focusNextNoEllipsis(evt: KeyboardEvent): void {
+  private _focusNextExpanded(evt: KeyboardEvent): void {
     const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
     const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
     this._breadcrumbs[nextIndex]?.focus();
@@ -168,16 +169,16 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   /** Displays the full breadcrumb list by resetting the _hasEllipsis value. */
   private _expandBreadcrumbs(): void {
-    this._hasEllipsis = false;
+    this._isCollapsed = false;
   }
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
-  private _evaluateEllipsis(): void {
-    this._hasEllipsis =
+  private _evaluateCollapsedState(): void {
+    this._isCollapsed =
       this._breadcrumbs?.length > 2 && this._element.clientWidth < this._totalBreadcrumbsWidth;
   }
 
-  private _renderEllipsis(): JSX.Element {
+  private _renderCollapsed(): JSX.Element {
     for (let i = 0; i < this._breadcrumbs.length; i++) {
       if (i === 0 || i === this._breadcrumbs.length - 1) {
         this._breadcrumbs[i].setAttribute('slot', `breadcrumb-${i}`);
@@ -211,7 +212,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     ];
   }
 
-  private _renderNoEllipsis(): JSX.Element {
+  private _renderExpanded(): JSX.Element {
     const slotName = (index): string => `breadcrumb-${index}`;
 
     return this._breadcrumbs.map((element: HTMLSbbBreadcrumbElement, index: number) => {
@@ -231,7 +232,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     return (
       <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
-          {this._hasEllipsis ? this._renderEllipsis() : this._renderNoEllipsis()}
+          {this._isCollapsed ? this._renderCollapsed() : this._renderExpanded()}
         </ol>
         <span hidden>
           <slot onSlotchange={(): void => this._readBreadcrumb()} />
