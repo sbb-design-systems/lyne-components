@@ -118,7 +118,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       const breadcrumbGap = parseInt(
         getComputedStyle(
           this._element.shadowRoot.querySelector('.sbb-breadcrumb-group')
-        ).getPropertyValue('gap'),
+        ).getPropertyValue('column-gap'),
         10
       );
 
