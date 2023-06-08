@@ -54,6 +54,11 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
+   * This will be forwarded as aria-label to the inner list.
+   */
+  @Prop() public listAccessibilityLabel?: string;
+
+  /**
    * The state of the menu.
    */
   @State() private _state: SbbOverlayState = 'closed';
@@ -400,7 +405,7 @@ export class SbbMenu implements ComponentInterface {
             >
               {this._actions ? (
                 [
-                  <ul class="sbb-menu-list">
+                  <ul class="sbb-menu-list" aria-label={this.listAccessibilityLabel}>
                     {this._actions.map((_, index) => (
                       <li>
                         <slot

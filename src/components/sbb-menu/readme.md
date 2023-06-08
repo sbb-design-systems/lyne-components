@@ -59,10 +59,11 @@ As the menu opens, the focus will automatically be set to the first focusable it
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                 | Type                    | Default     |
-| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                           | `boolean`               | `false`     |
-| `trigger`          | `trigger`           | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
+| Property                 | Attribute                  | Description                                                                                                 | Type                    | Default     |
+| ------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                           | `boolean`               | `false`     |
+| `listAccessibilityLabel` | `list-accessibility-label` | This will be forwarded as aria-label to the inner list.                                                     | `string`                | `undefined` |
+| `trigger`                | `trigger`                  | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
 
 
 ## Events
