@@ -25,6 +25,8 @@ import {
 
 let nextId = 0;
 
+const supportedPopupTagNames = ['SBB-TOOLTIP', 'SBB-AUTOCOMPLETE', 'SBB-SELECT'];
+
 /**
  * @slot label - Slot to render a label.
  * @slot prefix - Slot to render an icon on the left side of the input.
@@ -160,14 +162,14 @@ export class SbbFormField implements ComponentInterface {
 
   @Listen('will-open')
   public onPopupOpen({ target }): void {
-    if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
+    if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
       toggleDatasetEntry(this._element, 'hasPopupOpen', true);
     }
   }
 
   @Listen('did-close')
   public onPopupClose({ target }): void {
-    if ((target as HTMLElement).nodeName === 'SBB-TOOLTIP') {
+    if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
       toggleDatasetEntry(this._element, 'hasPopupOpen', false);
     }
   }

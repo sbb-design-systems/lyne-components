@@ -195,10 +195,13 @@
     }
   }
 
+  // If floating-label is activated and there is no focus in it (except for select) and no popup is open
+  // and input is empty
+  // then apply the label transition.
   :host(
       [floating-label]:not(
           [floating-label='false'],
-          :focus-within,
+          :focus-within:not([data-input-type='sbb-select']),
           [data-has-popup-open]
         )[data-input-empty]
     )
