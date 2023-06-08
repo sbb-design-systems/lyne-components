@@ -152,10 +152,20 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     evt.preventDefault();
   }
 
-  /** Displays the full breadcrumb list by resetting the _hasEllipsis value. */
+  /**
+   * Displays the full breadcrumb list by resetting the _hasEllipsis value and removing the listener on resize.
+   * Note: due to @State annotation on _isCollapsed, this method triggers a new render; as a consequence, the focus is moved
+   * to the `body`, so if the ellipsis element has focus, it's asynchronously forced to the first element.
+   */
   private _expandBreadcrumbs(): void {
     this._isCollapsed = false;
     this._breadcrumbGroupController.abort();
+    if (
+      this._element.shadowRoot.activeElement ===
+      this._element.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis')
+    ) {
+      setTimeout(() => this._breadcrumbs[1].focus(), 0);
+    }
   }
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
