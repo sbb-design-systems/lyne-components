@@ -478,7 +478,7 @@ export namespace Components {
         /**
           * Set the input value to the correctly formatted value.
          */
-        "setValueAsDate": (date: Date) => Promise<void>;
+        "setValueAsDate": (date: Date | number | string) => Promise<void>;
         /**
           * If set to true, two months are displayed
          */

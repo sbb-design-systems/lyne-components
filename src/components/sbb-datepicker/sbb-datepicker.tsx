@@ -13,11 +13,11 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { HandlerRepository } from '../../global/helpers';
 import {
+  HandlerRepository,
   documentLanguage,
   languageChangeHandlerAspect,
-} from '../../global/helpers/eventing/language-change-handler';
+} from '../../global/helpers';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
@@ -118,9 +118,9 @@ export class SbbDatepicker implements ComponentInterface {
       );
       this._inputElement.addEventListener(
         'change',
-        (event: Event) => {
+        async (event: Event) => {
           if (!(event instanceof CustomEvent)) {
-            this._valueChanged(event);
+            await this._valueChanged(event);
           }
         },
         {
@@ -152,8 +152,9 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   /** Set the input value to the correctly formatted value. */
-  @Method() public async setValueAsDate(date: Date): Promise<void> {
-    await this._formatAndUpdateValue(this._createAndComposeDate(date));
+  @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
+    const parsedDate = date instanceof Date ? date : new Date(date);
+    await this._formatAndUpdateValue(this._createAndComposeDate(parsedDate));
   }
 
   @Listen('datepicker-control-registered')
@@ -228,8 +229,8 @@ export class SbbDatepicker implements ComponentInterface {
     return `${day}.${month}.${year || ''}`;
   }
 
-  private _valueChanged(event): void {
-    this._formatAndUpdateValue(event.target.value);
+  private async _valueChanged(event): Promise<void> {
+    await this._formatAndUpdateValue(event.target.value);
   }
 
   /** Applies the correct format to values and triggers event dispatch. */
