@@ -25,11 +25,11 @@ the current value can be read from `event.target.value`.
 Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
 
 ```html
-<sbb-form-field label="Drinks">
+<sbb-form-field label="Train types">
   <sbb-select>
-    <sbb-option value="Water" selected>Water</sbb-option>
-    <sbb-option value="Wine">Wine</sbb-option>
-    <sbb-option value="Beer">Beer</sbb-option>
+    <sbb-option value="Astoro" selected>Astoro</sbb-option>
+    <sbb-option value="Flirt">Flirt</sbb-option>
+    <sbb-option value="Domino">Domino</sbb-option>
   </sbb-select>
 </sbb-form-field>
 ```
@@ -37,16 +37,16 @@ Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
 Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-optgroup`:
 
 ```html
-<sbb-form-field label="Electronic devices">
+<sbb-form-field label="Cities">
   <sbb-select multiple>
-    <sbb-optgroup label='Microsoft'>
-      <sbb-option value="Surface">Surface</sbb-option>
-      <sbb-option value="Lumia">Lumia</sbb-option>
+    <sbb-optgroup label='Switzerland'>
+      <sbb-option value="Zurich">Zurich</sbb-option>
+      <sbb-option value="Bern">Bern</sbb-option>
+      <sbb-option value="Lugano">Lugano</sbb-option>
     </sbb-optgroup>
-    <sbb-optgroup label='Apple'>
-      <sbb-option value="MacBook">MacBook</sbb-option>
-      <sbb-option value="iPad">iPad</sbb-option>
-      <sbb-option value="iPhone">iPhone</sbb-option>
+    <sbb-optgroup label='Italy'>
+      <sbb-option value="Rome">Rome</sbb-option>
+      <sbb-option value="Milan">Milan</sbb-option>
     </sbb-optgroup>
   </sbb-select>
 </sbb-form-field>
@@ -60,7 +60,6 @@ Required `sbb-select` inside a `sbb-form-field`:
     <sbb-option value="Bulbasaur">Bulbasaur</sbb-option>
     <sbb-option value="Charmander">Charmander</sbb-option>
     <sbb-option value="Squirtle">Squirtle</sbb-option>
-    <sbb-option value="Pikachu">Pikachu</sbb-option>
   </sbb-select>
   <sbb-form-error>You must pick one!</sbb-form-error>
 </sbb-form-field>

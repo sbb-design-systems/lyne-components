@@ -163,7 +163,7 @@ export const MultipleSelect: StoryObj = {
 const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{ padding: 'undefined' }}>
+      <div style={{ padding: '2rem' }}>
         <Story />
       </div>
     ),

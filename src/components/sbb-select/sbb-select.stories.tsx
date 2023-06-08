@@ -197,7 +197,7 @@ const codeStyle: Args = {
 
 const defaultDecorator: Decorator[] = [
   (Story) => (
-    <div style={{ padding: 'undefined', height: 'undefined' }}>
+    <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
       <Story />
     </div>
   ),
@@ -207,10 +207,9 @@ const aboveDecorator: Decorator[] = [
   (Story) => (
     <div
       style={{
-        padding: 'undefined',
-        height: 'undefined',
-        display: 'undefined',
-        'align-items': 'undefined',
+        height: '100%',
+        display: 'flex',
+        'align-items': 'end',
       }}
     >
       <Story />
@@ -222,8 +221,8 @@ const scrollDecorator: Decorator[] = [
   (Story) => (
     <div
       style={{
-        padding: '2rem',
-        height: 'calc(100vh * 1.5)',
+        height: '200%',
+        padding: '1rem',
         'background-color': 'var(--sbb-color-milk-default)',
         display: 'flex',
         'align-items': 'center',
@@ -300,7 +299,7 @@ const FormFieldTemplate = ({
       </sbb-form-field>
       {textBlock()}
     </div>
-    <div id="container-value" style={{ 'margin-block-start': 'undefined' }}></div>
+    <div id="container-value" style={{ 'margin-block-start': '2rem' }}></div>
   </Fragment>
 );
 
@@ -342,7 +341,7 @@ const SelectEllipsisTemplate = ({
         </sbb-form-field>
         {textBlock()}
       </div>
-      <div id="container-value" style={{ 'margin-block-start': 'undefined' }}></div>,
+      <div id="container-value" style={{ 'margin-block-start': '2rem' }}></div>
     </Fragment>
   );
 };
@@ -396,7 +395,7 @@ const FormFieldTemplateWithError = ({
 };
 
 const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JSX.Element => (
-  <div style={{ padding: 'undefined', 'background-color': 'undefined' }}>
+  <div style={{ padding: '2rem', 'background-color': 'var(--sbb-color-milk-default)' }}>
     <sbb-form-field
       borderless={borderless}
       floating-label={floatingLabel}
@@ -404,19 +403,18 @@ const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JS
       data-testid="form-field"
     >
       <sbb-select multiple={args.multiple} placeholder={args.placeholder} data-testid="select">
-        <sbb-option value="Abarth">Abarth</sbb-option>
-        <sbb-option value="Alfa Romeo">Alfa Romeo</sbb-option>
-        <sbb-option value="Alpine">Alpine</sbb-option>
-        <sbb-option value="Aston Martin">Aston Martin</sbb-option>
-        <sbb-option value="Audi">Audi</sbb-option>
-        <sbb-option value="BMW">BMW</sbb-option>
-        <sbb-option value="Chevrolet">Chevrolet</sbb-option>
-        <sbb-option value="Daihatsu">Daihatsu</sbb-option>
-        <sbb-option value="Daimler">Daimler</sbb-option>
+        <sbb-option value="Bellinzona">Bellinzona</sbb-option>
+        <sbb-option value="Bern">Bern</sbb-option>
+        <sbb-option value="Chur">Chur</sbb-option>
+        <sbb-option value="Glarus">Glarus</sbb-option>
+        <sbb-option value="Lugano">Lugano</sbb-option>
+        <sbb-option value="Winterthur">Winterthur</sbb-option>
+        <sbb-option value="Zermatt">Zermatt</sbb-option>
+        <sbb-option value="Zürich">Zürich</sbb-option>
       </sbb-select>
     </sbb-form-field>
-    <div style={{ 'padding-block-start': 'undefined' }}>
-      Focus the select and type letters (A to D) with closed or open panel.
+    <div style={{ 'padding-block-start': '1rem' }}>
+      Focus the select and type letters with closed or open panel.
     </div>
   </div>
 );
