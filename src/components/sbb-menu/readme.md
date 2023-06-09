@@ -53,6 +53,7 @@ Clicking in the backdrop or pressing the `ESC` key closes the menu.
 ### Accessibility
 
 As the menu opens, the focus will automatically be set to the first focusable item within the component.
+When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute to identify which actions are active and which are not.
 
 <!-- Auto Generated Below -->
 
