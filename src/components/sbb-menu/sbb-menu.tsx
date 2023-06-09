@@ -26,6 +26,7 @@ import { ScrollHandler } from '../../global/helpers/scroll';
 import { sbbInputModalityDetector, setModalityOnNextFocus } from '../../global/helpers';
 
 import { SbbOverlayState } from '../../global/helpers/overlay';
+import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -53,9 +54,18 @@ export class SbbMenu implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
+   * This will be forwarded as aria-label to the inner list.
+   * Used only if the menu automatically renders the actions inside as a list.
+   */
+  @Prop() public listAccessibilityLabel?: string;
+
+  /**
    * The state of the menu.
    */
   @State() private _state: SbbOverlayState = 'closed';
+
+  /** Sbb-Link elements */
+  @State() private _actions: HTMLSbbMenuActionElement[];
 
   /**
    * Emits whenever the menu starts the opening transition.
@@ -155,6 +165,22 @@ export class SbbMenu implements ComponentInterface {
     }
   }
 
+  @Listen('keydown')
+  public handleKeyDown(evt: KeyboardEvent): void {
+    if (!isArrowKeyPressed(evt)) {
+      return;
+    }
+    evt.preventDefault();
+
+    const enabledActions: Element[] = Array.from(this._element.children).filter(
+      (e: HTMLElement) => e.tabIndex === 0
+    );
+    const current = enabledActions.findIndex((e: Element) => e === evt.target);
+    const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
+
+    (enabledActions[nextIndex] as HTMLElement).focus();
+  }
+
   // Closes the menu on "Esc" key pressed and traps focus within the menu.
   private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
@@ -183,6 +209,7 @@ export class SbbMenu implements ComponentInterface {
   public connectedCallback(): void {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._readActions();
   }
 
   public disconnectedCallback(): void {
@@ -336,7 +363,33 @@ export class SbbMenu implements ComponentInterface {
     this._element.style.setProperty('--sbb-menu-max-height', menuPosition.maxHeight);
   }
 
+  /**
+   * Create an array with only the sbb-menu-action children
+   */
+  private _readActions(): void {
+    const actions = Array.from(this._element.children);
+    // If the slotted actions have not changed, we can skip syncing and updating the actions.
+    if (
+      this._actions &&
+      actions.length === this._actions.length &&
+      this._actions.every((e, i) => actions[i] === e)
+    ) {
+      return;
+    }
+
+    if (actions.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
+      this._actions = actions as HTMLSbbMenuActionElement[];
+    } else {
+      this._actions?.forEach((a) => a.removeAttribute('slot'));
+      this._actions = undefined;
+    }
+  }
+
   public render(): JSX.Element {
+    if (this._actions) {
+      this._actions.forEach((action, index) => action.setAttribute('slot', `action-${index}`));
+    }
+
     return (
       <Host data-state={this._state} ref={assignId(() => this._menuId)}>
         <div class="sbb-menu__container">
@@ -352,7 +405,25 @@ export class SbbMenu implements ComponentInterface {
               ref={(menuContentRef) => (this._menuContentElement = menuContentRef)}
               class="sbb-menu__content"
             >
-              <slot />
+              {this._actions ? (
+                [
+                  <ul class="sbb-menu-list" aria-label={this.listAccessibilityLabel}>
+                    {this._actions.map((_, index) => (
+                      <li>
+                        <slot
+                          name={`action-${index}`}
+                          onSlotchange={(): void => this._readActions()}
+                        />
+                      </li>
+                    ))}
+                  </ul>,
+                  <span hidden>
+                    <slot onSlotchange={(): void => this._readActions()} />
+                  </span>,
+                ]
+              ) : (
+                <slot onSlotchange={(): void => this._readActions()} />
+              )}
             </div>
           </dialog>
         </div>

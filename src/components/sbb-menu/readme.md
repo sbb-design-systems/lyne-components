@@ -5,6 +5,8 @@ On mobile, the menu is displayed as a sheet with a backdrop;
 on desktop it will be shown as a floating menu and will calculate the optimal position relative to the trigger element 
 by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
 
+If only `sbb-menu-action` components are provided inside the menu, the items are automatically grouped within a list using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
+
 ## Usage
 
 The menu component allows you to open a custom menu that allows you to perform actions relevant to the current task 
@@ -51,16 +53,18 @@ Clicking in the backdrop or pressing the `ESC` key closes the menu.
 ### Accessibility
 
 As the menu opens, the focus will automatically be set to the first focusable item within the component.
+When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute to identify which actions are active and which are not.
 
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                 | Type                    | Default     |
-| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                           | `boolean`               | `false`     |
-| `trigger`          | `trigger`           | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element. | `HTMLElement \| string` | `undefined` |
+| Property                 | Attribute                  | Description                                                                                                                       | Type                    | Default     |
+| ------------------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------- |
+| `disableAnimation`       | `disable-animation`        | Whether the animation is enabled.                                                                                                 | `boolean`               | `false`     |
+| `listAccessibilityLabel` | `list-accessibility-label` | This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list. | `string`                | `undefined` |
+| `trigger`                | `trigger`                  | The element that will trigger the menu dialog. Accepts both a string (id of an element) or an HTML element.                       | `HTMLElement \| string` | `undefined` |
 
 
 ## Events

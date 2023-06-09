@@ -953,6 +953,10 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
+          * This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list.
+         */
+        "listAccessibilityLabel"?: string;
+        /**
           * Opens the menu on trigger click.
          */
         "open": () => Promise<void>;
@@ -3381,6 +3385,10 @@ declare namespace LocalJSX {
           * Whether the animation is enabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list.
+         */
+        "listAccessibilityLabel"?: string;
         /**
           * Emits whenever the menu is closed.
          */
