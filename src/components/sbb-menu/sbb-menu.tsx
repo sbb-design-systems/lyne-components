@@ -55,7 +55,7 @@ export class SbbMenu implements ComponentInterface {
 
   /**
    * This will be forwarded as aria-label to the inner list.
-   * Used only if the menu automatically renders the actions inside a list.
+   * Used only if the menu automatically renders the actions inside as a list.
    */
   @Prop() public listAccessibilityLabel?: string;
 

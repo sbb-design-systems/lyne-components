@@ -953,7 +953,7 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
-          * This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside a list.
+          * This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list.
          */
         "listAccessibilityLabel"?: string;
         /**
@@ -3386,7 +3386,7 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside a list.
+          * This will be forwarded as aria-label to the inner list. Used only if the menu automatically renders the actions inside as a list.
          */
         "listAccessibilityLabel"?: string;
         /**
