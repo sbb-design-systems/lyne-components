@@ -55,6 +55,7 @@ export class SbbMenu implements ComponentInterface {
 
   /**
    * This will be forwarded as aria-label to the inner list.
+   * Used only if the menu automatically renders the actions inside a list.
    */
   @Prop() public listAccessibilityLabel?: string;
 
@@ -379,6 +380,7 @@ export class SbbMenu implements ComponentInterface {
     if (actions.every((e) => e.tagName === 'SBB-MENU-ACTION')) {
       this._actions = actions as HTMLSbbMenuActionElement[];
     } else {
+      this._actions?.forEach((a) => a.removeAttribute('slot'));
       this._actions = undefined;
     }
   }
