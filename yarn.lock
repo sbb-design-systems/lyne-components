@@ -9318,10 +9318,10 @@ jstransform@^11.0.3:
     array-includes "^3.1.5"
     object.assign "^4.1.3"
 
-jsx-dom@8.0.6:
-  version "8.0.6"
-  resolved "https://registry.yarnpkg.com/jsx-dom/-/jsx-dom-8.0.6.tgz#c5fc5c53f374adf15e8debde9de1ac4d061f9cad"
-  integrity sha512-e8+YkFB0U0+mxyFHc0YW3z8iz2tJ9f50v65b5I9ATSVz8KvHaNKeeSiVkeRY0tphGMEwjkyfZBNAw1dgF6AN7Q==
+jsx-dom@8.0.7:
+  version "8.0.7"
+  resolved "https://registry.yarnpkg.com/jsx-dom/-/jsx-dom-8.0.7.tgz#29ccdc568e505a7595af0ce335ec03e8822148b9"
+  integrity sha512-0qBdkjBq7xQpZtgNroKwvv0wUX4zItd1br6Mzay0FBfSoicmGAhavJTg+2bS0RW/CgctfnQTmFwycG5XxQ0FPw==
   dependencies:
     csstype "^3.1.2"
 
