@@ -1,13 +1,16 @@
-import { h } from 'jsx-dom';
+/** @jsx h */
+import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const numberOfBreadcrumbs = {
+const numberOfBreadcrumbs: InputType = {
   control: {
     type: 'number',
   },
 };
 
-const text = {
+const text: InputType = {
   control: {
     type: 'text',
   },
@@ -16,7 +19,7 @@ const text = {
   },
 };
 
-const href = {
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -25,7 +28,7 @@ const href = {
   },
 };
 
-const target = {
+const target: InputType = {
   control: {
     type: 'text',
   },
@@ -34,7 +37,7 @@ const target = {
   },
 };
 
-const rel = {
+const rel: InputType = {
   control: {
     type: 'text',
   },
@@ -43,7 +46,7 @@ const rel = {
   },
 };
 
-const download = {
+const download: InputType = {
   control: {
     type: 'boolean',
   },
@@ -52,7 +55,7 @@ const download = {
   },
 };
 
-const iconName = {
+const iconName: InputType = {
   control: {
     type: 'text',
   },
@@ -61,7 +64,7 @@ const iconName = {
   },
 };
 
-const defaultArgTypes = {
+const defaultArgTypes: ArgTypes = {
   numberOfBreadcrumbs,
   text,
   href,
@@ -71,7 +74,7 @@ const defaultArgTypes = {
   'icon-name': iconName,
 };
 
-const defaultArgs = {
+const defaultArgs: Args = {
   numberOfBreadcrumbs: 3,
   text: 'Breadcrumb',
   href: 'https://github.com/lyne-design-system/lyne-components',
@@ -81,31 +84,39 @@ const defaultArgs = {
   'icon-name': undefined,
 };
 
-const breadcrumbTemplate = ({ text, ...args }, i) => (
+const breadcrumbTemplate = (args, text: string, i: number): JSX.Element => (
   <sbb-breadcrumb {...args}>
     {text} {i}
   </sbb-breadcrumb>
 );
 
-const createBreadcrumbs = ({ numberOfBreadcrumbs, ...args }) => [
+const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): JSX.Element[] => [
   <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>,
-  new Array(numberOfBreadcrumbs - 1).fill(undefined).map((_, i) => breadcrumbTemplate(args, i + 1)),
+  new Array(numberOfBreadcrumbs - 1)
+    .fill(undefined)
+    .map((_, i) => breadcrumbTemplate(args, text, i + 1)),
 ];
 
-const Template = (args) => <sbb-breadcrumb-group>{createBreadcrumbs(args)}</sbb-breadcrumb-group>;
+const Template = (args): JSX.Element => (
+  <sbb-breadcrumb-group>{createBreadcrumbs(args)}</sbb-breadcrumb-group>
+);
 
-export const Default = Template.bind({});
-Default.argTypes = defaultArgTypes;
-Default.args = { ...defaultArgs };
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
 
-export const CollapsedState = Template.bind({});
-CollapsedState.argTypes = defaultArgTypes;
-CollapsedState.args = { ...defaultArgs, numberOfBreadcrumbs: 25 };
+export const CollapsedState: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, numberOfBreadcrumbs: 25 },
+};
 
-export default {
+const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={'padding: 2rem'}>
+      <div style={{ padding: '2rem' }}>
         <Story />
         Page content
       </div>
@@ -121,3 +132,5 @@ export default {
   },
   title: 'components/sbb-breadcrumb-group',
 };
+
+export default meta;
