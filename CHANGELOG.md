@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.11](https://github.com/lyne-design-system/lyne-components/compare/v0.36.10...v0.36.11) (2023-06-12)
+
+### Bug Fixes
+
+- enable pressing enter on action elements in Firefox ([#1807](https://github.com/lyne-design-system/lyne-components/issues/1807)) ([adaca6d](https://github.com/lyne-design-system/lyne-components/commit/adaca6d1373ce04804cb47c09721f8c0e9a10a1f))
+
 ### [0.36.10](https://github.com/lyne-design-system/lyne-components/compare/v0.36.9...v0.36.10) (2023-06-09)
 
 ### Features
