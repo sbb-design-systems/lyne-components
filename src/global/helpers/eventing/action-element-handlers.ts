@@ -26,9 +26,8 @@ async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
   // page.
   const { altKey, ctrlKey, metaKey, shiftKey } = event;
   target.shadowRoot.querySelector('a')?.dispatchEvent(
-    new PointerEvent('click', {
-      pointerId: -1,
-      pointerType: '',
+    // We need to use a MouseEvent here, as PointerEvent does not work on Firefox.
+    new MouseEvent('click', {
       altKey,
       ctrlKey,
       metaKey,
