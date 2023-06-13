@@ -29,12 +29,6 @@ const position: InputType = {
   options: ['bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'],
 };
 
-const iconName: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const dismissible: InputType = {
   control: {
     type: 'boolean',
@@ -48,6 +42,19 @@ const timeout: InputType = {
   },
 };
 
+const politeness: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['assertive', 'polite', 'off'],
+};
+
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const disableAnimation: InputType = {
   control: {
     type: 'boolean',
@@ -56,17 +63,19 @@ const disableAnimation: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   position,
-  'icon-name': iconName,
   dismissible,
   timeout,
+  politeness,
+  'icon-name': iconName,
   'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
   position: 'bottom-center',
-  'icon-name': 'circle-tick-small',
   dismissible: false,
-  timeout: 0,
+  timeout: 6000,
+  politeness: 'assertive',
+  'icon-name': 'circle-tick-small',
   'disable-animation': isChromatic(),
 };
 
