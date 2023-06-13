@@ -3,7 +3,7 @@ import events from './sbb-dialog.events';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import sampleImages from '../../global/images';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';

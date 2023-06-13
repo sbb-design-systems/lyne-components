@@ -20,7 +20,7 @@ import {
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
 } from './sbb-timetable-row.sample-data';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';

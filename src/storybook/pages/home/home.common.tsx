@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /** @jsx h */
 import { StoryContext } from '@storybook/html';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import { JSX, h } from 'jsx-dom';
 
 export const SkiplinkList = (): JSX.Element => (

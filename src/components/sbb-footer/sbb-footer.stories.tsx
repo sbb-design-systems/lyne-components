@@ -1,7 +1,7 @@
 /** @jsx h */
 import readme from './readme.md';
 import { h, JSX } from 'jsx-dom';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
