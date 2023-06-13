@@ -7,6 +7,7 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/helpers';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
+import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -21,7 +22,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
   /** Whether the list needs to be shortened with the ellipsis breadcrumb. */
-  @State() private _isCollapsed: boolean;
+  @State() private _isCollapsed: boolean = null;
 
   /** Current document language used for translation of the button label. */
   @State() private _currentLanguage = documentLanguage();
@@ -30,12 +31,18 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   private _totalBreadcrumbsWidth: number;
 
-  private _breadcrumbGroupController: AbortController;
-
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l))
   );
+
+  private _resizeObserver = new ResizeObserver(() => {
+    this._measureBreadcrumbs();
+    this._evaluateCollapsedState();
+    if (this._isCollapsed) {
+      this._resizeObserver.disconnect();
+    }
+  });
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
@@ -58,24 +65,13 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public connectedCallback(): void {
     this._readBreadcrumb();
-    this._breadcrumbGroupController = new AbortController();
-    window.addEventListener(
-      'resize',
-      () => {
-        this._isCollapsed = false;
-        this._evaluateCollapsedState();
-      },
-      {
-        passive: true,
-        signal: this._breadcrumbGroupController.signal,
-      }
-    );
     this._handlerRepository.connect();
   }
 
   public componentDidLoad(): void {
-    this._measureBreadcrumbs();
-    this._evaluateCollapsedState();
+    // Setting this to false will force a new render (needed after calculations).
+    this._isCollapsed = false;
+    this._resizeObserver.observe(this._element);
   }
 
   public componentDidUpdate(): void {
@@ -83,7 +79,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    this._breadcrumbGroupController.abort();
+    this._resizeObserver.disconnect();
     this._handlerRepository.disconnect();
   }
 
@@ -175,7 +171,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
    */
   private _expandBreadcrumbs(): void {
     this._isCollapsed = false;
-    this._breadcrumbGroupController.abort();
+    this._resizeObserver.disconnect();
     if (
       this._element.shadowRoot.activeElement ===
       this._element.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis')

@@ -1,8 +1,23 @@
 /** @jsx h */
-import { h, JSX } from 'jsx-dom';
+import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+
+const addBreadcrumb = (): void => {
+  const container = document.getElementById('container');
+  const breadcrumb = document.createElement('sbb-breadcrumb');
+  breadcrumb.setAttribute('href', '/');
+  breadcrumb.textContent = 'Breadcrumb ' + container.children.length;
+  container.append(breadcrumb);
+};
+
+const removeBreadcrumb = (): void => {
+  const container = document.getElementById('container');
+  if (container.children.length > 1) {
+    container.removeChild(container.lastElementChild);
+  }
+};
 
 const numberOfBreadcrumbs: InputType = {
   control: {
@@ -98,7 +113,13 @@ const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): JSX.Element[
 ];
 
 const Template = (args): JSX.Element => (
-  <sbb-breadcrumb-group>{createBreadcrumbs(args)}</sbb-breadcrumb-group>
+  <Fragment>
+    <sbb-breadcrumb-group id="container">{createBreadcrumbs(args)}</sbb-breadcrumb-group>
+    <div style={{ 'margin-block': '2rem', gap: '1rem', display: 'flex' }}>
+      <button onClick={() => addBreadcrumb()}>Add</button>
+      <button onClick={() => removeBreadcrumb()}>Remove</button>
+    </div>
+  </Fragment>
 );
 
 export const Default: StoryObj = {
@@ -118,7 +139,7 @@ const meta: Meta = {
     (Story) => (
       <div style={{ padding: '2rem' }}>
         <Story />
-        Page content
+        <div>Page content</div>
       </div>
     ),
   ],
