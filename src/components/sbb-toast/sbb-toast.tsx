@@ -17,7 +17,8 @@ import {
   namedSlotChangeHandlerAspect,
   SbbOverlayState,
 } from '../../global/helpers';
-import { AriaPoliteness, ToastPosition } from './sbb-toast.custom';
+import { AriaPoliteness, ToastAriaRole, ToastPosition } from './sbb-toast.custom';
+import { isFirefox } from '../../global/helpers/platform';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -47,19 +48,13 @@ export class SbbToast implements ComponentInterface {
    * TODO:
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
-  @Prop() public politeness: AriaPoliteness;
+  @Prop() public politeness: AriaPoliteness = 'assertive';
 
   /** Whether the animation is disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /** The state of the autocomplete. */
   @State() private _state: SbbOverlayState = 'closed';
-
-  /**
-   * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
-   * JAWS does not read out aria-live message.
-   */
-  // @State() private _role?: 'status' | 'alert';
 
   @State() private _namedSlots = createNamedSlotState('icon', 'action');
 
@@ -103,6 +98,22 @@ export class SbbToast implements ComponentInterface {
   );
 
   private _closeTimeout: ReturnType<typeof setTimeout>;
+
+  /**
+   * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
+   * JAWS does not read out aria-live message.
+   */
+  private get _role(): ToastAriaRole {
+    if (!isFirefox()) {
+      return;
+    }
+
+    if (this.politeness === 'polite') {
+      return 'status';
+    } else if (this.politeness === 'assertive') {
+      return 'alert';
+    }
+  }
 
   /**
    * Open the toast.
@@ -203,6 +214,9 @@ export class SbbToast implements ComponentInterface {
         data-state={this._state}
         data-has-icon={this._namedSlots['icon'] || !!this.iconName}
         data-has-action={this._namedSlots['action'] || this.dismissible}
+        aria-live={this.politeness}
+        role={this._role}
+        tabindex="-1"
       >
         <div class="sbb-toast__overlay-container">
           <div

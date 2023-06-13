@@ -8,3 +8,5 @@ export type ToastPosition =
 
 // Maybe move this to a shared file
 export type AriaPoliteness = 'polite' | 'assertive' | 'off';
+
+export type ToastAriaRole = 'status' | 'alert';
