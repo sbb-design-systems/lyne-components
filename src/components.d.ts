@@ -1655,12 +1655,15 @@ export namespace Components {
          */
         "open": () => Promise<void>;
         /**
-          * TODO: Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
+          * The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
          */
         "politeness": AriaPoliteness;
+        /**
+          * The position where to place the toast.
+         */
         "position": ToastPosition;
         /**
-          * TODO
+          * The length of time in milliseconds to wait before automatically dismissing the toast.
          */
         "timeout": number;
     }
@@ -4183,12 +4186,15 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbToastCustomEvent<void>) => void;
         /**
-          * TODO: Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
+          * The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
          */
         "politeness"?: AriaPoliteness;
+        /**
+          * The position where to place the toast.
+         */
         "position"?: ToastPosition;
         /**
-          * TODO
+          * The length of time in milliseconds to wait before automatically dismissing the toast.
          */
         "timeout"?: number;
     }

@@ -13,12 +13,15 @@ import {
 } from '@stencil/core';
 import {
   createNamedSlotState,
+  documentLanguage,
   HandlerRepository,
+  languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   SbbOverlayState,
 } from '../../global/helpers';
 import { AriaPoliteness, ToastAriaRole, ToastPosition } from './sbb-toast.custom';
 import { isFirefox } from '../../global/helpers/platform';
+import { i18nCloseDialog } from '../../global/i18n';
 
 /**
  * @slot unnamed - Use this to document a slot.
@@ -29,23 +32,23 @@ import { isFirefox } from '../../global/helpers/platform';
   tag: 'sbb-toast',
 })
 export class SbbToast implements ComponentInterface {
-  /** TODO */
-  @Prop() public timeout = 3000;
+  /** The length of time in milliseconds to wait before automatically dismissing the toast. */
+  @Prop() public timeout = 6000;
 
   /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
+   * The icon name we want to use, choose from the small icon variants from the ui-icons category from here
    * https://lyne.sbb.ch/tokens/icons/.
    */
   @Prop() public iconName?: string;
 
+  /** The position where to place the toast. */
   @Prop({ reflect: true }) public position: ToastPosition = 'bottom-center';
 
   /** Whether the toast has a close button. */
   @Prop() public dismissible = false;
 
   /**
-   * TODO:
+   * The ARIA politeness level.
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
   @Prop() public politeness: AriaPoliteness = 'assertive';
@@ -57,6 +60,8 @@ export class SbbToast implements ComponentInterface {
   @State() private _state: SbbOverlayState = 'closed';
 
   @State() private _namedSlots = createNamedSlotState('icon', 'action');
+
+  @State() private _currentLanguage = documentLanguage();
 
   /** Emits whenever the autocomplete starts the opening transition. */
   @Event({
@@ -94,6 +99,7 @@ export class SbbToast implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
   );
 
@@ -240,6 +246,7 @@ export class SbbToast implements ComponentInterface {
                     variant="transparent"
                     negative={true}
                     size="m"
+                    aria-label={i18nCloseDialog[this._currentLanguage]}
                     onClick={() => this.close()}
                   ></sbb-button>
                 )}
