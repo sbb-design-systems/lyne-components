@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.13](https://github.com/lyne-design-system/lyne-components/compare/v0.36.12...v0.36.13) (2023-06-13)
+
+### Refactorings
+
+- adapt chromatic check imports ([#1811](https://github.com/lyne-design-system/lyne-components/issues/1811)) ([a5865f8](https://github.com/lyne-design-system/lyne-components/commit/a5865f84450900b216cca0ee87a74131678339e2))
+
 ### [0.36.12](https://github.com/lyne-design-system/lyne-components/compare/v0.36.11...v0.36.12) (2023-06-13)
 
 ### Bug Fixes
