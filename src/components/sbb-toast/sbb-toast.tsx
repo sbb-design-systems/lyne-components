@@ -242,7 +242,7 @@ export class SbbToast implements ComponentInterface {
                 {this.dismissible && (
                   <sbb-button
                     class="sbb-toast__action-button"
-                    iconName="cross-small"
+                    icon-name="cross-small"
                     variant="transparent"
                     negative={true}
                     size="m"
