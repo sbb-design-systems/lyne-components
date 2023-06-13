@@ -18,7 +18,7 @@ describe('sbb-toast', () => {
     expect(element).toHaveClass('hydrated');
 
     expect(element).toEqualAttribute('aria-live', 'assertive');
-    expect(element).not.toHaveAttribute('role');
+    expect(element).toEqualAttribute('role', 'alert');
     expect(element).not.toHaveAttribute('data-has-action');
     expect(element).not.toHaveAttribute('data-has-icon');
     expect(element).toEqualAttribute('data-state', 'closed');

@@ -147,6 +147,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
+    chromatic: { disableSnapshot: false },
     actions: {
       handles: [events.willOpen, events.didOpen, events.willClose, events.didClose],
     },

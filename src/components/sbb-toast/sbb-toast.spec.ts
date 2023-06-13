@@ -14,7 +14,7 @@ describe('sbb-toast', () => {
 
     expect(root).toEqualHtml(`
       <sbb-toast position="bottom-center" icon-name="circle-tick-small" dismissible="true" data-state="closed" 
-        data-has-icon data-has-action aria-live="assertive" tabindex="-1"
+        data-has-icon data-has-action aria-live="assertive" role="alert"
       >
         <mock:shadow-root>
           <div class="sbb-toast__overlay-container">
