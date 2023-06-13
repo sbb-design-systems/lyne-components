@@ -72,9 +72,7 @@ const defaultArgs: Args = {
 
 const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
   <Fragment>
-    <sbb-button id="show-btn" onClick={() => document.querySelector('sbb-toast').open()}>
-      Show toast
-    </sbb-button>
+    <sbb-button onClick={() => document.querySelector('sbb-toast').open()}>Show toast</sbb-button>
     <sbb-toast {...args} data-testid="sbb-toast">
       {contentLength === 's'
         ? 'Lorem ipsum dolor'

@@ -1,5 +1,39 @@
-to be documented...
+The `sbb-toast` is a component that can be used to display toast notifications.
 
+## Usage
+A `sbb-toast` can be shown/dismissed by calling the `open/close` methods.
+
+Only one toast can ever be opened at one time. If a new toast is opened while a previous message is still showing, the older message will be automatically dismissed.
+
+```html
+<sbb-button onClick={() => document.querySelector('sbb-toast').open() } />
+
+<sbb-toast position="bottom-left" dismissible="true">
+  Toast content
+</sbb-toast>
+```
+A toast can also be given a `timeout` and a custom action:
+
+```html
+<sbb-button onClick={() => document.querySelector('sbb-toast').open() } />
+
+<sbb-toast position="bottom-left" timeout="6000">
+  Toast content
+
+  <!-- Toast action can be a button -->
+  <sbb-button slot="action" icon-name="clock-small"></sbb-button>
+  <!-- Or a link -->
+  <sbb-link slot="action">Link action</sbb-link>
+</sbb-toast>
+```
+
+## Accessibility
+`sbb-toast` announces messages via an aria-live region. Use the `politeness` property to customize the politeness announcement behaviour. 
+Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions) for further info.
+
+`sbb-toast` does not move focus to the toast element. Moving focus like this would disrupt users in the middle of a workflow. For any action offered in the toast, your application should provide an alternative way to perform the action.
+
+Avoid setting a `duration` for toasts that have an action available, as screen reader users may want to navigate to the toast element to activate the action.
 <!-- Auto Generated Below -->
 
 
