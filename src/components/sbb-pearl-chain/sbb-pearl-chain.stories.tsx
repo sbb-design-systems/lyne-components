@@ -10,7 +10,7 @@ import {
   redirectedOnDepartureLeg,
   redirectedOnArrivalLeg,
 } from './sbb-pearl-chain.sample-data';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 

@@ -2,7 +2,7 @@
 import { h, JSX } from 'jsx-dom';
 import images from '../../global/images';
 import readme from './readme.md';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 

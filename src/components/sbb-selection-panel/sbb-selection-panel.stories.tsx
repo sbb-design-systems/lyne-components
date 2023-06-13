@@ -2,7 +2,7 @@
 import events from './sbb-selection-panel.events';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';

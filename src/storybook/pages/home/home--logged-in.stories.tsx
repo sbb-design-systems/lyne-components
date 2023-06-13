@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import {
   futureLeg,
   pastLeg,

@@ -7,7 +7,7 @@ import {
   progressLeg,
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 import readme from './readme.md';
-import isChromatic from 'chromatic/isChromatic';
+import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
