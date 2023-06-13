@@ -104,15 +104,24 @@ export class SbbToast implements ComponentInterface {
 
   private _closeTimeout: ReturnType<typeof setTimeout>;
 
+  /**
+   * Open the toast.
+   * If there are other opened toasts in the page, close them first.
+   */
   @Method() public async open(): Promise<void> {
     if (this._state !== 'closed') {
       return;
     }
 
+    this._closeOtherToasts();
+
     this._state = 'opening';
     this.willOpen.emit();
   }
 
+  /**
+   * Close the toast.
+   */
   @Method() public async close(): Promise<void> {
     if (this._state !== 'opened') {
       return;
@@ -122,6 +131,10 @@ export class SbbToast implements ComponentInterface {
 
     this._state = 'closing';
     this.willClose.emit();
+  }
+
+  @Method() public async getState(): Promise<SbbOverlayState> {
+    return this._state;
   }
 
   public connectedCallback(): void {
@@ -171,6 +184,17 @@ export class SbbToast implements ComponentInterface {
       this._state = 'closed';
       this.didClose.emit();
     }
+  }
+
+  /**
+   * Since we do not stack toasts, we force the closing on other existing opened toasts
+   */
+  private async _closeOtherToasts(): Promise<void> {
+    document.querySelectorAll('sbb-toast').forEach(async (t) => {
+      if ((await t.getState()) === 'opened') {
+        t.close();
+      }
+    });
   }
 
   public render(): JSX.Element {

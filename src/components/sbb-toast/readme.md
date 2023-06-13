@@ -29,7 +29,7 @@ to be documented...
 
 ### `close() => Promise<void>`
 
-
+Close the toast.
 
 #### Returns
 
@@ -37,9 +37,20 @@ Type: `Promise<void>`
 
 
 
+### `getState() => Promise<SbbOverlayState>`
+
+
+
+#### Returns
+
+Type: `Promise<SbbOverlayState>`
+
+
+
 ### `open() => Promise<void>`
 
-
+Open the toast.
+If there are other opened toasts in the page, close them first.
 
 #### Returns
 
