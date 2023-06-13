@@ -7,14 +7,11 @@
 :host {
   --sbb-toast-z-index: var(--sbb-overlay-z-index);
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
+  --sbb-toast-animation-duration: var(--sbb-animation-duration-6x);
 }
 
-::slotted(sbb-button) {
-  margin-inline: var(--sbb-spacing-fixed-2x);
-}
-
-::slotted(sbb-link) {
-  margin-inline-start: var(--sbb-spacing-fixed-4x);
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-toast-animation-duration: 0s;
 }
 
 .sbb-toast__overlay-container {
@@ -73,7 +70,7 @@
   :host([data-state='opening']) & {
     animation: {
       name: open;
-      duration: var(--sbb-animation-duration-6x);
+      duration: var(--sbb-toast-animation-duration);
       timing-function: ease;
     }
   }
@@ -81,7 +78,7 @@
   :host([data-state='closing']) & {
     animation: {
       name: close;
-      duration: var(--sbb-animation-duration-6x);
+      duration: var(--sbb-toast-animation-duration);
       timing-function: ease;
     }
   }

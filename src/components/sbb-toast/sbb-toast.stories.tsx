@@ -59,7 +59,7 @@ const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   dismissible,
   timeout,
-  disableAnimation,
+  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
@@ -67,7 +67,7 @@ const defaultArgs: Args = {
   'icon-name': 'circle-tick-small',
   dismissible: false,
   timeout: 0,
-  disableAnimation: isChromatic(),
+  'disable-animation': isChromatic(),
 };
 
 const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
@@ -78,7 +78,7 @@ const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
     <sbb-toast {...args} data-testid="sbb-toast">
       {contentLength === 's'
         ? 'Lorem ipsum dolor'
-        : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'}
+        : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
 
       {action === 'button' && <sbb-button slot="action" icon-name="clock-small"></sbb-button>}
 
