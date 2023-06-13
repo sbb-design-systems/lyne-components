@@ -60,7 +60,7 @@
   pointer-events: initial;
   margin: var(--sbb-spacing-responsive-s);
   padding-block: var(--sbb-spacing-responsive-xxxs);
-  padding-inline: var(--sbb-spacing-responsive-xs); // Not true if dismissable
+  padding-inline: var(--sbb-spacing-responsive-xs);
   border-radius: var(--sbb-border-radius-4x);
   max-width: var(--sbb-toast-max-width);
   display: flex;
@@ -96,6 +96,26 @@
   @include sbb.title-6($exclude-spacing: true);
 
   flex: 1 1 0;
+}
+
+.sbb-toast__action {
+  position: relative;
+  min-width: 40px;
+
+  :host(:not([data-has-action])) & {
+    display: none;
+  }
+}
+
+::slotted(sbb-button),
+.sbb-toast__action-button {
+  margin-inline: var(--sbb-spacing-fixed-2x);
+  position: absolute;
+  top: calc(var(--sbb-spacing-responsive-xxxs) * -1 / 2);
+}
+
+::slotted(sbb-link) {
+  margin-inline-start: var(--sbb-spacing-fixed-4x);
 }
 
 @keyframes open {

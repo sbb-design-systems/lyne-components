@@ -61,7 +61,7 @@ export class SbbToast implements ComponentInterface {
    */
   // @State() private _role?: 'status' | 'alert';
 
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @State() private _namedSlots = createNamedSlotState('icon', 'action');
 
   /** Emits whenever the autocomplete starts the opening transition. */
   @Event({
@@ -136,7 +136,7 @@ export class SbbToast implements ComponentInterface {
   private _onActionSlotChange(event: Event): void {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
 
-    // Force the state on the slotted buttons
+    // Force the visual state on slotted buttons
     slotNodes
       .filter((el) => el.nodeName === 'SBB-BUTTON')
       .forEach((btn: HTMLSbbButtonElement) => {
@@ -145,7 +145,7 @@ export class SbbToast implements ComponentInterface {
         btn.size = 'm';
       });
 
-    // Force the state on the slotted links
+    // Force the visual state on slotted links
     slotNodes
       .filter((el) => el.nodeName === 'SBB-LINK')
       .forEach((link: HTMLSbbLinkElement) => {
@@ -175,7 +175,11 @@ export class SbbToast implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host data-state={this._state} data-has-icon={this._namedSlots.icon || !!this.iconName}>
+      <Host
+        data-state={this._state}
+        data-has-icon={this._namedSlots['icon'] || !!this.iconName}
+        data-has-action={this._namedSlots['action'] || this.dismissible}
+      >
         <div class="sbb-toast__overlay-container">
           <div
             class="sbb-toast"
@@ -189,17 +193,20 @@ export class SbbToast implements ComponentInterface {
               <slot />
             </div>
 
-            <slot name="action" onSlotchange={(event) => this._onActionSlotChange(event)}>
-              {this.dismissible && (
-                <sbb-button
-                  iconName="cross-small"
-                  variant="transparent"
-                  negative={true}
-                  size="m"
-                  onClick={() => this.close()}
-                ></sbb-button>
-              )}
-            </slot>
+            <div class="sbb-toast__action">
+              <slot name="action" onSlotchange={(event) => this._onActionSlotChange(event)}>
+                {this.dismissible && (
+                  <sbb-button
+                    class="sbb-toast__action-button"
+                    iconName="cross-small"
+                    variant="transparent"
+                    negative={true}
+                    size="m"
+                    onClick={() => this.close()}
+                  ></sbb-button>
+                )}
+              </slot>
+            </div>
           </div>
         </div>
       </Host>
