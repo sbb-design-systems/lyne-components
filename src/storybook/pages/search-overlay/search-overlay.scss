@@ -1,0 +1,26 @@
+@use '../../../global/styles' as sbb;
+
+$timetable-margin-block: 7vh;
+
+#search-overlay-field {
+  width: 100%;
+}
+
+.search-result__wrapper {
+  padding-block: var(--sbb-spacing-fixed-3x);
+  padding-inline: var(--sbb-spacing-responsive-xxxs);
+}
+
+.search-result-item {
+  display: block;
+  padding-block: var(--sbb-spacing-fixed-3x);
+  border-bottom: 1px solid var(--sbb-color-charcoal-default);
+  text-decoration: none;
+
+  .subtitle {
+    @include sbb.text-xs--regular;
+
+    display: block;
+    color: var(--sbb-color-smoke-default);
+  }
+}
