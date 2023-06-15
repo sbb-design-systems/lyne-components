@@ -19,7 +19,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
 
   const toast = canvas.getByTestId('sbb-toast') as HTMLSbbToastElement;
   toast.open();
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 const position: InputType = {
@@ -140,7 +140,11 @@ export const WithActionLink: StoryObj = {
 const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{ padding: '2rem' }}>
+      <div
+        style={{
+          padding: '2rem',
+        }}
+      >
         <Story />
       </div>
     ),
