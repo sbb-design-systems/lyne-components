@@ -8,6 +8,13 @@
   --sbb-toast-z-index: var(--sbb-overlay-z-index);
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
   --sbb-toast-animation-duration: var(--sbb-animation-duration-6x);
+  --sbb-toast-animation-timing-function: ease;
+  --sbb-toast-color: var(--sbb-color-milk-default);
+  --sbb-toast-background-color: var(--sbb-color-midnight-default);
+  --sbb-toast-margin: var(--sbb-spacing-responsive-s);
+  --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-toast-border-radius: var(--sbb-border-radius-4x);
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
@@ -18,8 +25,8 @@
   position: fixed;
   pointer-events: none;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
 
   :host([data-state='closed']) & {
@@ -60,20 +67,20 @@
 .sbb-toast {
   z-index: var(--sbb-toast-z-index);
   pointer-events: auto;
-  margin: var(--sbb-spacing-responsive-s);
-  padding-block: var(--sbb-spacing-responsive-xxxs);
-  padding-inline: var(--sbb-spacing-responsive-xs);
-  border-radius: var(--sbb-border-radius-4x);
+  margin: var(--sbb-toast-margin);
+  padding-block: var(--sbb-toast-padding-block);
+  padding-inline: var(--sbb-toast-padding-inline);
+  border-radius: var(--sbb-toast-border-radius);
   max-width: var(--sbb-toast-max-width);
   display: flex;
-  color: var(--sbb-color-milk-default);
-  background-color: var(--sbb-color-midnight-default);
+  color: var(--sbb-toast-color);
+  background-color: var(--sbb-toast-background-color);
 
   :host([data-state='opening']) & {
     animation: {
       name: open;
       duration: var(--sbb-toast-animation-duration);
-      timing-function: ease;
+      timing-function: var(--sbb-toast-animation-timing-function);
     }
   }
 
@@ -81,7 +88,7 @@
     animation: {
       name: close;
       duration: var(--sbb-toast-animation-duration);
-      timing-function: ease;
+      timing-function: var(--sbb-toast-animation-timing-function);
     }
   }
 }
@@ -102,7 +109,9 @@
 
 .sbb-toast__action {
   position: relative;
-  min-width: 40px;
+
+  // Since the action button has an absolute position, we have to "reserve" space
+  min-width: #{sbb.px-to-rem-build(40)};
 
   :host(:not([data-has-action])) & {
     display: none;
