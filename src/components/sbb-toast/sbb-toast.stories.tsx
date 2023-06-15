@@ -143,6 +143,7 @@ const meta: Meta = {
       <div
         style={{
           padding: '2rem',
+          height: 'calc(100vh - 2rem)',
         }}
       >
         <Story />

@@ -25,8 +25,6 @@
   position: fixed;
   pointer-events: none;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   display: flex;
 
   :host([data-state='closed']) & {
