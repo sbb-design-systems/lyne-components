@@ -20,7 +20,7 @@ import {
   SbbOverlayState,
 } from '../../global/helpers';
 import { AriaPoliteness, ToastAriaRole, ToastPosition } from './sbb-toast.custom';
-// import { isFirefox } from '../../global/helpers/platform';
+import { isFirefox } from '../../global/helpers/platform';
 import { i18nCloseDialog } from '../../global/i18n';
 
 /**
@@ -110,9 +110,9 @@ export class SbbToast implements ComponentInterface {
    * JAWS does not read out aria-live message.
    */
   private get _role(): ToastAriaRole {
-    // if (!isFirefox()) {
-    //   return;
-    // }
+    if (!isFirefox()) {
+      return;
+    }
 
     if (this.politeness === 'polite') {
       return 'status';
@@ -220,12 +220,12 @@ export class SbbToast implements ComponentInterface {
         data-state={this._state}
         data-has-icon={this._namedSlots['icon'] || !!this.iconName}
         data-has-action={this._namedSlots['action'] || this.dismissible}
-        aria-live={this.politeness}
-        role={this._role}
       >
         <div class="sbb-toast__overlay-container">
           <div
             class="sbb-toast"
+            aria-live={this.politeness}
+            role={this._role}
             onAnimationEnd={(event: AnimationEvent) => this._onToastAnimationEnd(event)}
           >
             <div class="sbb-toast__icon">
@@ -233,6 +233,7 @@ export class SbbToast implements ComponentInterface {
             </div>
 
             <div class="sbb-toast__content">
+              Test text content {/* TODO Remove this */}
               <slot />
             </div>
 

@@ -59,7 +59,7 @@
 
 .sbb-toast {
   z-index: var(--sbb-toast-z-index);
-  pointer-events: initial;
+  pointer-events: auto;
   margin: var(--sbb-spacing-responsive-s);
   padding-block: var(--sbb-spacing-responsive-xxxs);
   padding-inline: var(--sbb-spacing-responsive-xs);
