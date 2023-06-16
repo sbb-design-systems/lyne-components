@@ -22,11 +22,18 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
-const position: InputType = {
+const horizontalPosition: InputType = {
   control: {
     type: 'select',
   },
-  options: ['bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'],
+  options: ['left', 'center', 'right', 'start', 'end'],
+};
+
+const verticalPosition: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['top', 'bottom'],
 };
 
 const dismissible: InputType = {
@@ -62,27 +69,37 @@ const disableAnimation: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  position,
+  horizontalPosition,
+  verticalPosition,
   dismissible,
   timeout,
   politeness,
-  'icon-name': iconName,
-  'disable-animation': disableAnimation,
+  iconName,
+  disableAnimation,
 };
 
 const defaultArgs: Args = {
-  position: 'bottom-center',
+  horizontalPosition: 'center',
+  verticalPosition: 'bottom',
   dismissible: false,
   timeout: 6000,
   politeness: 'assertive',
-  'icon-name': 'circle-tick-small',
-  'disable-animation': isChromatic(),
+  iconName: 'circle-tick-small',
+  disableAnimation: isChromatic(),
 };
 
 const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
   <Fragment>
     <sbb-button onClick={() => document.querySelector('sbb-toast').open()}>Show toast</sbb-button>
-    <sbb-toast {...args} data-testid="sbb-toast">
+    <sbb-toast
+      position={`${args.verticalPosition}-${args.horizontalPosition}` as any}
+      dismissible={args.dismissible}
+      timeout={args.timeout}
+      politeness={args.politeness}
+      icon-name={args.iconName}
+      disable-animation={args.disableAnimation}
+      data-testid="sbb-toast"
+    >
       {contentLength === 's'
         ? 'Lorem ipsum dolor'
         : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}

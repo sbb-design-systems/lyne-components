@@ -31,7 +31,8 @@
     display: none;
   }
 
-  :host([position='bottom-left']) & {
+  :host([position='bottom-left']) &,
+  :host([position='bottom-start']) & {
     justify-content: flex-start;
     align-items: flex-end;
   }
@@ -41,12 +42,14 @@
     align-items: flex-end;
   }
 
-  :host([position='bottom-right']) & {
+  :host([position='bottom-right']) &,
+  :host([position='bottom-end']) & {
     justify-content: flex-end;
     align-items: flex-end;
   }
 
-  :host([position='top-left']) & {
+  :host([position='top-left']) &,
+  :host([position='top-start']) & {
     justify-content: flex-start;
     align-items: flex-start;
   }
@@ -56,7 +59,8 @@
     align-items: flex-start;
   }
 
-  :host([position='top-right']) & {
+  :host([position='top-right']) &,
+  :host([position='top-end']) & {
     justify-content: flex-end;
     align-items: flex-start;
   }

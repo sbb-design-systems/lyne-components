@@ -1,10 +1,6 @@
-export type ToastPosition =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right';
+type ToastPositionVertical = 'top' | 'bottom';
+type ToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
+export type ToastPosition = `${ToastPositionVertical}-${ToastPositionHorizontal}`;
 
 export type AriaPoliteness = 'polite' | 'assertive' | 'off';
 
