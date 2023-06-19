@@ -68,7 +68,7 @@ function handleLinkButtonClick(event: MouseEvent): void {
     return;
   } else if (element.type === 'submit') {
     if (form.requestSubmit) {
-      form.requestSubmit(element);
+      form.requestSubmit();
     } else {
       form.submit();
     }
