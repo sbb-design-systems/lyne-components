@@ -43,6 +43,12 @@ const loadingPrice: InputType = {
   },
 };
 
+const accessibilityExpanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const active: InputType = {
   control: {
     type: 'boolean',
@@ -65,6 +71,7 @@ const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
   'loading-trip': loadingTrip,
   'loading-price': loadingPrice,
+  'accessibility-expanded': accessibilityExpanded,
   active,
   'data-now': now,
   boarding,
@@ -74,6 +81,7 @@ const defaultArgs: Args = {
   'disable-animation': isChromatic(),
   'loading-trip': false,
   'loading-price': false,
+  'accessibility-expanded': false,
   active: false,
   'data-now': new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
@@ -136,6 +144,15 @@ export const LoadingPrice: StoryObj = {
     ...defaultArgs,
     'loading-price': true,
     price: { price: '39.90', text: 'ab CHF', isDiscount: true },
+  },
+};
+
+export const AriaExpanded: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'accessibility-expanded': true,
   },
 };
 

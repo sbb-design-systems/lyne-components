@@ -61,6 +61,9 @@ export class SbbTimetableRow {
    */
   @Prop() public loadingPrice?: boolean;
 
+  /** This will be forwarded to the sbb-card component as aria-expanded. */
+  @Prop() public accessibilityExpanded?: boolean;
+
   /** When this prop is true the sbb-card will be in the active state. */
   @Prop() public active?: boolean;
 
@@ -161,7 +164,7 @@ export class SbbTimetableRow {
 
     return (
       <Host role="rowgroup">
-        <sbb-card size="l" active={this.active} id={id}>
+        <sbb-card aria-expanded={this.accessibilityExpanded} size="l" active={this.active} id={id}>
           {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
           {this.price && !this.loadingPrice && (
             <sbb-card-badge
