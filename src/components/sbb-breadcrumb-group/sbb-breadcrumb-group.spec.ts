@@ -15,7 +15,7 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-breadcrumb-group role='navigation'>
+      <sbb-breadcrumb-group role='navigation' data-loaded>
         <mock:shadow-root>
           <ol class="sbb-breadcrumb-group">
             <li class="sbb-breadcrumb-group__item">

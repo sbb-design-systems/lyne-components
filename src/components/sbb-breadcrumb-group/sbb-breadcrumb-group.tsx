@@ -8,6 +8,7 @@ import {
 } from '../../global/helpers';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -63,6 +64,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._resizeObserver.observe(this._element);
+    toggleDatasetEntry(this._element, 'loaded', true);
   }
 
   public componentDidRender(): void {
