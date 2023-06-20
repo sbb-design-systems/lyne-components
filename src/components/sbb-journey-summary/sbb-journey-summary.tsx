@@ -28,7 +28,7 @@ export class SbbJourneySummary implements ComponentInterface {
   @Prop() public roundTrip?: boolean;
 
   /** Heading level of the journey header element (e.g. h1-h6). */
-  @Prop() public headerLevel?: InterfaceSbbJourneySummaryAttributes['level'] = '3';
+  @Prop() public headerLevel?: InterfaceSbbJourneySummaryAttributes['headerLevel'] = '3';
 
   /**
    * Per default, the current location has a pulsating animation. You can

@@ -825,7 +825,7 @@ export namespace Components {
         /**
           * Heading level of the journey header element (e.g. h1-h6).
          */
-        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['level'];
+        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['headerLevel'];
         /**
           * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
          */
@@ -3266,7 +3266,7 @@ declare namespace LocalJSX {
         /**
           * Heading level of the journey header element (e.g. h1-h6).
          */
-        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['level'];
+        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['headerLevel'];
         /**
           * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
          */

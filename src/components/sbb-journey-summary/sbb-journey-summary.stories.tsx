@@ -27,7 +27,7 @@ const headerLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [2, 3, 4, 5, 6],
+  options: [1, 2, 3, 4, 5, 6],
   table: {
     category: 'Heading level of the journey header',
   },
