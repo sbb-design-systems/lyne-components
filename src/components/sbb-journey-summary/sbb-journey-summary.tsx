@@ -26,6 +26,10 @@ export class SbbJourneySummary implements ComponentInterface {
    * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
    */
   @Prop() public roundTrip?: boolean;
+
+  /** Heading level of the journey header element (e.g. h1-h6). */
+  @Prop() public headerLevel?: InterfaceSbbJourneySummaryAttributes['headerLevel'] = '3';
+
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
@@ -133,7 +137,7 @@ export class SbbJourneySummary implements ComponentInterface {
         {origin && (
           <sbb-journey-header
             size="l"
-            level="3"
+            level={this.headerLevel}
             origin={origin}
             destination={destination}
             roundTrip={this.roundTrip}

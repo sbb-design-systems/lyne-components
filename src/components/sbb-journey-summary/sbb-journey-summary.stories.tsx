@@ -23,6 +23,16 @@ const roundTrip: InputType = {
   },
 };
 
+const headerLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+  table: {
+    category: 'Heading level of the journey header',
+  },
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -32,12 +42,14 @@ const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
   'data-now': now,
   'round-trip': roundTrip,
+  'header-level': headerLevel,
 };
 
 const defaultArgs: Args = {
   'disable-animation': isChromatic(),
   'data-now': new Date('2022-12-05T12:11:00').valueOf(),
   'round-trip': false,
+  'header-level': headerLevel.options[2],
 };
 
 const Template = (args): JSX.Element => (
@@ -167,10 +179,29 @@ export const summaryRoundtrip: StoryObj = {
 };
 export const summaryRoundtripOneJourney: StoryObj = {
   render: TemplateNoSlot,
+  argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
     trip: {
       vias: ['via1', 'via2', 'via3', 'via4'],
+      legs: [pastLeg, progressLeg, futureLeg],
+      origin: 'Bern',
+      destination: 'Basel',
+      departure: '2022-09-19T20:30:00+02:00',
+      arrival: '2022-09-19T22:30:00+02:00',
+      duration: 120,
+    },
+    'round-trip': true,
+  },
+};
+
+export const summaryHeaderLevel: StoryObj = {
+  render: TemplateNoSlot,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'header-level': headerLevel.options[4],
+    trip: {
       legs: [pastLeg, progressLeg, futureLeg],
       origin: 'Bern',
       destination: 'Basel',

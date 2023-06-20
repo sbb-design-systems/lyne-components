@@ -823,6 +823,10 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
+          * Heading level of the journey header element (e.g. h1-h6).
+         */
+        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['headerLevel'];
+        /**
           * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
          */
         "roundTrip"?: boolean;
@@ -3263,6 +3267,10 @@ declare namespace LocalJSX {
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Heading level of the journey header element (e.g. h1-h6).
+         */
+        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['headerLevel'];
         /**
           * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
          */
