@@ -97,6 +97,7 @@
 
 .sbb-toast__icon {
   margin-inline-end: var(--sbb-spacing-fixed-2x);
+  line-height: initial;
 
   :host(:not([data-has-icon])) & {
     display: none;
@@ -124,7 +125,7 @@
 .sbb-toast__action-button {
   margin-inline: var(--sbb-spacing-fixed-2x);
   position: absolute;
-  top: calc(var(--sbb-spacing-responsive-xxxs) * -1 / 2);
+  top: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
 }
 
 ::slotted(sbb-link) {
