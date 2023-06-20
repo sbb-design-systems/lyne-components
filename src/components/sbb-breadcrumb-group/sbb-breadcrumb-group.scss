@@ -23,6 +23,7 @@
 }
 
 .sbb-breadcrumb-group__item {
+  flex: 0 0 auto;
   display: flex;
   column-gap: var(--sbb-spacing-fixed-1x);
 }
