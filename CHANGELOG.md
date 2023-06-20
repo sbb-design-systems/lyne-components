@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.16](https://github.com/lyne-design-system/lyne-components/compare/v0.36.15...v0.36.16) (2023-06-20)
+
+### Bug Fixes
+
+- **sbb-form-field:** use space to combine aria-describedby ids ([#1820](https://github.com/lyne-design-system/lyne-components/issues/1820)) ([ebfe368](https://github.com/lyne-design-system/lyne-components/commit/ebfe36820e4b944854b5c32fb7301fa99a214d8b))
+
 ### [0.36.15](https://github.com/lyne-design-system/lyne-components/compare/v0.36.14...v0.36.15) (2023-06-20)
 
 ### Features
