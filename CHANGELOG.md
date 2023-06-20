@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.15](https://github.com/lyne-design-system/lyne-components/compare/v0.36.14...v0.36.15) (2023-06-20)
+
+### Features
+
+- **sbb-journey-summary:** add headerLevel prop ([#1813](https://github.com/lyne-design-system/lyne-components/issues/1813)) ([c5bae4e](https://github.com/lyne-design-system/lyne-components/commit/c5bae4e056be6da9b580bd7badb25cea7df7d5c8))
+
 ### [0.36.14](https://github.com/lyne-design-system/lyne-components/compare/v0.36.13...v0.36.14) (2023-06-20)
 
 ### Features
