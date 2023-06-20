@@ -8,6 +8,7 @@ import isChromatic from 'chromatic/isChromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
@@ -195,51 +196,41 @@ const codeStyle: Args = {
   backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
 };
 
-const defaultDecorator: Decorator[] = [
-  (Story) => (
-    <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
-      <Story />
-    </div>
-  ),
-];
+const aboveDecorator: Decorator = (Story) => (
+  <div
+    style={{
+      height: '100%',
+      display: 'flex',
+      'align-items': 'end',
+    }}
+  >
+    <Story />
+  </div>
+);
 
-const aboveDecorator: Decorator[] = [
-  (Story) => (
-    <div
-      style={{
-        height: '100%',
-        display: 'flex',
-        'align-items': 'end',
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
-
-const scrollDecorator: Decorator[] = [
-  (Story) => (
-    <div
-      style={{
-        height: '200%',
-        padding: '1rem',
-        'background-color': 'var(--sbb-color-milk-default)',
-        display: 'flex',
-        'align-items': 'center',
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
+const scrollDecorator: Decorator = (Story) => (
+  <div
+    style={{
+      height: '175%',
+      display: 'flex',
+      'align-items': 'center',
+    }}
+  >
+    <Story />
+  </div>
+);
 
 const valueEllipsis = 'This label name is so long that it needs ellipsis to fit.';
 
-const textBlock = (): JSX.Element => {
+const textBlock = (text = null): JSX.Element => {
   return (
     <div style={textBlockStyle}>
-      This text block has a <code style={codeStyle}>z-index</code> greater than the form field, but
-      it must always be covered by the select overlay.
+      {text ?? (
+        <span>
+          This text block has a <code style={codeStyle}>z-index</code> greater than the form field,
+          but it must always be covered by the select overlay.
+        </span>
+      )}
     </div>
   );
 };
@@ -395,7 +386,7 @@ const FormFieldTemplateWithError = ({
 };
 
 const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JSX.Element => (
-  <div style={{ padding: '2rem', 'background-color': 'var(--sbb-color-milk-default)' }}>
+  <Fragment>
     <sbb-form-field
       borderless={borderless}
       floating-label={floatingLabel}
@@ -413,10 +404,8 @@ const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JS
         <sbb-option value="Zürich">Zürich</sbb-option>
       </sbb-select>
     </sbb-form-field>
-    <div style={{ 'padding-block-start': '1rem' }}>
-      Focus the select and type letters with closed or open panel.
-    </div>
-  </div>
+    {textBlock('Focus the select and type letters with closed or open panel.')}
+  </Fragment>
 );
 
 export const SingleSelect: StoryObj = {
@@ -503,15 +492,15 @@ export const BorderlessOpenAbove: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  decorators: aboveDecorator,
+  decorators: [aboveDecorator],
   play: isChromatic() && playStory,
 };
 
 export const InScrollableContainer: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true },
-  decorators: scrollDecorator,
+  args: { ...defaultArgs },
+  decorators: [scrollDecorator],
   parameters: {
     chromatic: { disableSnapshot: true },
   },
@@ -553,7 +542,14 @@ export const KeyboardInteraction: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: defaultDecorator,
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {

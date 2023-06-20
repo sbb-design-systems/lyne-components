@@ -2,7 +2,7 @@
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import events from './sbb-option.events';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const preserveIconSpace: InputType = {
@@ -106,47 +106,45 @@ const SelectTemplate = (args): JSX.Element => (
   </sbb-form-field>
 );
 
-const defaultDecorator = [
-  (Story) => (
-    <div style={{ border: '3px solid red' }}>
-      <Story />
-    </div>
-  ),
-];
+const borderDecorator: Decorator = (Story) => (
+  <div style={{ border: '3px solid red' }}>
+    <Story />
+  </div>
+);
 
 export const Standalone: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const WithIcon: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'clock-small' },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const WithDisabledState: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const WithActiveState: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, active: true },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const WithIconSpace: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, preserveIconSpace: true },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const Autocomplete: StoryObj = {

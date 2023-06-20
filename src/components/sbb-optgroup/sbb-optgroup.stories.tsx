@@ -84,13 +84,11 @@ const defaultArgs: Args = {
   numberOfOptions: 3,
 };
 
-const defaultDecorator: Decorator[] = [
-  (Story) => (
-    <div style={{ border: '3px solid red' }}>
-      <Story />
-    </div>
-  ),
-];
+const borderDecorator: Decorator = (Story) => (
+  <div style={{ border: '3px solid red' }}>
+    <Story />
+  </div>
+);
 
 const createOptions = (args): JSX.Element[] =>
   new Array(args.numberOfOptions).fill(null).map((_, i) => {
@@ -139,7 +137,7 @@ export const Standalone: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const Autocomplete: StoryObj = {
