@@ -327,7 +327,7 @@ export class SbbNavigationSection implements ComponentInterface {
     this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
-    this._firstLevelNavigation = this._triggerElement.closest('sbb-navigation');
+    this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
   }
 
   public disconnectedCallback(): void {
