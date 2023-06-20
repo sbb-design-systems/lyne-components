@@ -5,22 +5,21 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-breadcrumb-visibility: hidden;
   --sbb-breadcrumb-wrap: nowrap;
+  --sbb-breadcrumb-padding-block: var(--sbb-spacing-fixed-4x);
 }
 
-:host([data-loaded]) {
-  --sbb-breadcrumb-visibility: visible;
+:host([data-state]) {
   --sbb-breadcrumb-wrap: wrap;
 }
 
 .sbb-breadcrumb-group {
   @include sbb.list-reset;
 
-  display: inline-flex;
-  visibility: var(--sbb-breadcrumb-visibility);
+  display: flex;
   flex-wrap: var(--sbb-breadcrumb-wrap);
   column-gap: var(--sbb-spacing-fixed-1x);
+  padding-block: var(--sbb-breadcrumb-padding-block);
 }
 
 .sbb-breadcrumb-group__item {
