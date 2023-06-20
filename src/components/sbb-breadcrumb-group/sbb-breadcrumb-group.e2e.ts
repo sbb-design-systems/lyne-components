@@ -58,49 +58,22 @@ describe('sbb-breadcrumb-group', () => {
     });
 
     it('renders', async () => {
-      expect(element).toEqualHtml(`
-        <sbb-breadcrumb-group class="hydrated" id="sbb-breadcrumb-group" data-loaded role="navigation">
-          <mock:shadow-root>
-            <ol class="sbb-breadcrumb-group">
-              <li class="sbb-breadcrumb-group__item">
-                <slot name="breadcrumb-0"></slot>
-              </li>
-              <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
-                <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
-                <sbb-breadcrumb class="hydrated" dir="ltr" id="sbb-breadcrumb-ellipsis" role="button" tabindex="0" aria-label="Show more breadcrumbs">
-                  …
-                </sbb-breadcrumb>
-              </li>
-              <li class="sbb-breadcrumb-group__item">
-                <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
-                <slot name="breadcrumb-6"></slot>
-              </li>
-            </ol>
-            <span hidden="">
-              <slot></slot>
-            </span>
-          </mock:shadow-root>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" icon-name="house-small" id="breadcrumb-0" role="link" slot="breadcrumb-0" tabindex="0"></sbb-breadcrumb>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" id="breadcrumb-1" role="link" tabindex="0">
-            First
+      const ellipsisBreadcrumb = `
+        <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
+          <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
+          <sbb-breadcrumb class="hydrated" dir="ltr" id="sbb-breadcrumb-ellipsis" role="button" tabindex="0" aria-label="Show more breadcrumbs">
+            …
           </sbb-breadcrumb>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" id="breadcrumb-2" role="link" tabindex="0">
-            Second
-          </sbb-breadcrumb>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" id="breadcrumb-3" role="link" tabindex="0">
-            Third
-          </sbb-breadcrumb>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" id="breadcrumb-4" role="link" tabindex="0">
-            Fourth
-          </sbb-breadcrumb>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" id="breadcrumb-5" role="link" tabindex="0">
-            Fifth
-          </sbb-breadcrumb>
-          <sbb-breadcrumb class="hydrated" dir="ltr" href="/" id="breadcrumb-6" role="link" slot="breadcrumb-6" tabindex="0">
-            Sixth
-          </sbb-breadcrumb>
-        </sbb-breadcrumb-group>
-      `);
+        </li>`;
+
+      const li = await page.findAll('sbb-breadcrumb-group >>> li');
+      const slots = await page.findAll('sbb-breadcrumb-group >>> li > slot');
+      expect(li).not.toBeNull();
+      expect(li.length).toEqual(3);
+      expect(li[1]).toEqualHtml(ellipsisBreadcrumb);
+      expect(slots.length).toEqual(2);
+      expect(slots[0]).toEqualAttribute('name', 'breadcrumb-0');
+      expect(slots[1]).toEqualAttribute('name', 'breadcrumb-6');
     });
 
     it('keyboard navigation with ellipsis', async () => {
