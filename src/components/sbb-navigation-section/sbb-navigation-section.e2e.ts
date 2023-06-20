@@ -7,15 +7,16 @@ describe('sbb-navigation-section', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-
-      <sbb-navigation-section disable-animation>
-        <sbb-navigation-list>
-          <sbb-navigation-action >Tickets & Offers</sbb-navigation-action>
-          <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
-          <sbb-navigation-action>Travel information</sbb-navigation-action>
-          <sbb-navigation-action>Help & Contact</sbb-navigation-action>
-        </sbb-navigation-list>
-      </sbb-navigation-section>
+      <sbb-navigation disable-animation>
+        <sbb-navigation-section disable-animation>
+          <sbb-navigation-list>
+            <sbb-navigation-action >Tickets & Offers</sbb-navigation-action>
+            <sbb-navigation-action>Vacations & Recreation</sbb-navigation-action>
+            <sbb-navigation-action>Travel information</sbb-navigation-action>
+            <sbb-navigation-action>Help & Contact</sbb-navigation-action>
+          </sbb-navigation-list>
+        </sbb-navigation-section>
+      </sbb-navigation>
     `);
     element = await page.find('sbb-navigation-section');
   });

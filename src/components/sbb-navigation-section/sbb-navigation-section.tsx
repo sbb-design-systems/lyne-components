@@ -177,6 +177,9 @@ export class SbbNavigationSection implements ComponentInterface {
   }
 
   private _setNavigationInert(): void {
+    if (!this._firstLevelNavigation) {
+      return;
+    }
     (
       this._firstLevelNavigation.shadowRoot.querySelector('.sbb-navigation__content') as HTMLElement
     ).inert = this._isZeroToLargeBreakpoint() && this._state !== 'closed';
@@ -197,7 +200,7 @@ export class SbbNavigationSection implements ComponentInterface {
       this._windowEventsController?.abort();
 
       this._setNavigationInert();
-      this._isZeroToLargeBreakpoint() && this._triggerElement.focus();
+      this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
     }
   }
 
