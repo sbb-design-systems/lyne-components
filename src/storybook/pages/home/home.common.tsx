@@ -40,10 +40,16 @@ export const Navigation = (): JSX.Element => (
     </sbb-navigation-marker>
 
     <sbb-navigation-marker size="s">
-      <sbb-navigation-action id="nav-5">Deutsch</sbb-navigation-action>
-      <sbb-navigation-action id="nav-6">Français</sbb-navigation-action>
-      <sbb-navigation-action id="nav-7">Italiano</sbb-navigation-action>
-      <sbb-navigation-action aria-selected="true" id="nav-8" active>
+      <sbb-navigation-action aria-pressed="false" id="nav-5">
+        Deutsch
+      </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="false" id="nav-6">
+        Français
+      </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="false" id="nav-7">
+        Italiano
+      </sbb-navigation-action>
+      <sbb-navigation-action aria-pressed="true" id="nav-8" active>
         English
       </sbb-navigation-action>
     </sbb-navigation-marker>
