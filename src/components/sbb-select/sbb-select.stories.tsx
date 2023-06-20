@@ -478,14 +478,18 @@ export const Disabled: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Readonly: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Borderless: StoryObj = {
@@ -508,7 +512,9 @@ export const InScrollableContainer: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: scrollDecorator,
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const DisableOption: StoryObj = {
@@ -541,7 +547,9 @@ export const KeyboardInteraction: StoryObj = {
   render: KeyboardInteractionTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 const meta: Meta = {

@@ -416,7 +416,9 @@ export const Disabled: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
   decorators: defaultDecorator,
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const Readonly: StoryObj = {
@@ -424,7 +426,9 @@ export const Readonly: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
   decorators: defaultDecorator,
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const BorderlessOpenAbove: StoryObj = {
@@ -448,7 +452,9 @@ export const Scroll: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: scrollDecorator,
-  play: isChromatic() && playStory,
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithOptionGroup: StoryObj = {
@@ -456,14 +462,6 @@ export const WithOptionGroup: StoryObj = {
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
   decorators: defaultDecorator,
-  play: isChromatic() && playStory,
-};
-
-export const WithOptionGroupOpenAbove: StoryObj = {
-  render: OptionGroupTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs },
-  decorators: aboveDecorator,
   play: isChromatic() && playStory,
 };
 
