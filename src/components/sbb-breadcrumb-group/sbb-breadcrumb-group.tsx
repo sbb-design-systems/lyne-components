@@ -1,4 +1,14 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Listen,
+  State,
+  Watch,
+} from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import {
   documentLanguage,
@@ -23,6 +33,16 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
   @State() private _state?: 'collapsed' | 'manually-expanded';
+
+  /** Sync state as data attribute here to have it set as early as possible. This helps to avoid showing breadcrumb entries too early. **/
+  @Watch('_state')
+  public stateChange(): void {
+    if (this._state) {
+      this._element.dataset.state = this._state;
+    } else {
+      delete this._element.dataset.state;
+    }
+  }
 
   /** Current document language used for translation of the button label. */
   @State() private _currentLanguage = documentLanguage();
@@ -215,7 +235,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="navigation" data-state={this._state}>
+      <Host role="navigation">
         <ol class="sbb-breadcrumb-group">
           {this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
         </ol>
