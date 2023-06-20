@@ -190,7 +190,7 @@ export class SbbNavigationSection implements ComponentInterface {
       this._state = 'opened';
       this._attachWindowEvents();
       this._setNavigationInert();
-      this._setNavigationSectionFocus();
+      setTimeout(() => this._setNavigationSectionFocus());
     } else if (event.animationName === 'close') {
       this._state = 'closed';
       this._navigationSectionContainerElement.scrollTo(0, 0);
