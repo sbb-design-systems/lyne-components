@@ -397,18 +397,14 @@ export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
+  play: isChromatic() && playStory,
 };
 
 export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
+  play: isChromatic() && playStory,
 };
 
 export const BorderlessOpenAbove: StoryObj = {

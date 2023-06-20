@@ -467,18 +467,14 @@ export const Disabled: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
+  play: isChromatic() && playStory,
 };
 
 export const Readonly: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  parameters: {
-    chromatic: { disableSnapshot: true },
-  },
+  play: isChromatic() && playStory,
 };
 
 export const Borderless: StoryObj = {
