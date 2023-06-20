@@ -412,4 +412,72 @@ describe('sbb-tooltip', () => {
       'interactive-background-element'
     );
   });
+
+  it('should close an open tooltip when another one is opened', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+      <sbb-button id="tooltip-trigger">Tooltip trigger</sbb-button>
+      <sbb-button id="another-tooltip-trigger">Another tooltip trigger</sbb-button>
+      <sbb-tooltip id="tooltip" trigger="tooltip-trigger" disable-animation>
+        Tooltip content.
+      </sbb-tooltip>
+      <sbb-tooltip id="another-tooltip" trigger="another-tooltip-trigger" disable-animation>
+        Another tooltip content.
+      </sbb-tooltip>
+      <sbb-link href="#somewhere" id="interactive-background-element">Other interactive element</sbb-link>
+    `);
+    trigger = await page.find('#tooltip-trigger');
+    const secondTrigger = await page.find('#another-tooltip-trigger');
+    element = await page.find('#tooltip');
+    const secondElement = await page.find('#another-tooltip');
+    const dialog = await page.find('#tooltip >>> dialog');
+    const secondDialog = await page.find('#another-tooltip >>> dialog');
+
+    const willOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const willCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+    expect(secondTrigger).not.toBeNull();
+    expect(secondElement).not.toBeNull();
+    expect(secondDialog).not.toBeNull();
+
+    await trigger.focus();
+    await trigger.press('Space');
+    await page.waitForChanges();
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(dialog).toHaveAttribute('open');
+    await trigger.press('Tab');
+    expect(await page.evaluate(() => document.activeElement.id)).toBe('another-tooltip-trigger');
+
+    await page.keyboard.down('Enter');
+
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(dialog).not.toHaveAttribute('open');
+
+    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpenEventSpy.events.length === 2);
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(2);
+    await page.waitForChanges();
+
+    expect(secondDialog).toHaveAttribute('open');
+  });
 });

@@ -47,6 +47,7 @@ import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timeta
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+import { SbbOverlayState } from "./global/helpers/overlay";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
@@ -91,6 +92,7 @@ export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timeta
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
+export { SbbOverlayState } from "./global/helpers/overlay";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export namespace Components {
