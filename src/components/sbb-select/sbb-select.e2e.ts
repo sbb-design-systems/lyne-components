@@ -252,7 +252,6 @@ describe('sbb-select', () => {
     expect(didOpen).toHaveReceivedEventTimes(1);
     expect(displayValue).toEqualText('3');
     expect(thirdOption).toHaveAttribute('active');
-    await new Promise((r) => setTimeout(r, 5000));
     expect(thirdOption).toHaveAttribute('selected');
     expect(await element.getProperty('value')).toEqual('3');
 
