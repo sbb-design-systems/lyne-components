@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isEventOnElement } from '../../global/helpers/position';
-import { InternalSbbOption, SbbOptionEventData } from '../sbb-option/sbb-option.custom';
+import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers';
@@ -447,9 +447,7 @@ export class SbbSelect implements ComponentInterface {
     const activeOption: HTMLSbbOptionElement = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
-      await (activeOption as InternalSbbOption).setSelectedViaUserInteraction(
-        !activeOption.selected
-      );
+      await activeOption.setSelectedViaUserInteraction(!activeOption.selected);
     } else {
       await this.close();
     }
@@ -466,7 +464,7 @@ export class SbbSelect implements ComponentInterface {
     if (!this.multiple) {
       await this._setSelectedElement(nextOption, activeOption);
     } else if (event?.shiftKey) {
-      await (nextOption as InternalSbbOption).setSelectedViaUserInteraction(!nextOption.selected);
+      await nextOption.setSelectedViaUserInteraction(!nextOption.selected);
     }
     this._activeItemIndex = nextIndex;
   }
@@ -493,10 +491,10 @@ export class SbbSelect implements ComponentInterface {
     nextActiveOption: HTMLSbbOptionElement,
     lastActiveOption: HTMLSbbOptionElement
   ): Promise<void> {
-    await (nextActiveOption as InternalSbbOption).setSelectedViaUserInteraction(true);
+    await nextActiveOption.setSelectedViaUserInteraction(true);
 
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
-      await (lastActiveOption as InternalSbbOption).setSelectedViaUserInteraction(false);
+      await lastActiveOption.setSelectedViaUserInteraction(false);
     }
   }
 

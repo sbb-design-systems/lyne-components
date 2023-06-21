@@ -20,7 +20,7 @@ import {
   setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { isEventOnElement } from '../../global/helpers/position';
-import { InternalSbbOption, SbbOptionEventData } from '../sbb-option/sbb-option.custom';
+import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -440,7 +440,7 @@ export class SbbAutocomplete implements ComponentInterface {
     const activeOption = this._options[this._activeItemIndex];
 
     if (activeOption) {
-      await (activeOption as InternalSbbOption).setSelectedViaUserInteraction(true);
+      await activeOption.setSelectedViaUserInteraction(true);
     }
   }
 
