@@ -39,8 +39,27 @@ sbb-form-field {
 }
 
 // Hiding components until they are instantiated
-:is(sbb-dialog, sbb-navigation, sbb-menu, sbb-navigation-section, sbb-tooltip):not(.hydrated) {
+:is(
+    sbb-dialog,
+    sbb-navigation,
+    sbb-menu,
+    sbb-navigation-section,
+    sbb-tooltip,
+    sbb-autocomplete,
+    sbb-select,
+    sbb-toast
+  ):not(.hydrated) {
   display: none;
+}
+
+// Ensure stable breadcrumb height during hydrating
+sbb-breadcrumb-group:not(.hydrated) {
+  display: block;
+  height: calc(
+    var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs) + 2 *
+      var(--sbb-spacing-fixed-4x)
+  );
+  overflow: hidden;
 }
 
 .sbb-text-xxs {

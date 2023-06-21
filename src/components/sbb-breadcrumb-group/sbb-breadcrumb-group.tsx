@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  h,
-  Host,
-  JSX,
-  Listen,
-  State,
-  Watch,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import {
   documentLanguage,
@@ -18,7 +8,6 @@ import {
 } from '../../global/helpers';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -34,15 +23,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   @State() private _state?: 'collapsed' | 'manually-expanded';
 
-  /** Sync state as data attribute here to have it set as early as possible. This helps to avoid showing breadcrumb entries too early. **/
-  @Watch('_state')
-  public stateChange(): void {
-    if (this._state) {
-      this._element.dataset.state = this._state;
-    } else {
-      delete this._element.dataset.state;
-    }
-  }
+  @State() private _loaded = false;
 
   /** Current document language used for translation of the button label. */
   @State() private _currentLanguage = documentLanguage();
@@ -84,7 +65,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public componentDidLoad(): void {
     this._resizeObserver.observe(this._element);
-    toggleDatasetEntry(this._element, 'loaded', true);
+    this._loaded = true;
   }
 
   public componentDidRender(): void {
@@ -235,7 +216,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="navigation">
+      <Host role="navigation" data-loaded={this._loaded} data-state={this._state}>
         <ol class="sbb-breadcrumb-group">
           {this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
         </ol>
