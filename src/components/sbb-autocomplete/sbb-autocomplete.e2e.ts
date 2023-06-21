@@ -1,5 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-autocomplete.events';
+import optionEvents from '../sbb-option/sbb-option.events';
 import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-autocomplete', () => {
@@ -100,9 +101,33 @@ describe('sbb-autocomplete', () => {
     expect(input.getAttribute('aria-expanded')).toEqual('false');
   });
 
+  it('select by mouse', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
+    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
+    const optionSelectedEventSpy = await page.spyOnEvent(optionEvents.optionSelected);
+
+    await input.focus();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
+
+    await element.press('ArrowDown');
+    await element.press('ArrowDown');
+    await page.waitForChanges();
+    await element.press('Enter');
+    await page.waitForChanges();
+
+    expect(optionSelectedEventSpy).toHaveReceivedEventTimes(1);
+    expect(optionSelectedEventSpy.firstEvent.target.id).toBe('option-2');
+  });
+
   it('opens and select with keyboard', async () => {
     const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const optionSelectedEventSpy = await page.spyOnEvent(optionEvents.optionSelected);
     await input.focus();
     await page.waitForChanges();
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
@@ -126,6 +151,7 @@ describe('sbb-autocomplete', () => {
     expect(await optTwo.getProperty('active')).toEqual(false);
     expect(await optTwo.getProperty('selected')).toEqual(true);
     expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(optionSelectedEventSpy).toHaveReceivedEventTimes(1);
     expect(input.getAttribute('aria-expanded')).toEqual('false');
     expect(input).not.toHaveAttribute('aria-activedescendant');
   });

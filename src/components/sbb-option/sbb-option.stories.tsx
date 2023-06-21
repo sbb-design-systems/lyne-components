@@ -169,7 +169,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.selectionChange],
+      handles: [events.selectionChange, events.optionSelected],
     },
     backgrounds: {
       disable: true,

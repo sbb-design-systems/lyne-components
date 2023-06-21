@@ -15,10 +15,10 @@ import {
 } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isEventOnElement } from '../../global/helpers/position';
-import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
+import { InternalSbbOption, SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
-import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers/overlay';
+import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isSafari } from '../../global/helpers/platform';
 import { assignId } from '../../global/helpers/assign-id';
@@ -168,13 +168,13 @@ export class SbbSelect implements ComponentInterface {
   }
 
   @Listen('click')
-  public onOptionClick(event): void {
+  public async onOptionClick(event): Promise<void> {
     if (event.target?.tagName !== 'SBB-OPTION' || event.target.disabled) {
       return;
     }
 
     if (!this.multiple) {
-      this.close();
+      await this.close();
     }
   }
 
@@ -319,20 +319,20 @@ export class SbbSelect implements ComponentInterface {
     });
   }
 
-  private _onKeyDown(event: KeyboardEvent): void {
+  private async _onKeyDown(event: KeyboardEvent): Promise<void> {
     if (this.disabled || this.readonly) {
       return;
     }
 
     if (this._state === 'opened') {
-      this._openedPanelKeyboardInteraction(event);
+      await this._openedPanelKeyboardInteraction(event);
     }
     if (this._state === 'closed') {
-      this._closedPanelKeyboardInteraction(event);
+      await this._closedPanelKeyboardInteraction(event);
     }
   }
 
-  private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
+  private async _closedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this._checkForLetterSelection(event)) {
       return this._setNextActiveOptionByText(event);
     }
@@ -343,12 +343,12 @@ export class SbbSelect implements ComponentInterface {
       case 'ArrowDown':
       case 'ArrowUp':
         event.preventDefault();
-        this.open();
+        await this.open();
         break;
     }
   }
 
-  private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
+  private async _openedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this.disabled || this.readonly || this._state !== 'opened') {
       return;
     }
@@ -360,31 +360,31 @@ export class SbbSelect implements ComponentInterface {
     switch (event.key) {
       case 'Escape':
       case 'Tab':
-        this.close();
+        await this.close();
         break;
 
       case 'Enter':
       case ' ':
         event.preventDefault();
-        this._selectByKeyboard();
+        await this._selectByKeyboard();
         break;
 
       case 'ArrowDown':
       case 'ArrowUp':
         event.preventDefault();
-        this._setNextActiveOption(event);
+        await this._setNextActiveOption(event);
         break;
 
       case 'Home':
       case 'PageUp':
         event.preventDefault();
-        this._setNextActiveOption(event, 0);
+        await this._setNextActiveOption(event, 0);
         break;
 
       case 'End':
       case 'PageDown':
         event.preventDefault();
-        this._setNextActiveOption(event, this._filteredOptions.length - 1);
+        await this._setNextActiveOption(event, this._filteredOptions.length - 1);
         break;
     }
   }
@@ -401,7 +401,7 @@ export class SbbSelect implements ComponentInterface {
     );
   }
 
-  private _setNextActiveOptionByText(event): void {
+  private async _setNextActiveOptionByText(event): Promise<void> {
     // Set timeout and the string to search.
     if (typeof this._searchTimeout === typeof setTimeout) {
       clearTimeout(this._searchTimeout);
@@ -422,7 +422,7 @@ export class SbbSelect implements ComponentInterface {
     );
     if (match) {
       // If an exact match has been found, go to that option.
-      this._setNextActiveOption(event, this._filteredOptions.indexOf(match));
+      await this._setNextActiveOption(event, this._filteredOptions.indexOf(match));
     } else if (
       this._searchString.length > 1 &&
       new RegExp(`^${this._searchString.charAt(0)}*$`).test(this._searchString)
@@ -434,7 +434,7 @@ export class SbbSelect implements ComponentInterface {
           option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0
       );
       if (firstMatch) {
-        this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
+        await this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
       }
     } else {
       // No match found, clear the timeout and the search term.
@@ -443,30 +443,30 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _selectByKeyboard(): void {
+  private async _selectByKeyboard(): Promise<void> {
     const activeOption: HTMLSbbOptionElement = this._filteredOptions[this._activeItemIndex];
 
     if (this.multiple) {
-      activeOption.selected = !activeOption.selected;
+      await (activeOption as InternalSbbOption).setSelectedViaUserInteraction(
+        !activeOption.selected
+      );
     } else {
-      this.close();
+      await this.close();
     }
   }
 
-  private _setNextActiveOption(event: KeyboardEvent, index?: number): void {
+  private async _setNextActiveOption(event: KeyboardEvent, index?: number): Promise<void> {
     const nextIndex =
       index ?? getNextElementIndex(event, this._activeItemIndex, this._filteredOptions.length);
-    this._setActiveElement(
-      this._filteredOptions[nextIndex],
-      this._filteredOptions[this._activeItemIndex]
-    );
+    const nextOption = this._filteredOptions[nextIndex];
+    const activeOption = this._filteredOptions[this._activeItemIndex];
+
+    this._setActiveElement(nextOption, activeOption);
+
     if (!this.multiple) {
-      this._setSelectedElement(
-        this._filteredOptions[nextIndex],
-        this._filteredOptions[this._activeItemIndex]
-      );
+      await this._setSelectedElement(nextOption, activeOption);
     } else if (event?.shiftKey) {
-      this._filteredOptions[nextIndex].selected = !this._filteredOptions[nextIndex].selected;
+      await (nextOption as InternalSbbOption).setSelectedViaUserInteraction(!nextOption.selected);
     }
     this._activeItemIndex = nextIndex;
   }
@@ -489,13 +489,14 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _setSelectedElement(
+  private async _setSelectedElement(
     nextActiveOption: HTMLSbbOptionElement,
     lastActiveOption: HTMLSbbOptionElement
-  ): void {
-    nextActiveOption.selected = true;
+  ): Promise<void> {
+    await (nextActiveOption as InternalSbbOption).setSelectedViaUserInteraction(true);
+
     if (lastActiveOption && lastActiveOption !== nextActiveOption) {
-      lastActiveOption.selected = false;
+      await (lastActiveOption as InternalSbbOption).setSelectedViaUserInteraction(false);
     }
   }
 
@@ -542,7 +543,7 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
-  private _toggleOpening(): void {
+  private async _toggleOpening(): Promise<void> {
     if (this.disabled || this.readonly) {
       return;
     }
@@ -550,11 +551,11 @@ export class SbbSelect implements ComponentInterface {
 
     switch (this._state) {
       case 'opened': {
-        this.close();
+        await this.close();
         break;
       }
       case 'closed': {
-        this.open();
+        await this.open();
         break;
       }
       default:

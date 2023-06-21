@@ -71,6 +71,14 @@ export class SbbOption implements ComponentInterface {
   })
   public selectionChange: EventEmitter<SbbOptionEventData>;
 
+  /** Emits when an option was selected by user. */
+  @Event({
+    bubbles: true,
+    composed: true,
+    eventName: 'option-selected',
+  })
+  public optionSelected: EventEmitter;
+
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('icon');
 
@@ -84,7 +92,7 @@ export class SbbOption implements ComponentInterface {
 
   @State() private _groupLabel: string;
 
-  @Element() private _element!: HTMLElement;
+  @Element() private _element!: HTMLSbbOptionElement;
 
   private _handlerRepository = new HandlerRepository(
     this._element,
@@ -119,6 +127,7 @@ export class SbbOption implements ComponentInterface {
   /**
    * Highlight the label of the option
    * @param value the highlighted portion of the label
+   * @internal
    */
   @Method()
   public async highlight(value: string): Promise<void> {
@@ -134,8 +143,19 @@ export class SbbOption implements ComponentInterface {
     this._groupLabel = value;
   }
 
+  /**
+   * @internal
+   */
+  @Method()
+  public async setSelectedViaUserInteraction(selected: boolean): Promise<void> {
+    this.selected = selected;
+    if (this.selected) {
+      this.optionSelected.emit();
+    }
+  }
+
   @Listen('click', { passive: true })
-  public selectByClick(event): void {
+  public async selectByClick(event): Promise<void> {
     if (this.disabled || this._disabledFromGroup) {
       event.stopPropagation();
       return;
@@ -143,9 +163,9 @@ export class SbbOption implements ComponentInterface {
 
     if (this._isMultiple) {
       event.stopPropagation();
-      this.selected = !this.selected;
+      await this.setSelectedViaUserInteraction(!this.selected);
     } else {
-      this.selected = true;
+      await this.setSelectedViaUserInteraction(true);
     }
   }
 
