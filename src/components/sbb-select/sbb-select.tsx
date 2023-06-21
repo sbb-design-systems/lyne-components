@@ -575,7 +575,7 @@ export class SbbSelect implements ComponentInterface {
         {/* This element is visually hidden and will be appended to the light DOM to allow screen readers to work properly */}
         <div
           class="sbb-screen-reader-only"
-          tabindex={this.disabled ? '-1' : '0'}
+          tabindex={this.disabled ? null : '0'}
           role="combobox"
           aria-haspopup="listbox"
           aria-expanded="false"
