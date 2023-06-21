@@ -1,4 +1,5 @@
 @use './core/font-face';
+@use './mixins/a11y';
 @use './mixins/layout';
 @use './mixins/lists';
 @use './mixins/typo';
@@ -104,4 +105,8 @@ sbb-form-field {
 // To prevent the mistakenly large gap, we reset the paragraph space.
 sbb-title + p {
   margin-block-start: 0;
+}
+
+.sbb-screen-reader-only {
+  @include a11y.screen-reader-only;
 }

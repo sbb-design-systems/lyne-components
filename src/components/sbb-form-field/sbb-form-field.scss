@@ -91,6 +91,10 @@
   --sbb-form-field-error-padding-block-start: 0;
 }
 
+:host([floating-label]:not([floating-label='false'])) {
+  --sbb-select-placeholder-color: transparent;
+}
+
 // Should be after other definitions to override border style
 
 :host(:is([borderless], [data-input-type='sbb-slider'])) {
@@ -173,7 +177,8 @@
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
 
-  :host([data-input-type='select']) & {
+  :host([data-input-type='select']) &,
+  :host([data-input-type='sbb-select']) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 
@@ -216,7 +221,7 @@
 
 // Input
 
-.sbb-form-field__input ::slotted(:where(input, select)) {
+.sbb-form-field__input ::slotted(:where(input, select, sbb-select)) {
   @include sbb.text-m--regular;
   @include sbb.ellipsis;
   @include sbb.input-reset;
@@ -257,7 +262,7 @@
   }
 }
 
-.sbb-form-field__input ::slotted(select) {
+.sbb-form-field__input ::slotted(:where(select, sbb-select)) {
   padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
 }
 

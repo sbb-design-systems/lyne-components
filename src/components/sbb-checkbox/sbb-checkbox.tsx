@@ -70,7 +70,7 @@ export class SbbCheckbox implements ComponentInterface {
   @Prop({ mutable: true, reflect: true }) public checked = false;
 
   /** Label size variant, either m or s. */
-  @Prop({ reflect: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
+  @Prop({ reflect: true, mutable: true }) public size: InterfaceSbbCheckboxAttributes['size'] = 'm';
 
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @State() private _disabledFromGroup = false;
@@ -139,8 +139,12 @@ export class SbbCheckbox implements ComponentInterface {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
-    this._requiredFromGroup = !!this._element.dataset.groupRequired;
+    const parentGroup = this._element.closest('sbb-checkbox-group');
+    if (parentGroup) {
+      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this.size = parentGroup.size;
+    }
     this._checkboxAttributeObserver.observe(this._element, checkboxObserverConfig);
   }
 
@@ -236,7 +240,7 @@ export class SbbCheckbox implements ComponentInterface {
             <input
               ref={(checkbox: HTMLInputElement) => {
                 this._checkbox = checkbox;
-                // Forward indeterminate state to native input. As it is only a property, we have to set it programatically.
+                // Forward indeterminate state to native input. As it is only a property, we have to set it programmatically.
                 this._checkbox.indeterminate = this.indeterminate;
               }}
               type="checkbox"
@@ -253,26 +257,11 @@ export class SbbCheckbox implements ComponentInterface {
             />
             <span class="sbb-checkbox__inner">
               <span class="sbb-checkbox__aligner">
-                <span class="sbb-checkbox__selection">
-                  <span class="sbb-checkbox__icon">
-                    {(this.checked || this.indeterminate) && (
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </span>
-                </span>
+                <sbb-visual-checkbox
+                  checked={this.checked}
+                  indeterminate={this.indeterminate}
+                  disabled={this.disabled || this._disabledFromGroup}
+                ></sbb-visual-checkbox>
               </span>
               <span class="sbb-checkbox__label">
                 <slot />

@@ -1,7 +1,7 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const label: InputType = {
@@ -49,6 +49,15 @@ const disabledSingle: InputType = {
   },
 };
 
+const multiple: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Select',
+  },
+};
+
 const numberOfOptions: InputType = {
   control: {
     type: 'number',
@@ -61,6 +70,7 @@ const defaultArgTypes: ArgTypes = {
   value,
   disabled,
   disabledSingle,
+  multiple,
   numberOfOptions,
 };
 
@@ -70,22 +80,25 @@ const defaultArgs: Args = {
   value: 'Option',
   disabled: false,
   disabledSingle: false,
+  multiple: false,
   numberOfOptions: 3,
 };
 
-const defaultDecorator = [
-  (Story) => (
-    <div style={{ border: '3px solid red' }}>
-      <Story />
-    </div>
-  ),
-];
+const borderDecorator: Decorator = (Story) => (
+  <div style={{ border: '3px solid red' }}>
+    <Story />
+  </div>
+);
 
-const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }): JSX.Element[] =>
-  new Array(numberOfOptions).fill(null).map((_, i) => {
+const createOptions = (args): JSX.Element[] =>
+  new Array(args.numberOfOptions).fill(null).map((_, i) => {
     return (
-      <sbb-option {...args} value={`${value} ${i + 1}`} disabled={disabledSingle && i === 0}>
-        {`${value} ${i + 1}`}
+      <sbb-option
+        value={`${args.value} ${i + 1}`}
+        disabled={args.disabledSingle && i === 0}
+        icon-name={args['icon-name']}
+      >
+        {`${args.value} ${i + 1}`}
       </sbb-option>
     );
   });
@@ -93,10 +106,10 @@ const createOptions = ({ value, numberOfOptions, disabledSingle, ...args }): JSX
 const Template = ({ label, disabled, ...args }): JSX.Element => (
   <Fragment>
     <sbb-optgroup label={label + ' 1'} disabled={disabled}>
-      {createOptions(args as any)}
+      {createOptions(args)}
     </sbb-optgroup>
     <sbb-optgroup label={label + ' 2'} disabled={disabled}>
-      {createOptions(args as any)}
+      {createOptions(args)}
     </sbb-optgroup>
   </Fragment>
 );
@@ -110,17 +123,39 @@ const TemplateAutocomplete = (args): JSX.Element => {
   );
 };
 
+const TemplateSelect = (args): JSX.Element => {
+  return (
+    <sbb-form-field label="Select">
+      <sbb-select multiple={args.multiple} placeholder="Select">
+        {Template(args)}
+      </sbb-select>
+    </sbb-form-field>
+  );
+};
+
 export const Standalone: StoryObj = {
   render: Template,
-  argTypes: { ...defaultArgTypes },
+  argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  decorators: defaultDecorator,
+  decorators: [borderDecorator],
 };
 
 export const Autocomplete: StoryObj = {
   render: TemplateAutocomplete,
-  argTypes: { ...defaultArgTypes },
+  argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Select: StoryObj = {
+  render: TemplateSelect,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const MultipleSelect: StoryObj = {
+  render: TemplateSelect,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true },
 };
 
 const meta: Meta = {

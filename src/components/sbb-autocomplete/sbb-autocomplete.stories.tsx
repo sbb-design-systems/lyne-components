@@ -6,8 +6,9 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import isChromatic from 'chromatic';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import { withActions } from '@storybook/addon-actions/decorator';
 
 const disabled: InputType = {
   control: {
@@ -129,51 +130,36 @@ const defaultArgs: Args = {
   floatingLabel: false,
 };
 
-const withGroupsDefaultArgs = {
+const withGroupsDefaultArgs: Args = {
   ...defaultArgs,
 
   // Option group args
   disableGroup: false,
 };
 
-const defaultDecorator = [
-  (Story) => (
-    <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
-      <Story />
-    </div>
-  ),
-];
+const aboveDecorator: Decorator = (Story) => (
+  <div
+    style={{
+      height: '100%',
+      display: 'flex',
+      'align-items': 'end',
+    }}
+  >
+    <Story />
+  </div>
+);
 
-const aboveDecorator = [
-  (Story) => (
-    <div
-      style={{
-        padding: '2rem',
-        height: 'calc(100vh - 2rem)',
-        display: 'flex',
-        'align-items': 'end',
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
-
-const scrollDecorator = [
-  (Story) => (
-    <div
-      style={{
-        padding: '2rem',
-        height: 'calc(100vh * 1.5)',
-        'background-color': 'var(--sbb-color-milk-default)',
-        display: 'flex',
-        'align-items': 'center',
-      }}
-    >
-      <Story />
-    </div>
-  ),
-];
+const scrollDecorator: Decorator = (Story) => (
+  <div
+    style={{
+      height: '175%',
+      display: 'flex',
+      'align-items': 'center',
+    }}
+  >
+    <Story />
+  </div>
+);
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
@@ -375,7 +361,6 @@ export const Basic: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -383,7 +368,7 @@ export const BasicOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
-  decorators: aboveDecorator,
+  decorators: [aboveDecorator],
   play: isChromatic() && playStory,
 };
 
@@ -391,7 +376,6 @@ export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -399,7 +383,6 @@ export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, floatingLabel: true },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -407,7 +390,6 @@ export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -415,7 +397,6 @@ export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -423,7 +404,6 @@ export const Readonly: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, readonly: true },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -431,7 +411,7 @@ export const BorderlessOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  decorators: aboveDecorator,
+  decorators: [aboveDecorator],
   play: isChromatic() && playStory,
 };
 
@@ -439,31 +419,23 @@ export const NoIconSpace: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, preserveIconSpace: false },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
 export const Scroll: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, borderless: true },
-  decorators: scrollDecorator,
-  play: isChromatic() && playStory,
+  args: { ...defaultArgs },
+  decorators: [scrollDecorator],
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 
 export const WithOptionGroup: StoryObj = {
   render: OptionGroupTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  decorators: defaultDecorator,
-  play: isChromatic() && playStory,
-};
-
-export const WithOptionGroupOpenAbove: StoryObj = {
-  render: OptionGroupTemplate,
-  argTypes: withGroupsArgTypes,
-  args: { ...withGroupsDefaultArgs },
-  decorators: aboveDecorator,
   play: isChromatic() && playStory,
 };
 
@@ -471,11 +443,18 @@ export const MixedSingleOptionWithOptionGroup: StoryObj = {
   render: MixedTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
-  decorators: defaultDecorator,
   play: isChromatic() && playStory,
 };
 
 const meta: Meta = {
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {

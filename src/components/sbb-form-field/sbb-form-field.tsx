@@ -41,7 +41,13 @@ const supportedPopupTagNames = ['SBB-TOOLTIP', 'SBB-AUTOCOMPLETE', 'SBB-SELECT']
 })
 export class SbbFormField implements ComponentInterface {
   // List of supported element selectors in unnamed slot
-  private readonly _supportedInputElements = ['INPUT', 'SELECT', 'SBB-SLIDER', 'SBB-TIME-INPUT'];
+  private readonly _supportedInputElements = [
+    'INPUT',
+    'SELECT',
+    'SBB-SELECT',
+    'SBB-SLIDER',
+    'SBB-TIME-INPUT',
+  ];
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];
 
@@ -252,9 +258,13 @@ export class SbbFormField implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'inputEmpty',
-      (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) &&
-        ['', undefined, null].includes((this._input as HTMLInputElement | HTMLSelectElement).value)
+      this._supportedInputElements.includes(this._input.tagName) && this._isInputEmpty()
     );
+  }
+
+  private _isInputEmpty(): boolean {
+    const value = (this._input as { value }).value;
+    return ['', undefined, null].includes(value) || (Array.isArray(value) && value.length === 0);
   }
 
   private _assignSlots(): void {
@@ -324,7 +334,7 @@ export class SbbFormField implements ComponentInterface {
             <div class="sbb-form-field__input">
               <slot onSlotchange={(event) => this._onSlotInputChange(event)}></slot>
             </div>
-            {this._input?.tagName === 'SELECT' && (
+            {['SELECT', 'SBB-SELECT'].includes(this._input?.tagName) && (
               <sbb-icon
                 name="chevron-small-down-small"
                 class="sbb-form-field__select-input-icon"

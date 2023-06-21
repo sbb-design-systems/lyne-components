@@ -11,7 +11,7 @@
 :host {
   @include sbb.options-panel-overlay-variables;
 
-  --sbb-options-panel-internal-z-index: var(--sbb-autocomplete-z-index, var(--sbb-overlay-z-index));
+  --sbb-options-panel-internal-z-index: var(--sbb-select-z-index, var(--sbb-overlay-z-index));
 }
 
 :host([data-state='closed']) {
@@ -51,23 +51,40 @@
   --sbb-options-panel-animation-duration: 0s;
 }
 
-:host([preserve-icon-space]:not([preserve-icon-space='false'])) {
-  --sbb-option-icon-container-display: block;
-}
-
 ::slotted(sbb-divider) {
   margin-block: var(--sbb-spacing-fixed-3x);
 }
 
-.sbb-autocomplete__container {
+:host([preserve-icon-space]:not([preserve-icon-space='false'])) {
+  --sbb-option-icon-container-display: block;
+}
+
+.sbb-select__trigger {
+  @include sbb.ellipsis;
+
+  height: calc(1em * var(--sbb-typo-line-height-body-text));
+}
+
+.sbb-select__trigger--placeholder {
+  color: var(--sbb-select-placeholder-color, var(--sbb-color-metal-default));
+
+  /**
+   * Note: when the sbb-select is used within a sbb-form-field, some style are applied from it
+   * (see selector `.sbb-form-field__input ::slotted(:where(input, select, sbb-select))` in the sbb-form-field.scss);
+   * so, next line is mandatory because we need to override the rule from the parent.
+   */
+  -webkit-text-fill-color: var(--sbb-select-placeholder-color, var(--sbb-color-metal-default));
+}
+
+.sbb-select__container {
   @include sbb.options-panel-overlay-container;
 }
 
-.sbb-autocomplete__gap-fix {
+.sbb-select__gap-fix {
   @include sbb.options-panel-overlay-gap;
 }
 
-.sbb-autocomplete__panel {
+.sbb-select__panel {
   @include sbb.options-panel-overlay;
 
   :host([data-state='opened']) &,
@@ -99,17 +116,19 @@
   }
 }
 
-.sbb-autocomplete__wrapper {
+.sbb-select__wrapper {
   overflow: hidden;
 }
 
-.sbb-autocomplete__options {
+.sbb-select__options {
   @include sbb.scrollbar;
   @include sbb.optionsOverlay;
 
+  padding-block: var(--sbb-spacing-fixed-2x);
+
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;
-    border-top: none;
+    border-block-start: none;
   }
 }
 

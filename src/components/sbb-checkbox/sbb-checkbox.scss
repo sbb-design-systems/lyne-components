@@ -5,19 +5,12 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-checkbox-border-width: var(--sbb-border-width-1x);
   --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-border-color: var(--sbb-color-smoke-default);
-  --sbb-checkbox-selection-color: var(--sbb-color-red-default);
   --sbb-checkbox-label-color: var(--sbb-color-charcoal-default);
   --sbb-checkbox-cursor: pointer;
   --sbb-checkbox-subtext-color: var(--sbb-color-granite-default);
   --sbb-checkbox-label-gap: var(--sbb-spacing-fixed-2x);
   --sbb-checkbox-text-decoration: none;
-
-  @include sbb.if-forced-colors {
-    --sbb-checkbox-selection-color: Canvas;
-  }
 
   display: inline-block;
 
@@ -149,48 +142,6 @@ input[type='checkbox'] {
 .sbb-checkbox__label--icon {
   :host([icon-placement='end']) & {
     margin-left: auto;
-  }
-}
-
-.sbb-checkbox__selection {
-  display: block;
-  position: relative;
-  min-width: var(--sbb-checkbox-dimension);
-  height: var(--sbb-checkbox-dimension);
-  border-radius: var(--sbb-border-radius-2x);
-  box-shadow: var(--sbb-checkbox-border-color) 0 0 0 var(--sbb-checkbox-border-width) inset;
-  background-color: var(--sbb-color-white-default);
-
-  @include sbb.if-forced-colors {
-    outline: var(--sbb-border-width-2x) solid ButtonBorder;
-    outline-offset: calc(-1 * var(--sbb-border-width-2x));
-
-    :host([checked]:not([checked='false'])) & {
-      background-color: HighLight;
-      outline: none;
-    }
-
-    :host([disabled]:not([disabled='false'])) & {
-      outline-color: GrayText;
-    }
-
-    :host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) & {
-      background-color: GrayText;
-    }
-  }
-}
-
-.sbb-checkbox__icon {
-  display: inline-flex;
-  width: var(--sbb-checkbox-dimension);
-  height: var(--sbb-checkbox-dimension);
-
-  svg {
-    margin: auto;
-  }
-
-  path {
-    stroke: var(--sbb-checkbox-selection-color);
   }
 }
 

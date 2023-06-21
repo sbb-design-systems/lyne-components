@@ -1,6 +1,100 @@
-// Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete)
+@mixin options-panel-overlay-variables {
+  --sbb-options-panel-position-x: 0;
+  --sbb-options-panel-position-y: 0;
+  --sbb-options-panel-active-option-y: 0;
+
+  // 85vh is not an exact value but looks optimized for mobile view.
+  --sbb-options-panel-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
+  --sbb-options-panel-visibility: visible;
+  --sbb-options-panel-width: fit-content;
+  --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-options-panel-options-border-radius: 0 0 var(--sbb-options-panel-border-radius)
+    var(--sbb-options-panel-border-radius);
+  --sbb-options-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-options-panel-animation-timing-function: ease;
+  --sbb-options-panel-gap-fix-opacity: 0;
+  --sbb-options-panel-gap-fix-transform: none;
+  --sbb-options-panel-gap-fix-top: calc(
+    var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
+  );
+}
+
+@mixin options-panel-overlay-container {
+  position: fixed;
+  pointer-events: none;
+  inset: 0;
+  z-index: var(--sbb-options-panel-internal-z-index);
+}
+
+@mixin options-panel-overlay-gap {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  visibility: var(--sbb-options-panel-visibility);
+  opacity: var(--sbb-options-panel-gap-fix-opacity);
+  background-color: transparent;
+  width: var(--sbb-options-panel-width);
+  height: var(--sbb-options-panel-border-radius);
+  top: var(--sbb-options-panel-gap-fix-top);
+  left: var(--sbb-options-panel-position-x);
+  transform: var(--sbb-options-panel-gap-fix-transform);
+  transition: opacity var(--sbb-options-panel-animation-duration)
+    var(--sbb-options-panel-animation-timing-function);
+}
+
+@mixin options-panel-overlay {
+  display: block;
+  position: absolute;
+  visibility: var(--sbb-options-panel-visibility);
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--sbb-options-panel-border-radius);
+  top: var(--sbb-options-panel-position-y);
+  left: var(--sbb-options-panel-position-x);
+  width: var(--sbb-options-panel-width);
+  transition: box-shadow var(--sbb-options-panel-animation-duration)
+    var(--sbb-options-panel-animation-timing-function);
+
+  &::before,
+  &::after {
+    content: '';
+    display: none;
+    position: relative;
+    width: 100%;
+    height: var(--sbb-options-panel-origin-height);
+    background-color: transparent;
+    border-radius: var(--sbb-options-panel-border-radius);
+    pointer-events: none;
+    transition: box-shadow var(--sbb-options-panel-animation-duration)
+      var(--sbb-options-panel-animation-timing-function);
+    z-index: 1;
+  }
+}
+
+@mixin optionsOverlay {
+  background-color: var(--sbb-color-white-default);
+  padding-block: var(--sbb-spacing-fixed-3x);
+  padding-inline: 0;
+  border-radius: var(--sbb-options-panel-options-border-radius);
+  max-height: var(--sbb-options-panel-max-height);
+  min-height: var(--sbb-options-panel-min-height);
+  pointer-events: all;
+  overflow-y: auto;
+  animation: {
+    name: var(--sbb-options-panel-animation-name);
+    duration: var(--sbb-options-panel-animation-duration);
+    timing-function: var(--sbb-options-panel-animation-timing-function);
+  }
+}
+
+// Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete/select)
 // Works in conjuction with the 'overlayGapFixCorners()' function in 'overlay.tsx'
-@mixin overlay-gap-fix($radius, $color: var(--sbb-color-white-default)) {
+@mixin overlay-gap-fix(
+  $radius: var(--sbb-options-panel-border-radius),
+  $color: var(--sbb-color-white-default)
+) {
   .sbb-gap-fix-wrapper {
     position: relative;
     overflow: hidden;
@@ -15,14 +109,24 @@
     border: calc($radius / 2) solid $color;
     width: calc($radius * 3);
     height: calc($radius * 3);
-    inset-block-end: calc(($radius / 2) * -1);
+    bottom: calc(($radius / 2) * -1);
   }
 
   .sbb-gap-fix-corner#left {
-    inset-inline-start: calc(($radius / 2) * -1);
+    left: calc(($radius / 2) * -1);
+
+    :host([dir='rtl']) & {
+      right: calc(($radius / 2) * -1);
+      left: unset;
+    }
   }
 
   .sbb-gap-fix-corner#right {
-    inset-inline-end: calc(($radius / 2) * -1);
+    right: calc(($radius / 2) * -1);
+
+    :host([dir='rtl']) & {
+      left: calc(($radius / 2) * -1);
+      right: unset;
+    }
   }
 }

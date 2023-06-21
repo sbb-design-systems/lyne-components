@@ -19,12 +19,14 @@ import {
   removeAriaComboBoxAttributes,
   setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
-import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
+import { isEventOnElement } from '../../global/helpers/position';
 import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { isSafari } from '../../global/helpers/platform';
+import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 
 let nextId = 0;
 
@@ -102,6 +104,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _overlayId = `sbb-autocomplete-${++nextId}`;
   private _activeItemIndex = -1;
   private _didLoad = false;
+  private _isPointerDownEventOnMenu: boolean;
 
   /**
    * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -133,7 +136,6 @@ export class SbbAutocomplete implements ComponentInterface {
     this._state = 'opening';
     this.willOpen.emit();
     this._setOverlayPosition();
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', true);
   }
 
   /** Closes the autocomplete. */
@@ -143,7 +145,6 @@ export class SbbAutocomplete implements ComponentInterface {
       return;
     }
 
-    toggleDatasetEntry(this._originElement, 'autocompleteOpen', false);
     this._state = 'closing';
     this.willClose.emit();
     this._openPanelEventsController.abort();
@@ -279,7 +280,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     toggleDatasetEntry(
       this._element,
-      'autocompleteOriginBorderless',
+      'optionPanelOriginBorderless',
       this._element.closest('sbb-form-field')?.hasAttribute('borderless')
     );
   }
@@ -318,44 +319,14 @@ export class SbbAutocomplete implements ComponentInterface {
     );
     this._triggerElement.addEventListener(
       'keydown',
-      async (event: KeyboardEvent) => {
-        if (event.key === 'ArrowDown') {
-          await this.open();
-        }
-      },
+      (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       { signal: this._triggerEventsController.signal }
     );
   }
 
   // Set overlay position, width and max height
   private _setOverlayPosition(): void {
-    if (!this._overlay || !this._originElement) {
-      return;
-    }
-
-    // Set the width to match the trigger element
-    this._element.style.setProperty(
-      '--sbb-autocomplete-width',
-      `${this._originElement.offsetWidth}px`
-    );
-
-    // Set the origin height
-    this._element.style.setProperty(
-      '--sbb-autocomplete-origin-height',
-      `${this._originElement.offsetHeight}px`
-    );
-
-    // Calculate and set the position
-    const panelPosition = getElementPosition(this._optionContainer, this._originElement);
-
-    this._element.style.setProperty('--sbb-autocomplete-position-x', `${panelPosition.left}px`);
-    this._element.style.setProperty('--sbb-autocomplete-position-y', `${panelPosition.top}px`);
-    this._element.style.setProperty('--sbb-autocomplete-max-height', panelPosition.maxHeight);
-    this._element.setAttribute('data-autocomplete-position', panelPosition.alignment.vertical);
-    this._originElement.setAttribute(
-      'data-autocomplete-position',
-      panelPosition.alignment.vertical
-    );
+    setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this._element);
   }
 
   /** On open/close animation end. */
@@ -376,7 +347,6 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _onCloseAnimationEnd(): void {
     this._state = 'closed';
-    this._openPanelEventsController?.abort();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
@@ -386,7 +356,7 @@ export class SbbAutocomplete implements ComponentInterface {
   private _attachOpenPanelEvents(): void {
     this._openPanelEventsController = new AbortController();
 
-    // Since the overlay is in 'fixed' position, we need to recalculate its position on window scroll/resize
+    // Recalculate the overlay position on scroll and window resize
     document.addEventListener('scroll', () => this._setOverlayPosition(), {
       passive: true,
       signal: this._openPanelEventsController.signal,
@@ -396,28 +366,55 @@ export class SbbAutocomplete implements ComponentInterface {
       signal: this._openPanelEventsController.signal,
     });
 
-    window.addEventListener('click', this._onBackdropClick, {
+    // Close autocomplete on backdrop click
+    window.addEventListener('pointerdown', (ev) => this._pointerDownListener(ev), {
+      signal: this._openPanelEventsController.signal,
+    });
+    window.addEventListener('pointerup', (ev) => this._closeOnBackdropClick(ev), {
       signal: this._openPanelEventsController.signal,
     });
 
     // Keyboard interactions
     this._triggerElement.addEventListener(
       'keydown',
-      (event: KeyboardEvent) => this._onKeydownEvent(event),
+      (event: KeyboardEvent) => this._openedPanelKeyboardInteraction(event),
       {
         signal: this._openPanelEventsController.signal,
       }
     );
   }
 
-  /** If the click is outside the autocomplete, closes the panel. */
-  private _onBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!isEventOnElement(this._overlay, event) && !isEventOnElement(this._originElement, event)) {
+  // Check if the pointerdown event target is triggered on the menu.
+  private _pointerDownListener = (event: PointerEvent): void => {
+    this._isPointerDownEventOnMenu = isEventOnElement(this._overlay, event);
+  };
+
+  // If the click is outside the autocomplete, closes the panel.
+  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+    if (
+      !this._isPointerDownEventOnMenu &&
+      !isEventOnElement(this._overlay, event) &&
+      !isEventOnElement(this._originElement, event)
+    ) {
       await this.close();
     }
   };
 
-  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+  private async _closedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
+    if (this._state !== 'closed') {
+      return;
+    }
+
+    switch (event.key) {
+      case 'Enter':
+      case 'ArrowDown':
+      case 'ArrowUp':
+        await this.open();
+        break;
+    }
+  }
+
+  private async _openedPanelKeyboardInteraction(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
@@ -497,6 +494,7 @@ export class SbbAutocomplete implements ComponentInterface {
         data-state={this._state}
         role={this._ariaRoleOnHost ? 'listbox' : null}
         ref={this._ariaRoleOnHost && assignId(() => this._overlayId)}
+        dir={getDocumentWritingMode()}
       >
         <div class="sbb-autocomplete__gap-fix"></div>
         <div class="sbb-autocomplete__container">

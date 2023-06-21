@@ -1275,6 +1275,44 @@ export namespace Components {
          */
         "value"?: any | null;
     }
+    interface SbbSelect {
+        /**
+          * Closes the selection panel.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the select is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Whether the select allows for multiple selection.
+         */
+        "multiple": boolean;
+        /**
+          * Opens the selection panel.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The placeholder used if no value has been selected.
+         */
+        "placeholder": string;
+        /**
+          * Whether the select is readonly.
+         */
+        "readonly": boolean;
+        /**
+          * Whether the select is required.
+         */
+        "required": boolean;
+        /**
+          * The value of the select component. If `multiple` is true, it's an array.
+         */
+        "value": string | string[];
+    }
     interface SbbSelectionPanel {
         /**
           * The background color of the panel.
@@ -1818,6 +1856,20 @@ export namespace Components {
          */
         "wagonClass"?: '1' | '2';
     }
+    interface SbbVisualCheckbox {
+        /**
+          * Checked state.
+         */
+        "checked": boolean;
+        /**
+          * Disabled state.
+         */
+        "disabled": boolean;
+        /**
+          * Indeterminate state.
+         */
+        "indeterminate": boolean;
+    }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1870,6 +1922,10 @@ export interface SbbRadioButtonCustomEvent<T> extends CustomEvent<T> {
 export interface SbbRadioButtonGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonGroupElement;
+}
+export interface SbbSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbSelectElement;
 }
 export interface SbbSelectionPanelCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2216,6 +2272,12 @@ declare global {
         prototype: HTMLSbbRadioButtonGroupElement;
         new (): HTMLSbbRadioButtonGroupElement;
     };
+    interface HTMLSbbSelectElement extends Components.SbbSelect, HTMLStencilElement {
+    }
+    var HTMLSbbSelectElement: {
+        prototype: HTMLSbbSelectElement;
+        new (): HTMLSbbSelectElement;
+    };
     interface HTMLSbbSelectionPanelElement extends Components.SbbSelectionPanel, HTMLStencilElement {
     }
     var HTMLSbbSelectionPanelElement: {
@@ -2411,6 +2473,12 @@ declare global {
         prototype: HTMLSbbTrainWagonElement;
         new (): HTMLSbbTrainWagonElement;
     };
+    interface HTMLSbbVisualCheckboxElement extends Components.SbbVisualCheckbox, HTMLStencilElement {
+    }
+    var HTMLSbbVisualCheckboxElement: {
+        prototype: HTMLSbbVisualCheckboxElement;
+        new (): HTMLSbbVisualCheckboxElement;
+    };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
         "sbb-accordion-item": HTMLSbbAccordionItemElement;
@@ -2462,6 +2530,7 @@ declare global {
         "sbb-pearl-chain-vertical-item": HTMLSbbPearlChainVerticalItemElement;
         "sbb-radio-button": HTMLSbbRadioButtonElement;
         "sbb-radio-button-group": HTMLSbbRadioButtonGroupElement;
+        "sbb-select": HTMLSbbSelectElement;
         "sbb-selection-panel": HTMLSbbSelectionPanelElement;
         "sbb-signet": HTMLSbbSignetElement;
         "sbb-skiplink-list": HTMLSbbSkiplinkListElement;
@@ -2494,6 +2563,7 @@ declare global {
         "sbb-train-blocked-passage": HTMLSbbTrainBlockedPassageElement;
         "sbb-train-formation": HTMLSbbTrainFormationElement;
         "sbb-train-wagon": HTMLSbbTrainWagonElement;
+        "sbb-visual-checkbox": HTMLSbbVisualCheckboxElement;
     }
 }
 declare namespace LocalJSX {
@@ -3732,6 +3802,58 @@ declare namespace LocalJSX {
          */
         "value"?: any | null;
     }
+    interface SbbSelect {
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the select is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether the select allows for multiple selection.
+         */
+        "multiple"?: boolean;
+        "onChange"?: (event: SbbSelectCustomEvent<any>) => void;
+        /**
+          * Emits whenever the select is closed.
+         */
+        "onDid-close"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * Emits whenever the select is opened.
+         */
+        "onDid-open"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * @deprecated only used for React. Will probably be removed once React 19 is available.
+         */
+        "onDidChange"?: (event: SbbSelectCustomEvent<any>) => void;
+        "onInput"?: (event: SbbSelectCustomEvent<any>) => void;
+        /**
+          * Emits whenever the select begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * Emits whenever the select starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbSelectCustomEvent<void>) => void;
+        /**
+          * The placeholder used if no value has been selected.
+         */
+        "placeholder"?: string;
+        /**
+          * Whether the select is readonly.
+         */
+        "readonly"?: boolean;
+        /**
+          * Whether the select is required.
+         */
+        "required"?: boolean;
+        /**
+          * The value of the select component. If `multiple` is true, it's an array.
+         */
+        "value"?: string | string[];
+    }
     interface SbbSelectionPanel {
         /**
           * The background color of the panel.
@@ -4331,6 +4453,20 @@ declare namespace LocalJSX {
          */
         "wagonClass"?: '1' | '2';
     }
+    interface SbbVisualCheckbox {
+        /**
+          * Checked state.
+         */
+        "checked"?: boolean;
+        /**
+          * Disabled state.
+         */
+        "disabled"?: boolean;
+        /**
+          * Indeterminate state.
+         */
+        "indeterminate"?: boolean;
+    }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
         "sbb-accordion-item": SbbAccordionItem;
@@ -4382,6 +4518,7 @@ declare namespace LocalJSX {
         "sbb-pearl-chain-vertical-item": SbbPearlChainVerticalItem;
         "sbb-radio-button": SbbRadioButton;
         "sbb-radio-button-group": SbbRadioButtonGroup;
+        "sbb-select": SbbSelect;
         "sbb-selection-panel": SbbSelectionPanel;
         "sbb-signet": SbbSignet;
         "sbb-skiplink-list": SbbSkiplinkList;
@@ -4414,6 +4551,7 @@ declare namespace LocalJSX {
         "sbb-train-blocked-passage": SbbTrainBlockedPassage;
         "sbb-train-formation": SbbTrainFormation;
         "sbb-train-wagon": SbbTrainWagon;
+        "sbb-visual-checkbox": SbbVisualCheckbox;
     }
 }
 export { LocalJSX as JSX };
@@ -4470,6 +4608,7 @@ declare module "@stencil/core" {
             "sbb-pearl-chain-vertical-item": LocalJSX.SbbPearlChainVerticalItem & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalItemElement>;
             "sbb-radio-button": LocalJSX.SbbRadioButton & JSXBase.HTMLAttributes<HTMLSbbRadioButtonElement>;
             "sbb-radio-button-group": LocalJSX.SbbRadioButtonGroup & JSXBase.HTMLAttributes<HTMLSbbRadioButtonGroupElement>;
+            "sbb-select": LocalJSX.SbbSelect & JSXBase.HTMLAttributes<HTMLSbbSelectElement>;
             "sbb-selection-panel": LocalJSX.SbbSelectionPanel & JSXBase.HTMLAttributes<HTMLSbbSelectionPanelElement>;
             "sbb-signet": LocalJSX.SbbSignet & JSXBase.HTMLAttributes<HTMLSbbSignetElement>;
             "sbb-skiplink-list": LocalJSX.SbbSkiplinkList & JSXBase.HTMLAttributes<HTMLSbbSkiplinkListElement>;
@@ -4505,6 +4644,7 @@ declare module "@stencil/core" {
             "sbb-train-blocked-passage": LocalJSX.SbbTrainBlockedPassage & JSXBase.HTMLAttributes<HTMLSbbTrainBlockedPassageElement>;
             "sbb-train-formation": LocalJSX.SbbTrainFormation & JSXBase.HTMLAttributes<HTMLSbbTrainFormationElement>;
             "sbb-train-wagon": LocalJSX.SbbTrainWagon & JSXBase.HTMLAttributes<HTMLSbbTrainWagonElement>;
+            "sbb-visual-checkbox": LocalJSX.SbbVisualCheckbox & JSXBase.HTMLAttributes<HTMLSbbVisualCheckboxElement>;
         }
     }
 }
