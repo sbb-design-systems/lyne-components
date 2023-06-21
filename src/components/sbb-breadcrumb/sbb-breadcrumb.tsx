@@ -40,8 +40,7 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
-   * Inline variant doesn't support icons.
+   * https://icons.app.sbb.ch.
    */
   @Prop() public iconName?: string;
 

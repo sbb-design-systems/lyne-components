@@ -248,7 +248,7 @@ export namespace Components {
          */
         "href": string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
@@ -2784,7 +2784,7 @@ declare namespace LocalJSX {
          */
         "href"?: string | undefined;
         /**
-          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/. Inline variant doesn't support icons.
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
         /**
