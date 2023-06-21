@@ -48,9 +48,7 @@
   :host([data-variant='select'][data-multiple]) & {
     @include sbb.text-xs--regular;
 
-    padding-inline-start: calc(
-      var(--sbb-spacing-responsive-xxxs) * 2 + var(--sbb-spacing-fixed-6x)
-    );
+    padding-inline-start: calc(var(--sbb-spacing-responsive-xxxs) + var(--sbb-spacing-fixed-8x));
   }
 }
 
