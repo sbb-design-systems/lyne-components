@@ -6,7 +6,6 @@
 
 :host {
   --sbb-breadcrumb-group-wrap: nowrap;
-  --sbb-breadcrumb-group-padding-block: var(--sbb-spacing-fixed-4x);
   --sbb-breadcrumb-group-visibility: hidden;
 }
 
@@ -24,7 +23,6 @@
   display: flex;
   flex-wrap: var(--sbb-breadcrumb-group-wrap);
   column-gap: var(--sbb-spacing-fixed-1x);
-  padding-block: var(--sbb-breadcrumb-group-padding-block);
   visibility: var(--sbb-breadcrumb-group-visibility);
 }
 

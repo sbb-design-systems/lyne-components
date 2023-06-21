@@ -55,10 +55,7 @@ sbb-form-field {
 // Ensure stable breadcrumb height during hydrating
 sbb-breadcrumb-group:not(.hydrated) {
   display: block;
-  height: calc(
-    var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs) + 2 *
-      var(--sbb-spacing-fixed-4x)
-  );
+  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
   overflow: hidden;
 }
 
