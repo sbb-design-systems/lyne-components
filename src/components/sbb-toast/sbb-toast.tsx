@@ -19,7 +19,7 @@ import {
   namedSlotChangeHandlerAspect,
   SbbOverlayState,
 } from '../../global/helpers';
-import { AriaPoliteness, ToastAriaRole, ToastPosition } from './sbb-toast.custom';
+import { SbbToastAriaPoliteness, SbbToastAriaRole, SbbToastPosition } from './sbb-toast.custom';
 import { isFirefox } from '../../global/helpers/platform';
 import { i18nCloseDialog } from '../../global/i18n';
 
@@ -45,7 +45,7 @@ export class SbbToast implements ComponentInterface {
   @Prop() public iconName?: string;
 
   /** The position where to place the toast. */
-  @Prop({ reflect: true }) public position: ToastPosition = 'bottom-center';
+  @Prop({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
 
   /** Whether the toast has a close button. */
   @Prop() public dismissible = false;
@@ -54,7 +54,7 @@ export class SbbToast implements ComponentInterface {
    * The ARIA politeness level.
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
-  @Prop() public politeness: AriaPoliteness = 'assertive';
+  @Prop() public politeness: SbbToastAriaPoliteness = 'assertive';
 
   /** Whether the animation is disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
@@ -112,7 +112,7 @@ export class SbbToast implements ComponentInterface {
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
    * JAWS does not read out aria-live message.
    */
-  private get _role(): ToastAriaRole {
+  private get _role(): SbbToastAriaRole {
     if (!isFirefox()) {
       return;
     }

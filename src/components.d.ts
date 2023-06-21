@@ -44,7 +44,7 @@ import { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-ro
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-import { AriaPoliteness, ToastPosition } from "./components/sbb-toast/sbb-toast.custom";
+import { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast/sbb-toast.custom";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
@@ -89,7 +89,7 @@ export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-ro
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
-export { AriaPoliteness, ToastPosition } from "./components/sbb-toast/sbb-toast.custom";
+export { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast/sbb-toast.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
@@ -1654,11 +1654,11 @@ export namespace Components {
         /**
           * The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
          */
-        "politeness": AriaPoliteness;
+        "politeness": SbbToastAriaPoliteness;
         /**
           * The position where to place the toast.
          */
-        "position": ToastPosition;
+        "position": SbbToastPosition;
         /**
           * The length of time in milliseconds to wait before automatically dismissing the toast.
          */
@@ -4185,11 +4185,11 @@ declare namespace LocalJSX {
         /**
           * The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
          */
-        "politeness"?: AriaPoliteness;
+        "politeness"?: SbbToastAriaPoliteness;
         /**
           * The position where to place the toast.
          */
-        "position"?: ToastPosition;
+        "position"?: SbbToastPosition;
         /**
           * The length of time in milliseconds to wait before automatically dismissing the toast.
          */

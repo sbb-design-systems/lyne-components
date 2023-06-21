@@ -1,7 +1,7 @@
-type ToastPositionVertical = 'top' | 'bottom';
-type ToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
-export type ToastPosition = `${ToastPositionVertical}-${ToastPositionHorizontal}`;
+type SbbToastPositionVertical = 'top' | 'bottom';
+type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
+export type SbbToastPosition = `${SbbToastPositionVertical}-${SbbToastPositionHorizontal}`;
 
-export type AriaPoliteness = 'polite' | 'assertive' | 'off';
+export type SbbToastAriaPoliteness = 'polite' | 'assertive' | 'off';
 
-export type ToastAriaRole = 'status' | 'alert';
+export type SbbToastAriaRole = 'status' | 'alert';
