@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.18](https://github.com/lyne-design-system/lyne-components/compare/v0.36.17...v0.36.18) (2023-06-21)
+
+### Features
+
+- **sbb-option:** provide option-selected event ([#1825](https://github.com/lyne-design-system/lyne-components/issues/1825)) ([8d31a60](https://github.com/lyne-design-system/lyne-components/commit/8d31a60215640763d604d9568d2ee1eef385b82f))
+
 ### [0.36.17](https://github.com/lyne-design-system/lyne-components/compare/v0.36.16...v0.36.17) (2023-06-21)
 
 ### Features
