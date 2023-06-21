@@ -18,7 +18,8 @@ It is possible to display the component in disabled or readonly state by using t
 has a `required` property, which can be useful for setting a custom `<sbb-form-error>` message within a `<sbb-form-field>`.
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
-the current value can be read from `event.target.value`.
+the current value can be read from `event.target.value`. 
+Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
 
 ### Usage
 

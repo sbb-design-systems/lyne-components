@@ -7,6 +7,10 @@ the panel `origin` and the input `trigger` passing an id or an element reference
 The options panel opens on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
+### Events
+
+The `sbb-option` will emit the `option-selected` event when selected via user interaction.
+
 ### Option highlight
 
 By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.

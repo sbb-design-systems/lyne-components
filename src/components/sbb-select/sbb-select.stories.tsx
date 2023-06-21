@@ -1,6 +1,7 @@
 /** @jsx h */
 import { Fragment, h, JSX } from 'jsx-dom';
 import events from './sbb-select.events';
+import optionEvents from '../sbb-option/sbb-option.events';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
@@ -549,7 +550,14 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: [events.change, events.didClose, events.didOpen, events.willClose, events.willOpen],
+      handles: [
+        events.change,
+        events.didClose,
+        events.didOpen,
+        events.willClose,
+        events.willOpen,
+        optionEvents.optionSelected,
+      ],
     },
     backgrounds: {
       disable: true,

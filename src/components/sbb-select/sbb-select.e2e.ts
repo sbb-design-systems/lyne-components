@@ -1,6 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-select.events';
-import optEvents from '../sbb-option/sbb-option.events';
+import optionEvents from '../sbb-option/sbb-option.events';
 import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
 
 describe('sbb-select', () => {
@@ -116,7 +116,8 @@ describe('sbb-select', () => {
     expect(secondOption).not.toHaveAttribute('active');
     expect(secondOption).not.toHaveAttribute('selected');
 
-    const selectionChange = await page.spyOnEvent(optEvents.selectionChange);
+    const selectionChange = await page.spyOnEvent(optionEvents.selectionChange);
+    const optionSelected = await page.spyOnEvent(optionEvents.optionSelected);
     const willClose = await page.spyOnEvent(events.willClose);
     const didClose = await page.spyOnEvent(events.didClose);
     await secondOption.triggerEvent('click');
@@ -128,6 +129,8 @@ describe('sbb-select', () => {
       selected: true,
       value: '2',
     });
+    expect(optionSelected).toHaveReceivedEventTimes(1);
+
     await page.waitForChanges();
     await waitForCondition(() => willClose.events.length === 1);
     expect(willClose).toHaveReceivedEventTimes(1);
@@ -159,7 +162,7 @@ describe('sbb-select', () => {
     expect(secondOption).not.toHaveAttribute('active');
     expect(secondOption).not.toHaveAttribute('selected');
 
-    const selectionChange = await page.spyOnEvent(optEvents.selectionChange);
+    const selectionChange = await page.spyOnEvent(optionEvents.selectionChange);
     await firstOption.triggerEvent('click');
     await page.waitForChanges();
     expect(selectionChange).toHaveReceivedEventDetail({

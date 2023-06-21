@@ -72,20 +72,11 @@ Disabled:
 
 | Event                     | Description                                     | Type                              |
 | ------------------------- | ----------------------------------------------- | --------------------------------- |
+| `option-selected`         | Emits when an option was selected by user.      | `CustomEvent<any>`                |
 | `option-selection-change` | Emits when the option selection status changes. | `CustomEvent<SbbOptionEventData>` |
 
 
 ## Methods
-
-### `highlight(value: string) => Promise<void>`
-
-Highlight the label of the option
-
-#### Returns
-
-Type: `Promise<void>`
-
-
 
 ### `setGroupLabel(value: string) => Promise<void>`
 

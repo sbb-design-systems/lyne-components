@@ -1154,6 +1154,7 @@ export namespace Components {
           * @param value the label of the option group
          */
         "setGroupLabel": (value: string) => Promise<void>;
+        "setSelectedViaUserInteraction": (selected: boolean) => Promise<void>;
         /**
           * Value of the option.
          */
@@ -3661,6 +3662,10 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
+        /**
+          * Emits when an option was selected by user.
+         */
+        "onOption-selected"?: (event: SbbOptionCustomEvent<any>) => void;
         /**
           * Emits when the option selection status changes.
          */

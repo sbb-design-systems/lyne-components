@@ -426,7 +426,7 @@ export class SbbAutocomplete implements ComponentInterface {
         break;
 
       case 'Enter':
-        this._selectByKeyboard();
+        await this._selectByKeyboard();
         break;
 
       case 'ArrowDown':
@@ -436,11 +436,11 @@ export class SbbAutocomplete implements ComponentInterface {
     }
   }
 
-  private _selectByKeyboard(): void {
+  private async _selectByKeyboard(): Promise<void> {
     const activeOption = this._options[this._activeItemIndex];
 
     if (activeOption) {
-      activeOption.selected = true;
+      await activeOption.setSelectedViaUserInteraction(true);
     }
   }
 
