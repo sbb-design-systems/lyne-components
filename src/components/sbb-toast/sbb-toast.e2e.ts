@@ -16,9 +16,6 @@ describe('sbb-toast', () => {
 
   it('renders and sets the correct attributes', async () => {
     expect(element).toHaveClass('hydrated');
-
-    // expect(element).toEqualAttribute('aria-live', 'assertive');
-    // expect(element).toEqualAttribute('role', 'alert');
     expect(element).not.toHaveAttribute('data-has-action');
     expect(element).not.toHaveAttribute('data-has-icon');
     expect(element).toEqualAttribute('data-state', 'closed');
@@ -30,7 +27,7 @@ describe('sbb-toast', () => {
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
 
-    await element.setAttribute('duration', 1000);
+    await element.setAttribute('duration', 250);
     await page.waitForChanges();
     await element.callMethod('open');
     await page.waitForChanges();
@@ -43,8 +40,6 @@ describe('sbb-toast', () => {
     expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
     expect(element.getAttribute('data-state')).toEqual('opened');
-
-    await new Promise((t) => setTimeout(t, 2000));
 
     await page.waitForChanges();
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
