@@ -35,7 +35,7 @@ const HORIZONTAL_OFFSET = 32;
 
 let nextId = 0;
 
-const tooltipsRef = new Set<WeakRef<HTMLSbbTooltipElement>>();
+const tooltipsRef = new Set<HTMLSbbTooltipElement>();
 
 /**
  * @slot unnamed - Use this slot to project any content inside the tooltip.
@@ -172,9 +172,9 @@ export class SbbTooltip implements ComponentInterface {
     }
 
     for (const tooltip of Array.from(tooltipsRef)) {
-      const state = tooltip.deref()?.getAttribute('data-state') as SbbOverlayState;
+      const state = tooltip.getAttribute('data-state') as SbbOverlayState;
       if (state && (state === 'opened' || state === 'opening')) {
-        await tooltip.deref().close();
+        await tooltip.close();
       }
     }
 
@@ -184,7 +184,7 @@ export class SbbTooltip implements ComponentInterface {
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
-    tooltipsRef.add(new WeakRef(this._element as HTMLSbbTooltipElement));
+    tooltipsRef.add(this._element as HTMLSbbTooltipElement);
   }
 
   /**
@@ -242,10 +242,7 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    Array.from(tooltipsRef)
-      .filter((t) => !t.deref() || t.deref() === this._element)
-      .forEach((tooltip) => tooltipsRef.delete(tooltip));
-
+    tooltipsRef.delete(this._element as HTMLSbbTooltipElement);
     this._handlerRepository.disconnect();
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
