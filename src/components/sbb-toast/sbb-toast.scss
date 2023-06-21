@@ -5,7 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-toast-z-index: var(--sbb-overlay-z-index);
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
   --sbb-toast-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-toast-animation-timing-function: ease;
@@ -15,59 +14,64 @@
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toast-border-radius: var(--sbb-border-radius-4x);
+  --sbb-toast-container-display: flex;
+  --sbb-toast-horizontal-position: initial;
+  --sbb-toast-vertical-position: initial;
 }
 
 :host([disable-animation]:not([disable-animation='false'])) {
   --sbb-toast-animation-duration: 0s;
 }
 
+:host([data-state='closed']) {
+  --sbb-toast-container-display: none;
+}
+
+:host([position='bottom-left']),
+:host([position='bottom-start']) {
+  --sbb-toast-horizontal-position: flex-start;
+  --sbb-toast-vertical-position: flex-end;
+}
+
+:host([position='bottom-center']) {
+  --sbb-toast-horizontal-position: center;
+  --sbb-toast-vertical-position: flex-end;
+}
+
+:host([position='bottom-right']),
+:host([position='bottom-end']) {
+  --sbb-toast-horizontal-position: flex-end;
+  --sbb-toast-vertical-position: flex-end;
+}
+
+:host([position='top-left']),
+:host([position='top-start']) {
+  --sbb-toast-horizontal-position: flex-start;
+  --sbb-toast-vertical-position: flex-start;
+}
+
+:host([position='top-center']) {
+  --sbb-toast-horizontal-position: center;
+  --sbb-toast-vertical-position: flex-start;
+}
+
+:host([position='top-right']),
+:host([position='top-end']) {
+  --sbb-toast-horizontal-position: flex-end;
+  --sbb-toast-vertical-position: flex-start;
+}
+
 .sbb-toast__overlay-container {
   position: fixed;
   pointer-events: none;
   inset: 0;
-  display: flex;
-
-  :host([data-state='closed']) & {
-    display: none;
-  }
-
-  :host([position='bottom-left']) &,
-  :host([position='bottom-start']) & {
-    justify-content: flex-start;
-    align-items: flex-end;
-  }
-
-  :host([position='bottom-center']) & {
-    justify-content: center;
-    align-items: flex-end;
-  }
-
-  :host([position='bottom-right']) &,
-  :host([position='bottom-end']) & {
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-
-  :host([position='top-left']) &,
-  :host([position='top-start']) & {
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  :host([position='top-center']) & {
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  :host([position='top-right']) &,
-  :host([position='top-end']) & {
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
+  display: var(--sbb-toast-container-display);
+  justify-content: var(--sbb-toast-horizontal-position);
+  align-items: var(--sbb-toast-vertical-position);
 }
 
 .sbb-toast {
-  z-index: var(--sbb-toast-z-index);
+  z-index: var(--sbb-toast-z-index, --sbb-overlay-z-index);
   pointer-events: auto;
   margin: var(--sbb-toast-margin);
   padding-block: var(--sbb-toast-padding-block);
