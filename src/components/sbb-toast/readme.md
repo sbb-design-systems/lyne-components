@@ -71,16 +71,6 @@ Type: `Promise<void>`
 
 
 
-### `getState() => Promise<SbbOverlayState>`
-
-
-
-#### Returns
-
-Type: `Promise<SbbOverlayState>`
-
-
-
 ### `open() => Promise<void>`
 
 Open the toast.

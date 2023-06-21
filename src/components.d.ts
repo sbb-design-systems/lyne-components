@@ -45,7 +45,6 @@ import { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 import { AriaPoliteness, ToastPosition } from "./components/sbb-toast/sbb-toast.custom";
-import { SbbOverlayState } from "./global/helpers";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
@@ -91,7 +90,6 @@ export { InterfaceTimetableTransportationNumberAttributes } from "./components/s
 export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
 export { AriaPoliteness, ToastPosition } from "./components/sbb-toast/sbb-toast.custom";
-export { SbbOverlayState } from "./global/helpers";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
@@ -1645,7 +1643,6 @@ export namespace Components {
           * Whether the toast has a close button.
          */
         "dismissible": boolean;
-        "getState": () => Promise<SbbOverlayState>;
         /**
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://lyne.sbb.ch/tokens/icons/.
          */

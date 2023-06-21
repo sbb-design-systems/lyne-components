@@ -23,6 +23,9 @@ import { AriaPoliteness, ToastAriaRole, ToastPosition } from './sbb-toast.custom
 import { isFirefox } from '../../global/helpers/platform';
 import { i18nCloseDialog } from '../../global/i18n';
 
+// A global collection of existing toasts
+const toastRefs = new Set<HTMLSbbToastElement>();
+
 /**
  * @slot unnamed - Use this to document a slot.
  */
@@ -150,17 +153,19 @@ export class SbbToast implements ComponentInterface {
     this.willClose.emit();
   }
 
-  @Method() public async getState(): Promise<SbbOverlayState> {
-    return this._state;
-  }
-
   public connectedCallback(): void {
     this._handlerRepository.connect();
+
+    // Add this toast to the global collection
+    toastRefs.add(this._element as HTMLSbbToastElement);
   }
 
   public disconnectedCallback(): void {
     clearTimeout(this._closeTimeout);
     this._handlerRepository.disconnect();
+
+    // Remove this instance
+    toastRefs.delete(this._element as HTMLSbbToastElement);
   }
 
   private _onActionSlotChange(event: Event): void {
@@ -204,11 +209,11 @@ export class SbbToast implements ComponentInterface {
   }
 
   /**
-   * Since we do not stack toasts, we force the closing on other existing opened toasts
+   * Since we do not stack toasts, we force the closing on other existing opened ones
    */
-  private async _closeOtherToasts(): Promise<void> {
-    document.querySelectorAll('sbb-toast').forEach(async (t) => {
-      if ((await t.getState()) === 'opened') {
+  private _closeOtherToasts(): void {
+    toastRefs.forEach((t) => {
+      if (t.getAttribute('data-state') === 'opened') {
         t.close();
       }
     });
