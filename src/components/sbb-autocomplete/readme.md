@@ -8,6 +8,7 @@ The options panel opens on `focus`, `click` or `input` on the trigger element, o
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
 ### Events
+
 The `sbb-option` will emit the `option-selected` event when selected via user interaction.
 
 ### Option highlight
@@ -142,5 +143,3 @@ Type: `Promise<void>`
 
 
 ----------------------------------------------
-
-
