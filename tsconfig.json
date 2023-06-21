@@ -5,7 +5,6 @@
     "declaration": false,
     "experimentalDecorators": true,
     "lib": ["dom", "es2017", "ES2021.WeakRef"],
-    "lib": ["dom", "es2017", "ES2021.WeakRef"],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
