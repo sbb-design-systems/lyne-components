@@ -5,25 +5,29 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-breadcrumb-visibility: hidden;
-  --sbb-breadcrumb-wrap: nowrap;
+  --sbb-breadcrumb-group-wrap: nowrap;
+  --sbb-breadcrumb-group-visibility: hidden;
 }
 
 :host([data-loaded]) {
-  --sbb-breadcrumb-visibility: visible;
-  --sbb-breadcrumb-wrap: wrap;
+  --sbb-breadcrumb-group-visibility: visible;
+}
+
+:host([data-state]) {
+  --sbb-breadcrumb-group-wrap: wrap;
 }
 
 .sbb-breadcrumb-group {
   @include sbb.list-reset;
 
-  display: inline-flex;
-  visibility: var(--sbb-breadcrumb-visibility);
-  flex-wrap: var(--sbb-breadcrumb-wrap);
+  display: flex;
+  flex-wrap: var(--sbb-breadcrumb-group-wrap);
   column-gap: var(--sbb-spacing-fixed-1x);
+  visibility: var(--sbb-breadcrumb-group-visibility);
 }
 
 .sbb-breadcrumb-group__item {
+  flex: 0 0 auto;
   display: flex;
   column-gap: var(--sbb-spacing-fixed-1x);
 }

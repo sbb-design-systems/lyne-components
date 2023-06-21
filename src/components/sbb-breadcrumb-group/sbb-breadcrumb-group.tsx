@@ -1,10 +1,10 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
 import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+  sbbInputModalityDetector,
 } from '../../global/helpers';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
@@ -21,28 +21,23 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   /** Local instance of slotted sbb-breadcrumb elements */
   @State() private _breadcrumbs: HTMLSbbBreadcrumbElement[];
 
-  /** Whether the list needs to be shortened with the ellipsis breadcrumb. */
-  @State() private _isCollapsed: boolean = null;
+  @State() private _state?: 'collapsed' | 'manually-expanded';
+
+  @State() private _loaded = false;
 
   /** Current document language used for translation of the button label. */
   @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element!: HTMLElement;
 
-  private _totalBreadcrumbsWidth: number;
-
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l))
   );
 
-  private _resizeObserver = new ResizeObserver(() => {
-    this._measureBreadcrumbs();
-    this._evaluateCollapsedState();
-    if (this._isCollapsed) {
-      this._resizeObserver.disconnect();
-    }
-  });
+  private _resizeObserver = new ResizeObserver(() => this._evaluateCollapsedState());
+
+  private _markForFocus = false;
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
@@ -56,10 +51,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     }
 
     if (isArrowKeyPressed(evt)) {
-      if (this._isCollapsed) {
+      if (this._state === 'collapsed') {
         return this._focusNextCollapsed(evt);
       }
-      this._focusNextExpanded(evt);
+      this._focusNext(evt);
     }
   }
 
@@ -69,13 +64,14 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    // Setting this to false will force a new render (needed after calculations).
-    this._isCollapsed = false;
     this._resizeObserver.observe(this._element);
+    this._loaded = true;
   }
 
-  public componentDidUpdate(): void {
-    toggleDatasetEntry(this._element, 'loaded', true);
+  public componentDidRender(): void {
+    if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      this._breadcrumbs[1].focus();
+    }
   }
 
   public disconnectedCallback(): void {
@@ -85,6 +81,8 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   /** Creates and sets an array with only the sbb-breadcrumb children. */
   private _readBreadcrumb(): void {
+    this._evaluateCollapsedState();
+
     const breadcrumbs = Array.from(this._element.children).filter(
       (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB'
     );
@@ -97,15 +95,14 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     ) {
       return;
     }
-    this._syncBreadcrumbs();
     this._breadcrumbs = breadcrumbs;
+    this._syncBreadcrumbs();
   }
 
   /** Apply the aria-current attribute to the last sbb-breadcrumb element. */
   private _syncBreadcrumbs(): void {
-    const breadcrumbs = this._element.querySelectorAll('sbb-breadcrumb');
-    const length = breadcrumbs.length - 1;
-    breadcrumbs.forEach((breadcrumb, index) => {
+    const length = this._breadcrumbs.length - 1;
+    this._breadcrumbs.forEach((breadcrumb, index) => {
       if (index === length) {
         breadcrumb['aria-current'] = 'page';
       }
@@ -113,29 +110,6 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
         breadcrumb.id = `sbb-breadcrumb-${index}`;
       }
     });
-  }
-
-  private _measureBreadcrumbs(): void {
-    const listElements = this._element.shadowRoot.querySelectorAll(
-      'li:not(#sbb-breadcrumb-group-ellipsis)'
-    );
-
-    if (listElements?.length > 0) {
-      // Get gap value between breadcrumb elements
-      const breadcrumbGap = parseInt(
-        getComputedStyle(
-          this._element.shadowRoot.querySelector('.sbb-breadcrumb-group')
-        ).getPropertyValue('column-gap'),
-        10
-      );
-
-      // Calculate total width of the breadcrumb elements
-      this._totalBreadcrumbsWidth =
-        Array.from(listElements)
-          .map((e) => e.clientWidth)
-          .reduce((a: number, b: number) => a + (b || 0), 0) +
-        breadcrumbGap * (listElements.length - 1);
-    }
   }
 
   /**
@@ -149,41 +123,35 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       ) as HTMLSbbBreadcrumbElement,
       this._breadcrumbs[this._breadcrumbs.length - 1],
     ];
-    const current: number = arrayCollapsed.findIndex(
+    this._focusNext(evt, arrayCollapsed);
+  }
+  private _focusNext(
+    evt: KeyboardEvent,
+    breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs
+  ): void {
+    const current: number = breadcrumbs.findIndex(
       (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement
     );
-    const nextIndex: number = getNextElementIndex(evt, current, arrayCollapsed.length);
-    arrayCollapsed[nextIndex]?.focus();
-    evt.preventDefault();
-  }
-
-  private _focusNextExpanded(evt: KeyboardEvent): void {
-    const current: number = this._breadcrumbs.findIndex((e) => e === document.activeElement);
-    const nextIndex: number = getNextElementIndex(evt, current, this._breadcrumbs.length);
-    this._breadcrumbs[nextIndex]?.focus();
+    const nextIndex: number = getNextElementIndex(evt, current, breadcrumbs.length);
+    breadcrumbs[nextIndex]?.focus();
     evt.preventDefault();
   }
 
   /**
-   * Displays the full breadcrumb list by resetting the _hasEllipsis value and removing the listener on resize.
-   * Note: due to @State annotation on _isCollapsed, this method triggers a new render; as a consequence, the focus is moved
+   * Note: due to @State annotation on _state, this method triggers a new render; as a consequence, the focus is moved
    * to the `body`, so if the ellipsis element has focus, it's asynchronously forced to the first element.
    */
   private _expandBreadcrumbs(): void {
-    this._isCollapsed = false;
-    this._resizeObserver.disconnect();
-    if (
-      this._element.shadowRoot.activeElement ===
-      this._element.shadowRoot.querySelector('#sbb-breadcrumb-ellipsis')
-    ) {
-      setTimeout(() => this._breadcrumbs[1].focus(), 0);
-    }
+    this._state = 'manually-expanded';
+    this._markForFocus = true;
   }
 
   /** Evaluate if the expanded breadcrumb element fits in page width, otherwise it needs ellipsis */
   private _evaluateCollapsedState(): void {
-    this._isCollapsed =
-      this._breadcrumbs?.length > 2 && this._element.clientWidth < this._totalBreadcrumbsWidth;
+    if (this._element && !this._state && this._element.scrollWidth > this._element.offsetWidth) {
+      this._state = 'collapsed';
+      this._resizeObserver.disconnect();
+    }
   }
 
   private _renderCollapsed(): JSX.Element {
@@ -248,9 +216,9 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <Host role="navigation">
+      <Host role="navigation" data-loaded={this._loaded} data-state={this._state}>
         <ol class="sbb-breadcrumb-group">
-          {this._isCollapsed ? this._renderCollapsed() : this._renderExpanded()}
+          {this._state === 'collapsed' ? this._renderCollapsed() : this._renderExpanded()}
         </ol>
         <span hidden>
           <slot onSlotchange={(): void => this._readBreadcrumb()} />
