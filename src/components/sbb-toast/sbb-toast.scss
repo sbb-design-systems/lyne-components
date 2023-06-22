@@ -8,7 +8,8 @@
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
   --sbb-toast-animation-duration: var(--sbb-animation-duration-6x);
   --sbb-toast-animation-timing-function: ease;
-  --sbb-toast-color: var(--sbb-color-milk-default);
+  --sbb-toast-color: var(--sbb-color-white-default);
+  --sbb-toast-text-color: var(--sbb-color-milk-default);
   --sbb-toast-background-color: var(--sbb-color-midnight-default);
   --sbb-toast-margin: var(--sbb-spacing-responsive-s);
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
@@ -111,6 +112,7 @@
 .sbb-toast__content {
   @include sbb.title-6($exclude-spacing: true);
 
+  color: var(--sbb-toast-text-color);
   flex: 1 1 0;
 }
 
