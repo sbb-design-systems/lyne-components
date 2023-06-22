@@ -192,6 +192,7 @@ export class SbbRadioButton implements ComponentInterface {
     if (parentGroup) {
       this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
       this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this.size = parentGroup.size;
     }
     this._radioButtonAttributeObserver.observe(this._element, radioButtonObserverConfig);
   }
