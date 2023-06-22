@@ -35,12 +35,16 @@ const toastRefs = new Set<HTMLSbbToastElement>();
   tag: 'sbb-toast',
 })
 export class SbbToast implements ComponentInterface {
-  /** The length of time in milliseconds to wait before automatically dismissing the toast. */
+  /**
+   * The length of time in milliseconds to wait before automatically dismissing the toast.
+   * If 0, it stays open indefinitely.
+   */
   @Prop() public timeout = 6000;
 
   /**
-   * The icon name we want to use, choose from the small icon variants from the ui-icons category from here
-   * https://lyne.sbb.ch/tokens/icons/.
+   * The name of the icon, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://icons.app.sbb.ch.
    */
   @Prop() public iconName?: string;
 
