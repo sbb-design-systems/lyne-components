@@ -122,10 +122,9 @@ export class SbbNavigation implements ComponentInterface {
   public didClose: EventEmitter<void>;
 
   private _navigation: HTMLDialogElement;
-  private _navigationWrapperElement: HTMLElement;
+  private _navigationContainerElement: HTMLElement;
   private _navigationContentElement: HTMLElement;
   private _triggerElement: HTMLElement;
-  private _firstFocusable: HTMLElement;
   private _navigationController: AbortController;
   private _windowEventsController: AbortController;
   private _focusTrap = new FocusTrap();
@@ -158,7 +157,7 @@ export class SbbNavigation implements ComponentInterface {
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
     this._navigation.show();
-    this._setDialogFocus();
+    this._setNavigationFocus();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
 
@@ -279,22 +278,22 @@ export class SbbNavigation implements ComponentInterface {
   }
 
   // Set focus on the first focusable element.
-  private _setDialogFocus(): void {
-    this._firstFocusable = this._element.shadowRoot.querySelector(
+  private _setNavigationFocus(): void {
+    const firstFocusable = this._element.shadowRoot.querySelector(
       IS_FOCUSABLE_QUERY
     ) as HTMLElement;
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._firstFocusable.focus();
+      firstFocusable.focus();
     } else {
       // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied
-      this._navigationWrapperElement.tabIndex = 0;
-      this._navigationWrapperElement.focus();
+      this._navigationContainerElement.tabIndex = 0;
+      this._navigationContainerElement.focus();
 
-      this._navigationWrapperElement.addEventListener(
+      this._navigationContainerElement.addEventListener(
         'blur',
-        () => this._navigationWrapperElement.removeAttribute('tabindex'),
+        () => this._navigationContainerElement.removeAttribute('tabindex'),
         { once: true }
       );
     }
@@ -373,7 +372,10 @@ export class SbbNavigation implements ComponentInterface {
         onPointerUp={(event) => this._closeOnBackdropClick(event)}
         onPointerDown={(event) => this._pointerDownListener(event)}
       >
-        <div class="sbb-navigation__container">
+        <div
+          class="sbb-navigation__container"
+          ref={(el) => (this._navigationContainerElement = el)}
+        >
           <dialog
             ref={(navigationRef) => (this._navigation = navigationRef)}
             id="sbb-navigation-dialog-id"
@@ -383,15 +385,10 @@ export class SbbNavigation implements ComponentInterface {
             role="group"
           >
             <div class="sbb-navigation__header">{closeButton}</div>
-            <div
-              ref={(navigationWrapperRef) =>
-                (this._navigationWrapperElement = navigationWrapperRef)
-              }
-              class="sbb-navigation__wrapper"
-            >
+            <div class="sbb-navigation__wrapper">
               <div
                 class="sbb-navigation__content"
-                ref={(navigationContent) => (this._navigationContentElement = navigationContent)}
+                ref={(el) => (this._navigationContentElement = el)}
               >
                 <slot />
               </div>

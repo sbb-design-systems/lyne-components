@@ -24,8 +24,10 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
+  sbbInputModalityDetector,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
+import { getFocusableElements, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
 
 let nextId = 0;
 
@@ -77,8 +79,11 @@ export class SbbNavigationSection implements ComponentInterface {
 
   @State() private _currentLanguage = documentLanguage();
 
+  @State() private _renderBackButton = this._isZeroToLargeBreakpoint();
+
+  private _firstLevelNavigation: HTMLSbbNavigationElement;
   private _navigationSection: HTMLDialogElement;
-  private _navigationSectionWrapperElement: HTMLElement;
+  private _navigationSectionContainerElement: HTMLElement;
   private _triggerElement: HTMLElement;
   private _navigationSectionController: AbortController;
   private _windowEventsController: AbortController;
@@ -102,6 +107,7 @@ export class SbbNavigationSection implements ComponentInterface {
     }
 
     this._state = 'opening';
+    this._renderBackButton = this._isZeroToLargeBreakpoint();
     this._navigationSection.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
   }
@@ -163,19 +169,38 @@ export class SbbNavigationSection implements ComponentInterface {
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._navigationSectionController.signal,
     });
+    this._element.addEventListener(
+      'keydown',
+      (event) => this._handleNavigationSectionFocus(event),
+      { signal: this._navigationSectionController.signal }
+    );
+  }
+
+  private _setNavigationInert(): void {
+    if (!this._firstLevelNavigation) {
+      return;
+    }
+    (
+      this._firstLevelNavigation.shadowRoot.querySelector('.sbb-navigation__content') as HTMLElement
+    ).inert = this._isZeroToLargeBreakpoint() && this._state !== 'closed';
   }
 
   private _onAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open') {
       this._state = 'opened';
       this._attachWindowEvents();
+      this._setNavigationInert();
+      setTimeout(() => this._setNavigationSectionFocus());
     } else if (event.animationName === 'close') {
       this._state = 'closed';
-      this._navigationSectionWrapperElement.scrollTo(0, 0);
+      this._navigationSectionContainerElement.scrollTo(0, 0);
       // Manually focus last focused element in order to avoid showing outline in Safari
       this._triggerElement?.focus();
       this._navigationSection.close();
       this._windowEventsController?.abort();
+
+      this._setNavigationInert();
+      this._isZeroToLargeBreakpoint() && this._triggerElement?.focus();
     }
   }
 
@@ -189,6 +214,14 @@ export class SbbNavigationSection implements ComponentInterface {
     window.addEventListener('click', this._handleNavigationSectionClose, {
       signal: this._windowEventsController.signal,
     });
+
+    window.addEventListener(
+      'resize',
+      () => {
+        this._renderBackButton = this._isZeroToLargeBreakpoint();
+      },
+      { signal: this._windowEventsController.signal }
+    );
   }
 
   // Check if the click was triggered on an element that should close the section.
@@ -217,8 +250,12 @@ export class SbbNavigationSection implements ComponentInterface {
     );
   }
 
+  private _isZeroToLargeBreakpoint(): boolean {
+    return isBreakpoint('zero', 'large');
+  }
+
   private async _resetMarker(): Promise<void> {
-    if (isBreakpoint('zero', 'large')) {
+    if (this._isZeroToLargeBreakpoint()) {
       await (this._triggerElement?.parentElement as HTMLSbbNavigationMarkerElement)?.reset();
     }
   }
@@ -230,10 +267,70 @@ export class SbbNavigationSection implements ComponentInterface {
     }
   }
 
+  // Set focus on the first focusable element.
+  private _setNavigationSectionFocus(): void {
+    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      firstFocusable.focus();
+    } else {
+      // Focusing sbb-navigation__wrapper in order to provide a consistent behavior in Safari where else
+      // the focus-visible styles would be incorrectly applied
+      this._navigationSectionContainerElement.tabIndex = 0;
+      this._navigationSectionContainerElement.focus();
+
+      this._navigationSectionContainerElement.addEventListener(
+        'blur',
+        () => this._navigationSectionContainerElement.removeAttribute('tabindex'),
+        { once: true }
+      );
+    }
+  }
+
+  private _handleNavigationSectionFocus(event: KeyboardEvent): void {
+    if (event.key !== 'Tab' || this._isZeroToLargeBreakpoint()) {
+      return;
+    }
+
+    // Dynamically get first and last focusable element, as this might have changed since opening overlay
+    const navigationChildren: HTMLElement[] = Array.from(
+      this._element.closest('sbb-navigation').shadowRoot.children
+    ) as HTMLElement[];
+    const navigationFocusableElements = getFocusableElements(
+      navigationChildren,
+      (el) => el.nodeName === 'SBB-NAVIGATION-SECTION'
+    );
+
+    const sectionChildren: HTMLElement[] = Array.from(
+      this._element.shadowRoot.children
+    ) as HTMLElement[];
+    const sectionFocusableElements = getFocusableElements(sectionChildren);
+
+    const firstFocusable = sectionFocusableElements[0] as HTMLElement;
+    const lastFocusable = sectionFocusableElements[
+      sectionFocusableElements.length - 1
+    ] as HTMLElement;
+
+    const elementToFocus = event.shiftKey
+      ? this._triggerElement
+      : navigationFocusableElements[navigationFocusableElements.indexOf(this._triggerElement) + 1];
+    const pivot = event.shiftKey ? firstFocusable : lastFocusable;
+
+    if (
+      !!elementToFocus &&
+      ((firstFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot ||
+        (lastFocusable.getRootNode() as Document | ShadowRoot).activeElement === pivot)
+    ) {
+      elementToFocus.focus();
+      event.preventDefault();
+    }
+  }
+
   public connectedCallback(): void {
     this._handlerRepository.connect();
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
+    this._firstLevelNavigation = this._triggerElement?.closest('sbb-navigation');
   }
 
   public disconnectedCallback(): void {
@@ -258,7 +355,7 @@ export class SbbNavigationSection implements ComponentInterface {
 
     const labelElement = (
       <div class="sbb-navigation-section__header">
-        {backButton}
+        {this._renderBackButton && backButton}
         <span class="sbb-navigation-section__title" id="title">
           <slot name="title">{this.titleContent}</slot>
         </span>
@@ -277,7 +374,10 @@ export class SbbNavigationSection implements ComponentInterface {
         data-state={this._state}
         ref={assignId(() => this._navigationSectionId)}
       >
-        <div class="sbb-navigation-section__container">
+        <div
+          class="sbb-navigation-section__container"
+          ref={(el) => (this._navigationSectionContainerElement = el)}
+        >
           <dialog
             ref={(navigationSectionRef) => (this._navigationSection = navigationSectionRef)}
             onAnimationEnd={(event: AnimationEvent) => this._onAnimationEnd(event)}
@@ -285,12 +385,7 @@ export class SbbNavigationSection implements ComponentInterface {
             role="group"
             {...accessibilityAttributes}
           >
-            <div
-              ref={(navigationSectionWrapperRef) =>
-                (this._navigationSectionWrapperElement = navigationSectionWrapperRef)
-              }
-              class="sbb-navigation-section__wrapper"
-            >
+            <div class="sbb-navigation-section__wrapper">
               <div class="sbb-navigation-section__content">
                 {(!!this.titleContent || this._namedSlots.title) && labelElement}
                 <slot />

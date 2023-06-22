@@ -8,13 +8,17 @@ Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) compo
 ```html
 <sbb-navigation-section trigger="nav1" label="Title 1">
     <sbb-navigation-list label="Label 1.1">
-      <sbb-navigation-action href="...">Label 1.1.1</sbb-navigation-action>
+      <sbb-navigation-action aria-current="page" href="...">Label 1.1.1</sbb-navigation-action>
       <sbb-navigation-action href="...">Label 1.1.2</sbb-navigation-action>
       ...
     </sbb-navigation-list>
     <sbb-button>Something</sbb-button>
 </sbb-navigation-section>
 ```
+
+## Accessibility
+
+When a navigation action is marked to indicate the user is currently on that page, `aria-current="page"` should be set on that action. Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language) `aria-pressed` should be set on that action.
 
 <!-- Auto Generated Below -->
 

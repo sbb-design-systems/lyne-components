@@ -156,7 +156,6 @@ export class SbbDialog implements ComponentInterface {
   private _dialog: HTMLDialogElement;
   private _dialogWrapperElement: HTMLElement;
   private _dialogContentElement: HTMLElement;
-  private _firstFocusable: HTMLElement;
   private _dialogCloseElement: HTMLElement;
   private _dialogController: AbortController;
   private _windowEventsController: AbortController;
@@ -306,12 +305,12 @@ export class SbbDialog implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    this._firstFocusable = this._element.shadowRoot.querySelector(
+    const firstFocusable = this._element.shadowRoot.querySelector(
       IS_FOCUSABLE_QUERY
     ) as HTMLElement;
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._firstFocusable.focus();
+      firstFocusable.focus();
     } else {
       // Focusing sbb-dialog__wrapper in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied
