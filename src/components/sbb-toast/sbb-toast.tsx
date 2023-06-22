@@ -172,6 +172,21 @@ export class SbbToast implements ComponentInterface {
     toastRefs.delete(this._element as HTMLSbbToastElement);
   }
 
+  /**
+   * Slotted text nodes are not read correctly by screen readers on Chrome.
+   * To address the problem, if there is at least a root text node,
+   * we wrap the whole content in a <span> tag
+   */
+  private _onContentSlotChange(event: Event): void {
+    const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
+
+    if (slotNodes.some((el) => el.nodeType === Node.TEXT_NODE)) {
+      const span = document.createElement('span');
+      this._element.appendChild(span);
+      span.append(...slotNodes);
+    }
+  }
+
   private _onActionSlotChange(event: Event): void {
     const slotNodes = (event.target as HTMLSlotElement).assignedNodes();
 
@@ -242,8 +257,7 @@ export class SbbToast implements ComponentInterface {
             </div>
 
             <div class="sbb-toast__content">
-              Test text content {/* TODO Remove this */}
-              <slot />
+              <slot onSlotchange={(event) => this._onContentSlotChange(event)} />
             </div>
 
             <div class="sbb-toast__action">

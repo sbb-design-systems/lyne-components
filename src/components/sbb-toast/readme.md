@@ -36,6 +36,21 @@ Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibi
 For any action offered in the toast, your application should provide an alternative way to perform the action (e.g. a keyaboard combination).
 
 Avoid setting a `duration` for toasts that have an action available, as screen reader users may want to navigate to the toast element to activate the action.
+
+### Known issue
+Slotted text is not interpreted correctly by screen readers on Chrome. To address the problem, the component will automatically wrap any slotted text in a `span` element. Unless strictly necessary, we advise you not to wrap it preventively and let the component do it for you.
+
+```html
+<sbb-toast position="bottom-left">
+  <!-- This text would not be read on Chrome -->
+  Free text node
+</sbb-toast>
+
+<sbb-toast position="bottom-left">
+  <span> Toast content </span> <!-- This is OK! -->
+</sbb-toast>
+```
+
 <!-- Auto Generated Below -->
 
 

@@ -100,11 +100,9 @@ const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
       disable-animation={args.disableAnimation}
       data-testid="sbb-toast"
     >
-      <span>
-        {contentLength === 's'
-          ? 'Lorem ipsum dolor'
-          : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
-      </span>
+      {contentLength === 's'
+        ? 'Lorem ipsum dolor'
+        : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
 
       {action === 'button' && <sbb-button slot="action" icon-name="clock-small"></sbb-button>}
 

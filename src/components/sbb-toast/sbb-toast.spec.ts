@@ -26,7 +26,6 @@ describe('sbb-toast', () => {
                 </slot>
               </div>
               <div class="sbb-toast__content">
-                Test text content
                 <slot></slot>
               </div>
               <div class="sbb-toast__action">
