@@ -21,7 +21,7 @@ import {
 } from '../../global/helpers';
 import { SbbToastAriaPoliteness, SbbToastAriaRole, SbbToastPosition } from './sbb-toast.custom';
 import { isFirefox } from '../../global/helpers/platform';
-import { i18nCloseDialog } from '../../global/i18n';
+import { i18nCloseAlert } from '../../global/i18n';
 
 // A global collection of existing toasts
 const toastRefs = new Set<HTMLSbbToastElement>();
@@ -251,7 +251,7 @@ export class SbbToast implements ComponentInterface {
                     variant="transparent"
                     negative={true}
                     size="m"
-                    aria-label={i18nCloseDialog[this._currentLanguage]}
+                    aria-label={i18nCloseAlert[this._currentLanguage]}
                     onClick={() => this.close()}
                   ></sbb-button>
                 )}
