@@ -34,6 +34,32 @@ describe('sbb-time-input', () => {
     expect(await input.getProperty('value')).toEqual('11:00');
   });
 
+  it('should watch for value changes and interpret valid values', async () => {
+    element.setProperty('value', ':00');
+    await page.waitForChanges();
+    const input = await page.find('sbb-time-input >>> input');
+    expect(await input.getProperty('value')).toEqual('00:00');
+  });
+
+  it('should watch for value changes and clear invalid values', async () => {
+    element.setProperty('value', ':');
+    await page.waitForChanges();
+    const input = await page.find('sbb-time-input >>> input');
+    expect(await input.getProperty('value')).toEqual('');
+  });
+
+  it('should handle delete correctly', async () => {
+    element.setProperty('value', '12:00');
+    await page.waitForChanges();
+    const input = await page.find('sbb-time-input >>> input');
+    await input.press('Home');
+    await input.press('Delete');
+    await input.press('Delete');
+    expect(await input.getProperty('value')).toEqual(':00');
+    await input.press('Enter');
+    expect(await input.getProperty('value')).toEqual('00:00');
+  });
+
   it('should watch for valueAsDate changes', async () => {
     element.setProperty('valueAsDate', '2023-01-01T15:00:00');
     await page.waitForChanges();
