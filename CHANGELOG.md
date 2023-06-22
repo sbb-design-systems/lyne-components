@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.20](https://github.com/lyne-design-system/lyne-components/compare/v0.36.19...v0.36.20) (2023-06-22)
+
+### Bug Fixes
+
+- **sbb-time-input:** resolve backspace bug ([#1819](https://github.com/lyne-design-system/lyne-components/issues/1819)) ([27f833b](https://github.com/lyne-design-system/lyne-components/commit/27f833b5e7b9e56969088a777ffa38c18ca189e4))
+
 ### [0.36.19](https://github.com/lyne-design-system/lyne-components/compare/v0.36.18...v0.36.19) (2023-06-22)
 
 ### Bug Fixes
