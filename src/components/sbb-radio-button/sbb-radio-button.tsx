@@ -73,7 +73,8 @@ export class SbbRadioButton implements ComponentInterface {
   /**
    * Label size variant, either m or s.
    */
-  @Prop({ reflect: true }) public size: InterfaceSbbRadioButtonAttributes['size'] = 'm';
+  @Prop({ reflect: true, mutable: true }) public size: InterfaceSbbRadioButtonAttributes['size'] =
+    'm';
 
   /**
    * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.
