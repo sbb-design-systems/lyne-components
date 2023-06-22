@@ -184,7 +184,6 @@ export class SbbTooltip implements ComponentInterface {
     this._dialog.show();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
-    tooltipsRef.add(this._element as HTMLSbbTooltipElement);
   }
 
   /**
@@ -232,6 +231,7 @@ export class SbbTooltip implements ComponentInterface {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._state = 'closed';
+    tooltipsRef.add(this._element as HTMLSbbTooltipElement);
   }
 
   public componentDidLoad(): void {
@@ -242,11 +242,11 @@ export class SbbTooltip implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    tooltipsRef.delete(this._element as HTMLSbbTooltipElement);
     this._handlerRepository.disconnect();
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    tooltipsRef.delete(this._element as HTMLSbbTooltipElement);
   }
 
   // Check if the trigger is valid and attach click event listeners.
