@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.19](https://github.com/lyne-design-system/lyne-components/compare/v0.36.18...v0.36.19) (2023-06-22)
+
+### Bug Fixes
+
+- **sbb-navigation:** add accessibility recommendations and fix focus order ([#1786](https://github.com/lyne-design-system/lyne-components/issues/1786)) ([9ed1d94](https://github.com/lyne-design-system/lyne-components/commit/9ed1d94fcf0ffcb9f3dd7deaa7104de97cef3b0d))
+
 ### [0.36.18](https://github.com/lyne-design-system/lyne-components/compare/v0.36.17...v0.36.18) (2023-06-21)
 
 ### Features
