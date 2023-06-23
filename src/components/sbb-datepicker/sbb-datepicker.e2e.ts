@@ -129,7 +129,7 @@ describe('sbb-datepicker', () => {
 
   describe('with form-field', () => {
     const template = `
-      <sbb-form-field>
+      <sbb-form-field label="Example">
         <sbb-datepicker></sbb-datepicker>
         <input/>
       </sbb-form-field>

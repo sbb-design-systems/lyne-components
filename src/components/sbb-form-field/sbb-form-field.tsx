@@ -40,10 +40,10 @@ const supportedPopupTagNames = ['SBB-TOOLTIP', 'SBB-AUTOCOMPLETE', 'SBB-SELECT']
   tag: 'sbb-form-field',
 })
 export class SbbFormField implements ComponentInterface {
+  private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
-    'INPUT',
-    'SELECT',
+    ...this._supportedNativeInputElements,
     'SBB-SELECT',
     'SBB-SLIDER',
     'SBB-TIME-INPUT',
@@ -105,10 +105,11 @@ export class SbbFormField implements ComponentInterface {
    */
   @State() private _currentLanguage = documentLanguage();
 
-  /**
-   * It is used internally to get the `input` slot.
-   */
+  /** Reference to the slotted input element. */
   @State() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
+
+  /** Reference to the slotted label elements. */
+  @State() private _labels: HTMLLabelElement[] = [];
 
   private _handlerRepository = new HandlerRepository(
     this._element,
@@ -196,10 +197,8 @@ export class SbbFormField implements ComponentInterface {
     if (labels.length > 1 && createdLabel) {
       createdLabel.remove();
     }
-    const inputId = this._input?.id;
-    if (inputId) {
-      labels.forEach((l) => (l.htmlFor = inputId));
-    }
+    this._labels = Array.from(this._element.querySelectorAll('label'));
+    this._syncLabelInputReferences();
   }
 
   /**
@@ -225,15 +224,37 @@ export class SbbFormField implements ComponentInterface {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'class'],
     });
+    this._element.dataset.inputType = this._input.tagName.toLowerCase();
+    this._syncLabelInputReferences();
+  }
 
-    if (!this._input.id) {
-      this._input.id = `sbb-form-field-input-${nextId++}`;
+  private _syncLabelInputReferences(): void {
+    if (!this._input || !this._labels.length) {
+      return;
     }
 
-    this._element.dataset.inputType = this._input.tagName.toLowerCase();
-    const label = this._element.querySelector('label');
-    if (label) {
-      label.htmlFor = this._input.id;
+    if (this._supportedNativeInputElements.includes(this._input.tagName)) {
+      // For native input elements we use the `for` attribute on the label to reference the input
+      // via id reference.
+      if (!this._input.id) {
+        this._input.id = `sbb-form-field-input-${nextId++}`;
+      }
+
+      this._labels.forEach((l) => (l.htmlFor = this._input.id));
+    } else {
+      // For non-native input elements, that do not support references via the label for attribute,
+      // we use aria-labelledby on the input element to reference the label element via id.
+      this._labels.filter((l) => !l.id).forEach((l) => (l.id = `sbb-form-field-label-${nextId++}`));
+      const labelIds = this._labels.map((l) => l.id);
+      const labelledby =
+        this._input
+          .getAttribute('aria-labelledby')
+          ?.split(' ')
+          .filter((l) => !!l && !labelIds.includes(l)) ?? [];
+      this._input.setAttribute(
+        'aria-labelledby',
+        [...labelledby, ...this._labels.map((l) => l.id)].join(' ')
+      );
     }
   }
 
