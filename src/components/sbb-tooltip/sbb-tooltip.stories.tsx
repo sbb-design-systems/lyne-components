@@ -7,11 +7,10 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-// Story interaction executed after the story renders
-const playStory = async ({ canvasElement }): Promise<void> => {
+async function commonPlayStory(canvasElement): Promise<Element> {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
@@ -20,8 +19,19 @@ const playStory = async ({ canvasElement }): Promise<void> => {
 
   await waitForStablePosition(() => canvas.getByTestId('tooltip-trigger'));
 
-  const button = canvas.getByTestId('tooltip-trigger');
+  return canvas.getByTestId('tooltip-trigger');
+}
+
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }): Promise<void> => {
+  const button = await commonPlayStory(canvasElement);
   await userEvent.click(button);
+};
+
+// Hover story interaction executed after the story renders
+const playStoryHover = async ({ canvasElement }): Promise<void> => {
+  const button = await commonPlayStory(canvasElement);
+  await userEvent.hover(button);
 };
 
 const hoverTrigger: InputType = {
@@ -207,7 +217,7 @@ export const HoverTrigger: StoryObj = {
     'open-delay': 0,
     'close-delay': 0,
   },
-  play: isChromatic() && playStory,
+  play: isChromatic() && playStoryHover,
 };
 
 const meta: Meta = {
