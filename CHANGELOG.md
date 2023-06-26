@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.21](https://github.com/lyne-design-system/lyne-components/compare/v0.36.20...v0.36.21) (2023-06-26)
+
+### Documentation
+
+- remove doubled titles in readme.md ([#1832](https://github.com/lyne-design-system/lyne-components/issues/1832)) ([6014156](https://github.com/lyne-design-system/lyne-components/commit/601415621cf7ee83634e065c2cd019cd30fadf41))
+
 ### [0.36.20](https://github.com/lyne-design-system/lyne-components/compare/v0.36.19...v0.36.20) (2023-06-22)
 
 ### Bug Fixes
