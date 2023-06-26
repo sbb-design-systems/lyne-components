@@ -98,9 +98,15 @@ const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
         ? 'Lorem ipsum dolor'
         : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
 
-      {action === 'button' && <sbb-button slot="action" icon-name="clock-small"></sbb-button>}
+      {action === 'button' && (
+        <sbb-button slot="action" icon-name="clock-small" sbb-toast-close></sbb-button>
+      )}
 
-      {action === 'link' && <sbb-link slot="action">Link action</sbb-link>}
+      {action === 'link' && (
+        <sbb-link slot="action" sbb-toast-close>
+          Link action
+        </sbb-link>
+      )}
     </sbb-toast>
   </Fragment>
 );

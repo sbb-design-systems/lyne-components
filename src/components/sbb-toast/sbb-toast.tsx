@@ -7,6 +7,7 @@ import {
   h,
   Host,
   JSX,
+  Listen,
   Method,
   Prop,
   State,
@@ -155,6 +156,12 @@ export class SbbToast implements ComponentInterface {
 
     this._state = 'closing';
     this.willClose.emit();
+  }
+
+  @Listen('click') public async onClick(ev: Event): Promise<void> {
+    if ((ev.target as HTMLElement).hasAttribute('sbb-toast-close')) {
+      await this.close();
+    }
   }
 
   public connectedCallback(): void {

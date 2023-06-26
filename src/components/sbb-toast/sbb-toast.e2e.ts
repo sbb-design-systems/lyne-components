@@ -77,6 +77,37 @@ describe('sbb-toast', () => {
     expect(element.getAttribute('data-state')).toEqual('closed');
   });
 
+  it('closes by marked action element', async () => {
+    page = await newE2EPage({
+      html: `
+      <sbb-toast>
+        <sbb-button slot="action" sbb-toast-close/>
+      </sbb-toast>
+    `,
+    });
+    element = await page.find('sbb-toast');
+    const actionBtn = await element.find('sbb-button');
+
+    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
+    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    actionBtn.click();
+
+    await page.waitForChanges();
+    await waitForCondition(() => willCloseEventSpy.events.length === 1);
+    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+
+    await page.waitForChanges();
+    await waitForCondition(() => didCloseEventSpy.events.length === 1);
+    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+
+    await page.waitForChanges();
+    expect(element.getAttribute('data-state')).toEqual('closed');
+  });
+
   it('forces state on button actions', async () => {
     page = await newE2EPage({
       html: `
