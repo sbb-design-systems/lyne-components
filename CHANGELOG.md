@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.22](https://github.com/lyne-design-system/lyne-components/compare/v0.36.21...v0.36.22) (2023-06-26)
+
+### Bug Fixes
+
+- change first loading logic for proxied parameters ([#1812](https://github.com/lyne-design-system/lyne-components/issues/1812)) ([c0cc043](https://github.com/lyne-design-system/lyne-components/commit/c0cc043f3f0bf1e937c55689fe77af71d27af60f))
+- **sbb-tooltip:** close all open tooltips before open a new one ([#1823](https://github.com/lyne-design-system/lyne-components/issues/1823)) ([9b6cf38](https://github.com/lyne-design-system/lyne-components/commit/9b6cf389b3f9ce3b4b631bfaa618dffa4b6ea3f3))
+
 ### [0.36.21](https://github.com/lyne-design-system/lyne-components/compare/v0.36.20...v0.36.21) (2023-06-26)
 
 ### Documentation
