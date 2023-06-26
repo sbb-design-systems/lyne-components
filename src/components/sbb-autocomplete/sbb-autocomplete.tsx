@@ -310,9 +310,9 @@ export class SbbAutocomplete implements ComponentInterface {
     });
     this._triggerElement.addEventListener(
       'input',
-      async (ev) => {
+      async (event) => {
         await this.open();
-        this._highlightOptions((ev.target as HTMLInputElement).value);
+        this._highlightOptions((event.target as HTMLInputElement).value);
       },
       { signal: this._triggerEventsController.signal }
     );

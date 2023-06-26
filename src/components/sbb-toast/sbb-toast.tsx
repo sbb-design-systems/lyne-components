@@ -158,8 +158,8 @@ export class SbbToast implements ComponentInterface {
     this.willClose.emit();
   }
 
-  @Listen('click') public async onClick(ev: Event): Promise<void> {
-    if ((ev.target as HTMLElement).hasAttribute('sbb-toast-close')) {
+  @Listen('click') public async onClick(event: Event): Promise<void> {
+    if ((event.target as HTMLElement).hasAttribute('sbb-toast-close')) {
       await this.close();
     }
   }
