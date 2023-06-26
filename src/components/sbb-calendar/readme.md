@@ -1,5 +1,3 @@
-# sbb-calendar
-
 The `sbb-calendar` component displays a calendar that allows the user to select a date. For accessibility purposes it's rendered as a native table element and each day is a button. 
 
 While being deeply linked to the implementation of the `sbb-datepicker-toggle` component, it can be used on its own.

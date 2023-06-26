@@ -1,5 +1,3 @@
-# List styles
-
 ## sbb-list
 
 | css class  | sass mixin |

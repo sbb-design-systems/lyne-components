@@ -1,5 +1,3 @@
-# sbb-option
-
 The `<sbb-option>` component can be used to display items in components like `<sbb-autocomplete>` or `<sbb-select>`.
 
 Like the native `option`, the component has a `value` property. The `selected`, `disabled` and `active` properties are 
