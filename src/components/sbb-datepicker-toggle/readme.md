@@ -1,5 +1,3 @@
-# sbb-datepicker-toggle
-
 The `sbb-datepicker-toggle` is a component closely connected to the `sbb-datepicker`.
 When the two are used together, the `sbb-datepicker-toggle` can be used to link the `sbb-datepicker` to a `sbb-calendar`:
 a change in the latter, like selecting a date, is propagated to the former; and conversely, changes in the `sbb-datepicker`

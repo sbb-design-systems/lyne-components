@@ -1,5 +1,3 @@
-# sbb-optgroup
-
 The `sbb-optgroup` is a component used to group more `sbb-option` within a `sbb-autocomplete` or a `sbb-select` component.
 
 It is possible to provide options via an unnamed slot. The component has a `label` property as name of the group; 

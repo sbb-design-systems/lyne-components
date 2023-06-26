@@ -1,5 +1,3 @@
-# sbb-datepicker-next-day
-
 The `sbb-datepicker-next-day` is a component closely connected to the `sbb-datepicker`;
 when the two are used together, the `sbb-datepicker-next-day` can be used to choose
 the date after the selected date, or tomorrow's date if the date-picker's input has no defined value.
