@@ -114,7 +114,9 @@ const createBreadcrumbs = ({ numberOfBreadcrumbs, text, ...args }): JSX.Element[
 
 const Template = (args): JSX.Element => (
   <Fragment>
-    <sbb-breadcrumb-group id="container">{createBreadcrumbs(args)}</sbb-breadcrumb-group>
+    <sbb-breadcrumb-group aria-label="You are here:" id="container">
+      {createBreadcrumbs(args)}
+    </sbb-breadcrumb-group>
     <div style={{ 'margin-block': '2rem', gap: '1rem', display: 'flex' }}>
       <button onClick={() => addBreadcrumb()}>Add</button>
       <button onClick={() => removeBreadcrumb()}>Remove</button>

@@ -7,6 +7,8 @@ Clicking on this breadcrumb will make the ellipsis disappear and will restore th
 
 ## Accessibility
 
+It is strongly recommended to place an `aria-label` attribute on the `sbb-breadcrumb-group`, to describe
+what context the breadcrumbs have.
 Whenever the `sbb-breadcrumb` list within the component is loaded or updated, the last element of the list 
 receive the attribute `aria-current` set to `page`.
 
@@ -15,7 +17,7 @@ receive the attribute `aria-current` set to `page`.
 `sbb-breadcrumb-group` with home icon as first `sbb-breadcrumb`:
 
 ```html
-<sbb-breadcrumb-group>
+<sbb-breadcrumb-group aria-label="You are here:">
   <sbb-breadcrumb href='/' icon-name='house-small'></sbb-breadcrumb>
   <sbb-breadcrumb href='/work-with-us'>
     Work with us
@@ -41,14 +43,11 @@ receive the attribute `aria-current` set to `page`.
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
-- [sbb-breadcrumb](../sbb-breadcrumb)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-breadcrumb-group --> sbb-icon
-  sbb-breadcrumb-group --> sbb-breadcrumb
-  sbb-breadcrumb --> sbb-icon
   style sbb-breadcrumb-group fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

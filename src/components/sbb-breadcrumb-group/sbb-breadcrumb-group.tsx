@@ -101,15 +101,13 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   /** Apply the aria-current attribute to the last sbb-breadcrumb element. */
   private _syncBreadcrumbs(): void {
-    const length = this._breadcrumbs.length - 1;
     this._breadcrumbs.forEach((breadcrumb, index) => {
-      if (index === length) {
-        breadcrumb['aria-current'] = 'page';
-      }
+      breadcrumb.removeAttribute('aria-current');
       if (!breadcrumb.id) {
         breadcrumb.id = `sbb-breadcrumb-${index}`;
       }
     });
+    this._breadcrumbs[this._breadcrumbs.length - 1]?.setAttribute('aria-current', 'page');
   }
 
   /**
@@ -177,15 +175,15 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       </li>,
       <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
         <sbb-icon name="chevron-small-right-small"></sbb-icon>
-        <sbb-breadcrumb
+        <button
+          type="button"
           id="sbb-breadcrumb-ellipsis"
-          role="button"
-          tabindex="0"
           aria-label={i18nBreadcrumbEllipsisButtonLabel[this._currentLanguage]}
+          aria-expanded="false"
           onClick={() => this._expandBreadcrumbs()}
         >
-          &hellip;
-        </sbb-breadcrumb>
+          ...
+        </button>
       </li>,
       <li class="sbb-breadcrumb-group__item">
         <sbb-icon name="chevron-small-right-small"></sbb-icon>

@@ -61,10 +61,6 @@ Breadcrumb with text and slotted icon:
 
 ## Dependencies
 
-### Used by
-
- - [sbb-breadcrumb-group](../sbb-breadcrumb-group)
-
 ### Depends on
 
 - [sbb-icon](../sbb-icon)
@@ -73,7 +69,6 @@ Breadcrumb with text and slotted icon:
 ```mermaid
 graph TD;
   sbb-breadcrumb --> sbb-icon
-  sbb-breadcrumb-group --> sbb-breadcrumb
   style sbb-breadcrumb fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
