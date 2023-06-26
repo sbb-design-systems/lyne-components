@@ -12,7 +12,7 @@ Only one toast can ever be opened at one time. If a new toast is opened while a 
   Toast content
 </sbb-toast>
 ```
-A toast can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also close it:
+A toast can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it:
 
 ```html
 <sbb-button onClick={() => document.querySelector('sbb-toast').open() } />
