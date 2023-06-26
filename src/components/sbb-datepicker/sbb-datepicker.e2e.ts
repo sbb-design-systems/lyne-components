@@ -129,7 +129,7 @@ describe('sbb-datepicker', () => {
 
   describe('with form-field', () => {
     const template = `
-      <sbb-form-field label="Example">
+      <sbb-form-field>
         <sbb-datepicker></sbb-datepicker>
         <input/>
       </sbb-form-field>
@@ -141,7 +141,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input aria-atomic="true" aria-live="polite" id="sbb-form-field-input-0" placeholder="DD.MM.YYYY" type="text">'
+        '<input aria-atomic="true" aria-live="polite" placeholder="DD.MM.YYYY" type="text">'
       );
     });
 

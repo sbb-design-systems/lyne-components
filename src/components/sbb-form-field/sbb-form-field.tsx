@@ -109,7 +109,7 @@ export class SbbFormField implements ComponentInterface {
   @State() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /** Reference to the slotted label elements. */
-  @State() private _labels: HTMLLabelElement[] = [];
+  @State() private _label?: HTMLLabelElement;
 
   private _handlerRepository = new HandlerRepository(
     this._element,
@@ -192,12 +192,18 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _onSlotLabelChange(): void {
-    const labels = Array.from(this._element.querySelectorAll('label'));
+    let labels = Array.from(this._element.querySelectorAll('label'));
     const createdLabel = labels.find((l) => l.dataset.creator === this._element.tagName);
     if (labels.length > 1 && createdLabel) {
       createdLabel.remove();
+      labels = labels.filter((l) => l !== createdLabel);
     }
-    this._labels = Array.from(this._element.querySelectorAll('label'));
+    if (labels.length > 1) {
+      console.warn(
+        `Detected more than one label in sbb-form-field#${this._element.id}. Only one label is supported.`
+      );
+    }
+    this._label = labels[0];
     this._syncLabelInputReferences();
   }
 
@@ -229,7 +235,7 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _syncLabelInputReferences(): void {
-    if (!this._input || !this._labels.length) {
+    if (!this._input || !this._label) {
       return;
     }
 
@@ -240,21 +246,19 @@ export class SbbFormField implements ComponentInterface {
         this._input.id = `sbb-form-field-input-${nextId++}`;
       }
 
-      this._labels.forEach((l) => (l.htmlFor = this._input.id));
+      this._label.htmlFor = this._input.id;
     } else {
       // For non-native input elements, that do not support references via the label for attribute,
       // we use aria-labelledby on the input element to reference the label element via id.
-      this._labels.filter((l) => !l.id).forEach((l) => (l.id = `sbb-form-field-label-${nextId++}`));
-      const labelIds = this._labels.map((l) => l.id);
+      if (!this._label.id) {
+        this._label.id = `sbb-form-field-label-${nextId++}`;
+      }
       const labelledby =
         this._input
           .getAttribute('aria-labelledby')
           ?.split(' ')
-          .filter((l) => !!l && !labelIds.includes(l)) ?? [];
-      this._input.setAttribute(
-        'aria-labelledby',
-        [...labelledby, ...this._labels.map((l) => l.id)].join(' ')
-      );
+          .filter((l) => !!l && l !== this._label.id) ?? [];
+      this._input.setAttribute('aria-labelledby', [...labelledby, this._label.id].join(' '));
     }
   }
 
