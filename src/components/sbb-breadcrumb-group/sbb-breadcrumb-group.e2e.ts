@@ -61,9 +61,9 @@ describe('sbb-breadcrumb-group', () => {
       const ellipsisBreadcrumb = `
         <li class="sbb-breadcrumb-group__item" id="sbb-breadcrumb-group-ellipsis">
           <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-right-small" role="img"></sbb-icon>
-          <sbb-breadcrumb class="hydrated" dir="ltr" id="sbb-breadcrumb-ellipsis" role="button" tabindex="0" aria-label="Show more breadcrumbs">
-            …
-          </sbb-breadcrumb>
+          <button aria-expanded="false" aria-label="Show more breadcrumbs" id="sbb-breadcrumb-ellipsis" type="button">
+            ...
+          </button>
         </li>`;
 
       const li = await page.findAll('sbb-breadcrumb-group >>> li');

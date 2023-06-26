@@ -39,7 +39,7 @@ describe('sbb-breadcrumb-group', () => {
         <sbb-breadcrumb id="sbb-breadcrumb-1" href="/one" slot="breadcrumb-1">
           One
         </sbb-breadcrumb>
-        <sbb-breadcrumb id="sbb-breadcrumb-2" href="/one" slot="breadcrumb-2">
+        <sbb-breadcrumb id="sbb-breadcrumb-2" href="/one" slot="breadcrumb-2" aria-current="page">
           Two
         </sbb-breadcrumb>
       </sbb-breadcrumb-group>
