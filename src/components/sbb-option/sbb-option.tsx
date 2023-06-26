@@ -182,7 +182,10 @@ export class SbbOption implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
+    const parentGroup = this._element.closest('sbb-optgroup');
+    if (parentGroup) {
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+    }
     this._optionAttributeObserver.observe(this._element, optionObserverConfig);
     this._setVariantByContext();
   }

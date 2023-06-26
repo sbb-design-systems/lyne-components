@@ -73,7 +73,8 @@ export class SbbRadioButton implements ComponentInterface {
   /**
    * Label size variant, either m or s.
    */
-  @Prop({ reflect: true }) public size: InterfaceSbbRadioButtonAttributes['size'] = 'm';
+  @Prop({ reflect: true, mutable: true }) public size: InterfaceSbbRadioButtonAttributes['size'] =
+    'm';
 
   /**
    * Whether the component must be set disabled due disabled attribute on sbb-radio-button-group.
@@ -188,8 +189,12 @@ export class SbbRadioButton implements ComponentInterface {
 
   // Set up the initial disabled/required values and start observe attributes changes.
   private _setupInitialStateAndAttributeObserver(): void {
-    this._disabledFromGroup = !!this._element.dataset.groupDisabled;
-    this._requiredFromGroup = !!this._element.dataset.groupRequired;
+    const parentGroup = this._element.closest('sbb-radio-button-group');
+    if (parentGroup) {
+      this._requiredFromGroup = isValidAttribute(parentGroup, 'required');
+      this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
+      this.size = parentGroup.size;
+    }
     this._radioButtonAttributeObserver.observe(this._element, radioButtonObserverConfig);
   }
 
