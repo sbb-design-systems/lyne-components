@@ -35,6 +35,8 @@ const HORIZONTAL_OFFSET = 32;
 
 let nextId = 0;
 
+const tooltipsRef = new Set<HTMLSbbTooltipElement>();
+
 /**
  * @slot unnamed - Use this slot to project any content inside the tooltip.
  */
@@ -169,6 +171,13 @@ export class SbbTooltip implements ComponentInterface {
       return;
     }
 
+    for (const tooltip of Array.from(tooltipsRef)) {
+      const state = tooltip.getAttribute('data-state') as SbbOverlayState;
+      if (state && (state === 'opened' || state === 'opening')) {
+        await tooltip.close();
+      }
+    }
+
     this.willOpen.emit();
     this._state = 'opening';
     this._setTooltipPosition();
@@ -222,6 +231,7 @@ export class SbbTooltip implements ComponentInterface {
     // Validate trigger element and attach event listeners
     this._configure(this.trigger);
     this._state = 'closed';
+    tooltipsRef.add(this._element as HTMLSbbTooltipElement);
   }
 
   public componentDidLoad(): void {
@@ -236,6 +246,7 @@ export class SbbTooltip implements ComponentInterface {
     this._tooltipController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    tooltipsRef.delete(this._element as HTMLSbbTooltipElement);
   }
 
   // Check if the trigger is valid and attach click event listeners.
