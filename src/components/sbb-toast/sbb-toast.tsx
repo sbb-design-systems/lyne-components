@@ -24,6 +24,7 @@ import { SbbToastAriaPoliteness, SbbToastAriaRole, SbbToastPosition } from './sb
 import { isFirefox } from '../../global/helpers/platform';
 import { i18nCloseAlert } from '../../global/i18n';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { composedPathHasAttribute } from '../../global/helpers/composed-path-has-attribute';
 
 // A global collection of existing toasts
 const toastRefs = new Set<HTMLSbbToastElement>();
@@ -161,11 +162,12 @@ export class SbbToast implements ComponentInterface {
 
   // Close the tooltip on click of any element that has the 'sbb-toast-close' attribute.
   @Listen('click') public async onClick(event: Event): Promise<void> {
-    const closeElement = event
-      .composedPath()
-      .find(
-        (e) => e instanceof window.HTMLElement && e.hasAttribute('sbb-toast-close')
-      ) as HTMLElement;
+    const closeElement = composedPathHasAttribute(
+      event,
+      'sbb-toast-close',
+      this._element
+    ) as HTMLElement;
+
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       await this.close();
     }

@@ -29,6 +29,7 @@ import {
   setModalityOnNextFocus,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
+import { composedPathHasAttribute } from '../../global/helpers/composed-path-has-attribute';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -329,11 +330,12 @@ export class SbbTooltip implements ComponentInterface {
 
   // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
   private async _closeOnSbbTooltipCloseClick(event: Event): Promise<void> {
-    const closeElement = event
-      .composedPath()
-      .find(
-        (e) => e instanceof window.HTMLElement && e.hasAttribute('sbb-tooltip-close')
-      ) as HTMLElement;
+    const closeElement = composedPathHasAttribute(
+      event,
+      'sbb-tooltip-close',
+      this._element
+    ) as HTMLElement;
+
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       clearTimeout(this._closeTimeout);
       await this.close(closeElement);
