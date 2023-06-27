@@ -20,6 +20,12 @@ const forceOpen: InputType = {
   },
 };
 
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const disableAnimation: InputType = {
   control: {
     type: 'boolean',
@@ -47,6 +53,7 @@ const disabledInput: InputType = {
 const basicArgTypes: ArgTypes = {
   color: color,
   'force-open': forceOpen,
+  borderless: borderless,
   'disable-animation': disableAnimation,
   checkedInput,
   disabledInput,
@@ -55,6 +62,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   color: color.options[0],
   'force-open': false,
+  borderless: false,
   'disable-animation': isChromatic(),
   checkedInput: false,
   disabledInput: false,
