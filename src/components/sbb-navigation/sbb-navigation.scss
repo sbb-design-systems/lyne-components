@@ -105,6 +105,7 @@
   position: fixed;
   inset: var(--sbb-navigation-inset);
   pointer-events: none;
+  outline: none;
   overflow: hidden;
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-z-index));
   transform: var(--sbb-navgation-transform);
