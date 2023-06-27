@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.23](https://github.com/lyne-design-system/lyne-components/compare/v0.36.22...v0.36.23) (2023-06-27)
+
+### Bug Fixes
+
+- **sbb-navigation:** remove focus outline from the container ([#1838](https://github.com/lyne-design-system/lyne-components/issues/1838)) ([82fa2b3](https://github.com/lyne-design-system/lyne-components/commit/82fa2b34b357257d345f820127a2a73deafab44f))
+
 ### [0.36.22](https://github.com/lyne-design-system/lyne-components/compare/v0.36.21...v0.36.22) (2023-06-26)
 
 ### Bug Fixes
