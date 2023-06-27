@@ -164,7 +164,12 @@ export class SbbTimetableRow {
 
     return (
       <Host role="rowgroup">
-        <sbb-card aria-expanded={this.accessibilityExpanded} size="l" active={this.active} id={id}>
+        <sbb-card
+          aria-expanded={this.accessibilityExpanded?.toString()}
+          size="l"
+          active={this.active}
+          id={id}
+        >
           {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
           {this.price && !this.loadingPrice && (
             <sbb-card-badge
