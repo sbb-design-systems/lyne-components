@@ -11,7 +11,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
 } from '@stencil/core';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -149,6 +148,11 @@ export class SbbOption implements ComponentInterface {
   @Method()
   public async setSelectedViaUserInteraction(selected: boolean): Promise<void> {
     this.selected = selected;
+    this.selectionChange.emit({
+      id: this._element.id,
+      value: this.value,
+      selected: this.selected,
+    });
     if (this.selected) {
       this.optionSelected.emit();
     }
@@ -166,17 +170,6 @@ export class SbbOption implements ComponentInterface {
       await this.setSelectedViaUserInteraction(!this.selected);
     } else {
       await this.setSelectedViaUserInteraction(true);
-    }
-  }
-
-  @Watch('selected')
-  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this.selectionChange.emit({
-        id: this._element.id,
-        value: this.value,
-        selected: this.selected,
-      });
     }
   }
 

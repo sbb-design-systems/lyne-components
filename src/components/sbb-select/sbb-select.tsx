@@ -181,9 +181,23 @@ export class SbbSelect implements ComponentInterface {
   @Watch('value')
   public onValueChanged(newValue: string | string[]): void {
     if (!Array.isArray(newValue)) {
-      this._displayValue = newValue;
+      const optionElement = this._filteredOptions.find((e) => e.value === newValue);
+      if (optionElement) {
+        optionElement.selected = true;
+      }
+      this._filteredOptions
+        .filter((option) => option.value !== newValue)
+        .forEach((option) => (option.selected = false));
+      this._displayValue = optionElement?.textContent || null;
     } else {
-      this._displayValue = newValue.join(', ') || null;
+      this._filteredOptions
+        .filter((opt) => !newValue.includes(opt.value))
+        .forEach((e) => (e.selected = false));
+      const selectedOptionElements = this._filteredOptions.filter((opt) =>
+        newValue.includes(opt.value)
+      );
+      selectedOptionElements.forEach((e) => (e.selected = true));
+      this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
     }
   }
 
@@ -201,7 +215,9 @@ export class SbbSelect implements ComponentInterface {
       this._setupOrigin();
       this._setupTrigger();
     }
-    this.onValueChanged(this.value);
+    if (this.value) {
+      this.onValueChanged(this.value);
+    }
   }
 
   public disconnectedCallback(): void {
