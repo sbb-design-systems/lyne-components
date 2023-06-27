@@ -27,7 +27,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-train-blocked-passage',
+  title: 'timetable/sbb-train-blocked-passage',
 };
 
 export default meta;

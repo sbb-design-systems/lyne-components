@@ -126,7 +126,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-pearl-chain-time',
+  title: 'timetable/sbb-pearl-chain-time',
 };
 
 export default meta;

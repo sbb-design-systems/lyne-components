@@ -195,7 +195,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-card-badge (Unfinished)',
+  title: 'components/sbb-card/sbb-card-badge (Unfinished)',
 };
 
 export default meta;

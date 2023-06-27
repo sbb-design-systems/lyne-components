@@ -357,7 +357,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-timetable-row',
+  title: 'timetable/sbb-timetable-row',
 };
 
 export default meta;

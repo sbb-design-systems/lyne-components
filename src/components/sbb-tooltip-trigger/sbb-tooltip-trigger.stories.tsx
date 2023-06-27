@@ -121,7 +121,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-tooltip-trigger',
+  title: 'components/sbb-tooltip/sbb-tooltip-trigger',
 };
 
 export default meta;

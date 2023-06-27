@@ -187,7 +187,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-navigation-section',
+  title: 'components/sbb-navigation/sbb-navigation-section',
 };
 
 export default meta;

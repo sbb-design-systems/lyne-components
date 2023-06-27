@@ -277,7 +277,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-navigation',
+  title: 'components/sbb-navigation/sbb-navigation',
 };
 
 export default meta;

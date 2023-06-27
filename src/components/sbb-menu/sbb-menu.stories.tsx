@@ -288,7 +288,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-menu',
+  title: 'components/sbb-menu/sbb-menu',
 };
 
 export default meta;

@@ -244,7 +244,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-tooltip',
+  title: 'components/sbb-tooltip/sbb-tooltip',
 };
 
 export default meta;

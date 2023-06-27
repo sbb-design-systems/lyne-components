@@ -198,7 +198,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-header-action',
+  title: 'components/sbb-header/sbb-header-action',
 };
 
 export default meta;

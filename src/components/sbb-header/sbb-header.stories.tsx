@@ -208,7 +208,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-header',
+  title: 'components/sbb-header/sbb-header',
 };
 
 export default meta;

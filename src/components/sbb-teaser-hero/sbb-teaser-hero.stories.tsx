@@ -154,7 +154,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'components/sbb-teaser-hero',
+  title: 'components/sbb-teaser/sbb-teaser-hero',
 };
 
 export default meta;

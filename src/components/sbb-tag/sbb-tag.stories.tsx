@@ -170,7 +170,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-tag',
+  title: 'components/sbb-tag/sbb-tag',
 };
 
 export default meta;

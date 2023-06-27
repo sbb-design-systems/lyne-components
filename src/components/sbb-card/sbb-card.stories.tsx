@@ -299,7 +299,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-card',
+  title: 'components/sbb-card/sbb-card',
 };
 
 export default meta;

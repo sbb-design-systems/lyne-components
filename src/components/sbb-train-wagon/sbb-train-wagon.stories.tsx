@@ -182,7 +182,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-train-wagon',
+  title: 'timetable/sbb-train-wagon',
 };
 
 export default meta;

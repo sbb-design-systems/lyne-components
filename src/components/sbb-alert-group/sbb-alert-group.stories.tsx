@@ -89,7 +89,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-alert-group',
+  title: 'components/sbb-alert/sbb-alert-group',
 };
 
 export default meta;
