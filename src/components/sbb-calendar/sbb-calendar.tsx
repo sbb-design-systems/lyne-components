@@ -255,10 +255,12 @@ export class SbbCalendar implements ComponentInterface {
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
-            <td
-              colSpan={firstRowOffset}
-              data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
-            ></td>
+            {[...Array(firstRowOffset).keys()].map(() => (
+              <td
+                class="sbb-calendar__table-data-empty"
+                data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
+              ></td>
+            ))}
             {this._createDayCells(week, today)}
           </tr>
         );
