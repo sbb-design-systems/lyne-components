@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.25](https://github.com/lyne-design-system/lyne-components/compare/v0.36.24...v0.36.25) (2023-06-27)
+
+### Bug Fixes
+
+- **sbb-calendar:** calendar animation glitch ([#1840](https://github.com/lyne-design-system/lyne-components/issues/1840)) ([9f92472](https://github.com/lyne-design-system/lyne-components/commit/9f92472e533b0cbd13c0698f1586515f6d9ec7ad))
+
 ### [0.36.24](https://github.com/lyne-design-system/lyne-components/compare/v0.36.23...v0.36.24) (2023-06-27)
 
 ### Bug Fixes
