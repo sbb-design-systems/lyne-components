@@ -330,11 +330,7 @@ export class SbbTooltip implements ComponentInterface {
 
   // Close the tooltip on click of any element that has the 'sbb-tooltip-close' attribute.
   private async _closeOnSbbTooltipCloseClick(event: Event): Promise<void> {
-    const closeElement = composedPathHasAttribute(
-      event,
-      'sbb-tooltip-close',
-      this._element
-    ) as HTMLElement;
+    const closeElement = composedPathHasAttribute(event, 'sbb-tooltip-close', this._element);
 
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       clearTimeout(this._closeTimeout);

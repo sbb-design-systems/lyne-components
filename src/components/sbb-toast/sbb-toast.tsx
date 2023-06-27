@@ -162,11 +162,7 @@ export class SbbToast implements ComponentInterface {
 
   // Close the tooltip on click of any element that has the 'sbb-toast-close' attribute.
   @Listen('click') public async onClick(event: Event): Promise<void> {
-    const closeElement = composedPathHasAttribute(
-      event,
-      'sbb-toast-close',
-      this._element
-    ) as HTMLElement;
+    const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this._element);
 
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
       await this.close();

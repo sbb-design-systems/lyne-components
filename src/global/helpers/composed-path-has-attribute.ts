@@ -10,7 +10,7 @@ export function composedPathHasAttribute(
   event: Event,
   attribute: string,
   endElement = null
-): EventTarget {
+): HTMLElement {
   const composedPath = event.composedPath();
   let endElementIndex = composedPath.findIndex((elem) => elem === endElement);
 
@@ -20,5 +20,5 @@ export function composedPathHasAttribute(
 
   return composedPath
     .slice(0, endElementIndex)
-    .find((e) => e instanceof window.HTMLElement && e.hasAttribute(attribute));
+    .find((e) => e instanceof window.HTMLElement && e.hasAttribute(attribute)) as HTMLElement;
 }
