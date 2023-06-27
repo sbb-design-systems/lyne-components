@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.24](https://github.com/lyne-design-system/lyne-components/compare/v0.36.23...v0.36.24) (2023-06-27)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** stringify accessibilityExpanded prop ([#1830](https://github.com/lyne-design-system/lyne-components/issues/1830)) ([8b7ef00](https://github.com/lyne-design-system/lyne-components/commit/8b7ef0038895b53548b004f720a5fdd2715c6c66))
+
 ### [0.36.23](https://github.com/lyne-design-system/lyne-components/compare/v0.36.22...v0.36.23) (2023-06-27)
 
 ### Bug Fixes
