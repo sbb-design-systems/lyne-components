@@ -56,7 +56,12 @@ describe('sbb-calendar', () => {
               </thead>
               <tbody class="sbb-calendar__table-body">
                 <tr>
-                  <td colspan="6" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
                   <td class="sbb-calendar__table-data">
                     <button aria-disabled="false" aria-label="January 1, 2023" aria-pressed="false" class="sbb-calendar__day" data-day="1 1 2023" tabindex="-1" sbb-tooltip-close>
                       1
@@ -247,8 +252,8 @@ describe('sbb-calendar', () => {
     );
     expect(buttonNextDay).toHaveAttribute('disabled');
 
-    const firstCell = page.root.shadowRoot.querySelector("[data-day='0 1 2023']");
-    expect(firstCell).toEqualAttribute('colspan', '6');
+    const emptyCells = page.root.shadowRoot.querySelectorAll("[data-day='0 1 2023']");
+    expect(emptyCells.length).toEqual(6);
 
     const lastDisabledMinDate = page.root.shadowRoot.querySelector("[data-day='8 1 2023']");
     expect(lastDisabledMinDate).toHaveAttribute('disabled');

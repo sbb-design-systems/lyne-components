@@ -245,9 +245,7 @@ export class SbbCalendar implements ComponentInterface {
     ));
   }
 
-  /**
-   * Creates the table body with the days cells. For the first row, it also considers the possible day's offset.
-   */
+  /** Creates the table body with the days cells. For the first row, it also considers the possible day's offset. */
   private _createTableBody(weeks: Day[][]): JSX.Element {
     const today: string = this._dateAdapter.getISOString(this._now());
     return weeks.map((week: Day[], rowIndex: number) => {
@@ -255,10 +253,12 @@ export class SbbCalendar implements ComponentInterface {
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
-            <td
-              colSpan={firstRowOffset}
-              data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
-            ></td>
+            {[...Array(firstRowOffset).keys()].map(() => (
+              <td
+                class="sbb-calendar__table-data-empty"
+                data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
+              ></td>
+            ))}
             {this._createDayCells(week, today)}
           </tr>
         );
