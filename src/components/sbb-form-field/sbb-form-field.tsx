@@ -51,6 +51,18 @@ export class SbbFormField implements ComponentInterface {
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];
 
+  private readonly _floatingLabelSupportedInputElements = ['INPUT', 'SELECT', 'SBB-SELECT'];
+
+  private readonly _floatingLabelSupportedInputTypes = [
+    'email',
+    'number',
+    'password',
+    'search',
+    'tel',
+    'text',
+    'url',
+  ];
+
   /**
    * Whether to reserve space for an error message.
    * `none` does not reserve any space.
@@ -280,10 +292,24 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _checkAndUpdateInputEmpty(): void {
+    const nativeSelectEmpty =
+      (this._input instanceof HTMLSelectElement &&
+        this._input.selectedOptions?.item(0)?.label.trim()) === '';
+
+    const textualInputEmpty =
+      ((this._input instanceof HTMLInputElement &&
+        this._floatingLabelSupportedInputTypes.includes(this._input.type)) ||
+        (!(this._input instanceof HTMLInputElement) &&
+          !(this._input instanceof HTMLSelectElement))) &&
+      this._isInputEmpty();
+
+    // TODO: include check for sbb-select display value
+
     toggleDatasetEntry(
       this._element,
       'inputEmpty',
-      this._supportedInputElements.includes(this._input.tagName) && this._isInputEmpty()
+      this._floatingLabelSupportedInputElements.includes(this._input.tagName) &&
+        (nativeSelectEmpty || textualInputEmpty)
     );
   }
 
