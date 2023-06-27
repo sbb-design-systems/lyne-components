@@ -8,7 +8,7 @@ describe('sbb-form-field', () => {
       components: [SbbFormField],
       html: `
         <sbb-form-field label="Fill input">
-          <input slot='input' class='input' placeholder='This is an input' />
+          <input placeholder='This is an input' />
         </sbb-form-field>`,
     });
 
@@ -39,7 +39,7 @@ describe('sbb-form-field', () => {
         <label data-creator="SBB-FORM-FIELD" slot="label">
           Fill input
         </label>
-        <input class="input" placeholder="This is an input" slot="input">
+        <input placeholder="This is an input">
       </sbb-form-field>
     `);
   });

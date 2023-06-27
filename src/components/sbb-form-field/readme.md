@@ -71,8 +71,14 @@ element. However, several of the form field's optional features interact with th
 contained within the form field.
 
 When you provide a label via `<label>` or the `label` attribute, `<sbb-form-field>` automatically
-associates this label with the field's form element via a native <label> element, using the `for`
+associates this label with the field's form element via a native `<label>` element, using the `for`
 attribute to reference the control's ID.
+When using a non-native form element (e.g. `<sbb-select>`) `aria-labelledby` is used, to connect the
+form element with the label, by setting an id on the label and referencing this id in the
+`aria-labelledby` attribute placed on the form element.
+Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
+element outside the `<sbb-form-field>`, the automatic assignement is skipped and it is up to the
+consumer to use the correct id references.
 
 When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds
 these elements' IDs to the form element's aria-describedby attribute. Additionally, 
