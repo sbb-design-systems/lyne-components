@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.26](https://github.com/lyne-design-system/lyne-components/compare/v0.36.25...v0.36.26) (2023-06-27)
+
+### Features
+
+- **sbb-form-field:** reference label for custom form components ([#1828](https://github.com/lyne-design-system/lyne-components/issues/1828)) ([a2f7418](https://github.com/lyne-design-system/lyne-components/commit/a2f74180934f013b62bcc805f2d0ee8d048f908c))
+
 ### [0.36.25](https://github.com/lyne-design-system/lyne-components/compare/v0.36.24...v0.36.25) (2023-06-27)
 
 ### Bug Fixes
