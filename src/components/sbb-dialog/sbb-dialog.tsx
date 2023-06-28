@@ -11,7 +11,6 @@ import {
   State,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
-import { isEventOnElement } from '../../global/helpers/position';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import { hostContext } from '../../global/helpers/host-context';
@@ -254,12 +253,21 @@ export class SbbDialog implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the dialog.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnDialog = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnDialog = event
+      .composedPath()
+      .filter((e) => e instanceof window.HTMLElement)
+      .some((target) => (target as HTMLElement).tagName === 'DIALOG');
   };
 
   // Close dialog on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._dialog, event)) {
+    if (
+      !this._isPointerDownEventOnDialog &&
+      !event
+        .composedPath()
+        .filter((e) => e instanceof window.HTMLElement)
+        .some((target) => (target as HTMLElement).tagName === 'DIALOG')
+    ) {
       await this.close();
     }
   };
