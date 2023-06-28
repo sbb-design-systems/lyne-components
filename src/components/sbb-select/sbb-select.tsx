@@ -157,7 +157,7 @@ export class SbbSelect implements ComponentInterface {
     this._openPanelEventsController.abort();
   }
 
-  /** Gets the current displayed value */
+  /** Gets the current displayed value. */
   @Method() public async getDisplayValue(): Promise<string> {
     return this._displayValue;
   }
@@ -183,6 +183,7 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
+  /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
   @Watch('value')
   public onValueChanged(newValue: string | string[]): void {
     if (!Array.isArray(newValue)) {
