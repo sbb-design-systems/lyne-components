@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.28](https://github.com/lyne-design-system/lyne-components/compare/v0.36.27...v0.36.28) (2023-06-28)
+
+### Bug Fixes
+
+- **sbb-select:** select shows selected value in form field instead of the label ([#1843](https://github.com/lyne-design-system/lyne-components/issues/1843)) ([d67e974](https://github.com/lyne-design-system/lyne-components/commit/d67e974060f1d5adeda5b21bf3fa0b3bf01d0520))
+
 ### [0.36.27](https://github.com/lyne-design-system/lyne-components/compare/v0.36.26...v0.36.27) (2023-06-28)
 
 ### Features
