@@ -136,7 +136,7 @@ Type: `Promise<void>`
 
 ### `getDisplayValue() => Promise<string>`
 
-Gets the current displayed value
+Gets the current displayed value.
 
 #### Returns
 

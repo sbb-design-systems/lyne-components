@@ -1292,7 +1292,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Gets the current displayed value
+          * Gets the current displayed value.
          */
         "getDisplayValue": () => Promise<string>;
         /**
