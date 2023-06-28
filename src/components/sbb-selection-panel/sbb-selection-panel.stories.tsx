@@ -599,6 +599,52 @@ export const WithRadioButtonGroupMilk: StoryObj = {
   },
 };
 
+export const WithCheckboxBorderless: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
+export const WithRadioButtonBorderless: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
+export const WithCheckboxGroupMilkBorderless: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    color: color.options[1],
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
+export const WithRadioButtonGroupMilkBorderless: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    color: color.options[1],
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
 export const WithCheckboxesErrorMessage: StoryObj = {
   render: WithCheckboxesErrorMessageTemplate,
   argTypes: basicArgTypes,
