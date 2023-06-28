@@ -102,12 +102,13 @@ describe('sbb-form-field', () => {
     it('should read native empty select state', async () => {
       const page = await newE2EPage();
       await page.setContent(
-        `<sbb-form-field floating-label>
-                <select>
-                  <option value='0'></option>
-                  <option value='1'>Displayed Value</option>
-                </select>
-              </sbb-form-field>`
+        `
+        <sbb-form-field floating-label>
+          <select>
+            <option value='0'></option>
+            <option value='1'>Displayed Value</option>
+          </select>
+        </sbb-form-field>`
       );
 
       const element = await page.find('sbb-form-field');
@@ -118,12 +119,13 @@ describe('sbb-form-field', () => {
     it('should not read native empty select state', async () => {
       const page = await newE2EPage();
       await page.setContent(
-        `<sbb-form-field floating-label>
-                <select>
-                  <option value='' selected>Empty Value</option>
-                  <option value='1'>Displayed Value</option>
-                </select>
-              </sbb-form-field>`
+        `
+          <sbb-form-field floating-label>
+            <select>
+              <option value='' selected>Empty Value</option>
+              <option value='1'>Displayed Value</option>
+            </select>
+         </sbb-form-field>`
       );
 
       const element = await page.find('sbb-form-field');
@@ -143,12 +145,13 @@ describe('sbb-form-field', () => {
     it('should read sbb-select empty state', async () => {
       const page = await newE2EPage();
       await page.setContent(
-        `<sbb-form-field floating-label>
-                <sbb-select value='0'>
-                  <sbb-option value='0'></sbb-option>
-                  <sbb-option value='1'>Displayed Value</sbb-option>
-                </sbb-select>
-              </sbb-form-field>`
+        `
+          <sbb-form-field floating-label>
+            <sbb-select value='0'>
+              <sbb-option value='0'></sbb-option>
+              <sbb-option value='1'>Displayed Value</sbb-option>
+            </sbb-select>
+          </sbb-form-field>`
       );
 
       const element = await page.find('sbb-form-field');
@@ -159,12 +162,13 @@ describe('sbb-form-field', () => {
     it('should not read sbb-select empty state', async () => {
       const page = await newE2EPage();
       await page.setContent(
-        `<sbb-form-field floating-label>
-              <sbb-select>
-                <sbb-option value='' selected>Empty Value</sbb-option>
-                <sbb-option value='1'>Displayed Value</sbb-option>
-              </sbb-select>
-            </sbb-form-field>`
+        `
+          <sbb-form-field floating-label>
+            <sbb-select>
+              <sbb-option value='' selected>Empty Value</sbb-option>
+              <sbb-option value='1'>Displayed Value</sbb-option>
+            </sbb-select>
+          </sbb-form-field>`
       );
 
       const element = await page.find('sbb-form-field');

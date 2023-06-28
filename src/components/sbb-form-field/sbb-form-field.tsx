@@ -311,10 +311,8 @@ export class SbbFormField implements ComponentInterface {
     } else if (this._input.tagName === 'SBB-SELECT') {
       return (await (this._input as HTMLSbbSelectElement).getDisplayValue())?.trim() === '';
     } else {
-      this._isInputValueEmpty();
+      return this._isInputValueEmpty();
     }
-
-    return false;
   }
 
   private _isInputValueEmpty(): boolean {
