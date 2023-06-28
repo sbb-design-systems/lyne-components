@@ -16,6 +16,26 @@ const focusStyle = (context: StoryContext): Record<string, string> =>
 
 // --- Component
 
+const RequestSubmitTemplate = ({ text }): JSX.Element => (
+  <form id="my-fake-form" action="/submit" method="POST" target="_blank">
+    <label
+      htmlFor="input"
+      style={{
+        display: 'flex',
+        'flex-direction': 'column',
+        'align-items': 'flex-start',
+        'padding-block-end': '2rem',
+      }}
+    >
+      Input required; submit with empty value is impossible due to `requestSubmit` API validation.
+      <input required id="input" />
+    </label>
+    <sbb-button type="submit" form="my-fake-form" name="input" value="input">
+      {text}
+    </sbb-button>
+  </form>
+);
+
 const Template = ({ text, active, ...args }): JSX.Element => (
   <sbb-button {...args} data-active={active}>
     {text}
@@ -530,6 +550,16 @@ export const TransparentNegativeActive: StoryObj = {
     variant: variant.options[3],
     negative: true,
     active: true,
+  },
+};
+
+export const RequestSubmit: StoryObj = {
+  render: RequestSubmitTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    variant: variant.options[0],
+    text: 'Submit form',
   },
 };
 
