@@ -186,11 +186,7 @@ describe('sbb-select', () => {
     await page.waitForChanges();
 
     // Event received, panel is closed
-    expect(selectionChange).toHaveReceivedEventDetail({
-      id: 'option-2',
-      selected: true,
-      value: '2',
-    });
+    expect(selectionChange).toHaveReceivedEventTimes(1);
     expect(optionSelected).toHaveReceivedEventTimes(1);
 
     await page.waitForChanges();
@@ -227,21 +223,13 @@ describe('sbb-select', () => {
     const selectionChange = await page.spyOnEvent(optionEvents.selectionChange);
     await firstOption.triggerEvent('click');
     await page.waitForChanges();
-    expect(selectionChange).toHaveReceivedEventDetail({
-      id: 'option-1',
-      selected: true,
-      value: '1',
-    });
+    expect(selectionChange).toHaveReceivedEventTimes(1);
     expect(await element.getProperty('value')).toEqual(['1']);
     expect(displayValue).toEqualText('First');
 
     await secondOption.triggerEvent('click');
     await page.waitForChanges();
-    expect(selectionChange).toHaveReceivedEventDetail({
-      id: 'option-2',
-      selected: true,
-      value: '2',
-    });
+    expect(selectionChange).toHaveReceivedEventTimes(2);
     expect(await element.getProperty('value')).toEqual(['1', '2']);
     expect(displayValue).toEqualText('First, Second');
 

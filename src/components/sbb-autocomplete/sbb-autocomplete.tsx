@@ -20,7 +20,6 @@ import {
   setAriaComboBoxAttributes,
 } from '../../global/helpers/overlay-trigger-attributes';
 import { isEventOnElement } from '../../global/helpers/position';
-import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { SbbOverlayState, overlayGapFixCorners } from '../../global/helpers';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
@@ -174,18 +173,19 @@ export class SbbAutocomplete implements ComponentInterface {
 
   /** When an option is selected, update the input value and close the autocomplete. */
   @Listen('option-selection-change')
-  public async onOptionSelected(event: CustomEvent<SbbOptionEventData>): Promise<void> {
-    if (!event.detail.selected) {
+  public async onOptionSelected(event: CustomEvent): Promise<void> {
+    const target: HTMLSbbOptionElement = event.target as HTMLSbbOptionElement;
+    if (!target.selected) {
       return;
     }
 
     // Deselect the previous options
     this._options
-      .filter((option) => option.id !== event.detail.id && option.selected)
+      .filter((option) => option.id !== target.id && option.selected)
       .forEach((option) => (option.selected = false));
 
     // Set the option value
-    this._triggerElement.value = event.detail.value;
+    this._triggerElement.value = target.value;
 
     // Manually trigger the change events
     this._triggerElement.dispatchEvent(new window.Event('change', { bubbles: true }));

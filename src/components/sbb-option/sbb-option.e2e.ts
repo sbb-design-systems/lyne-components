@@ -32,11 +32,6 @@ describe('sbb-option', () => {
       await page.waitForChanges();
       expect(await optionOne.getProperty('selected')).toEqual(true);
       expect(selectionChangeSpy).toHaveReceivedEventTimes(1);
-      expect(selectionChangeSpy).toHaveReceivedEventDetail({
-        id: 'option-1',
-        value: '1',
-        selected: true,
-      });
     });
 
     it('highlight on input', async () => {
