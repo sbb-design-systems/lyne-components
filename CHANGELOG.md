@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.29](https://github.com/lyne-design-system/lyne-components/compare/v0.36.28...v0.36.29) (2023-06-28)
+
+### Bug Fixes
+
+- **sbb-button:** remove submitter parameter in requestSubmit logic ([#1844](https://github.com/lyne-design-system/lyne-components/issues/1844)) ([3853acd](https://github.com/lyne-design-system/lyne-components/commit/3853acd3303e9bbac8b857b99d6a2ddd4bb543b2))
+
 ### [0.36.28](https://github.com/lyne-design-system/lyne-components/compare/v0.36.27...v0.36.28) (2023-06-28)
 
 ### Bug Fixes
