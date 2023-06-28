@@ -44,6 +44,10 @@
   --sbb-selection-panel-badge-background: var(--sbb-color-smoke-default);
 }
 
+:host([borderless]:not([data-checked])) {
+  --sbb-selection-panel-border-color: transparent;
+}
+
 :host([disable-animation]:not([disable-animation='false'])) {
   --sbb-selection-panel-animation-duration: 0s;
 }

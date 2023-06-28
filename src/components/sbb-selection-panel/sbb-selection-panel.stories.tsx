@@ -20,6 +20,12 @@ const forceOpen: InputType = {
   },
 };
 
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const disableAnimation: InputType = {
   control: {
     type: 'boolean',
@@ -47,6 +53,7 @@ const disabledInput: InputType = {
 const basicArgTypes: ArgTypes = {
   color: color,
   'force-open': forceOpen,
+  borderless: borderless,
   'disable-animation': disableAnimation,
   checkedInput,
   disabledInput,
@@ -55,6 +62,7 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   color: color.options[0],
   'force-open': false,
+  borderless: false,
   'disable-animation': isChromatic(),
   checkedInput: false,
   disabledInput: false,
@@ -588,6 +596,52 @@ export const WithRadioButtonGroupMilk: StoryObj = {
     color: color.options[1],
     checkedInput: true,
     disabledInput: true,
+  },
+};
+
+export const WithCheckboxBorderless: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
+export const WithRadioButtonBorderless: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
+export const WithCheckboxGroupMilkBorderless: StoryObj = {
+  render: WithCheckboxGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    color: color.options[1],
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
+  },
+};
+
+export const WithRadioButtonGroupMilkBorderless: StoryObj = {
+  render: WithRadioButtonGroupTemplate,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    color: color.options[1],
+    checkedInput: true,
+    disabledInput: true,
+    borderless: true,
   },
 };
 

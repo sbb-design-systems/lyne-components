@@ -57,6 +57,7 @@ As shown in the examples above, `sbb-checkbox` and `sbb-radio-button` placed in 
 
 | Property           | Attribute           | Description                                    | Type                | Default   |
 | ------------------ | ------------------- | ---------------------------------------------- | ------------------- | --------- |
+| `borderless`       | `borderless`        | Whether the unselected panel has a border.     | `boolean`           | `false`   |
 | `color`            | `color`             | The background color of the panel.             | `"milk" \| "white"` | `'white'` |
 | `disableAnimation` | `disable-animation` | Whether the animation is enabled.              | `boolean`           | `false`   |
 | `forceOpen`        | `force-open`        | Whether the content section is always visible. | `boolean`           | `false`   |

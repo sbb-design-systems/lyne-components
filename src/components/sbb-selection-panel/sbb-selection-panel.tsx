@@ -38,6 +38,11 @@ export class SbbSelectionPanel implements ComponentInterface {
   @Prop({ reflect: true }) public forceOpen = false;
 
   /**
+   * Whether the unselected panel has a border.
+   */
+  @Prop({ reflect: true }) public borderless = false;
+
+  /**
    * Whether the animation is enabled.
    */
   @Prop({ reflect: true }) public disableAnimation = false;

@@ -1318,6 +1318,10 @@ export namespace Components {
     }
     interface SbbSelectionPanel {
         /**
+          * Whether the unselected panel has a border.
+         */
+        "borderless": boolean;
+        /**
           * The background color of the panel.
          */
         "color": 'white' | 'milk';
@@ -3862,6 +3866,10 @@ declare namespace LocalJSX {
         "value"?: string | string[];
     }
     interface SbbSelectionPanel {
+        /**
+          * Whether the unselected panel has a border.
+         */
+        "borderless"?: boolean;
         /**
           * The background color of the panel.
          */
