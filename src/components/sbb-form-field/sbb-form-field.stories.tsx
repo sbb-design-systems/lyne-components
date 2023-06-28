@@ -202,7 +202,7 @@ const TemplateSelectWithErrorSpace = (args): JSX.Element => {
             class={args.class}
             disabled={args.disabled}
           >
-            <option>{''}</option>
+            <option value="0"></option>
             <option value="1">Value 1</option>
             <option value="2">Value 2</option>
             <option value="3">Value 3</option>

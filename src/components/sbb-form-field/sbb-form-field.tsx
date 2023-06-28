@@ -51,6 +51,18 @@ export class SbbFormField implements ComponentInterface {
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];
 
+  private readonly _floatingLabelSupportedInputElements = ['INPUT', 'SELECT', 'SBB-SELECT'];
+
+  private readonly _floatingLabelSupportedInputTypes = [
+    'email',
+    'number',
+    'password',
+    'search',
+    'tel',
+    'text',
+    'url',
+  ];
+
   /**
    * Whether to reserve space for an error message.
    * `none` does not reserve any space.
@@ -128,10 +140,10 @@ export class SbbFormField implements ComponentInterface {
 
   private _inputAbortController = new AbortController();
 
-  public connectedCallback(): void {
+  public async connectedCallback(): Promise<void> {
     this._handlerRepository.connect();
     this.renderLabel(this.label);
-    this._registerInputListener();
+    await this._registerInputListener();
   }
 
   public disconnectedCallback(): void {
@@ -210,7 +222,7 @@ export class SbbFormField implements ComponentInterface {
   /**
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
-  private _onSlotInputChange(event: Event): void {
+  private async _onSlotInputChange(event: Event): Promise<void> {
     this._input = (event.target as HTMLSlotElement)
       .assignedElements()
       .find((e): e is HTMLElement => this._supportedInputElements.includes(e.tagName));
@@ -223,7 +235,7 @@ export class SbbFormField implements ComponentInterface {
     this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
     this._applyAriaDescribedby();
     this._readInputState();
-    this._registerInputListener();
+    await this._registerInputListener();
 
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
@@ -262,13 +274,13 @@ export class SbbFormField implements ComponentInterface {
     }
   }
 
-  private _registerInputListener(): void {
+  private async _registerInputListener(): Promise<void> {
     if (!this._input) {
       return;
     }
     this._inputAbortController.abort();
     this._inputAbortController = new AbortController();
-    this._checkAndUpdateInputEmpty();
+    await this._checkAndUpdateInputEmpty();
 
     this._input.addEventListener('input', () => this._checkAndUpdateInputEmpty(), {
       signal: this._inputAbortController.signal,
@@ -279,15 +291,31 @@ export class SbbFormField implements ComponentInterface {
     });
   }
 
-  private _checkAndUpdateInputEmpty(): void {
+  private async _checkAndUpdateInputEmpty(): Promise<void> {
     toggleDatasetEntry(
       this._element,
       'inputEmpty',
-      this._supportedInputElements.includes(this._input.tagName) && this._isInputEmpty()
+      this._floatingLabelSupportedInputElements.includes(this._input.tagName) &&
+        (await this._isInputEmpty())
     );
   }
 
-  private _isInputEmpty(): boolean {
+  private async _isInputEmpty(): Promise<boolean> {
+    if (this._input instanceof HTMLInputElement) {
+      return (
+        this._floatingLabelSupportedInputTypes.includes(this._input.type) &&
+        this._isInputValueEmpty()
+      );
+    } else if (this._input instanceof HTMLSelectElement) {
+      return this._input.selectedOptions?.item(0)?.label?.trim() === '';
+    } else if (this._input.tagName === 'SBB-SELECT') {
+      return (await (this._input as HTMLSbbSelectElement).getDisplayValue())?.trim() === '';
+    } else {
+      return this._isInputValueEmpty();
+    }
+  }
+
+  private _isInputValueEmpty(): boolean {
     const value = (this._input as { value }).value;
     return ['', undefined, null].includes(value) || (Array.isArray(value) && value.length === 0);
   }
