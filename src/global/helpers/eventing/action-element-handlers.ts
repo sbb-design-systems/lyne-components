@@ -68,8 +68,8 @@ function handleLinkButtonClick(event: MouseEvent): void {
     return;
   } else if (element.type === 'submit') {
     if (form.requestSubmit) {
-      // `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
-      // see also https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
+      // TODO: `form.requestSubmit(element);` seems not to work for CustomElements, so the `element` parameter has been removed;
+      //  see also https://github.com/WICG/webcomponents/issues/814#issuecomment-1218452137
       form.requestSubmit();
     } else {
       form.submit();
