@@ -6,8 +6,10 @@ otherwise, the panel takes the component's parent element as origin.
 Options or groups of options (see `sbb-option`/`sbb-optgroup` components) can be provided via an unnamed slot.
 
 The component has a `value` property, which can be a string or a string array (when `multiple` is set to true).
-It is possible to display a placeholder if no value has been selected, using the `placeholder` property.
-If one option (or more in `multiple`) has the `selected` attribute, the `value` of the `sbb-select` is set accordingly.
+If no `value` has been set, it is possible to display a placeholder using the `placeholder` property. Also note that 
+if the `value` is set on the `sbb-select`, it will override all the `selected` attributes on the internal `sbb-option`s, 
+so setting a default value should be done using the `value` attribute on the `sbb-select` and not by setting the
+`selected` attribute on the internal `sbb-option`s.
 
 If the `multiple` property is set to false, only one option can be selected: in this case the placeholder will be replaced 
 by the chosen value and a check mark will appear on the right of the selected option in the panel.
@@ -129,6 +131,16 @@ Closes the selection panel.
 #### Returns
 
 Type: `Promise<void>`
+
+
+
+### `getDisplayValue() => Promise<string>`
+
+Gets the current displayed value.
+
+#### Returns
+
+Type: `Promise<string>`
 
 
 

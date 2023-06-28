@@ -15,7 +15,6 @@ import {
 } from '@stencil/core';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { isEventOnElement } from '../../global/helpers/position';
-import { SbbOptionEventData } from '../sbb-option/sbb-option.custom';
 import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
 import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
 import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers';
@@ -157,13 +156,19 @@ export class SbbSelect implements ComponentInterface {
     this._openPanelEventsController.abort();
   }
 
+  /** Gets the current displayed value. */
+  @Method() public async getDisplayValue(): Promise<string> {
+    return this._displayValue;
+  }
+
   /** Listens to option changes. */
   @Listen('option-selection-change')
-  public onOptionChanged(event: CustomEvent<SbbOptionEventData>): void {
-    if (event.detail.selected) {
-      this._onOptionSelected(event.detail);
+  public onOptionChanged(event: CustomEvent): void {
+    const target: HTMLSbbOptionElement = event.target as HTMLSbbOptionElement;
+    if (target.selected) {
+      this._onOptionSelected(target);
     } else {
-      this._onOptionDeselected(event.detail);
+      this._onOptionDeselected(target);
     }
   }
 
@@ -178,12 +183,27 @@ export class SbbSelect implements ComponentInterface {
     }
   }
 
+  /** Sets the _displayValue by checking the internal sbb-options and setting the correct `selected` value on them. */
   @Watch('value')
   public onValueChanged(newValue: string | string[]): void {
     if (!Array.isArray(newValue)) {
-      this._displayValue = newValue;
+      const optionElement = this._filteredOptions.find((e) => e.value === newValue);
+      if (optionElement) {
+        optionElement.selected = true;
+      }
+      this._filteredOptions
+        .filter((option) => option.value !== newValue)
+        .forEach((option) => (option.selected = false));
+      this._displayValue = optionElement?.textContent || null;
     } else {
-      this._displayValue = newValue.join(', ') || null;
+      this._filteredOptions
+        .filter((opt) => !newValue.includes(opt.value))
+        .forEach((e) => (e.selected = false));
+      const selectedOptionElements = this._filteredOptions.filter((opt) =>
+        newValue.includes(opt.value)
+      );
+      selectedOptionElements.forEach((e) => (e.selected = true));
+      this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
     }
   }
 
@@ -201,7 +221,9 @@ export class SbbSelect implements ComponentInterface {
       this._setupOrigin();
       this._setupTrigger();
     }
-    this.onValueChanged(this.value);
+    if (this.value) {
+      this.onValueChanged(this.value);
+    }
   }
 
   public disconnectedCallback(): void {
@@ -267,7 +289,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   /** When an option is selected, updates the displayValue; it also closes the select if not `multiple`. */
-  private _onOptionSelected(optionSelectionChange: SbbOptionEventData): void {
+  private _onOptionSelected(optionSelectionChange: HTMLSbbOptionElement): void {
     if (!this.multiple) {
       this._filteredOptions
         .filter((option) => option.id !== optionSelectionChange.id)
@@ -286,7 +308,7 @@ export class SbbSelect implements ComponentInterface {
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
-  private _onOptionDeselected(optionSelectionChange: SbbOptionEventData): void {
+  private _onOptionDeselected(optionSelectionChange: HTMLSbbOptionElement): void {
     if (this.multiple) {
       this.value = (this.value as string[]).filter(
         (el: string) => el !== optionSelectionChange.value

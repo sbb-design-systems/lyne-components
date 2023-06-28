@@ -11,7 +11,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
 } from '@stencil/core';
 import { assignId } from '../../global/helpers/assign-id';
 import {
@@ -19,7 +18,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
-import { SbbOptionEventData, SbbOptionVariant } from './sbb-option.custom';
+import { SbbOptionVariant } from './sbb-option.custom';
 import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { isAndroid, isSafari } from '../../global/helpers/platform';
@@ -69,7 +68,7 @@ export class SbbOption implements ComponentInterface {
     composed: true,
     eventName: 'option-selection-change',
   })
-  public selectionChange: EventEmitter<SbbOptionEventData>;
+  public selectionChange: EventEmitter;
 
   /** Emits when an option was selected by user. */
   @Event({
@@ -149,6 +148,7 @@ export class SbbOption implements ComponentInterface {
   @Method()
   public async setSelectedViaUserInteraction(selected: boolean): Promise<void> {
     this.selected = selected;
+    this.selectionChange.emit();
     if (this.selected) {
       this.optionSelected.emit();
     }
@@ -166,17 +166,6 @@ export class SbbOption implements ComponentInterface {
       await this.setSelectedViaUserInteraction(!this.selected);
     } else {
       await this.setSelectedViaUserInteraction(true);
-    }
-  }
-
-  @Watch('selected')
-  public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
-    if (currentValue !== previousValue) {
-      this.selectionChange.emit({
-        id: this._element.id,
-        value: this.value,
-        selected: this.selected,
-      });
     }
   }
 

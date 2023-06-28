@@ -30,7 +30,6 @@ import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
-import { SbbOptionEventData } from "./components/sbb-option/sbb-option.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -75,7 +74,6 @@ export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
-export { SbbOptionEventData } from "./components/sbb-option/sbb-option.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -1291,6 +1289,10 @@ export namespace Components {
           * Whether the select is disabled.
          */
         "disabled": boolean;
+        /**
+          * Gets the current displayed value.
+         */
+        "getDisplayValue": () => Promise<string>;
         /**
           * Whether the select allows for multiple selection.
          */
@@ -3675,7 +3677,7 @@ declare namespace LocalJSX {
         /**
           * Emits when the option selection status changes.
          */
-        "onOption-selection-change"?: (event: SbbOptionCustomEvent<SbbOptionEventData>) => void;
+        "onOption-selection-change"?: (event: SbbOptionCustomEvent<any>) => void;
         /**
           * Whether the option is selected.
          */

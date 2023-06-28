@@ -394,18 +394,24 @@ const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JS
       label="Select"
       data-testid="form-field"
     >
-      <sbb-select multiple={args.multiple} placeholder={args.placeholder} data-testid="select">
-        <sbb-option value="Bellinzona">Bellinzona</sbb-option>
-        <sbb-option value="Bern">Bern</sbb-option>
-        <sbb-option value="Chur">Chur</sbb-option>
-        <sbb-option value="Glarus">Glarus</sbb-option>
-        <sbb-option value="Lugano">Lugano</sbb-option>
-        <sbb-option value="Winterthur">Winterthur</sbb-option>
-        <sbb-option value="Zermatt">Zermatt</sbb-option>
-        <sbb-option value="Zürich">Zürich</sbb-option>
+      <sbb-select
+        multiple={args.multiple}
+        placeholder={args.placeholder}
+        data-testid="select"
+        onChange={(event) => changeEventHandler(event)}
+      >
+        <sbb-option value="TI - Bellinzona">Bellinzona</sbb-option>
+        <sbb-option value="BE - Bern">Bern</sbb-option>
+        <sbb-option value="GR - Chur">Chur</sbb-option>
+        <sbb-option value="GL - Glarus">Glarus</sbb-option>
+        <sbb-option value="TI - Lugano">Lugano</sbb-option>
+        <sbb-option value="ZH - Winterthur">Winterthur</sbb-option>
+        <sbb-option value="VS - Zermatt">Zermatt</sbb-option>
+        <sbb-option value="ZH - Zürich">Zürich</sbb-option>
       </sbb-select>
     </sbb-form-field>
     {textBlock('Focus the select and type letters with closed or open panel.')}
+    <div id="container-value" style={{ 'margin-block-start': '2rem' }}></div>
   </Fragment>
 );
 
