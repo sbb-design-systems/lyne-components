@@ -98,76 +98,78 @@ describe('sbb-form-field', () => {
     });
   });
 
-  it('should read native empty select state', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-form-field floating-label>
-              <select>
-                <option value='0'></option>
-                <option value='1'>Displayed Value</option>
-              </select>
-            </sbb-form-field>`
-    );
+  describe('with floating label', () => {
+    it('should read native empty select state', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `<sbb-form-field floating-label>
+                <select>
+                  <option value='0'></option>
+                  <option value='1'>Displayed Value</option>
+                </select>
+              </sbb-form-field>`
+      );
 
-    element = await page.find('sbb-form-field');
-    await page.waitForChanges();
-    expect(element.getAttribute('data-input-empty')).not.toBeNull();
-  });
+      const element = await page.find('sbb-form-field');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+    });
 
-  it('should not read native empty select state', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-form-field floating-label>
-              <select>
-                <option value='' selected>Empty Value</option>
-                <option value='1'>Displayed Value</option>
-              </select>
-            </sbb-form-field>`
-    );
+    it('should not read native empty select state', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `<sbb-form-field floating-label>
+                <select>
+                  <option value='' selected>Empty Value</option>
+                  <option value='1'>Displayed Value</option>
+                </select>
+              </sbb-form-field>`
+      );
 
-    element = await page.find('sbb-form-field');
-    await page.waitForChanges();
-    expect(element.getAttribute('data-input-empty')).toBeNull();
-  });
+      const element = await page.find('sbb-form-field');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).toBeNull();
+    });
 
-  it('should never be empty if input type is date', async () => {
-    page = await newE2EPage();
-    await page.setContent(`<sbb-form-field floating-label><input type="date"/></sbb-form-field>`);
+    it('should never be empty if input type is date', async () => {
+      const page = await newE2EPage();
+      await page.setContent(`<sbb-form-field floating-label><input type="date"/></sbb-form-field>`);
 
-    element = await page.find('sbb-form-field');
-    await page.waitForChanges();
-    expect(element.getAttribute('data-input-empty')).toBeNull();
-  });
+      const element = await page.find('sbb-form-field');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).toBeNull();
+    });
 
-  it('should read sbb-select empty state', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-form-field floating-label>
-              <sbb-select>
-                <sbb-option value='0' selected></sbb-option>
-                <sbb-option value='1'>Displayed Value</sbb-option>
-              </sbb-select>
-            </sbb-form-field>`
-    );
+    it('should read sbb-select empty state', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `<sbb-form-field floating-label>
+                <sbb-select value='0'>
+                  <sbb-option value='0'></sbb-option>
+                  <sbb-option value='1'>Displayed Value</sbb-option>
+                </sbb-select>
+              </sbb-form-field>`
+      );
 
-    element = await page.find('sbb-form-field');
-    await page.waitForChanges();
-    expect(element.getAttribute('data-input-empty')).not.toBeNull();
-  });
+      const element = await page.find('sbb-form-field');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+    });
 
-  it('should not read sbb-select empty state', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<sbb-form-field floating-label>
+    it('should not read sbb-select empty state', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `<sbb-form-field floating-label>
               <sbb-select>
                 <sbb-option value='' selected>Empty Value</sbb-option>
                 <sbb-option value='1'>Displayed Value</sbb-option>
               </sbb-select>
             </sbb-form-field>`
-    );
+      );
 
-    element = await page.find('sbb-form-field');
-    await page.waitForChanges();
-    expect(element.getAttribute('data-input-empty')).toBeNull();
+      const element = await page.find('sbb-form-field');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).toBeNull();
+    });
   });
 });
