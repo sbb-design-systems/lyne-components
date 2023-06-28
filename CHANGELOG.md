@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.30](https://github.com/lyne-design-system/lyne-components/compare/v0.36.29...v0.36.30) (2023-06-28)
+
+### Bug Fixes
+
+- **sbb-form-field:** improve floating label for various input types ([#1842](https://github.com/lyne-design-system/lyne-components/issues/1842)) ([a25637f](https://github.com/lyne-design-system/lyne-components/commit/a25637f3631ff29885d24fc07321ba1d59803ed9))
+
 ### [0.36.29](https://github.com/lyne-design-system/lyne-components/compare/v0.36.28...v0.36.29) (2023-06-28)
 
 ### Bug Fixes
