@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.27](https://github.com/lyne-design-system/lyne-components/compare/v0.36.26...v0.36.27) (2023-06-28)
+
+### Features
+
+- **sbb-selection-panel:** add borderless variant ([#1837](https://github.com/lyne-design-system/lyne-components/issues/1837)) ([88d6498](https://github.com/lyne-design-system/lyne-components/commit/88d6498e660b87ce374788f4179dd7ef5018fbb4))
+
 ### [0.36.26](https://github.com/lyne-design-system/lyne-components/compare/v0.36.25...v0.36.26) (2023-06-27)
 
 ### Features
