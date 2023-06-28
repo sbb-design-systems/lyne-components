@@ -1292,6 +1292,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Gets the current displayed value
+         */
+        "getDisplayValue": () => Promise<string>;
+        /**
           * Whether the select allows for multiple selection.
          */
         "multiple": boolean;

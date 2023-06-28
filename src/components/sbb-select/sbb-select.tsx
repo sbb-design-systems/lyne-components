@@ -157,6 +157,11 @@ export class SbbSelect implements ComponentInterface {
     this._openPanelEventsController.abort();
   }
 
+  /** Gets the current displayed value */
+  @Method() public async getDisplayValue(): Promise<string> {
+    return this._displayValue;
+  }
+
   /** Listens to option changes. */
   @Listen('option-selection-change')
   public onOptionChanged(event: CustomEvent<SbbOptionEventData>): void {

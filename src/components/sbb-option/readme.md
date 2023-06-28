@@ -8,8 +8,10 @@ It is possible to provide a label via an unnamed slot; the component can optiona
 at the component start using the `iconName` property or via custom content using the `icon` slot. 
 Icon space can be reserved even if the `iconName` property is not set by overriding the `--sbb-option-icon-container-display` variable.
 
-Consumers can listen to the `selectionChange` event on the `sbb-option` component to intercept the selected value;
-the `event.detail` object includes the `sbb-option` id, value and selected state (as a boolean value).
+Consumers can listen to the `optionSelected` event on the `sbb-option` component to intercept the selected value;
+the event is triggered if the element has been selected by some user interaction and has no `event.detail`.
+Alternatively, the `selectionChange` event can be listened to, which is triggered if the element has been selected 
+or deselected; the `event.detail` object includes the `sbb-option` id, the `value` and the `selected` state.
 
 ### Highlight
 
