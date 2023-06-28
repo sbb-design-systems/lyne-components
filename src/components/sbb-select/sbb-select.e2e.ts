@@ -9,6 +9,7 @@ describe('sbb-select', () => {
     firstOption: E2EElement,
     secondOption: E2EElement,
     thirdOption: E2EElement,
+    displayValue: E2EElement,
     comboBoxElement: E2EElement,
     page: E2EPage;
 
@@ -30,83 +31,12 @@ describe('sbb-select', () => {
     firstOption = await page.find('sbb-select > sbb-option#option-1');
     secondOption = await page.find('sbb-select > sbb-option#option-2');
     thirdOption = await page.find('sbb-select > sbb-option#option-3');
+    displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
     await page.waitForChanges();
   });
 
   it('renders', async () => {
     expect(element).toHaveClass('hydrated');
-  });
-
-  it('has placeholder if no value and no selected element', async () => {
-    expect(await element.getProperty('value')).toBeUndefined();
-    const placeholder = await page.find('sbb-select >>> .sbb-select__trigger--placeholder');
-    expect(placeholder).not.toBeNull();
-    expect(placeholder.textContent).toEqualText('Placeholder');
-  });
-
-  it("displays value if it's set, or placeholder if value doesn't match available options", async () => {
-    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
-    expect(displayValue.textContent).toEqualText('Placeholder');
-
-    element.setProperty('value', '1');
-    await page.waitForChanges();
-    expect(displayValue).toEqualText('First');
-    expect(firstOption).toHaveAttribute('selected');
-    expect(secondOption).not.toHaveAttribute('selected');
-    expect(thirdOption).not.toHaveAttribute('selected');
-
-    element.setProperty('value', '000000000');
-    await page.waitForChanges();
-    expect(displayValue).toEqualText('Placeholder');
-    expect(firstOption).not.toHaveAttribute('selected');
-    expect(secondOption).not.toHaveAttribute('selected');
-    expect(thirdOption).not.toHaveAttribute('selected');
-  });
-
-  it("displays joined string if multiple and value props are set, or placeholder if value doesn't match available options", async () => {
-    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
-    expect(displayValue.textContent).toEqualText('Placeholder');
-    element.setAttribute('multiple', true);
-
-    element.setProperty('value', ['1', '3']);
-    await page.waitForChanges();
-    expect(displayValue).toEqualText('First, Third');
-    expect(firstOption).toHaveAttribute('selected');
-    expect(secondOption).not.toHaveAttribute('selected');
-    expect(thirdOption).toHaveAttribute('selected');
-
-    element.setProperty('value', '000000000');
-    await page.waitForChanges();
-    expect(displayValue).toEqualText('Placeholder');
-    expect(firstOption).not.toHaveAttribute('selected');
-    expect(secondOption).not.toHaveAttribute('selected');
-    expect(thirdOption).not.toHaveAttribute('selected');
-  });
-
-  it("displays value if it's set with wrong selected attributes", async () => {
-    page = await newE2EPage();
-    await page.setContent(`
-      <div id="parent">
-        <sbb-select value='2'>
-          <sbb-option id="option-1" value="1" selected>First</sbb-option>
-          <sbb-option id="option-2" value="2">Second</sbb-option>
-          <sbb-option id="option-3" value="3" selected>Third</sbb-option>
-        </sbb-select>
-      </div>
-    `);
-    element = await page.find('sbb-select');
-    await page.waitForChanges();
-
-    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
-    const firstOption = await page.find('sbb-select > sbb-option#option-1');
-    const secondOption = await page.find('sbb-select > sbb-option#option-2');
-    const thirdOption = await page.find('sbb-select > sbb-option#option-3');
-
-    expect(await element.getProperty('value')).toEqual('2');
-    expect(displayValue).toEqualText('Second');
-    expect(firstOption).not.toHaveAttribute('selected');
-    expect(secondOption).toHaveAttribute('selected');
-    expect(thirdOption).not.toHaveAttribute('selected');
   });
 
   it('opens and closes the dialog', async () => {
@@ -141,7 +71,77 @@ describe('sbb-select', () => {
     expect(comboBoxElement).toEqualAttribute('aria-expanded', 'false');
   });
 
-  it('handles selection with existing selected element and no value set', async () => {
+  it('displays placeholder if no value is set and there is no selected element', async () => {
+    expect(await element.getProperty('value')).toBeUndefined();
+    const placeholder = await page.find('sbb-select >>> .sbb-select__trigger--placeholder');
+    expect(placeholder).not.toBeNull();
+    expect(placeholder.textContent).toEqualText('Placeholder');
+  });
+
+  it("displays value if it's set, or placeholder if value doesn't match available options", async () => {
+    expect(displayValue.textContent).toEqualText('Placeholder');
+
+    element.setProperty('value', '1');
+    await page.waitForChanges();
+    expect(displayValue).toEqualText('First');
+    expect(firstOption).toHaveAttribute('selected');
+    expect(secondOption).not.toHaveAttribute('selected');
+    expect(thirdOption).not.toHaveAttribute('selected');
+
+    element.setProperty('value', '000000000');
+    await page.waitForChanges();
+    expect(displayValue).toEqualText('Placeholder');
+    expect(firstOption).not.toHaveAttribute('selected');
+    expect(secondOption).not.toHaveAttribute('selected');
+    expect(thirdOption).not.toHaveAttribute('selected');
+  });
+
+  it("displays joined string if both multiple and value props are set, or placeholder if value doesn't match available options", async () => {
+    expect(displayValue.textContent).toEqualText('Placeholder');
+    element.setAttribute('multiple', true);
+
+    element.setProperty('value', ['1', '3']);
+    await page.waitForChanges();
+    expect(displayValue).toEqualText('First, Third');
+    expect(firstOption).toHaveAttribute('selected');
+    expect(secondOption).not.toHaveAttribute('selected');
+    expect(thirdOption).toHaveAttribute('selected');
+
+    element.setProperty('value', '000000000');
+    await page.waitForChanges();
+    expect(displayValue).toEqualText('Placeholder');
+    expect(firstOption).not.toHaveAttribute('selected');
+    expect(secondOption).not.toHaveAttribute('selected');
+    expect(thirdOption).not.toHaveAttribute('selected');
+  });
+
+  it("displays value if it's set with 'wrong' selected attributes on sbb-options", async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+      <div id="parent">
+        <sbb-select value='2'>
+          <sbb-option id="option-1" value="1" selected>First</sbb-option>
+          <sbb-option id="option-2" value="2">Second</sbb-option>
+          <sbb-option id="option-3" value="3" selected>Third</sbb-option>
+        </sbb-select>
+      </div>
+    `);
+    element = await page.find('sbb-select');
+    await page.waitForChanges();
+
+    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
+    const firstOption = await page.find('sbb-select > sbb-option#option-1');
+    const secondOption = await page.find('sbb-select > sbb-option#option-2');
+    const thirdOption = await page.find('sbb-select > sbb-option#option-3');
+
+    expect(await element.getProperty('value')).toEqual('2');
+    expect(displayValue).toEqualText('Second');
+    expect(firstOption).not.toHaveAttribute('selected');
+    expect(secondOption).toHaveAttribute('selected');
+    expect(thirdOption).not.toHaveAttribute('selected');
+  });
+
+  it('display selected sbb-option if no value is set, then handles selection', async () => {
     page = await newE2EPage();
     await page.setContent(`
       <div id="parent">
@@ -204,7 +204,6 @@ describe('sbb-select', () => {
   });
 
   it('handles selection in multiple', async () => {
-    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
     element.setAttribute('multiple', 'true');
     await page.waitForChanges();
 
@@ -301,7 +300,6 @@ describe('sbb-select', () => {
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
-    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
     const firstOption = await page.find('sbb-select > sbb-option#option-1');
     expect(firstOption).not.toHaveAttribute('active');
     expect(firstOption).not.toHaveAttribute('selected');
@@ -342,7 +340,6 @@ describe('sbb-select', () => {
     await waitForCondition(() => didOpen.events.length === 1);
     expect(didOpen).toHaveReceivedEventTimes(1);
 
-    const displayValue = await page.find('sbb-select >>> .sbb-select__trigger');
     const secondOption = await page.find('sbb-select > sbb-option#option-2');
     expect(secondOption).not.toHaveAttribute('active');
     expect(secondOption).not.toHaveAttribute('selected');
