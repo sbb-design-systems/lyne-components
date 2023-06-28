@@ -103,12 +103,12 @@ describe('sbb-form-field', () => {
       const page = await newE2EPage();
       await page.setContent(
         `
-        <sbb-form-field floating-label>
-          <select>
-            <option value='0'></option>
-            <option value='1'>Displayed Value</option>
-          </select>
-        </sbb-form-field>`
+          <sbb-form-field floating-label>
+            <select>
+              <option value='0'></option>
+              <option value='1'>Displayed Value</option>
+            </select>
+          </sbb-form-field>`
       );
 
       const element = await page.find('sbb-form-field');
