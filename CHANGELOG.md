@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.1](https://github.com/lyne-design-system/lyne-components/compare/v0.37.0...v0.37.1) (2023-06-29)
+
+### Features
+
+- **sbb-toggle-check:** add new size variant (M) ([#1849](https://github.com/lyne-design-system/lyne-components/issues/1849)) ([6c20d1f](https://github.com/lyne-design-system/lyne-components/commit/6c20d1f29f34571cf2ac87fe109df1815030e58f))
+
 ## [0.37.0](https://github.com/lyne-design-system/lyne-components/compare/v0.36.31...v0.37.0) (2023-06-29)
 
 ### ⚠ BREAKING CHANGES
