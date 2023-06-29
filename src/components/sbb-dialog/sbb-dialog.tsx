@@ -29,6 +29,8 @@ import {
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
 
+let nextId = 0;
+
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
  * @slot title - Use this slot to provide a title.
@@ -163,6 +165,7 @@ export class SbbDialog implements ComponentInterface {
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
   private _hasActionGroup = false;
+  private _dialogId = `sbb-dialog-${nextId++}`;
 
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
@@ -256,7 +259,7 @@ export class SbbDialog implements ComponentInterface {
     this._isPointerDownEventOnDialog = event
       .composedPath()
       .filter((e) => e instanceof window.HTMLElement)
-      .some((target) => (target as HTMLElement).tagName === 'DIALOG');
+      .some((target) => (target as HTMLElement).tagName === this._dialogId);
   };
 
   // Close dialog on backdrop click.
@@ -266,7 +269,7 @@ export class SbbDialog implements ComponentInterface {
       !event
         .composedPath()
         .filter((e) => e instanceof window.HTMLElement)
-        .some((target) => (target as HTMLElement).tagName === 'DIALOG')
+        .some((target) => (target as HTMLElement).id === this._dialogId)
     ) {
       await this.close();
     }
@@ -405,6 +408,7 @@ export class SbbDialog implements ComponentInterface {
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
           role="group"
+          id={this._dialogId}
           {...accessibilityAttributes}
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
