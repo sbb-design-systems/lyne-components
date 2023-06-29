@@ -258,8 +258,8 @@ export class SbbDialog implements ComponentInterface {
   private _pointerDownListener = (event: PointerEvent): void => {
     this._isPointerDownEventOnDialog = event
       .composedPath()
-      .filter((e) => e instanceof window.HTMLElement)
-      .some((target) => (target as HTMLElement).tagName === this._dialogId);
+      .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
+      .some((target) => target.tagName === this._dialogId);
   };
 
   // Close dialog on backdrop click.
@@ -268,8 +268,8 @@ export class SbbDialog implements ComponentInterface {
       !this._isPointerDownEventOnDialog &&
       !event
         .composedPath()
-        .filter((e) => e instanceof window.HTMLElement)
-        .some((target) => (target as HTMLElement).id === this._dialogId)
+        .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
+        .some((target) => target.id === this._dialogId)
     ) {
       await this.close();
     }
