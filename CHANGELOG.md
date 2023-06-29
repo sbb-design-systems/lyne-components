@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.37.0](https://github.com/lyne-design-system/lyne-components/compare/v0.36.31...v0.37.0) (2023-06-29)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-button, sbb-link:** - In order to fully support typings, static attribute of sbb-link and sbb-button have been renamed to is-static (property `isStatic`).
+
+### Bug Fixes
+
+- **sbb-button, sbb-link:** rename `static` attribute to `is-static` ([#1850](https://github.com/lyne-design-system/lyne-components/issues/1850)) ([157a646](https://github.com/lyne-design-system/lyne-components/commit/157a646023bdde8040ee77ba3fe63984190d9109))
+
 ### [0.36.31](https://github.com/lyne-design-system/lyne-components/compare/v0.36.30...v0.36.31) (2023-06-29)
 
 ### Refactorings
