@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.36.31](https://github.com/lyne-design-system/lyne-components/compare/v0.36.30...v0.36.31) (2023-06-29)
+
+### Refactorings
+
+- update icon cdn domain ([#1847](https://github.com/lyne-design-system/lyne-components/issues/1847)) ([38b7841](https://github.com/lyne-design-system/lyne-components/commit/38b7841266392107bc10db7773f1273e361fdf62))
+
 ### [0.36.30](https://github.com/lyne-design-system/lyne-components/compare/v0.36.29...v0.36.30) (2023-06-28)
 
 ### Bug Fixes
