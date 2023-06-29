@@ -35,6 +35,9 @@ export class SbbToggleCheck implements ComponentInterface {
   /** Name of the toggle-check. */
   @Prop({ reflect: true }) public name?: string;
 
+  /** Size variant, either m or s. */
+  @Prop({ reflect: true }) public size: InterfaceToggleCheckAttributes['size'] = 's';
+
   /** The svg name for the true state - default -> 'tick-small' */
   @Prop() public iconName = 'tick-small';
 
