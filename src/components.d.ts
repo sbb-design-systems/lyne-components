@@ -1731,6 +1731,10 @@ export namespace Components {
          */
         "required": boolean;
         /**
+          * Size variant, either m or s.
+         */
+        "size": InterfaceToggleCheckAttributes['size'];
+        /**
           * Value of toggle-check.
          */
         "value"?: string;
@@ -4321,6 +4325,10 @@ declare namespace LocalJSX {
           * The required prop for the required state.
          */
         "required"?: boolean;
+        /**
+          * Size variant, either m or s.
+         */
+        "size"?: InterfaceToggleCheckAttributes['size'];
         /**
           * Value of toggle-check.
          */

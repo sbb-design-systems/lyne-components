@@ -36,6 +36,13 @@ const iconName: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const labelPosition: InputType = {
   control: {
     type: 'inline-radio',
@@ -52,6 +59,7 @@ const ariaLabel: InputType = {
 const defaultArgTypes: ArgTypes = {
   checked,
   disabled,
+  size,
   'label-position': labelPosition,
   label,
   'icon-name': iconName,
@@ -61,6 +69,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   checked: false,
   disabled: false,
+  size: size.options[0],
   'label-position': labelPosition.options[1],
   label: 'Label',
   'icon-name': undefined,
@@ -111,6 +120,15 @@ export const SbbToggleCheckDefault: StoryObj = {
   },
 };
 
+export const SbbToggleCheckDefaultSizeM: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options[1],
+  },
+};
+
 export const SbbToggleCheckDefaultChecked: StoryObj = {
   render: ToggleCheckDefaultTemplate,
   argTypes: defaultArgTypes,
@@ -126,6 +144,16 @@ export const SbbToggleCheckDefaultLongLabel: StoryObj = {
   args: {
     ...defaultArgs,
     label: longLabel,
+  },
+};
+
+export const SbbToggleCheckDefaultLongLabelSizeM: StoryObj = {
+  render: ToggleCheckDefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    label: longLabel,
+    size: size.options[1],
   },
 };
 

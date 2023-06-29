@@ -49,6 +49,7 @@ descriptive text content.
 | `labelPosition` | `label-position` | The label position relative to the toggle. Defaults to 'after' | `"after" \| "before"` | `'after'`      |
 | `name`          | `name`           | Name of the toggle-check.                                      | `string`              | `undefined`    |
 | `required`      | `required`       | The required prop for the required state.                      | `boolean`             | `false`        |
+| `size`          | `size`           | Size variant, either m or s.                                   | `"m" \| "s"`          | `'s'`          |
 | `value`         | `value`          | Value of toggle-check.                                         | `string`              | `undefined`    |
 
 
