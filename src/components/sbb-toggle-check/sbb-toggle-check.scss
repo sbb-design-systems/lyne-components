@@ -19,6 +19,7 @@
   --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
   --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
   --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
+  --sbb-toggle-check-overall-height: var(--sbb-toggle-check-circle-diameter);
   --sbb-toggle-check-circle-transform: translate(0, -50%);
   --sbb-toggle-check-height: #{sbb.px-to-rem-build(24)};
   --sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
@@ -31,6 +32,10 @@
     --sbb-toggle-check-background-color: CanvasText;
     --sbb-toggle-check-circle-background-color: Canvas;
   }
+}
+
+:host([size='m']) {
+  --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-body-text));
 }
 
 :host([checked]:not([checked='false'])) {
@@ -129,9 +134,7 @@ input[type='checkbox'] {
   background-color: var(--sbb-toggle-check-background-color);
 
   // Reserve space of overlapping circle
-  margin-block: calc(
-    0.5 * (var(--sbb-toggle-check-circle-diameter) - var(--sbb-toggle-check-height))
-  );
+  margin-block: calc((var(--sbb-toggle-check-overall-height) - var(--sbb-toggle-check-height)) / 2);
 }
 
 .sbb-toggle-check__circle {
