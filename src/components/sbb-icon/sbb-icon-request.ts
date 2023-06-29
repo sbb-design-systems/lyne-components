@@ -1,7 +1,7 @@
 import { validateContent } from './sbb-icon-validate';
 import { readConfig, SbbIconConfig } from '../../global/helpers/config';
 
-const iconCdn = 'https://d1s1onrtynjaa8.cloudfront.net/';
+const iconCdn = 'https://icons.app.sbb.ch/';
 
 // TODO: remove picto-legacy namespace
 const iconNamespaces = new Map<string, string>()
