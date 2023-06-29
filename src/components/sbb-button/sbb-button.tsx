@@ -44,7 +44,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
    * Set this property to true if you want only a visual representation of a
    * button, but no interaction (a span instead of a link/button will be rendered).
    */
-  @Prop({ attribute: 'static', mutable: true, reflect: true }) public isStatic = false;
+  @Prop({ mutable: true, reflect: true }) public isStatic = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants

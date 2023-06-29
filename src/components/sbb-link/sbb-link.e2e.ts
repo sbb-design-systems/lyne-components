@@ -33,7 +33,7 @@ describe('sbb-link', () => {
     });
 
     it('should dispatch event on click if static', async () => {
-      element.setAttribute('static', true);
+      element.setAttribute('is-static', true);
 
       await page.waitForChanges();
 
