@@ -35,8 +35,8 @@ describe('sbb-button', () => {
       expect(clickSpy).not.toHaveReceivedEvent();
     });
 
-    it('should dispatch event on click if static', async () => {
-      element.setAttribute('static', true);
+    it('should dispatch event on click if is-static', async () => {
+      element.setAttribute('is-static', true);
 
       await page.waitForChanges();
 

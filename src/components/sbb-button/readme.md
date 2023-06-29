@@ -1,7 +1,7 @@
 If the `href` property is set, it will internally be rendered as link, otherwise as a button.
 If the `<sbb-button>` is placed inside another action element (e.g. button, link, ...),
 it is internally rendered as a `<span>` in order to not break HTML structure. 
-It's also possible to set the `<sbb-button>` manually into static state by applying `static` property.
+It's also possible to set the `<sbb-button>` manually into static state by applying `is-static` property.
 If the `<sbb-button>` is placed inside an `<sbb-form-field>`, it renders with the correct styling.
 
 ## Usage
@@ -51,7 +51,7 @@ sbb-button {
 | `form`     | `form`      | The <form> element to associate the button with.                                                                                                       | `string`                                                  | `undefined` |
 | `href`     | `href`      | The href value you want to link to (if it is present, button becomes a link).                                                                          | `string`                                                  | `undefined` |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                       | `string`                                                  | `undefined` |
-| `isStatic` | `static`    | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). | `boolean`                                                 | `false`     |
+| `isStatic` | `is-static` | Set this property to true if you want only a visual representation of a button, but no interaction (a span instead of a link/button will be rendered). | `boolean`                                                 | `false`     |
 | `name`     | `name`      | The name attribute to use for the button.                                                                                                              | `string`                                                  | `undefined` |
 | `negative` | `negative`  | Negative coloring variant flag.                                                                                                                        | `boolean`                                                 | `false`     |
 | `rel`      | `rel`       | The relationship of the linked URL as space-separated link types.                                                                                      | `string`                                                  | `undefined` |

@@ -122,7 +122,7 @@ describe('sbb-button', () => {
     });
 
     expect(root).toEqualHtml(`
-          <sbb-button variant='secondary' negative size='l' static dir="ltr">
+          <sbb-button variant='secondary' negative size='l' is-static dir="ltr">
             <mock:shadow-root>
               <span class='sbb-button'>
                 <span class='sbb-button__label'><slot></slot></span>
@@ -133,14 +133,14 @@ describe('sbb-button', () => {
       `);
   });
 
-  it('renders a sbb-button as span element by setting static property', async () => {
+  it('renders a sbb-button as span element by setting is-static property', async () => {
     const { root } = await newSpecPage({
       components: [SbbButton],
-      html: `<sbb-button variant='secondary' static>this is a static button</sbb-button>`,
+      html: `<sbb-button variant='secondary' is-static>this is a static button</sbb-button>`,
     });
 
     expect(root).toEqualHtml(`
-          <sbb-button variant='secondary' size='l' static dir="ltr">
+          <sbb-button variant='secondary' size='l' is-static dir="ltr">
             <mock:shadow-root>
               <span class='sbb-button'>
                 <span class='sbb-button__label'><slot></slot></span>

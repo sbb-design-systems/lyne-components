@@ -107,7 +107,7 @@ describe('sbb-link', () => {
             icon-name="chevron-small-right-small"
             size="m"
             variant="block"
-            static
+            is-static
             dir="ltr"
             >
           <mock:shadow-root>
@@ -125,18 +125,18 @@ describe('sbb-link', () => {
       `);
   });
 
-  it('renders a link as a span by setting static property', async () => {
+  it('renders a link as a span by setting is-static property', async () => {
     const { root } = await newSpecPage({
       components: [SbbLink],
       html: `
-        <sbb-link static>
+        <sbb-link is-static>
           Travelcards &amp; tickets.
         </sbb-link>
       `,
     });
 
     expect(root).toEqualHtml(`
-        <sbb-link dir="ltr" variant="block" static size="s">
+        <sbb-link dir="ltr" variant="block" is-static size="s">
           <mock:shadow-root>
             <span class="sbb-link">
               <slot></slot>
