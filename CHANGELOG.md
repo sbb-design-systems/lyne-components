@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.2](https://github.com/lyne-design-system/lyne-components/compare/v0.37.1...v0.37.2) (2023-06-30)
+
+### Bug Fixes
+
+- **sbb-dialog:** handle unwanted backdrop clicks on overlay components ([#1845](https://github.com/lyne-design-system/lyne-components/issues/1845)) ([9f1c3b2](https://github.com/lyne-design-system/lyne-components/commit/9f1c3b2b1ec59e506e7b9494d1bf0eb93b335eab))
+
 ### [0.37.1](https://github.com/lyne-design-system/lyne-components/compare/v0.37.0...v0.37.1) (2023-06-29)
 
 ### Features
