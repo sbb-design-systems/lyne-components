@@ -11,7 +11,6 @@ import {
   State,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
-import { isEventOnElement } from '../../global/helpers/position';
 import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import { hostContext } from '../../global/helpers/host-context';
@@ -29,6 +28,8 @@ import {
   setModalityOnNextFocus,
 } from '../../global/helpers';
 import { SbbOverlayState } from '../../global/helpers/overlay';
+
+let nextId = 0;
 
 /**
  * @slot unnamed - Use this slot to provide the dialog content.
@@ -164,6 +165,7 @@ export class SbbDialog implements ComponentInterface {
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
   private _hasActionGroup = false;
+  private _dialogId = `sbb-dialog-${nextId++}`;
 
   // Last element which had focus before the dialog was opened.
   private _lastFocusedElement?: HTMLElement;
@@ -254,12 +256,21 @@ export class SbbDialog implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the dialog.
   private _pointerDownListener = (event: PointerEvent): void => {
-    this._isPointerDownEventOnDialog = isEventOnElement(this._dialog, event);
+    this._isPointerDownEventOnDialog = event
+      .composedPath()
+      .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
+      .some((target) => target.tagName === this._dialogId);
   };
 
   // Close dialog on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
-    if (!this._isPointerDownEventOnDialog && !isEventOnElement(this._dialog, event)) {
+    if (
+      !this._isPointerDownEventOnDialog &&
+      !event
+        .composedPath()
+        .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
+        .some((target) => target.id === this._dialogId)
+    ) {
       await this.close();
     }
   };
@@ -397,6 +408,7 @@ export class SbbDialog implements ComponentInterface {
           onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
           class="sbb-dialog"
           role="group"
+          id={this._dialogId}
           {...accessibilityAttributes}
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
