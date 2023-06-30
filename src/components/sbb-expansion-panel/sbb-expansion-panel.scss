@@ -1,0 +1,28 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-expansion-panel__background-color: var(--sbb-color-white-default);
+  --sbb-expansion-panel__content-visible: block;
+}
+
+:host(:not([expanded])) {
+  --sbb-expansion-panel__content-visible: none;
+}
+
+:host([color='milk']) {
+  --sbb-expansion-panel__background-color: var(--sbb-color-milk-default);
+}
+
+.sbb-expansion-panel {
+  background-color: var(--sbb-expansion-panel__background-color);
+  padding-block: var(--sbb-spacing-responsive-xs);
+  padding-inline: var(--sbb-spacing-fixed-6x);
+}
+
+slot[name='content'] {
+  display: var(--sbb-expansion-panel__content-visible);
+}

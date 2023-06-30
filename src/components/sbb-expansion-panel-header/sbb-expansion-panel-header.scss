@@ -1,0 +1,27 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+.sbb-expansion-panel-header {
+  @include sbb.button-reset;
+  @include sbb.text-l--regular;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sbb-spacing-fixed-6x);
+  cursor: pointer;
+}
+
+.sbb-expansion-panel-header__title,
+.sbb-expansion-panel-header__toggle,
+.sbb-expansion-panel-header__icon {
+  display: flex;
+}
+
+.sbb-expansion-panel-header__title {
+  gap: var(--sbb-spacing-fixed-4x);
+}

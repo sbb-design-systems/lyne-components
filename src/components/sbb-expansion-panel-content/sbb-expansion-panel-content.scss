@@ -1,0 +1,15 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+.sbb-expansion-panel-content {
+  padding-block-start: var(--sbb-spacing-responsive-xs);
+}
+
+.sbb-expansion-panel-content__spacer {
+  display: inline-block;
+  width: sbb.px-to-rem-build(36); // --sbb-spacing-fixed-9x does not exist
+  margin-inline-end: var(--sbb-spacing-fixed-4x);
+}
