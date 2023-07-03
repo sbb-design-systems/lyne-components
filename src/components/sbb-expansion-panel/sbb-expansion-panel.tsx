@@ -78,7 +78,21 @@ export class SbbExpansionPanel implements ComponentInterface {
     this._element
       .querySelector('sbb-expansion-panel-header')
       .setAttribute('expanded', String(this.expanded));
+    this._element.style.setProperty(
+      '--sbb-selection-panel-content-height',
+      `${this._contentElement.scrollHeight}px`
+    );
+
+    if (this.expanded) {
+      this.willOpen.emit();
+      this.disableAnimation && this.didOpen.emit();
+    } else {
+      this.willClose.emit();
+      this.disableAnimation && this.didClose.emit();
+    }
   }
+
+  private _contentElement: HTMLElement;
 
   private _onHeaderSlotChange(): void {
     const header = this._element.querySelector('sbb-expansion-panel-header');
@@ -90,7 +104,7 @@ export class SbbExpansionPanel implements ComponentInterface {
     header.shadowRoot.firstElementChild.setAttribute('aria-controls', `content-${nextId}`);
 
     const content = this._element.querySelector('sbb-expansion-panel-content');
-    content.setAttribute(
+    content?.setAttribute(
       'icon-space',
       String(![null, undefined, ''].includes(header.getAttribute('icon-name')))
     );
@@ -103,6 +117,20 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
     content.setAttribute('id', `content-${nextId}`);
     content.setAttribute('aria-labelledby', `header-${nextId}`);
+    content.addEventListener('transitionend', (event) => this._onTransitionEnd(event));
+  }
+
+  private _onTransitionEnd(event): void {
+    // TODO a better condition?
+    if (event.propertyName !== 'opacity') {
+      return;
+    }
+
+    if (this.expanded) {
+      this.didOpen.emit();
+    } else {
+      this.didClose.emit();
+    }
   }
 
   public connectedCallback(): void {
@@ -117,7 +145,9 @@ export class SbbExpansionPanel implements ComponentInterface {
         <TAGNAME>
           <slot name="header" onSlotchange={() => this._onHeaderSlotChange()}></slot>
         </TAGNAME>
-        <slot name="content" onSlotchange={() => this._onContentSlotChange()}></slot>
+        <span class="sbb-expansion-panel__content" ref={(el) => (this._contentElement = el)}>
+          <slot name="content" onSlotchange={() => this._onContentSlotChange()}></slot>
+        </span>
       </div>
     );
   }
