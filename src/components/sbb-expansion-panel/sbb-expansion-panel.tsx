@@ -9,7 +9,7 @@ import {
   Listen,
   Prop,
 } from '@stencil/core';
-import { InterfaceSbbExpansionPanelAttributes } from './sbb-expansion-panel.custom.d';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 let nextId = 0;
 
@@ -24,10 +24,10 @@ let nextId = 0;
 })
 export class SbbExpansionPanel implements ComponentInterface {
   /** */
-  @Prop() public level?: InterfaceSbbExpansionPanelAttributes['level'];
+  @Prop() public level?: InterfaceTitleAttributes['level'];
 
   /** */
-  @Prop() public color: InterfaceSbbExpansionPanelAttributes['color'] = 'white';
+  @Prop() public color: 'white' | 'milk' = 'white';
 
   /** */
   @Prop({ reflect: true }) public expanded = false;
