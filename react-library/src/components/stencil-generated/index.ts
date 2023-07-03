@@ -8,8 +8,6 @@ import type { JSX } from '@sbb-esta/lyne-components';
 import { defineCustomElements } from '@sbb-esta/lyne-components/loader';
 
 defineCustomElements();
-export const SbbAccordion = /*@__PURE__*/createReactComponent<JSX.SbbAccordion, HTMLSbbAccordionElement>('sbb-accordion');
-export const SbbAccordionItem = /*@__PURE__*/createReactComponent<JSX.SbbAccordionItem, HTMLSbbAccordionItemElement>('sbb-accordion-item');
 export const SbbActionGroup = /*@__PURE__*/createReactComponent<JSX.SbbActionGroup, HTMLSbbActionGroupElement>('sbb-action-group');
 export const SbbAlert = /*@__PURE__*/createReactComponent<JSX.SbbAlert, HTMLSbbAlertElement>('sbb-alert');
 export const SbbAlertGroup = /*@__PURE__*/createReactComponent<JSX.SbbAlertGroup, HTMLSbbAlertGroupElement>('sbb-alert-group');
