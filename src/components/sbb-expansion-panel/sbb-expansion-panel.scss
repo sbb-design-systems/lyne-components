@@ -5,12 +5,29 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-expansion-panel__background-color: var(--sbb-color-white-default);
-  --sbb-expansion-panel__content-visible: block;
+  --sbb-selection-panel-content-visibility: hidden;
+  --sbb-selection-panel-content-max-height: 0;
+  --sbb-selection-panel-content-opacity: 0;
+  --sbb-selection-panel-content-transition: max-height var(--sbb-selection-panel-animation-duration)
+      var(--sbb-animation-easing),
+    padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
 }
 
-:host(:not([expanded])) {
-  --sbb-expansion-panel__content-visible: none;
+:host([expanded]) {
+  --sbb-selection-panel-content-visibility: visible;
+  --sbb-selection-panel-content-max-height: calc(
+    var(--sbb-selection-panel-content-height) + var(--sbb-spacing-responsive-xxs) +
+      var(--sbb-spacing-responsive-xs)
+  );
+  --sbb-selection-panel-content-opacity: 1;
+  --sbb-selection-panel-content-transition: max-height var(--sbb-selection-panel-animation-duration)
+      var(--sbb-animation-easing),
+    padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-selection-panel-animation-duration)
+      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
 }
 
 :host([color='milk']) {
@@ -23,6 +40,9 @@
   padding-inline: var(--sbb-spacing-fixed-6x);
 }
 
-slot[name='content'] {
-  display: var(--sbb-expansion-panel__content-visible);
+::slotted(sbb-expansion-panel-content) {
+  visibility: var(--sbb-selection-panel-content-visibility);
+  max-height: var(--sbb-selection-panel-content-max-height);
+  opacity: var(--sbb-selection-panel-content-opacity);
+  transition: var(--sbb-selection-panel-content-transition);
 }
