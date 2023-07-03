@@ -17,6 +17,7 @@ jobs:
         with:
           result-encoding: string
           script: |
+            console.log(JSON.stringify(context, null, 2));
             const check = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
