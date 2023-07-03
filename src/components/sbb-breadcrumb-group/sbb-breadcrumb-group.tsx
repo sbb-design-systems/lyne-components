@@ -108,6 +108,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
       }
     });
     this._breadcrumbs[this._breadcrumbs.length - 1]?.setAttribute('aria-current', 'page');
+
+    // If it is not expandable, reset state
+    if (this._breadcrumbs.length < 3) {
+      this._state = undefined;
+    }
   }
 
   /**

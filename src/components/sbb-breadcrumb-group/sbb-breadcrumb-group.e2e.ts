@@ -124,5 +124,26 @@ describe('sbb-breadcrumb-group', () => {
       expect(ellipsisElement).toBeNull();
       expect(ellipsisBreadcrumb).toBeNull();
     });
+
+    it('should remove expand button when too less breadcrumns available', async () => {
+      let ellipsisElement = await page.find(
+        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis'
+      );
+      let ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
+      expect(ellipsisElement).not.toBeNull();
+      expect(ellipsisBreadcrumb).not.toBeNull();
+
+      // Remove every breadcrumb from DOM except the first two
+      await page.evaluate(() =>
+        Array.from(document.querySelectorAll('sbb-breadcrumb'))
+          .slice(2)
+          .forEach((el) => el.remove())
+      );
+
+      ellipsisElement = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis');
+      ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
+      expect(ellipsisElement).toBeNull();
+      expect(ellipsisBreadcrumb).toBeNull();
+    });
   });
 });
