@@ -6,6 +6,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  reset-chromatic-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(context);
+            /*
+            github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Chromatic check',
+              head_sha: context.
+            });
+            */
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -91,29 +107,3 @@ jobs:
         with:
           name: storybook
           path: storybook-static/
-
-  chromatic:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
-    needs: [build, lint, test]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
-      - name: Restore stencil artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: stencil
-          path: .
-      - name: Run build
-        run: yarn build:chromatic-stories && yarn build:storybook
-      - name: Publish to Chromatic
-        id: chromatic-publish
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: storybook-static
-          exitOnceUploaded: true
-          exitZeroOnChanges: true
