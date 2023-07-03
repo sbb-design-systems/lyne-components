@@ -18,14 +18,14 @@ describe('sbb-toast', () => {
       >
         <mock:shadow-root>
           <div class="sbb-toast__overlay-container">
-            <div class="sbb-toast" aria-live="polite">
+            <div class="sbb-toast">
               <div class="sbb-toast__icon">
                 <slot name="icon">
                   <sbb-icon name="circle-tick-small">
                   </sbb-icon>
                 </slot>
               </div>
-              <div class="sbb-toast__content">
+              <div class="sbb-toast__content" aria-live="polite">
                 <slot></slot>
               </div>
               <div class="sbb-toast__action">

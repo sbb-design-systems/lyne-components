@@ -260,15 +260,13 @@ export class SbbToast implements ComponentInterface {
         <div class="sbb-toast__overlay-container">
           <div
             class="sbb-toast"
-            aria-live={this.politeness}
-            role={this._role}
             onAnimationEnd={(event: AnimationEvent) => this._onToastAnimationEnd(event)}
           >
             <div class="sbb-toast__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </div>
 
-            <div class="sbb-toast__content">
+            <div class="sbb-toast__content" aria-live={this.politeness} role={this._role}>
               <slot onSlotchange={(event) => this._onContentSlotChange(event)} />
             </div>
 
