@@ -18,7 +18,7 @@ describe('sbb-toast', () => {
       >
         <mock:shadow-root>
           <div class="sbb-toast__overlay-container">
-            <div class="sbb-toast" aria-live="assertive">
+            <div class="sbb-toast" aria-live="polite">
               <div class="sbb-toast__icon">
                 <slot name="icon">
                   <sbb-icon name="circle-tick-small">
