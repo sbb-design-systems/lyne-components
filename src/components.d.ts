@@ -238,6 +238,30 @@ export namespace Components {
          */
         "trigger": string | HTMLInputElement;
     }
+    interface SbbBreadcrumb {
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to.
+         */
+        "href": string | undefined;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
+         */
+        "iconName"?: string;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+    }
+    interface SbbBreadcrumbGroup {
+    }
     interface SbbButton {
         /**
           * Whether the button is disabled.
@@ -2021,6 +2045,18 @@ declare global {
         prototype: HTMLSbbAutocompleteElement;
         new (): HTMLSbbAutocompleteElement;
     };
+    interface HTMLSbbBreadcrumbElement extends Components.SbbBreadcrumb, HTMLStencilElement {
+    }
+    var HTMLSbbBreadcrumbElement: {
+        prototype: HTMLSbbBreadcrumbElement;
+        new (): HTMLSbbBreadcrumbElement;
+    };
+    interface HTMLSbbBreadcrumbGroupElement extends Components.SbbBreadcrumbGroup, HTMLStencilElement {
+    }
+    var HTMLSbbBreadcrumbGroupElement: {
+        prototype: HTMLSbbBreadcrumbGroupElement;
+        new (): HTMLSbbBreadcrumbGroupElement;
+    };
     interface HTMLSbbButtonElement extends Components.SbbButton, HTMLStencilElement {
     }
     var HTMLSbbButtonElement: {
@@ -2499,6 +2535,8 @@ declare global {
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
         "sbb-autocomplete": HTMLSbbAutocompleteElement;
+        "sbb-breadcrumb": HTMLSbbBreadcrumbElement;
+        "sbb-breadcrumb-group": HTMLSbbBreadcrumbGroupElement;
         "sbb-button": HTMLSbbButtonElement;
         "sbb-calendar": HTMLSbbCalendarElement;
         "sbb-card": HTMLSbbCardElement;
@@ -2747,6 +2785,30 @@ declare namespace LocalJSX {
           * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
          */
         "trigger"?: string | HTMLInputElement;
+    }
+    interface SbbBreadcrumb {
+        /**
+          * Whether the browser will show the download dialog on click.
+         */
+        "download"?: boolean;
+        /**
+          * The href value you want to link to.
+         */
+        "href"?: string | undefined;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
+         */
+        "iconName"?: string;
+        /**
+          * The relationship of the linked URL as space-separated link types.
+         */
+        "rel"?: string | undefined;
+        /**
+          * Where to display the linked URL.
+         */
+        "target"?: LinkTargetType | string | undefined;
+    }
+    interface SbbBreadcrumbGroup {
     }
     interface SbbButton {
         /**
@@ -4499,6 +4561,8 @@ declare namespace LocalJSX {
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
         "sbb-autocomplete": SbbAutocomplete;
+        "sbb-breadcrumb": SbbBreadcrumb;
+        "sbb-breadcrumb-group": SbbBreadcrumbGroup;
         "sbb-button": SbbButton;
         "sbb-calendar": SbbCalendar;
         "sbb-card": SbbCard;
@@ -4589,6 +4653,8 @@ declare module "@stencil/core" {
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
             "sbb-autocomplete": LocalJSX.SbbAutocomplete & JSXBase.HTMLAttributes<HTMLSbbAutocompleteElement>;
+            "sbb-breadcrumb": LocalJSX.SbbBreadcrumb & JSXBase.HTMLAttributes<HTMLSbbBreadcrumbElement>;
+            "sbb-breadcrumb-group": LocalJSX.SbbBreadcrumbGroup & JSXBase.HTMLAttributes<HTMLSbbBreadcrumbGroupElement>;
             "sbb-button": LocalJSX.SbbButton & JSXBase.HTMLAttributes<HTMLSbbButtonElement>;
             "sbb-calendar": LocalJSX.SbbCalendar & JSXBase.HTMLAttributes<HTMLSbbCalendarElement>;
             "sbb-card": LocalJSX.SbbCard & JSXBase.HTMLAttributes<HTMLSbbCardElement>;

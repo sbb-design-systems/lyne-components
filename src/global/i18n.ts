@@ -632,3 +632,10 @@ export const i18nMapContainerButtonLabel: Record<string, string> = {
   fr: 'Afficher la carte',
   it: 'Mostra la mappa',
 };
+
+export const i18nBreadcrumbEllipsisButtonLabel: Record<string, string> = {
+  de: 'Mehr Breadcrumbs anzeigen',
+  en: 'Show more breadcrumbs',
+  fr: 'Afficher plus breadcrumbs',
+  it: 'Mostra più breadcrumbs',
+};

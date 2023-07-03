@@ -1,11 +1,40 @@
 import getDocumentWritingMode from './get-document-writing-mode';
 
+interface PrevAndNextKeys {
+  prevKey: string;
+  nextKey: string;
+}
+
+function getPrevAndNextKeys(): PrevAndNextKeys {
+  if (getDocumentWritingMode() === 'rtl') {
+    return { prevKey: 'ArrowRight', nextKey: 'ArrowLeft' };
+  } else {
+    return { prevKey: 'ArrowLeft', nextKey: 'ArrowRight' };
+  }
+}
+
 /**
  * Check if the key pressed is among those allowed for navigation.
  * @param event The keyboard event to check.
  */
 export function isArrowKeyPressed(event: KeyboardEvent): boolean {
   return ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(event.key);
+}
+
+/**
+ * Check if the key pressed should move the navigation to the next element.
+ * @param event The keyboard event to check.
+ */
+export function isPreviousArrowKeyPressed(event: KeyboardEvent): boolean {
+  return event.key === 'ArrowUp' || event.key === getPrevAndNextKeys().prevKey;
+}
+
+/**
+ * Check if the key pressed should move the navigation to the next element.
+ * @param event The keyboard event to check.
+ */
+export function isNextArrowKeyPressed(event: KeyboardEvent): boolean {
+  return event.key === 'ArrowDown' || event.key === getPrevAndNextKeys().nextKey;
 }
 
 /**
@@ -43,14 +72,7 @@ const firstIndex = 0;
  * or the index of the first one, if the current is the last in the list.
  */
 export function getNextElementIndex(event: KeyboardEvent, current: number, size: number): number {
-  let prevKey: string, nextKey: string;
-  if (getDocumentWritingMode() === 'rtl') {
-    prevKey = 'ArrowRight';
-    nextKey = 'ArrowLeft';
-  } else {
-    prevKey = 'ArrowLeft';
-    nextKey = 'ArrowRight';
-  }
+  const { prevKey, nextKey } = getPrevAndNextKeys();
 
   if (event.key === prevKey || event.key === 'ArrowUp') {
     return current < firstIndex ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
