@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.3](https://github.com/lyne-design-system/lyne-components/compare/v0.37.2...v0.37.3) (2023-07-03)
+
+### Features
+
+- **sbb-breadcrumb, sbb-breadcrumb-group:** components implementation ([#1788](https://github.com/lyne-design-system/lyne-components/issues/1788)) ([ca9025c](https://github.com/lyne-design-system/lyne-components/commit/ca9025ca0e15a395efac79a0ebfe1185e12c27a2))
+
 ### [0.37.2](https://github.com/lyne-design-system/lyne-components/compare/v0.37.1...v0.37.2) (2023-06-30)
 
 ### Bug Fixes
