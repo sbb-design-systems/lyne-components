@@ -85,7 +85,7 @@ const defaultArgs: Args = {
   position: 'bottom-center',
   dismissible: false,
   timeout: 6000,
-  politeness: 'assertive',
+  politeness: 'polite',
   'icon-name': 'circle-tick-small',
   'disable-animation': isChromatic(),
 };

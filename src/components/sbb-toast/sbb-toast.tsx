@@ -61,7 +61,7 @@ export class SbbToast implements ComponentInterface {
    * The ARIA politeness level.
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
-  @Prop() public politeness: SbbToastAriaPoliteness = 'assertive';
+  @Prop() public politeness: SbbToastAriaPoliteness = 'polite';
 
   /** Whether the animation is disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
