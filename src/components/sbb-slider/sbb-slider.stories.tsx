@@ -247,7 +247,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-slider',
+  title: 'components/sbb-slider',
 };
 
 export default meta;

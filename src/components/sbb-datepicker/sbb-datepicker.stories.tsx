@@ -426,7 +426,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-datepicker/sbb-datepicker',
+  title: 'components/sbb-datepicker/sbb-datepicker',
 };
 
 export default meta;

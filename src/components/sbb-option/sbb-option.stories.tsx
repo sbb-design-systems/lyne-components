@@ -178,7 +178,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-option',
+  title: 'components/sbb-option/sbb-option',
 };
 
 export default meta;
