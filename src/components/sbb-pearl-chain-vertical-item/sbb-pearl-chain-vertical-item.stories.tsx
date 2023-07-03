@@ -70,7 +70,7 @@ const meta: Meta = {
       control: { type: 'select' },
     },
   },
-  title: 'components/timetable/sbb-pearl-chain-vertical-item',
+  title: 'timetable/sbb-pearl-chain-vertical-item',
 };
 
 export default meta;

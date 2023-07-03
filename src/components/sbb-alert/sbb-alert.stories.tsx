@@ -225,7 +225,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-alert',
+  title: 'components/sbb-alert/sbb-alert',
 };
 
 export default meta;

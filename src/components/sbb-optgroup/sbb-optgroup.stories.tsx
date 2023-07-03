@@ -177,7 +177,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-optgroup',
+  title: 'components/sbb-option/sbb-optgroup',
 };
 
 export default meta;

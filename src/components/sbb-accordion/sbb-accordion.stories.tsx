@@ -153,7 +153,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-accordion (Unfinished)',
+  title: 'components/sbb-accordion/sbb-accordion (Unfinished)',
 };
 
 export default meta;

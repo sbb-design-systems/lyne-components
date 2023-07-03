@@ -56,7 +56,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-datepicker-previous-day',
+  title: 'components/sbb-datepicker/sbb-datepicker-previous-day',
 };
 
 export default meta;

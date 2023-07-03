@@ -159,7 +159,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/timetable/sbb-pearl-chain',
+  title: 'timetable/sbb-pearl-chain',
 };
 
 export default meta;

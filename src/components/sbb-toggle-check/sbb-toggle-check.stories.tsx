@@ -224,7 +224,7 @@ export const SbbToggleCheckBlockVariant: StoryObj = {
 };
 
 const meta: Meta = {
-  title: 'components/form elements/sbb-toggle-check',
+  title: 'components/sbb-toggle/sbb-toggle-check',
   decorators: [withActions as Decorator],
   parameters: {
     backgrounds: {

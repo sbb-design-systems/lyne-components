@@ -286,7 +286,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-time-input',
+  title: 'components/sbb-time-input',
 };
 
 export default meta;

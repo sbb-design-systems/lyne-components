@@ -269,7 +269,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-toggle',
+  title: 'components/sbb-toggle/sbb-toggle',
 };
 
 export default meta;

@@ -99,7 +99,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-navigation-marker',
+  title: 'components/sbb-navigation/sbb-navigation-marker',
 };
 
 export default meta;

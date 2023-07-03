@@ -112,7 +112,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-radio-button',
+  title: 'components/sbb-radio-button/sbb-radio-button',
 };
 
 export default meta;

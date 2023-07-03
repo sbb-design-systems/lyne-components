@@ -143,7 +143,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-breadcrumb',
+  title: 'components/sbb-breadcrumb/sbb-breadcrumb',
 };
 
 export default meta;

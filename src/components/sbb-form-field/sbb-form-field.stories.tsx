@@ -553,7 +553,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/form elements/sbb-form-field',
+  title: 'components/sbb-form-field/sbb-form-field',
 };
 
 export default meta;

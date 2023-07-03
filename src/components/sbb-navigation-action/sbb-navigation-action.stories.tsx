@@ -85,7 +85,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-navigation-action',
+  title: 'components/sbb-navigation/sbb-navigation-action',
 };
 
 export default meta;

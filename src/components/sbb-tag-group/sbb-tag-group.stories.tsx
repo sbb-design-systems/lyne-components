@@ -151,7 +151,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-tag-group',
+  title: 'components/sbb-tag/sbb-tag-group',
 };
 
 export default meta;
