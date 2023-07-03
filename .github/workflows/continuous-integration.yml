@@ -8,19 +8,22 @@ concurrency:
 jobs:
   reset-chromatic-check:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      check_run_id: ${{ steps.create_check.outputs.result }}
     steps:
       - uses: actions/github-script@v6
+        id: create_check
         with:
+          result-encoding: string
           script: |
-            console.log(context);
-            /*
-            github.rest.checks.create({
+            const check = await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               name: 'Chromatic check',
-              head_sha: context.
+              head_sha: context.pull_request.head.sha
             });
-            */
+            return check.data.id;
 
   lint:
     runs-on: ubuntu-latest
@@ -92,7 +95,7 @@ jobs:
         uses: ./.github/actions/yarn-install
 
       - name: Run build
-        run: STORYBOOK_COMPONENTS_VERSION=$GITHUB_SHA yarn build
+        run: STORYBOOK_COMPONENTS_VERSION=$(date --iso-8601=minutes) yarn build
       - name: Store stencil artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -107,3 +110,25 @@ jobs:
         with:
           name: storybook
           path: storybook-static/
+
+  chromatic:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [reset-chromatic-check, build, lint, test]
+    steps:
+      - uses: actions/github-script@v6
+        id: create_check
+        env:
+          check_run_id: ${{ needs.reset-chromatic-check.outputs.check_run_id }}
+        with:
+          result-encoding: string
+          script: |
+            await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: process.env.check_run_id,
+              actions: [{
+                label: 'Compare',
+                description: 'Compare current build against base state.'
+              }],
+            });
