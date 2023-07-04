@@ -53,6 +53,7 @@
 
 .sbb-expansion-panel__content {
   display: block;
+  overflow: hidden;
 }
 
 ::slotted(sbb-expansion-panel-content) {
