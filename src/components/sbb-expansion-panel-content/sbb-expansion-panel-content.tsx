@@ -9,13 +9,12 @@ import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core
   tag: 'sbb-expansion-panel-content',
 })
 export class SbbExpansionPanelContent implements ComponentInterface {
-  @Prop() public iconSpace: boolean;
+  @Prop({ reflect: true }) public iconSpace: boolean;
 
   public render(): JSX.Element {
     return (
       <Host slot="content" role="region">
         <div class="sbb-expansion-panel-content">
-          {this.iconSpace && <span class="sbb-expansion-panel-content__spacer"></span>}
           <slot></slot>
         </div>
       </Host>
