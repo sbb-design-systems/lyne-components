@@ -1167,10 +1167,6 @@ export namespace Components {
           * The type of the notification.
          */
         "type"?: InterfaceNotificationAttributes['type'];
-        /**
-          * The variant of the notification.
-         */
-        "variant"?: InterfaceNotificationAttributes['variant'];
     }
     interface SbbOptgroup {
         /**
@@ -3810,19 +3806,19 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * Emits whenever the content section is closed.
+          * Emits whenever the notification is closed.
          */
         "onDid-close"?: (event: SbbNotificationCustomEvent<void>) => void;
         /**
-          * Emits whenever the content section is opened.
+          * Emits whenever the notification is opened.
          */
         "onDid-open"?: (event: SbbNotificationCustomEvent<void>) => void;
         /**
-          * Emits whenever the content section begins the closing transition.
+          * Emits whenever the notification begins the closing transition.
          */
         "onWill-close"?: (event: SbbNotificationCustomEvent<void>) => void;
         /**
-          * Emits whenever the content section starts the opening transition.
+          * Emits whenever the notification starts the opening transition.
          */
         "onWill-open"?: (event: SbbNotificationCustomEvent<void>) => void;
         /**
@@ -3841,10 +3837,6 @@ declare namespace LocalJSX {
           * The type of the notification.
          */
         "type"?: InterfaceNotificationAttributes['type'];
-        /**
-          * The variant of the notification.
-         */
-        "variant"?: InterfaceNotificationAttributes['variant'];
     }
     interface SbbOptgroup {
         /**

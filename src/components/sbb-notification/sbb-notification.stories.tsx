@@ -19,13 +19,6 @@ const type: InputType = {
   options: ['info', 'success', 'warn', 'error'],
 };
 
-const variant: InputType = {
-  control: {
-    type: 'radio',
-  },
-  options: ['default', 'colorful', 'transparent'],
-};
-
 const readonly: InputType = {
   control: {
     type: 'boolean',
@@ -41,7 +34,6 @@ const disableAnimation: InputType = {
 const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
   type: type,
-  variant: variant,
   readonly: readonly,
   'disable-animation': disableAnimation,
 };
@@ -49,7 +41,6 @@ const basicArgTypes: ArgTypes = {
 const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options[0],
-  variant: variant.options[0],
   readonly: false,
   'disable-animation': true,
 };
@@ -111,7 +102,7 @@ const titleStyle: Args = {
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: 'var(--sbb-spacing-fixed-1x)',
-  background: 'var(--sbb-color-milk-default)',
+  background: 'var(--sbb-color-cloud-default)',
   borderRadius: 'var(--sbb-border-radius-4x)',
   padding: '0rem 0.5rem',
 };
@@ -153,112 +144,46 @@ const SlottedTitleTemplate = (args): JSX.Element => (
   </Fragment>
 );
 
-export const InfoDefault: StoryObj = {
+export const Info: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
-export const InfoColorful: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[1] },
-};
-
-export const InfoTransparent: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[2] },
-};
-
-export const SuccessDefault: StoryObj = {
+export const Success: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options[1] },
 };
 
-export const SuccessColorful: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[1], type: type.options[1] },
-};
-
-export const SuccessTransparent: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[2], type: type.options[1] },
-};
-
-export const WarnDefault: StoryObj = {
+export const Warn: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options[2] },
 };
 
-export const WarnColorful: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[1], type: type.options[2] },
-};
-
-export const WarnTransparent: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[2], type: type.options[2] },
-};
-
-export const ErrorDefault: StoryObj = {
+export const Error: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options[3] },
 };
 
-export const ErrorColorful: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[1], type: type.options[3] },
-};
-
-export const ErrorTransparent: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[2], type: type.options[3] },
-};
-
-export const ReadonlyDefault: StoryObj = {
+export const Readonly: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, readonly: true },
 };
 
-export const ReadonlyColorful: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[1], readonly: true },
-};
-
-export const ReadonlyTransparent: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[2], readonly: true },
-};
-
-export const NoTitleDefault: StoryObj = {
+export const NoTitle: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'title-content': undefined },
 };
 
-export const NoTitleColorful: StoryObj = {
+export const ReadonlyNoTitle: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[1], 'title-content': undefined },
-};
-
-export const NoTitleTransparent: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, variant: variant.options[2], 'title-content': undefined },
+  args: { ...basicArgs, 'title-content': undefined, readonly: true },
 };
 
 export const SlottedTitle: StoryObj = {

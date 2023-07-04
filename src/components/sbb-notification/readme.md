@@ -41,17 +41,16 @@ By default, a close button is displayed to dismiss inline notifications. Includi
 | `titleContent`     | `title-content`     | Content of title.                                                                                | `string`                                   | `undefined` |
 | `titleLevel`       | `title-level`       | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                  | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`   | `'3'`       |
 | `type`             | `type`              | The type of the notification.                                                                    | `"error" \| "info" \| "success" \| "warn"` | `'info'`    |
-| `variant`          | `variant`           | The variant of the notification.                                                                 | `"colorful" \| "default" \| "transparent"` | `'default'` |
 
 
 ## Events
 
-| Event        | Description                                                       | Type                |
-| ------------ | ----------------------------------------------------------------- | ------------------- |
-| `did-close`  | Emits whenever the content section is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the content section is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the content section begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the content section starts the opening transition. | `CustomEvent<void>` |
+| Event        | Description                                                    | Type                |
+| ------------ | -------------------------------------------------------------- | ------------------- |
+| `did-close`  | Emits whenever the notification is closed.                     | `CustomEvent<void>` |
+| `did-open`   | Emits whenever the notification is opened.                     | `CustomEvent<void>` |
+| `will-close` | Emits whenever the notification begins the closing transition. | `CustomEvent<void>` |
+| `will-open`  | Emits whenever the notification starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Methods

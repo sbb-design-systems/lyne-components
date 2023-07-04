@@ -27,8 +27,8 @@ import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/r
 enum NotificationIconName {
   info = 'circle-information-small',
   success = 'circle-tick-small',
-  warn = 'sign-exclamation-point-small',
-  error = 'sign-x-small',
+  warn = 'circle-exclamation-point-small',
+  error = 'circle-cross-small',
 }
 
 /**
@@ -45,11 +45,6 @@ export class SbbNotification implements ComponentInterface {
    * The type of the notification.
    */
   @Prop({ reflect: true }) public type?: InterfaceNotificationAttributes['type'] = 'info';
-
-  /**
-   * The variant of the notification.
-   */
-  @Prop({ reflect: true }) public variant?: InterfaceNotificationAttributes['variant'] = 'default';
 
   /**
    * Content of title.
@@ -86,8 +81,6 @@ export class SbbNotification implements ComponentInterface {
 
   @State() private _hasTitle = false;
 
-  @State() private _negative = this._isNegative();
-
   @State() private _currentLanguage = documentLanguage();
 
   @State() private _resizeDisableAnimation = false;
@@ -98,15 +91,13 @@ export class SbbNotification implements ComponentInterface {
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _notificationResizeObserver = new ResizeObserver(() => this._onNotificationResize());
 
-  @Watch('variant')
   @Watch('type')
   public updateNotificationState(): void {
     this._iconName = NotificationIconName[this.type];
-    this._negative = this._isNegative();
   }
 
   /**
-   * Emits whenever the content section starts the opening transition.
+   * Emits whenever the notification starts the opening transition.
    */
   @Event({
     bubbles: true,
@@ -116,7 +107,7 @@ export class SbbNotification implements ComponentInterface {
   public willOpen: EventEmitter<void>;
 
   /**
-   * Emits whenever the content section is opened.
+   * Emits whenever the notification is opened.
    */
   @Event({
     bubbles: true,
@@ -126,7 +117,7 @@ export class SbbNotification implements ComponentInterface {
   public didOpen: EventEmitter<void>;
 
   /**
-   * Emits whenever the content section begins the closing transition.
+   * Emits whenever the notification begins the closing transition.
    */
   @Event({
     bubbles: true,
@@ -136,7 +127,7 @@ export class SbbNotification implements ComponentInterface {
   public willClose: EventEmitter<void>;
 
   /**
-   * Emits whenever the content section is closed.
+   * Emits whenever the notification is closed.
    */
   @Event({
     bubbles: true,
@@ -167,8 +158,8 @@ export class SbbNotification implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
+    this.willOpen.emit();
     this._setNotificationHeight();
-    this._notificationResizeObserver.observe(this._notificationElement);
   }
 
   public disconnectedCallback(): void {
@@ -176,14 +167,10 @@ export class SbbNotification implements ComponentInterface {
     this._notificationResizeObserver.disconnect();
   }
 
-  private _isNegative(): boolean {
-    return this.variant === 'colorful' && this.type !== 'warn';
-  }
-
   private _setNotificationHeight(): void {
     const notificationHeight =
       this._notificationElement.scrollHeight && !this.disableAnimation
-        ? `${this._notificationElement.scrollHeight}px`
+        ? `${this._notificationElement.scrollHeight + 2}px` //add 2px for the top/bottom border
         : 'auto';
     this._element.style.setProperty('--sbb-notification-height', notificationHeight);
   }
@@ -202,10 +189,14 @@ export class SbbNotification implements ComponentInterface {
   }
 
   private _onNotificationTransitionEnd(event: TransitionEvent): void {
-    if (this._state === 'opening' && event.propertyName === 'opacity') {
-      this._handleOpening();
-    } else if (this._state === 'closing' && event.propertyName === 'max-height') {
+    if (this._state === 'closing' && event.propertyName === 'max-height') {
       this._handleClosing();
+    }
+  }
+
+  private _onNotificationAnimationEnd(event: AnimationEvent): void {
+    if (this._state === 'opened' && event.animationName === 'open') {
+      this._handleOpening();
     }
   }
 
@@ -226,27 +217,21 @@ export class SbbNotification implements ComponentInterface {
     return (
       <Host
         data-state={this._state}
-        data-resize-disable-animation={this._resizeDisableAnimation}
+        data-resize-disable-animation={this._resizeDisableAnimation.toString()}
         data-has-title={this._hasTitle}
-        inert={this._state !== 'opened'}
-        aria-hidden={this._state !== 'opened'}
       >
         <div
           class="sbb-notification__wrapper"
           ref={(el) => (this._notificationElement = el)}
           onTransitionEnd={(event) => this._onNotificationTransitionEnd(event)}
+          onAnimationEnd={(event) => this._onNotificationAnimationEnd(event)}
         >
           <div class="sbb-notification">
             <sbb-icon class="sbb-notification__icon" name={this._iconName} />
 
             <span class="sbb-notification__content">
               {this._hasTitle && (
-                <sbb-title
-                  class="sbb-notification__title"
-                  level={this.titleLevel}
-                  visualLevel="5"
-                  negative={this._negative}
-                >
+                <sbb-title class="sbb-notification__title" level={this.titleLevel} visualLevel="5">
                   <slot name="title">{this.titleContent}</slot>
                 </sbb-title>
               )}
@@ -255,14 +240,9 @@ export class SbbNotification implements ComponentInterface {
 
             {!this.readonly && (
               <span class="sbb-notification__close-wrapper">
-                <sbb-divider
-                  class="sbb-notification__divider"
-                  orientation="vertical"
-                  negative={this.variant === 'colorful' && this.type === 'warn'}
-                />
+                <sbb-divider class="sbb-notification__divider" orientation="vertical" />
                 <sbb-button
-                  variant="transparent"
-                  negative={this._negative}
+                  variant="secondary"
                   size="m"
                   icon-name="cross-small"
                   onClick={() => this.close()}

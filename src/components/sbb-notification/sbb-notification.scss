@@ -1,4 +1,5 @@
 @use '../../global/styles' as sbb;
+@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
@@ -11,12 +12,12 @@
   --sbb-notification-margin: 0;
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-notification-color: var(--sbb-color-granite-default);
-  --sbb-notification-background: var(--sbb-color-white-default);
-  --sbb-notification-border-width: var(--sbb-border-width-1x);
-  --sbb-notification-border: var(--sbb-color-smoke-default) solid
-    var(--sbb-notification-border-width);
+  --sbb-notification-color: var(--sbb-color-charcoal-default);
   --sbb-notification-type-color: var(--sbb-color-granite-default);
+  --sbb-notification-border-width: var(--sbb-border-width-1x);
+  --sbb-notification-border: var(--sbb-border-width-1x) solid var(--sbb-notification-type-color);
+  --sbb-notification-border-radius: var(--sbb-border-radius-2x) var(--sbb-border-radius-4x)
+    var(--sbb-border-radius-4x) var(--sbb-border-radius-2x);
   --sbb-notification-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-transition: max-height var(--sbb-notification-animation-duration)
@@ -47,30 +48,23 @@
   margin: var(--sbb-notification-margin);
 }
 
-// :host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
-//   --sbb-notification-animation-duration: 0s;
-// }
-
-/* Variants */
-
-:host([variant='transparent']) {
-  --sbb-notification-background: transparent;
-  --sbb-notification-border: none;
-  --sbb-notification-padding-block: 0px;
-  --sbb-notification-padding-inline: 0px;
-}
-
-:host([variant='colorful']) {
-  --sbb-notification-color: var(--sbb-color-white-default);
-  --sbb-notification-background: var(--sbb-notification-type-color);
-  --sbb-notification-border: transparent solid var(--sbb-border-width-1x);
-}
-
-:host([variant='colorful'][type='warn']) {
-  --sbb-notification-color: var(--sbb-font-default-color);
+:host(
+    :is(
+        [data-resize-disable-animation='true'],
+        [disable-animation]:not([disable-animation='false'])
+      )
+  ) {
+  --sbb-notification-animation-duration: 0s;
 }
 
 /* Types */
+
+$types: (
+  'info': sbb-tokens.$sbb-color-granite-default,
+  'success': sbb-tokens.$sbb-color-green-default,
+  'warn': sbb-tokens.$sbb-color-peach-default,
+  'error': sbb-tokens.$sbb-color-red-default,
+);
 
 :host([type='info']) {
   --sbb-notification-type-color: var(--sbb-color-granite-default);
@@ -89,14 +83,30 @@
 }
 
 .sbb-notification__wrapper {
+  position: relative;
+  inset-inline-start: calc(var(--sbb-border-radius-4x) - var(--sbb-border-width-1x));
+  width: calc(100% - calc(var(--sbb-border-radius-4x) - var(--sbb-border-width-1x)));
   visibility: var(--sbb-notification-visibility);
   opacity: var(--sbb-notification-opacity);
   max-height: var(--sbb-notification-max-height);
   transition: var(--sbb-notification-transition);
+  border: var(--sbb-notification-border);
+  border-radius: var(--sbb-notification-border-radius);
   animation: {
     name: open;
     duration: var(--sbb-notification-animation-duration);
     timing-function: var(--sbb-notification-timing-function);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--sbb-border-width-1x) * -1) var(--sbb-border-radius-4x)
+      calc(var(--sbb-border-width-1x) * -1) calc(var(--sbb-border-radius-4x) * -1);
+    background-color: var(--sbb-notification-type-color);
+    border: var(--sbb-notification-border);
+    border-radius: var(--sbb-border-radius-4x);
+    z-index: -1;
   }
 }
 
@@ -109,10 +119,20 @@
   padding-block: var(--sbb-notification-padding-block);
   padding-inline: var(--sbb-notification-padding-inline);
   color: var(--sbb-notification-color);
-  background-color: var(--sbb-notification-background);
-  border: var(--sbb-notification-border);
-  border-radius: var(--sbb-border-radius-4x);
+  border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
+
+  @each $key, $value in $types {
+    :host([type='#{$key}']) & {
+      background-color: rgba($color: $value, $alpha: 5%);
+
+      @supports (
+        background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white)
+      ) {
+        background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
+      }
+    }
+  }
 
   @include sbb.mq($from: small) {
     grid-template-columns: auto 1fr auto;
@@ -122,9 +142,10 @@
 
 .sbb-notification__icon {
   margin-block: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-notification-type-color);
 
-  :host(:not([variant='colorful'])) & {
-    color: var(--sbb-notification-type-color);
+  :host([type='warn']) & {
+    color: var(--sbb-notification-color);
   }
 
   @include sbb.mq($from: small) {
@@ -176,11 +197,16 @@
 }
 
 .sbb-notification__divider {
+  --sbb-divider-color: var(--sbb-notification-type-color);
+
+  display: none;
   position: relative;
   inset-inline-start: var(--sbb-border-width-1x);
+  opacity: 0.2;
   height: calc(var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x));
 
   @include sbb.mq($from: small) {
+    display: block;
     height: calc(100% - #{sbb.px-to-rem-build(12)});
   }
 }
