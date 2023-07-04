@@ -1,9 +1,9 @@
 The `sbb-toast` is a component that can be used to display toast notifications.
 
 ### Important note  
-You should carefully consider every use of the `sbb-toast` component since they can be a source of stress for people with visual impairments (see the [accessibility](#accessibility) section for more info).  
+You should carefully consider every use of the `sbb-toast` component since it can be a source of stress for people with visual impairments (see the [accessibility](#accessibility) section for more info).  
 
-Here are a few tips to a correct usage: 
+Here are a few tips for correct usage: 
 * Try to avoid actions inside a toast since they are not easily reachable;
 * If an action is needed, you should provide an alternative way to perform it;
 * If not strictly necessary, use the `polite` (_default_) configuration since it is less aggressive for screen reader users;
