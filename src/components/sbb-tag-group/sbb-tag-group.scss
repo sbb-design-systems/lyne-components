@@ -4,8 +4,14 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-.sbb-tag-group {
+.sbb-tag-group__list {
+  @include sbb.list-reset;
+
   display: flex;
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-tag-group__list-item {
+  display: contents;
 }
