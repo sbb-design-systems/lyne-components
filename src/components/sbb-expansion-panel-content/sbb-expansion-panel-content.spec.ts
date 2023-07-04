@@ -9,11 +9,13 @@ describe('sbb-expansion-panel-content', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-expansion-panel-content>
-          <mock:shadow-root>
-            <button class="some-class"></button>
-          </mock:shadow-root>
-        </sbb-expansion-panel-content>
-      `);
+      <sbb-expansion-panel-content slot="content" role="region">
+        <mock:shadow-root>
+          <div class="sbb-expansion-panel-content">
+            <slot></slot>
+          </div>
+        </mock:shadow-root>
+      </sbb-expansion-panel-content>
+    `);
   });
 });

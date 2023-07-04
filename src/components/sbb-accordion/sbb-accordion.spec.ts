@@ -11,7 +11,9 @@ describe('sbb-accordion', () => {
     expect(root).toEqualHtml(`
         <sbb-accordion>
           <mock:shadow-root>
-            <button class="some-class"></button>
+            <div class="sbb-accordion">
+              <slot></slot>
+            </div>
           </mock:shadow-root>
         </sbb-accordion>
       `);

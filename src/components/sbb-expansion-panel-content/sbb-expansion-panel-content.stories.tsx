@@ -4,24 +4,24 @@ import readme from './readme.md';
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/html';
 import { InputType } from '@storybook/types';
 
-const text: InputType = {
+const contentText: InputType = {
   control: {
     type: 'text',
   },
 };
 
 const defaultArgTypes: ArgTypes = {
-  text,
+  contentText,
 };
 
 const defaultArgs: Args = {
   text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit libero cursus vel.',
 };
 
-const Template = ({ text }): JSX.Element => (
+const Template = ({ contentText }): JSX.Element => (
   <sbb-expansion-panel-content>
     <p>Static content.</p>
-    <p>Dynamic content: {text}</p>
+    <p>Dynamic content: {contentText}</p>
   </sbb-expansion-panel-content>
 );
 

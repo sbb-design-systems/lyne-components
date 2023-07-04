@@ -3,13 +3,6 @@ to be documented...
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property    | Attribute    | Description | Type      | Default     |
-| ----------- | ------------ | ----------- | --------- | ----------- |
-| `iconSpace` | `icon-space` |             | `boolean` | `undefined` |
-
-
 ## Slots
 
 | Slot        | Description                                          |

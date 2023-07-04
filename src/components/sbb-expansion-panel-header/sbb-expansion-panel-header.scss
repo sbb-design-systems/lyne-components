@@ -8,12 +8,12 @@
   @include sbb.button-reset;
   @include sbb.text-l--regular;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-6x);
   width: 100%;
   height: var(--sbb-size-icon-ui-medium);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sbb-spacing-fixed-6x);
   cursor: pointer;
 }
 

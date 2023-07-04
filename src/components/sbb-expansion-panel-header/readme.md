@@ -7,6 +7,7 @@ to be documented...
 
 | Property   | Attribute   | Description                                                                                                                      | Type      | Default     |
 | ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `disabled` | `disabled`  | Whether the button is disabled .                                                                                                 | `boolean` | `undefined` |
 | `expanded` | `expanded`  | Sets the correct toggle icon.                                                                                                    | `boolean` | `undefined` |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `undefined` |
 

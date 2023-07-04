@@ -37,6 +37,9 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
   /** Sets the correct toggle icon. */
   @Prop() public expanded: boolean;
 
+  /** Whether the button is disabled . */
+  @Prop() public disabled: boolean;
+
   @Element() private _element!: HTMLElement;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
@@ -62,14 +65,22 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
+  private _emitExpandedEvent(): void {
+    if (!this.disabled) {
+      this.toggleExpanded.emit();
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <Host slot="header">
         <button
+          disabled={this.disabled}
+          aria-disabled={this.disabled?.toString()}
           type="button"
           class="sbb-expansion-panel-header"
           aria-expanded={this.expanded}
-          onClick={() => this.toggleExpanded.emit()}
+          onClick={() => this._emitExpandedEvent()}
         >
           <span class="sbb-expansion-panel-header__title">
             {(this.iconName || this._namedSlots.icon) && (

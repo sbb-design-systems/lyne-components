@@ -23,25 +23,25 @@ let nextId = 0;
   tag: 'sbb-expansion-panel',
 })
 export class SbbExpansionPanel implements ComponentInterface {
-  /** */
+  /** Title level; if unset, a `div` will be rendered. */
   @Prop() public level?: InterfaceTitleAttributes['level'];
 
-  /** */
+  /** The background color of the panel. */
   @Prop() public color: 'white' | 'milk' = 'white';
 
-  /** */
+  /** Whether the panel is expanded. */
   @Prop({ reflect: true }) public expanded = false;
 
-  /** */
+  /** Whether the panel is disabled, so its expanded state can't be changed. */
   @Prop() public disabled = false;
 
-  /** */
+  /** Whether the panel has no border. */
   @Prop({ reflect: true }) public borderless = false;
 
-  /** */
+  /** Whether the animations should be disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
-  /** Emits whenever the autocomplete starts the opening transition. */
+  /** Emits whenever the expansion-panel starts the opening transition. */
   @Event({
     bubbles: true,
     composed: true,
@@ -49,7 +49,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public willOpen: EventEmitter<void>;
 
-  /** Emits whenever the autocomplete is opened. */
+  /** Emits whenever the expansion-panel is opened. */
   @Event({
     bubbles: true,
     composed: true,
@@ -57,7 +57,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public didOpen: EventEmitter<void>;
 
-  /** Emits whenever the autocomplete begins the closing transition. */
+  /** Emits whenever the expansion-panel begins the closing transition. */
   @Event({
     bubbles: true,
     composed: true,
@@ -65,7 +65,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public willClose: EventEmitter<void>;
 
-  /** Emits whenever the autocomplete is closed. */
+  /** Emits whenever the expansion-panel is closed. */
   @Event({
     bubbles: true,
     composed: true,
@@ -103,14 +103,16 @@ export class SbbExpansionPanel implements ComponentInterface {
       return;
     }
     header.setAttribute('expanded', String(this.expanded));
+    header.setAttribute('disabled', String(this.disabled));
     header.shadowRoot.firstElementChild.setAttribute('id', `header-${nextId}`);
     header.shadowRoot.firstElementChild.setAttribute('aria-controls', `content-${nextId}`);
 
-    const content = this._element.querySelector('sbb-expansion-panel-content');
-    content?.setAttribute(
-      'icon-space',
-      String(![null, undefined, ''].includes(header.getAttribute('icon-name')))
-    );
+    this._element
+      .querySelector('sbb-expansion-panel-content')
+      ?.setAttribute(
+        'icon-space',
+        String(![null, undefined, ''].includes(header.getAttribute('icon-name')))
+      );
   }
 
   private _onContentSlotChange(): void {
