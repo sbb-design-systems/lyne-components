@@ -77,7 +77,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-expansion-panel-header',
+  title: 'components/sbb-expansion-panel/sbb-expansion-panel-header',
 };
 
 export default meta;

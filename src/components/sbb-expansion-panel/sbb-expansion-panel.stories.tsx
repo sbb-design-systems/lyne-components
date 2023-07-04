@@ -67,16 +67,16 @@ export const Milk: StoryObj = {
   args: { ...defaultArgs, color: color.options[1] },
 };
 
-export const WithIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, iconName: 'swisspass-medium' },
-};
-
 export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
+};
+
+export const WithIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, iconName: 'swisspass-medium' },
 };
 
 const meta: Meta = {
@@ -99,7 +99,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-expansion-panel',
+  title: 'components/sbb-expansion-panel/sbb-expansion-panel',
 };
 
 export default meta;
