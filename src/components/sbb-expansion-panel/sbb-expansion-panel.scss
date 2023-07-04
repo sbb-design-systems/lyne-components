@@ -48,7 +48,9 @@
   padding-block: var(--sbb-spacing-responsive-xs);
   padding-inline: var(--sbb-spacing-fixed-6x);
   border: var(--sbb-expansion-panel__border);
-  border-radius: var(--sbb-expansion-panel-top-left-radius) var(--sbb-expansion-panel-top-right-radius) var(--sbb-expansion-panel-bottom-right-radius) var(--sbb-expansion-panel-bottom-left-radius);
+  border-radius: var(--sbb-expansion-panel-top-left-radius)
+    var(--sbb-expansion-panel-top-right-radius) var(--sbb-expansion-panel-bottom-right-radius)
+    var(--sbb-expansion-panel-bottom-left-radius);
   background-clip: padding-box;
 }
 
