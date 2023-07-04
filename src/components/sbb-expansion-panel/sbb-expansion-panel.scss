@@ -5,44 +5,59 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
+  --sbb-expansion-panel-animation-duration: var(--sbb-animation-duration-4x);
   --sbb-expansion-panel__background-color: var(--sbb-color-white-default);
-  --sbb-selection-panel-content-visibility: hidden;
-  --sbb-selection-panel-content-max-height: 0;
-  --sbb-selection-panel-content-opacity: 0;
-  --sbb-selection-panel-content-transition: max-height var(--sbb-selection-panel-animation-duration)
+  --sbb-expansion-panel-content-visibility: hidden;
+  --sbb-expansion-panel-content-max-height: 0;
+  --sbb-expansion-panel-content-opacity: 0;
+  --sbb-expansion-panel-content-transition: max-height var(--sbb-expansion-panel-animation-duration)
       var(--sbb-animation-easing),
-    padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
-    opacity var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
+    padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
+  --sbb-expansion-panel__border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
 }
 
 :host([expanded]) {
-  --sbb-selection-panel-content-visibility: visible;
-  --sbb-selection-panel-content-max-height: calc(
-    var(--sbb-selection-panel-content-height) + var(--sbb-spacing-responsive-xxs) +
+  --sbb-expansion-panel-content-visibility: visible;
+  --sbb-expansion-panel-content-max-height: calc(
+    var(--sbb-expansion-panel-content-height) + var(--sbb-spacing-responsive-xs) +
       var(--sbb-spacing-responsive-xs)
   );
-  --sbb-selection-panel-content-opacity: 1;
-  --sbb-selection-panel-content-transition: max-height var(--sbb-selection-panel-animation-duration)
+  --sbb-expansion-panel-content-opacity: 1;
+  --sbb-expansion-panel-content-transition: max-height var(--sbb-expansion-panel-animation-duration)
       var(--sbb-animation-easing),
-    padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
-    opacity var(--sbb-selection-panel-animation-duration)
-      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
+    padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
+    opacity var(--sbb-expansion-panel-animation-duration)
+      var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
 }
 
 :host([color='milk']) {
   --sbb-expansion-panel__background-color: var(--sbb-color-milk-default);
 }
 
+:host([borderless]) {
+  --sbb-expansion-panel__border: none;
+}
+
 .sbb-expansion-panel {
   background-color: var(--sbb-expansion-panel__background-color);
   padding-block: var(--sbb-spacing-responsive-xs);
   padding-inline: var(--sbb-spacing-fixed-6x);
+  border: var(--sbb-expansion-panel__border);
+}
+
+.sbb-expansion-panel__header {
+  // override margin
+  margin: 0;
+}
+
+.sbb-expansion-panel__content {
+  display: block;
 }
 
 ::slotted(sbb-expansion-panel-content) {
-  visibility: var(--sbb-selection-panel-content-visibility);
-  max-height: var(--sbb-selection-panel-content-max-height);
-  opacity: var(--sbb-selection-panel-content-opacity);
-  transition: var(--sbb-selection-panel-content-transition);
+  visibility: var(--sbb-expansion-panel-content-visibility);
+  max-height: var(--sbb-expansion-panel-content-max-height);
+  opacity: var(--sbb-expansion-panel-content-opacity);
+  transition: var(--sbb-expansion-panel-content-transition);
 }

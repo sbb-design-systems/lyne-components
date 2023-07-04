@@ -7,6 +7,7 @@ to be documented...
 
 | Property           | Attribute           | Description | Type                                     | Default     |
 | ------------------ | ------------------- | ----------- | ---------------------------------------- | ----------- |
+| `borderless`       | `borderless`        |             | `boolean`                                | `false`     |
 | `color`            | `color`             |             | `"milk" \| "white"`                      | `'white'`   |
 | `disableAnimation` | `disable-animation` |             | `boolean`                                | `false`     |
 | `disabled`         | `disabled`          |             | `boolean`                                | `false`     |

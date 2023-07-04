@@ -5,6 +5,12 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import { InputType } from '@storybook/types';
 
+const numberOfPanels: InputType = {
+  control: {
+    type: 'number',
+  },
+};
+
 const multi: InputType = {
   control: {
     type: 'boolean',
@@ -65,6 +71,7 @@ const contentText: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  numberOfPanels,
   multi,
   level,
   color,
@@ -75,32 +82,59 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
+  numberOfPanels: 3,
   multi: false,
   level: level.options[2],
   color: 'white',
   expanded: false,
-  headerText: 'This is a header',
+  headerText: 'This is the header',
   iconName: undefined,
-  contentText: 'This is a content: "Lorem ipsum dolor sit amet".',
+  contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
 };
 
-const Template = ({ color, expanded, headerText, iconName, contentText, ...args }): JSX.Element => (
+const createExpansionPanelTemplate = (
+  numberOfPanels,
+  color,
+  expanded,
+  headerText,
+  iconName,
+  contentText
+): JSX.Element[] => {
+  return new Array(numberOfPanels).fill(null).map((_, index) => (
+    <sbb-expansion-panel color={color} expanded={expanded}>
+      <sbb-expansion-panel-header icon-name={iconName}>
+        {headerText} {index + 1}
+      </sbb-expansion-panel-header>
+      <sbb-expansion-panel-content>
+        <p>Content {index + 1}</p>
+        {contentText}
+      </sbb-expansion-panel-content>
+    </sbb-expansion-panel>
+  ));
+};
+
+const Template = ({
+  numberOfPanels,
+  color,
+  expanded,
+  headerText,
+  iconName,
+  contentText,
+  ...args
+}): JSX.Element => (
   <sbb-accordion {...args}>
-    <sbb-expansion-panel color={color} expanded={expanded}>
-      <sbb-expansion-panel-header icon-name={iconName}>{headerText} 1</sbb-expansion-panel-header>
-      <sbb-expansion-panel-content>{contentText} 1</sbb-expansion-panel-content>
-    </sbb-expansion-panel>
-    <sbb-expansion-panel color={color} expanded={expanded}>
-      <sbb-expansion-panel-header icon-name={iconName}>{headerText} 2</sbb-expansion-panel-header>
-      <sbb-expansion-panel-content>{contentText} 2</sbb-expansion-panel-content>
-    </sbb-expansion-panel>
-    <sbb-expansion-panel color={color} expanded={expanded}>
-      <sbb-expansion-panel-header icon-name={iconName}>{headerText} 3</sbb-expansion-panel-header>
-      <sbb-expansion-panel-content>{contentText} 3</sbb-expansion-panel-content>
-    </sbb-expansion-panel>
+    {createExpansionPanelTemplate(
+      numberOfPanels,
+      color,
+      expanded,
+      headerText,
+      iconName,
+      contentText
+    )}
   </sbb-accordion>
 );
-export const Story1: StoryObj = {
+
+export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
