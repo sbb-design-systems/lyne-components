@@ -4,8 +4,20 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-expansion-panel-content-padding-inline-start: 0;
+}
+
+// FIXME: token -9x doesn't exist
+:host([icon-space]:not([icon-space='false'])) {
+  --sbb-expansion-panel-content-padding-inline-start: calc(
+    var(--sbb-spacing-fixed-5x) + var(--sbb-spacing-fixed-4x) + var(--sbb-spacing-fixed-4x)
+  );
+}
+
 .sbb-expansion-panel-content {
   padding-block-start: var(--sbb-spacing-responsive-xs);
+  padding-inline-start: var(--sbb-expansion-panel-content-padding-inline-start);
 }
 
 .sbb-expansion-panel-content__spacer {

@@ -43,6 +43,15 @@ const expanded: InputType = {
   },
 };
 
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Panel',
+  },
+};
+
 const headerText: InputType = {
   control: {
     type: 'text',
@@ -76,6 +85,7 @@ const defaultArgTypes: ArgTypes = {
   level,
   color,
   expanded,
+  borderless,
   headerText,
   iconName,
   contentText,
@@ -87,6 +97,7 @@ const defaultArgs: Args = {
   level: level.options[2],
   color: 'white',
   expanded: false,
+  borderless: false,
   headerText: 'This is the header',
   iconName: undefined,
   contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
@@ -96,12 +107,13 @@ const createExpansionPanelTemplate = (
   numberOfPanels,
   color,
   expanded,
+  borderless,
   headerText,
   iconName,
   contentText
 ): JSX.Element[] => {
   return new Array(numberOfPanels).fill(null).map((_, index) => (
-    <sbb-expansion-panel color={color} expanded={expanded}>
+    <sbb-expansion-panel color={color} expanded={expanded} borderless={borderless}>
       <sbb-expansion-panel-header icon-name={iconName}>
         {headerText} {index + 1}
       </sbb-expansion-panel-header>
@@ -117,6 +129,7 @@ const Template = ({
   numberOfPanels,
   color,
   expanded,
+  borderless,
   headerText,
   iconName,
   contentText,
@@ -127,6 +140,7 @@ const Template = ({
       numberOfPanels,
       color,
       expanded,
+      borderless,
       headerText,
       iconName,
       contentText
@@ -138,6 +152,30 @@ export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+
+export const Milk: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1] },
+};
+
+export const Borderless: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
+};
+
+export const MilkBorderless: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1], borderless: true },
+};
+
+export const WithIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, iconName: 'swisspass-medium' },
 };
 
 const meta: Meta = {

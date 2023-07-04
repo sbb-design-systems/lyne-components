@@ -9,6 +9,7 @@
   @include sbb.text-l--regular;
 
   width: 100%;
+  height: var(--sbb-size-icon-ui-medium);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,5 +24,6 @@
 }
 
 .sbb-expansion-panel-header__title {
+  align-items: center;
   gap: var(--sbb-spacing-fixed-4x);
 }
