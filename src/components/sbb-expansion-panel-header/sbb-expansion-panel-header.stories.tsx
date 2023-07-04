@@ -1,11 +1,12 @@
 /** @jsx h */
+import events from './sbb-expansion-panel-header.events';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import { InputType } from '@storybook/types';
 
-const text: InputType = {
+const headerText: InputType = {
   control: {
     type: 'text',
   },
@@ -23,20 +24,28 @@ const expanded: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
-  text,
+  headerText,
   'icon-name': iconName,
   expanded,
+  disabled,
 };
 
 const defaultArgs: Args = {
-  text: 'Button',
+  headerText: 'Header title',
   'icon-name': undefined,
   expanded: false,
+  disabled: false,
 };
 
-const Template = ({ text, ...args }): JSX.Element => (
-  <sbb-expansion-panel-header {...args}>{text}</sbb-expansion-panel-header>
+const Template = ({ headerText, ...args }): JSX.Element => (
+  <sbb-expansion-panel-header {...args}>{headerText}</sbb-expansion-panel-header>
 );
 
 export const Default: StoryObj = {
@@ -57,6 +66,12 @@ export const Expanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
 const meta: Meta = {
   decorators: [
     (Story) => (
@@ -68,7 +83,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [],
+      handles: [events.toggleExpanded],
     },
     backgrounds: {
       disable: true,
