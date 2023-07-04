@@ -260,13 +260,14 @@ export class SbbToast implements ComponentInterface {
         <div class="sbb-toast__overlay-container">
           <div
             class="sbb-toast"
+            role={this._role} // Firefox needs this to abilitate screen readers
             onAnimationEnd={(event: AnimationEvent) => this._onToastAnimationEnd(event)}
           >
             <div class="sbb-toast__icon">
               <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
             </div>
 
-            <div class="sbb-toast__content" aria-live={this.politeness} role={this._role}>
+            <div class="sbb-toast__content" aria-live={this.politeness}>
               <slot onSlotchange={(event) => this._onContentSlotChange(event)} />
             </div>
 
