@@ -28,16 +28,24 @@ const expanded: InputType = {
   },
 };
 
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   iconName,
   expanded,
   color,
+  borderless,
 };
 
 const defaultArgs: Args = {
   iconName: undefined,
   expanded: false,
   color: color.options[0],
+  borderless: false,
 };
 
 const Template = ({ iconName, ...args }): JSX.Element => (
@@ -53,16 +61,22 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const Milk: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1] },
+};
+
 export const WithIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, iconName: 'swisspass-medium' },
 };
 
-export const Milk: StoryObj = {
+export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, color: color.options[1] },
+  args: { ...defaultArgs, borderless: true },
 };
 
 const meta: Meta = {

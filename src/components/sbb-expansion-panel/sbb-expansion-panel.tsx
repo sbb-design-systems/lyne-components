@@ -36,6 +36,9 @@ export class SbbExpansionPanel implements ComponentInterface {
   @Prop() public disabled = false;
 
   /** */
+  @Prop({ reflect: true }) public borderless = false;
+
+  /** */
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /** Emits whenever the autocomplete starts the opening transition. */
@@ -79,7 +82,7 @@ export class SbbExpansionPanel implements ComponentInterface {
       .querySelector('sbb-expansion-panel-header')
       .setAttribute('expanded', String(this.expanded));
     this._element.style.setProperty(
-      '--sbb-selection-panel-content-height',
+      '--sbb-expansion-panel-content-height',
       `${this._contentElement.scrollHeight}px`
     );
 
@@ -142,7 +145,7 @@ export class SbbExpansionPanel implements ComponentInterface {
 
     return (
       <div class="sbb-expansion-panel">
-        <TAGNAME>
+        <TAGNAME class="sbb-expansion-panel__header">
           <slot name="header" onSlotchange={() => this._onHeaderSlotChange()}></slot>
         </TAGNAME>
         <span class="sbb-expansion-panel__content" ref={(el) => (this._contentElement = el)}>
