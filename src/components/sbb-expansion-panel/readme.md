@@ -17,12 +17,12 @@ to be documented...
 
 ## Events
 
-| Event        | Description                                                       | Type                |
-| ------------ | ----------------------------------------------------------------- | ------------------- |
-| `did-close`  | Emits whenever the expansion-panel is closed.                     | `CustomEvent<void>` |
-| `did-open`   | Emits whenever the expansion-panel is opened.                     | `CustomEvent<void>` |
-| `will-close` | Emits whenever the expansion-panel begins the closing transition. | `CustomEvent<void>` |
-| `will-open`  | Emits whenever the expansion-panel starts the opening transition. | `CustomEvent<void>` |
+| Event        | Description                                                           | Type                |
+| ------------ | --------------------------------------------------------------------- | ------------------- |
+| `did-close`  | Emits whenever the sbb-expansion-panel is closed.                     | `CustomEvent<void>` |
+| `did-open`   | Emits whenever the sbb-expansion-panel is opened.                     | `CustomEvent<void>` |
+| `will-close` | Emits whenever the sbb-expansion-panel begins the closing transition. | `CustomEvent<void>` |
+| `will-open`  | Emits whenever the sbb-expansion-panel starts the opening transition. | `CustomEvent<void>` |
 
 
 ## Slots

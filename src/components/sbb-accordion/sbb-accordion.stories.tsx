@@ -1,8 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import { InputType } from '@storybook/types';
 
 const numberOfPanels: InputType = {
@@ -21,7 +20,7 @@ const level: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6],
+  options: [1, 2, 3, 4, 5, 6, null],
 };
 
 const color: InputType = {
@@ -185,12 +184,8 @@ const meta: Meta = {
         <Story />
       </div>
     ),
-    withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: [],
-    },
     backgrounds: {
       disable: true,
     },
@@ -198,7 +193,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-accordion',
+  title: 'components/sbb-accordion/sbb-accordion',
 };
 
 export default meta;

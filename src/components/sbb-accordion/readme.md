@@ -5,10 +5,10 @@ to be documented...
 
 ## Properties
 
-| Property | Attribute | Description | Type                                     | Default     |
-| -------- | --------- | ----------- | ---------------------------------------- | ----------- |
-| `level`  | `level`   |             | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
-| `multi`  | `multi`   |             | `boolean`                                | `false`     |
+| Property | Attribute | Description                                                             | Type                                     | Default     |
+| -------- | --------- | ----------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `level`  | `level`   | The level for the sbb-expansion-panel-header                            | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
+| `multi`  | `multi`   | Whether more than one sbb-expansion-panel can be open at the same time. | `boolean`                                | `false`     |
 
 
 ## Slots
