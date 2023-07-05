@@ -13,5 +13,6 @@
 }
 
 .sbb-tag-group__list-item {
-  display: contents;
+  display: inline-block;
+  max-width: 100%;
 }
