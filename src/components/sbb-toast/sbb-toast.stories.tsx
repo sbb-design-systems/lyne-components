@@ -99,7 +99,12 @@ const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
         : 'Lorem ipsum dolor sit amet, ipsum consectetur adipiscing elit.'}
 
       {action === 'button' && (
-        <sbb-button slot="action" icon-name="clock-small" sbb-toast-close></sbb-button>
+        <sbb-button
+          slot="action"
+          icon-name="clock-small"
+          aria-label="Remind me later"
+          sbb-toast-close
+        ></sbb-button>
       )}
 
       {action === 'link' && (
