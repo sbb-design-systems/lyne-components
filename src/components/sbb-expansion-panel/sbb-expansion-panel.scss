@@ -16,10 +16,10 @@
     opacity var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
   --sbb-expansion-panel-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
   --sbb-expansion-panel-border-top: 0;
-  --sbb-expansion-panel-top-right-radius: unset;
-  --sbb-expansion-panel-top-left-radius: unset;
-  --sbb-expansion-panel-bottom-right-radius: unset;
-  --sbb-expansion-panel-bottom-left-radius: unset;
+  --sbb-expansion-panel-top-right-radius: 0;
+  --sbb-expansion-panel-top-left-radius: 0;
+  --sbb-expansion-panel-bottom-right-radius: 0;
+  --sbb-expansion-panel-bottom-left-radius: 0;
 }
 
 :host([expanded]) {
@@ -37,7 +37,14 @@
 }
 
 :host(:first-child) {
-  --sbb-expansion-panel__border-top: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  --sbb-expansion-panel-border-top: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  --sbb-expansion-panel-top-right-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-top-left-radius: var(--sbb-border-radius-4x);
+}
+
+:host(:last-child) {
+  --sbb-expansion-panel-bottom-right-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-bottom-left-radius: var(--sbb-border-radius-4x);
 }
 
 :host([color='milk']) {
