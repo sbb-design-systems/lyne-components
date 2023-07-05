@@ -6,15 +6,15 @@ The `sbb-notification` is structured in the following way:
 - Icon: informs users of the kind of notification at a glance.
 - Title (optional): gives users a quick overview of the notification.
 - Close button (optional): closes the notification.
-- Message: provides additional detail and actionable steps for the user to take.
+- Message: provides additional detail and/or actionable steps for the user to take.
 
 ### Usage
-The `sbb-notification` supports four types: "info" (default), "success", "warn" and "error" based on the type of the information displayed. There are also three variants to choose from: "default", "colorful" and "transparent".
+The `sbb-notification` supports four types: "info" (default), "success", "warn" and "error" based on the type of the information displayed.
 
 Here is an example of how to use the component:
 
 ```html
-<sbb-notification type="success" variant="colorful" title-content="Notification title">
+<sbb-notification type="success" title-content="Notification title">
   The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
   <sbb-link variant="inline" href="/">Link one</sbb-link>
   <sbb-link variant="inline" href="/">Link two</sbb-link>
