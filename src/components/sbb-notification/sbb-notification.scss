@@ -170,10 +170,12 @@ $types: (
 .sbb-notification__content {
   order: 3;
   grid-area: 2 / 1 / 3 / 3;
+  margin-block-start: var(--sbb-spacing-fixed-2x);
 
   @include sbb.mq($from: small) {
     order: initial;
     grid-area: initial;
+    margin-block-start: 0;
     padding-inline: var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs);
   }
 }
