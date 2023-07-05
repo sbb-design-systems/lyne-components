@@ -56,7 +56,7 @@
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
-    "@sbb-esta/lyne-design-tokens": "0.3.4",
+    "@sbb-esta/lyne-design-tokens": "0.3.5",
     "@stencil/core": "4.0.1",
     "@stencil/react-output-target": "0.5.3",
     "@stencil/sass": "3.0.4",
