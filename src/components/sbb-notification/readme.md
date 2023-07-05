@@ -34,13 +34,13 @@ By default, a close button is displayed to dismiss inline notifications. Includi
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                      | Type                                       | Default     |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------ | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                | `boolean`                                  | `false`     |
-| `readonly`         | `readonly`          | Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user. | `boolean`                                  | `false`     |
-| `titleContent`     | `title-content`     | Content of title.                                                                                | `string`                                   | `undefined` |
-| `titleLevel`       | `title-level`       | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                  | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`   | `'3'`       |
-| `type`             | `type`              | The type of the notification.                                                                    | `"error" \| "info" \| "success" \| "warn"` | `'info'`    |
+| Property           | Attribute           | Description                                                                                             | Type                                       | Default     |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
+| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                       | `boolean`                                  | `false`     |
+| `readonly`         | `readonly`          | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. | `boolean`                                  | `false`     |
+| `titleContent`     | `title-content`     | Content of title.                                                                                       | `string`                                   | `undefined` |
+| `titleLevel`       | `title-level`       | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.                         | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"`   | `'3'`       |
+| `type`             | `type`              | The type of the notification.                                                                           | `"error" \| "info" \| "success" \| "warn"` | `'info'`    |
 
 
 ## Events

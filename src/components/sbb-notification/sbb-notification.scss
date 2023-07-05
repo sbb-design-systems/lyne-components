@@ -1,4 +1,5 @@
 @use '../../global/styles' as sbb;
+@use 'sass:color';
 @use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
 
 // Default component properties, defined for :host. Properties which can not
@@ -14,6 +15,7 @@
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-charcoal-default);
   --sbb-notification-type-color: var(--sbb-color-granite-default);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-granite-default, white, 5%)};
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-border-width-1x) solid var(--sbb-notification-type-color);
   --sbb-notification-border-radius: var(--sbb-border-radius-2x) var(--sbb-border-radius-4x)
@@ -68,18 +70,22 @@ $types: (
 
 :host([type='info']) {
   --sbb-notification-type-color: var(--sbb-color-granite-default);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-granite-default, white, 5%)};
 }
 
 :host([type='success']) {
   --sbb-notification-type-color: var(--sbb-color-green-default);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-green-default, white, 5%)};
 }
 
 :host([type='warn']) {
   --sbb-notification-type-color: var(--sbb-color-peach-default);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach-default, white, 5%)};
 }
 
 :host([type='error']) {
   --sbb-notification-type-color: var(--sbb-color-red-default);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red-default, white, 5%)};
 }
 
 .sbb-notification__wrapper {
@@ -121,17 +127,10 @@ $types: (
   color: var(--sbb-notification-color);
   border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
+  background-color: var(--sbb-notification-type-color-sass);
 
-  @each $key, $value in $types {
-    :host([type='#{$key}']) & {
-      background-color: rgba($color: $value, $alpha: 5%);
-
-      @supports (
-        background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white)
-      ) {
-        background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
-      }
-    }
+  @supports (background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white)) {
+    background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
   }
 
   @include sbb.mq($from: small) {

@@ -1152,7 +1152,7 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
-          * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
+          * Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
         "readonly": boolean;
         /**
@@ -3822,7 +3822,7 @@ declare namespace LocalJSX {
          */
         "onWill-open"?: (event: SbbNotificationCustomEvent<void>) => void;
         /**
-          * Whether the alert is readonly. In readonly mode, there is no dismiss button offered to the user.
+          * Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user.
          */
         "readonly"?: boolean;
         /**

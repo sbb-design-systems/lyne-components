@@ -57,7 +57,7 @@ export class SbbNotification implements ComponentInterface {
   @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
 
   /**
-   * Whether the alert is readonly.
+   * Whether the notification is readonly.
    * In readonly mode, there is no dismiss button offered to the user.
    */
   @Prop({ reflect: true }) public readonly = false;
@@ -92,8 +92,9 @@ export class SbbNotification implements ComponentInterface {
   private _notificationResizeObserver = new ResizeObserver(() => this._onNotificationResize());
 
   @Watch('type')
-  public updateNotificationState(): void {
+  public updateNotificationState(newValue: InterfaceNotificationAttributes['type']): void {
     this._iconName = NotificationIconName[this.type];
+    this.type = newValue ?? 'info';
   }
 
   /**
