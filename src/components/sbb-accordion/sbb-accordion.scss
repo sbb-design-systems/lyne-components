@@ -3,13 +3,3 @@
 // Default component properties, defined for :host. Properties which can not
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
-
-::slotted(sbb-expansion-panel:first-child) {
-  --sbb-expansion-panel-top-right-radius: var(--sbb-border-radius-4x);
-  --sbb-expansion-panel-top-left-radius: var(--sbb-border-radius-4x);
-}
-
-::slotted(sbb-expansion-panel:last-child) {
-  --sbb-expansion-panel-bottom-right-radius: var(--sbb-border-radius-4x);
-  --sbb-expansion-panel-bottom-left-radius: var(--sbb-border-radius-4x);
-}
