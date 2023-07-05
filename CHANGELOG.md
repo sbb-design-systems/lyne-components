@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.6](https://github.com/lyne-design-system/lyne-components/compare/v0.37.5...v0.37.6) (2023-07-05)
+
+### Features
+
+- **sbb-toast:** component implementation ([#1026](https://github.com/lyne-design-system/lyne-components/issues/1026)) ([94bdd64](https://github.com/lyne-design-system/lyne-components/commit/94bdd64c6c7d1e8e0994c9233e8eb7369f5cc228))
+
 ### [0.37.5](https://github.com/lyne-design-system/lyne-components/compare/v0.37.4...v0.37.5) (2023-07-03)
 
 ### Documentation
