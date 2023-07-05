@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.7](https://github.com/lyne-design-system/lyne-components/compare/v0.37.6...v0.37.7) (2023-07-05)
+
+### Features
+
+- **sbb-tag-group:** use list to display tags ([#1855](https://github.com/lyne-design-system/lyne-components/issues/1855)) ([e77450a](https://github.com/lyne-design-system/lyne-components/commit/e77450adaee8f854a3c17826ee922dfe40861169))
+
 ### [0.37.6](https://github.com/lyne-design-system/lyne-components/compare/v0.37.5...v0.37.6) (2023-07-05)
 
 ### Features
