@@ -120,7 +120,7 @@ export class SbbTagGroup implements ComponentInterface {
   public render(): JSX.Element {
     this._tags.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
     return (
-      <Host role="group">
+      <Host role={this.listAccessibilityLabel ? '' : 'group'}>
         <div class="sbb-tag-group">
           <ul class="sbb-tag-group__list" aria-label={this.listAccessibilityLabel}>
             {this._tags.map((_, index) => (
