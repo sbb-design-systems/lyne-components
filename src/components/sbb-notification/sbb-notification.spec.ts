@@ -9,7 +9,7 @@ describe('sbb-notification', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-notification disable-animation data-state="opened" type="info" variant="default" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-state="opened" type="info" style="--sbb-notification-height: auto;">
         <mock:shadow-root>
           <div class="sbb-notification__wrapper">  
             <div class="sbb-notification">
@@ -19,7 +19,7 @@ describe('sbb-notification', () => {
               </span>
               <span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="transparent"></sbb-button>
+                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
               </span>
             </div>
           </div>
@@ -35,7 +35,7 @@ describe('sbb-notification', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-notification disable-animation data-has-title data-state="opened" title-content="Title" type="info" variant="default" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-has-title data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
         <mock:shadow-root>
           <div class="sbb-notification__wrapper">  
             <div class="sbb-notification">
@@ -50,7 +50,7 @@ describe('sbb-notification', () => {
               </span>
               <span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="transparent"></sbb-button>
+                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
               </span>
             </div>
           </div>
@@ -66,7 +66,7 @@ describe('sbb-notification', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-notification disable-animation data-has-title data-state="opened" type="info" variant="default" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-has-title data-state="opened" type="info" style="--sbb-notification-height: auto;">
         <mock:shadow-root>
           <div class="sbb-notification__wrapper">  
             <div class="sbb-notification">
@@ -79,7 +79,7 @@ describe('sbb-notification', () => {
               </span>
               <span class="sbb-notification__close-wrapper">
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
-                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="transparent"></sbb-button>
+                <sbb-button aria-label="Close message" class="sbb-notification__close" icon-name="cross-small" size="m" variant="secondary"></sbb-button>
               </span>
             </div>
           </div>
@@ -98,7 +98,7 @@ describe('sbb-notification', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-notification disable-animation data-has-title readonly data-state="opened" title-content="Title" type="info" variant="default" style="--sbb-notification-height: auto;">
+      <sbb-notification disable-animation data-has-title readonly data-state="opened" title-content="Title" type="info" style="--sbb-notification-height: auto;">
         <mock:shadow-root>
           <div class="sbb-notification__wrapper">  
            <div class="sbb-notification">

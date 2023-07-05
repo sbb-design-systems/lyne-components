@@ -20,10 +20,11 @@ describe('sbb-notification', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('closes the notification', async () => {
+  it('closes the notification and removes it from the DOM', async () => {
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
 
+    expect(element).not.toBeNull();
     expect(element).toEqualAttribute('data-state', 'opened');
 
     await element.callMethod('close');
@@ -38,13 +39,17 @@ describe('sbb-notification', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
+
+    element = await page.find('sbb-notification');
+    expect(element).toBeNull();
   });
 
-  it('closes the notification on close button click', async () => {
+  it('closes the notification and removes it from the DOM on close button click', async () => {
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
 
+    expect(element).not.toBeNull();
     expect(element).toEqualAttribute('data-state', 'opened');
 
     await closeButton.click();
@@ -59,13 +64,17 @@ describe('sbb-notification', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
+
+    element = await page.find('sbb-notification');
+    expect(element).toBeNull();
   });
 
-  it('closes the notification on close button click by keyboard', async () => {
+  it('closes the notification and removes it from the DOM on close button click by keyboard', async () => {
     const willCloseEventSpy = await page.spyOnEvent(events.willClose);
     const didCloseEventSpy = await page.spyOnEvent(events.didClose);
     const closeButton = await page.find('sbb-notification >>> .sbb-notification__close');
 
+    expect(element).not.toBeNull();
     expect(element).toEqualAttribute('data-state', 'opened');
 
     await closeButton.focus();
@@ -81,5 +90,8 @@ describe('sbb-notification', () => {
     await page.waitForChanges();
 
     expect(element).toEqualAttribute('data-state', 'closed');
+
+    element = await page.find('sbb-notification');
+    expect(element).toBeNull();
   });
 });

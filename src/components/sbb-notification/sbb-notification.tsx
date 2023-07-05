@@ -218,7 +218,7 @@ export class SbbNotification implements ComponentInterface {
     return (
       <Host
         data-state={this._state}
-        data-resize-disable-animation={this._resizeDisableAnimation.toString()}
+        data-resize-disable-animation={this._resizeDisableAnimation}
         data-has-title={this._hasTitle}
       >
         <div
