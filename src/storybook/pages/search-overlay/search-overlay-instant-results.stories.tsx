@@ -103,25 +103,43 @@ const Template = (args): JSX.Element => (
                 size="l"
               ></sbb-button>
             </sbb-form-field>
-            <div class="frequent-searches__wrapper">
+            <div class="search-result__wrapper">
               <div class="search-result-frequent">
-                <span>Frequently searched</span>
+                <a href="http://www.sbb.ch/" class="search-result-frequent-item">
+                  Frequently searched
+                </a>
               </div>
-              <a href="http://www.sbb.ch/" class="frequent-searches-item">
-                Result title 1
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 1
+                </sbb-title>
+                <span class="subtitle">Lorem ipsum subtitle</span>
               </a>
-              <a href="http://www.sbb.ch/" class="frequent-searches-item">
-                Result title 2
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 2
+                </sbb-title>
+                <span class="subtitle">Lorem ipsum subtitle</span>
               </a>
-              <a href="http://www.sbb.ch/" class="frequent-searches-item">
-                Result title 3
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 3
+                </sbb-title>
+                <span class="subtitle">Lorem ipsum subtitle</span>
               </a>
-              <a href="http://www.sbb.ch/" class="frequent-searches-item">
-                Result title 4
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 4
+                </sbb-title>
+                <span class="subtitle">Lorem ipsum subtitle</span>
               </a>
-              <a href="http://www.sbb.ch/" class="frequent-searches-item">
-                Result title 5
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 5
+                </sbb-title>
+                <span class="subtitle">Lorem ipsum subtitle</span>
               </a>
+              <sbb-button variant="primary">Show all 13 results</sbb-button>
             </div>
           </div>
         </div>
@@ -140,7 +158,7 @@ const Template = (args): JSX.Element => (
 /* ************************************************* */
 
 /* --- Search ------------------------ */
-export const search: StoryObj = {
+export const searchInstantResults: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },

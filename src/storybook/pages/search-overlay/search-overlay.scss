@@ -6,6 +6,17 @@ $timetable-margin-block: 7vh;
   width: 100%;
 }
 
+.search-result-frequent {
+  display: flex;
+  align-items: center;
+  height: var(--sbb-spacing-responsive-xl);
+
+  span {
+    color: var(--sbb-color-metal-default);
+    text-decoration: none;
+  }
+}
+
 .search-result__wrapper {
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: var(--sbb-spacing-responsive-xxxs);
@@ -23,4 +34,11 @@ $timetable-margin-block: 7vh;
     display: block;
     color: var(--sbb-color-smoke-default);
   }
+}
+
+.frequent-searches-item {
+  display: block;
+  padding-block: var(--sbb-spacing-fixed-3x);
+  text-decoration: none;
+  color: var(--sbb-color-white-default);
 }
