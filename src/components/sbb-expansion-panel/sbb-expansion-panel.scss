@@ -15,6 +15,7 @@
     padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
   --sbb-expansion-panel__border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+  --sbb-expansion-panel__border-top: 0;
   --sbb-expansion-panel-top-right-radius: unset;
   --sbb-expansion-panel-top-left-radius: unset;
   --sbb-expansion-panel-bottom-right-radius: unset;
@@ -35,6 +36,10 @@
       var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
 }
 
+:host(:first-child) {
+  --sbb-expansion-panel__border-top: var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default);
+}
+
 :host([color='milk']) {
   --sbb-expansion-panel__background-color: var(--sbb-color-milk-default);
 }
@@ -47,7 +52,10 @@
   background-color: var(--sbb-expansion-panel__background-color);
   padding-block: var(--sbb-spacing-responsive-xs);
   padding-inline: var(--sbb-spacing-fixed-6x);
-  border: var(--sbb-expansion-panel__border);
+  border-top: var(--sbb-expansion-panel__border-top);
+  border-bottom: var(--sbb-expansion-panel__border);
+  border-left: var(--sbb-expansion-panel__border);
+  border-right: var(--sbb-expansion-panel__border);
   border-radius: var(--sbb-expansion-panel-top-left-radius)
     var(--sbb-expansion-panel-top-right-radius) var(--sbb-expansion-panel-bottom-right-radius)
     var(--sbb-expansion-panel-bottom-left-radius);
