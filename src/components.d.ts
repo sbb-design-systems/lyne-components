@@ -1499,6 +1499,10 @@ export namespace Components {
     }
     interface SbbTagGroup {
         /**
+          * This will be forwarded as aria-label to the inner list.
+         */
+        "listAccessibilityLabel"?: string;
+        /**
           * If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array.  Changing multiple during run time is not supported.
          */
         "multiple": boolean;
@@ -4159,6 +4163,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface SbbTagGroup {
+        /**
+          * This will be forwarded as aria-label to the inner list.
+         */
+        "listAccessibilityLabel"?: string;
         /**
           * If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array.  Changing multiple during run time is not supported.
          */

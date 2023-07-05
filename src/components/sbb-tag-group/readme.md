@@ -17,9 +17,8 @@ So this flag should be provided at component's instantiation time.
 
 ## Accessibility
 
-The `<sbb-tag-group>` surrounding the individual buttons applies role="group" to convey the association between
-the individual `<sbb-tag>`s. Each `<sbb-tag-group>` element should be given a label with aria-label or aria-labelledby
-that communicates the collective meaning of all `<sbb-tag>`s.
+The property `listAccessibilityLabel` is forwarded as `aria-label` to the inner list that the component uses to display the tags, to use the implicit role="list" of the `<ul>`.
+In case the `listAccessibilityLabel` property is not defined, the `<sbb-tag-group>` surrounding the buttons applies role="group" to convey the association between the individual `<sbb-tag>`s. When using the role="group", each `<sbb-tag-group>` element should be given a label with aria-label or aria-labelledby that communicates the collective meaning of all `<sbb-tag>`s.
 For example, if you have toggles for "Bold", "Italic", and "Underline", you might label the parent group "Font styles".
 
 ## Usage
@@ -77,10 +76,11 @@ const uncheckTags = () => {
 
 ## Properties
 
-| Property   | Attribute  | Description                                                                                                                                                                                                                                     | Type                 | Default |
-| ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------- |
-| `multiple` | `multiple` | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array.  Changing multiple during run time is not supported. | `boolean`            | `false` |
-| `value`    | `value`    | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                          | `string \| string[]` | `null`  |
+| Property                 | Attribute                  | Description                                                                                                                                                                                                                                     | Type                 | Default     |
+| ------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------- |
+| `listAccessibilityLabel` | `list-accessibility-label` | This will be forwarded as aria-label to the inner list.                                                                                                                                                                                         | `string`             | `undefined` |
+| `multiple`               | `multiple`                 | If set multiple to false, the selection is exclusive and the value is a string (or null). If set multiple to true, the selection can have multiple values and therefore value is an array.  Changing multiple during run time is not supported. | `boolean`            | `false`     |
+| `value`                  | `value`                    | Value of the sbb-tag-group. If set multiple to false, the value is a string (or null). If set multiple to true, the value is an array.                                                                                                          | `string \| string[]` | `null`      |
 
 
 ## Slots

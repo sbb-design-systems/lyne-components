@@ -23,6 +23,11 @@ export class SbbTagGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   /**
+   * This will be forwarded as aria-label to the inner list.
+   */
+  @Prop() public listAccessibilityLabel?: string;
+
+  /**
    * If set multiple to false, the selection is exclusive and the value is a string (or null).
    * If set multiple to true, the selection can have multiple values and therefore value is an array.
    *
@@ -62,7 +67,7 @@ export class SbbTagGroup implements ComponentInterface {
       ? (t) => value.includes(t.value)
       : (t) => t.value === value;
 
-    this._tags().forEach((tag) => (tag.checked = isChecked(tag)));
+    this._tags.forEach((tag) => (tag.checked = isChecked(tag)));
   }
 
   private _ensureOnlyOneTagSelected(): void {
@@ -71,7 +76,7 @@ export class SbbTagGroup implements ComponentInterface {
     }
 
     // Ensure only one tag checked
-    this._tags()
+    this._tags
       .filter((tag) => tag.checked)
       .slice(1)
       .forEach((tag) => (tag.checked = false));
@@ -96,11 +101,9 @@ export class SbbTagGroup implements ComponentInterface {
 
   private _updateValueByReadingTags(): void {
     if (this.multiple) {
-      this.value = this._tags()
-        .filter((tag) => tag.checked)
-        .map((tag) => tag.value);
+      this.value = this._tags.filter((tag) => tag.checked).map((tag) => tag.value);
     } else {
-      this.value = this._tags().find((tag) => tag.checked)?.value || null;
+      this.value = this._tags.find((tag) => tag.checked)?.value || null;
     }
   }
 
@@ -110,20 +113,36 @@ export class SbbTagGroup implements ComponentInterface {
     }
   }
 
-  private _tags(): HTMLSbbTagElement[] {
+  private get _tags(): HTMLSbbTagElement[] {
     return Array.from(this._element.querySelectorAll('sbb-tag')) as HTMLSbbTagElement[];
   }
 
   public render(): JSX.Element {
+    this._tags.forEach((tag, index) => tag.setAttribute('slot', `tag-${index}`));
     return (
-      <Host role="group">
+      <Host role={this.listAccessibilityLabel ? '' : 'group'}>
         <div class="sbb-tag-group">
-          <slot
-            onSlotchange={() => {
-              this._ensureOnlyOneTagSelected();
-              this._updateValueByReadingTags();
-            }}
-          />
+          <ul class="sbb-tag-group__list" aria-label={this.listAccessibilityLabel}>
+            {this._tags.map((_, index) => (
+              <li class="sbb-tag-group__list-item">
+                <slot
+                  name={`tag-${index}`}
+                  onSlotchange={(): void => {
+                    this._ensureOnlyOneTagSelected();
+                    this._updateValueByReadingTags();
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+          <span hidden>
+            <slot
+              onSlotchange={() => {
+                this._ensureOnlyOneTagSelected();
+                this._updateValueByReadingTags();
+              }}
+            />
+          </span>
         </div>
       </Host>
     );

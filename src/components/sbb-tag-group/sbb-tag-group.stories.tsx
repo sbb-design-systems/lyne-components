@@ -29,6 +29,12 @@ const value: InputType = {
   },
 };
 
+const listAccessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -44,6 +50,7 @@ const numberOfTagsInGroup: InputType = {
 const defaultArgTypes: ArgTypes = {
   multiple,
   value,
+  'list-accessibility-label': listAccessibilityLabel,
   'aria-label': ariaLabel,
   numberOfTagsInGroup,
 };
@@ -51,7 +58,8 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   multiple: true,
   value: undefined,
-  'aria-label': 'Select your desired filter',
+  'list-accessibility-label': 'Select your desired filter',
+  'aria-label': undefined,
   numberOfTagsInGroup: 8,
 };
 
