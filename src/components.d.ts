@@ -43,6 +43,7 @@ import { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-ro
 import { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 import { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 import { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
+import { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast/sbb-toast.custom";
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
@@ -87,6 +88,7 @@ export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-ro
 export { InterfaceTimetableTransportationNumberAttributes } from "./components/sbb-timetable-transportation-number/sbb-timetable-transportation-number.custom";
 export { InterfaceTimetableTransportationTimeAttributes } from "./components/sbb-timetable-transportation-time/sbb-timetable-transportation-time.custom";
 export { InterfaceTimetableTravelHintsAttributes } from "./components/sbb-timetable-travel-hints/sbb-timetable-travel-hints.custom";
+export { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast/sbb-toast.custom";
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
@@ -1707,6 +1709,40 @@ export namespace Components {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToast {
+        /**
+          * Close the toast.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the toast has a close button.
+         */
+        "dismissible": boolean;
+        /**
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
+         */
+        "iconName"?: string;
+        /**
+          * Open the toast. If there are other opened toasts in the page, close them first.
+         */
+        "open": () => Promise<void>;
+        /**
+          * The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
+         */
+        "politeness": SbbToastAriaPoliteness;
+        /**
+          * The position where to place the toast.
+         */
+        "position": SbbToastPosition;
+        /**
+          * The length of time in milliseconds to wait before automatically dismissing the toast. If 0, it stays open indefinitely.
+         */
+        "timeout": number;
+    }
     interface SbbToggle {
         /**
           * Whether the animation is enabled.
@@ -1983,6 +2019,10 @@ export interface SbbTagCustomEvent<T> extends CustomEvent<T> {
 export interface SbbTimeInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbTimeInputElement;
+}
+export interface SbbToastCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbToastElement;
 }
 export interface SbbToggleCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2468,6 +2508,12 @@ declare global {
         prototype: HTMLSbbTitleElement;
         new (): HTMLSbbTitleElement;
     };
+    interface HTMLSbbToastElement extends Components.SbbToast, HTMLStencilElement {
+    }
+    var HTMLSbbToastElement: {
+        prototype: HTMLSbbToastElement;
+        new (): HTMLSbbToastElement;
+    };
     interface HTMLSbbToggleElement extends Components.SbbToggle, HTMLStencilElement {
     }
     var HTMLSbbToggleElement: {
@@ -2605,6 +2651,7 @@ declare global {
         "sbb-timetable-transportation-time": HTMLSbbTimetableTransportationTimeElement;
         "sbb-timetable-travel-hints": HTMLSbbTimetableTravelHintsElement;
         "sbb-title": HTMLSbbTitleElement;
+        "sbb-toast": HTMLSbbToastElement;
         "sbb-toggle": HTMLSbbToggleElement;
         "sbb-toggle-check": HTMLSbbToggleCheckElement;
         "sbb-toggle-option": HTMLSbbToggleOptionElement;
@@ -4327,6 +4374,48 @@ declare namespace LocalJSX {
          */
         "visuallyHidden"?: false;
     }
+    interface SbbToast {
+        /**
+          * Whether the animation is disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the toast has a close button.
+         */
+        "dismissible"?: boolean;
+        /**
+          * The name of the icon, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
+         */
+        "iconName"?: string;
+        /**
+          * Emits whenever the autocomplete is closed.
+         */
+        "onDid-close"?: (event: SbbToastCustomEvent<void>) => void;
+        /**
+          * Emits whenever the autocomplete is opened.
+         */
+        "onDid-open"?: (event: SbbToastCustomEvent<void>) => void;
+        /**
+          * Emits whenever the autocomplete begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbToastCustomEvent<void>) => void;
+        /**
+          * Emits whenever the autocomplete starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbToastCustomEvent<void>) => void;
+        /**
+          * The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
+         */
+        "politeness"?: SbbToastAriaPoliteness;
+        /**
+          * The position where to place the toast.
+         */
+        "position"?: SbbToastPosition;
+        /**
+          * The length of time in milliseconds to wait before automatically dismissing the toast. If 0, it stays open indefinitely.
+         */
+        "timeout"?: number;
+    }
     interface SbbToggle {
         /**
           * Whether the animation is enabled.
@@ -4631,6 +4720,7 @@ declare namespace LocalJSX {
         "sbb-timetable-transportation-time": SbbTimetableTransportationTime;
         "sbb-timetable-travel-hints": SbbTimetableTravelHints;
         "sbb-title": SbbTitle;
+        "sbb-toast": SbbToast;
         "sbb-toggle": SbbToggle;
         "sbb-toggle-check": SbbToggleCheck;
         "sbb-toggle-option": SbbToggleOption;
@@ -4726,6 +4816,7 @@ declare module "@stencil/core" {
             "sbb-timetable-transportation-time": LocalJSX.SbbTimetableTransportationTime & JSXBase.HTMLAttributes<HTMLSbbTimetableTransportationTimeElement>;
             "sbb-timetable-travel-hints": LocalJSX.SbbTimetableTravelHints & JSXBase.HTMLAttributes<HTMLSbbTimetableTravelHintsElement>;
             "sbb-title": LocalJSX.SbbTitle & JSXBase.HTMLAttributes<HTMLSbbTitleElement>;
+            "sbb-toast": LocalJSX.SbbToast & JSXBase.HTMLAttributes<HTMLSbbToastElement>;
             "sbb-toggle": LocalJSX.SbbToggle & JSXBase.HTMLAttributes<HTMLSbbToggleElement>;
             "sbb-toggle-check": LocalJSX.SbbToggleCheck & JSXBase.HTMLAttributes<HTMLSbbToggleCheckElement>;
             "sbb-toggle-option": LocalJSX.SbbToggleOption & JSXBase.HTMLAttributes<HTMLSbbToggleOptionElement>;

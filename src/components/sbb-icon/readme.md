@@ -66,6 +66,7 @@ In thinking about accessibility, it is useful to place icon use into one of thre
  - [sbb-tab-title](../sbb-tab-title)
  - [sbb-tag](../sbb-tag)
  - [sbb-timetable-row](../sbb-timetable-row)
+ - [sbb-toast](../sbb-toast)
  - [sbb-toggle-check](../sbb-toggle-check)
  - [sbb-toggle-option](../sbb-toggle-option)
  - [sbb-tooltip-trigger](../sbb-tooltip-trigger)
@@ -93,6 +94,7 @@ graph TD;
   sbb-tab-title --> sbb-icon
   sbb-tag --> sbb-icon
   sbb-timetable-row --> sbb-icon
+  sbb-toast --> sbb-icon
   sbb-toggle-check --> sbb-icon
   sbb-toggle-option --> sbb-icon
   sbb-tooltip-trigger --> sbb-icon
