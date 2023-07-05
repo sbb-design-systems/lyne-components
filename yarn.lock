@@ -2400,10 +2400,10 @@
     unbzip2-stream "1.4.3"
     yargs "17.7.1"
 
-"@sbb-esta/lyne-design-tokens@0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.3.4.tgz#9a86f31d315bf98cc3152ccb8a4414d0abf81472"
-  integrity sha512-kE79I3tVvSgaK3CLDChfyak/NqrkPoR2n+6ZK5AnOUiAJD2E1nUqiyfn/rYXN06IVX+fs+GMdP1T3tKU4ScrTQ==
+"@sbb-esta/lyne-design-tokens@0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.3.5.tgz#d8d04a3b53ceafe08a16b878466d0d596a7b9688"
+  integrity sha512-ZfXu8BcP63yg/jjm+3mJG6j7u0/j9HYVnMXfGsprgxzO3/rs9btEl8I64sjAsaCafZXtjSOqQbDei5oOZGOxsw==
 
 "@sinclair/typebox@^0.25.16":
   version "0.25.24"
