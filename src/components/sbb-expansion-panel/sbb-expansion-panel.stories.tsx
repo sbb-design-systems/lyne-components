@@ -105,7 +105,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-expansion-panel/sbb-expansion-panel',
+  title: 'components/sbb-accordion/sbb-expansion-panel',
 };
 
 export default meta;

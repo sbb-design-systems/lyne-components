@@ -9,7 +9,7 @@
 }
 
 // FIXME: token -9x doesn't exist
-:host([icon-space]:not([icon-space='false'])) {
+:host([data-icon-space]) {
   --sbb-expansion-panel-content-padding-inline-start: calc(
     var(--sbb-spacing-fixed-5x) + var(--sbb-spacing-fixed-4x) + var(--sbb-spacing-fixed-4x)
   );

@@ -10,28 +10,28 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
   tag: 'sbb-accordion',
 })
 export class SbbAccordion implements ComponentInterface {
-  /**  */
+  /** The level for the sbb-expansion-panel-header */
   @Prop() public level?: InterfaceTitleAttributes['level'];
 
-  /**  */
+  /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @Prop() public multi = false;
 
   @Listen('will-open')
   public closePanels(e): void {
-    // TODO filter event
-    if (!this.multi) {
-      const toClose: HTMLSbbExpansionPanelElement[] = this._expansionPanels.filter(
-        (panel) => panel !== e.target
-      );
-      toClose.forEach((panel) => (panel.expanded = false));
+    if (e.target?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
+      return;
     }
+
+    this._expansionPanels
+      .filter((panel: HTMLSbbExpansionPanelElement) => panel !== e.target)
+      .forEach((panel: HTMLSbbExpansionPanelElement) => (panel.expanded = false));
   }
+
+  @Element() private _element!: HTMLElement;
 
   private get _expansionPanels(): HTMLSbbExpansionPanelElement[] {
     return Array.from(this._element.querySelectorAll('sbb-expansion-panel'));
   }
-
-  @Element() private _element!: HTMLElement;
 
   public connectedCallback(): void {
     this._setChildrenParameters();

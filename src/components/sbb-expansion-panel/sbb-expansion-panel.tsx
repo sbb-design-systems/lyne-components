@@ -10,6 +10,7 @@ import {
   Prop,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 let nextId = 0;
 
@@ -41,7 +42,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   /** Whether the animations should be disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
-  /** Emits whenever the expansion-panel starts the opening transition. */
+  /** Emits whenever the sbb-expansion-panel starts the opening transition. */
   @Event({
     bubbles: true,
     composed: true,
@@ -49,7 +50,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public willOpen: EventEmitter<void>;
 
-  /** Emits whenever the expansion-panel is opened. */
+  /** Emits whenever the sbb-expansion-panel is opened. */
   @Event({
     bubbles: true,
     composed: true,
@@ -57,7 +58,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public didOpen: EventEmitter<void>;
 
-  /** Emits whenever the expansion-panel begins the closing transition. */
+  /** Emits whenever the sbb-expansion-panel begins the closing transition. */
   @Event({
     bubbles: true,
     composed: true,
@@ -65,7 +66,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public willClose: EventEmitter<void>;
 
-  /** Emits whenever the expansion-panel is closed. */
+  /** Emits whenever the sbb-expansion-panel is closed. */
   @Event({
     bubbles: true,
     composed: true,
@@ -96,37 +97,54 @@ export class SbbExpansionPanel implements ComponentInterface {
   }
 
   private _contentElement: HTMLElement;
+  private _transitionEventController: AbortController;
 
-  private _onHeaderSlotChange(): void {
-    const header = this._element.querySelector('sbb-expansion-panel-header');
+  private _onHeaderSlotChange(event): void {
+    const header = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find(
+        (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER'
+      );
     if (!header) {
       return;
     }
+
     header.setAttribute('expanded', String(this.expanded));
     header.setAttribute('disabled', String(this.disabled));
     header.shadowRoot.firstElementChild.setAttribute('id', `header-${nextId}`);
-    header.shadowRoot.firstElementChild.setAttribute('aria-controls', `content-${nextId}`);
 
-    this._element
-      .querySelector('sbb-expansion-panel-content')
-      ?.setAttribute(
-        'icon-space',
-        String(![null, undefined, ''].includes(header.getAttribute('icon-name')))
-      );
+    const content = this._element.querySelector('sbb-expansion-panel-content');
+    header.shadowRoot.firstElementChild.setAttribute(
+      'aria-controls',
+      content.getAttribute('id') || `content-${nextId}`
+    );
+    toggleDatasetEntry(
+      content,
+      'iconSpace',
+      header.hasAttribute('icon-name') && header.getAttribute('icon-name') !== ''
+    );
   }
 
-  private _onContentSlotChange(): void {
-    const content = this._element.querySelector('sbb-expansion-panel-content');
+  private _onContentSlotChange(event): void {
+    const content = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .find(
+        (e): e is HTMLSbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT'
+      );
     if (!content) {
       return;
     }
-    content.setAttribute('id', `content-${nextId}`);
+
+    if (!content.getAttribute('id')) {
+      content.setAttribute('id', `content-${nextId}`);
+    }
     content.setAttribute('aria-labelledby', `header-${nextId}`);
-    content.addEventListener('transitionend', (event) => this._onTransitionEnd(event));
+    content.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
+      signal: this._transitionEventController.signal,
+    });
   }
 
   private _onTransitionEnd(event): void {
-    // TODO a better condition?
     if (event.propertyName !== 'opacity') {
       return;
     }
@@ -140,6 +158,11 @@ export class SbbExpansionPanel implements ComponentInterface {
 
   public connectedCallback(): void {
     ++nextId;
+    this._transitionEventController = new AbortController();
+  }
+
+  public disconnectedCallback(): void {
+    this._transitionEventController.abort();
   }
 
   public render(): JSX.Element {
@@ -148,10 +171,10 @@ export class SbbExpansionPanel implements ComponentInterface {
     return (
       <div class="sbb-expansion-panel">
         <TAGNAME class="sbb-expansion-panel__header">
-          <slot name="header" onSlotchange={() => this._onHeaderSlotChange()}></slot>
+          <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
         </TAGNAME>
         <span class="sbb-expansion-panel__content" ref={(el) => (this._contentElement = el)}>
-          <slot name="content" onSlotchange={() => this._onContentSlotChange()}></slot>
+          <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
         </span>
       </div>
     );
