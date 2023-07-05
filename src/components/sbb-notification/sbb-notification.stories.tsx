@@ -45,25 +45,27 @@ const basicArgs: Args = {
   'disable-animation': true,
 };
 
-const appendNotification = (): void => {
+const appendNotification = (args): void => {
   const newNotification = document.createElement('SBB-NOTIFICATION') as HTMLSbbNotificationElement;
   newNotification.style.setProperty(
     '--sbb-notification-margin',
     '0 0 var(--sbb-spacing-fixed-4x) 0'
   );
-  newNotification.titleContent = 'Title';
+  newNotification.titleContent = args['title-content'];
+  newNotification.type = args['type'];
+  newNotification.readonly = args['readonly'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
   document.querySelector('.notification-container').append(newNotification);
 };
 
-const trigger: JSX.Element = (
+const trigger = (args): JSX.Element => (
   <sbb-button
     size="m"
     variant="secondary"
     style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
-    onClick={() => appendNotification()}
-    icon-name="circle-information-small"
+    onClick={() => appendNotification(args)}
+    icon-name="circle-plus-small"
   >
     Add notification
   </sbb-button>
@@ -109,7 +111,7 @@ const titleStyle: Args = {
 
 const DefaultTemplate = (args): JSX.Element => (
   <Fragment>
-    {trigger}
+    {trigger(args)}
     <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
       {notification(args)}
     </div>
@@ -119,7 +121,7 @@ const DefaultTemplate = (args): JSX.Element => (
 
 const SlottedTitleTemplate = (args): JSX.Element => (
   <Fragment>
-    {trigger}
+    {trigger(args)}
     <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
       <sbb-notification {...args} style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}>
         <span slot="title" style={titleStyle}>
