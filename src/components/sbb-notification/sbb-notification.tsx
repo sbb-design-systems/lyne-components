@@ -143,7 +143,7 @@ export class SbbNotification implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._element.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
+    this._setInlineLinks();
   }
 
   public componentDidLoad(): void {
@@ -154,6 +154,10 @@ export class SbbNotification implements ComponentInterface {
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
     this._notificationResizeObserver.disconnect();
+  }
+
+  private _setInlineLinks(): void {
+    this._element.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
   }
 
   private _setNotificationHeight(): void {
@@ -227,7 +231,7 @@ export class SbbNotification implements ComponentInterface {
                   <slot name="title">{this.titleContent}</slot>
                 </sbb-title>
               )}
-              <slot />
+              <slot onSlotchange={() => this._setInlineLinks()} />
             </span>
 
             {!this.readonly && (
