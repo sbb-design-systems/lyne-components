@@ -10,7 +10,6 @@ import {
   Method,
   Prop,
   State,
-  Watch,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { i18nCloseNotification } from '../../global/i18n';
@@ -24,12 +23,12 @@ import {
 import { InterfaceNotificationAttributes } from './sbb-notification.custom';
 import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
-enum NotificationIconName {
-  info = 'circle-information-small',
-  success = 'circle-tick-small',
-  warn = 'circle-exclamation-point-small',
-  error = 'circle-cross-small',
-}
+const notificationTypes = new Map([
+  ['info', 'circle-information-small'],
+  ['success', 'circle-tick-small'],
+  ['warn', 'circle-exclamation-point-small'],
+  ['error', 'circle-cross-small'],
+]);
 
 /**
  * @slot title - Use this to provide a notification title (optional).
@@ -65,7 +64,7 @@ export class SbbNotification implements ComponentInterface {
   /**
    * Whether the animation is enabled.
    */
-  @Prop({ reflect: true, mutable: true }) public disableAnimation = false;
+  @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
    * State of listed named slots, by indicating whether any element for a named slot is defined.
@@ -75,11 +74,7 @@ export class SbbNotification implements ComponentInterface {
   /**
    * The state of the notification.
    */
-  @State() private _state: InterfaceNotificationAttributes['state'] = 'opened';
-
-  @State() private _iconName: NotificationIconName = NotificationIconName[this.type];
-
-  @State() private _hasTitle = false;
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
 
   @State() private _currentLanguage = documentLanguage();
 
@@ -90,12 +85,6 @@ export class SbbNotification implements ComponentInterface {
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
   private _notificationResizeObserver = new ResizeObserver(() => this._onNotificationResize());
-
-  @Watch('type')
-  public updateNotificationState(newValue: InterfaceNotificationAttributes['type']): void {
-    this._iconName = NotificationIconName[this.type];
-    this.type = newValue ?? 'info';
-  }
 
   /**
    * Emits whenever the notification starts the opening transition.
@@ -154,7 +143,6 @@ export class SbbNotification implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._hasTitle = !!this.titleContent || this._namedSlots['title'];
     this._element.querySelectorAll('sbb-link')?.forEach((link) => (link.variant = 'inline'));
   }
 
@@ -171,7 +159,7 @@ export class SbbNotification implements ComponentInterface {
   private _setNotificationHeight(): void {
     const notificationHeight =
       this._notificationElement.scrollHeight && !this.disableAnimation
-        ? `${this._notificationElement.scrollHeight + 2}px` //add 2px for the top/bottom border
+        ? `${this._notificationElement.scrollHeight}px`
         : 'auto';
     this._element.style.setProperty('--sbb-notification-height', notificationHeight);
   }
@@ -186,6 +174,7 @@ export class SbbNotification implements ComponentInterface {
     this._resizeDisableAnimation = true;
     this._setNotificationHeight();
 
+    // Disable the animation when resizing the notification to avoid strange height transition effects.
     this._resizeObserverTimeout = setTimeout(() => (this._resizeDisableAnimation = false), 150);
   }
 
@@ -215,11 +204,13 @@ export class SbbNotification implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const hasTitle = !!this.titleContent || this._namedSlots['title'];
+
     return (
       <Host
         data-state={this._state}
         data-resize-disable-animation={this._resizeDisableAnimation}
-        data-has-title={this._hasTitle}
+        data-has-title={hasTitle}
       >
         <div
           class="sbb-notification__wrapper"
@@ -228,10 +219,10 @@ export class SbbNotification implements ComponentInterface {
           onAnimationEnd={(event) => this._onNotificationAnimationEnd(event)}
         >
           <div class="sbb-notification">
-            <sbb-icon class="sbb-notification__icon" name={this._iconName} />
+            <sbb-icon class="sbb-notification__icon" name={notificationTypes.get(this.type)} />
 
             <span class="sbb-notification__content">
-              {this._hasTitle && (
+              {hasTitle && (
                 <sbb-title class="sbb-notification__title" level={this.titleLevel} visualLevel="5">
                   <slot name="title">{this.titleContent}</slot>
                 </sbb-title>

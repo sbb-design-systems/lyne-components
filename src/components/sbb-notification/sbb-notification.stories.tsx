@@ -99,16 +99,6 @@ const pageContent: JSX.Element = (
   </p>
 );
 
-const titleStyle: Args = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: 'var(--sbb-spacing-fixed-1x)',
-  background: 'var(--sbb-color-cloud-default)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  padding: '0rem 0.5rem',
-};
-
 const DefaultTemplate = (args): JSX.Element => (
   <Fragment>
     {trigger(args)}
@@ -124,7 +114,7 @@ const SlottedTitleTemplate = (args): JSX.Element => (
     {trigger(args)}
     <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
       <sbb-notification {...args} style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}>
-        <span slot="title" style={titleStyle}>
+        <span slot="title">
           Slotted title <sbb-icon name="face-grinning-small" />
         </span>
         The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy

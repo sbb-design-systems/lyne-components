@@ -501,7 +501,7 @@ export const i18nCloseAlert: Record<string, string> = {
 };
 
 export const i18nCloseNotification: Record<string, string> = {
-  de: 'Meldung schliessen',
+  de: 'Nachricht schliessen',
   en: 'Close message',
   fr: 'Fermer message',
   it: 'Chiudere il messaggio',
