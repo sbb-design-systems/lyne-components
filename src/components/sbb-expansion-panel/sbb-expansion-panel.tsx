@@ -15,8 +15,8 @@ import { toggleDatasetEntry } from '../../global/helpers/dataset';
 let nextId = 0;
 
 /**
- * @slot header - Use this to render the sbb-expansion-panel-header
- * @slot content - Use this to render the sbb-expansion-panel-content
+ * @slot header - Use this to render the sbb-expansion-panel-header.
+ * @slot content - Use this to render the sbb-expansion-panel-content.
  */
 @Component({
   shadow: true,
@@ -114,15 +114,17 @@ export class SbbExpansionPanel implements ComponentInterface {
     header.shadowRoot.firstElementChild.setAttribute('id', `header-${nextId}`);
 
     const content = this._element.querySelector('sbb-expansion-panel-content');
-    header.shadowRoot.firstElementChild.setAttribute(
-      'aria-controls',
-      content.getAttribute('id') || `content-${nextId}`
-    );
-    toggleDatasetEntry(
-      content,
-      'iconSpace',
-      header.hasAttribute('icon-name') && header.getAttribute('icon-name') !== ''
-    );
+    if (content) {
+      header.shadowRoot.firstElementChild.setAttribute(
+        'aria-controls',
+        content.getAttribute('id') || `content-${nextId}`
+      );
+      toggleDatasetEntry(
+        content,
+        'iconSpace',
+        header.hasAttribute('icon-name') && header.getAttribute('icon-name') !== ''
+      );
+    }
   }
 
   private _onContentSlotChange(event): void {

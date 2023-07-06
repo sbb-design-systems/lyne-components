@@ -1,7 +1,7 @@
 import { Component, ComponentInterface, h, Host, JSX } from '@stencil/core';
 
 /**
- * @slot unnamed - Slot to render the content in the collapsible panel.
+ * @slot unnamed - Slot to render the content in the sbb-expansion-panel.
  */
 @Component({
   shadow: true,

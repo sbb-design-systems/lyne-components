@@ -23,8 +23,8 @@ to be documented...
 
 | Slot        | Description                                |
 | ----------- | ------------------------------------------ |
-| `"icon"`    | Slot used to render the panel-header icon. |
-| `"unnamed"` | Slot used to render the panel-header text. |
+| `"icon"`    | Slot used to render the panel header icon. |
+| `"unnamed"` | Slot used to render the panel header text. |
 
 
 ## Dependencies
