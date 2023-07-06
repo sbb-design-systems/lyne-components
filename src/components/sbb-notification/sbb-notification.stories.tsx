@@ -119,7 +119,13 @@ const SlottedTitleTemplate = (args): JSX.Element => (
   <Fragment>
     {trigger(args)}
     <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
-      <sbb-notification {...args} style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}>
+      <sbb-notification
+        {...args}
+        style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
+        ref={(notification) =>
+          notification.addEventListener('did-open', () => (notification.disableAnimation = false))
+        }
+      >
         <span slot="title">
           Slotted title <sbb-icon name="face-grinning-small" />
         </span>
