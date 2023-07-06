@@ -8,10 +8,9 @@
   --sbb-expansion-panel-content-padding-inline-start: 0;
 }
 
-// FIXME: token -9x doesn't exist
 :host([data-icon-space]) {
   --sbb-expansion-panel-content-padding-inline-start: calc(
-    var(--sbb-spacing-fixed-5x) + var(--sbb-spacing-fixed-4x) + var(--sbb-spacing-fixed-4x)
+    var(--sbb-spacing-fixed-9x) + var(--sbb-spacing-fixed-4x)
   );
 }
 
@@ -22,6 +21,6 @@
 
 .sbb-expansion-panel-content__spacer {
   display: inline-block;
-  width: sbb.px-to-rem-build(36); // --sbb-spacing-fixed-9x does not exist
+  width: var(--sbb-spacing-fixed-9x);
   margin-inline-end: var(--sbb-spacing-fixed-4x);
 }

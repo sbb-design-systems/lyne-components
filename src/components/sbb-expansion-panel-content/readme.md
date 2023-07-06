@@ -5,9 +5,9 @@ to be documented...
 
 ## Slots
 
-| Slot        | Description                                          |
-| ----------- | ---------------------------------------------------- |
-| `"unnamed"` | Slot to render the content in the collapsible panel. |
+| Slot        | Description                                            |
+| ----------- | ------------------------------------------------------ |
+| `"unnamed"` | Slot to render the content in the sbb-expansion-panel. |
 
 
 ----------------------------------------------

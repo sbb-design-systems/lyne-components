@@ -27,10 +27,10 @@ to be documented...
 
 ## Slots
 
-| Slot        | Description                                        |
-| ----------- | -------------------------------------------------- |
-| `"content"` | Use this to render the sbb-expansion-panel-content |
-| `"header"`  | Use this to render the sbb-expansion-panel-header  |
+| Slot        | Description                                         |
+| ----------- | --------------------------------------------------- |
+| `"content"` | Use this to render the sbb-expansion-panel-content. |
+| `"header"`  | Use this to render the sbb-expansion-panel-header.  |
 
 
 ----------------------------------------------

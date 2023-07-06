@@ -18,8 +18,8 @@ import {
 } from '../../global/helpers';
 
 /**
- * @slot icon - Slot used to render the panel-header icon.
- * @slot unnamed - Slot used to render the panel-header text.
+ * @slot icon - Slot used to render the panel header icon.
+ * @slot unnamed - Slot used to render the panel header text.
  */
 @Component({
   shadow: true,
@@ -75,11 +75,11 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
     return (
       <Host slot="header">
         <button
-          disabled={this.disabled}
-          aria-disabled={this.disabled?.toString()}
           type="button"
           class="sbb-expansion-panel-header"
-          aria-expanded={this.expanded}
+          disabled={this.disabled}
+          aria-disabled={this.disabled?.toString()}
+          aria-expanded={this.expanded?.toString()}
           onClick={() => this._emitExpandedEvent()}
         >
           <span class="sbb-expansion-panel-header__title">
