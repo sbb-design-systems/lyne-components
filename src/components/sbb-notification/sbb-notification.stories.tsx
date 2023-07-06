@@ -72,7 +72,13 @@ const trigger = (args): JSX.Element => (
 );
 
 const notification = (args): JSX.Element => (
-  <sbb-notification {...args} style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}>
+  <sbb-notification
+    {...args}
+    style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
+    ref={(notification) =>
+      notification.addEventListener('did-open', () => (notification.disableAnimation = false))
+    }
+  >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
     <sbb-link href="/" variant="block">
       Link one
