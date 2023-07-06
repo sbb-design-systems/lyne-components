@@ -35,7 +35,7 @@ describe('sbb-expansion-panel-header', () => {
     expect(root).toEqualHtml(`
       <sbb-expansion-panel-header slot='header' expanded>
         <mock:shadow-root>
-          <button aria-expanded class="sbb-expansion-panel-header" type="button">
+          <button aria-expanded="true" class="sbb-expansion-panel-header" type="button">
             <span class="sbb-expansion-panel-header__title">
               <span class="sbb-expansion-panel-header__label">
                 <slot></slot>

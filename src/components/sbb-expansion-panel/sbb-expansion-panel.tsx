@@ -111,13 +111,13 @@ export class SbbExpansionPanel implements ComponentInterface {
 
     header.setAttribute('expanded', String(this.expanded));
     header.setAttribute('disabled', String(this.disabled));
-    header.shadowRoot.firstElementChild.setAttribute('id', `header-${nextId}`);
+    header.shadowRoot.firstElementChild.setAttribute('id', `sbb-expansion-panel-header-${nextId}`);
 
     const content = this._element.querySelector('sbb-expansion-panel-content');
     if (content) {
       header.shadowRoot.firstElementChild.setAttribute(
         'aria-controls',
-        content.getAttribute('id') || `content-${nextId}`
+        content.getAttribute('id') || `sbb-expansion-panel-content-${nextId}`
       );
       toggleDatasetEntry(
         content,
@@ -138,9 +138,9 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
 
     if (!content.getAttribute('id')) {
-      content.setAttribute('id', `content-${nextId}`);
+      content.setAttribute('id', `sbb-expansion-panel-content-${nextId}`);
     }
-    content.setAttribute('aria-labelledby', `header-${nextId}`);
+    content.setAttribute('aria-labelledby', `sbb-expansion-panel-header-${nextId}`);
     content.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
       signal: this._transitionEventController.signal,
     });
