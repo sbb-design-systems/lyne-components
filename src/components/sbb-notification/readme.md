@@ -29,6 +29,9 @@ Inline notifications do not dismiss automatically. They persist on the page unti
 
 By default, a close button is displayed to dismiss inline notifications. Including the close button is optional and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
 
+### Animation
+If the `sbb-notification` host needs a margin, in order to properly animate it on open/close we sugget to use the `--sbb-notification-margin` variable to set it. For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
+
 <!-- Auto Generated Below -->
 
 
