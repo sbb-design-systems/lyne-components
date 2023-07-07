@@ -104,42 +104,40 @@ const Template = (args): JSX.Element => (
               ></sbb-button>
             </sbb-form-field>
             <div class="search-result__wrapper">
-              <div class="search-result-frequent">
-                <a href="http://www.sbb.ch/" class="search-result-frequent-item">
-                  Frequently searched
-                </a>
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 1<span class="subtitle">Lorem ipsum subtitle</span>
+                </sbb-title>
+              </a>
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 2<span class="subtitle">Lorem ipsum subtitle</span>
+                </sbb-title>
+              </a>
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 3<span class="subtitle">Lorem ipsum subtitle</span>
+                </sbb-title>
+              </a>
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 4<span class="subtitle">Lorem ipsum subtitle</span>
+                </sbb-title>
+                <div class="result-image">
+                  <img
+                    alt="example"
+                    src="https://cdn.img.sbb.ch/content/dam/internet/sharedimages/personen/Paar-Abend-Perron.jpg?w=96&h=72&auto=format,compress,cs=tinysrgb&q=45"
+                  />
+                </div>
+              </a>
+              <a href="http://www.sbb.ch/" class="search-result-item">
+                <sbb-title visual-level="6" negative>
+                  Result title 5<span class="subtitle">Lorem ipsum subtitle</span>
+                </sbb-title>
+              </a>
+              <div class="show-more">
+                <sbb-button variant="primary">Show all 13 results</sbb-button>
               </div>
-              <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 1
-                </sbb-title>
-                <span class="subtitle">Lorem ipsum subtitle</span>
-              </a>
-              <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 2
-                </sbb-title>
-                <span class="subtitle">Lorem ipsum subtitle</span>
-              </a>
-              <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 3
-                </sbb-title>
-                <span class="subtitle">Lorem ipsum subtitle</span>
-              </a>
-              <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 4
-                </sbb-title>
-                <span class="subtitle">Lorem ipsum subtitle</span>
-              </a>
-              <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 5
-                </sbb-title>
-                <span class="subtitle">Lorem ipsum subtitle</span>
-              </a>
-              <sbb-button variant="primary">Show all 13 results</sbb-button>
             </div>
           </div>
         </div>

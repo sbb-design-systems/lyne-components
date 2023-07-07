@@ -23,7 +23,9 @@ $timetable-margin-block: 7vh;
 }
 
 .search-result-item {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-4x);
   padding-block: var(--sbb-spacing-fixed-3x);
   border-bottom: 1px solid var(--sbb-color-charcoal-default);
   text-decoration: none;
@@ -34,6 +36,13 @@ $timetable-margin-block: 7vh;
     display: block;
     color: var(--sbb-color-smoke-default);
   }
+
+  .result-image {
+    margin-left: auto;
+    line-height: 0;
+    overflow: hidden;
+    border-radius: var(--sbb-border-radius-4x);
+  }
 }
 
 .frequent-searches-item {
@@ -41,4 +50,8 @@ $timetable-margin-block: 7vh;
   padding-block: var(--sbb-spacing-fixed-3x);
   text-decoration: none;
   color: var(--sbb-color-white-default);
+}
+
+.show-more {
+  padding-block: var(--sbb-spacing-fixed-3x);
 }
