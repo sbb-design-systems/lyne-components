@@ -5,7 +5,7 @@ describe('sbb-expansion-panel-content', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbExpansionPanelContent],
-      html: '<sbb-expansion-panel-content />',
+      html: '<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>',
     });
 
     expect(root).toEqualHtml(`
@@ -15,6 +15,7 @@ describe('sbb-expansion-panel-content', () => {
             <slot></slot>
           </div>
         </mock:shadow-root>
+        Content
       </sbb-expansion-panel-content>
     `);
   });

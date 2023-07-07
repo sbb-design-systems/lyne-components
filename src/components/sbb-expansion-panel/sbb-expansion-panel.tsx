@@ -31,7 +31,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   @Prop() public color: 'white' | 'milk' = 'white';
 
   /** Whether the panel is expanded. */
-  @Prop({ reflect: true }) public expanded = false;
+  @Prop({ mutable: true, reflect: true }) public expanded = false;
 
   /** Whether the panel is disabled, so its expanded state can't be changed. */
   @Prop() public disabled = false;

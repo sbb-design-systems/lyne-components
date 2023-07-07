@@ -5,7 +5,12 @@ describe('sbb-expansion-panel', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
       components: [SbbExpansionPanel],
-      html: '<sbb-expansion-panel />',
+      html: `
+        <sbb-expansion-panel>
+          <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+        </sbb-expansion-panel>
+      `,
     });
 
     expect(root).toEqualHtml(`
@@ -20,6 +25,8 @@ describe('sbb-expansion-panel', () => {
             </span>
           </div>
         </mock:shadow-root>
+        <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+        <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>
     `);
   });
@@ -27,7 +34,12 @@ describe('sbb-expansion-panel', () => {
   it('renders with level set', async () => {
     const { root } = await newSpecPage({
       components: [SbbExpansionPanel],
-      html: '<sbb-expansion-panel level="4"/>',
+      html: `
+        <sbb-expansion-panel level="4">
+          <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+        </sbb-expansion-panel>
+      `,
     });
 
     expect(root).toEqualHtml(`
@@ -42,6 +54,8 @@ describe('sbb-expansion-panel', () => {
             </span>
           </div>
         </mock:shadow-root>
+        <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+        <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>
     `);
   });
