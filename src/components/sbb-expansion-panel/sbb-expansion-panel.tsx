@@ -8,6 +8,7 @@ import {
   JSX,
   Listen,
   Prop,
+  Watch,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { toggleDatasetEntry } from '../../global/helpers/dataset';
@@ -79,6 +80,10 @@ export class SbbExpansionPanel implements ComponentInterface {
   @Listen('toggle-expanded')
   public toggleExpanded(): void {
     this.expanded = !this.expanded;
+  }
+
+  @Watch('expanded')
+  public onExpandedChange(): void {
     this._element
       .querySelector('sbb-expansion-panel-header')
       .setAttribute('expanded', String(this.expanded));
