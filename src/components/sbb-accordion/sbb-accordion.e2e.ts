@@ -1,4 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import sbbExpansionPanelEvents from '../sbb-expansion-panel/sbb-expansion-panel.events';
 
 describe('sbb-accordion', () => {
   let element: E2EElement, page: E2EPage;
@@ -41,5 +43,81 @@ describe('sbb-accordion', () => {
     expect(panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
       'H4'
     );
+  });
+
+  it('expanding a panel should close others when multi = false', async () => {
+    const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
+    const headerOne: E2EElement = await page.find('#header-1');
+    const headerTwo: E2EElement = await page.find('#header-2');
+    const headerThree: E2EElement = await page.find('#header-3');
+    [headerOne, headerTwo, headerThree].forEach((header) =>
+      expect(header).toEqualAttribute('expanded', 'false')
+    );
+
+    await headerTwo.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'false');
+    expect(headerTwo).toEqualAttribute('expanded', 'true');
+    expect(headerThree).toEqualAttribute('expanded', 'false');
+
+    await headerOne.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'true');
+    expect(headerTwo).toEqualAttribute('expanded', 'false');
+    expect(headerThree).toEqualAttribute('expanded', 'false');
+
+    await headerThree.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 3);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'false');
+    expect(headerTwo).toEqualAttribute('expanded', 'false');
+    expect(headerThree).toEqualAttribute('expanded', 'true');
+  });
+
+  it('expanding a panel should not change others when multi = false', async () => {
+    await element.setProperty('multi', 'true');
+    await page.waitForChanges();
+    const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
+    const headerOne: E2EElement = await page.find('#header-1');
+    const headerTwo: E2EElement = await page.find('#header-2');
+    const headerThree: E2EElement = await page.find('#header-3');
+    [headerOne, headerTwo, headerThree].forEach((header) =>
+      expect(header).toEqualAttribute('expanded', 'false')
+    );
+
+    await headerTwo.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'false');
+    expect(headerTwo).toEqualAttribute('expanded', 'true');
+    expect(headerThree).toEqualAttribute('expanded', 'false');
+
+    await headerOne.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'true');
+    expect(headerTwo).toEqualAttribute('expanded', 'true');
+    expect(headerThree).toEqualAttribute('expanded', 'false');
+
+    await headerThree.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 3);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'true');
+    expect(headerTwo).toEqualAttribute('expanded', 'true');
+    expect(headerThree).toEqualAttribute('expanded', 'true');
   });
 });
