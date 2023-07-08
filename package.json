@@ -86,7 +86,7 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-storybook": "^0.6.11",
     "eslint-plugin-yaml": "0.5.0",
-    "glob": "10.3.2",
+    "glob": "10.3.3",
     "husky": "8.0.3",
     "jest": "27.5.1",
     "jest-cli": "27.5.1",
