@@ -115,7 +115,9 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
 
     header.setAttribute('expanded', String(this.expanded));
-    header.setAttribute('disabled', String(this.disabled));
+    if (this.disabled) {
+      header.setAttribute('disabled', String(this.disabled));
+    }
     header.shadowRoot.firstElementChild.setAttribute('id', `sbb-expansion-panel-header-${nextId}`);
 
     const content = this._element.querySelector('sbb-expansion-panel-content');
