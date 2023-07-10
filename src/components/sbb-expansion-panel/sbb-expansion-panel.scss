@@ -68,6 +68,16 @@
     var(--sbb-expansion-panel-top-right-radius) var(--sbb-expansion-panel-bottom-right-radius)
     var(--sbb-expansion-panel-bottom-left-radius);
   background-clip: padding-box;
+
+  @include sbb.hover-mq($hover: true) {
+    &:hover {
+      --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
+    }
+
+    :host([color='milk']) &:hover {
+      --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
+    }
+  }
 }
 
 .sbb-expansion-panel__header {
