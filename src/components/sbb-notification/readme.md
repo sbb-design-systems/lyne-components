@@ -1,6 +1,6 @@
 Use the `sbb-notification` component to inform users of updates. A notification is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.
 
-Inline notifications show up in task flows, to notify users of the status of an action or other informations. They usually appear at the top of the primary content area or close to the item needing attention.
+Inline notifications show up in task flows, to notify users of the status of an action or other information. They usually appear at the top of the primary content area or close to the item needing attention.
 
 The `sbb-notification` is structured in the following way:
 - Icon: informs users of the kind of notification at a glance.
@@ -30,7 +30,7 @@ Inline notifications do not dismiss automatically. They persist on the page unti
 By default, a close button is displayed to dismiss inline notifications. Including the close button is optional and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
 
 ### Animation
-If the `sbb-notification` host needs a margin, in order to properly animate it on open/close we sugget to use the `--sbb-notification-margin` variable to set it. For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
+If the `sbb-notification` host needs a margin, in order to properly animate it on open/close we suggest to use the `--sbb-notification-margin` variable to set it. For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin. 
 
 <!-- Auto Generated Below -->
 
