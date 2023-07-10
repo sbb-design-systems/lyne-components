@@ -13,6 +13,9 @@
   align-items: center;
   gap: var(--sbb-spacing-fixed-6x);
   width: 100%;
+  padding-block: var(--sbb-spacing-responsive-xs);
+  padding-inline: var(--sbb-spacing-fixed-6x);
+  text-align: start;
   cursor: pointer;
 }
 
@@ -25,4 +28,11 @@
 .sbb-expansion-panel-header__title {
   align-items: center;
   gap: var(--sbb-spacing-fixed-4x);
+  overflow: hidden;
+}
+
+.sbb-expansion-panel-header__label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

@@ -6,6 +6,21 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import { InputType } from '@storybook/types';
 
+const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
+quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
+lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tellus vulputate tempor. Vivamus urna
+velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
+metus.`;
+
+const headerText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Header',
+  },
+};
+
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -15,6 +30,14 @@ const iconName: InputType = {
   },
 };
 
+const contentText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Content',
+  },
+};
 const color: InputType = {
   control: {
     type: 'inline-radio',
@@ -35,23 +58,27 @@ const borderless: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
+  headerText,
   iconName,
+  contentText,
   expanded,
   color,
   borderless,
 };
 
 const defaultArgs: Args = {
+  headerText: 'Header',
   iconName: undefined,
+  contentText: 'Content',
   expanded: false,
   color: color.options[0],
   borderless: false,
 };
 
-const Template = ({ iconName, ...args }): JSX.Element => (
+const Template = ({ headerText, iconName, contentText, ...args }): JSX.Element => (
   <sbb-expansion-panel {...args}>
-    <sbb-expansion-panel-header icon-name={iconName}>Header</sbb-expansion-panel-header>
-    <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+    <sbb-expansion-panel-header icon-name={iconName}>{headerText}</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>{contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
 );
 
@@ -83,6 +110,12 @@ export const Expanded: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, expanded: true },
+};
+
+export const EllipsisAndLongText: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, headerText: longText, contentText: longText },
 };
 
 const meta: Meta = {
