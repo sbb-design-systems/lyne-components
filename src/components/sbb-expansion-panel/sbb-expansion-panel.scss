@@ -53,6 +53,9 @@
 
 :host([borderless]) {
   --sbb-expansion-panel-border: var(--sbb-border-width-1x) solid transparent;
+}
+
+:host([borderless]:first-child) {
   --sbb-expansion-panel-border-top: var(--sbb-border-width-1x) solid transparent;
 }
 
