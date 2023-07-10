@@ -1,5 +1,5 @@
 The `sbb-expansion-panel-header` is a component which is meant to be used as a header in the `sbb-expansion-panel`, 
-acting as a control for expanding/collapsing, like a native `<summary>` tag.
+acting as a control for an expanding/collapsing content, like a native `<summary>` tag.
 
 The component is internally rendered as a button, and it can be disabled via the `disabled` property. 
 It is possible to provide text via an unnamed slot; the component can optionally display a `<sbb-icon>`
@@ -10,16 +10,19 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 ## Usage
 
 Basic:
+
 ```html
 <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
 ```
 
 Disabled header:
+
 ```html
 <sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>
 ```
 
 Expanded header with icon:
+
 ```html
 <sbb-expansion-panel-header expanded icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
 ```
