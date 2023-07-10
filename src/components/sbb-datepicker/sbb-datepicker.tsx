@@ -23,6 +23,7 @@ import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { DateAdapter } from '../../global/interfaces/date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const FORMAT_DATE =
@@ -207,7 +208,7 @@ export class SbbDatepicker implements ComponentInterface {
   private _formatValue(value: string): string {
     const match: RegExpMatchArray = value?.match(FORMAT_DATE);
     if (!match || match.length <= 2 || !match[2] || !match[3]) {
-      this._inputElement.dataset.sbbInvalid = 'true';
+      toggleDatasetEntry(this._inputElement, 'sbbInvalid', true);
       return value;
     }
     return this._composeValueString(match[1], match[2], +match[3]);
@@ -239,7 +240,7 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     if (this._inputElement) {
-      delete this._inputElement.dataset.sbbInvalid;
+      toggleDatasetEntry(this._inputElement, 'sbbInvalid', false);
       this._inputElement.value = this._formatValue(value);
       const newValueAsDate: Date = await this.getValueAsDate();
       if (
@@ -250,7 +251,7 @@ export class SbbDatepicker implements ComponentInterface {
           this._inputElement?.max,
         )
       ) {
-        this._inputElement.dataset.sbbInvalid = 'true';
+        toggleDatasetEntry(this._inputElement, 'sbbInvalid', true);
       }
       this._emitChange();
     }

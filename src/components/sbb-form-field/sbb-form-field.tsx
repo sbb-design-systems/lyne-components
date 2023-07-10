@@ -335,7 +335,7 @@ export class SbbFormField implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'invalid',
-      this._input.dataset.sbbInvalid === 'true' ||
+      this._input.hasAttribute('data-sbb-invalid') ||
         this._input.classList.contains('sbb-invalid') ||
         (this._input.classList.contains('ng-touched') &&
           this._input.classList.contains('ng-invalid')),
