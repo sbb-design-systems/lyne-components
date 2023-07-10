@@ -53,10 +53,11 @@
 
 :host([borderless]) {
   --sbb-expansion-panel-border: var(--sbb-border-width-1x) solid transparent;
+  --sbb-expansion-panel-border-top: var(--sbb-border-width-1x) solid transparent;
 }
 
 .sbb-expansion-panel {
-  background-color: var(--sbb-expansion-panel__background-color);
+  background-color: var(--sbb-expansion-panel-background-color);
   padding-block: var(--sbb-spacing-responsive-xs);
   padding-inline: var(--sbb-spacing-fixed-6x);
   border-top: var(--sbb-expansion-panel-border-top);
