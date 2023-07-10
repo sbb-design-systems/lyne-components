@@ -2,12 +2,14 @@ The `sbb-accordion` is a component which acts as a container for one or more `sb
 the content is projected inside an unnamed slot.
 
 The component has a `level` property, which is proxied into the `sbb-expansion-panel-header`, and can be used 
-to wrap the header of each `sbb-expansion-panel` in a heading tag; if the property is unset, a div is used. 
+to wrap the header of each `sbb-expansion-panel` in a heading tag; if the property is unset, a div is used.
+
 The `multi` property, if set, allows to have more than one panel expanded at the same time.
 
 ## Usage
 
 Basic usage:
+
 ```html
 <sbb-accordion>
   <sbb-expansion-panel>
@@ -22,6 +24,7 @@ Basic usage:
 ```
 
 Multi accordion with level-3:
+
 ```html
 <sbb-accordion multi level='3'>
   <sbb-expansion-panel>

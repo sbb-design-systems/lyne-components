@@ -13,6 +13,7 @@ by setting the `borderless` variable to `true`. Using the `level` variable, it's
 ## Usage
 
 Basic usage:
+
 ```html
 <sbb-expansion-panel>
   <sbb-expansion-panel-header>This is the header.</sbb-expansion-panel-header>
@@ -21,6 +22,7 @@ Basic usage:
 ```
 
 Expanded panel with milk background:
+
 ```html
 <sbb-expansion-panel expanded color='milk'>
   <sbb-expansion-panel-header>This is the header.</sbb-expansion-panel-header>
@@ -29,6 +31,7 @@ Expanded panel with milk background:
 ```
 
 Borderless disabled panel with level-4 heading:
+
 ```html
 <sbb-expansion-panel disabled borderless level='4'>
   <sbb-expansion-panel-header>This is the header.</sbb-expansion-panel-header>
