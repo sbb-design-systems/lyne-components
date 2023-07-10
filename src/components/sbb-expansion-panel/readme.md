@@ -1,13 +1,13 @@
 The `sbb-expansion-panel` is a component which acts as an expandable summary-details widget.
 
-It has two slots, named `header` and `content`, which receives, respectively, a `sbb-expansion-panel-header` 
+It has two slots, named `header` and `content`, which receive, respectively, a `sbb-expansion-panel-header` 
 as a state controller, and a `sbb-expansion-panel-content` as an expandable content. 
 The visibility of the content is controlled by the value of the `expanded` property; the property is also proxied 
-to the `sbb-expansion-panel-header` to correctly display it.
+to the `sbb-expansion-panel-header` to correctly display the toggle icon.
 
 The component has two background options that can be set using the `color` variable, while the `disabled` state 
 can be set using the self-named variable. It's also possible to display the `sbb-expansion-panel` without border
-by setting the `borderless` variable to true. Using the `level` variable, it's possible to wrap the 
+by setting the `borderless` variable to `true`. Using the `level` variable, it's possible to wrap the 
 `sbb-expansion-panel-header` in a heading tag; if it's unset, a `<div>` is used as a wrapper. 
 
 ## Usage
