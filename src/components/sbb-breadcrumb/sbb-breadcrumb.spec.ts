@@ -11,7 +11,7 @@ describe('sbb-breadcrumb', () => {
     expect(root).toEqualHtml(`
       <sbb-breadcrumb dir="ltr" role="link" tabindex="0" href="/test" target="_blank" download="true" rel="subsection">
         <mock:shadow-root>
-          <a role="presentation" tabindex="-1" class="sbb-breadcrumb" href="/test" target="_blank" download rel="subsection">
+          <a role="gridcell" tabindex="-1" class="sbb-breadcrumb" href="/test" target="_blank" download rel="subsection">
             <span class="sbb-breadcrumb__label">
               <slot></slot>
               <span class="sbb-breadcrumb__label--opens-in-new-window">
@@ -36,7 +36,7 @@ describe('sbb-breadcrumb', () => {
     expect(root).toEqualHtml(`
       <sbb-breadcrumb dir="ltr" role="link" tabindex="0" href="/" icon-name="house-small">
         <mock:shadow-root>
-          <a role="presentation" tabindex="-1" class="sbb-breadcrumb" href="/">
+          <a role="gridcell" tabindex="-1" class="sbb-breadcrumb" href="/">
             <span class="sbb-breadcrumb__icon">
               <slot name="icon">
                 <sbb-icon name="house-small"></sbb-icon>
@@ -59,7 +59,7 @@ describe('sbb-breadcrumb', () => {
     expect(root).toEqualHtml(`
       <sbb-breadcrumb dir="ltr" role="link" tabindex="0" href="/" icon-name="house-small">
         <mock:shadow-root>
-          <a role="presentation" tabindex="-1" class="sbb-breadcrumb" href="/">
+          <a role="gridcell" tabindex="-1" class="sbb-breadcrumb" href="/">
             <span class="sbb-breadcrumb__icon">
               <slot name="icon">
                 <sbb-icon name="house-small"></sbb-icon>

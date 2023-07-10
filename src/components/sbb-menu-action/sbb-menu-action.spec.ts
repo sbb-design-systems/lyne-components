@@ -44,7 +44,7 @@ describe('sbb-menu-action', () => {
     expect(root).toEqualHtml(`
         <sbb-menu-action amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr">
           <mock:shadow-root>
-            <a class="sbb-menu-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank" role="presentation" tabindex="-1">
+            <a class="sbb-menu-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank" role="gridcell" tabindex="-1">
               <span class="sbb-menu-action__content">
                 <span class="sbb-menu-action__icon">
                   <slot name="icon">

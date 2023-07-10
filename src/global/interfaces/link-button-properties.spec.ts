@@ -13,7 +13,7 @@ describe('getLinkAttributeList', () => {
     };
     const expectedObj: Record<string, string> = {
       href: 'link',
-      role: 'presentation',
+      role: 'gridcell',
       tabIndex: '-1',
     };
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
@@ -30,7 +30,7 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: '_blank',
       rel: 'external noopener nofollow',
-      role: 'presentation',
+      role: 'gridcell',
       tabIndex: '-1',
     };
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
@@ -48,7 +48,7 @@ describe('getLinkAttributeList', () => {
       href: 'link',
       target: '_blank',
       rel: 'custom',
-      role: 'presentation',
+      role: 'gridcell',
       tabIndex: '-1',
     };
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
@@ -64,7 +64,7 @@ describe('getLinkAttributeList', () => {
     const expectedObj: Record<string, string> = {
       href: 'link',
       target: 'custom',
-      role: 'presentation',
+      role: 'gridcell',
       tabIndex: '-1',
     };
 
@@ -83,7 +83,7 @@ describe('getLinkAttributeList', () => {
     const expectedObj: Record<string, string> = {
       href: 'link',
       tabIndex: '-1',
-      role: 'presentation',
+      role: 'gridcell',
     };
 
     expect(resolveRenderVariables(linkProperties).attributes).toEqual(expectedObj);
@@ -103,7 +103,7 @@ describe('getLinkRenderVariables', () => {
     const expectedObj = {
       tagName: 'a',
       attributes: {
-        role: 'presentation',
+        role: 'gridcell',
         tabIndex: '-1',
         href: 'link',
         target: '_blank',

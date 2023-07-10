@@ -42,7 +42,7 @@ describe('sbb-header-action', () => {
     expect(root).toEqualHtml(`
       <sbb-header-action expand-from="small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" data-expanded dir="ltr">
         <mock:shadow-root>
-          <a class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+          <a class="sbb-header-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" role="gridcell" tabindex="-1" target="_blank">
             <span class="sbb-header-action__wrapper">
               <span class="sbb-header-action__icon">
                 <slot name="icon"/>

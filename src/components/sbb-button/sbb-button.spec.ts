@@ -99,7 +99,7 @@ describe('sbb-button', () => {
               target="_blank"
               rel="noopener"
               download
-              role="presentation"
+              role="gridcell"
               tabindex="-1"
              >
               <span class='sbb-button__label'>

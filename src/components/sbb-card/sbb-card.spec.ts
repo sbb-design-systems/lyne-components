@@ -81,7 +81,7 @@ describe('sbb-card', () => {
     expect(root).toEqualHtml(`
       <sbb-card color="white" size="l" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" size="l" tabindex="0" dir="ltr">
         <mock:shadow-root>
-          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
+          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="gridcell" tabindex="-1">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>

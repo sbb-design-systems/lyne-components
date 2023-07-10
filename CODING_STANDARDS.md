@@ -351,7 +351,7 @@ Use `@Prop() negative: boolean` to provide a color negative design for a compone
 #### Handling aria attributes
 
 Id references, which are used commonly with aria attributes, cannot pass shadow DOM boundaries.
-Due to this, the host element of a web component should be enrichted with the appropriate
+Due to this, the host element of a web component should be enriched with the appropriate
 role and aria attributes and inner elements with the same semantic meaning should be assigned
 `role="presentation"`.
 

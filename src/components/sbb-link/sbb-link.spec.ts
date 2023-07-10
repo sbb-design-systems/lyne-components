@@ -33,7 +33,7 @@ describe('sbb-link', () => {
               class="sbb-link"
               download
               href="https://github.com/lyne-design-system/lyne-components"
-              role="presentation"
+              role="gridcell"
               tabindex="-1"
             >
               <slot></slot>
@@ -167,7 +167,7 @@ describe('sbb-link', () => {
           dir="ltr"
         >
           <mock:shadow-root>
-            <a class="sbb-link" href="#link" rel="external noopener nofollow" role="presentation" tabindex="-1" target="_blank">
+            <a class="sbb-link" href="#link" rel="external noopener nofollow" role="gridcell" tabindex="-1" target="_blank">
               <slot></slot>
               <span class="sbb-link__opens-in-new-window">. Link target opens in new window.</span>
             </a>

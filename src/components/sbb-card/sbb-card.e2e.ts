@@ -18,7 +18,7 @@ describe('sbb-card', () => {
     expect(element).toEqualHtml(`
       <sbb-card color="white" class='hydrated' data-has-badge role="link" size="xl" tabindex="0" href="https://github.com/lyne-design-system/lyne-components" target="_blank" dir="ltr">
         <mock:shadow-root>
-          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="presentation" tabindex="-1">
+          <a class="sbb-card" href="https://github.com/lyne-design-system/lyne-components" target="_blank" rel="external noopener nofollow" role="gridcell" tabindex="-1">
             <span class="sbb-card__wrapper">
               <slot></slot>
             </span>

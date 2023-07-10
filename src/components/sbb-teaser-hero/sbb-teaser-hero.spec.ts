@@ -28,7 +28,7 @@ describe('sbb-teaser-hero', () => {
               href="https://www.sbb.ch"
               rel="external"
               target="_blank"
-              role="presentation"
+              role="gridcell"
               tabindex="-1"
             >
               <span class="sbb-teaser-hero__panel">
@@ -95,7 +95,7 @@ describe('sbb-teaser-hero', () => {
             <a
               class="sbb-teaser-hero"
               href="https://www.sbb.ch"
-              role="presentation"
+              role="gridcell"
               tabindex="-1"
             >
               <span class="sbb-teaser-hero__panel">

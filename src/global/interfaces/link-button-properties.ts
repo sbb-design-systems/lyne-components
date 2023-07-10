@@ -92,7 +92,7 @@ function filterUndefined(...objects: Record<string, string>[]): Record<string, s
  */
 function getLinkAttributeList(linkProperties: LinkProperties): Record<string, string> {
   const baseAttributeList = {
-    role: 'presentation',
+    role: 'gridcell',
     tabIndex: '-1',
   };
 
