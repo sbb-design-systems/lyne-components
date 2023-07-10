@@ -125,8 +125,11 @@
   color: var(--sbb-notification-color);
   border-radius: var(--sbb-notification-border-radius);
   overflow: hidden;
+
+  // We apply SASS calculated background color as default/fallback for older browsers.
   background-color: var(--sbb-notification-type-color-sass);
 
+  // If supported, try to mix color with CSS
   @supports (background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white)) {
     background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
   }
