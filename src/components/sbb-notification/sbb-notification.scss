@@ -14,10 +14,10 @@
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-notification-color: var(--sbb-color-charcoal-default);
-  --sbb-notification-type-color: var(--sbb-color-granite-default);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-granite-default, white, 5%)};
+  --sbb-notification-icon-color: var(--sbb-notification-type-color);
   --sbb-notification-border-width: var(--sbb-border-width-1x);
-  --sbb-notification-border: var(--sbb-border-width-1x) solid var(--sbb-notification-type-color);
+  --sbb-notification-border: var(--sbb-notification-border-width) solid
+    var(--sbb-notification-type-color);
   --sbb-notification-base-radius: var(--sbb-border-radius-4x);
   --sbb-notification-border-radius: calc(var(--sbb-notification-base-radius) / 2)
     var(--sbb-notification-base-radius) var(--sbb-notification-base-radius)
@@ -61,8 +61,9 @@
 /* Types */
 
 :host([type='info']) {
-  --sbb-notification-type-color: var(--sbb-color-granite-default);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-granite-default, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-smoke-default);
+  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-smoke-default, white, 5%)};
+  --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='success']) {
@@ -73,6 +74,7 @@
 :host([type='warn']) {
   --sbb-notification-type-color: var(--sbb-color-peach-default);
   --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach-default, white, 5%)};
+  --sbb-notification-icon-color: var(--sbb-notification-color);
 }
 
 :host([type='error']) {
@@ -82,8 +84,12 @@
 
 .sbb-notification__wrapper {
   position: relative;
-  inset-inline-start: calc(var(--sbb-notification-base-radius) - var(--sbb-border-width-1x));
-  width: calc(100% - calc(var(--sbb-notification-base-radius) - var(--sbb-border-width-1x)));
+  inset-inline-start: calc(
+    var(--sbb-notification-base-radius) - var(--sbb-notification-border-width)
+  );
+  width: calc(
+    100% - calc(var(--sbb-notification-base-radius) - var(--sbb-notification-border-width))
+  );
   visibility: var(--sbb-notification-visibility);
   opacity: var(--sbb-notification-opacity);
   max-height: var(--sbb-notification-max-height);
@@ -99,8 +105,8 @@
   &::before {
     content: '';
     position: absolute;
-    inset: calc(var(--sbb-border-width-1x) * -1) var(--sbb-notification-base-radius)
-      calc(var(--sbb-border-width-1x) * -1) calc(var(--sbb-notification-base-radius) * -1);
+    inset: calc(var(--sbb-notification-border-width) * -1) var(--sbb-notification-base-radius)
+      calc(var(--sbb-notification-border-width) * -1) calc(var(--sbb-notification-base-radius) * -1);
     background-color: var(--sbb-notification-type-color);
     border: var(--sbb-notification-border);
     border-radius: var(--sbb-notification-base-radius);
@@ -133,11 +139,7 @@
 
 .sbb-notification__icon {
   margin-block: var(--sbb-spacing-fixed-2x);
-  color: var(--sbb-notification-type-color);
-
-  :host([type='warn']) & {
-    color: var(--sbb-notification-color);
-  }
+  color: var(--sbb-notification-icon-color);
 
   @include sbb.mq($from: small) {
     margin-block-end: 0;

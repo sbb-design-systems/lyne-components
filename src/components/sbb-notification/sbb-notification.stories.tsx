@@ -126,9 +126,7 @@ const SlottedTitleTemplate = (args): JSX.Element => (
           notification.addEventListener('did-open', () => (notification.disableAnimation = false))
         }
       >
-        <span slot="title">
-          Slotted title <sbb-icon name="face-grinning-small" />
-        </span>
+        <span slot="title">Slotted title</span>
         The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
         dog.&nbsp;
         <sbb-link href="/" variant="block">
