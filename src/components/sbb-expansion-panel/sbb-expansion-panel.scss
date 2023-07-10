@@ -52,7 +52,8 @@
 }
 
 :host([borderless]) {
-  --sbb-expansion-panel-border: var(--sbb-border-width-1x) solid transparent;
+  --sbb-expansion-panel-border: var(--sbb-border-width-2x) solid transparent;
+  --sbb-expansion-panel-border-top: var(--sbb-border-width-2x) solid transparent;
 }
 
 :host([borderless]:first-child) {
@@ -86,7 +87,7 @@
 }
 
 .sbb-expansion-panel__content {
-  display: block;
+  display: flex;
   overflow: hidden;
 }
 
