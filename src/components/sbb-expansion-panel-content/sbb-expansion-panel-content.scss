@@ -5,22 +5,17 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-expansion-panel-content-padding-inline-start: 0;
+  --sbb-expansion-panel-content-padding-inline-start: var(--sbb-spacing-fixed-6x);
 }
 
 :host([data-icon-space]) {
   --sbb-expansion-panel-content-padding-inline-start: calc(
-    var(--sbb-spacing-fixed-9x) + var(--sbb-spacing-fixed-4x)
+    var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-9x) + var(--sbb-spacing-fixed-4x)
   );
 }
 
 .sbb-expansion-panel-content {
-  padding-block-start: var(--sbb-spacing-responsive-xs);
+  padding-block-end: var(--sbb-spacing-responsive-xs);
   padding-inline-start: var(--sbb-expansion-panel-content-padding-inline-start);
-}
-
-.sbb-expansion-panel-content__spacer {
-  display: inline-block;
-  width: var(--sbb-spacing-fixed-9x);
-  margin-inline-end: var(--sbb-spacing-fixed-4x);
+  padding-inline-end: var(--sbb-spacing-fixed-6x);
 }
