@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import { InputType } from '@storybook/types';
 
 const numberOfPanels: InputType = {
@@ -102,6 +102,17 @@ const defaultArgs: Args = {
   contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
 };
 
+const greyDecorator: Decorator = (Story) => (
+  <div
+    style={{
+      background: '#bdbdbd',
+      padding: '2rem',
+    }}
+  >
+    <Story />
+  </div>
+);
+
 const createExpansionPanelTemplate = (
   numberOfPanels,
   color,
@@ -163,12 +174,14 @@ export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
+  decorators: [greyDecorator],
 };
 
 export const MilkBorderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options[1], borderless: true },
+  decorators: [greyDecorator],
 };
 
 export const WithIcon: StoryObj = {
