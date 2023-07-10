@@ -155,6 +155,9 @@ export class SbbDatepicker implements ComponentInterface {
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
     await this._formatAndUpdateValue(this._createAndComposeDate(parsedDate));
+    /* Emit blur event when value is changed programmatically to notify 
+    frameworks that rely on that event to update form status. */
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { bubbles: false, composed: true }));
   }
 
   @Listen('datepicker-control-registered')
@@ -203,10 +206,10 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _formatValue(value: string): string {
     const match: RegExpMatchArray = value?.match(FORMAT_DATE);
-    if (!match || match.length <= 2) {
+    if (!match || match.length <= 2 || !match[2] || !match[3]) {
+      this._inputElement.dataset.sbbInvalid = 'true';
       return value;
     }
-
     return this._composeValueString(match[1], match[2], +match[3]);
   }
 
@@ -236,7 +239,7 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     if (this._inputElement) {
-      this._inputElement.classList.remove('sbb-invalid');
+      delete this._inputElement.dataset.sbbInvalid;
       this._inputElement.value = this._formatValue(value);
       const newValueAsDate: Date = await this.getValueAsDate();
       if (
@@ -247,7 +250,7 @@ export class SbbDatepicker implements ComponentInterface {
           this._inputElement?.max,
         )
       ) {
-        this._inputElement.classList.add('sbb-invalid');
+        this._inputElement.dataset.sbbInvalid = 'true';
       }
       this._emitChange();
     }

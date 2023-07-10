@@ -8,6 +8,8 @@ The following components are designed to work inside a `<sbb-form-field>`:
 
 - `<input>`
 - `<select>`
+- `<sbb-datepicker>`
+- `<sbb-select>`
 - `<sbb-slider>`
 - `<sbb-time-input>`
 

@@ -9,14 +9,11 @@ they can be connected using the `input` property, which accepts the id of the na
 
 When the two are linked, the component sets the input placeholder, and the input's type as `text`, then reads 
 the `disabled`, `readonly`, `min` and `max` attributes from the input and emits then as payload of the `inputUpdated` event.
-If the input's value changes, it is formatted then a `change` event is emitted with the new value. If it's an invalid
-date, the `sbb-invalid` class is added to the input. The component also listens for changes in its two properties, 
- `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
+If the input's value changes, it is formatted then a `change` event is emitted with the new value. If it's an invalid date, the `data-sbb-invalid` attribute is added to the input. The component also listens for changes in its two properties, `wide` and `dateFilter`, and emits a `datePickerUpdated` event when changed.
 
-Consumers can listen to the native `change` event on the `sbb-datepicker` component to intercept the date change `event`;
-the current value can be read from the async method `event.target.getValueAsDate()`.
-In order to set the value programmatically it's recommended to use the `setValueAsDate()`
-method of the `<sbb-datepicker>`.
+Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to intercept date changes, the current value can be read from the async method `event.target.getValueAsDate()`.
+To set the value programmatically it's recommended to use the `setValueAsDate()` method of the `<sbb-datepicker>`.
+Each time the user changes the date by using the calendar, the next and previous day arrow, or by using the `setValueAsDate()` method, a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.
 
 Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
 
