@@ -86,6 +86,24 @@ describe('sbb-datepicker', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
+    it('renders and detects missing month error', async () => {
+      const changeSpy = await element.spyOnEvent('change');
+      await input.type('20..2012');
+      await button.focus();
+      await waitForCondition(() => changeSpy.events.length === 1);
+      expect(input).toHaveAttribute('data-sbb-invalid');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
+    it('renders and detects missing year error', async () => {
+      const changeSpy = await element.spyOnEvent('change');
+      await input.type('20.05.');
+      await button.focus();
+      await waitForCondition(() => changeSpy.events.length === 1);
+      expect(input).toHaveAttribute('data-sbb-invalid');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
+    });
+
     it('renders with no changes when typing letters', async () => {
       expect(await input.getProperty('value')).toEqual('');
       await input.focus();
