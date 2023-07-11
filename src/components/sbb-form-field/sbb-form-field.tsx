@@ -240,7 +240,7 @@ export class SbbFormField implements ComponentInterface {
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'class'],
+      attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
     });
     this._element.dataset.inputType = this._input.tagName.toLowerCase();
     this._syncLabelInputReferences();
@@ -335,7 +335,8 @@ export class SbbFormField implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'invalid',
-      this._input.classList.contains('sbb-invalid') ||
+      this._input.hasAttribute('data-sbb-invalid') ||
+        this._input.classList.contains('sbb-invalid') ||
         (this._input.classList.contains('ng-touched') &&
           this._input.classList.contains('ng-invalid')),
     );

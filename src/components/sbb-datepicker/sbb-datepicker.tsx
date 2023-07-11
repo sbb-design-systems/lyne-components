@@ -23,6 +23,7 @@ import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { DateAdapter } from '../../global/interfaces/date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const FORMAT_DATE =
@@ -155,6 +156,9 @@ export class SbbDatepicker implements ComponentInterface {
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
     await this._formatAndUpdateValue(this._createAndComposeDate(parsedDate));
+    /* Emit blur event when value is changed programmatically to notify 
+    frameworks that rely on that event to update form status. */
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
   @Listen('datepicker-control-registered')
@@ -203,10 +207,9 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _formatValue(value: string): string {
     const match: RegExpMatchArray = value?.match(FORMAT_DATE);
-    if (!match || match.length <= 2) {
+    if (!match || match.length <= 2 || !match[2] || !match[3]) {
       return value;
     }
-
     return this._composeValueString(match[1], match[2], +match[3]);
   }
 
@@ -222,7 +225,7 @@ export class SbbDatepicker implements ComponentInterface {
   private _composeValueString(_day: string, _month: string, year: number): string {
     const day: string = _day.padStart(2, '0');
     const month: string = _month.padStart(2, '0');
-    if (!!year && year < 100 && year >= 0) {
+    if (typeof year === 'number' && year < 100 && year >= 0) {
       const shift = new Date().getFullYear() - 2000 + this.cutoffYearOffset;
       year = year <= shift ? 2000 + year : 1900 + year;
     }
@@ -236,19 +239,18 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     if (this._inputElement) {
-      this._inputElement.classList.remove('sbb-invalid');
       this._inputElement.value = this._formatValue(value);
       const newValueAsDate: Date = await this.getValueAsDate();
-      if (
-        !isDateAvailable(
-          newValueAsDate,
-          this._element.dateFilter,
-          this._inputElement?.min,
-          this._inputElement?.max,
-        )
-      ) {
-        this._inputElement.classList.add('sbb-invalid');
-      }
+      const isValidOrEmpty =
+        !value ||
+        (newValueAsDate &&
+          isDateAvailable(
+            newValueAsDate,
+            this._element.dateFilter,
+            this._inputElement?.min,
+            this._inputElement?.max,
+          ));
+      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isValidOrEmpty);
       this._emitChange();
     }
   }

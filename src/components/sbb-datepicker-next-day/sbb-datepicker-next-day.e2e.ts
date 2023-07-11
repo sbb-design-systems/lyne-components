@@ -28,9 +28,11 @@ describe('sbb-datepicker-next-day', () => {
       expect(await input.getProperty('value')).toEqual('31.12.2022');
 
       const changeSpy = await input.spyOnEvent('change');
+      const blurSpy = await input.spyOnEvent('blur');
       await element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(blurSpy).toHaveReceivedEventTimes(1);
 
       expect(await input.getProperty('value')).toEqual('01.01.2023');
     });
@@ -60,9 +62,11 @@ describe('sbb-datepicker-next-day', () => {
     it('click', async () => {
       expect(await input.getProperty('value')).toEqual('21.01.2023');
       const changeSpy = await input.spyOnEvent('change');
+      const blurSpy = await input.spyOnEvent('blur');
       await element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(blurSpy).toHaveReceivedEventTimes(1);
       expect(await input.getProperty('value')).toEqual('22.01.2023');
     });
 

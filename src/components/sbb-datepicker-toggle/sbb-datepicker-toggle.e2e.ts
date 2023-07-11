@@ -82,7 +82,10 @@ describe('sbb-datepicker-toggle', () => {
     const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
     expect(tooltip).toEqualAttribute('data-state', 'closed');
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
+    const input: E2EElement = await page.find('input');
     const didOpenEventSpy = await element.spyOnEvent('did-open');
+    const changeSpy = await input.spyOnEvent('change');
+    const blurSpy = await input.spyOnEvent('blur');
     expect(element).toHaveClass('hydrated');
 
     const tooltipTrigger: E2EElement = await page.find(
@@ -99,7 +102,8 @@ describe('sbb-datepicker-toggle', () => {
     });
     await page.waitForChanges();
 
-    const input: E2EElement = await page.find('input');
     expect(await input.getProperty('value')).toEqual('01.01.2022');
+    expect(changeSpy).toHaveReceivedEventTimes(1);
+    expect(blurSpy).toHaveReceivedEventTimes(1);
   });
 });
