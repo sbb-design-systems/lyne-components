@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.11](https://github.com/lyne-design-system/lyne-components/compare/v0.37.10...v0.37.11) (2023-07-11)
+
+### Bug Fixes
+
+- **sbb-datepicker:** empty month bug, improve error validation, add blur event ([#1861](https://github.com/lyne-design-system/lyne-components/issues/1861)) ([ba0c0f2](https://github.com/lyne-design-system/lyne-components/commit/ba0c0f264b74bea2c649981cee4ca320a91097ae))
+
 ### [0.37.10](https://github.com/lyne-design-system/lyne-components/compare/v0.37.9...v0.37.10) (2023-07-11)
 
 ### Bug Fixes
