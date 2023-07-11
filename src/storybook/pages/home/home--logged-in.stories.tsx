@@ -160,7 +160,7 @@ const Template = (args): JSX.Element => (
             <li>
               <sbb-card>
                 <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
-                  Ticket
+                  Buy saver ticket
                 </sbb-card-action>
 
                 <span class="card-product">
@@ -181,7 +181,7 @@ const Template = (args): JSX.Element => (
             <li>
               <sbb-card>
                 <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
-                  Details
+                  Check details of the journey
                 </sbb-card-action>
 
                 <span class="card-product">

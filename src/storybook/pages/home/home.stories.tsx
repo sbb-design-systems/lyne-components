@@ -113,7 +113,7 @@ const Template = (args): JSX.Element => (
           <LiberoProduct />
           <sbb-card color="milk" size="s">
             <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
-              Buy
+              Buy daily ticket
             </sbb-card-action>
             <span class="card-product">
               <sbb-icon name="ticket-route-medium"></sbb-icon>
@@ -131,7 +131,7 @@ const Template = (args): JSX.Element => (
 
           <sbb-card color="milk" size="s" class="grid-span-2">
             <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
-              All GAs at a glance
+              Show all GAs at a glance
             </sbb-card-action>
             <span class="card-product-big">
               <span class="content">
@@ -150,7 +150,7 @@ const Template = (args): JSX.Element => (
 
           <sbb-card class="grid-span-2" color="milk" size="s">
             <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
-              Ride at half price
+              Buy half price ticket
             </sbb-card-action>
 
             <span class="card-product-big">

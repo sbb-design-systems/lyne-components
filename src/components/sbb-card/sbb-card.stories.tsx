@@ -208,7 +208,7 @@ const defaultArgs: Args = {
 const defaultArgsAction = {
   ...defaultArgs,
   active: false,
-  label: 'This card has an action',
+  label: 'Click this card to follow the action.',
   href: 'https://github.com/lyne-design-system/lyne-components',
   download: false,
   target: '_blank',
