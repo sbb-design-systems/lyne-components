@@ -118,11 +118,13 @@ export class SbbExpansionPanel implements ComponentInterface {
     if (this.disabled) {
       header.setAttribute('disabled', String(this.disabled));
     }
-    header.shadowRoot.firstElementChild.setAttribute('id', `sbb-expansion-panel-header-${nextId}`);
+    if (!header.getAttribute('id')) {
+      header.setAttribute('id', `sbb-expansion-panel-header-${nextId}`);
+    }
 
     const content = this._element.querySelector('sbb-expansion-panel-content');
     if (content) {
-      header.shadowRoot.firstElementChild.setAttribute(
+      header.setAttribute(
         'aria-controls',
         content.getAttribute('id') || `sbb-expansion-panel-content-${nextId}`
       );
@@ -143,11 +145,15 @@ export class SbbExpansionPanel implements ComponentInterface {
     if (!content) {
       return;
     }
+    const header = this._element.querySelector('sbb-expansion-panel-header');
 
     if (!content.getAttribute('id')) {
       content.setAttribute('id', `sbb-expansion-panel-content-${nextId}`);
     }
-    content.setAttribute('aria-labelledby', `sbb-expansion-panel-header-${nextId}`);
+    content.setAttribute(
+      'aria-labelledby',
+      header.getAttribute('id') || `sbb-expansion-panel-header-${nextId}`
+    );
     content.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
       signal: this._transitionEventController.signal,
     });
