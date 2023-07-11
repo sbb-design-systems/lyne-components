@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.10](https://github.com/lyne-design-system/lyne-components/compare/v0.37.9...v0.37.10) (2023-07-11)
+
+### Bug Fixes
+
+- revert renovate changes to react package.json ([4db895f](https://github.com/lyne-design-system/lyne-components/commit/4db895fcf5e71b31bebc8b9b4f15d7fb7af441f4))
+
 ### [0.37.9](https://github.com/lyne-design-system/lyne-components/compare/v0.37.8...v0.37.9) (2023-07-11)
 
 ### Features
