@@ -68,7 +68,7 @@ describe('sbb-checkbox', () => {
               <div style="height: 500px">
                 <sbb-checkbox></sbb-checkbox>
               </div>
-            </div>`
+            </div>`,
     );
     element = await page.find('sbb-checkbox');
     expect(element).not.toHaveAttribute('checked');

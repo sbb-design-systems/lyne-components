@@ -79,7 +79,7 @@ const defaultArgs: Args = {
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
   await waitForComponentsReady(() =>
-    canvas.getByTestId('skiplink').shadowRoot.querySelectorAll('.sbb-skiplink-list__wrapper')
+    canvas.getByTestId('skiplink').shadowRoot.querySelectorAll('.sbb-skiplink-list__wrapper'),
   );
   await waitForStablePosition(() => canvas.getByTestId('skiplink'));
   userEvent.tab();

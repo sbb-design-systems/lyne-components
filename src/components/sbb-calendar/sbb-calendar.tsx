@@ -83,7 +83,7 @@ export class SbbCalendar implements ComponentInterface {
   /** A list of buttons corresponding to the days of the month. */
   private get _days(): HTMLButtonElement[] {
     return Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day')
+      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day'),
     ) as HTMLButtonElement[];
   }
 
@@ -94,7 +94,7 @@ export class SbbCalendar implements ComponentInterface {
     languageChangeHandlerAspect((l) => {
       this._currentLanguage = l;
       this._months = this._dateAdapter.getMonthNames('long');
-    })
+    }),
   );
 
   @Watch('min')
@@ -160,14 +160,14 @@ export class SbbCalendar implements ComponentInterface {
     this._setWeekdays();
     this._weeks = this._createWeekRows(
       this._dateAdapter.getMonth(this._activeDate),
-      this._dateAdapter.getYear(this._activeDate)
+      this._dateAdapter.getYear(this._activeDate),
     );
     this._nextMonthWeeks = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(
         this._dateAdapter.getMonth(nextMonthDate),
-        this._dateAdapter.getYear(nextMonthDate)
+        this._dateAdapter.getYear(nextMonthDate),
       );
     }
   }
@@ -308,7 +308,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the month label. */
   private _createMonthLabel(d: Date): JSX.Element {
     const monthLabel = `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
-      d
+      d,
     )}`;
     return (
       <span class="sbb-calendar__controls-month-label" aria-hidden="true">
@@ -323,7 +323,7 @@ export class SbbCalendar implements ComponentInterface {
     for (const d of dates) {
       if (d) {
         monthLabel += `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
-          d
+          d,
         )} `;
       }
     }
@@ -417,7 +417,7 @@ export class SbbCalendar implements ComponentInterface {
 
   private _setTabIndex(): void {
     Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day[tabindex="0"]')
+      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day[tabindex="0"]'),
     ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
@@ -461,7 +461,7 @@ export class SbbCalendar implements ComponentInterface {
   private _findFirstOnColumn(
     days: HTMLButtonElement[],
     index: number,
-    offset: number
+    offset: number,
   ): HTMLButtonElement {
     const nextIndex = (index % 7) + offset;
     return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, 7);
@@ -471,7 +471,7 @@ export class SbbCalendar implements ComponentInterface {
   private _findLastOnColumn(
     days: HTMLButtonElement[],
     index: number,
-    offset: number
+    offset: number,
   ): HTMLButtonElement {
     const nextIndex = index + Math.trunc((offset - index - 1) / 7) * 7;
     return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, -7);
@@ -485,7 +485,7 @@ export class SbbCalendar implements ComponentInterface {
     evt: KeyboardEvent,
     index: number,
     days: HTMLButtonElement[],
-    day: Day
+    day: Day,
   ): HTMLButtonElement {
     // Calculate the index of the starting day in the month.
     const indexInMonth = +day.dayValue - 1;

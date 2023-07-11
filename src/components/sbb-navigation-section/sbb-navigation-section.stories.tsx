@@ -13,20 +13,20 @@ const playStory = async (trigger, canvasElement): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation')
+    canvas.getByTestId('navigation').shadowRoot.querySelector('dialog.sbb-navigation'),
   );
 
   const button = canvas.getByTestId('navigation-trigger');
   userEvent.click(button);
   await waitFor(() =>
-    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy()
+    expect(canvas.getByTestId('navigation').getAttribute('data-state') === 'opened').toBeTruthy(),
   );
   await waitFor(() =>
     expect(
       canvas
         .getByTestId('navigation-section')
-        .shadowRoot.querySelector('dialog.sbb-navigation-section')
-    ).toBeTruthy()
+        .shadowRoot.querySelector('dialog.sbb-navigation-section'),
+    ).toBeTruthy(),
   );
   const action = canvas.getByTestId(trigger);
   userEvent.click(action);

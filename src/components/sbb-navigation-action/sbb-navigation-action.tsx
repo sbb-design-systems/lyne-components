@@ -96,13 +96,13 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
 
   private _navigationMarker: HTMLSbbNavigationMarkerElement;
   private _navigationActionAttributeObserver = new MutationObserver(() =>
-    this._onActiveActionChange()
+    this._onActiveActionChange(),
   );
 
   private _handlerRepository = new HandlerRepository(
     this._element,
     actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {
@@ -112,7 +112,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
     // Check if the current element is nested inside a navigation marker.
     this._navigationMarker = hostContext(
       'sbb-navigation-marker',
-      this._element
+      this._element,
     ) as HTMLSbbNavigationMarkerElement;
   }
 

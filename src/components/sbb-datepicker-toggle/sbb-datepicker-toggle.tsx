@@ -56,13 +56,13 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   @Watch('datePicker')
   public async findDatePicker(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement
+    oldValue: string | HTMLElement,
   ): Promise<void> {
     if (newValue !== oldValue) {
       await this._init(this.datePicker);
@@ -106,27 +106,27 @@ export class SbbDatepickerToggle implements ComponentInterface {
         this._min = event.detail.min;
         this._max = event.detail.max;
       },
-      { signal: this._datePickerController.signal }
+      { signal: this._datePickerController.signal },
     );
     this._datePickerElement?.addEventListener(
       'change',
       (event: Event) => this._datePickerChanged(event),
       {
         signal: this._datePickerController.signal,
-      }
+      },
     );
     this._datePickerElement?.addEventListener(
       'datePickerUpdated',
       (event: Event) =>
         this._configureCalendar(this._calendarElement, event.target as HTMLSbbDatepickerElement),
-      { signal: this._datePickerController.signal }
+      { signal: this._datePickerController.signal },
     );
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
   private _configureCalendar(
     calendar: HTMLSbbCalendarElement,
-    datepicker: HTMLSbbDatepickerElement
+    datepicker: HTMLSbbDatepickerElement,
   ): void {
     calendar.wide = datepicker?.wide;
     calendar.dateFilter = datepicker?.dateFilter;

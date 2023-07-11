@@ -110,7 +110,7 @@ export class SbbToast implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   private _closeTimeout: ReturnType<typeof setTimeout>;

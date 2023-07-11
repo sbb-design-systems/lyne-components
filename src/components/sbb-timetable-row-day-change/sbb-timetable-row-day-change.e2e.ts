@@ -9,7 +9,7 @@ describe('sbb-timetable-row-day-change', () => {
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-timetable-row-day-change config='${config}'></sbb-timetable-row-day-change>`
+      `<sbb-timetable-row-day-change config='${config}'></sbb-timetable-row-day-change>`,
     );
 
     element = await page.find('sbb-timetable-row-day-change');

@@ -34,7 +34,7 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
-      'sbb-datepicker-previous-day'
+      'sbb-datepicker-previous-day',
     );
     expect(element).toHaveAttribute('disabled');
   });
@@ -52,7 +52,7 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
-      'sbb-datepicker-previous-day'
+      'sbb-datepicker-previous-day',
     );
     expect(element).toHaveAttribute('disabled');
   });

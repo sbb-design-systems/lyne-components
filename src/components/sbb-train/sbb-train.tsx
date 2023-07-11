@@ -57,7 +57,7 @@ export class SbbTrain implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {
@@ -89,7 +89,7 @@ export class SbbTrain implements ComponentInterface {
   private _readWagons(): void {
     const wagons = Array.from(this._element.children).filter(
       (e): e is HTMLSbbTrainBlockedPassageElement | HTMLSbbTrainWagonElement =>
-        e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE'
+        e.tagName === 'SBB-TRAIN-WAGON' || e.tagName === 'SBB-TRAIN-BLOCKED-PASSAGE',
     );
     // If the slotted sbb-train-wagon and sbb-train-blocked-passage instances have not changed, we can skip syncing and updating
     // the link reference list.

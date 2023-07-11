@@ -39,7 +39,7 @@ describe('sbb-action-group', () => {
   describe('property sync', () => {
     const assertButtons = (
       root: AnyHTMLElement,
-      assertion: (link: HTMLSbbButtonElement) => boolean
+      assertion: (link: HTMLSbbButtonElement) => boolean,
     ): boolean => Array.from(root.querySelectorAll('sbb-button')).every(assertion);
 
     it('should sync default button-size property with sbb-button', async () => {
@@ -97,7 +97,7 @@ describe('sbb-action-group', () => {
       patchSlotchangeEvent(root);
 
       expect(
-        Array.from(root.querySelectorAll('sbb-link')).every((l) => l.variant === 'block')
+        Array.from(root.querySelectorAll('sbb-link')).every((l) => l.variant === 'block'),
       ).toBeTruthy();
     });
 
@@ -118,7 +118,7 @@ describe('sbb-action-group', () => {
       patchSlotchangeEvent(root);
 
       expect(
-        Array.from(root.querySelectorAll('sbb-link')).every((l) => l.size === 's')
+        Array.from(root.querySelectorAll('sbb-link')).every((l) => l.size === 's'),
       ).toBeTruthy();
     });
   });

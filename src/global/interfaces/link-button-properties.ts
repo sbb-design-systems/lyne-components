@@ -113,13 +113,13 @@ function getLinkAttributeList(linkProperties: LinkProperties): Record<string, st
 function hostProperties(role: string, disabled: boolean): Record<string, string> {
   return Object.assign(
     { role, dir: getDocumentWritingMode() },
-    disabled ? { 'aria-disabled': 'true' } : { tabIndex: '0' }
+    disabled ? { 'aria-disabled': 'true' } : { tabIndex: '0' },
   );
 }
 
 /** Set default render variables for link case. */
 function resolveLinkRenderVariables(
-  properties: LinkProperties & Pick<ButtonProperties, 'disabled'>
+  properties: LinkProperties & Pick<ButtonProperties, 'disabled'>,
 ): LinkButtonRenderVariables {
   return {
     tagName: 'a',
@@ -139,7 +139,7 @@ function resolveStaticRenderVariables(): LinkButtonRenderVariables {
 
 /** Set default render variables for button case. */
 export function resolveButtonRenderVariables(
-  properties: ButtonProperties
+  properties: ButtonProperties,
 ): LinkButtonRenderVariables {
   return {
     tagName: 'span',
@@ -153,7 +153,7 @@ export function resolveButtonRenderVariables(
  * @param properties used to set the 'attributes' property and to check for `href` value.
  */
 export function resolveRenderVariables(
-  properties: LinkButtonProperties & Partial<IsStaticProperty>
+  properties: LinkButtonProperties & Partial<IsStaticProperty>,
 ): LinkButtonRenderVariables {
   if (properties.isStatic) {
     return resolveStaticRenderVariables();
@@ -168,7 +168,7 @@ export function resolveRenderVariables(
  * @param linkProperties used to set variables and to check if href property is set.
  */
 export function resolveLinkOrStaticRenderVariables(
-  linkProperties: LinkProperties
+  linkProperties: LinkProperties,
 ): LinkButtonRenderVariables {
   return linkProperties.href
     ? resolveLinkRenderVariables(linkProperties)

@@ -11,7 +11,10 @@ export class HandlerRepository {
   private _aspects: HandlerAspect[];
   private _controller?: AbortController;
 
-  public constructor(private readonly _host: HTMLElement, ...aspects: HandlerAspect[]) {
+  public constructor(
+    private readonly _host: HTMLElement,
+    ...aspects: HandlerAspect[]
+  ) {
     this._aspects = aspects;
   }
 

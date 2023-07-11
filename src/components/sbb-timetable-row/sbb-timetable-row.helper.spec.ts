@@ -51,7 +51,7 @@ describe('sortSituation', () => {
       sortSituation([
         { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
         { cause: 'DISTURBANCE', broadcastMessages: [] },
-      ])
+      ]),
     ).toStrictEqual([
       { cause: 'DISTURBANCE', broadcastMessages: [] },
       { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
@@ -64,7 +64,7 @@ describe('sortSituation', () => {
         { cause: 'TRAIN_REPLACEMENT_BY_BUS', broadcastMessages: [] },
         { cause: 'DISTURBANCE', broadcastMessages: [] },
         { cause: 'DISTURBANCE', broadcastMessages: [] },
-      ])
+      ]),
     ).toStrictEqual([
       { cause: 'DISTURBANCE', broadcastMessages: [] },
       { cause: 'DISTURBANCE', broadcastMessages: [] },

@@ -106,7 +106,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   private _contentElement: HTMLElement;
@@ -160,7 +160,7 @@ export class SbbSelectionPanel implements ComponentInterface {
     if (this._contentElement && this._checked && !this.forceOpen) {
       this._element.style.setProperty(
         '--sbb-selection-panel-content-height',
-        `${this._contentElement.scrollHeight}px`
+        `${this._contentElement.scrollHeight}px`,
       );
     }
   }

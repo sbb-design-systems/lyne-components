@@ -67,7 +67,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   @Watch('disabled')
@@ -95,7 +95,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'hasSelectionPanel',
-      !!this._element.querySelector('sbb-selection-panel')
+      !!this._element.querySelector('sbb-selection-panel'),
     );
     this._handlerRepository.connect();
   }
@@ -107,7 +107,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     const enabledCheckboxes: HTMLSbbCheckboxElement[] = this._checkboxes.filter(
-      (tag: HTMLSbbCheckboxElement) => !isValidAttribute(tag, 'disabled')
+      (tag: HTMLSbbCheckboxElement) => !isValidAttribute(tag, 'disabled'),
     );
 
     if (
@@ -122,7 +122,7 @@ export class SbbCheckboxGroup implements ComponentInterface {
 
     if (isArrowKeyPressed(evt)) {
       const current: number = enabledCheckboxes.findIndex(
-        (e: HTMLSbbCheckboxElement) => e === evt.target
+        (e: HTMLSbbCheckboxElement) => e === evt.target,
       );
       const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();

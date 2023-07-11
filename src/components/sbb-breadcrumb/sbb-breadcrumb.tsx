@@ -57,12 +57,12 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
     this._element,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public connectedCallback(): void {
     this._hasText = Array.from(this._element.childNodes).some(
-      (n) => !(n as Element).slot && n.textContent?.trim()
+      (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
   }

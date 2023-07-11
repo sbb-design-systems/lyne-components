@@ -12,8 +12,8 @@ describe('sbb-selection-panel', () => {
     }>
       <sbb-selection-panel disable-animation id="sbb-selection-panel-1">
         <sbb-${inputType} id="sbb-input-1" value="Value one" ${
-      inputType === 'checkbox' && 'checked'
-    }>Value one</sbb-${inputType}>
+          inputType === 'checkbox' && 'checked'
+        }>Value one</sbb-${inputType}>
         <div id="panel-content-1" slot="content">
           Inner Content
           <sbb-link>Link</sbb-link>
@@ -100,7 +100,7 @@ describe('sbb-selection-panel', () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
       const contentOne = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content'
+        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content',
       );
 
       expect(firstInput).toHaveAttribute('checked');
@@ -389,7 +389,7 @@ describe('sbb-selection-panel', () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
       const contentOne = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content'
+        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content',
       );
 
       expect(firstInput).toHaveAttribute('checked');

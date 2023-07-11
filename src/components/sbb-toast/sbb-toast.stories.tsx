@@ -14,7 +14,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('sbb-toast').shadowRoot.querySelector('.sbb-toast')
+    canvas.getByTestId('sbb-toast').shadowRoot.querySelector('.sbb-toast'),
   );
 
   const toast = canvas.getByTestId('sbb-toast') as HTMLSbbToastElement;

@@ -144,10 +144,10 @@ export class SbbSlider implements ComponentInterface {
 
     this._syncValues();
     this._element.dispatchEvent(
-      new InputEvent('input', { bubbles: true, cancelable: true, composed: true })
+      new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
     );
     this._emitChange(
-      new window.Event('change', { bubbles: true, cancelable: true, composed: true })
+      new window.Event('change', { bubbles: true, cancelable: true, composed: true }),
     );
   }
 

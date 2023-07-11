@@ -47,7 +47,7 @@ export class SbbTagGroup implements ComponentInterface {
     if (Array.isArray(value) && !this.multiple) {
       console.warn(
         'Trying to set array value for sbb-tag-group but multiple mode is not activated.',
-        value
+        value,
       );
       return;
     } else if (!Array.isArray(value) && this.multiple) {
@@ -57,7 +57,7 @@ export class SbbTagGroup implements ComponentInterface {
       } catch {
         console.warn(
           'Expected value to be an array because sbb-tag-group multiple mode is activated.',
-          value
+          value,
         );
       }
       return;

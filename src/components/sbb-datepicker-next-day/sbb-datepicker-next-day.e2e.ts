@@ -83,8 +83,8 @@ describe('sbb-datepicker-next-day', () => {
 
       expect(
         await page.evaluate(() =>
-          document.querySelector('sbb-datepicker-next-day').hasAttribute('disabled')
-        )
+          document.querySelector('sbb-datepicker-next-day').hasAttribute('disabled'),
+        ),
       ).toEqual(true);
 
       await element.click();

@@ -126,7 +126,7 @@ export class SbbFormField implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**
@@ -155,7 +155,7 @@ export class SbbFormField implements ComponentInterface {
   @Watch('label')
   public renderLabel(newValue: string): void {
     let labelElement: HTMLLabelElement | undefined = Array.from(this._element.children).find(
-      (element) => element.tagName === 'LABEL'
+      (element) => element.tagName === 'LABEL',
     ) as HTMLLabelElement | undefined;
     if (!newValue && labelElement?.dataset.creator === this._element.tagName) {
       labelElement.remove();
@@ -199,7 +199,7 @@ export class SbbFormField implements ComponentInterface {
       .some(
         (el) =>
           (el instanceof window.HTMLElement && el.getAttribute('role') === 'button') ||
-          this._excludedFocusElements.includes((el as HTMLElement).tagName)
+          this._excludedFocusElements.includes((el as HTMLElement).tagName),
       );
   }
 
@@ -212,7 +212,7 @@ export class SbbFormField implements ComponentInterface {
     }
     if (labels.length > 1) {
       console.warn(
-        `Detected more than one label in sbb-form-field#${this._element.id}. Only one label is supported.`
+        `Detected more than one label in sbb-form-field#${this._element.id}. Only one label is supported.`,
       );
     }
     this._label = labels[0];
@@ -296,7 +296,7 @@ export class SbbFormField implements ComponentInterface {
       this._element,
       'inputEmpty',
       this._floatingLabelSupportedInputElements.includes(this._input.tagName) &&
-        (await this._isInputEmpty())
+        (await this._isInputEmpty()),
     );
   }
 
@@ -337,7 +337,7 @@ export class SbbFormField implements ComponentInterface {
       'invalid',
       this._input.classList.contains('sbb-invalid') ||
         (this._input.classList.contains('ng-touched') &&
-          this._input.classList.contains('ng-invalid'))
+          this._input.classList.contains('ng-invalid')),
     );
   }
 

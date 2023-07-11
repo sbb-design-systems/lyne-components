@@ -95,7 +95,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
   @State() private _currentLanguage = documentLanguage();
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   private _transitionWrapperElement!: HTMLElement;
@@ -145,7 +145,7 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
       () => this._onHeightTransitionEnd(),
       {
         once: true,
-      }
+      },
     );
     this._transitionWrapperElement.style.height = `${this._alertElement.offsetHeight}px`;
   }

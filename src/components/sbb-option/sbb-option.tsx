@@ -95,7 +95,7 @@ export class SbbOption implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   private _optionId = `sbb-option-${++nextId}`;
@@ -120,7 +120,7 @@ export class SbbOption implements ComponentInterface {
 
   /** MutationObserver on data attributes. */
   private _optionAttributeObserver = new MutationObserver(
-    this._onOptionAttributesChange.bind(this)
+    this._onOptionAttributesChange.bind(this),
   );
 
   /**
@@ -234,7 +234,7 @@ export class SbbOption implements ComponentInterface {
     const prefix = this._label.substring(0, matchIndex);
     const highlighted = this._label.substring(
       matchIndex,
-      matchIndex + this._highlightString.length
+      matchIndex + this._highlightString.length,
     );
     const postfix = this._label.substring(matchIndex + this._highlightString.length);
 

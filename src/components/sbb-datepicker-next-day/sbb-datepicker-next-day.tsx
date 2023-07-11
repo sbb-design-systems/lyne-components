@@ -60,7 +60,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
     actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   private _datePickerElement: HTMLSbbDatepickerElement;
@@ -86,7 +86,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
       startingDate,
       this._datePickerElement.dateFilter,
       this._dateAdapter,
-      this._max
+      this._max,
     );
     if (this._dateAdapter.compareDate(date, startingDate) !== 0) {
       await this._datePickerElement.setValueAsDate(date);
@@ -115,12 +115,12 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     this._datePickerElement.addEventListener(
       'change',
       (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
-      { signal: this._datePickerController.signal }
+      { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
       'datePickerUpdated',
       (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
-      { signal: this._datePickerController.signal }
+      { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
       'inputUpdated',
@@ -131,7 +131,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
           this._setDisabledState(this._datePickerElement);
         }
       },
-      { signal: this._datePickerController.signal }
+      { signal: this._datePickerController.signal },
     );
 
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
@@ -144,7 +144,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
         pickerValueAsDate,
         datepicker.dateFilter,
         this._dateAdapter,
-        this._max
+        this._max,
       );
       this._disabled = this._dateAdapter.compareDate(nextDate, pickerValueAsDate) === 0;
     }

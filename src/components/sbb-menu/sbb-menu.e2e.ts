@@ -173,14 +173,14 @@ describe('sbb-menu', () => {
 
     const buttonHeight = await page.evaluate(() =>
       getComputedStyle(document.documentElement).getPropertyValue(
-        `--sbb-size-button-l-min-height-large`
-      )
+        `--sbb-size-button-l-min-height-large`,
+      ),
     );
     expect(buttonHeight.trim()).toBe('3.5rem');
 
     const buttonHeightPx = parseFloat(buttonHeight) * 16;
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetHeight)).toBe(
-      buttonHeightPx
+      buttonHeightPx,
     );
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetTop)).toBe(0);
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetLeft)).toBe(0);
@@ -188,13 +188,13 @@ describe('sbb-menu', () => {
     // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop
-      )
+        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop,
+      ),
     ).toBe(buttonHeightPx + 8);
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetLeft
-      )
+        () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetLeft,
+      ),
     ).toBe(0);
   });
 
@@ -219,10 +219,10 @@ describe('sbb-menu', () => {
     expect(dialog).toHaveAttribute('open');
 
     const menuOffsetTop = await page.evaluate(
-      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop
+      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetTop,
     );
     const menuHeight = await page.evaluate(
-      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetHeight
+      () => document.querySelector('sbb-menu').shadowRoot.querySelector('dialog').offsetHeight,
     );
     const pageHeight = await page.evaluate(() => window.innerHeight);
 
@@ -250,8 +250,8 @@ describe('sbb-menu', () => {
     await page.waitForChanges();
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-menu').shadowRoot.activeElement.className
-      )
+        () => document.querySelector('sbb-menu').shadowRoot.activeElement.className,
+      ),
     ).toBe('sbb-menu__content');
 
     await page.keyboard.down('Tab');

@@ -13,7 +13,7 @@ async function extractAriaLabels(
       | 'label'
       | 'additionalAccessibilityText'
     >
-  >
+  >,
 ): Promise<string[]> {
   const attributes = [
     'type',
@@ -29,7 +29,7 @@ async function extractAriaLabels(
       // Convert camelCase to kebab-case
       const attributeName = property.replace(
         /[A-Z]+(?![a-z])|[A-Z]/g,
-        ($, ofs) => (ofs ? '-' : '') + $.toLowerCase()
+        ($, ofs) => (ofs ? '-' : '') + $.toLowerCase(),
       );
       return value ? `${attributeName}="${value}"` : attributeName;
     })
@@ -43,10 +43,10 @@ async function extractAriaLabels(
   // Select all accessibility relevant text parts
   return Array.from(
     root.shadowRoot.querySelectorAll(
-      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)'
-    )
+      '[aria-hidden=false], [aria-label]:not(.sbb-train-wagon__icons-list), .sbb-screenreaderonly:not(.sbb-train-wagon__label > span)',
+    ),
   ).map((entry) =>
-    entry.hasAttribute('aria-label') ? entry.getAttribute('aria-label') : entry.textContent
+    entry.hasAttribute('aria-label') ? entry.getAttribute('aria-label') : entry.textContent,
   );
 }
 
@@ -211,7 +211,7 @@ describe('sbb-train-wagon', () => {
     expect(await extractAriaLabels({})).toEqual([]);
     expect(await extractAriaLabels({ type: 'locomotive' })).toEqual(['Locomotive']);
     expect(
-      await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` })
+      await extractAriaLabels({ type: 'closed', additionalAccessibilityText: `Don't enter` }),
     ).toEqual(['Closed train coach', `, Don't enter`]);
     expect(await extractAriaLabels({ type: 'wagon' })).toEqual(['Train coach']);
 
@@ -234,7 +234,7 @@ describe('sbb-train-wagon', () => {
         wagonClass: '1',
         occupancy: 'unknown',
         blockedPassage: 'previous',
-      })
+      }),
     ).toEqual([
       'Train coach',
       'Sector, A',

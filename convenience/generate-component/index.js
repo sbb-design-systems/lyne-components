@@ -58,7 +58,7 @@ const copyFiles = (foundFiles, componentName, targetDirectory) => {
         const relativePath = path.relative(config.boilerplateDirectory, file);
         const fileName = relativePath.replace(
           `${config.boilerplateComponentName}.`,
-          `${componentName}.`
+          `${componentName}.`,
         );
         const targetPath = `${targetDirectory}/${fileName}`;
 
@@ -91,7 +91,7 @@ yarn generate my-component-name
   // make sure we have a dash in the name and the "sbb" prefix
   if (componentName.indexOf('sbb-') !== 0) {
     console.log(
-      'component name must be in kebab case and must start with "sbb" prefix, eg: sbb-my-component-name'
+      'component name must be in kebab case and must start with "sbb" prefix, eg: sbb-my-component-name',
     );
 
     return;

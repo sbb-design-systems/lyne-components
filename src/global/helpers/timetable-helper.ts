@@ -7,7 +7,7 @@ export const isRideLeg = (leg: any): leg is Extract<Leg, { __typename: 'PTRideLe
 };
 
 export const isConnectionLeg = (
-  leg: any
+  leg: any,
 ): leg is Extract<Leg, { __typename: 'PTConnectionLeg' }> => {
   return leg?.__typename === 'PTConnectionLeg';
 };

@@ -75,7 +75,7 @@ describe('sbb-journey-summary', () => {
           </div>
         </div>
       </mock:shadow-root>
-    </sbb-journey-summary>`
+    </sbb-journey-summary>`,
     );
   });
 
@@ -115,7 +115,7 @@ describe('sbb-journey-summary', () => {
           </div>
         </div>
       </mock:shadow-root>
-    </sbb-journey-summary>`
+    </sbb-journey-summary>`,
     );
   });
 
@@ -193,7 +193,7 @@ describe('sbb-journey-summary', () => {
           </div>
         </div>
       </mock:shadow-root>
-    </sbb-journey-summary>`
+    </sbb-journey-summary>`,
     );
   });
 });

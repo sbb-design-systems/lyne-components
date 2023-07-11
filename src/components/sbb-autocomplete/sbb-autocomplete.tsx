@@ -153,7 +153,7 @@ export class SbbAutocomplete implements ComponentInterface {
   @Watch('origin')
   public resetOriginClickListener(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement
+    oldValue: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._componentSetup();
@@ -164,7 +164,7 @@ export class SbbAutocomplete implements ComponentInterface {
   @Watch('trigger')
   public resetTriggerClickListener(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement
+    oldValue: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._componentSetup();
@@ -241,7 +241,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     if (!result) {
       throw new Error(
-        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation'
+        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation',
       );
     }
 
@@ -264,7 +264,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
     if (!result) {
       throw new Error(
-        'Cannot find the trigger element. Please specify a valid element or read the "trigger" prop documentation'
+        'Cannot find the trigger element. Please specify a valid element or read the "trigger" prop documentation',
       );
     }
 
@@ -281,7 +281,7 @@ export class SbbAutocomplete implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'optionPanelOriginBorderless',
-      this._element.closest('sbb-form-field')?.hasAttribute('borderless')
+      this._element.closest('sbb-form-field')?.hasAttribute('borderless'),
     );
   }
 
@@ -315,12 +315,12 @@ export class SbbAutocomplete implements ComponentInterface {
         await this.open();
         this._highlightOptions((event.target as HTMLInputElement).value);
       },
-      { signal: this._triggerEventsController.signal }
+      { signal: this._triggerEventsController.signal },
     );
     this._triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
-      { signal: this._triggerEventsController.signal }
+      { signal: this._triggerEventsController.signal },
     );
   }
 
@@ -380,7 +380,7 @@ export class SbbAutocomplete implements ComponentInterface {
       (event: KeyboardEvent) => this._openedPanelKeyboardInteraction(event),
       {
         signal: this._openPanelEventsController.signal,
-      }
+      },
     );
   }
 
@@ -446,7 +446,7 @@ export class SbbAutocomplete implements ComponentInterface {
 
   private _setNextActiveOption(event: KeyboardEvent): void {
     const filteredOptions = this._options.filter(
-      (opt) => !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+      (opt) => !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled'),
     );
 
     // Get and activate the next active option

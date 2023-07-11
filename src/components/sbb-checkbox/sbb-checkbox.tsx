@@ -94,7 +94,7 @@ export class SbbCheckbox implements ComponentInterface {
 
   /** MutationObserver on data attributes. */
   private _checkboxAttributeObserver = new MutationObserver(
-    this._onCheckboxAttributesChange.bind(this)
+    this._onCheckboxAttributesChange.bind(this),
   );
 
   @Element() private _element!: HTMLElement;
@@ -134,7 +134,7 @@ export class SbbCheckbox implements ComponentInterface {
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-    formElementHandlerAspect
+    formElementHandlerAspect,
   );
 
   // Set up the initial disabled/required values and start observe attributes changes.

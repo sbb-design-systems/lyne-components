@@ -130,10 +130,10 @@ describe('sbb-navigation', () => {
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1'
+      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
     );
     const closeEl = await page.find(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action[sbb-navigation-close]'
+      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action[sbb-navigation-close]',
     );
 
     await element.callMethod('open');
@@ -165,7 +165,7 @@ describe('sbb-navigation', () => {
     const navDialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1'
+      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
     );
 
     await element.callMethod('open');
@@ -223,7 +223,7 @@ describe('sbb-navigation', () => {
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1'
+      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
     );
     const closeButton = await page.find('sbb-navigation >>> .sbb-navigation__close');
 
@@ -257,7 +257,7 @@ describe('sbb-navigation', () => {
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1'
+      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
     );
 
     await element.callMethod('open');
@@ -292,10 +292,10 @@ describe('sbb-navigation', () => {
     const dialog = await page.find('sbb-navigation >>> dialog');
     const sectionDialog = await page.find('sbb-navigation-section#first-section >>> dialog');
     const action = await page.find(
-      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1'
+      'sbb-navigation > sbb-navigation-marker > sbb-navigation-action#action-1',
     );
     const closeEl = await page.find(
-      'sbb-navigation > sbb-navigation-section > sbb-navigation-action[sbb-navigation-section-close]'
+      'sbb-navigation > sbb-navigation-section > sbb-navigation-action[sbb-navigation-section-close]',
     );
 
     await element.callMethod('open');

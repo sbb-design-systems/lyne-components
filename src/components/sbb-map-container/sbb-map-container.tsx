@@ -31,12 +31,12 @@ export class SbbMapContainer implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   private _intersector: HTMLSpanElement;
   private _observer = new IntersectionObserver((entries) =>
-    this._toggleButtonVisibilityOnIntersect(entries)
+    this._toggleButtonVisibilityOnIntersect(entries),
   );
 
   /**

@@ -493,7 +493,7 @@ export class SbbImage implements ComponentInterface {
         this._logPerformanceMarks();
         this._loaded = true;
       },
-      eventListenerOptions
+      eventListenerOptions,
     );
 
     if (!this._captionElement) {

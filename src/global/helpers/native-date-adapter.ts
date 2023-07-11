@@ -145,7 +145,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
     const dateWithCorrectMonth = new Date(date.getFullYear(), targetMonth, 1, 0, 0, 0, 0);
     const daysInMonth = this.getNumDaysInMonth(
       this.getYear(dateWithCorrectMonth),
-      this.getMonth(dateWithCorrectMonth)
+      this.getMonth(dateWithCorrectMonth),
     );
     // Adapt last day of month for shorter months
     return new Date(this.clone(date).setMonth(targetMonth, Math.min(daysInMonth, date.getDate())));

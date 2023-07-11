@@ -32,7 +32,7 @@ async function triggerAnchorWhenNecessary(event: MouseEvent): Promise<void> {
       ctrlKey,
       metaKey,
       shiftKey,
-    })
+    }),
   );
 }
 
@@ -96,7 +96,7 @@ function dispatchClickEvent(event: KeyboardEvent): void {
       ctrlKey,
       metaKey,
       shiftKey,
-    })
+    }),
   );
 }
 

@@ -32,7 +32,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   private _resizeObserver = new ResizeObserver(() => this._evaluateCollapsedState());
@@ -84,7 +84,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     this._evaluateCollapsedState();
 
     const breadcrumbs = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB'
+      (e): e is HTMLSbbBreadcrumbElement => e.tagName === 'SBB-BREADCRUMB',
     );
     // If the slotted sbb-breadcrumb instances have not changed,
     // we can skip syncing and updating the breadcrumbs reference list.
@@ -122,7 +122,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     const arrayCollapsed: HTMLSbbBreadcrumbElement[] = [
       this._breadcrumbs[0],
       this._element.shadowRoot.querySelector(
-        '#sbb-breadcrumb-ellipsis'
+        '#sbb-breadcrumb-ellipsis',
       ) as HTMLSbbBreadcrumbElement,
       this._breadcrumbs[this._breadcrumbs.length - 1],
     ];
@@ -130,10 +130,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
   private _focusNext(
     evt: KeyboardEvent,
-    breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs
+    breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs,
   ): void {
     const current: number = breadcrumbs.findIndex(
-      (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement
+      (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement,
     );
     const nextIndex: number = getNextElementIndex(evt, current, breadcrumbs.length);
     breadcrumbs[nextIndex]?.focus();

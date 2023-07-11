@@ -8,7 +8,7 @@ describe('sbb-datepicker-toggle', () => {
     });
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
     const tooltipTrigger: E2EElement = await page.find(
-      'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
+      'sbb-datepicker-toggle >>> sbb-tooltip-trigger',
     );
     expect(element).toHaveClass('hydrated');
     expect(tooltipTrigger).toHaveAttribute('disabled');
@@ -25,7 +25,7 @@ describe('sbb-datepicker-toggle', () => {
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
     const didOpenEventSpy = await element.spyOnEvent('did-open');
     const tooltipTrigger: E2EElement = await page.find(
-      'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
+      'sbb-datepicker-toggle >>> sbb-tooltip-trigger',
     );
     const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
     await page.waitForChanges();
@@ -51,7 +51,7 @@ describe('sbb-datepicker-toggle', () => {
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
     const didOpenEventSpy = await element.spyOnEvent('did-open');
     const tooltipTrigger: E2EElement = await page.find(
-      'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
+      'sbb-datepicker-toggle >>> sbb-tooltip-trigger',
     );
     const tooltip: E2EElement = await page.find('sbb-datepicker-toggle >>> sbb-tooltip');
     await page.waitForChanges();
@@ -60,7 +60,7 @@ describe('sbb-datepicker-toggle', () => {
     expect(tooltip).toEqualAttribute('data-state', 'closed');
 
     await page.evaluate(() =>
-      (document.querySelector('sbb-datepicker-toggle') as HTMLSbbDatepickerToggleElement).open()
+      (document.querySelector('sbb-datepicker-toggle') as HTMLSbbDatepickerToggleElement).open(),
     );
 
     await page.waitForChanges();
@@ -86,7 +86,7 @@ describe('sbb-datepicker-toggle', () => {
     expect(element).toHaveClass('hydrated');
 
     const tooltipTrigger: E2EElement = await page.find(
-      'sbb-datepicker-toggle >>> sbb-tooltip-trigger'
+      'sbb-datepicker-toggle >>> sbb-tooltip-trigger',
     );
     await tooltipTrigger.click();
     await page.waitForChanges();

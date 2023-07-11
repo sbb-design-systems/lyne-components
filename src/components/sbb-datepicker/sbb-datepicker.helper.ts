@@ -32,7 +32,7 @@ export function getDatePicker(
     | HTMLSbbDatepickerPreviousDayElement
     | HTMLSbbDatepickerNextDayElement
     | HTMLSbbDatepickerToggleElement,
-  trigger?: string | HTMLElement
+  trigger?: string | HTMLElement,
 ): HTMLSbbDatepickerElement {
   if (!trigger) {
     const parent = element.closest('sbb-form-field');
@@ -50,7 +50,7 @@ export function getDatePicker(
  */
 export function getInput(
   element: HTMLSbbDatepickerElement,
-  trigger?: string | HTMLElement
+  trigger?: string | HTMLElement,
 ): HTMLInputElement {
   if (!trigger) {
     const parent = element.closest('sbb-form-field');
@@ -72,7 +72,7 @@ export function getAvailableDate(
   date: Date,
   delta: number,
   dateFilter: (date: Date) => boolean,
-  dateAdapter: DateAdapter<Date>
+  dateAdapter: DateAdapter<Date>,
 ): Date {
   let availableDate = dateAdapter.addCalendarDays(date, delta);
 
@@ -97,7 +97,7 @@ export function findPreviousAvailableDate(
   date: Date,
   dateFilter: (date: Date) => boolean,
   dateAdapter: DateAdapter<Date>,
-  min: string | number
+  min: string | number,
 ): Date {
   const previousDate = getAvailableDate(date, -1, dateFilter, dateAdapter);
   const dateMin: Date = dateAdapter.deserializeDate(min);
@@ -123,7 +123,7 @@ export function findNextAvailableDate(
   date: Date,
   dateFilter: (date: Date) => boolean,
   dateAdapter: DateAdapter<Date>,
-  max: string | number
+  max: string | number,
 ): Date {
   const nextDate = getAvailableDate(date, 1, dateFilter, dateAdapter);
   const dateMax: Date = dateAdapter.deserializeDate(max);
@@ -149,7 +149,7 @@ export function isDateAvailable(
   date: Date,
   dateFilter: (date: Date) => boolean,
   min: string | number,
-  max: string | number
+  max: string | number,
 ): boolean {
   const dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
   const dateMin: Date = dateAdapter.deserializeDate(min);

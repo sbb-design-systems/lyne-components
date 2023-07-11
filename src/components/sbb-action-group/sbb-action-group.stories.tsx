@@ -33,7 +33,7 @@ const TemplateTwoElements = (alignSelfFirst?, alignSelfSecond?): JSX.Element[] =
 const TemplateThreeElements = (
   alignSelfFirst?,
   alignSelfSecond?,
-  alignSelfThird?
+  alignSelfThird?,
 ): JSX.Element[] => [
   ...TemplateTwoElements(alignSelfFirst, alignSelfSecond),
   linkTemplate(alignSelfThird),

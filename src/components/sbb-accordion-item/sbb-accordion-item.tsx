@@ -66,7 +66,7 @@ export class SbbAccordionItem implements ComponentInterface {
   private _setOpenTransitionDuration = (contentHeight: number): void => {
     const velocity = parseInt(
       getComputedStyle(this._element).getPropertyValue('--expand-transtion-velocity'),
-      10
+      10,
     );
 
     if (!velocity) {

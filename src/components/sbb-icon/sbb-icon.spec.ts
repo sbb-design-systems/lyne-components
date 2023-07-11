@@ -95,7 +95,7 @@ describe('sbb-icon', () => {
     const sbbIconConfig: SbbIconConfig = globalThis.sbbConfig.icon;
     sbbIconConfig.namespaces = new Map<string, string>().set(
       'kom',
-      'https://icons.app.sbb.ch/kom/'
+      'https://icons.app.sbb.ch/kom/',
     );
     sbbIconConfig.interceptor = (parameters) => {
       expect(parameters.namespace).toEqual('kom');

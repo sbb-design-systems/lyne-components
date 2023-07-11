@@ -9,7 +9,7 @@ describe('sbb-timetable-barrier-free', () => {
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-timetable-barrier-free config='${config}'></sbb-timetable-barrier-free>`
+      `<sbb-timetable-barrier-free config='${config}'></sbb-timetable-barrier-free>`,
     );
 
     element = await page.find('sbb-timetable-barrier-free');

@@ -66,7 +66,7 @@ export class SbbToggleOption implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**

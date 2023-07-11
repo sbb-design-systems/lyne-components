@@ -167,7 +167,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
+    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('autocomplete-input'));

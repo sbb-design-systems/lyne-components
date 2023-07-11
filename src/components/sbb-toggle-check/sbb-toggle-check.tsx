@@ -65,7 +65,7 @@ export class SbbToggleCheck implements ComponentInterface {
   public connectedCallback(): void {
     this._handlerRepository.connect();
     this._hasLabelText = Array.from(this._element.childNodes).some(
-      (n: ChildNode) => !(n as Element).slot && n.textContent
+      (n: ChildNode) => !(n as Element).slot && n.textContent,
     );
   }
 

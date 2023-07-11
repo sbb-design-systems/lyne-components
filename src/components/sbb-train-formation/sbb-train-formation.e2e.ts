@@ -5,7 +5,7 @@ async function extractAggregatedSectors(page: E2EPage): Promise<Record<string, s
     Array.from(
       document
         .querySelector('sbb-train-formation')
-        .shadowRoot.querySelectorAll('.sbb-train-formation__sector')
+        .shadowRoot.querySelectorAll('.sbb-train-formation__sector'),
     ).map((sector) => {
       const computedStyles = getComputedStyle(sector);
 
@@ -15,15 +15,15 @@ async function extractAggregatedSectors(page: E2EPage): Promise<Record<string, s
           .textContent.trim(),
         wagonCount: computedStyles.getPropertyValue('--sbb-train-formation-wagon-count'),
         blockedPassageCount: computedStyles.getPropertyValue(
-          '--sbb-train-formation-wagon-blocked-passage-count'
+          '--sbb-train-formation-wagon-blocked-passage-count',
         ),
       };
-    })
+    }),
   );
 }
 
 async function createAndExtractAggregatedSectors(
-  wagonsOrBlockedPassages: string[]
+  wagonsOrBlockedPassages: string[],
 ): Promise<Record<string, string>[]> {
   const page = await newE2EPage();
   await page.setContent(`

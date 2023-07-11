@@ -16,7 +16,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('dialog').shadowRoot.querySelector('dialog.sbb-dialog')
+    canvas.getByTestId('dialog').shadowRoot.querySelector('dialog.sbb-dialog'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('dialog-trigger'));
@@ -114,10 +114,10 @@ const onFormDialogClose = (dialog): void => {
   dialog.addEventListener('will-close', (event) => {
     if (event.detail) {
       document.getElementById(
-        'returned-value-message'
+        'returned-value-message',
       ).innerHTML = `${event.detail.returnValue.message?.value}`;
       document.getElementById(
-        'returned-value-animal'
+        'returned-value-animal',
       ).innerHTML = `${event.detail.returnValue.animal?.value}`;
     }
   });

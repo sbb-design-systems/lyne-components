@@ -70,7 +70,7 @@ export class SbbTrainWagon implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {
@@ -98,7 +98,7 @@ export class SbbTrainWagon implements ComponentInterface {
    */
   private _readSlottedIcons(): void {
     this._icons = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbIconElement => e.tagName === 'SBB-ICON'
+      (e): e is HTMLSbbIconElement => e.tagName === 'SBB-ICON',
     );
   }
 
@@ -106,7 +106,7 @@ export class SbbTrainWagon implements ComponentInterface {
     // We should avoid lists with only one entry
     if (this._icons?.length > 1) {
       this._icons.forEach((icon, index) =>
-        icon.setAttribute('slot', `sbb-train-wagon-icon-${index}`)
+        icon.setAttribute('slot', `sbb-train-wagon-icon-${index}`),
       );
     } else {
       this._icons?.forEach((icon) => icon.removeAttribute('slot'));
@@ -133,7 +133,7 @@ export class SbbTrainWagon implements ComponentInterface {
     return (
       <Host
         data-has-visible-wagon-content={Boolean(
-          (this.type === 'wagon' && this.occupancy) || this.wagonClass
+          (this.type === 'wagon' && this.occupancy) || this.wagonClass,
         )}
       >
         <div class="sbb-train-wagon">

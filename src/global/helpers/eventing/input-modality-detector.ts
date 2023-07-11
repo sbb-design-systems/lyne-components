@@ -186,6 +186,6 @@ export function setModalityOnNextFocus(elementToFocus: HTMLElement): void {
         once: true,
       });
     },
-    { once: true }
+    { once: true },
   );
 }

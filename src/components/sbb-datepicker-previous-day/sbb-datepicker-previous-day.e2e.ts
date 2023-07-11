@@ -81,8 +81,8 @@ describe('sbb-datepicker-previous-day', () => {
       expect(await input.getProperty('value')).toEqual('20.01.2023');
       expect(
         await page.evaluate(() =>
-          document.querySelector('sbb-datepicker-previous-day').getAttribute('disabled')
-        )
+          document.querySelector('sbb-datepicker-previous-day').getAttribute('disabled'),
+        ),
       ).toEqual('');
 
       await element.click();

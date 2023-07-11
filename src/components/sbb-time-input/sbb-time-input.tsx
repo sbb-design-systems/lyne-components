@@ -153,7 +153,7 @@ export class SbbTimeInput implements ComponentInterface {
       newValue = new Date(newValue);
     }
     this.value = this._formatValue(
-      this._validateInput(`${newValue.getHours()}:${newValue.getMinutes()}`)
+      this._validateInput(`${newValue.getHours()}:${newValue.getMinutes()}`),
     );
     inputElement(this._element).value = this.value;
   }

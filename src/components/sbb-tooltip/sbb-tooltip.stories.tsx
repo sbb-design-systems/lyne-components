@@ -14,7 +14,7 @@ async function commonPlayStory(canvasElement): Promise<Element> {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('tooltip').shadowRoot.querySelector('dialog.sbb-tooltip')
+    canvas.getByTestId('tooltip').shadowRoot.querySelector('dialog.sbb-tooltip'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('tooltip-trigger'));

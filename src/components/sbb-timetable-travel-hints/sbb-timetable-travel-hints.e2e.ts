@@ -9,7 +9,7 @@ describe('sbb-timetable-travel-hints', () => {
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-timetable-travel-hints config='${config}'></sbb-timetable-travel-hints>`
+      `<sbb-timetable-travel-hints config='${config}'></sbb-timetable-travel-hints>`,
     );
 
     element = await page.find('sbb-timetable-travel-hints');

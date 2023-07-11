@@ -100,7 +100,7 @@ export class SbbTag implements ComponentInterface, ButtonProperties {
   private _handlerRepository = new HandlerRepository(
     this._element,
     actionElementHandlerAspect,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public connectedCallback(): void {

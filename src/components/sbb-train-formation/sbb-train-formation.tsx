@@ -42,7 +42,7 @@ export class SbbTrainFormation implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {
@@ -71,11 +71,11 @@ export class SbbTrainFormation implements ComponentInterface {
     event?.stopPropagation();
 
     this._sectors = Array.from(
-      this._element.querySelectorAll('sbb-train-wagon,sbb-train-blocked-passage')
+      this._element.querySelectorAll('sbb-train-wagon,sbb-train-blocked-passage'),
     ).reduce(
       (
         aggregatedSectors: AggregatedSector[],
-        item: HTMLSbbTrainWagonElement | HTMLSbbTrainBlockedPassageElement
+        item: HTMLSbbTrainWagonElement | HTMLSbbTrainBlockedPassageElement,
       ) => {
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
@@ -101,13 +101,13 @@ export class SbbTrainFormation implements ComponentInterface {
 
         return aggregatedSectors;
       },
-      [{ wagonCount: 0, blockedPassageCount: 0 } as AggregatedSector]
+      [{ wagonCount: 0, blockedPassageCount: 0 } as AggregatedSector],
     );
   }
   private _handleSlotChange(): void {
     this._readSectors();
     this._trains = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbTrainElement => e.tagName === 'SBB-TRAIN'
+      (e): e is HTMLSbbTrainElement => e.tagName === 'SBB-TRAIN',
     );
   }
 

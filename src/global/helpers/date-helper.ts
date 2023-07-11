@@ -55,7 +55,7 @@ export function removeTimezoneFromISOTimeString(isoTime: string): Date | undefin
 
 export const durationToTime = (
   duration: number,
-  currentLanguage?: string
+  currentLanguage?: string,
 ): { short: string; long: string } => {
   const short = [];
   const long = [];
@@ -72,7 +72,7 @@ export const durationToTime = (
           days > 1
             ? i18nDurationDay.multiple.long[currentLanguage]
             : i18nDurationDay.single.long[currentLanguage]
-        }`
+        }`,
       );
     future = subDays(future, days);
   }
@@ -86,7 +86,7 @@ export const durationToTime = (
           hours > 1
             ? i18nDurationHour.multiple.long[currentLanguage]
             : i18nDurationHour.single.long[currentLanguage]
-        }`
+        }`,
       );
     future = subHours(future, hours);
   }
@@ -100,7 +100,7 @@ export const durationToTime = (
           minutes > 1
             ? i18nDurationMinute.multiple.long[currentLanguage]
             : i18nDurationMinute.single.long[currentLanguage]
-        }`
+        }`,
       );
   }
 

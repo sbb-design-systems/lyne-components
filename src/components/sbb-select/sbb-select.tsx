@@ -130,7 +130,7 @@ export class SbbSelect implements ComponentInterface {
   private get _filteredOptions(): HTMLSbbOptionElement[] {
     return this._options.filter(
       (opt: HTMLSbbOptionElement) =>
-        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled')
+        !isValidAttribute(opt, 'disabled') && !isValidAttribute(opt, 'data-group-disabled'),
     );
   }
 
@@ -200,7 +200,7 @@ export class SbbSelect implements ComponentInterface {
         .filter((opt) => !newValue.includes(opt.value))
         .forEach((e) => (e.selected = false));
       const selectedOptionElements = this._filteredOptions.filter((opt) =>
-        newValue.includes(opt.value)
+        newValue.includes(opt.value),
       );
       selectedOptionElements.forEach((e) => (e.selected = true));
       this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
@@ -240,7 +240,7 @@ export class SbbSelect implements ComponentInterface {
       toggleDatasetEntry(
         this._element,
         'optionPanelOriginBorderless',
-        this._element.closest('sbb-form-field')?.hasAttribute('borderless')
+        this._element.closest('sbb-form-field')?.hasAttribute('borderless'),
       );
     }
   }
@@ -312,7 +312,7 @@ export class SbbSelect implements ComponentInterface {
   private _onOptionDeselected(optionSelectionChange: HTMLSbbOptionElement): void {
     if (this.multiple) {
       this.value = (this.value as string[]).filter(
-        (el: string) => el !== optionSelectionChange.value
+        (el: string) => el !== optionSelectionChange.value,
       );
 
       this.input.emit();
@@ -442,7 +442,7 @@ export class SbbSelect implements ComponentInterface {
 
     const match: HTMLSbbOptionElement = filteredOptionsSorted.find(
       (option: HTMLSbbOptionElement) =>
-        option.textContent.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0
+        option.textContent.toLowerCase().indexOf(this._searchString.toLowerCase()) === 0,
     );
     if (match) {
       // If an exact match has been found, go to that option.
@@ -455,7 +455,7 @@ export class SbbSelect implements ComponentInterface {
       // go to the first element, if exists, that matches the letter.
       const firstMatch: HTMLSbbOptionElement = filteredOptionsSorted.find(
         (option: HTMLSbbOptionElement) =>
-          option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0
+          option.textContent.toLowerCase().indexOf(this._searchString[0].toLowerCase()) === 0,
       );
       if (firstMatch) {
         await this._setNextActiveOption(event, this._filteredOptions.indexOf(firstMatch));
@@ -496,7 +496,7 @@ export class SbbSelect implements ComponentInterface {
   private _setActiveElement(
     nextActiveOption: HTMLSbbOptionElement,
     lastActiveOption: HTMLSbbOptionElement = null,
-    setActiveDescendant = true
+    setActiveDescendant = true,
   ): void {
     nextActiveOption.active = true;
     nextActiveOption.scrollIntoView({ block: 'nearest' });
@@ -513,7 +513,7 @@ export class SbbSelect implements ComponentInterface {
 
   private async _setSelectedElement(
     nextActiveOption: HTMLSbbOptionElement,
-    lastActiveOption: HTMLSbbOptionElement
+    lastActiveOption: HTMLSbbOptionElement,
   ): Promise<void> {
     await nextActiveOption.setSelectedViaUserInteraction(true);
 
@@ -549,7 +549,7 @@ export class SbbSelect implements ComponentInterface {
       const selectedOption = this._filteredOptions.find((option) => option.selected);
       if (selectedOption) {
         this._activeItemIndex = this._filteredOptions.findIndex(
-          (option) => option === selectedOption
+          (option) => option === selectedOption,
         );
         this.value = selectedOption.value;
       }

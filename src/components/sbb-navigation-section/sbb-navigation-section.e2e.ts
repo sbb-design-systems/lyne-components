@@ -32,7 +32,7 @@ describe('sbb-navigation-section', () => {
     await page.waitForChanges();
 
     expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
-      true
+      true,
     );
     expect(dialog).toHaveAttribute('open');
   });
@@ -44,7 +44,7 @@ describe('sbb-navigation-section', () => {
     await page.waitForChanges();
 
     expect(await waitForCondition(() => element.getAttribute('data-state') === 'opened')).toBe(
-      true
+      true,
     );
     expect(dialog).toHaveAttribute('open');
 
@@ -52,7 +52,7 @@ describe('sbb-navigation-section', () => {
     await page.waitForChanges();
 
     expect(await waitForCondition(() => element.getAttribute('data-state') === 'closed')).toBe(
-      true
+      true,
     );
     expect(dialog).not.toHaveAttribute('open');
   });

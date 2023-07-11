@@ -244,11 +244,11 @@ describe('sbb-calendar', () => {
     });
 
     const buttonPrevDay = page.root.shadowRoot.querySelector(
-      "sbb-button[iconname='chevron-small-left-small']"
+      "sbb-button[iconname='chevron-small-left-small']",
     );
     expect(buttonPrevDay).toHaveAttribute('disabled');
     const buttonNextDay = page.root.shadowRoot.querySelector(
-      "sbb-button[iconname='chevron-small-right-small']"
+      "sbb-button[iconname='chevron-small-right-small']",
     );
     expect(buttonNextDay).toHaveAttribute('disabled');
 

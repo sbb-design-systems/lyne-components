@@ -35,7 +35,7 @@ export class SbbNavigationList implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**
@@ -43,7 +43,7 @@ export class SbbNavigationList implements ComponentInterface {
    */
   private _readActions(): void {
     this._actions = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION'
+      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
   }
 

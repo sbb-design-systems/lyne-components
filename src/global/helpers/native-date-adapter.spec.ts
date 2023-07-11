@@ -83,24 +83,24 @@ describe('NativeDateAdapter', () => {
     const firstDate: Date = nativeDateAdapter.createDate(2023, 0, 1);
     expect(firstDate instanceof Date).toEqual(true);
     expect(`${firstDate.getDate()}.${firstDate.getMonth() + 1}.${firstDate.getFullYear()}`).toEqual(
-      '1.1.2023'
+      '1.1.2023',
     );
     const secondDate: Date = nativeDateAdapter.createDate(18, 0, 1);
     expect(secondDate instanceof Date).toEqual(true);
     expect(
-      `${secondDate.getDate()}.${secondDate.getMonth() + 1}.${secondDate.getFullYear()}`
+      `${secondDate.getDate()}.${secondDate.getMonth() + 1}.${secondDate.getFullYear()}`,
     ).toEqual('1.1.18');
   });
 
   it('hasSameMonthAndYear should return the correct value', () => {
     expect(nativeDateAdapter.hasSameMonthAndYear(new Date(), new Date(0))).toEqual(false);
     expect(
-      nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 0, 1), new Date(2023, 1, 4))
+      nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 0, 1), new Date(2023, 1, 4)),
     ).toEqual(false);
     expect(nativeDateAdapter.hasSameMonthAndYear(null, new Date(2023, 1, 4))).toEqual(false);
     expect(nativeDateAdapter.hasSameMonthAndYear(new Date(2023, 0, 1), undefined)).toEqual(false);
     expect(
-      nativeDateAdapter.hasSameMonthAndYear(new Date(1677000000), new Date(1676000000))
+      nativeDateAdapter.hasSameMonthAndYear(new Date(1677000000), new Date(1676000000)),
     ).toEqual(true);
   });
 
@@ -121,19 +121,19 @@ describe('NativeDateAdapter', () => {
     const firstDate: Date = nativeDateAdapter.addCalendarMonths(new Date(2023, 0, 15), 6);
     expect(firstDate instanceof Date).toEqual(true);
     expect(`${firstDate.getDate()}.${firstDate.getMonth() + 1}.${firstDate.getFullYear()}`).toEqual(
-      '15.7.2023'
+      '15.7.2023',
     );
 
     const secondDate: Date = nativeDateAdapter.addCalendarMonths(new Date(2023, 0, 31), 1);
     expect(secondDate instanceof Date).toEqual(true);
     expect(
-      `${secondDate.getDate()}.${secondDate.getMonth() + 1}.${secondDate.getFullYear()}`
+      `${secondDate.getDate()}.${secondDate.getMonth() + 1}.${secondDate.getFullYear()}`,
     ).toEqual('28.2.2023');
 
     const thirdDate: Date = nativeDateAdapter.addCalendarMonths(new Date(2023, 2, 31), 6);
     expect(thirdDate instanceof Date).toEqual(true);
     expect(`${thirdDate.getDate()}.${thirdDate.getMonth() + 1}.${thirdDate.getFullYear()}`).toEqual(
-      '30.9.2023'
+      '30.9.2023',
     );
   });
 
@@ -143,19 +143,19 @@ describe('NativeDateAdapter', () => {
     const plusFifteen: Date = nativeDateAdapter.addCalendarDays(date, 15);
     expect(plusFifteen instanceof Date).toEqual(true);
     expect(
-      `${plusFifteen.getDate()}.${plusFifteen.getMonth() + 1}.${plusFifteen.getFullYear()}`
+      `${plusFifteen.getDate()}.${plusFifteen.getMonth() + 1}.${plusFifteen.getFullYear()}`,
     ).toEqual('30.1.2023');
 
     const plusThirty: Date = nativeDateAdapter.addCalendarDays(date, 30);
     expect(plusThirty instanceof Date).toEqual(true);
     expect(
-      `${plusThirty.getDate()}.${plusThirty.getMonth() + 1}.${plusThirty.getFullYear()}`
+      `${plusThirty.getDate()}.${plusThirty.getMonth() + 1}.${plusThirty.getFullYear()}`,
     ).toEqual('14.2.2023');
 
     const plusOneYear: Date = nativeDateAdapter.addCalendarDays(date, 365);
     expect(plusOneYear instanceof Date).toEqual(true);
     expect(
-      `${plusOneYear.getDate()}.${plusOneYear.getMonth() + 1}.${plusOneYear.getFullYear()}`
+      `${plusOneYear.getDate()}.${plusOneYear.getMonth() + 1}.${plusOneYear.getFullYear()}`,
     ).toEqual('15.1.2024');
   });
 
@@ -180,19 +180,19 @@ describe('NativeDateAdapter', () => {
     const dateNumber: Date = nativeDateAdapter.deserializeDate(946684800);
     expect(dateNumber instanceof Date).toEqual(true);
     expect(
-      `${dateNumber.getDate()}.${dateNumber.getMonth() + 1}.${dateNumber.getFullYear()}`
+      `${dateNumber.getDate()}.${dateNumber.getMonth() + 1}.${dateNumber.getFullYear()}`,
     ).toEqual('1.1.2000');
 
     const dateNumAsStr: Date = nativeDateAdapter.deserializeDate('946684800');
     expect(dateNumAsStr instanceof Date).toEqual(true);
     expect(
-      `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`
+      `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`,
     ).toEqual('1.1.2000');
 
     const dateString: Date = nativeDateAdapter.deserializeDate('2024-1-1');
     expect(dateString instanceof Date).toEqual(true);
     expect(
-      `${dateString.getDate()}.${dateString.getMonth() + 1}.${dateString.getFullYear()}`
+      `${dateString.getDate()}.${dateString.getMonth() + 1}.${dateString.getFullYear()}`,
     ).toEqual('1.1.2024');
 
     const fakeDate: Date = nativeDateAdapter.deserializeDate({} as string);
@@ -214,22 +214,22 @@ describe('NativeDateAdapter', () => {
   it('should generate localized accessibility labels', async () => {
     document.documentElement.setAttribute('lang', 'en-US');
     expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2017, 11, 5, 0, 0, 0))).toEqual(
-      'December 5, 2017'
+      'December 5, 2017',
     );
 
     document.documentElement.setAttribute('lang', 'de-DE');
     expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2023, 8, 13, 0, 0, 0))).toEqual(
-      '13. September 2023'
+      '13. September 2023',
     );
 
     document.documentElement.setAttribute('lang', 'it-IT');
     expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2015, 2, 24, 0, 0, 0))).toEqual(
-      '24 marzo 2015'
+      '24 marzo 2015',
     );
 
     document.documentElement.setAttribute('lang', 'fr-FR');
     expect(nativeDateAdapter.getAccessibilityFormatDate(new Date(2018, 7, 15, 0, 0, 0))).toEqual(
-      '15 août 2018'
+      '15 août 2018',
     );
   });
 });

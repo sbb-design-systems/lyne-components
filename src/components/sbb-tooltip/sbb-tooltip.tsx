@@ -160,7 +160,7 @@ export class SbbTooltip implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   /**
@@ -218,7 +218,7 @@ export class SbbTooltip implements ComponentInterface {
   @Watch('trigger')
   public removeTriggerClickListener(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement
+    oldValue: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._tooltipController?.abort();
@@ -274,7 +274,7 @@ export class SbbTooltip implements ComponentInterface {
       this._triggerElement,
       'dialog',
       this._element.id || this._tooltipId,
-      this._state
+      this._state,
     );
 
     // Check whether the trigger can be hovered. Some devices might interpret the media query (hover: hover) differently,
@@ -301,7 +301,7 @@ export class SbbTooltip implements ComponentInterface {
         },
         {
           signal: this._tooltipController.signal,
-        }
+        },
       );
     } else {
       this._triggerElement.addEventListener(
@@ -311,7 +311,7 @@ export class SbbTooltip implements ComponentInterface {
         },
         {
           signal: this._tooltipController.signal,
-        }
+        },
       );
     }
   }
@@ -437,7 +437,7 @@ export class SbbTooltip implements ComponentInterface {
         () => this._tooltipContentElement.removeAttribute('tabindex'),
         {
           once: true,
-        }
+        },
       );
     }
   }

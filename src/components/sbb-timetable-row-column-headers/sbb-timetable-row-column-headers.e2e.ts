@@ -9,7 +9,7 @@ describe('sbb-timetable-row-column-headers', () => {
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-timetable-row-column-headers config='${config}'></sbb-timetable-row-column-headers>`
+      `<sbb-timetable-row-column-headers config='${config}'></sbb-timetable-row-column-headers>`,
     );
 
     element = await page.find('sbb-timetable-row-column-headers');
