@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.37.9](https://github.com/lyne-design-system/lyne-components/compare/v0.37.8...v0.37.9) (2023-07-11)
+
+### Features
+
+- **sbb-notification:** introduce notification component ([#1856](https://github.com/lyne-design-system/lyne-components/issues/1856)) ([d2faab2](https://github.com/lyne-design-system/lyne-components/commit/d2faab2bf3232f42fd5316160dc67b7e1411435c))
+
+### Bug Fixes
+
+- **deps:** update dependency @sbb-esta/lyne-components to v0.37.8 ([2435e73](https://github.com/lyne-design-system/lyne-components/commit/2435e7333e5cf0c46ce0b2a96473bfebcb504afb))
+- **sbb-navigation:** fix word break ([#1866](https://github.com/lyne-design-system/lyne-components/issues/1866)) ([b6e543e](https://github.com/lyne-design-system/lyne-components/commit/b6e543edf3f2fbb2155cc03329fc14d27012b2b8))
+- **sbb-select:** emit didChange event ([#1867](https://github.com/lyne-design-system/lyne-components/issues/1867)) ([d23aecb](https://github.com/lyne-design-system/lyne-components/commit/d23aecb494a84bf1ce83a89d76045deac36bf882))
+
 ### [0.37.8](https://github.com/lyne-design-system/lyne-components/compare/v0.37.7...v0.37.8) (2023-07-09)
 
 ### Bug Fixes
