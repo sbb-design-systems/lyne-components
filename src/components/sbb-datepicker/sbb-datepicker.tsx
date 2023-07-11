@@ -225,7 +225,7 @@ export class SbbDatepicker implements ComponentInterface {
   private _composeValueString(_day: string, _month: string, year: number): string {
     const day: string = _day.padStart(2, '0');
     const month: string = _month.padStart(2, '0');
-    if (!!year && year < 100 && year >= 0) {
+    if (typeof year === 'number' && year < 100 && year >= 0) {
       const shift = new Date().getFullYear() - 2000 + this.cutoffYearOffset;
       year = year <= shift ? 2000 + year : 1900 + year;
     }
