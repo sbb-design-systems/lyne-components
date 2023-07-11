@@ -248,7 +248,7 @@ export class SbbDatepicker implements ComponentInterface {
             newValueAsDate,
             this._element.dateFilter,
             this._inputElement?.min,
-            this._inputElement?.max
+            this._inputElement?.max,
           ));
       toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isValidOrEmpty);
       this._emitChange();
