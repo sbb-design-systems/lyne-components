@@ -4,6 +4,14 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-expansion-panel-header-cursor: pointer;
+}
+
+:host([disabled]:not([disabled='false'])) {
+  --sbb-expansion-panel-header-cursor: default;
+}
+
 .sbb-expansion-panel-header {
   @include sbb.button-reset;
   @include sbb.text-l--regular;
@@ -16,7 +24,7 @@
   padding-block: var(--sbb-spacing-responsive-xs);
   padding-inline: var(--sbb-spacing-fixed-6x);
   text-align: start;
-  cursor: pointer;
+  cursor: var(--sbb-expansion-panel-header-cursor);
 }
 
 .sbb-expansion-panel-header__title,

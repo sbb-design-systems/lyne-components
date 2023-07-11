@@ -57,6 +57,12 @@ const borderless: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   headerText,
   iconName,
@@ -64,6 +70,7 @@ const defaultArgTypes: ArgTypes = {
   expanded,
   color,
   borderless,
+  disabled,
 };
 
 const defaultArgs: Args = {
@@ -73,6 +80,7 @@ const defaultArgs: Args = {
   expanded: false,
   color: color.options[0],
   borderless: false,
+  disabled: false,
 };
 
 const Template = ({ headerText, iconName, contentText, ...args }): JSX.Element => (
@@ -98,6 +106,12 @@ export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
+};
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const WithIcon: StoryObj = {

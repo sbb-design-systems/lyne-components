@@ -72,11 +72,11 @@
   background-clip: padding-box;
 
   @include sbb.hover-mq($hover: true) {
-    &:hover {
+    :host(:not([disabled]:not([disabled='false']))) &:hover {
       --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
     }
 
-    :host([color='milk']) &:hover {
+    :host([color='milk']:not([disabled]:not([disabled='false']))) &:hover {
       --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
     }
   }

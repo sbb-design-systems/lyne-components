@@ -51,6 +51,15 @@ const borderless: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Panel',
+  },
+};
+
 const headerText: InputType = {
   control: {
     type: 'text',
@@ -85,6 +94,7 @@ const defaultArgTypes: ArgTypes = {
   color,
   expanded,
   borderless,
+  disabled,
   headerText,
   iconName,
   contentText,
@@ -97,6 +107,7 @@ const defaultArgs: Args = {
   color: 'white',
   expanded: false,
   borderless: false,
+  disabled: false,
   headerText: 'This is the header',
   iconName: undefined,
   contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
@@ -118,12 +129,18 @@ const createExpansionPanelTemplate = (
   color,
   expanded,
   borderless,
+  disabled,
   headerText,
   iconName,
   contentText
 ): JSX.Element[] => {
   return new Array(numberOfPanels).fill(null).map((_, index) => (
-    <sbb-expansion-panel color={color} expanded={expanded} borderless={borderless}>
+    <sbb-expansion-panel
+      color={color}
+      expanded={expanded}
+      borderless={borderless}
+      disabled={disabled && index === 0}
+    >
       <sbb-expansion-panel-header icon-name={iconName}>
         {headerText} {index + 1}
       </sbb-expansion-panel-header>
@@ -140,6 +157,7 @@ const Template = ({
   color,
   expanded,
   borderless,
+  disabled,
   headerText,
   iconName,
   contentText,
@@ -151,6 +169,7 @@ const Template = ({
       color,
       expanded,
       borderless,
+      disabled,
       headerText,
       iconName,
       contentText
@@ -175,6 +194,12 @@ export const Borderless: StoryObj = {
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
   decorators: [greyDecorator],
+};
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const MilkBorderless: StoryObj = {
