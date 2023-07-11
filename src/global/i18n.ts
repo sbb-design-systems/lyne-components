@@ -500,6 +500,13 @@ export const i18nCloseAlert: Record<string, string> = {
   it: 'Chiudere il messaggio',
 };
 
+export const i18nCloseNotification: Record<string, string> = {
+  de: 'Nachricht schliessen',
+  en: 'Close message',
+  fr: 'Fermer message',
+  it: 'Chiudere il messaggio',
+};
+
 export const i18nCloseDialog: Record<string, string> = {
   de: 'Übergelagertes Fenster schliessen',
   en: 'Close secondary window',

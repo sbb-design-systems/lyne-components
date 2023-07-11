@@ -30,6 +30,7 @@ import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -75,6 +76,7 @@ export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-s
 export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
+export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
 export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
@@ -1143,6 +1145,29 @@ export namespace Components {
          */
         "trigger": string | HTMLElement;
     }
+    interface SbbNotification {
+        "close": () => Promise<void>;
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user.
+         */
+        "readonly": boolean;
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
+        /**
+          * The type of the notification.
+         */
+        "type"?: InterfaceNotificationAttributes['type'];
+    }
     interface SbbOptgroup {
         /**
           * Whether the group is disabled.
@@ -1984,6 +2009,10 @@ export interface SbbNavigationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbNavigationElement;
 }
+export interface SbbNotificationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbNotificationElement;
+}
 export interface SbbOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOptionElement;
@@ -2311,6 +2340,12 @@ declare global {
         prototype: HTMLSbbNavigationSectionElement;
         new (): HTMLSbbNavigationSectionElement;
     };
+    interface HTMLSbbNotificationElement extends Components.SbbNotification, HTMLStencilElement {
+    }
+    var HTMLSbbNotificationElement: {
+        prototype: HTMLSbbNotificationElement;
+        new (): HTMLSbbNotificationElement;
+    };
     interface HTMLSbbOptgroupElement extends Components.SbbOptgroup, HTMLStencilElement {
     }
     var HTMLSbbOptgroupElement: {
@@ -2622,6 +2657,7 @@ declare global {
         "sbb-navigation-list": HTMLSbbNavigationListElement;
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
         "sbb-navigation-section": HTMLSbbNavigationSectionElement;
+        "sbb-notification": HTMLSbbNotificationElement;
         "sbb-optgroup": HTMLSbbOptgroupElement;
         "sbb-option": HTMLSbbOptionElement;
         "sbb-overlay": HTMLSbbOverlayElement;
@@ -3764,6 +3800,44 @@ declare namespace LocalJSX {
          */
         "trigger"?: string | HTMLElement;
     }
+    interface SbbNotification {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Emits whenever the notification is closed.
+         */
+        "onDid-close"?: (event: SbbNotificationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the notification is opened.
+         */
+        "onDid-open"?: (event: SbbNotificationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the notification begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbNotificationCustomEvent<void>) => void;
+        /**
+          * Emits whenever the notification starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbNotificationCustomEvent<void>) => void;
+        /**
+          * Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user.
+         */
+        "readonly"?: boolean;
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+        /**
+          * The type of the notification.
+         */
+        "type"?: InterfaceNotificationAttributes['type'];
+    }
     interface SbbOptgroup {
         /**
           * Whether the group is disabled.
@@ -4695,6 +4769,7 @@ declare namespace LocalJSX {
         "sbb-navigation-list": SbbNavigationList;
         "sbb-navigation-marker": SbbNavigationMarker;
         "sbb-navigation-section": SbbNavigationSection;
+        "sbb-notification": SbbNotification;
         "sbb-optgroup": SbbOptgroup;
         "sbb-option": SbbOption;
         "sbb-overlay": SbbOverlay;
@@ -4788,6 +4863,7 @@ declare module "@stencil/core" {
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
             "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
+            "sbb-notification": LocalJSX.SbbNotification & JSXBase.HTMLAttributes<HTMLSbbNotificationElement>;
             "sbb-optgroup": LocalJSX.SbbOptgroup & JSXBase.HTMLAttributes<HTMLSbbOptgroupElement>;
             "sbb-option": LocalJSX.SbbOption & JSXBase.HTMLAttributes<HTMLSbbOptionElement>;
             "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
