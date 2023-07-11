@@ -1,10 +1,5 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
+import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbCardAttributes } from './sbb-card.custom';
-import {
-  createNamedSlotState,
-  HandlerRepository,
-  namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
 
 /**
  * @slot unnamed - Slot to render the content.
@@ -21,28 +16,6 @@ export class SbbCard implements ComponentInterface {
 
   /** Option to set the component's background color. */
   @Prop({ reflect: true }) public color: InterfaceSbbCardAttributes['color'] = 'white';
-
-  @Element() private _element!: HTMLElement;
-
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
-  @State() private _namedSlots = createNamedSlotState('badge');
-
-  private _handlerRepository = new HandlerRepository(
-    this._element,
-    namedSlotChangeHandlerAspect((m) => {
-      this._namedSlots = m(this._namedSlots);
-    }),
-  );
-
-  public connectedCallback(): void {
-    this._handlerRepository.connect();
-  }
-
-  public disconnectedCallback(): void {
-    this._handlerRepository.disconnect();
-  }
 
   /**
    * It is used internally to show the `<sbb-card-badge>`.
