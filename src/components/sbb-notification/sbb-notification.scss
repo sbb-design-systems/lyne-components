@@ -130,7 +130,7 @@
   background-color: var(--sbb-notification-type-color-sass);
 
   // If supported, try to mix color with CSS
-  @supports (background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white)) {
+  @supports (background-color: color-mix(in srgb, transparent 5%, white)) {
     background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
   }
 
