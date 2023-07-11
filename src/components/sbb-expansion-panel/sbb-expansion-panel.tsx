@@ -87,6 +87,9 @@ export class SbbExpansionPanel implements ComponentInterface {
     this._element
       .querySelector('sbb-expansion-panel-header')
       .setAttribute('expanded', String(this.expanded));
+    this._element
+      .querySelector('sbb-expansion-panel-content')
+      .setAttribute('expanded', String(this.expanded));
     this._element.style.setProperty(
       '--sbb-expansion-panel-content-height',
       `${this._contentElement.scrollHeight}px`
@@ -148,6 +151,7 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
     const header = this._element.querySelector('sbb-expansion-panel-header');
 
+    content.setAttribute('expanded', String(this.expanded));
     if (!content.getAttribute('id')) {
       content.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
     }
