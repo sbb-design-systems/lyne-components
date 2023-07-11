@@ -94,7 +94,7 @@ const notification = (args): JSX.Element => (
   </sbb-notification>
 );
 
-const pageContent: JSX.Element = (
+const pageContent = (): JSX.Element => (
   <p style={{ margin: '0' }}>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
     labore et dolore magna aliqua. Ut enim ad minim veniam, quis{' '}
@@ -111,7 +111,7 @@ const DefaultTemplate = (args): JSX.Element => (
     <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
       {notification(args)}
     </div>
-    {pageContent}
+    {pageContent()}
   </Fragment>
 );
 
@@ -142,7 +142,7 @@ const SlottedTitleTemplate = (args): JSX.Element => (
         </sbb-link>
       </sbb-notification>
     </div>
-    {pageContent}
+    {pageContent()}
   </Fragment>
 );
 
