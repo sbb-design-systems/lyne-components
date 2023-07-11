@@ -41,7 +41,7 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: color var(--sbb-animation-duration-3x) ease;
-  word-break: break-all;
+  hyphens: auto;
   text-align: left;
   color: var(--sbb-navigation-action-color);
 
