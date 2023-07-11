@@ -158,7 +158,7 @@ export class SbbDatepicker implements ComponentInterface {
     await this._formatAndUpdateValue(this._createAndComposeDate(parsedDate));
     /* Emit blur event when value is changed programmatically to notify 
     frameworks that rely on that event to update form status. */
-    this._inputElement.dispatchEvent(new FocusEvent('blur', { bubbles: false, composed: true }));
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
   @Listen('datepicker-control-registered')
@@ -208,7 +208,6 @@ export class SbbDatepicker implements ComponentInterface {
   private _formatValue(value: string): string {
     const match: RegExpMatchArray = value?.match(FORMAT_DATE);
     if (!match || match.length <= 2 || !match[2] || !match[3]) {
-      toggleDatasetEntry(this._inputElement, 'sbbInvalid', true);
       return value;
     }
     return this._composeValueString(match[1], match[2], +match[3]);
@@ -240,19 +239,18 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     if (this._inputElement) {
-      toggleDatasetEntry(this._inputElement, 'sbbInvalid', false);
       this._inputElement.value = this._formatValue(value);
       const newValueAsDate: Date = await this.getValueAsDate();
-      if (
-        !isDateAvailable(
-          newValueAsDate,
-          this._element.dateFilter,
-          this._inputElement?.min,
-          this._inputElement?.max,
-        )
-      ) {
-        toggleDatasetEntry(this._inputElement, 'sbbInvalid', true);
-      }
+      const isValidOrEmpty =
+        !value ||
+        (newValueAsDate &&
+          isDateAvailable(
+            newValueAsDate,
+            this._element.dateFilter,
+            this._inputElement?.min,
+            this._inputElement?.max
+          ));
+      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isValidOrEmpty);
       this._emitChange();
     }
   }
