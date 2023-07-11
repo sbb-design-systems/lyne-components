@@ -9,7 +9,25 @@ describe('sbb-expansion-panel-content', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel-content slot="content" role="region">
+      <sbb-expansion-panel-content slot="content" role="region" aria-hidden="true">
+        <mock:shadow-root>
+          <div class="sbb-expansion-panel-content">
+            <slot></slot>
+          </div>
+        </mock:shadow-root>
+        Content
+      </sbb-expansion-panel-content>
+    `);
+  });
+
+  it('renders expanded', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbExpansionPanelContent],
+      html: '<sbb-expansion-panel-content expanded>Content</sbb-expansion-panel-content>',
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-expansion-panel-content slot="content" role="region" expanded aria-hidden="false">
         <mock:shadow-root>
           <div class="sbb-expansion-panel-content">
             <slot></slot>
