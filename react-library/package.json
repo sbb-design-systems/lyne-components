@@ -15,7 +15,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@sbb-esta/lyne-components": "0.37.8"
+    "@sbb-esta/lyne-components": "0.0.0-PLACEHOLDER"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
