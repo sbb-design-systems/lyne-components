@@ -13,7 +13,7 @@ describe('sbb-card-action', () => {
         <sbb-card>
           <sbb-card-action href="https://github.com/lyne-design-system/lyne-components" target="_blank">Follow me</sbb-card-action>
           Content text
-        </sbb-card>`
+        </sbb-card>`,
     );
     const card = await page.find('sbb-card');
 
@@ -40,7 +40,7 @@ describe('sbb-card-action', () => {
   it('should render an sbb-card-action as a button which is active', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-card><sbb-card-action active>Click me</sbb-card-action>Content</sbb-card>`
+      `<sbb-card><sbb-card-action active>Click me</sbb-card-action>Content</sbb-card>`,
     );
     const card = await page.find('sbb-card');
     await page.waitForChanges();
@@ -65,7 +65,7 @@ describe('sbb-card-action', () => {
   it('should correctly toggle active state', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-card><sbb-card-action>Click me</sbb-card-action>Content</sbb-card>`
+      `<sbb-card><sbb-card-action>Click me</sbb-card-action>Content</sbb-card>`,
     );
     const card = await page.find('sbb-card');
     await page.waitForChanges();
@@ -81,7 +81,7 @@ describe('sbb-card-action', () => {
   it('should remove data properties from host', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-card><sbb-card-action active>Click me</sbb-card-action><span><button>Content</button></span></sbb-card>`
+      `<sbb-card><sbb-card-action active>Click me</sbb-card-action><span><button>Content</button></span></sbb-card>`,
     );
     const card = await page.find('sbb-card');
 
@@ -103,7 +103,7 @@ describe('sbb-card-action', () => {
   it('should detect added button in slotted content to update focusable elements', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-card><sbb-card-action>Click me</sbb-card-action><span id='content'><button>Content</button></span></sbb-card>`
+      `<sbb-card><sbb-card-action>Click me</sbb-card-action><span id='content'><button>Content</button></span></sbb-card>`,
     );
     await page.waitForChanges();
     expect(await page.find('button')).toHaveAttribute('data-card-focusable');
@@ -112,7 +112,7 @@ describe('sbb-card-action', () => {
     await page.evaluate(() =>
       document
         .getElementById('content')
-        .insertBefore(document.createElement('button'), document.querySelector('button'))
+        .insertBefore(document.createElement('button'), document.querySelector('button')),
     );
 
     // Both buttons should be marked as focusable
@@ -131,7 +131,7 @@ describe('sbb-card-action', () => {
   it('should detect added second element of slot to update focusable elements', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-card><sbb-card-action>Click me</sbb-card-action><span id='content'></span></sbb-card>`
+      `<sbb-card><sbb-card-action>Click me</sbb-card-action><span id='content'></span></sbb-card>`,
     );
     await page.waitForChanges();
 
@@ -139,7 +139,7 @@ describe('sbb-card-action', () => {
     await page.evaluate(() =>
       document
         .querySelector('sbb-card')
-        .insertBefore(document.createElement('button'), document.getElementById('content'))
+        .insertBefore(document.createElement('button'), document.getElementById('content')),
     );
     await page.waitForChanges();
 
@@ -154,7 +154,7 @@ describe('sbb-card-action', () => {
 
     // Add a sbb-card-action
     await page.evaluate(() =>
-      document.querySelector('sbb-card').appendChild(document.createElement('sbb-card-action'))
+      document.querySelector('sbb-card').appendChild(document.createElement('sbb-card-action')),
     );
     await page.waitForChanges();
 
@@ -166,7 +166,7 @@ describe('sbb-card-action', () => {
     beforeEach(async () => {
       page = await newE2EPage();
       await page.setContent(
-        '<sbb-card><sbb-card-action id="focus-id">Card</sbb-card-action>Content</sbb-card>'
+        '<sbb-card><sbb-card-action id="focus-id">Card</sbb-card-action>Content</sbb-card>',
       );
 
       element = await page.find('sbb-card-action');

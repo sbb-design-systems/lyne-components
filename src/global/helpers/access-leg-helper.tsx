@@ -17,7 +17,7 @@ interface IAccessAttribute {
  */
 function getPTConnectionAttribute(
   leg: PtRideLeg | PtConnectionLeg,
-  connectionLegNotice: string[]
+  connectionLegNotice: string[],
 ): IAccessAttribute | null {
   const connectionFirstLeg = isConnectionLeg(leg) ? (leg as PtConnectionLeg) : null;
 
@@ -39,12 +39,12 @@ function getPTConnectionAttribute(
  */
 function getFirstExtendedLegAttribute(
   leg: PtRideLeg | PtConnectionLeg,
-  departureWalk: number
+  departureWalk: number,
 ): IAccessAttribute | null {
   // Extended enter
   const extendedFirstLeg = isRideLeg(leg)
     ? (leg as PtRideLeg)?.serviceJourney?.notices?.filter((notice) =>
-        ['CI'].includes(notice.name)
+        ['CI'].includes(notice.name),
       )[0]
     : null;
 
@@ -67,7 +67,7 @@ function getLastExtendedLegAttribute(leg: Leg, arrivalWalk: number): IAccessAttr
   // Extended exit
   const extendedLastLeg = isRideLeg(leg)
     ? (leg as PtRideLeg)?.serviceJourney?.notices?.filter((notice) =>
-        ['CO'].includes(notice.name)
+        ['CO'].includes(notice.name),
       )[0]
     : null;
 
@@ -91,7 +91,7 @@ function renderTransferTime(
   icon: string,
   currentLanguage: string,
   label?: string,
-  type?: 'departure' | 'arrival'
+  type?: 'departure' | 'arrival',
 ): JSX.Element {
   return (
     <span class={`sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}`}>
@@ -119,7 +119,7 @@ function renderTransferTime(
 function renderWalkTime(
   duration: number | string,
   label: string,
-  variant: 'left' | 'right'
+  variant: 'left' | 'right',
 ): JSX.Element {
   return (
     <span class={`sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${variant}`}>
@@ -147,7 +147,7 @@ export function getDepartureArrivalTimeAttribute(
   legs: Leg[],
   departureWalk: number,
   arrivalWalk: number,
-  currentLanguage: string
+  currentLanguage: string,
 ): {
   renderDepartureTimeAttribute: () => JSX.Element;
   renderArrivalTimeAttribute: () => JSX.Element;
@@ -201,7 +201,7 @@ export function getDepartureArrivalTimeAttribute(
             extendedFirstLeg.icon,
             currentLanguage,
             extendedFirstLeg.text,
-            'departure'
+            'departure',
           )}
       </Fragment>
     );
@@ -252,7 +252,7 @@ export function getDepartureArrivalTimeAttribute(
             extendedLastLeg.icon,
             currentLanguage,
             extendedLastLeg.text,
-            'arrival'
+            'arrival',
           )}
       </Fragment>
     );

@@ -83,7 +83,7 @@ export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
   private _handlerRepository = new HandlerRepository(
     this._element,
     actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public constructor() {
@@ -133,7 +133,7 @@ export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
 
     this._card
       .querySelectorAll(
-        `${IS_FOCUSABLE_QUERY}:not([${cardFocusableAttributeName}], sbb-card-action)`
+        `${IS_FOCUSABLE_QUERY}:not([${cardFocusableAttributeName}], sbb-card-action)`,
       )
       .forEach((el) => el.setAttribute(cardFocusableAttributeName, ''));
   }

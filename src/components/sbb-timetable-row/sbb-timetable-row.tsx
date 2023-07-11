@@ -162,7 +162,7 @@ export class SbbTimetableRow {
       legs,
       departureWalk || 0,
       arrivalWalk || 0,
-      this._currentLanguage
+      this._currentLanguage,
     );
 
     const departureTime: Date | undefined = departure?.time
@@ -179,9 +179,8 @@ export class SbbTimetableRow {
 
     const departureQuayChangedText =
       departure?.quayChanged && departure?.quayRtName
-        ? `${i18nNew[this._currentLanguage]} ${this._getQuayTypeStrings()?.long} ${
-            departure?.quayRtName
-          }. `
+        ? `${i18nNew[this._currentLanguage]} ${this._getQuayTypeStrings()
+            ?.long} ${departure?.quayRtName}. `
         : '';
 
     const departureQuayAimedName =
@@ -255,7 +254,7 @@ export class SbbTimetableRow {
                   getTransportIcon(
                     product.vehicleMode,
                     product.vehicleSubModeShortName || '',
-                    this._currentLanguage
+                    this._currentLanguage,
                   ) && (
                     <span class="sbb-timetable__row-transport-wrapper">
                       <sbb-icon
@@ -265,7 +264,7 @@ export class SbbTimetableRow {
                           getTransportIcon(
                             product.vehicleMode,
                             product.vehicleSubModeShortName || '',
-                            this._currentLanguage
+                            this._currentLanguage,
                           )
                         }
                       />

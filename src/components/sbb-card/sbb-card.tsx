@@ -33,7 +33,7 @@ export class SbbCard implements ComponentInterface {
     this._element,
     namedSlotChangeHandlerAspect((m) => {
       this._namedSlots = m(this._namedSlots);
-    })
+    }),
   );
 
   public connectedCallback(): void {

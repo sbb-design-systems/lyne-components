@@ -80,7 +80,7 @@ export class SbbPearlChainTime {
         this.legs,
         this.departureWalk || 0,
         this.arrivalWalk || 0,
-        this._currentLanguage
+        this._currentLanguage,
       );
 
     const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));

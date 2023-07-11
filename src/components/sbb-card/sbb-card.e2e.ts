@@ -24,16 +24,16 @@ describe('sbb-card', () => {
           <span>19.99</span>
         </sbb-card-badge>
       </sbb-card>
-`
+`,
     );
     const card = await page.find('sbb-card');
 
     expect(
       await page.evaluate(() =>
         getComputedStyle(
-          document.querySelector('sbb-card').shadowRoot.querySelector('.sbb-card__badge-wrapper')
-        ).getPropertyValue('display')
-      )
+          document.querySelector('sbb-card').shadowRoot.querySelector('.sbb-card__badge-wrapper'),
+        ).getPropertyValue('display'),
+      ),
     ).not.toBe('none');
     expect(card).toHaveAttribute('data-has-card-badge');
     expect(card).toEqualHtml(`
@@ -67,16 +67,16 @@ describe('sbb-card', () => {
       <sbb-card size="xl">
         <h2>Title</h2>
         Content text
-      </sbb-card>`
+      </sbb-card>`,
     );
     const card = await page.find('sbb-card');
 
     expect(
       await page.evaluate(() =>
         getComputedStyle(
-          document.querySelector('sbb-card').shadowRoot.querySelector('.sbb-card__badge-wrapper')
-        ).getPropertyValue('display')
-      )
+          document.querySelector('sbb-card').shadowRoot.querySelector('.sbb-card__badge-wrapper'),
+        ).getPropertyValue('display'),
+      ),
     ).toBe('none');
     expect(card).not.toHaveAttribute('data-has-card-badge');
   });
