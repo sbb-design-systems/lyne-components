@@ -305,6 +305,7 @@ export class SbbSelect implements ComponentInterface {
 
     this.input.emit();
     this.change.emit();
+    this.didChange.emit();
   }
 
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
@@ -316,6 +317,7 @@ export class SbbSelect implements ComponentInterface {
 
       this.input.emit();
       this.change.emit();
+      this.didChange.emit();
     }
   }
 
