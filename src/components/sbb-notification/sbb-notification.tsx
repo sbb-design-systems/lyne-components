@@ -138,7 +138,7 @@ export class SbbNotification implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public connectedCallback(): void {

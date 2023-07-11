@@ -49,7 +49,7 @@ const appendNotification = (args): void => {
   const newNotification = document.createElement('SBB-NOTIFICATION') as HTMLSbbNotificationElement;
   newNotification.style.setProperty(
     '--sbb-notification-margin',
-    '0 0 var(--sbb-spacing-fixed-4x) 0'
+    '0 0 var(--sbb-spacing-fixed-4x) 0',
   );
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
