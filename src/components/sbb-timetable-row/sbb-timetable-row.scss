@@ -9,6 +9,11 @@
   --sbb-timetable-row-height: #{sbb.px-to-rem-build(25)};
   --sbb-timetable-row-height-header: #{sbb.px-to-rem-build(20)};
   --sbb-timetable-row-height-footer: #{sbb.px-to-rem-build(16)};
+  --sbb-timetable-row-skeleton-pulse-duration: 1800ms;
+}
+
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-timetable-row-skeleton-pulse-duration: 0;
 }
 
 // override icons sizes
@@ -161,7 +166,8 @@ li {
 
 .sbb-loading__row,
 .sbb-loading__badge {
-  animation: skeleton-pulse 1800ms ease-out infinite;
+  background: var(--sbb-color-cloud-default);
+  animation: skeleton-pulse var(--sbb-timetable-row-skeleton-pulse-duration) ease-out infinite;
 }
 
 .sbb-loading__row:first-of-type {
@@ -174,15 +180,10 @@ li {
 }
 
 .sbb-loading__badge {
-  align-items: center;
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-end: 0;
+  margin-inline-start: auto;
+  margin-inline-end: calc(var(--sbb-spacing-fixed-3x) * -1);
   padding-inline-end: var(--sbb-spacing-fixed-6x);
   border-end-start-radius: var(--sbb-border-radius-4x);
-
-  // Left to right expression
-  right: calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: skew(16deg, 0deg);
   width: #{sbb.px-to-rem-build(115)};
   height: #{sbb.px-to-rem-build(20)};

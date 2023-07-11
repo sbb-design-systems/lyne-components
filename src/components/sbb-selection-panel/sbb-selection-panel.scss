@@ -108,7 +108,7 @@ sbb-divider {
 }
 
 ::slotted(sbb-card-badge) {
-  --sbb-card-badge-background-color-primary: var(--sbb-selection-panel-badge-background);
+  --sbb-card-badge-background-color: var(--sbb-selection-panel-badge-background);
 }
 
 ::slotted(sbb-radio-button),

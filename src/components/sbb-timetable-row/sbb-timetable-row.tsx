@@ -46,7 +46,7 @@ export class SbbTimetableRow {
   @Prop() public price?: Price;
 
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
-  @Prop() public disableAnimation?: boolean;
+  @Prop({ reflect: true }) public disableAnimation?: boolean;
 
   /** This will be forwarded to the notices section */
   @Prop() public boarding?: Boarding;
@@ -100,7 +100,7 @@ export class SbbTimetableRow {
   private _renderSkeleton(): JSX.Element {
     return (
       <sbb-card size="l" class="sbb-loading">
-        {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
+        {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
