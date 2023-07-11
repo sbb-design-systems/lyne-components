@@ -103,6 +103,7 @@ export class SbbExpansionPanel implements ComponentInterface {
 
   private _contentElement: HTMLElement;
   private _transitionEventController: AbortController;
+  private _progressiveId = `-${++nextId}`;
 
   private _onHeaderSlotChange(event): void {
     const header = (event.target as HTMLSlotElement)
@@ -119,14 +120,14 @@ export class SbbExpansionPanel implements ComponentInterface {
       header.setAttribute('disabled', String(this.disabled));
     }
     if (!header.getAttribute('id')) {
-      header.setAttribute('id', `sbb-expansion-panel-header-${nextId}`);
+      header.setAttribute('id', `sbb-expansion-panel-header${this._progressiveId}`);
     }
 
     const content = this._element.querySelector('sbb-expansion-panel-content');
     if (content) {
       header.setAttribute(
         'aria-controls',
-        content.getAttribute('id') || `sbb-expansion-panel-content-${nextId}`
+        content.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`
       );
       toggleDatasetEntry(
         content,
@@ -148,11 +149,11 @@ export class SbbExpansionPanel implements ComponentInterface {
     const header = this._element.querySelector('sbb-expansion-panel-header');
 
     if (!content.getAttribute('id')) {
-      content.setAttribute('id', `sbb-expansion-panel-content-${nextId}`);
+      content.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
     }
     content.setAttribute(
       'aria-labelledby',
-      header.getAttribute('id') || `sbb-expansion-panel-header-${nextId}`
+      header.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`
     );
     content.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
       signal: this._transitionEventController.signal,
@@ -172,7 +173,6 @@ export class SbbExpansionPanel implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    ++nextId;
     this._transitionEventController = new AbortController();
   }
 
