@@ -3,7 +3,7 @@ export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(
   elements: HTMLElement[],
-  filterFunc?: (el: HTMLElement) => boolean
+  filterFunc?: (el: HTMLElement) => boolean,
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
@@ -16,7 +16,7 @@ export function getFocusableElements(
       if (el.nodeName === 'SLOT') {
         getFocusables(
           Array.from((el as HTMLSlotElement).assignedElements()) as HTMLElement[],
-          filterFunc
+          filterFunc,
         );
         continue;
       }
@@ -51,7 +51,7 @@ export class FocusTrap {
 
         // Dynamically get first and last focusable element, as this might have changed since opening overlay
         const elementChildren: HTMLElement[] = Array.from(
-          element.shadowRoot.children
+          element.shadowRoot.children,
         ) as HTMLElement[];
         const focusableElements = getFocusableElements(elementChildren, filterFunc);
         const firstFocusable = focusableElements[0] as HTMLElement;
@@ -69,7 +69,7 @@ export class FocusTrap {
           event.preventDefault();
         }
       },
-      { signal: this._controller.signal }
+      { signal: this._controller.signal },
     );
   }
 

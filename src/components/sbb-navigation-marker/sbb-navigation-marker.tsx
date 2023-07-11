@@ -91,7 +91,7 @@ export class SbbNavigationMarker implements ComponentInterface {
   // Create an array with only the sbb-navigation-action children.
   private _readActions(): void {
     this._actions = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION'
+      (e): e is HTMLSbbNavigationActionElement => e.tagName === 'SBB-NAVIGATION-ACTION',
     );
     this._updateMarkerActions();
   }
@@ -100,7 +100,7 @@ export class SbbNavigationMarker implements ComponentInterface {
     if (this._hasActiveAction) {
       this._element?.style.setProperty(
         '--sbb-navigation-marker-position-y',
-        `${(this._element.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`
+        `${(this._element.shadowRoot.querySelector('[data-active]') as HTMLElement)?.offsetTop}px`,
       );
     }
   }

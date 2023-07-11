@@ -6,7 +6,7 @@ export function setAriaOverlayTriggerAttributes(
   trigger: HTMLElement,
   popupType: 'menu' | 'dialog',
   overlayId: string,
-  state: string
+  state: string,
 ): void {
   if (!trigger) {
     return;
@@ -36,7 +36,7 @@ export function removeAriaOverlayTriggerAttributes(trigger: HTMLElement): void {
 export function setAriaComboBoxAttributes(
   trigger: HTMLElement,
   overlayId: string,
-  expanded: boolean
+  expanded: boolean,
 ): void {
   if (!trigger) {
     return;

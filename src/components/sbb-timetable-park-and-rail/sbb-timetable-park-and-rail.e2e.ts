@@ -9,7 +9,7 @@ describe('sbb-timetable-park-and-rail', () => {
   it('renders', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-timetable-park-and-rail config='${config}'></sbb-timetable-park-and-rail>`
+      `<sbb-timetable-park-and-rail config='${config}'></sbb-timetable-park-and-rail>`,
     );
 
     element = await page.find('sbb-timetable-park-and-rail');

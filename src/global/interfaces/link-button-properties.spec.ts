@@ -17,7 +17,7 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj
+      expectedObj,
     );
   });
 
@@ -34,7 +34,7 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj
+      expectedObj,
     );
   });
 
@@ -52,7 +52,7 @@ describe('getLinkAttributeList', () => {
       tabIndex: '-1',
     };
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj
+      expectedObj,
     );
   });
 
@@ -69,7 +69,7 @@ describe('getLinkAttributeList', () => {
     };
 
     expect(resolveRenderVariables(linkProperties as LinkButtonProperties).attributes).toEqual(
-      expectedObj
+      expectedObj,
     );
   });
 
@@ -173,7 +173,7 @@ describe('resolveRenderVariables', () => {
     };
 
     expect(resolveRenderVariables({ isStatic: true, href: null, name: null, type: null })).toEqual(
-      expectedObj
+      expectedObj,
     );
   });
 });

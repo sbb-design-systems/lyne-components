@@ -11,7 +11,7 @@ describe('sbb-navigation-marker', () => {
         <sbb-navigation-action id="nav-2">Vacations & Recreation</sbb-navigation-action>
         <sbb-navigation-action id="nav-3">Travel information</sbb-navigation-action>
         <sbb-navigation-action id="nav-4">Help & Contact</sbb-navigation-action>
-      </sbb-navigation-marker>`
+      </sbb-navigation-marker>`,
     );
 
     element = await page.find('sbb-navigation-marker');

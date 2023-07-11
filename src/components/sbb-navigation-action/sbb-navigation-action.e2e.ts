@@ -7,7 +7,7 @@ describe('sbb-navigation-action', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(
-      '<sbb-navigation-action id="focus-id">Navigation Action</sbb-navigation-action>'
+      '<sbb-navigation-action id="focus-id">Navigation Action</sbb-navigation-action>',
     );
 
     element = await page.find('sbb-navigation-action');

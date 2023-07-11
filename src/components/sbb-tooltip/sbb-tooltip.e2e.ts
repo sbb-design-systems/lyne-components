@@ -280,14 +280,14 @@ describe('sbb-tooltip', () => {
 
     const buttonHeight = await page.evaluate(() =>
       getComputedStyle(document.documentElement).getPropertyValue(
-        `--sbb-size-button-l-min-height-large`
-      )
+        `--sbb-size-button-l-min-height-large`,
+      ),
     );
     expect(buttonHeight.trim()).toBe('3.5rem');
 
     const buttonHeightPx = parseFloat(buttonHeight) * 16;
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetHeight)).toBe(
-      buttonHeightPx
+      buttonHeightPx,
     );
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetTop)).toBe(0);
     expect(await page.evaluate(() => document.querySelector('sbb-button').offsetLeft)).toBe(0);
@@ -295,13 +295,13 @@ describe('sbb-tooltip', () => {
     // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetTop
-      )
+        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetTop,
+      ),
     ).toBe(buttonHeightPx + 16);
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetLeft
-      )
+        () => document.querySelector('sbb-tooltip').shadowRoot.querySelector('dialog').offsetLeft,
+      ),
     ).toBe(0);
   });
 
@@ -326,8 +326,8 @@ describe('sbb-tooltip', () => {
     await page.waitForChanges();
     expect(
       await page.evaluate(
-        () => document.querySelector('sbb-tooltip').shadowRoot.activeElement.className
-      )
+        () => document.querySelector('sbb-tooltip').shadowRoot.activeElement.className,
+      ),
     ).toBe('sbb-tooltip__content');
 
     await page.keyboard.down('Tab');
@@ -363,8 +363,8 @@ describe('sbb-tooltip', () => {
       await page.evaluate(
         () =>
           document.activeElement.shadowRoot.activeElement ===
-          document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]')
-      )
+          document.activeElement.shadowRoot.querySelector('[sbb-tooltip-close]'),
+      ),
     ).toBe(true);
   });
 
@@ -380,7 +380,7 @@ describe('sbb-tooltip', () => {
 
     // Simulate backdrop click
     await page.evaluate(() =>
-      document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }))
+      document.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 })),
     );
     await page.evaluate(() => window.dispatchEvent(new PointerEvent('pointerup')));
 
@@ -409,7 +409,7 @@ describe('sbb-tooltip', () => {
     await page.waitForChanges();
 
     expect(await page.evaluate(() => document.activeElement.id)).toBe(
-      'interactive-background-element'
+      'interactive-background-element',
     );
   });
 

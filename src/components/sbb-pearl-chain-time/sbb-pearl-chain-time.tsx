@@ -57,7 +57,7 @@ export class SbbPearlChainTime {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {
@@ -77,7 +77,7 @@ export class SbbPearlChainTime {
     duration: number | string,
     icon: string,
     label?: string,
-    type?: 'departure' | 'arrival'
+    type?: 'departure' | 'arrival',
   ): JSX.Element {
     return (
       <span class={`sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}`}>
@@ -137,7 +137,7 @@ export class SbbPearlChainTime {
 
     const connectionFirstLegNotices = connectionFirstLeg
       ? connectionFirstLeg?.notices?.filter((notice) =>
-          connectionLegNotice.includes(notice.name)
+          connectionLegNotice.includes(notice.name),
         )[0]
       : undefined;
 
@@ -183,7 +183,7 @@ export class SbbPearlChainTime {
               (this.departureWalk || 0),
             `sa-${extendedFirstLeg?.name?.toLowerCase()}`,
             extractTimeAndStringFromNoticeText(extendedFirstLeg).text,
-            'departure'
+            'departure',
           )}
 
         {departure && (
@@ -236,7 +236,7 @@ export class SbbPearlChainTime {
             extractTimeAndStringFromNoticeText(extendedLastLeg).duration + (this.arrivalWalk || 0),
             `sa-${extendedLastLeg?.name?.toLowerCase()}`,
             extractTimeAndStringFromNoticeText(extendedLastLeg).text,
-            'arrival'
+            'arrival',
           )}
       </div>
     );

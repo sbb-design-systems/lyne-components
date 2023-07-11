@@ -1,7 +1,7 @@
 export async function waitForCondition(
   condition: () => boolean | Promise<boolean>,
   interval = 30,
-  timeoutInMilliseconds = 10 * 1000
+  timeoutInMilliseconds = 10 * 1000,
 ): Promise<boolean> {
   const start = new Date();
   while (!(await condition()) && start.getTime() + timeoutInMilliseconds >= new Date().getTime()) {

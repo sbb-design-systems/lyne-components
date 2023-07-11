@@ -102,7 +102,7 @@ export class SbbToggle implements ComponentInterface {
 
   private get _options(): HTMLSbbToggleOptionElement[] {
     return Array.from(
-      this._element.querySelectorAll('sbb-toggle-option')
+      this._element.querySelectorAll('sbb-toggle-option'),
     ) as HTMLSbbToggleOptionElement[];
   }
 
@@ -191,14 +191,14 @@ export class SbbToggle implements ComponentInterface {
 
     if (isArrowKeyPressed(evt)) {
       const checked: number = enabledToggleOptions.findIndex(
-        (toggleOption: HTMLSbbToggleOptionElement) => toggleOption.checked
+        (toggleOption: HTMLSbbToggleOptionElement) => toggleOption.checked,
       );
       const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {
         enabledToggleOptions[nextIndex].checked = true;
         enabledToggleOptions[nextIndex].focus();
         enabledToggleOptions[nextIndex].dispatchEvent(
-          new InputEvent('input', { bubbles: true, composed: true })
+          new InputEvent('input', { bubbles: true, composed: true }),
         );
       }
       evt.preventDefault();

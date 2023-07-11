@@ -33,9 +33,9 @@ const observer = new AgnosticMutationObserver((mutations) => {
     (map, mutation) =>
       map.set(
         mutation.target,
-        extractSlotNames([mutation.addedNodes, mutation.removedNodes], map.get(mutation.target))
+        extractSlotNames([mutation.addedNodes, mutation.removedNodes], map.get(mutation.target)),
       ),
-    new Map<Node, Set<string>>()
+    new Map<Node, Set<string>>(),
   );
   mutationMap.forEach((slotNames, host) => {
     if (slotNames.size) {
@@ -86,19 +86,19 @@ export type NamedSlotState<K = unknown> = K extends string
 export function createNamedSlotState<K extends string>(name: K): NamedSlotState<K>;
 export function createNamedSlotState<K1 extends string, K2 extends string>(
   name1: K1,
-  name2: K2
+  name2: K2,
 ): NamedSlotState<K1 | K2>;
 export function createNamedSlotState<K1 extends string, K2 extends string, K3 extends string>(
   name1: K1,
   name2: K2,
-  name3: K3
+  name3: K3,
 ): NamedSlotState<K1 | K2 | K3>;
 export function createNamedSlotState(...names: string[]): NamedSlotState {
   return Object.freeze(
     names.reduce(
       (state, key) => Object.assign(state, { [key]: false }),
-      {} as Record<string, boolean>
-    )
+      {} as Record<string, boolean>,
+    ),
   );
 }
 
@@ -114,7 +114,7 @@ export function createNamedSlotState(...names: string[]): NamedSlotState {
 function queryNamedSlotState<S extends NamedSlotState>(
   element: HTMLElement,
   state: S,
-  names?: Set<string>
+  names?: Set<string>,
 ): S {
   const newState: Record<string, boolean> = { ...state };
   if (names) {
@@ -138,7 +138,7 @@ export function namedSlotChangeHandlerAspect(action: SbbNamedSlotChangeCallback)
     host.addEventListener(
       sbbNamedSlotChangeEventName,
       (e) => action((state) => queryNamedSlotState(host, state, e.detail)),
-      { signal, passive: true }
+      { signal, passive: true },
     );
     action((state) => queryNamedSlotState(host, state));
     observeNamedSlotChanges(host);

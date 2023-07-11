@@ -54,7 +54,7 @@ describe('sbb-toggle-check', () => {
               <div style="height: 500px">
                 <sbb-toggle-check></sbb-toggle-check>
               </div>
-            </div>`
+            </div>`,
     );
     element = await page.find('sbb-toggle-check');
     expect(element).not.toHaveAttribute('checked');

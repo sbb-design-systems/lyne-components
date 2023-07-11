@@ -36,7 +36,7 @@ export const isValid = (elm: HTMLElement): boolean => {
 export const validateContent = (
   svgContent: string,
   sanitize = true,
-  colorImmutable = false
+  colorImmutable = false,
 ): string => {
   const div = document.createElement('div');
   div.innerHTML = svgContent;

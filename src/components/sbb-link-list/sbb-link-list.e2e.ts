@@ -31,8 +31,8 @@ describe('sbb-link-list', () => {
           (l) =>
             l.getAttribute('size') === 's' &&
             l.getAttribute('variant') === 'block' &&
-            l.getAttribute('negative') === null
-        )
+            l.getAttribute('negative') === null,
+        ),
       ).toBeTruthy();
     });
 

@@ -114,7 +114,7 @@ export class SbbDatepicker implements ComponentInterface {
             this._preventCharInsert(event);
           }
         },
-        { signal: this._datePickerController.signal }
+        { signal: this._datePickerController.signal },
       );
       this._inputElement.addEventListener(
         'change',
@@ -125,7 +125,7 @@ export class SbbDatepicker implements ComponentInterface {
         },
         {
           signal: this._datePickerController.signal,
-        }
+        },
       );
       /** Remove aria-live=polite during text edit to avoid screen reader repeating everything twice. */
       this._inputElement.addEventListener(
@@ -133,7 +133,7 @@ export class SbbDatepicker implements ComponentInterface {
         (event: Event) => (event.target as HTMLInputElement).removeAttribute('aria-live'),
         {
           signal: this._datePickerController.signal,
-        }
+        },
       );
       /** Set aria-live=polite after text edit ends to make sure state changes are correctly announced. */
       this._inputElement.addEventListener(
@@ -141,7 +141,7 @@ export class SbbDatepicker implements ComponentInterface {
         (event: Event) => ((event.target as HTMLInputElement).ariaLive = 'polite'),
         {
           signal: this._datePickerController.signal,
-        }
+        },
       );
     }
   }
@@ -184,7 +184,7 @@ export class SbbDatepicker implements ComponentInterface {
       if (this._inputElement) {
         this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
       }
-    })
+    }),
   );
 
   public connectedCallback(): void {
@@ -215,7 +215,7 @@ export class SbbDatepicker implements ComponentInterface {
     return this._composeValueString(
       `${this._dateAdapter.getDate(date)}`,
       `${this._dateAdapter.getMonth(date) + 1}`,
-      this._dateAdapter.getYear(date)
+      this._dateAdapter.getYear(date),
     );
   }
 
@@ -244,7 +244,7 @@ export class SbbDatepicker implements ComponentInterface {
           newValueAsDate,
           this._element.dateFilter,
           this._inputElement?.min,
-          this._inputElement?.max
+          this._inputElement?.max,
         )
       ) {
         this._inputElement.classList.add('sbb-invalid');

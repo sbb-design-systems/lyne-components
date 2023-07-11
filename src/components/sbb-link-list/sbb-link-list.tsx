@@ -61,7 +61,7 @@ export class SbbLinkList implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**
@@ -69,7 +69,7 @@ export class SbbLinkList implements ComponentInterface {
    */
   private _readLinks(): void {
     const links = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK'
+      (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK',
     );
     // If the slotted sbb-link instances have not changed, we can skip syncing and updating
     // the link reference list.

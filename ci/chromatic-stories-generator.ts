@@ -36,7 +36,7 @@ function walk(root: string, filter: RegExp): string[] {
 }
 
 async function generateChromaticStory(
-  storyFile: string
+  storyFile: string,
 ): Promise<'no params found' | 'disabledSnapshot configured' | undefined> {
   const content: { default: Meta } = await import(storyFile);
   const { disableSnapshot, ...chromaticParameters } = content.default?.parameters?.chromatic ?? {};
@@ -127,6 +127,6 @@ declare module 'module' {
       filename: string | null;
     },
     isMain: boolean,
-    options?: any
+    options?: any,
   ): string;
 }

@@ -1,7 +1,8 @@
 /// Mixin to retrieve box shadow level 3 soft
 ///
 @mixin shadow-level-3-soft {
-  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+  box-shadow:
+    var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-2-blur)
       var(--sbb-shadow-elevation-level-3-shadow-2-spread)
@@ -16,7 +17,8 @@
 /// Mixin to retrieve box shadow level 3 hard
 ///
 @mixin shadow-level-3-hard {
-  box-shadow: var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
+  box-shadow:
+    var(--sbb-shadow-elevation-level-3-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-3-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-3-shadow-2-blur)
       var(--sbb-shadow-elevation-level-3-shadow-2-spread)
@@ -31,7 +33,8 @@
 /// Mixin to retrieve box shadow level 5 soft
 ///
 @mixin shadow-level-5-soft {
-  box-shadow: var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
+  box-shadow:
+    var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-2-blur)
       var(--sbb-shadow-elevation-level-5-shadow-2-spread)
@@ -46,7 +49,8 @@
 /// Mixin to retrieve box shadow level 5 hard
 ///
 @mixin shadow-level-5-hard {
-  box-shadow: var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
+  box-shadow:
+    var(--sbb-shadow-elevation-level-5-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-5-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-5-shadow-2-blur)
       var(--sbb-shadow-elevation-level-5-shadow-2-spread)
@@ -61,7 +65,8 @@
 /// Mixin to retrieve box shadow level 9 soft
 ///
 @mixin shadow-level-9-soft {
-  box-shadow: var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
+  box-shadow:
+    var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-2-blur)
       var(--sbb-shadow-elevation-level-9-shadow-2-spread)
@@ -76,7 +81,8 @@
 /// Mixin to retrieve box shadow level 9 hard
 ///
 @mixin shadow-level-9-hard {
-  box-shadow: var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
+  box-shadow:
+    var(--sbb-shadow-elevation-level-9-shadow-2-offset-x)
       var(--sbb-shadow-elevation-level-9-shadow-2-offset-y)
       var(--sbb-shadow-elevation-level-9-shadow-2-blur)
       var(--sbb-shadow-elevation-level-9-shadow-2-spread)

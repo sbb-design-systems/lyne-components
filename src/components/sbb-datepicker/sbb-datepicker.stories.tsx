@@ -237,11 +237,11 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger'),
   );
 
   await waitForStablePosition(() =>
-    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger')
+    canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger'),
   );
 
   const toggle = await canvas.getByTestId('toggle').shadowRoot.querySelector('sbb-tooltip-trigger');

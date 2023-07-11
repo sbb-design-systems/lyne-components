@@ -39,7 +39,7 @@ describe('sbb-alert-group', () => {
     expect((await page.find('sbb-alert-group')).tabIndex).toBe(0);
     expect(await page.evaluate(() => document.activeElement.id)).toBe(alertGroupId);
     expect((await page.find('sbb-alert-group >>> .sbb-alert-group__title')).textContent).toBe(
-      accessibilityTitle
+      accessibilityTitle,
     );
     expect(didDismissAlertSpy).toHaveReceivedEvent();
     expect(emptySpy).not.toHaveReceivedEvent();

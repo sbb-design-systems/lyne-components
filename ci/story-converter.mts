@@ -36,7 +36,7 @@ class StringMutation {
         type: 'delete',
         mutate: (result) =>
           `${result.substring(0, node.getStart())}${result.substring(
-            node.getStart() + node.getWidth()
+            node.getStart() + node.getWidth(),
           )}`,
       });
     }
@@ -66,7 +66,7 @@ function convert() {
         if (node.moduleSpecifier.getText() == `'jsx-dom'`) {
           targetFile.insertAtEnd(
             (node.importClause!.namedBindings as ts.NamedImports).elements.at(-1)!,
-            ', JSX'
+            ', JSX',
           );
         }
       } else if (ts.isVariableStatement(node)) {
@@ -74,8 +74,8 @@ function convert() {
           throw new Error(
             `Failed due to multiple declarations at ${storyFile}:${ts.getLineAndCharacterOfPosition(
               sourceFile,
-              node.pos
-            )}`
+              node.pos,
+            )}`,
           );
         }
         const declaration = node.declarationList.declarations[0];
@@ -90,8 +90,8 @@ function convert() {
             throw new Error(
               `Failed due to template used without .bind({}) at ${storyFile}:${ts.getLineAndCharacterOfPosition(
                 sourceFile,
-                node.pos
-              )}`
+                node.pos,
+              )}`,
             );
           }
           const template = (templateExpression.expression as ts.Identifier).escapedText.toString();
@@ -103,7 +103,7 @@ function convert() {
                 ts.isBinaryExpression(n.expression) &&
                 ts.isPropertyAccessExpression(n.expression.left) &&
                 ts.isIdentifier(n.expression.left.expression) &&
-                n.expression.left.expression.escapedText.toString() === name
+                n.expression.left.expression.escapedText.toString() === name,
             );
 
           const options = relatedExpressions
@@ -113,7 +113,7 @@ function convert() {
                 ts.isBinaryExpression(n.expression) &&
                 ts.isPropertyAccessExpression(n.expression.left) &&
                 ts.isIdentifier(n.expression.left.expression) &&
-                n.expression.left.name.escapedText.toString() !== 'documentation'
+                n.expression.left.name.escapedText.toString() !== 'documentation',
             )
             .map((n) => {
               const expression = n.expression as ts.BinaryExpression;
@@ -129,7 +129,7 @@ function convert() {
             node.getStart(),
             `export const ${name}: StoryObj = {${options
               .map((o) => `\n  ${o.property}: ${o.value},`)
-              .join('')}\n};`
+              .join('')}\n};`,
           );
         } else if (ifInitializer((i) => !!i.getFullText().match(/\Wcontrol:/))) {
           targetFile.insertAtEnd(declaration.name, `: InputType`);
@@ -142,9 +142,9 @@ function convert() {
                   ? (p.name.escapedText as string)
                   : ts.isPropertyAssignment(p) && ts.isIdentifier(p.initializer)
                   ? (p.initializer.escapedText as string)
-                  : ''
-              )
-            )
+                  : '',
+              ),
+            ),
           )
         ) {
           targetFile.insertAtEnd(declaration.name, `: ArgTypes`);
@@ -155,9 +155,9 @@ function convert() {
                   ? (p.name.escapedText as string)
                   : ts.isPropertyAssignment(p) && ts.isStringLiteralLike(p.name)
                   ? p.name.text
-                  : ''
+                  : '',
               )
-              .filter((v) => !!v)
+              .filter((v) => !!v),
           );
         } else if (ifInitializer((i) => i.properties.every((p) => ts.isPropertyAssignment(p)))) {
           targetFile.insertAtEnd(declaration.name, `: Args`);
@@ -168,7 +168,7 @@ function convert() {
           ) {
             targetFile.insertAt(
               declaration.initializer.equalsGreaterThanToken.getFullStart(),
-              ': JSX.Element[]'
+              ': JSX.Element[]',
             );
           } else if (
             ts.isParenthesizedExpression(declaration.initializer.body) &&
@@ -176,7 +176,7 @@ function convert() {
           ) {
             targetFile.insertAt(
               declaration.initializer.equalsGreaterThanToken.getFullStart(),
-              ': JSX.Element'
+              ': JSX.Element',
             );
           }
         }
@@ -194,7 +194,7 @@ function convert() {
         if (inlineStoryMatch || iframeHeightMatch) {
           const index = Math.min(
             inlineStoryMatch?.index ?? Number.MAX_SAFE_INTEGER,
-            iframeHeightMatch?.index ?? Number.MAX_SAFE_INTEGER
+            iframeHeightMatch?.index ?? Number.MAX_SAFE_INTEGER,
           );
           const insert = [
             inlineStoryMatch?.[0].replace('inlineStories', 'inline'),
@@ -204,13 +204,13 @@ function convert() {
             .join(' ');
           declaration = `${declaration.substring(
             0,
-            index
+            index,
           )}story: { ${insert} },${declaration.substring(index)}`;
         }
 
         targetFile.insertAt(
           node.getStart(),
-          `const meta: Meta = ${declaration};\n\nexport default meta;`
+          `const meta: Meta = ${declaration};\n\nexport default meta;`,
         );
       }
     });
@@ -245,7 +245,7 @@ function convert() {
 
           return m;
         }),
-      'utf8'
+      'utf8',
     );
     console.log(`Created ${tsxStory}`);
   }

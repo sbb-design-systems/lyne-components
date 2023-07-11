@@ -95,7 +95,7 @@ export function getElementPosition(
     horizontalOffset?: number;
     centered?: boolean;
     responsiveHeight?: boolean;
-  }
+  },
 ): ElementPositionInfos {
   const maxWidthOffset = 16;
   const verticalOffset = properties?.verticalOffset || 0;

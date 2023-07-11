@@ -25,7 +25,7 @@ const isOverlayHidden = (overlay: Element): boolean => overlay.classList.contain
 
 export const getOverlays = (
   doc: Document,
-  selector: string = GET_OVERLAYS_DEFAULT_SELECTOR
+  selector: string = GET_OVERLAYS_DEFAULT_SELECTOR,
 ): InterfaceHTMLSBBOverlayElement[] => {
   const overlays = Array.from(doc.querySelectorAll(selector)) as InterfaceHTMLSBBOverlayElement[];
 
@@ -42,10 +42,10 @@ export const getOverlays = (
 export const getOverlay = (
   doc: Document,
   overlayTag?: string,
-  id?: string
+  id?: string,
 ): InterfaceHTMLSBBOverlayElement | undefined => {
   const overlays = getOverlays(doc, overlayTag).filter(
-    (o: InterfaceHTMLSBBOverlayElement) => !isOverlayHidden(o)
+    (o: InterfaceHTMLSBBOverlayElement) => !isOverlayHidden(o),
   );
 
   return id === undefined
@@ -62,7 +62,7 @@ const innerFocusableQueryString = 'input:not([type=hidden]), textarea, button, s
 
 export const focusFirstDescendant = (
   ref: Element,
-  overlay: InterfaceHTMLSBBOverlayElement
+  overlay: InterfaceHTMLSBBOverlayElement,
 ): void => {
   let firstInput = ref.querySelector(focusableQueryString) as HTMLElement | null;
 
@@ -275,7 +275,7 @@ const connectListeners = (doc: Document): void => {
       (ev: FocusEvent) => {
         trapKeyboardFocus(ev, doc);
       },
-      true
+      true,
     );
     doc.addEventListener('keyup', (ev) => {
       if (ev.key === 'Escape') {
@@ -303,7 +303,7 @@ export const prepareOverlay = <T extends InterfaceHTMLSBBOverlayElement>(el: T):
 
 export const createOverlay = <T extends InterfaceHTMLSBBOverlayElement>(
   tagName: string,
-  opts: Record<string, unknown> | undefined
+  opts: Record<string, unknown> | undefined,
 ): Promise<T> => {
   if (typeof window !== 'undefined' && typeof window.customElements !== 'undefined') {
     return window.customElements.whenDefined(tagName).then(() => {
@@ -336,7 +336,7 @@ export const dismissOverlay = (
   data: any,
   role: string | undefined,
   overlayTag: string,
-  id?: string
+  id?: string,
 ): Promise<boolean> => {
   const overlay = getOverlay(doc, overlayTag, id);
 
@@ -418,7 +418,7 @@ const overlayAnimation = async (
   overlay: InterfaceOverlay,
   animationBuilder: AnimationBuilder,
   baseEl: any,
-  opts: any
+  opts: any,
 ): Promise<boolean> => {
   // Make overlay visible in case it's hidden
   baseEl.classList.remove('overlay-hidden');
@@ -456,7 +456,7 @@ const overlayAnimation = async (
 export const present = async (
   overlay: InterfaceOverlay,
   enterAnimation: AnimationBuilder,
-  opts?: any
+  opts?: any,
 ): Promise<void> => {
   if (overlay.presented) {
     return;
@@ -501,7 +501,7 @@ export const dismiss = async (
   data: any | undefined,
   role: string | undefined,
   leaveAnimation: AnimationBuilder,
-  opts?: any
+  opts?: any,
 ): Promise<boolean> => {
   if (!overlay.presented) {
     return false;

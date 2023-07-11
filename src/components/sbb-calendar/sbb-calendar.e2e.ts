@@ -118,7 +118,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('ArrowLeft');
@@ -127,7 +127,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('14 1 2023');
   });
 
@@ -138,7 +138,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('ArrowRight');
@@ -147,7 +147,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('16 1 2023');
   });
 
@@ -158,7 +158,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('ArrowUp');
@@ -167,7 +167,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('8 1 2023');
   });
 
@@ -178,7 +178,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('ArrowDown');
@@ -187,7 +187,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('22 1 2023');
   });
 
@@ -198,7 +198,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('Home');
@@ -207,7 +207,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('1 1 2023');
   });
 
@@ -218,7 +218,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('End');
@@ -227,7 +227,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('31 1 2023');
   });
 
@@ -238,7 +238,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('PageUp');
@@ -247,7 +247,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('1 1 2023');
   });
 
@@ -258,7 +258,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('15 1 2023');
 
     await element.press('PageDown');
@@ -267,7 +267,7 @@ describe('sbb-calendar', () => {
     expect(
       await page.evaluate(() => {
         return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      })
+      }),
     ).toEqual('29 1 2023');
   });
 });

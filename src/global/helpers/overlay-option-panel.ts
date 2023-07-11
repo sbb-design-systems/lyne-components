@@ -11,7 +11,7 @@ export function setOverlayPosition(
   dialog: HTMLElement,
   originElement: HTMLElement,
   optionContainer: HTMLElement,
-  element: HTMLElement
+  element: HTMLElement,
 ): void {
   if (!dialog || !originElement) {
     return;

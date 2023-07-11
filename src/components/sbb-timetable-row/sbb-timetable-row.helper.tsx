@@ -12,7 +12,7 @@ import { i18nTripQuayChange } from '../../global/i18n';
 export const getTransportIcon = (
   vehicleMode: VehicleModeEnum,
   vehicleSubMode: string,
-  language: string
+  language: string,
 ): string => {
   // As there are no English pictograms, we fall back to German
   const normalizedLanguage = language.replace('en', 'de');
@@ -129,7 +129,7 @@ export const sortSituation = (situations: PtSituation[]): PtSituation[] => {
   };
 
   return [...situations]?.sort(
-    (a: PtSituation, b: PtSituation) => priorities[a.cause] - priorities[b.cause]
+    (a: PtSituation, b: PtSituation) => priorities[a.cause] - priorities[b.cause],
   );
 };
 
@@ -225,7 +225,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
 
   if (filteredNotices[0].name === 'Z' && filteredNotices[1]) {
     return [filteredNotices[0], reservationNotice, filteredNotices[1]].concat(
-      filteredNotices.slice(2)
+      filteredNotices.slice(2),
     );
   }
 

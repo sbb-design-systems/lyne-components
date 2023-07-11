@@ -58,7 +58,7 @@ export class AnimationWeb extends AbstractAnimation {
         animation.effect = new KeyframeEffect(
           animation.effect.target,
           keyframeValues,
-          animation.effect.getTiming()
+          animation.effect.getTiming(),
         );
       }
     }

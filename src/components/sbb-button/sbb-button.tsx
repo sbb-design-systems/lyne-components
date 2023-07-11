@@ -93,14 +93,14 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
     this._element,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public connectedCallback(): void {
     // Check if the current element is nested in an action element.
     this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
     this._hasText = Array.from(this._element.childNodes).some(
-      (n) => !(n as Element).slot && n.textContent?.trim()
+      (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
     if (this._element.closest('sbb-form-field') || this._element.closest('[data-form-field]')) {

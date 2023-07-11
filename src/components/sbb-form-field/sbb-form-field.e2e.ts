@@ -75,7 +75,7 @@ describe('sbb-form-field', () => {
     beforeEach(async () => {
       page = await newE2EPage();
       await page.setContent(
-        '<sbb-form-field label="Example"><sbb-select><sbb-option>Test</sbb-option></sbb-select></sbb-form-field>'
+        '<sbb-form-field label="Example"><sbb-select><sbb-option>Test</sbb-option></sbb-select></sbb-form-field>',
       );
 
       element = await page.find('sbb-form-field');
@@ -108,7 +108,7 @@ describe('sbb-form-field', () => {
               <option value='0'></option>
               <option value='1'>Displayed Value</option>
             </select>
-          </sbb-form-field>`
+          </sbb-form-field>`,
       );
 
       const element = await page.find('sbb-form-field');
@@ -125,7 +125,7 @@ describe('sbb-form-field', () => {
               <option value='' selected>Empty Value</option>
               <option value='1'>Displayed Value</option>
             </select>
-         </sbb-form-field>`
+         </sbb-form-field>`,
       );
 
       const element = await page.find('sbb-form-field');
@@ -151,7 +151,7 @@ describe('sbb-form-field', () => {
               <sbb-option value='0'></sbb-option>
               <sbb-option value='1'>Displayed Value</sbb-option>
             </sbb-select>
-          </sbb-form-field>`
+          </sbb-form-field>`,
       );
 
       const element = await page.find('sbb-form-field');
@@ -168,7 +168,7 @@ describe('sbb-form-field', () => {
               <sbb-option value='' selected>Empty Value</sbb-option>
               <sbb-option value='1'>Displayed Value</sbb-option>
             </sbb-select>
-          </sbb-form-field>`
+          </sbb-form-field>`,
       );
 
       const element = await page.find('sbb-form-field');

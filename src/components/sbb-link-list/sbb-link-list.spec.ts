@@ -130,7 +130,7 @@ describe('sbb-link-list', () => {
   describe('property sync', () => {
     const assertLinks = (
       root: AnyHTMLElement,
-      assertion: (link: HTMLSbbLinkElement) => boolean
+      assertion: (link: HTMLSbbLinkElement) => boolean,
     ): boolean => Array.from(root.querySelectorAll('sbb-link')).every(assertion);
 
     it('should render all sbb-link instances with defaults (variant="block", size="s", no negative)', async () => {
@@ -143,7 +143,7 @@ describe('sbb-link-list', () => {
       });
 
       expect(
-        assertLinks(root, (l) => l.variant === 'block' && l.size === 's' && !l.negative)
+        assertLinks(root, (l) => l.variant === 'block' && l.size === 's' && !l.negative),
       ).toBeTruthy();
     });
 

@@ -50,7 +50,7 @@ export class SbbTeaserHero implements ComponentInterface, LinkProperties {
   private _handlerRepository = new HandlerRepository(
     this._element,
     linkHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {

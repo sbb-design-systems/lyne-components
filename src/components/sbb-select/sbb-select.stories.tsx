@@ -16,7 +16,7 @@ const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper')
+    canvas.getByTestId('form-field').shadowRoot.querySelector('div.sbb-form-field__space-wrapper'),
   );
 
   await waitForStablePosition(() => canvas.getByTestId('select'));
@@ -240,7 +240,7 @@ const createOptions = (
   numberOfOptions,
   disableOption,
   group,
-  selectValue = null
+  selectValue = null,
 ): JSX.Element[] => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
     const value = group ? `Option ${i + 1} ${' - ' + group}` : `Option ${i + 1}`;

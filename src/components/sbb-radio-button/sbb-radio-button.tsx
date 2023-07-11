@@ -105,7 +105,7 @@ export class SbbRadioButton implements ComponentInterface {
 
   private _selectionPanelElement: HTMLElement;
   private _radioButtonAttributeObserver = new MutationObserver(
-    this._onRadioButtonAttributesChange.bind(this)
+    this._onRadioButtonAttributesChange.bind(this),
   );
 
   @Element() private _element!: HTMLElement;
@@ -158,7 +158,7 @@ export class SbbRadioButton implements ComponentInterface {
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
-    formElementHandlerAspect
+    formElementHandlerAspect,
   );
 
   public connectedCallback(): void {

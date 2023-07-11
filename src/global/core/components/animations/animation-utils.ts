@@ -41,7 +41,7 @@ export const processKeyframes = (keyframes: AnimationKeyFrames): AnimationKeyFra
 export const setStyleProperty = (
   element: HTMLElement,
   propertyName: string,
-  value: string | null
+  value: string | null,
 ): void => {
   element.style.setProperty(propertyName, value);
 };
@@ -56,7 +56,7 @@ export const removeStyleProperties = (element: HTMLElement, propertyNames: strin
 
 export const animationEnd = (
   el: HTMLElement | null,
-  callback: (ev?: TransitionEvent) => void
+  callback: (ev?: TransitionEvent) => void,
 ): (() => void) => {
   let unregisterTransition: (() => void) | undefined;
   const opts: any = {
@@ -116,7 +116,7 @@ export const getStyleContainer = (element: HTMLElement): any => {
 export const createKeyframeStylesheet = (
   keyframeName: string,
   keyframeRules: string,
-  element: HTMLElement
+  element: HTMLElement,
 ): HTMLElement => {
   const styleContainer = getStyleContainer(element);
 
@@ -138,5 +138,5 @@ export const createKeyframeStylesheet = (
 
 export const addClassToArray = (
   classes: string[] = [],
-  className: string | string[] | undefined
+  className: string | string[] | undefined,
 ): string[] => (className === undefined ? classes : classes.concat(className));

@@ -73,7 +73,7 @@ export class SbbTimetableRow {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   public connectedCallback(): void {
@@ -187,7 +187,7 @@ export class SbbTimetableRow {
                   getTransportIcon(
                     product.vehicleMode,
                     product.vehicleSubModeShortName,
-                    this._currentLanguage
+                    this._currentLanguage,
                   ) && (
                     <span class="sbb-timetable__row-transport-wrapper">
                       <sbb-icon
@@ -197,7 +197,7 @@ export class SbbTimetableRow {
                           getTransportIcon(
                             product.vehicleMode,
                             product.vehicleSubModeShortName,
-                            this._currentLanguage
+                            this._currentLanguage,
                           )
                         }
                       />
@@ -294,7 +294,7 @@ export class SbbTimetableRow {
                           />
                           <span class="sbb-screenreaderonly">{notice.text?.template}</span>
                         </li>
-                      )
+                      ),
                   )}
                   {this.boarding && (
                     <li>

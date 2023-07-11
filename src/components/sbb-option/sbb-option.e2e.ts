@@ -40,7 +40,7 @@ describe('sbb-option', () => {
       await input.focus();
       await input.press('1');
       const optionOne = await page.find(
-        'sbb-autocomplete > sbb-option#option-1 >>> .sbb-option__label'
+        'sbb-autocomplete > sbb-option#option-1 >>> .sbb-option__label',
       );
       expect(optionOne).toEqualHtml(`
         <span class="sbb-option__label">
@@ -51,7 +51,7 @@ describe('sbb-option', () => {
         </span>
       `);
       const optionTwo = await page.find(
-        'sbb-autocomplete > sbb-option#option-2 >>> .sbb-option__label'
+        'sbb-autocomplete > sbb-option#option-2 >>> .sbb-option__label',
       );
       expect(optionTwo).toEqualHtml(`
         <span class="sbb-option__label">
@@ -60,7 +60,7 @@ describe('sbb-option', () => {
         </span>
       `);
       const optionThree = await page.find(
-        'sbb-autocomplete > sbb-option#option-3 >>> .sbb-option__label'
+        'sbb-autocomplete > sbb-option#option-3 >>> .sbb-option__label',
       );
       expect(optionThree).toEqualHtml(`
         <span class="sbb-option__label">

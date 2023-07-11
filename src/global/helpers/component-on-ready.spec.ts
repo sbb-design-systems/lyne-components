@@ -11,7 +11,7 @@ describe('componentOnReady()', () => {
           public constructor() {
             super();
           }
-        }
+        },
       );
 
       const component = document.createElement('hello-world');
@@ -28,7 +28,7 @@ describe('componentOnReady()', () => {
         (el) =>
           new Promise((resolve) => {
             setTimeout(() => resolve(el), 250);
-          })
+          }),
       );
 
       customElements.define(
@@ -41,7 +41,7 @@ describe('componentOnReady()', () => {
           public componentOnReady(): Promise<unknown> {
             return cb(this);
           }
-        }
+        },
       );
 
       const component = document.createElement('hello-world');

@@ -1,12 +1,12 @@
 import { Notice } from '../../global/interfaces/timetable-properties';
 
 export const extractTimeAndStringFromNoticeText = (
-  notice: Notice
+  notice: Notice,
 ): { duration: number; text: string } => {
   const firstIndex = notice?.text?.template && notice.text.template.indexOf('(') + 1;
   const noticeDuration = notice?.text?.template?.substring(
     firstIndex || 0,
-    notice?.text?.template.indexOf(')')
+    notice?.text?.template.indexOf(')'),
   );
 
   const noticeObject = {

@@ -148,7 +148,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public connectedCallback(): void {
@@ -252,7 +252,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
       nextIndex = getNextElementIndex(evt, current, enabledRadios.length);
     } else {
       const checked: number = enabledRadios.findIndex(
-        (radio: HTMLSbbRadioButtonElement) => radio.checked
+        (radio: HTMLSbbRadioButtonElement) => radio.checked,
       );
       nextIndex = getNextElementIndex(evt, checked, enabledRadios.length);
       enabledRadios[nextIndex].select();

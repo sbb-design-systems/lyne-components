@@ -94,7 +94,7 @@ export class SbbNavigationSection implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**
@@ -130,7 +130,7 @@ export class SbbNavigationSection implements ComponentInterface {
   @Watch('trigger')
   public removeTriggerClickListener(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement
+    oldValue: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._navigationSectionController?.abort();
@@ -163,7 +163,7 @@ export class SbbNavigationSection implements ComponentInterface {
       this._triggerElement,
       'menu',
       this._element.id || this._navigationSectionId,
-      this._state
+      this._state,
     );
     this._navigationSectionController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -172,7 +172,7 @@ export class SbbNavigationSection implements ComponentInterface {
     this._element.addEventListener(
       'keydown',
       (event) => this._handleNavigationSectionFocus(event),
-      { signal: this._navigationSectionController.signal }
+      { signal: this._navigationSectionController.signal },
     );
   }
 
@@ -220,7 +220,7 @@ export class SbbNavigationSection implements ComponentInterface {
       () => {
         this._renderBackButton = this._isZeroToLargeBreakpoint();
       },
-      { signal: this._windowEventsController.signal }
+      { signal: this._windowEventsController.signal },
     );
   }
 
@@ -282,7 +282,7 @@ export class SbbNavigationSection implements ComponentInterface {
       this._navigationSectionContainerElement.addEventListener(
         'blur',
         () => this._navigationSectionContainerElement.removeAttribute('tabindex'),
-        { once: true }
+        { once: true },
       );
     }
   }
@@ -294,15 +294,15 @@ export class SbbNavigationSection implements ComponentInterface {
 
     // Dynamically get first and last focusable element, as this might have changed since opening overlay
     const navigationChildren: HTMLElement[] = Array.from(
-      this._element.closest('sbb-navigation').shadowRoot.children
+      this._element.closest('sbb-navigation').shadowRoot.children,
     ) as HTMLElement[];
     const navigationFocusableElements = getFocusableElements(
       navigationChildren,
-      (el) => el.nodeName === 'SBB-NAVIGATION-SECTION'
+      (el) => el.nodeName === 'SBB-NAVIGATION-SECTION',
     );
 
     const sectionChildren: HTMLElement[] = Array.from(
-      this._element.shadowRoot.children
+      this._element.shadowRoot.children,
     ) as HTMLElement[];
     const sectionFocusableElements = getFocusableElements(sectionChildren);
 

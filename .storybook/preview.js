@@ -6,7 +6,7 @@ defineCustomElements();
 
 const getBreakpointTokens = () =>
   TokensRaw.tokens.filter(
-    (token) => token.path.includes('breakpoint') && token.attributes.item === 'min'
+    (token) => token.path.includes('breakpoint') && token.attributes.item === 'min',
   );
 
 const ensureBounds = (breakpoint) => {

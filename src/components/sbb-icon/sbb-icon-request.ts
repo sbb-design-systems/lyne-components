@@ -14,14 +14,14 @@ const requests = new Map<string, Promise<any>>();
 export const getSvgContent = (
   namespace: string,
   name: string,
-  sanitize: boolean
+  sanitize: boolean,
 ): Promise<string> => {
   const config: SbbIconConfig = readConfig().icon ?? {};
 
   const resolvedNamespace = config.namespaces?.get(namespace) ?? iconNamespaces.get(namespace);
   if (resolvedNamespace === undefined) {
     throw Error(
-      `Unable to find the namespace "${namespace}". Please register your custom namespace.`
+      `Unable to find the namespace "${namespace}". Please register your custom namespace.`,
     );
   }
   const url = `${resolvedNamespace}${name}.svg`;

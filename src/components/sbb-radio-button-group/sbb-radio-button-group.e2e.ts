@@ -53,7 +53,7 @@ describe('sbb-radio-button-group', () => {
     it('does not select disabled radio on click', async () => {
       const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
       const disabledRadio = await page.find(
-        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3'
+        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3',
       );
 
       await disabledRadio.click();
@@ -67,7 +67,7 @@ describe('sbb-radio-button-group', () => {
       const firstRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-1');
       const secondRadio = await page.find('sbb-radio-button-group > sbb-radio-button#sbb-radio-2');
       const disabledRadio = await page.find(
-        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3'
+        'sbb-radio-button-group > sbb-radio-button#sbb-radio-3',
       );
 
       await element.setProperty('disabled', true);

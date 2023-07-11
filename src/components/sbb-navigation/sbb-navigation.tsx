@@ -131,7 +131,7 @@ export class SbbNavigation implements ComponentInterface {
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnDialog: boolean;
   private _navigationObserver = new MutationObserver((mutationsList: MutationRecord[]) =>
-    this._onNavigationSectionChange(mutationsList)
+    this._onNavigationSectionChange(mutationsList),
   );
   private _navigationId = `sbb-navigation-${++nextId}`;
 
@@ -139,7 +139,7 @@ export class SbbNavigation implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l))
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
   /**
@@ -179,7 +179,7 @@ export class SbbNavigation implements ComponentInterface {
   @Watch('trigger')
   public removeTriggerClickListener(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement
+    oldValue: string | HTMLElement,
   ): void {
     if (newValue !== oldValue) {
       this._navigationController?.abort();
@@ -212,7 +212,7 @@ export class SbbNavigation implements ComponentInterface {
       this._triggerElement,
       'menu',
       this._element.id || this._navigationId,
-      this._state
+      this._state,
     );
     this._navigationController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -280,7 +280,7 @@ export class SbbNavigation implements ComponentInterface {
   // Set focus on the first focusable element.
   private _setNavigationFocus(): void {
     const firstFocusable = this._element.shadowRoot.querySelector(
-      IS_FOCUSABLE_QUERY
+      IS_FOCUSABLE_QUERY,
     ) as HTMLElement;
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
@@ -294,7 +294,7 @@ export class SbbNavigation implements ComponentInterface {
       this._navigationContainerElement.addEventListener(
         'blur',
         () => this._navigationContainerElement.removeAttribute('tabindex'),
-        { once: true }
+        { once: true },
       );
     }
   }
@@ -307,7 +307,7 @@ export class SbbNavigation implements ComponentInterface {
         this._element
           .querySelector('sbb-navigation-section[data-state="opened"]')
           ?.shadowRoot.querySelector('dialog') as HTMLElement,
-        event
+        event,
       );
   };
 
@@ -323,7 +323,7 @@ export class SbbNavigation implements ComponentInterface {
     for (const mutation of mutationsList) {
       if ((mutation.target as HTMLElement).nodeName === 'SBB-NAVIGATION-SECTION') {
         this._activeNavigationSection = this._element.querySelector(
-          'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]'
+          'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
         if (!isBreakpoint('zero', 'large')) {
           (

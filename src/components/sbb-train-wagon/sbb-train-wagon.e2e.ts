@@ -30,15 +30,15 @@ describe('sbb-train-wagon', () => {
       `<sbb-train-wagon sector="A">
               <sbb-icon name="sa-rs"></sbb-icon>
               <sbb-icon name="sa-rs"></sbb-icon>
-            </sbb-train-wagon>`
+            </sbb-train-wagon>`,
     );
     await page.waitForChanges();
     element = await page.find('sbb-train-wagon');
 
     expect(
       (await page.findAll('sbb-icon')).every((icon) =>
-        icon.getAttribute('slot').startsWith('sbb-train-wagon-icon-')
-      )
+        icon.getAttribute('slot').startsWith('sbb-train-wagon-icon-'),
+      ),
     ).toBe(true);
 
     // Remove one icon
@@ -46,7 +46,7 @@ describe('sbb-train-wagon', () => {
     await page.waitForChanges();
 
     expect(
-      (await page.findAll('sbb-icon')).every((icon) => icon.getAttribute('slot') === null)
+      (await page.findAll('sbb-icon')).every((icon) => icon.getAttribute('slot') === null),
     ).toBe(true);
   });
 });

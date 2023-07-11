@@ -94,7 +94,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   }
 
   public addElement(
-    el: Element | Element[] | Node | Node[] | NodeList | undefined | null
+    el: Element | Element[] | Node | Node[] | NodeList | undefined | null,
   ): InterfaceAnimationInternal {
     if (el !== null && el !== undefined) {
       if ((el as Node).nodeType === 1) {
@@ -110,7 +110,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   }
 
   public addAnimation(
-    animationToAdd: InterfaceAnimationInternal | InterfaceAnimationInternal[]
+    animationToAdd: InterfaceAnimationInternal | InterfaceAnimationInternal[],
   ): InterfaceAnimationInternal {
     if (animationToAdd !== null && animationToAdd !== undefined) {
       if (Array.isArray(animationToAdd)) {
@@ -273,7 +273,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   public update(
     deep = false,
     toggleAnimationName = true,
-    step?: number
+    step?: number,
   ): InterfaceAnimationInternal {
     if (deep) {
       this.childAnimations.forEach((animation) => {
@@ -322,7 +322,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
 
   public onFinish(
     callback: AnimationLifecycle,
-    opts?: InterfaceAnimationCallbackOptions
+    opts?: InterfaceAnimationCallbackOptions,
   ): InterfaceAnimationInternal {
     const callbacks =
       opts && opts.oneTimeCallback ? this._onFinishOneTimeCallbacks : this._onFinishCallbacks;
@@ -363,7 +363,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   public progressEnd(
     playTo: 0 | 1 | undefined,
     step: number,
-    dur?: number
+    dur?: number,
   ): InterfaceAnimationInternal {
     this.shouldForceLinearEasing = false;
 
@@ -390,7 +390,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
         },
         {
           oneTimeCallback: true,
-        }
+        },
       );
 
       if (!this.parentAnimation) {
@@ -557,7 +557,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this._applyStylesBeforeAfterAnimations(
       this._beforeAddClasses,
       this._beforeRemoveClasses,
-      this._beforeStylesValue
+      this._beforeStylesValue,
     );
   }
 
@@ -602,13 +602,13 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
     this._applyStylesBeforeAfterAnimations(
       this._afterAddClasses,
       this._afterRemoveClasses,
-      this._afterStylesValue
+      this._afterStylesValue,
     );
 
     this._onFinishCallbacks.forEach((onFinishCallback) => onFinishCallback.c(currentStep, this));
 
     this._onFinishOneTimeCallbacks.forEach((onFinishCallback) =>
-      onFinishCallback.c(currentStep, this)
+      onFinishCallback.c(currentStep, this),
     );
 
     this._onFinishOneTimeCallbacks.length = 0;
@@ -623,7 +623,7 @@ export abstract class AbstractAnimation implements InterfaceAnimationInternal {
   private _applyStylesBeforeAfterAnimations(
     addClasses: string[],
     removeClasses: string[],
-    styles: { [p: string]: any }
+    styles: { [p: string]: any },
   ): void {
     for (const el of this.elements) {
       const elementClassList = el.classList;

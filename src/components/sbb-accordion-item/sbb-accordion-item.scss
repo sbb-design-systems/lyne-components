@@ -42,8 +42,8 @@
   border-radius: var(--border-radius-start-start) var(--border-radius-start-end)
     var(--border-radius-end-end) var(--border-radius-end-start);
   border-block-end: var(--border-width) solid var(--border-color);
-  transition: background-color var(--header-transition-duration)
-      var(--header-transition-timing-function),
+  transition:
+    background-color var(--header-transition-duration) var(--header-transition-timing-function),
     color var(--header-transition-duration) var(--header-transition-timing-function);
 
   // TODO: add focus styles

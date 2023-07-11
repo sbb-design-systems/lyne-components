@@ -48,7 +48,7 @@ export class SbbTabGroup implements ComponentInterface {
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
   private _tabContentResizeObserver = new ResizeObserver(
-    this._onTabContentElementResize.bind(this)
+    this._onTabContentElementResize.bind(this),
   );
 
   @Element() private _element: HTMLElement;
@@ -96,7 +96,7 @@ export class SbbTabGroup implements ComponentInterface {
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
     return Array.from(this._element.children).filter((child) =>
-      /^SBB-TAB-TITLE$/u.test(child.tagName)
+      /^SBB-TAB-TITLE$/u.test(child.tagName),
     ) as InterfaceSbbTabGroupTab[];
   }
 
@@ -260,7 +260,7 @@ export class SbbTabGroup implements ComponentInterface {
       tab.insertAdjacentHTML('afterend', '<div>No content.</div>');
       tab.relatedContent = tab.nextElementSibling as HTMLElement;
       console.warn(
-        `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`
+        `Missing content: you should provide a related content for the tab ${tab.outerHTML}.`,
       );
     }
     tab.tabIndex = -1;

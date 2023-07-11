@@ -240,7 +240,7 @@ export interface InterfaceAnimation {
   // eslint-disable-next-line no-use-before-define
   onFinish(
     callback: AnimationLifecycle,
-    opts?: InterfaceAnimationCallbackOptions
+    opts?: InterfaceAnimationCallbackOptions,
   ): InterfaceAnimation;
 }
 

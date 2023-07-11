@@ -24,7 +24,7 @@ describe('sbb-map-container', () => {
         document
           .querySelector('sbb-map-container')
           .shadowRoot.querySelector('sbb-button')
-          .hasAttribute('inert')
+          .hasAttribute('inert'),
       );
     }
 

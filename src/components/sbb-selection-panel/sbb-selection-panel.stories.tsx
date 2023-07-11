@@ -374,7 +374,7 @@ const WithCheckboxesErrorMessageTemplate = ({
       id="sbb-checkbox-group"
       onChange={() => {
         const hasChecked = Array.from(
-          document.getElementById('sbb-checkbox-group').querySelectorAll('sbb-checkbox')
+          document.getElementById('sbb-checkbox-group').querySelectorAll('sbb-checkbox'),
         ).some((el) => el.checked);
         if (hasChecked) {
           sbbFormError.remove();

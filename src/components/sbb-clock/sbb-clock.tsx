@@ -95,7 +95,7 @@ export class SbbClock implements ComponentInterface {
     document.removeEventListener(
       'visibilitychange',
       () => this._handlePageVisibilityChange(),
-      false
+      false,
     );
     this._clockHandHours?.removeEventListener('animationend', this._moveHoursHandFn);
     this._clockHandSeconds?.removeEventListener('animationend', this._moveMinutesHandFn);
@@ -155,19 +155,19 @@ export class SbbClock implements ComponentInterface {
 
     this._element.style.setProperty(
       '--sbb-clock-hours-animation-start-angle',
-      `${Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2)}deg`
+      `${Math.ceil(this._hours * HOURS_ANGLE + this._minutes / 2)}deg`,
     );
     this._element.style.setProperty(
       '--sbb-clock-hours-animation-duration',
-      `${hoursAnimationDuration}s`
+      `${hoursAnimationDuration}s`,
     );
     this._element.style.setProperty(
       '--sbb-clock-seconds-animation-start-angle',
-      `${Math.ceil(this._seconds * SBB_SECONDS_ANGLE)}deg`
+      `${Math.ceil(this._seconds * SBB_SECONDS_ANGLE)}deg`,
     );
     this._element.style.setProperty(
       '--sbb-clock-seconds-animation-duration',
-      `${remainingSeconds}s`
+      `${remainingSeconds}s`,
     );
 
     this._setMinutesHand();
@@ -183,7 +183,7 @@ export class SbbClock implements ComponentInterface {
   private _setMinutesHand(): void {
     this._clockHandMinutes?.style.setProperty(
       'transform',
-      `rotateZ(${Math.ceil(this._minutes * MINUTES_ANGLE)}deg)`
+      `rotateZ(${Math.ceil(this._minutes * MINUTES_ANGLE)}deg)`,
     );
   }
 
@@ -210,7 +210,7 @@ export class SbbClock implements ComponentInterface {
 
     this._handMovement = setInterval(
       () => this._addMinutesAndSetHands(),
-      TOTAL_SECONDS_ON_CLOCK_FACE * 1000
+      TOTAL_SECONDS_ON_CLOCK_FACE * 1000,
     );
   }
 
@@ -245,12 +245,12 @@ export class SbbClock implements ComponentInterface {
     this._clockHandHours?.addEventListener(
       'animationend',
       this._moveHoursHandFn,
-      ADD_EVENT_LISTENER_OPTIONS
+      ADD_EVENT_LISTENER_OPTIONS,
     );
     this._clockHandSeconds?.addEventListener(
       'animationend',
       this._moveMinutesHandFn,
-      ADD_EVENT_LISTENER_OPTIONS
+      ADD_EVENT_LISTENER_OPTIONS,
     );
 
     setTimeout(() => this._setHandsStartingPosition(), INITIAL_TIMEOUT_DURATION);

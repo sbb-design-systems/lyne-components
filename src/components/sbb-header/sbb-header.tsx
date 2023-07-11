@@ -41,7 +41,7 @@ export class SbbHeader implements ComponentInterface {
   @Watch('scrollOrigin')
   public watchScrollOrigin(
     newValue: string | HTMLElement | Document,
-    oldValue: string | HTMLElement | Document
+    oldValue: string | HTMLElement | Document,
   ): void {
     if (newValue !== oldValue) {
       this._scrollEventsController?.abort();
@@ -161,7 +161,7 @@ export class SbbHeader implements ComponentInterface {
 
   private _closeOpenOverlays(): void {
     const overlayTriggers: HTMLElement[] = Array.from(
-      this._element.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>
+      this._element.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
     for (const overlayTrigger of overlayTriggers) {
       const overlayId: string = overlayTrigger.getAttribute('aria-controls');

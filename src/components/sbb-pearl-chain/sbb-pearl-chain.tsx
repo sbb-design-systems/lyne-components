@@ -40,9 +40,9 @@ export class SbbPearlChain {
         sum +
         differenceInMinutes(
           removeTimezoneFromISOTimeString(leg.arrival?.time),
-          removeTimezoneFromISOTimeString(leg.departure?.time)
+          removeTimezoneFromISOTimeString(leg.departure?.time),
         ),
-      0
+      0,
     );
   }
 
@@ -53,7 +53,7 @@ export class SbbPearlChain {
   private _getRelativeDuration(legs: PtRideLeg[], leg: PtRideLeg): number {
     const duration = differenceInMinutes(
       removeTimezoneFromISOTimeString(leg.arrival?.time),
-      removeTimezoneFromISOTimeString(leg.departure?.time)
+      removeTimezoneFromISOTimeString(leg.departure?.time),
     );
     const allDurations = this._getAllDuration(legs);
 

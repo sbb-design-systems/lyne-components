@@ -175,7 +175,7 @@ export class SbbDialog implements ComponentInterface {
   private _handlerRepository = new HandlerRepository(
     this._element,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /**
@@ -317,7 +317,7 @@ export class SbbDialog implements ComponentInterface {
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
     const firstFocusable = this._element.shadowRoot.querySelector(
-      IS_FOCUSABLE_QUERY
+      IS_FOCUSABLE_QUERY,
     ) as HTMLElement;
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
@@ -331,7 +331,7 @@ export class SbbDialog implements ComponentInterface {
       this._dialogWrapperElement.addEventListener(
         'blur',
         () => this._dialogWrapperElement.removeAttribute('tabindex'),
-        { once: true }
+        { once: true },
       );
     }
   }
@@ -340,7 +340,7 @@ export class SbbDialog implements ComponentInterface {
     toggleDatasetEntry(
       this._element,
       'overflows',
-      this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight
+      this._dialogContentElement.scrollHeight > this._dialogContentElement.clientHeight,
     );
   }
 

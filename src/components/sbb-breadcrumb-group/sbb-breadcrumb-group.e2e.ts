@@ -78,10 +78,10 @@ describe('sbb-breadcrumb-group', () => {
 
     it('keyboard navigation with ellipsis', async () => {
       const ellipsisElement = await page.find(
-        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis'
+        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis',
       );
       const ellipsisBreadcrumb = await page.find(
-        'sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis'
+        'sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis',
       );
       const first = await page.find('sbb-breadcrumb-group > sbb-breadcrumb#breadcrumb-0');
       const last = await page.find('sbb-breadcrumb-group > sbb-breadcrumb#breadcrumb-6');
@@ -96,8 +96,8 @@ describe('sbb-breadcrumb-group', () => {
       expect(await page.evaluate(() => document.activeElement.id)).toEqual(element.id);
       expect(
         await page.evaluate(
-          () => document.getElementById('sbb-breadcrumb-group').shadowRoot.activeElement.id
-        )
+          () => document.getElementById('sbb-breadcrumb-group').shadowRoot.activeElement.id,
+        ),
       ).toEqual(ellipsisBreadcrumb.id);
 
       await page.keyboard.down('ArrowRight');
@@ -109,7 +109,7 @@ describe('sbb-breadcrumb-group', () => {
 
     it('expand breadcrumbs with ellipsis', async () => {
       let ellipsisElement = await page.find(
-        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis'
+        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis',
       );
       let ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
       expect(ellipsisElement).not.toBeNull();
@@ -127,7 +127,7 @@ describe('sbb-breadcrumb-group', () => {
 
     it('should remove expand button when too less breadcrumns available', async () => {
       let ellipsisElement = await page.find(
-        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis'
+        'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis',
       );
       let ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
       expect(ellipsisElement).not.toBeNull();
@@ -137,7 +137,7 @@ describe('sbb-breadcrumb-group', () => {
       await page.evaluate(() =>
         Array.from(document.querySelectorAll('sbb-breadcrumb'))
           .slice(2)
-          .forEach((el) => el.remove())
+          .forEach((el) => el.remove()),
       );
 
       ellipsisElement = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis');

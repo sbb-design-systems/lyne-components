@@ -58,7 +58,7 @@ describe('sbb-train', () => {
     });
 
     expect(
-      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name')
+      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name'),
     ).toContain('-left-');
   });
 
@@ -69,7 +69,7 @@ describe('sbb-train', () => {
     });
 
     expect(
-      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name')
+      root.shadowRoot.querySelector('.sbb-train__direction-arrow').getAttribute('name'),
     ).toContain('-right-');
   });
 
@@ -81,7 +81,7 @@ describe('sbb-train', () => {
       });
 
       expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
-        'Train.'
+        'Train.',
       );
     });
 
@@ -92,7 +92,7 @@ describe('sbb-train', () => {
       });
 
       expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
-        'Train.'
+        'Train.',
       );
     });
 
@@ -103,7 +103,7 @@ describe('sbb-train', () => {
       });
 
       expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
-        'Train, Direction of Travel Bern.'
+        'Train, Direction of Travel Bern.',
       );
     });
 
@@ -114,7 +114,7 @@ describe('sbb-train', () => {
       });
 
       expect(root.shadowRoot.querySelector('.sbb-train__direction-label-sr').textContent).toEqual(
-        'Train, Direction of Travel Bern, Additional label.'
+        'Train, Direction of Travel Bern, Additional label.',
       );
     });
   });

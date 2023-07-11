@@ -38,13 +38,13 @@ export class SbbSkiplinkList implements ComponentInterface {
 
   private _handlerRepository = new HandlerRepository(
     this._element,
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   /** Create an array with only the sbb-link children. */
   private _readLinks(): void {
     const links = Array.from(this._element.children).filter(
-      (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK'
+      (e): e is HTMLSbbLinkElement => e.tagName === 'SBB-LINK',
     );
     // Update links list
     if (

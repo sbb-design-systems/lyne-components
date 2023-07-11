@@ -106,7 +106,7 @@ export class AnimationCss extends AbstractAnimation {
       ];
 
       elementsArray.forEach((element: HTMLElement) =>
-        removeStyleProperties(element, propertiesToRemove)
+        removeStyleProperties(element, propertiesToRemove),
       );
     });
   }
@@ -126,7 +126,7 @@ export class AnimationCss extends AbstractAnimation {
           'animation-delay',
           step === undefined || step === null
             ? `${this.getDelay()}ms`
-            : `-${step * this.getDuration()}ms`
+            : `-${step * this.getDuration()}ms`,
         );
         setStyleProperty(element, 'animation-fill-mode', this.getFill() || null);
         setStyleProperty(element, 'animation-direction', this.getDirection() || null);
@@ -216,7 +216,7 @@ export class AnimationCss extends AbstractAnimation {
           this._onAnimationEndFallback,
           animationDelay +
             animationDuration * animationIterations +
-            AbstractAnimation._ANIMATION_END_FALLBACK_PADDING_MS
+            AbstractAnimation._ANIMATION_END_FALLBACK_PADDING_MS,
         );
       }
 
@@ -255,7 +255,7 @@ export class AnimationCss extends AbstractAnimation {
     ];
 
     this.elements.forEach((element: HTMLElement) =>
-      removeStyleProperties(element, propertiesToRemove)
+      removeStyleProperties(element, propertiesToRemove),
     );
   }
 }

@@ -46,14 +46,16 @@
   transform: translateX(-50%) translateY(calc(100% + var(--sbb-spacing-fixed-5x)));
 
   // Hide transition, visibility should be delayed
-  transition: opacity var(--sbb-map-container-animation-duration) var(--sbb-animation-easing),
+  transition:
+    opacity var(--sbb-map-container-animation-duration) var(--sbb-animation-easing),
     visibility var(--sbb-map-container-animation-duration) var(--sbb-animation-easing)
       var(--sbb-map-container-animation-duration),
     transform var(--sbb-map-container-animation-duration) var(--sbb-animation-easing);
 
   :host([data-scroll-up-button-visible]) & {
     // Show transition
-    transition: visibility var(--sbb-map-container-animation-duration) var(--sbb-animation-easing),
+    transition:
+      visibility var(--sbb-map-container-animation-duration) var(--sbb-animation-easing),
       opacity var(--sbb-map-container-animation-duration) var(--sbb-animation-easing),
       transform var(--sbb-map-container-animation-duration) ease-out;
     visibility: visible;

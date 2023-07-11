@@ -39,7 +39,7 @@ describe('getDatePicker', () => {
     });
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('#picker');
     const elementPrevious: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
-      'sbb-datepicker-previous-day'
+      'sbb-datepicker-previous-day',
     );
     expect(getDatePicker(elementPrevious, 'picker')).toEqual(picker);
   });
@@ -82,7 +82,7 @@ describe('getAvailableDate', () => {
       new Date(2024, 0, 1, 0, 0, 0, 0),
       1,
       (d: Date) => d.getDay() === 1,
-      new NativeDateAdapter()
+      new NativeDateAdapter(),
     );
     expect(availableDate.getTime()).toEqual(new Date(2024, 0, 8, 0, 0, 0, 0).getTime());
   });
@@ -92,7 +92,7 @@ describe('getAvailableDate', () => {
       new Date(2024, 0, 1, 0, 0, 0, 0),
       1,
       () => true,
-      new NativeDateAdapter()
+      new NativeDateAdapter(),
     );
     expect(availableDate.getTime()).toEqual(new Date(2024, 0, 2, 0, 0, 0, 0).getTime());
   });
@@ -104,7 +104,7 @@ describe('findPreviousAvailableDate', () => {
       new Date(2023, 1, 26, 0, 0, 0, 0),
       null,
       new NativeDateAdapter(),
-      null
+      null,
     );
     expect(availableDate.getTime()).toEqual(new Date(2023, 1, 25, 0, 0, 0, 0).getTime());
   });
@@ -115,7 +115,7 @@ describe('findPreviousAvailableDate', () => {
       date,
       null,
       new NativeDateAdapter(),
-      date.valueOf() / 1000
+      date.valueOf() / 1000,
     );
     expect(availableDate.getTime()).toEqual(date.getTime());
   });
@@ -126,7 +126,7 @@ describe('findPreviousAvailableDate', () => {
       new Date(2023, 1, 28, 0, 0, 0, 0),
       (d: Date) => d.getDate() !== 27,
       new NativeDateAdapter(),
-      minDate.valueOf() / 1000
+      minDate.valueOf() / 1000,
     );
     expect(availableDate.getTime()).toEqual(minDate.getTime());
   });
@@ -138,7 +138,7 @@ describe('findNextAvailableDate', () => {
       new Date(2023, 1, 26, 0, 0, 0, 0),
       null,
       new NativeDateAdapter(),
-      null
+      null,
     );
     expect(availableDate.getTime()).toEqual(new Date(2023, 1, 27, 0, 0, 0, 0).getTime());
   });
@@ -149,7 +149,7 @@ describe('findNextAvailableDate', () => {
       date,
       null,
       new NativeDateAdapter(),
-      date.valueOf() / 1000
+      date.valueOf() / 1000,
     );
     expect(availableDate.getTime()).toEqual(date.getTime());
   });
@@ -160,7 +160,7 @@ describe('findNextAvailableDate', () => {
       new Date(2023, 1, 26, 0, 0, 0, 0),
       (d: Date) => d.getDate() !== 27,
       new NativeDateAdapter(),
-      maxDate.valueOf() / 1000
+      maxDate.valueOf() / 1000,
     );
     expect(availableDate.getTime()).toEqual(maxDate.getTime());
   });
@@ -170,13 +170,23 @@ describe('isDateAvailable', () => {
   describe('invalid', () => {
     it('get invalid date with min', async () => {
       expect(
-        isDateAvailable(new Date('2023-02-20'), null, new Date('2023-02-26').valueOf() / 1000, null)
+        isDateAvailable(
+          new Date('2023-02-20'),
+          null,
+          new Date('2023-02-26').valueOf() / 1000,
+          null,
+        ),
       ).toBeFalsy();
     });
 
     it('get invalid date with max', async () => {
       expect(
-        isDateAvailable(new Date('2023-02-28'), null, null, new Date('2023-02-26').valueOf() / 1000)
+        isDateAvailable(
+          new Date('2023-02-28'),
+          null,
+          null,
+          new Date('2023-02-26').valueOf() / 1000,
+        ),
       ).toBeFalsy();
     });
 
@@ -186,8 +196,8 @@ describe('isDateAvailable', () => {
           new Date('2023-02-28'),
           (d: Date) => d.getTime() > new Date('2024-12-31').valueOf(),
           null,
-          null
-        )
+          null,
+        ),
       ).toBeFalsy();
     });
   });
@@ -199,13 +209,23 @@ describe('isDateAvailable', () => {
 
     it('get valid date with min', async () => {
       expect(
-        isDateAvailable(new Date('2023-02-20'), null, new Date('2023-02-01').valueOf() / 1000, null)
+        isDateAvailable(
+          new Date('2023-02-20'),
+          null,
+          new Date('2023-02-01').valueOf() / 1000,
+          null,
+        ),
       ).toBeTruthy();
     });
 
     it('get valid date with max', async () => {
       expect(
-        isDateAvailable(new Date('2023-02-28'), null, null, new Date('2023-03-31').valueOf() / 1000)
+        isDateAvailable(
+          new Date('2023-02-28'),
+          null,
+          null,
+          new Date('2023-03-31').valueOf() / 1000,
+        ),
       ).toBeTruthy();
     });
 
@@ -215,8 +235,8 @@ describe('isDateAvailable', () => {
           new Date('2023-02-28'),
           (d: Date) => d.getTime() > new Date('2022-01-01').valueOf(),
           null,
-          null
-        )
+          null,
+        ),
       ).toBeTruthy();
     });
   });

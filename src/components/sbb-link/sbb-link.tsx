@@ -97,7 +97,7 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStat
     this._element,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
-    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots)))
+    namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   public connectedCallback(): void {
