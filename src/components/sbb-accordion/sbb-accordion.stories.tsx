@@ -132,7 +132,7 @@ const createExpansionPanelTemplate = (
   disabled,
   headerText,
   iconName,
-  contentText
+  contentText,
 ): JSX.Element[] => {
   return new Array(numberOfPanels).fill(null).map((_, index) => (
     <sbb-expansion-panel
@@ -172,7 +172,7 @@ const Template = ({
       disabled,
       headerText,
       iconName,
-      contentText
+      contentText,
     )}
   </sbb-accordion>
 );

@@ -23,7 +23,7 @@ describe('sbb-expansion-panel-header', () => {
   it('does not emits event on click if disabled', async () => {
     page = await newE2EPage();
     await page.setContent(
-      `<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`
+      `<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
     );
     element = await page.find('sbb-expansion-panel-header');
     const spy = await page.spyOnEvent('toggle-expanded');

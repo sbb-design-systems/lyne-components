@@ -92,7 +92,7 @@ export class SbbExpansionPanel implements ComponentInterface {
       .setAttribute('expanded', String(this.expanded));
     this._element.style.setProperty(
       '--sbb-expansion-panel-content-height',
-      `${this._contentElement.scrollHeight}px`
+      `${this._contentElement.scrollHeight}px`,
     );
 
     if (this.expanded) {
@@ -112,7 +112,7 @@ export class SbbExpansionPanel implements ComponentInterface {
     const header = (event.target as HTMLSlotElement)
       .assignedElements()
       .find(
-        (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER'
+        (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
       );
     if (!header) {
       return;
@@ -130,12 +130,12 @@ export class SbbExpansionPanel implements ComponentInterface {
     if (content) {
       header.setAttribute(
         'aria-controls',
-        content.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`
+        content.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`,
       );
       toggleDatasetEntry(
         content,
         'iconSpace',
-        header.hasAttribute('icon-name') && header.getAttribute('icon-name') !== ''
+        header.hasAttribute('icon-name') && header.getAttribute('icon-name') !== '',
       );
     }
   }
@@ -144,7 +144,8 @@ export class SbbExpansionPanel implements ComponentInterface {
     const content = (event.target as HTMLSlotElement)
       .assignedElements()
       .find(
-        (e): e is HTMLSbbExpansionPanelContentElement => e.tagName === 'SBB-EXPANSION-PANEL-CONTENT'
+        (e): e is HTMLSbbExpansionPanelContentElement =>
+          e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
       );
     if (!content) {
       return;
@@ -157,7 +158,7 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
     content.setAttribute(
       'aria-labelledby',
-      header.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`
+      header.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`,
     );
     content.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
       signal: this._transitionEventController.signal,
