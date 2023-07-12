@@ -42,10 +42,10 @@ Borderless disabled panel with level-4 heading:
 ## Accessibility
 
 When the `sbb-expansion-panel-header` and the `sbb-expansion-panel-content` are slotted into the component,
-the content's `id` is set as `aria-controls` attribute of the button inside the header, which also receives an `id`, 
-while this button's `id` is set as `aria-labelledby` attribute on the content.
-The content also receives an `id`, if it's not already set, and it has per default the `role="region"`.
-When expanded, the `sbb-expansion-panel-header` also receives the `aria-expanded` attribute.
+they both receive an `id`, if not set; then, the content's `id` is set as `aria-controls` attribute of the header,
+and the header's `id` is set as `aria-labelledby` attribute on the content.
+The `expanded` attribute is used to correctly set the `aria-expanded` attribute on the header 
+and the `aria-hidden` attribute on the content.
 
 <!-- Auto Generated Below -->
 
@@ -59,7 +59,7 @@ When expanded, the `sbb-expansion-panel-header` also receives the `aria-expanded
 | `disableAnimation` | `disable-animation` | Whether the animations should be disabled.                             | `boolean`                                | `false`     |
 | `disabled`         | `disabled`          | Whether the panel is disabled, so its expanded state can't be changed. | `boolean`                                | `false`     |
 | `expanded`         | `expanded`          | Whether the panel is expanded.                                         | `boolean`                                | `false`     |
-| `level`            | `level`             | Title level; if unset, a `div` will be rendered.                       | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
+| `level`            | `level`             | Heading level; if unset, a `div` will be rendered.                     | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
 
 
 ## Events

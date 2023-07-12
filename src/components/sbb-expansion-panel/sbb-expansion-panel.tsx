@@ -25,7 +25,7 @@ let nextId = 0;
   tag: 'sbb-expansion-panel',
 })
 export class SbbExpansionPanel implements ComponentInterface {
-  /** Title level; if unset, a `div` will be rendered. */
+  /** Heading level; if unset, a `div` will be rendered. */
   @Prop() public level?: InterfaceTitleAttributes['level'];
 
   /** The background color of the panel. */
@@ -150,12 +150,13 @@ export class SbbExpansionPanel implements ComponentInterface {
     if (!content) {
       return;
     }
-    const header = this._element.querySelector('sbb-expansion-panel-header');
 
     content.setAttribute('expanded', String(this.expanded));
     if (!content.getAttribute('id')) {
       content.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
     }
+
+    const header = this._element.querySelector('sbb-expansion-panel-header');
     content.setAttribute(
       'aria-labelledby',
       header.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`,

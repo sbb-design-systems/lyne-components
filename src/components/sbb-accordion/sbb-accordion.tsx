@@ -10,7 +10,7 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
   tag: 'sbb-accordion',
 })
 export class SbbAccordion implements ComponentInterface {
-  /** The level for the sbb-expansion-panel-header. */
+  /** The level for the sbb-expansion-panel-headers within the component. */
   @Prop() public level?: InterfaceTitleAttributes['level'];
 
   /** Whether more than one sbb-expansion-panel can be open at the same time. */

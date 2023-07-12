@@ -14,6 +14,9 @@ const multi: InputType = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Accordion',
+  },
 };
 
 const level: InputType = {
@@ -21,6 +24,9 @@ const level: InputType = {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6, null],
+  table: {
+    category: 'Accordion',
+  },
 };
 
 const color: InputType = {
@@ -104,7 +110,7 @@ const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
   level: level.options[2],
-  color: 'white',
+  color: color.options[0],
   expanded: false,
   borderless: false,
   disabled: false,

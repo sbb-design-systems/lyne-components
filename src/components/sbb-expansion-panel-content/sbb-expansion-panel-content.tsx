@@ -9,7 +9,10 @@ import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core
   tag: 'sbb-expansion-panel-content',
 })
 export class SbbExpansionPanelContent implements ComponentInterface {
-  /** Sets the `aria-hidden` attribute on panel when it's collapsed. */
+  /**
+   * @internal
+   * Sets the `aria-hidden` attribute on panel when it's collapsed.
+   */
   @Prop() public expanded: boolean;
 
   public render(): JSX.Element {
