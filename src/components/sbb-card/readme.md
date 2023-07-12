@@ -1,15 +1,40 @@
 The `sbb-card` component is a generic content container; its task is to contain content related to a single subject. 
 There are various sizes (affecting paddings) and colors available.
 
-The `sbb-card-badge` component can be used via slot to display a badge in the upper right corner.
+```html
+<sbb-card size="xl" color="milk">
+  Card content
+</sbb-card>
+```
+
+## Card With Badge
+
+The `sbb-card-badge` component can be used to display a badge in the upper right corner.
 The badge is hidden with card sizes `xs` or `s`.
 
-## Action
+```html
+<sbb-card size="m" color="white">
+  <sbb-card-badge>
+    <span>%</span>
+    <span>from CHF</span>
+    <span>19.99</span>
+  </sbb-card-badge>
+  Card content
+</sbb-card>
+```
+
+## Card With Action
 
 To add an action to a card, add a `<sbb-card-action>` to the main slot. With the `<sbb-card-action>` 
 all the card area becomes clickable. 
-Consult [API docs of `sbb-card-action`](/docs/components-sbb-card-sbb-card-action--docs) for detailed information.
+For API details see the [`sbb-card-action` docs](/docs/components-sbb-card-sbb-card-action--docs).
 
+```html
+<sbb-card>
+  <sbb-card-action href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-action>
+  Buy trips
+</sbb-card>
+```
 
 ## Accessibility
 
@@ -27,42 +52,6 @@ In high contrast mode all the content of a link or a button receives a specific 
 However, as the content of the card is not directly inside the button or link, this does not happen 
 when the slotted content has a specific color set.
 To improve coloring it's needed to manually define styles for high contrast mode (setting `LinkText` or `ButtonText`).
-
-
-## Usage
-
-The examples below shows how to use the component with and without the `<sbb-card-badge>` component.
-In the first one, the `sbb-card` will be internally rendered as a button, in the second one as a link. 
-
-Simple card:
-
-```html
-<sbb-card size="xl" color="milk">
-  Card content
-</sbb-card>
-```
-
-Card with badge:
-
-```html
-<sbb-card size="m" color="white">
-  <sbb-card-badge>
-    <span>%</span>
-    <span>from CHF</span>
-    <span>19.99</span>
-  </sbb-card-badge>
-  Card content
-</sbb-card>
-```
-
-Card with action:
-
-```html
-<sbb-card size="xl" color="milk">
-  <sbb-card-action href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-action>
-  Buy trips
-</sbb-card>
-```
 
 <!-- Auto Generated Below -->
 
