@@ -15,7 +15,8 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit libero cursus vel.',
+  contentText:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit libero cursus vel.',
 };
 
 const Template = ({ contentText }): JSX.Element => (

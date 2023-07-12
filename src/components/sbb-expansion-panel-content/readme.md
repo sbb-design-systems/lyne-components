@@ -24,13 +24,6 @@ the slotted content receives a padding on the left side in order to align it wit
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property   | Attribute  | Description                                                    | Type      | Default     |
-| ---------- | ---------- | -------------------------------------------------------------- | --------- | ----------- |
-| `expanded` | `expanded` | Sets the `aria-hidden` attribute on panel when it's collapsed. | `boolean` | `undefined` |
-
-
 ## Slots
 
 | Slot        | Description                                            |
