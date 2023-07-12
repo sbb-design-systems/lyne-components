@@ -46,12 +46,12 @@ in the card content. Interactive content will automatically be detected and made
 In cases where there should be only a visual button or link inside the card content without a different action, the 
 `is-static` attribute should be set (e.g. `<sbb-button is-static></sbb-button>`).
 
-### High Contrast Additions
+### Windows High Contrast Notes
 
-In high contrast mode all the content of a link or a button receives a specific color which overrides every other color. 
+In high contrast mode, all the content of a link or a button receives a specific color which overrides every other color. 
 However, as the content of the card is not directly inside the button or link, this does not happen 
 when the slotted content has a specific color set.
-To improve coloring it's needed to manually define styles for high contrast mode (setting `LinkText` or `ButtonText`).
+To improve coloring, it's needed to manually define styles for windows high contrast mode (setting `LinkText` or `ButtonText`).
 
 <!-- Auto Generated Below -->
 
@@ -86,5 +86,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
