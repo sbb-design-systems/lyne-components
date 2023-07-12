@@ -100,7 +100,7 @@ export class SbbTimetableRow {
   private _renderSkeleton(): JSX.Element {
     return (
       <sbb-card size="l" class="sbb-loading">
-        {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>}
+        {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -229,7 +229,6 @@ export class SbbTimetableRow {
     const noticeAttributes = notices && handleNotices(notices);
 
     const durationObj = durationToTime(duration, this._currentLanguage);
-    // TODO active state and card action
     return (
       <Host role="rowgroup">
         <sbb-card size="l" id={id}>
