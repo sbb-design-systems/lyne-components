@@ -43,7 +43,7 @@ export class SbbAccordion implements ComponentInterface {
 
   private _setChildrenParameters(): void {
     this._expansionPanels.forEach(
-      (panel: HTMLSbbExpansionPanelElement) => (panel.level = this.level)
+      (panel: HTMLSbbExpansionPanelElement) => (panel.level = this.level),
     );
   }
 

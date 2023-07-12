@@ -35,13 +35,13 @@ describe('sbb-accordion', () => {
     const panels = await page.findAll('sbb-expansion-panel');
     expect(panels.length).toEqual(3);
     expect(panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H4'
+      'H4',
     );
     expect(panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H4'
+      'H4',
     );
     expect(panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
-      'H4'
+      'H4',
     );
   });
 
@@ -51,7 +51,7 @@ describe('sbb-accordion', () => {
     const headerTwo: E2EElement = await page.find('#header-2');
     const headerThree: E2EElement = await page.find('#header-3');
     [headerOne, headerTwo, headerThree].forEach((header) =>
-      expect(header).toEqualAttribute('expanded', 'false')
+      expect(header).toEqualAttribute('expanded', 'false'),
     );
 
     await headerTwo.click();
@@ -90,7 +90,7 @@ describe('sbb-accordion', () => {
     const headerTwo: E2EElement = await page.find('#header-2');
     const headerThree: E2EElement = await page.find('#header-3');
     [headerOne, headerTwo, headerThree].forEach((header) =>
-      expect(header).toEqualAttribute('expanded', 'false')
+      expect(header).toEqualAttribute('expanded', 'false'),
     );
 
     await headerTwo.click();
