@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠ BREAKING CHANGES
 
-- **sbb-card, sbb-card-badge:** - `sbb-group` was removed and replaced by `sbb-card`.
+- `sbb-group` was removed and replaced by `sbb-card`.
 
   **How to migrate**:
 
@@ -19,6 +19,84 @@ All notable changes to this project will be documented in this file. See [standa
     - Padding `4x-xxs` -> size `l`
     - Padding `xxs-xxs` -> size `xl`
     - Padding `s-s` -> size `xxl`
+
+- `sbb-card` is not interactive anymore and replaces the `sbb-group` in a static way. To create an action, add `<sbb-card-action>` component as content to `sbb-card`. All the interactive properties of the former `<sbb-card>` were transferred to the new `<sbb-card-action>` (`active`, `download`, `form`, `href`, `name`, `rel`, `target`, `type`, `value`).
+
+  Before, interactive content in the unnamed slot of the `<sbb-card>` was automatically made static as it is prohibited to have an action nested in an action. However, as the content is not nested anymore in the interactive element, nested interactive elements stay interactive. This needs either adding `is-static` to the `<sbb-button>` or `<sbb-link>` or adding a real action to it (other action than the card, but it's not recommended!).
+
+  **Windows High Contrast notes**
+
+  In high contrast mode, all the content of a link or a button receives a specific color which overrides every other color.
+  However, as the content of the card is not directly inside the button or link, this does not happen
+  when the slotted content has a specific color set.
+  To improve coloring, it's needed to manually define styles for high contrast mode (setting `LinkText` or `ButtonText`).
+
+  **How to migrate**:
+
+  1. Create a `<sbb-card-action>` element and add it as content of the `<sbb-card>`.
+  2. Move all action related properties from `<sbb-card>` to `<sbb-card-action>` (`active`, `download`, `form`, `href`, `name`, `rel`, `target`, `type`, `value`).
+  3. **Create a meaningful label which describes the action.** This label is important for search engines and screen readers but is not visible.
+  4. If you had other interactive elements inside the `<sbb-card>`, as e.g. the often seen usage of a `<sbb-button>`, add `is-static` attribute to the element.
+  5. If needed, style content of card for windows high contrast mode with `LinkText` or `ButtonText`.
+
+  before:
+
+  ```
+  <sbb-card href="https://www.sbb.ch" target="_blank">
+    Tickets
+    <sbb-button>Buy a ticket</sbb-button>
+  </sbb-card>
+  ```
+
+  after:
+
+  ```
+  <sbb-card>
+    <sbb-card-action href="https://www.sbb.ch" target="_blank">Buy a ticket</sbb-card-action>
+    Tickets
+    <sbb-button **is-static**>Buy a ticket</sbb-button>
+  </sbb-card>
+  ```
+
+- All properties of `<sbb-card-badge>` were either removed and replaced by the unnamed slot or renamed.
+- The property `size` was removed, as it was not used at all.
+- The property `appearance` was renamed to `color`. Its old value `primary` becomes `charcoal` and its old value `primary-negative` becomes `white`.
+- The properties `isDiscount`, `price`, `text` were removed.
+- The attribute `slot="badge"` is assigned automatically and therefore doesn't have to be added by the consumer anymore.
+
+  **How to migrate**:
+
+- The property `appearance` should be renamed to `color`. Its old value `primary` becomes `charcoal` and its old value `primary-negative` becomes `white`.
+- The properties `isDiscount`, `price`, `text` should be replaced with `<span>` elements in the unnamed slot (see example below). If the `isDiscount` property was set, it should be replaced by `<span>%</span>`.
+
+before:
+
+```
+<sbb-card-badge
+  aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
+  appearance="primary"
+  is-discount
+  price="92.50"
+  text="from CHF"
+  slot="badge"
+>
+  <div slot="generic"><time datetime="2021-11-25">Black Friday</time> Special</div>
+</sbb-card-badge>
+```
+
+after:
+
+````
+ <sbb-card-badge
+   aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
+   color="charcoal"
+ >
+   <span>%</span> <!-- Replaces the logic of isDiscount -->
+   <span>from CHF</span>
+   <span>92.50</span>
+   <span><time datetime="2021-11-25">Black Friday</time></span>
+ </sbb-card-badge>
+ ```
 
 ### Bug Fixes
 
@@ -433,9 +511,9 @@ Please check your usages:
 ### ⚠ BREAKING CHANGES
 
 - **sbb-tab-group:** removed `sbb-tab-amount` component which can be replaced by property `amount`
-  or slot `amount` of `sbb-tab-title` component.
-  e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
-  or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
+or slot `amount` of `sbb-tab-title` component.
+e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
+or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
 
 ### Refactorings
 
@@ -446,8 +524,8 @@ Please check your usages:
 ### ⚠ BREAKING CHANGES
 
 - The `picto:`-namespace is now pointing to the new English named icons.
-  If the old german named icons should be used, you can access them by using
-  the namespace `picto-legacy:` (deprecated).
+If the old german named icons should be used, you can access them by using
+the namespace `picto-legacy:` (deprecated).
 
 ### Refactorings
 
@@ -555,7 +633,7 @@ Please check your usages:
 ### ⚠ BREAKING CHANGES
 
 - **sbb-button:** `tranclucent` variant was removed and replaced by
-  a new `tertiary` button variant.
+a new `tertiary` button variant.
 
 ### Features
 
@@ -910,7 +988,7 @@ Co-authored-by: Jeri Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - **sbb-header:** - The shadow property has been removed, and the component now applies automatically the box-shadow on scroll;
-  any open overlay (menu, dialog..) with trigger in the header will be automatically closed on scroll.
+any open overlay (menu, dialog..) with trigger in the header will be automatically closed on scroll.
 
 Co-authored-by: Davide Mininni <davide.mininni@finconsgroup.com>
 Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
@@ -1014,11 +1092,11 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - **sbb-card:** - The `negative` property was replaced by the new color property.
-  To migrate you should replace `negative` with `color="milk"`.
-  This change had to be done as the negative property is not correct in this context.
+To migrate you should replace `negative` with `color="milk"`.
+This change had to be done as the negative property is not correct in this context.
 
 * The components `sbb-card-product`, `sbb-timetable`, `sbb-timetable-button`,
-  `sbb-timetable-cus-him` and `sbb-timetable-transportation-walk` were removed.
+`sbb-timetable-cus-him` and `sbb-timetable-transportation-walk` were removed.
 
 ### Refactorings
 
@@ -1381,7 +1459,7 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - Title mixins and <sbb-title>-component now have a default margin block to meet design specs. In the mixin you can opt out by passing the flag $exclude-spacing with true (e.g. @include text-1($exclude-spacing: true)).
-  In the sbb-title component you can just set any margin from outside on the <sbb-title> itself, e.g. <sbb-title style='margin:0'>.
+In the sbb-title component you can just set any margin from outside on the <sbb-title> itself, e.g. <sbb-title style='margin:0'>.
 
 ### Features
 
@@ -1480,7 +1558,7 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - In order to standardize mixin names, all mixin names were renamed to kebab-case style.
-  E.g. `ifForcedColors` became `if-forced-colors`.
+E.g. `ifForcedColors` became `if-forced-colors`.
 
 ### Refactorings
 
@@ -1503,10 +1581,10 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - Previously the sass code could be used via `@import`.
-  This is no longer possible as we refactored the sass code to switch
-  from `@import` to `@use` (see https://sass-lang.com/documentation/at-rules/use).
-  You should now be able to use the following code to import
-  our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
+This is no longer possible as we refactored the sass code to switch
+from `@import` to `@use` (see https://sass-lang.com/documentation/at-rules/use).
+You should now be able to use the following code to import
+our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
 
 ### Refactorings
 
@@ -1639,7 +1717,7 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - **sbb-menu:** \*\*
-  Use `open` for opening overlays and `close` for closing overlays. The methods `present()` and `dismiss()` become `open()` and `close()`; the tooltip properties `showDelay` and `hideDelay` become `openDelay` and `closeDelay`.
+Use `open` for opening overlays and `close` for closing overlays. The methods `present()` and `dismiss()` become `open()` and `close()`; the tooltip properties `showDelay` and `hideDelay` become `openDelay` and `closeDelay`.
 
 ### Refactorings
 
@@ -1797,8 +1875,8 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - Custom click events on action elements were removed
-  (e.g. `sbb-button_click`, `sbb-link_click`, ...).
-  Please read the property target of the emitted event if you are interested from where an event was triggered.
+(e.g. `sbb-button_click`, `sbb-link_click`, ...).
+Please read the property target of the emitted event if you are interested from where an event was triggered.
 
 ### Features
 
@@ -1815,8 +1893,8 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - Every property called idValue was renamed to ${componentName}Id
-  as documented in CODING_STANDARDS.md. The following components
-  are affected: sbb-button, sbb-card, sbb-card-product, sbb-link, sbb-teaser-hero.
+as documented in CODING_STANDARDS.md. The following components
+are affected: sbb-button, sbb-card, sbb-card-product, sbb-link, sbb-teaser-hero.
 
 ### Refactorings
 
@@ -2339,3 +2417,4 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### Bug Fixes
 
 - remove quotes when set STORYBOOK_COMPONENTS_VERSION variable ([#1274](https://github.com/lyne-design-system/lyne-components/issues/1274)) ([ef04fdb](https://github.com/lyne-design-system/lyne-components/commit/ef04fdbb87a2991da32b9c1e3d2c052798860480))
+````
