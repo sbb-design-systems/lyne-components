@@ -290,15 +290,17 @@ export class SbbDialog implements ComponentInterface {
   }
 
   // Wait for dialog transition to complete.
+  // In rare cases it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
   private _onDialogAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open') {
+    if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
       this._setDialogFocus();
       this._focusTrap.trap(this._element);
       this._dialogContentResizeObserver.observe(this._dialogContentElement);
       this._attachWindowEvents();
-    } else if (event.animationName === 'close') {
+    } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._dialogWrapperElement.querySelector('.sbb-dialog__content').scrollTo(0, 0);
       setModalityOnNextFocus(this._lastFocusedElement);
