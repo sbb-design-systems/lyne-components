@@ -695,3 +695,17 @@ export const i18nClearInput: Record<string, string> = {
   fr: 'Effacer la valeur d’entrée',
   it: 'Cancella il valore dell’input',
 };
+
+export const i18nFileSelectorButtonLabel: Record<string, string> = {
+  de: 'Datei auswählen',
+  en: 'Choose a file',
+  fr: 'Choisissez un fichier',
+  it: 'Scegli un file',
+};
+
+export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
+  de: 'Ziehe deine Dateien hier hin (Drag & Drop)',
+  en: 'Drag & Drop your files here',
+  fr: 'Faites glisser et déposez vos fichiers ici',
+  it: 'Trascina e rilascia i tuoi file qui',
+};

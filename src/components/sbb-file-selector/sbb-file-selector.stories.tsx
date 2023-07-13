@@ -1,0 +1,158 @@
+/** @jsx h */
+import events from './sbb-file-selector.events';
+import { h, JSX } from 'jsx-dom';
+import readme from './readme.md';
+import { withActions } from '@storybook/addon-actions/decorator';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import { InputType } from '@storybook/types';
+
+const variant: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['default', 'dropzone'],
+};
+
+const titleContent: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const multiple: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const multipleMode: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['default', 'persistent'],
+};
+
+const accept: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
+  variant,
+  'title-content': titleContent,
+  multiple,
+  'multiple-mode': multipleMode,
+  accept,
+};
+
+const defaultArgs: Args = {
+  variant: variant.options[0],
+  'title-content': 'Title',
+  multiple: false,
+  'multiple-mode': multipleMode.options[0],
+  accept: undefined,
+};
+
+const Template = (args): JSX.Element => <sbb-file-selector {...args}></sbb-file-selector>;
+
+const TemplateWithError = (args): JSX.Element => {
+  const sbbFormError = <sbb-form-error slot="error">There has been an error.</sbb-form-error>;
+  return (
+    <sbb-file-selector
+      {...args}
+      id="sbb-file-selector"
+      onFile-changed={(event) => {
+        if (event.detail && event.detail.length > 0) {
+          document.getElementById('sbb-file-selector').append(sbbFormError);
+        } else {
+          sbbFormError.remove();
+        }
+      }}
+    ></sbb-file-selector>
+  );
+};
+
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const DefaultMulti: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true },
+};
+
+export const DefaultMultiPersistent: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true, 'multiple-mode': multipleMode.options[1] },
+};
+
+export const Dropzone: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, variant: variant.options[1] },
+};
+
+export const DropzoneMulti: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, variant: variant.options[1], multiple: true },
+};
+
+export const DropzoneMultiPersistent: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    variant: variant.options[1],
+    multiple: true,
+    'multiple-mode': multipleMode.options[1],
+  },
+};
+
+export const DefaultWithError: StoryObj = {
+  render: TemplateWithError,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const DropzoneWithError: StoryObj = {
+  render: TemplateWithError,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, variant: variant.options[1] },
+};
+
+export const DefaultOnlyPDF: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, accept: '.pdf' },
+};
+
+const meta: Meta = {
+  decorators: [
+    (Story) => (
+      <div style={{ padding: '2rem' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
+  parameters: {
+    actions: {
+      handles: [events.fileChangedEvent, events.error],
+    },
+    backgrounds: {
+      disable: true,
+    },
+    docs: {
+      extractComponentDescription: () => readme,
+    },
+  },
+  title: 'components/sbb-file-selector',
+};
+
+export default meta;
