@@ -54,6 +54,8 @@
 
 .sbb-file-selector__file-details {
   display: flex;
+  flex: 1;
+  justify-content: space-between;
   gap: var(--sbb-spacing-fixed-4x);
   overflow: auto;
 }
