@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.38.0](https://github.com/lyne-design-system/lyne-components/compare/v0.37.11...v0.38.0) (2023-07-13)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-card, sbb-card-badge:** - `sbb-group` was removed and replaced by `sbb-card`.
+
+  **How to migrate**:
+
+  - Rename `sbb-group` to `sbb-card`.
+  - If `color` property is set to `transparent`, change value from `transparent` to `transparent-bordered`.
+  - Replace property `padding` with property `size` and update the values like following:
+    - Padding `3x-xxs` -> size `xs`
+    - Padding `xxxs-xxs` -> size `s`
+    - Padding `xxxs-s` -> size `m`
+    - Padding `4x-xxs` -> size `l`
+    - Padding `xxs-xxs` -> size `xl`
+    - Padding `s-s` -> size `xxl`
+
+### Bug Fixes
+
+- **sbb-card, sbb-card-badge:** fix accessibility of card ([#1732](https://github.com/lyne-design-system/lyne-components/issues/1732)) ([3565a8a](https://github.com/lyne-design-system/lyne-components/commit/3565a8acfc26f2587ea170a80414254e4d39a557)), closes [#1833](https://github.com/lyne-design-system/lyne-components/issues/1833) [#1242](https://github.com/lyne-design-system/lyne-components/issues/1242)
+
 ### [0.37.11](https://github.com/lyne-design-system/lyne-components/compare/v0.37.10...v0.37.11) (2023-07-11)
 
 ### Bug Fixes
