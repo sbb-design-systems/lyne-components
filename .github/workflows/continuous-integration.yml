@@ -5,6 +5,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+permissions: read-all
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -13,8 +15,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run eslint
         run: yarn lint
@@ -26,8 +28,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - name: 'Integrity: Verify workspace integrity'
         run: yarn integrity
@@ -41,8 +43,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run tests
         # Try yarn test:prod up to three times, if it fails and exit with the exit code from the last execution
@@ -72,8 +74,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run build
         run: STORYBOOK_COMPONENTS_VERSION=$GITHUB_SHA yarn build
@@ -100,8 +102,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --non-interactive
       - name: Restore stencil artifacts
         uses: actions/download-artifact@v3
         with:

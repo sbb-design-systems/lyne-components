@@ -10,6 +10,9 @@ on:
     branches: [master]
   workflow_dispatch: {}
 
+permissions:
+  packages: write
+
 concurrency: release
 
 jobs:
@@ -41,10 +44,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          cache: 'yarn'
           registry-url: 'https://registry.npmjs.org'
           scope: sbb-esta
-      - name: Yarn Install
-        uses: ./.github/actions/yarn-install
+      - run: yarn install --frozen-lockfile --non-interactive
       - name: Run build
         run: yarn build:chromatic-stories && yarn build
 
