@@ -59,44 +59,45 @@ All notable changes to this project will be documented in this file. See [standa
   ```
 
 - All properties of `<sbb-card-badge>` were either removed and replaced by the unnamed slot or renamed.
-- The property `size` was removed, as it was not used at all.
-- The property `appearance` was renamed to `color`. Its old value `primary` becomes `charcoal` and its old value `primary-negative` becomes `white`.
-- The properties `isDiscount`, `price`, `text` were removed.
-- The attribute `slot="badge"` is assigned automatically and therefore doesn't have to be added by the consumer anymore.
 
-  **How to migrate**:
+  - The property `size` was removed, as it was not used at all.
+  - The property `appearance` was renamed to `color`. Its old value `primary` becomes `charcoal` and its old value `primary-negative` becomes `white`.
+  - The properties `isDiscount`, `price`, `text` were removed.
+  - The attribute `slot="badge"` is assigned automatically and therefore doesn't have to be added by the consumer anymore.
 
-- The property `appearance` should be renamed to `color`. Its old value `primary` becomes `charcoal` and its old value `primary-negative` becomes `white`.
-- The properties `isDiscount`, `price`, `text` should be replaced with `<span>` elements in the unnamed slot (see example below). If the `isDiscount` property was set, it should be replaced by `<span>%</span>`.
+    **How to migrate**:
 
-before:
+  - The property `appearance` should be renamed to `color`. Its old value `primary` becomes `charcoal` and its old value `primary-negative` becomes `white`.
+  - The properties `isDiscount`, `price`, `text` should be replaced with `<span>` elements in the unnamed slot (see example below). If the `isDiscount` property was set, it should be replaced by `<span>%</span>`.
 
-```
-<sbb-card-badge
-  aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
-  appearance="primary"
-  is-discount
-  price="92.50"
-  text="from CHF"
-  slot="badge"
->
-  <div slot="generic"><time datetime="2021-11-25">Black Friday</time> Special</div>
-</sbb-card-badge>
-```
+    before:
 
-after:
+    ```
+    <sbb-card-badge
+      aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
+      appearance="primary"
+      is-discount
+      price="92.50"
+      text="from CHF"
+      slot="badge"
+    >
+      <div slot="generic"><time datetime="2021-11-25">Black Friday</time> Special</div>
+    </sbb-card-badge>
+    ```
 
-````
- <sbb-card-badge
-   aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
-   color="charcoal"
- >
-   <span>%</span> <!-- Replaces the logic of isDiscount -->
-   <span>from CHF</span>
-   <span>92.50</span>
-   <span><time datetime="2021-11-25">Black Friday</time></span>
- </sbb-card-badge>
- ```
+    after:
+
+    ```
+     <sbb-card-badge
+       aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
+       color="charcoal"
+     >
+       <span>%</span> <!-- Replaces the logic of isDiscount -->
+       <span>from CHF</span>
+       <span>92.50</span>
+       <span><time datetime="2021-11-25">Black Friday</time></span>
+     </sbb-card-badge>
+    ```
 
 ### Bug Fixes
 
@@ -511,9 +512,9 @@ Please check your usages:
 ### ⚠ BREAKING CHANGES
 
 - **sbb-tab-group:** removed `sbb-tab-amount` component which can be replaced by property `amount`
-or slot `amount` of `sbb-tab-title` component.
-e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
-or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
+  or slot `amount` of `sbb-tab-title` component.
+  e.g. `<sbb-tab-amount>123</sbb-tab-amount>` becomes `<span slot="amount">123</span>`
+  or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
 
 ### Refactorings
 
@@ -524,8 +525,8 @@ or alternatively `<sbb-tab-title amount="123">Label</sbb-tab-title>`.
 ### ⚠ BREAKING CHANGES
 
 - The `picto:`-namespace is now pointing to the new English named icons.
-If the old german named icons should be used, you can access them by using
-the namespace `picto-legacy:` (deprecated).
+  If the old german named icons should be used, you can access them by using
+  the namespace `picto-legacy:` (deprecated).
 
 ### Refactorings
 
@@ -633,7 +634,7 @@ the namespace `picto-legacy:` (deprecated).
 ### ⚠ BREAKING CHANGES
 
 - **sbb-button:** `tranclucent` variant was removed and replaced by
-a new `tertiary` button variant.
+  a new `tertiary` button variant.
 
 ### Features
 
@@ -988,7 +989,7 @@ Co-authored-by: Jeri Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - **sbb-header:** - The shadow property has been removed, and the component now applies automatically the box-shadow on scroll;
-any open overlay (menu, dialog..) with trigger in the header will be automatically closed on scroll.
+  any open overlay (menu, dialog..) with trigger in the header will be automatically closed on scroll.
 
 Co-authored-by: Davide Mininni <davide.mininni@finconsgroup.com>
 Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
@@ -1092,11 +1093,11 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - **sbb-card:** - The `negative` property was replaced by the new color property.
-To migrate you should replace `negative` with `color="milk"`.
-This change had to be done as the negative property is not correct in this context.
+  To migrate you should replace `negative` with `color="milk"`.
+  This change had to be done as the negative property is not correct in this context.
 
 * The components `sbb-card-product`, `sbb-timetable`, `sbb-timetable-button`,
-`sbb-timetable-cus-him` and `sbb-timetable-transportation-walk` were removed.
+  `sbb-timetable-cus-him` and `sbb-timetable-transportation-walk` were removed.
 
 ### Refactorings
 
@@ -1459,7 +1460,7 @@ This change had to be done as the negative property is not correct in this conte
 ### ⚠ BREAKING CHANGES
 
 - Title mixins and <sbb-title>-component now have a default margin block to meet design specs. In the mixin you can opt out by passing the flag $exclude-spacing with true (e.g. @include text-1($exclude-spacing: true)).
-In the sbb-title component you can just set any margin from outside on the <sbb-title> itself, e.g. <sbb-title style='margin:0'>.
+  In the sbb-title component you can just set any margin from outside on the <sbb-title> itself, e.g. <sbb-title style='margin:0'>.
 
 ### Features
 
@@ -1558,7 +1559,7 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### ⚠ BREAKING CHANGES
 
 - In order to standardize mixin names, all mixin names were renamed to kebab-case style.
-E.g. `ifForcedColors` became `if-forced-colors`.
+  E.g. `ifForcedColors` became `if-forced-colors`.
 
 ### Refactorings
 
@@ -1581,10 +1582,10 @@ E.g. `ifForcedColors` became `if-forced-colors`.
 ### ⚠ BREAKING CHANGES
 
 - Previously the sass code could be used via `@import`.
-This is no longer possible as we refactored the sass code to switch
-from `@import` to `@use` (see https://sass-lang.com/documentation/at-rules/use).
-You should now be able to use the following code to import
-our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
+  This is no longer possible as we refactored the sass code to switch
+  from `@import` to `@use` (see https://sass-lang.com/documentation/at-rules/use).
+  You should now be able to use the following code to import
+  our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
 
 ### Refactorings
 
@@ -1717,7 +1718,7 @@ our sass code: `@use '@sbb-esta/lyne-components' as sbb;`.
 ### ⚠ BREAKING CHANGES
 
 - **sbb-menu:** \*\*
-Use `open` for opening overlays and `close` for closing overlays. The methods `present()` and `dismiss()` become `open()` and `close()`; the tooltip properties `showDelay` and `hideDelay` become `openDelay` and `closeDelay`.
+  Use `open` for opening overlays and `close` for closing overlays. The methods `present()` and `dismiss()` become `open()` and `close()`; the tooltip properties `showDelay` and `hideDelay` become `openDelay` and `closeDelay`.
 
 ### Refactorings
 
@@ -1875,8 +1876,8 @@ Use `open` for opening overlays and `close` for closing overlays. The methods `p
 ### ⚠ BREAKING CHANGES
 
 - Custom click events on action elements were removed
-(e.g. `sbb-button_click`, `sbb-link_click`, ...).
-Please read the property target of the emitted event if you are interested from where an event was triggered.
+  (e.g. `sbb-button_click`, `sbb-link_click`, ...).
+  Please read the property target of the emitted event if you are interested from where an event was triggered.
 
 ### Features
 
@@ -1893,8 +1894,8 @@ Please read the property target of the emitted event if you are interested from 
 ### ⚠ BREAKING CHANGES
 
 - Every property called idValue was renamed to ${componentName}Id
-as documented in CODING_STANDARDS.md. The following components
-are affected: sbb-button, sbb-card, sbb-card-product, sbb-link, sbb-teaser-hero.
+  as documented in CODING_STANDARDS.md. The following components
+  are affected: sbb-button, sbb-card, sbb-card-product, sbb-link, sbb-teaser-hero.
 
 ### Refactorings
 
@@ -2417,4 +2418,7 @@ Co-authored-by: Jeremias Peier <jeremias.peier@sbb.ch>
 ### Bug Fixes
 
 - remove quotes when set STORYBOOK_COMPONENTS_VERSION variable ([#1274](https://github.com/lyne-design-system/lyne-components/issues/1274)) ([ef04fdb](https://github.com/lyne-design-system/lyne-components/commit/ef04fdbb87a2991da32b9c1e3d2c052798860480))
-````
+
+```
+
+```
