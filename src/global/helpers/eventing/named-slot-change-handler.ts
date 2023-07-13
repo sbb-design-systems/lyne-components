@@ -39,7 +39,7 @@ const observer = new AgnosticMutationObserver((mutations) => {
   );
   mutationMap.forEach((slotNames, host) => {
     if (slotNames.size) {
-      host.dispatchEvent(new CustomEvent('sbbNamedSlotChange', { detail: slotNames }));
+      host.dispatchEvent(new CustomEvent(sbbNamedSlotChangeEventName, { detail: slotNames }));
     }
   });
 });

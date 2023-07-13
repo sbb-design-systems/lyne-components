@@ -73,13 +73,7 @@ const suffixStyle: Args = {
   alignItems: 'center',
 };
 
-const cardbadge = (): JSX.Element => (
-  <sbb-card-badge slot="badge">
-    <div slot="generic">
-      <span>%</span>
-    </div>
-  </sbb-card-badge>
-);
+const cardbadge = (): JSX.Element => <sbb-card-badge>%</sbb-card-badge>;
 
 const suffixAndSubtext = (): JSX.Element[] => [
   <span slot="subtext">Subtext</span>,

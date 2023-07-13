@@ -9,7 +9,11 @@ The selection panel can also be used inside a `sbb-radio-button-group` or a `sbb
 ```html
 <sbb-radio-button-group>
   <sbb-selection-panel>
-    <sbb-card-badge slot="badge">%</sbb-card-badge>
+    <sbb-card-badge>
+      <span>%</span>
+      <span>from CHF</span>
+      <span>19.99</span>
+    </sbb-card-badge>
      <sbb-radio-button>
        Value
        <span slot="subtext">Subtext</span>
@@ -31,19 +35,23 @@ The selection panel can also be used inside a `sbb-radio-button-group` or a `sbb
 ```html
 <sbb-checkbox-group>
   <sbb-selection-panel>
-    <sbb-card-badge slot="badge">%</sbb-card-badge>
-     <sbb-checkbox>
-       Value
-       <span slot="subtext">Subtext</span>
-       <span slot="suffix">
-         <sbb-icon/>
-         <span class="sbb-text-xs sbb-text--bold">CHF</span>
-         <span class="sbb-text-m sbb-text--bold">40.00</span>
-       </span>
-     </sbb-checkbox>
-     <div slot="content">
-      Inner Content
-     </div>
+    <sbb-card-badge>
+      <span>%</span>
+      <span>from CHF</span>
+      <span>19.99</span>
+    </sbb-card-badge>
+    <sbb-checkbox>
+      Value
+      <span slot="subtext">Subtext</span>
+      <span slot="suffix">
+        <sbb-icon/>
+        <span class="sbb-text-xs sbb-text--bold">CHF</span>
+        <span class="sbb-text-m sbb-text--bold">40.00</span>
+      </span>
+    </sbb-checkbox>
+    <div slot="content">
+     Inner Content
+    </div>
   </sbb-selection-panel>
 </sbb-checkbox-group>
 ```

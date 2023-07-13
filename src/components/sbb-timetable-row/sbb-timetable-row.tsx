@@ -23,13 +23,15 @@ import {
   renderStringProduct,
   sortSituation,
 } from './sbb-timetable-row.helper';
-import { durationToTime } from '../../global/helpers/date-helper';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
 import { ITripItem } from '../../global/interfaces/timetable-properties';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/helpers';
+import { format } from 'date-fns';
+import { getDepartureArrivalTimeAttribute } from '../../global/helpers/access-leg-helper';
 
 @Component({
   shadow: true,
@@ -44,7 +46,7 @@ export class SbbTimetableRow {
   @Prop() public price?: Price;
 
   /** This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. */
-  @Prop() public disableAnimation?: boolean;
+  @Prop({ reflect: true }) public disableAnimation?: boolean;
 
   /** This will be forwarded to the notices section */
   @Prop() public boarding?: Boarding;
@@ -60,6 +62,11 @@ export class SbbTimetableRow {
    * when this is true it will be render skeleton with an idling animation
    */
   @Prop() public loadingPrice?: boolean;
+
+  /**
+   * Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
+   */
+  @Prop() public cardActionLabel?: string;
 
   /** This will be forwarded to the sbb-card component as aria-expanded. */
   @Prop() public accessibilityExpanded?: boolean;
@@ -93,7 +100,7 @@ export class SbbTimetableRow {
   private _renderSkeleton(): JSX.Element {
     return (
       <sbb-card size="l" class="sbb-loading">
-        {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
+        {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -118,23 +125,84 @@ export class SbbTimetableRow {
     }
   }
 
+  private _getQuayTypeStrings(): { long: string; short: string } | null {
+    if (!this.trip.summary?.product) return null;
+    const quayType = this._getQuayType(this.trip.summary.product?.vehicleMode);
+    return {
+      long: quayType?.long[this._currentLanguage],
+      short: quayType?.short[this._currentLanguage],
+    };
+  }
+
   /** map Quay */
   private _renderQuayType(): JSX.Element | undefined {
     if (!this.trip.summary?.product) return undefined;
-    const quayType = this._getQuayType(this.trip.summary.product?.vehicleMode);
+    const quayTypeStrings = this._getQuayTypeStrings();
     return (
       <span class="sbb-timetable__row--quay">
-        <span class="sbb-screenreaderonly">{quayType?.long[this._currentLanguage]}&nbsp;</span>
-        <span aria-hidden="true">{quayType?.short[this._currentLanguage]}</span>
+        <span class="sbb-screenreaderonly">{quayTypeStrings?.long}&nbsp;</span>
+        <span aria-hidden="true">{quayTypeStrings?.short}</span>
       </span>
     );
   }
 
   private _handleHimCus(trip: ITripItem): HimCus | undefined {
-    const situations = trip.situations && sortSituation(trip.situations);
+    const { situations } = trip || {};
+    const sortedSituations = situations && sortSituation(situations);
     const cus = getCus(trip, this._currentLanguage);
 
-    return Object.keys(cus)?.length ? cus : situations?.length && getHimIcon(situations[0]);
+    return Object.keys(cus)?.length ? cus : situations?.length && getHimIcon(sortedSituations[0]);
+  }
+
+  private _getAccessibilityText(trip: ITripItem): string {
+    const { summary, legs } = trip || {};
+    const { departureWalk, arrivalWalk, departure, product, direction } = summary || {};
+
+    const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
+      legs,
+      departureWalk || 0,
+      arrivalWalk || 0,
+      this._currentLanguage,
+    );
+
+    const departureTime: Date | undefined = departure?.time
+      ? removeTimezoneFromISOTimeString(departure.time)
+      : undefined;
+
+    const departureWalkText = departureTimeAttribute
+      ? `${departureTimeAttribute.text} ${departureTimeAttribute.duration}. `
+      : '';
+
+    const departureTimeText = departureTime
+      ? `${i18nDeparture[this._currentLanguage]}: ${format(departureTime, 'HH:mm')}. `
+      : '';
+
+    const departureQuayChangedText =
+      departure?.quayChanged && departure?.quayRtName
+        ? `${i18nNew[this._currentLanguage]} ${this._getQuayTypeStrings()
+            ?.long} ${departure?.quayRtName}. `
+        : '';
+
+    const departureQuayAimedName =
+      departure?.quayAimedName && !departure?.quayChanged
+        ? `${this._getQuayTypeStrings()?.long} ${departure?.quayAimedName}. `
+        : '';
+
+    const meansOfTransportText =
+      product && product.vehicleMode
+        ? i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
+          `${i18nMeansOfTransport[product.vehicleMode.toLowerCase()][this._currentLanguage]}. `
+        : '';
+
+    const vehicleSubModeText = product?.vehicleSubModeShortName
+      ? product.vehicleSubModeShortName + ' ' + product.line + '. '
+      : '';
+
+    const directionText = `${i18nDirection[this._currentLanguage]} ${direction}. `;
+
+    const himCusText = trip && (this._handleHimCus(trip)?.text || '');
+
+    return `${departureWalkText} ${departureTimeText} ${departureQuayChangedText} ${departureQuayAimedName} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${himCusText}`;
   }
 
   public render(): JSX.Element {
@@ -161,24 +229,22 @@ export class SbbTimetableRow {
     const noticeAttributes = notices && handleNotices(notices);
 
     const durationObj = durationToTime(duration, this._currentLanguage);
-
     return (
       <Host role="rowgroup">
-        <sbb-card
-          aria-expanded={this.accessibilityExpanded?.toString()}
-          size="l"
-          active={this.active}
-          id={id}
-        >
-          {this.loadingPrice && <sbb-card-badge slot="badge" class="sbb-loading__badge" />}
+        <sbb-card size="l" id={id}>
+          <sbb-card-action
+            active={this.active}
+            aria-expanded={this.accessibilityExpanded?.toString()}
+          >
+            {this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
+          </sbb-card-action>
+          {this.loadingPrice && <sbb-card-badge class="sbb-loading__badge" />}
           {this.price && !this.loadingPrice && (
-            <sbb-card-badge
-              slot="badge"
-              appearance={this.price.isDiscount ? 'primary' : 'primary-negative'}
-              price={this.price.price}
-              text={this.price.text}
-              isDiscount={this.price.isDiscount}
-            />
+            <sbb-card-badge color={this.price.isDiscount ? 'charcoal' : 'white'}>
+              {this.price.isDiscount && <span>%</span>}
+              {this.price.text && <span>{this.price.text}</span>}
+              {this.price.price && <span>{this.price.price}</span>}
+            </sbb-card-badge>
           )}
           <div class="sbb-timetable__row" role="row">
             <div class="sbb-timetable__row-header" role="gridcell">
@@ -186,7 +252,7 @@ export class SbbTimetableRow {
                 {product &&
                   getTransportIcon(
                     product.vehicleMode,
-                    product.vehicleSubModeShortName,
+                    product.vehicleSubModeShortName || '',
                     this._currentLanguage,
                   ) && (
                     <span class="sbb-timetable__row-transport-wrapper">
@@ -196,7 +262,7 @@ export class SbbTimetableRow {
                           'picto:' +
                           getTransportIcon(
                             product.vehicleMode,
-                            product.vehicleSubModeShortName,
+                            product.vehicleSubModeShortName || '',
                             this._currentLanguage,
                           )
                         }
@@ -205,7 +271,7 @@ export class SbbTimetableRow {
                         {product &&
                           product.vehicleMode &&
                           i18nMeansOfTransport[product.vehicleMode.toLowerCase()] &&
-                          i18nMeansOfTransport[summary.product.vehicleMode.toLowerCase()][
+                          i18nMeansOfTransport[product.vehicleMode.toLowerCase()][
                             this._currentLanguage
                           ]}
                         &nbsp;

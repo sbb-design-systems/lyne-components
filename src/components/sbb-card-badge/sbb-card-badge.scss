@@ -5,79 +5,86 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-card-badge-color-primary: var(--sbb-color-white-default);
-  --sbb-card-badge-color-primary-negative: var(--sbb-color-black-default);
-  --sbb-card-badge-background-color-primary: var(--sbb-color-black-default);
-  --sbb-card-badge-background-color-primary-negative: var(--sbb-color-white-default);
-  --sbb-card-badge-border-color-primary-negative: var(--sbb-color-aluminium-default);
+  --sbb-card-badge-gap: var(--sbb-spacing-fixed-2x);
+}
 
+:host([color='white']) {
+  --sbb-card-badge-color: var(--sbb-color-charcoal-default);
+  --sbb-card-badge-background-color: var(--sbb-color-white-default);
+  --sbb-card-badge-border-color: var(--sbb-color-aluminium-default);
+}
+
+:host([color='charcoal']) {
+  --sbb-card-badge-color: var(--sbb-color-white-default);
+  --sbb-card-badge-background-color: var(--sbb-color-charcoal-default);
+  --sbb-card-badge-border-color: transparent;
+}
+
+.sbb-card-badge-wrapper {
+  display: flex;
+  position: relative;
+  height: fit-content;
+  justify-content: end;
+
+  // Divider line to content
   @include sbb.if-forced-colors {
-    border-inline-start: #{sbb.px-to-rem-build(1)} solid CanvasText;
-    border-block-end: #{sbb.px-to-rem-build(1)} solid CanvasText;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      border-block-end: var(--sbb-border-width-1x) solid CanvasText;
+    }
   }
 }
 
-.card-badge {
+.sbb-card-badge {
+  position: relative;
   display: flex;
-  align-items: center;
-  position: absolute;
   inset-block-start: 0;
   inset-inline-end: 0;
-  padding-inline-end: var(--sbb-spacing-fixed-6x);
-  border-end-start-radius: var(--sbb-border-radius-4x);
-  z-index: inherit;
+  padding-inline-end: var(--sbb-spacing-fixed-3x);
+  padding-inline-start: var(--sbb-spacing-fixed-2x);
+}
 
-  // Left to right expression
-  right: calc(var(--sbb-spacing-fixed-3x) * -1);
+.sbb-card-badge-content {
+  @include sbb.text-xxs--bold;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-card-badge-gap);
+  color: var(--sbb-card-badge-color);
+}
+
+.sbb-card-badge-background {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-color: var(--sbb-card-badge-background-color);
+  border-end-start-radius: var(--sbb-border-radius-4x);
+
+  // Increase size to avoid looking cut.
+  margin-inline-end: calc(var(--sbb-spacing-fixed-3x) * -1);
   transform: skew(16deg, 0deg);
 
-  > * {
+  :host([dir='rtl']) & {
     transform: skew(-16deg, 0deg);
-    padding-inline-start: var(--sbb-spacing-fixed-2x);
   }
 
-  // Right to left expression
-  &[dir='rtl'] {
-    right: initial;
-    left: calc(var(--sbb-spacing-fixed-3x) * -1);
-    transform: skew(-16deg, 0deg);
+  // Set border inline to the badge
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-card-badge-border-color);
+    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-card-badge-border-color);
+    border-end-start-radius: var(--sbb-border-radius-4x);
 
-    > * {
-      transform: skew(16deg, 0deg);
+    @include sbb.if-forced-colors {
+      border: none;
     }
-  }
-
-  // *************************************************
-  // Variants
-  // *************************************************
-  &--primary {
-    color: var(--sbb-card-badge-color-primary);
-    background-color: var(--sbb-card-badge-background-color-primary);
-  }
-
-  &--primary-negative {
-    color: var(--sbb-card-badge-color-primary-negative);
-    background-color: var(--sbb-card-badge-background-color-primary-negative);
-    border-block-end: solid var(--sbb-border-width-1x)
-      var(--sbb-card-badge-border-color-primary-negative);
-    border-inline-start: solid var(--sbb-border-width-1x)
-      var(--sbb-card-badge-border-color-primary-negative);
-
-    // Set border inline to the badge
-    &::before {
-      content: '';
-      display: block;
-      inset: 0;
-      position: absolute;
-      border-block-end: solid var(--sbb-border-width-1x)
-        var(--card-badge-border-color-primary-negative);
-      border-inline-start: solid var(--sbb-border-width-1x)
-        var(--card-badge-border-color-primary-negative);
-      border-end-start-radius: var(--sbb-border-radius-4x);
-    }
-  }
-
-  &--regular {
-    @include sbb.text-xxs--bold;
   }
 }

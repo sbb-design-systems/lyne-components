@@ -38,16 +38,17 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Property                | Attribute                | Description                                                                                       | Type                                                                                                                                                            | Default     |
-| ----------------------- | ------------------------ | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `accessibilityExpanded` | `accessibility-expanded` | This will be forwarded to the sbb-card component as aria-expanded.                                | `boolean`                                                                                                                                                       | `undefined` |
-| `active`                | `active`                 | When this prop is true the sbb-card will be in the active state.                                  | `boolean`                                                                                                                                                       | `undefined` |
-| `boarding`              | --                       | This will be forwarded to the notices section                                                     | `Boarding`                                                                                                                                                      | `undefined` |
-| `disableAnimation`      | `disable-animation`      | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated. | `boolean`                                                                                                                                                       | `undefined` |
-| `loadingPrice`          | `loading-price`          | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`                                                                                                                                                       | `undefined` |
-| `loadingTrip`           | `loading-trip`           | The loading state - when this is true it will be render skeleton with an idling animation         | `boolean`                                                                                                                                                       | `undefined` |
-| `price`                 | --                       | The price Prop, which consists of the data for the badge.                                         | `Price`                                                                                                                                                         | `undefined` |
-| `trip`                  | --                       | The trip Prop                                                                                     | `{ __typename?: "Trip"; id: string; legs: Leg[]; notices: Notice[]; searchHint?: string[]; situations: PtSituation[]; summary?: TripSummary; valid: boolean; }` | `undefined` |
+| Property                | Attribute                | Description                                                                                                                                                                                  | Type                                                                                                                                                            | Default     |
+| ----------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `accessibilityExpanded` | `accessibility-expanded` | This will be forwarded to the sbb-card component as aria-expanded.                                                                                                                           | `boolean`                                                                                                                                                       | `undefined` |
+| `active`                | `active`                 | When this prop is true the sbb-card will be in the active state.                                                                                                                             | `boolean`                                                                                                                                                       | `undefined` |
+| `boarding`              | --                       | This will be forwarded to the notices section                                                                                                                                                | `Boarding`                                                                                                                                                      | `undefined` |
+| `cardActionLabel`       | `card-action-label`      | Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component. | `string`                                                                                                                                                        | `undefined` |
+| `disableAnimation`      | `disable-animation`      | This will be forwarded to the sbb-pearl-chain component - if true the position won't be animated.                                                                                            | `boolean`                                                                                                                                                       | `undefined` |
+| `loadingPrice`          | `loading-price`          | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                    | `boolean`                                                                                                                                                       | `undefined` |
+| `loadingTrip`           | `loading-trip`           | The loading state - when this is true it will be render skeleton with an idling animation                                                                                                    | `boolean`                                                                                                                                                       | `undefined` |
+| `price`                 | --                       | The price Prop, which consists of the data for the badge.                                                                                                                                    | `Price`                                                                                                                                                         | `undefined` |
+| `trip`                  | --                       | The trip Prop                                                                                                                                                                                | `{ __typename?: "Trip"; id: string; legs: Leg[]; notices: Notice[]; searchHint?: string[]; situations: PtSituation[]; summary?: TripSummary; valid: boolean; }` | `undefined` |
 
 
 ## Dependencies
@@ -56,6 +57,7 @@ This is helpful if you need a specific state of the component.
 
 - [sbb-card](../sbb-card)
 - [sbb-card-badge](../sbb-card-badge)
+- [sbb-card-action](../sbb-card-action)
 - [sbb-icon](../sbb-icon)
 - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
 
@@ -64,10 +66,11 @@ This is helpful if you need a specific state of the component.
 graph TD;
   sbb-timetable-row --> sbb-card
   sbb-timetable-row --> sbb-card-badge
+  sbb-timetable-row --> sbb-card-action
   sbb-timetable-row --> sbb-icon
   sbb-timetable-row --> sbb-pearl-chain-time
-  sbb-pearl-chain-time --> sbb-icon
   sbb-pearl-chain-time --> sbb-pearl-chain
+  sbb-pearl-chain-time --> sbb-icon
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

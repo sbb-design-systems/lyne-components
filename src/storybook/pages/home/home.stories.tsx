@@ -111,12 +111,10 @@ const Template = (args): JSX.Element => (
           <DailyTicketProduct />
           <BikeProduct />
           <LiberoProduct />
-          <sbb-card
-            aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-            href="https://github.com/lyne-design-system/lyne-components"
-            color="milk"
-            size="s"
-          >
+          <sbb-card color="milk" size="s">
+            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+              Buy daily ticket
+            </sbb-card-action>
             <span class="card-product">
               <sbb-icon name="ticket-route-medium"></sbb-icon>
               <span class="content">
@@ -125,19 +123,16 @@ const Template = (args): JSX.Element => (
                 </sbb-title>
                 <span class="sbb-text-s card-description">For regular trips</span>
               </span>
-              <sbb-button size="m" variant="secondary">
+              <sbb-button size="m" variant="secondary" is-static>
                 Buy
               </sbb-button>
             </span>
           </sbb-card>
 
-          <sbb-card
-            aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-            href="https://github.com/lyne-design-system/lyne-components"
-            color="milk"
-            size="s"
-            class="grid-span-2"
-          >
+          <sbb-card color="milk" size="s" class="grid-span-2">
+            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+              Show all GAs at a glance
+            </sbb-card-action>
             <span class="card-product-big">
               <span class="content">
                 <sbb-title level="2" visual-level="1">
@@ -147,17 +142,17 @@ const Template = (args): JSX.Element => (
                   Enjoy unlimited travel with the GA travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary">All GAs at a glance</sbb-button>
+              <sbb-button variant="secondary" is-static>
+                All GAs at a glance
+              </sbb-button>
             </span>
           </sbb-card>
 
-          <sbb-card
-            aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-            href="https://github.com/lyne-design-system/lyne-components"
-            class="grid-span-2"
-            color="milk"
-            size="s"
-          >
+          <sbb-card class="grid-span-2" color="milk" size="s">
+            <sbb-card-action href="https://github.com/lyne-design-system/lyne-components">
+              Buy half price ticket
+            </sbb-card-action>
+
             <span class="card-product-big">
               <span class="content">
                 <sbb-title level="2" visual-level="1">
@@ -167,7 +162,9 @@ const Template = (args): JSX.Element => (
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-button variant="secondary">Ride at half price</sbb-button>
+              <sbb-button variant="secondary" is-static>
+                Ride at half price
+              </sbb-button>
             </span>
           </sbb-card>
         </div>

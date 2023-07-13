@@ -1,12 +1,11 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
 import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
+import { InterfaceSbbCardBadgeAttributes } from './sbb-card-badge.custom';
+import { toggleDatasetEntry } from '../../global/helpers/dataset';
 
 /**
- * @slot generic - Slot used to render generic content. Since this slot is
- * wrapped within a `span` only inline elements are allowed to be passed within
- * this slot. Check
- * https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements
+ * @slot unnamed - Content of the badge.
+ * Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
 
 @Component({
@@ -15,61 +14,40 @@ import { InterfaceCardBadgeAttributes } from './sbb-card-badge.custom';
   tag: 'sbb-card-badge',
 })
 export class SbbCardBadge implements ComponentInterface {
-  /** Badge appearance */
-  @Prop() public appearance: InterfaceCardBadgeAttributes['appearance'] = 'primary';
+  /** Color of the card badge. */
+  @Prop({ reflect: true }) public color: InterfaceSbbCardBadgeAttributes['color'] = 'charcoal';
 
-  /** Badge size */
-  @Prop() public size: InterfaceCardBadgeAttributes['size'] = 'regular';
+  @Element() private _element!: HTMLElement;
 
-  /** Mark as discount */
-  @Prop() public isDiscount?: boolean;
+  public constructor() {
+    // Set slot name as early as possible
+    this._element.setAttribute('slot', 'badge');
+  }
 
-  /** From/above price text */
-  @Prop() public text?: string;
+  private _parentElement?: HTMLElement;
 
-  /** Price text */
-  @Prop() public price?: string;
+  public connectedCallback(): void {
+    this._parentElement = this._element.parentElement;
+    toggleDatasetEntry(this._parentElement, 'hasCardBadge', true);
+  }
 
-  /** Host element */
-  @Element() private _hostElement: HTMLElement;
-
-  private _hasGenericSlot: boolean;
-
-  public componentWillLoad(): void {
-    this._hasGenericSlot = Boolean(this._hostElement.querySelector('[slot="generic"]'));
+  public disconnectedCallback(): void {
+    toggleDatasetEntry(this._parentElement, 'hasCardBadge', false);
+    this._parentElement = undefined;
   }
 
   public render(): JSX.Element {
-    const currentWritingMode = getDocumentWritingMode();
-
-    /**
-     * Add additional CSS classes
-     * ----------------------------------------------------------------
-     */
-
-    const appearanceClass = ` card-badge--${this.appearance}`;
-    const sizeClass = ` card-badge--${this.size}`;
-
     return (
-      <span
-        class={`card-badge
-          ${appearanceClass}
-          ${sizeClass}`}
-        dir={currentWritingMode}
-        // eslint-disable-next-line jsx-a11y/aria-role
-        role="text"
-      >
-        {this.isDiscount ? <span class="discount">%</span> : ''}
-        {this.text ? <span class="text">{this.text}</span> : ''}
-        {this.price ? <span class="price">{this.price}</span> : ''}
-        {this._hasGenericSlot ? (
-          <span class="generic">
-            <slot name="generic" />
+      <Host dir={getDocumentWritingMode()} role="text">
+        <span class="sbb-card-badge-wrapper">
+          <span class="sbb-card-badge">
+            <span class="sbb-card-badge-background" aria-hidden="true"></span>
+            <span class="sbb-card-badge-content">
+              <slot />
+            </span>
           </span>
-        ) : (
-          ''
-        )}
-      </span>
+        </span>
+      </Host>
     );
   }
 }

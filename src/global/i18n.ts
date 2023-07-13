@@ -438,7 +438,7 @@ export const i18nMeansOfTransport: Record<string, Record<string, string>> = {
     fr: 'S/SN/R',
     it: 'S/SN/R',
   },
-  tram: {
+  tramway: {
     de: 'Tram/Metro',
     en: 'Tramway/Underground',
     fr: 'Tram/Métro',

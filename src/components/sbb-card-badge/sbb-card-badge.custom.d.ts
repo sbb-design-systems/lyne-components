@@ -1,4 +1,3 @@
-export interface InterfaceCardBadgeAttributes {
-  size: 'regular';
-  appearance: 'primary' | 'primary-negative';
+export interface InterfaceSbbCardBadgeAttributes {
+  color: 'charcoal' | 'white';
 }

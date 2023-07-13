@@ -15,19 +15,37 @@
   --sbb-card-animation-duration: var(--sbb-animation-duration-1x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
   --sbb-card-border-color: transparent;
+  --sbb-card-border-style: solid;
   --sbb-card-hover-shift: 0;
 
   @include a11y.if-forced-colors {
     --sbb-card-border-color: CanvasText;
+    --sbb-card-border-width: var(--sbb-border-width-2x);
   }
 }
 
 @mixin card-variables--milk {
   --sbb-card-background-color: var(--sbb-color-milk-default);
+  --sbb-card-border-color: transparent;
+}
+
+@mixin card-variables--transparent-bordered {
+  --sbb-card-background-color: transparent;
+  --sbb-card-border-color: var(--sbb-color-cloud-default);
+  --sbb-card-border-width: var(--sbb-border-width-1x);
+}
+
+@mixin card-variables--transparent-bordered-dashed {
+  --sbb-card-background-color: transparent;
+  --sbb-card-border-color: var(--sbb-color-cement-default);
+  --sbb-card-border-width: var(--sbb-border-width-1x);
+  --sbb-card-border-style: dashed;
 }
 
 @mixin card-variables--active {
   --sbb-card-border-color: var(--sbb-color-smoke-default);
+  --sbb-card-border-width: var(--sbb-border-width-2x);
+  --sbb-card-border-style: solid;
 
   @include a11y.if-forced-colors {
     --sbb-card-border-color: Highlight;
@@ -86,43 +104,45 @@
   --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
 }
 
+@mixin card-variables--xxxl {
+  --sbb-card-padding-inline: var(--sbb-spacing-responsive-l);
+  --sbb-card-padding-block-start: var(--sbb-spacing-responsive-l);
+  --sbb-card-padding-block-end: var(--sbb-card-padding-block-start);
+}
+
 @mixin card-variables--button {
   @include a11y.if-forced-colors {
     --sbb-card-color: ButtonText;
   }
 }
 
-@mixin card {
-  @include typo.text-inherit;
-  @include buttons.button-reset;
+@mixin card-variables--link {
+  @include a11y.if-forced-colors {
+    --sbb-card-color: LinkText;
+  }
+}
 
+@mixin card {
   display: block;
   position: relative;
-  overflow: hidden;
   padding-inline: var(--sbb-card-padding-inline);
   padding-block-start: var(--sbb-card-padding-block-start);
   padding-block-end: var(--sbb-card-padding-block-end);
   border-radius: var(--sbb-card-border-radius);
   background-color: var(--sbb-card-background-color);
+  box-shadow: none;
   transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-  cursor: pointer;
-  text-decoration: none;
-  user-select: text;
   color: var(--sbb-card-color);
 
+  // Apply border as after element to let it be inline
   &::after {
-    position: absolute;
-    background-color: transparent;
     content: '';
+    position: absolute;
     inset: 0;
-    border: var(--sbb-border-width-2x) solid var(--sbb-card-border-color);
+    background-color: transparent;
+    border: var(--sbb-card-border-width) var(--sbb-card-border-style) var(--sbb-card-border-color);
     border-radius: var(--sbb-card-border-radius);
     pointer-events: none;
-  }
-
-  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
-    @include a11y.focus-outline;
   }
 }
 
