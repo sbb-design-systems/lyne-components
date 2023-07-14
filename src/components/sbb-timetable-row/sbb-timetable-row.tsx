@@ -23,15 +23,15 @@ import {
   renderStringProduct,
   sortSituation,
 } from './sbb-timetable-row.helper';
-import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { ITripItem } from '../../global/interfaces/timetable-properties';
+import { ITripItem } from '../../global/interfaces';
+import { format } from 'date-fns';
+import { removeTimezoneFromISOTimeString, durationToTime } from '../../global/datetime';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { format } from 'date-fns';
-import { getDepartureArrivalTimeAttribute } from '../../global/helpers/access-leg-helper';
+} from '../../global/eventing';
+import { getDepartureArrivalTimeAttribute } from '../../global/timetable';
 
 @Component({
   shadow: true,

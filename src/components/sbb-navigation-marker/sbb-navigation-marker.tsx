@@ -10,7 +10,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 /**
  * @slot unnamed - Use this slot to provide navigation actions into the sbb-navigation-marker.
@@ -38,7 +38,9 @@ export class SbbNavigationMarker implements ComponentInterface {
   @State() private _actions: HTMLSbbNavigationActionElement[];
 
   private _currentActiveAction: HTMLSbbNavigationActionElement;
-  private _navigationMarkerResizeObserver = new ResizeObserver(() => this._setMarkerPosition());
+  private _navigationMarkerResizeObserver = new AgnosticResizeObserver(() =>
+    this._setMarkerPosition(),
+  );
 
   @Element() private _element: HTMLElement;
 

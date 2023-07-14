@@ -13,15 +13,15 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { isEventOnElement } from '../../global/helpers/position';
-import { getNextElementIndex } from '../../global/helpers/arrow-navigation';
-import { setOverlayPosition } from '../../global/helpers/overlay-option-panel';
-import { overlayGapFixCorners, SbbOverlayState } from '../../global/helpers';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { isSafari } from '../../global/helpers/platform';
-import { assignId } from '../../global/helpers/assign-id';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
+import { SbbOverlayState } from '../../components';
+import { getNextElementIndex, assignId } from '../../global/a11y';
+import {
+  isSafari,
+  isValidAttribute,
+  toggleDatasetEntry,
+  getDocumentWritingMode,
+} from '../../global/dom';
+import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../../global/overlay';
 
 let nextId = 0;
 

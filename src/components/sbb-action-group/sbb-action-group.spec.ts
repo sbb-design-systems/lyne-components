@@ -1,7 +1,7 @@
 import { SbbActionGroup } from './sbb-action-group';
 import { newSpecPage } from '@stencil/core/testing';
 import { AnyHTMLElement } from '@stencil/core/internal';
-import { patchSlotchangeEvent } from '../../global/helpers/testing/slotchange-events';
+import { patchSlotchangeEvent } from '../../global/testing';
 
 describe('sbb-action-group', () => {
   it('renders', async () => {

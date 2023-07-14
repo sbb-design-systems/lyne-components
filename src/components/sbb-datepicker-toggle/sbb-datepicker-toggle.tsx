@@ -11,18 +11,18 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbCalendarCustomEvent } from '../../components';
-import { HandlerRepository } from '../../global/helpers';
-import {
-  documentLanguage,
-  languageChangeHandlerAspect,
-  sbbInputModalityDetector,
-} from '../../global/helpers';
 import { i18nShowCalendar } from '../../global/i18n';
 import {
   datepickerControlRegisteredEvent,
   getDatePicker,
   InputUpdateEvent,
 } from '../sbb-datepicker/sbb-datepicker.helper';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  sbbInputModalityDetector,
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

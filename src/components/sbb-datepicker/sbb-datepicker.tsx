@@ -13,17 +13,16 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import {
-  HandlerRepository,
-  documentLanguage,
-  languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
-import { DateAdapter } from '../../global/interfaces/date-adapter';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
+import { toggleDatasetEntry } from '../../global/dom';
+import {
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
+import { AgnosticMutationObserver } from '../../global/observers';
 
 const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const FORMAT_DATE =
@@ -177,7 +176,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _datePickerController: AbortController;
 
-  private _inputObserver = new MutationObserver(this._onInputPropertiesChange.bind(this));
+  private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
 
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 

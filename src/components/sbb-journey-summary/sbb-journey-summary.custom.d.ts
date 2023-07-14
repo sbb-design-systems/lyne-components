@@ -1,4 +1,4 @@
-import { Leg } from '../../global/interfaces/timetable-properties';
+import { Leg } from '../../global/interfaces';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   headerLevel?: '1' | '2' | '3' | '4' | '5' | '6';

@@ -1,15 +1,14 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../../global/i18n';
 import { format } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { Leg } from '../../global/interfaces/timetable-properties';
-import { isRideLeg } from '../../global/helpers/timetable-helper';
+import { removeTimezoneFromISOTimeString } from '../../global/datetime';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { getDepartureArrivalTimeAttribute } from '../../global/helpers/access-leg-helper';
+} from '../../global/eventing';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../../global/timetable';
+import { Leg } from '../../global/interfaces';
 
 @Component({
   shadow: true,

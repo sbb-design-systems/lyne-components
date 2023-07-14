@@ -1,4 +1,4 @@
-import { AgnosticMutationObserver } from '../mutation-observer';
+import { AgnosticMutationObserver } from '../observers';
 import { HandlerAspect } from './handler-repository';
 
 export const sbbNamedSlotChangeEventName = 'sbbNamedSlotChange';

@@ -12,15 +12,15 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
+import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Use this to provide radio buttons within the group.

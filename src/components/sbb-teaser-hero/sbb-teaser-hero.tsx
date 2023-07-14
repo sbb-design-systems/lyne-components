@@ -4,14 +4,14 @@ import {
   LinkTargetType,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   linkHandlerAspect,
-} from '../../global/helpers';
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - text content of panel

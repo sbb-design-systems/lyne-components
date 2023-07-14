@@ -13,13 +13,13 @@ import {
 } from '@stencil/core';
 import { InterfaceAlertAttributes } from './sbb-alert.custom';
 import { i18nCloseAlert, i18nFindOutMore } from '../../global/i18n';
-import { LinkProperties, LinkTargetType } from '../../global/interfaces/link-button-properties';
+import { LinkProperties, LinkTargetType } from '../../global/interfaces';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot icon - Should be a sbb-icon which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.

@@ -1,4 +1,4 @@
-const debounce = <F extends (...args: any[]) => any>(
+export const debounce = <F extends (...args: any[]) => any>(
   func: F,
   waitFor: number,
 ): ((...args: Parameters<F>) => Promise<ReturnType<F>>) => {
@@ -14,5 +14,3 @@ const debounce = <F extends (...args: any[]) => any>(
 
   return debounced as (...args: Parameters<F>) => ReturnType<F>;
 };
-
-export default debounce;

@@ -11,12 +11,12 @@ import {
 } from '@stencil/core';
 import { InterfaceSbbTrainAttributes } from './sbb-train.custom.d';
 import { i18nTrain, i18nWagonsLabel } from '../../global/i18n';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Used for slotting sbb-train-wagons.

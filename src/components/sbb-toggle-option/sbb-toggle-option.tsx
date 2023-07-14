@@ -12,12 +12,12 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
-import { ToggleOptionStateChange } from './sbb-toggle-option.custom';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Slot used to render the label of the toggle option.

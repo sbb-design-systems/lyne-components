@@ -7,7 +7,7 @@ import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 import { within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
+import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {

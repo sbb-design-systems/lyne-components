@@ -77,7 +77,7 @@ This has been implemented to the best of our know-how in the form of the
 This can be used as follows:
 
 ```ts
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
+import { actionElementHandlerAspect, HandlerRepository } from '../../global/eventing';
 
 class ActionElement implements LinkButtonProperties {
   private _handlerRepository = new HandlerRepository(this._element, actionElementHandlerAspect);

@@ -12,10 +12,10 @@ import {
   Watch,
 } from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
 import { ToggleOptionStateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
+import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { toggleDatasetEntry } from '../../global/dom';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
@@ -56,7 +56,9 @@ export class SbbToggle implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   private _toggleElement: HTMLElement;
-  private _toggleResizeObserver = new ResizeObserver(() => this._setCheckedPillPosition(true));
+  private _toggleResizeObserver = new AgnosticResizeObserver(() =>
+    this._setCheckedPillPosition(true),
+  );
 
   @Watch('value')
   public valueChanged(value: any | undefined): void {

@@ -19,9 +19,9 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
+import { AgnosticResizeObserver } from '../../global/observers';
 import { InterfaceNotificationAttributes } from './sbb-notification.custom';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -84,7 +84,9 @@ export class SbbNotification implements ComponentInterface {
 
   private _notificationElement: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _notificationResizeObserver = new ResizeObserver(() => this._onNotificationResize());
+  private _notificationResizeObserver = new AgnosticResizeObserver(() =>
+    this._onNotificationResize(),
+  );
 
   /**
    * Emits whenever the notification starts the opening transition.

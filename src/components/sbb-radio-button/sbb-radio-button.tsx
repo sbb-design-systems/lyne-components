@@ -13,21 +13,21 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
+import { isValidAttribute } from '../../global/dom';
+import {
+  createNamedSlotState,
+  documentLanguage,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+  namedSlotChangeHandlerAspect,
+  formElementHandlerAspect,
+} from '../../global/eventing';
+import { AgnosticMutationObserver } from '../../global/observers';
 import {
   InterfaceSbbRadioButtonAttributes,
   RadioButtonStateChange,
 } from './sbb-radio-button.custom';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import {
-  createNamedSlotState,
-  documentLanguage,
-  formElementHandlerAspect,
-  HandlerRepository,
-  languageChangeHandlerAspect,
-  namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
-import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-radio-button-group */
 const radioButtonObserverConfig: MutationObserverInit = {
@@ -104,7 +104,7 @@ export class SbbRadioButton implements ComponentInterface {
   @State() private _currentLanguage = documentLanguage();
 
   private _selectionPanelElement: HTMLElement;
-  private _radioButtonAttributeObserver = new MutationObserver(
+  private _radioButtonAttributeObserver = new AgnosticMutationObserver(
     this._onRadioButtonAttributesChange.bind(this),
   );
 

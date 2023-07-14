@@ -1,13 +1,13 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
+import { getDocumentWritingMode } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../../global/i18n';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
-import { InterfaceJourneyHeaderAttributes } from './sbb-journey-header.custom';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

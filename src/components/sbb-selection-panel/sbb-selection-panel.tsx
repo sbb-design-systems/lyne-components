@@ -11,10 +11,13 @@ import {
   State,
   EventEmitter,
 } from '@stencil/core';
-import { HandlerRepository, namedSlotChangeHandlerAspect } from '../../global/helpers';
-import { createNamedSlotState } from '../../global/helpers';
 import { CheckboxStateChange } from '../sbb-checkbox/sbb-checkbox.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
+import {
+  createNamedSlotState,
+  HandlerRepository,
+  namedSlotChangeHandlerAspect,
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.

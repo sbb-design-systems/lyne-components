@@ -12,19 +12,18 @@ import {
   Prop,
   State,
 } from '@stencil/core';
+import { SbbOverlayState } from '../../components';
+import { isFirefox, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-  SbbOverlayState,
-} from '../../global/helpers';
-import { SbbToastAriaPoliteness, SbbToastAriaRole, SbbToastPosition } from './sbb-toast.custom';
-import { isFirefox } from '../../global/helpers/platform';
+  composedPathHasAttribute,
+} from '../../global/eventing';
 import { i18nCloseAlert } from '../../global/i18n';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { composedPathHasAttribute } from '../../global/helpers/composed-path-has-attribute';
+import { SbbToastPosition, SbbToastAriaPoliteness, SbbToastAriaRole } from './sbb-toast.custom';
 
 // A global collection of existing toasts
 const toastRefs = new Set<HTMLSbbToastElement>();

@@ -1,5 +1,4 @@
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { DateAdapter } from '../../global/interfaces/date-adapter';
+import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
 
 export interface InputUpdateEvent {
   disabled: boolean;

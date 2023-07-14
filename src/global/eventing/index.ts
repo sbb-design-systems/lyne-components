@@ -1,4 +1,6 @@
 export * from './action-element-handlers';
+export * from './composed-path-has-attribute';
+export * from './debounce';
 export * from './event-target';
 export * from './fake-event-detection';
 export * from './form-element-handlers';
@@ -8,3 +10,4 @@ export * from './input-modality-detector';
 export * from './is-event-prevented';
 export * from './language-change-handler';
 export * from './named-slot-change-handler';
+export * from './throttle';

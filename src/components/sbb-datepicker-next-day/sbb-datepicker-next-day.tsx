@@ -10,24 +10,21 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
-import {
-  documentLanguage,
-  languageChangeHandlerAspect,
-} from '../../global/helpers/eventing/language-change-handler';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
 import { i18nNextDay } from '../../global/i18n';
-import { DateAdapter } from '../../global/interfaces/date-adapter';
-import {
-  ButtonProperties,
-  resolveButtonRenderVariables,
-} from '../../global/interfaces/link-button-properties';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
 import {
   datepickerControlRegisteredEvent,
   findNextAvailableDate,
   getDatePicker,
   InputUpdateEvent,
 } from '../sbb-datepicker/sbb-datepicker.helper';
+import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
+import {
+  documentLanguage,
+  HandlerRepository,
+  actionElementHandlerAspect,
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

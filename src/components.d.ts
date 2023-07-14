@@ -11,7 +11,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
+import { ButtonType, ITripItem, Leg, LinkTargetType } from "./global/interfaces";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -30,8 +30,6 @@ import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
-import { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-import { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -47,7 +45,7 @@ import { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast
 import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-import { SbbOverlayState } from "./global/helpers/overlay";
+import { SbbOverlayState } from "./components";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
@@ -56,7 +54,7 @@ export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-export { ButtonType, LinkTargetType } from "./global/interfaces/link-button-properties";
+export { ButtonType, ITripItem, Leg, LinkTargetType } from "./global/interfaces";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -75,8 +73,6 @@ export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
-export { InterfaceOverlayEventDetail } from "./global/core/components/overlay/overlays-interface";
-export { ITripItem, Leg } from "./global/interfaces/timetable-properties";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -92,7 +88,7 @@ export { SbbToastAriaPoliteness, SbbToastPosition } from "./components/sbb-toast
 export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle.custom";
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
-export { SbbOverlayState } from "./global/helpers/overlay";
+export { SbbOverlayState } from "./components";
 export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
 export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
 export namespace Components {
@@ -1185,17 +1181,6 @@ export namespace Components {
          */
         "value"?: string;
     }
-    interface SbbOverlay {
-        /**
-          * Dismiss the overlay.
-         */
-        "dismiss": (data?: any, role?: string) => Promise<boolean>;
-        "overlayIndex": number;
-        /**
-          * Present the overlay.
-         */
-        "present": () => Promise<void>;
-    }
     interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -1995,10 +1980,6 @@ export interface SbbOptionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbOptionElement;
 }
-export interface SbbOverlayCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLSbbOverlayElement;
-}
 export interface SbbRadioButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbRadioButtonElement;
@@ -2336,12 +2317,6 @@ declare global {
         prototype: HTMLSbbOptionElement;
         new (): HTMLSbbOptionElement;
     };
-    interface HTMLSbbOverlayElement extends Components.SbbOverlay, HTMLStencilElement {
-    }
-    var HTMLSbbOverlayElement: {
-        prototype: HTMLSbbOverlayElement;
-        new (): HTMLSbbOverlayElement;
-    };
     interface HTMLSbbPearlChainElement extends Components.SbbPearlChain, HTMLStencilElement {
     }
     var HTMLSbbPearlChainElement: {
@@ -2638,7 +2613,6 @@ declare global {
         "sbb-notification": HTMLSbbNotificationElement;
         "sbb-optgroup": HTMLSbbOptgroupElement;
         "sbb-option": HTMLSbbOptionElement;
-        "sbb-overlay": HTMLSbbOverlayElement;
         "sbb-pearl-chain": HTMLSbbPearlChainElement;
         "sbb-pearl-chain-time": HTMLSbbPearlChainTimeElement;
         "sbb-pearl-chain-vertical": HTMLSbbPearlChainVerticalElement;
@@ -3832,13 +3806,6 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
-    interface SbbOverlay {
-        "onDidDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onDidPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
-        "onWillDismiss"?: (event: SbbOverlayCustomEvent<InterfaceOverlayEventDetail>) => void;
-        "onWillPresent"?: (event: SbbOverlayCustomEvent<void>) => void;
-        "overlayIndex"?: number;
-    }
     interface SbbPearlChain {
         /**
           * Per default, the current location has a pulsating animation. You can disable the animation with this property.
@@ -4730,7 +4697,6 @@ declare namespace LocalJSX {
         "sbb-notification": SbbNotification;
         "sbb-optgroup": SbbOptgroup;
         "sbb-option": SbbOption;
-        "sbb-overlay": SbbOverlay;
         "sbb-pearl-chain": SbbPearlChain;
         "sbb-pearl-chain-time": SbbPearlChainTime;
         "sbb-pearl-chain-vertical": SbbPearlChainVertical;
@@ -4824,7 +4790,6 @@ declare module "@stencil/core" {
             "sbb-notification": LocalJSX.SbbNotification & JSXBase.HTMLAttributes<HTMLSbbNotificationElement>;
             "sbb-optgroup": LocalJSX.SbbOptgroup & JSXBase.HTMLAttributes<HTMLSbbOptgroupElement>;
             "sbb-option": LocalJSX.SbbOption & JSXBase.HTMLAttributes<HTMLSbbOptionElement>;
-            "sbb-overlay": LocalJSX.SbbOverlay & JSXBase.HTMLAttributes<HTMLSbbOverlayElement>;
             "sbb-pearl-chain": LocalJSX.SbbPearlChain & JSXBase.HTMLAttributes<HTMLSbbPearlChainElement>;
             "sbb-pearl-chain-time": LocalJSX.SbbPearlChainTime & JSXBase.HTMLAttributes<HTMLSbbPearlChainTimeElement>;
             "sbb-pearl-chain-vertical": LocalJSX.SbbPearlChainVertical & JSXBase.HTMLAttributes<HTMLSbbPearlChainVerticalElement>;

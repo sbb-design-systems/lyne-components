@@ -7,18 +7,18 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
 import { InterfaceLinkAttributes } from './sbb-link.custom';
-import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { hostContext, ACTION_ELEMENTS } from '../../global/dom';
 import {
-  actionElementHandlerAspect,
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
+  actionElementHandlerAspect,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Link Content

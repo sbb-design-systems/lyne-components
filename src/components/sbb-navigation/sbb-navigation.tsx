@@ -13,26 +13,23 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { isEventOnElement } from '../../global/helpers/position';
-import { ScrollHandler } from '../../global/helpers/scroll';
-import { i18nCloseNavigation } from '../../global/i18n';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { assignId } from '../../global/helpers/assign-id';
-import {
-  setAriaOverlayTriggerAttributes,
-  removeAriaOverlayTriggerAttributes,
-} from '../../global/helpers/overlay-trigger-attributes';
+import { SbbOverlayState } from '../../components';
+import { FocusTrap, IS_FOCUSABLE_QUERY, assignId } from '../../global/a11y';
+import { ScrollHandler, isValidAttribute, isBreakpoint } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
-  sbbInputModalityDetector,
   languageChangeHandlerAspect,
   setModalityOnNextFocus,
-} from '../../global/helpers';
-import { SbbOverlayState } from '../../global/helpers/overlay';
+  sbbInputModalityDetector,
+} from '../../global/eventing';
+import { i18nCloseNavigation } from '../../global/i18n';
+import { AgnosticMutationObserver } from '../../global/observers';
+import {
+  removeAriaOverlayTriggerAttributes,
+  setAriaOverlayTriggerAttributes,
+  isEventOnElement,
+} from '../../global/overlay';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {
@@ -130,7 +127,7 @@ export class SbbNavigation implements ComponentInterface {
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _isPointerDownEventOnDialog: boolean;
-  private _navigationObserver = new MutationObserver((mutationsList: MutationRecord[]) =>
+  private _navigationObserver = new AgnosticMutationObserver((mutationsList: MutationRecord[]) =>
     this._onNavigationSectionChange(mutationsList),
   );
   private _navigationId = `sbb-navigation-${++nextId}`;

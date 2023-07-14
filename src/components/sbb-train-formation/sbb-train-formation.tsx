@@ -1,12 +1,12 @@
 import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, State } from '@stencil/core';
 
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 interface AggregatedSector {
   label: string;
@@ -38,7 +38,7 @@ export class SbbTrainFormation implements ComponentInterface {
   /** Element that defines the visible content width. */
   private _formationDiv: HTMLDivElement;
 
-  private _contentResizeObserver = new ResizeObserver(() => this._applyCssWidth());
+  private _contentResizeObserver = new AgnosticResizeObserver(() => this._applyCssWidth());
 
   private _handlerRepository = new HandlerRepository(
     this._element,

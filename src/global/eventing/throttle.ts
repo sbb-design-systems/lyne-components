@@ -1,4 +1,4 @@
-const throttle = <F extends (...args: any[]) => any>(
+export const throttle = <F extends (...args: any[]) => any>(
   func: F,
   delay: number,
 ): ((...args: Parameters<F>) => Promise<ReturnType<F>>) => {
@@ -17,5 +17,3 @@ const throttle = <F extends (...args: any[]) => any>(
 
   return throttled as (...args: Parameters<F>) => ReturnType<F>;
 };
-
-export default throttle;

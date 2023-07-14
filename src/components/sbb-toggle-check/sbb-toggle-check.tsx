@@ -11,14 +11,14 @@ import {
   Host,
   Listen,
 } from '@stencil/core';
-import { inputElement } from '../../global/helpers/input-element';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
+import { inputElement } from '../../global/dom';
 import {
-  formElementHandlerAspect,
-  forwardEventToHost,
-  getEventTarget,
   HandlerRepository,
-} from '../../global/helpers';
+  formElementHandlerAspect,
+  getEventTarget,
+  forwardEventToHost,
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

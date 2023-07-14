@@ -7,7 +7,7 @@ import {
   sortSituation,
 } from './sbb-timetable-row.helper';
 import { walkTimeTrip, partiallyCancelled } from './sbb-timetable-row.sample-data';
-import { PtSituation } from '../../global/interfaces/timetable-properties';
+import { PtSituation } from '../../global/interfaces';
 
 describe('getTransportIcon', () => {
   it('should return ship / jetty', () => {

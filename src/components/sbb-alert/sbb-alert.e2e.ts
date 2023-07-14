@@ -1,6 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 import events from './sbb-alert.events';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-alert', () => {
   let alert, page;

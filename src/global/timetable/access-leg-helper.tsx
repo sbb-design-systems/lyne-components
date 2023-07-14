@@ -3,7 +3,7 @@
 import { JSX, h, Fragment } from '@stencil/core';
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n';
 import { extractTimeAndStringFromNoticeText } from '../../components/sbb-pearl-chain-time/sbb-pearl-chain-time.helper';
-import { Leg, PtRideLeg, PtConnectionLeg } from '../interfaces/timetable-properties';
+import { Leg, PtRideLeg, PtConnectionLeg } from '../interfaces';
 import { isConnectionLeg, isRideLeg } from './timetable-helper';
 
 interface IAccessAttribute {

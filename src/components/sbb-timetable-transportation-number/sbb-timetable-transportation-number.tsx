@@ -1,6 +1,6 @@
 import { Component, h, JSX, Prop } from '@stencil/core';
 
-import icons from '../../global/icons/timetable.json';
+import icons from '../../global/timetable/icons.json';
 import { InterfaceTimetableTransportationNumberAttributes } from './sbb-timetable-transportation-number.custom';
 
 @Component({

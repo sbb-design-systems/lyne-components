@@ -1,7 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
-import getDocumentWritingMode from '../../global/helpers/get-document-writing-mode';
 import { InterfaceSbbCardBadgeAttributes } from './sbb-card-badge.custom';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { toggleDatasetEntry, getDocumentWritingMode } from '../../global/dom';
 
 /**
  * @slot unnamed - Content of the badge.

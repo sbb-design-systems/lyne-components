@@ -37,7 +37,6 @@ graph TD;
   sbb-journey-summary --> sbb-journey-header
   sbb-journey-summary --> sbb-divider
   sbb-pearl-chain-time --> sbb-pearl-chain
-  sbb-pearl-chain-time --> sbb-icon
   sbb-journey-header --> sbb-title
   sbb-journey-header --> sbb-icon
   style sbb-journey-summary fill:#f9f,stroke:#333,stroke-width:4px

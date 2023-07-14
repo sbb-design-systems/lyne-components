@@ -1,11 +1,7 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop } from '@stencil/core';
-import { actionElementHandlerAspect, HandlerRepository } from '../../global/helpers';
-import { hostContext } from '../../global/helpers/host-context';
-import {
-  ButtonProperties,
-  resolveButtonRenderVariables,
-} from '../../global/interfaces/link-button-properties';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { hostContext, toggleDatasetEntry } from '../../global/dom';
+import { HandlerRepository, actionElementHandlerAspect } from '../../global/eventing';
 
 /**
  * @slot unnamed - Slot to render the content.

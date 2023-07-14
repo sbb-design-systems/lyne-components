@@ -1,6 +1,6 @@
 import { newE2EPage } from '@stencil/core/testing';
 import events from './sbb-alert-group.events';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-alert-group', () => {
   it('should handle events ond states on interacting with alerts', async () => {

@@ -1,6 +1,6 @@
 import { SbbIcon } from './sbb-icon';
 import { newSpecPage } from '@stencil/core/testing';
-import { SbbIconConfig } from '../../global/helpers/config';
+import { SbbIconConfig } from '../../global/config';
 
 describe('sbb-icon', () => {
   it('renders', async () => {

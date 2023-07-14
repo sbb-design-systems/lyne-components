@@ -2,8 +2,8 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
-import { waitForComponentsReady } from '../../global/helpers/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../global/helpers/testing/wait-for-stable-position';
+import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
+import { waitForStablePosition } from '../../global/testing';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';

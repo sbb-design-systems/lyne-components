@@ -65,7 +65,7 @@ export const config: Config = {
     transform: {
       '^.+\\.(ts|tsx|js|jsx|css)$': '@stencil/core/testing/jest-preprocessor',
     },
-    setupFilesAfterEnv: ['<rootDir>/src/global/helpers/testing/jest-setup.ts'],
+    setupFilesAfterEnv: ['<rootDir>/src/global/testing/jest-setup.ts'],
   },
 };
 

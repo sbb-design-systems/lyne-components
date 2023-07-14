@@ -11,23 +11,20 @@ import {
   State,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
-import { hostContext } from '../../global/helpers/host-context';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { ScrollHandler } from '../../global/helpers/scroll';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import { SbbOverlayState } from '../../components';
+import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/a11y';
+import { ScrollHandler, toggleDatasetEntry, isValidAttribute, hostContext } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
-  sbbInputModalityDetector,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   setModalityOnNextFocus,
-} from '../../global/helpers';
-import { SbbOverlayState } from '../../global/helpers/overlay';
+  sbbInputModalityDetector,
+} from '../../global/eventing';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 let nextId = 0;
 
@@ -102,7 +99,9 @@ export class SbbDialog implements ComponentInterface {
     return this._element.dataset.state as SbbOverlayState;
   }
 
-  private _dialogContentResizeObserver = new ResizeObserver(() => this._setOverflowAttribute());
+  private _dialogContentResizeObserver = new AgnosticResizeObserver(() =>
+    this._setOverflowAttribute(),
+  );
 
   /**
    * Emits whenever the dialog starts the opening transition.

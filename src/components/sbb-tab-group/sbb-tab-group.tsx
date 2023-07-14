@@ -11,13 +11,11 @@ import {
   Method,
   Prop,
 } from '@stencil/core';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
-import { hostContext } from '../../global/helpers/host-context';
-import throttle from '../../global/helpers/throttle';
+import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { isValidAttribute, hostContext } from '../../global/dom';
+import { throttle } from '../../global/eventing';
+import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
 
 const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],
@@ -46,8 +44,10 @@ export class SbbTabGroup implements ComponentInterface {
   private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;
   private _tabContentElement: HTMLElement;
-  private _tabAttributeObserver = new MutationObserver(this._onTabAttributesChange.bind(this));
-  private _tabContentResizeObserver = new ResizeObserver(
+  private _tabAttributeObserver = new AgnosticMutationObserver(
+    this._onTabAttributesChange.bind(this),
+  );
+  private _tabContentResizeObserver = new AgnosticResizeObserver(
     this._onTabContentElementResize.bind(this),
   );
 

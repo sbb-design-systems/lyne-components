@@ -20,7 +20,7 @@ window = { navigator: { userAgent: '' }, location: { href: '' } } as any;
 window.parent = window.window = window;
 globalThis.React = React;
 
-const chromaticFile = join(__dirname, '../src/global/helpers/chromatic.js');
+const chromaticFile = join(__dirname, '../src/global/chromatic.js');
 
 function walk(root: string, filter: RegExp): string[] {
   return readdirSync(root, { withFileTypes: true }).reduce((current, next) => {

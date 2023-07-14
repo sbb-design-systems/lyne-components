@@ -6,14 +6,14 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
-  actionElementHandlerAspect,
   documentLanguage,
   HandlerRepository,
+  actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.

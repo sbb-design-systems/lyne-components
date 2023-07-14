@@ -1,8 +1,8 @@
 import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
-import { isRideLeg } from '../../global/helpers/timetable-helper';
-import { PtRideLeg, Leg } from '../../global/interfaces/timetable-properties';
+import { PtRideLeg, Leg } from '../../global/interfaces';
+import { removeTimezoneFromISOTimeString } from '../../global/datetime';
+import { isRideLeg } from '../../global/timetable';
 
 type Status = 'progress' | 'future' | 'past';
 @Component({

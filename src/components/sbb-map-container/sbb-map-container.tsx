@@ -1,12 +1,12 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
 import { i18nMapContainerButtonLabel } from '../../global/i18n';
-import { AgnosticIntersectionObserver as IntersectionObserver } from '../../global/helpers/intersection-observer';
+import { toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+} from '../../global/eventing';
+import { AgnosticIntersectionObserver } from '../../global/observers';
 
 /**
  * @slot unnamed - Used for slotting the sidebar content.
@@ -35,7 +35,7 @@ export class SbbMapContainer implements ComponentInterface {
   );
 
   private _intersector: HTMLSpanElement;
-  private _observer = new IntersectionObserver((entries) =>
+  private _observer = new AgnosticIntersectionObserver((entries) =>
     this._toggleButtonVisibilityOnIntersect(entries),
   );
 

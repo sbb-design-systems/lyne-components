@@ -12,16 +12,15 @@ import {
 } from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { AgnosticMutationObserver } from '../../global/observers';
+import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 let nextId = 0;
 
@@ -132,11 +131,13 @@ export class SbbFormField implements ComponentInterface {
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
    */
-  private _formFieldAttributeObserver = new MutationObserver((mutations: MutationRecord[]) => {
-    if (mutations.some((m) => m.type === 'attributes')) {
-      this._readInputState();
-    }
-  });
+  private _formFieldAttributeObserver = new AgnosticMutationObserver(
+    (mutations: MutationRecord[]) => {
+      if (mutations.some((m) => m.type === 'attributes')) {
+        this._readInputState();
+      }
+    },
+  );
 
   private _inputAbortController = new AbortController();
 

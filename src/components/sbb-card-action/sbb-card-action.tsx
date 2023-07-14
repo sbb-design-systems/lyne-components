@@ -18,16 +18,16 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
+import { IS_FOCUSABLE_QUERY } from '../../global/a11y';
+import { toggleDatasetEntry } from '../../global/dom';
 import {
-  actionElementHandlerAspect,
   documentLanguage,
   HandlerRepository,
+  actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
+} from '../../global/eventing';
+import { AgnosticMutationObserver } from '../../global/observers';
 
 /**
  * @slot unnamed - Slot to render a descriptive label / title of the action (important!). This is relevant for SEO and screen readers.
@@ -78,7 +78,9 @@ export class SbbCardAction implements ComponentInterface, LinkButtonProperties {
 
   private _abortController = new AbortController();
   private _card: HTMLSbbCardElement | null = null;
-  private _cardMutationObserver = new MutationObserver(() => this._checkForSlottedActions());
+  private _cardMutationObserver = new AgnosticMutationObserver(() =>
+    this._checkForSlottedActions(),
+  );
 
   private _handlerRepository = new HandlerRepository(
     this._element,

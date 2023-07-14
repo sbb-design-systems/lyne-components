@@ -11,17 +11,16 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { HandlerRepository } from '../../global/helpers';
-import { isArrowKeyOrPageKeysPressed } from '../../global/helpers/arrow-navigation';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
+import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
+import { Day, Weekday } from './sbb-calendar.custom';
 import {
   documentLanguage,
+  HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers/eventing/language-change-handler';
-import { DAYS_PER_WEEK, NativeDateAdapter } from '../../global/helpers/native-date-adapter';
-import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
-import { DateAdapter } from '../../global/interfaces/date-adapter';
-import { Day, Weekday } from './sbb-calendar.custom';
+} from '../../global/eventing';
+import { DateAdapter, DAYS_PER_WEEK, NativeDateAdapter } from '../../global/datetime';
+import { isBreakpoint } from '../../global/dom';
+import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 
 @Component({
   shadow: true,
