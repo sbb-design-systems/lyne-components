@@ -264,10 +264,12 @@ export class SbbSelect implements ComponentInterface {
     setOverlayPosition(this._overlay, this._originElement, this._optionContainer, this._element);
   }
 
+  // In rare cases it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open') {
+    if (event.animationName === 'open' && this._state === 'opening') {
       this._onOpenAnimationEnd();
-    } else if (event.animationName === 'close') {
+    } else if (event.animationName === 'close' && this._state === 'closing') {
       this._onCloseAnimationEnd();
     }
   }

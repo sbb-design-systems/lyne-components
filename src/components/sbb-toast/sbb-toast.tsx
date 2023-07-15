@@ -220,9 +220,11 @@ export class SbbToast implements ComponentInterface {
       });
   }
 
+  // In rare cases it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
   private _onToastAnimationEnd(event: AnimationEvent): void {
     // On toast opened
-    if (event.animationName === 'open') {
+    if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
 
@@ -233,7 +235,7 @@ export class SbbToast implements ComponentInterface {
     }
 
     // On toast closed
-    if (event.animationName === 'close') {
+    if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this.didClose.emit();
     }

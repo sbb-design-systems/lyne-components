@@ -396,6 +396,8 @@ export class SbbTooltip implements ComponentInterface {
 
   // Set tooltip position (x, y) to '0' once the tooltip is closed and the transition ended to prevent the
   // viewport from overflowing. And set the focus to the first focusable element once the tooltip is open.
+  // In rare cases it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
   private _onTooltipAnimationEnd(event: AnimationEvent): void {
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';

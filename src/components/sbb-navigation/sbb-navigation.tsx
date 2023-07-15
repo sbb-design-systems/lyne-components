@@ -224,13 +224,15 @@ export class SbbNavigation implements ComponentInterface {
     return el.nodeName === 'SBB-NAVIGATION-SECTION' && el.getAttribute('data-state') !== 'opened';
   };
 
+  // In rare cases it can be that the animationEnd event is triggered twice.
+  // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open') {
+    if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
       this.didOpen.emit();
       this._focusTrap.trap(this._element, this._trapFocusFilter);
       this._attachWindowEvents();
-    } else if (event.animationName === 'close') {
+    } else if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
       this._navigationContentElement.scrollTo(0, 0);
       setModalityOnNextFocus(this._triggerElement);
