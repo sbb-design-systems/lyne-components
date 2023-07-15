@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.2](https://github.com/lyne-design-system/lyne-components/compare/v0.38.1...v0.38.2) (2023-07-15)
+
+### Bug Fixes
+
+- avoid animationend triggered twice ([#1872](https://github.com/lyne-design-system/lyne-components/issues/1872)) ([3d008ba](https://github.com/lyne-design-system/lyne-components/commit/3d008bafc81af290fd5a7604e40e287cfc8cf549))
+
 ### [0.38.1](https://github.com/lyne-design-system/lyne-components/compare/v0.38.0...v0.38.1) (2023-07-13)
 
 ### Documentation
