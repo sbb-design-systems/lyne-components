@@ -73,6 +73,8 @@ export class SbbFileSelector implements ComponentInterface {
   @Element() private _element!: HTMLElement;
 
   private _hiddenInput: HTMLElement;
+  private _loadButton: HTMLElement;
+  private _dragTarget: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(
     this._element,
@@ -107,9 +109,59 @@ export class SbbFileSelector implements ComponentInterface {
     }
   }
 
+  private _onDragEnter(event): void {
+    if (!this.disabled) {
+      this._dragTarget = event.target;
+      this._element.style.setProperty(
+        '--sbb-file-selector-background-color',
+        'var(--sbb-color-milk-default)',
+      );
+      this._element.style.setProperty(
+        '--sbb-file-selector-border-color',
+        'var(--sbb-color-storm-default)',
+      );
+      this._loadButton.style.setProperty(
+        '--sbb-button-color-default-background',
+        'var(--sbb-color-milk-default)',
+      );
+      this._blockEvent(event);
+    }
+  }
+
+  private _onDragLeave(event): void {
+    if (!this.disabled && event.target === this._dragTarget) {
+      this._dragTarget = undefined;
+      this._element.style.setProperty(
+        '--sbb-file-selector-background-color',
+        'var(--sbb-color-white-default)',
+      );
+      this._element.style.setProperty(
+        '--sbb-file-selector-border-color',
+        'var(--sbb-color-cloud-default)',
+      );
+      this._loadButton.style.setProperty(
+        '--sbb-button-color-default-background',
+        'var(--sbb-color-white-default)',
+      );
+      this._blockEvent(event);
+    }
+  }
+
   private _onFileDrop(event): void {
     if (!this.disabled) {
       this._blockEvent(event);
+      this._element.style.setProperty(
+        '--sbb-file-selector-background-color',
+        'var(--sbb-color-white-default)',
+      );
+      this._element.style.setProperty(
+        '--sbb-file-selector-border-color',
+        'var(--sbb-color-cloud-default)',
+      );
+      this._loadButton.style.setProperty(
+        '--sbb-button-color-default-background',
+        'var(--sbb-color-white-default)',
+      );
       try {
         this._createFilesList(event.dataTransfer.files);
       } catch (e) {
@@ -178,9 +230,9 @@ export class SbbFileSelector implements ComponentInterface {
     return (
       <div
         class="sbb-file-selector__dropzone-area"
-        onDragEnter={(e) => this._blockEvent(e)}
+        onDragEnter={(e) => this._onDragEnter(e)}
         onDragOver={(e) => this._blockEvent(e)}
-        onDragLeave={(e) => this._blockEvent(e)}
+        onDragLeave={(e) => this._onDragLeave(e)}
         onDrop={(e) => this._onFileDrop(e)}
       >
         <div class="sbb-file-selector__dropzone-area--icon">
@@ -196,6 +248,9 @@ export class SbbFileSelector implements ComponentInterface {
             size="m"
             disabled={this.disabled}
             onClick={() => this._openFileWindow()}
+            ref={(el): void => {
+              this._loadButton = el;
+            }}
           >
             {i18nFileSelectorButtonLabel[this._currentLanguage]}
           </sbb-button>
