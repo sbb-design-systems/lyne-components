@@ -284,23 +284,21 @@ export class SbbFileSelector implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <div class="sbb-file-selector">
-        <div class="sbb-file-selector__load-area">
-          {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
-          <label hidden htmlFor="upload">
-            {i18nFileSelectorButtonLabel[this._currentLanguage]}
-            <input
-              id="upload"
-              type="file"
-              disabled={this.disabled}
-              multiple={this.multiple}
-              accept={this.accept}
-              onChange={(event) => this._readFiles(event)}
-              ref={(el): void => {
-                this._hiddenInput = el;
-              }}
-            />
-          </label>
-        </div>
+        {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
+        <label hidden htmlFor="sbb-file-selector__hidden-input">
+          {i18nFileSelectorButtonLabel[this._currentLanguage]}
+          <input
+            id="sbb-file-selector__hidden-input"
+            type="file"
+            disabled={this.disabled}
+            multiple={this.multiple}
+            accept={this.accept}
+            onChange={(event) => this._readFiles(event)}
+            ref={(el): void => {
+              this._hiddenInput = el;
+            }}
+          />
+        </label>
         {this.files && this.files.length > 0 && this._renderFileList()}
         {this._namedSlots.error && (
           <div class="sbb-file-selector__error">
