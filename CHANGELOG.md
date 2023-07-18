@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.3](https://github.com/lyne-design-system/lyne-components/compare/v0.38.2...v0.38.3) (2023-07-18)
+
+### Bug Fixes
+
+- **sbb-menu:** menu actions arrow navigation ([#1882](https://github.com/lyne-design-system/lyne-components/issues/1882)) ([ce89c23](https://github.com/lyne-design-system/lyne-components/commit/ce89c23af293c11456a9601f98fda65ee199c652))
+
 ### [0.38.2](https://github.com/lyne-design-system/lyne-components/compare/v0.38.1...v0.38.2) (2023-07-15)
 
 ### Bug Fixes
