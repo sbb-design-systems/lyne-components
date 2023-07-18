@@ -172,9 +172,10 @@ export class SbbMenu implements ComponentInterface {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = Array.from(this._element.children).filter(
-      (e: HTMLElement) => e.tabIndex === 0,
-    );
+    const enabledActions: Element[] = Array.from(
+      this._element.querySelectorAll('SBB-MENU-ACTION'),
+    ).filter((e: HTMLElement) => e.tabIndex === 0);
+
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
 
