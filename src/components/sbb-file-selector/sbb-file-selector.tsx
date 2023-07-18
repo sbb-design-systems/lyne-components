@@ -28,25 +28,28 @@ import { i18nFileSelectorButtonLabel, i18nFileSelectorSubtitleLabel } from '../.
   tag: 'sbb-file-selector',
 })
 export class SbbFileSelector implements ComponentInterface {
-  /**  */
+  /** Whether the component has a dropzone area or not. */
   @Prop() public variant: InterfaceSbbFileSelectorAttributes['variant'] = 'default';
 
-  /** */
+  /** Whether more than one file can be selected. */
   @Prop() public multiple: boolean;
 
-  /** */
+  /** Whether the newly added files should override the previously added ones. */
   @Prop() public multipleMode: InterfaceSbbFileSelectorAttributes['multipleMode'];
 
-  /** */
+  /** A comma-separated list of allowed unique file type specifiers. */
   @Prop() public accept: string;
 
-  /** */
-  @State() public files: File[];
-
-  /** */
+  /** The title displayed in `dropzone` variant. */
   @Prop() public titleContent?: string;
 
-  /** Current document language used for translation of the button label. */
+  /** Whether the component is disabled. */
+  @Prop() public disabled: boolean;
+
+  /** The list of selected files. */
+  @State() public files: File[];
+
+  /** Current document language used for translations. */
   @State() private _currentLanguage = documentLanguage();
 
   /**
@@ -54,13 +57,13 @@ export class SbbFileSelector implements ComponentInterface {
    */
   @State() private _namedSlots = createNamedSlotState('error');
 
-  /**  */
+  /** An event which is emitted each time the file list changes. */
   @Event({
     eventName: 'file-changed',
   })
   public fileChangedEvent: EventEmitter<File[]>;
 
-  /**  */
+  /** An event emitted on error. */
   @Event({ bubbles: true }) public error: EventEmitter;
 
   @Element() private _element!: HTMLElement;
@@ -95,17 +98,29 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   private _openFileWindow(): void {
-    return this._hiddenInput.click();
+    if (!this.disabled) {
+      return this._hiddenInput.click();
+    }
   }
 
   private _onFileDrop(event): void {
-    this._blockEvent(event);
-    this._createFilesList(event.dataTransfer.files);
+    if (!this.disabled) {
+      this._blockEvent(event);
+      try {
+        this._createFilesList(event.dataTransfer.files);
+      } catch (e) {
+        this.error.emit(e);
+      }
+    }
   }
 
   private _readFiles(event): void {
-    if (event.target.files) {
-      this._createFilesList(event.target.files);
+    try {
+      if (event.target.files) {
+        this._createFilesList(event.target.files);
+      }
+    } catch (e) {
+      this.error.emit(e);
     }
   }
 
@@ -134,18 +149,20 @@ export class SbbFileSelector implements ComponentInterface {
     this.fileChangedEvent.emit(this.files);
   }
 
+  // TODO move to helpers folder?
   private _formatFileSize(size: number): string {
-    const suffixes = ['B', 'kB', 'MB', 'GB', 'TB'];
-    const i = Math.floor(Math.log(size) / Math.log(1024));
+    const suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
+    const i: number = Math.floor(Math.log(size) / Math.log(1024));
     return `${(size / Math.pow(1024, i)).toFixed(0)} ${suffixes[i]}`;
   }
 
-  private _renderLoadButton(): JSX.Element {
+  private _renderDefaultMode(): JSX.Element {
     return (
       <sbb-button
         variant="secondary"
         size="m"
         icon-name="folder-open-small"
+        disabled={this.disabled}
         onClick={() => this._openFileWindow()}
       >
         {i18nFileSelectorButtonLabel[this._currentLanguage]}
@@ -170,7 +187,12 @@ export class SbbFileSelector implements ComponentInterface {
           {i18nFileSelectorSubtitleLabel[this._currentLanguage]}
         </div>
         <div class="sbb-file-selector__dropzone-area--button">
-          <sbb-button variant="secondary" size="m" onClick={() => this._openFileWindow()}>
+          <sbb-button
+            variant="secondary"
+            size="m"
+            disabled={this.disabled}
+            onClick={() => this._openFileWindow()}
+          >
             {i18nFileSelectorButtonLabel[this._currentLanguage]}
           </sbb-button>
         </div>
@@ -203,12 +225,13 @@ export class SbbFileSelector implements ComponentInterface {
     return (
       <div class="sbb-file-selector">
         <div class="sbb-file-selector__load-area">
-          {this.variant === 'default' ? this._renderLoadButton() : this._renderDropzoneArea()}
+          {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
           <label hidden htmlFor="upload">
             {/* TODO add label here ?*/}
             <input
               id="upload"
               type="file"
+              disabled={this.disabled}
               multiple={this.multiple}
               accept={this.accept}
               onChange={(event) => this._readFiles(event)}

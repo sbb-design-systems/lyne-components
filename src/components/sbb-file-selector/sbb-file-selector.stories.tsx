@@ -13,6 +13,12 @@ const variant: InputType = {
   options: ['default', 'dropzone'],
 };
 
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const titleContent: InputType = {
   control: {
     type: 'text',
@@ -40,6 +46,7 @@ const accept: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   variant,
+  disabled,
   'title-content': titleContent,
   multiple,
   'multiple-mode': multipleMode,
@@ -48,6 +55,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   variant: variant.options[0],
+  disabled: false,
   'title-content': 'Title',
   multiple: false,
   'multiple-mode': multipleMode.options[0],
@@ -79,6 +87,12 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
+export const DefaultDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
 export const DefaultMulti: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -95,6 +109,12 @@ export const Dropzone: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options[1] },
+};
+
+export const DropzoneDisabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, variant: variant.options[1], disabled: true },
 };
 
 export const DropzoneMulti: StoryObj = {
