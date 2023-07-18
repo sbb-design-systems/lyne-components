@@ -172,9 +172,10 @@ export class SbbMenu implements ComponentInterface {
     }
     evt.preventDefault();
 
-    const enabledActions: Element[] = Array.from(this._element.children).filter(
-      (e: HTMLElement) => e.tabIndex === 0,
-    );
+    const enabledActions: Element[] = Array.from(
+      this._element.querySelectorAll('SBB-MENU-ACTION')
+    ).filter((e: HTMLElement) => e.tabIndex === 0);
+
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
 
@@ -197,7 +198,7 @@ export class SbbMenu implements ComponentInterface {
   @Watch('trigger')
   public removeTriggerClickListener(
     newValue: string | HTMLElement,
-    oldValue: string | HTMLElement,
+    oldValue: string | HTMLElement
   ): void {
     if (newValue !== oldValue) {
       this._menuController?.abort();
@@ -242,7 +243,7 @@ export class SbbMenu implements ComponentInterface {
       this._triggerElement,
       'menu',
       this._element.id || this._menuId,
-      this._state,
+      this._state
     );
     this._menuController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
@@ -339,7 +340,7 @@ export class SbbMenu implements ComponentInterface {
         () => this._menuContentElement.removeAttribute('tabindex'),
         {
           once: true,
-        },
+        }
       );
     }
   }
