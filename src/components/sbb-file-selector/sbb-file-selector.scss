@@ -39,6 +39,8 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--sbb-spacing-fixed-3x);
+  margin-block: 0;
+  padding-inline: 0;
   padding-block-start: var(--sbb-spacing-fixed-6x);
   padding-block-end: var(--sbb-spacing-fixed-1x);
 }
@@ -69,4 +71,8 @@
 .sbb-file-selector__file-size {
   white-space: nowrap;
   color: var(--sbb-color-metal-default);
+}
+
+.sbb-file-selector__visually-hidden {
+  @include sbb.screen-reader-only;
 }

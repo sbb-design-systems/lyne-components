@@ -25,9 +25,9 @@ to be documented...
 
 ## Slots
 
-| Slot        | Description                  |
-| ----------- | ---------------------------- |
-| `"unnamed"` | Use this to document a slot. |
+| Slot      | Description                                                      |
+| --------- | ---------------------------------------------------------------- |
+| `"error"` | Use this to provide a `sbb-form-error` to show an error message. |
 
 
 ## Dependencies

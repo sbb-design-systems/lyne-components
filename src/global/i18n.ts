@@ -709,3 +709,10 @@ export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
   fr: 'Faites glisser et déposez vos fichiers ici',
   it: 'Trascina e rilascia i tuoi file qui',
 };
+
+export const i18nFileSelectorDeleteFile: Record<string, string> = {
+  de: 'Datei entfernen',
+  en: 'Remove file',
+  fr: 'Effacer le fichier',
+  it: 'Rimuovi il file',
+};

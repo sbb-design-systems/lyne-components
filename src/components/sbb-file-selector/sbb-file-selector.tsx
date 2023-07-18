@@ -9,7 +9,7 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { InterfaceSbbFileSelectorAttributes } from './sbb-file-selector.custom.d';
+import { InterfaceSbbFileSelectorAttributes } from './sbb-file-selector.custom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -17,10 +17,14 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/helpers';
-import { i18nFileSelectorButtonLabel, i18nFileSelectorSubtitleLabel } from '../../global/i18n';
+import {
+  i18nFileSelectorButtonLabel,
+  i18nFileSelectorDeleteFile,
+  i18nFileSelectorSubtitleLabel,
+} from '../../global/i18n';
 
 /**
- * @slot unnamed - Use this to document a slot.
+ * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
 @Component({
   shadow: true,
@@ -202,9 +206,9 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _renderFileList(): JSX.Element {
     return (
-      <div class="sbb-file-selector__file-list">
+      <ul class="sbb-file-selector__file-list">
         {this.files.map((file: File) => (
-          <div class="sbb-file-selector__file">
+          <li class="sbb-file-selector__file">
             <span class="sbb-file-selector__file-details">
               <span class="sbb-file-selector__file-name">{file.name}</span>
               <span class="sbb-file-selector__file-size">{this._formatFileSize(file.size)}</span>
@@ -214,10 +218,11 @@ export class SbbFileSelector implements ComponentInterface {
               size="m"
               icon-name="trash-small"
               onClick={() => this._removeFile(file)}
+              aria-label={i18nFileSelectorDeleteFile[this._currentLanguage]}
             ></sbb-button>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 
@@ -227,7 +232,7 @@ export class SbbFileSelector implements ComponentInterface {
         <div class="sbb-file-selector__load-area">
           {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
           <label hidden htmlFor="upload">
-            {/* TODO add label here ?*/}
+            {i18nFileSelectorButtonLabel[this._currentLanguage]}
             <input
               id="upload"
               type="file"
