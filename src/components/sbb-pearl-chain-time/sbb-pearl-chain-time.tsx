@@ -7,8 +7,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../../global/timetable';
-import { Leg } from '../../global/interfaces';
+import { getDepartureArrivalTimeAttribute, isRideLeg, Leg } from '../../global/timetable';
 
 @Component({
   shadow: true,

@@ -14,14 +14,18 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbOverlayState } from '../../components';
-import { FocusTrap, IS_FOCUSABLE_QUERY, assignId } from '../../global/a11y';
+import {
+  FocusTrap,
+  IS_FOCUSABLE_QUERY,
+  assignId,
+  sbbInputModalityDetector,
+  setModalityOnNextFocus,
+} from '../../global/a11y';
 import { ScrollHandler, isValidAttribute, isBreakpoint } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  setModalityOnNextFocus,
-  sbbInputModalityDetector,
 } from '../../global/eventing';
 import { i18nCloseNavigation } from '../../global/i18n';
 import { AgnosticMutationObserver } from '../../global/observers';

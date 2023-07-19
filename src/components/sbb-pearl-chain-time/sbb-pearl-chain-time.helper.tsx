@@ -1,4 +1,4 @@
-import { Notice } from '../../global/interfaces';
+import { Notice } from '../../global/timetable';
 
 export const extractTimeAndStringFromNoticeText = (
   notice: Notice,

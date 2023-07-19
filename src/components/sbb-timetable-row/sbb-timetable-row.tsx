@@ -23,7 +23,6 @@ import {
   renderStringProduct,
   sortSituation,
 } from './sbb-timetable-row.helper';
-import { ITripItem } from '../../global/interfaces';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString, durationToTime } from '../../global/datetime';
 import {
@@ -31,7 +30,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { getDepartureArrivalTimeAttribute } from '../../global/timetable';
+import { getDepartureArrivalTimeAttribute, ITripItem } from '../../global/timetable';
 
 @Component({
   shadow: true,

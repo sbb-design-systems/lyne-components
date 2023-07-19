@@ -11,7 +11,12 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbOverlayState } from '../../components';
-import { IS_FOCUSABLE_QUERY, getFocusableElements, assignId } from '../../global/a11y';
+import {
+  IS_FOCUSABLE_QUERY,
+  getFocusableElements,
+  assignId,
+  sbbInputModalityDetector,
+} from '../../global/a11y';
 import { isValidAttribute, isBreakpoint } from '../../global/dom';
 import {
   createNamedSlotState,
@@ -19,7 +24,6 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-  sbbInputModalityDetector,
 } from '../../global/eventing';
 import { i18nGoBack } from '../../global/i18n';
 import {

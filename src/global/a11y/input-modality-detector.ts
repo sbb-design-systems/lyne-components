@@ -4,7 +4,7 @@ import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
 } from './fake-event-detection';
-import { getEventTarget } from './event-target';
+import { getEventTarget } from '../eventing';
 
 export type SbbInputModality = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 

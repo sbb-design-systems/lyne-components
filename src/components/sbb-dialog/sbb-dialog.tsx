@@ -13,7 +13,12 @@ import {
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { i18nCloseDialog, i18nGoBack } from '../../global/i18n';
 import { SbbOverlayState } from '../../components';
-import { FocusTrap, IS_FOCUSABLE_QUERY } from '../../global/a11y';
+import {
+  FocusTrap,
+  IS_FOCUSABLE_QUERY,
+  sbbInputModalityDetector,
+  setModalityOnNextFocus,
+} from '../../global/a11y';
 import { ScrollHandler, toggleDatasetEntry, isValidAttribute, hostContext } from '../../global/dom';
 import {
   createNamedSlotState,
@@ -21,8 +26,6 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-  setModalityOnNextFocus,
-  sbbInputModalityDetector,
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
 

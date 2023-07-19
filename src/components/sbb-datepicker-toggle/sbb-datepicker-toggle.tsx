@@ -21,8 +21,8 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  sbbInputModalityDetector,
 } from '../../global/eventing';
+import { sbbInputModalityDetector } from '../../global/a11y';
 
 @Component({
   shadow: true,

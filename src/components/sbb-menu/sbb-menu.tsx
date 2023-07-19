@@ -26,9 +26,10 @@ import {
   getNextElementIndex,
   IS_FOCUSABLE_QUERY,
   isArrowKeyPressed,
+  sbbInputModalityDetector,
+  setModalityOnNextFocus,
 } from '../../global/a11y';
 import { isBreakpoint, isValidAttribute, ScrollHandler } from '../../global/dom';
-import { setModalityOnNextFocus, sbbInputModalityDetector } from '../../global/eventing';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];

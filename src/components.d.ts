@@ -11,7 +11,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { ButtonType, ITripItem, Leg, LinkTargetType } from "./global/interfaces";
+import { ButtonType, LinkTargetType } from "./global/interfaces";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -30,6 +30,7 @@ import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
+import { ITripItem, Leg } from "./global/timetable";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
@@ -54,7 +55,7 @@ export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-export { ButtonType, ITripItem, Leg, LinkTargetType } from "./global/interfaces";
+export { ButtonType, LinkTargetType } from "./global/interfaces";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -73,6 +74,7 @@ export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./compone
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
+export { ITripItem, Leg } from "./global/timetable";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";

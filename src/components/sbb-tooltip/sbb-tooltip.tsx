@@ -13,15 +13,19 @@ import {
   Watch,
 } from '@stencil/core';
 import { SbbOverlayState } from '../../components';
-import { FocusTrap, IS_FOCUSABLE_QUERY, assignId } from '../../global/a11y';
+import {
+  FocusTrap,
+  IS_FOCUSABLE_QUERY,
+  assignId,
+  sbbInputModalityDetector,
+  setModalityOnNextFocus,
+} from '../../global/a11y';
 import { isValidAttribute } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   composedPathHasAttribute,
-  setModalityOnNextFocus,
-  sbbInputModalityDetector,
 } from '../../global/eventing';
 import { i18nCloseTooltip } from '../../global/i18n';
 import {

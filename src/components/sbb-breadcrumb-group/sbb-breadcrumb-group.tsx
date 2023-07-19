@@ -4,9 +4,12 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  sbbInputModalityDetector,
 } from '../../global/eventing';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/a11y';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  sbbInputModalityDetector,
+} from '../../global/a11y';
 import { AgnosticResizeObserver } from '../../global/observers';
 
 /**
