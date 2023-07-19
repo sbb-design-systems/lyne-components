@@ -11,7 +11,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { toggleDatasetEntry } from '../../global/dom';
 
 let nextId = 0;
 
