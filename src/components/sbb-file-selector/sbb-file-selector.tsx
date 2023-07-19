@@ -75,6 +75,7 @@ export class SbbFileSelector implements ComponentInterface {
   private _hiddenInput: HTMLElement;
   private _loadButton: HTMLElement;
   private _dragTarget: HTMLElement;
+  private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
 
   private _handlerRepository = new HandlerRepository(
     this._element,
@@ -149,7 +150,6 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _onFileDrop(event): void {
     if (!this.disabled) {
-      this._blockEvent(event);
       this._element.style.setProperty(
         '--sbb-file-selector-background-color',
         'var(--sbb-color-white-default)',
@@ -162,6 +162,7 @@ export class SbbFileSelector implements ComponentInterface {
         '--sbb-button-color-default-background',
         'var(--sbb-color-white-default)',
       );
+      this._blockEvent(event);
       try {
         this._createFilesList(event.dataTransfer.files);
       } catch (e) {
@@ -205,11 +206,10 @@ export class SbbFileSelector implements ComponentInterface {
     this.fileChangedEvent.emit(this.files);
   }
 
-  // TODO move to helpers folder?
+  /** Calculates the correct unit for the file's size. */
   private _formatFileSize(size: number): string {
-    const suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
     const i: number = Math.floor(Math.log(size) / Math.log(1024));
-    return `${(size / Math.pow(1024, i)).toFixed(0)} ${suffixes[i]}`;
+    return `${(size / Math.pow(1024, i)).toFixed(0)} ${this._suffixes[i]}`;
   }
 
   private _renderDefaultMode(): JSX.Element {
