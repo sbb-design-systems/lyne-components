@@ -1,12 +1,12 @@
 import { Component, Element, h, JSX, Host, Prop, State } from '@stencil/core';
-import icons from '../../global/icons/timetable.json';
+import icons from '../../global/timetable/icons.json';
 import { InterfaceTimetableTravelHintsAttributes } from './sbb-timetable-travel-hints.custom';
 import { i18nNone } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

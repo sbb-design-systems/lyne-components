@@ -10,8 +10,8 @@ import {
   Prop,
   Watch,
 } from '@stencil/core';
-import { forwardEventToHost } from '../../global/helpers';
-import { focusInputElement, inputElement } from '../../global/helpers/input-element';
+import { inputElement, focusInputElement } from '../../global/dom';
+import { forwardEventToHost } from '../../global/eventing';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
 const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?/;

@@ -10,15 +10,14 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
+import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Slot used to render the <sbb-checkbox> inside the <sbb-checkbox-group>.

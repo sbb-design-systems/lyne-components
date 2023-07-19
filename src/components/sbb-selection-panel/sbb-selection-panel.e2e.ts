@@ -1,6 +1,6 @@
 import events from './sbb-selection-panel.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-selection-panel', () => {
   let element: E2EElement, page: E2EPage;

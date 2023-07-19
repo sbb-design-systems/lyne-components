@@ -1,6 +1,6 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 
-import icons from '../../global/icons/timetable.json';
+import icons from '../../global/timetable/icons.json';
 import { InterfaceTimetableParkAndRailAttributes } from './sbb-timetable-park-and-rail.custom';
 import {
   i18nAvailableAtDepartingStation,
@@ -11,7 +11,7 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

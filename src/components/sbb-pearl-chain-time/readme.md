@@ -42,13 +42,11 @@ This is helpful if you need a specific state of the component.
 ### Depends on
 
 - [sbb-pearl-chain](../sbb-pearl-chain)
-- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-pearl-chain-time --> sbb-pearl-chain
-  sbb-pearl-chain-time --> sbb-icon
   sbb-journey-summary --> sbb-pearl-chain-time
   sbb-timetable-row --> sbb-pearl-chain-time
   style sbb-pearl-chain-time fill:#f9f,stroke:#333,stroke-width:4px

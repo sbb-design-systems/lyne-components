@@ -1,13 +1,16 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Listen, State } from '@stencil/core';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
+} from '../../global/eventing';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
   sbbInputModalityDetector,
-} from '../../global/helpers';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../global/i18n';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+} from '../../global/a11y';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 /**
  * @slot unnamed - Use this to slot the sbb-breadcrumb elements.
@@ -35,7 +38,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  private _resizeObserver = new ResizeObserver(() => this._evaluateCollapsedState());
+  private _resizeObserver = new AgnosticResizeObserver(() => this._evaluateCollapsedState());
 
   private _markForFocus = false;
 

@@ -1,4 +1,4 @@
-import { AgnosticMutationObserver as MutationObserver } from '../mutation-observer';
+import { AgnosticMutationObserver } from '../observers';
 import { HandlerAspect } from './handler-repository';
 
 export const sbbLanguageChangeEventName = 'sbbLanguageChange';
@@ -32,7 +32,7 @@ export const documentLanguage = (): string => {
 
 class LanguageChangeObserver {
   private _signals = new Set<AbortSignal>();
-  private _observer = new MutationObserver((records) => {
+  private _observer = new AgnosticMutationObserver((records) => {
     if (records[0].oldValue === documentLanguage()) {
       return;
     }

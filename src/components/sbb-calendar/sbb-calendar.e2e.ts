@@ -1,5 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-calendar', () => {
   const selected = new Date(2023, 0, 15).getTime() / 1000;

@@ -16,17 +16,16 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
-import { hostContext } from '../../global/helpers/host-context';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+} from '../../global/interfaces';
+import { hostContext, isValidAttribute } from '../../global/dom';
 import {
-  actionElementHandlerAspect,
   documentLanguage,
   HandlerRepository,
+  actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
+import { i18nTargetOpensInNewWindow } from '../../global/i18n';
+import { AgnosticMutationObserver } from '../../global/observers';
 
 // This approach allows us to just check whether an attribute has been added or removed
 // from the DOM, instead of a `Watch()` decorator that would check the value change
@@ -95,7 +94,7 @@ export class SbbNavigationAction implements ComponentInterface, LinkButtonProper
   @Element() private _element!: HTMLSbbNavigationActionElement;
 
   private _navigationMarker: HTMLSbbNavigationMarkerElement;
-  private _navigationActionAttributeObserver = new MutationObserver(() =>
+  private _navigationActionAttributeObserver = new AgnosticMutationObserver(() =>
     this._onActiveActionChange(),
   );
 

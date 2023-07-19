@@ -3,7 +3,7 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot label - Use this to provide a label element.

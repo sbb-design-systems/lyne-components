@@ -1,5 +1,5 @@
 import { Component, h, JSX, Host } from '@stencil/core';
-import { assignId } from '../../global/helpers/assign-id';
+import { assignId } from '../../global/a11y';
 
 let nextId = 0;
 

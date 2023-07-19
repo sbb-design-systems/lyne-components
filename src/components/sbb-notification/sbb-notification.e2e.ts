@@ -1,4 +1,4 @@
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 import events from './sbb-notification.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 

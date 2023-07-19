@@ -12,24 +12,29 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { Alignment, getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
-import { i18nCloseTooltip } from '../../global/i18n';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { assignId } from '../../global/helpers/assign-id';
+import { SbbOverlayState } from '../../components';
 import {
-  setAriaOverlayTriggerAttributes,
-  removeAriaOverlayTriggerAttributes,
-} from '../../global/helpers/overlay-trigger-attributes';
+  FocusTrap,
+  IS_FOCUSABLE_QUERY,
+  assignId,
+  sbbInputModalityDetector,
+  setModalityOnNextFocus,
+} from '../../global/a11y';
+import { isValidAttribute } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-  sbbInputModalityDetector,
-  setModalityOnNextFocus,
-} from '../../global/helpers';
-import { SbbOverlayState } from '../../global/helpers/overlay';
-import { composedPathHasAttribute } from '../../global/helpers/composed-path-has-attribute';
+  composedPathHasAttribute,
+} from '../../global/eventing';
+import { i18nCloseTooltip } from '../../global/i18n';
+import {
+  Alignment,
+  removeAriaOverlayTriggerAttributes,
+  setAriaOverlayTriggerAttributes,
+  isEventOnElement,
+  getElementPosition,
+} from '../../global/overlay';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;

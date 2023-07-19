@@ -4,16 +4,16 @@ import {
   LinkTargetType,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
-  actionElementHandlerAspect,
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
+  actionElementHandlerAspect,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Use this to slot the breadcrumb's text.

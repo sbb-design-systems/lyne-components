@@ -10,24 +10,26 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { i18nGoBack } from '../../global/i18n';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { assignId } from '../../global/helpers/assign-id';
+import { SbbOverlayState } from '../../components';
 import {
-  setAriaOverlayTriggerAttributes,
-  removeAriaOverlayTriggerAttributes,
-} from '../../global/helpers/overlay-trigger-attributes';
+  IS_FOCUSABLE_QUERY,
+  getFocusableElements,
+  assignId,
+  sbbInputModalityDetector,
+} from '../../global/a11y';
+import { isValidAttribute, isBreakpoint } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-  sbbInputModalityDetector,
-} from '../../global/helpers';
-import { SbbOverlayState } from '../../global/helpers/overlay';
-import { getFocusableElements, IS_FOCUSABLE_QUERY } from '../../global/helpers/focus';
+} from '../../global/eventing';
+import { i18nGoBack } from '../../global/i18n';
+import {
+  removeAriaOverlayTriggerAttributes,
+  setAriaOverlayTriggerAttributes,
+} from '../../global/overlay';
 
 let nextId = 0;
 

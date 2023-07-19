@@ -1,10 +1,10 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
+import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
-import { i18nDurationHour, i18nDurationMinute } from '../../global/i18n';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

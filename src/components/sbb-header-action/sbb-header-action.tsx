@@ -16,17 +16,16 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
 import { InterfaceSbbHeaderActionAttributes } from './sbb-header-action.custom';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { AgnosticResizeObserver as ResizeObserver } from '../../global/helpers/resize-observer';
+import { toggleDatasetEntry, isBreakpoint } from '../../global/dom';
 import {
-  actionElementHandlerAspect,
   documentLanguage,
   HandlerRepository,
+  actionElementHandlerAspect,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 /**
  * @slot icon - Slot used to render the action icon.
@@ -82,7 +81,7 @@ export class SbbHeaderAction implements ComponentInterface, LinkButtonProperties
 
   @Element() private _element!: HTMLElement;
 
-  private _documentResizeObserver = new ResizeObserver(() => this._updateExpanded());
+  private _documentResizeObserver = new AgnosticResizeObserver(() => this._updateExpanded());
 
   private _handlerRepository = new HandlerRepository(
     this._element,

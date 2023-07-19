@@ -1,4 +1,4 @@
-import getDocumentWritingMode from '../helpers/get-document-writing-mode';
+import { getDocumentWritingMode } from '../dom';
 
 /**
  * Enumeration for type attribute in <button> HTML tag.

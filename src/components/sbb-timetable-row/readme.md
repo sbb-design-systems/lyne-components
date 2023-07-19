@@ -70,7 +70,6 @@ graph TD;
   sbb-timetable-row --> sbb-icon
   sbb-timetable-row --> sbb-pearl-chain-time
   sbb-pearl-chain-time --> sbb-pearl-chain
-  sbb-pearl-chain-time --> sbb-icon
   style sbb-timetable-row fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

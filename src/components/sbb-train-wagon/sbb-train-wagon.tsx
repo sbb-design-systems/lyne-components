@@ -28,7 +28,7 @@ import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Used to slot one to x icons for meta information of the sbb-train-wagon.

@@ -1,5 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 // As tests don't work in specs at all (missing :is support in Jest), we moved all tests to e2e.
 

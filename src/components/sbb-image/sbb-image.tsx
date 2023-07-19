@@ -5,7 +5,7 @@ import {
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
-import { hostContext } from '../../global/helpers/host-context';
+import { hostContext } from '../../global/dom';
 
 const eventListenerOptions = {
   once: true,

@@ -1,5 +1,5 @@
 import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-timetable-row', () => {
   let element: E2EElement, page: E2EPage;

@@ -1,7 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
-import { isSafari } from '../../global/helpers/platform';
 import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
+import { isSafari, toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot unnamed - Used to display options.

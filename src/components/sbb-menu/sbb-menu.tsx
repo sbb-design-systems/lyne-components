@@ -13,20 +13,23 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { getElementPosition, isEventOnElement } from '../../global/helpers/position';
-import { isBreakpoint } from '../../global/helpers/breakpoint';
-import { IS_FOCUSABLE_QUERY, FocusTrap } from '../../global/helpers/focus';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { assignId } from '../../global/helpers/assign-id';
 import {
-  setAriaOverlayTriggerAttributes,
+  getElementPosition,
+  isEventOnElement,
   removeAriaOverlayTriggerAttributes,
-} from '../../global/helpers/overlay-trigger-attributes';
-import { ScrollHandler } from '../../global/helpers/scroll';
-import { sbbInputModalityDetector, setModalityOnNextFocus } from '../../global/helpers';
-
-import { SbbOverlayState } from '../../global/helpers/overlay';
-import { getNextElementIndex, isArrowKeyPressed } from '../../global/helpers/arrow-navigation';
+  SbbOverlayState,
+  setAriaOverlayTriggerAttributes,
+} from '../../global/overlay';
+import {
+  assignId,
+  FocusTrap,
+  getNextElementIndex,
+  IS_FOCUSABLE_QUERY,
+  isArrowKeyPressed,
+  sbbInputModalityDetector,
+  setModalityOnNextFocus,
+} from '../../global/a11y';
+import { isBreakpoint, isValidAttribute, ScrollHandler } from '../../global/dom';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];

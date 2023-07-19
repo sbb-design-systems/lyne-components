@@ -12,20 +12,20 @@ import {
   Watch,
   Host,
 } from '@stencil/core';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
 import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from './sbb-checkbox.custom';
+import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
+import { isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
-  formElementHandlerAspect,
-  forwardEventToHost,
-  getEventTarget,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
-import { i18nCollapsed, i18nExpanded } from '../../global/i18n';
+  formElementHandlerAspect,
+  getEventTarget,
+  forwardEventToHost,
+} from '../../global/eventing';
+import { AgnosticMutationObserver } from '../../global/observers';
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const checkboxObserverConfig: MutationObserverInit = {
@@ -93,7 +93,7 @@ export class SbbCheckbox implements ComponentInterface {
   private _selectionPanelElement: HTMLElement;
 
   /** MutationObserver on data attributes. */
-  private _checkboxAttributeObserver = new MutationObserver(
+  private _checkboxAttributeObserver = new AgnosticMutationObserver(
     this._onCheckboxAttributesChange.bind(this),
   );
 

@@ -62,7 +62,6 @@ In thinking about accessibility, it is useful to place icon use into one of thre
  - [sbb-menu-action](../sbb-menu-action)
  - [sbb-notification](../sbb-notification)
  - [sbb-option](../sbb-option)
- - [sbb-pearl-chain-time](../sbb-pearl-chain-time)
  - [sbb-slider](../sbb-slider)
  - [sbb-tab-title](../sbb-tab-title)
  - [sbb-tag](../sbb-tag)
@@ -91,7 +90,6 @@ graph TD;
   sbb-menu-action --> sbb-icon
   sbb-notification --> sbb-icon
   sbb-option --> sbb-icon
-  sbb-pearl-chain-time --> sbb-icon
   sbb-slider --> sbb-icon
   sbb-tab-title --> sbb-icon
   sbb-tag --> sbb-icon

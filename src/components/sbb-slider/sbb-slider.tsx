@@ -12,7 +12,7 @@ import {
   Host,
   Listen,
 } from '@stencil/core';
-import { forwardEventToHost, isEventPrevented } from '../../global/helpers';
+import { isEventPrevented, forwardEventToHost } from '../../global/eventing';
 
 /**
  * @slot prefix - Slot to render an icon on the left side of the input.

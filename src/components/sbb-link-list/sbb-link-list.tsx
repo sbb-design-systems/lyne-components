@@ -6,7 +6,7 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

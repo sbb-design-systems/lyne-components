@@ -8,8 +8,7 @@ import {
   LinkTargetType,
   resolveRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
-import { ACTION_ELEMENTS, hostContext } from '../../global/helpers/host-context';
+} from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import {
   actionElementHandlerAspect,
@@ -18,8 +17,8 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+} from '../../global/eventing';
+import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot unnamed - Button Content

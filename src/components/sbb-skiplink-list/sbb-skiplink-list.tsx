@@ -4,7 +4,7 @@ import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - Use this to provide links for the list.

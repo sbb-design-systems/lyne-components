@@ -1,6 +1,6 @@
 import events from './sbb-menu.events';
 import { E2EPage, newE2EPage, E2EElement } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-menu', () => {
   let element: E2EElement, trigger: E2EElement, page: E2EPage;

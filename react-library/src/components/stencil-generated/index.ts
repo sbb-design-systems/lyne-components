@@ -54,7 +54,6 @@ export const SbbNavigationSection = /*@__PURE__*/createReactComponent<JSX.SbbNav
 export const SbbNotification = /*@__PURE__*/createReactComponent<JSX.SbbNotification, HTMLSbbNotificationElement>('sbb-notification');
 export const SbbOptgroup = /*@__PURE__*/createReactComponent<JSX.SbbOptgroup, HTMLSbbOptgroupElement>('sbb-optgroup');
 export const SbbOption = /*@__PURE__*/createReactComponent<JSX.SbbOption, HTMLSbbOptionElement>('sbb-option');
-export const SbbOverlay = /*@__PURE__*/createReactComponent<JSX.SbbOverlay, HTMLSbbOverlayElement>('sbb-overlay');
 export const SbbPearlChain = /*@__PURE__*/createReactComponent<JSX.SbbPearlChain, HTMLSbbPearlChainElement>('sbb-pearl-chain');
 export const SbbPearlChainTime = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainTime, HTMLSbbPearlChainTimeElement>('sbb-pearl-chain-time');
 export const SbbPearlChainVertical = /*@__PURE__*/createReactComponent<JSX.SbbPearlChainVertical, HTMLSbbPearlChainVerticalElement>('sbb-pearl-chain-vertical');

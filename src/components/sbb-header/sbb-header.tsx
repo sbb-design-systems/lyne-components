@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
-import { toggleDatasetEntry } from '../../global/helpers/dataset';
+import { toggleDatasetEntry } from '../../global/dom';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 

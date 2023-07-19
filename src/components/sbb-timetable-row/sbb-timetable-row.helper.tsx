@@ -1,13 +1,14 @@
 import { h, JSX } from '@stencil/core';
-import { ITripItem, Notice } from '../../global/interfaces/timetable-properties';
 import { HimCus } from './sbb-timetable-row.custom';
+import { i18nTripQuayChange } from '../../global/i18n';
 import {
-  VehicleModeEnum,
+  isRideLeg,
+  ITripItem,
+  Notice,
   PtRideLeg,
   PtSituation,
-} from '../../global/interfaces/timetable-properties';
-import { isRideLeg } from '../../global/helpers/timetable-helper';
-import { i18nTripQuayChange } from '../../global/i18n';
+  VehicleModeEnum,
+} from '../../global/timetable';
 
 export const getTransportIcon = (
   vehicleMode: VehicleModeEnum,

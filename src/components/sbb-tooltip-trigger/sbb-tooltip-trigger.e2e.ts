@@ -1,6 +1,6 @@
 import events from '../sbb-tooltip/sbb-tooltip.events';
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-tooltip-trigger', () => {
   let element: E2EElement, page: E2EPage;

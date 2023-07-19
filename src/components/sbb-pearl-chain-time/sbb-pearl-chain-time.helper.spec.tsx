@@ -1,4 +1,4 @@
-import { Notice } from '../../global/interfaces/timetable-properties';
+import { Notice } from '../../global/timetable';
 import { extractTimeAndStringFromNoticeText } from './sbb-pearl-chain-time.helper';
 
 describe('extractTimeAndStringFromNoticeText', () => {

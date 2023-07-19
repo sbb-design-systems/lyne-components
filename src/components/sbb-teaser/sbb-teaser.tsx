@@ -4,15 +4,15 @@ import {
   LinkTargetType,
   resolveLinkOrStaticRenderVariables,
   targetsNewWindow,
-} from '../../global/interfaces/link-button-properties';
+} from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import {
   documentLanguage,
   HandlerRepository,
-  languageChangeHandlerAspect,
   linkHandlerAspect,
-} from '../../global/helpers';
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
 
 /**
  * Generalized Teaser - for displaying an image, title and paragraph

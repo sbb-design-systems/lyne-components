@@ -12,16 +12,15 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { assignId } from '../../global/helpers/assign-id';
+import { assignId } from '../../global/a11y';
+import { isSafari, isValidAttribute, isAndroid } from '../../global/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
+import { AgnosticMutationObserver } from '../../global/observers';
 import { SbbOptionVariant } from './sbb-option.custom';
-import { AgnosticMutationObserver as MutationObserver } from '../../global/helpers/mutation-observer';
-import { isValidAttribute } from '../../global/helpers/is-valid-attribute';
-import { isAndroid, isSafari } from '../../global/helpers/platform';
 
 let nextId = 0;
 
@@ -119,7 +118,7 @@ export class SbbOption implements ComponentInterface {
   }
 
   /** MutationObserver on data attributes. */
-  private _optionAttributeObserver = new MutationObserver(
+  private _optionAttributeObserver = new AgnosticMutationObserver(
     this._onOptionAttributesChange.bind(this),
   );
 

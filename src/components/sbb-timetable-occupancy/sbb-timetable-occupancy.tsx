@@ -1,11 +1,11 @@
 import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
-import icons from '../../global/icons/timetable.json';
+import icons from '../../global/timetable/icons.json';
 import { i18nClass, i18nOccupancy } from '../../global/i18n';
 import {
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

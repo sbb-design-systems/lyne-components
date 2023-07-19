@@ -12,17 +12,14 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { TagStateChange } from './sbb-tag.custom';
 import {
-  actionElementHandlerAspect,
   createNamedSlotState,
   HandlerRepository,
+  actionElementHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
-import {
-  ButtonProperties,
-  resolveButtonRenderVariables,
-} from '../../global/interfaces/link-button-properties';
-import { TagStateChange } from './sbb-tag.custom';
+} from '../../global/eventing';
 
 /**
  * @slot unnamed - This slot will show the provided tag label.

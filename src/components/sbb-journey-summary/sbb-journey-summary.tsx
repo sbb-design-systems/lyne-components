@@ -3,12 +3,12 @@ import { InterfaceSbbJourneySummaryAttributes } from './sbb-journey-summary.cust
 import { isValid, format } from 'date-fns';
 
 import { i18nTripDuration } from '../../global/i18n';
-import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/helpers/date-helper';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../../global/datetime';
 import {
-  HandlerRepository,
   documentLanguage,
+  HandlerRepository,
   languageChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 
 @Component({
   shadow: true,

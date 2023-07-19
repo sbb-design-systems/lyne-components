@@ -8,7 +8,7 @@ import {
   getInput,
   isDateAvailable,
 } from './sbb-datepicker.helper';
-import { NativeDateAdapter } from '../../global/helpers/native-date-adapter';
+import { NativeDateAdapter } from '../../global/datetime';
 
 describe('getDatePicker', () => {
   it('returns the datepicker if no trigger', async () => {

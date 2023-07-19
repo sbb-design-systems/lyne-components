@@ -1,7 +1,7 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-select.events';
 import optionEvents from '../sbb-option/sbb-option.events';
-import { waitForCondition } from '../../global/helpers/testing/wait-for-condition';
+import { waitForCondition } from '../../global/testing';
 
 describe('sbb-select', () => {
   let element: E2EElement,
