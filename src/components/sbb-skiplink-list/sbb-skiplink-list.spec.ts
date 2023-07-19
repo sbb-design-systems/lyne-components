@@ -29,6 +29,9 @@ describe('sbb-skiplink-list', () => {
                 <slot name="link-2"></slot>
               </li>
             </ul>
+            <span hidden>
+              <slot />
+            </span>
           </div>
         </mock:shadow-root>
         <sbb-link href='#' id="sbb-skiplink-list-link-0" slot='link-0'>Link 1</sbb-link>
@@ -70,6 +73,9 @@ describe('sbb-skiplink-list', () => {
                 <slot name="link-2"></slot>
               </li>
             </ul>
+            <span hidden>
+              <slot />
+            </span>
           </div>
         </mock:shadow-root>
         <sbb-link href='#' id="sbb-skiplink-list-link-0" slot='link-0'>Link 1</sbb-link>
