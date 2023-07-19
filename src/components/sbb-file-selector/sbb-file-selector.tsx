@@ -131,37 +131,14 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _onDragLeave(event): void {
     if (!this.disabled && event.target === this._dragTarget) {
-      this._dragTarget = undefined;
-      this._element.style.setProperty(
-        '--sbb-file-selector-background-color',
-        'var(--sbb-color-white-default)',
-      );
-      this._element.style.setProperty(
-        '--sbb-file-selector-border-color',
-        'var(--sbb-color-cloud-default)',
-      );
-      this._loadButton.style.setProperty(
-        '--sbb-button-color-default-background',
-        'var(--sbb-color-white-default)',
-      );
+      this._resetDragEnterState();
       this._blockEvent(event);
     }
   }
 
   private _onFileDrop(event): void {
     if (!this.disabled) {
-      this._element.style.setProperty(
-        '--sbb-file-selector-background-color',
-        'var(--sbb-color-white-default)',
-      );
-      this._element.style.setProperty(
-        '--sbb-file-selector-border-color',
-        'var(--sbb-color-cloud-default)',
-      );
-      this._loadButton.style.setProperty(
-        '--sbb-button-color-default-background',
-        'var(--sbb-color-white-default)',
-      );
+      this._resetDragEnterState();
       this._blockEvent(event);
       try {
         this._createFilesList(event.dataTransfer.files);
@@ -169,6 +146,22 @@ export class SbbFileSelector implements ComponentInterface {
         this.error.emit(e);
       }
     }
+  }
+
+  private _resetDragEnterState(): void {
+    this._dragTarget = undefined;
+    this._element.style.setProperty(
+      '--sbb-file-selector-background-color',
+      'var(--sbb-color-white-default)',
+    );
+    this._element.style.setProperty(
+      '--sbb-file-selector-border-color',
+      'var(--sbb-color-cloud-default)',
+    );
+    this._loadButton.style.setProperty(
+      '--sbb-button-color-default-background',
+      'var(--sbb-color-white-default)',
+    );
   }
 
   private _readFiles(event): void {
