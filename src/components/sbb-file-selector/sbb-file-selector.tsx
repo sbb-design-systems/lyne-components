@@ -16,7 +16,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
-} from '../../global/helpers';
+} from '../../global/eventing';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorDeleteFile,
