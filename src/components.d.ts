@@ -34,6 +34,7 @@ import { ITripItem, Leg } from "./global/timetable";
 import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
+import { SelectChange } from "./components/sbb-select/sbb-select.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
@@ -78,6 +79,7 @@ export { ITripItem, Leg } from "./global/timetable";
 export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-vertical-item/sbb-pearl-chain-vertical-item.custom";
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
+export { SelectChange } from "./components/sbb-select/sbb-select.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
 export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
@@ -633,6 +635,10 @@ export namespace Components {
           * Indicates whether the input is optional.
          */
         "optional"?: boolean;
+        /**
+          * Manually reset the form field. Currently, this only resets the floating label.
+         */
+        "reset": () => Promise<void>;
         /**
           * Size variant, either l or m.
          */
@@ -3956,6 +3962,7 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbSelectCustomEvent<any>) => void;
         "onInput"?: (event: SbbSelectCustomEvent<any>) => void;
+        "onState-change"?: (event: SbbSelectCustomEvent<SelectChange>) => void;
         /**
           * Emits whenever the select begins the closing transition.
          */

@@ -103,6 +103,19 @@ technology will announce errors when they appear.
 | `width`         | `width`          | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. | `"collapse" \| "default"` | `'default'` |
 
 
+## Methods
+
+### `reset() => Promise<void>`
+
+Manually reset the form field. Currently, this only resets the floating label.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Slots
 
 | Slot        | Description                                            |

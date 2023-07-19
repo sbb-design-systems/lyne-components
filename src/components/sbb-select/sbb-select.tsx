@@ -22,6 +22,7 @@ import {
   getDocumentWritingMode,
 } from '../../global/dom';
 import { setOverlayPosition, isEventOnElement, overlayGapFixCorners } from '../../global/overlay';
+import { SelectChange } from './sbb-select.custom';
 
 let nextId = 0;
 
@@ -71,6 +72,10 @@ export class SbbSelect implements ComponentInterface {
   @Event({ bubbles: true }) public change: EventEmitter;
 
   @Event({ bubbles: true, composed: true }) public input: EventEmitter;
+
+  /** @internal */
+  @Event({ bubbles: true, eventName: 'state-change' })
+  public stateChange: EventEmitter<SelectChange>;
 
   /** Emits whenever the select starts the opening transition. */
   @Event({
@@ -205,6 +210,7 @@ export class SbbSelect implements ComponentInterface {
       selectedOptionElements.forEach((e) => (e.selected = true));
       this._displayValue = selectedOptionElements.map((e) => e.textContent).join(', ') || null;
     }
+    this.stateChange.emit({ type: 'value', value: newValue });
   }
 
   public componentDidLoad(): void {
