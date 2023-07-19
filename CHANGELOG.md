@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.4](https://github.com/lyne-design-system/lyne-components/compare/v0.38.3...v0.38.4) (2023-07-19)
+
+### Refactorings
+
+- re-structure helpers directory ([#1876](https://github.com/lyne-design-system/lyne-components/issues/1876)) ([ac37e3a](https://github.com/lyne-design-system/lyne-components/commit/ac37e3a1946692e141c05470dbb7dbf688ccb000))
+
 ### [0.38.3](https://github.com/lyne-design-system/lyne-components/compare/v0.38.2...v0.38.3) (2023-07-18)
 
 ### Bug Fixes
