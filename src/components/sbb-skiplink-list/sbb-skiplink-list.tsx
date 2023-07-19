@@ -99,6 +99,9 @@ export class SbbSkiplinkList implements ComponentInterface {
             </li>
           ))}
         </ul>
+        <span hidden>
+          <slot onSlotchange={() => this._readLinks()} />
+        </span>
       </div>
     );
   }

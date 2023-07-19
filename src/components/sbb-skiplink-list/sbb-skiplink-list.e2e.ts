@@ -43,4 +43,24 @@ describe('sbb-skiplink-list', () => {
     expect(await getProperty(listItemLinks[1], 'height')).not.toEqual('0px');
     expect(await getProperty(listItemLinks[1], 'overflow')).toEqual('visible');
   });
+
+  it('should detected later added links', async () => {
+    page = await newE2EPage();
+    await page.setContent(`<sbb-skiplink-list></sbb-skiplink-list>`);
+    element = await page.find('sbb-skiplink-list');
+
+    await page.waitForChanges();
+
+    await page.evaluate(
+      () =>
+        (document.querySelector('sbb-skiplink-list').innerHTML = `
+        <sbb-link href='1'>Link 1</sbb-link>
+        <sbb-link href='2'>Link 2</sbb-link>`),
+    );
+
+    await page.waitForChanges();
+
+    expect(await page.find('sbb-link')).toHaveAttribute('id');
+    expect(await page.find('sbb-link')).toHaveAttribute('slot');
+  });
 });
