@@ -118,6 +118,7 @@ Type: `Promise<void>`
 - [sbb-icon](../sbb-icon)
 - [sbb-title](../sbb-title)
 - [sbb-link](../sbb-link)
+- [sbb-divider](../sbb-divider)
 - [sbb-button](../sbb-button)
 
 ### Graph
@@ -126,6 +127,7 @@ graph TD;
   sbb-alert --> sbb-icon
   sbb-alert --> sbb-title
   sbb-alert --> sbb-link
+  sbb-alert --> sbb-divider
   sbb-alert --> sbb-button
   sbb-link --> sbb-icon
   sbb-button --> sbb-icon
