@@ -22,6 +22,7 @@ import {
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../../global/i18n';
+import { toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
@@ -112,56 +113,36 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _onDragEnter(event): void {
     if (!this.disabled) {
-      this._dragTarget = event.target;
-      this._element.style.setProperty(
-        '--sbb-file-selector-background-color',
-        'var(--sbb-color-milk-default)',
-      );
-      this._element.style.setProperty(
-        '--sbb-file-selector-border-color',
-        'var(--sbb-color-storm-default)',
-      );
-      this._loadButton.style.setProperty(
-        '--sbb-button-color-default-background',
-        'var(--sbb-color-milk-default)',
-      );
+      this._setDragState(event.target, true);
       this._blockEvent(event);
     }
   }
 
   private _onDragLeave(event): void {
     if (!this.disabled && event.target === this._dragTarget) {
-      this._resetDragEnterState();
+      this._setDragState();
       this._blockEvent(event);
     }
   }
 
   private _onFileDrop(event): void {
     if (!this.disabled) {
-      this._resetDragEnterState();
+      this._setDragState();
       this._blockEvent(event);
       try {
-        this._createFilesList(event.dataTransfer.files);
+        const files = this.multiple ? event.dataTransfer.files : [event.dataTransfer.files[0]];
+        this._createFilesList(files);
       } catch (e) {
         this.error.emit(e);
       }
     }
   }
 
-  private _resetDragEnterState(): void {
-    this._dragTarget = undefined;
-    this._element.style.setProperty(
-      '--sbb-file-selector-background-color',
-      'var(--sbb-color-white-default)',
-    );
-    this._element.style.setProperty(
-      '--sbb-file-selector-border-color',
-      'var(--sbb-color-cloud-default)',
-    );
-    this._loadButton.style.setProperty(
-      '--sbb-button-color-default-background',
-      'var(--sbb-color-white-default)',
-    );
+  private _setDragState(dragTarget = undefined, isDragEnter = false): void {
+    this._dragTarget = dragTarget;
+    toggleDatasetEntry(this._element, 'active', isDragEnter);
+    // FIXME the next line causes button flickering; same if directly setting the button background-color variable
+    toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
   }
 
   private _readFiles(event): void {

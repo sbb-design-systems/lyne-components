@@ -11,6 +11,11 @@
   width: sbb.px-to-rem-build(320);
 }
 
+:host([data-active]) {
+  --sbb-file-selector-background-color: var(--sbb-color-milk-default);
+  --sbb-file-selector-border-color: var(--sbb-color-storm-default);
+}
+
 .sbb-file-selector__dropzone-area {
   display: flex;
   flex-direction: column;
