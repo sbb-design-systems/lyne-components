@@ -284,7 +284,7 @@ export class SbbFormField implements ComponentInterface {
     this._inputAbortController = new AbortController();
     await this._checkAndUpdateInputEmpty();
 
-    // Timout needed to have value updated
+    // Timeout needed to have value updated
     this._getInputForm()?.addEventListener('reset', () => setTimeout(() => this.reset()), {
       signal: this._inputAbortController.signal,
     });
