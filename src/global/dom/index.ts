@@ -1,5 +1,6 @@
 export * from './breakpoint';
 export * from './dataset';
+export * from './find-referenced-element';
 export * from './get-document-writing-mode';
 export * from './host-context';
 export * from './input-element';

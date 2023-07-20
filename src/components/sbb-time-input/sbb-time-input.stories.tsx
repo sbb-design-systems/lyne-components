@@ -5,20 +5,22 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const changeEventHandler = (event): void => {
+const changeEventHandler = async (event): Promise<void> => {
   const div = document.createElement('div');
-  div.innerText = `value is: ${event.target.value}; valueAsDate is: ${event.target.valueAsDate}.`;
+  div.innerText = `value is: ${
+    (document.getElementById('input-id') as HTMLInputElement).value
+  }; valueAsDate is: ${await event.target.getValueAsDate()}.`;
   document.getElementById('container-value').append(div);
 };
 
 const setValueAsDate = (): void => {
   const timeInput = document.getElementsByTagName('sbb-time-input')[0];
-  timeInput.valueAsDate = new Date();
+  timeInput.setValueAsDate(new Date());
 };
 
 const setValue = (): void => {
-  const timeInput = document.getElementsByTagName('sbb-time-input')[0];
-  timeInput.value = '0';
+  const input = document.getElementById('input-id') as HTMLInputElement;
+  input.value = '0';
 };
 
 const value: InputType = {
@@ -26,16 +28,7 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Time input attribute',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -44,7 +37,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -53,7 +46,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -62,16 +55,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Time input attribute',
-  },
-};
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -132,11 +116,9 @@ const iconEnd: InputType = {
 
 const basicArgTypes: ArgTypes = {
   value,
-  form,
   disabled,
   readonly,
   required,
-  'aria-label': ariaLabel,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
@@ -151,11 +133,9 @@ const formFieldBasicArgsTypes: ArgTypes = {
 
 const basicArgs: Args = {
   value: '12:00',
-  form: undefined,
   disabled: false,
   readonly: false,
   required: false,
-  'aria-label': undefined,
 };
 
 const formFieldBasicArgs = {
@@ -199,9 +179,9 @@ const TemplateSbbTimeInput = ({
       {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
       <sbb-time-input
         class={errorClass}
-        {...args}
         onChange={(event) => changeEventHandler(event)}
       ></sbb-time-input>
+      <input id="input-id" {...args} />
       {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
       {errorClass && <sbb-form-error>Error</sbb-form-error>}
     </sbb-form-field>

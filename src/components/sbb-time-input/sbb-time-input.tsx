@@ -7,11 +7,14 @@ import {
   h,
   Host,
   JSX,
+  Method,
   Prop,
+  State,
   Watch,
 } from '@stencil/core';
-import { inputElement, focusInputElement } from '../../global/dom';
+import { findInput } from '../../global/dom';
 import { forwardEventToHost } from '../../global/eventing';
+import { AgnosticMutationObserver } from '../../global/observers';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
 const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?/;
@@ -23,23 +26,8 @@ const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
   tag: 'sbb-time-input',
 })
 export class SbbTimeInput implements ComponentInterface {
-  /** Value for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public value?: string = '';
-
-  /** Date value with the given time for the inner HTMLInputElement. */
-  @Prop({ mutable: true }) public valueAsDate?: Date = null;
-
-  /** The <form> element to associate the inner HTMLInputElement with. */
-  @Prop() public form?: string;
-
-  /** Readonly state for the inner HTMLInputElement. */
-  @Prop() public readonly?: boolean = false;
-
-  /** Disabled state for the inner HTMLInputElement. */
-  @Prop({ reflect: true }) public disabled?: boolean = false;
-
-  /** Required state for the inner HTMLInputElement. */
-  @Prop() public required?: boolean = false;
+  /** Reference of the native input connected to the datepicker. */
+  @Prop() public input?: string | HTMLElement;
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
@@ -47,10 +35,101 @@ export class SbbTimeInput implements ComponentInterface {
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
   /** Host element */
-  @Element() private _element!: HTMLElement;
+  @Element() private _element!: HTMLSbbTimeInputElement;
+
+  @State() private _inputElement: HTMLInputElement;
+
+  @Watch('input')
+  public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+    if (newValue !== oldValue) {
+      this._inputElement = findInput(this._element, this.input);
+    }
+  }
+
+  @Watch('_inputElement')
+  public registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
+    if (newValue !== oldValue) {
+      this._abortController?.abort();
+      this._abortController = new AbortController();
+
+      if (!this._inputElement) {
+        return;
+      }
+
+      this._inputObserver?.disconnect();
+      this._inputObserver.observe(this._inputElement, {
+        attributeFilter: ['value'],
+      });
+
+      // Configure input
+      this._inputElement.type = 'text';
+      if (!this._inputElement.placeholder) {
+        this._inputElement.placeholder = this._placeholder;
+      }
+
+      this._inputElement.addEventListener(
+        'input',
+        (event: InputEvent) => {
+          if (!(event instanceof CustomEvent)) {
+            this._preventCharInsert(event);
+          }
+        },
+        { signal: this._abortController.signal },
+      );
+      this._inputElement.addEventListener(
+        'change',
+        async (event: Event) => {
+          if (!(event instanceof CustomEvent)) {
+            await this._updateValueAndEmitChange(event);
+          }
+        },
+        {
+          signal: this._abortController.signal,
+        },
+      );
+    }
+  }
 
   /** Placeholder for the inner HTMLInputElement.*/
   private _placeholder = 'HH:MM';
+
+  private _abortController = new AbortController();
+
+  private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
+
+  public connectedCallback(): void {
+    // Forward focus call to input element
+    this._inputElement = findInput(this._element, this.input);
+    if (this._inputElement) {
+      this._updateValue(this._inputElement.value);
+    }
+  }
+
+  public disconnectedCallback(): void {
+    this._inputObserver?.disconnect();
+    this._abortController?.abort();
+  }
+
+  /** Gets the input value with the correct date format. */
+  @Method() public async getValueAsDate(): Promise<Date> {
+    const regGroups = this._validateInput(this._inputElement?.value);
+    return this._formatValueAsDate(regGroups);
+  }
+
+  /** Set the input value to the correctly formatted value. */
+  @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
+    if (!date || !this._inputElement) {
+      return;
+    }
+    const dateObj = date instanceof Date ? date : new Date(date);
+    this._inputElement.value = this._formatValue(
+      this._validateInput(`${dateObj.getHours()}:${dateObj.getMinutes()}`),
+    );
+
+    /* Emit blur event when value is changed programmatically to notify
+    frameworks that rely on that event to update form status. */
+    this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
+  }
 
   /** Applies the correct format to values and triggers event dispatch. */
   private _updateValueAndEmitChange(event: Event): void {
@@ -64,9 +143,10 @@ export class SbbTimeInput implements ComponentInterface {
    */
   private _updateValue(value: string): void {
     const regGroups = this._validateInput(value);
-    this.value = this._formatValue(regGroups);
-    this.valueAsDate = this._formatValueAsDate(regGroups);
-    inputElement(this._element).value = this.value;
+    if (!this._inputElement) {
+      return;
+    }
+    this._inputElement.value = this._formatValue(regGroups);
   }
 
   /** Emits the change event. */
@@ -134,54 +214,17 @@ export class SbbTimeInput implements ComponentInterface {
     (event.target as HTMLInputElement).value = match ? match[0] : null;
   }
 
-  public connectedCallback(): void {
-    // Forward focus call to input element
-    this._element.focus = focusInputElement;
-  }
-
-  @Watch('value')
-  public watchValueChange(newValue: string): void {
-    this._updateValue(newValue);
-  }
-
-  @Watch('valueAsDate')
-  public watchValueAsDateChange(newValue: Date): void {
-    if (!newValue) {
-      return;
+  private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
+    if (
+      this._inputElement &&
+      mutationsList &&
+      Array.from(mutationsList).some((e) => e.attributeName === 'value')
+    ) {
+      this._updateValue(this._inputElement?.getAttribute('value'));
     }
-    if (!(newValue instanceof Date)) {
-      newValue = new Date(newValue);
-    }
-    this.value = this._formatValue(
-      this._validateInput(`${newValue.getHours()}:${newValue.getMinutes()}`),
-    );
-    inputElement(this._element).value = this.value;
   }
 
   public render(): JSX.Element {
-    const hostAttributes = {
-      role: 'input',
-      'aria-required': this.required?.toString() ?? 'false',
-      'aria-readonly': this.readonly?.toString() ?? 'false',
-      'aria-disabled': this.disabled?.toString() ?? 'false',
-    };
-    const inputAttributes = {
-      role: 'presentation',
-      disabled: this.disabled || null,
-      readonly: this.readonly || null,
-      required: this.required || null,
-      value: this._formatValue(this._validateInput(this.value)) || null,
-      placeholder: this._placeholder,
-    };
-    return (
-      <Host {...hostAttributes}>
-        <input
-          type="text"
-          {...inputAttributes}
-          onInput={(event: InputEvent) => this._preventCharInsert(event)}
-          onChange={(event: Event) => this._updateValueAndEmitChange(event)}
-        />
-      </Host>
-    );
+    return <Host></Host>;
   }
 }

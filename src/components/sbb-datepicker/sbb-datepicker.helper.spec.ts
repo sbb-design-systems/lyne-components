@@ -5,10 +5,10 @@ import {
   findPreviousAvailableDate,
   getAvailableDate,
   getDatePicker,
-  getInput,
   isDateAvailable,
 } from './sbb-datepicker.helper';
 import { NativeDateAdapter } from '../../global/datetime';
+import { findInput } from '../../global/dom';
 
 describe('getDatePicker', () => {
   it('returns the datepicker if no trigger', async () => {
@@ -58,7 +58,7 @@ describe('getInput', () => {
     });
     const element: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
     const input: HTMLInputElement = page.doc.querySelector('input');
-    expect(getInput(element)).toEqual(input);
+    expect(findInput(element)).toEqual(input);
   });
 
   it('returns the input if its id is passed as trigger', async () => {
@@ -72,7 +72,7 @@ describe('getInput', () => {
     });
     const picker: HTMLSbbDatepickerElement = page.doc.querySelector('sbb-datepicker');
     const input: HTMLInputElement = page.doc.querySelector('input');
-    expect(getInput(picker, 'input')).toEqual(input);
+    expect(findInput(picker, 'input')).toEqual(input);
   });
 });
 

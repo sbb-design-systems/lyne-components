@@ -23,6 +23,7 @@ import {
 } from '../../global/overlay';
 import {
   getDocumentWritingMode,
+  findReferencedElement,
   isSafari,
   isValidAttribute,
   toggleDatasetEntry,
@@ -238,7 +239,7 @@ export class SbbAutocomplete implements ComponentInterface {
     if (!this.origin) {
       result = this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor');
     } else {
-      result = typeof this.origin === 'string' ? document.getElementById(this.origin) : this.origin;
+      result = findReferencedElement(this.origin);
     }
 
     if (!result) {
@@ -259,10 +260,7 @@ export class SbbAutocomplete implements ComponentInterface {
       return this._element.closest('sbb-form-field')?.querySelector('input') as HTMLInputElement;
     }
 
-    const result =
-      typeof this.trigger === 'string'
-        ? (document.getElementById(this.trigger) as HTMLInputElement)
-        : this.trigger;
+    const result = findReferencedElement<HTMLInputElement>(this.trigger);
 
     if (!result) {
       throw new Error(

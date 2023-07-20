@@ -1,16 +1,23 @@
+import { findReferencedElement } from './find-referenced-element';
+
 /**
  * Resolves the input element inside the shadow DOM of the given element.
  */
-export function inputElement(element: HTMLElement): HTMLInputElement | null {
+export function shadowInputElement(element: HTMLElement): HTMLInputElement | null {
   return element.shadowRoot.querySelector('input');
 }
 
 /**
- * Resolves the input element inside the shadow DOM and calls the focus method if found.
- * Due to the `this` context handling with Safari when overwriting a method,
- * we need to specifically use a primitive function instead of a lexically bound arrow function.
- * The `this` inside the function will be bound to the context of the overwritten method.
+ * Given a SbbDatepicker component, returns the related input reference, if it exists.
+ * @param element The starting SbbDatepicker element.
+ * @param trigger The id or the reference of the input.
  */
-export function focusInputElement(options: FocusOptions): void {
-  inputElement(this)?.focus(options);
+export function findInput(element: HTMLElement, trigger?: string | HTMLElement): HTMLInputElement {
+  if (!trigger) {
+    const parent = element.closest('sbb-form-field');
+    return parent?.querySelector('input') as HTMLInputElement;
+  }
+
+  const input = findReferencedElement<HTMLInputElement>(trigger);
+  return input ?? null;
 }

@@ -66,14 +66,9 @@ Readonly `sbb-time-input` inside a `sbb-form-field`:
 
 ## Properties
 
-| Property      | Attribute  | Description                                                      | Type      | Default     |
-| ------------- | ---------- | ---------------------------------------------------------------- | --------- | ----------- |
-| `disabled`    | `disabled` | Disabled state for the inner HTMLInputElement.                   | `boolean` | `false`     |
-| `form`        | `form`     | The <form> element to associate the inner HTMLInputElement with. | `string`  | `undefined` |
-| `readonly`    | `readonly` | Readonly state for the inner HTMLInputElement.                   | `boolean` | `false`     |
-| `required`    | `required` | Required state for the inner HTMLInputElement.                   | `boolean` | `false`     |
-| `value`       | `value`    | Value for the inner HTMLInputElement.                            | `string`  | `''`        |
-| `valueAsDate` | --         | Date value with the given time for the inner HTMLInputElement.   | `Date`    | `null`      |
+| Property | Attribute | Description                                                | Type                    | Default     |
+| -------- | --------- | ---------------------------------------------------------- | ----------------------- | ----------- |
+| `input`  | `input`   | Reference of the native input connected to the datepicker. | `HTMLElement \| string` | `undefined` |
 
 
 ## Events
@@ -81,6 +76,29 @@ Readonly `sbb-time-input` inside a `sbb-form-field`:
 | Event       | Description                                                                                                                         | Type               |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+
+
+## Methods
+
+### `getValueAsDate() => Promise<Date>`
+
+Gets the input value with the correct date format.
+
+#### Returns
+
+Type: `Promise<Date>`
+
+
+
+### `setValueAsDate(date: Date | number | string) => Promise<void>`
+
+Set the input value to the correctly formatted value.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 
 ----------------------------------------------

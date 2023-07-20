@@ -29,7 +29,12 @@ import {
   sbbInputModalityDetector,
   setModalityOnNextFocus,
 } from '../../global/a11y';
-import { isBreakpoint, isValidAttribute, ScrollHandler } from '../../global/dom';
+import {
+  findReferencedElement,
+  isBreakpoint,
+  isValidAttribute,
+  ScrollHandler,
+} from '../../global/dom';
 
 const MENU_OFFSET = 8;
 const INTERACTIVE_ELEMENTS = ['A', 'BUTTON', 'SBB-BUTTON', 'SBB-LINK'];
@@ -230,13 +235,7 @@ export class SbbMenu implements ComponentInterface {
       return;
     }
 
-    // Check whether it's a string or an HTMLElement
-    if (typeof trigger === 'string') {
-      this._triggerElement = document.getElementById(trigger);
-      // TODO: Check if window can be avoided
-    } else if (trigger instanceof window.Element) {
-      this._triggerElement = trigger;
-    }
+    this._triggerElement = findReferencedElement(trigger);
 
     if (!this._triggerElement) {
       return;

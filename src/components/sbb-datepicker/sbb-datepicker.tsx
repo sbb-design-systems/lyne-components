@@ -14,9 +14,9 @@ import {
   Watch,
 } from '@stencil/core';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
-import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import { DateAdapter } from '../../global/datetime';
-import { toggleDatasetEntry } from '../../global/dom';
+import { findInput, toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -72,7 +72,7 @@ export class SbbDatepicker implements ComponentInterface {
   @Watch('input')
   public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      this._inputElement = getInput(this._element, this.input);
+      this._inputElement = findInput(this._element, this.input);
     }
   }
 
@@ -146,7 +146,7 @@ export class SbbDatepicker implements ComponentInterface {
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
     await this._formatAndUpdateValue(this._format(parsedDate));
-    /* Emit blur event when value is changed programmatically to notify 
+    /* Emit blur event when value is changed programmatically to notify
     frameworks that rely on that event to update form status. */
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
@@ -183,7 +183,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._inputElement = getInput(this._element, this.input);
+    this._inputElement = findInput(this._element, this.input);
     if (this._inputElement) {
       this._inputElement.value = this._getValidValue(this._inputElement.value);
     }
