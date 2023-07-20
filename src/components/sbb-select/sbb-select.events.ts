@@ -8,6 +8,7 @@ export default {
   didClose: 'did-close',
   didOpen: 'did-open',
   input: 'input',
+  stateChange: 'state-change',
   willClose: 'will-close',
   willOpen: 'will-open',
 };

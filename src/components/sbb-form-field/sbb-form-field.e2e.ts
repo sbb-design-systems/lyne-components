@@ -1,4 +1,3 @@
-// FIXME slotchange is not triggered, see https://github.com/ionic-team/stencil/issues/3536
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 
 describe('sbb-form-field', () => {
@@ -174,6 +173,80 @@ describe('sbb-form-field', () => {
       const element = await page.find('sbb-form-field');
       await page.waitForChanges();
       expect(element.getAttribute('data-input-empty')).toBeNull();
+    });
+
+    it('should update floating label after clearing', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `
+          <sbb-form-field floating-label>
+            <sbb-select>
+              <sbb-option value='1' selected>Displayed Value</sbb-option>
+            </sbb-select>
+          </sbb-form-field>`,
+      );
+
+      const element = await page.find('sbb-form-field');
+      await page.waitForChanges();
+
+      (await page.find('sbb-select')).setProperty('value', '');
+      await page.waitForChanges();
+
+      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+    });
+
+    it('should update floating label when resetting form', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `
+          <form>
+            <sbb-form-field floating-label>
+              <input />
+            </sbb-form-field>
+          </form>`,
+      );
+
+      const element = await page.find('sbb-form-field');
+      await (await page.find('input')).type('test');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).toBeNull();
+
+      await page.evaluate(() => document.querySelector('form').reset());
+      await page.waitForChanges();
+
+      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+    });
+
+    it('should reset floating label when calling reset of sbb-form-field', async () => {
+      const page = await newE2EPage();
+      await page.setContent(
+        `
+          <sbb-form-field floating-label>
+            <input />
+          </sbb-form-field>
+          `,
+      );
+
+      const element = await page.find('sbb-form-field');
+      const input = await page.find('input');
+
+      await input.type('test');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-empty')).toBeNull();
+
+      // When setting value to empty
+      await page.evaluate(() => (document.querySelector('input').value = ''));
+      await page.waitForChanges();
+
+      // Then empty state is not updated
+      expect(element.getAttribute('data-input-empty')).toBeNull();
+
+      // When manually calling reset method
+      await element.callMethod('reset');
+      await page.waitForChanges();
+
+      // Then empty state should be updated
+      expect(element.getAttribute('data-input-empty')).not.toBeNull();
     });
   });
 });

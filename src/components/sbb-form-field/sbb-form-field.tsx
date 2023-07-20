@@ -6,6 +6,7 @@ import {
   h,
   JSX,
   Listen,
+  Method,
   Prop,
   State,
   Watch,
@@ -283,6 +284,11 @@ export class SbbFormField implements ComponentInterface {
     this._inputAbortController = new AbortController();
     await this._checkAndUpdateInputEmpty();
 
+    // Timeout needed to have value updated
+    this._getInputForm()?.addEventListener('reset', () => setTimeout(() => this.reset()), {
+      signal: this._inputAbortController.signal,
+    });
+
     this._input.addEventListener('input', () => this._checkAndUpdateInputEmpty(), {
       signal: this._inputAbortController.signal,
     });
@@ -290,6 +296,19 @@ export class SbbFormField implements ComponentInterface {
     this._input.addEventListener('blur', () => this._checkAndUpdateInputEmpty(), {
       signal: this._inputAbortController.signal,
     });
+
+    if (this._input.tagName === 'SBB-SELECT') {
+      this._input.addEventListener('state-change', () => this._checkAndUpdateInputEmpty(), {
+        signal: this._inputAbortController.signal,
+      });
+    }
+  }
+
+  private _getInputForm(): HTMLFormElement | null {
+    if (this._input instanceof HTMLInputElement || this._input instanceof HTMLSelectElement) {
+      return this._input.form;
+    }
+    return this._input.closest('form');
   }
 
   private async _checkAndUpdateInputEmpty(): Promise<void> {
@@ -359,6 +378,11 @@ export class SbbFormField implements ComponentInterface {
     if (value) {
       this._input?.setAttribute('aria-describedby', value);
     }
+  }
+
+  /** Manually reset the form field. Currently, this only resets the floating label. */
+  @Method() public async reset(): Promise<void> {
+    await this._checkAndUpdateInputEmpty();
   }
 
   public render(): JSX.Element {
