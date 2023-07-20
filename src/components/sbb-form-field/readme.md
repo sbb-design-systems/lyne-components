@@ -35,8 +35,8 @@ The examples below show how to render the component:
 Either use a `<label>` or the `label` attribute to provide a label for a form input. The
 `<sbb-form-field>` will automatically assign the correct id reference between label and input.
 
-When using the floating label and setting the value programmatically to empty, it's mandatory to call 
-the `reset()` method of the `sbb-form-field` to update the state of the floating label.
+When using the floating label and setting the value programmatically to empty or from empty to a specific value,
+it's mandatory to call the `reset()` method of the `sbb-form-field` to update the state of the floating label.
 
 ### Error messages
 
