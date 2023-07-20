@@ -25,6 +25,13 @@
   padding-inline: var(--sbb-spacing-fixed-6x);
   text-align: start;
   cursor: var(--sbb-expansion-panel-header-cursor);
+
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include sbb.focus-outline;
+
+    outline-offset: var(--sbb-spacing-fixed-1x);
+    border-radius: var(--sbb-border-radius-4x);
+  }
 }
 
 .sbb-expansion-panel-header__title,
