@@ -1,8 +1,8 @@
-The `sbb-file-selector` is a component which allows user to select one or more files from their storage devices.
+The `sbb-file-selector` is a component which allows user to select one or more files from storage devices.
 
 It has two different display options based on the value of the `variant` property: by default a `sbb-button` is displayed, 
-which mimics the native `<input type="file"/>`. Instead, if the property is set to `dropzone`, the `sbb-button` is shown 
-within a "drag & drop" area. In this case, it's possible to customize the area's title via the `titleContent` property. 
+which mimics the native `<input type="file"/>`. Instead, if the `variant` property is set to `dropzone`, the `sbb-button` 
+is shown within a "drag & drop" area. In this case, it's possible to customize the area's title via the `titleContent` property. 
 In both cases, the user interaction can be disabled using the `disabled` property. The `error` named slot can be used to 
 display an error message using the `sbb-form-error` component.
 

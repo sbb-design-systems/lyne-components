@@ -1,10 +1,10 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { E2EElement, E2EPage, EventSpy, newE2EPage } from '@stencil/core/testing';
 import events from './sbb-file-selector.events';
 
 async function addFilesToComponentInput(page: E2EPage, numberOfFiles: number): Promise<void> {
   await page.evaluate((numberOfFiles: number): void => {
-    const dataTransfer = new DataTransfer();
-    for (let i = 0; i < numberOfFiles; i++) {
+    const dataTransfer: DataTransfer = new DataTransfer();
+    for (let i: number = 0; i < numberOfFiles; i++) {
       dataTransfer.items.add(
         new File([`Hello world - ${i}`], `hello${i}.txt`, {
           type: 'text/plain',
@@ -12,7 +12,9 @@ async function addFilesToComponentInput(page: E2EPage, numberOfFiles: number): P
         }),
       );
     }
-    const input = document.querySelector('sbb-file-selector').shadowRoot.querySelector('input');
+    const input: HTMLInputElement = document
+      .querySelector('sbb-file-selector')
+      .shadowRoot.querySelector('input');
     input.files = dataTransfer.files;
     input.dispatchEvent(new Event('change'));
   }, numberOfFiles);
@@ -32,7 +34,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads a file, the deletes it', async () => {
-    const fileChangedSpy = await page.spyOnEvent(events.fileChangedEvent);
+    const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
     await addFilesToComponentInput(page, 1);
     await page.waitForChanges();
 
@@ -54,7 +56,9 @@ describe('sbb-file-selector', () => {
       </ul>
     `);
 
-    const button = await page.find('sbb-file-selector >>> sbb-button[icon-name="trash-small"]');
+    const button: E2EElement = await page.find(
+      'sbb-file-selector >>> sbb-button[icon-name="trash-small"]',
+    );
     expect(button).not.toBeNull();
     await button.click();
     await page.waitForChanges();
@@ -63,7 +67,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads more than one file in multiple mode', async () => {
-    const fileChangedSpy = await page.spyOnEvent(events.fileChangedEvent);
+    const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
     await element.setProperty('multiple', true);
     await page.waitForChanges();
     await addFilesToComponentInput(page, 2);
@@ -90,7 +94,7 @@ describe('sbb-file-selector', () => {
   });
 
   it('loads files in multiple persistent mode', async () => {
-    const fileChangedSpy = await page.spyOnEvent(events.fileChangedEvent);
+    const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
     await element.setProperty('multiple', true);
     await element.setProperty('multipleMode', 'persistent');
     await page.waitForChanges();
@@ -111,7 +115,7 @@ describe('sbb-file-selector', () => {
     ).toEqualText('15 B');
 
     await page.evaluate((longContent: string) => {
-      const dataTransfer = new DataTransfer();
+      const dataTransfer: DataTransfer = new DataTransfer();
       dataTransfer.items.add(
         new File([`Hello world - 0`], `hello0.txt`, {
           type: 'text/plain',
@@ -119,7 +123,9 @@ describe('sbb-file-selector', () => {
         }),
       );
       dataTransfer.items.add(new File([longContent], 'third.txt', { type: 'text/plain' }));
-      const input = document.querySelector('sbb-file-selector').shadowRoot.querySelector('input');
+      const input: HTMLInputElement = document
+        .querySelector('sbb-file-selector')
+        .shadowRoot.querySelector('input');
       input.files = dataTransfer.files;
       input.dispatchEvent(new Event('change'));
     }, 'Lorem ipsum dolor sit amet. '.repeat(100));
