@@ -35,7 +35,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   @Prop({ mutable: true, reflect: true }) public expanded = false;
 
   /** Whether the panel is disabled, so its expanded state can't be changed. */
-  @Prop() public disabled = false;
+  @Prop({ reflect: true }) public disabled = false;
 
   /** Whether the panel has no border. */
   @Prop({ reflect: true }) public borderless = false;
