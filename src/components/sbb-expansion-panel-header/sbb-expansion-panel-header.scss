@@ -6,10 +6,12 @@
 
 :host {
   --sbb-expansion-panel-header-cursor: pointer;
+  --sbb-expansion-panel-header-text-color: var(--sbb-color-charcoal-default);
 }
 
 :host([disabled]:not([disabled='false'])) {
   --sbb-expansion-panel-header-cursor: default;
+  --sbb-expansion-panel-header-text-color: var(--sbb-color-granite-default);
 }
 
 .sbb-expansion-panel-header {
@@ -25,6 +27,7 @@
   padding-inline: var(--sbb-spacing-fixed-6x);
   text-align: start;
   cursor: var(--sbb-expansion-panel-header-cursor);
+  color: var(--sbb-expansion-panel-header-text-color);
 
   &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
     @include sbb.focus-outline;
