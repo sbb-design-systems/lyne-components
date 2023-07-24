@@ -27,6 +27,7 @@ describe('sbb-alert', () => {
                   </p>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
+                <sbb-divider class="sbb-alert__close-button-divider" negative="" orientation="vertical"></sbb-divider>
                 <sbb-button aria-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
                 </span>
               </div>
@@ -66,6 +67,7 @@ describe('sbb-alert', () => {
                   </sbb-link>
                 </span>
                 <span class="sbb-alert__close-button-wrapper">
+                <sbb-divider class="sbb-alert__close-button-divider" negative="" orientation="vertical"></sbb-divider>
                 <sbb-button aria-label="Close message" class="sbb-alert__close-button" icon-name="cross-small" negative="" size="m" variant="transparent"></sbb-button>
                 </span>
               </div>

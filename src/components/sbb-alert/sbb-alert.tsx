@@ -230,6 +230,11 @@ export class SbbAlert implements ComponentInterface, LinkProperties {
           </span>
           {!this.readonly && (
             <span class="sbb-alert__close-button-wrapper">
+              <sbb-divider
+                orientation="vertical"
+                negative
+                class="sbb-alert__close-button-divider"
+              ></sbb-divider>
               <sbb-button
                 variant="transparent"
                 negative
