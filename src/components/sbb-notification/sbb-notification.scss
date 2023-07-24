@@ -198,7 +198,6 @@
   position: relative;
   inset-inline-start: var(--sbb-border-width-1x);
   opacity: 0.2;
-  height: calc(var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x));
 
   @include sbb.mq($from: small) {
     display: block;

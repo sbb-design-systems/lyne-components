@@ -60,11 +60,6 @@
   }
 }
 
-.sbb-alert__icon,
-.sbb-alert__close-button-wrapper {
-  flex: 0;
-}
-
 .sbb-alert__icon {
   display: flex;
   align-items: start;
@@ -102,7 +97,9 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: calc(100% - #{sbb.px-to-rem-build(4)});
+
+  // Decrease height to 40px (close button would take 44px of space).
+  height: #{sbb.px-to-rem-build(40)};
 
   @include sbb.mq($from: small) {
     height: 100%;
