@@ -101,9 +101,10 @@
 .sbb-alert__close-button-wrapper {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  height: calc(100% - #{sbb.px-to-rem-build(4)});
 
   @include sbb.mq($from: small) {
-    align-items: center;
     height: 100%;
   }
 }
