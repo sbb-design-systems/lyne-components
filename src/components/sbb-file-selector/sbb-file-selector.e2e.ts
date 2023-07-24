@@ -38,22 +38,20 @@ describe('sbb-file-selector', () => {
 
     expect(fileChangedSpy).toHaveReceivedEventTimes(1);
     expect(await element.getProperty('files')).not.toBeNull();
-    expect(
-      (await page.find('sbb-file-selector >>> .sbb-file-selector__file-list')).tagName,
-    ).toEqual('UL');
 
-    const listItems: E2EElement[] = await page.findAll('sbb-file-selector >>> li');
-    expect(listItems.length).toEqual(1);
-    expect(listItems[0]).toEqualHtml(`
-      <li class="sbb-file-selector__file">
-        <span class="sbb-file-selector__file-details">
-          <span class="sbb-file-selector__file-name">hello0.txt</span>
-          <span class="sbb-file-selector__file-size">15 B</span>
-        </span>
-        <sbb-button aria-label="Remove file" class="hydrated" data-icon-only dir="ltr" icon-name="trash-small"
-                    role="button" size="m" tabindex="0" variant="secondary">
-        </sbb-button>
-      </li>
+    const listItems: E2EElement = await page.find('sbb-file-selector >>> ul');
+    expect(listItems).toEqualHtml(`
+      <ul class="sbb-file-selector__file-list" role='list'>
+        <li class="sbb-file-selector__file">
+          <span class="sbb-file-selector__file-details">
+            <span class="sbb-file-selector__file-name">hello0.txt</span>
+            <span class="sbb-file-selector__file-size">15 B</span>
+          </span>
+          <sbb-button aria-label="Remove file" class="hydrated" data-icon-only dir="ltr" icon-name="trash-small"
+                      role="button" size="m" tabindex="0" variant="secondary">
+          </sbb-button>
+        </li>
+      </ul>
     `);
 
     const button = await page.find('sbb-file-selector >>> sbb-button[icon-name="trash-small"]');

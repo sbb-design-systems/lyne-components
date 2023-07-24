@@ -235,7 +235,7 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _renderFileList(): JSX.Element {
     return (
-      <ul class="sbb-file-selector__file-list">
+      <ul class="sbb-file-selector__file-list" role="list">
         {this.files.map((file: File) => (
           <li class="sbb-file-selector__file">
             <span class="sbb-file-selector__file-details">
