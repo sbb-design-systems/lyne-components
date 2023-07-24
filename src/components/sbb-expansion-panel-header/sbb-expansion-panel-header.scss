@@ -12,6 +12,10 @@
 :host([disabled]:not([disabled='false'])) {
   --sbb-expansion-panel-header-cursor: default;
   --sbb-expansion-panel-header-text-color: var(--sbb-color-granite-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-expansion-panel-header-text-color: GrayText;
+  }
 }
 
 .sbb-expansion-panel-header {
