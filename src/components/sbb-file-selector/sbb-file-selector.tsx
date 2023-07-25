@@ -139,10 +139,12 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   private _setDragState(dragTarget = undefined, isDragEnter = false): void {
-    this._dragTarget = dragTarget;
-    toggleDatasetEntry(this._element, 'active', isDragEnter);
-    // FIXME the next line causes button flickering; same if directly setting the button background-color variable
-    toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
+    if (this.variant === 'dropzone') {
+      this._dragTarget = dragTarget;
+      toggleDatasetEntry(this._element, 'active', isDragEnter);
+      // FIXME the next line causes button flickering; same if directly setting the button background-color variable
+      toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
+    }
   }
 
   private _readFiles(event): void {
@@ -202,13 +204,7 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _renderDropzoneArea(): JSX.Element {
     return (
-      <div
-        class="sbb-file-selector__dropzone-area"
-        onDragEnter={(e) => this._onDragEnter(e)}
-        onDragOver={(e) => this._blockEvent(e)}
-        onDragLeave={(e) => this._onDragLeave(e)}
-        onDrop={(e) => this._onFileDrop(e)}
-      >
+      <div class="sbb-file-selector__dropzone-area">
         <div class="sbb-file-selector__dropzone-area--icon">
           <sbb-icon name="folder-open-medium"></sbb-icon>
         </div>
@@ -258,21 +254,29 @@ export class SbbFileSelector implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <div class="sbb-file-selector">
-        {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
-        <label hidden htmlFor="sbb-file-selector__hidden-input">
-          {i18nFileSelectorButtonLabel[this._currentLanguage]}
-          <input
-            id="sbb-file-selector__hidden-input"
-            type="file"
-            disabled={this.disabled}
-            multiple={this.multiple}
-            accept={this.accept}
-            onChange={(event) => this._readFiles(event)}
-            ref={(el): void => {
-              this._hiddenInput = el;
-            }}
-          />
-        </label>
+        <div
+          class="sbb-file-selector__input-container"
+          onDragEnter={(e) => this._onDragEnter(e)}
+          onDragOver={(e) => this._blockEvent(e)}
+          onDragLeave={(e) => this._onDragLeave(e)}
+          onDrop={(e) => this._onFileDrop(e)}
+        >
+          {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
+          <label hidden htmlFor="sbb-file-selector__hidden-input">
+            {i18nFileSelectorButtonLabel[this._currentLanguage]}
+            <input
+              id="sbb-file-selector__hidden-input"
+              type="file"
+              disabled={this.disabled}
+              multiple={this.multiple}
+              accept={this.accept}
+              onChange={(event) => this._readFiles(event)}
+              ref={(el): void => {
+                this._hiddenInput = el;
+              }}
+            />
+          </label>
+        </div>
         {this.files && this.files.length > 0 && this._renderFileList()}
         {this._namedSlots.error && (
           <div class="sbb-file-selector__error">
