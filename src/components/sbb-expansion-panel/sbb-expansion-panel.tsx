@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { toggleDatasetEntry } from '../../global/dom';
+import { InterfaceSbbExpansionPanelAttributes } from './sbb-expansion-panel.custom';
 
 let nextId = 0;
 
@@ -29,7 +30,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'];
 
   /** The background color of the panel. */
-  @Prop() public color: 'white' | 'milk' = 'white';
+  @Prop() public color: InterfaceSbbExpansionPanelAttributes['color'] = 'white';
 
   /** Whether the panel is expanded. */
   @Prop({ mutable: true, reflect: true }) public expanded = false;
@@ -89,7 +90,7 @@ export class SbbExpansionPanel implements ComponentInterface {
       .setAttribute('expanded', String(this.expanded));
     this._element
       .querySelector('sbb-expansion-panel-content')
-      .setAttribute('expanded', String(this.expanded));
+      .setAttribute('aria-hidden', String(!this.expanded));
     this._element.style.setProperty(
       '--sbb-expansion-panel-content-height',
       `${this._contentElement.scrollHeight}px`,
