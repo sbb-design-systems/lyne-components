@@ -18,6 +18,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom';
 
 /**
  * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
@@ -33,7 +34,7 @@ export class SbbSelectionPanel implements ComponentInterface {
   /**
    * The background color of the panel.
    */
-  @Prop() public color: 'white' | 'milk' = 'white';
+  @Prop() public color: InterfaceSbbSelectionPanelAttributes['color'] = 'white';
 
   /**
    * Whether the content section is always visible.

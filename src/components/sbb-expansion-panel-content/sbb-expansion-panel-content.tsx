@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, h, Host, JSX } from '@stencil/core';
 
 /**
  * @slot unnamed - Slot to render the content in the sbb-expansion-panel.
@@ -9,15 +9,9 @@ import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core
   tag: 'sbb-expansion-panel-content',
 })
 export class SbbExpansionPanelContent implements ComponentInterface {
-  /**
-   * @internal
-   * Sets the `aria-hidden` attribute on panel when it's collapsed.
-   */
-  @Prop() public expanded: boolean;
-
   public render(): JSX.Element {
     return (
-      <Host slot="content" role="region" aria-hidden={String(!this.expanded)}>
+      <Host slot="content" role="region">
         <div class="sbb-expansion-panel-content">
           <slot></slot>
         </div>
