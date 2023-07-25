@@ -7,7 +7,7 @@ to the `sbb-expansion-panel-header` to correctly display the toggle icon.
 
 The component has two background options that can be set using the `color` variable, while the `disabled` state 
 can be set using the self-named variable. It's also possible to display the `sbb-expansion-panel` without border
-by setting the `borderless` variable to `true`. Using the `level` variable, it's possible to wrap the 
+by setting the `borderless` variable to `true`. Using the `titleLevel` variable, it's possible to wrap the 
 `sbb-expansion-panel-header` in a heading tag; if it's unset, a `<div>` is used as a wrapper. 
 
 ## Usage
@@ -59,7 +59,7 @@ and the `aria-hidden` attribute on the content.
 | `disableAnimation` | `disable-animation` | Whether the animations should be disabled.                             | `boolean`                                | `false`     |
 | `disabled`         | `disabled`          | Whether the panel is disabled, so its expanded state can't be changed. | `boolean`                                | `false`     |
 | `expanded`         | `expanded`          | Whether the panel is expanded.                                         | `boolean`                                | `false`     |
-| `level`            | `level`             | Heading level; if unset, a `div` will be rendered.                     | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
+| `titleLevel`       | `title-level`       | Heading level; if unset, a `div` will be rendered.                     | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
 
 
 ## Events

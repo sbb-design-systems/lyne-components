@@ -35,7 +35,7 @@ describe('sbb-expansion-panel', () => {
     const { root } = await newSpecPage({
       components: [SbbExpansionPanel],
       html: `
-        <sbb-expansion-panel level="4">
+        <sbb-expansion-panel title-level="4">
           <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
@@ -43,7 +43,7 @@ describe('sbb-expansion-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel level="4">
+      <sbb-expansion-panel title-level="4">
         <mock:shadow-root>
           <div class="sbb-expansion-panel">
             <h4 class="sbb-expansion-panel__header">

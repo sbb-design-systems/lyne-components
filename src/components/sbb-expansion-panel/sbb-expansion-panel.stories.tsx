@@ -38,6 +38,14 @@ const contentText: InputType = {
     category: 'Content',
   },
 };
+
+const titleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6, null],
+};
+
 const color: InputType = {
   control: {
     type: 'inline-radio',
@@ -68,6 +76,7 @@ const defaultArgTypes: ArgTypes = {
   iconName,
   contentText,
   expanded,
+  'title-level': titleLevel,
   color,
   borderless,
   disabled,
@@ -78,6 +87,7 @@ const defaultArgs: Args = {
   iconName: undefined,
   contentText: 'Content',
   expanded: false,
+  'title-level': titleLevel.options[2],
   color: color.options[0],
   borderless: false,
   disabled: false,
@@ -118,6 +128,12 @@ export const WithIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, iconName: 'swisspass-medium' },
+};
+
+export const NoHeadingTag: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'title-level': titleLevel.options[6] },
 };
 
 export const Expanded: StoryObj = {

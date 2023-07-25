@@ -8,7 +8,7 @@ describe('sbb-accordion', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <sbb-accordion level='4'>
+      <sbb-accordion title-level='4'>
         <sbb-expansion-panel>
           <sbb-expansion-panel-header id='header-1'>Header 1</sbb-expansion-panel-header>
           <sbb-expansion-panel-content id='content-1'>Content 1</sbb-expansion-panel-content>
@@ -31,7 +31,7 @@ describe('sbb-accordion', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('level prop is inherited by panels', async () => {
+  it('titleLevel prop is inherited by panels', async () => {
     const panels = await page.findAll('sbb-expansion-panel');
     expect(panels.length).toEqual(3);
     expect(panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
@@ -42,6 +42,22 @@ describe('sbb-accordion', () => {
     );
     expect(panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
       'H4',
+    );
+  });
+
+  it('titleLevel prop is dynamically updated', async () => {
+    await element.setProperty('titleLevel', '6');
+    await page.waitForChanges();
+    const panels = await page.findAll('sbb-expansion-panel');
+    expect(panels.length).toEqual(3);
+    expect(panels[0].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
+      'H6',
+    );
+    expect(panels[1].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
+      'H6',
+    );
+    expect(panels[2].shadowRoot.querySelector('.sbb-expansion-panel').firstChild.nodeName).toEqual(
+      'H6',
     );
   });
 
@@ -119,5 +135,38 @@ describe('sbb-accordion', () => {
     expect(headerOne).toEqualAttribute('expanded', 'true');
     expect(headerTwo).toEqualAttribute('expanded', 'true');
     expect(headerThree).toEqualAttribute('expanded', 'true');
+  });
+
+  it('should close all panels except the first when multi changes from true to false', async () => {
+    await element.setProperty('multi', 'true');
+    await page.waitForChanges();
+    const headerOne: E2EElement = await page.find('#header-1');
+    const headerTwo: E2EElement = await page.find('#header-2');
+    const headerThree: E2EElement = await page.find('#header-3');
+    [headerOne, headerTwo, headerThree].forEach((header) =>
+      expect(header).toEqualAttribute('expanded', 'false'),
+    );
+
+    const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
+
+    await headerTwo.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 1);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+    expect(headerTwo).toEqualAttribute('expanded', 'true');
+
+    await headerThree.click();
+    await page.waitForChanges();
+    await waitForCondition(() => willOpenEventSpy.events.length === 2);
+    expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
+    await page.waitForChanges();
+    expect(headerThree).toEqualAttribute('expanded', 'true');
+
+    await element.setProperty('multi', 'false');
+    await page.waitForChanges();
+    expect(headerOne).toEqualAttribute('expanded', 'true');
+    expect(headerTwo).toEqualAttribute('expanded', 'false');
+    expect(headerThree).toEqualAttribute('expanded', 'false');
   });
 });
