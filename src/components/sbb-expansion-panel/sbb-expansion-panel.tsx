@@ -26,7 +26,7 @@ let nextId = 0;
 })
 export class SbbExpansionPanel implements ComponentInterface {
   /** Heading level; if unset, a `div` will be rendered. */
-  @Prop() public level?: InterfaceTitleAttributes['level'];
+  @Prop() public titleLevel?: InterfaceTitleAttributes['level'];
 
   /** The background color of the panel. */
   @Prop() public color: 'white' | 'milk' = 'white';
@@ -187,7 +187,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   }
 
   public render(): JSX.Element {
-    const TAGNAME = this.level ? `h${this.level}` : 'div';
+    const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
     return (
       <div class="sbb-expansion-panel">

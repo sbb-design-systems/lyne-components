@@ -19,7 +19,7 @@ const multi: InputType = {
   },
 };
 
-const level: InputType = {
+const titleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
@@ -96,7 +96,7 @@ const contentText: InputType = {
 const defaultArgTypes: ArgTypes = {
   numberOfPanels,
   multi,
-  level,
+  'title-level': titleLevel,
   color,
   expanded,
   borderless,
@@ -109,7 +109,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
-  level: level.options[2],
+  'title-level': titleLevel.options[2],
   color: color.options[0],
   expanded: false,
   borderless: false,
