@@ -5,17 +5,23 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-expansion-panel-content-padding-inline-start: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-content-padding-inline-start: var(
+    --sbb-expansion-panel-content-padding-inline
+  );
 }
 
 :host([data-icon-space]) {
+  // The space taken by the icon in the sbb-expansion-panel-header must be considered here to correctly calculate the padding value;
+  // this is the sum of the default padding, plus the icon space (9x) plus the gap between the icon and the header title (4x).
   --sbb-expansion-panel-content-padding-inline-start: calc(
-    var(--sbb-spacing-fixed-6x) + var(--sbb-spacing-fixed-9x) + var(--sbb-spacing-fixed-4x)
+    var(--sbb-expansion-panel-content-padding-inline) + var(--sbb-spacing-fixed-9x) +
+      var(--sbb-spacing-fixed-4x)
   );
 }
 
 .sbb-expansion-panel-content {
   padding-block-end: var(--sbb-spacing-responsive-xs);
   padding-inline-start: var(--sbb-expansion-panel-content-padding-inline-start);
-  padding-inline-end: var(--sbb-spacing-fixed-6x);
+  padding-inline-end: var(--sbb-expansion-panel-content-padding-inline);
 }
