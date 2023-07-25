@@ -4,7 +4,7 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import { InputType } from '@storybook/types';
+import { InputType, StoryContext } from '@storybook/types';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -148,10 +148,17 @@ export const EllipsisAndLongText: StoryObj = {
   args: { ...defaultArgs, headerText: longText, contentText: longText },
 };
 
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color':
+    context.args.color === 'white' && context.args.borderless
+      ? '#bdbdbd'
+      : 'var(--sbb-color-white-default)',
+});
+
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),
