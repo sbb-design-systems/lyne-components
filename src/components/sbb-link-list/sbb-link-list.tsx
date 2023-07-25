@@ -1,6 +1,6 @@
 import { Component, h, Prop, State, JSX, Element, Watch, ComponentInterface } from '@stencil/core';
 import { InterfaceLinkListAttributes } from './sbb-link-list.custom';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom.d';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { InterfaceLinkAttributes } from '../sbb-link/sbb-link.custom';
 import {
   createNamedSlotState,

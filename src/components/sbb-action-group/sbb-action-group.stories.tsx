@@ -261,7 +261,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handels: ['click'],
+      handles: ['click'],
     },
     backgrounds: {
       disable: true,

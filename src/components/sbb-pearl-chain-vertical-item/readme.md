@@ -1,5 +1,5 @@
 The `<sbb-pearl-chain-vertical-item>` is intended to be used with the `<sbb-pearl-chain-vertical>` component. It is a table-row with three table-cells. It is used to display the dots and line of the pearl-chain. In addition to that, there are two slots, which make it possible to display content on the left and right side of the pearl-chain. The component has many styling option, which can be configured through the 'pearlChainVerticalItemAttributes' property.
-The slots themselfes are unstyled, so that they can be used in variuos ways.
+The slots themselves are unstyled, so that they can be used in various ways.
 
 ## Usage with props 
 Example prop: 

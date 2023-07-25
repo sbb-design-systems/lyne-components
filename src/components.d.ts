@@ -17,16 +17,15 @@ import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 import { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 import { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
-import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
+import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom";
 import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
-import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
+import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-import { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
@@ -48,8 +47,8 @@ import { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle
 import { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 import { SbbOverlayState } from "./components";
-import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
+import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom";
+import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom";
 export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
@@ -62,16 +61,15 @@ export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custo
 export { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
 export { CheckboxStateChange, InterfaceSbbCheckboxAttributes } from "./components/sbb-checkbox/sbb-checkbox.custom";
 export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-group/sbb-checkbox-group.custom";
-export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom.d";
+export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom";
 export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
-export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom.d";
+export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom";
 export { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 export { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
 export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custom";
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
-export { InterfaceTitleAttributes as InterfaceTitleAttributes1 } from "./components/sbb-title/sbb-title.custom.d";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
@@ -93,8 +91,8 @@ export { InterfaceSbbToggleAttributes } from "./components/sbb-toggle/sbb-toggle
 export { InterfaceToggleCheckAttributes } from "./components/sbb-toggle-check/sbb-toggle-check.custom";
 export { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-toggle-option.custom";
 export { SbbOverlayState } from "./components";
-export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom.d";
-export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom.d";
+export { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom";
+export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom";
 export namespace Components {
     interface SbbAccordion {
         /**
@@ -773,7 +771,7 @@ export namespace Components {
          */
         "focalPointY": number;
         /**
-          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
+          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
         /**
@@ -931,7 +929,7 @@ export namespace Components {
         /**
           * The semantic level of the title, e.g. 2 = h2.
          */
-        "titleLevel"?: InterfaceTitleAttributes1['level'];
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLogo {
         /**
@@ -1622,7 +1620,7 @@ export namespace Components {
          */
         "boarding"?: Boarding;
         /**
-          * Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
+          * Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
          */
         "cardActionLabel"?: string;
         /**
@@ -1642,7 +1640,7 @@ export namespace Components {
          */
         "price"?: Price;
         /**
-          * The trip Prop
+          * The trip Prop.
          */
         "trip": ITripItem;
     }
@@ -3380,7 +3378,7 @@ declare namespace LocalJSX {
          */
         "focalPointY"?: number;
         /**
-          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside of AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
+          * Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.
          */
         "imageSrc"?: string;
         /**
@@ -3538,7 +3536,7 @@ declare namespace LocalJSX {
         /**
           * The semantic level of the title, e.g. 2 = h2.
          */
-        "titleLevel"?: InterfaceTitleAttributes1['level'];
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLogo {
         /**
@@ -4303,7 +4301,7 @@ declare namespace LocalJSX {
          */
         "boarding"?: Boarding;
         /**
-          * Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
+          * Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
          */
         "cardActionLabel"?: string;
         /**
@@ -4323,7 +4321,7 @@ declare namespace LocalJSX {
          */
         "price"?: Price;
         /**
-          * The trip Prop
+          * The trip Prop.
          */
         "trip"?: ITripItem;
     }

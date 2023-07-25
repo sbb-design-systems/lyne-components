@@ -220,7 +220,7 @@ specific error being caught and why it cannot be prevented.
 ##### General
 
 - Prefer to write out words instead of using abbreviations.
-- Prefer _exact_ names over short names (within reason). E.g., `labelPosition` is better than
+- Prefer _exact_ names to short names (within reason). E.g., `labelPosition` is better than
   `align` because the former much more exactly communicates what the property means.
 - Except for `@Prop` properties, use `is` and `has` prefixes for boolean properties / methods.
 

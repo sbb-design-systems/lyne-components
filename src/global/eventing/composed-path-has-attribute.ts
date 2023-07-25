@@ -3,7 +3,7 @@
  *
  * @param event The event object
  * @param attribute The attribute to look for.
- * @param endElement The boundary where the path will be cut, endElemnent excluded. If null or not present, the whole path will be used.
+ * @param endElement The boundary where the path will be cut, endElement excluded. If null or not present, the whole path will be used.
  * @returns The element that has 'attribute', undefined otherwise.
  */
 export function composedPathHasAttribute(

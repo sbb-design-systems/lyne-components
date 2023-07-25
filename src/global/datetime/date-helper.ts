@@ -8,7 +8,7 @@ import {
   subDays,
 } from 'date-fns';
 
-import { i18nDurationHour, i18nDurationMinute, i18nDurationDay } from '../../global/i18n';
+import { i18nDurationHour, i18nDurationMinute, i18nDurationDay } from '../i18n';
 
 /**
  * This function removes the offset of a ISO date string. This needs to be done to make sure that the offset is ignored.

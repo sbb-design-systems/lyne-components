@@ -82,7 +82,7 @@ When using a non-native form element (e.g. `<sbb-select>`) `aria-labelledby` is 
 form element with the label, by setting an id on the label and referencing this id in the
 `aria-labelledby` attribute placed on the form element.
 Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
-element outside the `<sbb-form-field>`, the automatic assignement is skipped and it is up to the
+element outside the `<sbb-form-field>`, the automatic assignment is skipped, and it is up to the
 consumer to use the correct id references.
 
 When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds

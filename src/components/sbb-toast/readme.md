@@ -41,7 +41,7 @@ Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibi
 
 `sbb-toast` does not move focus to the toast element. Moving focus like this would disrupt users in the middle of a workflow. 
 
-For any action offered in the toast, your application should provide an alternative way to perform the action (e.g. a keyaboard combination).
+For any action offered in the toast, your application should provide an alternative way to perform the action (e.g. a keyboard combination).
 
 Avoid setting a `duration` for toasts that have an action available, as screen reader users may want to navigate to the toast element to activate the action.
 

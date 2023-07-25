@@ -34,7 +34,7 @@ describe('sbb-pearl-chain', () => {
   });
 
   describe('sbb-pearl-chain with two legs', () => {
-    it('renders compont with config', async () => {
+    it('renders component with config', async () => {
       const page = await newSpecPage({
         components: [SbbPearlChain],
         html: `
@@ -83,7 +83,7 @@ describe('sbb-pearl-chain', () => {
   });
 
   describe('sbb-pearl-chain with skipped stops', () => {
-    it('renders compont with departure skipped', async () => {
+    it('renders component with departure skipped', async () => {
       const page = await newSpecPage({
         components: [SbbPearlChain],
         html: `
@@ -138,7 +138,7 @@ describe('sbb-pearl-chain', () => {
       `);
     });
 
-    it('renders compont with arrival skipped', async () => {
+    it('renders component with arrival skipped', async () => {
       const page = await newSpecPage({
         components: [SbbPearlChain],
         html: `

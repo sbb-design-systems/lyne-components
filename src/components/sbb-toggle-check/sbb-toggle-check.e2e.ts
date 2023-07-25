@@ -34,7 +34,7 @@ describe('sbb-toggle-check', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    it('should recieve focus', async () => {
+    it('should receive focus', async () => {
       const changeSpy = await element.spyOnEvent('focus');
 
       await element.focus();

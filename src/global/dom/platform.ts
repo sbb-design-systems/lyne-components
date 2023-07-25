@@ -34,7 +34,7 @@ export const isBlink = (): boolean =>
   !isEdge() &&
   !isTrident();
 
-// Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
+// Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore, we need to
 // ensure that Webkit runs standalone and is not used as another engine's base.
 /** Whether the current rendering engine is WebKit. */
 export const isWebkit = (): boolean =>

@@ -27,7 +27,7 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 1. **Decorative**: the icon conveys no real semantic meaning and is purely cosmetic.
 2. **Interactive**: a user will click or otherwise interact with the icon to perform some action.
 3. **Indicator**: the icon is not interactive, but it conveys some information, such as a status.
-   This includes using the icon in place of text inside of a larger message.
+   This includes using the icon in place of text inside a larger message.
 
 <!-- TODO: add icon configuration documentation -->
 

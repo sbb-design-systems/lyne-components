@@ -1,4 +1,4 @@
-The `<sbb-pearl-chain>` component displays all parts of a journey. Including changes of trains or other kinds of transports. Also it is possible to render the current position.
+The `<sbb-pearl-chain>` component displays all parts of a journey. Including changes of trains or other kinds of transports. Also, it is possible to render the current position.
 
 ## Usage
 

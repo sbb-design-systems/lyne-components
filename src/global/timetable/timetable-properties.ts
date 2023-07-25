@@ -121,7 +121,7 @@ export type Leg = {
   id: string;
 };
 
-/** Wrapper for an Notice with image/picto name and text */
+/** Wrapper for a Notice with image/picto name and text */
 export type Notice = {
   __typename?: 'Notice';
   /** Hint whether a passenger should see such a Notice being advertised */
@@ -286,7 +286,7 @@ export type ITripItem = {
   searchHint?: string[];
   /**
    * List of legs situation messages
-   * Useful for level 1, may not needed for level 2
+   * Useful for level 1, may not be needed for level 2
    */
   situations: PtSituation[];
   /**

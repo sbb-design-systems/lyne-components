@@ -3,7 +3,7 @@ The component represents an action element contained by the [sbb-menu](../sbb-me
 As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link,
 depending on the value of the `href` property.
 
-An [sbb-icon](../sbb-icon/readme.md) will be rendered via the `icon-name` property; otherwise consumers can provide
+A [sbb-icon](../sbb-icon/readme.md) will be rendered via the `icon-name` property; otherwise consumers can provide
 their own content via slot named `icon`.
 
 An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property. 
@@ -36,10 +36,10 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 
 ## Slots
 
-| Slot        | Description                                                                   |
-| ----------- | ----------------------------------------------------------------------------- |
-| `"icon"`    | Use this slot to provide an icon. If `icon` is set, an sbb-icon will be used. |
-| `"unnamed"` | Use this slot to provide the menu action label.                               |
+| Slot        | Description                                                                  |
+| ----------- | ---------------------------------------------------------------------------- |
+| `"icon"`    | Use this slot to provide an icon. If `icon` is set, a sbb-icon will be used. |
+| `"unnamed"` | Use this slot to provide the menu action label.                              |
 
 
 ## Dependencies

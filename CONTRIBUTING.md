@@ -43,7 +43,7 @@ chances of your issue being dealt with quickly:
 - **Motivation for or Use Case** - explain what are you trying to do and why the current behavior
   is a bug for you
 - **Browsers and Operating System** - is this a problem with all browsers?
-- **Reproduce the Error** - provide a live example (using StackBlitz or similar) or a unambiguous set of steps
+- **Reproduce the Error** - provide a live example (using StackBlitz or similar) or an unambiguous set of steps
 - **Screenshots** - Due to the visual nature of @sbb-esta/lyne-components, screenshots can help the team
   triage issues far more quickly than a text description.
 - **Related Issues** - has a similar issue been reported before?

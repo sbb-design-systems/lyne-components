@@ -9,7 +9,7 @@ import {
   Prop,
   State,
 } from '@stencil/core';
-import { InterfaceSbbTrainAttributes } from './sbb-train.custom.d';
+import { InterfaceSbbTrainAttributes } from './sbb-train.custom';
 import { i18nTrain, i18nWagonsLabel } from '../../global/i18n';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import {

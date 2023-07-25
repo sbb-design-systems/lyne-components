@@ -125,7 +125,7 @@ describe('sbb-breadcrumb-group', () => {
       expect(ellipsisBreadcrumb).toBeNull();
     });
 
-    it('should remove expand button when too less breadcrumns available', async () => {
+    it('should remove expand button when too less breadcrumbs available', async () => {
       let ellipsisElement = await page.find(
         'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis',
       );

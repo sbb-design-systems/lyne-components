@@ -9,9 +9,8 @@ export const extractTimeAndStringFromNoticeText = (
     notice?.text?.template.indexOf(')'),
   );
 
-  const noticeObject = {
+  return {
     duration: (noticeDuration && +noticeDuration.substring(0, noticeDuration.length - 1)) || 0,
     text: notice?.text?.template?.split('(')[0] || '',
   };
-  return noticeObject;
 };

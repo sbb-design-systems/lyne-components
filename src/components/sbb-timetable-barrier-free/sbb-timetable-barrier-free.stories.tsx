@@ -53,7 +53,7 @@ export const nonBarrierFree: StoryObj = {
   },
 };
 
-export const BarrierFreeUnkonwn: StoryObj = {
+export const BarrierFreeUnknown: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {

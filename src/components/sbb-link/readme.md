@@ -1,4 +1,4 @@
-The `<sbb-link>`can both be used as a anchor (`<a>`)
+The `<sbb-link>`can both be used as an anchor (`<a>`)
 (if the href property is set) or as a button. If the `<sbb-link>` is placed inside another
 anchor or button tag, it is internally rendered as a span in order to not break HTML functionality.
   

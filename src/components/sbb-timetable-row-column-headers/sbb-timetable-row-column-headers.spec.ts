@@ -13,14 +13,14 @@ describe('sbb-timetable-row-column-headers', () => {
 
     expect(root).toEqualHtml(`
         <sbb-timetable-row-column-headers
-            config="[&quot;Short Infos&quot;,&quot;Summary&quot;,&quot;&quot;,&quot;Platfom&quot;,&quot;Occupancy Forecast&quot;,&quot;Travel hints&quot;,&quot;Duration&quot;,&quot;Real time information&quot;]"
+            config="[&quot;Short Infos&quot;,&quot;Summary&quot;,&quot;&quot;,&quot;Platform&quot;,&quot;Occupancy Forecast&quot;,&quot;Travel hints&quot;,&quot;Duration&quot;,&quot;Real time information&quot;]"
         >
           <mock:shadow-root>
             <div class="column-headers" role="none">
                 <div role="columnheader">Short Infos</div>
                 <div role="columnheader">Summary</div>
                 <div role="columnheader"></div>
-                <div role="columnheader">Platfom</div>
+                <div role="columnheader">Platform</div>
                 <div role="columnheader">Occupancy Forecast</div>
                 <div role="columnheader">Travel hints</div>
                 <div role="columnheader">Duration</div>
