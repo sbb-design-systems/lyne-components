@@ -108,63 +108,70 @@ export class SbbExpansionPanel implements ComponentInterface {
   private _contentElement: HTMLElement;
   private _transitionEventController: AbortController;
   private _progressiveId = `-${++nextId}`;
+  private _headerRef: HTMLSbbExpansionPanelHeaderElement;
+  private _contentRef: HTMLSbbExpansionPanelContentElement;
 
   private _onHeaderSlotChange(event): void {
-    const header = (event.target as HTMLSlotElement)
+    this._headerRef = (event.target as HTMLSlotElement)
       .assignedElements()
       .find(
         (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
       );
-    if (!header) {
+    if (!this._headerRef) {
       return;
     }
 
-    header.setAttribute('aria-expanded', String(this.expanded));
+    this._headerRef.setAttribute('aria-expanded', String(this.expanded));
     if (this.disabled) {
-      header.setAttribute('disabled', String(this.disabled));
+      this._headerRef.setAttribute('disabled', String(this.disabled));
     }
-    if (!header.getAttribute('id')) {
-      header.setAttribute('id', `sbb-expansion-panel-header${this._progressiveId}`);
+    if (!this._headerRef.getAttribute('id')) {
+      this._headerRef.setAttribute('id', `sbb-expansion-panel-header${this._progressiveId}`);
     }
-
-    const content = this._element.querySelector('sbb-expansion-panel-content');
-    if (content) {
-      header.setAttribute(
-        'aria-controls',
-        content.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`,
-      );
-      toggleDatasetEntry(
-        content,
-        'iconSpace',
-        header.hasAttribute('icon-name') && header.getAttribute('icon-name') !== '',
-      );
-    }
+    this._linkHeaderAndContent();
   }
 
   private _onContentSlotChange(event): void {
-    const content = (event.target as HTMLSlotElement)
+    this._contentRef = (event.target as HTMLSlotElement)
       .assignedElements()
       .find(
         (e): e is HTMLSbbExpansionPanelContentElement =>
           e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
       );
-    if (!content) {
+    if (!this._contentRef) {
+      this._transitionEventController?.abort();
       return;
     }
 
-    content.setAttribute('aria-hidden', String(!this.expanded));
-    if (!content.getAttribute('id')) {
-      content.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
+    this._transitionEventController = new AbortController();
+    this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
+    if (!this._contentRef.getAttribute('id')) {
+      this._contentRef.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
     }
-
-    const header = this._element.querySelector('sbb-expansion-panel-header');
-    content.setAttribute(
-      'aria-labelledby',
-      header.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`,
-    );
-    content.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
+    this._contentRef.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
       signal: this._transitionEventController.signal,
     });
+    this._linkHeaderAndContent();
+  }
+
+  private _linkHeaderAndContent(): void {
+    if (!this._headerRef || !this._contentRef) {
+      return;
+    }
+
+    this._headerRef.setAttribute(
+      'aria-controls',
+      this._contentRef.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`,
+    );
+    toggleDatasetEntry(
+      this._contentRef,
+      'iconSpace',
+      this._headerRef.hasAttribute('icon-name') && this._headerRef.getAttribute('icon-name') !== '',
+    );
+    this._contentRef.setAttribute(
+      'aria-labelledby',
+      this._headerRef.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`,
+    );
   }
 
   private _onTransitionEnd(event): void {
