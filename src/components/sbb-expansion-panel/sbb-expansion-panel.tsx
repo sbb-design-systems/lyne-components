@@ -87,7 +87,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   public onExpandedChange(): void {
     this._element
       .querySelector('sbb-expansion-panel-header')
-      .setAttribute('expanded', String(this.expanded));
+      .setAttribute('aria-expanded', String(this.expanded));
     this._element
       .querySelector('sbb-expansion-panel-content')
       .setAttribute('aria-hidden', String(!this.expanded));
@@ -119,7 +119,7 @@ export class SbbExpansionPanel implements ComponentInterface {
       return;
     }
 
-    header.setAttribute('expanded', String(this.expanded));
+    header.setAttribute('aria-expanded', String(this.expanded));
     if (this.disabled) {
       header.setAttribute('disabled', String(this.disabled));
     }
@@ -152,7 +152,7 @@ export class SbbExpansionPanel implements ComponentInterface {
       return;
     }
 
-    content.setAttribute('expanded', String(this.expanded));
+    content.setAttribute('aria-hidden', String(!this.expanded));
     if (!content.getAttribute('id')) {
       content.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
     }

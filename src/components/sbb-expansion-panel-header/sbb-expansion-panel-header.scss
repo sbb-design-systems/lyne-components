@@ -18,6 +18,12 @@
   }
 }
 
+:host([aria-expanded]:not([aria-expanded='false'])) {
+  sbb-icon[name='chevron-down-small'] {
+    transform: rotate(-180deg);
+  }
+}
+
 .sbb-expansion-panel-header {
   @include sbb.button-reset;
   @include sbb.text-l--regular;

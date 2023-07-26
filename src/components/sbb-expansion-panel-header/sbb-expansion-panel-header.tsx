@@ -34,9 +34,6 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
    */
   @Prop() public iconName?: string;
 
-  /** Sets the correct toggle icon. */
-  @Prop() public expanded: boolean;
-
   /** Whether the button is disabled . */
   @Prop() public disabled: boolean;
 
@@ -79,7 +76,6 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
           class="sbb-expansion-panel-header"
           disabled={this.disabled}
           aria-disabled={this.disabled?.toString()}
-          aria-expanded={this.expanded?.toString()}
           onClick={() => this._emitExpandedEvent()}
         >
           <span class="sbb-expansion-panel-header__title">
@@ -92,9 +88,11 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
               <slot />
             </span>
           </span>
-          <span class="sbb-expansion-panel-header__toggle">
-            <sbb-icon name={this.expanded ? 'chevron-up-small' : 'chevron-down-small'} />
-          </span>
+          {!this.disabled && (
+            <span class="sbb-expansion-panel-header__toggle">
+              <sbb-icon name="chevron-down-small" />
+            </span>
+          )}
         </button>
       </Host>
     );
