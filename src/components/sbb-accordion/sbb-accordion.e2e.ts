@@ -9,17 +9,17 @@ describe('sbb-accordion', () => {
     page = await newE2EPage();
     await page.setContent(`
       <sbb-accordion title-level='4'>
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header id='header-1'>Header 1</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content id='content-1'>Content 1</sbb-expansion-panel-content>
+        <sbb-expansion-panel id='panel-1'>
+          <sbb-expansion-panel-header>Header 1</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>
         </sbb-expansion-panel>
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header id='header-2'>Header 2</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content id='content-2'>Content 2</sbb-expansion-panel-content>
+        <sbb-expansion-panel id='panel-2'>
+          <sbb-expansion-panel-header>Header 2</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
         </sbb-expansion-panel>
-        <sbb-expansion-panel>
-          <sbb-expansion-panel-header id='header-3'>Header 3</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content id='content-3'>Content 3</sbb-expansion-panel-content>
+        <sbb-expansion-panel id='panel-3'>
+          <sbb-expansion-panel-header>Header 3</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>Content 3</sbb-expansion-panel-content>
         </sbb-expansion-panel>
       </sbb-accordion>
     `);
@@ -63,110 +63,110 @@ describe('sbb-accordion', () => {
 
   it('expanding a panel should close others when multi = false', async () => {
     const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
-    const headerOne: E2EElement = await page.find('#header-1');
-    const headerTwo: E2EElement = await page.find('#header-2');
-    const headerThree: E2EElement = await page.find('#header-3');
-    [headerOne, headerTwo, headerThree].forEach((header) =>
-      expect(header).toEqualAttribute('expanded', 'false'),
-    );
+    const panelOne: E2EElement = await page.find('#panel-1');
+    const panelTwo: E2EElement = await page.find('#panel-2');
+    const panelThree: E2EElement = await page.find('#panel-3');
+    for (const panel of [panelOne, panelTwo, panelThree]) {
+      expect(await panel.getProperty('expanded')).toEqual(false);
+    }
 
-    await headerTwo.click();
+    await panelTwo.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'false');
-    expect(headerTwo).toEqualAttribute('expanded', 'true');
-    expect(headerThree).toEqualAttribute('expanded', 'false');
+    expect(await panelOne.getProperty('expanded')).toEqual(false);
+    expect(await panelTwo.getProperty('expanded')).toEqual(true);
+    expect(await panelThree.getProperty('expanded')).toEqual(false);
 
-    await headerOne.click();
+    await panelOne.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'true');
-    expect(headerTwo).toEqualAttribute('expanded', 'false');
-    expect(headerThree).toEqualAttribute('expanded', 'false');
+    expect(await panelOne.getProperty('expanded')).toEqual(true);
+    expect(await panelTwo.getProperty('expanded')).toEqual(false);
+    expect(await panelThree.getProperty('expanded')).toEqual(false);
 
-    await headerThree.click();
+    await panelThree.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'false');
-    expect(headerTwo).toEqualAttribute('expanded', 'false');
-    expect(headerThree).toEqualAttribute('expanded', 'true');
+    expect(await panelOne.getProperty('expanded')).toEqual(false);
+    expect(await panelTwo.getProperty('expanded')).toEqual(false);
+    expect(await panelThree.getProperty('expanded')).toEqual(true);
   });
 
   it('expanding a panel should not change others when multi = false', async () => {
     await element.setProperty('multi', 'true');
     await page.waitForChanges();
     const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
-    const headerOne: E2EElement = await page.find('#header-1');
-    const headerTwo: E2EElement = await page.find('#header-2');
-    const headerThree: E2EElement = await page.find('#header-3');
-    [headerOne, headerTwo, headerThree].forEach((header) =>
-      expect(header).toEqualAttribute('expanded', 'false'),
-    );
+    const panelOne: E2EElement = await page.find('#panel-1');
+    const panelTwo: E2EElement = await page.find('#panel-2');
+    const panelThree: E2EElement = await page.find('#panel-3');
+    for (const panel of [panelOne, panelTwo, panelThree]) {
+      expect(await panel.getProperty('expanded')).toEqual(false);
+    }
 
-    await headerTwo.click();
+    await panelTwo.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'false');
-    expect(headerTwo).toEqualAttribute('expanded', 'true');
-    expect(headerThree).toEqualAttribute('expanded', 'false');
+    expect(await panelOne.getProperty('expanded')).toEqual(false);
+    expect(await panelTwo.getProperty('expanded')).toEqual(true);
+    expect(await panelThree.getProperty('expanded')).toEqual(false);
 
-    await headerOne.click();
+    await panelOne.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'true');
-    expect(headerTwo).toEqualAttribute('expanded', 'true');
-    expect(headerThree).toEqualAttribute('expanded', 'false');
+    expect(await panelOne.getProperty('expanded')).toEqual(true);
+    expect(await panelTwo.getProperty('expanded')).toEqual(true);
+    expect(await panelThree.getProperty('expanded')).toEqual(false);
 
-    await headerThree.click();
+    await panelThree.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 3);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(3);
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'true');
-    expect(headerTwo).toEqualAttribute('expanded', 'true');
-    expect(headerThree).toEqualAttribute('expanded', 'true');
+    expect(await panelOne.getProperty('expanded')).toEqual(true);
+    expect(await panelTwo.getProperty('expanded')).toEqual(true);
+    expect(await panelThree.getProperty('expanded')).toEqual(true);
   });
 
   it('should close all panels except the first when multi changes from true to false', async () => {
     await element.setProperty('multi', 'true');
     await page.waitForChanges();
-    const headerOne: E2EElement = await page.find('#header-1');
-    const headerTwo: E2EElement = await page.find('#header-2');
-    const headerThree: E2EElement = await page.find('#header-3');
-    [headerOne, headerTwo, headerThree].forEach((header) =>
-      expect(header).toEqualAttribute('expanded', 'false'),
-    );
+    const panelOne: E2EElement = await page.find('#panel-1');
+    const panelTwo: E2EElement = await page.find('#panel-2');
+    const panelThree: E2EElement = await page.find('#panel-3');
+    for (const panel of [panelOne, panelTwo, panelThree]) {
+      expect(await panel.getProperty('expanded')).toEqual(false);
+    }
 
     const willOpenEventSpy = await page.spyOnEvent(sbbExpansionPanelEvents.willOpen);
 
-    await headerTwo.click();
+    await panelTwo.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
     await page.waitForChanges();
-    expect(headerTwo).toEqualAttribute('expanded', 'true');
+    expect(await panelTwo.getProperty('expanded')).toEqual(true);
 
-    await headerThree.click();
+    await panelThree.click();
     await page.waitForChanges();
     await waitForCondition(() => willOpenEventSpy.events.length === 2);
     expect(willOpenEventSpy).toHaveReceivedEventTimes(2);
     await page.waitForChanges();
-    expect(headerThree).toEqualAttribute('expanded', 'true');
+    expect(await panelThree.getProperty('expanded')).toEqual(true);
 
     await element.setProperty('multi', 'false');
     await page.waitForChanges();
-    expect(headerOne).toEqualAttribute('expanded', 'true');
-    expect(headerTwo).toEqualAttribute('expanded', 'false');
-    expect(headerThree).toEqualAttribute('expanded', 'false');
+    expect(await panelOne.getProperty('expanded')).toEqual(true);
+    expect(await panelTwo.getProperty('expanded')).toEqual(false);
+    expect(await panelThree.getProperty('expanded')).toEqual(false);
   });
 });

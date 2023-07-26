@@ -4,7 +4,7 @@ acting as a control for an expanding/collapsing content, like a native `<summary
 The component is internally rendered as a button, and it can be disabled via the `disabled` property. 
 It is possible to provide text via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-On the left side, a toggle icon is displayed; it changes based on the `expanded` property's value.
+On the left side, a toggle icon is displayed; it flips based on the host's `aria-expanded` property.
 When the element is clicked, the `toggle-expanded` event is emitted.
 
 ## Usage
@@ -24,7 +24,7 @@ Disabled header:
 Expanded header with icon:
 
 ```html
-<sbb-expansion-panel-header expanded icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
+<sbb-expansion-panel-header aria-expanded icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
 ```
 
 <!-- Auto Generated Below -->
@@ -35,7 +35,6 @@ Expanded header with icon:
 | Property   | Attribute   | Description                                                                                                                      | Type      | Default     |
 | ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `disabled` | `disabled`  | Whether the button is disabled .                                                                                                 | `boolean` | `undefined` |
-| `expanded` | `expanded`  | Sets the correct toggle icon.                                                                                                    | `boolean` | `undefined` |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `undefined` |
 
 

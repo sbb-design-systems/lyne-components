@@ -44,8 +44,10 @@ const defaultArgs: Args = {
   disabled: false,
 };
 
-const Template = ({ headerText, ...args }): JSX.Element => (
-  <sbb-expansion-panel-header {...args}>{headerText}</sbb-expansion-panel-header>
+const Template = ({ headerText, expanded, ...args }): JSX.Element => (
+  <sbb-expansion-panel-header aria-expanded={expanded} {...args}>
+    {headerText}
+  </sbb-expansion-panel-header>
 );
 
 export const Default: StoryObj = {
