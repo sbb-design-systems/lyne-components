@@ -21,10 +21,10 @@ Disabled header:
 <sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>
 ```
 
-Expanded header with icon:
+Header with icon:
 
 ```html
-<sbb-expansion-panel-header aria-expanded icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
+<sbb-expansion-panel-header icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
 ```
 
 <!-- Auto Generated Below -->
