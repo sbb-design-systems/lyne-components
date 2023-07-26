@@ -38,7 +38,7 @@ export interface ButtonProperties {
   disabled?: boolean | undefined;
 
   /** The name attribute to use for the button. */
-  name: string | undefined;
+  name?: string | undefined;
 
   /** The value attribute to use for the button. */
   value?: string | undefined;

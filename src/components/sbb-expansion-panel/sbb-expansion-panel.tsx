@@ -105,6 +105,15 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
   }
 
+  @Watch('disabled')
+  public updateDisabledOnHeader(newDisabledValue: boolean): void {
+    if (newDisabledValue) {
+      this._headerRef.setAttribute('disabled', 'true');
+    } else {
+      this._headerRef.removeAttribute('disabled');
+    }
+  }
+
   private _contentElement: HTMLElement;
   private _transitionEventController: AbortController;
   private _progressiveId = `-${++nextId}`;
