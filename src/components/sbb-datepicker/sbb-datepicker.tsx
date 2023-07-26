@@ -65,7 +65,7 @@ export class SbbDatepicker implements ComponentInterface {
   /** Notifies that the attributes of the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
 
-  @State() private _inputElement: HTMLInputElement;
+  @State() private _inputElement: HTMLInputElement | null;
 
   @State() private _currentLanguage = documentLanguage();
 

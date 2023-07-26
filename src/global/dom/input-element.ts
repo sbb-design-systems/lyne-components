@@ -15,10 +15,13 @@ export function findShadowInput(element: HTMLElement): HTMLInputElement | null {
  * @param element The starting SbbDatepicker element.
  * @param trigger The id or the reference of the input.
  */
-export function findInput(element: HTMLElement, trigger?: string | HTMLElement): HTMLInputElement {
+export function findInput(
+  element: HTMLElement,
+  trigger?: string | HTMLElement,
+): HTMLInputElement | null {
   if (!trigger) {
     const parent = element.closest('sbb-form-field');
-    return parent?.querySelector('input') as HTMLInputElement;
+    return parent?.querySelector('input') as HTMLInputElement | null;
   }
 
   return findReferencedElement<HTMLInputElement>(trigger);

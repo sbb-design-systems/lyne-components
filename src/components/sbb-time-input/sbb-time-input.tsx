@@ -37,7 +37,7 @@ export class SbbTimeInput implements ComponentInterface {
   /** Host element */
   @Element() private _element!: HTMLSbbTimeInputElement;
 
-  @State() private _inputElement: HTMLInputElement;
+  @State() private _inputElement: HTMLInputElement | null;
 
   @Watch('input')
   public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
