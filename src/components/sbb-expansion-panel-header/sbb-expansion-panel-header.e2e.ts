@@ -15,8 +15,7 @@ describe('sbb-expansion-panel-header', () => {
 
   it('emits event on click', async () => {
     const spy = await page.spyOnEvent('toggle-expanded');
-    const button = await page.find('sbb-expansion-panel-header >>> button');
-    await button.click();
+    await element.click();
     expect(spy).toHaveReceivedEvent();
   });
 
@@ -27,8 +26,7 @@ describe('sbb-expansion-panel-header', () => {
     );
     element = await page.find('sbb-expansion-panel-header');
     const spy = await page.spyOnEvent('toggle-expanded');
-    const button = await page.find('sbb-expansion-panel-header >>> button');
-    await button.click();
+    await element.click();
     expect(spy).not.toHaveReceivedEvent();
   });
 });

@@ -9,9 +9,9 @@ describe('sbb-expansion-panel-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel-header slot='header'>
+      <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0">
         <mock:shadow-root>
-          <button class="sbb-expansion-panel-header" type="button">
+          <span class="sbb-expansion-panel-header">
             <span class="sbb-expansion-panel-header__title">
               <span class="sbb-expansion-panel-header__label">
                 <slot></slot>
@@ -20,7 +20,7 @@ describe('sbb-expansion-panel-header', () => {
             <span class="sbb-expansion-panel-header__toggle">
               <sbb-icon name="chevron-down-small"></sbb-icon>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         Header
       </sbb-expansion-panel-header>
@@ -34,9 +34,9 @@ describe('sbb-expansion-panel-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel-header slot='header' icon-name="pie-medium">
+      <sbb-expansion-panel-header slot='header' icon-name="pie-medium" dir="ltr" role="button" slot="header" tabindex="0">
         <mock:shadow-root>
-          <button class="sbb-expansion-panel-header" type="button">
+          <span class="sbb-expansion-panel-header">
             <span class="sbb-expansion-panel-header__title">
               <span class="sbb-expansion-panel-header__icon">
                 <slot name="icon">
@@ -50,7 +50,7 @@ describe('sbb-expansion-panel-header', () => {
             <span class="sbb-expansion-panel-header__toggle">
               <sbb-icon name="chevron-down-small"></sbb-icon>
             </span>
-          </button>
+          </span>
         </mock:shadow-root>
         Header
       </sbb-expansion-panel-header>

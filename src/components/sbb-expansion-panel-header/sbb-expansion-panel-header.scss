@@ -24,8 +24,14 @@
   }
 }
 
+:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+  @include sbb.focus-outline;
+
+  outline-offset: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-border-radius-4x);
+}
+
 .sbb-expansion-panel-header {
-  @include sbb.button-reset;
   @include sbb.text-l--regular;
 
   display: flex;
@@ -38,13 +44,6 @@
   text-align: start;
   cursor: var(--sbb-expansion-panel-header-cursor);
   color: var(--sbb-expansion-panel-header-text-color);
-
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
-    @include sbb.focus-outline;
-
-    outline-offset: var(--sbb-spacing-fixed-1x);
-    border-radius: var(--sbb-border-radius-4x);
-  }
 }
 
 .sbb-expansion-panel-header__title,

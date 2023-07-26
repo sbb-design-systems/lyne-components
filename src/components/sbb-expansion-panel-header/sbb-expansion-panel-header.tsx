@@ -16,6 +16,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { resolveButtonRenderVariables } from '../../global/interfaces';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
@@ -35,7 +36,7 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
   @Prop() public iconName?: string;
 
   /** Whether the button is disabled . */
-  @Prop() public disabled: boolean;
+  @Prop({ reflect: true }) public disabled: boolean;
 
   @Element() private _element!: HTMLElement;
 
@@ -69,15 +70,12 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const { hostAttributes } = resolveButtonRenderVariables(this);
+    hostAttributes['aria-disabled'] = this.disabled?.toString();
+
     return (
-      <Host slot="header">
-        <button
-          type="button"
-          class="sbb-expansion-panel-header"
-          disabled={this.disabled}
-          aria-disabled={this.disabled?.toString()}
-          onClick={() => this._emitExpandedEvent()}
-        >
+      <Host slot="header" {...hostAttributes} onClick={() => this._emitExpandedEvent()}>
+        <span class="sbb-expansion-panel-header">
           <span class="sbb-expansion-panel-header__title">
             {(this.iconName || this._namedSlots.icon) && (
               <span class="sbb-expansion-panel-header__icon">
@@ -93,7 +91,7 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
               <sbb-icon name="chevron-down-small" />
             </span>
           )}
-        </button>
+        </span>
       </Host>
     );
   }
