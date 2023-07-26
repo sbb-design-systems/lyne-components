@@ -8,7 +8,7 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import { waitForStablePosition } from '../../global/testing';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 // Story interaction executed after the story renders
@@ -123,17 +123,6 @@ const onFormDialogClose = (dialog): void => {
   });
 };
 
-const triggerButton = (dialogId): JSX.Element => (
-  <sbb-button
-    data-testid="dialog-trigger"
-    size="m"
-    type="button"
-    onClick={(event) => openDialog(event, dialogId)}
-  >
-    Open dialog
-  </sbb-button>
-);
-
 const actionGroup = (negative): JSX.Element => (
   <sbb-action-group
     slot="action-group"
@@ -182,7 +171,16 @@ const formStyle: Args = {
 
 const DefaultTemplate = (args): JSX.Element => (
   <Fragment>
-    {triggerButton('my-dialog-1')}
+    {
+      <sbb-button
+        data-testid="dialog-trigger"
+        size="m"
+        type="button"
+        onClick={(event) => openDialog(event, 'my-dialog-1')}
+      >
+        Open dialog
+      </sbb-button>
+    }
     <sbb-dialog data-testid="dialog" id="my-dialog-1" {...args}>
       <p id="dialog-content-1" style={{ margin: '0' }}>
         Dialog content
@@ -194,7 +192,16 @@ const DefaultTemplate = (args): JSX.Element => (
 
 const SlottedTitleTemplate = (args): JSX.Element => (
   <Fragment>
-    {triggerButton('my-dialog-2')}
+    {
+      <sbb-button
+        data-testid="dialog-trigger"
+        size="m"
+        type="button"
+        onClick={(event) => openDialog(event, 'my-dialog-2')}
+      >
+        Open dialog
+      </sbb-button>
+    }
     <sbb-dialog data-testid="dialog" id="my-dialog-2" {...args}>
       <span slot="title">
         <sbb-icon
@@ -216,32 +223,48 @@ const SlottedTitleTemplate = (args): JSX.Element => (
 
 const LongContentTemplate = (args): JSX.Element => (
   <Fragment>
-    {triggerButton('my-dialog-3')}
+    {
+      <sbb-button
+        data-testid="dialog-trigger"
+        size="m"
+        type="button"
+        onClick={(event) => openDialog(event, 'my-dialog-3')}
+      >
+        Open dialog
+      </sbb-button>
+    }
     <sbb-dialog data-testid="dialog" id="my-dialog-3" {...args}>
-      Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
-      like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
-      Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
-      elven-mail, and a star shone on his breast. They spoke together, and then suddenly it seemed
-      to Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and
-      pierced his heart.
-      <sbb-image
-        style={{ 'margin-block': '1rem' }}
-        image-src={sampleImages[1]}
-        alt="Natural landscape"
-        data-chromatic="ignore"
-      ></sbb-image>
-      He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
-      of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
-      other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
-      the Rings: The Fellowship of the Ring, “Many Meetings”
-      {actionGroup(args.negative)}
+      blabla
+      {
+        <sbb-button
+          data-testid="dialog-trigger"
+          size="m"
+          type="button"
+          onClick={(event) => openDialog(event, 'my-dialog-33')}
+        >
+          Open dialog
+        </sbb-button>
+      }
+      <sbb-dialog data-testid="dialog" id="my-dialog-33" {...args}>
+        blabla
+        {actionGroup(args.negative)}
+      </sbb-dialog>
     </sbb-dialog>
   </Fragment>
 );
 
 const FormTemplate = (args): JSX.Element => (
   <Fragment>
-    {triggerButton('my-dialog-4')}
+    {
+      <sbb-button
+        data-testid="dialog-trigger"
+        size="m"
+        type="button"
+        onClick={(event) => openDialog(event, 'my-dialog-4')}
+      >
+        Open dialog
+      </sbb-button>
+    }
     <div id="returned-value">
       <div style={formDetailsStyle}>
         <div>
@@ -286,7 +309,16 @@ const FormTemplate = (args): JSX.Element => (
 
 const NoFooterTemplate = (args): JSX.Element => (
   <Fragment>
-    {triggerButton('my-dialog-5')}
+    {
+      <sbb-button
+        data-testid="dialog-trigger"
+        size="m"
+        type="button"
+        onClick={(event) => openDialog(event, 'my-dialog-5')}
+      >
+        Open dialog
+      </sbb-button>
+    }
     <sbb-dialog data-testid="dialog" id="my-dialog-5" {...args}>
       <p id="dialog-content-5" style={{ margin: '0' }}>
         “What really knocks me out is a book that, when you're all done reading it, you wish the
@@ -300,7 +332,16 @@ const NoFooterTemplate = (args): JSX.Element => (
 
 const FullScreenTemplate = (args): JSX.Element => (
   <Fragment>
-    {triggerButton('my-dialog-6')}
+    {
+      <sbb-button
+        data-testid="dialog-trigger"
+        size="m"
+        type="button"
+        onClick={(event) => openDialog(event, 'my-dialog-6')}
+      >
+        Open dialog
+      </sbb-button>
+    }
     <sbb-dialog data-testid="dialog" id="my-dialog-6" {...args}>
       <sbb-title visual-level="2" negative={args.negative} style={{ 'margin-block-start': '0' }}>
         Many Meetings

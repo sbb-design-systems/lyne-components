@@ -26,8 +26,7 @@ export function getDatePicker(
     return parent?.querySelector('sbb-datepicker') as HTMLSbbDatepickerElement;
   }
 
-  const datePicker = findReferencedElement<HTMLSbbDatepickerElement>(trigger);
-  return datePicker ?? null;
+  return findReferencedElement<HTMLSbbDatepickerElement>(trigger);
 }
 
 /**
