@@ -172,15 +172,11 @@ export class SbbExpansionPanel implements ComponentInterface {
       'aria-controls',
       this._contentRef.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`,
     );
-    toggleDatasetEntry(
-      this._contentRef,
-      'iconSpace',
-      this._headerRef.hasAttribute('icon-name') && this._headerRef.getAttribute('icon-name') !== '',
-    );
     this._contentRef.setAttribute(
       'aria-labelledby',
       this._headerRef.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`,
     );
+    toggleDatasetEntry(this._contentRef, 'iconSpace', this._headerRef.hasAttribute('data-icon'));
   }
 
   private _onTransitionEnd(event): void {

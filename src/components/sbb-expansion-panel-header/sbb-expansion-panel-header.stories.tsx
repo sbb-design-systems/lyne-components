@@ -50,6 +50,13 @@ const Template = ({ headerText, expanded, ...args }): JSX.Element => (
   </sbb-expansion-panel-header>
 );
 
+const TemplateSlottedIcon = ({ headerText, expanded, ...args }): JSX.Element => (
+  <sbb-expansion-panel-header aria-expanded={expanded} {...args}>
+    {headerText}
+    <sbb-icon slot="icon" name="dog-medium" />
+  </sbb-expansion-panel-header>
+);
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -60,6 +67,12 @@ export const WithIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'swisspass-medium' },
+};
+
+export const WithSlottedIcon: StoryObj = {
+  render: TemplateSlottedIcon,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 export const Expanded: StoryObj = {
