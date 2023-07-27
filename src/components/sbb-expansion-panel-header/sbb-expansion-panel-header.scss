@@ -18,12 +18,6 @@
   }
 }
 
-:host([aria-expanded]:not([aria-expanded='false'])) {
-  sbb-icon[name='chevron-down-small'] {
-    transform: rotate(-180deg);
-  }
-}
-
 :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
   @include sbb.focus-outline;
 
@@ -62,4 +56,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+sbb-icon[name='chevron-down-small'] {
+  transition: transform var(--sbb-animation-duration-4x);
+
+  :host([aria-expanded]:not([aria-expanded='false'])) & {
+    transform: rotate(-180deg);
+  }
 }

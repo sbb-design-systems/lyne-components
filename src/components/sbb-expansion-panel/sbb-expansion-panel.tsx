@@ -180,6 +180,7 @@ export class SbbExpansionPanel implements ComponentInterface {
   }
 
   private _onTransitionEnd(event): void {
+    // All transitions have the same timing and opacity is defined last, be sure that they have all been performed.
     if (event.propertyName !== 'opacity') {
       return;
     }
