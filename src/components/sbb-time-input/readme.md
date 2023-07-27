@@ -73,9 +73,10 @@ Readonly `sbb-time-input` inside a `sbb-form-field`:
 
 ## Events
 
-| Event       | Description                                                                                                                         | Type               |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `didChange` | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>` |
+| Event              | Description                                                                                                                         | Type                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `didChange`        | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                   |
+| `validationChange` | Emits whenever the internal validation state changes. *                                                                             | `CustomEvent<ValidationChangeEvent>` |
 
 
 ## Methods

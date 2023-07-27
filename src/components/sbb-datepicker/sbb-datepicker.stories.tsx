@@ -8,6 +8,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import events from './sbb-datepicker.events';
 
 const value: InputType = {
   control: {
@@ -451,7 +452,7 @@ const meta: Meta = {
   parameters: {
     chromatic: { disableSnapshot: false },
     actions: {
-      handles: ['input', 'change'],
+      handles: ['input', 'change', events.validationChange],
     },
     backgrounds: {
       disable: true,

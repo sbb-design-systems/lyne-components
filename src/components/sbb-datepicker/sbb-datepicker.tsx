@@ -16,7 +16,7 @@ import {
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import { DateAdapter } from '../../global/datetime';
-import { findInput, toggleDatasetEntry } from '../../global/dom';
+import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -24,6 +24,7 @@ import {
 } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
 import { readConfig } from '../../global/config';
+import { ValidationChangeEvent } from '../../global/interfaces';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
@@ -57,13 +58,16 @@ export class SbbDatepicker implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  @Event({ bubbles: true, cancelable: false, composed: false }) public change: EventEmitter;
+  @Event({ bubbles: true }) public change: EventEmitter;
 
   /** Notifies that the attributes of the input connected to the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public inputUpdated: EventEmitter<InputUpdateEvent>;
 
   /** Notifies that the attributes of the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
+
+  /** Emits whenever the internal validation state changes. **/
+  @Event() public validationChange: EventEmitter<ValidationChangeEvent>;
 
   @State() private _inputElement: HTMLInputElement | null;
 
@@ -219,7 +223,7 @@ export class SbbDatepicker implements ComponentInterface {
       const newValueAsDate = this._parse(value);
       this._inputElement.value = this._formatValue(value, newValueAsDate);
 
-      const isValidOrEmpty =
+      const isEmptyOrValid =
         !value ||
         (newValueAsDate &&
           isDateAvailable(
@@ -228,7 +232,11 @@ export class SbbDatepicker implements ComponentInterface {
             this._inputElement?.min,
             this._inputElement?.max,
           ));
-      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isValidOrEmpty);
+      const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
+      if (wasValid !== isEmptyOrValid) {
+        this.validationChange.emit({ valid: isEmptyOrValid });
+      }
       this._emitChange();
     }
   }

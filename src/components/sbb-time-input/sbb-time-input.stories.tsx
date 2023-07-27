@@ -4,34 +4,17 @@ import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import events from './sbb-time-input.events';
 
 const formError = document.createElement('sbb-form-error');
-formError.innerText = 'Error';
+formError.innerText = 'Time value is invalid';
 
-const updateFormError = (): void => {
-  const input = document.getElementById('input-id') as HTMLInputElement;
-  if (input.hasAttribute('data-sbb-invalid') && !formError.isConnected) {
+const updateFormError = (valid: boolean): void => {
+  if (!valid && !formError.isConnected) {
     document.getElementsByTagName('sbb-form-field')[0].append(formError);
-  } else if (!input.hasAttribute('data-sbb-invalid')) {
+  } else if (valid) {
     formError.remove();
   }
-};
-
-const invalidMutationObserver = new MutationObserver(() => updateFormError());
-const storyRenderCallback = () => {
-  return (Story) => {
-    setTimeout(() => {
-      const input = document.getElementById('input-id') as HTMLInputElement;
-      invalidMutationObserver.disconnect();
-      invalidMutationObserver.observe(input, {
-        attributes: true,
-        attributeFilter: ['data-sbb-invalid'],
-      });
-      updateFormError();
-    });
-
-    return Story();
-  };
 };
 
 const changeEventHandler = async (event): Promise<void> => {
@@ -42,14 +25,18 @@ const changeEventHandler = async (event): Promise<void> => {
   document.getElementById('container-value').append(div);
 };
 
-const setValueAsDate = (): void => {
+const setValueAsDate = async (): Promise<void> => {
   const timeInput = document.getElementsByTagName('sbb-time-input')[0];
-  timeInput.setValueAsDate(new Date());
+  await timeInput.setValueAsDate(new Date());
+
+  const input = document.getElementById('input-id');
+  input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
 const setValue = (): void => {
   const input = document.getElementById('input-id') as HTMLInputElement;
-  input.setAttribute('value', '0');
+  input.value = '00:00';
+  input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
 const value: InputType = {
@@ -205,7 +192,10 @@ const TemplateSbbTimeInput = ({
       width="collapse"
     >
       {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
-      <sbb-time-input onChange={(event) => changeEventHandler(event)}></sbb-time-input>
+      <sbb-time-input
+        onChange={(event) => changeEventHandler(event)}
+        onValidationChange={(event) => updateFormError(event.detail.valid)}
+      ></sbb-time-input>
       <input id="input-id" {...args} />
       {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
     </sbb-form-field>
@@ -214,7 +204,7 @@ const TemplateSbbTimeInput = ({
         Set valueAsDate to current datetime
       </sbb-button>
       <sbb-button variant="secondary" size="m" onClick={() => setValue()}>
-        Set value to 0
+        Set value to 00:00
       </sbb-button>
     </div>
     <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
@@ -278,11 +268,10 @@ const meta: Meta = {
       </div>
     ),
     withActions as Decorator,
-    storyRenderCallback(),
   ],
   parameters: {
     actions: {
-      handles: ['change', 'input'],
+      handles: ['change', 'input', events.validationChange],
     },
     backgrounds: {
       disable: true,

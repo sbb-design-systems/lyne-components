@@ -12,13 +12,13 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { findInput, toggleDatasetEntry } from '../../global/dom';
+import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import { forwardEventToHost } from '../../global/eventing';
-import { AgnosticMutationObserver } from '../../global/observers';
+import { ValidationChangeEvent } from '../../global/interfaces';
 
-const REGEX_PATTERN = /[0-9]{3,4}/;
-const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?/;
-const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
+const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
+const REGEX_GROUPS_WITHOUT_COLON = /^([0-9]{1,2})([0-9]{2})$/;
+const REGEX_GROUPS_WITH_COLON = /^([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?$/;
 
 interface Time {
   hours: number;
@@ -39,6 +39,9 @@ export class SbbTimeInput implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
+  /** Emits whenever the internal validation state changes. **/
+  @Event() public validationChange: EventEmitter<ValidationChangeEvent>;
+
   @Element() private _element!: HTMLSbbTimeInputElement;
   @State() private _inputElement: HTMLInputElement | null;
 
@@ -56,7 +59,6 @@ export class SbbTimeInput implements ComponentInterface {
     }
 
     this._abortController?.abort();
-    this._inputObserver?.disconnect();
 
     if (!this._inputElement) {
       return;
@@ -67,40 +69,24 @@ export class SbbTimeInput implements ComponentInterface {
     // Configure input
     this._inputElement.type = 'text';
     this._inputElement.inputMode = 'numeric';
+    this._inputElement.maxLength = 5;
     if (!this._inputElement.placeholder) {
       this._inputElement.placeholder = 'HH:MM';
     }
 
-    // Listen to value attribute changes of input
-    this._inputObserver.observe(this._inputElement, {
-      attributeFilter: ['value'],
-    });
     this._inputElement.addEventListener(
       'input',
-      (event: InputEvent) => {
-        if (!(event instanceof CustomEvent)) {
-          this._enforcePattern(event);
-        }
-        forwardEventToHost(event, this._element);
-      },
+      (event: InputEvent) => forwardEventToHost(event, this._element),
       { signal: this._abortController.signal },
     );
     this._inputElement.addEventListener(
       'keydown',
-      (event: KeyboardEvent) => {
-        if (!(event instanceof CustomEvent)) {
-          this._preventCharInsert(event);
-        }
-      },
+      (event: KeyboardEvent) => this._preventCharInsert(event),
       { signal: this._abortController.signal },
     );
     this._inputElement.addEventListener(
       'change',
-      async (event: Event) => {
-        if (!(event instanceof CustomEvent)) {
-          await this._updateValueAndEmitChange(event);
-        }
-      },
+      (event: Event) => this._updateValueAndEmitChange(event),
       {
         signal: this._abortController.signal,
       },
@@ -108,9 +94,6 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   private _abortController = new AbortController();
-  private _inputObserver = new AgnosticMutationObserver(
-    this._onInputValueAttributeChange.bind(this),
-  );
 
   public connectedCallback(): void {
     this._inputElement = findInput(this._element, this.input);
@@ -120,7 +103,6 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   public disconnectedCallback(): void {
-    this._inputObserver?.disconnect();
     this._abortController?.abort();
   }
 
@@ -162,9 +144,17 @@ export class SbbTimeInput implements ComponentInterface {
     }
 
     const time = this._parseInput(value);
-    const isInvalid = time && this._isTimeInvalid(time);
-    this._inputElement.value = isInvalid ? value : this._formatValue(time);
-    toggleDatasetEntry(this._inputElement, 'sbbInvalid', isInvalid);
+    const isTimeValid = time && this._isTimeValid(time);
+    const isEmptyOrValid = !value || value.trim() === '' || isTimeValid;
+    if (isEmptyOrValid && time) {
+      this._inputElement.value = this._formatValue(time);
+    }
+
+    const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+    toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
+    if (wasValid !== isEmptyOrValid) {
+      this.validationChange.emit({ valid: isEmptyOrValid });
+    }
   }
 
   /** Emits the change event. */
@@ -175,10 +165,6 @@ export class SbbTimeInput implements ComponentInterface {
 
   /** Returns the right format for the `value` property . */
   private _formatValue(time?: Time): string {
-    if (!time) {
-      return null;
-    }
-
     const hours = String(time.hours).padStart(2, '0');
     const minutes = String(time.minutes).padStart(2, '0');
     return `${hours}:${minutes}`;
@@ -189,7 +175,7 @@ export class SbbTimeInput implements ComponentInterface {
    * sets the start date at 01.01.1970, then adds the typed hours/minutes.
    */
   private _formatValueAsDate(time?: Time): Date {
-    if (!time || this._isTimeInvalid(time)) {
+    if (!time || !this._isTimeValid(time)) {
       return null;
     }
 
@@ -197,36 +183,32 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   /** Checks if values of hours and minutes are possible, to avoid non-existent times. */
-  private _isTimeInvalid(time: Time): boolean {
-    return time.hours >= 24 || time.minutes >= 60;
+  private _isTimeValid(time: Time): boolean {
+    return time.hours < 24 && time.minutes < 60;
   }
 
   /** Validate input against the defined RegExps. */
   private _parseInput(value: string): Time {
-    if (REGEX_PATTERN.test(value)) {
-      // special case: the input is 3 or 4 digits; split like so: AB?:CD
-      const regGroups = value.match(REGEX_GROUPS_WO_COLON);
-      return { hours: +regGroups[1] || 0, minutes: +regGroups[2] || 0 };
-    } else if (value) {
-      const regGroups = value.match(REGEX_GROUPS_WITH_COLON);
-      return { hours: +regGroups[1] || 0, minutes: +regGroups[2] || 0 };
-    } else {
+    const trimmedValue = value.trim();
+    if (!trimmedValue) {
       return null;
     }
+
+    // special case: the input is 3 or 4 digits; split like so: AB?:CD
+    const match = trimmedValue.match(REGEX_GROUPS_WITHOUT_COLON);
+    if (match) {
+      return { hours: +match[1] || 0, minutes: +match[2] || 0 };
+    }
+
+    const matchColon = trimmedValue.match(REGEX_GROUPS_WITH_COLON);
+    if (matchColon) {
+      return { hours: +matchColon[1] || 0, minutes: +matchColon[2] || 0 };
+    }
+
+    return null;
   }
 
-  /**
-   *  Validate the typed input; if an invalid char is inserted (letters, special chars..), it's removed.
-   *  Using `REGEX_GROUPS_WITH_COLON` permits only to insert 4 numbers, possibly with a valid separator.
-   */
-  private _enforcePattern(event: InputEvent): void {
-    const match = (event.target as HTMLInputElement).value.match(REGEX_GROUPS_WITH_COLON);
-    (event.target as HTMLInputElement).value = match ? match[0] : null;
-  }
-
-  /**
-   *  Only allow typing numbers and separator keys.
-   */
+  /**  Only allow typing numbers and separator keys. */
   private _preventCharInsert(event: KeyboardEvent): void {
     const alwaysAllowed = [
       'Backspace',
@@ -248,19 +230,9 @@ export class SbbTimeInput implements ComponentInterface {
       !event.altKey &&
       !event.metaKey &&
       !alwaysAllowed.includes(event.key) &&
-      !/[0-9.:,\-;_hH]/.test(event.key)
+      !REGEX_ALLOWED_CHARACTERS.test(event.key)
     ) {
       event.preventDefault();
-    }
-  }
-
-  private _onInputValueAttributeChange(mutationsList?: MutationRecord[]): void {
-    if (
-      this._inputElement &&
-      mutationsList &&
-      Array.from(mutationsList).some((e) => e.attributeName === 'value')
-    ) {
-      this._updateValue(this._inputElement.getAttribute('value'));
     }
   }
 
