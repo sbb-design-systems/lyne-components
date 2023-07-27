@@ -1,5 +1,6 @@
 export * from './action-element-handlers';
 export * from './composed-path-has-attribute';
+export * from './event-emitter';
 export * from './event-target';
 export * from './form-element-handlers';
 export * from './forward-event';
