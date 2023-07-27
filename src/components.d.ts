@@ -480,6 +480,14 @@ export namespace Components {
          */
         "dateFilter": (date: Date | null) => boolean;
         /**
+          * A function used to parse string value into dates.
+         */
+        "dateParser"?: (value: string) => Date | undefined;
+        /**
+          * A function used to format dates into the preferred string format.
+         */
+        "format"?: (date: Date) => string;
+        /**
           * Gets the input value with the correct date format.
          */
         "getValueAsDate": () => Promise<Date>;
@@ -3077,6 +3085,14 @@ declare namespace LocalJSX {
           * A function used to filter out dates.
          */
         "dateFilter"?: (date: Date | null) => boolean;
+        /**
+          * A function used to parse string value into dates.
+         */
+        "dateParser"?: (value: string) => Date | undefined;
+        /**
+          * A function used to format dates into the preferred string format.
+         */
+        "format"?: (date: Date) => string;
         /**
           * Reference of the native input connected to the datepicker.
          */

@@ -110,6 +110,44 @@ const dateFilter: InputType = {
   },
 };
 
+const handlingFunctions = [
+  { dateParser: undefined, format: undefined },
+  {
+    dateParser: (s) => new Date(s),
+    format: (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+        d.getDate(),
+      ).padStart(2, '0')}`,
+  },
+  {
+    dateParser: (s) =>
+      new Date(+s.substring(4, s.lenght), +s.substring(2, 4) - 1, +s.substring(0, 2)),
+    format: (d) =>
+      `${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(
+        2,
+        '0',
+      )}${d.getFullYear()}`,
+  },
+];
+const dateHandling: InputType = {
+  name: 'Date Handling',
+  description:
+    'Change the default date handling option with a combination of `dateParser` and `format` properties.',
+  options: Object.keys(filterFunctions),
+  mapping: handlingFunctions,
+  control: {
+    type: 'select',
+    labels: {
+      0: 'Default',
+      1: 'ISO String (YYYY-MM-DD)',
+      2: 'Business (DDMMYY)',
+    },
+  },
+  table: {
+    category: 'Datepicker attribute',
+  },
+};
+
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -184,6 +222,7 @@ const basicArgTypes: ArgTypes = {
   max,
   wide,
   dateFilter,
+  dateHandling,
   'aria-label': ariaLabel,
   'data-now': dataNow,
   disableAnimation,
@@ -200,6 +239,7 @@ const basicArgs: Args = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options[0],
+  dateHandling: dateHandling.options[0],
   'aria-label': undefined,
   disableAnimation: isChromatic(),
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
@@ -304,6 +344,7 @@ const TemplateFormField = ({
   wide,
   cutoffYearOffset,
   dateFilter,
+  dateHandling,
   'data-now': dataNow,
   disableAnimation,
   ...args
@@ -324,6 +365,8 @@ const TemplateFormField = ({
         <sbb-datepicker
           ref={(calendarRef) => {
             calendarRef.dateFilter = dateFilter;
+            calendarRef.dateParser = dateHandling.dateParser;
+            calendarRef.format = dateHandling.format;
           }}
           wide={wide}
           cutoffYearOffset={cutoffYearOffset}
@@ -377,6 +420,12 @@ export const InFormFieldWithDateFilter: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
+};
+
+export const InFormFieldWithDateParser: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options[1] },
 };
 
 export const InFormFieldLarge: StoryObj = {

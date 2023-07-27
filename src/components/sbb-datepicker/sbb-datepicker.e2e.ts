@@ -18,7 +18,7 @@ describe('sbb-datepicker', () => {
 
     const input: E2EElement = await page.find('input');
 
-    expect(await input.getProperty('value')).toEqual('01.01.2023');
+    expect(await input.getProperty('value')).toEqual('Su, 01.01.2023');
   });
 
   it('renders and interprets iso string date', async () => {
@@ -31,7 +31,7 @@ describe('sbb-datepicker', () => {
 
     const input: E2EElement = await page.find('input');
 
-    expect(await input.getProperty('value')).toEqual('20.12.2021');
+    expect(await input.getProperty('value')).toEqual('Mo, 20.12.2021');
   });
 
   it('renders and interprets timestamp', async () => {
@@ -44,7 +44,7 @@ describe('sbb-datepicker', () => {
 
     const input: E2EElement = await page.find('input');
 
-    expect(await input.getProperty('value')).toEqual('12.07.2020');
+    expect(await input.getProperty('value')).toEqual('Su, 12.07.2020');
   });
 
   const commonBehaviorTest: (template: string) => void = (template: string) => {
@@ -64,7 +64,7 @@ describe('sbb-datepicker', () => {
       await input.type('20/01/2023');
       await button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(await input.getProperty('value')).toEqual('20.01.2023');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2023');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -73,7 +73,7 @@ describe('sbb-datepicker', () => {
       await input.type('20/01/12');
       await button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(await input.getProperty('value')).toEqual('20.01.2012');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2012');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -82,7 +82,7 @@ describe('sbb-datepicker', () => {
       await input.type('20/01/99');
       await button.focus();
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(await input.getProperty('value')).toEqual('20.01.1999');
+      expect(await input.getProperty('value')).toEqual('We, 20.01.1999');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
@@ -122,12 +122,14 @@ describe('sbb-datepicker', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
 
-    it('renders with no changes when typing letters', async () => {
+    it('renders with errors when typing letters', async () => {
       expect(await input.getProperty('value')).toEqual('');
       await input.focus();
       await input.type('invalid');
+      await input.press('Enter');
       await page.waitForChanges();
-      expect(await input.getProperty('value')).toEqual('');
+      expect(await input.getProperty('value')).toEqual('invalid');
+      expect(input).toHaveAttribute('data-sbb-invalid');
     });
 
     it('renders and emits event when input parameter changes', async () => {
@@ -141,6 +143,37 @@ describe('sbb-datepicker', () => {
       await page.waitForChanges();
       await waitForCondition(() => datePickerUpdatedSpy.events.length === 2);
       expect(datePickerUpdatedSpy).toHaveReceivedEventTimes(2);
+    });
+
+    it('renders and interprets date with custom parse and format functions', async () => {
+      const changeSpy = await element.spyOnEvent('change');
+
+      await page.evaluate(() => {
+        const localDatepicker = document.querySelector('sbb-datepicker');
+        localDatepicker.dateParser = (s) => {
+          s = s.replace(/\D/g, ' ').trim();
+          const date = s.split(' ');
+          return new Date(new Date().getFullYear(), +date[1] - 1, +date[0]);
+        };
+        localDatepicker.format = (d) => {
+          //Intl.DateTimeFormat API is not available in test environment.
+          const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+          const weekday = weekdays[d.getDay()];
+          const date = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(
+            2,
+            '0',
+          )}`;
+          return `${weekday}, ${date}`;
+        };
+      });
+
+      await page.waitForChanges();
+      await input.type('7.8');
+      await input.press('Enter');
+      await waitForCondition(() => changeSpy.events.length === 1);
+      await page.waitForChanges();
+      expect(await input.getProperty('value')).toEqual('Mo, 07.08');
+      expect(changeSpy).toHaveReceivedEventTimes(1);
     });
   };
 
