@@ -107,11 +107,7 @@ export class SbbExpansionPanel implements ComponentInterface {
 
   @Watch('disabled')
   public updateDisabledOnHeader(newDisabledValue: boolean): void {
-    if (newDisabledValue) {
-      this._headerRef.setAttribute('disabled', 'true');
-    } else {
-      this._headerRef.removeAttribute('disabled');
-    }
+    this._headerRef.disabled = newDisabledValue;
   }
 
   private _contentElement: HTMLElement;
