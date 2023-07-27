@@ -12,13 +12,18 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { findInput } from '../../global/dom';
+import { findInput, toggleDatasetEntry } from '../../global/dom';
 import { forwardEventToHost } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
 
 const REGEX_PATTERN = /[0-9]{3,4}/;
 const REGEX_GROUPS_WITH_COLON = /([0-9]{1,2})?[.:,\-;_hH]?([0-9]{1,2})?/;
 const REGEX_GROUPS_WO_COLON = /([0-9]{1,2})([0-9]{2})/;
+
+interface Time {
+  hours: number;
+  minutes: number;
+}
 
 @Component({
   shadow: true,
@@ -34,9 +39,7 @@ export class SbbTimeInput implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  /** Host element */
   @Element() private _element!: HTMLSbbTimeInputElement;
-
   @State() private _inputElement: HTMLInputElement | null;
 
   @Watch('input')
@@ -48,57 +51,68 @@ export class SbbTimeInput implements ComponentInterface {
 
   @Watch('_inputElement')
   public registerInputElement(newValue: HTMLInputElement, oldValue: HTMLInputElement): void {
-    if (newValue !== oldValue) {
-      this._abortController?.abort();
-      this._abortController = new AbortController();
-
-      if (!this._inputElement) {
-        return;
-      }
-
-      this._inputObserver?.disconnect();
-      this._inputObserver.observe(this._inputElement, {
-        attributeFilter: ['value'],
-      });
-
-      // Configure input
-      this._inputElement.type = 'text';
-      if (!this._inputElement.placeholder) {
-        this._inputElement.placeholder = this._placeholder;
-      }
-
-      this._inputElement.addEventListener(
-        'input',
-        (event: InputEvent) => {
-          if (!(event instanceof CustomEvent)) {
-            this._preventCharInsert(event);
-          }
-        },
-        { signal: this._abortController.signal },
-      );
-      this._inputElement.addEventListener(
-        'change',
-        async (event: Event) => {
-          if (!(event instanceof CustomEvent)) {
-            await this._updateValueAndEmitChange(event);
-          }
-        },
-        {
-          signal: this._abortController.signal,
-        },
-      );
+    if (newValue === oldValue) {
+      return;
     }
+
+    this._abortController?.abort();
+    this._inputObserver?.disconnect();
+
+    if (!this._inputElement) {
+      return;
+    }
+
+    this._abortController = new AbortController();
+
+    // Configure input
+    this._inputElement.type = 'text';
+    this._inputElement.inputMode = 'numeric';
+    if (!this._inputElement.placeholder) {
+      this._inputElement.placeholder = 'HH:MM';
+    }
+
+    // Listen to value attribute changes of input
+    this._inputObserver.observe(this._inputElement, {
+      attributeFilter: ['value'],
+    });
+    this._inputElement.addEventListener(
+      'input',
+      (event: InputEvent) => {
+        if (!(event instanceof CustomEvent)) {
+          this._enforcePattern(event);
+        }
+        forwardEventToHost(event, this._element);
+      },
+      { signal: this._abortController.signal },
+    );
+    this._inputElement.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (!(event instanceof CustomEvent)) {
+          this._preventCharInsert(event);
+        }
+      },
+      { signal: this._abortController.signal },
+    );
+    this._inputElement.addEventListener(
+      'change',
+      async (event: Event) => {
+        if (!(event instanceof CustomEvent)) {
+          await this._updateValueAndEmitChange(event);
+        }
+      },
+      {
+        signal: this._abortController.signal,
+      },
+    );
   }
 
-  /** Placeholder for the inner HTMLInputElement.*/
-  private _placeholder = 'HH:MM';
-
   private _abortController = new AbortController();
-
-  private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
+  private _inputObserver = new AgnosticMutationObserver(
+    this._onInputValueAttributeChange.bind(this),
+  );
 
   public connectedCallback(): void {
-    // Forward focus call to input element
     this._inputElement = findInput(this._element, this.input);
     if (this._inputElement) {
       this._updateValue(this._inputElement.value);
@@ -112,8 +126,7 @@ export class SbbTimeInput implements ComponentInterface {
 
   /** Gets the input value with the correct date format. */
   @Method() public async getValueAsDate(): Promise<Date> {
-    const regGroups = this._validateInput(this._inputElement?.value);
-    return this._formatValueAsDate(regGroups);
+    return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
   }
 
   /** Set the input value to the correctly formatted value. */
@@ -122,12 +135,14 @@ export class SbbTimeInput implements ComponentInterface {
       return;
     }
     const dateObj = date instanceof Date ? date : new Date(date);
-    this._inputElement.value = this._formatValue(
-      this._validateInput(`${dateObj.getHours()}:${dateObj.getMinutes()}`),
-    );
 
-    /* Emit blur event when value is changed programmatically to notify
-    frameworks that rely on that event to update form status. */
+    this._inputElement.value = this._formatValue({
+      hours: dateObj.getHours(),
+      minutes: dateObj.getMinutes(),
+    });
+
+    // Emit blur event when value is changed programmatically to notify
+    // frameworks that rely on that event to update form status.
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
 
@@ -142,11 +157,14 @@ export class SbbTimeInput implements ComponentInterface {
    * to force the input change when the typed value is the same of the current one.
    */
   private _updateValue(value: string): void {
-    const regGroups = this._validateInput(value);
     if (!this._inputElement) {
       return;
     }
-    this._inputElement.value = this._formatValue(regGroups);
+
+    const time = this._parseInput(value);
+    const isInvalid = time && this._isTimeInvalid(time);
+    this._inputElement.value = isInvalid ? value : this._formatValue(time);
+    toggleDatasetEntry(this._inputElement, 'sbbInvalid', isInvalid);
   }
 
   /** Emits the change event. */
@@ -156,16 +174,13 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   /** Returns the right format for the `value` property . */
-  private _formatValue(regGroups: RegExpMatchArray): string {
-    if (!regGroups || regGroups.length <= 2 || (!regGroups[1] && !regGroups[2])) {
+  private _formatValue(time?: Time): string {
+    if (!time) {
       return null;
     }
-    if (this._isTimeInvalid(regGroups)) {
-      return regGroups[0];
-    }
 
-    const hours = (regGroups[1] ?? '').padStart(2, '0');
-    const minutes = (regGroups[2] || '').padStart(2, '0');
+    const hours = String(time.hours).padStart(2, '0');
+    const minutes = String(time.minutes).padStart(2, '0');
     return `${hours}:${minutes}`;
   }
 
@@ -173,33 +188,28 @@ export class SbbTimeInput implements ComponentInterface {
    * Returns the right format for the `valueAsDate` property:
    * sets the start date at 01.01.1970, then adds the typed hours/minutes.
    */
-  private _formatValueAsDate(regGroups: RegExpMatchArray): Date {
-    if (
-      !regGroups ||
-      regGroups.length <= 2 ||
-      this._isTimeInvalid(regGroups) ||
-      (!regGroups[1] && !regGroups[2])
-    ) {
+  private _formatValueAsDate(time?: Time): Date {
+    if (!time || this._isTimeInvalid(time)) {
       return null;
     }
 
-    return new Date(new Date(0).setHours(+regGroups[1] || 0, +regGroups[2] || 0, 0, 0));
+    return new Date(new Date(0).setHours(time.hours, time.minutes, 0, 0));
   }
 
   /** Checks if values of hours and minutes are possible, to avoid non-existent times. */
-  private _isTimeInvalid(regGroups: RegExpMatchArray): boolean {
-    const hours = +regGroups[1] || 0;
-    const minutes = +regGroups[2] || 0;
-    return hours >= 24 || minutes >= 60;
+  private _isTimeInvalid(time: Time): boolean {
+    return time.hours >= 24 || time.minutes >= 60;
   }
 
   /** Validate input against the defined RegExps. */
-  private _validateInput(value: string): RegExpMatchArray {
+  private _parseInput(value: string): Time {
     if (REGEX_PATTERN.test(value)) {
       // special case: the input is 3 or 4 digits; split like so: AB?:CD
-      return value.match(REGEX_GROUPS_WO_COLON);
+      const regGroups = value.match(REGEX_GROUPS_WO_COLON);
+      return { hours: +regGroups[1] || 0, minutes: +regGroups[2] || 0 };
     } else if (value) {
-      return value.match(REGEX_GROUPS_WITH_COLON);
+      const regGroups = value.match(REGEX_GROUPS_WITH_COLON);
+      return { hours: +regGroups[1] || 0, minutes: +regGroups[2] || 0 };
     } else {
       return null;
     }
@@ -209,18 +219,48 @@ export class SbbTimeInput implements ComponentInterface {
    *  Validate the typed input; if an invalid char is inserted (letters, special chars..), it's removed.
    *  Using `REGEX_GROUPS_WITH_COLON` permits only to insert 4 numbers, possibly with a valid separator.
    */
-  private _preventCharInsert(event: InputEvent): void {
+  private _enforcePattern(event: InputEvent): void {
     const match = (event.target as HTMLInputElement).value.match(REGEX_GROUPS_WITH_COLON);
     (event.target as HTMLInputElement).value = match ? match[0] : null;
   }
 
-  private _onInputPropertiesChange(mutationsList?: MutationRecord[]): void {
+  /**
+   *  Only allow typing numbers and separator keys.
+   */
+  private _preventCharInsert(event: KeyboardEvent): void {
+    const alwaysAllowed = [
+      'Backspace',
+      'Tab',
+      'Enter',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'Home',
+      'End',
+      'PageUp',
+      'PageDown',
+      'Delete',
+    ];
+
+    if (
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey &&
+      !alwaysAllowed.includes(event.key) &&
+      !/[0-9.:,\-;_hH]/.test(event.key)
+    ) {
+      event.preventDefault();
+    }
+  }
+
+  private _onInputValueAttributeChange(mutationsList?: MutationRecord[]): void {
     if (
       this._inputElement &&
       mutationsList &&
       Array.from(mutationsList).some((e) => e.attributeName === 'value')
     ) {
-      this._updateValue(this._inputElement?.getAttribute('value'));
+      this._updateValue(this._inputElement.getAttribute('value'));
     }
   }
 

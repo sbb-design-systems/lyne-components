@@ -2,8 +2,37 @@
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+
+const formError = document.createElement('sbb-form-error');
+formError.innerText = 'Error';
+
+const updateFormError = (): void => {
+  const input = document.getElementById('input-id') as HTMLInputElement;
+  if (input.hasAttribute('data-sbb-invalid') && !formError.isConnected) {
+    document.getElementsByTagName('sbb-form-field')[0].append(formError);
+  } else if (!input.hasAttribute('data-sbb-invalid')) {
+    formError.remove();
+  }
+};
+
+const invalidMutationObserver = new MutationObserver(() => updateFormError());
+const storyRenderCallback = () => {
+  return (Story) => {
+    setTimeout(() => {
+      const input = document.getElementById('input-id') as HTMLInputElement;
+      invalidMutationObserver.disconnect();
+      invalidMutationObserver.observe(input, {
+        attributes: true,
+        attributeFilter: ['data-sbb-invalid'],
+      });
+      updateFormError();
+    });
+
+    return Story();
+  };
+};
 
 const changeEventHandler = async (event): Promise<void> => {
   const div = document.createElement('div');
@@ -20,7 +49,7 @@ const setValueAsDate = (): void => {
 
 const setValue = (): void => {
   const input = document.getElementById('input-id') as HTMLInputElement;
-  input.value = '0';
+  input.setAttribute('value', '0');
 };
 
 const value: InputType = {
@@ -165,7 +194,6 @@ const TemplateSbbTimeInput = ({
   iconStart,
   iconEnd,
   size,
-  errorClass,
   ...args
 }): JSX.Element => (
   <Fragment>
@@ -177,13 +205,9 @@ const TemplateSbbTimeInput = ({
       width="collapse"
     >
       {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
-      <sbb-time-input
-        class={errorClass}
-        onChange={(event) => changeEventHandler(event)}
-      ></sbb-time-input>
+      <sbb-time-input onChange={(event) => changeEventHandler(event)}></sbb-time-input>
       <input id="input-id" {...args} />
       {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
-      {errorClass && <sbb-form-error>Error</sbb-form-error>}
     </sbb-form-field>
     <div style={{ display: 'flex', gap: '1em', 'margin-block-start': '2rem' }}>
       <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
@@ -242,7 +266,7 @@ export const SbbTimeInputWithError: StoryObj = {
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
     ...formFieldBasicArgsWithIcons,
-    errorClass: 'sbb-invalid',
+    value: '99:99',
   },
 };
 
@@ -254,6 +278,7 @@ const meta: Meta = {
       </div>
     ),
     withActions as Decorator,
+    storyRenderCallback(),
   ],
   parameters: {
     actions: {
