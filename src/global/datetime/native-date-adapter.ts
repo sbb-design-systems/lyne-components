@@ -94,7 +94,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Creates a new date, given day, month and year; the method doesn't allow date's overflow. */
-  public createDate(year: number, month: number, date: number): Date {
+  public createDate(year: number, month: number, date: number): Date | undefined {
     // Check for invalid month and date (except upper bound on date which we have to check after creating the Date).
     if (month < 0 || month > 11) {
       return undefined;
@@ -201,6 +201,10 @@ export class NativeDateAdapter implements DateAdapter<Date> {
 
   /** Returns the right format for the `valueAsDate` property. */
   public parseDate(value: string): Date {
+    if (!value) {
+      return undefined;
+    }
+
     const strippedValue = value.replace(/\D/g, ' ').trim();
 
     const match: RegExpMatchArray = strippedValue?.match(FORMAT_DATE);

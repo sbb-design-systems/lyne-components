@@ -76,10 +76,10 @@ describe('NativeDateAdapter', () => {
   });
 
   it('createDate should return the correct value or error', () => {
-    expect(() => nativeDateAdapter.createDate(2023, 17, 1)).toEqual(undefined);
-    expect(() => nativeDateAdapter.createDate(2023, 3, -11)).toEqual(undefined);
-    expect(() => nativeDateAdapter.createDate(2023, -5, 1)).toEqual(undefined);
-    expect(() => nativeDateAdapter.createDate(2023, 3, 99)).toEqual(undefined);
+    expect(nativeDateAdapter.createDate(2023, 17, 1)).toBeUndefined();
+    expect(nativeDateAdapter.createDate(2023, 3, -11)).toBeUndefined();
+    expect(nativeDateAdapter.createDate(2023, -5, 1)).toBeUndefined();
+    expect(nativeDateAdapter.createDate(2023, 3, 99)).toBeUndefined();
     const firstDate: Date = nativeDateAdapter.createDate(2023, 0, 1);
     expect(firstDate instanceof Date).toEqual(true);
     expect(`${firstDate.getDate()}.${firstDate.getMonth() + 1}.${firstDate.getFullYear()}`).toEqual(
@@ -204,8 +204,12 @@ describe('NativeDateAdapter', () => {
     expect(nativeDateAdapter.parseDate(null)).toBeUndefined();
     expect(nativeDateAdapter.parseDate('Test')).toBeUndefined();
     expect(nativeDateAdapter.parseDate('1.1')).toBeUndefined();
-    expect(nativeDateAdapter.parseDate('1/1/2000')).toBeUndefined();
-    const formattedDate: Date = nativeDateAdapter.parseDate('1.1.2000');
+    let formattedDate: Date = nativeDateAdapter.parseDate('1/1/2000');
+    expect(formattedDate.getFullYear()).toEqual(2000);
+    expect(formattedDate.getMonth()).toEqual(0);
+    expect(formattedDate.getDate()).toEqual(1);
+
+    formattedDate = nativeDateAdapter.parseDate('1.1.2000');
     expect(formattedDate.getFullYear()).toEqual(2000);
     expect(formattedDate.getMonth()).toEqual(0);
     expect(formattedDate.getDate()).toEqual(1);
