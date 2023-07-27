@@ -14,14 +14,21 @@
       var(--sbb-animation-easing),
     padding var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
+  --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
+  --sbb-expansion-panel-border-style: solid;
   --sbb-expansion-panel-border-color: var(--sbb-color-cloud-default);
-  --sbb-expansion-panel-border: var(--sbb-border-width-1x) solid
-    var(--sbb-expansion-panel-border-color);
-  --sbb-expansion-panel-border-top: 0;
-  --sbb-expansion-panel-top-right-radius: 0;
-  --sbb-expansion-panel-top-left-radius: 0;
-  --sbb-expansion-panel-bottom-right-radius: 0;
-  --sbb-expansion-panel-bottom-left-radius: 0;
+  --sbb-expansion-panel-border: var(--sbb-expansion-panel-border-width)
+    var(--sbb-expansion-panel-border-style) var(--sbb-expansion-panel-border-color);
+  --sbb-expansion-panel-border-block-start-width: 0;
+  --sbb-expansion-panel-border-block-start-style: solid;
+  --sbb-expansion-panel-border-block-start: var(--sbb-expansion-panel-border-block-start-width)
+    var(--sbb-expansion-panel-border-block-start-style)
+    var(--sbb-expansion-panel-border-block-start-color);
+  --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-start-end-radius: 0;
+  --sbb-expansion-panel-start-start-radius: 0;
+  --sbb-expansion-panel-end-end-radius: 0;
+  --sbb-expansion-panel-end-start-radius: 0;
 }
 
 :host([disabled]:not([disabled='false'])) {
@@ -49,15 +56,15 @@
 }
 
 :host(:first-child) {
-  --sbb-expansion-panel-border-top: var(--sbb-border-width-1x) solid
-    var(--sbb-expansion-panel-border-color);
-  --sbb-expansion-panel-top-right-radius: var(--sbb-border-radius-4x);
-  --sbb-expansion-panel-top-left-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
+  --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
+  --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
 }
 
 :host(:last-child) {
-  --sbb-expansion-panel-bottom-right-radius: var(--sbb-border-radius-4x);
-  --sbb-expansion-panel-bottom-left-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
 }
 
 :host([color='milk']) {
@@ -65,34 +72,37 @@
 }
 
 :host([borderless]) {
-  --sbb-expansion-panel-border: var(--sbb-border-width-2x) solid transparent;
-  --sbb-expansion-panel-border-top: var(--sbb-border-width-2x) solid transparent;
+  --sbb-expansion-panel-border-width: var(--sbb-border-width-2x);
+  --sbb-expansion-panel-border-color: transparent;
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
+  --sbb-expansion-panel-border-block-start-color: transparent;
 }
 
 :host([borderless]:first-child) {
-  --sbb-expansion-panel-border-top: var(--sbb-border-width-1x) solid transparent;
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
+  --sbb-expansion-panel-border-block-start-color: transparent;
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover:not([disabled]:not([disabled='false']))) {
+    --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
+  }
+
+  :host([color='milk']:hover:not([disabled]:not([disabled='false']))) {
+    --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
+  }
 }
 
 .sbb-expansion-panel {
   background-color: var(--sbb-expansion-panel-background-color);
-  border-top: var(--sbb-expansion-panel-border-top);
-  border-bottom: var(--sbb-expansion-panel-border);
-  border-left: var(--sbb-expansion-panel-border);
-  border-right: var(--sbb-expansion-panel-border);
-  border-radius: var(--sbb-expansion-panel-top-left-radius)
-    var(--sbb-expansion-panel-top-right-radius) var(--sbb-expansion-panel-bottom-right-radius)
-    var(--sbb-expansion-panel-bottom-left-radius);
+  border-block-start: var(--sbb-expansion-panel-border-block-start);
+  border-block-end: var(--sbb-expansion-panel-border);
+  border-inline-start: var(--sbb-expansion-panel-border);
+  border-inline-end: var(--sbb-expansion-panel-border);
+  border-radius: var(--sbb-expansion-panel-start-start-radius)
+    var(--sbb-expansion-panel-start-end-radius) var(--sbb-expansion-panel-end-end-radius)
+    var(--sbb-expansion-panel-end-start-radius);
   background-clip: padding-box;
-
-  @include sbb.hover-mq($hover: true) {
-    :host(:not([disabled]:not([disabled='false']))) &:hover {
-      --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
-    }
-
-    :host([color='milk']:not([disabled]:not([disabled='false']))) &:hover {
-      --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
-    }
-  }
 }
 
 .sbb-expansion-panel__header {
