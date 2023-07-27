@@ -6,7 +6,7 @@ describe('sbb-expansion-panel', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <sbb-expansion-panel>
+      <sbb-expansion-panel disable-animation>
         <sbb-expansion-panel-header icon-name='dog-medium'>Header</sbb-expansion-panel-header>
         <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>
@@ -32,7 +32,7 @@ describe('sbb-expansion-panel', () => {
   it('has slotted elements with the correct properties when id are set', async () => {
     page = await newE2EPage();
     await page.setContent(`
-      <sbb-expansion-panel>
+      <sbb-expansion-panel disable-animation>
         <sbb-expansion-panel-header id='header'>Header</sbb-expansion-panel-header>
         <sbb-expansion-panel-content id='content'>Content</sbb-expansion-panel-content>
       </sbb-expansion-panel>

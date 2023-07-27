@@ -44,6 +44,10 @@
       var(--sbb-expansion-panel-animation-duration) var(--sbb-animation-easing);
 }
 
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-expansion-panel-animation-duration: 0s;
+}
+
 :host(:first-child) {
   --sbb-expansion-panel-border-top: var(--sbb-border-width-1x) solid
     var(--sbb-expansion-panel-border-color);
