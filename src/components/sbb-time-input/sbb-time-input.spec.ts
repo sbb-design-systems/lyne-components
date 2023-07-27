@@ -13,7 +13,7 @@ describe('sbb-time-input', () => {
         <sbb-time-input input="id-1">
           <mock:shadow-root></mock:shadow-root>
         </sbb-time-input>
-        <input id="id-1" placeholder="HH:MM" type="text" maxlength="5" value="null">
+        <input id="id-1" placeholder="HH:MM" type="text" maxlength="5">
       </span>
     `);
   });
