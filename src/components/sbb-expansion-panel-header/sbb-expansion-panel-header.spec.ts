@@ -34,7 +34,7 @@ describe('sbb-expansion-panel-header', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel-header slot='header' icon-name="pie-medium" dir="ltr" role="button" slot="header" tabindex="0">
+      <sbb-expansion-panel-header slot='header' icon-name="pie-medium" dir="ltr" role="button" slot="header" tabindex="0" data-icon>
         <mock:shadow-root>
           <span class="sbb-expansion-panel-header">
             <span class="sbb-expansion-panel-header__title">
@@ -52,6 +52,41 @@ describe('sbb-expansion-panel-header', () => {
             </span>
           </span>
         </mock:shadow-root>
+        Header
+      </sbb-expansion-panel-header>
+    `);
+  });
+
+  it('renders with slotted icon', async () => {
+    const { root } = await newSpecPage({
+      components: [SbbExpansionPanelHeader],
+      html: `
+        <sbb-expansion-panel-header>
+          <sbb-icon slot='icon' name='pie-medium'></sbb-icon>
+          Header
+        </sbb-expansion-panel-header>
+      `,
+    });
+
+    expect(root).toEqualHtml(`
+      <sbb-expansion-panel-header slot='header' dir="ltr" role="button" slot="header" tabindex="0" data-icon>
+        <mock:shadow-root>
+          <span class="sbb-expansion-panel-header">
+            <span class="sbb-expansion-panel-header__title">
+              <span class="sbb-expansion-panel-header__icon">
+                <slot name="icon">
+                </slot>
+              </span>
+              <span class="sbb-expansion-panel-header__label">
+                <slot></slot>
+              </span>
+            </span>
+            <span class="sbb-expansion-panel-header__toggle">
+              <sbb-icon name="chevron-down-small"></sbb-icon>
+            </span>
+          </span>
+        </mock:shadow-root>
+        <sbb-icon slot='icon' name='pie-medium'></sbb-icon>
         Header
       </sbb-expansion-panel-header>
     `);

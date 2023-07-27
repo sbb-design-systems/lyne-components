@@ -74,7 +74,12 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
     hostAttributes['aria-disabled'] = this.disabled?.toString();
 
     return (
-      <Host slot="header" {...hostAttributes} onClick={() => this._emitExpandedEvent()}>
+      <Host
+        slot="header"
+        {...hostAttributes}
+        data-icon={!!(this.iconName || this._namedSlots.icon)}
+        onClick={() => this._emitExpandedEvent()}
+      >
         <span class="sbb-expansion-panel-header">
           <span class="sbb-expansion-panel-header__title">
             {(this.iconName || this._namedSlots.icon) && (
