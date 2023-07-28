@@ -216,9 +216,9 @@ describe('NativeDateAdapter', () => {
   });
 
   it('format should return the correct string', function () {
-    document.documentElement.setAttribute('lang', 'en-CH');
+    document.documentElement.setAttribute('lang', 'de-CH');
     expect(nativeDateAdapter.format(null)).toEqual('');
-    expect(nativeDateAdapter.format(new Date(2020, 9, 31))).toEqual('Sa, 31/10/2020');
+    expect(nativeDateAdapter.format(new Date(2020, 9, 31))).toEqual('Sa, 31.10.2020');
   });
 
   it('should generate localized accessibility labels', async () => {
