@@ -195,9 +195,13 @@ export class SbbDatepicker implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
-  private _formatValue(value: string): string {
+  private _parseAndFormatValue(value: string): string {
     const d = this._parse(value);
-    return !this._dateAdapter.isValid(d) ? value : this._format(d);
+    return this._formatValue(value, d);
+  }
+
+  private _formatValue(value: string, parsedValue: Date): string {
+    return !this._dateAdapter.isValid(parsedValue) ? value : this._format(parsedValue);
   }
 
   private _createAndComposeDate(value: string | number | Date): string {
@@ -212,11 +216,8 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     if (this._inputElement) {
-      const newValueAsDate: Date = this._parse(value);
-
-      this._inputElement.value = this._dateAdapter.isValid(newValueAsDate)
-        ? this._format(newValueAsDate)
-        : value;
+      const newValueAsDate = this._parse(value);
+      this._inputElement.value = this._formatValue(value, newValueAsDate);
 
       const isValidOrEmpty =
         !value ||
@@ -251,7 +252,7 @@ export class SbbDatepicker implements ComponentInterface {
     const match: RegExpMatchArray = value.match(FORMAT_DATE);
 
     if (match?.index === 0) {
-      return this._formatValue(value);
+      return this._parseAndFormatValue(value);
     } else if (Number.isInteger(+value)) {
       return this._createAndComposeDate(+value);
     } else if (this._dateAdapter.isValid(new Date(value))) {
