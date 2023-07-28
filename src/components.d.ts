@@ -472,10 +472,6 @@ export namespace Components {
     }
     interface SbbDatepicker {
         /**
-          * Cutoff year offset to interpret two digit values. e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
-         */
-        "cutoffYearOffset": number;
-        /**
           * A function used to filter out dates.
          */
         "dateFilter": (date: Date | null) => boolean;
@@ -3077,10 +3073,6 @@ declare namespace LocalJSX {
     interface SbbClock {
     }
     interface SbbDatepicker {
-        /**
-          * Cutoff year offset to interpret two digit values. e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
-         */
-        "cutoffYearOffset"?: number;
         /**
           * A function used to filter out dates.
          */

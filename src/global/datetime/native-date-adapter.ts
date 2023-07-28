@@ -228,6 +228,26 @@ export class NativeDateAdapter implements DateAdapter<Date> {
     return new Date(year, +match[2] - 1, +match[1]);
   }
 
+  public format(value: Date): string {
+    if (!value) {
+      return '';
+    }
+    const locale = `${documentLanguage()}-CH`;
+    const dateFormatter = new Intl.DateTimeFormat(locale, {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+    const dayFormatter = new Intl.DateTimeFormat(locale, {
+      weekday: 'short',
+    });
+
+    let weekday = dayFormatter.format(value);
+    weekday = weekday.charAt(0).toUpperCase() + weekday.charAt(1);
+
+    return `${weekday}, ${dateFormatter.format(value)}`;
+  }
+
   public getISOString(date: Date): string {
     date?.setHours(0, 0, 0, 0);
     return date?.toISOString();

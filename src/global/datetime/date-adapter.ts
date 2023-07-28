@@ -132,6 +132,11 @@ export interface DateAdapter<T = any> {
    */
   parseDate: (value: string) => T;
 
+  /** Format the given Date as string.
+   * @param value The date to format.
+   */
+  format: (date: T) => string;
+
   /** Checks whether the given `obj` is a Date.
    * @param obj The object to check.
    */

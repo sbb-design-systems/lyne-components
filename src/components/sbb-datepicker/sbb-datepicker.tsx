@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
-import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
+import { DateAdapter } from '../../global/datetime';
 import { toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
@@ -36,12 +36,6 @@ const FORMAT_DATE =
 export class SbbDatepicker implements ComponentInterface {
   /** If set to true, two months are displayed */
   @Prop() public wide = false;
-
-  /**
-   * Cutoff year offset to interpret two digit values.
-   * e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
-   */
-  @Prop() public cutoffYearOffset = 15;
 
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
@@ -175,7 +169,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
 
-  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter(this.cutoffYearOffset);
+  private _dateAdapter: DateAdapter<Date> = readConfig().datetime.dateAdapter;
 
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
@@ -272,7 +266,7 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   private _format(date: Date): string {
-    return this.format ? this.format(date) : readConfig().datetime.format(date);
+    return this.format ? this.format(date) : this._dateAdapter.format(date);
   }
 
   public render(): JSX.Element {
