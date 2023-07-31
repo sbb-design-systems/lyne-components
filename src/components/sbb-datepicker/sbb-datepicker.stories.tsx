@@ -80,14 +80,6 @@ const wide: InputType = {
     category: 'Datepicker attribute',
   },
 };
-const cutoffYearOffset: InputType = {
-  control: {
-    type: 'number',
-  },
-  table: {
-    category: 'Datepicker attribute',
-  },
-};
 
 const filterFunctions = [
   () => true,
@@ -103,6 +95,44 @@ const dateFilter: InputType = {
       0: 'No dateFilter function.',
       1: 'The dateFilter function includes only working days.',
       2: 'The dateFilter function excludes even days.',
+    },
+  },
+  table: {
+    category: 'Datepicker attribute',
+  },
+};
+
+const handlingFunctions = [
+  { dateParser: undefined, format: undefined },
+  {
+    dateParser: (s) => new Date(s),
+    format: (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+        d.getDate(),
+      ).padStart(2, '0')}`,
+  },
+  {
+    dateParser: (s) =>
+      new Date(+s.substring(4, s.lenght), +s.substring(2, 4) - 1, +s.substring(0, 2)),
+    format: (d) =>
+      `${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(
+        2,
+        '0',
+      )}${d.getFullYear()}`,
+  },
+];
+const dateHandling: InputType = {
+  name: 'Date Handling',
+  description:
+    'Change the default date handling option with a combination of `dateParser` and `format` properties.',
+  options: Object.keys(filterFunctions),
+  mapping: handlingFunctions,
+  control: {
+    type: 'select',
+    labels: {
+      0: 'Default',
+      1: 'ISO String (YYYY-MM-DD)',
+      2: 'Business (DDMMYY)',
     },
   },
   table: {
@@ -184,10 +214,10 @@ const basicArgTypes: ArgTypes = {
   max,
   wide,
   dateFilter,
+  dateHandling,
   'aria-label': ariaLabel,
   'data-now': dataNow,
   disableAnimation,
-  cutoffYearOffset: cutoffYearOffset,
 };
 
 const basicArgs: Args = {
@@ -200,6 +230,7 @@ const basicArgs: Args = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options[0],
+  dateHandling: dateHandling.options[0],
   'aria-label': undefined,
   disableAnimation: isChromatic(),
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
@@ -258,7 +289,6 @@ const Template = ({
   min,
   max,
   wide,
-  cutoffYearOffset,
   dateFilter,
   'data-now': dataNow,
   disableAnimation,
@@ -281,7 +311,6 @@ const Template = ({
             calendarRef.dateFilter = dateFilter;
           }}
           wide={wide}
-          cutoffYearOffset={cutoffYearOffset}
           onChange={(event) => changeEventHandler(event)}
           data-now={dataNow}
         ></sbb-datepicker>
@@ -302,8 +331,8 @@ const TemplateFormField = ({
   borderless,
   size,
   wide,
-  cutoffYearOffset,
   dateFilter,
+  dateHandling,
   'data-now': dataNow,
   disableAnimation,
   ...args
@@ -324,9 +353,10 @@ const TemplateFormField = ({
         <sbb-datepicker
           ref={(calendarRef) => {
             calendarRef.dateFilter = dateFilter;
+            calendarRef.dateParser = dateHandling.dateParser;
+            calendarRef.format = dateHandling.format;
           }}
           wide={wide}
-          cutoffYearOffset={cutoffYearOffset}
           onChange={(event) => changeEventHandler(event)}
           data-now={dataNow}
         ></sbb-datepicker>
@@ -377,6 +407,12 @@ export const InFormFieldWithDateFilter: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, dateFilter: dateFilter.options[1] },
+};
+
+export const InFormFieldWithDateParser: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, value: '2023-02-12', dateHandling: dateHandling.options[1] },
 };
 
 export const InFormFieldLarge: StoryObj = {

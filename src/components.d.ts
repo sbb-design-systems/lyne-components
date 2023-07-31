@@ -472,13 +472,17 @@ export namespace Components {
     }
     interface SbbDatepicker {
         /**
-          * Cutoff year offset to interpret two digit values. e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
-         */
-        "cutoffYearOffset": number;
-        /**
           * A function used to filter out dates.
          */
         "dateFilter": (date: Date | null) => boolean;
+        /**
+          * A function used to parse string value into dates.
+         */
+        "dateParser"?: (value: string) => Date | undefined;
+        /**
+          * A function used to format dates into the preferred string format.
+         */
+        "format"?: (date: Date) => string;
         /**
           * Gets the input value with the correct date format.
          */
@@ -3070,13 +3074,17 @@ declare namespace LocalJSX {
     }
     interface SbbDatepicker {
         /**
-          * Cutoff year offset to interpret two digit values. e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
-         */
-        "cutoffYearOffset"?: number;
-        /**
           * A function used to filter out dates.
          */
         "dateFilter"?: (date: Date | null) => boolean;
+        /**
+          * A function used to parse string value into dates.
+         */
+        "dateParser"?: (value: string) => Date | undefined;
+        /**
+          * A function used to format dates into the preferred string format.
+         */
+        "format"?: (date: Date) => string;
         /**
           * Reference of the native input connected to the datepicker.
          */

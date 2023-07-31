@@ -15,7 +15,7 @@ import {
 } from '@stencil/core';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
-import { DateAdapter, NativeDateAdapter } from '../../global/datetime';
+import { DateAdapter } from '../../global/datetime';
 import { toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
@@ -23,8 +23,8 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
+import { readConfig } from '../../global/config';
 
-const ALLOWED_CHARACTERS = /([0-9]{1,2})[.,\\/\-\s]?([0-9]{1,2})?[.,\\/\-\s]?([0-9]{1,4})?/;
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
@@ -37,14 +37,14 @@ export class SbbDatepicker implements ComponentInterface {
   /** If set to true, two months are displayed */
   @Prop() public wide = false;
 
-  /**
-   * Cutoff year offset to interpret two digit values.
-   * e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999.
-   */
-  @Prop() public cutoffYearOffset = 15;
-
   /** A function used to filter out dates. */
   @Prop() public dateFilter: (date: Date | null) => boolean = () => true;
+
+  /** A function used to parse string value into dates. */
+  @Prop() public dateParser?: (value: string) => Date | undefined;
+
+  /** A function used to format dates into the preferred string format. */
+  @Prop() public format?: (date: Date) => string;
 
   /** Reference of the native input connected to the datepicker. */
   @Prop() public input?: string | HTMLElement;
@@ -108,15 +108,6 @@ export class SbbDatepicker implements ComponentInterface {
       }
 
       this._inputElement.addEventListener(
-        'input',
-        (event: Event) => {
-          if (!(event instanceof CustomEvent)) {
-            this._preventCharInsert(event);
-          }
-        },
-        { signal: this._datePickerController.signal },
-      );
-      this._inputElement.addEventListener(
         'change',
         async (event: Event) => {
           if (!(event instanceof CustomEvent)) {
@@ -148,13 +139,13 @@ export class SbbDatepicker implements ComponentInterface {
 
   /** Gets the input value with the correct date format. */
   @Method() public async getValueAsDate(): Promise<Date> {
-    return this._dateAdapter.formatValueAsDate(this._formatValue(this._inputElement?.value));
+    return this._parse(this._inputElement?.value);
   }
 
   /** Set the input value to the correctly formatted value. */
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
-    await this._formatAndUpdateValue(this._createAndComposeDate(parsedDate));
+    await this._formatAndUpdateValue(this._format(parsedDate));
     /* Emit blur event when value is changed programmatically to notify 
     frameworks that rely on that event to update form status. */
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
@@ -178,7 +169,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _inputObserver = new AgnosticMutationObserver(this._onInputPropertiesChange.bind(this));
 
-  private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
+  private _dateAdapter: DateAdapter<Date> = readConfig().datetime.dateAdapter;
 
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
@@ -204,31 +195,18 @@ export class SbbDatepicker implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
-  private _formatValue(value: string): string {
-    const match: RegExpMatchArray = value?.match(FORMAT_DATE);
-    if (!match || match.length <= 2 || !match[2] || !match[3]) {
-      return value;
-    }
-    return this._composeValueString(match[1], match[2], +match[3]);
+  private _parseAndFormatValue(value: string): string {
+    const d = this._parse(value);
+    return this._formatValue(value, d);
+  }
+
+  private _formatValue(value: string, parsedValue: Date): string {
+    return !this._dateAdapter.isValid(parsedValue) ? value : this._format(parsedValue);
   }
 
   private _createAndComposeDate(value: string | number | Date): string {
     const date = new Date(value);
-    return this._composeValueString(
-      `${this._dateAdapter.getDate(date)}`,
-      `${this._dateAdapter.getMonth(date) + 1}`,
-      this._dateAdapter.getYear(date),
-    );
-  }
-
-  private _composeValueString(_day: string, _month: string, year: number): string {
-    const day: string = _day.padStart(2, '0');
-    const month: string = _month.padStart(2, '0');
-    if (typeof year === 'number' && year < 100 && year >= 0) {
-      const shift = new Date().getFullYear() - 2000 + this.cutoffYearOffset;
-      year = year <= shift ? 2000 + year : 1900 + year;
-    }
-    return `${day}.${month}.${year || ''}`;
+    return this._format(date);
   }
 
   private async _valueChanged(event): Promise<void> {
@@ -238,8 +216,9 @@ export class SbbDatepicker implements ComponentInterface {
   /** Applies the correct format to values and triggers event dispatch. */
   private async _formatAndUpdateValue(value: string): Promise<void> {
     if (this._inputElement) {
-      this._inputElement.value = this._formatValue(value);
-      const newValueAsDate: Date = await this.getValueAsDate();
+      const newValueAsDate = this._parse(value);
+      this._inputElement.value = this._formatValue(value, newValueAsDate);
+
       const isValidOrEmpty =
         !value ||
         (newValueAsDate &&
@@ -265,11 +244,6 @@ export class SbbDatepicker implements ComponentInterface {
     }
   }
 
-  private _preventCharInsert(event): void {
-    const match = event.target.value.match(ALLOWED_CHARACTERS);
-    event.target.value = match?.[0] ?? null;
-  }
-
   private _getValidValue(value: string): string {
     if (!value) {
       return '';
@@ -278,7 +252,7 @@ export class SbbDatepicker implements ComponentInterface {
     const match: RegExpMatchArray = value.match(FORMAT_DATE);
 
     if (match?.index === 0) {
-      return this._formatValue(value);
+      return this._parseAndFormatValue(value);
     } else if (Number.isInteger(+value)) {
       return this._createAndComposeDate(+value);
     } else if (this._dateAdapter.isValid(new Date(value))) {
@@ -286,6 +260,14 @@ export class SbbDatepicker implements ComponentInterface {
     }
 
     return value;
+  }
+
+  private _parse(value: string): Date | undefined {
+    return this.dateParser ? this.dateParser(value) : this._dateAdapter.parseDate(value);
+  }
+
+  private _format(date: Date): string {
+    return this.format ? this.format(date) : this._dateAdapter.format(date);
   }
 
   public render(): JSX.Element {

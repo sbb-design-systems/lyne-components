@@ -102,7 +102,7 @@ describe('sbb-datepicker-toggle', () => {
     });
     await page.waitForChanges();
 
-    expect(await input.getProperty('value')).toEqual('01.01.2022');
+    expect(await input.getProperty('value')).toEqual('Sa, 01.01.2022');
     expect(changeSpy).toHaveReceivedEventTimes(1);
     expect(blurSpy).toHaveReceivedEventTimes(1);
   });

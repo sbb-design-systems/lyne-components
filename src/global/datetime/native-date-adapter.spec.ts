@@ -76,10 +76,10 @@ describe('NativeDateAdapter', () => {
   });
 
   it('createDate should return the correct value or error', () => {
-    expect(() => nativeDateAdapter.createDate(2023, 17, 1)).toThrow(Error);
-    expect(() => nativeDateAdapter.createDate(2023, 3, -11)).toThrow(Error);
-    expect(() => nativeDateAdapter.createDate(2023, -5, 1)).toThrow(Error);
-    expect(() => nativeDateAdapter.createDate(2023, 3, 99)).toThrow(Error);
+    expect(nativeDateAdapter.createDate(2023, 17, 1)).toBeUndefined();
+    expect(nativeDateAdapter.createDate(2023, 3, -11)).toBeUndefined();
+    expect(nativeDateAdapter.createDate(2023, -5, 1)).toBeUndefined();
+    expect(nativeDateAdapter.createDate(2023, 3, 99)).toBeUndefined();
     const firstDate: Date = nativeDateAdapter.createDate(2023, 0, 1);
     expect(firstDate instanceof Date).toEqual(true);
     expect(`${firstDate.getDate()}.${firstDate.getMonth() + 1}.${firstDate.getFullYear()}`).toEqual(
@@ -200,15 +200,25 @@ describe('NativeDateAdapter', () => {
     expect(fakeDate).toBeNull();
   });
 
-  it('formatValueAsDate should return the correct value', function () {
-    expect(nativeDateAdapter.formatValueAsDate(null)).toBeUndefined();
-    expect(nativeDateAdapter.formatValueAsDate('Test')).toBeUndefined();
-    expect(nativeDateAdapter.formatValueAsDate('1.1')).toBeUndefined();
-    expect(nativeDateAdapter.formatValueAsDate('1/1/2000')).toBeUndefined();
-    const formattedDate: Date = nativeDateAdapter.formatValueAsDate('1.1.2000');
+  it('parseDate should return the correct value', function () {
+    expect(nativeDateAdapter.parseDate(null)).toBeUndefined();
+    expect(nativeDateAdapter.parseDate('Test')).toBeUndefined();
+    expect(nativeDateAdapter.parseDate('1.1')).toBeUndefined();
+    let formattedDate: Date = nativeDateAdapter.parseDate('1/1/2000');
     expect(formattedDate.getFullYear()).toEqual(2000);
     expect(formattedDate.getMonth()).toEqual(0);
     expect(formattedDate.getDate()).toEqual(1);
+
+    formattedDate = nativeDateAdapter.parseDate('1.1.2000');
+    expect(formattedDate.getFullYear()).toEqual(2000);
+    expect(formattedDate.getMonth()).toEqual(0);
+    expect(formattedDate.getDate()).toEqual(1);
+  });
+
+  it('format should return the correct string', function () {
+    document.documentElement.setAttribute('lang', 'de-CH');
+    expect(nativeDateAdapter.format(null)).toEqual('');
+    expect(nativeDateAdapter.format(new Date(2020, 9, 31))).toEqual('Sa, 31.10.2020');
   });
 
   it('should generate localized accessibility labels', async () => {

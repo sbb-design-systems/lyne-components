@@ -25,7 +25,7 @@ describe('sbb-datepicker-previous-day', () => {
       const input: E2EElement = await page.find('input');
       await page.waitForChanges();
       expect(element).toHaveClass('hydrated');
-      expect(await input.getProperty('value')).toEqual('01.01.2023');
+      expect(await input.getProperty('value')).toEqual('Su, 01.01.2023');
 
       const changeSpy = await input.spyOnEvent('change');
       const blurSpy = await input.spyOnEvent('blur');
@@ -34,7 +34,7 @@ describe('sbb-datepicker-previous-day', () => {
       expect(changeSpy).toHaveReceivedEventTimes(1);
       expect(blurSpy).toHaveReceivedEventTimes(1);
 
-      expect(await input.getProperty('value')).toEqual('31.12.2022');
+      expect(await input.getProperty('value')).toEqual('Sa, 31.12.2022');
     });
   });
 
@@ -60,14 +60,14 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     it('click', async () => {
-      expect(await input.getProperty('value')).toEqual('20.01.2023');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2023');
       const changeSpy = await input.spyOnEvent('change');
       const blurSpy = await input.spyOnEvent('blur');
       await element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy).toHaveReceivedEventTimes(1);
       expect(blurSpy).toHaveReceivedEventTimes(1);
-      expect(await input.getProperty('value')).toEqual('19.01.2023');
+      expect(await input.getProperty('value')).toEqual('Th, 19.01.2023');
     });
 
     it('disabled due min equals to value', async () => {
@@ -82,7 +82,7 @@ describe('sbb-datepicker-previous-day', () => {
       input = await page.find('input');
       await page.waitForChanges();
 
-      expect(await input.getProperty('value')).toEqual('20.01.2023');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2023');
       expect(
         await page.evaluate(() =>
           document.querySelector('sbb-datepicker-previous-day').getAttribute('disabled'),
@@ -91,18 +91,18 @@ describe('sbb-datepicker-previous-day', () => {
 
       await element.click();
       await page.waitForChanges();
-      expect(await input.getProperty('value')).toEqual('20.01.2023');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2023');
     });
 
     it('disabled due disabled picker', async () => {
-      expect(await input.getProperty('value')).toEqual('20.01.2023');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2023');
       await page.evaluate(() => document.querySelector('input').setAttribute('disabled', ''));
       await page.waitForChanges();
 
       expect(element.getAttribute('disabled')).toEqual('');
       await element.click();
       await page.waitForChanges();
-      expect(await input.getProperty('value')).toEqual('20.01.2023');
+      expect(await input.getProperty('value')).toEqual('Fr, 20.01.2023');
     });
   });
 });

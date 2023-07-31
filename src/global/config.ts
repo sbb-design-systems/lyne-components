@@ -1,3 +1,5 @@
+import { DateAdapter, NativeDateAdapter } from './datetime';
+
 export interface SbbIconConfig {
   interceptor?: (parameters: {
     namespace: string;
@@ -8,13 +10,20 @@ export interface SbbIconConfig {
   namespaces?: Map<string, string>;
 }
 
+export interface SbbDatetimeConfig {
+  dateAdapter: DateAdapter;
+}
+
 export interface SbbConfig {
   icon?: SbbIconConfig;
+  datetime: SbbDatetimeConfig;
 }
 
 export function readConfig(): SbbConfig {
   if (!('sbbConfig' in globalThis)) {
-    globalThis.sbbConfig = {};
+    globalThis.sbbConfig = {
+      datetime: { dateAdapter: new NativeDateAdapter() },
+    };
   }
   return globalThis.sbbConfig as SbbConfig;
 }

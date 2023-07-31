@@ -2,8 +2,16 @@ import { DateAdapter } from './date-adapter';
 import { documentLanguage } from '../eventing';
 
 export const DAYS_PER_WEEK = 7;
+export const FORMAT_DATE =
+  /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
 export class NativeDateAdapter implements DateAdapter<Date> {
+  private _cutoffYearOffset: number;
+
+  public constructor(cutoffYearOffset: number = 15) {
+    this._cutoffYearOffset = cutoffYearOffset;
+  }
+
   /**
    * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
    */
@@ -86,20 +94,20 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Creates a new date, given day, month and year; the method doesn't allow date's overflow. */
-  public createDate(year: number, month: number, date: number): Date {
+  public createDate(year: number, month: number, date: number): Date | undefined {
     // Check for invalid month and date (except upper bound on date which we have to check after creating the Date).
     if (month < 0 || month > 11) {
-      throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+      return undefined;
     }
 
     if (date < 1) {
-      throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
+      return undefined;
     }
 
     const result = this._createDateWithOverflow(year, month, date);
     // Check that the date wasn't above the upper bound for the month, causing the month to overflow
     if (result.getMonth() !== month) {
-      throw Error(`Invalid date "${date}" for month with index "${month}".`);
+      return undefined;
     }
 
     return result;
@@ -192,18 +200,52 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /** Returns the right format for the `valueAsDate` property. */
-  public formatValueAsDate(value: string): Date {
-    const values = value?.split('.');
+  public parseDate(value: string): Date {
+    if (!value) {
+      return undefined;
+    }
+
+    const strippedValue = value.replace(/\D/g, ' ').trim();
+
+    const match: RegExpMatchArray = strippedValue?.match(FORMAT_DATE);
     if (
-      !values ||
-      values.length <= 2 ||
-      values.some((v) => v === '') ||
-      !+values[0] ||
-      !+values[1]
+      !match ||
+      match.index !== 0 ||
+      match.length <= 2 ||
+      match.some((e) => e === undefined) ||
+      !this.isValid(this.createDate(+match[3], +match[2] - 1, +match[1]))
     ) {
       return undefined;
     }
-    return new Date(+values[2], +values[1] - 1, +values[0], 0, 0, 0, 0);
+
+    let year = +match[3];
+
+    if (typeof year === 'number' && year < 100 && year >= 0) {
+      const shift = new Date().getFullYear() - 2000 + this._cutoffYearOffset;
+      year = year <= shift ? 2000 + year : 1900 + year;
+    }
+
+    return new Date(year, +match[2] - 1, +match[1]);
+  }
+
+  public format(value: Date): string {
+    if (!value) {
+      return '';
+    }
+    const locale = `${documentLanguage()}-CH`;
+    const dateFormatter = new Intl.DateTimeFormat('de-CH', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+    const dayFormatter = new Intl.DateTimeFormat(locale, {
+      weekday: 'short',
+    });
+
+    let weekday = dayFormatter.format(value);
+    weekday = weekday.charAt(0).toUpperCase() + weekday.charAt(1);
+
+    return `${weekday}, ${dateFormatter.format(value)}`;
   }
 
   public getISOString(date: Date): string {

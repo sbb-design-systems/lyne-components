@@ -17,6 +17,8 @@ Each time the user changes the date by using the calendar, the next and previous
 
 Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
 
+Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker to accept date formats other than the default `EE, dd.MM.yyyy`.
+
 ## Usage
 
 Without `sbb-form-field`:
@@ -63,12 +65,13 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Property           | Attribute            | Description                                                                                                                     | Type                      | Default      |
-| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------ |
-| `cutoffYearOffset` | `cutoff-year-offset` | Cutoff year offset to interpret two digit values. e.g. in 2025 with offset equal to 15, 00-40 = 2000-2040, 41-99 = 1941 - 1999. | `number`                  | `15`         |
-| `dateFilter`       | --                   | A function used to filter out dates.                                                                                            | `(date: Date) => boolean` | `() => true` |
-| `input`            | `input`              | Reference of the native input connected to the datepicker.                                                                      | `HTMLElement \| string`   | `undefined`  |
-| `wide`             | `wide`               | If set to true, two months are displayed                                                                                        | `boolean`                 | `false`      |
+| Property     | Attribute | Description                                                       | Type                      | Default      |
+| ------------ | --------- | ----------------------------------------------------------------- | ------------------------- | ------------ |
+| `dateFilter` | --        | A function used to filter out dates.                              | `(date: Date) => boolean` | `() => true` |
+| `dateParser` | --        | A function used to parse string value into dates.                 | `(value: string) => Date` | `undefined`  |
+| `format`     | --        | A function used to format dates into the preferred string format. | `(date: Date) => string`  | `undefined`  |
+| `input`      | `input`   | Reference of the native input connected to the datepicker.        | `HTMLElement \| string`   | `undefined`  |
+| `wide`       | `wide`    | If set to true, two months are displayed                          | `boolean`                 | `false`      |
 
 
 ## Events
