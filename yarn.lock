@@ -1988,10 +1988,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stencil/core@4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.0.2.tgz#2c2ede3c223c66f63456f62bef0d6fad0b5cecd2"
-  integrity sha512-1AnLpHAQDHB+DbM8VpuZikMMmIAtLrkYHMBm+pXKj+EPQqsTcyiZ3a7MAqajdM0WlOXb9rfTZT4aYbPwvItEJw==
+"@stencil/core@4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.0.3.tgz#12dddfbd7416a60142287b4a4be77adb03353538"
+  integrity sha512-uWaH4tQ16So1feRu4tD0gupDEnzhRatS3Jp9uYkYlqjhx5BQ/ox5CTP+lxboochqkLlvkmXvhH9SsEV+UTsYTA==
 
 "@stencil/react-output-target@0.5.3":
   version "0.5.3"
