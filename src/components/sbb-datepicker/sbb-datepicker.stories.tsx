@@ -102,6 +102,28 @@ const dateFilter: InputType = {
   },
 };
 
+const handlingFunctionsChromatic = {
+  dateParser: undefined,
+  format: (value) => {
+    if (!value) {
+      return '';
+    }
+    const dateFormatter = new Intl.DateTimeFormat('de-CH', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+    const dayFormatter = new Intl.DateTimeFormat('en-CH', {
+      weekday: 'short',
+    });
+
+    let weekday = dayFormatter.format(value);
+    weekday = weekday.charAt(0).toUpperCase() + weekday.charAt(1);
+
+    return `${weekday}, ${dateFormatter.format(value)}`;
+  },
+};
+
 const handlingFunctions = [
   { dateParser: undefined, format: undefined },
   {
@@ -230,7 +252,7 @@ const basicArgs: Args = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options[0],
-  dateHandling: dateHandling.options[0],
+  dateHandling: isChromatic() ? handlingFunctionsChromatic : dateHandling.options[0],
   'aria-label': undefined,
   disableAnimation: isChromatic(),
   dataNow: isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined,
