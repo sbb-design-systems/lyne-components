@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.8](https://github.com/lyne-design-system/lyne-components/compare/v0.38.7...v0.38.8) (2023-07-31)
+
+### Features
+
+- **sbb-datepicker:** allow custom date formats ([#1909](https://github.com/lyne-design-system/lyne-components/issues/1909)) ([67709be](https://github.com/lyne-design-system/lyne-components/commit/67709bea71a1b51bc6bfef9bece040c6ca27a048))
+
 ### [0.38.7](https://github.com/lyne-design-system/lyne-components/compare/v0.38.6...v0.38.7) (2023-07-24)
 
 ### Refactorings
