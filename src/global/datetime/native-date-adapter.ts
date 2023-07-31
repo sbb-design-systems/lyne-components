@@ -233,7 +233,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
       return '';
     }
     const locale = `${documentLanguage()}-CH`;
-    const dateFormatter = new Intl.DateTimeFormat(locale, {
+    const dateFormatter = new Intl.DateTimeFormat('de-CH', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
