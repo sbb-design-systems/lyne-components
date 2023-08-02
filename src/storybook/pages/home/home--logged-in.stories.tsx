@@ -217,10 +217,28 @@ const Template = (args): JSX.Element => (
           </sbb-button>
 
           <sbb-dialog id="my-dialog" title-content="My Dialog" title-back-button>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            <p style={{ marginTop: '0' }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+
+            <sbb-button
+              variant="secondary"
+              size="m"
+              onClick={() =>
+                (document.getElementById('my-stacked-dialog') as HTMLSbbDialogElement).open()
+              }
+            >
+              Open stacked dialog
+            </sbb-button>
+
+            <sbb-dialog id="my-stacked-dialog" title-content="Stacked Dialog" title-back-button>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.
+            </sbb-dialog>
+
             <sbb-action-group
               slot="action-group"
               align-group="stretch"

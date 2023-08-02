@@ -29,6 +29,8 @@ import {
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
 
+// A global collection of existing dialogs
+const dialogRefs: HTMLSbbDialogElement[] = [];
 let nextId = 0;
 
 /**
@@ -192,6 +194,8 @@ export class SbbDialog implements ComponentInterface {
     this.willOpen.emit();
     this._state = 'opening';
     this._dialog.show();
+    // Add this dialog to the global collection
+    dialogRefs.push(this._element as HTMLSbbDialogElement);
     this._setOverflowAttribute();
     // Disable scrolling for content below the dialog
     this._scrollHandler.disableScroll();
@@ -219,7 +223,7 @@ export class SbbDialog implements ComponentInterface {
     }
 
     if (event.key === 'Escape') {
-      await this.close();
+      await dialogRefs[dialogRefs.length - 1].close();
       return;
     }
   }
@@ -247,6 +251,11 @@ export class SbbDialog implements ComponentInterface {
     this._dialogController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    this._removeInstanceFromGlobalCollection();
+  }
+
+  private _removeInstanceFromGlobalCollection(): void {
+    dialogRefs.splice(dialogRefs.indexOf(this._element as HTMLSbbDialogElement), 1);
   }
 
   private _attachWindowEvents(): void {
@@ -313,8 +322,9 @@ export class SbbDialog implements ComponentInterface {
       this._windowEventsController?.abort();
       this._focusTrap.disconnect();
       this._dialogContentResizeObserver.disconnect();
-      // Enable scrolling for content below the dialog
-      this._scrollHandler.enableScroll();
+      this._removeInstanceFromGlobalCollection();
+      // Enable scrolling for content below the dialog if no dialog is open
+      !dialogRefs.length && this._scrollHandler.enableScroll();
     }
   }
 
