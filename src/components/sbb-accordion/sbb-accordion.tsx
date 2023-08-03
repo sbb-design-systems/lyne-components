@@ -33,14 +33,14 @@ export class SbbAccordion implements ComponentInterface {
     if (this._expansionPanels.length > 1 && oldValue && !newValue) {
       this._expansionPanels[0].expanded = true;
       this._expansionPanels
-        .filter((_, index: number) => index > 0)
+        .filter((_: HTMLSbbExpansionPanelElement, index: number) => index > 0)
         .forEach((panel: HTMLSbbExpansionPanelElement) => (panel.expanded = false));
     }
   }
 
   @Watch('titleLevel')
   public setTitleLevelOnChildren(): void {
-    this._setChildrenParameters(event);
+    this._setTitleLevelOnPanels();
   }
 
   @Element() private _element!: HTMLElement;
@@ -50,15 +50,19 @@ export class SbbAccordion implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._setChildrenParameters(event);
+    this._setTitleLevelOnPanels();
   }
 
   private _accordionElements: Element[];
 
-  private _setChildrenParameters(event): void {
+  private _setTitleLevelOnPanels(): void {
     this._expansionPanels.forEach(
       (panel: HTMLSbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
     );
+  }
+
+  private _setChildrenParameters(event): void {
+    this._setTitleLevelOnPanels();
 
     // Add attribute "first-panel" or "last-panel" for styling, even if the group is interrupted by non-panel elements
     // Retrieve every element inside accordion container
