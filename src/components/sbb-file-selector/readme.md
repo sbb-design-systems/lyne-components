@@ -1,54 +1,74 @@
 The `sbb-file-selector` is a component which allows user to select one or more files from storage devices.
+When files are selected, they appear as a list below the button/dropzone area. 
+For each file, the name and the size are displayed and an icon allows for deletion.
+
+
+### Variants
 
 It has two different display options based on the value of the `variant` property: by default a `sbb-button` is displayed, 
-which mimics the native `<input type="file"/>`. Instead, if the `variant` property is set to `dropzone`, the `sbb-button` 
-is shown within a "drag & drop" area. In this case, it's possible to customize the area's title via the `titleContent` property. 
-In both cases, the user interaction can be disabled using the `disabled` property. The `error` named slot can be used to 
-display an error message using the `sbb-form-error` component.
-
-By default, a single file can be selected; this can be changed setting the `multiple` property to `true`. The value of 
-the `multipleMode` property determines whether added files should overwrite existing files (`default`) or be appended 
-to them (`persistent`). The `accept` property can be used to force the user to select one or more specific file types.
-
-When files are selected, they appear as a list below the button/dropzone area. For each file, the name and the size are 
-displayed; an icon allows for deletion. Whenever the selection changes, a `file-changed` event is fired, 
-whose `event.detail` property contains the list of currently selected files. Consumers can also listen to the `error` 
-event for unhandled exceptions.
-
-
-## Usage
-
-Default variant, single file selection:
+which mimics the native `<input type="file"/>`. 
 
 ```html
 <sbb-file-selector></sbb-file-selector>
 ```
 
-Default variant, multiple file selection, new files are appended to current selection:
+Instead, if the `variant` property is set to `dropzone`, the `sbb-button` is shown within a "drag & drop" area. 
+In this case, it's possible to customize the area's title via the `titleContent` property. 
+
+```html
+<sbb-file-selector variant='dropzone' title-content='Drop file here.'></sbb-file-selector>
+```
+
+
+### Multiple and multipleMode
+
+In both variants, a single file can be selected by default; this can be changed setting the `multiple` property to `true`. 
+
+```html
+<sbb-file-selector multiple></sbb-file-selector>
+```
+
+The value of the `multipleMode` property determines whether added files should overwrite existing files (`default`) or be appended to them (`persistent`). 
 
 ```html
 <sbb-file-selector multiple multiple-mode='persistent'></sbb-file-selector>
 ```
 
-Dropzone variant, single file selection, disabled:
+
+### Accept
+
+The `accept` property can be used to force the user to select one or more specific file types; in the next example,
+only images are allowed.
 
 ```html
-<sbb-file-selector variant='dropzone' disabled></sbb-file-selector>
+<sbb-file-selector accept=".png,.jpg,.jpeg"></sbb-file-selector>
 ```
 
-Dropzone variant, multiple file selection with override of current selection, accepts only some image files:
+
+### Disabled
+
+User interaction can be disabled using the `disabled` property. 
 
 ```html
-<sbb-file-selector variant='dropzone' multiple accept=".png,.jpg,.jpeg"></sbb-file-selector>
+<sbb-file-selector disabled></sbb-file-selector>
 ```
 
-Dropzone variant, single file selection with error message:
+
+### Error slot
+
+The `error` named slot can be used to display an error message using the `sbb-form-error` component.
 
 ```html
-<sbb-file-selector variant='dropzone' disabled>
+<sbb-file-selector variant='dropzone'>
   <sbb-form-error slot="error">An error occurred during file upload.</sbb-form-error>
 </sbb-file-selector>
 ```
+
+
+### Events
+
+Whenever the selection changes, a `file-changed` event is fired, whose `event.detail` property contains the list 
+of currently selected files. Consumers can also listen to the `error` event for unhandled exceptions.
 
 <!-- Auto Generated Below -->
 

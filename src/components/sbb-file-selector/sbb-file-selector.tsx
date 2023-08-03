@@ -193,6 +193,7 @@ export class SbbFileSelector implements ComponentInterface {
       <sbb-button
         variant="secondary"
         size="m"
+        is-static={true}
         icon-name="folder-open-small"
         disabled={this.disabled}
         onClick={() => this._openFileWindow()}
@@ -217,7 +218,6 @@ export class SbbFileSelector implements ComponentInterface {
             variant="secondary"
             size="m"
             disabled={this.disabled}
-            onClick={() => this._openFileWindow()}
             ref={(el): void => {
               this._loadButton = el;
             }}
@@ -261,10 +261,10 @@ export class SbbFileSelector implements ComponentInterface {
           onDragLeave={(e) => this._onDragLeave(e)}
           onDrop={(e) => this._onFileDrop(e)}
         >
-          {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
-          <label hidden htmlFor="sbb-file-selector__hidden-input">
-            {i18nFileSelectorButtonLabel[this._currentLanguage]}
+          <label htmlFor="sbb-file-selector__hidden-input">
+            {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
             <input
+              hidden
               id="sbb-file-selector__hidden-input"
               type="file"
               disabled={this.disabled}
