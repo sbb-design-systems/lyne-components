@@ -25,7 +25,7 @@ In the following example the datepicker is set to accept dates in the format `yy
 ```ts
     // datePicker is a HTMLSbbDatepickerElement
     datePicker.dateParser = (value: string) => {
-        //You should implement some kind of input validation
+        // You should implement some kind of input validation
         if (!value || !isValid(value)) {
             return undefined;
         }
