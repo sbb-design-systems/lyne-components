@@ -113,7 +113,7 @@ const handlingFunctions = [
   },
   {
     dateParser: (s) =>
-      new Date(+s.substring(4, s.lenght), +s.substring(2, 4) - 1, +s.substring(0, 2)),
+      new Date(+s.substring(4, s.length), +s.substring(2, 4) - 1, +s.substring(0, 2)),
     format: (d) =>
       `${String(d.getDate()).padStart(2, '0')}${String(d.getMonth() + 1).padStart(
         2,

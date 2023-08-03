@@ -17,8 +17,37 @@ Each time the user changes the date by using the calendar, the next and previous
 
 Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
 
-Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker to accept date formats other than the default `EE, dd.MM.yyyy`.
+## Custom date formats
 
+Using a combination of the `dateParser` and `format` properties, it's possible to configure the datepicker to accept date formats other than the default `EE, dd.mm.yyyy`.
+In the following example the datepicker is set to accept dates in the format `yyyy-mm-dd`. In particular, `dateParser` is the function that the component uses internally to decode strings and parse them into `Date` objects, while the `format` function is the one that the component uses internally to display a given `Date` object as a string.
+
+```ts
+    // datePicker is a HTMLSbbDatepickerElement
+    datePicker.dateParser = (value: string) => {
+        // You should implement some kind of input validation
+        if (!value || !isValid(value)) {
+            return undefined;
+        }
+
+        return new Date(value);
+    };
+
+    datePicker.format = (value: Date) => {
+        if (!value) {
+            return '';
+        }
+
+        const offset = value.getTimezoneOffset();
+        value = new Date(yourDate.getTime() - (offset * 60 * 1000));
+        return yourDate.toISOString().split('T')[0];
+    };
+```
+
+Usually these functions need to be changed together, although in simple cases where the default `dateParser` might still work properly (e.g. in case we wanted to accept the format `dd.mm.yyyy`), it's possible to provide just the `format` function. 
+For custom `format` functions is recommended to use the `Intl.DateTimeFormat` API, as it's done in the default implementation.
+
+<!-- TODO: add date adapter configuration documentation -->
 ## Usage
 
 Without `sbb-form-field`:
