@@ -67,6 +67,7 @@ export class SbbTimeInput implements ComponentInterface {
     this._abortController = new AbortController();
 
     // Configure input
+    toggleDatasetEntry(this._inputElement, 'sbbTimeInput', true);
     this._inputElement.type = 'text';
     this._inputElement.inputMode = 'numeric';
     this._inputElement.maxLength = 5;

@@ -129,6 +129,10 @@ sbb-title + p {
   margin-block-start: 0;
 }
 
+input[data-sbb-time-input] {
+  max-width: var(--sbb-time-input-max-width);
+}
+
 .sbb-screen-reader-only {
   @include a11y.screen-reader-only;
 }

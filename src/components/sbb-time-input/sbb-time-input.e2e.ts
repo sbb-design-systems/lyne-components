@@ -24,6 +24,7 @@ describe('sbb-time-input', () => {
     expect(input).toEqualAttribute('inputMode', 'numeric');
     expect(input).toEqualAttribute('maxLength', '5');
     expect(input).toEqualAttribute('placeholder', 'HH:MM');
+    expect(input).toEqualAttribute('data-sbb-time-input', '');
   });
 
   it('should emit form events', async () => {
@@ -98,6 +99,7 @@ describe('sbb-time-input', () => {
       { value: '1', interpretedAs: '01:00' },
       { value: '12', interpretedAs: '12:00' },
       { value: '123', interpretedAs: '01:23' },
+      { value: '1.2', interpretedAs: '01:02' },
       { value: '1.12', interpretedAs: '01:12' },
       { value: '1,12', interpretedAs: '01:12' },
       { value: '1:12', interpretedAs: '01:12' },
@@ -106,6 +108,8 @@ describe('sbb-time-input', () => {
       { value: '1;12', interpretedAs: '01:12' },
       { value: '1-12', interpretedAs: '01:12' },
       { value: '01:12', interpretedAs: '01:12' },
+      { value: '12:', interpretedAs: '12:00' },
+      { value: '12.3', interpretedAs: '12:03' },
       { value: ':00', interpretedAs: '00:00' },
       { value: ':01', interpretedAs: '00:01' },
       { value: ':1', interpretedAs: '00:01' },
