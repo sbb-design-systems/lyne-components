@@ -238,6 +238,65 @@ describe('sbb-dialog', () => {
     expect(element).toHaveAttribute('data-fullscreen');
   });
 
+  it('closes stacked dialogs one by one on ESC key pressed', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+      <sbb-dialog id="my-dialog" title-content="Title" title-back-button="true" disable-animation>
+        Dialog content.
+        <div slot="action-group">Action group</div>  
+      </sbb-dialog>
+
+      <sbb-dialog id="stacked-dialog" disable-animation>
+        Stacked dialog.
+      </sbb-dialog>
+    `);
+    element = await page.find('sbb-dialog');
+
+    const dialog = await page.find('#my-dialog >>> dialog');
+    const willOpen = await page.spyOnEvent(events.willOpen);
+    const didOpen = await page.spyOnEvent(events.didOpen);
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => willOpen.events.length === 1);
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpen.events.length === 1);
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(dialog).toHaveAttribute('open');
+    await page.waitForChanges();
+
+    const stackedDialog = await page.find('#stacked-dialog');
+    const stackedDialogElement = await page.find('#stacked-dialog >>> dialog');
+
+    await stackedDialog.callMethod('open');
+    await page.waitForChanges();
+
+    expect(stackedDialogElement).toHaveAttribute('open');
+
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
+
+    await page.keyboard.down('Escape');
+    await page.waitForChanges();
+
+    expect(stackedDialogElement).not.toHaveAttribute('open');
+    expect(dialog).toHaveAttribute('open');
+
+    await page.keyboard.down('Tab');
+    await page.waitForChanges();
+
+    await page.keyboard.down('Escape');
+    await page.waitForChanges();
+
+    expect(stackedDialogElement).not.toHaveAttribute('open');
+    expect(dialog).not.toHaveAttribute('open');
+  });
+
   it('does not close the dialog on other overlay click', async () => {
     page = await newE2EPage();
     await page.setViewport({ width: 900, height: 600 });
