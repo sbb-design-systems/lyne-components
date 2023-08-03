@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.10](https://github.com/lyne-design-system/lyne-components/compare/v0.38.9...v0.38.10) (2023-08-03)
+
+### Documentation
+
+- **sbb-datepicker:** improve docs on how to use format and dateParser functions ([#1914](https://github.com/lyne-design-system/lyne-components/issues/1914)) ([f0aa3c6](https://github.com/lyne-design-system/lyne-components/commit/f0aa3c627cbe644e323d29592ebf6503b4301ecf))
+
 ### [0.38.9](https://github.com/lyne-design-system/lyne-components/compare/v0.38.8...v0.38.9) (2023-08-03)
 
 ### Bug Fixes
