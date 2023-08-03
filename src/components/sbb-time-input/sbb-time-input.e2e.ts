@@ -19,6 +19,13 @@ describe('sbb-time-input', () => {
     expect(element).toHaveClass('hydrated');
   });
 
+  it('should configure native input', async () => {
+    expect(input).toEqualAttribute('type', 'text');
+    expect(input).toEqualAttribute('inputMode', 'numeric');
+    expect(input).toEqualAttribute('maxLength', '5');
+    expect(input).toEqualAttribute('placeholder', 'HH:MM');
+  });
+
   it('should emit form events', async () => {
     const changeSpy = await element.spyOnEvent('change');
     const inputSpy = await element.spyOnEvent('input');
@@ -61,6 +68,26 @@ describe('sbb-time-input', () => {
     await input.press('Tab');
 
     // Then validation event should be emitted with true
+    expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: true });
+    expect(input).not.toHaveAttribute('data-sbb-invalid');
+  });
+
+  it('should emit valid validation change event when empty', async () => {
+    // Creating invalid entry
+    await input.focus();
+    await input.type('99');
+    await input.press('Tab');
+    await page.waitForChanges();
+
+    const validationChangeSpy = await element.spyOnEvent('validationChange');
+
+    // When deleting input to achieve empty input
+    await input.focus();
+    await input.press('Backspace');
+    await input.press('Backspace');
+    await input.press('Tab');
+
+    // Then validation event should emit with true
     expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: true });
     expect(input).not.toHaveAttribute('data-sbb-invalid');
   });
@@ -120,6 +147,15 @@ describe('sbb-time-input', () => {
     }
   });
 
+  it('should prevent char insertion', async () => {
+    await input.press('1');
+
+    // Inserting invalid key
+    await input.press('V');
+
+    expect(await input.getProperty('value')).toEqual('1');
+  });
+
   it('should handle deletion', async () => {
     await page.evaluate(
       () => ((document.getElementById('input-1') as HTMLInputElement).value = '12:00'),
@@ -135,7 +171,90 @@ describe('sbb-time-input', () => {
     expect(await input.getProperty('value')).toEqual('00:00');
   });
 
-  it('should watch for valueAsDate changes', async () => {
+  it('should set and get value as a date', async () => {
+    const blurSpy = await input.spyOnEvent('blur');
+    const date = new Date('2023-01-01T15:00:00');
+
+    await element.callMethod('setValueAsDate', date);
+    await page.waitForChanges();
+
+    expect(await input.getProperty('value')).toEqual('15:00');
+    expect(blurSpy).toHaveReceivedEventTimes(1);
+
+    const dateCalculated = await page.evaluate(async () => {
+      const timeInput = document.getElementsByTagName('sbb-time-input')[0];
+      return (await timeInput.getValueAsDate()).getTime();
+    });
+    expect(new Date(dateCalculated).getHours()).toEqual(date.getHours());
+    expect(new Date(dateCalculated).getMinutes()).toEqual(date.getMinutes());
+  });
+
+  it('should set and get value as a date (string)', async () => {
+    const date = new Date('2023-01-01T15:00:00');
+
+    await element.callMethod('setValueAsDate', date.toISOString());
+    await page.waitForChanges();
+    expect(await input.getProperty('value')).toEqual('15:00');
+
+    const dateCalculated = await page.evaluate(async () => {
+      const timeInput = document.getElementsByTagName('sbb-time-input')[0];
+      return (await timeInput.getValueAsDate()).getTime();
+    });
+    expect(new Date(dateCalculated).getHours()).toEqual(date.getHours());
+    expect(new Date(dateCalculated).getMinutes()).toEqual(date.getMinutes());
+  });
+
+  it('should work with sbb-form-field', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+      <sbb-form-field>
+        <sbb-time-input></sbb-time-input>
+        <input/>
+      </sbb-form-field>
+    `);
+    await page.waitForChanges();
+
+    element = await page.find('sbb-time-input');
+    input = await page.find('input');
+
+    await element.callMethod('setValueAsDate', '2023-01-01T15:00:00');
+    await page.waitForChanges();
+    expect(await input.getProperty('value')).toEqual('15:00');
+  });
+
+  it('should support asynchronously adding input by element reference', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+        <sbb-time-input id="time-input"></sbb-time-input>
+        <input id="input" />
+    `);
+    await page.waitForChanges();
+
+    element = await page.find('sbb-time-input');
+    input = await page.find('input');
+
+    await page.evaluate(() => {
+      const timeInput = document.getElementById('time-input') as HTMLSbbTimeInputElement;
+      timeInput.input = document.getElementById('input');
+    });
+
+    await element.callMethod('setValueAsDate', '2023-01-01T15:00:00');
+    await page.waitForChanges();
+    expect(await input.getProperty('value')).toEqual('15:00');
+  });
+
+  it('should support asynchronously adding input by id', async () => {
+    page = await newE2EPage();
+    await page.setContent(`
+        <sbb-time-input id="time-input"></sbb-time-input>
+        <input id="input" />
+    `);
+    await page.waitForChanges();
+    element = await page.find('sbb-time-input');
+    input = await page.find('input');
+
+    element.setProperty('input', 'input');
+
     await element.callMethod('setValueAsDate', '2023-01-01T15:00:00');
     await page.waitForChanges();
     expect(await input.getProperty('value')).toEqual('15:00');

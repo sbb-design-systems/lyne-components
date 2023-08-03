@@ -194,7 +194,7 @@ export class SbbTimeInput implements ComponentInterface {
       return null;
     }
 
-    // special case: the input is 3 or 4 digits; split like so: AB?:CD
+    // Special case: the input is 3 or 4 digits; split like: AB?:CD
     const match = trimmedValue.match(REGEX_GROUPS_WITHOUT_COLON);
     if (match) {
       return { hours: +match[1] || 0, minutes: +match[2] || 0 };
