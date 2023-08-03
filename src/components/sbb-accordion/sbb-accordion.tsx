@@ -40,7 +40,7 @@ export class SbbAccordion implements ComponentInterface {
 
   @Watch('titleLevel')
   public setTitleLevelOnChildren(): void {
-    this._setChildrenParameters();
+    this._setChildrenParameters(event);
   }
 
   @Element() private _element!: HTMLElement;
@@ -50,19 +50,40 @@ export class SbbAccordion implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._setChildrenParameters();
+    this._setChildrenParameters(event);
   }
 
-  private _setChildrenParameters(): void {
+  private _accordionElements: Element[];
+
+  private _setChildrenParameters(event): void {
     this._expansionPanels.forEach(
       (panel: HTMLSbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
     );
+
+    // Add attribute "first-panel" or "last-panel" for styling, even if the group is interrupted by non-panel elements
+    // Retrieve every element inside accordion container
+    this._accordionElements = (event.target as HTMLSlotElement).assignedElements();
+    for (let i = 0; i < this._accordionElements.length; i++) {
+      if (this._accordionElements[i].tagName == 'SBB-EXPANSION-PANEL') {
+        // Set as first panel
+        if (i === 0 || this._accordionElements[i - 1].tagName !== 'SBB-EXPANSION-PANEL') {
+          this._accordionElements[i].setAttribute('first-panel', 'true');
+        }
+        // Set as last panel
+        if (
+          i === this._accordionElements.length - 1 ||
+          this._accordionElements[i + 1].tagName !== 'SBB-EXPANSION-PANEL'
+        ) {
+          this._accordionElements[i].setAttribute('last-panel', 'true');
+        }
+      }
+    }
   }
 
   public render(): JSX.Element {
     return (
       <div class="sbb-accordion">
-        <slot onSlotchange={() => this._setChildrenParameters()}></slot>
+        <slot onSlotchange={(event) => this._setChildrenParameters(event)}></slot>
       </div>
     );
   }
