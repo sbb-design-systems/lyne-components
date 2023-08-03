@@ -55,14 +55,14 @@
   --sbb-expansion-panel-animation-duration: 0s;
 }
 
-:host(:first-child) {
+:host([first-panel='true']) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
   --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
   --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
 }
 
-:host(:last-child) {
+:host([last-panel='true']) {
   --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
 }
