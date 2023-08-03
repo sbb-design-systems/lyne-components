@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.9](https://github.com/lyne-design-system/lyne-components/compare/v0.38.8...v0.38.9) (2023-08-03)
+
+### Bug Fixes
+
+- **sbb-dialog:** close stacked dialogs one by one on ESC press ([#1910](https://github.com/lyne-design-system/lyne-components/issues/1910)) ([3bfc42f](https://github.com/lyne-design-system/lyne-components/commit/3bfc42f8b65cb75250bb29ab8fe7f6e88b83b09c))
+
 ### [0.38.8](https://github.com/lyne-design-system/lyne-components/compare/v0.38.7...v0.38.8) (2023-07-31)
 
 ### Features
