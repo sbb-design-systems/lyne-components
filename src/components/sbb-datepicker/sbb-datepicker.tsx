@@ -225,7 +225,7 @@ export class SbbDatepicker implements ComponentInterface {
 
       const isEmptyOrValid =
         !value ||
-        (newValueAsDate &&
+        (!!newValueAsDate &&
           isDateAvailable(
             newValueAsDate,
             this._element.dateFilter,
