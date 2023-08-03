@@ -23,7 +23,7 @@ Using a combination of the `dateParser` and `format` properties, it's possible t
 In the following example the datepicker is set to accept dates in the format `yyyy-mm-dd`. In particular, `dateParser` is the function that the component uses internally to decode strings and parse them into `Date` objects, while the `format` function is the one that the component uses internally to display a given `Date` object as a string.
 
 ```ts
-    //datePicker is a HTMLSbbDatepickerElement
+    // datePicker is a HTMLSbbDatepickerElement
     datePicker.dateParser = (value: string) => {
         //You should implement some kind of input validation
         if (!value || !isValid(value)) {
