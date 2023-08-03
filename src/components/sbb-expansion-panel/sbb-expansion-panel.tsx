@@ -85,12 +85,8 @@ export class SbbExpansionPanel implements ComponentInterface {
 
   @Watch('expanded')
   public onExpandedChange(): void {
-    this._element
-      .querySelector('sbb-expansion-panel-header')
-      .setAttribute('aria-expanded', String(this.expanded));
-    this._element
-      .querySelector('sbb-expansion-panel-content')
-      .setAttribute('aria-hidden', String(!this.expanded));
+    this._headerRef.setAttribute('aria-expanded', String(this.expanded));
+    this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
     this._element.style.setProperty(
       '--sbb-expansion-panel-content-height',
       `${this._contentElement.scrollHeight}px`,
@@ -130,9 +126,6 @@ export class SbbExpansionPanel implements ComponentInterface {
     if (this.disabled) {
       this._headerRef.setAttribute('disabled', String(this.disabled));
     }
-    if (!this._headerRef.getAttribute('id')) {
-      this._headerRef.setAttribute('id', `sbb-expansion-panel-header${this._progressiveId}`);
-    }
     this._linkHeaderAndContent();
   }
 
@@ -150,9 +143,6 @@ export class SbbExpansionPanel implements ComponentInterface {
 
     this._transitionEventController = new AbortController();
     this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
-    if (!this._contentRef.getAttribute('id')) {
-      this._contentRef.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
-    }
     this._contentRef.addEventListener('transitionend', (event) => this._onTransitionEnd(event), {
       signal: this._transitionEventController.signal,
     });
@@ -164,13 +154,20 @@ export class SbbExpansionPanel implements ComponentInterface {
       return;
     }
 
+    if (!this._headerRef.id) {
+      this._headerRef.setAttribute('id', `sbb-expansion-panel-header${this._progressiveId}`);
+    }
     this._headerRef.setAttribute(
       'aria-controls',
-      this._contentRef.getAttribute('id') || `sbb-expansion-panel-content${this._progressiveId}`,
+      this._contentRef.id || `sbb-expansion-panel-content${this._progressiveId}`,
     );
+
+    if (!this._contentRef.id) {
+      this._contentRef.setAttribute('id', `sbb-expansion-panel-content${this._progressiveId}`);
+    }
     this._contentRef.setAttribute(
       'aria-labelledby',
-      this._headerRef.getAttribute('id') || `sbb-expansion-panel-header${this._progressiveId}`,
+      this._headerRef.id || `sbb-expansion-panel-header${this._progressiveId}`,
     );
     toggleDatasetEntry(this._contentRef, 'iconSpace', this._headerRef.hasAttribute('data-icon'));
   }
