@@ -123,7 +123,6 @@ const greyDecorator: Decorator = (Story) => (
   <div
     style={{
       background: '#bdbdbd',
-      padding: '2rem',
     }}
   >
     <Story />
