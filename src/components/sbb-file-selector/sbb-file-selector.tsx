@@ -73,7 +73,6 @@ export class SbbFileSelector implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
-  private _hiddenInput: HTMLElement;
   private _loadButton: HTMLElement;
   private _dragTarget: HTMLElement;
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
@@ -103,12 +102,6 @@ export class SbbFileSelector implements ComponentInterface {
       file1.size === file2.size &&
       file1.lastModified === file2.lastModified
     );
-  }
-
-  private _openFileWindow(): void {
-    if (!this.disabled) {
-      return this._hiddenInput.click();
-    }
   }
 
   private _onDragEnter(event): void {
@@ -196,7 +189,6 @@ export class SbbFileSelector implements ComponentInterface {
         is-static={true}
         icon-name="folder-open-small"
         disabled={this.disabled}
-        onClick={() => this._openFileWindow()}
       >
         {i18nFileSelectorButtonLabel[this._currentLanguage]}
       </sbb-button>
@@ -271,9 +263,6 @@ export class SbbFileSelector implements ComponentInterface {
               multiple={this.multiple}
               accept={this.accept}
               onChange={(event) => this._readFiles(event)}
-              ref={(el): void => {
-                this._hiddenInput = el;
-              }}
             />
           </label>
         </div>
