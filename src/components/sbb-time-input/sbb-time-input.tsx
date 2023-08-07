@@ -120,7 +120,7 @@ export class SbbTimeInput implements ComponentInterface {
   }
 
   /** Gets the input value with the correct date format. */
-  @Method() public async getValueAsDate(): Promise<Date> {
+  @Method() public async getValueAsDate(): Promise<Date | null> {
     return this._formatValueAsDate(this._parseInput(this._inputElement?.value));
   }
 
