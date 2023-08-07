@@ -128,7 +128,8 @@ describe('sbb-time-input', () => {
       await input.type(testCase.value);
       await input.press('Tab');
       expect(await input.getProperty('value')).toEqual(testCase.interpretedAs);
-      expect(await (await page.find('sbb-time-input >>> p')).innerText).toBe(
+      const paragraphElement = await page.find('sbb-time-input >>> p');
+      expect(paragraphElement.innerText).toBe(
         `${i18nTimeInputChange['en']} ${testCase.interpretedAs}.`,
       );
     }
