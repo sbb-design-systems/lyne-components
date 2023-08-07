@@ -1,8 +1,8 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
-import { InputType } from '@storybook/types';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import { InputType, StoryContext } from '@storybook/types';
 
 const numberOfPanels: InputType = {
   control: {
@@ -119,16 +119,6 @@ const defaultArgs: Args = {
   contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
 };
 
-const greyDecorator: Decorator = (Story) => (
-  <div
-    style={{
-      background: '#bdbdbd',
-    }}
-  >
-    <Story />
-  </div>
-);
-
 const createExpansionPanelTemplate = (
   numberOfPanels,
   color,
@@ -198,7 +188,6 @@ export const Borderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, borderless: true },
-  decorators: [greyDecorator],
 };
 
 export const Disabled: StoryObj = {
@@ -211,7 +200,6 @@ export const MilkBorderless: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, color: color.options[1], borderless: true },
-  decorators: [greyDecorator],
 };
 
 export const WithIcon: StoryObj = {
@@ -232,10 +220,14 @@ export const Multi: StoryObj = {
   args: { ...defaultArgs, multi: true },
 };
 
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white-default)',
+});
+
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),
