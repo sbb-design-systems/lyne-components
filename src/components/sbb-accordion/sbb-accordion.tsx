@@ -72,6 +72,8 @@ export class SbbAccordion implements ComponentInterface {
         // Set as first panel
         if (i === 0 || this._accordionElements[i - 1].tagName !== 'SBB-EXPANSION-PANEL') {
           this._accordionElements[i].setAttribute('first-panel', 'true');
+        } else {
+          this._accordionElements[i].setAttribute('first-panel', 'false');
         }
         // Set as last panel
         if (
@@ -79,6 +81,8 @@ export class SbbAccordion implements ComponentInterface {
           this._accordionElements[i + 1].tagName !== 'SBB-EXPANSION-PANEL'
         ) {
           this._accordionElements[i].setAttribute('last-panel', 'true');
+        } else {
+          this._accordionElements[i].setAttribute('last-panel', 'false');
         }
       }
     }
