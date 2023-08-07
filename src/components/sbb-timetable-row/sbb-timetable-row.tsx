@@ -299,9 +299,6 @@ export class SbbTimetableRow {
       duration,
     } = summary || {};
 
-    /*     const himCus = this.trip && this._handleHimCus(this.trip);
-    const hasHimCus = !!Object.keys(himCus.cus).length || !!Object.keys(himCus.him).length;
- */
     const himCus = this._handleHimCus(this.trip);
     const hasHimCus = !!himCus.cus || !!himCus.him;
 
