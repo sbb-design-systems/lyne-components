@@ -153,6 +153,10 @@ export class SbbTimeInput implements ComponentInterface {
    * to force the input change when the typed value is the same of the current one.
    */
   private _updateValue(value: string): void {
+    // Reset accessibility message
+    if (this._statusContainer) {
+      this._statusContainer.innerText = '';
+    }
     if (!this._inputElement) {
       return;
     }
@@ -253,6 +257,11 @@ export class SbbTimeInput implements ComponentInterface {
   // We use a programmatic approach to avoid initial setting the message
   // and to not immediately change output if language should change (no reason to read out message).
   private _updateAccessibilityMessage(): void {
+    const valid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+    if (!valid) {
+      return;
+    }
+
     this._statusContainer.innerText = `${i18nTimeInputChange[this._currentLanguage]} ${
       this._inputElement.value
     }.`;

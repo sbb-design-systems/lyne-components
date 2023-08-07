@@ -141,7 +141,7 @@ describe('sbb-time-input', () => {
       { value: '24', interpretedAs: '24' },
       { value: 'hh', interpretedAs: 'hh' },
       { value: '', interpretedAs: '' },
-      { value: '00:56', interpretedAs: '00:56' },
+      { value: '00:66', interpretedAs: '00:66' },
     ];
 
     for (const testCase of testCases) {
@@ -153,6 +153,8 @@ describe('sbb-time-input', () => {
       await input.type(testCase.value);
       await input.press('Tab');
       expect(await input.getProperty('value')).toEqual(testCase.interpretedAs);
+      const paragraphElement = await page.find('sbb-time-input >>> p');
+      expect(paragraphElement.innerText).toBe('');
     }
   });
 
