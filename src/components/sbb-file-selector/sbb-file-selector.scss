@@ -16,6 +16,10 @@
   --sbb-file-selector-border-color: var(--sbb-color-storm-default);
 }
 
+.sbb-file-selector__input-container {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .sbb-file-selector__dropzone-area {
   display: flex;
   flex-direction: column;
