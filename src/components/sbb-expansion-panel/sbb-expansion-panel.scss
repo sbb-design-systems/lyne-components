@@ -19,16 +19,17 @@
   --sbb-expansion-panel-border-color: var(--sbb-color-cloud-default);
   --sbb-expansion-panel-border: var(--sbb-expansion-panel-border-width)
     var(--sbb-expansion-panel-border-style) var(--sbb-expansion-panel-border-color);
-  --sbb-expansion-panel-border-block-start-width: 0;
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-border-width-1x);
   --sbb-expansion-panel-border-block-start-style: solid;
+  --sbb-expansion-panel-border-block-start-color: var(--sbb-color-cloud-default);
   --sbb-expansion-panel-border-block-start: var(--sbb-expansion-panel-border-block-start-width)
     var(--sbb-expansion-panel-border-block-start-style)
     var(--sbb-expansion-panel-border-block-start-color);
   --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
-  --sbb-expansion-panel-start-end-radius: 0;
-  --sbb-expansion-panel-start-start-radius: 0;
-  --sbb-expansion-panel-end-end-radius: 0;
-  --sbb-expansion-panel-end-start-radius: 0;
+  --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
 }
 
 :host([disabled]:not([disabled='false'])) {
@@ -56,15 +57,25 @@
 }
 
 :host([first-panel='true']) {
-  --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
-  --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
   --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
+}
+
+:host([first-panel='false']) {
+  --sbb-expansion-panel-border-block-start-width: 0;
+  --sbb-expansion-panel-border-block-start-color: transparent;
+  --sbb-expansion-panel-start-end-radius: 0;
+  --sbb-expansion-panel-start-start-radius: 0;
 }
 
 :host([last-panel='true']) {
   --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
+}
+
+:host([last-panel='false']) {
+  --sbb-expansion-panel-end-end-radius: 0;
+  --sbb-expansion-panel-end-start-radius: 0;
 }
 
 :host([color='milk']) {
