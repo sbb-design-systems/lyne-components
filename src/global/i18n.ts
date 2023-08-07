@@ -660,3 +660,10 @@ export const i18nBreadcrumbEllipsisButtonLabel: Record<string, string> = {
   fr: 'Afficher plus breadcrumbs',
   it: 'Mostra più breadcrumbs',
 };
+
+export const i18nTimeInputChange: Record<string, string> = {
+  de: 'Zeit geändert zu',
+  en: 'Time changed to',
+  fr: 'Heure modifiée:',
+  it: 'Orario modificata alle',
+};

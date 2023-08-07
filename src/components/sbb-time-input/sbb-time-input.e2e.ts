@@ -1,4 +1,5 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { i18nTimeInputChange } from '../../global/i18n';
 
 describe('sbb-time-input', () => {
   let element: E2EElement, page: E2EPage, input: E2EElement;
@@ -127,6 +128,9 @@ describe('sbb-time-input', () => {
       await input.type(testCase.value);
       await input.press('Tab');
       expect(await input.getProperty('value')).toEqual(testCase.interpretedAs);
+      expect(await (await page.find('sbb-time-input >>> p')).innerText).toBe(
+        `${i18nTimeInputChange['en']} ${testCase.interpretedAs}.`,
+      );
     }
   });
 

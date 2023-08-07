@@ -5,7 +5,6 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Method,
   Prop,
@@ -13,8 +12,14 @@ import {
   Watch,
 } from '@stencil/core';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
-import { forwardEventToHost } from '../../global/eventing';
+import {
+  documentLanguage,
+  forwardEventToHost,
+  HandlerRepository,
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
 import { ValidationChangeEvent } from '../../global/interfaces';
+import { i18nTimeInputChange } from '../../global/i18n';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
 const REGEX_GROUPS_WITHOUT_COLON = /^([0-9]{1,2})([0-9]{2})$/;
@@ -44,6 +49,13 @@ export class SbbTimeInput implements ComponentInterface {
 
   @Element() private _element!: HTMLSbbTimeInputElement;
   @State() private _inputElement: HTMLInputElement | null;
+  private _statusContainer: HTMLParagraphElement | null;
+  private _abortController = new AbortController();
+  private _currentLanguage = documentLanguage();
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+  );
 
   @Watch('input')
   public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
@@ -94,9 +106,8 @@ export class SbbTimeInput implements ComponentInterface {
     );
   }
 
-  private _abortController = new AbortController();
-
   public connectedCallback(): void {
+    this._handlerRepository.connect();
     this._inputElement = findInput(this._element, this.input);
     if (this._inputElement) {
       this._updateValue(this._inputElement.value);
@@ -105,6 +116,7 @@ export class SbbTimeInput implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._abortController?.abort();
+    this._handlerRepository.disconnect();
   }
 
   /** Gets the input value with the correct date format. */
@@ -133,6 +145,7 @@ export class SbbTimeInput implements ComponentInterface {
   private _updateValueAndEmitChange(event: Event): void {
     this._updateValue((event.target as HTMLInputElement).value);
     this._emitChange(event);
+    this._updateAccessibilityMessage();
   }
 
   /**
@@ -237,7 +250,15 @@ export class SbbTimeInput implements ComponentInterface {
     }
   }
 
+  // We use a programmatic approach to avoid initial setting the message
+  // and to not immediately change output if language should change (no reason to read out message).
+  private _updateAccessibilityMessage(): void {
+    this._statusContainer.innerText = `${i18nTimeInputChange[this._currentLanguage]} ${
+      this._inputElement.value
+    }.`;
+  }
+
   public render(): JSX.Element {
-    return <Host></Host>;
+    return <p role="status" ref={(ref) => (this._statusContainer = ref)}></p>;
   }
 }
