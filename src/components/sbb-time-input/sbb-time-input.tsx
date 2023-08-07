@@ -44,7 +44,7 @@ export class SbbTimeInput implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  /** Emits whenever the internal validation state changes. **/
+  /** Emits whenever the internal validation state changes. */
   @Event() public validationChange: EventEmitter<ValidationChangeEvent>;
 
   @Element() private _element!: HTMLSbbTimeInputElement;

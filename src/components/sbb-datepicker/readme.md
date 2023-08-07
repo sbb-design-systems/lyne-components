@@ -48,6 +48,12 @@ Usually these functions need to be changed together, although in simple cases wh
 For custom `format` functions is recommended to use the `Intl.DateTimeFormat` API, as it's done in the default implementation.
 
 <!-- TODO: add date adapter configuration documentation -->
+
+## Validation Change
+
+Whenever the validation state changes (e.g. a valid value becomes invalid or vice versa), the `validationChange` event is emitted.
+
+
 ## Usage
 
 Without `sbb-form-field`:
@@ -115,7 +121,7 @@ This is helpful if you need a specific state of the component.
 | `datePickerUpdated` | Notifies that the attributes of the datepicker has changes.                                                                         | `CustomEvent<any>`                   |
 | `didChange`         | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                   |
 | `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker has changes.                                                  | `CustomEvent<InputUpdateEvent>`      |
-| `validationChange`  | Emits whenever the internal validation state changes. *                                                                             | `CustomEvent<ValidationChangeEvent>` |
+| `validationChange`  | Emits whenever the internal validation state changes.                                                                               | `CustomEvent<ValidationChangeEvent>` |
 
 
 ## Methods

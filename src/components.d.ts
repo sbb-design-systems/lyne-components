@@ -11,7 +11,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { ButtonType, LinkTargetType } from "./global/interfaces";
+import { ButtonType, LinkTargetType, ValidationChangeEvent } from "./global/interfaces";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -55,7 +55,7 @@ export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-export { ButtonType, LinkTargetType } from "./global/interfaces";
+export { ButtonType, LinkTargetType, ValidationChangeEvent } from "./global/interfaces";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -1560,7 +1560,7 @@ export namespace Components {
         /**
           * Gets the input value with the correct date format.
          */
-        "getValueAsDate": () => Promise<Date>;
+        "getValueAsDate": () => Promise<Date | null>;
         /**
           * Reference of the native input connected to the datepicker.
          */
@@ -3089,6 +3089,10 @@ declare namespace LocalJSX {
          */
         "onInputUpdated"?: (event: SbbDatepickerCustomEvent<InputUpdateEvent>) => void;
         /**
+          * Emits whenever the internal validation state changes.
+         */
+        "onValidationChange"?: (event: SbbDatepickerCustomEvent<ValidationChangeEvent>) => void;
+        /**
           * If set to true, two months are displayed
          */
         "wide"?: boolean;
@@ -4234,6 +4238,10 @@ declare namespace LocalJSX {
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbTimeInputCustomEvent<any>) => void;
+        /**
+          * Emits whenever the internal validation state changes.
+         */
+        "onValidationChange"?: (event: SbbTimeInputCustomEvent<ValidationChangeEvent>) => void;
     }
     interface SbbTimetableBarrierFree {
         /**
