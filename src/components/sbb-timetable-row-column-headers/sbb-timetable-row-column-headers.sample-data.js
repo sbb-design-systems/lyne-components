@@ -2,7 +2,7 @@ export default [
   'Short Infos',
   'Summary',
   '',
-  'Platfom',
+  'Platform',
   'Occupancy Forecast',
   'Travel hints',
   'Duration',

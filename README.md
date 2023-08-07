@@ -11,13 +11,13 @@
 
 ## ⚠️ Notice
 
-**_Lyne Components_ are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy.**.
+**_Lyne Components_ are 🧪experimental at the moment — with enthusiasm.<br>Don't use the project until it has left infancy.**
 
 <br>
 
 ## 💻 What we're working on right now
 
-Check the current tasks we're working on over [here](https://github.com/lyne-design-system/lyne-components/projects/4) but since the project is still **🧪 experimental** and in rapid development not all tasks we're working on are reflected as issues (or tickets) since this would be to cumbersome at the current development stage. Also check out over [TODOS](./TODOS.md) what all needs to be done (at some point).
+Check the current tasks we're working on over [here](https://github.com/lyne-design-system/lyne-components/projects/4) but since the project is still **🧪 experimental** and in rapid development not all tasks we're working on are reflected as issues (or tickets) since this would be too cumbersome at the current development stage. Also check out over [TODOS](./TODOS.md) what all needs to be done (at some point).
 
 ## Browser and screen reader support
 

@@ -38,7 +38,7 @@ import { getDepartureArrivalTimeAttribute, ITripItem } from '../../global/timeta
   tag: 'sbb-timetable-row',
 })
 export class SbbTimetableRow {
-  /** The trip Prop */
+  /** The trip Prop. */
   @Prop() public trip: ITripItem;
 
   /** The price Prop, which consists of the data for the badge. */
@@ -63,7 +63,7 @@ export class SbbTimetableRow {
   @Prop() public loadingPrice?: boolean;
 
   /**
-   * Hidden label for the card action. It override the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
+   * Hidden label for the card action. It overrides the automatically generated accessibility text for the component. Use this prop to provide custom accessibility information for the component.
    */
   @Prop() public cardActionLabel?: string;
 

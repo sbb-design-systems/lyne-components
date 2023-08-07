@@ -20,13 +20,13 @@ Should provide an outline when component has focus (via keyboard).
 ### Active
 
 State when component or element is active and not a form element.
-(e.g. an active tab in a tab group, an expanded accordion panel, an pressed button)
+(e.g. an active tab in a tab group, an expanded accordion panel, a pressed button)
 Should visually highlight the component.
 For accessibility compliance, the visual highlight must not be reduced to color, but should either include translation, cursor/pointer change or other effects that make it understandable for visually impaired consumers.
 
 ### Checked
 
-State when form component or elment is checked.
+State when form component or element is checked.
 (e.g. radio-button, checkbox)
 Should visually indicate its state.
 Indeterminate is a substate of this.

@@ -12,7 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { InterfaceSbbTrainWagonAttributes } from './sbb-train-wagon.custom.d';
+import { InterfaceSbbTrainWagonAttributes } from './sbb-train-wagon.custom';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,

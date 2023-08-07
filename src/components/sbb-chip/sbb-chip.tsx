@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
-import { InterfaceSbbChipAttributes } from './sbb-chip.custom.d';
+import { InterfaceSbbChipAttributes } from './sbb-chip.custom';
 
 /**
  * @slot unnamed - Content / Label of the chip

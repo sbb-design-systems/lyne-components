@@ -110,7 +110,7 @@ describe('getElementPosition', () => {
     });
   });
 
-  it('does not changes the vertical alignment if there is more space above and the element does not overlflow', () => {
+  it('does not changes the vertical alignment if there is more space above and the element does not overflow', () => {
     jest.spyOn(trigger, 'getBoundingClientRect').mockReturnValue({
       x: 48,
       y: 592,

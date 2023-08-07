@@ -4,7 +4,7 @@
 
 To automate the documentation process, we use the information that we provide in the `.stories.js` files render the components and their variants on the documentation platform automatically.
 
-Therefore we have some extra information that we provide inside the `.stories.js` files.
+Therefore, we have some extra information that we provide inside the `.stories.js` files.
 
 ## Stories Example
 

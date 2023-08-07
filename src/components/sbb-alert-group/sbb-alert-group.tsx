@@ -70,7 +70,7 @@ export class SbbAlertGroup {
     // Restore focus
     if (hasFocusInsideAlertGroup) {
       // Set tabindex to 0 the make it focusable and afterwards focus it.
-      // This is done to not completely loose focus after removal of an alert.
+      // This is done to not completely lose focus after removal of an alert.
       // Once the sbb-alert-group was blurred, make the alert group not focusable again.
       this._element.tabIndex = 0;
       this._element.focus();

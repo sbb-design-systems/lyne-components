@@ -158,7 +158,7 @@ export class SbbMenu implements ComponentInterface {
   }
 
   /**
-   * Handles click and checks if its target is an sbb-menu-action.
+   * Handles click and checks if its target is a sbb-menu-action.
    */
   @Listen('click')
   public async onClick(event: Event): Promise<void> {

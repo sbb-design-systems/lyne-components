@@ -1,5 +1,5 @@
 import { Component, h, Host, JSX, Prop } from '@stencil/core';
-import { InterfaceSbbDividerAttributes } from './sbb-divider.custom.d';
+import { InterfaceSbbDividerAttributes } from './sbb-divider.custom';
 
 @Component({
   shadow: true,

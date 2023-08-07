@@ -86,7 +86,7 @@ export class SbbCheckbox implements ComponentInterface {
   /** Whether the input is the main input of a selection panel. */
   @State() private _isSelectionPanelInput = false;
 
-  /** The label describing whether the selection panel is exapanded (for screen readers only). */
+  /** The label describing whether the selection panel is expanded (for screen readers only). */
   @State() private _selectionPanelExpandedLabel: string;
 
   private _checkbox: HTMLInputElement;

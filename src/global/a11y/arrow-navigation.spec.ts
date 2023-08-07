@@ -33,8 +33,8 @@ describe('isPreviousArrowKeyPressed', () => {
     });
 
     it('should return true', () => {
-      const upEevent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      expect(isPreviousArrowKeyPressed(upEevent)).toEqual(true);
+      const upEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      expect(isPreviousArrowKeyPressed(upEvent)).toEqual(true);
       const leftEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
       expect(isPreviousArrowKeyPressed(leftEvent)).toEqual(true);
     });
@@ -66,8 +66,8 @@ describe('isNextArrowKeyPressed', () => {
     it('should return false', () => {
       const testEvent = new KeyboardEvent('keydown', { key: 'Test' });
       expect(isNextArrowKeyPressed(testEvent)).toEqual(false);
-      const upEevent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      expect(isNextArrowKeyPressed(upEevent)).toEqual(false);
+      const upEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+      expect(isNextArrowKeyPressed(upEvent)).toEqual(false);
       const leftEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
       expect(isNextArrowKeyPressed(leftEvent)).toEqual(false);
     });

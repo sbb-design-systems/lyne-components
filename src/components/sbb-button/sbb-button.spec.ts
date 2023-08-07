@@ -71,7 +71,7 @@ describe('sbb-button', () => {
       components: [SbbButton],
       html: `
         <sbb-button
-          href="http://www.sbb.ch"
+          href="https://www.sbb.ch"
           target="_blank"
           rel="noopener"
           download
@@ -84,7 +84,7 @@ describe('sbb-button', () => {
         <sbb-button
           variant="primary"
           size="l"
-          href="http://www.sbb.ch"
+          href="https://www.sbb.ch"
           target="_blank"
           rel="noopener"
           download
@@ -95,7 +95,7 @@ describe('sbb-button', () => {
           <mock:shadow-root>
             <a
               class="sbb-button"
-              href="http://www.sbb.ch"
+              href="https://www.sbb.ch"
               target="_blank"
               rel="noopener"
               download

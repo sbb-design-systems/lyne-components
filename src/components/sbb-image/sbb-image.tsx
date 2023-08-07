@@ -104,7 +104,7 @@ export class SbbImage implements ComponentInterface {
   /**
    * Right now the module is heavily coupled with the image delivery
    * service imgix and depends on the original files being stored
-   * inside of AEM. You can pass in any https://cdn.img.sbb.ch img
+   * inside AEM. You can pass in any https://cdn.img.sbb.ch img
    * src address you find on sbb.ch to play around with it. Just
    * strip the url parameters and paste in the plain file address.
    * If you want to know how to best work with this module with
