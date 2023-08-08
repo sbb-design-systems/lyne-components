@@ -612,6 +612,13 @@ export const i18nDatePickerPlaceholder: Record<string, string> = {
   it: 'GG.MM.AAAA',
 };
 
+export const i18nDateChangedTo: Record<string, string> = {
+  de: 'Datum geändert auf',
+  en: 'Date changed to',
+  fr: 'Date modifiée au',
+  it: 'Data modificata in',
+};
+
 export const i18nConnectionFrom: Record<string, string> = {
   de: 'Verbindung von',
   en: 'Connection from',

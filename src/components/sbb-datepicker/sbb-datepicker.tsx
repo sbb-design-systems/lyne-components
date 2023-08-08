@@ -5,7 +5,6 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Listen,
   Method,
@@ -13,8 +12,8 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { i18nDatePickerPlaceholder } from '../../global/i18n';
 import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { i18nDatePickerPlaceholder, i18nDateChangedTo, i18nNoDate } from '../../global/i18n';
 import { DateAdapter } from '../../global/datetime';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
@@ -104,8 +103,6 @@ export class SbbDatepicker implements ComponentInterface {
       });
 
       this._inputElement.type = 'text';
-      this._inputElement.ariaAtomic = 'true';
-      this._inputElement.ariaLive = 'polite';
 
       if (!this._inputElement.placeholder) {
         this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
@@ -122,22 +119,6 @@ export class SbbDatepicker implements ComponentInterface {
           signal: this._datePickerController.signal,
         },
       );
-      /** Remove aria-live=polite during text edit to avoid screen reader repeating everything twice. */
-      this._inputElement.addEventListener(
-        'focus',
-        (event: Event) => (event.target as HTMLInputElement).removeAttribute('aria-live'),
-        {
-          signal: this._datePickerController.signal,
-        },
-      );
-      /** Set aria-live=polite after text edit ends to make sure state changes are correctly announced. */
-      this._inputElement.addEventListener(
-        'blur',
-        (event: Event) => ((event.target as HTMLInputElement).ariaLive = 'polite'),
-        {
-          signal: this._datePickerController.signal,
-        },
-      );
     }
   }
 
@@ -149,8 +130,8 @@ export class SbbDatepicker implements ComponentInterface {
   /** Set the input value to the correctly formatted value. */
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
-    await this._formatAndUpdateValue(this._format(parsedDate));
-    /* Emit blur event when value is changed programmatically to notify
+    await this._formatAndUpdateValue(this._inputElement.value, parsedDate);
+    /* Emit blur event when value is changed programmatically to notify 
     frameworks that rely on that event to update form status. */
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
@@ -175,12 +156,16 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _dateAdapter: DateAdapter<Date> = readConfig().datetime.dateAdapter;
 
+  private _statusContainer: HTMLParagraphElement | null;
+
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
-    languageChangeHandlerAspect((l) => {
+    languageChangeHandlerAspect(async (l) => {
       this._currentLanguage = l;
       if (this._inputElement) {
         this._inputElement.placeholder = i18nDatePickerPlaceholder[this._currentLanguage];
+        const valueAsDate = await this.getValueAsDate();
+        this._inputElement.value = this._format(valueAsDate);
       }
     }),
   );
@@ -201,11 +186,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   private _parseAndFormatValue(value: string): string {
     const d = this._parse(value);
-    return this._formatValue(value, d);
-  }
-
-  private _formatValue(value: string, parsedValue: Date): string {
-    return !this._dateAdapter.isValid(parsedValue) ? value : this._format(parsedValue);
+    return !this._dateAdapter.isValid(d) ? value : this._format(d);
   }
 
   private _createAndComposeDate(value: string | number | Date): string {
@@ -214,20 +195,21 @@ export class SbbDatepicker implements ComponentInterface {
   }
 
   private async _valueChanged(event): Promise<void> {
-    await this._formatAndUpdateValue(event.target.value);
+    await this._formatAndUpdateValue(event.target.value, this._parse(event.target.value));
   }
 
   /** Applies the correct format to values and triggers event dispatch. */
-  private async _formatAndUpdateValue(value: string): Promise<void> {
+  private _formatAndUpdateValue(value: string, valueAsDate: Date): void {
     if (this._inputElement) {
-      const newValueAsDate = this._parse(value);
-      this._inputElement.value = this._formatValue(value, newValueAsDate);
+      this._inputElement.value = !this._dateAdapter.isValid(valueAsDate)
+        ? value
+        : this._format(valueAsDate);
 
       const isEmptyOrValid =
         !value ||
-        (!!newValueAsDate &&
+        (!!valueAsDate &&
           isDateAvailable(
-            newValueAsDate,
+            valueAsDate,
             this._element.dateFilter,
             this._inputElement?.min,
             this._inputElement?.max,
@@ -237,12 +219,14 @@ export class SbbDatepicker implements ComponentInterface {
       if (wasValid !== isEmptyOrValid) {
         this.validationChange.emit({ valid: isEmptyOrValid });
       }
-      this._emitChange();
+      this._emitChange(valueAsDate);
     }
   }
 
   /** Emits the change event. */
-  private _emitChange(): void {
+  private _emitChange(date: Date): void {
+    this._setAriaLiveMessage(date);
+
     this.change.emit();
     this.didChange.emit();
 
@@ -278,7 +262,22 @@ export class SbbDatepicker implements ComponentInterface {
     return this.format ? this.format(date) : this._dateAdapter.format(date);
   }
 
+  private _setAriaLiveMessage(date: Date): void {
+    const ariaLiveFormatter = new Intl.DateTimeFormat(`${this._currentLanguage}-CH`, {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    });
+
+    this._statusContainer.innerHTML = date
+      ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(date)}`
+      : i18nNoDate[this._currentLanguage];
+  }
+
   public render(): JSX.Element {
-    return <Host></Host>;
+    return (
+      <p role="status" ref={(ref) => (this._statusContainer = ref)}></p>
+    );
   }
 }

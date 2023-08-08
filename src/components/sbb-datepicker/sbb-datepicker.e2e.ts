@@ -223,7 +223,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input aria-atomic="true" aria-live="polite" id="id" placeholder="DD.MM.YYYY" type="text">',
+        '<input id="id" placeholder="DD.MM.YYYY" type="text">',
       );
     });
 
@@ -244,7 +244,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input aria-atomic="true" aria-live="polite" placeholder="DD.MM.YYYY" type="text">',
+        '<input placeholder="DD.MM.YYYY" type="text">',
       );
     });
 

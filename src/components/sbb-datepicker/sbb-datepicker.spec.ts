@@ -10,7 +10,9 @@ describe('sbb-datepicker', () => {
 
     expect(root).toEqualHtml(`
       <sbb-datepicker>
-        <mock:shadow-root></mock:shadow-root>
+        <mock:shadow-root>
+          <p role="status"></p>
+        </mock:shadow-root>
       </sbb-datepicker>
     `);
   });
