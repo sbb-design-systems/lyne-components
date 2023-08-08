@@ -273,6 +273,7 @@ export class SbbCalendar implements ComponentInterface {
       const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
       const selected: boolean = this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
+      const isToday = day.value === today;
       return (
         <td
           class={{
@@ -283,7 +284,7 @@ export class SbbCalendar implements ComponentInterface {
           <button
             class={{
               'sbb-calendar__day': true,
-              'sbb-calendar__day-today': day.value === today,
+              'sbb-calendar__day-today': isToday,
               'sbb-calendar__day-selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             }}
@@ -292,6 +293,7 @@ export class SbbCalendar implements ComponentInterface {
             aria-label={this._dateAdapter.getAccessibilityFormatDate(day.value)}
             aria-pressed={String(selected)}
             aria-disabled={String(isOutOfRange || isFilteredOut)}
+            aria-current={isToday ? 'date' : undefined}
             data-day={dayValue}
             tabindex="-1"
             onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
