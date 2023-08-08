@@ -6,6 +6,8 @@ describe('sbb-datepicker-toggle', () => {
     const page: E2EPage = await newE2EPage({
       html: '<sbb-datepicker-toggle></sbb-datepicker-toggle>',
     });
+    await page.waitForChanges();
+
     const element: E2EElement = await page.find('sbb-datepicker-toggle');
     const tooltipTrigger: E2EElement = await page.find(
       'sbb-datepicker-toggle >>> sbb-tooltip-trigger',
