@@ -31,7 +31,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error" aria-live="polite">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -77,7 +77,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error" aria-live="polite">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -118,7 +118,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error" aria-live="polite">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -162,7 +162,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error" aria-live="polite">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -204,7 +204,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error" aria-live="polite">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
@@ -251,7 +251,7 @@ describe('sbb-form-field', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div class="sbb-form-field__error" aria-live="polite">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>

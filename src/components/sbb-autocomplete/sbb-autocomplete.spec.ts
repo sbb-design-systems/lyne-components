@@ -71,7 +71,7 @@ describe('sbb-autocomplete', () => {
               </div>
               <slot name="suffix"></slot>
             </div>
-            <div aria-live="polite" class="sbb-form-field__error">
+            <div class="sbb-form-field__error">
               <slot name="error"></slot>
             </div>
           </div>
