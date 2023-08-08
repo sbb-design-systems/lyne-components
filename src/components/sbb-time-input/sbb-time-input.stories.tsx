@@ -2,23 +2,41 @@
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import events from './sbb-time-input.events';
 
-const changeEventHandler = (event): void => {
+const formError = document.createElement('sbb-form-error');
+formError.innerText = 'Time value is invalid';
+
+const updateFormError = (valid: boolean): void => {
+  if (!valid && !formError.isConnected) {
+    document.getElementsByTagName('sbb-form-field')[0].append(formError);
+  } else if (valid) {
+    formError.remove();
+  }
+};
+
+const changeEventHandler = async (event): Promise<void> => {
   const div = document.createElement('div');
-  div.innerText = `value is: ${event.target.value}; valueAsDate is: ${event.target.valueAsDate}.`;
+  div.innerText = `value is: ${
+    (document.getElementById('input-id') as HTMLInputElement).value
+  }; valueAsDate is: ${await event.target.getValueAsDate()}.`;
   document.getElementById('container-value').append(div);
 };
 
-const setValueAsDate = (): void => {
+const setValueAsDate = async (): Promise<void> => {
   const timeInput = document.getElementsByTagName('sbb-time-input')[0];
-  timeInput.valueAsDate = new Date();
+  await timeInput.setValueAsDate(new Date());
+
+  const input = document.getElementById('input-id');
+  input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
 const setValue = (): void => {
-  const timeInput = document.getElementsByTagName('sbb-time-input')[0];
-  timeInput.value = '0';
+  const input = document.getElementById('input-id') as HTMLInputElement;
+  input.value = '00:00';
+  input.dispatchEvent(new Event('change')); // Trigger change to update invalid state
 };
 
 const value: InputType = {
@@ -26,16 +44,7 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Time input attribute',
-  },
-};
-
-const form: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -44,7 +53,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -53,7 +62,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -62,16 +71,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Time input attribute',
-  },
-};
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Time input attribute',
+    category: 'Native input attribute',
   },
 };
 
@@ -132,11 +132,9 @@ const iconEnd: InputType = {
 
 const basicArgTypes: ArgTypes = {
   value,
-  form,
   disabled,
   readonly,
   required,
-  'aria-label': ariaLabel,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
@@ -151,11 +149,9 @@ const formFieldBasicArgsTypes: ArgTypes = {
 
 const basicArgs: Args = {
   value: '12:00',
-  form: undefined,
   disabled: false,
   readonly: false,
   required: false,
-  'aria-label': undefined,
 };
 
 const formFieldBasicArgs = {
@@ -185,7 +181,6 @@ const TemplateSbbTimeInput = ({
   iconStart,
   iconEnd,
   size,
-  errorClass,
   ...args
 }): JSX.Element => (
   <Fragment>
@@ -198,19 +193,18 @@ const TemplateSbbTimeInput = ({
     >
       {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
       <sbb-time-input
-        class={errorClass}
-        {...args}
         onChange={(event) => changeEventHandler(event)}
+        onValidationChange={(event) => updateFormError(event.detail.valid)}
       ></sbb-time-input>
+      <input id="input-id" {...args} />
       {iconEnd && <sbb-icon slot="suffix" name={iconEnd} />}
-      {errorClass && <sbb-form-error>Error</sbb-form-error>}
     </sbb-form-field>
     <div style={{ display: 'flex', gap: '1em', 'margin-block-start': '2rem' }}>
       <sbb-button variant="secondary" size="m" onClick={() => setValueAsDate()}>
         Set valueAsDate to current datetime
       </sbb-button>
       <sbb-button variant="secondary" size="m" onClick={() => setValue()}>
-        Set value to 0
+        Set value to 00:00
       </sbb-button>
     </div>
     <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
@@ -262,7 +256,7 @@ export const SbbTimeInputWithError: StoryObj = {
   argTypes: { ...formFieldBasicArgsTypes },
   args: {
     ...formFieldBasicArgsWithIcons,
-    errorClass: 'sbb-invalid',
+    value: '99:99',
   },
 };
 
@@ -277,7 +271,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: ['change', 'input'],
+      handles: ['change', 'input', events.validationChange],
     },
     backgrounds: {
       disable: true,

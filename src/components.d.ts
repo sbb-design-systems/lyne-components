@@ -11,7 +11,7 @@ import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-import { ButtonType, LinkTargetType } from "./global/interfaces";
+import { ButtonType, LinkTargetType, ValidationChangeEvent } from "./global/interfaces";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 import { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -55,7 +55,7 @@ export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.cu
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
 export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
-export { ButtonType, LinkTargetType } from "./global/interfaces";
+export { ButtonType, LinkTargetType, ValidationChangeEvent } from "./global/interfaces";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
 export { InterfaceSbbCardBadgeAttributes } from "./components/sbb-card-badge/sbb-card-badge.custom";
@@ -1558,29 +1558,17 @@ export namespace Components {
     }
     interface SbbTimeInput {
         /**
-          * Disabled state for the inner HTMLInputElement.
+          * Gets the input value with the correct date format.
          */
-        "disabled"?: boolean;
+        "getValueAsDate": () => Promise<Date | null>;
         /**
-          * The <form> element to associate the inner HTMLInputElement with.
+          * Reference of the native input connected to the datepicker.
          */
-        "form"?: string;
+        "input"?: string | HTMLElement;
         /**
-          * Readonly state for the inner HTMLInputElement.
+          * Set the input value to the correctly formatted value.
          */
-        "readonly"?: boolean;
-        /**
-          * Required state for the inner HTMLInputElement.
-         */
-        "required"?: boolean;
-        /**
-          * Value for the inner HTMLInputElement.
-         */
-        "value"?: string;
-        /**
-          * Date value with the given time for the inner HTMLInputElement.
-         */
-        "valueAsDate"?: Date;
+        "setValueAsDate": (date: Date | number | string) => Promise<void>;
     }
     interface SbbTimetableBarrierFree {
         /**
@@ -3101,6 +3089,10 @@ declare namespace LocalJSX {
          */
         "onInputUpdated"?: (event: SbbDatepickerCustomEvent<InputUpdateEvent>) => void;
         /**
+          * Emits whenever the internal validation state changes.
+         */
+        "onValidationChange"?: (event: SbbDatepickerCustomEvent<ValidationChangeEvent>) => void;
+        /**
           * If set to true, two months are displayed
          */
         "wide"?: boolean;
@@ -4239,33 +4231,17 @@ declare namespace LocalJSX {
     }
     interface SbbTimeInput {
         /**
-          * Disabled state for the inner HTMLInputElement.
+          * Reference of the native input connected to the datepicker.
          */
-        "disabled"?: boolean;
-        /**
-          * The <form> element to associate the inner HTMLInputElement with.
-         */
-        "form"?: string;
+        "input"?: string | HTMLElement;
         /**
           * @deprecated only used for React. Will probably be removed once React 19 is available.
          */
         "onDidChange"?: (event: SbbTimeInputCustomEvent<any>) => void;
         /**
-          * Readonly state for the inner HTMLInputElement.
+          * Emits whenever the internal validation state changes.
          */
-        "readonly"?: boolean;
-        /**
-          * Required state for the inner HTMLInputElement.
-         */
-        "required"?: boolean;
-        /**
-          * Value for the inner HTMLInputElement.
-         */
-        "value"?: string;
-        /**
-          * Date value with the given time for the inner HTMLInputElement.
-         */
-        "valueAsDate"?: Date;
+        "onValidationChange"?: (event: SbbTimeInputCustomEvent<ValidationChangeEvent>) => void;
     }
     interface SbbTimetableBarrierFree {
         /**

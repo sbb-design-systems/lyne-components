@@ -14,9 +14,9 @@ import {
   Watch,
 } from '@stencil/core';
 import { i18nDatePickerPlaceholder } from '../../global/i18n';
-import { getInput, InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
+import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
 import { DateAdapter } from '../../global/datetime';
-import { toggleDatasetEntry } from '../../global/dom';
+import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -24,6 +24,7 @@ import {
 } from '../../global/eventing';
 import { AgnosticMutationObserver } from '../../global/observers';
 import { readConfig } from '../../global/config';
+import { ValidationChangeEvent } from '../../global/interfaces';
 
 const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
@@ -57,7 +58,7 @@ export class SbbDatepicker implements ComponentInterface {
    */
   @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
 
-  @Event({ bubbles: true, cancelable: false, composed: false }) public change: EventEmitter;
+  @Event({ bubbles: true }) public change: EventEmitter;
 
   /** Notifies that the attributes of the input connected to the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public inputUpdated: EventEmitter<InputUpdateEvent>;
@@ -65,14 +66,17 @@ export class SbbDatepicker implements ComponentInterface {
   /** Notifies that the attributes of the datepicker has changes. */
   @Event({ bubbles: true, cancelable: true }) public datePickerUpdated: EventEmitter;
 
-  @State() private _inputElement: HTMLInputElement;
+  /** Emits whenever the internal validation state changes. */
+  @Event() public validationChange: EventEmitter<ValidationChangeEvent>;
+
+  @State() private _inputElement: HTMLInputElement | null;
 
   @State() private _currentLanguage = documentLanguage();
 
   @Watch('input')
   public findInput(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
     if (newValue !== oldValue) {
-      this._inputElement = getInput(this._element, this.input);
+      this._inputElement = findInput(this._element, this.input);
     }
   }
 
@@ -146,7 +150,7 @@ export class SbbDatepicker implements ComponentInterface {
   @Method() public async setValueAsDate(date: Date | number | string): Promise<void> {
     const parsedDate = date instanceof Date ? date : new Date(date);
     await this._formatAndUpdateValue(this._format(parsedDate));
-    /* Emit blur event when value is changed programmatically to notify 
+    /* Emit blur event when value is changed programmatically to notify
     frameworks that rely on that event to update form status. */
     this._inputElement.dispatchEvent(new FocusEvent('blur', { composed: true }));
   }
@@ -183,7 +187,7 @@ export class SbbDatepicker implements ComponentInterface {
 
   public connectedCallback(): void {
     this._handlerRepository.connect();
-    this._inputElement = getInput(this._element, this.input);
+    this._inputElement = findInput(this._element, this.input);
     if (this._inputElement) {
       this._inputElement.value = this._getValidValue(this._inputElement.value);
     }
@@ -219,16 +223,20 @@ export class SbbDatepicker implements ComponentInterface {
       const newValueAsDate = this._parse(value);
       this._inputElement.value = this._formatValue(value, newValueAsDate);
 
-      const isValidOrEmpty =
+      const isEmptyOrValid =
         !value ||
-        (newValueAsDate &&
+        (!!newValueAsDate &&
           isDateAvailable(
             newValueAsDate,
             this._element.dateFilter,
             this._inputElement?.min,
             this._inputElement?.max,
           ));
-      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isValidOrEmpty);
+      const wasValid = !isValidAttribute(this._inputElement, 'data-sbb-invalid');
+      toggleDatasetEntry(this._inputElement, 'sbbInvalid', !isEmptyOrValid);
+      if (wasValid !== isEmptyOrValid) {
+        this.validationChange.emit({ valid: isEmptyOrValid });
+      }
       this._emitChange();
     }
   }

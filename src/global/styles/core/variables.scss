@@ -61,6 +61,9 @@
   // Header
   --sbb-header-height: var(--sbb-spacing-fixed-14x);
 
+  // Time Input
+  --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
+
   // Overlay
   --sbb-overlay-z-index: 1000;
 
@@ -135,6 +138,9 @@
 
     // Header
     --sbb-header-height: var(--sbb-spacing-fixed-24x);
+
+    // Time Input
+    --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
   }
 
   @include mediaqueries.mq($from: large) {

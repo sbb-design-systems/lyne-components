@@ -47,7 +47,6 @@ export class SbbFormField implements ComponentInterface {
     ...this._supportedNativeInputElements,
     'SBB-SELECT',
     'SBB-SLIDER',
-    'SBB-TIME-INPUT',
   ];
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['BUTTON', 'SBB-TOOLTIP'];

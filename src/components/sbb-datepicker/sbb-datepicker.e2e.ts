@@ -175,6 +175,40 @@ describe('sbb-datepicker', () => {
       expect(await input.getProperty('value')).toEqual('Mo, 07.08');
       expect(changeSpy).toHaveReceivedEventTimes(1);
     });
+
+    it('should emit validation change event', async () => {
+      let validationChangeSpy = await element.spyOnEvent('validationChange');
+
+      // When entering 99
+      await input.focus();
+      await input.type('20');
+      await input.press('Tab');
+
+      // Then validation event should emit with false
+      expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: false });
+      expect(input).toHaveAttribute('data-sbb-invalid');
+
+      // When adding valid date
+      await input.focus();
+      await input.press('.');
+      await input.press('Tab');
+
+      // Then validation event should not be emitted a second time
+      expect(validationChangeSpy).toHaveReceivedEventTimes(1);
+      expect(input).toHaveAttribute('data-sbb-invalid');
+
+      // Reset event spy
+      validationChangeSpy = await element.spyOnEvent('validationChange');
+
+      // When adding missing parts of a valid date
+      await input.focus();
+      await input.type('8.23');
+      await input.press('Tab');
+
+      // Then validation event should be emitted with true
+      expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: true });
+      expect(input).not.toHaveAttribute('data-sbb-invalid');
+    });
   };
 
   describe('with input', () => {

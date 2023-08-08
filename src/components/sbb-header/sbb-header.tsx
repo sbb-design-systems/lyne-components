@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, Element, h, JSX, Prop, State, Watch } from '@stencil/core';
-import { toggleDatasetEntry } from '../../global/dom';
+import { findReferencedElement, toggleDatasetEntry } from '../../global/dom';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -65,22 +65,13 @@ export class SbbHeader implements ComponentInterface {
   /** Sets the value of `_scrollElement` and `_scrollFunction` and possibly adds the function on the correct element. */
   private _setListenerOnScrollElement(scrollOrigin: string | HTMLElement | Document): void {
     this._scrollEventsController = new AbortController();
-    this._scrollElement = this._getScrollElement(scrollOrigin);
+    this._scrollElement = findReferencedElement(scrollOrigin as string | HTMLElement) || document;
     this._scrollFunction = this._getScrollFunction.bind(this);
     this._scrollElement?.addEventListener('scroll', this._scrollFunction, {
       passive: true,
       signal: this._scrollEventsController.signal,
     });
   }
-
-  /** Returns the element to attach the listener to. */
-  private _getScrollElement(scrollOrigin: string | HTMLElement | Document): HTMLElement | Document {
-    if (typeof scrollOrigin === 'string') {
-      return document.getElementById(scrollOrigin);
-    }
-    return scrollOrigin || document;
-  }
-
   /** Returns the correct function to attach on scroll. */
   private _getScrollFunction(): void {
     return this.hideOnScroll ? this._scrollListener() : this._scrollShadowListener();

@@ -7,4 +7,5 @@ export default {
   datePickerUpdated: 'datePickerUpdated',
   didChange: 'didChange',
   inputUpdated: 'inputUpdated',
+  validationChange: 'validationChange',
 };
