@@ -95,27 +95,23 @@ export const renderStringProduct = (vehicleName: string, line?: string | null): 
   );
 };
 
-const isReachable = (legs: PtRideLeg[]): boolean => {
-  return legs?.some((leg) => leg.serviceJourney?.serviceAlteration?.reachable === true);
-};
-
 const getReachableText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
+  return legs?.find((leg) => leg.serviceJourney?.serviceAlteration?.reachableText)?.serviceJourney
     ?.serviceAlteration?.reachableText;
 };
 
 const getDelayText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => leg.serviceJourney?.serviceAlteration?.delayText)?.serviceJourney
+  return legs?.find((leg) => leg.serviceJourney?.serviceAlteration?.delayText)?.serviceJourney
     ?.serviceAlteration?.delayText;
 };
 
 const getRedirectedText = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)?.serviceJourney
-    ?.serviceAlteration?.redirectedText;
+  return legs?.find((leg) => !!leg.serviceJourney?.serviceAlteration?.redirectedText)
+    ?.serviceJourney?.serviceAlteration?.redirectedText;
 };
 
 const getUnplannedStop = (legs: PtRideLeg[]): string => {
-  return legs.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
+  return legs?.find((leg) => !!leg.serviceJourney?.serviceAlteration?.unplannedStopPointsText)
     ?.serviceJourney?.serviceAlteration?.unplannedStopPointsText;
 };
 
@@ -170,13 +166,13 @@ export const getHimIcon = (situation: PtSituation): HimCus => {
 };
 
 export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
-  const { summary, legs } = trip;
-  const rideLegs = legs.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
+  const { summary, legs } = trip || {};
+  const rideLegs = legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
 
   if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
     return { name: 'cancellation', text: tripStatus?.cancelledText };
-  if (!isReachable(rideLegs))
+  if (getReachableText(rideLegs))
     return { name: 'missed-connection', text: getReachableText(rideLegs) };
   if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
   if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };

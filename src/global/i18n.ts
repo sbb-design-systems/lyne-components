@@ -296,6 +296,20 @@ export const i18nTripDuration: Record<string, string> = {
   it: 'Durata del viaggio',
 };
 
+export const i18nTravelhints: Record<string, string> = {
+  de: 'Reisehinweise',
+  en: 'Travelhints',
+  fr: 'Indications sur le voyage',
+  it: 'Idiicazioni di viaggio',
+};
+
+export const i18nRealTimeInfo: Record<string, string> = {
+  de: 'Echtzeitinformationen',
+  en: 'Real time information',
+  fr: 'Informations en temps réel',
+  it: 'Informazioni in tempo reale',
+};
+
 export const i18nTransferProcedures: Record<string, string> = {
   de: 'mal umsteigen',
   en: 'changes',

@@ -92,9 +92,11 @@ export class SbbPearlChainTime {
             {format(departure, 'HH:mm')}
           </time>
         )}
-        <span class="sbb-screenreaderonly">
-          {`${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}`}
-        </span>
+        {rideLegs?.length > 1 && (
+          <span class="sbb-screenreaderonly">
+            {`${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}`}
+          </span>
+        )}
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
           legs={this.legs}

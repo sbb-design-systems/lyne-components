@@ -2,6 +2,7 @@ import { Component, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import { Boarding, HimCus, Price } from './sbb-timetable-row.custom';
 
 import {
+  i18nArrival,
   i18nClass,
   i18nDeparture,
   i18nDirection,
@@ -11,6 +12,9 @@ import {
   i18nMeansOfTransport,
   i18nNew,
   i18nOccupancy,
+  i18nRealTimeInfo,
+  i18nTransferProcedures,
+  i18nTravelhints,
   i18nTripDuration,
 } from '../../global/i18n';
 import {
@@ -145,19 +149,31 @@ export class SbbTimetableRow {
     );
   }
 
-  private _handleHimCus(trip: ITripItem): HimCus | undefined {
+  private _handleHimCus(trip: ITripItem): { cus: HimCus | null; him: HimCus | null } {
     const { situations } = trip || {};
     const sortedSituations = situations && sortSituation(situations);
     const cus = getCus(trip, this._currentLanguage);
 
-    return Object.keys(cus)?.length ? cus : situations?.length && getHimIcon(sortedSituations[0]);
+    return {
+      cus: Object.keys(cus)?.length ? cus : null,
+      him: situations?.length ? getHimIcon(sortedSituations[0]) : null,
+    };
   }
 
   private _getAccessibilityText(trip: ITripItem): string {
-    const { summary, legs } = trip || {};
-    const { departureWalk, arrivalWalk, departure, product, direction } = summary || {};
+    const { summary, legs, notices } = trip || {};
+    const {
+      departureWalk,
+      arrivalWalk,
+      departure,
+      arrival,
+      product,
+      direction,
+      occupancy,
+      duration,
+    } = summary || {};
 
-    const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
+    const { departureTimeAttribute, arrivalTimeAttribute } = getDepartureArrivalTimeAttribute(
       legs,
       departureWalk || 0,
       arrivalWalk || 0,
@@ -168,8 +184,16 @@ export class SbbTimetableRow {
       ? removeTimezoneFromISOTimeString(departure.time)
       : undefined;
 
+    const arrivalTime: Date | undefined = arrival?.time
+      ? removeTimezoneFromISOTimeString(arrival.time)
+      : undefined;
+
     const departureWalkText = departureTimeAttribute
       ? `${departureTimeAttribute.text} ${departureTimeAttribute.duration}. `
+      : '';
+
+    const arrivalWalkText = arrivalTimeAttribute
+      ? `${arrivalTimeAttribute.text} ${arrivalTimeAttribute.duration}. `
       : '';
 
     const departureTimeText = departureTime
@@ -194,14 +218,67 @@ export class SbbTimetableRow {
         : '';
 
     const vehicleSubModeText = product?.vehicleSubModeShortName
-      ? product.vehicleSubModeShortName + ' ' + product.line + '. '
+      ? `${product.vehicleSubModeShortName} ${product.line || ''}. `
       : '';
 
     const directionText = `${i18nDirection[this._currentLanguage]} ${direction}. `;
 
-    const himCusText = trip && (this._handleHimCus(trip)?.text || '');
+    const himCus = this._handleHimCus(trip);
+    const cusText = himCus?.cus?.text
+      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.cus?.text}. `
+      : '';
+    const himText = himCus?.him?.text
+      ? `${i18nRealTimeInfo[this._currentLanguage]}: ${himCus?.him?.text}. `
+      : '';
 
-    return `${departureWalkText} ${departureTimeText} ${departureQuayChangedText} ${departureQuayAimedName} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${himCusText}`;
+    const boardingText = this.boarding ? `${this.boarding.text}. ` : '';
+
+    const priceText = `${
+      this.price?.text && this.price?.price
+        ? (this.price?.text || '') + ' ' + (this.price?.price || '') + '. '
+        : ''
+    }`;
+
+    const transferProcedures =
+      legs?.length > 1
+        ? `${legs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}. `
+        : '';
+
+    const arrivalTimeText = arrivalTime
+      ? `${i18nArrival[this._currentLanguage]}: ${format(arrivalTime, 'HH:mm')}. `
+      : '';
+
+    const occupancyText =
+      (occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||
+      (occupancy?.secondClass && occupancy.secondClass !== 'UNKNOWN')
+        ? `${i18nClass.first[this._currentLanguage]} ${
+            i18nOccupancy[occupancy?.firstClass?.toLowerCase()][this._currentLanguage]
+          }. ${i18nClass.second[this._currentLanguage]} ${
+            i18nOccupancy[occupancy?.secondClass?.toLowerCase()][this._currentLanguage]
+          }.`
+        : '';
+
+    const attributes =
+      notices &&
+      handleNotices(notices).length &&
+      handleNotices(notices)
+        ?.map((notice, index) => index < 4 && notice.text?.template)
+        .join(', ') + '. ';
+
+    const attributesText = attributes
+      ? `${i18nTravelhints[this._currentLanguage]}: ${attributes}`
+      : '';
+
+    const durationText =
+      duration > 0
+        ? `${i18nTripDuration[this._currentLanguage]} ${
+            durationToTime(duration, this._currentLanguage).long
+          }. `
+        : '';
+
+    return `${departureWalkText} ${departureTimeText} ${departureQuayChangedText} ${departureQuayAimedName} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${cusText} ${boardingText} ${priceText} ${
+      cusText ? '' : himText
+    } ${arrivalTimeText} ${arrivalWalkText} ${durationText} ${transferProcedures} ${occupancyText} ${attributesText}`;
   }
 
   public render(): JSX.Element {
@@ -222,8 +299,8 @@ export class SbbTimetableRow {
       duration,
     } = summary || {};
 
-    const himCus = this.trip && this._handleHimCus(this.trip);
-    const hasHimCus = !!himCus && !!Object.keys(himCus).length;
+    const himCus = this._handleHimCus(this.trip);
+    const hasHimCus = !!himCus.cus || !!himCus.him;
 
     const noticeAttributes = notices && handleNotices(notices);
 
@@ -383,8 +460,8 @@ export class SbbTimetableRow {
               )}
               {hasHimCus && (
                 <span class="sbb-timetable__row-warning">
-                  <sbb-icon name={himCus.name} />
-                  <span class="sbb-screenreaderonly">{himCus.text}</span>
+                  <sbb-icon name={(himCus.cus || himCus.him).name} />
+                  <span class="sbb-screenreaderonly">{(himCus.cus || himCus.him).text}</span>
                 </span>
               )}
             </div>

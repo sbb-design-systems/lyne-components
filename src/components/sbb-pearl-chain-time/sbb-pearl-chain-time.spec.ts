@@ -31,9 +31,6 @@ describe('sbb-pearl-chain-time', () => {
               </span>
               12:00
             </time>
-            <span class="sbb-screenreaderonly">
-              0 changes
-            </span>
             <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
             <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
               <span class="sbb-screenreaderonly">
@@ -87,9 +84,6 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 12:00
               </time>
-              <span class="sbb-screenreaderonly">
-                0 changes
-              </span>
               <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
@@ -127,9 +121,6 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 12:00
               </time>
-              <span class="sbb-screenreaderonly">
-                0 changes
-              </span>
               <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
@@ -196,9 +187,6 @@ describe('sbb-pearl-chain-time', () => {
                 </span>
                 12:00
               </time>
-              <span class="sbb-screenreaderonly">
-                0 changes
-              </span>
               <sbb-pearl-chain class="sbb-pearl-chain__time-chain" data-now="1660662000000"></sbb-pearl-chain>
               <time class="sbb-pearl-chain__time-time" datetime="2022-08-16T15:00:00">
                 <span class="sbb-screenreaderonly">
