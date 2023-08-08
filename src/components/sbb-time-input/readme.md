@@ -58,14 +58,6 @@ Required `sbb-time-input` inside a `sbb-form-field`:
 </sbb-form-field>
 ```
 
-Readonly `sbb-time-input` inside a `sbb-form-field`:
-
-```html
-<sbb-form-field size='l' label='My form' width='collapse'>
-  <sbb-time-input value='08:00' readonly='true' form='form'></sbb-time-input>
-</sbb-form-field>
-```
-
 <!-- Auto Generated Below -->
 
 
