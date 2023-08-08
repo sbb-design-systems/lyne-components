@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.39.0](https://github.com/lyne-design-system/lyne-components/compare/v0.38.13...v0.39.0) (2023-08-08)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-time-input:** - Consumers have to provide their own native `input` element and link it to the `sbb-time-input` (e.g. `<input id="input-id"><sbb-time-input input="input-id"/>`. If it's used inside an `sbb-form-field`, the connection is made automatically (no id reference necessary).
+
+* The following properties of `sbb-time-input` were removed: `value`, `valueAsDate`, `form`, `readonly`, `disabled` and `required`. They can directly be used on the `input` except `valueAsDate` which was replaced by `getValueAsDate()` method on `sbb-time-input`.
+
+### Bug Fixes
+
+- **sbb-form-field:** fix accessibility when slotting form error ([#1922](https://github.com/lyne-design-system/lyne-components/issues/1922)) ([5f6036b](https://github.com/lyne-design-system/lyne-components/commit/5f6036b64466a9443d40aec53d18dc8371af0ff6))
+- **sbb-time-input:** fix accessibility with structure refactoring ([#1893](https://github.com/lyne-design-system/lyne-components/issues/1893)) ([aa4b848](https://github.com/lyne-design-system/lyne-components/commit/aa4b848f55d47269b7cc222e4a2c3b7df9846138)), closes [#1888](https://github.com/lyne-design-system/lyne-components/issues/1888)
+
+### Documentation
+
+- add new line before html examples to avoid console errors in storybook ([#1924](https://github.com/lyne-design-system/lyne-components/issues/1924)) ([ad5824e](https://github.com/lyne-design-system/lyne-components/commit/ad5824e08218167995fa1f9d025f1779f246a997))
+
 ### [0.38.13](https://github.com/lyne-design-system/lyne-components/compare/v0.38.12...v0.38.13) (2023-08-08)
 
 ### Bug Fixes
