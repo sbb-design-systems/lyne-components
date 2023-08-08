@@ -153,9 +153,8 @@
     :host([data-has-title]) & {
       margin-block-start: calc(
         (
-            (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
-                --sbb-size-icon-ui-small
-              )
+            (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) -
+              var(--sbb-size-icon-ui-small)
           ) / 2
       );
     }

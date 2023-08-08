@@ -210,7 +210,7 @@ describe('sbb-datepicker', () => {
       expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: true });
       expect(input).not.toHaveAttribute('data-sbb-invalid');
     });
-    
+
     it('should interpret valid values and set accessibility labels', async () => {
       const testCases = [
         {
