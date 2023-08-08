@@ -7,6 +7,7 @@ Moreover, it is possible to override the `sbb-icon` with custom content by slott
 The examples below shows how to use the component with the `<sbb-icon>` and custom content.
  
 ### Tooltip trigger with sbb-icon
+
 ```html
  <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
@@ -18,6 +19,7 @@ The examples below shows how to use the component with the `<sbb-icon>` and cust
 ```
 
 ### Tooltip trigger with custom content
+
 ```html
 <sbb-tooltip-trigger id="tooltip-trigger2">
   Custom Content

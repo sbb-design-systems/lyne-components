@@ -5,6 +5,7 @@ Optionally a label can be provided via slot.
 Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component.
 
 ## Usage
+
 ```html
 <sbb-navigation-section trigger="nav1" label="Title 1">
     <sbb-navigation-list label="Label 1.1">

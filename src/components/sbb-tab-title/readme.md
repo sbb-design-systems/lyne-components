@@ -9,6 +9,7 @@ Use the `sbb-tab-title` tag in combination with the `sbb-tab-group` component in
 ```
 
 Slotted amount:
+
 ```html
 <sbb-tab-group initial-selected-index="0">
   <sbb-tab-title icon-name="app-icon-small">

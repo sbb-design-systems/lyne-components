@@ -1,6 +1,7 @@
 The `<sbb-toggle-option>` component is used inside the `<sbb-toggle>` in order to render the toggle's options. The component can render a label, a `<sbb-icon>` or both.
 
 ## Usage
+
 ```html
 <!-- sbb-toggle-option with label only. -->
 <sbb-toggle-option value="Value">Option</sbb-toggle-option>

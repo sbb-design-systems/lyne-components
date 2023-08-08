@@ -13,11 +13,13 @@ The component also has two sizes, named `m` (default) and `l`, and a `negative` 
 The component has some hidden elements in order to be correctly read from a screen-reader.
 
 The following example will be read as (locale: ENG): `Connection from Point A to Point B.`.
+
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" />
 ```
 
 The following one will be read as (locale: ENG): `Connection from Point A to Point B and back to Point A.`.
+
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" round-trip="true"/>
 ```
@@ -25,16 +27,19 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 ### Usage
 
 Basic usage, rendered as `<h3>`:
+
 ```html
 <sbb-journey-header origin="Point A" destination="Point B"/>
 ```
 
 Size `l`, rendered as `<h1>`:
+
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" size="l" level="1"/>
 ```
 
 Negative variant, round-trip:
+
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" round-trip="true" negative="true"/>
 ```
