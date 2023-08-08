@@ -66,6 +66,60 @@ describe('sbb-form-field', () => {
       expect(input.id).toMatch(/^sbb-form-field-input-/);
       expect(label.getAttribute('for')).toEqual(input.id);
     });
+
+    it('should reference sbb-form-error', async () => {
+      const input = await page.find('input');
+      await page.waitForChanges();
+
+      // When adding a sbb-form-error
+      await page.evaluate(() => {
+        const formError = document.createElement('sbb-form-error');
+        document.querySelector('sbb-form-field').append(formError);
+      });
+      const formError = await page.find('sbb-form-error');
+      await page.waitForChanges();
+
+      // Then input should be linked and sbb-form-error configured
+      expect(input.getAttribute('aria-describedby')).toMatch(/^sbb-form-field-error-/);
+      expect(formError.id).toEqual(input.getAttribute('aria-describedby'));
+      expect(formError.getAttribute('role')).toEqual('status');
+
+      // When removing sbb-form-error
+      await page.evaluate(() => {
+        document.querySelector('sbb-form-error').remove();
+      });
+      await page.waitForChanges();
+
+      // Then aria-describedby should be removed
+      expect(input.getAttribute('aria-describedby')).toBeNull();
+    });
+
+    it('should reference sbb-form-error with original aria-describedby', async () => {
+      const input = await page.find('input');
+      await page.waitForChanges();
+      await page.evaluate(() => {
+        document.querySelector('input').setAttribute('aria-describedby', 'foo');
+      });
+
+      // When adding a sbb-form-error
+      await page.evaluate(() => {
+        const formError = document.createElement('sbb-form-error');
+        document.querySelector('sbb-form-field').append(formError);
+      });
+      await page.waitForChanges();
+
+      // Then input should be linked and original aria-describedby preserved
+      expect(input.getAttribute('aria-describedby')).toMatch(/^foo sbb-form-field-error-/);
+
+      // When removing sbb-form-error
+      await page.evaluate(() => {
+        document.querySelector('sbb-form-error').remove();
+      });
+      await page.waitForChanges();
+
+      // Then aria-describedby should be set to foo
+      expect(input.getAttribute('aria-describedby')).toBe('foo');
+    });
   });
 
   describe('with sbb-select', () => {

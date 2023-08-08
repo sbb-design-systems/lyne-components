@@ -24,6 +24,7 @@ import {
 } from '../../global/eventing';
 
 let nextId = 0;
+let nextFormFieldErrorId = 0;
 
 const supportedPopupTagNames = ['SBB-TOOLTIP', 'SBB-AUTOCOMPLETE', 'SBB-SELECT'];
 
@@ -367,16 +368,38 @@ export class SbbFormField implements ComponentInterface {
    */
   private _onSlotErrorChange(event: Event): void {
     this._errorElements = (event.target as HTMLSlotElement).assignedElements();
+
+    for (const el of this._errorElements) {
+      // Although a form error assigns an id itself, we need to be earlier by creating one here
+      if (!el.id) {
+        el.id = `sbb-form-field-error-${++nextFormFieldErrorId}`;
+      }
+      if (!el.role) {
+        // Instead of defining a container with an aria-live region as expected, we had to change
+        // setting it for every slotted element to properly work in all browsers and screen reader combinations.
+        el.role = 'status';
+      }
+    }
     this._applyAriaDescribedby();
     toggleDatasetEntry(this._element, 'hasError', !!this._errorElements.length);
   }
 
   private _applyAriaDescribedby(): void {
-    const value = this._errorElements.length
-      ? this._errorElements.map((e) => e.id).join(' ')
-      : this._originalInputAriaDescribedby;
-    if (value) {
-      this._input?.setAttribute('aria-describedby', value);
+    const ids = [];
+
+    if (this._originalInputAriaDescribedby) {
+      ids.push(this._originalInputAriaDescribedby);
+    }
+
+    if (this._errorElements.length) {
+      this._errorElements.forEach((e) => ids.push(e.id));
+    }
+
+    const ariaDescribedby = ids.join(' ');
+    if (ariaDescribedby) {
+      this._input?.setAttribute('aria-describedby', ariaDescribedby);
+    } else {
+      this._input?.removeAttribute('aria-describedby');
     }
   }
 
@@ -423,7 +446,7 @@ export class SbbFormField implements ComponentInterface {
           <slot name="suffix"></slot>
         </div>
 
-        <div class="sbb-form-field__error" aria-live="polite">
+        <div class="sbb-form-field__error">
           <slot name="error" onSlotchange={(event) => this._onSlotErrorChange(event)}></slot>
         </div>
       </div>
