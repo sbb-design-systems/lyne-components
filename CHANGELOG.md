@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.38.12](https://github.com/lyne-design-system/lyne-components/compare/v0.38.11...v0.38.12) (2023-08-08)
+
+### Features
+
+- **sbb-timetable-row:** reorder sr-text ([#1920](https://github.com/lyne-design-system/lyne-components/issues/1920)) ([ec4bbae](https://github.com/lyne-design-system/lyne-components/commit/ec4bbae92833cea6fdc353332bceff3fdd9a2b40))
+
 ### [0.38.11](https://github.com/lyne-design-system/lyne-components/compare/v0.38.10...v0.38.11) (2023-08-07)
 
 ### Documentation
