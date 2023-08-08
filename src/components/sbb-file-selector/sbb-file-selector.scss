@@ -20,6 +20,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+#sbb-file-selector__hidden-input {
+  @include sbb.screen-reader-only;
+}
+
 .sbb-file-selector__dropzone-area {
   display: flex;
   flex-direction: column;

@@ -23,6 +23,7 @@ import {
   i18nFileSelectorSubtitleLabel,
 } from '../../global/i18n';
 import { toggleDatasetEntry } from '../../global/dom';
+import { sbbInputModalityDetector } from '../../global/a11y';
 
 /**
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
@@ -131,6 +132,18 @@ export class SbbFileSelector implements ComponentInterface {
     }
   }
 
+  private _onFocus(): void {
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      toggleDatasetEntry(this._loadButton, 'focusVisible', true);
+    }
+  }
+
+  private _onBlur(): void {
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      toggleDatasetEntry(this._loadButton, 'focusVisible', false);
+    }
+  }
+
   private _setDragState(dragTarget = undefined, isDragEnter = false): void {
     if (this.variant === 'dropzone') {
       this._dragTarget = dragTarget;
@@ -189,6 +202,9 @@ export class SbbFileSelector implements ComponentInterface {
         is-static={true}
         icon-name="folder-open-small"
         disabled={this.disabled}
+        ref={(el): void => {
+          this._loadButton = el;
+        }}
       >
         {i18nFileSelectorButtonLabel[this._currentLanguage]}
       </sbb-button>
@@ -210,6 +226,7 @@ export class SbbFileSelector implements ComponentInterface {
             variant="secondary"
             size="m"
             disabled={this.disabled}
+            is-static={true}
             ref={(el): void => {
               this._loadButton = el;
             }}
@@ -256,13 +273,14 @@ export class SbbFileSelector implements ComponentInterface {
           <label htmlFor="sbb-file-selector__hidden-input">
             {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
             <input
-              hidden
               id="sbb-file-selector__hidden-input"
               type="file"
               disabled={this.disabled}
               multiple={this.multiple}
               accept={this.accept}
               onChange={(event) => this._readFiles(event)}
+              onFocus={() => this._onFocus()}
+              onBlur={() => this._onBlur()}
             />
           </label>
         </div>
