@@ -32,6 +32,7 @@ Keyboard navigation summary:
 ## Usage
 
 Calendar with selected date and bounds:
+
 ```html
 <sbb-calendar 
   min="1600000000" 

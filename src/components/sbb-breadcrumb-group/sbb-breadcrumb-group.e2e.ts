@@ -140,6 +140,8 @@ describe('sbb-breadcrumb-group', () => {
           .forEach((el) => el.remove()),
       );
 
+      await page.waitForChanges();
+
       ellipsisElement = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis');
       ellipsisBreadcrumb = await page.find('sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis');
       expect(ellipsisElement).toBeNull();
