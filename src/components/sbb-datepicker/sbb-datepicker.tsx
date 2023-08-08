@@ -12,8 +12,8 @@ import {
   State,
   Watch,
 } from '@stencil/core';
+import { i18nDatePickerPlaceholder, i18nDateChangedTo } from '../../global/i18n';
 import { InputUpdateEvent, isDateAvailable } from './sbb-datepicker.helper';
-import { i18nDatePickerPlaceholder, i18nDateChangedTo, i18nNoDate } from '../../global/i18n';
 import { DateAdapter } from '../../global/datetime';
 import { findInput, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
@@ -270,14 +270,12 @@ export class SbbDatepicker implements ComponentInterface {
       day: 'numeric',
     });
 
-    this._statusContainer.innerHTML = date
+    this._statusContainer.innerText = date
       ? `${i18nDateChangedTo[this._currentLanguage]} ${ariaLiveFormatter.format(date)}`
-      : i18nNoDate[this._currentLanguage];
+      : '';
   }
 
   public render(): JSX.Element {
-    return (
-      <p role="status" ref={(ref) => (this._statusContainer = ref)}></p>
-    );
+    return <p role="status" ref={(ref) => (this._statusContainer = ref)}></p>;
   }
 }

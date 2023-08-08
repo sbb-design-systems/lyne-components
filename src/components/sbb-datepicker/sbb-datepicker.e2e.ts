@@ -1,5 +1,6 @@
 import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { i18nDateChangedTo } from '../../global/i18n';
 
 describe('sbb-datepicker', () => {
   it('renders', async () => {
@@ -209,12 +210,96 @@ describe('sbb-datepicker', () => {
       expect(validationChangeSpy).toHaveFirstReceivedEventDetail({ valid: true });
       expect(input).not.toHaveAttribute('data-sbb-invalid');
     });
+    
+    it('should interpret valid values and set accessibility labels', async () => {
+      const testCases = [
+        {
+          value: '5.5.0',
+          interpretedAs: 'Fr, 05.05.2000',
+          accessibilityValue: 'Friday, 05.05.2000',
+        },
+        {
+          value: '8.2.98',
+          interpretedAs: 'Su, 08.02.1998',
+          accessibilityValue: 'Sunday, 08.02.1998',
+        },
+        {
+          value: '31-12-2020',
+          interpretedAs: 'Th, 31.12.2020',
+          accessibilityValue: 'Thursday, 31.12.2020',
+        },
+        {
+          value: '5 5 21',
+          interpretedAs: 'We, 05.05.2021',
+          accessibilityValue: 'Wednesday, 05.05.2021',
+        },
+        {
+          value: '3/7/26',
+          interpretedAs: 'Fr, 03.07.2026',
+          accessibilityValue: 'Friday, 03.07.2026',
+        },
+        {
+          value: '1.12.2019',
+          interpretedAs: 'Su, 01.12.2019',
+          accessibilityValue: 'Sunday, 01.12.2019',
+        },
+        {
+          value: '6\\1\\2020',
+          interpretedAs: 'Mo, 06.01.2020',
+          accessibilityValue: 'Monday, 06.01.2020',
+        },
+        {
+          value: '5,5,2012',
+          interpretedAs: 'Sa, 05.05.2012',
+          accessibilityValue: 'Saturday, 05.05.2012',
+        },
+      ];
+
+      for (const testCase of testCases) {
+        // Clear input
+        await page.evaluate(
+          () => ((document.getElementById('datepicker-input') as HTMLInputElement).value = ''),
+        );
+
+        await input.type(testCase.value);
+        await input.press('Tab');
+        expect(await input.getProperty('value')).toEqual(testCase.interpretedAs);
+        const paragraphElement = await page.find('sbb-datepicker >>> p');
+        expect(paragraphElement.innerText).toBe(
+          `${i18nDateChangedTo['en']} ${testCase.accessibilityValue}`,
+        );
+      }
+    });
+
+    it('should not touch invalid values', async () => {
+      const testCases = [
+        { value: '.12.2020', interpretedAs: '.12.2020' },
+        { value: '24..1995', interpretedAs: '24..1995' },
+        { value: '24.12.', interpretedAs: '24.12.' },
+        { value: '34.06.2020', interpretedAs: '34.06.2020' },
+        { value: '24.15.2014', interpretedAs: '24.15.2014' },
+        { value: 'invalid', interpretedAs: 'invalid' },
+      ];
+
+      for (const testCase of testCases) {
+        // Clear input
+        await page.evaluate(
+          () => ((document.getElementById('datepicker-input') as HTMLInputElement).value = ''),
+        );
+
+        await input.type(testCase.value);
+        await input.press('Tab');
+        expect(await input.getProperty('value')).toEqual(testCase.interpretedAs);
+        const paragraphElement = await page.find('sbb-datepicker >>> p');
+        expect(paragraphElement.innerText).toBe('');
+      }
+    });
   };
 
   describe('with input', () => {
     const template = `
-      <sbb-datepicker input="id"></sbb-datepicker>
-      <input id="id"/>
+      <sbb-datepicker input="datepicker-input"></sbb-datepicker>
+      <input id="datepicker-input"/>
       <button></button>
     `;
 
@@ -223,7 +308,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input id="id" placeholder="DD.MM.YYYY" type="text">',
+        '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
       );
     });
 
@@ -234,7 +319,7 @@ describe('sbb-datepicker', () => {
     const template = `
       <sbb-form-field>
         <sbb-datepicker></sbb-datepicker>
-        <input/>
+        <input id="datepicker-input"/>
       </sbb-form-field>
       <button></button>
     `;
@@ -244,7 +329,7 @@ describe('sbb-datepicker', () => {
       await page.setContent(template);
       expect(await page.find('sbb-datepicker')).toHaveClass('hydrated');
       expect(await page.find('input')).toEqualHtml(
-        '<input placeholder="DD.MM.YYYY" type="text">',
+        '<input id="datepicker-input" placeholder="DD.MM.YYYY" type="text">',
       );
     });
 
