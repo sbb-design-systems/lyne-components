@@ -15,6 +15,7 @@ view, while the `dateFilter` property can be used to filter unwanted dates.
 ## Usage
 
 Inside `sbb-form-field`:
+
 ```html
     <sbb-form-field>
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>

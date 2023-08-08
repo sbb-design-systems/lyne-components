@@ -51,12 +51,14 @@ For custom `format` functions is recommended to use the `Intl.DateTimeFormat` AP
 ## Usage
 
 Without `sbb-form-field`:
+
 ```html
     <input id="datepicker-input" />
     <sbb-datepicker input="datepicker-input"></sbb-datepicker>
 ```
 
 Without `sbb-form-field`, with all related components:
+
 ```html
     <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
     <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
@@ -66,6 +68,7 @@ Without `sbb-form-field`, with all related components:
 ```
 
 With `sbb-form-field`, and input params set:
+
 ```html
     <sbb-form-field>
       <input min="1600000000" max="1700000000" value="01.01.2023" readonly=""/>
@@ -74,6 +77,7 @@ With `sbb-form-field`, and input params set:
 ```
 
 With `sbb-form-field` and all related components, input's value set, `wide` set to true:
+
 ```html
     <sbb-form-field>
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>

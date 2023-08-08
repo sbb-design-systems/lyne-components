@@ -39,11 +39,13 @@ See the table below for some formatting examples:
 ### Usage
 
 Basic usage:
+
 ```html
 <sbb-time-input value='13:30'></sbb-time-input>
 ```
 
 Required `sbb-time-input` inside a `sbb-form-field`:
+
 ```html
 <sbb-form-field label='My form' width='collapse'>
   <sbb-time-input value='23:15' required='true' form='form'></sbb-time-input>
@@ -52,6 +54,7 @@ Required `sbb-time-input` inside a `sbb-form-field`:
 ```
 
 Readonly `sbb-time-input` inside a `sbb-form-field`:
+
 ```html
 <sbb-form-field size='l' label='My form' width='collapse'>
   <sbb-time-input value='08:00' readonly='true' form='form'></sbb-time-input>
