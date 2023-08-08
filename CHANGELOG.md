@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.1](https://github.com/lyne-design-system/lyne-components/compare/v0.39.0...v0.39.1) (2023-08-08)
+
+### Bug Fixes
+
+- **sbb-datepicker:** add accessibility label and localize date ([#1925](https://github.com/lyne-design-system/lyne-components/issues/1925)) ([de14dff](https://github.com/lyne-design-system/lyne-components/commit/de14dff54601e6adeb41dd284dd39f483215f979)), closes [#1912](https://github.com/lyne-design-system/lyne-components/issues/1912) [#1916](https://github.com/lyne-design-system/lyne-components/issues/1916)
+
 ## [0.39.0](https://github.com/lyne-design-system/lyne-components/compare/v0.38.13...v0.39.0) (2023-08-08)
 
 ### ⚠ BREAKING CHANGES
