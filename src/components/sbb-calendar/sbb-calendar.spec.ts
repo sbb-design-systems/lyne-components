@@ -15,7 +15,10 @@ describe('sbb-calendar', () => {
           <div class="sbb-calendar__controls">
             <sbb-button aria-label="Change to the previous month" iconname="chevron-small-left-small" id="sbb-calendar__controls-previous" size="m" variant="secondary"></sbb-button>
             <div class="sbb-calendar__controls-month">
-              <span aria-hidden="true" class="sbb-calendar__controls-month-label">January 2023</span>
+              <span aria-hidden="true" class="sbb-calendar__controls-month-label" dir="ltr" role="button" tabindex="0">
+                January 2023
+                <sbb-icon name="chevron-small-down-small"></sbb-icon>
+              </span>
               <span class="sbb-calendar__visually-hidden" role="status">January 2023</span>
             </div>
             <sbb-button aria-label="Change to the next month" iconname="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>

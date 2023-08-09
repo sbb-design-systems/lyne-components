@@ -49,9 +49,20 @@
 }
 
 .sbb-calendar__controls-month-label {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   text-align: center;
   text-transform: capitalize;
+  cursor: pointer;
+
+  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+    @include sbb.focus-outline;
+
+    outline-offset: var(--sbb-spacing-fixed-1x);
+    border-radius: var(--sbb-border-radius-2x);
+  }
 }
 
 .sbb-calendar__table-container {

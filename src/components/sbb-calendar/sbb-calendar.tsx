@@ -21,6 +21,7 @@ import {
 import { DateAdapter, DAYS_PER_WEEK, NativeDateAdapter } from '../../global/datetime';
 import { isBreakpoint, toggleDatasetEntry } from '../../global/dom';
 import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
+import { resolveButtonRenderVariables } from '../../global/interfaces';
 
 @Component({
   shadow: true,
@@ -312,9 +313,12 @@ export class SbbCalendar implements ComponentInterface {
     const monthLabel = `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
       d,
     )}`;
+    const { hostAttributes } = resolveButtonRenderVariables({});
+
     return (
-      <span class="sbb-calendar__controls-month-label" aria-hidden="true">
+      <span {...hostAttributes} class="sbb-calendar__controls-month-label" aria-hidden="true">
         {monthLabel}
+        <sbb-icon name="chevron-small-down-small"></sbb-icon>
       </span>
     );
   }

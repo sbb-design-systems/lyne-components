@@ -52,6 +52,7 @@ In thinking about accessibility, it is useful to place icon use into one of thre
  - [sbb-breadcrumb](../sbb-breadcrumb)
  - [sbb-breadcrumb-group](../sbb-breadcrumb-group)
  - [sbb-button](../sbb-button)
+ - [sbb-calendar](../sbb-calendar)
  - [sbb-checkbox](../sbb-checkbox)
  - [sbb-datepicker-next-day](../sbb-datepicker-next-day)
  - [sbb-datepicker-previous-day](../sbb-datepicker-previous-day)
@@ -82,6 +83,7 @@ graph TD;
   sbb-breadcrumb --> sbb-icon
   sbb-breadcrumb-group --> sbb-icon
   sbb-button --> sbb-icon
+  sbb-calendar --> sbb-icon
   sbb-checkbox --> sbb-icon
   sbb-datepicker-next-day --> sbb-icon
   sbb-datepicker-previous-day --> sbb-icon
