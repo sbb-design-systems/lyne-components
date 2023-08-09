@@ -153,7 +153,6 @@ export const Navigation = (): JSX.Element => (
 export const DailyTicketProduct = (): JSX.Element => (
   <sbb-card
     aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    href="https://github.com/lyne-design-system/lyne-components"
     color="milk"
     size="s"
   >
@@ -175,7 +174,6 @@ export const DailyTicketProduct = (): JSX.Element => (
 export const BikeProduct = (): JSX.Element => (
   <sbb-card
     aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    href="https://github.com/lyne-design-system/lyne-components"
     color="milk"
     size="s"
   >
@@ -197,7 +195,6 @@ export const BikeProduct = (): JSX.Element => (
 export const LiberoProduct = (): JSX.Element => (
   <sbb-card
     aria-label="The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the card, either through text or iconography"
-    href="https://github.com/lyne-design-system/lyne-components"
     color="milk"
     size="s"
   >
