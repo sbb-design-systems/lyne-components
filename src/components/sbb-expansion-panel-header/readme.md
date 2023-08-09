@@ -12,7 +12,9 @@ On the left side, a toggle icon is displayed; it flips based on the host's `aria
 
 ### Icon
 
-The component can optionally display a `<sbb-icon>` at the component start using the `iconName` property or via custom content using the `icon` slot.
+The component can optionally display a `<sbb-icon>` at the component start using the `iconName` 
+property or via custom content using the `icon` slot.
+If using the sbb icons, the icon should be a medium size icon.
 
 ```html
 <sbb-expansion-panel-header icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>

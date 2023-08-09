@@ -1,5 +1,6 @@
 /** @jsx h */
 import events from './sbb-expansion-panel.events';
+import panelHeaderEvents from '../sbb-expansion-panel-header/sbb-expansion-panel-header.events';
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
@@ -108,6 +109,16 @@ const Template = ({ headerText, iconName, contentText, ...args }): JSX.Element =
   </sbb-expansion-panel>
 );
 
+const TemplateSlottedIcon = ({ headerText, iconName, contentText, ...args }): JSX.Element => (
+  <sbb-expansion-panel {...args}>
+    <sbb-expansion-panel-header>
+      {headerText}
+      <sbb-icon slot="icon" name={iconName} />
+    </sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>{contentText}</sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+);
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -138,6 +149,12 @@ export const WithIcon: StoryObj = {
   args: { ...defaultArgs, iconName: 'swisspass-medium' },
 };
 
+export const WithSlottedIcon: StoryObj = {
+  render: TemplateSlottedIcon,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, iconName: 'swisspass-medium' },
+};
+
 export const NoHeadingTag: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -150,7 +167,7 @@ export const Expanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
-export const EllipsisAndLongText: StoryObj = {
+export const LongText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, headerText: longText, contentText: longText },
@@ -180,7 +197,13 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.willOpen, events.didOpen, events.willClose, events.didClose],
+      handles: [
+        events.willOpen,
+        events.didOpen,
+        events.willClose,
+        events.didClose,
+        panelHeaderEvents.toggleExpanded,
+      ],
     },
     backgrounds: {
       disable: true,

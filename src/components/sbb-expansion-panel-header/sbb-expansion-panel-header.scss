@@ -25,7 +25,7 @@
   @include sbb.focus-outline;
 
   outline-offset: var(--sbb-spacing-fixed-1x);
-  border-radius: var(--sbb-expansion-panel-border-radius, var(--sbb-border-radius-4x));
+  border-radius: var(--sbb-expansion-panel-border-radius);
 }
 
 .sbb-expansion-panel-header {
@@ -49,17 +49,20 @@
   display: flex;
 }
 
+.sbb-expansion-panel-header__icon {
+  width: var(--sbb-expansion-panel-icon-size);
+
+  --sbb-icon-svg-width: var(--sbb-expansion-panel-icon-size);
+  --sbb-icon-svg-height: var(--sbb-expansion-panel-icon-size);
+}
+
 .sbb-expansion-panel-header__title {
   align-items: center;
-  gap: var(--sbb-spacing-fixed-4x);
+  gap: var(--sbb-expansion-panel-title-gap);
   overflow: hidden;
 }
 
-.sbb-expansion-panel-header__label {
-  @include sbb.ellipsis;
-}
-
-sbb-icon[name='chevron-down-small'] {
+.sbb-expansion-panel-header__toggle-icon {
   transition: transform var(--sbb-animation-duration-4x);
 
   :host([aria-expanded]:not([aria-expanded='false'])) & {

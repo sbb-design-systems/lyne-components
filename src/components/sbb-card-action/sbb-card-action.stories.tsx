@@ -4,10 +4,11 @@ import readme from './readme.md';
 import type { Meta, StoryObj } from '@storybook/html';
 
 const Template = (): JSX.Element => (
-  <p style={{ 'background-color': 'undefined', padding: 'undefined' }}>
+  <sbb-card color="milk">
     `sbb-card-action` is an invisible action element. See `sbb-card` examples to see it in action.
-  </p>
+  </sbb-card>
 );
+
 export const SbbCardAction: StoryObj = {
   render: Template,
 };

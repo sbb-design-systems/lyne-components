@@ -16,7 +16,7 @@ import {
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
-import { resolveButtonRenderVariables } from '../../global/interfaces';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
@@ -27,7 +27,7 @@ import { resolveButtonRenderVariables } from '../../global/interfaces';
   styleUrl: 'sbb-expansion-panel-header.scss',
   tag: 'sbb-expansion-panel-header',
 })
-export class SbbExpansionPanelHeader implements ComponentInterface {
+export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInterface {
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
@@ -87,13 +87,11 @@ export class SbbExpansionPanelHeader implements ComponentInterface {
                 <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
               </span>
             )}
-            <span class="sbb-expansion-panel-header__label">
-              <slot />
-            </span>
+            <slot />
           </span>
           {!this.disabled && (
             <span class="sbb-expansion-panel-header__toggle">
-              <sbb-icon name="chevron-down-small" />
+              <sbb-icon name="chevron-down-small" class="sbb-expansion-panel-header__toggle-icon" />
             </span>
           )}
         </span>

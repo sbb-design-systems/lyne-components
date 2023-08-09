@@ -3,6 +3,9 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import { InputType, StoryContext } from '@storybook/types';
+import sbbExpansionPanelEvents from '../sbb-expansion-panel/sbb-expansion-panel.events';
+import { withActions } from '@storybook/addon-actions/decorator';
+import { Decorator } from '@storybook/html';
 
 const numberOfPanels: InputType = {
   control: {
@@ -231,10 +234,19 @@ const meta: Meta = {
         <Story />
       </div>
     ),
+    withActions as Decorator,
   ],
   parameters: {
     backgrounds: {
       disable: true,
+    },
+    actions: {
+      handles: [
+        sbbExpansionPanelEvents.willOpen,
+        sbbExpansionPanelEvents.didOpen,
+        sbbExpansionPanelEvents.willClose,
+        sbbExpansionPanelEvents.didClose,
+      ],
     },
     docs: {
       extractComponentDescription: () => readme,

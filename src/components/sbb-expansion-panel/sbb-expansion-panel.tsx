@@ -5,14 +5,17 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Listen,
   Prop,
+  State,
   Watch,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 import { toggleDatasetEntry } from '../../global/dom';
 import { InterfaceSbbExpansionPanelAttributes } from './sbb-expansion-panel.custom';
+import { AgnosticResizeObserver } from '../../global/observers';
 
 let nextId = 0;
 
@@ -43,6 +46,11 @@ export class SbbExpansionPanel implements ComponentInterface {
 
   /** Whether the animations should be disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
+
+  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _panelContentResizeObserver = new AgnosticResizeObserver(() =>
+    this._onPanelContentResize(),
+  );
 
   /** Emits whenever the sbb-expansion-panel starts the opening transition. */
   @Event({
@@ -76,7 +84,8 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  @Element() private _element: HTMLElement;
+  @State() private _resizeDisableAnimation = false;
+  @Element() private _element!: HTMLSbbExpansionPanelElement;
 
   @Listen('toggle-expanded')
   public toggleExpanded(): void {
@@ -87,17 +96,19 @@ export class SbbExpansionPanel implements ComponentInterface {
   public onExpandedChange(): void {
     this._headerRef.setAttribute('aria-expanded', String(this.expanded));
     this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
-    this._element.style.setProperty(
-      '--sbb-expansion-panel-content-height',
-      `${this._contentElement.scrollHeight}px`,
-    );
 
     if (this.expanded) {
       this.willOpen.emit();
-      this.disableAnimation && this.didOpen.emit();
+      // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didOpen event
+      if (this.disableAnimation) {
+        this._onOpened();
+      }
     } else {
       this.willClose.emit();
-      this.disableAnimation && this.didClose.emit();
+      // As with 0s duration, transitionEnd will not be fired, we need to programmatically trigger didClose event
+      if (this.disableAnimation) {
+        this._onClosed();
+      }
     }
   }
 
@@ -106,18 +117,48 @@ export class SbbExpansionPanel implements ComponentInterface {
     this._headerRef.disabled = newDisabledValue;
   }
 
-  private _contentElement: HTMLElement;
   private _transitionEventController: AbortController;
   private _progressiveId = `-${++nextId}`;
   private _headerRef: HTMLSbbExpansionPanelHeaderElement;
   private _contentRef: HTMLSbbExpansionPanelContentElement;
 
+  public connectedCallback(): void {
+    const accordion = this._element.closest('sbb-accordion');
+    toggleDatasetEntry(this._element, 'accordion', !!accordion);
+  }
+
+  public componentDidLoad(): void {
+    this._setPanelContentHeight();
+  }
+
+  public disconnectedCallback(): void {
+    this._transitionEventController?.abort();
+    toggleDatasetEntry(this._element, 'accordion', false);
+    this._panelContentResizeObserver.disconnect();
+  }
+
+  private _onOpened(): void {
+    this.didOpen.emit();
+    this._panelContentResizeObserver.observe(this._contentRef);
+  }
+
+  private _onClosed(): void {
+    this.didClose.emit();
+    this._panelContentResizeObserver.unobserve(this._contentRef);
+  }
+
   private _onHeaderSlotChange(event): void {
-    this._headerRef = (event.target as HTMLSlotElement)
-      .assignedElements()
-      .find(
-        (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
-      );
+    const elements = (event.target as HTMLSlotElement).assignedElements();
+
+    // Changing titleLevel sometimes triggers a slot change with no assigned elements.
+    if (!elements.length) {
+      return;
+    }
+
+    this._headerRef = elements.find(
+      (e): e is HTMLSbbExpansionPanelHeaderElement => e.tagName === 'SBB-EXPANSION-PANEL-HEADER',
+    );
+
     if (!this._headerRef) {
       return;
     }
@@ -130,16 +171,29 @@ export class SbbExpansionPanel implements ComponentInterface {
   }
 
   private _onContentSlotChange(event): void {
+    const elements = (event.target as HTMLSlotElement).assignedElements();
+
+    if (!elements.length) {
+      return;
+    }
+
+    if (this._contentRef) {
+      this._panelContentResizeObserver.unobserve(this._contentRef);
+    }
+    this._transitionEventController?.abort();
+
     this._contentRef = (event.target as HTMLSlotElement)
       .assignedElements()
       .find(
         (e): e is HTMLSbbExpansionPanelContentElement =>
           e.tagName === 'SBB-EXPANSION-PANEL-CONTENT',
       );
+
     if (!this._contentRef) {
-      this._transitionEventController?.abort();
       return;
     }
+
+    this._panelContentResizeObserver.observe(this._contentRef);
 
     this._transitionEventController = new AbortController();
     this._contentRef.setAttribute('aria-hidden', String(!this.expanded));
@@ -179,32 +233,48 @@ export class SbbExpansionPanel implements ComponentInterface {
     }
 
     if (this.expanded) {
-      this.didOpen.emit();
+      this._onOpened();
     } else {
-      this.didClose.emit();
+      this._onClosed();
     }
   }
 
-  public connectedCallback(): void {
-    this._transitionEventController = new AbortController();
+  private _onPanelContentResize(): void {
+    if (!this.expanded) {
+      return;
+    }
+
+    clearTimeout(this._resizeObserverTimeout);
+
+    this._resizeDisableAnimation = true;
+    this._setPanelContentHeight();
+
+    // Disable the animation when resizing the panel content to avoid strange height transition effects.
+    this._resizeObserverTimeout = setTimeout(() => (this._resizeDisableAnimation = false), 150);
   }
 
-  public disconnectedCallback(): void {
-    this._transitionEventController.abort();
+  private _setPanelContentHeight(): void {
+    const panelContentHeight =
+      this._contentRef?.scrollHeight && !this.disableAnimation
+        ? `${this._contentRef?.scrollHeight}px`
+        : 'auto';
+    this._element.style.setProperty('--sbb-expansion-panel-content-height', panelContentHeight);
   }
 
   public render(): JSX.Element {
     const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
     return (
-      <div class="sbb-expansion-panel">
-        <TAGNAME class="sbb-expansion-panel__header">
-          <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
-        </TAGNAME>
-        <span class="sbb-expansion-panel__content" ref={(el) => (this._contentElement = el)}>
-          <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
-        </span>
-      </div>
+      <Host data-resize-disable-animation={this._resizeDisableAnimation}>
+        <div class="sbb-expansion-panel">
+          <TAGNAME class="sbb-expansion-panel__header">
+            <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
+          </TAGNAME>
+          <span class="sbb-expansion-panel__content">
+            <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
+          </span>
+        </div>
+      </Host>
     );
   }
 }
