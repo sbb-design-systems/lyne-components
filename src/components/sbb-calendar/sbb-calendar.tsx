@@ -18,8 +18,15 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { DateAdapter, DAYS_PER_WEEK, NativeDateAdapter } from '../../global/datetime';
-import { isBreakpoint, toggleDatasetEntry } from '../../global/dom';
+import {
+  DateAdapter,
+  DAYS_PER_WEEK,
+  MONTHS_PER_ROW,
+  NativeDateAdapter,
+  YEARS_PER_PAGE,
+  YEARS_PER_ROW,
+} from '../../global/datetime';
+import { isBreakpoint, toggleDatasetEntry} from '../../global/dom';
 import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
 
@@ -62,6 +69,8 @@ export class SbbCalendar implements ComponentInterface {
   /** Maximum value converted to date */
   @State() private _max: Date;
 
+  @State() private _selection: 'day' | 'month' | 'year' = 'day';
+
   @State() private _currentLanguage = documentLanguage();
 
   @Element() private _element!: HTMLElement;
@@ -74,11 +83,20 @@ export class SbbCalendar implements ComponentInterface {
   /** Grid of calendar cells representing the dates of the month. */
   private _weeks: Day[][];
 
+  /** Grid of calendar cells representing months. */
+  private _months: string[][]; // TODO type if needed
+
+  /** Grid of calendar cells representing years. */
+  private _years: number[][]; // TODO type if needed
+
+  /** Grid of calendar cells representing years for the wide view. */
+  private _nextMonthYears: number[][]; // TODO type if needed
+
   /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks: Day[][];
 
   /** An array containing all the month names in the current language. */
-  private _months = this._dateAdapter.getMonthNames('long');
+  private _monthNames = this._dateAdapter.getMonthNames('long');
 
   /** A list of buttons corresponding to the days of the month. */
   private get _days(): HTMLButtonElement[] {
@@ -88,12 +106,14 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _calendarController: AbortController;
+  private _chosenYear: number; // TODO docs
+  private _chosenMonth: number; // TODO docs
 
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
     languageChangeHandlerAspect((l) => {
       this._currentLanguage = l;
-      this._months = this._dateAdapter.getMonthNames('long');
+      this._monthNames = this._dateAdapter.getMonthNames('long');
     }),
   );
 
@@ -164,12 +184,15 @@ export class SbbCalendar implements ComponentInterface {
       this._dateAdapter.getYear(this._activeDate),
     );
     this._nextMonthWeeks = [[]];
+    this._months = this._createMonthRows();
+    this._years = this._createYearRows();
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(
         this._dateAdapter.getMonth(nextMonthDate),
         this._dateAdapter.getYear(nextMonthDate),
       );
+      this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
     }
   }
 
@@ -219,6 +242,33 @@ export class SbbCalendar implements ComponentInterface {
       });
     }
     return weeks;
+  }
+
+  /** Creates the rows for the month selection view. */
+  private _createMonthRows(): string[][] {
+    const months: string[] = this._dateAdapter.getMonthNames('short');
+    const rows: number = 12 / MONTHS_PER_ROW;
+    const monthsArray: string[][] = [];
+    for (let i: number = 0; i < rows; i++) {
+      monthsArray.push(months.slice(MONTHS_PER_ROW * i, MONTHS_PER_ROW * (i + 1)));
+    }
+    return monthsArray;
+  }
+
+  /** Creates the rows for the year selection view. */
+  private _createYearRows(offset: number = 0): number[][] {
+    const minYearOfPage =
+      this._dateAdapter.getYear(this._activeDate) -
+      this._dateAdapter.getActiveYearOffset(this._activeDate, this._min, this._max);
+    const allYears: number[] = new Array(YEARS_PER_PAGE)
+      .fill(0)
+      .map((_, i) => minYearOfPage + offset + i);
+    const rows: number = YEARS_PER_PAGE / YEARS_PER_ROW;
+    const yearsArray: number[][] = [];
+    for (let i: number = 0; i < rows; i++) {
+      yearsArray.push(allYears.slice(YEARS_PER_ROW * i, YEARS_PER_ROW * (i + 1)));
+    }
+    return yearsArray;
   }
 
   /** Creates the calendar table. */
@@ -308,15 +358,93 @@ export class SbbCalendar implements ComponentInterface {
     });
   }
 
+  /** Creates the table for the year selection view. */
+  private _createTableYears(years: number[][]): JSX.Element {
+    return (
+      <table class="sbb-calendar__table">
+        <thead class="sbb-calendar__table-header" aria-hidden={true}>
+          <tr class="sbb-calendar__table-header-row">
+            <th colSpan={YEARS_PER_ROW}></th>
+          </tr>
+        </thead>
+        <tbody class="sbb-calendar__table-body">{this._createTableBodyYears(years)}</tbody>
+      </table>
+    );
+  }
+
+  /** Creates the table cells for the year selection view. */
+  private _createTableBodyYears(years: number[][]): JSX.Element {
+    return years.map((row: number[]) => (
+      <tr>
+        {row.map((year: number) => (
+          <td class="sbb-calendar__table-data">
+            <button
+              class="sbb-calendar__day"
+              onClick={() => {
+                this._chosenYear = year;
+                this._selection = 'month';
+              }}
+            >
+              {year}
+            </button>
+          </td>
+        ))}
+      </tr>
+    ));
+  }
+
+  /** Creates the table for the month selection view. */
+  private _createTableMonths(months: string[][]): JSX.Element {
+    return (
+      <table class="sbb-calendar__table">
+        <thead class="sbb-calendar__table-header" aria-hidden={true}>
+          <tr class="sbb-calendar__table-header-row">
+            <th colSpan={MONTHS_PER_ROW}></th>
+          </tr>
+        </thead>
+        <tbody class="sbb-calendar__table-body">
+          {months.map((row: string[], rowIndex) => (
+            <tr>
+              {row.map((month: string, index: number) => (
+                <td class="sbb-calendar__table-data">
+                  <button
+                    class="sbb-calendar__day"
+                    onClick={() => {
+                      this._chosenMonth = MONTHS_PER_ROW * rowIndex + index;
+                      this._assignActiveDate(
+                        new Date(this._chosenYear, this._chosenMonth, this._activeDate.getDate()),
+                      );
+                      this._init();
+                      this._selection = 'day';
+                    }}
+                  >
+                    {month}
+                  </button>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
   /** Creates the month label. */
   private _createMonthLabel(d: Date): JSX.Element {
-    const monthLabel = `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
-      d,
-    )}`;
+    const monthLabel = `${
+      this._monthNames[this._dateAdapter.getMonth(d)]
+    } ${this._dateAdapter.getYear(d)}`;
     const { hostAttributes } = resolveButtonRenderVariables({});
 
     return (
-      <span {...hostAttributes} class="sbb-calendar__controls-month-label" aria-hidden="true">
+      <span
+        {...hostAttributes}
+        class="sbb-calendar__controls-month-label"
+        aria-hidden="true"
+        onClick={() => {
+          this._selection = 'year';
+        }}
+      >
         {monthLabel}
         <sbb-icon name="chevron-small-down-small"></sbb-icon>
       </span>
@@ -328,12 +456,54 @@ export class SbbCalendar implements ComponentInterface {
     let monthLabel = '';
     for (const d of dates) {
       if (d) {
-        monthLabel += `${this._months[this._dateAdapter.getMonth(d)]} ${this._dateAdapter.getYear(
-          d,
-        )} `;
+        monthLabel += `${
+          this._monthNames[this._dateAdapter.getMonth(d)]
+        } ${this._dateAdapter.getYear(d)} `;
       }
     }
     return monthLabel;
+  }
+
+  /** Creates the year selection label. */
+  private _createYearSelectionLabel(): JSX.Element {
+    const firstYear: number = this._years[0][0];
+    const lastYearArray: number[][] = this.wide ? this._nextMonthYears : this._years;
+    const lastYear: number = lastYearArray[lastYearArray.length - 1][lastYearArray[0].length - 1];
+    const yearLabel = `${firstYear} - ${lastYear}`;
+    const { hostAttributes } = resolveButtonRenderVariables({});
+
+    return (
+      <span
+        {...hostAttributes}
+        class="sbb-calendar__controls-month-label"
+        aria-hidden="true"
+        onClick={() => {
+          this._selection = 'day';
+        }}
+      >
+        {yearLabel}
+        <sbb-icon name="chevron-small-up-small"></sbb-icon>
+      </span>
+    );
+  }
+
+  /** Creates the month selection label. */
+  private _createMonthSelectionLabel(): JSX.Element {
+    const { hostAttributes } = resolveButtonRenderVariables({});
+
+    return (
+      <span
+        {...hostAttributes}
+        class="sbb-calendar__controls-month-label"
+        aria-hidden="true"
+        onClick={() => {
+          this._selection = 'day';
+        }}
+      >
+        {this._chosenYear}
+        <sbb-icon name="chevron-small-up-small"></sbb-icon>
+      </span>
+    );
   }
 
   /** Checks if date is within the min-max range. */
@@ -545,6 +715,43 @@ export class SbbCalendar implements ComponentInterface {
     return this._dateAdapter.today();
   }
 
+  private _renderCalendarView(): JSX.Element {
+    switch (this._selection) {
+      case 'year':
+        return [
+          this._createTableYears(this._years),
+          this._wide && this._createTableYears(this._nextMonthYears),
+        ];
+
+      case 'month':
+        return [this._createTableMonths(this._months)];
+
+      case 'day':
+      default:
+        return [
+          this._createTable(this._weeks),
+          this._wide && this._createTable(this._nextMonthWeeks),
+        ];
+    }
+  }
+
+  private _renderLabelView(nextMonthActiveDate): JSX.Element {
+    switch (this._selection) {
+      case 'year':
+        return this._createYearSelectionLabel();
+
+      case 'month':
+        return this._createMonthSelectionLabel();
+
+      case 'day':
+      default:
+        return [
+          this._createMonthLabel(this._activeDate),
+          this._wide && this._createMonthLabel(nextMonthActiveDate),
+        ];
+    }
+  }
+
   public render(): JSX.Element {
     const nextMonthActiveDate = this._wide
       ? this._dateAdapter.addCalendarMonths(this._activeDate, 1)
@@ -562,8 +769,8 @@ export class SbbCalendar implements ComponentInterface {
             id="sbb-calendar__controls-previous"
           ></sbb-button>
           <div class="sbb-calendar__controls-month">
-            {this._createMonthLabel(this._activeDate)}
-            {this._wide && this._createMonthLabel(nextMonthActiveDate)}
+            {this._renderLabelView(nextMonthActiveDate)}
+            {/* FIXME aria label needs to be handled in all the selections view*/}
             <span role="status" class="sbb-calendar__visually-hidden">
               {this._createMonthAriaLabel(this._activeDate, nextMonthActiveDate)}
             </span>
@@ -578,10 +785,7 @@ export class SbbCalendar implements ComponentInterface {
             id="sbb-calendar__controls-next"
           ></sbb-button>
         </div>
-        <div class="sbb-calendar__table-container">
-          {this._createTable(this._weeks)}
-          {this._wide && this._createTable(this._nextMonthWeeks)}
-        </div>
+        <div class="sbb-calendar__table-container">{this._renderCalendarView()}</div>
       </div>
     );
   }

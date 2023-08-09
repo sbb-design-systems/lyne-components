@@ -1,7 +1,10 @@
 import { DateAdapter } from './date-adapter';
 import { documentLanguage } from '../eventing';
 
-export const DAYS_PER_WEEK = 7;
+export const DAYS_PER_WEEK: number = 7;
+export const MONTHS_PER_ROW: number = 4;
+export const YEARS_PER_ROW: number = 4;
+export const YEARS_PER_PAGE: number = 24;
 export const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
@@ -163,6 +166,22 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   public addCalendarDays(date: Date, days: number): Date {
     const targetDay = date.getDate() + days;
     return new Date(date.getFullYear(), date.getMonth(), targetDay, 0, 0, 0, 0);
+  }
+
+  /**
+   * Calculates the first year that will be shown in the year selection panel.
+   * If minDate or maxDate are set, it takes them as min/max value for the panel,
+   * then it calculates the offset from the current year (in modulo).
+   */
+  public getActiveYearOffset(activeDate: Date, minDate: Date | null, maxDate: Date | null): number {
+    let startingYear: number = 0;
+    if (maxDate) {
+      startingYear = this.getYear(maxDate) - YEARS_PER_PAGE + 1;
+    } else if (minDate) {
+      startingYear = this.getYear(minDate);
+    }
+    const activeYear: number = this.getYear(activeDate);
+    return (((activeYear - startingYear) % YEARS_PER_PAGE) + YEARS_PER_PAGE) % YEARS_PER_PAGE;
   }
 
   /**

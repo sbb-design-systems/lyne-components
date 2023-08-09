@@ -121,6 +121,14 @@ export interface DateAdapter<T = any> {
    */
   addCalendarDays: (date: T, days: number) => T;
 
+  /**
+   * Calculates the first year that will be shown in the year selection panel.
+   * @param activeDate The active date.
+   * @param minDate The minimum date, if set.
+   * @param maxDate The maximum date, if set.
+   */
+  getActiveYearOffset: (activeDate: T, minDate: T | null, maxDate: T | null) => number;
+
   /** Get the date in the local format.
    * @param date The date to format
    * @returns The `date` in the local format as string.
