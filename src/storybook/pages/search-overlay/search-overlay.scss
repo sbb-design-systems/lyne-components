@@ -2,6 +2,26 @@
 
 $timetable-margin-block: 7vh;
 
+.search-overlay-grid {
+  &.sbb-grid {
+    padding-inline: 0;
+  }
+
+  .grid-reduced-width {
+    grid-column: 1/-1;
+
+    @include sbb.mq($from: large) {
+      grid-column: 2/-2;
+    }
+    @include sbb.mq($from: wide) {
+      grid-column: 3/-3;
+    }
+    @include sbb.mq($from: ultra) {
+      grid-column: 1/-1;
+    }
+  }
+}
+
 #search-overlay-field {
   width: 100%;
 }
