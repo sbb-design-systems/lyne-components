@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.4](https://github.com/lyne-design-system/lyne-components/compare/v0.39.3...v0.39.4) (2023-08-10)
+
+### Bug Fixes
+
+- **sbb-notification, sbb-alert:** update zero to micro breakpoint styles ([#1931](https://github.com/lyne-design-system/lyne-components/issues/1931)) ([5801718](https://github.com/lyne-design-system/lyne-components/commit/580171867c5d989ef1e22db507f80ab2f970673d)), closes [#1930](https://github.com/lyne-design-system/lyne-components/issues/1930)
+
 ### [0.39.3](https://github.com/lyne-design-system/lyne-components/compare/v0.39.2...v0.39.3) (2023-08-10)
 
 ### Bug Fixes
