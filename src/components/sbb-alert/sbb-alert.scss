@@ -97,10 +97,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  @include sbb.mq($from: small) {
-    height: 100%;
-  }
+  height: 100%;
 }
 
 .sbb-alert__close-button {
