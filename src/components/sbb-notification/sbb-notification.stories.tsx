@@ -5,6 +5,7 @@ import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import isChromatic from 'chromatic/isChromatic';
 
 const titleContent: InputType = {
   control: {
@@ -42,7 +43,7 @@ const basicArgs: Args = {
   'title-content': 'Title',
   type: type.options[0],
   readonly: false,
-  'disable-animation': true,
+  'disable-animation': isChromatic(),
 };
 
 const appendNotification = (args): void => {
@@ -54,6 +55,7 @@ const appendNotification = (args): void => {
   newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.readonly = args['readonly'];
+  newNotification.disableAnimation = args['disable-animation'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
   document.querySelector('.notification-container').append(newNotification);
@@ -74,9 +76,16 @@ const trigger = (args): JSX.Element => (
 const notification = (args): JSX.Element => (
   <sbb-notification
     {...args}
+    disable-animation
     style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
     ref={(notification) =>
-      notification.addEventListener('did-open', () => (notification.disableAnimation = false))
+      notification.addEventListener(
+        'did-open',
+        () => (notification.disableAnimation = args['disable-animation']),
+        {
+          once: true,
+        },
+      )
     }
   >
     The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
@@ -121,9 +130,16 @@ const SlottedTitleTemplate = (args): JSX.Element => (
     <div class="notification-container" style={{ display: 'flex', 'flex-direction': 'column' }}>
       <sbb-notification
         {...args}
+        disable-animation
         style={{ 'margin-block-end': 'var(--sbb-spacing-fixed-4x)' }}
         ref={(notification) =>
-          notification.addEventListener('did-open', () => (notification.disableAnimation = false))
+          notification.addEventListener(
+            'did-open',
+            () => (notification.disableAnimation = args['disable-animation']),
+            {
+              once: true,
+            },
+          )
         }
       >
         <span slot="title">Slotted title</span>
