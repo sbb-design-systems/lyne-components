@@ -23,8 +23,9 @@ import {
 import {
   assignId,
   FocusTrap,
+  getFirstFocusableElement,
   getNextElementIndex,
-  IS_FOCUSABLE_QUERY,
+  interactivityChecker,
   isArrowKeyPressed,
   sbbInputModalityDetector,
   setModalityOnNextFocus,
@@ -182,7 +183,7 @@ export class SbbMenu implements ComponentInterface {
 
     const enabledActions: Element[] = Array.from(
       this._element.querySelectorAll('SBB-MENU-ACTION'),
-    ).filter((e: HTMLElement) => e.tabIndex === 0);
+    ).filter((el: HTMLElement) => el.tabIndex === 0 && interactivityChecker.isVisible(el));
 
     const current = enabledActions.findIndex((e: Element) => e === evt.target);
     const nextIndex = getNextElementIndex(evt, current, enabledActions.length);
@@ -328,7 +329,11 @@ export class SbbMenu implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+    const firstFocusable = getFirstFocusableElement(
+      Array.from(this._element.children).filter(
+        (e): e is HTMLElement => e instanceof window.HTMLElement,
+      ),
+    );
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       firstFocusable.focus();

@@ -12,7 +12,7 @@ import {
   Prop,
 } from '@stencil/core';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
-import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { isValidAttribute, hostContext } from '../../global/dom';
 import { throttle } from '../../global/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
@@ -101,7 +101,9 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
-    return this.tabs.filter((t) => !isValidAttribute(t, 'disabled'));
+    return this.tabs.filter(
+      (t) => !isValidAttribute(t, 'disabled') && interactivityChecker.isVisible(t),
+    );
   }
 
   public connectedCallback(): void {

@@ -135,6 +135,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     evt: KeyboardEvent,
     breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs,
   ): void {
+    // TODO: focus only visible elements
     const current: number = breadcrumbs.findIndex(
       (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement,
     );

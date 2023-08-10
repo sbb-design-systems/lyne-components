@@ -12,10 +12,10 @@ import {
 } from '@stencil/core';
 import { SbbOverlayState } from '../../components';
 import {
-  IS_FOCUSABLE_QUERY,
   getFocusableElements,
   assignId,
   sbbInputModalityDetector,
+  getFirstFocusableElement,
 } from '../../global/a11y';
 import { isValidAttribute, isBreakpoint, findReferencedElement } from '../../global/dom';
 import {
@@ -267,7 +267,11 @@ export class SbbNavigationSection implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setNavigationSectionFocus(): void {
-    const firstFocusable = this._element.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement;
+    const firstFocusable = getFirstFocusableElement(
+      Array.from(this._element.children).filter(
+        (e): e is HTMLElement => e instanceof window.HTMLElement,
+      ),
+    );
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       firstFocusable.focus();

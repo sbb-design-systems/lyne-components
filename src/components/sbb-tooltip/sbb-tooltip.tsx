@@ -19,6 +19,7 @@ import {
   assignId,
   sbbInputModalityDetector,
   setModalityOnNextFocus,
+  getFirstFocusableElement,
 } from '../../global/a11y';
 import { findReferencedElement, isValidAttribute } from '../../global/dom';
 import {
@@ -424,7 +425,11 @@ export class SbbTooltip implements ComponentInterface {
   private _setTooltipFocus(): void {
     this._firstFocusable =
       this._element.shadowRoot.querySelector('[sbb-tooltip-close]') ||
-      this._element.querySelector(IS_FOCUSABLE_QUERY);
+      getFirstFocusableElement(
+        Array.from(this._element.children).filter(
+          (e): e is HTMLElement => e instanceof window.HTMLElement,
+        ),
+      );
 
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
       this._firstFocusable?.focus();
