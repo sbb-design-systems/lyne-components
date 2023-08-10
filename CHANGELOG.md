@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.3](https://github.com/lyne-design-system/lyne-components/compare/v0.39.2...v0.39.3) (2023-08-10)
+
+### Bug Fixes
+
+- **sbb-notification:** handle stories disableAnimation correctly ([#1928](https://github.com/lyne-design-system/lyne-components/issues/1928)) ([ac3a483](https://github.com/lyne-design-system/lyne-components/commit/ac3a483cea4cec87c1a9af0df354b3ebc8b3aaf5))
+
 ### [0.39.2](https://github.com/lyne-design-system/lyne-components/compare/v0.39.1...v0.39.2) (2023-08-08)
 
 ### Documentation
