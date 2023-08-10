@@ -14,7 +14,7 @@ describe('sbb-expansion-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel>
+      <sbb-expansion-panel style="--sbb-expansion-panel-content-height: auto;">
         <mock:shadow-root>
           <div class="sbb-expansion-panel">
             <div class="sbb-expansion-panel__header">
@@ -43,7 +43,7 @@ describe('sbb-expansion-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-expansion-panel title-level="4">
+      <sbb-expansion-panel title-level="4" style="--sbb-expansion-panel-content-height: auto;">
         <mock:shadow-root>
           <div class="sbb-expansion-panel">
             <h4 class="sbb-expansion-panel__header">

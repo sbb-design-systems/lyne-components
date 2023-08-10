@@ -1,49 +1,22 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/html';
-import { InputType } from '@storybook/types';
+import type { Meta, StoryObj } from '@storybook/html';
 
-const contentText: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  contentText,
-};
-
-const defaultArgs: Args = {
-  contentText:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit libero cursus vel.',
-};
-
-const Template = ({ contentText }): JSX.Element => (
-  <sbb-expansion-panel-content>
-    <p>Static content.</p>
-    <p>Dynamic content: {contentText}</p>
-  </sbb-expansion-panel-content>
+const Template = (): JSX.Element => (
+  <sbb-card color="milk">
+    `sbb-expansion-panel-content` is an element to be only used together with `sbb-expansion-panel`.
+    See `sbb-expansion-panel` examples to see it in action.
+  </sbb-card>
 );
 
-export const Default: StoryObj = {
+export const ExpansionPanelContent: StoryObj = {
   render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story />
-      </div>
-    ),
-  ],
   parameters: {
-    backgrounds: {
-      disable: true,
-    },
+    chromatic: { disableSnapshot: true },
     docs: {
       extractComponentDescription: () => readme,
     },
