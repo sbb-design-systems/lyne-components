@@ -87,7 +87,7 @@ describe('sbb-datepicker-next-day', () => {
 
       expect(
         await page.evaluate(() =>
-          document.querySelector('sbb-datepicker-next-day').hasAttribute('disabled'),
+          document.querySelector('sbb-datepicker-next-day').hasAttribute('data-disabled'),
         ),
       ).toEqual(true);
 
@@ -102,7 +102,7 @@ describe('sbb-datepicker-next-day', () => {
 
       await page.waitForChanges();
 
-      expect(element).toHaveAttribute('disabled');
+      expect(element).toHaveAttribute('data-disabled');
       await element.click();
       await page.waitForChanges();
       expect(await input.getProperty('value')).toEqual('Sa, 21.01.2023');

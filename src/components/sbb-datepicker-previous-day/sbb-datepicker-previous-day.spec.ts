@@ -36,7 +36,7 @@ describe('sbb-datepicker-previous-day', () => {
     const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
       'sbb-datepicker-previous-day',
     );
-    expect(element).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('data-disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
@@ -54,6 +54,6 @@ describe('sbb-datepicker-previous-day', () => {
     const element: HTMLSbbDatepickerPreviousDayElement = page.doc.querySelector(
       'sbb-datepicker-previous-day',
     );
-    expect(element).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('data-disabled');
   });
 });

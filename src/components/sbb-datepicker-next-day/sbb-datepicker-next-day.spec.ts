@@ -35,7 +35,7 @@ describe('sbb-datepicker-next-day', () => {
 
     const element: HTMLSbbDatepickerNextDayElement =
       page.doc.querySelector('sbb-datepicker-next-day');
-    expect(element).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('data-disabled');
   });
 
   it('renders with datepicker and input readonly', async () => {
@@ -52,6 +52,6 @@ describe('sbb-datepicker-next-day', () => {
 
     const element: HTMLSbbDatepickerNextDayElement =
       page.doc.querySelector('sbb-datepicker-next-day');
-    expect(element).toHaveAttribute('disabled');
+    expect(element).toHaveAttribute('data-disabled');
   });
 });

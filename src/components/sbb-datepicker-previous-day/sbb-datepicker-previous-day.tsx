@@ -25,6 +25,7 @@ import {
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 
 @Component({
   shadow: true,
@@ -32,9 +33,6 @@ import {
   tag: 'sbb-datepicker-previous-day',
 })
 export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonProperties {
-  /** Whether the button is disabled */
-  @Prop({ reflect: true, mutable: true }) public disabled = false;
-
   /** The name attribute to use for the button. */
   @Prop({ reflect: true }) public name: string | undefined;
 
@@ -75,7 +73,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
 
   @Listen('click')
   public async handleClick(): Promise<void> {
-    if (!this._datePickerElement || this.disabled) {
+    if (!this._datePickerElement || isValidAttribute(this._element, 'data-disabled')) {
       return;
     }
     const startingDate: Date = (await this._datePickerElement.getValueAsDate()) ?? this._now();
@@ -164,8 +162,11 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
   }
 
   public render(): JSX.Element {
-    this.disabled = this._disabled || this._inputDisabled;
-    const { hostAttributes } = resolveButtonRenderVariables(this);
+    toggleDatasetEntry(this._element, 'disabled', this._disabled || this._inputDisabled);
+    const { hostAttributes } = resolveButtonRenderVariables({
+      ...this,
+      disabled: isValidAttribute(this._element, 'data-disabled'),
+    });
 
     return (
       <Host {...hostAttributes} slot="prefix" aria-label={i18nPreviousDay[this._currentLanguage]}>
