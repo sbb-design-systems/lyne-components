@@ -167,6 +167,12 @@ export const Expanded: StoryObj = {
   args: { ...defaultArgs, expanded: true },
 };
 
+export const ExpandedIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, expanded: true, iconName: 'swisspass-medium' },
+};
+
 export const LongText: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
