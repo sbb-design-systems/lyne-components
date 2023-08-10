@@ -141,11 +141,9 @@
 }
 
 .sbb-notification__icon {
-  margin-block: var(--sbb-spacing-fixed-2x);
   color: var(--sbb-notification-icon-color);
 
   @include sbb.mq($from: small) {
-    margin-block-end: 0;
     margin-block-start: calc(
       ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
     );
@@ -183,13 +181,8 @@
 .sbb-notification__close-wrapper {
   display: flex;
   align-items: center;
-  height: 100%;
   gap: var(--sbb-spacing-responsive-xxs);
-  max-height: calc(var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-4x));
-
-  @include sbb.mq($from: small) {
-    max-height: 100%;
-  }
+  height: 100%;
 }
 
 .sbb-notification__divider {

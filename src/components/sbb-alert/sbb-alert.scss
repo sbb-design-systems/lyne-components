@@ -97,13 +97,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  // Decrease height to 40px (close button would take 44px of space).
-  height: #{sbb.px-to-rem-build(40)};
-
-  @include sbb.mq($from: small) {
-    height: 100%;
-  }
+  height: 100%;
 }
 
 .sbb-alert__close-button {
