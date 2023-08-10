@@ -84,7 +84,7 @@
 }
 
 :host([borderless]:not([borderless='false'])[data-accordion]:not([data-accordion-first])) {
-  --sbb-expansion-panel-border-block-start-width: var(--sbb-border-width-2x);
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
 }
 
 @include sbb.hover-mq($hover: true) {
