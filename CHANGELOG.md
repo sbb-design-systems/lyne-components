@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.5](https://github.com/lyne-design-system/lyne-components/compare/v0.39.4...v0.39.5) (2023-08-11)
+
+### Bug Fixes
+
+- **sbb-datepicker:** remove disable property from next and previous day ([#1936](https://github.com/lyne-design-system/lyne-components/issues/1936)) ([0bd2b70](https://github.com/lyne-design-system/lyne-components/commit/0bd2b702429ef85f9312292d6a43b410292e083c))
+
 ### [0.39.4](https://github.com/lyne-design-system/lyne-components/compare/v0.39.3...v0.39.4) (2023-08-10)
 
 ### Bug Fixes
