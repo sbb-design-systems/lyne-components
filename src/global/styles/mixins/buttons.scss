@@ -25,7 +25,7 @@
 @mixin icon-button($button-selector, $icon-selector) {
   @include icon-button-base(':host', #{$button-selector}, #{$icon-selector});
 
-  :host([disabled]:not([disabled='false'])) {
+  :host([data-disabled]:not([data-disabled='false'])) {
     @include icon-button-disabled(#{$button-selector});
   }
 
@@ -33,11 +33,11 @@
     @include icon-button-focus-visible(#{$button-selector});
   }
 
-  :host(:not([disabled]:not([disabled='false']), :active, [data-active]):hover) {
+  :host(:not([data-disabled], :active, [data-active]):hover) {
     @include icon-button-hover(#{$button-selector});
   }
 
-  :host(:not([disabled]:not([disabled='false'])):is(:active, [data-active])) {
+  :host(:not([data-disabled]):is(:active, [data-active])) {
     @include icon-button-active(#{$button-selector});
   }
 }
