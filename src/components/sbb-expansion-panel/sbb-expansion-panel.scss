@@ -32,6 +32,7 @@
 :host([disabled]:not([disabled='false'])) {
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-color: GrayText;
+    --sbb-expansion-panel-border-block-start-color: GrayText;
   }
 }
 
@@ -81,10 +82,17 @@
   --sbb-expansion-panel-border-color: transparent;
   --sbb-expansion-panel-border-block-start-width: 0;
   --sbb-expansion-panel-border-block-start-color: transparent;
+  @include sbb.if-forced-colors {
+    --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
+    --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
+  }
 }
 
 :host([borderless]:not([borderless='false'])[data-accordion]:not([data-accordion-first])) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
+  @include sbb.if-forced-colors {
+    --sbb-expansion-panel-border-block-start-width: var(--sbb-border-width-1x);
+  }
 }
 
 @include sbb.hover-mq($hover: true) {
