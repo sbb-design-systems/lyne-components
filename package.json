@@ -67,7 +67,7 @@
     "@storybook/addon-mdx-gfm": "7.2.2",
     "@storybook/html": "7.2.2",
     "@storybook/html-webpack5": "7.2.2",
-    "@storybook/jest": "0.1.0",
+    "@storybook/jest": "0.2.0",
     "@storybook/preset-scss": "1.0.3",
     "@storybook/testing-library": "0.2.0",
     "@types/jest": "27.5.2",
