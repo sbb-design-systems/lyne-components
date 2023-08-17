@@ -14,6 +14,8 @@ export class SbbAccordion implements ComponentInterface {
   /** The heading level for the sbb-expansion-panel-headers within the component. */
   @Prop() public titleLevel?: InterfaceTitleAttributes['level'];
 
+  @Prop({ reflect: true }) public noanimation = false;
+
   /** Whether more than one sbb-expansion-panel can be open at the same time. */
   @Prop() public multi = false;
 
@@ -55,6 +57,7 @@ export class SbbAccordion implements ComponentInterface {
     const expansionPanels = this._expansionPanels;
     this._setTitleLevelOnPanels(expansionPanels);
     this._setPanelOrderInformation(expansionPanels);
+    this._setPanelDisabledAnimation(expansionPanels);
   }
 
   private _setTitleLevelOnPanels(expansionPanels: HTMLSbbExpansionPanelElement[]): void {
@@ -76,6 +79,22 @@ export class SbbAccordion implements ComponentInterface {
 
     toggleDatasetEntry(expansionPanels[0], 'accordionFirst', true);
     toggleDatasetEntry(expansionPanels[expansionPanels.length - 1], 'accordionLast', true);
+  }
+
+  private _setPanelDisabledAnimation(expansionPanels: HTMLSbbExpansionPanelElement[]): void {
+    if (!expansionPanels.length) {
+      return;
+    }
+    // Set or remove disable-animation attribute from each expansion panel
+    if (this.noanimation) {
+      expansionPanels.forEach((panel) => {
+        panel.setAttribute('disable-animation', '');
+      });
+    } else {
+      expansionPanels.forEach((panel) => {
+        panel.removeAttribute('disable-animation');
+      });
+    }
   }
 
   public render(): JSX.Element {

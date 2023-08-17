@@ -99,6 +99,7 @@ export namespace Components {
           * Whether more than one sbb-expansion-panel can be open at the same time.
          */
         "multi": boolean;
+        "noanimation": boolean;
         /**
           * The heading level for the sbb-expansion-panel-headers within the component.
          */
@@ -2707,6 +2708,7 @@ declare namespace LocalJSX {
           * Whether more than one sbb-expansion-panel can be open at the same time.
          */
         "multi"?: boolean;
+        "noanimation"?: boolean;
         /**
           * The heading level for the sbb-expansion-panel-headers within the component.
          */

@@ -42,10 +42,11 @@ The `multi` property, if set, allows to have more than one panel expanded at the
 
 ## Properties
 
-| Property     | Attribute     | Description                                                                 | Type                                     | Default     |
-| ------------ | ------------- | --------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
-| `multi`      | `multi`       | Whether more than one sbb-expansion-panel can be open at the same time.     | `boolean`                                | `false`     |
-| `titleLevel` | `title-level` | The heading level for the sbb-expansion-panel-headers within the component. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
+| Property      | Attribute     | Description                                                                 | Type                                     | Default     |
+| ------------- | ------------- | --------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `multi`       | `multi`       | Whether more than one sbb-expansion-panel can be open at the same time.     | `boolean`                                | `false`     |
+| `noanimation` | `noanimation` |                                                                             | `boolean`                                | `false`     |
+| `titleLevel`  | `title-level` | The heading level for the sbb-expansion-panel-headers within the component. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `undefined` |
 
 
 ## Slots
