@@ -1,0 +1,35 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+:host {
+  --sbb-no-results-subtitle-color: var(--sbb-color-granite-default);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+::slotted([slot='image']) {
+  margin-block: 0 var(--sbb-spacing-responsive-s);
+}
+
+::slotted([slot='subtitle']) {
+  @include sbb.text-s--regular;
+
+  color: var(--sbb-no-results-subtitle-color);
+  margin: 0;
+}
+
+::slotted([slot='legend']) {
+  @include sbb.legend;
+
+  margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+}
+
+::slotted([slot='action']) {
+  margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+}
