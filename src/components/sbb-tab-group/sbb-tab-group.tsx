@@ -102,6 +102,7 @@ export class SbbTabGroup implements ComponentInterface {
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
     return this.tabs.filter(
+      //TODO: fix e2e tests
       (t) => !isValidAttribute(t, 'disabled') && interactivityChecker.isVisible(t),
     );
   }
@@ -285,7 +286,7 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
+  public async handleKeyDown(evt: KeyboardEvent): Promise<void> {
     const enabledTabs: InterfaceSbbTabGroupTab[] = this._enabledTabs;
 
     if (
