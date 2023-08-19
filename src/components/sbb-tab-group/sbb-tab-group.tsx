@@ -102,7 +102,6 @@ export class SbbTabGroup implements ComponentInterface {
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
     return this.tabs.filter(
-      //TODO: fix e2e tests
       (t) => !isValidAttribute(t, 'disabled') && interactivityChecker.isVisible(t),
     );
   }
@@ -111,7 +110,7 @@ export class SbbTabGroup implements ComponentInterface {
     this._isNested = !!hostContext('sbb-tab-group', this._element);
   }
 
-  public componentWillLoad(): void {
+  public componentDidLoad(): void {
     this.tabs = this._getTabs();
     this.tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
