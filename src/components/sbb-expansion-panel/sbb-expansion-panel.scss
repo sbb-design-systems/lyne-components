@@ -91,13 +91,17 @@
 :host([borderless]:not([borderless='false'])[data-accordion]:not([data-accordion-first])) {
   --sbb-expansion-panel-border-block-start-width: var(--sbb-spacing-fixed-1x);
   @include sbb.if-forced-colors {
-    --sbb-expansion-panel-border-block-start-width: var(--sbb-border-width-1x);
+    --sbb-expansion-panel-border-block-start-width: 0;
   }
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover:not([disabled]:not([disabled='false']))) {
     --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
+    @include sbb.if-forced-colors {
+      --sbb-expansion-panel-border-color: Highlight;
+      --sbb-expansion-panel-border-block-start-color: Highlight;
+    }
   }
 
   :host([color='milk']:hover:not([disabled]:not([disabled='false']))) {
