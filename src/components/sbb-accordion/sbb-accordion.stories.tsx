@@ -22,7 +22,7 @@ const multi: InputType = {
   },
 };
 
-const noanimation: InputType = {
+const disableAnimation: InputType = {
   control: {
     type: 'boolean',
   },
@@ -108,7 +108,7 @@ const contentText: InputType = {
 const defaultArgTypes: ArgTypes = {
   numberOfPanels,
   multi,
-  noanimation,
+  'disable-animation': disableAnimation,
   'title-level': titleLevel,
   color,
   expanded,
@@ -122,7 +122,7 @@ const defaultArgTypes: ArgTypes = {
 const defaultArgs: Args = {
   numberOfPanels: 3,
   multi: false,
-  noanimation: false,
+  'disable-animation': false,
   'title-level': titleLevel.options[2],
   color: color.options[0],
   expanded: false,
@@ -234,10 +234,10 @@ export const Multi: StoryObj = {
   args: { ...defaultArgs, multi: true },
 };
 
-export const Noanimation: StoryObj = {
+export const NoAnimation: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, noanimation: true },
+  args: { ...defaultArgs, 'disable-animation': true },
 };
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({

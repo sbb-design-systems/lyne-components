@@ -96,10 +96,13 @@ export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/s
 export namespace Components {
     interface SbbAccordion {
         /**
+          * Whether the animation should be disabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * Whether more than one sbb-expansion-panel can be open at the same time.
          */
         "multi": boolean;
-        "noanimation": boolean;
         /**
           * The heading level for the sbb-expansion-panel-headers within the component.
          */
@@ -2705,10 +2708,13 @@ declare global {
 declare namespace LocalJSX {
     interface SbbAccordion {
         /**
+          * Whether the animation should be disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
           * Whether more than one sbb-expansion-panel can be open at the same time.
          */
         "multi"?: boolean;
-        "noanimation"?: boolean;
         /**
           * The heading level for the sbb-expansion-panel-headers within the component.
          */
