@@ -9,7 +9,9 @@
   --sbb-no-results-image-margin-block: 0 var(--sbb-spacing-responsive-s);
   --sbb-no-results-legend-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
   --sbb-no-results-action-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+}
 
+.sbb-no-results__container {
   text-align: center;
 }
 

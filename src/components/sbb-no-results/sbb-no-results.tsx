@@ -45,13 +45,15 @@ export class SbbNoResults implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host>
-        {this._namedSlots['image'] && <slot name="image" />}
-        <sbb-title level={this.titleLevel} visualLevel="5">
-          <slot name="title">{this.titleContent}</slot>
-        </sbb-title>
-        <slot name="subtitle" />
-        {this._namedSlots['legend'] && <slot name="legend" />}
-        {this._namedSlots['action'] && <slot name="action" />}
+        <div class="sbb-no-results__container">
+          {this._namedSlots['image'] && <slot name="image" />}
+          <sbb-title level={this.titleLevel} visualLevel="5">
+            <slot name="title">{this.titleContent}</slot>
+          </sbb-title>
+          <slot name="subtitle" />
+          {this._namedSlots['legend'] && <slot name="legend" />}
+          {this._namedSlots['action'] && <slot name="action" />}
+        </div>
       </Host>
     );
   }
