@@ -70,7 +70,7 @@ export const SlottedTitle: StoryObj = {
 const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: '1rem', 'max-width': '45rem', margin: 'auto' }}>
         <Story />
       </div>
     ),

@@ -1119,9 +1119,13 @@ export namespace Components {
     }
     interface SbbNoResults {
         /**
-          * Documentation for someProp
+          * Content of title.
          */
         "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
     }
     interface SbbNotification {
         "close": () => Promise<void>;
@@ -3733,9 +3737,13 @@ declare namespace LocalJSX {
     }
     interface SbbNoResults {
         /**
-          * Documentation for someProp
+          * Content of title.
          */
         "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbNotification {
         /**

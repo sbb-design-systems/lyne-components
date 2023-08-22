@@ -4,6 +4,7 @@ import {
   createNamedSlotState,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
  * @slot image - Use this slot to provide an sbb-image component.
@@ -18,9 +19,11 @@ import {
   tag: 'sbb-no-results',
 })
 export class SbbNoResults implements ComponentInterface {
-  /** Documentation for someProp */
-  @Prop()
-  public titleContent?: string;
+  /** Content of title. */
+  @Prop() public titleContent?: string;
+
+  /** Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. */
+  @Prop() public titleLevel: InterfaceTitleAttributes['level'] = '3';
 
   @State() private _namedSlots = createNamedSlotState('image', 'legend', 'action');
 
@@ -44,7 +47,11 @@ export class SbbNoResults implements ComponentInterface {
       <Host>
         {this._namedSlots['image'] && <slot name="image" />}
         <slot name="title">
-          {this.titleContent && <sbb-title level="5">{this.titleContent}</sbb-title>}
+          {this.titleContent && (
+            <sbb-title level={this.titleLevel} visualLevel="5">
+              {this.titleContent}
+            </sbb-title>
+          )}
         </slot>
         <slot name="subtitle" />
         {this._namedSlots['legend'] && <slot name="legend" />}
