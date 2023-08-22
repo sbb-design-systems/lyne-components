@@ -42,9 +42,7 @@ const NoActionTemplate = (args): JSX.Element => (
 const SlottedTitleTemplate = (): JSX.Element => (
   <sbb-no-results>
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
-    <sbb-title slot="title" level="5">
-      Unfortunately, an error has occurred.
-    </sbb-title>
+    <p slot="title">Unfortunately, an error has occurred.</p>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
     <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>

@@ -10,16 +10,14 @@
   --sbb-no-results-legend-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
   --sbb-no-results-action-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
 }
 
-sbb-title,
 ::slotted([slot='title']) {
   --sbb-title-margin-block-start: 0;
   --sbb-title-margin-block-end: 0;
+
+  margin: 0;
 }
 
 ::slotted([slot='image']) {

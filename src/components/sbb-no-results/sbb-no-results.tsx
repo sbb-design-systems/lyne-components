@@ -46,13 +46,9 @@ export class SbbNoResults implements ComponentInterface {
     return (
       <Host>
         {this._namedSlots['image'] && <slot name="image" />}
-        <slot name="title">
-          {this.titleContent && (
-            <sbb-title level={this.titleLevel} visualLevel="5">
-              {this.titleContent}
-            </sbb-title>
-          )}
-        </slot>
+        <sbb-title level={this.titleLevel} visualLevel="5">
+          <slot name="title">{this.titleContent}</slot>
+        </sbb-title>
         <slot name="subtitle" />
         {this._namedSlots['legend'] && <slot name="legend" />}
         {this._namedSlots['action'] && <slot name="action" />}
