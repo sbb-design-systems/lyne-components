@@ -17,15 +17,17 @@ describe('sbb-no-results', () => {
     expect(root).toEqualHtml(`
     <sbb-no-results title-content="Title.">
       <mock:shadow-root>
-        <slot name="image"></slot>
-        <slot name="title">
+        <div class="sbb-no-results__container">
+          <slot name="image"></slot>
           <sbb-title level="3" visuallevel="5">
-            Title.
+            <slot name="title">
+              Title.
+            </slot>
           </sbb-title>
-        </slot>
-        <slot name="subtitle"></slot>
-        <slot name="legend"></slot>
-        <slot name="action"></slot>
+          <slot name="subtitle"></slot>
+          <slot name="legend"></slot>
+          <slot name="action"></slot>
+        </div>
       </mock:shadow-root>
       <sbb-image slot="image"></sbb-image>
       <p slot="subtitle">
@@ -51,12 +53,14 @@ describe('sbb-no-results', () => {
     expect(root).toEqualHtml(`
     <sbb-no-results title-content="Title.">
       <mock:shadow-root>
-        <slot name="title">
+        <div class="sbb-no-results__container">
           <sbb-title level="3" visuallevel="5">
-            Title.
+            <slot name="title">
+              Title.
+            </slot>
           </sbb-title>
-        </slot>
-        <slot name="subtitle"></slot>
+          <slot name="subtitle"></slot>
+        </div>
       </mock:shadow-root>
       <p slot="subtitle">
         Subtitle.
