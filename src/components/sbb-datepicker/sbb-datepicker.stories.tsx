@@ -86,6 +86,8 @@ const filterFunctions = [
   () => true,
   (d) => d.getDay() !== 6 && d.getDay() !== 0,
   (d) => d.getDate() % 2 === 1,
+  (d) => d.getFullYear() % 2 === 0,
+  (d) => d.getMonth() > 6,
 ];
 const dateFilter: InputType = {
   options: Object.keys(filterFunctions),
@@ -96,6 +98,8 @@ const dateFilter: InputType = {
       0: 'No dateFilter function.',
       1: 'The dateFilter function includes only working days.',
       2: 'The dateFilter function excludes even days.',
+      3: 'The dateFilter function excludes odd years.',
+      4: 'The dateFilter function excludes months from July to December',
     },
   },
   table: {

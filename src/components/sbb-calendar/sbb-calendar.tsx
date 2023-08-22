@@ -13,7 +13,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
-import { Day, Weekday } from './sbb-calendar.custom';
+import { Day, Month, Weekday } from './sbb-calendar.custom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -85,7 +85,7 @@ export class SbbCalendar implements ComponentInterface {
   private _weeks: Day[][];
 
   /** Grid of calendar cells representing months. */
-  private _months: string[][]; // TODO type if needed
+  private _months: Month[][];
 
   /** Grid of calendar cells representing years. */
   private _years: number[][]; // TODO type if needed
@@ -247,10 +247,12 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the rows for the month selection view. */
-  private _createMonthRows(): string[][] {
-    const months: string[] = this._dateAdapter.getMonthNames('short');
+  private _createMonthRows(): Month[][] {
+    const months: Month[] = this._dateAdapter
+      .getMonthNames('short')
+      .map((e: string, i: number) => ({ value: e, monthValue: i }));
     const rows: number = 12 / MONTHS_PER_ROW;
-    const monthArray: string[][] = [];
+    const monthArray: Month[][] = [];
     for (let i: number = 0; i < rows; i++) {
       monthArray.push(months.slice(MONTHS_PER_ROW * i, MONTHS_PER_ROW * (i + 1)));
     }
@@ -285,6 +287,72 @@ export class SbbCalendar implements ComponentInterface {
       this._dateAdapter.isValid(this._max) &&
       this._dateAdapter.compareDate(this._max, this._dateAdapter.createDateFromISOString(date)) < 0;
     return !(isBeforeMin || isAfterMax);
+  }
+
+  private _isMonthInRange(month: number): boolean {
+    if (!this._min && !this._max) {
+      return true;
+    }
+    const isBeforeMin: boolean =
+      this._dateAdapter.isValid(this._min) &&
+      this._dateAdapter.getYear(this._min) >= this._chosenYear &&
+      this._dateAdapter.getMonth(this._min) > month;
+    const isAfterMax: boolean =
+      this._dateAdapter.isValid(this._max) &&
+      this._dateAdapter.getYear(this._max) <= this._chosenYear &&
+      this._dateAdapter.getMonth(this._max) < month;
+    return !(isBeforeMin || isAfterMax);
+  }
+
+  private _isYearInRange(year: number): boolean {
+    if (!this._min && !this._max) {
+      return true;
+    }
+    const isBeforeMin: boolean =
+      this._dateAdapter.isValid(this._min) && this._dateAdapter.getYear(this._min) > year;
+    const isAfterMax: boolean =
+      this._dateAdapter.isValid(this._max) && this._dateAdapter.getYear(this._max) < year;
+    return !(isBeforeMin || isAfterMax);
+  }
+
+  // Implementation adapted from https://github.com/angular/components/blob/main/src/material/datepicker/year-view.ts#L366
+  private _isMonthFilteredOut(month: number): boolean {
+    if (!this.dateFilter) {
+      return true;
+    }
+
+    const firstOfMonth = this._dateAdapter.createDate(this._chosenYear, month, 1);
+    for (
+      let date = firstOfMonth;
+      this._dateAdapter.getMonth(date) == month;
+      date = this._dateAdapter.addCalendarDays(date, 1)
+    ) {
+      if (this.dateFilter(date)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // Implementation adapted from https://github.com/angular/components/blob/main/src/material/datepicker/multi-year-view.ts#L351
+  private _isYearFilteredOut(year: number): boolean {
+    if (!this.dateFilter) {
+      return true;
+    }
+
+    const firstOfYear = this._dateAdapter.createDate(year, 0, 1);
+    for (
+      let date = firstOfYear;
+      this._dateAdapter.getYear(date) == year;
+      date = this._dateAdapter.addCalendarDays(date, 1)
+    ) {
+      if (this.dateFilter(date)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /** Emits the selected date and sets it internally. */
@@ -701,9 +769,9 @@ export class SbbCalendar implements ComponentInterface {
     return 'FIXME';
   }
 
-  // FIXME outOfRange filteredOut
+  // FIXME selected aria-label aria-pressed data-<>? tabindex keydown tooltip-close
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: string[][]): JSX.Element {
+  private _createMonthTable(months: Month[][]): JSX.Element {
     return (
       <table class="sbb-calendar__table">
         <thead class="sbb-calendar__table-header" aria-hidden={true}>
@@ -712,18 +780,27 @@ export class SbbCalendar implements ComponentInterface {
           </tr>
         </thead>
         <tbody class="sbb-calendar__table-body">
-          {months.map((row: string[], rowIndex) => (
+          {months.map((row: Month[]) => (
             <tr>
-              {row.map((month: string, index: number) => (
-                <td class="sbb-calendar__table-data">
-                  <button
-                    class="sbb-calendar__day"
-                    onClick={() => this._onMonthSelection(rowIndex, index)}
-                  >
-                    {month}
-                  </button>
-                </td>
-              ))}
+              {row.map((month: Month) => {
+                const isOutOfRange = !this._isMonthInRange(month.monthValue);
+                const isFilteredOut = !this._isMonthFilteredOut(month.monthValue);
+                return (
+                  <td class="sbb-calendar__table-data">
+                    <button
+                      class={{
+                        'sbb-calendar__day': true,
+                        'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
+                      }}
+                      onClick={() => this._onMonthSelection(month.monthValue)}
+                      disabled={isOutOfRange || isFilteredOut}
+                      aria-disabled={String(isOutOfRange || isFilteredOut)}
+                    >
+                      {month.value}
+                    </button>
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
@@ -732,8 +809,8 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   // FIXME
-  private _onMonthSelection(rowIndex: number, monthIndex: number): void {
-    this._chosenMonth = MONTHS_PER_ROW * rowIndex + monthIndex;
+  private _onMonthSelection(month: number): void {
+    this._chosenMonth = month;
     this._assignActiveDate(
       new Date(this._chosenYear, this._chosenMonth, this._activeDate.getDate()),
     );
@@ -823,18 +900,30 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME outOfRange filteredOut
+  // FIXME selected aria-label aria-pressed data-<>? tabindex keydown tooltip-close
   /** Creates the table cells for the year selection view. */
   private _createYearTableBody(years: number[][]): JSX.Element {
     return years.map((row: number[]) => (
       <tr>
-        {row.map((year: number) => (
-          <td class="sbb-calendar__table-data">
-            <button class="sbb-calendar__day" onClick={() => this._onYearSelection(year)}>
-              {year}
-            </button>
-          </td>
-        ))}
+        {row.map((year: number) => {
+          const isOutOfRange = !this._isYearInRange(year);
+          const isFilteredOut = !this._isYearFilteredOut(year);
+          return (
+            <td class="sbb-calendar__table-data">
+              <button
+                class={{
+                  'sbb-calendar__day': true,
+                  'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
+                }}
+                onClick={() => this._onYearSelection(year)}
+                disabled={isOutOfRange || isFilteredOut}
+                aria-disabled={String(isOutOfRange || isFilteredOut)}
+              >
+                {year}
+              </button>
+            </td>
+          );
+        })}
       </tr>
     ));
   }

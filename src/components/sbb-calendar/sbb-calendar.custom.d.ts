@@ -5,6 +5,11 @@ export interface Day {
   yearValue: string;
 }
 
+export interface Month {
+  value: string;
+  monthValue: number;
+}
+
 export interface Weekday {
   long: string;
   narrow: string;
