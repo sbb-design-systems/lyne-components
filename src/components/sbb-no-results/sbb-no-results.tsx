@@ -47,7 +47,7 @@ export class SbbNoResults implements ComponentInterface {
       <Host>
         <div class="sbb-no-results__container">
           {this._namedSlots['image'] && <slot name="image" />}
-          <sbb-title level={this.titleLevel} visualLevel="5">
+          <sbb-title level={this.titleLevel} visualLevel="5" class="sbb-no-results__title">
             <slot name="title">{this.titleContent}</slot>
           </sbb-title>
           <slot name="subtitle" />

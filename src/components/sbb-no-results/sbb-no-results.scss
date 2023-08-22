@@ -15,10 +15,12 @@
   text-align: center;
 }
 
-::slotted([slot='title']) {
-  --sbb-title-margin-block-start: 0;
-  --sbb-title-margin-block-end: 0;
+.sbb-no-results__title {
+  // Overwrite sbb-title default margin
+  margin: 0;
+}
 
+::slotted([slot='title']) {
   margin: 0;
 }
 
