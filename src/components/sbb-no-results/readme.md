@@ -18,9 +18,10 @@ By default the `sbb-title` has a visual level of 5 and an actual level of 3. Thi
 
 ## Properties
 
-| Property       | Attribute       | Description                | Type     | Default     |
-| -------------- | --------------- | -------------------------- | -------- | ----------- |
-| `titleContent` | `title-content` | Documentation for someProp | `string` | `undefined` |
+| Property       | Attribute       | Description                                                                     | Type                                     | Default     |
+| -------------- | --------------- | ------------------------------------------------------------------------------- | ---------------------------------------- | ----------- |
+| `titleContent` | `title-content` | Content of title.                                                               | `string`                                 | `undefined` |
+| `titleLevel`   | `title-level`   | Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3. | `"1" \| "2" \| "3" \| "4" \| "5" \| "6"` | `'3'`       |
 
 
 ## Slots
