@@ -51,13 +51,13 @@ This is helpful if you need a specific state of the component.
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                    | Type                       | Default      |
-| -------------- | --------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------ |
-| `dateFilter`   | --              | A function used to filter out dates.                                                                           | `(date: Date) => boolean`  | `() => true` |
-| `max`          | `max`           | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). | `Date \| number \| string` | `undefined`  |
-| `min`          | `min`           | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). | `Date \| number \| string` | `undefined`  |
-| `selectedDate` | `selected-date` | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970).      | `Date \| number \| string` | `undefined`  |
-| `wide`         | `wide`          | If set to true, two months are displayed                                                                       | `boolean`                  | `false`      |
+| Property       | Attribute       | Description                                                                                                     | Type                       | Default      |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------ |
+| `dateFilter`   | --              | A function used to filter out dates.                                                                            | `(date: Date) => boolean`  | `() => true` |
+| `max`          | `max`           | The maximum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). | `Date \| number \| string` | `undefined`  |
+| `min`          | `min`           | The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970). | `Date \| number \| string` | `undefined`  |
+| `selectedDate` | `selected-date` | The selected date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1, 1970).      | `Date \| number \| string` | `undefined`  |
+| `wide`         | `wide`          | If set to true, two months are displayed                                                                        | `boolean`                  | `false`      |
 
 
 ## Events
@@ -88,14 +88,14 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [sbb-icon](../sbb-icon)
 - [sbb-button](../sbb-button)
+- [sbb-icon](../sbb-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-calendar --> sbb-icon
   sbb-calendar --> sbb-button
+  sbb-calendar --> sbb-icon
   sbb-button --> sbb-icon
   sbb-datepicker-toggle --> sbb-calendar
   style sbb-calendar fill:#f9f,stroke:#333,stroke-width:4px
