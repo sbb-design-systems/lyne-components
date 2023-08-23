@@ -107,6 +107,13 @@ export interface DateAdapter<T = any> {
   compareDate: (first: T, second: T) => number;
 
   /**
+   * Creates a new date adding the number of provided `years` to the provided `date`.
+   * @param date The starting date.
+   * @param years The number of years to add.
+   */
+  addCalendarYears: (date: T, years: number) => T;
+
+  /**
    * Creates a new date adding the number of provided `months` to the provided `date`.
    * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
    * E.g. with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).

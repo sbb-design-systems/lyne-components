@@ -376,8 +376,24 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Goes to the month identified by the shift. */
-  private _goToMonth(months: number): void {
+  private _goToDifferentMonth(months: number): void {
     this._assignActiveDate(this._dateAdapter.addCalendarMonths(this._activeDate, months));
+    this._init();
+  }
+
+  private _goToDifferentYear(years: number): void {
+    this._chosenYear += years;
+    const newDateWithChosenYear: Date = new Date(
+      this._chosenYear,
+      this._dateAdapter.getMonth(this._activeDate),
+      this._dateAdapter.getDate(this._activeDate),
+    );
+    this._assignActiveDate(this._dateAdapter.addCalendarYears(newDateWithChosenYear, years));
+    this._init();
+  }
+
+  private _goToDifferentYearRange(years: number): void {
+    this._assignActiveDate(this._dateAdapter.addCalendarYears(this._activeDate, years));
     this._init();
   }
 
@@ -563,7 +579,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-left-small"
             size="m"
             aria-label={i18nPreviousMonth[this._currentLanguage]}
-            onClick={() => this._goToMonth(-1)}
+            onClick={() => this._goToDifferentMonth(-1)}
             disabled={this._previousMonthDisabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
@@ -579,7 +595,7 @@ export class SbbCalendar implements ComponentInterface {
             iconName="chevron-small-right-small"
             size="m"
             aria-label={i18nNextMonth[this._currentLanguage]}
-            onClick={() => this._goToMonth(1)}
+            onClick={() => this._goToDifferentMonth(1)}
             disabled={this._nextMonthDisabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>
@@ -716,13 +732,13 @@ export class SbbCalendar implements ComponentInterface {
     return (
       <Fragment>
         <div class="sbb-calendar__controls">
-          {/* FIXME aria-label onClick disabled id? */}
+          {/* FIXME aria-label disabled id? */}
           <sbb-button
             variant="secondary"
             iconName="chevron-small-left-small"
             size="m"
             aria-label={i18nPreviousMonth[this._currentLanguage]}
-            onClick={() => this._goToMonth(-1)}
+            onClick={() => this._goToDifferentYear(-1)}
             disabled={this._previousMonthDisabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
@@ -732,13 +748,13 @@ export class SbbCalendar implements ComponentInterface {
               {this._createAriaLabelForMonthView()}
             </span>
           </div>
-          {/* FIXME aria-label onClick disabled id? */}
+          {/* FIXME aria-label disabled id? */}
           <sbb-button
             variant="secondary"
             iconName="chevron-small-right-small"
             size="m"
             aria-label={i18nNextMonth[this._currentLanguage]}
-            onClick={() => this._goToMonth(1)}
+            onClick={() => this._goToDifferentYear(1)}
             disabled={this._nextMonthDisabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>
@@ -825,13 +841,13 @@ export class SbbCalendar implements ComponentInterface {
     return (
       <Fragment>
         <div class="sbb-calendar__controls">
-          {/* FIXME aria-label onClick disabled id? */}
+          {/* FIXME aria-label disabled id? */}
           <sbb-button
             variant="secondary"
             iconName="chevron-small-left-small"
             size="m"
             aria-label={i18nPreviousMonth[this._currentLanguage]}
-            onClick={() => this._goToMonth(-1)}
+            onClick={() => this._goToDifferentYearRange(-24)}
             disabled={this._previousMonthDisabled()}
             id="sbb-calendar__controls-previous"
           ></sbb-button>
@@ -841,13 +857,13 @@ export class SbbCalendar implements ComponentInterface {
               {this._createAriaLabelForYearView()}
             </span>
           </div>
-          {/* FIXME aria-label onClick disabled id? */}
+          {/* FIXME aria-label disabled id? */}
           <sbb-button
             variant="secondary"
             iconName="chevron-small-right-small"
             size="m"
             aria-label={i18nNextMonth[this._currentLanguage]}
-            onClick={() => this._goToMonth(1)}
+            onClick={() => this._goToDifferentYearRange(24)}
             disabled={this._nextMonthDisabled()}
             id="sbb-calendar__controls-next"
           ></sbb-button>

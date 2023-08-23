@@ -147,9 +147,18 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /**
+   * Creates a new date adding the number of provided `years` to the provided `date`.
+   * @param date The starting date.
+   * @param years The number of years to add.
+   */
+  public addCalendarYears(date: Date, years: number): Date {
+    return this.addCalendarMonths(date, years * 12);
+  }
+
+  /**
    * Creates a new date adding the number of provided `months` to the provided `date`.
    * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
-   * E.g. with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
+   * E.g., with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
    */
   public addCalendarMonths(date: Date, months: number): Date {
     const targetMonth = date.getMonth() + months;
@@ -158,7 +167,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
       this.getYear(dateWithCorrectMonth),
       this.getMonth(dateWithCorrectMonth),
     );
-    // Adapt last day of month for shorter months
+    // Adapt the last day of month for shorter months
     return new Date(this.clone(date).setMonth(targetMonth, Math.min(daysInMonth, date.getDate())));
   }
 
