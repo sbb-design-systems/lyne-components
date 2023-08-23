@@ -5,7 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-calendar-day-size: #{sbb.px-to-rem-build(40)};
+  --sbb-calendar-cell-height: #{sbb.px-to-rem-build(40)};
+  --sbb-calendar-year-cell-width: #{sbb.px-to-rem-build(70)};
   --sbb-calendar-day-disabled-color: var(--sbb-color-granite-default);
   --sbb-calendar-header-color: var(--sbb-color-granite-default);
   --sbb-calendar-day-background-color: transparent;
@@ -20,7 +21,8 @@
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
 
   @include sbb.mq($from: micro) {
-    --sbb-calendar-day-size: #{sbb.px-to-rem-build(44)};
+    --sbb-calendar-cell-height: #{sbb.px-to-rem-build(44)};
+    --sbb-calendar-year-cell-width: #{sbb.px-to-rem-build(77)};
   }
 
   // We add width definition to host, to make overwriting easy for consumers.
@@ -84,9 +86,7 @@
   --sbb-calendar-margin: var(--sbb-calendar-start-offset);
 
   :host([data-wide]) & {
-    --sbb-calendar-min-width: calc(
-      2 * 7 * var(--sbb-calendar-day-size) + var(--sbb-calendar-tables-gap)
-    );
+    --sbb-calendar-min-width: calc(2 * 7 * var(--sbb-calendar-day-size) + var(--sbb-calendar-tables-gap));
     --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
   }
 
@@ -103,7 +103,7 @@
   @include sbb.text-xs--regular;
 
   color: var(--sbb-calendar-header-color);
-  width: var(--sbb-calendar-day-size);
+  width: var(--sbb-calendar-cell-height);
   padding: 0;
   padding-block-end: var(--sbb-spacing-fixed-4x);
 }
@@ -114,6 +114,11 @@
   text-align: center;
   transition-duration: var(--sbb-calendar-day-transition-duration);
   transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
+  transition-property: background-color, padding;
+}
+
+.sbb-calendar__table-year {
+  width: var(--sbb-calendar-year-cell-width);
 }
 
 .sbb-calendar__day {
@@ -173,6 +178,14 @@
       }
     }
   }
+}
+
+.sbb-calendar__day {
+  border-radius: 50%;
+}
+
+.sbb-calendar__wide {
+  border-radius: calc(var(--sbb-calendar-cell-height) / 2);
 }
 
 .sbb-calendar__crossed-out::after {
