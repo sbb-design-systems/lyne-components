@@ -13,7 +13,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
-import { Day, Month, Weekday } from './sbb-calendar.custom';
+import { CalendarView, Day, Month, Weekday } from './sbb-calendar.custom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -70,7 +70,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Maximum value converted to date */
   @State() private _max: Date;
 
-  @State() private _selection: 'day' | 'month' | 'year' = 'day';
+  @State() private _selection: CalendarView = 'day';
 
   @State() private _currentLanguage = documentLanguage();
 
@@ -383,12 +383,12 @@ export class SbbCalendar implements ComponentInterface {
 
   private _goToDifferentYear(years: number): void {
     this._chosenYear += years;
-    const newDateWithChosenYear: Date = new Date(
+    // Can't use `_assignActiveDate`, here because it will set it to min/max if out of range
+    this._activeDate = new Date(
       this._chosenYear,
       this._dateAdapter.getMonth(this._activeDate),
       this._dateAdapter.getDate(this._activeDate),
     );
-    this._assignActiveDate(this._dateAdapter.addCalendarYears(newDateWithChosenYear, years));
     this._init();
   }
 
@@ -397,24 +397,61 @@ export class SbbCalendar implements ComponentInterface {
     this._init();
   }
 
-  /** Checks if the "previous month" button should be disabled. */
-  private _previousMonthDisabled(): boolean {
+  private _prevDisabled(prevDate: Date): boolean {
     if (!this._min) {
       return false;
     }
-    const prevMonth = this._dateAdapter.clone(this._activeDate);
+    return this._dateAdapter.compareDate(prevDate, this._min) < 0;
+  }
+
+  private _nextDisabled(nextDate: Date): boolean {
+    if (!this._max) {
+      return false;
+    }
+    return this._dateAdapter.compareDate(nextDate, this._max) > 0;
+  }
+
+  /** Checks if the "previous month" button should be disabled. */
+  private _previousMonthDisabled(): boolean {
+    const prevMonth: Date = this._dateAdapter.clone(this._activeDate);
     prevMonth.setDate(0);
-    return this._dateAdapter.compareDate(prevMonth, this._min) < 0;
+    return this._prevDisabled(prevMonth);
   }
 
   /** Checks if the "next month" button should be disabled. */
   private _nextMonthDisabled(): boolean {
-    if (!this._max) {
-      return false;
-    }
-    const nextMonth = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
+    const nextMonth: Date = this._dateAdapter.addCalendarMonths(
+      this._activeDate,
+      this._wide ? 2 : 1,
+    );
     nextMonth.setDate(1);
-    return this._dateAdapter.compareDate(nextMonth, this._max) > 0;
+    return this._nextDisabled(nextMonth);
+  }
+
+  private _previousYearDisabled(): boolean {
+    const prevYear: Date = this._dateAdapter.clone(this._activeDate);
+    prevYear.setFullYear(this._dateAdapter.getYear(this._activeDate) - 1, 11, 31);
+    return this._prevDisabled(prevYear);
+  }
+
+  private _nextYearDisabled(): boolean {
+    const nextYear: Date = this._dateAdapter.clone(this._activeDate);
+    nextYear.setFullYear(this._dateAdapter.getYear(this._activeDate) + 1, 0, 1);
+    return this._nextDisabled(nextYear);
+  }
+
+  private _previousYearRangeDisabled(): boolean {
+    const prevYear: Date = this._dateAdapter.clone(this._activeDate);
+    prevYear.setFullYear(this._years.flat()[0] - 1, 11, 31);
+    return this._prevDisabled(prevYear);
+  }
+
+  private _nextYearRangeDisabled(): boolean {
+    const lastYearArray: number[] = (this.wide ? this._nextMonthYears : this._years).flat();
+    const lastYear: number = lastYearArray[lastYearArray.length - 1];
+    const nextYear: Date = this._dateAdapter.clone(this._activeDate);
+    nextYear.setFullYear(lastYear + 1, 0, 1);
+    return this._nextDisabled(nextYear);
   }
 
   private _handleTableBlur(eventTarget: HTMLElement): void {
@@ -564,6 +601,11 @@ export class SbbCalendar implements ComponentInterface {
   private _hasDataNow(): boolean {
     const dataNow = +this._element.dataset?.now;
     return !isNaN(dataNow);
+  }
+
+  private _resetToView(view: CalendarView = 'day'): void {
+    this._activeDate = this._dateAdapter.deserializeDate(this.selectedDate) ?? this._now();
+    this._selection = view;
   }
 
   /** Render the view for the day selection. */
@@ -736,14 +778,14 @@ export class SbbCalendar implements ComponentInterface {
       <Fragment>
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            {/* FIXME aria-label disabled id? */}
+            {/* FIXME aria-label id? */}
             <sbb-button
               variant="secondary"
               iconName="chevron-small-left-small"
               size="m"
               aria-label={i18nPreviousMonth[this._currentLanguage]}
               onClick={() => this._goToDifferentYear(-1)}
-              disabled={this._previousMonthDisabled()}
+              disabled={this._previousYearDisabled()}
               id="sbb-calendar__controls-previous"
             ></sbb-button>
             <div class="sbb-calendar__controls-month">
@@ -752,14 +794,14 @@ export class SbbCalendar implements ComponentInterface {
                 {this._createAriaLabelForMonthView()}
               </span>
             </div>
-            {/* FIXME aria-label disabled id? */}
+            {/* FIXME aria-label id? */}
             <sbb-button
               variant="secondary"
               iconName="chevron-small-right-small"
               size="m"
               aria-label={i18nNextMonth[this._currentLanguage]}
               onClick={() => this._goToDifferentYear(1)}
-              disabled={this._nextMonthDisabled()}
+              disabled={this._nextYearDisabled()}
               id="sbb-calendar__controls-next"
             ></sbb-button>
           </div>
@@ -776,7 +818,7 @@ export class SbbCalendar implements ComponentInterface {
         {...resolveButtonRenderVariables({})}
         class="sbb-calendar__controls-month-label"
         aria-hidden="true"
-        onClick={() => (this._selection = 'day')}
+        onClick={() => this._resetToView()}
       >
         {this._chosenYear}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -848,14 +890,14 @@ export class SbbCalendar implements ComponentInterface {
       <Fragment>
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            {/* FIXME aria-label disabled id? */}
+            {/* FIXME aria-label id? */}
             <sbb-button
               variant="secondary"
               iconName="chevron-small-left-small"
               size="m"
               aria-label={i18nPreviousMonth[this._currentLanguage]}
               onClick={() => this._goToDifferentYearRange(-YEARS_PER_PAGE)}
-              disabled={this._previousMonthDisabled()}
+              disabled={this._previousYearRangeDisabled()}
               id="sbb-calendar__controls-previous"
             ></sbb-button>
             <div class="sbb-calendar__controls-month">
@@ -864,14 +906,14 @@ export class SbbCalendar implements ComponentInterface {
                 {this._createAriaLabelForYearView()}
               </span>
             </div>
-            {/* FIXME aria-label disabled id? */}
+            {/* FIXME aria-label id? */}
             <sbb-button
               variant="secondary"
               iconName="chevron-small-right-small"
               size="m"
               aria-label={i18nNextMonth[this._currentLanguage]}
               onClick={() => this._goToDifferentYearRange(YEARS_PER_PAGE)}
-              disabled={this._nextMonthDisabled()}
+              disabled={this._nextYearRangeDisabled()}
               id="sbb-calendar__controls-next"
             ></sbb-button>
           </div>
@@ -896,7 +938,7 @@ export class SbbCalendar implements ComponentInterface {
         {...resolveButtonRenderVariables({})}
         class="sbb-calendar__controls-month-label"
         aria-hidden="true"
-        onClick={() => (this._selection = 'day')}
+        onClick={() => this._resetToView()}
       >
         {yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -955,6 +997,9 @@ export class SbbCalendar implements ComponentInterface {
 
   private _onYearSelection(year: number): void {
     this._chosenYear = year;
+    this._assignActiveDate(
+      new Date(this._chosenYear, this._activeDate.getMonth(), this._activeDate.getDate()),
+    );
     this._selection = 'month';
   }
 

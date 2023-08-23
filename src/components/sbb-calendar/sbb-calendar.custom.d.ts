@@ -14,3 +14,5 @@ export interface Weekday {
   long: string;
   narrow: string;
 }
+
+export type CalendarView = 'day' | 'month' | 'year';
