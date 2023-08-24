@@ -1,0 +1,44 @@
+@use '../../global/styles' as sbb;
+
+// Default component properties, defined for :host. Properties which can not
+// travel the shadow boundary are defined through this mixin
+@include sbb.host-component-properties;
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.sbb-loading-indicator {
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  color: transparent;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  background: conic-gradient(from 90deg, #fff, #f00);
+  mask: radial-gradient(circle 35px, #0000 98%, #fff);
+  mask: radial-gradient(circle 35px, #0000 98%, #fff);
+  animation: rotation 2s infinite linear;
+
+  &::after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #f00;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    overflow: hidden;
+    margin: auto;
+  }
+}
