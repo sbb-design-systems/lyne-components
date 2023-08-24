@@ -927,6 +927,8 @@ export namespace Components {
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
+    interface SbbLoadingIndicator {
+    }
     interface SbbLogo {
         /**
           * Accessibility label which will be forwarded to the SVG logo.
@@ -2235,6 +2237,12 @@ declare global {
         prototype: HTMLSbbLinkListElement;
         new (): HTMLSbbLinkListElement;
     };
+    interface HTMLSbbLoadingIndicatorElement extends Components.SbbLoadingIndicator, HTMLStencilElement {
+    }
+    var HTMLSbbLoadingIndicatorElement: {
+        prototype: HTMLSbbLoadingIndicatorElement;
+        new (): HTMLSbbLoadingIndicatorElement;
+    };
     interface HTMLSbbLogoElement extends Components.SbbLogo, HTMLStencilElement {
     }
     var HTMLSbbLogoElement: {
@@ -2591,6 +2599,7 @@ declare global {
         "sbb-journey-summary": HTMLSbbJourneySummaryElement;
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
+        "sbb-loading-indicator": HTMLSbbLoadingIndicatorElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
@@ -3521,6 +3530,8 @@ declare namespace LocalJSX {
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbLoadingIndicator {
     }
     interface SbbLogo {
         /**
@@ -4660,6 +4671,7 @@ declare namespace LocalJSX {
         "sbb-journey-summary": SbbJourneySummary;
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
+        "sbb-loading-indicator": SbbLoadingIndicator;
         "sbb-logo": SbbLogo;
         "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
@@ -4753,6 +4765,7 @@ declare module "@stencil/core" {
             "sbb-journey-summary": LocalJSX.SbbJourneySummary & JSXBase.HTMLAttributes<HTMLSbbJourneySummaryElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
+            "sbb-loading-indicator": LocalJSX.SbbLoadingIndicator & JSXBase.HTMLAttributes<HTMLSbbLoadingIndicatorElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
