@@ -487,7 +487,7 @@ export class SbbCalendar implements ComponentInterface {
 
   private _getFirstFocusable(): HTMLButtonElement {
     let firstFocusable =
-      this._element.shadowRoot.querySelector('.sbb-calendar__day-selected') ??
+      this._element.shadowRoot.querySelector('.sbb-calendar__selected') ??
       this._element.shadowRoot.querySelector('.sbb-calendar__day-today');
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = this._element.shadowRoot.querySelector('.sbb-calendar__day:not([disabled])');
@@ -630,38 +630,36 @@ export class SbbCalendar implements ComponentInterface {
       : undefined;
     return (
       <Fragment>
-        <div class="sbb-calendar__wrapper">
-          <div class="sbb-calendar__controls">
-            <sbb-button
-              variant="secondary"
-              iconName="chevron-small-left-small"
-              size="m"
-              aria-label={i18nPreviousMonth[this._currentLanguage]}
-              onClick={() => this._goToDifferentMonth(-1)}
-              disabled={this._previousMonthDisabled()}
-              id="sbb-calendar__controls-previous"
-            ></sbb-button>
-            <div class="sbb-calendar__controls-month">
-              {this._createLabelForDayView(this._activeDate)}
-              {this._wide && this._createLabelForDayView(nextMonthActiveDate)}
-              <span role="status" class="sbb-calendar__visually-hidden">
-                {this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate)}
-              </span>
-            </div>
-            <sbb-button
-              variant="secondary"
-              iconName="chevron-small-right-small"
-              size="m"
-              aria-label={i18nNextMonth[this._currentLanguage]}
-              onClick={() => this._goToDifferentMonth(1)}
-              disabled={this._nextMonthDisabled()}
-              id="sbb-calendar__controls-next"
-            ></sbb-button>
+        <div class="sbb-calendar__controls">
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-left-small"
+            size="m"
+            aria-label={i18nPreviousMonth[this._currentLanguage]}
+            onClick={() => this._goToDifferentMonth(-1)}
+            disabled={this._previousMonthDisabled()}
+            id="sbb-calendar__controls-previous"
+          ></sbb-button>
+          <div class="sbb-calendar__controls-month">
+            {this._createLabelForDayView(this._activeDate)}
+            {this._wide && this._createLabelForDayView(nextMonthActiveDate)}
+            <span role="status" class="sbb-calendar__visually-hidden">
+              {this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate)}
+            </span>
           </div>
-          <div class="sbb-calendar__table-container">
-            {this._createDayTable(this._weeks)}
-            {this._wide && this._createDayTable(this._nextMonthWeeks)}
-          </div>
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-right-small"
+            size="m"
+            aria-label={i18nNextMonth[this._currentLanguage]}
+            onClick={() => this._goToDifferentMonth(1)}
+            disabled={this._nextMonthDisabled()}
+            id="sbb-calendar__controls-next"
+          ></sbb-button>
+        </div>
+        <div class="sbb-calendar__table-container">
+          {this._createDayTable(this._weeks)}
+          {this._wide && this._createDayTable(this._nextMonthWeeks)}
         </div>
       </Fragment>
     );
@@ -767,7 +765,7 @@ export class SbbCalendar implements ComponentInterface {
               'sbb-calendar__cell': true,
               'sbb-calendar__day': true,
               'sbb-calendar__day-today': isToday,
-              'sbb-calendar__day-selected': selected,
+              'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             }}
             onClick={() => this._selectDate(day.value)}
@@ -792,30 +790,28 @@ export class SbbCalendar implements ComponentInterface {
   private _renderMonthView(): JSX.Element {
     return (
       <Fragment>
-        <div class="sbb-calendar__wrapper">
-          <div class="sbb-calendar__controls">
-            <sbb-button
-              variant="secondary"
-              iconName="chevron-small-left-small"
-              size="m"
-              aria-label={i18nPreviousYear[this._currentLanguage]}
-              onClick={() => this._goToDifferentYear(-1)}
-              disabled={this._previousYearDisabled()}
-              id="sbb-calendar__controls-previous"
-            ></sbb-button>
-            <div class="sbb-calendar__controls-month">{this._createLabelForMonthView()}</div>
-            <sbb-button
-              variant="secondary"
-              iconName="chevron-small-right-small"
-              size="m"
-              aria-label={i18nNextYear[this._currentLanguage]}
-              onClick={() => this._goToDifferentYear(1)}
-              disabled={this._nextYearDisabled()}
-              id="sbb-calendar__controls-next"
-            ></sbb-button>
-          </div>
-          <div class="sbb-calendar__table-container">{this._createMonthTable(this._months)}</div>
+        <div class="sbb-calendar__controls">
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-left-small"
+            size="m"
+            aria-label={i18nPreviousYear[this._currentLanguage]}
+            onClick={() => this._goToDifferentYear(-1)}
+            disabled={this._previousYearDisabled()}
+            id="sbb-calendar__controls-previous"
+          ></sbb-button>
+          <div class="sbb-calendar__controls-month">{this._createLabelForMonthView()}</div>
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-right-small"
+            size="m"
+            aria-label={i18nNextYear[this._currentLanguage]}
+            onClick={() => this._goToDifferentYear(1)}
+            disabled={this._nextYearDisabled()}
+            id="sbb-calendar__controls-next"
+          ></sbb-button>
         </div>
+        <div class="sbb-calendar__table-container">{this._createMonthTable(this._months)}</div>
       </Fragment>
     );
   }
@@ -899,32 +895,30 @@ export class SbbCalendar implements ComponentInterface {
   private _renderYearView(): JSX.Element {
     return (
       <Fragment>
-        <div class="sbb-calendar__wrapper">
-          <div class="sbb-calendar__controls">
-            <sbb-button
-              variant="secondary"
-              iconName="chevron-small-left-small"
-              size="m"
-              aria-label={i18nPreviousYearRange(YEARS_PER_PAGE)[this._currentLanguage]}
-              onClick={() => this._goToDifferentYearRange(-YEARS_PER_PAGE)}
-              disabled={this._previousYearRangeDisabled()}
-              id="sbb-calendar__controls-previous"
-            ></sbb-button>
-            <div class="sbb-calendar__controls-month">{this._createLabelForYearView()}</div>
-            <sbb-button
-              variant="secondary"
-              iconName="chevron-small-right-small"
-              size="m"
-              aria-label={i18nNextYearRange(YEARS_PER_PAGE)[this._currentLanguage]}
-              onClick={() => this._goToDifferentYearRange(YEARS_PER_PAGE)}
-              disabled={this._nextYearRangeDisabled()}
-              id="sbb-calendar__controls-next"
-            ></sbb-button>
-          </div>
-          <div class="sbb-calendar__table-container">
-            {this._createYearTable(this._years)}
-            {this._wide && this._createYearTable(this._nextMonthYears)}
-          </div>
+        <div class="sbb-calendar__controls">
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-left-small"
+            size="m"
+            aria-label={i18nPreviousYearRange(YEARS_PER_PAGE)[this._currentLanguage]}
+            onClick={() => this._goToDifferentYearRange(-YEARS_PER_PAGE)}
+            disabled={this._previousYearRangeDisabled()}
+            id="sbb-calendar__controls-previous"
+          ></sbb-button>
+          <div class="sbb-calendar__controls-month">{this._createLabelForYearView()}</div>
+          <sbb-button
+            variant="secondary"
+            iconName="chevron-small-right-small"
+            size="m"
+            aria-label={i18nNextYearRange(YEARS_PER_PAGE)[this._currentLanguage]}
+            onClick={() => this._goToDifferentYearRange(YEARS_PER_PAGE)}
+            disabled={this._nextYearRangeDisabled()}
+            id="sbb-calendar__controls-next"
+          ></sbb-button>
+        </div>
+        <div class="sbb-calendar__table-container">
+          {this._createYearTable(this._years)}
+          {this._wide && this._createYearTable(this._nextMonthYears)}
         </div>
       </Fragment>
     );
@@ -978,6 +972,10 @@ export class SbbCalendar implements ComponentInterface {
         {row.map((year: number) => {
           const isOutOfRange = !this._isYearInRange(year);
           const isFilteredOut = !this._isYearFilteredOut(year);
+          const selectedYear = this._selected
+            ? this._dateAdapter.getYear(new Date(this._selected))
+            : undefined;
+          const selected: boolean = this._selected && year === selectedYear;
           return (
             <td class="sbb-calendar__table-data sbb-calendar__table-year">
               <button
@@ -985,6 +983,7 @@ export class SbbCalendar implements ComponentInterface {
                   'sbb-calendar__cell': true,
                   'sbb-calendar__wide': true,
                   'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
+                  'sbb-calendar__selected': selected,
                 }}
                 onClick={() => this._onYearSelection(year)}
                 disabled={isOutOfRange || isFilteredOut}
@@ -1008,7 +1007,7 @@ export class SbbCalendar implements ComponentInterface {
     this._selection = 'month';
   }
 
-  public render(): JSX.Element {
+  private get _getView(): JSX.Element {
     switch (this._selection) {
       case 'year':
         return this._renderYearView();
@@ -1018,5 +1017,9 @@ export class SbbCalendar implements ComponentInterface {
       default:
         return this._renderDayView();
     }
+  }
+
+  public render(): JSX.Element {
+    return <div class="sbb-calendar__wrapper">{this._getView}</div>;
   }
 }

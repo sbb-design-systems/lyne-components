@@ -146,7 +146,7 @@
   }
 
   @include sbb.hover-mq($hover: true) {
-    &:not(.sbb-calendar__day-selected, :active, :disabled):hover {
+    &:not(.sbb-calendar__selected, :active, :disabled):hover {
       --sbb-calendar-day-background-color: var(--sbb-color-milk-default);
 
       padding-block-end: #{sbb.px-to-rem-build(1)};
@@ -169,7 +169,7 @@
     @include sbb.focus-outline;
   }
 
-  &:not(.sbb-calendar__day-selected, :disabled):active {
+  &:not(.sbb-calendar__selected, :disabled):active {
     --sbb-calendar-day-background-color: var(--sbb-color-cloud-default);
 
     &::before {
@@ -203,7 +203,7 @@
   @include sbb.text-s--bold;
 }
 
-.sbb-calendar__day-selected {
+.sbb-calendar__selected {
   --sbb-calendar-day-color: var(--sbb-calendar-day-selected-color);
   --sbb-calendar-day-background-color: var(--sbb-calendar-day-selected-background-color);
 
