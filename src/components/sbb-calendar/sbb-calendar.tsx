@@ -12,7 +12,16 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { i18nNextMonth, i18nPreviousMonth } from '../../global/i18n';
+import {
+  i18nCalendarDateSelection,
+  i18nYearMonthSelection,
+  i18nNextMonth,
+  i18nPreviousMonth,
+  i18nPreviousYearRange,
+  i18nNextYearRange,
+  i18nPreviousYear,
+  i18nNextYear,
+} from '../../global/i18n';
 import { CalendarView, Day, Month, Weekday } from './sbb-calendar.custom';
 import {
   documentLanguage,
@@ -248,9 +257,15 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the rows for the month selection view. */
   private _createMonthRows(): Month[][] {
-    const months: Month[] = this._dateAdapter
-      .getMonthNames('short')
-      .map((e: string, i: number) => ({ value: e, monthValue: i }));
+    const shortNames: string[] = this._dateAdapter.getMonthNames('short');
+    const longNames: string[] = this._dateAdapter.getMonthNames('long');
+    const months: Month[] = new Array(12).fill(null).map(
+      (_: null, i: number): Month => ({
+        value: shortNames[i],
+        longValue: longNames[i],
+        monthValue: i,
+      }),
+    );
     const rows: number = 12 / MONTHS_PER_ROW;
     const monthArray: Month[][] = [];
     for (let i: number = 0; i < rows; i++) {
@@ -657,21 +672,22 @@ export class SbbCalendar implements ComponentInterface {
     const monthLabel = `${
       this._monthNames[this._dateAdapter.getMonth(d)]
     } ${this._dateAdapter.getYear(d)}`;
-
+    const { tagName: TAG_NAME, hostAttributes } = resolveButtonRenderVariables({});
+    // FIXME keyboard interaction is missing, same as states; render as a sbb-button?
     return (
-      <span
-        {...resolveButtonRenderVariables({})}
+      <TAG_NAME
+        {...hostAttributes}
         class="sbb-calendar__controls-month-label"
-        aria-hidden="true"
+        aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
         onClick={() => (this._selection = 'year')}
       >
         {monthLabel}
         <sbb-icon name="chevron-small-down-small"></sbb-icon>
-      </span>
+      </TAG_NAME>
     );
   }
 
-  /** Creates the aria-label with the month for the daily view. */
+  /** Creates the aria-label for the daily view. */
   private _createAriaLabelForDayView(...dates: Date[]): string {
     let monthLabel = '';
     for (const d of dates) {
@@ -778,28 +794,21 @@ export class SbbCalendar implements ComponentInterface {
       <Fragment>
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            {/* FIXME aria-label id? */}
             <sbb-button
               variant="secondary"
               iconName="chevron-small-left-small"
               size="m"
-              aria-label={i18nPreviousMonth[this._currentLanguage]}
+              aria-label={i18nPreviousYear[this._currentLanguage]}
               onClick={() => this._goToDifferentYear(-1)}
               disabled={this._previousYearDisabled()}
               id="sbb-calendar__controls-previous"
             ></sbb-button>
-            <div class="sbb-calendar__controls-month">
-              {this._createLabelForMonthView()}
-              <span role="status" class="sbb-calendar__visually-hidden">
-                {this._createAriaLabelForMonthView()}
-              </span>
-            </div>
-            {/* FIXME aria-label id? */}
+            <div class="sbb-calendar__controls-month">{this._createLabelForMonthView()}</div>
             <sbb-button
               variant="secondary"
               iconName="chevron-small-right-small"
               size="m"
-              aria-label={i18nNextMonth[this._currentLanguage]}
+              aria-label={i18nNextYear[this._currentLanguage]}
               onClick={() => this._goToDifferentYear(1)}
               disabled={this._nextYearDisabled()}
               id="sbb-calendar__controls-next"
@@ -813,26 +822,27 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the label with the year for the monthly view. */
   private _createLabelForMonthView(): JSX.Element {
+    const { tagName: TAG_NAME, hostAttributes } = resolveButtonRenderVariables({});
+    // FIXME keyboard interaction is missing, same as states; render as a sbb-button?
     return (
-      <span
-        {...resolveButtonRenderVariables({})}
-        class="sbb-calendar__controls-month-label"
-        aria-hidden="true"
-        onClick={() => this._resetToView()}
-      >
-        {this._chosenYear}
-        <sbb-icon name="chevron-small-up-small"></sbb-icon>
-      </span>
+      <Fragment>
+        <TAG_NAME
+          {...hostAttributes}
+          class="sbb-calendar__controls-month-label"
+          aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
+          onClick={() => this._resetToView()}
+        >
+          {this._chosenYear}
+          <sbb-icon name="chevron-small-up-small"></sbb-icon>
+        </TAG_NAME>
+        <span role="status" class="sbb-calendar__visually-hidden">
+          {this._chosenYear}
+        </span>
+      </Fragment>
     );
   }
 
-  // FIXME
-  /** Creates the aria-label with the year for the monthly view. */
-  private _createAriaLabelForMonthView(): string {
-    return 'FIXME';
-  }
-
-  // FIXME selected aria-label aria-pressed data-<>? tabindex keydown tooltip-close
+  // FIXME selected aria-pressed data-<>? tabindex keydown
   /** Creates the table for the month selection view. */
   private _createMonthTable(months: Month[][]): JSX.Element {
     return (
@@ -859,6 +869,7 @@ export class SbbCalendar implements ComponentInterface {
                       onClick={() => this._onMonthSelection(month.monthValue)}
                       disabled={isOutOfRange || isFilteredOut}
                       aria-disabled={String(isOutOfRange || isFilteredOut)}
+                      aria-label={`${month.longValue} ${this._chosenYear}`}
                     >
                       {month.value}
                     </button>
@@ -890,28 +901,21 @@ export class SbbCalendar implements ComponentInterface {
       <Fragment>
         <div class="sbb-calendar__wrapper">
           <div class="sbb-calendar__controls">
-            {/* FIXME aria-label id? */}
             <sbb-button
               variant="secondary"
               iconName="chevron-small-left-small"
               size="m"
-              aria-label={i18nPreviousMonth[this._currentLanguage]}
+              aria-label={i18nPreviousYearRange(YEARS_PER_PAGE)[this._currentLanguage]}
               onClick={() => this._goToDifferentYearRange(-YEARS_PER_PAGE)}
               disabled={this._previousYearRangeDisabled()}
               id="sbb-calendar__controls-previous"
             ></sbb-button>
-            <div class="sbb-calendar__controls-month">
-              {this._createLabelForYearView()}
-              <span role="status" class="sbb-calendar__visually-hidden">
-                {this._createAriaLabelForYearView()}
-              </span>
-            </div>
-            {/* FIXME aria-label id? */}
+            <div class="sbb-calendar__controls-month">{this._createLabelForYearView()}</div>
             <sbb-button
               variant="secondary"
               iconName="chevron-small-right-small"
               size="m"
-              aria-label={i18nNextMonth[this._currentLanguage]}
+              aria-label={i18nNextYearRange(YEARS_PER_PAGE)[this._currentLanguage]}
               onClick={() => this._goToDifferentYearRange(YEARS_PER_PAGE)}
               disabled={this._nextYearRangeDisabled()}
               id="sbb-calendar__controls-next"
@@ -928,28 +932,28 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the label with the year range for the yearly view. */
   private _createLabelForYearView(): JSX.Element {
-    const firstYear: number = this._years[0][0];
-    const lastYearArray: number[][] = this.wide ? this._nextMonthYears : this._years;
-    const lastYear: number = lastYearArray[lastYearArray.length - 1][lastYearArray[0].length - 1];
+    const firstYear: number = this._years.flat()[0];
+    const lastYearArray: number[] = (this.wide ? this._nextMonthYears : this._years).flat();
+    const lastYear: number = lastYearArray[lastYearArray.length - 1];
     const yearLabel = `${firstYear} - ${lastYear}`;
-
+    const { tagName: TAG_NAME, hostAttributes } = resolveButtonRenderVariables({});
+    // FIXME keyboard interaction is missing, same as states; render as a sbb-button?
     return (
-      <span
-        {...resolveButtonRenderVariables({})}
-        class="sbb-calendar__controls-month-label"
-        aria-hidden="true"
-        onClick={() => this._resetToView()}
-      >
-        {yearLabel}
-        <sbb-icon name="chevron-small-up-small"></sbb-icon>
-      </span>
+      <Fragment>
+        <TAG_NAME
+          {...hostAttributes}
+          class="sbb-calendar__controls-month-label"
+          aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}`}
+          onClick={() => this._resetToView()}
+        >
+          {yearLabel}
+          <sbb-icon name="chevron-small-up-small"></sbb-icon>
+        </TAG_NAME>
+        <span role="status" class="sbb-calendar__visually-hidden">
+          {yearLabel}
+        </span>
+      </Fragment>
     );
-  }
-
-  // FIXME
-  /** Creates the aria-label with the year range for the yearly view. */
-  private _createAriaLabelForYearView(): string {
-    return 'FIXME';
   }
 
   /** Creates the table for the year selection view. */
@@ -966,7 +970,7 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME selected aria-label aria-pressed data-<>? tabindex keydown tooltip-close
+  // FIXME selected aria-pressed data-<>? tabindex keydown
   /** Creates the table cells for the year selection view. */
   private _createYearTableBody(years: number[][]): JSX.Element {
     return years.map((row: number[]) => (
@@ -985,6 +989,7 @@ export class SbbCalendar implements ComponentInterface {
                 onClick={() => this._onYearSelection(year)}
                 disabled={isOutOfRange || isFilteredOut}
                 aria-disabled={String(isOutOfRange || isFilteredOut)}
+                aria-label={year}
               >
                 {year}
               </button>

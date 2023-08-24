@@ -7,6 +7,7 @@ export interface Day {
 
 export interface Month {
   value: string;
+  longValue: string;
   monthValue: number;
 }
 

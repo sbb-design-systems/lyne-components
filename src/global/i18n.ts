@@ -598,6 +598,48 @@ export const i18nPreviousDay: Record<string, string> = {
   it: 'Giorno precedente',
 };
 
+export const i18nYearMonthSelection: Record<string, string> = {
+  de: 'Jahr und Monat auswählen',
+  en: 'Choose year and month',
+  fr: "Choisissez l'année et le mois",
+  it: 'Seleziona anno e mese',
+};
+
+export const i18nCalendarDateSelection: Record<string, string> = {
+  de: 'Datum auswählen',
+  en: 'Choose date',
+  fr: 'Choisir une date',
+  it: 'Seleziona una data',
+};
+
+export const i18nNextYearRange = (yearRange: number): Record<string, string> => ({
+  de: `Wechsel zu den nächsten ${yearRange} Jahren`,
+  en: `Change to the next ${yearRange} years`,
+  fr: `Passer aux ${yearRange} prochaines années`,
+  it: `Passare ai successivi ${yearRange} anni`,
+});
+
+export const i18nPreviousYearRange = (yearRange: number): Record<string, string> => ({
+  de: `Wechsel zu den vorherigen ${yearRange} Jahren`,
+  en: `Change to the previous ${yearRange} years`,
+  fr: `Passage aux ${yearRange} précédentes années`,
+  it: `Passare ai precedenti ${yearRange} anni`,
+});
+
+export const i18nNextYear: Record<string, string> = {
+  de: 'Zum nächsten Jahr wechseln',
+  en: 'Change to the next year',
+  fr: "Passer à l'année suivante",
+  it: "Passare all'anno successivo",
+};
+
+export const i18nPreviousYear: Record<string, string> = {
+  de: 'Zum letzten Jahr wechseln',
+  en: 'Change to the previous year',
+  fr: "Passer à l'année précédent",
+  it: "Passare all'anno precedente",
+};
+
 export const i18nSelectNextDay = (currentDate: string): Record<string, string> => ({
   de: `Zum nächsten Tag wechseln, derzeit ausgewählt ${currentDate}.`,
   en: `Change to the next day, currently selected ${currentDate}.`,
