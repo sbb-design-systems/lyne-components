@@ -75,7 +75,7 @@
     "@types/react-dom": "16.9.19",
     "@typescript-eslint/eslint-plugin": "6.4.1",
     "@typescript-eslint/parser": "6.4.1",
-    "chromatic": "6.23.0",
+    "chromatic": "6.24.0",
     "css-loader": "6.8.1",
     "date-fns": "2.30.0",
     "esbuild": "0.19.2",
