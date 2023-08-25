@@ -328,7 +328,6 @@ export class SbbNavigation implements ComponentInterface {
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
         if (!isBreakpoint('zero', 'large')) {
-          // TODO: Check if it works with invisible elements
           (
             this._activeNavigationSection?.querySelector(IS_FOCUSABLE_QUERY) as HTMLElement
           )?.focus();

@@ -7,6 +7,7 @@ import {
 } from '../../global/eventing';
 import {
   getNextElementIndex,
+  interactivityChecker,
   isArrowKeyPressed,
   sbbInputModalityDetector,
 } from '../../global/a11y';
@@ -131,16 +132,17 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     ];
     this._focusNext(evt, arrayCollapsed);
   }
+
   private _focusNext(
     evt: KeyboardEvent,
     breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs,
   ): void {
-    // TODO: focus only visible elements
-    const current: number = breadcrumbs.findIndex(
+    const visibleBreadcrumbs = breadcrumbs.filter((b) => interactivityChecker.isVisible(b));
+    const current: number = visibleBreadcrumbs.findIndex(
       (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement,
     );
-    const nextIndex: number = getNextElementIndex(evt, current, breadcrumbs.length);
-    breadcrumbs[nextIndex]?.focus();
+    const nextIndex: number = getNextElementIndex(evt, current, visibleBreadcrumbs.length);
+    visibleBreadcrumbs[nextIndex]?.focus();
     evt.preventDefault();
   }
 
