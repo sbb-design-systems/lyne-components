@@ -83,15 +83,15 @@ describe('sbb-calendar', () => {
     await page.waitForChanges();
 
     const selectedDate = await page.find('sbb-calendar >>> button[data-day="15 1 2023"]');
-    expect(selectedDate).toHaveClass('sbb-calendar__day-selected');
+    expect(selectedDate).toHaveClass('sbb-calendar__selected');
 
     const newSelectedDate = await page.find('sbb-calendar >>> button[data-day="18 1 2023"]');
-    expect(newSelectedDate).not.toHaveClass('sbb-calendar__day-selected');
+    expect(newSelectedDate).not.toHaveClass('sbb-calendar__selected');
     await newSelectedDate.click();
     await waitForCondition(() => selectedSpy.events.length === 1);
 
-    expect(selectedDate).not.toHaveClass('sbb-calendar__day-selected');
-    expect(newSelectedDate).toHaveClass('sbb-calendar__day-selected');
+    expect(selectedDate).not.toHaveClass('sbb-calendar__selected');
+    expect(newSelectedDate).toHaveClass('sbb-calendar__selected');
     expect(selectedSpy).toHaveReceivedEvent();
   });
 
@@ -103,11 +103,11 @@ describe('sbb-calendar', () => {
 
     const day = await page.find('sbb-calendar >>> button[data-day="30 1 2023"]');
     expect(day).toHaveAttribute('disabled');
-    expect(day).not.toHaveClass('sbb-calendar__day-selected');
+    expect(day).not.toHaveClass('sbb-calendar__selected');
     await day.click();
     await page.waitForChanges();
 
-    expect(day).not.toHaveClass('sbb-calendar__day-selected');
+    expect(day).not.toHaveClass('sbb-calendar__selected');
     expect(selectedSpy).not.toHaveReceivedEvent();
   });
 
