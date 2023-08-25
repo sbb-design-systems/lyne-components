@@ -6,6 +6,7 @@ export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, 
 export function getFocusableElements(
   elements: HTMLElement[],
   filterFunc?: (el: HTMLElement) => boolean,
+  findFirstFocusable?: boolean,
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
@@ -27,6 +28,10 @@ export function getFocusableElements(
         focusableEls.add(el);
       }
 
+      if (findFirstFocusable && focusableEls.size > 0) {
+        break;
+      }
+
       if (el.children.length || el.shadowRoot?.children.length) {
         const children = Array.from(el.children).length
           ? (Array.from(el.children) as HTMLElement[])
@@ -40,13 +45,12 @@ export function getFocusableElements(
   return [...focusableEls];
 }
 
-// TODO: optimize (performance) finding first element.
 export function getFirstFocusableElement(
   elements: HTMLElement[],
   filterFunc?: (el: HTMLElement) => boolean,
 ): HTMLElement | null {
-  const firstFocusableElementElements = getFocusableElements(elements, filterFunc);
-  return firstFocusableElementElements.length ? firstFocusableElementElements[0] : null;
+  const focusableElements = getFocusableElements(elements, filterFunc, true);
+  return focusableElements.length ? focusableElements[0] : null;
 }
 
 export class FocusTrap {

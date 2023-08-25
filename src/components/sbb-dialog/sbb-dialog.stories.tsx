@@ -252,7 +252,6 @@ const FormTemplate = (args): JSX.Element => (
         </div>
       </div>
     </div>
-    ,
     <sbb-dialog
       data-testid="dialog"
       id="my-dialog-4"
