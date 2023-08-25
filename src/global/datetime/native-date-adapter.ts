@@ -1,7 +1,7 @@
 import { DateAdapter } from './date-adapter';
 import { documentLanguage } from '../eventing';
 
-export const DAYS_PER_WEEK: number = 7;
+export const DAYS_PER_ROW: number = 7;
 export const MONTHS_PER_ROW: number = 4;
 export const YEARS_PER_ROW: number = 4;
 export const YEARS_PER_PAGE: number = 24;
@@ -21,7 +21,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   public getFirstWeekOffset(year: number, month: number): number {
     const firstOfMonth = this.createDate(year, month, 1);
     return (
-      (DAYS_PER_WEEK + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_WEEK
+      (DAYS_PER_ROW + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_ROW
     );
   }
 

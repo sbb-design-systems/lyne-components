@@ -30,7 +30,7 @@ import {
 } from '../../global/eventing';
 import {
   DateAdapter,
-  DAYS_PER_WEEK,
+  DAYS_PER_ROW,
   MONTHS_PER_ROW,
   NativeDateAdapter,
   YEARS_PER_PAGE,
@@ -39,6 +39,30 @@ import {
 import { isBreakpoint, toggleDatasetEntry} from '../../global/dom';
 import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 import { resolveButtonRenderVariables } from '../../global/interfaces';
+
+/**
+ * In keyboard navigation, the cell's index and the element's index in its month / year batch must be distinguished;
+ * this is necessary because the navigation in the vertical direction using some keys is restricted to a single month for days,
+ * and to a single range of 24 years for years. While the latter is easy to understand, the cell's index is the index
+ * of the element in the array of all the rendered cells. In non-wide mode, there's no issue because the element index
+ * is basically the cell's index plus 1 (element with index 0 displays the 1st of month, element with index 1 displays the 2nd and so on).
+ * In wide mode, the cell's index can go from 0 to 47 for years (two batches of 24 years), and from 0 to a maximum of 61 for days
+ * (two consecutive months of 31 days, as July-August or December-January), depending on the lengths of the rendered months;
+ * the element index instead goes from 0 to a max value of 24 for years and 31 for days.
+ * Moreover, in day view, the index of the first day of the second rendered month and the index of the last rendered day
+ * can also vary depending on which months are rendered; for July-August they are equals to 31 and 61, while for February-March they are 28 and 58.
+ * So, some additional parameters are needed, besides the cell's index, to correctly calculate the element to navigate to.
+ */
+interface CalendarKeyboardNavigationParameters {
+  /** The element index within its month (or year range). */
+  elementIndexForWideMode: number;
+  /** In wide mode, the index of the first element in the second panel, or, alternatively, the number of elements in the first panel. */
+  offsetForWideMode: number;
+  /** The index of the last element within the element's month (or year range). */
+  lastElementIndexForWideMode: number;
+  /** The number of cells displayed in a single row, depending on the rendered view. */
+  verticalOffset: number;
+}
 
 @Component({
   shadow: true,
@@ -108,10 +132,10 @@ export class SbbCalendar implements ComponentInterface {
   /** An array containing all the month names in the current language. */
   private _monthNames = this._dateAdapter.getMonthNames('long');
 
-  /** A list of buttons corresponding to the days of the month. */
-  private get _days(): HTMLButtonElement[] {
+  /** A list of buttons corresponding to days, months or years depending on the view. */
+  private get _cells(): HTMLButtonElement[] {
     return Array.from(
-      this._element.shadowRoot.querySelectorAll('.sbb-calendar__day'),
+      this._element.shadowRoot.querySelectorAll('.sbb-calendar__cell'),
     ) as HTMLButtonElement[];
   }
 
@@ -240,7 +264,7 @@ export class SbbCalendar implements ComponentInterface {
     const weeks: Day[][] = [[]];
     const weekOffset = this._dateAdapter.getFirstWeekOffset(year, month);
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
-      if (cell === DAYS_PER_WEEK) {
+      if (cell === DAYS_PER_ROW) {
         weeks.push([]);
         cell = 0;
       }
@@ -497,14 +521,17 @@ export class SbbCalendar implements ComponentInterface {
     return (firstFocusable as HTMLButtonElement) || null;
   }
 
-  private _handleKeyboardEvent(event, day: Day): void {
+  private _handleKeyboardEvent(event, day?: Day): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
-    const days = this._days;
-    const index = days.findIndex((e: HTMLButtonElement) => e === event.target);
-    const nextEl = this._navigateByKeyboard(event, index, days, day);
-    const activeEl = this._element.shadowRoot.activeElement;
+    // Gets the currently rendered table's cell;
+    // they could be days, months or years based on the current selection view.
+    // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the index calculation.
+    const cells: HTMLButtonElement[] = this._cells;
+    const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
+    const nextEl: HTMLButtonElement = this._navigateByKeyboard(event, index, cells, day);
+    const activeEl: HTMLButtonElement = this._element.shadowRoot.activeElement as HTMLButtonElement;
     if (nextEl !== activeEl) {
       (nextEl as HTMLButtonElement).tabIndex = 0;
       nextEl?.focus();
@@ -513,50 +540,100 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /**
-   * Gets the index of the element to move to, based on a list of elements, which can be potentially disabled,
+   * Gets the index of the element to move to, based on a list of elements (which can be potentially disabled),
    * the keyboard input and the position of the current element in the list.
+   * In the day view, the `day?: Day` parameter is mandatory for calculation,
+   * while in month and year view it's not due to the fixed amount of rendered cells.
    */
   private _navigateByKeyboard(
     evt: KeyboardEvent,
     index: number,
-    days: HTMLButtonElement[],
-    day: Day,
+    cells: HTMLButtonElement[],
+    day?: Day,
   ): HTMLButtonElement {
-    // Calculate the index of the starting day in the month.
-    const indexInMonth = +day.dayValue - 1;
-
-    // Calculates the day's offset from the first month
-    // (in single view, it's zero, in wide view it's the number of the first month's days).
-    const firstMonthOffset = index - indexInMonth;
-
-    // Calculates the index of the last day in the starting month.
-    // When one month is displayed, it is exactly the length of the `days` array, and the same when two months are displayed,
-    // but the starting position is in the second one; if the starting position is in the first one, it calculates
-    // the last day using the year and month value and setting the day to zero.
-    const indexOfLastDayOfCurrentMonth =
-      index === indexInMonth
-        ? this._dateAdapter.getNumDaysInMonth(+day.yearValue, +day.monthValue - 1)
-        : days.length;
+    const {
+      elementIndexForWideMode,
+      offsetForWideMode,
+      lastElementIndexForWideMode,
+      verticalOffset,
+    }: CalendarKeyboardNavigationParameters = this._calculateParametersForKeyboardNavigation(
+      cells,
+      index,
+      day,
+    );
 
     switch (evt.key) {
       case 'ArrowUp':
-        return this._findNext(days, index, -7);
+        return this._findNext(cells, index, -verticalOffset);
       case 'ArrowDown':
-        return this._findNext(days, index, 7);
+        return this._findNext(cells, index, verticalOffset);
       case 'ArrowLeft':
-        return this._findNext(days, index, -1);
+        return this._findNext(cells, index, -1);
       case 'ArrowRight':
-        return this._findNext(days, index, 1);
+        return this._findNext(cells, index, 1);
       case 'Home':
-        return this._findFirst(days, firstMonthOffset);
+        return this._findFirst(cells, offsetForWideMode);
       case 'PageUp':
-        return this._findFirstOnColumn(days, indexInMonth, firstMonthOffset);
+        return this._findFirstOnColumn(
+          cells,
+          elementIndexForWideMode,
+          offsetForWideMode,
+          verticalOffset,
+        );
       case 'PageDown':
-        return this._findLastOnColumn(days, index, indexOfLastDayOfCurrentMonth);
+        return this._findLastOnColumn(cells, index, lastElementIndexForWideMode, verticalOffset);
       case 'End':
-        return this._findLast(days, indexOfLastDayOfCurrentMonth - 1);
+        return this._findLast(cells, lastElementIndexForWideMode - 1);
       default:
-        return days[index];
+        return cells[index];
+    }
+  }
+
+  /**
+   * Calculates the parameter needed in keyboard navigation.
+   * Since three views are now available, the function creates and returns the correct parameters for each of them
+   * by considering the number of cells per each row and the correction for the wide mode.
+   * @param cells The array of rendered table cells; they are buttons that can represent days, months or years.
+   * @param index The starting element's index in the cell array.
+   * @param day (optional) Only in the day view, the day represented by the starting cell.
+   */
+  private _calculateParametersForKeyboardNavigation(
+    cells: HTMLButtonElement[],
+    index: number,
+    day?: Day,
+  ): CalendarKeyboardNavigationParameters {
+    switch (this._selection) {
+      case 'day': {
+        const indexInView = +day.dayValue - 1;
+        return {
+          verticalOffset: DAYS_PER_ROW,
+          elementIndexForWideMode: indexInView,
+          offsetForWideMode: index - indexInView,
+          lastElementIndexForWideMode:
+            index === indexInView
+              ? this._dateAdapter.getNumDaysInMonth(+day.yearValue, +day.monthValue - 1)
+              : cells.length,
+        };
+      }
+      // Month view is not dependent from `wide` value, so some parameters are fixed.
+      case 'month': {
+        return {
+          verticalOffset: MONTHS_PER_ROW,
+          elementIndexForWideMode: index,
+          offsetForWideMode: 0,
+          lastElementIndexForWideMode: 12,
+        };
+      }
+      case 'year': {
+        const offset: number = Math.trunc(index / YEARS_PER_PAGE) * YEARS_PER_PAGE;
+        const indexInView: number = offset === 0 ? index : index - YEARS_PER_PAGE;
+        return {
+          verticalOffset: YEARS_PER_ROW,
+          elementIndexForWideMode: indexInView,
+          offsetForWideMode: index - indexInView,
+          lastElementIndexForWideMode: offset === 0 ? YEARS_PER_PAGE : YEARS_PER_PAGE * 2,
+        };
+      }
     }
   }
 
@@ -591,9 +668,12 @@ export class SbbCalendar implements ComponentInterface {
     days: HTMLButtonElement[],
     index: number,
     offset: number,
+    verticalOffset: number,
   ): HTMLButtonElement {
-    const nextIndex = (index % 7) + offset;
-    return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, 7);
+    const nextIndex = (index % verticalOffset) + offset;
+    return !days[nextIndex].disabled
+      ? days[nextIndex]
+      : this._findNext(days, nextIndex, verticalOffset);
   }
 
   /** Find the last enabled element in the same column of the provided array. */
@@ -601,9 +681,12 @@ export class SbbCalendar implements ComponentInterface {
     days: HTMLButtonElement[],
     index: number,
     offset: number,
+    verticalOffset: number,
   ): HTMLButtonElement {
-    const nextIndex = index + Math.trunc((offset - index - 1) / 7) * 7;
-    return !days[nextIndex].disabled ? days[nextIndex] : this._findNext(days, nextIndex, -7);
+    const nextIndex = index + Math.trunc((offset - index - 1) / verticalOffset) * verticalOffset;
+    return !days[nextIndex].disabled
+      ? days[nextIndex]
+      : this._findNext(days, nextIndex, -verticalOffset);
   }
 
   private _now(): Date {
@@ -734,7 +817,7 @@ export class SbbCalendar implements ComponentInterface {
   private _createDayTableBody(weeks: Day[][]): JSX.Element {
     const today: string = this._dateAdapter.getISOString(this._now());
     return weeks.map((week: Day[], rowIndex: number) => {
-      const firstRowOffset: number = DAYS_PER_WEEK - week.length;
+      const firstRowOffset: number = DAYS_PER_ROW - week.length;
       if (rowIndex === 0 && firstRowOffset) {
         return (
           <tr>
@@ -850,7 +933,7 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME data-<>? keydown
+  // FIXME data-<>?
   /** Creates the table for the month selection view. */
   private _createMonthTable(months: Month[][]): JSX.Element {
     return (
@@ -891,6 +974,7 @@ export class SbbCalendar implements ComponentInterface {
                       aria-pressed={String(selected)}
                       aria-disabled={String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
+                      onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
                       {month.value}
                     </button>
@@ -994,7 +1078,7 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME data-<>? keydown
+  // FIXME data-<>?
   /** Creates the table cells for the year selection view. */
   private _createYearTableBody(years: number[][]): JSX.Element {
     return years.map((row: number[]) => (
@@ -1021,6 +1105,7 @@ export class SbbCalendar implements ComponentInterface {
                 aria-pressed={String(selected)}
                 aria-disabled={String(isOutOfRange || isFilteredOut)}
                 tabindex="-1"
+                onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
               >
                 {year}
               </button>
