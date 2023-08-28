@@ -300,9 +300,11 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the rows for the year selection view. */
   private _createYearRows(offset: number = 0): number[][] {
-    const minYearOfPage =
-      this._dateAdapter.getYear(this._activeDate) -
-      this._dateAdapter.getActiveYearOffset(this._activeDate, this._min, this._max);
+    const minYearOfPage: number = this._dateAdapter.getStartValueYearView(
+      this._activeDate,
+      this._min,
+      this._max,
+    );
     const allYears: number[] = new Array(YEARS_PER_PAGE)
       .fill(0)
       .map((_, i) => minYearOfPage + offset + i);

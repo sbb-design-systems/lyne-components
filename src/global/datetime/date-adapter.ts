@@ -134,7 +134,7 @@ export interface DateAdapter<T = any> {
    * @param minDate The minimum date, if set.
    * @param maxDate The maximum date, if set.
    */
-  getActiveYearOffset: (activeDate: T, minDate: T | null, maxDate: T | null) => number;
+  getStartValueYearView: (activeDate: T, minDate: T | null, maxDate: T | null) => number;
 
   /** Get the date in the local format.
    * @param date The date to format

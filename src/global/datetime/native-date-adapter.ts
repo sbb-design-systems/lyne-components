@@ -179,10 +179,19 @@ export class NativeDateAdapter implements DateAdapter<Date> {
 
   /**
    * Calculates the first year that will be shown in the year selection panel.
-   * If minDate or maxDate are set, it takes them as min/max value for the panel,
-   * then it calculates the offset from the current year (in modulo).
+   * If `minDate` and `maxDate` are both null, the starting year is calculated as
+   * the multiple of YEARS_PER_PAGE closest to and less than activeDate,
+   * e.g., with `YEARS_PER_PAGE` = 24 and `activeDate` = 2020, the function will return 2016 (24 * 83),
+   * while with `activeDate` = 2000, the function will return 1992 (24 * 82).
+   * If `minDate` is not null, it returns the corresponding year; if `maxDate` is not null,
+   * it returns the corresponding year minus `YEARS_PER_PAGE`, so that the `maxDate` is the last rendered year.
+   * If both are not null, `maxDate` has priority over `minDate`.
    */
-  public getActiveYearOffset(activeDate: Date, minDate: Date | null, maxDate: Date | null): number {
+  public getStartValueYearView(
+    activeDate: Date,
+    minDate: Date | null,
+    maxDate: Date | null,
+  ): number {
     let startingYear: number = 0;
     if (maxDate) {
       startingYear = this.getYear(maxDate) - YEARS_PER_PAGE + 1;
@@ -190,7 +199,10 @@ export class NativeDateAdapter implements DateAdapter<Date> {
       startingYear = this.getYear(minDate);
     }
     const activeYear: number = this.getYear(activeDate);
-    return (((activeYear - startingYear) % YEARS_PER_PAGE) + YEARS_PER_PAGE) % YEARS_PER_PAGE;
+    return (
+      activeYear -
+      ((((activeYear - startingYear) % YEARS_PER_PAGE) + YEARS_PER_PAGE) % YEARS_PER_PAGE)
+    );
   }
 
   /**

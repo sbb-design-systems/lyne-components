@@ -317,4 +317,152 @@ describe('sbb-calendar', () => {
       ).toEqual('29 1 2023');
     });
   });
+
+  describe('navigation for year view', () => {
+    beforeEach(async () => {
+      const yearSelectionButton: E2EElement = await page.find(
+        'sbb-calendar >>> #sbb-calendar__date-selection',
+      );
+      await yearSelectionButton.click();
+      await page.waitForChanges();
+      const selectedYear: E2EElement = await page.find({ text: '2023' });
+      await selectedYear.focus();
+    });
+
+    it('navigates left via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('ArrowLeft');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2022');
+    });
+
+    it('navigates right via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('ArrowRight');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2024');
+    });
+
+    it('navigates up via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('ArrowUp');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2019');
+    });
+
+    it('navigates down via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('ArrowDown');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2027');
+    });
+
+    it('navigates to first day via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('Home');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2016');
+    });
+
+    it('navigates to last day via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('End');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2039');
+    });
+
+    it('navigates to column start via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('PageUp');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2019');
+    });
+
+    it('navigates to column end via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('PageDown');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2039');
+    });
+  });
 });
