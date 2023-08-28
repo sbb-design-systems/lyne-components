@@ -105,24 +105,36 @@ const Template = (args): JSX.Element => (
             </sbb-form-field>
             <div class="search-result__wrapper">
               <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 1<span class="subtitle">Lorem ipsum subtitle</span>
-                </sbb-title>
+                <div>
+                  <sbb-title visual-level="6" negative>
+                    Result title 1
+                  </sbb-title>
+                  <p class="subtitle">Lorem ipsum subtitle</p>
+                </div>
               </a>
               <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 2<span class="subtitle">Lorem ipsum subtitle</span>
-                </sbb-title>
+                <div>
+                  <sbb-title visual-level="6" negative>
+                    Result title 2
+                  </sbb-title>
+                  <p class="subtitle">Lorem ipsum subtitle</p>
+                </div>
               </a>
               <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 3<span class="subtitle">Lorem ipsum subtitle</span>
-                </sbb-title>
+                <div>
+                  <sbb-title visual-level="6" negative>
+                    Result title 3
+                  </sbb-title>
+                  <p class="subtitle">Lorem ipsum subtitle</p>
+                </div>
               </a>
               <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 4<span class="subtitle">Lorem ipsum subtitle</span>
-                </sbb-title>
+                <div>
+                  <sbb-title visual-level="6" negative>
+                    Result title 3
+                  </sbb-title>
+                  <p class="subtitle">Lorem ipsum subtitle</p>
+                </div>
                 <div class="result-image">
                   <img
                     alt="example"
@@ -131,9 +143,12 @@ const Template = (args): JSX.Element => (
                 </div>
               </a>
               <a href="http://www.sbb.ch/" class="search-result-item">
-                <sbb-title visual-level="6" negative>
-                  Result title 5<span class="subtitle">Lorem ipsum subtitle</span>
-                </sbb-title>
+                <div>
+                  <sbb-title visual-level="6" negative>
+                    Result title 5
+                  </sbb-title>
+                  <p class="subtitle">Lorem ipsum subtitle</p>
+                </div>
               </a>
               <div class="show-more">
                 <sbb-button variant="primary">Show all 13 results</sbb-button>
