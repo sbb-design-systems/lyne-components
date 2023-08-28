@@ -760,6 +760,7 @@ export class SbbCalendar implements ComponentInterface {
     return (
       <TAG_NAME
         {...hostAttributes}
+        id="sbb-calendar__date-selection"
         class="sbb-calendar__controls-month-label"
         aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
         onClick={() => (this._selection = 'year')}
@@ -914,6 +915,7 @@ export class SbbCalendar implements ComponentInterface {
       <Fragment>
         <TAG_NAME
           {...hostAttributes}
+          id="sbb-calendar__month-selection"
           class="sbb-calendar__controls-month-label"
           aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
           onClick={() => this._resetToView()}
@@ -960,7 +962,7 @@ export class SbbCalendar implements ComponentInterface {
                   this._chosenYear === selectedYear &&
                   month.monthValue === selectedMonth;
                 return (
-                  <td class="sbb-calendar__table-data sbb-calendar__table-year">
+                  <td class="sbb-calendar__table-data sbb-calendar__table-month">
                     <button
                       class={{
                         'sbb-calendar__cell': true,
@@ -1045,6 +1047,7 @@ export class SbbCalendar implements ComponentInterface {
       <Fragment>
         <TAG_NAME
           {...hostAttributes}
+          id="sbb-calendar__year-selection"
           class="sbb-calendar__controls-month-label"
           aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}`}
           onClick={() => this._resetToView()}

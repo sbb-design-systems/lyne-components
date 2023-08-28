@@ -117,7 +117,8 @@
   transition-property: background-color, padding;
 }
 
-.sbb-calendar__table-year {
+.sbb-calendar__table-year,
+.sbb-calendar__table-month {
   width: var(--sbb-calendar-year-cell-width);
 }
 
