@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.7](https://github.com/lyne-design-system/lyne-components/compare/v0.39.6...v0.39.7) (2023-08-28)
+
+### Refactorings
+
+- **sbb-no-results:** improve slot handling ([#1946](https://github.com/lyne-design-system/lyne-components/issues/1946)) ([1a56291](https://github.com/lyne-design-system/lyne-components/commit/1a56291888034b3e5a992704c9980908e81312c3))
+
 ### [0.39.6](https://github.com/lyne-design-system/lyne-components/compare/v0.39.5...v0.39.6) (2023-08-28)
 
 ### Features
