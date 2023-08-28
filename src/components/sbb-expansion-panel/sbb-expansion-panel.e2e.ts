@@ -101,6 +101,6 @@ describe('sbb-expansion-panel', () => {
     element.setProperty('disabled', false);
     await page.waitForChanges();
     expect(await header.getProperty('disabled')).toEqual(false);
-    expect(header).toEqualAttribute('aria-disabled', 'false');
+    expect(header).toEqualAttribute('aria-disabled', null);
   });
 });
