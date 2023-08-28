@@ -11,7 +11,12 @@ const DefaultTemplate = (args): JSX.Element => (
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>
+    <sbb-button
+      slot="action"
+      icon-name="arrows-circle-small"
+      variant="secondary"
+      size="m"
+    ></sbb-button>
   </sbb-no-results>
 );
 
@@ -19,7 +24,12 @@ const NoImageTemplate = (args): JSX.Element => (
   <sbb-no-results {...args}>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>
+    <sbb-button
+      slot="action"
+      icon-name="arrows-circle-small"
+      variant="secondary"
+      size="m"
+    ></sbb-button>
   </sbb-no-results>
 );
 
@@ -27,7 +37,12 @@ const NoErrorCodeTemplate = (args): JSX.Element => (
   <sbb-no-results {...args}>
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
-    <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>
+    <sbb-button
+      slot="action"
+      icon-name="arrows-circle-small"
+      variant="secondary"
+      size="m"
+    ></sbb-button>
   </sbb-no-results>
 );
 
