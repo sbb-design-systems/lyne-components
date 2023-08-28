@@ -596,7 +596,7 @@ export namespace Components {
     }
     interface SbbExpansionPanelHeader {
         /**
-          * Whether the button is disabled .
+          * Whether the button is disabled.
          */
         "disabled": boolean;
         /**
@@ -3270,7 +3270,7 @@ declare namespace LocalJSX {
     }
     interface SbbExpansionPanelHeader {
         /**
-          * Whether the button is disabled .
+          * Whether the button is disabled.
          */
         "disabled"?: boolean;
         /**

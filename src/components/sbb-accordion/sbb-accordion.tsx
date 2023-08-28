@@ -45,7 +45,9 @@ export class SbbAccordion implements ComponentInterface {
 
   @Watch('titleLevel')
   public setTitleLevelOnChildren(): void {
-    this._setTitleLevelOnPanels(this._expansionPanels);
+    this._expansionPanels.forEach(
+      (panel: HTMLSbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
+    );
   }
 
   @Element() private _element!: HTMLElement;
@@ -56,47 +58,24 @@ export class SbbAccordion implements ComponentInterface {
 
   private _setChildrenParameters(): void {
     const expansionPanels = this._expansionPanels;
-    this._setTitleLevelOnPanels(expansionPanels);
-    this._setPanelOrderInformation(expansionPanels);
-    this._setPanelDisabledAnimation(expansionPanels);
-  }
-
-  private _setTitleLevelOnPanels(expansionPanels: HTMLSbbExpansionPanelElement[]): void {
-    expansionPanels.forEach(
-      (panel: HTMLSbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
-    );
-  }
-
-  private _setPanelOrderInformation(expansionPanels: HTMLSbbExpansionPanelElement[]): void {
-    if (!expansionPanels.length) {
+    if (!expansionPanels) {
       return;
     }
 
-    // Reset
-    expansionPanels.forEach((panel) => {
+    expansionPanels.forEach((panel: HTMLSbbExpansionPanelElement) => {
+      panel.titleLevel = this.titleLevel;
+
       toggleDatasetEntry(panel, 'accordionFirst', false);
       toggleDatasetEntry(panel, 'accordionLast', false);
-    });
 
+      if (this.disableAnimation) {
+        panel.setAttribute('disable-animation', 'true');
+      } else {
+        panel.removeAttribute('disable-animation');
+      }
+    });
     toggleDatasetEntry(expansionPanels[0], 'accordionFirst', true);
     toggleDatasetEntry(expansionPanels[expansionPanels.length - 1], 'accordionLast', true);
-  }
-
-  private _setPanelDisabledAnimation(expansionPanels: HTMLSbbExpansionPanelElement[]): void {
-    if (!expansionPanels.length) {
-      return;
-    }
-
-    // Set or remove disable-animation attribute from each expansion panel
-    if (this.disableAnimation) {
-      expansionPanels.forEach((panel) => {
-        panel.setAttribute('disable-animation', 'true');
-      });
-    } else {
-      expansionPanels.forEach((panel) => {
-        panel.removeAttribute('disable-animation');
-      });
-    }
   }
 
   public render(): JSX.Element {

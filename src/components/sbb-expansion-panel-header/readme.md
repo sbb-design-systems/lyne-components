@@ -40,7 +40,7 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 | Property   | Attribute   | Description                                                                                                                      | Type      | Default     |
 | ---------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `disabled` | `disabled`  | Whether the button is disabled .                                                                                                 | `boolean` | `undefined` |
+| `disabled` | `disabled`  | Whether the button is disabled.                                                                                                  | `boolean` | `undefined` |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `undefined` |
 
 

@@ -35,7 +35,7 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
    */
   @Prop() public iconName?: string;
 
-  /** Whether the button is disabled . */
+  /** Whether the button is disabled. */
   @Prop({ reflect: true }) public disabled: boolean;
 
   @Element() private _element!: HTMLElement;
@@ -71,7 +71,6 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
 
   public render(): JSX.Element {
     const { hostAttributes } = resolveButtonRenderVariables(this);
-    hostAttributes['aria-disabled'] = this.disabled?.toString();
 
     return (
       <Host
