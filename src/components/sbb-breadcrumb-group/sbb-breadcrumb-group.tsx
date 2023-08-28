@@ -7,7 +7,6 @@ import {
 } from '../../global/eventing';
 import {
   getNextElementIndex,
-  interactivityChecker,
   isArrowKeyPressed,
   sbbInputModalityDetector,
 } from '../../global/a11y';
@@ -74,7 +73,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public componentDidRender(): void {
     if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._breadcrumbs[1].focus();
+      this._breadcrumbs[1]?.focus();
+
+      // Reset mark for focus
+      this._markForFocus = false;
     }
   }
 
@@ -137,12 +139,11 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     evt: KeyboardEvent,
     breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs,
   ): void {
-    const visibleBreadcrumbs = breadcrumbs.filter((b) => interactivityChecker.isVisible(b));
-    const current: number = visibleBreadcrumbs.findIndex(
+    const current: number = breadcrumbs.findIndex(
       (e) => e === document.activeElement || e === this._element.shadowRoot.activeElement,
     );
-    const nextIndex: number = getNextElementIndex(evt, current, visibleBreadcrumbs.length);
-    visibleBreadcrumbs[nextIndex]?.focus();
+    const nextIndex: number = getNextElementIndex(evt, current, breadcrumbs.length);
+    breadcrumbs[nextIndex]?.focus();
     evt.preventDefault();
   }
 
@@ -208,7 +209,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   private _renderExpanded(): JSX.Element {
-    const slotName = (index): string => `breadcrumb-${index}`;
+    const slotName = (index: number): string => `breadcrumb-${index}`;
 
     return this._breadcrumbs.map((element: HTMLSbbBreadcrumbElement, index: number) => {
       element.setAttribute('slot', slotName(index));
