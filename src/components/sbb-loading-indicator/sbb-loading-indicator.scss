@@ -4,6 +4,14 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --loading-indicator-height: var(--sbb-size-icon-ui-small);
+  --loading-indicator-width: var(--sbb-size-icon-ui-small);
+  --loading-indicator-padding: var(--sbb-border-width-2x);
+
+  display: inline-block;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
@@ -15,9 +23,17 @@
 }
 
 .sbb-loading-indicator {
+  height: var(--loading-indicator-height);
+  width: var(--loading-indicator-width);
+  padding-inline: var(--loading-indicator-padding);
+  padding-block: var(--loading-indicator-padding);
   display: inline-block;
-  height: 100px;
-  width: 100px;
+}
+
+.sbb-loading-indicator-circle {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
   color: transparent;
   position: relative;
   margin: 0 auto;
@@ -25,15 +41,15 @@
   border-radius: 50%;
   background: conic-gradient(from 90deg, #fff, #f00);
   /* stylelint-disable */
-  -webkit-mask: radial-gradient(circle 35px, #0000 98%, #fff);
+  -webkit-mask: radial-gradient(circle 7px, #0000 98%, #fff);
   /* stylelint-enable */
-  mask: radial-gradient(circle 35px, #0000 98%, #fff);
+  mask: radial-gradient(circle 7px, #0000 98%, #fff);
   animation: rotation 2s infinite linear;
 
   &::after {
     content: '';
-    width: 15px;
-    height: 15px;
+    width: 3px;
+    height: 3px;
     background: #f00;
     border-radius: 50%;
     position: absolute;
