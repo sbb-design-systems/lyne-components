@@ -7,16 +7,15 @@ describe('sbb-tab-group', () => {
   beforeEach(async () => {
     page = await newE2EPage();
     await page.setContent(`
-    <sbb-tab-group initial-selected-index="1">
-      <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
-      <div>Test tab content 1</div>
-      <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
-      <div>Test tab content 2</div>
-      <sbb-tab-title id="sbb-tab-3" disabled>Test tab label 3</sbb-tab-title>
-      <div>Test tab content 3</div>
-      <sbb-tab-title id="sbb-tab-4">Test tab label 4</sbb-tab-title>
-    </sbb-tab-group>
-    `);
+      <sbb-tab-group initial-selected-index="1">
+        <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
+        <div>Test tab content 1</div>
+        <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
+        <div>Test tab content 2</div>
+        <sbb-tab-title id="sbb-tab-3" disabled>Test tab label 3</sbb-tab-title>
+        <div>Test tab content 3</div>
+        <sbb-tab-title id="sbb-tab-4">Test tab label 4</sbb-tab-title>
+      </sbb-tab-group>`);
     element = await page.find('sbb-tab-group');
   });
 
@@ -96,15 +95,16 @@ describe('sbb-tab-group', () => {
 
   it('activates the first enabled tab if exceeds the length of the tab group', async () => {
     page = await newE2EPage();
-    await page.setContent(`<sbb-tab-group initial-selected-index="2">
-              <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
-              <div>Test tab content 1</div>
-              <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
-              <div>Test tab content 2</div>
-            </sbb-tab-group>`);
+    await page.setContent(`
+      <sbb-tab-group initial-selected-index="2">
+        <sbb-tab-title id="sbb-tab-1">Test tab label 1</sbb-tab-title>
+        <div>Test tab content 1</div>
+        <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
+        <div>Test tab content 2</div>
+      </sbb-tab-group>`);
 
     await page.waitForChanges();
-    const tab = await page.find('sbb-tab-title[active]');
+    const tab = await page.find('sbb-tab-title#sbb-tab-1');
 
     expect(tab).toHaveAttribute('active');
   });
@@ -112,11 +112,11 @@ describe('sbb-tab-group', () => {
   it('activates the first enabled tab if targets a disabled tab', async () => {
     page = await newE2EPage();
     await page.setContent(`
-    <sbb-tab-group initial-selected-index="0">
-      <sbb-tab-title disabled>Test tab label 1</sbb-tab-title>
-      <div>Test tab content 1</div>
-      <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
-      <div>Test tab content 2</div>
+      <sbb-tab-group initial-selected-index="0">
+        <sbb-tab-title disabled>Test tab label 1</sbb-tab-title>
+        <div>Test tab content 1</div>
+        <sbb-tab-title id="sbb-tab-2">Test tab label 2</sbb-tab-title>
+        <div>Test tab content 2</div>
       </sbb-tab-group>`);
 
     await page.waitForChanges();
