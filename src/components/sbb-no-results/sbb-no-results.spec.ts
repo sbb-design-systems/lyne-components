@@ -54,12 +54,15 @@ describe('sbb-no-results', () => {
     <sbb-no-results title-content="Title.">
       <mock:shadow-root>
         <div class="sbb-no-results__container">
+          <slot name="image"></slot>
           <sbb-title level="3" visuallevel="5" class="sbb-no-results__title">
             <slot name="title">
               Title.
             </slot>
           </sbb-title>
           <slot name="subtitle"></slot>
+          <slot name="legend"></slot>
+          <slot name="action"></slot>
         </div>
       </mock:shadow-root>
       <p slot="subtitle">
