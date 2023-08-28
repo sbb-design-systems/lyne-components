@@ -88,14 +88,14 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [sbb-button](../sbb-button)
 - [sbb-icon](../sbb-icon)
+- [sbb-button](../sbb-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  sbb-calendar --> sbb-button
   sbb-calendar --> sbb-icon
+  sbb-calendar --> sbb-button
   sbb-button --> sbb-icon
   sbb-datepicker-toggle --> sbb-calendar
   style sbb-calendar fill:#f9f,stroke:#333,stroke-width:4px
