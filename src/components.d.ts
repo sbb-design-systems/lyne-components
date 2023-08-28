@@ -1117,6 +1117,16 @@ export namespace Components {
          */
         "trigger": string | HTMLElement;
     }
+    interface SbbNoResults {
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
+    }
     interface SbbNotification {
         "close": () => Promise<void>;
         /**
@@ -2289,6 +2299,12 @@ declare global {
         prototype: HTMLSbbNavigationSectionElement;
         new (): HTMLSbbNavigationSectionElement;
     };
+    interface HTMLSbbNoResultsElement extends Components.SbbNoResults, HTMLStencilElement {
+    }
+    var HTMLSbbNoResultsElement: {
+        prototype: HTMLSbbNoResultsElement;
+        new (): HTMLSbbNoResultsElement;
+    };
     interface HTMLSbbNotificationElement extends Components.SbbNotification, HTMLStencilElement {
     }
     var HTMLSbbNotificationElement: {
@@ -2600,6 +2616,7 @@ declare global {
         "sbb-navigation-list": HTMLSbbNavigationListElement;
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
         "sbb-navigation-section": HTMLSbbNavigationSectionElement;
+        "sbb-no-results": HTMLSbbNoResultsElement;
         "sbb-notification": HTMLSbbNotificationElement;
         "sbb-optgroup": HTMLSbbOptgroupElement;
         "sbb-option": HTMLSbbOptionElement;
@@ -3718,6 +3735,16 @@ declare namespace LocalJSX {
          */
         "trigger"?: string | HTMLElement;
     }
+    interface SbbNoResults {
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
     interface SbbNotification {
         /**
           * Whether the animation is enabled.
@@ -4669,6 +4696,7 @@ declare namespace LocalJSX {
         "sbb-navigation-list": SbbNavigationList;
         "sbb-navigation-marker": SbbNavigationMarker;
         "sbb-navigation-section": SbbNavigationSection;
+        "sbb-no-results": SbbNoResults;
         "sbb-notification": SbbNotification;
         "sbb-optgroup": SbbOptgroup;
         "sbb-option": SbbOption;
@@ -4762,6 +4790,7 @@ declare module "@stencil/core" {
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
             "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
+            "sbb-no-results": LocalJSX.SbbNoResults & JSXBase.HTMLAttributes<HTMLSbbNoResultsElement>;
             "sbb-notification": LocalJSX.SbbNotification & JSXBase.HTMLAttributes<HTMLSbbNotificationElement>;
             "sbb-optgroup": LocalJSX.SbbOptgroup & JSXBase.HTMLAttributes<HTMLSbbOptgroupElement>;
             "sbb-option": LocalJSX.SbbOption & JSXBase.HTMLAttributes<HTMLSbbOptionElement>;
