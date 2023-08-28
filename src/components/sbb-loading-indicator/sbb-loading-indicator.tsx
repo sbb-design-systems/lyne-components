@@ -10,6 +10,10 @@ import { Component, ComponentInterface, h, JSX } from '@stencil/core';
 })
 export class SbbLoadingIndicator implements ComponentInterface {
   public render(): JSX.Element {
-    return <span class="sbb-loading-indicator"></span>;
+    return (
+      <span class="sbb-loading-indicator">
+        <span class="sbb-loading-indicator-circle"></span>
+      </span>
+    );
   }
 }
