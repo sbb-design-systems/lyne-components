@@ -5,11 +5,9 @@ import {
   Event,
   EventEmitter,
   h,
-  Host,
   JSX,
   Listen,
   Prop,
-  State,
   Watch,
 } from '@stencil/core';
 import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
@@ -84,7 +82,6 @@ export class SbbExpansionPanel implements ComponentInterface {
   })
   public didClose: EventEmitter<void>;
 
-  @State() private _resizeDisableAnimation = false;
   @Element() private _element!: HTMLSbbExpansionPanelElement;
 
   @Listen('toggle-expanded')
@@ -246,11 +243,14 @@ export class SbbExpansionPanel implements ComponentInterface {
 
     clearTimeout(this._resizeObserverTimeout);
 
-    this._resizeDisableAnimation = true;
+    toggleDatasetEntry(this._element, 'resizeDisableAnimation', true);
     this._setPanelContentHeight();
 
     // Disable the animation when resizing the panel content to avoid strange height transition effects.
-    this._resizeObserverTimeout = setTimeout(() => (this._resizeDisableAnimation = false), 150);
+    this._resizeObserverTimeout = setTimeout(
+      () => toggleDatasetEntry(this._element, 'resizeDisableAnimation', false),
+      150,
+    );
   }
 
   private _setPanelContentHeight(): void {
@@ -265,16 +265,14 @@ export class SbbExpansionPanel implements ComponentInterface {
     const TAGNAME = this.titleLevel ? `h${this.titleLevel}` : 'div';
 
     return (
-      <Host data-resize-disable-animation={this._resizeDisableAnimation}>
-        <div class="sbb-expansion-panel">
-          <TAGNAME class="sbb-expansion-panel__header">
-            <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
-          </TAGNAME>
-          <span class="sbb-expansion-panel__content">
-            <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
-          </span>
-        </div>
-      </Host>
+      <div class="sbb-expansion-panel">
+        <TAGNAME class="sbb-expansion-panel__header">
+          <slot name="header" onSlotchange={(event) => this._onHeaderSlotChange(event)}></slot>
+        </TAGNAME>
+        <span class="sbb-expansion-panel__content">
+          <slot name="content" onSlotchange={(event) => this._onContentSlotChange(event)}></slot>
+        </span>
+      </div>
     );
   }
 }
