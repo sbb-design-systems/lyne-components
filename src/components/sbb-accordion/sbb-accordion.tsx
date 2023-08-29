@@ -27,8 +27,8 @@ export class SbbAccordion implements ComponentInterface {
     }
 
     this._expansionPanels
-      .filter((panel: HTMLSbbExpansionPanelElement) => panel !== e.target)
-      .forEach((panel: HTMLSbbExpansionPanelElement) => (panel.expanded = false));
+      .filter((panel) => panel !== e.target)
+      .forEach((panel) => (panel.expanded = false));
   }
 
   @Watch('multi')
@@ -38,16 +38,14 @@ export class SbbAccordion implements ComponentInterface {
     if (expansionPanels.length > 1 && oldValue && !newValue) {
       expansionPanels[0].expanded = true;
       expansionPanels
-        .filter((_: HTMLSbbExpansionPanelElement, index: number) => index > 0)
-        .forEach((panel: HTMLSbbExpansionPanelElement) => (panel.expanded = false));
+        .filter((_, index: number) => index > 0)
+        .forEach((panel) => (panel.expanded = false));
     }
   }
 
   @Watch('titleLevel')
   public setTitleLevelOnChildren(): void {
-    this._expansionPanels.forEach(
-      (panel: HTMLSbbExpansionPanelElement) => (panel.titleLevel = this.titleLevel),
-    );
+    this._expansionPanels.forEach((panel) => (panel.titleLevel = this.titleLevel));
   }
 
   @Element() private _element!: HTMLElement;
