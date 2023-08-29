@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.8](https://github.com/lyne-design-system/lyne-components/compare/v0.39.7...v0.39.8) (2023-08-29)
+
+### Refactorings
+
+- use dataset API for `resizeDisableAnimation` ([#1948](https://github.com/lyne-design-system/lyne-components/issues/1948)) ([43789ea](https://github.com/lyne-design-system/lyne-components/commit/43789ea2e3db36bd2bb35c3983c08932dc7e68b3))
+
 ### [0.39.7](https://github.com/lyne-design-system/lyne-components/compare/v0.39.6...v0.39.7) (2023-08-28)
 
 ### Refactorings
