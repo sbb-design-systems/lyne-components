@@ -1,12 +1,11 @@
-The `sbb-calendar` component displays a calendar that allows the user to select a date. For accessibility purposes it's rendered as a native table element and each day is a button. 
+The `sbb-calendar` component displays a calendar that allows the user to select a date. For accessibility purposes, it's rendered as a native table element and each day is a button. 
 
 While being deeply linked to the implementation of the `sbb-datepicker-toggle` component, it can be used on its own.
 
 For date inputs (`min`, `max`, `selected-date`) the accepted formats are: 
 - Date objects
 - ISO String 
-- Unix Timestamp (number of seconds since 1 Jan 1970)
-
+- Unix Timestamp (number of seconds since Jan 1, 1970)
 and it's recommended to set the time to 00:00:00.
 
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`. It's also

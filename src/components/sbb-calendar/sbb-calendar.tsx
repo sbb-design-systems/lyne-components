@@ -121,10 +121,10 @@ export class SbbCalendar implements ComponentInterface {
   private _months: Month[][];
 
   /** Grid of calendar cells representing years. */
-  private _years: number[][]; // TODO type if needed
+  private _years: number[][];
 
   /** Grid of calendar cells representing years for the wide view. */
-  private _nextMonthYears: number[][]; // TODO type if needed
+  private _nextMonthYears: number[][];
 
   /** Grid of calendar cells representing the dates of the next month. */
   private _nextMonthWeeks: Day[][];
@@ -140,8 +140,12 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _calendarController: AbortController;
-  private _chosenYear: number; // TODO docs
-  private _chosenMonth: number; // TODO docs
+
+  /** The chosen year in the year selection view. */
+  private _chosenYear: number;
+
+  /** The chosen month in the year selection view. */
+  private _chosenMonth: number;
 
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
@@ -201,6 +205,8 @@ export class SbbCalendar implements ComponentInterface {
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
+    // FIXME when changing view to year/month, the tabindex is changed, but the focused element is not
+    this._focusCell();
   }
 
   public disconnectedCallback(): void {
@@ -398,6 +404,8 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Emits the selected date and sets it internally. */
   private _selectDate(day: string): void {
+    this._chosenMonth = undefined;
+    this._chosenYear = undefined;
     if (this._selected !== day) {
       this._selected = day;
       this.dateSelected.emit(this._dateAdapter.createDateFromISOString(day));
@@ -925,7 +933,6 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME data-<>?
   /** Creates the table for the month selection view. */
   private _createMonthTable(months: Month[][]): JSX.Element {
     return (
@@ -980,7 +987,7 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME
+  /** Select the month and change the view to day selection. */
   private _onMonthSelection(month: number): void {
     this._chosenMonth = month;
     this._assignActiveDate(
@@ -988,8 +995,6 @@ export class SbbCalendar implements ComponentInterface {
     );
     this._init();
     this._selection = 'day';
-    this._chosenMonth = undefined;
-    this._chosenYear = undefined;
   }
 
   /** Render the view for the year selection. */
@@ -1019,6 +1024,7 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
+  /** Creates the button arrow for all the views. */
   private _getArrow(
     direction: 'left' | 'right',
     click: () => void,
@@ -1084,7 +1090,6 @@ export class SbbCalendar implements ComponentInterface {
     );
   }
 
-  // FIXME data-<>?
   /** Creates the table cells for the year selection view. */
   private _createYearTableBody(years: number[][]): JSX.Element {
     return years.map((row: number[]) => (
@@ -1122,6 +1127,7 @@ export class SbbCalendar implements ComponentInterface {
     ));
   }
 
+  /** Select the year and change the view to month selection. */
   private _onYearSelection(year: number): void {
     this._chosenYear = year;
     this._assignActiveDate(
