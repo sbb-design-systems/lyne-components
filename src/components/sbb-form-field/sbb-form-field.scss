@@ -27,6 +27,10 @@
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
+  // As the form field has always a white background, we have to fix the focus outline color
+  // to default color for cases where the form field is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
   display: inline-block;
 }
 

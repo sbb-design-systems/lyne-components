@@ -19,6 +19,10 @@
   --sbb-tooltip-animation-easing: ease-out;
   --sbb-tooltip-transform: translateY(var(--sbb-spacing-fixed-2x));
 
+  // As the tooltip has always a white background, we have to fix the focus outline color
+  // to default color for cases where the tooltip is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
   // We use this rule to make the inner container element to appear as if it were a
   // direct child of the host's parent element. This is useful because the host
   // should be ignored when using CSS grid or similar layout techniques.
