@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.9](https://github.com/lyne-design-system/lyne-components/compare/v0.39.8...v0.39.9) (2023-08-29)
+
+### Bug Fixes
+
+- fix focus outline color for positive elements in negative context ([#1947](https://github.com/lyne-design-system/lyne-components/issues/1947)) ([254e77c](https://github.com/lyne-design-system/lyne-components/commit/254e77c2e4731b77b480616ad2211ef51b448231))
+
 ### [0.39.8](https://github.com/lyne-design-system/lyne-components/compare/v0.39.7...v0.39.8) (2023-08-29)
 
 ### Refactorings
