@@ -95,7 +95,7 @@ function migrate(component: string, debug = false) {
   const migrations = new Map<
     string,
     // eslint-disable-next-line no-unused-vars
-    (_sourceFile: ts.SourceFile, _mutator: StringMutation) => void
+    (_sourceFile: ts.SourceFile, _mutator: StringMutation, args: any) => void
   >()
     .set(`./${component}.tsx`, migrateComponent)
     .set(`./${component}.stories.tsx`, migrateStories)
@@ -112,7 +112,8 @@ function migrate(component: string, debug = false) {
         true,
       );
       const mutator = new StringMutation(sourceFile);
-      migration(sourceFile, mutator);
+      const args = { component };
+      migration(sourceFile, mutator, args);
 
       writeFileSync(join(target, file.replace(/.tsx$/, '.ts')), mutator.toString(), 'utf8');
       console.log(`Migrated ${file}`);
@@ -372,10 +373,6 @@ function migrate(component: string, debug = false) {
       });
     }
 
-    function toKebabCase(value: string) {
-      return value.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`);
-    }
-
     function makePrivate(node: ts.PropertyDeclaration | ts.MethodDeclaration) {
       const publicKeyword = node.modifiers?.find((n) => n.kind === ts.SyntaxKind.PublicKeyword)!;
       mutator.replace(publicKeyword, 'private');
@@ -386,22 +383,52 @@ function migrate(component: string, debug = false) {
     }
   }
 
-  function migrateStories(sourceFile: ts.SourceFile, mutator: StringMutation) {
-    // TODO
-    // Remove next line with implementation
-    console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
+  function migrateStories(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
+    let lastImport: ts.ImportDeclaration | undefined = undefined;
+
+    iterate(sourceFile, (node) => {
+      if (ts.isImportDeclaration(node)) {
+        lastImport = node;
+
+        // Replace '@storybook/html' => '@storybook/web-components'
+        if (node.moduleSpecifier.getText() === '@storybook/html') {
+          mutator.replace(node.moduleSpecifier, '@storybook/web-components');
+        }
+      }
+    });
+
+    // Create an instance of the component
+    const newImports: String[] = [];
+    const componentName = toPascalCase(args.component);
+    newImports.push(`import { ${componentName} } from './${args.component}';`);
+    newImports.push(`const instance = new ${componentName}();`);
+    mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
   function migrateSpec(sourceFile: ts.SourceFile, mutator: StringMutation) {
     // TODO
     // Remove next line with implementation
-    console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
+    // console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
   }
 
   function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation) {
     // TODO
     // Remove next line with implementation
-    console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
+    // console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
+  }
+
+  /** Helper functions */
+
+  function toKebabCase(value: string) {
+    return value.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`);
+  }
+
+  function toPascalCase(value: string) {
+    return value
+      .replace(/\w+/g, function (w) {
+        return w[0].toUpperCase() + w.slice(1).toLowerCase();
+      })
+      .replace(/-/g, '');
   }
 }
 
