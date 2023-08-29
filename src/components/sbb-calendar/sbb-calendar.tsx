@@ -183,6 +183,9 @@ export class SbbCalendar implements ComponentInterface {
   @Method()
   @Watch('wide')
   public async resetPosition(): Promise<void> {
+    if (this._selection !== 'day') {
+      this._resetToDayView();
+    }
     this._setDates();
     this._init();
   }
@@ -713,9 +716,11 @@ export class SbbCalendar implements ComponentInterface {
     return !isNaN(dataNow);
   }
 
-  private _resetToView(view: CalendarView = 'day'): void {
+  private _resetToDayView(): void {
     this._activeDate = this._dateAdapter.deserializeDate(this.selectedDate) ?? this._now();
-    this._selection = view;
+    this._chosenYear = undefined;
+    this._chosenMonth = undefined;
+    this._selection = 'day';
   }
 
   /** Render the view for the day selection. */
@@ -916,10 +921,10 @@ export class SbbCalendar implements ComponentInterface {
           id="sbb-calendar__month-selection"
           class="sbb-calendar__controls-month-label"
           aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
-          onClick={() => this._resetToView()}
+          onClick={() => this._resetToDayView()}
           onKeyPress={(evt) => {
             if (evt.code === 'Space' || evt.code === 'Enter') {
-              this._resetToView();
+              this._resetToDayView();
             }
           }}
         >
@@ -1059,10 +1064,10 @@ export class SbbCalendar implements ComponentInterface {
           id="sbb-calendar__year-selection"
           class="sbb-calendar__controls-month-label"
           aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}`}
-          onClick={() => this._resetToView()}
+          onClick={() => this._resetToDayView()}
           onKeyPress={(evt) => {
             if (evt.code === 'Space' || evt.code === 'Enter') {
-              this._resetToView();
+              this._resetToDayView();
             }
           }}
         >
