@@ -12,7 +12,7 @@ export class SbbLoadingIndicator implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <span class="sbb-loading-indicator">
-        <span class="sbb-loading-indicator-circle"></span>
+        <span class="sbb-loading-indicator__animated-element"></span>
       </span>
     );
   }

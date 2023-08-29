@@ -49,6 +49,13 @@ const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element
   </sbb-button>
 );
 
+const LoadingIndicatorTemplate = ({ text, ...args }): JSX.Element => (
+  <sbb-button {...args}>
+    <sbb-loading-indicator slot="icon"></sbb-loading-indicator>
+    {text}
+  </sbb-button>
+);
+
 const FixedWidthTemplate = ({ text, ...args }): JSX.Element => (
   <div>
     <p>
@@ -560,6 +567,15 @@ export const RequestSubmit: StoryObj = {
     ...defaultArgs,
     variant: variant.options[0],
     text: 'Submit form',
+  },
+};
+
+export const LoadingIndicator: StoryObj = {
+  render: LoadingIndicatorTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    variant: variant.options[1],
   },
 };
 
