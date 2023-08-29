@@ -47,8 +47,14 @@ $timetable-margin-block: 7vh;
   align-items: center;
   gap: var(--sbb-spacing-fixed-4x);
   padding-block: var(--sbb-spacing-fixed-3x);
-  border-bottom: 1px solid var(--sbb-color-charcoal-default);
+  border-bottom: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   text-decoration: none;
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-2x);
+  }
 
   .subtitle {
     @include sbb.text-xs--regular;
@@ -71,6 +77,12 @@ $timetable-margin-block: 7vh;
   padding-block: var(--sbb-spacing-fixed-3x);
   text-decoration: none;
   color: var(--sbb-color-white-default);
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-border-radius-2x);
+  }
 }
 
 .show-more {
