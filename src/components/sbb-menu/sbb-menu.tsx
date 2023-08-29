@@ -329,14 +329,12 @@ export class SbbMenu implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {
-    const firstFocusable = getFirstFocusableElement(
-      Array.from(this._element.children).filter(
-        (e): e is HTMLElement => e instanceof window.HTMLElement,
-      ),
-    );
-
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      firstFocusable.focus();
+      getFirstFocusableElement(
+        Array.from(this._element.children).filter(
+          (e): e is HTMLElement => e instanceof window.HTMLElement,
+        ),
+      )?.focus();
     } else {
       // Focusing sbb-menu__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied

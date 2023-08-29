@@ -151,7 +151,6 @@ export class SbbTooltip implements ComponentInterface {
   private _tooltipContentElement: HTMLElement;
   // The element which should receive focus after closing based on where in the backdrop the user clicks.
   private _nextFocusedElement?: HTMLElement;
-  private _firstFocusable: HTMLElement;
   private _tooltipCloseElement: HTMLElement;
   private _isPointerDownEventOnTooltip: boolean;
   private _tooltipController: AbortController;
@@ -423,16 +422,16 @@ export class SbbTooltip implements ComponentInterface {
 
   // Set focus on the first focusable element.
   private _setTooltipFocus(): void {
-    this._firstFocusable =
-      this._element.shadowRoot.querySelector('[sbb-tooltip-close]') ||
-      getFirstFocusableElement(
-        Array.from(this._element.children).filter(
-          (e): e is HTMLElement => e instanceof window.HTMLElement,
-        ),
-      );
-
     if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._firstFocusable?.focus();
+      const firstFocusable =
+        (this._element.shadowRoot.querySelector('[sbb-tooltip-close]') as HTMLElement) ||
+        getFirstFocusableElement(
+          Array.from(this._element.children).filter(
+            (e): e is HTMLElement => e instanceof window.HTMLElement,
+          ),
+        );
+
+      firstFocusable?.focus();
     } else {
       // Focusing sbb-tooltip__content in order to provide a consistent behavior in Safari where else
       // the focus-visible styles would be incorrectly applied
