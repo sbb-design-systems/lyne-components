@@ -18,6 +18,11 @@
   --sbb-options-panel-gap-fix-top: calc(
     var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
   );
+  --sbb-options-panel-background-color: var(--sbb-color-white-default);
+
+  // As the overlays have always a white background, we have to fix the focus outline color
+  // to default color for cases where the overlays are used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 }
 
 @mixin options-panel-overlay-container {
@@ -74,7 +79,7 @@
 }
 
 @mixin optionsOverlay {
-  background-color: var(--sbb-color-white-default);
+  background-color: var(--sbb-options-panel-background-color);
   padding-block: var(--sbb-spacing-fixed-3x);
   padding-inline: 0;
   border-radius: var(--sbb-options-panel-options-border-radius);
@@ -90,10 +95,10 @@
 }
 
 // Used to create the "wrapping" effect around the anchor for overlays (es. autocomplete/select)
-// Works in conjuction with the 'overlayGapFixCorners()' function in 'overlay.tsx'
+// Works in conjunction with the 'overlayGapFixCorners()' function in 'overlay.tsx'
 @mixin overlay-gap-fix(
   $radius: var(--sbb-options-panel-border-radius),
-  $color: var(--sbb-color-white-default)
+  $color: var(--sbb-options-panel-background-color)
 ) {
   .sbb-gap-fix-wrapper {
     position: relative;
