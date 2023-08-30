@@ -134,15 +134,19 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
 
   private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {
     const pickerValueAsDate: Date = await datepicker.getValueAsDate();
-    if (pickerValueAsDate) {
-      const nextDate: Date = findNextAvailableDate(
-        pickerValueAsDate,
-        datepicker.dateFilter,
-        this._dateAdapter,
-        this._max,
-      );
-      this._disabled = this._dateAdapter.compareDate(nextDate, pickerValueAsDate) === 0;
+
+    if (!pickerValueAsDate) {
+      this._disabled = true;
+      return;
     }
+
+    const nextDate: Date = findNextAvailableDate(
+      pickerValueAsDate,
+      datepicker.dateFilter,
+      this._dateAdapter,
+      this._max,
+    );
+    this._disabled = this._dateAdapter.compareDate(nextDate, pickerValueAsDate) === 0;
   }
 
   private _hasDataNow(): boolean {

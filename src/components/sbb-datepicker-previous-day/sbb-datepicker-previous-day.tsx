@@ -133,15 +133,20 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
 
   private async _setDisabledState(datepicker: HTMLSbbDatepickerElement): Promise<void> {
     const pickerValueAsDate: Date = await datepicker.getValueAsDate();
-    if (pickerValueAsDate) {
-      const previousDate: Date = findPreviousAvailableDate(
-        pickerValueAsDate,
-        datepicker.dateFilter,
-        this._dateAdapter,
-        this._min,
-      );
-      this._disabled = this._dateAdapter.compareDate(previousDate, pickerValueAsDate) === 0;
+
+    if (!pickerValueAsDate) {
+      this._disabled = true;
+      return;
     }
+
+    const previousDate: Date = findPreviousAvailableDate(
+      pickerValueAsDate,
+      datepicker.dateFilter,
+      this._dateAdapter,
+      this._min,
+    );
+
+    this._disabled = this._dateAdapter.compareDate(previousDate, pickerValueAsDate) === 0;
   }
 
   private _hasDataNow(): boolean {

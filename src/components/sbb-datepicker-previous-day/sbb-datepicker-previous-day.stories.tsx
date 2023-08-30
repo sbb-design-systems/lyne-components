@@ -11,12 +11,24 @@ const StandaloneTemplate = (picker = null): JSX.Element => (
 const PickerAndButtonTemplate = (): JSX.Element => (
   <div style={{ display: 'flex', gap: '1em' }}>
     {StandaloneTemplate('datepicker')}
-    <input id="datepicker-input" />
-    <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
+    <input value="15.02.2023" id="datepicker-input" />
+    <sbb-datepicker
+      id="datepicker"
+      input="datepicker-input"
+      data-now={new Date(2023, 0, 12, 0, 0, 0).valueOf()}
+    ></sbb-datepicker>
   </div>
 );
 
 const FormFieldTemplate = (): JSX.Element => (
+  <sbb-form-field>
+    <input value="15.02.2023" />
+    <sbb-datepicker></sbb-datepicker>
+    {StandaloneTemplate()}
+  </sbb-form-field>
+);
+
+const EmptyFormFieldTemplate = (): JSX.Element => (
   <sbb-form-field>
     <input />
     <sbb-datepicker></sbb-datepicker>
@@ -34,6 +46,10 @@ export const WithPicker: StoryObj = {
 
 export const InFormField: StoryObj = {
   render: FormFieldTemplate,
+};
+
+export const EmptyFormField: StoryObj = {
+  render: EmptyFormFieldTemplate,
 };
 
 const meta: Meta = {
