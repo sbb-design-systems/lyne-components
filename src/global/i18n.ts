@@ -598,6 +598,20 @@ export const i18nPreviousDay: Record<string, string> = {
   it: 'Giorno precedente',
 };
 
+export const i18nSelectNextDay = (currentDate: string): Record<string, string> => ({
+  de: `Zum nächsten Tag wechseln, derzeit ausgewählt ${currentDate}.`,
+  en: `Change to the next day, currently selected ${currentDate}.`,
+  fr: `Passer au jour suivant, actuellement sélectionné ${currentDate}.`,
+  it: `Passare al giorno successivo, attualmente selezionato ${currentDate}.`,
+});
+
+export const i18nSelectPreviousDay = (currentDate: string): Record<string, string> => ({
+  de: `Zum vorherigen Tag wechseln, derzeit ausgewählt ${currentDate}.`,
+  en: `Change to the previous day, currently selected ${currentDate}.`,
+  fr: `Passer au jour précédent, actuellement sélectionné ${currentDate}.`,
+  it: `Passare al giorno precedente, attualmente selezionato ${currentDate}.`,
+});
+
 export const i18nShowCalendar: Record<string, string> = {
   de: 'Kalender anzeigen',
   en: 'Show calendar',
