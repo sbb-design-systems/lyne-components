@@ -73,7 +73,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex]?.tabGroupActions.disable();
+    this.tabs[tabIndex]?.tabGroupActions.disable();
   }
 
   /**
@@ -82,7 +82,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex]?.tabGroupActions.enable();
+    this.tabs[tabIndex]?.tabGroupActions.enable();
   }
 
   /**
@@ -91,7 +91,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex]?.tabGroupActions.select();
+    this.tabs[tabIndex]?.tabGroupActions.select();
   }
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
@@ -162,7 +162,7 @@ export class SbbTabGroup implements ComponentInterface {
     }
   }
 
-  private _onTabAttributesChange(mutationsList): void {
+  private _onTabAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.type !== 'attributes') {
         return;
@@ -186,7 +186,7 @@ export class SbbTabGroup implements ComponentInterface {
     }
   }
 
-  private _onTabContentElementResize(entries): void {
+  private _onTabContentElementResize(entries: ResizeObserverEntry[]): void {
     for (const entry of entries) {
       const contentHeight = Math.floor(entry.contentRect.height);
 
@@ -285,7 +285,7 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   @Listen('keydown')
-  public async handleKeyDown(evt: KeyboardEvent): Promise<void> {
+  public handleKeyDown(evt: KeyboardEvent): void {
     const enabledTabs: InterfaceSbbTabGroupTab[] = this._enabledTabs;
 
     if (
