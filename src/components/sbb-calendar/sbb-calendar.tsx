@@ -193,7 +193,10 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   public connectedCallback(): void {
-    this._element.focus = this._focusCell.bind(this);
+    this._element.focus = () => {
+      this._resetFocus = true;
+      this._focusCell();
+    };
     this._handlerRepository.connect();
     this._calendarController = new AbortController();
     window.addEventListener('resize', () => this._init(), {
@@ -529,11 +532,13 @@ export class SbbCalendar implements ComponentInterface {
 
   private _getFirstFocusable(): HTMLButtonElement {
     const active = this._selected ? new Date(this._selected) : this._now();
-    let firstFocusable = this._element.shadowRoot.querySelector(
-      `[data-day="${active.getDate()} ${
-        this._activeDate.getMonth() + 1
-      } ${this._activeDate.getFullYear()}"]`,
-    );
+    let firstFocusable =
+      this._element.shadowRoot.querySelector('.sbb-calendar__selected') ??
+      this._element.shadowRoot.querySelector(
+        `[data-day="${active.getDate()} ${
+          this._activeDate.getMonth() + 1
+        } ${this._activeDate.getFullYear()}"]`,
+      );
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = this._element.shadowRoot.querySelector(
         '.sbb-calendar__cell:not([disabled])',
