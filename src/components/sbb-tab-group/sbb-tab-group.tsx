@@ -12,7 +12,7 @@ import {
   Prop,
 } from '@stencil/core';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
-import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { isValidAttribute, hostContext } from '../../global/dom';
 import { throttle } from '../../global/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
@@ -73,7 +73,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex]?.tabGroupActions.disable();
+    this.tabs[tabIndex]?.tabGroupActions.disable();
   }
 
   /**
@@ -82,7 +82,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex]?.tabGroupActions.enable();
+    this.tabs[tabIndex]?.tabGroupActions.enable();
   }
 
   /**
@@ -91,7 +91,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
-    await this.tabs[tabIndex]?.tabGroupActions.select();
+    this.tabs[tabIndex]?.tabGroupActions.select();
   }
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
@@ -101,14 +101,16 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
-    return this.tabs.filter((t) => !isValidAttribute(t, 'disabled'));
+    return this.tabs.filter(
+      (t) => !isValidAttribute(t, 'disabled') && interactivityChecker.isVisible(t),
+    );
   }
 
   public connectedCallback(): void {
     this._isNested = !!hostContext('sbb-tab-group', this._element);
   }
 
-  public componentWillLoad(): void {
+  public componentDidLoad(): void {
     this.tabs = this._getTabs();
     this.tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
@@ -160,7 +162,7 @@ export class SbbTabGroup implements ComponentInterface {
     }
   }
 
-  private _onTabAttributesChange(mutationsList): void {
+  private _onTabAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.type !== 'attributes') {
         return;
@@ -184,7 +186,7 @@ export class SbbTabGroup implements ComponentInterface {
     }
   }
 
-  private _onTabContentElementResize(entries): void {
+  private _onTabContentElementResize(entries: ResizeObserverEntry[]): void {
     for (const entry of entries) {
       const contentHeight = Math.floor(entry.contentRect.height);
 

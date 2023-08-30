@@ -14,7 +14,7 @@ import {
 } from '@stencil/core';
 import { InterfaceSbbRadioButtonGroupAttributes } from './sbb-radio-button-group.custom';
 import { RadioButtonStateChange } from '../sbb-radio-button/sbb-radio-button.custom';
-import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
@@ -210,15 +210,16 @@ export class SbbRadioButtonGroup implements ComponentInterface {
 
   private get _enabledRadios(): HTMLSbbRadioButtonElement[] | undefined {
     if (!this.disabled) {
-      return this._radioButtons.filter((r) => !r.disabled);
+      return this._radioButtons.filter((r) => !r.disabled && interactivityChecker.isVisible(r));
     }
   }
 
   private _setFocusableRadio(): void {
     const checked = this._radioButtons.find((radio) => radio.checked && !radio.disabled);
 
-    if (!checked && this._enabledRadios) {
-      this._enabledRadios[0].tabIndex = 0;
+    const enabledRadios = this._enabledRadios;
+    if (!checked && enabledRadios?.length) {
+      enabledRadios[0].tabIndex = 0;
     }
   }
 
@@ -227,11 +228,12 @@ export class SbbRadioButtonGroup implements ComponentInterface {
   }
 
   @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
+  public async handleKeyDown(evt: KeyboardEvent): Promise<void> {
     const enabledRadios: HTMLSbbRadioButtonElement[] = this._enabledRadios;
 
     if (
       !enabledRadios ||
+      !enabledRadios.length ||
       // don't trap nested handling
       ((evt.target as HTMLElement) !== this._element &&
         (evt.target as HTMLElement).parentElement !== this._element &&
@@ -255,7 +257,7 @@ export class SbbRadioButtonGroup implements ComponentInterface {
         (radio: HTMLSbbRadioButtonElement) => radio.checked,
       );
       nextIndex = getNextElementIndex(evt, checked, enabledRadios.length);
-      enabledRadios[nextIndex].select();
+      await enabledRadios[nextIndex].select();
     }
 
     enabledRadios[nextIndex].focus();

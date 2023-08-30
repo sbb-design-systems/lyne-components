@@ -73,7 +73,10 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
 
   public componentDidRender(): void {
     if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._breadcrumbs[1].focus();
+      this._breadcrumbs[1]?.focus();
+
+      // Reset mark for focus
+      this._markForFocus = false;
     }
   }
 
@@ -131,6 +134,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
     ];
     this._focusNext(evt, arrayCollapsed);
   }
+
   private _focusNext(
     evt: KeyboardEvent,
     breadcrumbs: HTMLSbbBreadcrumbElement[] = this._breadcrumbs,
@@ -205,7 +209,7 @@ export class SbbBreadcrumbGroup implements ComponentInterface {
   }
 
   private _renderExpanded(): JSX.Element {
-    const slotName = (index): string => `breadcrumb-${index}`;
+    const slotName = (index: number): string => `breadcrumb-${index}`;
 
     return this._breadcrumbs.map((element: HTMLSbbBreadcrumbElement, index: number) => {
       element.setAttribute('slot', slotName(index));

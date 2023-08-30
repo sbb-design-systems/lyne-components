@@ -1,9 +1,12 @@
+import { interactivityChecker } from './interactivity-checker';
+
 export const IS_FOCUSABLE_QUERY = `:is(button, [href], input, select, textarea, details, summary:not(:disabled), [tabindex]):not([disabled]:not([disabled='false'])):not([tabindex="-1"])`;
 
 // Note: the use of this function for more complex scenarios (with many nested elements) may be expensive.
 export function getFocusableElements(
   elements: HTMLElement[],
   filterFunc?: (el: HTMLElement) => boolean,
+  findFirstFocusable?: boolean,
 ): HTMLElement[] {
   const focusableEls = new Set<HTMLElement>();
 
@@ -21,8 +24,12 @@ export function getFocusableElements(
         continue;
       }
 
-      if (el.matches(IS_FOCUSABLE_QUERY)) {
+      if (el.matches(IS_FOCUSABLE_QUERY) && interactivityChecker.isVisible(el)) {
         focusableEls.add(el);
+      }
+
+      if (findFirstFocusable && focusableEls.size > 0) {
+        break;
       }
 
       if (el.children.length || el.shadowRoot?.children.length) {
@@ -36,6 +43,14 @@ export function getFocusableElements(
   getFocusables(elements, filterFunc);
 
   return [...focusableEls];
+}
+
+export function getFirstFocusableElement(
+  elements: HTMLElement[],
+  filterFunc?: (el: HTMLElement) => boolean,
+): HTMLElement | null {
+  const focusableElements = getFocusableElements(elements, filterFunc, true);
+  return focusableElements.length ? focusableElements[0] : null;
 }
 
 export class FocusTrap {
