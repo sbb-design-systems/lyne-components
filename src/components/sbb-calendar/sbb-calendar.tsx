@@ -146,6 +146,9 @@ export class SbbCalendar implements ComponentInterface {
   /** The chosen month in the year selection view. */
   private _chosenMonth: number;
 
+  /** Whether the focus should be reset on focusCell. */
+  private _resetFocus = false;
+
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
     languageChangeHandlerAspect((l) => {
@@ -241,7 +244,10 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly, the first selectable day. */
   private _focusCell(): void {
-    this._getFirstFocusable()?.focus();
+    if (this._resetFocus) {
+      this._getFirstFocusable()?.focus();
+      this._resetFocus = false;
+    }
   }
 
   /** Sets the date variables. */
@@ -522,9 +528,12 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _getFirstFocusable(): HTMLButtonElement {
-    let firstFocusable =
-      this._element.shadowRoot.querySelector('.sbb-calendar__selected') ??
-      this._element.shadowRoot.querySelector('.sbb-calendar__day-today');
+    const active = this._selected ? new Date(this._selected) : this._now();
+    let firstFocusable = this._element.shadowRoot.querySelector(
+      `[data-day="${active.getDate()} ${
+        this._activeDate.getMonth() + 1
+      } ${this._activeDate.getFullYear()}"]`,
+    );
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = this._element.shadowRoot.querySelector(
         '.sbb-calendar__cell:not([disabled])',
@@ -716,6 +725,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _resetToDayView(): void {
+    this._resetFocus = true;
     this._activeDate = this._dateAdapter.deserializeDate(this.selectedDate) ?? this._now();
     this._chosenYear = undefined;
     this._chosenMonth = undefined;
@@ -769,7 +779,10 @@ export class SbbCalendar implements ComponentInterface {
         id="sbb-calendar__date-selection"
         class="sbb-calendar__controls-change-date"
         aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
-        onClick={() => (this._selection = 'year')}
+        onClick={() => {
+          this._resetFocus = true;
+          this._selection = 'year';
+        }}
       >
         {monthLabel}
         <sbb-icon name="chevron-small-down-small"></sbb-icon>
@@ -950,11 +963,17 @@ export class SbbCalendar implements ComponentInterface {
                   this._chosenYear === selectedYear &&
                   month.monthValue === selectedMonth;
                 return (
-                  <td class="sbb-calendar__table-data sbb-calendar__table-month">
+                  <td
+                    class={{
+                      'sbb-calendar__table-data': true,
+                      'sbb-calendar__table-month': true,
+                      'sbb-calendar__table-long-cell': this._wide,
+                    }}
+                  >
                     <button
                       class={{
                         'sbb-calendar__cell': true,
-                        'sbb-calendar__wide': true,
+                        'sbb-calendar__pill': true,
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       }}
@@ -966,7 +985,7 @@ export class SbbCalendar implements ComponentInterface {
                       tabindex="-1"
                       onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
-                      {month.value}
+                      {this._wide ? month.longValue : month.value}
                     </button>
                   </td>
                 );
@@ -992,6 +1011,7 @@ export class SbbCalendar implements ComponentInterface {
       new Date(this._chosenYear, this._chosenMonth, this._activeDate.getDate()),
     );
     this._init();
+    this._resetFocus = true;
     this._selection = 'day';
   }
 
@@ -1097,7 +1117,7 @@ export class SbbCalendar implements ComponentInterface {
               <button
                 class={{
                   'sbb-calendar__cell': true,
-                  'sbb-calendar__wide': true,
+                  'sbb-calendar__pill': true,
                   'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                   'sbb-calendar__selected': selected,
                 }}
@@ -1124,6 +1144,7 @@ export class SbbCalendar implements ComponentInterface {
     this._assignActiveDate(
       new Date(this._chosenYear, this._activeDate.getMonth(), this._activeDate.getDate()),
     );
+    this._resetFocus = true;
     this._selection = 'month';
   }
 

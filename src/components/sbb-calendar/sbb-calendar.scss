@@ -118,6 +118,10 @@
   transition-property: background-color, padding;
 }
 
+.sbb-calendar__table-long-cell {
+  --sbb-calendar-year-cell-width: #{sbb.px-to-rem-build(164)};
+}
+
 .sbb-calendar__table-year,
 .sbb-calendar__table-month {
   width: var(--sbb-calendar-year-cell-width);
@@ -186,7 +190,7 @@
   border-radius: 50%;
 }
 
-.sbb-calendar__wide {
+.sbb-calendar__pill {
   border-radius: calc(var(--sbb-calendar-cell-height) / 2);
 }
 
