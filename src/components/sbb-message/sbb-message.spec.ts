@@ -1,25 +1,25 @@
-import { SbbNoResults } from './sbb-no-results';
+import { SbbMessage } from './sbb-message';
 import { newSpecPage } from '@stencil/core/testing';
 
-describe('sbb-no-results', () => {
+describe('sbb-message', () => {
   it('renders', async () => {
     const { root } = await newSpecPage({
-      components: [SbbNoResults],
+      components: [SbbMessage],
       html: `
-      <sbb-no-results title-content="Title.">
+      <sbb-message title-content="Title.">
         <sbb-image slot="image"></sbb-image>
         <p slot="subtitle">Subtitle.</p>
         <p slot="legend">Error code: 0001</p>
         <sbb-button slot="action" icon-name="arrows-circle-small"></sbb-button>
-      </sbb-no-results>`,
+      </sbb-message>`,
     });
 
     expect(root).toEqualHtml(`
-    <sbb-no-results title-content="Title.">
+    <sbb-message title-content="Title.">
       <mock:shadow-root>
-        <div class="sbb-no-results__container">
+        <div class="sbb-message__container">
           <slot name="image"></slot>
-          <sbb-title level="3" visuallevel="5" class="sbb-no-results__title">
+          <sbb-title level="3" visuallevel="5" class="sbb-message__title">
             <slot name="title">
               Title.
             </slot>
@@ -37,25 +37,25 @@ describe('sbb-no-results', () => {
         Error code: 0001
       </p>
       <sbb-button icon-name="arrows-circle-small" slot="action"></sbb-button>
-    </sbb-no-results>
+    </sbb-message>
     `);
   });
 
   it('renders without optional slots', async () => {
     const { root } = await newSpecPage({
-      components: [SbbNoResults],
+      components: [SbbMessage],
       html: `
-      <sbb-no-results title-content="Title.">
+      <sbb-message title-content="Title.">
         <p slot="subtitle">Subtitle.</p>
-      </sbb-no-results>`,
+      </sbb-message>`,
     });
 
     expect(root).toEqualHtml(`
-    <sbb-no-results title-content="Title.">
+    <sbb-message title-content="Title.">
       <mock:shadow-root>
-        <div class="sbb-no-results__container">
+        <div class="sbb-message__container">
           <slot name="image"></slot>
-          <sbb-title level="3" visuallevel="5" class="sbb-no-results__title">
+          <sbb-title level="3" visuallevel="5" class="sbb-message__title">
             <slot name="title">
               Title.
             </slot>
@@ -68,7 +68,7 @@ describe('sbb-no-results', () => {
       <p slot="subtitle">
         Subtitle.
       </p>
-    </sbb-no-results>
+    </sbb-message>
     `);
   });
 });

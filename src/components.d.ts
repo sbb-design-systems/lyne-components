@@ -1015,6 +1015,16 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface SbbMessage {
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
+    }
     interface SbbNavigation {
         /**
           * This will be forwarded as aria-label to the close button element.
@@ -1116,16 +1126,6 @@ export namespace Components {
           * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger": string | HTMLElement;
-    }
-    interface SbbNoResults {
-        /**
-          * Content of title.
-         */
-        "titleContent"?: string;
-        /**
-          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
-         */
-        "titleLevel": InterfaceTitleAttributes['level'];
     }
     interface SbbNotification {
         "close": () => Promise<void>;
@@ -2269,6 +2269,12 @@ declare global {
         prototype: HTMLSbbMenuActionElement;
         new (): HTMLSbbMenuActionElement;
     };
+    interface HTMLSbbMessageElement extends Components.SbbMessage, HTMLStencilElement {
+    }
+    var HTMLSbbMessageElement: {
+        prototype: HTMLSbbMessageElement;
+        new (): HTMLSbbMessageElement;
+    };
     interface HTMLSbbNavigationElement extends Components.SbbNavigation, HTMLStencilElement {
     }
     var HTMLSbbNavigationElement: {
@@ -2298,12 +2304,6 @@ declare global {
     var HTMLSbbNavigationSectionElement: {
         prototype: HTMLSbbNavigationSectionElement;
         new (): HTMLSbbNavigationSectionElement;
-    };
-    interface HTMLSbbNoResultsElement extends Components.SbbNoResults, HTMLStencilElement {
-    }
-    var HTMLSbbNoResultsElement: {
-        prototype: HTMLSbbNoResultsElement;
-        new (): HTMLSbbNoResultsElement;
     };
     interface HTMLSbbNotificationElement extends Components.SbbNotification, HTMLStencilElement {
     }
@@ -2611,12 +2611,12 @@ declare global {
         "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
+        "sbb-message": HTMLSbbMessageElement;
         "sbb-navigation": HTMLSbbNavigationElement;
         "sbb-navigation-action": HTMLSbbNavigationActionElement;
         "sbb-navigation-list": HTMLSbbNavigationListElement;
         "sbb-navigation-marker": HTMLSbbNavigationMarkerElement;
         "sbb-navigation-section": HTMLSbbNavigationSectionElement;
-        "sbb-no-results": HTMLSbbNoResultsElement;
         "sbb-notification": HTMLSbbNotificationElement;
         "sbb-optgroup": HTMLSbbOptgroupElement;
         "sbb-option": HTMLSbbOptionElement;
@@ -3635,6 +3635,16 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface SbbMessage {
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
     interface SbbNavigation {
         /**
           * This will be forwarded as aria-label to the close button element.
@@ -3734,16 +3744,6 @@ declare namespace LocalJSX {
           * The element that will trigger the navigation section. Accepts both a string (id of an element) or an HTML element.
          */
         "trigger"?: string | HTMLElement;
-    }
-    interface SbbNoResults {
-        /**
-          * Content of title.
-         */
-        "titleContent"?: string;
-        /**
-          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
-         */
-        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbNotification {
         /**
@@ -4691,12 +4691,12 @@ declare namespace LocalJSX {
         "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
+        "sbb-message": SbbMessage;
         "sbb-navigation": SbbNavigation;
         "sbb-navigation-action": SbbNavigationAction;
         "sbb-navigation-list": SbbNavigationList;
         "sbb-navigation-marker": SbbNavigationMarker;
         "sbb-navigation-section": SbbNavigationSection;
-        "sbb-no-results": SbbNoResults;
         "sbb-notification": SbbNotification;
         "sbb-optgroup": SbbOptgroup;
         "sbb-option": SbbOption;
@@ -4785,12 +4785,12 @@ declare module "@stencil/core" {
             "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
+            "sbb-message": LocalJSX.SbbMessage & JSXBase.HTMLAttributes<HTMLSbbMessageElement>;
             "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
             "sbb-navigation-action": LocalJSX.SbbNavigationAction & JSXBase.HTMLAttributes<HTMLSbbNavigationActionElement>;
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;
             "sbb-navigation-marker": LocalJSX.SbbNavigationMarker & JSXBase.HTMLAttributes<HTMLSbbNavigationMarkerElement>;
             "sbb-navigation-section": LocalJSX.SbbNavigationSection & JSXBase.HTMLAttributes<HTMLSbbNavigationSectionElement>;
-            "sbb-no-results": LocalJSX.SbbNoResults & JSXBase.HTMLAttributes<HTMLSbbNoResultsElement>;
             "sbb-notification": LocalJSX.SbbNotification & JSXBase.HTMLAttributes<HTMLSbbNotificationElement>;
             "sbb-optgroup": LocalJSX.SbbOptgroup & JSXBase.HTMLAttributes<HTMLSbbOptgroupElement>;
             "sbb-option": LocalJSX.SbbOption & JSXBase.HTMLAttributes<HTMLSbbOptionElement>;

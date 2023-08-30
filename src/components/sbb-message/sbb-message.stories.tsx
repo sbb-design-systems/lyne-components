@@ -7,7 +7,7 @@ import type { InputType } from '@storybook/types';
 import images from '../../global/images';
 
 const DefaultTemplate = (args): JSX.Element => (
-  <sbb-no-results {...args}>
+  <sbb-message {...args}>
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
@@ -17,11 +17,11 @@ const DefaultTemplate = (args): JSX.Element => (
       variant="secondary"
       size="m"
     ></sbb-button>
-  </sbb-no-results>
+  </sbb-message>
 );
 
 const NoImageTemplate = (args): JSX.Element => (
-  <sbb-no-results {...args}>
+  <sbb-message {...args}>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
     <sbb-button
@@ -30,11 +30,11 @@ const NoImageTemplate = (args): JSX.Element => (
       variant="secondary"
       size="m"
     ></sbb-button>
-  </sbb-no-results>
+  </sbb-message>
 );
 
 const NoErrorCodeTemplate = (args): JSX.Element => (
-  <sbb-no-results {...args}>
+  <sbb-message {...args}>
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <sbb-button
@@ -43,25 +43,25 @@ const NoErrorCodeTemplate = (args): JSX.Element => (
       variant="secondary"
       size="m"
     ></sbb-button>
-  </sbb-no-results>
+  </sbb-message>
 );
 
 const NoActionTemplate = (args): JSX.Element => (
-  <sbb-no-results {...args}>
+  <sbb-message {...args}>
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-  </sbb-no-results>
+  </sbb-message>
 );
 
 const SlottedTitleTemplate = (): JSX.Element => (
-  <sbb-no-results>
+  <sbb-message>
     <sbb-image slot="image" image-src={images[images.length - 1]}></sbb-image>
     <p slot="title">Unfortunately, an error has occurred.</p>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
     <sbb-button slot="action" icon-name="arrows-circle-small" variant="secondary"></sbb-button>
-  </sbb-no-results>
+  </sbb-message>
 );
 
 const titleContent: InputType = {
@@ -137,7 +137,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-no-results',
+  title: 'components/sbb-message',
 };
 
 export default meta;

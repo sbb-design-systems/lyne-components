@@ -10,10 +10,10 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
  */
 @Component({
   shadow: true,
-  styleUrl: 'sbb-no-results.scss',
-  tag: 'sbb-no-results',
+  styleUrl: 'sbb-message.scss',
+  tag: 'sbb-message',
 })
-export class SbbNoResults implements ComponentInterface {
+export class SbbMessage implements ComponentInterface {
   /** Content of title. */
   @Prop() public titleContent?: string;
 
@@ -22,9 +22,9 @@ export class SbbNoResults implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <div class="sbb-no-results__container">
+      <div class="sbb-message__container">
         <slot name="image" />
-        <sbb-title level={this.titleLevel} visualLevel="5" class="sbb-no-results__title">
+        <sbb-title level={this.titleLevel} visualLevel="5" class="sbb-message__title">
           <slot name="title">{this.titleContent}</slot>
         </sbb-title>
         <slot name="subtitle" />
