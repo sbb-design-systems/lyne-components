@@ -119,7 +119,17 @@ describe('sbb-calendar', () => {
     await yearSelectionButton.click();
     await page.waitForChanges();
 
-    expect(await page.find('sbb-calendar >>> #sbb-calendar__year-selection')).not.toBeNull();
+    const yearSelection: E2EElement = await page.find(
+      'sbb-calendar >>> #sbb-calendar__year-selection',
+    );
+    expect(yearSelection).not.toBeNull();
+    expect(yearSelection).toEqualHtml(`
+      <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
+        2016 - 2039
+        <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+      </button>
+    `);
+
     const yearCells: E2EElement[] = await page.findAll(
       'sbb-calendar >>> .sbb-calendar__table-year',
     );
@@ -131,13 +141,24 @@ describe('sbb-calendar', () => {
         </button>
       </td>
     `);
+
     const selectedYear: E2EElement = await page.find({ text: '2023' });
     expect(selectedYear).toHaveClass('sbb-calendar__selected');
     expect(yearCells[yearCells.length - 1].textContent).toEqual('2039');
     await selectedYear.click();
     await page.waitForChanges();
 
-    expect(await page.find('sbb-calendar >>> #sbb-calendar__month-selection')).not.toBeNull();
+    const monthSelection: E2EElement = await page.find(
+      'sbb-calendar >>> #sbb-calendar__month-selection',
+    );
+    expect(monthSelection).not.toBeNull();
+    expect(monthSelection).toEqualHtml(`
+      <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
+        2023
+        <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+      </button>
+    `);
+
     const monthCells: E2EElement[] = await page.findAll(
       'sbb-calendar >>> .sbb-calendar__table-month',
     );

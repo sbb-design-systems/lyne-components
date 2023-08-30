@@ -43,14 +43,15 @@
 }
 
 .sbb-calendar__controls-month {
-  @include sbb.text-s--regular;
-
   width: 100%;
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
 }
 
-.sbb-calendar__controls-month-label {
+.sbb-calendar__controls-change-date {
+  @include sbb.button-reset;
+  @include sbb.text-s--regular;
+
   display: flex;
   justify-content: center;
   align-items: center;

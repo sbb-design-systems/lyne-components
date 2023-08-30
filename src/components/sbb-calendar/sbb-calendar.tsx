@@ -37,7 +37,6 @@ import {
   i18nPreviousYearRange,
   i18nYearMonthSelection,
 } from '../../global/i18n';
-import { resolveButtonRenderVariables } from '../../global/interfaces';
 import { CalendarView, Day, Month, Weekday } from './sbb-calendar.custom';
 
 /**
@@ -764,24 +763,17 @@ export class SbbCalendar implements ComponentInterface {
     const monthLabel = `${
       this._monthNames[this._dateAdapter.getMonth(d)]
     } ${this._dateAdapter.getYear(d)}`;
-    const { tagName: TAG_NAME, hostAttributes } = resolveButtonRenderVariables({});
-    // FIXME keyboard interaction is missing, states too; render as a sbb-button?
     return (
-      <TAG_NAME
-        {...hostAttributes}
+      <button
+        type="button"
         id="sbb-calendar__date-selection"
-        class="sbb-calendar__controls-month-label"
+        class="sbb-calendar__controls-change-date"
         aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
         onClick={() => (this._selection = 'year')}
-        onKeyPress={(evt) => {
-          if (evt.code === 'Space' || evt.code === 'Enter') {
-            this._selection = 'year';
-          }
-        }}
       >
         {monthLabel}
         <sbb-icon name="chevron-small-down-small"></sbb-icon>
-      </TAG_NAME>
+      </button>
     );
   }
 
@@ -912,25 +904,18 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the label with the year for the monthly view. */
   private _createLabelForMonthView(): JSX.Element {
-    const { tagName: TAG_NAME, hostAttributes } = resolveButtonRenderVariables({});
-    // FIXME keyboard interaction is missing, states too; render as a sbb-button?
     return (
       <Fragment>
-        <TAG_NAME
-          {...hostAttributes}
+        <button
+          type="button"
           id="sbb-calendar__month-selection"
-          class="sbb-calendar__controls-month-label"
+          class="sbb-calendar__controls-change-date"
           aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${this._chosenYear}`}
           onClick={() => this._resetToDayView()}
-          onKeyPress={(evt) => {
-            if (evt.code === 'Space' || evt.code === 'Enter') {
-              this._resetToDayView();
-            }
-          }}
         >
           {this._chosenYear}
           <sbb-icon name="chevron-small-up-small"></sbb-icon>
-        </TAG_NAME>
+        </button>
         <span role="status" class="sbb-calendar__visually-hidden">
           {this._chosenYear}
         </span>
@@ -1063,25 +1048,18 @@ export class SbbCalendar implements ComponentInterface {
     const lastYearArray: number[] = (this.wide ? this._nextMonthYears : this._years).flat();
     const lastYear: number = lastYearArray[lastYearArray.length - 1];
     const yearLabel = `${firstYear} - ${lastYear}`;
-    const { tagName: TAG_NAME, hostAttributes } = resolveButtonRenderVariables({});
-    // FIXME keyboard interaction is missing, states too; render as a sbb-button?
     return (
       <Fragment>
-        <TAG_NAME
-          {...hostAttributes}
+        <button
+          type="button"
           id="sbb-calendar__year-selection"
-          class="sbb-calendar__controls-month-label"
+          class="sbb-calendar__controls-change-date"
           aria-label={`${i18nCalendarDateSelection[this._currentLanguage]} ${yearLabel}`}
           onClick={() => this._resetToDayView()}
-          onKeyPress={(evt) => {
-            if (evt.code === 'Space' || evt.code === 'Enter') {
-              this._resetToDayView();
-            }
-          }}
         >
           {yearLabel}
           <sbb-icon name="chevron-small-up-small"></sbb-icon>
-        </TAG_NAME>
+        </button>
         <span role="status" class="sbb-calendar__visually-hidden">
           {yearLabel}
         </span>
