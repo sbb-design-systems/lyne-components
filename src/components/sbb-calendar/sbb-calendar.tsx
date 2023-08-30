@@ -940,6 +940,7 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the table for the month selection view. */
   private _createMonthTable(months: Month[][]): JSX.Element {
+    const bottomSpace = new Array(3).fill(new Array(4).fill(null));
     return (
       <table class="sbb-calendar__table">
         <thead class="sbb-calendar__table-header" aria-hidden={true}>
@@ -985,6 +986,13 @@ export class SbbCalendar implements ComponentInterface {
                   </td>
                 );
               })}
+            </tr>
+          ))}
+          {bottomSpace.map((e) => (
+            <tr>
+              {e.map(() => (
+                <td class="sbb-calendar__table-data-empty"></td>
+              ))}
             </tr>
           ))}
         </tbody>
