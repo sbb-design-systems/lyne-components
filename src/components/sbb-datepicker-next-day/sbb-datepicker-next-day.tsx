@@ -10,7 +10,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { i18nNextDay } from '../../global/i18n';
+import { i18nNextDay, i18nSelectNextDay, i18nToday } from '../../global/i18n';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
 import {
   datepickerControlRegisteredEvent,
@@ -55,7 +55,10 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
   private _handlerRepository = new HandlerRepository(
     this._element as HTMLElement,
     actionElementHandlerAspect,
-    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+    languageChangeHandlerAspect((l) => {
+      this._currentLanguage = l;
+      this._setAriaLabel();
+    }),
   );
 
   private _datePickerElement: HTMLSbbDatepickerElement;
@@ -106,15 +109,22 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
       return;
     }
     this._setDisabledState(this._datePickerElement);
+    this._setAriaLabel();
 
     this._datePickerElement.addEventListener(
       'change',
-      (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      (event: Event) => {
+        this._setDisabledState(event.target as HTMLSbbDatepickerElement);
+        this._setAriaLabel();
+      },
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
       'datePickerUpdated',
-      (event: Event) => this._setDisabledState(event.target as HTMLSbbDatepickerElement),
+      (event: Event) => {
+        this._setDisabledState(event.target as HTMLSbbDatepickerElement);
+        this._setAriaLabel();
+      },
       { signal: this._datePickerController.signal },
     );
     this._datePickerElement.addEventListener(
@@ -125,6 +135,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
           this._max = event.detail.max;
           this._setDisabledState(this._datePickerElement);
         }
+        this._setAriaLabel();
       },
       { signal: this._datePickerController.signal },
     );
@@ -166,6 +177,25 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     return this._dateAdapter.today();
   }
 
+  private async _setAriaLabel(): Promise<void> {
+    const currentDate = await this._datePickerElement.getValueAsDate();
+
+    if (!currentDate) {
+      this._element.setAttribute('aria-label', i18nNextDay[this._currentLanguage]);
+      return;
+    }
+
+    const currentDateString =
+      this._dateAdapter.today().toDateString() === currentDate.toDateString()
+        ? i18nToday[this._currentLanguage].toLowerCase()
+        : this._dateAdapter.getAccessibilityFormatDate(currentDate);
+
+    this._element.setAttribute(
+      'aria-label',
+      i18nSelectNextDay(currentDateString)[this._currentLanguage],
+    );
+  }
+
   public render(): JSX.Element {
     toggleDatasetEntry(this._element, 'disabled', this._disabled || this._inputDisabled);
     const { hostAttributes } = resolveButtonRenderVariables({
@@ -174,7 +204,7 @@ export class SbbDatepickerNextDay implements ComponentInterface, ButtonPropertie
     });
 
     return (
-      <Host {...hostAttributes} slot="suffix" aria-label={i18nNextDay[this._currentLanguage]}>
+      <Host {...hostAttributes} slot="suffix">
         <span class="sbb-datepicker-next-day">
           <sbb-icon name="chevron-small-right-small" />
         </span>

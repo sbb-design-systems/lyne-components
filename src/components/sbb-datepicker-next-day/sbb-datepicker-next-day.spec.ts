@@ -11,7 +11,7 @@ describe('sbb-datepicker-next-day', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <sbb-datepicker-next-day aria-label="Next day" dir="ltr" role="button" slot="suffix" tabindex="0">
+      <sbb-datepicker-next-day dir="ltr" role="button" slot="suffix" tabindex="0">
         <mock:shadow-root>
           <span class="sbb-datepicker-next-day">
             <sbb-icon name="chevron-small-right-small" />

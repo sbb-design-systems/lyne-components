@@ -11,7 +11,7 @@ describe('sbb-datepicker-previous-day', () => {
     });
 
     expect(page.root).toEqualHtml(`
-      <sbb-datepicker-previous-day slot="prefix" aria-label="Previous day" dir="ltr" role="button" slot="prefix" tabindex="0">
+      <sbb-datepicker-previous-day slot="prefix" dir="ltr" role="button" slot="prefix" tabindex="0">
         <mock:shadow-root>
           <span class="sbb-datepicker-previous-day">
             <sbb-icon name="chevron-small-left-small" />
