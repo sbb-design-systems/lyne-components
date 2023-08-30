@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.10](https://github.com/lyne-design-system/lyne-components/compare/v0.39.9...v0.39.10) (2023-08-30)
+
+### Bug Fixes
+
+- ignore hidden elements for keyboard navigation ([#1937](https://github.com/lyne-design-system/lyne-components/issues/1937)) ([8f21bff](https://github.com/lyne-design-system/lyne-components/commit/8f21bffc63694acc8a82aacb9285ed6381e7da31))
+- **sbb-datepicker:** datepicker prev and next day buttons aria-label ([#1952](https://github.com/lyne-design-system/lyne-components/issues/1952)) ([2e1dfbf](https://github.com/lyne-design-system/lyne-components/commit/2e1dfbffbb2722ea9bd4be662128eb82ca2d01f3))
+
 ### [0.39.9](https://github.com/lyne-design-system/lyne-components/compare/v0.39.8...v0.39.9) (2023-08-29)
 
 ### Bug Fixes
