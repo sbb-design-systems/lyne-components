@@ -25,7 +25,7 @@ describe('sbb-calendar', () => {
             </div>
             <sbb-button aria-label="Change to the next month" iconname="chevron-small-right-small" id="sbb-calendar__controls-next" size="m" variant="secondary"></sbb-button>
           </div>
-          <div class="sbb-calendar__table-container">
+          <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
             <table class="sbb-calendar__table">
               <thead class="sbb-calendar__table-header">
                 <tr class="sbb-calendar__table-header-row">
