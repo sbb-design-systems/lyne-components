@@ -99,7 +99,7 @@ const dateFilter: InputType = {
       1: 'The dateFilter function includes only working days.',
       2: 'The dateFilter function excludes even days.',
       3: 'The dateFilter function excludes odd years.',
-      4: 'The dateFilter function excludes months from July to December',
+      4: 'The dateFilter function excludes months from January to July',
     },
   },
   table: {

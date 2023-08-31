@@ -102,7 +102,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Maximum value converted to date */
   @State() private _max: Date;
 
-  @State() private _selection: CalendarView = 'day';
+  @State() private _calendarView: CalendarView = 'day';
 
   @State() private _currentLanguage = documentLanguage();
 
@@ -185,7 +185,7 @@ export class SbbCalendar implements ComponentInterface {
   @Method()
   @Watch('wide')
   public async resetPosition(): Promise<void> {
-    if (this._selection !== 'day') {
+    if (this._calendarView !== 'day') {
       this._resetToDayView();
     }
     this._setDates();
@@ -213,7 +213,8 @@ export class SbbCalendar implements ComponentInterface {
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
-    // FIXME when changing view to year/month, the tabindex is changed, but the focused element is not
+    // When changing view to year/month, the tabindex is changed, but the focused element is not,
+    // so there's the need to call the _focusCell method explicitly.
     this._focusCell();
   }
 
@@ -301,7 +302,7 @@ export class SbbCalendar implements ComponentInterface {
     const shortNames: string[] = this._dateAdapter.getMonthNames('short');
     const longNames: string[] = this._dateAdapter.getMonthNames('long');
     const months: Month[] = new Array(12).fill(null).map(
-      (_: null, i: number): Month => ({
+      (_, i: number): Month => ({
         value: shortNames[i],
         longValue: longNames[i],
         monthValue: i,
@@ -317,14 +318,14 @@ export class SbbCalendar implements ComponentInterface {
 
   /** Creates the rows for the year selection view. */
   private _createYearRows(offset: number = 0): number[][] {
-    const minYearOfPage: number = this._dateAdapter.getStartValueYearView(
+    const startValueYearView: number = this._dateAdapter.getStartValueYearView(
       this._activeDate,
       this._min,
       this._max,
     );
     const allYears: number[] = new Array(YEARS_PER_PAGE)
       .fill(0)
-      .map((_, i) => minYearOfPage + offset + i);
+      .map((_, i: number) => startValueYearView + offset + i);
     const rows: number = YEARS_PER_PAGE / YEARS_PER_ROW;
     const yearArray: number[][] = [];
     for (let i: number = 0; i < rows; i++) {
@@ -338,10 +339,10 @@ export class SbbCalendar implements ComponentInterface {
     if (!this._min && !this._max) {
       return true;
     }
-    const isBeforeMin =
+    const isBeforeMin: boolean =
       this._dateAdapter.isValid(this._min) &&
       this._dateAdapter.compareDate(this._min, this._dateAdapter.createDateFromISOString(date)) > 0;
-    const isAfterMax =
+    const isAfterMax: boolean =
       this._dateAdapter.isValid(this._max) &&
       this._dateAdapter.compareDate(this._max, this._dateAdapter.createDateFromISOString(date)) < 0;
     return !(isBeforeMin || isAfterMax);
@@ -381,7 +382,7 @@ export class SbbCalendar implements ComponentInterface {
 
     const firstOfMonth = this._dateAdapter.createDate(this._chosenYear, month, 1);
     for (
-      let date = firstOfMonth;
+      let date: Date = firstOfMonth;
       this._dateAdapter.getMonth(date) == month;
       date = this._dateAdapter.addCalendarDays(date, 1)
     ) {
@@ -401,7 +402,7 @@ export class SbbCalendar implements ComponentInterface {
 
     const firstOfYear = this._dateAdapter.createDate(year, 0, 1);
     for (
-      let date = firstOfYear;
+      let date: Date = firstOfYear;
       this._dateAdapter.getYear(date) == year;
       date = this._dateAdapter.addCalendarDays(date, 1)
     ) {
@@ -443,7 +444,7 @@ export class SbbCalendar implements ComponentInterface {
 
   private _goToDifferentYear(years: number): void {
     this._chosenYear += years;
-    // Can't use `_assignActiveDate`, here because it will set it to min/max if out of range
+    // Can't use `_assignActiveDate(...)` here, because it will set it to min/max value if argument is out of range
     this._activeDate = new Date(
       this._chosenYear,
       this._dateAdapter.getMonth(this._activeDate),
@@ -553,7 +554,7 @@ export class SbbCalendar implements ComponentInterface {
     }
     // Gets the currently rendered table's cell;
     // they could be days, months or years based on the current selection view.
-    // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the index calculation.
+    // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
     const cells: HTMLButtonElement[] = this._cells;
     const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
     const nextEl: HTMLButtonElement = this._navigateByKeyboard(event, index, cells, day);
@@ -628,7 +629,7 @@ export class SbbCalendar implements ComponentInterface {
     index: number,
     day?: Day,
   ): CalendarKeyboardNavigationParameters {
-    switch (this._selection) {
+    switch (this._calendarView) {
       case 'day': {
         const indexInView = +day.dayValue - 1;
         return {
@@ -734,7 +735,7 @@ export class SbbCalendar implements ComponentInterface {
     this._activeDate = this._dateAdapter.deserializeDate(this.selectedDate) ?? this._now();
     this._chosenYear = undefined;
     this._chosenMonth = undefined;
-    this._selection = 'day';
+    this._calendarView = 'day';
   }
 
   /** Render the view for the day selection. */
@@ -786,7 +787,7 @@ export class SbbCalendar implements ComponentInterface {
         aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
         onClick={() => {
           this._resetFocus = true;
-          this._selection = 'year';
+          this._calendarView = 'year';
         }}
       >
         {monthLabel}
@@ -1017,7 +1018,7 @@ export class SbbCalendar implements ComponentInterface {
     );
     this._init();
     this._resetFocus = true;
-    this._selection = 'day';
+    this._calendarView = 'day';
   }
 
   /** Render the view for the year selection. */
@@ -1150,11 +1151,11 @@ export class SbbCalendar implements ComponentInterface {
       new Date(this._chosenYear, this._activeDate.getMonth(), this._activeDate.getDate()),
     );
     this._resetFocus = true;
-    this._selection = 'month';
+    this._calendarView = 'month';
   }
 
   private get _getView(): JSX.Element {
-    switch (this._selection) {
+    switch (this._calendarView) {
       case 'year':
         return this._renderYearView();
       case 'month':
