@@ -127,10 +127,6 @@
   border-radius: var(--sbb-form-field-border-radius);
   height: var(--sbb-form-field-height);
   background-color: var(--sbb-form-field-background-color);
-
-  :host([data-input-focused][data-focus-origin='keyboard']) & {
-    @include sbb.focus-outline;
-  }
 }
 
 // Ensure slotted inline elements are vertically centered

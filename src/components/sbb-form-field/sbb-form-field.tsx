@@ -310,18 +310,17 @@ export class SbbFormField implements ComponentInterface {
         toggleDatasetEntry(this._element, 'inputFocused', true);
         (this._element.dataset.focusOrigin as SbbInputModality) =
           sbbInputModalityDetector.mostRecentModality;
+      },
+      {
+        signal: this._inputAbortController.signal,
+      },
+    );
 
-        this._input.addEventListener(
-          'focusout',
-          () => {
-            delete this._element.dataset.focusOrigin;
-            toggleDatasetEntry(this._element, 'inputFocused', false);
-          },
-          {
-            once: true,
-            signal: this._inputAbortController.signal,
-          },
-        );
+    this._input.addEventListener(
+      'focusout',
+      () => {
+        delete this._element.dataset.focusOrigin;
+        toggleDatasetEntry(this._element, 'inputFocused', false);
       },
       {
         signal: this._inputAbortController.signal,
