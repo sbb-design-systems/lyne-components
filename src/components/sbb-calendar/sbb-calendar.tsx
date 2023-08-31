@@ -29,7 +29,7 @@ import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 })
 export class SbbCalendar implements ComponentInterface {
   /** If set to true, two months are displayed */
-  @Prop() public wide = false;
+  @Prop({ reflect: true }) public wide = false;
 
   /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). */
   @Prop() public min: Date | string | number;
@@ -254,7 +254,7 @@ export class SbbCalendar implements ComponentInterface {
           <tr>
             {[...Array(firstRowOffset).keys()].map(() => (
               <td
-                class="sbb-calendar__table-data-empty"
+                class="sbb-calendar__table-data"
                 data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
               ></td>
             ))}
