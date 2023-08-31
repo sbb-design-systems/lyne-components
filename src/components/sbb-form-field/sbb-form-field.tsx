@@ -14,7 +14,7 @@ import {
 import { i18nOptional } from '../../global/i18n';
 import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver } from '../../global/observers';
-import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
+import { isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -22,11 +22,12 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { SbbInputModality, sbbInputModalityDetector } from '../../global/a11y';
 
 let nextId = 0;
 let nextFormFieldErrorId = 0;
 
-const supportedPopupTagNames = ['SBB-TOOLTIP', 'SBB-AUTOCOMPLETE', 'SBB-SELECT'];
+const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
 
 /**
  * @slot label - Slot to render a label.
@@ -302,6 +303,29 @@ export class SbbFormField implements ComponentInterface {
         signal: this._inputAbortController.signal,
       });
     }
+
+    this._input.addEventListener(
+      'focusin',
+      () => {
+        toggleDatasetEntry(this._element, 'inputFocused', true);
+        (this._element.dataset.focusOrigin as SbbInputModality) =
+          sbbInputModalityDetector.mostRecentModality;
+      },
+      {
+        signal: this._inputAbortController.signal,
+      },
+    );
+
+    this._input.addEventListener(
+      'focusout',
+      () => {
+        delete this._element.dataset.focusOrigin;
+        toggleDatasetEntry(this._element, 'inputFocused', false);
+      },
+      {
+        signal: this._inputAbortController.signal,
+      },
+    );
   }
 
   private _getInputForm(): HTMLFormElement | null {
