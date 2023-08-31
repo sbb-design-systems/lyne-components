@@ -688,3 +688,10 @@ export const i18nTimeInputChange: Record<string, string> = {
   fr: 'Heure modifiée:',
   it: 'Orario modificata alle',
 };
+
+export const i18nClearInput: Record<string, string> = {
+  de: 'TBD',
+  en: 'Clear input value',
+  fr: 'TBD',
+  it: 'TBD',
+};

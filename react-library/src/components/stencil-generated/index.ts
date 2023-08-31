@@ -36,6 +36,7 @@ export const SbbExpansionPanelHeader = /*@__PURE__*/createReactComponent<JSX.Sbb
 export const SbbFooter = /*@__PURE__*/createReactComponent<JSX.SbbFooter, HTMLSbbFooterElement>('sbb-footer');
 export const SbbFormError = /*@__PURE__*/createReactComponent<JSX.SbbFormError, HTMLSbbFormErrorElement>('sbb-form-error');
 export const SbbFormField = /*@__PURE__*/createReactComponent<JSX.SbbFormField, HTMLSbbFormFieldElement>('sbb-form-field');
+export const SbbFormFieldClear = /*@__PURE__*/createReactComponent<JSX.SbbFormFieldClear, HTMLSbbFormFieldClearElement>('sbb-form-field-clear');
 export const SbbHeader = /*@__PURE__*/createReactComponent<JSX.SbbHeader, HTMLSbbHeaderElement>('sbb-header');
 export const SbbHeaderAction = /*@__PURE__*/createReactComponent<JSX.SbbHeaderAction, HTMLSbbHeaderActionElement>('sbb-header-action');
 export const SbbIcon = /*@__PURE__*/createReactComponent<JSX.SbbIcon, HTMLSbbIconElement>('sbb-icon');
