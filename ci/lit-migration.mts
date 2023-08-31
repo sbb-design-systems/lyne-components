@@ -440,6 +440,39 @@ function migrate(component: string, debug = false) {
     newImports.push(`import { html } from 'lit/static-html.js';`);
     newImports.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
+
+    unitTests.forEach((node) => {
+      const testName = node.arguments[0].getText();
+
+      // migrate test setup
+      try {
+        migrateSpecSetup(node);
+      } catch (error) {
+        console.error(`Failed to migrate setup for test named '${testName}'`, `Error: ${error}`);
+      }
+
+      // migrate assertion
+      try {
+        
+      } catch (error) {
+        console.error(`Failed to migrate assertion for test named '${testName}'`, `Error: ${error}`);
+      }
+    })
+
+    function migrateSpecSetup(node: ts.CallExpression) {
+      const setupStatement = deepFind(node, (n) => ts.isVariableStatement(n) && !!deepFind(n, (m) => ts.isCallExpression(m) && m.expression.getText() === 'newSpecPage'));
+      if (!setupStatement) throw new Error('Canno find setup statement');
+      
+      // variable declaration (es. 'const { root }' => 'const root')
+      const varDeclaration = deepFind(setupStatement, (n) => ts.isObjectBindingPattern(n)) as ts.ObjectBindingPattern;
+      mutator.replace(varDeclaration!, varDeclaration.elements[0].getText());
+
+      // newSpecPage => fixture
+      const templateSetup = deepFind(setupStatement, (n) => ts.isCallExpression(n) && n.expression.getText() === 'newSpecPage');
+      const templateAssignment = deepFind(templateSetup!, (n) => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment;
+      const template = templateAssignment.initializer.getText();
+      mutator.replace(templateSetup!, `fixture(html${template});`)
+    }
   }
 
   function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation) {
