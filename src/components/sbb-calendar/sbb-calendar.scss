@@ -22,6 +22,9 @@
   @include sbb.mq($from: micro) {
     --sbb-calendar-day-size: #{sbb.px-to-rem-build(44)};
   }
+
+  // We add width definition to host, to make overwriting easy for consumers.
+  width: max-content;
 }
 
 .sbb-calendar__wrapper {
@@ -59,8 +62,8 @@
   // Therefore we need a negative inline margin.
   // As we don't want to squeeze, the margin should never be greater than zero.
   --sbb-calendar-calculated-width: calc(7 * var(--sbb-calendar-day-size));
-  --sbb-calendar-overflow-padding: calc(100% - var(--calculated-width));
-  --sbb-calendar-start-offset: min(0px, -1 * (var(--overflow-padding) / 12));
+  --sbb-calendar-overflow-padding: calc(100% - var(--sbb-calendar-calculated-width));
+  --sbb-calendar-start-offset: min(0px, -1 * (var(--sbb-calendar-overflow-padding) / 12));
   --sbb-calendar-margin: var(--sbb-calendar-start-offset);
 
   :host([wide]:not([wide='false'])) & {

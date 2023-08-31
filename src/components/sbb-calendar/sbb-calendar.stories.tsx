@@ -29,6 +29,18 @@ const Template = ({ min, max, selectedDate, dateFilter, ...args }): JSX.Element 
   ></sbb-calendar>
 );
 
+const TemplateDynamicWidth = ({ min, max, selectedDate, dateFilter, ...args }): JSX.Element => (
+  <sbb-calendar
+    style={{ width: '900px' }}
+    selectedDate={new Date(selectedDate)}
+    {...getCalendarAttr(min, max)}
+    {...args}
+    ref={(calendarRef) => {
+      calendarRef.dateFilter = dateFilter;
+    }}
+  ></sbb-calendar>
+);
+
 const TemplateFilterFunction = ({ dateFilter, ...args }): JSX.Element => (
   <sbb-calendar
     ref={(calendarRef) => {
@@ -157,7 +169,20 @@ export const CalendarFilterFunction: StoryObj = {
   },
 };
 
+export const CalendarDynamicWidth: StoryObj = {
+  render: TemplateDynamicWidth,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+export const CalendarWideDynamicWidth: StoryObj = {
+  render: TemplateDynamicWidth,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true },
+};
+
 const meta: Meta = {
+  excludeStories: /.*DynamicWidth$/,
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
