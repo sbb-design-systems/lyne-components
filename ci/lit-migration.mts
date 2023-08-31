@@ -78,7 +78,7 @@ class StringMutation {
 function migrate(component: string, debug = false) {
   const projectRoot = new URL('..', import.meta.url);
   const source = join(projectRoot, `./src/components/${component}/`);
-  const target = join(projectRoot, `./src/${component}/`);
+  const target = join(projectRoot, `./src/migrated/${component}/`);
   if (!component) {
     console.error('Please add a component to the command');
     return;
@@ -441,6 +441,7 @@ function migrate(component: string, debug = false) {
     newImports.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
 
+    // Migrate each 'it(...)'
     unitTests.forEach((node) => {
       const testName = node.arguments[0].getText();
 
@@ -448,16 +449,16 @@ function migrate(component: string, debug = false) {
       try {
         migrateSpecSetup(node);
       } catch (error) {
-        console.error(`Failed to migrate setup for test named '${testName}'`, `Error: ${error}`);
+        console.error(`Failed to migrate setup for the test named ${testName}`, `Error: ${error}`);
       }
 
       // migrate assertion
       try {
-        
+        migrateSpecAssertion(node);
       } catch (error) {
-        console.error(`Failed to migrate assertion for test named '${testName}'`, `Error: ${error}`);
+        console.error(`Failed to migrate assertion for the test named ${testName}`, `Error: ${error}`);
       }
-    })
+    });
 
     function migrateSpecSetup(node: ts.CallExpression) {
       const setupStatement = deepFind(node, (n) => ts.isVariableStatement(n) && !!deepFind(n, (m) => ts.isCallExpression(m) && m.expression.getText() === 'newSpecPage'));
@@ -472,6 +473,24 @@ function migrate(component: string, debug = false) {
       const templateAssignment = deepFind(templateSetup!, (n) => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment;
       const template = templateAssignment.initializer.getText();
       mutator.replace(templateSetup!, `fixture(html${template});`)
+    }
+
+    function migrateSpecAssertion(node: ts.CallExpression) {
+      const assertion = deepFind(node, (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/)) as ts.CallExpression;
+      const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
+      const fullTemplate = assertion.arguments[0].getText();
+
+      // Split the html template into shadow and light DOMs
+      const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
+      const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
+      const shadowStartIndex = shadowStart.index! + shadowStart?.[0].length!;
+      const shadowEndIndex = shadowEnd.index!;
+      const lightDomTemplate = fullTemplate.substring(0, shadowStart.index!) + fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
+      const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
+
+      mutator.remove(assertion);
+      mutator.insertAt(assertion, `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`)`);
+      mutator.insertAt(assertion, `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`);
     }
   }
 
