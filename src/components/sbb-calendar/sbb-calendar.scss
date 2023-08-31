@@ -12,6 +12,7 @@
   --sbb-calendar-day-padding: #{sbb.px-to-rem-build(2)};
   --sbb-calendar-day-color: var(--sbb-color-charcoal-default);
   --sbb-calendar-day-selected-color: var(--sbb-color-white-default);
+  --sbb-calendar-day-selected-background-color: var(--sbb-color-charcoal-default);
   --sbb-calendar-day-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-day-disabled-width: #{sbb.px-to-rem-build(25.5)};
   --sbb-calendar-day-transition-duration: var(--sbb-animation-duration-2x);
@@ -21,10 +22,13 @@
   @include sbb.mq($from: micro) {
     --sbb-calendar-day-size: #{sbb.px-to-rem-build(44)};
   }
+
+  // We add width definition to host, to make overwriting easy for consumers.
+  width: max-content;
 }
 
 .sbb-calendar__wrapper {
-  width: max-content;
+  width: 100%;
   display: block;
 }
 
@@ -53,6 +57,29 @@
 .sbb-calendar__table-container {
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
+
+  // The padding of the first and last column should not be visible if calendar is stretched.
+  // Therefore we need a negative inline margin.
+  // As we don't want to squeeze, the margin should never be greater than zero.
+
+  // Min width is equals to the normal width of the calendar
+  --sbb-calendar-min-width: calc(7 * var(--sbb-calendar-day-size));
+
+  // The overflow variable is equals the difference between the actual width and the min width.
+  --sbb-calendar-overflow: calc(100% - var(--sbb-calendar-min-width));
+
+  // The start offset is negative margin which should overlap the parent container. Should never be a positive value.
+  --sbb-calendar-start-offset: min(0px, -1 * (var(--sbb-calendar-overflow) / 12));
+  --sbb-calendar-margin: var(--sbb-calendar-start-offset);
+
+  :host([data-wide]) & {
+    --sbb-calendar-min-width: calc(
+      2 * 7 * var(--sbb-calendar-day-size) + var(--sbb-calendar-tables-gap)
+    );
+    --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
+  }
+
+  margin-inline: var(--sbb-calendar-margin);
 }
 
 .sbb-calendar__table {
@@ -72,34 +99,35 @@
 
 .sbb-calendar__table-data {
   position: relative;
-  padding: var(--sbb-calendar-day-padding);
-  height: var(--sbb-calendar-day-size);
-  width: var(--sbb-calendar-day-size);
+  padding: 0;
+  text-align: center;
   transition-duration: var(--sbb-calendar-day-transition-duration);
   transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
-}
-
-.sbb-calendar__table-data-empty {
-  padding: var(--sbb-calendar-day-padding);
-}
-
-.sbb-calendar__table-data:not(.sbb-calendar__table-data-selected):active {
-  --sbb-calendar-day-padding: #{sbb.px-to-rem-build(3)};
 }
 
 .sbb-calendar__day {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
 
-  width: 100%;
-  height: 100%;
-  background-color: var(--sbb-calendar-day-background-color);
+  height: var(--sbb-calendar-day-size);
+  width: var(--sbb-calendar-day-size);
   color: var(--sbb-calendar-day-color);
   border-radius: 50%;
-  transition-duration: var(--sbb-calendar-day-transition-duration);
-  transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
-  transition-property: background-color, padding;
   cursor: pointer;
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: var(--sbb-calendar-day-padding);
+    background-color: var(--sbb-calendar-day-background-color);
+    border-radius: 50%;
+    z-index: -1;
+    transition-duration: var(--sbb-calendar-day-transition-duration);
+    transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
+    transition-property: background-color;
+  }
 
   @include sbb.hover-mq($hover: true) {
     &:not(.sbb-calendar__day-selected, :active, :disabled):hover {
@@ -107,31 +135,36 @@
 
       padding-block-end: #{sbb.px-to-rem-build(1)};
 
-      @include sbb.if-forced-colors {
-        @include sbb.focus-outline;
+      &::before {
+        @include sbb.if-forced-colors {
+          @include sbb.focus-outline;
+        }
       }
     }
   }
 
   &:disabled {
-    color: var(--sbb-calendar-day-disabled-color);
+    --sbb-calendar-day-color: var(--sbb-calendar-day-disabled-color);
+
     cursor: unset;
   }
 
-  &:focus-visible {
+  &:focus-visible::before {
     @include sbb.focus-outline;
   }
 
   &:not(.sbb-calendar__day-selected, :disabled):active {
     --sbb-calendar-day-background-color: var(--sbb-color-cloud-default);
 
-    @include sbb.if-forced-colors {
-      @include sbb.focus-outline;
+    &::before {
+      @include sbb.if-forced-colors {
+        @include sbb.focus-outline;
+      }
     }
   }
 }
 
-.sbb-calendar__crossed-out::before {
+.sbb-calendar__crossed-out::after {
   content: '';
   height: var(--sbb-calendar-day-disabled-height);
   width: var(--sbb-calendar-day-disabled-width);
@@ -147,11 +180,11 @@
 }
 
 .sbb-calendar__day-selected {
-  color: var(--sbb-calendar-day-selected-color);
-  background-color: var(--sbb-calendar-day-color);
+  --sbb-calendar-day-color: var(--sbb-calendar-day-selected-color);
+  --sbb-calendar-day-background-color: var(--sbb-calendar-day-selected-background-color);
 
   @include sbb.if-forced-colors {
-    background-color: ButtonText !important;
+    --sbb-calendar-day-background-color: ButtonText !important;
   }
 }
 
