@@ -17,6 +17,15 @@ function iterate(node: ts.Node, callback: (_node: ts.Node) => void) {
   });
 }
 
+function deepFind(node: ts.Node, predicate: (_node: ts.Node) => boolean): ts.Node | undefined { 
+  if (predicate(node)) {
+    return node;
+  }
+  return ts.forEachChild(node, (n) => {
+    return deepFind(n, predicate);
+  });
+}
+
 class StringMutation {
   private _mutations: {
     position: number;
@@ -385,6 +394,7 @@ function migrate(component: string, debug = false) {
 
   function migrateStories(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
+    const componentName = toPascalCase(args.component);
 
     iterate(sourceFile, (node) => {
       if (ts.isImportDeclaration(node)) {
@@ -399,16 +409,37 @@ function migrate(component: string, debug = false) {
 
     // Create an instance of the component
     const newImports: String[] = [];
-    const componentName = toPascalCase(args.component);
     newImports.push(`import { ${componentName} } from './${args.component}';`);
     newImports.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
-  function migrateSpec(sourceFile: ts.SourceFile, mutator: StringMutation) {
-    // TODO
-    // Remove next line with implementation
-    // console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
+  function migrateSpec(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
+    let lastImport: ts.ImportDeclaration | undefined = undefined;
+    const componentName = toPascalCase(args.component);
+    const unitTests: ts.CallExpression[] = [];
+
+    iterate(sourceFile, (node) => {
+      if (ts.isImportDeclaration(node)) {
+        lastImport = node;
+
+        // remove @stencil imports
+        if (node.moduleSpecifier.getText().match('@stencil')) {
+          mutator.remove(node);
+        }
+      }
+
+      if (ts.isCallExpression(node) && node.expression.getText() === 'it') {
+        unitTests.push(node);
+      }
+    });
+
+    // New static imports
+    const newImports: String[] = []; 
+    newImports.push(`import { expect, fixture } from '@open-wc/testing';`);
+    newImports.push(`import { html } from 'lit/static-html.js';`);
+    newImports.push(`const instance = new ${componentName}();`);
+    mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
   function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation) {
