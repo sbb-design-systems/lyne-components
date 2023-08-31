@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.12](https://github.com/lyne-design-system/lyne-components/compare/v0.39.11...v0.39.12) (2023-08-31)
+
+### Bug Fixes
+
+- **sbb-form-field:** support tooltip for floating labels ([#1959](https://github.com/lyne-design-system/lyne-components/issues/1959)) ([ce2dcf1](https://github.com/lyne-design-system/lyne-components/commit/ce2dcf1b7abd96a279d24fcc6e93899b6ebd11f6))
+
 ### [0.39.11](https://github.com/lyne-design-system/lyne-components/compare/v0.39.10...v0.39.11) (2023-08-31)
 
 ### Features
