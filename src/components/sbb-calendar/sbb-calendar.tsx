@@ -968,7 +968,7 @@ export class SbbCalendar implements ComponentInterface {
                   : undefined;
                 const selected: boolean =
                   this._selected &&
-                  this._chosenYear === selectedYear &&
+                  (year ?? this._chosenYear) === selectedYear &&
                   month.monthValue === selectedMonth;
 
                 const isCurrentMonth =
