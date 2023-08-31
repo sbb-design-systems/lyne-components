@@ -928,6 +928,8 @@ export namespace Components {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLoadingIndicator {
+        "size"?: 'small' | 'large';
+        "type"?: 'window' | 'circle';
     }
     interface SbbLogo {
         /**
@@ -3532,6 +3534,8 @@ declare namespace LocalJSX {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLoadingIndicator {
+        "size"?: 'small' | 'large';
+        "type"?: 'window' | 'circle';
     }
     interface SbbLogo {
         /**

@@ -7,7 +7,7 @@ import type { InputType } from '@storybook/types';
 
 const Template = (args): JSX.Element => <sbb-loading-indicator {...args}></sbb-loading-indicator>;
 
-const variant: InputType = {
+const type: InputType = {
   control: {
     type: 'select',
   },
@@ -18,11 +18,11 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm'],
+  options: ['large', 'small'],
 };
 
 const defaultArgTypes: ArgTypes = {
-  variant,
+  type,
   size,
 };
 
@@ -30,17 +30,17 @@ export const WindowAnimationLarge: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-    variant: 'window',
-    size: 'l',
+    type: 'window',
+    size: 'large',
   },
 };
 
-export const WindowAnimationMedium: StoryObj = {
+export const WindowAnimationSmall: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-    variant: 'window',
-    size: 'm',
+    type: 'window',
+    size: 'small',
   },
 };
 
@@ -48,7 +48,7 @@ export const CircleAnimation: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-    variant: 'circle',
+    type: 'circle',
   },
 };
 
