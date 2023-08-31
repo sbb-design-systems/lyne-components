@@ -75,7 +75,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
 }
 
-:host(:focus-within),
+:host([data-input-focused]),
 :host([data-has-popup-open]) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
@@ -127,6 +127,10 @@
   border-radius: var(--sbb-form-field-border-radius);
   height: var(--sbb-form-field-height);
   background-color: var(--sbb-form-field-background-color);
+
+  :host([data-input-focused][data-focus-origin='keyboard']) & {
+    @include sbb.focus-outline;
+  }
 }
 
 // Ensure slotted inline elements are vertically centered
@@ -205,7 +209,7 @@
   :host(
       [floating-label]:not(
           [floating-label='false'],
-          :focus-within:not([data-input-type='sbb-select']),
+          [data-input-focused]:not([data-input-type='sbb-select']),
           [data-has-popup-open]
         )[data-input-empty]
     )
