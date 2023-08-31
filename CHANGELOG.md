@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.39.11](https://github.com/lyne-design-system/lyne-components/compare/v0.39.10...v0.39.11) (2023-08-31)
+
+### Features
+
+- **sbb-calendar:** allow dynamic width ([#1957](https://github.com/lyne-design-system/lyne-components/issues/1957)) ([fc9d8fd](https://github.com/lyne-design-system/lyne-components/commit/fc9d8fdaafdddfe655853213efa0b2ea03fb0f99))
+
 ### [0.39.10](https://github.com/lyne-design-system/lyne-components/compare/v0.39.9...v0.39.10) (2023-08-30)
 
 ### Bug Fixes
