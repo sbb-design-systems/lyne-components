@@ -19,7 +19,7 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { DateAdapter, DAYS_PER_WEEK, NativeDateAdapter } from '../../global/datetime';
-import { isBreakpoint } from '../../global/dom';
+import { isBreakpoint, toggleDatasetEntry } from '../../global/dom';
 import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 
 @Component({
@@ -29,7 +29,7 @@ import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 })
 export class SbbCalendar implements ComponentInterface {
   /** If set to true, two months are displayed */
-  @Prop({ reflect: true }) public wide = false;
+  @Prop() public wide = false;
 
   /** The minimum valid date. Takes Date Object, ISOString, and Unix Timestamp (number of seconds since Jan 1 1970). */
   @Prop() public min: Date | string | number;
@@ -156,6 +156,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Initializes the component. */
   private _init(): void {
     this._wide = isBreakpoint('medium') && this.wide;
+    toggleDatasetEntry(this._element, 'wide', this._wide);
     this._setWeekdays();
     this._weeks = this._createWeekRows(
       this._dateAdapter.getMonth(this._activeDate),
