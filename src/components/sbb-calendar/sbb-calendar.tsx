@@ -766,7 +766,7 @@ export class SbbCalendar implements ComponentInterface {
             this._nextMonthDisabled(),
           )}
         </div>
-        <div class="sbb-calendar__table-container">
+        <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
           {this._createDayTable(this._weeks)}
           {this._wide && this._createDayTable(this._nextMonthWeeks)}
         </div>
@@ -916,7 +916,7 @@ export class SbbCalendar implements ComponentInterface {
             this._nextYearDisabled(),
           )}
         </div>
-        <div class="sbb-calendar__table-container">
+        <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
           {this._createMonthTable(this._months, this._wide ? this._chosenYear : undefined)}
           {this._wide && this._createMonthTable(this._months, this._chosenYear + 1)}
         </div>
@@ -1040,7 +1040,7 @@ export class SbbCalendar implements ComponentInterface {
             this._nextYearRangeDisabled(),
           )}
         </div>
-        <div class="sbb-calendar__table-container">
+        <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
           {this._createYearTable(this._years)}
           {this._wide && this._createYearTable(this._nextMonthYears)}
         </div>

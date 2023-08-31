@@ -19,6 +19,7 @@
   --sbb-calendar-cell-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
+  --sbb-calendar-table-column-spaces: 12;
 
   @include sbb.mq($from: micro) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
@@ -69,6 +70,11 @@
   }
 }
 
+.sbb-calendar__table-month-view,
+.sbb-calendar__table-year-view {
+  --sbb-calendar-table-column-spaces: 6;
+}
+
 .sbb-calendar__table-container {
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
@@ -84,7 +90,10 @@
   --sbb-calendar-overflow: calc(100% - var(--sbb-calendar-min-width));
 
   // The start offset is negative margin which should overlap the parent container. Should never be a positive value.
-  --sbb-calendar-start-offset: min(0px, -1 * (var(--sbb-calendar-overflow) / 6));
+  --sbb-calendar-start-offset: min(
+    0px,
+    -1 * (var(--sbb-calendar-overflow) / var(--sbb-calendar-table-column-spaces))
+  );
   --sbb-calendar-margin: var(--sbb-calendar-start-offset);
 
   :host([data-wide]) & {
