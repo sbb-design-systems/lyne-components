@@ -85,7 +85,7 @@ describe('sbb-calendar', () => {
                     </button>
                   </td>
                   <td class="sbb-calendar__table-data">
-                    <button aria-current="date" aria-disabled="false" aria-label="January 4, 2023" aria-pressed="false" class="sbb-calendar__cell sbb-calendar__day sbb-calendar__day-today" data-day="4 1 2023" sbb-tooltip-close="" tabindex="-1">
+                    <button aria-current="date" aria-disabled="false" aria-label="January 4, 2023" aria-pressed="false" class="sbb-calendar__cell sbb-calendar__day sbb-calendar__cell-current" data-day="4 1 2023" sbb-tooltip-close="" tabindex="-1">
                       4
                     </button>
                   </td>

@@ -19,7 +19,7 @@ describe('sbb-calendar', () => {
 
   it('highlights current day', async () => {
     const currentDayButton = await page.find(`sbb-calendar >>> button[data-day="10 1 2023"]`);
-    expect(currentDayButton).toHaveClass('sbb-calendar__day-today');
+    expect(currentDayButton).toHaveClass('sbb-calendar__cell-current');
   });
 
   it('renders and navigates to next month', async () => {

@@ -844,7 +844,7 @@ export class SbbCalendar implements ComponentInterface {
           <tr>
             {[...Array(firstRowOffset).keys()].map(() => (
               <td
-                class="sbb-calendar__table-data-empty"
+                class="sbb-calendar__table-data"
                 data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
               ></td>
             ))}
@@ -875,7 +875,7 @@ export class SbbCalendar implements ComponentInterface {
             class={{
               'sbb-calendar__cell': true,
               'sbb-calendar__day': true,
-              'sbb-calendar__day-today': isToday,
+              'sbb-calendar__cell-current': isToday,
               'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             }}
@@ -916,7 +916,10 @@ export class SbbCalendar implements ComponentInterface {
             this._nextYearDisabled(),
           )}
         </div>
-        <div class="sbb-calendar__table-container">{this._createMonthTable(this._months)}</div>
+        <div class="sbb-calendar__table-container">
+          {this._createMonthTable(this._months, this._wide ? this._chosenYear : undefined)}
+          {this._wide && this._createMonthTable(this._months, this._chosenYear + 1)}
+        </div>
       </Fragment>
     );
   }
@@ -943,13 +946,12 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][]): JSX.Element {
-    const bottomSpace = new Array(3).fill(new Array(4).fill(null));
+  private _createMonthTable(months: Month[][], year?: number): JSX.Element {
     return (
       <table class="sbb-calendar__table">
         <thead class="sbb-calendar__table-header" aria-hidden={true}>
           <tr class="sbb-calendar__table-header-row">
-            <th colSpan={MONTHS_PER_ROW}></th>
+            <th colSpan={MONTHS_PER_ROW}>{year}</th>
           </tr>
         </thead>
         <tbody class="sbb-calendar__table-body">
@@ -968,22 +970,29 @@ export class SbbCalendar implements ComponentInterface {
                   this._selected &&
                   this._chosenYear === selectedYear &&
                   month.monthValue === selectedMonth;
+
+                const isCurrentMonth =
+                  year === this._dateAdapter.getYear(this._now()) &&
+                  this._dateAdapter.getMonth(this._now()) === month.monthValue;
+
                 return (
                   <td
                     class={{
                       'sbb-calendar__table-data': true,
                       'sbb-calendar__table-month': true,
-                      'sbb-calendar__table-long-cell': this._wide,
                     }}
                   >
                     <button
                       class={{
                         'sbb-calendar__cell': true,
                         'sbb-calendar__pill': true,
+                        'sbb-calendar__cell-current': isCurrentMonth,
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       }}
-                      onClick={() => this._onMonthSelection(month.monthValue)}
+                      onClick={() =>
+                        this._onMonthSelection(month.monthValue, year ?? this._chosenYear)
+                      }
                       disabled={isOutOfRange || isFilteredOut}
                       aria-label={`${month.longValue} ${this._chosenYear}`}
                       aria-pressed={String(selected)}
@@ -991,18 +1000,11 @@ export class SbbCalendar implements ComponentInterface {
                       tabindex="-1"
                       onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
-                      {this._wide ? month.longValue : month.value}
+                      {month.value}
                     </button>
                   </td>
                 );
               })}
-            </tr>
-          ))}
-          {bottomSpace.map((e) => (
-            <tr>
-              {e.map(() => (
-                <td class="sbb-calendar__table-data-empty"></td>
-              ))}
             </tr>
           ))}
         </tbody>
@@ -1011,11 +1013,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Select the month and change the view to day selection. */
-  private _onMonthSelection(month: number): void {
+  private _onMonthSelection(month: number, year: number): void {
     this._chosenMonth = month;
-    this._assignActiveDate(
-      new Date(this._chosenYear, this._chosenMonth, this._activeDate.getDate()),
-    );
+    this._assignActiveDate(new Date(year, this._chosenMonth, this._activeDate.getDate()));
     this._init();
     this._resetFocus = true;
     this._calendarView = 'day';
@@ -1118,12 +1118,14 @@ export class SbbCalendar implements ComponentInterface {
             ? this._dateAdapter.getYear(new Date(this._selected))
             : undefined;
           const selected: boolean = this._selected && year === selectedYear;
+          const isCurrentYear = this._dateAdapter.getYear(this._now()) === year;
           return (
             <td class="sbb-calendar__table-data sbb-calendar__table-year">
               <button
                 class={{
                   'sbb-calendar__cell': true,
                   'sbb-calendar__pill': true,
+                  'sbb-calendar__cell-current': isCurrentYear,
                   'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                   'sbb-calendar__selected': selected,
                 }}
