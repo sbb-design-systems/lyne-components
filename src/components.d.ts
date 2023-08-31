@@ -634,6 +634,10 @@ export namespace Components {
          */
         "borderless": boolean;
         /**
+          * Manually clears the input value.
+         */
+        "clear": () => Promise<void>;
+        /**
           * Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];

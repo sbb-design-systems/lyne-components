@@ -5,8 +5,6 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-form-field-clear-visibility: hidden;
-
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
@@ -24,14 +22,6 @@
 
 :host(:is(:active, [data-active])) {
   @include sbb.icon-button-active('.sbb-form-field-clear');
-}
-
-:host([data-visible]) {
-  --sbb-form-field-clear-visibility: visible;
-}
-
-.sbb-form-field-clear {
-  visibility: var(--sbb-form-field-clear-visibility);
 }
 
 sbb-icon {

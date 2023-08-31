@@ -108,6 +108,16 @@ technology will announce errors when they appear.
 
 ## Methods
 
+### `clear() => Promise<void>`
+
+Manually clears the input value.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `reset() => Promise<void>`
 
 Manually reset the form field. Currently, this only resets the floating label.

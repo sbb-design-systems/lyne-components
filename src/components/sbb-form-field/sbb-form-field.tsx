@@ -431,6 +431,16 @@ export class SbbFormField implements ComponentInterface {
     await this._checkAndUpdateInputEmpty();
   }
 
+  /** Manually clears the input value. */
+  @Method() public async clear(): Promise<void> {
+    if (this._input.tagName !== 'INPUT') {
+      return;
+    }
+    (this._input as { value }).value = '';
+    toggleDatasetEntry(this._element, 'inputEmpty', this._isInputValueEmpty());
+    this._input.focus();
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
