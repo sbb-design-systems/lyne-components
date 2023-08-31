@@ -4,7 +4,8 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-:host([variant='window']) {
+/* stylelint-disable */
+:host([type='window']) {
   --loading-indicator-height: 32px;
   --loading-indicator-width: 55px;
   --loading-indicator-padding: 0;
@@ -13,7 +14,32 @@
   line-height: 0;
 }
 
-:host([variant='circle']) {
+:host([type='window'][size='small']) {
+  --sbb-loader-indicator-window-height: 1.66665em;
+  --sbb-loader-indicator-window-padding-block-start: 0.66666em;
+  --sbb-loader-indicator-window-element-width: 3.46665em;
+  --sbb-loader-indicator-window-element-height: 0.33333em;
+  --sbb-loader-indicator-window-element-perspective: 6em;
+  --sbb-loader-indicator-window-element-animation: loading-container-small 0.23s linear infinite;
+  --sbb-loader-indicator-window-last-div-width: 0.53333em;
+  --sbb-loader-indicator-window-last-div-height: 0.33333em;
+  --sbb-loader-indicator-window-last-div-margin: 0.2em;
+  --sbb-loader-indicator-window-last-div-transform: translate3d(-0.1em, 0, 0);
+}
+
+:host([type='window'][size='large']) {
+  --sbb-loader-indicator-window-height: 3em;
+  --sbb-loader-indicator-window-padding-block-start: 1.2em;
+  --sbb-loader-indicator-window-element-width: 5.8em;
+  --sbb-loader-indicator-window-element-height: 0.6em;
+  --sbb-loader-indicator-window-element-perspective: 8em;
+  --sbb-loader-indicator-window-element-animation: loading-container-large 0.23s linear infinite;
+  --sbb-loader-indicator-window-last-div-width: 1em;
+  --sbb-loader-indicator-window-last-div-height: 0.6em;
+  --sbb-loader-indicator-window-last-div-margin: 0.2em;
+}
+
+:host([type='circle']) {
   --loading-indicator-height: var(--sbb-size-icon-ui-small);
   --loading-indicator-width: var(--sbb-size-icon-ui-small);
   --loading-indicator-padding: var(--sbb-border-width-2x);
@@ -22,17 +48,7 @@
   line-height: 0;
 }
 
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(359deg);
-  }
-}
-
-.sbb-loading-indicator {
+:host([type='circle']) .sbb-loading-indicator {
   height: var(--loading-indicator-height);
   width: var(--loading-indicator-width);
   padding-inline: var(--loading-indicator-padding);
@@ -40,7 +56,7 @@
   display: inline-block;
 }
 
-.sbb-loading-indicator__animated-element {
+:host([type='circle']) .sbb-loading-indicator__animated-element {
   width: 100%;
   height: 100%;
   display: inline-block;
@@ -48,18 +64,9 @@
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-}
-
-:host([variant='window']) .sbb-loading-indicator__animated-element {
-  background: #f00;
-}
-
-:host([variant='circle']) .sbb-loading-indicator__animated-element {
   border-radius: 50%;
   background: conic-gradient(from 90deg, #fff, #f00);
-  /* stylelint-disable */
   -webkit-mask: radial-gradient(circle 7px, #0000 98%, #fff);
-  /* stylelint-enable */
   mask: radial-gradient(circle 7px, #0000 98%, #fff);
   animation: rotation 1s infinite linear;
 
@@ -77,3 +84,142 @@
     margin: auto;
   }
 }
+
+:host([type='window']) .sbb-loading-indicator {
+  display: flex;
+  height: var(--sbb-loader-indicator-window-height);
+  padding-block-start: var(--sbb-loader-indicator-window-padding-block-start);
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element {
+  margin: 0 auto;
+  transform-origin: center;
+  transform: translate3d(-3em, 0, 0);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  width: var(--sbb-loader-indicator-window-element-width);
+  height: var(--sbb-loader-indicator-window-element-height);
+  perspective: var(--sbb-loader-indicator-window-element-perspective);
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div {
+  position: relative;
+  transform: rotateY(50deg) translateZ(1em);
+  transform-origin: right;
+  backface-visibility: hidden;
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div {
+  position: relative;
+  display: flex;
+  animation: var(--sbb-loader-indicator-window-element-animation);
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div {
+  background: #f00;
+  backface-visibility: hidden;
+  outline: 1px solid rgb(0 0 0 / 0%);
+  width: var(--sbb-loader-indicator-window-last-div-width);
+  height: var(--sbb-loader-indicator-window-last-div-height);
+  margin-right: var(--sbb-loader-indicator-window-last-div-margin);
+  transform: var(--sbb-loader-indicator-window-last-div-transform);
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div:nth-child(1) {
+  animation: loading-rectangle1 0.23s linear infinite;
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div:nth-child(2) {
+  animation: loading-rectangle2 0.23s linear infinite;
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div:nth-child(3) {
+  animation: loading-rectangle3 0.23s linear infinite;
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div:nth-child(4) {
+  animation: loading-rectangle4 0.23s linear infinite;
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div:nth-child(5) {
+  animation: loading-rectangle5 0.23s linear infinite;
+}
+
+:host([type='window']) .sbb-loading-indicator__animated-element > div > div > div:last-child {
+  margin-right: 0;
+}
+
+@keyframes loading-container-small {
+  0% {
+    transform: translateX(0.73333em);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes loading-container-large {
+  0% {
+    transform: translateX(1.2em);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes loading-rectangle1 {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes loading-rectangle2 {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes loading-rectangle3 {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes loading-rectangle4 {
+  0% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes loading-rectangle5 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+/* stylelint-enable */
