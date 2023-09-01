@@ -508,7 +508,9 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   private _nextYearRangeDisabled(): boolean {
-    const lastYearArray: number[] = (this.wide ? this._nextMonthYears : this._years).flat();
+    const lastYearArray: number[] = (
+      isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years
+    ).flat();
     const lastYear: number = lastYearArray[lastYearArray.length - 1];
     const nextYear: Date = this._dateAdapter.clone(this._activeDate);
     nextYear.setFullYear(lastYear + 1, 0, 1);
@@ -1071,7 +1073,9 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the label with the year range for the yearly view. */
   private _createLabelForYearView(): JSX.Element {
     const firstYear: number = this._years.flat()[0];
-    const lastYearArray: number[] = (this.wide ? this._nextMonthYears : this._years).flat();
+    const lastYearArray: number[] = (
+      isBreakpoint('medium') && this.wide ? this._nextMonthYears : this._years
+    ).flat();
     const lastYear: number = lastYearArray[lastYearArray.length - 1];
     const yearLabel = `${firstYear} - ${lastYear}`;
     return (
