@@ -50,6 +50,11 @@
   gap: var(--sbb-calendar-tables-gap);
 }
 
+#sbb-calendar__controls-previous,
+#sbb-calendar__controls-next {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .sbb-calendar__controls-change-date {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
