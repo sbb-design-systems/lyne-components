@@ -90,7 +90,10 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
           </span>
           {!this.disabled && (
             <span class="sbb-expansion-panel-header__toggle">
-              <sbb-icon name="chevron-down-small" class="sbb-expansion-panel-header__toggle-icon" />
+              <sbb-icon
+                name="chevron-small-down-medium"
+                class="sbb-expansion-panel-header__toggle-icon"
+              />
             </span>
           )}
         </span>

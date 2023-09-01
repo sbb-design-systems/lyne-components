@@ -16,7 +16,7 @@ describe('sbb-expansion-panel-header', () => {
               <slot></slot>
             </span>
             <span class="sbb-expansion-panel-header__toggle">
-              <sbb-icon class="sbb-expansion-panel-header__toggle-icon" name="chevron-down-small"></sbb-icon>
+              <sbb-icon class="sbb-expansion-panel-header__toggle-icon" name="chevron-small-down-medium"></sbb-icon>
             </span>
           </span>
         </mock:shadow-root>
@@ -44,7 +44,7 @@ describe('sbb-expansion-panel-header', () => {
               <slot></slot>
             </span>
             <span class="sbb-expansion-panel-header__toggle">
-              <sbb-icon class="sbb-expansion-panel-header__toggle-icon" name="chevron-down-small"></sbb-icon>
+              <sbb-icon class="sbb-expansion-panel-header__toggle-icon" name="chevron-small-down-medium"></sbb-icon>
             </span>
           </span>
         </mock:shadow-root>
@@ -76,7 +76,7 @@ describe('sbb-expansion-panel-header', () => {
               <slot></slot>
             </span>
             <span class="sbb-expansion-panel-header__toggle">
-              <sbb-icon class="sbb-expansion-panel-header__toggle-icon" name="chevron-down-small"></sbb-icon>
+              <sbb-icon class="sbb-expansion-panel-header__toggle-icon" name="chevron-small-down-medium"></sbb-icon>
             </span>
           </span>
         </mock:shadow-root>
