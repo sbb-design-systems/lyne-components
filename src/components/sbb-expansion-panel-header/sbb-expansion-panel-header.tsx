@@ -49,6 +49,12 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
   })
   public toggleExpanded: EventEmitter;
 
+  @Event({
+    bubbles: true,
+    eventName: 'toggle-hover',
+  })
+  public toggleHover: EventEmitter<boolean>;
+
   private _handlerRepository = new HandlerRepository(
     this._element,
     actionElementHandlerAspect,
@@ -78,6 +84,8 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
         {...hostAttributes}
         data-icon={!!(this.iconName || this._namedSlots.icon)}
         onClick={() => this._emitExpandedEvent()}
+        onMouseenter={() => this.toggleHover.emit(true)}
+        onMouseleave={() => this.toggleHover.emit(false)}
       >
         <span class="sbb-expansion-panel-header">
           <span class="sbb-expansion-panel-header__title">

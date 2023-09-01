@@ -89,6 +89,11 @@ export class SbbExpansionPanel implements ComponentInterface {
     this.expanded = !this.expanded;
   }
 
+  @Listen('toggle-hover')
+  public toggleHover(e): void {
+    toggleDatasetEntry(this._element, 'toggleHover', e.detail);
+  }
+
   @Watch('expanded')
   public onExpandedChange(): void {
     this._headerRef.setAttribute('aria-expanded', String(this.expanded));

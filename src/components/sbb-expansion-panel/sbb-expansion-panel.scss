@@ -95,18 +95,16 @@
   }
 }
 
-@include sbb.hover-mq($hover: true) {
-  :host(:hover:not([disabled]:not([disabled='false']))) {
-    --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
-    @include sbb.if-forced-colors {
-      --sbb-expansion-panel-border-color: Highlight;
-      --sbb-expansion-panel-border-block-start-color: Highlight;
-    }
+:host(:not([disabled]:not([disabled='false']))[data-toggle-hover]) {
+  --sbb-expansion-panel-background-color: var(--sbb-color-milk-default);
+  @include sbb.if-forced-colors {
+    --sbb-expansion-panel-border-color: Highlight;
+    --sbb-expansion-panel-border-block-start-color: Highlight;
   }
+}
 
-  :host([color='milk']:hover:not([disabled]:not([disabled='false']))) {
-    --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
-  }
+:host(:not([disabled]:not([disabled='false']))[color='milk'][data-toggle-hover]) {
+  --sbb-expansion-panel-background-color: var(--sbb-color-white-default);
 }
 
 .sbb-expansion-panel {
