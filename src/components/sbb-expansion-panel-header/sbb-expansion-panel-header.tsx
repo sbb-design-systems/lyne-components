@@ -17,6 +17,7 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot icon - Slot used to render the panel header icon.
@@ -49,12 +50,6 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
   })
   public toggleExpanded: EventEmitter;
 
-  @Event({
-    bubbles: true,
-    eventName: 'toggle-hover',
-  })
-  public toggleHover: EventEmitter<boolean>;
-
   private _handlerRepository = new HandlerRepository(
     this._element,
     actionElementHandlerAspect,
@@ -75,6 +70,13 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
     }
   }
 
+  private _onMouseMovement(toggleDataAttribute: boolean): void {
+    const parent: HTMLSbbExpansionPanelElement = this._element.closest('sbb-expansion-panel');
+    if (parent) {
+      toggleDatasetEntry(parent, 'toggleHover', toggleDataAttribute);
+    }
+  }
+
   public render(): JSX.Element {
     const { hostAttributes } = resolveButtonRenderVariables(this);
 
@@ -84,8 +86,8 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
         {...hostAttributes}
         data-icon={!!(this.iconName || this._namedSlots.icon)}
         onClick={() => this._emitExpandedEvent()}
-        onMouseenter={() => this.toggleHover.emit(true)}
-        onMouseleave={() => this.toggleHover.emit(false)}
+        onMouseenter={() => this._onMouseMovement(true)}
+        onMouseleave={() => this._onMouseMovement(false)}
       >
         <span class="sbb-expansion-panel-header">
           <span class="sbb-expansion-panel-header__title">

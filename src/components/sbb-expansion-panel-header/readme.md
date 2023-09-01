@@ -46,10 +46,9 @@ When the element is clicked, the `toggle-expanded` event is emitted.
 
 ## Events
 
-| Event             | Description | Type                   |
-| ----------------- | ----------- | ---------------------- |
-| `toggle-expanded` |             | `CustomEvent<any>`     |
-| `toggle-hover`    |             | `CustomEvent<boolean>` |
+| Event             | Description | Type               |
+| ----------------- | ----------- | ------------------ |
+| `toggle-expanded` |             | `CustomEvent<any>` |
 
 
 ## Slots

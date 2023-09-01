@@ -3278,7 +3278,6 @@ declare namespace LocalJSX {
          */
         "iconName"?: string;
         "onToggle-expanded"?: (event: SbbExpansionPanelHeaderCustomEvent<any>) => void;
-        "onToggle-hover"?: (event: SbbExpansionPanelHeaderCustomEvent<boolean>) => void;
     }
     interface SbbFooter {
         /**

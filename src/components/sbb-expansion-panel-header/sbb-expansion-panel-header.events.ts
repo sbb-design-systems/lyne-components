@@ -4,5 +4,4 @@
  */
 export default {
   toggleExpanded: 'toggle-expanded',
-  toggleHover: 'toggle-hover',
 };
