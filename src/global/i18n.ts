@@ -690,8 +690,8 @@ export const i18nTimeInputChange: Record<string, string> = {
 };
 
 export const i18nClearInput: Record<string, string> = {
-  de: 'TBD',
+  de: 'Feldinhalt lösche',
   en: 'Clear input value',
   fr: 'TBD',
-  it: 'TBD',
+  it: 'Cancella il valore dell’input',
 };

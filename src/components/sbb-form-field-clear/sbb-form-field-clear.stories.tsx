@@ -2,39 +2,61 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, Decorator, ArgTypes, Args } from '@storybook/html';
+import type { InputType } from '@storybook/types';
 
-const Template = (): JSX.Element => (
-  <sbb-form-field label="Label" floating-label>
-    <sbb-icon slot="prefix" name="pie-small" />
-    <input type="text" value="Input value" />
-    <sbb-form-field-clear />
-  </sbb-form-field>
-);
-
-const TemplateSelect = (): JSX.Element => (
-  <sbb-form-field label="Label" floating-label>
-    <select>
-      <option value="1">Value 1</option>
-      <option value="2">Value 2</option>
-      <option value="3">Value 3</option>
-    </select>
-    <sbb-form-field-clear />
-  </sbb-form-field>
-);
-
-export const Story1: StoryObj = {
-  render: Template,
-  args: {
-    'some-prop': 'opt1',
+const disabledArg: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Input attribute',
   },
 };
 
-export const Story2: StoryObj = {
-  render: TemplateSelect,
-  args: {
-    'some-prop': 'opt1',
+const readonlyArg: InputType = {
+  control: {
+    type: 'boolean',
   },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
+const basicArgTypes: ArgTypes = {
+  disabled: disabledArg,
+  readonly: readonlyArg,
+};
+
+const basicArgs: Args = {
+  disabled: false,
+  readonly: false,
+};
+
+const DefautlTemplate = ({ ...args }): JSX.Element => (
+  <sbb-form-field label="Label">
+    <sbb-icon slot="prefix" name="pie-small" />
+    <input type="text" placeholder="Input placeholder" value="Input value" {...args} />
+    <sbb-form-field-clear />
+  </sbb-form-field>
+);
+
+export const Default: StoryObj = {
+  render: DefautlTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const Disabled: StoryObj = {
+  render: DefautlTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+export const Readonly: StoryObj = {
+  render: DefautlTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, readonly: true },
 };
 
 const meta: Meta = {
