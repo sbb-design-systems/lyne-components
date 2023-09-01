@@ -200,16 +200,16 @@ export class SbbTimetableRow {
       ? `${i18nDeparture[this._currentLanguage]}: ${format(departureTime, 'HH:mm')}. `
       : '';
 
-    const departureQuayChangedText =
-      departure?.quayChanged && departure?.quayRtName
-        ? `${i18nNew[this._currentLanguage]} ${this._getQuayTypeStrings()
-            ?.long} ${departure?.quayRtName}. `
-        : '';
+    const getDepartureQuayText = (): string => {
+      if (!departure?.quayFormatted) {
+        return '';
+      }
 
-    const departureQuayAimedName =
-      departure?.quayAimedName && !departure?.quayChanged
-        ? `${this._getQuayTypeStrings()?.long} ${departure?.quayAimedName}. `
-        : '';
+      // add prefex "new" if quay was changed
+      const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._currentLanguage]} ` : '';
+      return `${changedQuayPrefix}${this._getQuayTypeStrings()
+        ?.long} ${departure?.quayFormatted}. `;
+    };
 
     const meansOfTransportText =
       product && product.vehicleMode
@@ -276,7 +276,7 @@ export class SbbTimetableRow {
           }. `
         : '';
 
-    return `${departureWalkText} ${departureTimeText} ${departureQuayChangedText} ${departureQuayAimedName} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${cusText} ${boardingText} ${priceText} ${
+    return `${departureWalkText} ${departureTimeText} ${getDepartureQuayText()} ${meansOfTransportText} ${vehicleSubModeText} ${directionText} ${cusText} ${boardingText} ${priceText} ${
       cusText ? '' : himText
     } ${arrivalTimeText} ${arrivalWalkText} ${durationText} ${transferProcedures} ${occupancyText} ${attributesText}`;
   }
@@ -373,7 +373,7 @@ export class SbbTimetableRow {
               data-now={this._now()}
             ></sbb-pearl-chain-time>
             <div class="sbb-timetable__row-footer" role="gridcell">
-              {product && this._getQuayType(product.vehicleMode) && departure?.quayAimedName && (
+              {product && this._getQuayType(product.vehicleMode) && departure?.quayFormatted && (
                 <span class={departure?.quayChanged ? `sbb-timetable__row-quay--changed` : ''}>
                   <span class="sbb-screenreaderonly">
                     {`${i18nDeparture[this._currentLanguage]} ${
@@ -382,7 +382,7 @@ export class SbbTimetableRow {
                     &nbsp;
                   </span>
                   {this._renderQuayType()}
-                  {departure?.quayChanged ? departure?.quayRtName : departure?.quayAimedName}
+                  {departure?.quayFormatted}
                 </span>
               )}
               {((occupancy?.firstClass && occupancy?.firstClass !== 'UNKNOWN') ||

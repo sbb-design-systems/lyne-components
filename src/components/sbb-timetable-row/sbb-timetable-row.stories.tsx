@@ -8,13 +8,13 @@ import {
   partiallyCancelled,
   pastTrip,
   disturbanceTrip,
-  TrainTrip,
-  BusTrip,
+  trainTrip,
+  busTrip,
   quayChangeTrip,
-  ShipTrip,
+  shipTrip,
   walkTimeTrip,
   extendedEnterTimeTrip,
-  NoticesTrip,
+  noticesTrip,
   skippedDepartureStopTrip,
   skippedArrivalStopTrip,
   skippedFirstDepartureStopTrip,
@@ -298,7 +298,7 @@ export const Train: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    trip: TrainTrip,
+    trip: trainTrip,
   },
 };
 
@@ -307,7 +307,7 @@ export const Bus: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    trip: BusTrip,
+    trip: busTrip,
   },
 };
 
@@ -316,7 +316,7 @@ export const Ship: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    trip: ShipTrip,
+    trip: shipTrip,
   },
 };
 
@@ -343,7 +343,7 @@ export const Notices: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    trip: NoticesTrip,
+    trip: noticesTrip,
     boarding: { name: 'sa-rs', text: 'boarding' },
   },
 };

@@ -1,6 +1,6 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { SbbTimetableRow } from './sbb-timetable-row';
-import { defaultTrip, BusTrip } from './sbb-timetable-row.sample-data';
+import { defaultTrip, busTrip } from './sbb-timetable-row.sample-data';
 
 const now = new Date('2022-08-16T15:00:00Z').valueOf();
 
@@ -71,7 +71,7 @@ describe('sbb-timetable-row', () => {
             </sbb-timetable-row>
         `,
       });
-      page.rootInstance.trip = BusTrip;
+      page.rootInstance.trip = busTrip;
       await page.waitForChanges();
       expect(page.root).toEqualHtml(`
         <sbb-timetable-row data-now="1660662000000" role="rowgroup">

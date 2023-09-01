@@ -2,12 +2,13 @@ import { getDepartureArrivalTimeAttribute } from './access-leg-helper';
 import {
   defaultTrip,
   extendedEnterTimeTrip,
-} from '../../components/sbb-timetable-row/sbb-timetable-row.sample-data.js';
+} from '../../components/sbb-timetable-row/sbb-timetable-row.sample-data';
+import { Leg } from './timetable-properties';
 
 describe('getDepartureArrivalTimeAttribute', () => {
   it('should returns correct departure time attribute', () => {
     const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
-      defaultTrip.legs,
+      defaultTrip.legs as Leg[],
       10,
       0,
       'en',
@@ -22,7 +23,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
 
   it('should returns correct arrival time attribute', () => {
     const { arrivalTimeAttribute } = getDepartureArrivalTimeAttribute(
-      defaultTrip.legs,
+      defaultTrip.legs as Leg[],
       0,
       10,
       'en',
@@ -37,7 +38,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
 
   it('should returns extended departure time attribute', () => {
     const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
-      extendedEnterTimeTrip.legs,
+      extendedEnterTimeTrip.legs as Leg[],
       0,
       0,
       'en',
@@ -52,7 +53,7 @@ describe('getDepartureArrivalTimeAttribute', () => {
 
   it('should returns extended departure time attribute and add departureWalk', () => {
     const { departureTimeAttribute } = getDepartureArrivalTimeAttribute(
-      extendedEnterTimeTrip.legs,
+      extendedEnterTimeTrip.legs as Leg[],
       20,
       0,
       'en',
