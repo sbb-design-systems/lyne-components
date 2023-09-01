@@ -1389,6 +1389,14 @@
     esbuild "~0.19.2"
     source-map-support "^0.5.21"
 
+"@esbuild-kit/core-utils@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@esbuild-kit/core-utils/-/core-utils-3.2.2.tgz#ac3fe38d6ddcb3aa4658425034bb7a9cefa83495"
+  integrity sha512-Ub6LaRaAgF80dTSzUdXpFLM1pVDdmEVB9qb5iAzSpyDlX/mfJTFGOnZ516O05p5uWWteNviMKi4PAyEuRxI5gA==
+  dependencies:
+    esbuild "~0.18.20"
+    source-map-support "^0.5.21"
+
 "@esbuild-kit/esm-loader@^2.5.5":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@esbuild-kit/esm-loader/-/esm-loader-2.5.5.tgz#b82da14fcee3fc1d219869756c06f43f67d1ca71"
@@ -6073,7 +6081,7 @@ esbuild@0.19.2, esbuild@~0.19.2:
     "@esbuild/win32-ia32" "0.19.2"
     "@esbuild/win32-x64" "0.19.2"
 
-esbuild@^0.18.0:
+esbuild@^0.18.0, esbuild@~0.18.20:
   version "0.18.20"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.18.20.tgz#4709f5a34801b43b799ab7d6d82f7284a9b7a7a6"
   integrity sha512-ceqxoedUrcayh7Y7ZX6NdbbDzGROiyVBgC4PriJThBKSVPWnnFHZAkfI1lJT8QFkOwH4qOS2SJkS4wvpGl8BpA==
@@ -11983,13 +11991,13 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
-tsx@3.12.7:
-  version "3.12.7"
-  resolved "https://registry.yarnpkg.com/tsx/-/tsx-3.12.7.tgz#b3b8b0fc79afc8260d1e14f9e995616c859a91e9"
-  integrity sha512-C2Ip+jPmqKd1GWVQDvz/Eyc6QJbGfE7NrR3fx5BpEHMZsEHoIxHL1j+lKdGobr8ovEyqeNkPLSKp6SCSOt7gmw==
+tsx@3.12.8:
+  version "3.12.8"
+  resolved "https://registry.yarnpkg.com/tsx/-/tsx-3.12.8.tgz#e9ec95c6b116e28f0187467f839029a3ce17a851"
+  integrity sha512-Lt9KYaRGF023tlLInPj8rgHwsZU8qWLBj4iRXNWxTfjIkU7canGL806AqKear1j722plHuiYNcL2ZCo6uS9UJA==
   dependencies:
     "@esbuild-kit/cjs-loader" "^2.4.2"
-    "@esbuild-kit/core-utils" "^3.0.0"
+    "@esbuild-kit/core-utils" "^3.2.2"
     "@esbuild-kit/esm-loader" "^2.5.5"
   optionalDependencies:
     fsevents "~2.3.2"
