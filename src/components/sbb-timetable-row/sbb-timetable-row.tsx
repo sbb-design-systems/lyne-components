@@ -205,7 +205,7 @@ export class SbbTimetableRow {
         return '';
       }
 
-      // add prefex "new" if quay was changed
+      // add prefix "new" if quay was changed
       const changedQuayPrefix = departure?.quayChanged ? `${i18nNew[this._currentLanguage]} ` : '';
       return `${changedQuayPrefix}${this._getQuayTypeStrings()
         ?.long} ${departure?.quayFormatted}. `;
