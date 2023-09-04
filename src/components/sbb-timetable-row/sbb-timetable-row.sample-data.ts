@@ -9,7 +9,15 @@ import {
   redirectedOnDepartureLeg,
 } from '../sbb-pearl-chain/sbb-pearl-chain.sample-data';
 
-export const defaultTrip = {
+import { ITripItem } from '../../global/timetable';
+
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
+export const defaultTrip: DeepPartial<ITripItem> = {
   legs: [futureLeg],
   situations: [],
   summary: {
@@ -29,7 +37,7 @@ export const defaultTrip = {
   },
 };
 
-export const cancelledTrip = {
+export const cancelledTrip: DeepPartial<ITripItem> = {
   legs: [cancelledLeg],
   situations: [],
   summary: {
@@ -38,7 +46,7 @@ export const cancelledTrip = {
     },
     departure: {
       time: '2022-11-30T11:08:00+01:00',
-      quayAimedName: '14',
+      quayFormatted: '14',
     },
     direction: 'Basel SBB',
     product: {
@@ -56,7 +64,7 @@ export const cancelledTrip = {
   },
 };
 
-export const progressTrip = {
+export const progressTrip: DeepPartial<ITripItem> = {
   legs: [progressLeg],
   situations: [],
   summary: {
@@ -76,7 +84,7 @@ export const progressTrip = {
   },
 };
 
-export const partiallyCancelled = {
+export const partiallyCancelled: DeepPartial<ITripItem> = {
   legs: [futureLeg, cancelledLeg, futureLeg],
   situations: [],
   summary: {
@@ -85,7 +93,7 @@ export const partiallyCancelled = {
     },
     departure: {
       time: '2022-11-30T11:08:00+01:00',
-      quayAimedName: '14',
+      quayFormatted: '14',
     },
     direction: 'Basel SBB',
     product: {
@@ -99,7 +107,7 @@ export const partiallyCancelled = {
   },
 };
 
-export const pastTrip = {
+export const pastTrip: DeepPartial<ITripItem> = {
   legs: [pastLeg, pastLeg, pastLeg],
   situations: [],
   summary: {
@@ -108,7 +116,7 @@ export const pastTrip = {
     },
     departure: {
       time: '2022-11-30T11:08:00+01:00',
-      quayAimedName: '14',
+      quayFormatted: '14',
     },
     duration: 75,
     direction: 'Basel SBB',
@@ -123,7 +131,7 @@ export const pastTrip = {
   },
 };
 
-export const skippedLastArrivalStopTrip = {
+export const skippedLastArrivalStopTrip: DeepPartial<ITripItem> = {
   legs: [pastLeg, progressLeg, futureLeg, redirectedOnArrivalLeg],
   summary: {
     duration: 46,
@@ -142,7 +150,7 @@ export const skippedLastArrivalStopTrip = {
   },
 };
 
-export const skippedArrivalStopTrip = {
+export const skippedArrivalStopTrip: DeepPartial<ITripItem> = {
   legs: [pastLeg, progressLeg, redirectedOnArrivalLeg, futureLeg],
   summary: {
     duration: 46,
@@ -161,7 +169,7 @@ export const skippedArrivalStopTrip = {
   },
 };
 
-export const skippedDepartureStopTrip = {
+export const skippedDepartureStopTrip: DeepPartial<ITripItem> = {
   legs: [pastLeg, progressLeg, redirectedOnDepartureLeg, futureLeg],
   summary: {
     duration: 46,
@@ -180,7 +188,7 @@ export const skippedDepartureStopTrip = {
   },
 };
 
-export const skippedFirstDepartureStopTrip = {
+export const skippedFirstDepartureStopTrip: DeepPartial<ITripItem> = {
   legs: [redirectedOnDepartureLeg, futureLeg],
   summary: {
     duration: 46,
@@ -199,7 +207,7 @@ export const skippedFirstDepartureStopTrip = {
   },
 };
 
-export const disturbanceTrip = {
+export const disturbanceTrip: DeepPartial<ITripItem> = {
   legs: [pastLeg, progressLeg],
   notices: [
     {
@@ -207,7 +215,6 @@ export const disturbanceTrip = {
       text: {
         template: 'Reservation possible',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
     },
@@ -231,17 +238,15 @@ export const disturbanceTrip = {
     arrival: {
       time: '2022-11-30T18:30:00+01:00',
       delay: 0,
-      quayRtName: '34',
+      quayFormatted: '34',
       quayChanged: false,
-      quayAimedName: '34',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T17:44:00+01:00',
       delay: 0,
-      quayRtName: null,
+      quayFormatted: null,
       quayChanged: false,
-      quayAimedName: null,
     },
     departureWalk: 0,
     direction: 'Trimbach, Eisenbahn',
@@ -266,7 +271,7 @@ export const disturbanceTrip = {
   },
 };
 
-export const quayChangeTrip = {
+export const quayChangeTrip: DeepPartial<ITripItem> = {
   legs: [pastLeg, progressLeg],
   notices: [
     {
@@ -274,7 +279,6 @@ export const quayChangeTrip = {
       text: {
         template: 'Reservation possible',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
     },
@@ -285,17 +289,15 @@ export const quayChangeTrip = {
     arrival: {
       time: '2022-11-30T18:30:00+01:00',
       delay: 0,
-      quayRtName: '34',
+      quayFormatted: '34',
       quayChanged: false,
-      quayAimedName: '34',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T17:44:00+01:00',
       delay: 0,
-      quayRtName: '34',
+      quayFormatted: '42',
       quayChanged: true,
-      quayAimedName: '42',
     },
     departureWalk: 0,
     direction: 'Trimbach, Eisenbahn',
@@ -316,19 +318,19 @@ export const quayChangeTrip = {
   },
 };
 
-export const TrainTrip = {
+export const trainTrip: DeepPartial<ITripItem> = {
   legs: [futureLeg, futureLeg, longFutureLeg],
   situations: [],
   summary: {
     duration: 41,
     arrival: {
       time: '2022-11-30T17:06:00+01:00',
-      quayAimedName: '11',
+      quayFormatted: '11',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T16:30:00+01:00',
-      quayAimedName: '4',
+      quayFormatted: '4',
     },
     departureWalk: 0,
     direction: 'Chur',
@@ -346,19 +348,19 @@ export const TrainTrip = {
   },
 };
 
-export const BusTrip = {
+export const busTrip: DeepPartial<ITripItem> = {
   legs: [futureLeg, futureLeg, longFutureLeg],
   situations: [],
   summary: {
     duration: 41,
     arrival: {
       time: '2022-11-30T17:06:00+01:00',
-      quayAimedName: '11',
+      quayFormatted: '11',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T16:30:00+01:00',
-      quayAimedName: '4',
+      quayFormatted: '4',
     },
     departureWalk: 0,
     direction: 'Spiegel, Blinzern',
@@ -369,7 +371,6 @@ export const BusTrip = {
       vehicleMode: 'BUS',
       vehicleSubModeShortName: 'B',
       corporateIdentityIcon: 'SBB_oev_b_t06',
-      __typename: 'ServiceProduct',
     },
     occupancy: {
       firstClass: 'LOW',
@@ -379,19 +380,19 @@ export const BusTrip = {
   },
 };
 
-export const ShipTrip = {
+export const shipTrip: DeepPartial<ITripItem> = {
   legs: [futureLeg],
   situations: [],
   summary: {
     duration: 41,
     arrival: {
       time: '2022-11-30T17:06:00+01:00',
-      quayAimedName: '11',
+      quayFormatted: '11',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T16:30:00+01:00',
-      quayAimedName: '4',
+      quayFormatted: '4',
     },
     departureWalk: 0,
     direction: 'Atlantis',
@@ -403,7 +404,7 @@ export const ShipTrip = {
   },
 };
 
-export const walkTimeTrip = {
+export const walkTimeTrip: DeepPartial<ITripItem> = {
   legs: [futureLeg, futureLeg, futureLeg, futureLeg, futureLeg, futureLeg],
   notices: [
     {
@@ -411,7 +412,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Reservation possible',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 0,
       __typename: 'Notice',
@@ -421,7 +421,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Restaurant',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 1,
       __typename: 'Notice',
@@ -431,7 +430,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Family wagon with playground',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
       __typename: 'Notice',
@@ -441,7 +439,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Business zone in 1st class',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
       __typename: 'Notice',
@@ -451,7 +448,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Free internet with the SBB FreeSurf app',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
       __typename: 'Notice',
@@ -461,7 +457,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Quiet zone in 1st class',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 4,
       __typename: 'Notice',
@@ -471,7 +466,6 @@ export const walkTimeTrip = {
       text: {
         template: 'Reservation possible',
       },
-      textArguments: [],
       type: 'ATTRIBUTE',
       priority: 8,
       __typename: 'Notice',
@@ -487,10 +481,8 @@ export const walkTimeTrip = {
           title: 'Reisehinweis: Bern - Olten RMi',
           detail:
             'Reisehinweis : Zwischen Bern und Olten ist die Strecke für den Bahnverkehr unterbrochen. Es verkehren Ersatzzüge Bern-Olten. Dauer  bis Betriebsschluss.',
-          __typename: 'PTSituationMessage',
         },
       ],
-      __typename: 'PTSituation',
     },
     {
       cause: 'CONSTRUCTION_SITE',
@@ -501,10 +493,8 @@ export const walkTimeTrip = {
           title: 'Bauarbeiten: Bern - Olten RMi',
           detail:
             'Bauarbeiten: Zwischen Bern und Olten ist die Strecke für den Bahnverkehr nur beschränkt befahrbar. Es muss mit Verspätungen und Umleitungen gerechnet werden. Grund: Hochwassergefahr Dauer der Bauarbeiten unbestimmt.',
-          __typename: 'PTSituationMessage',
         },
       ],
-      __typename: 'PTSituation',
     },
     {
       cause: 'DISTURBANCE',
@@ -515,10 +505,8 @@ export const walkTimeTrip = {
           title: 'Einschränkung: Bern - Olten RMi',
           detail:
             'Zwischen Bern und Olten ist die Strecke für den Bahnverkehr nur beschränkt befahrbar. Es muss mit Verspätungen und Zugausfällen gerechnet werden.',
-          __typename: 'PTSituationMessage',
         },
       ],
-      __typename: 'PTSituation',
     },
     {
       cause: 'DISTURBANCE',
@@ -529,10 +517,8 @@ export const walkTimeTrip = {
           title: 'Test ROKAS Danke, dass Sie mit uns unterwegs sind.',
           detail:
             'Der Grund dafür ist eine technische Störung an der Bahnanlage.<br> Die Dauer der Einschränkung ist unbestimmt.<br><br> Wir wünschen Ihnen eine angenehme Reise.<br><br>Ihre SBB.',
-          __typename: 'PTSituationMessage',
         },
       ],
-      __typename: 'PTSituation',
     },
   ],
   summary: {
@@ -540,19 +526,15 @@ export const walkTimeTrip = {
     arrival: {
       time: '2022-11-30T20:40:00+01:00',
       delay: 0,
-      quayRtName: '2',
+      quayFormatted: '2',
       quayChanged: false,
-      quayAimedName: '2',
-      __typename: 'ScheduledStopPointDetail',
     },
     arrivalWalk: 2,
     departure: {
       time: '2022-11-30T19:24:00+01:00',
       delay: 0,
-      quayRtName: 'A',
+      quayFormatted: 'A',
       quayChanged: false,
-      quayAimedName: 'A',
-      __typename: 'ScheduledStopPointDetail',
     },
     departureWalk: 2,
     direction: 'Bern, Fischermätteli',
@@ -563,12 +545,10 @@ export const walkTimeTrip = {
       vehicleMode: 'TRAMWAY',
       vehicleSubModeShortName: 'T',
       corporateIdentityIcon: 'SBB_oev_b_t04',
-      __typename: 'ServiceProduct',
     },
     occupancy: {
       firstClass: 'LOW',
       secondClass: 'LOW',
-      __typename: 'Occupancy',
     },
     tripStatus: {
       cancelled: false,
@@ -576,13 +556,11 @@ export const walkTimeTrip = {
       delayedUnknown: false,
       delayed: false,
       quayChanged: false,
-      __typename: 'TripStatus',
     },
-    __typename: 'TripSummary',
   },
 };
 
-export const extendedEnterTimeTrip = {
+export const extendedEnterTimeTrip: DeepPartial<ITripItem> = {
   legs: [extendedLeg, futureLeg, longFutureLeg],
   notices: [],
   situations: [],
@@ -590,12 +568,12 @@ export const extendedEnterTimeTrip = {
     duration: 41,
     arrival: {
       time: '2022-11-30T17:06:00+01:00',
-      quayAimedName: '11',
+      quayFormatted: '11',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T16:30:00+01:00',
-      quayAimedName: '4',
+      quayFormatted: '4',
     },
     departureWalk: 0,
     direction: 'Chur',
@@ -610,7 +588,7 @@ export const extendedEnterTimeTrip = {
   },
 };
 
-export const NoticesTrip = {
+export const noticesTrip: DeepPartial<ITripItem> = {
   legs: [futureLeg, futureLeg, longFutureLeg],
   notices: [
     {
@@ -673,12 +651,12 @@ export const NoticesTrip = {
     duration: 41,
     arrival: {
       time: '2022-11-30T17:06:00+01:00',
-      quayAimedName: '11',
+      quayFormatted: '11',
     },
     arrivalWalk: 0,
     departure: {
       time: '2022-11-30T16:30:00+01:00',
-      quayAimedName: '4',
+      quayFormatted: '4',
     },
     departureWalk: 0,
     direction: 'Chur',

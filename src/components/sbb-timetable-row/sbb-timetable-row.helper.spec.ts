@@ -1,4 +1,4 @@
-import { PtSituation } from '../../global/timetable';
+import { ITripItem, Notice, PtSituation } from '../../global/timetable';
 import {
   getCus,
   getHimIcon,
@@ -94,7 +94,7 @@ describe('getHimIcon', () => {
 
 describe('getCus', () => {
   it('should return cancellation', () => {
-    expect(getCus(partiallyCancelled, 'en')).toStrictEqual({
+    expect(getCus(partiallyCancelled as ITripItem, 'en')).toStrictEqual({
       name: 'cancellation',
       text: undefined,
     });
@@ -103,6 +103,6 @@ describe('getCus', () => {
 
 describe('filterNotices', () => {
   it('should return sa-rr', () => {
-    expect(filterNotices(walkTimeTrip?.notices)).toStrictEqual([]);
+    expect(filterNotices(walkTimeTrip?.notices as Notice[])).toStrictEqual([]);
   });
 });
