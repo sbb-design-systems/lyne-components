@@ -27,6 +27,7 @@ import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+import { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 import { ITripItem, Leg } from "./global/timetable";
@@ -71,6 +72,7 @@ export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+export { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 export { ITripItem, Leg } from "./global/timetable";
@@ -928,8 +930,14 @@ export namespace Components {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLoadingIndicator {
-        "size"?: 'small' | 'large';
-        "type"?: 'window' | 'circle';
+        /**
+          * Size variant, either s or m.
+         */
+        "size": InterfaceSbbLoadingIndicatorAttributes['size'];
+        /**
+          * Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay.
+         */
+        "variant"?: InterfaceSbbLoadingIndicatorAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -3534,8 +3542,14 @@ declare namespace LocalJSX {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLoadingIndicator {
-        "size"?: 'small' | 'large';
-        "type"?: 'window' | 'circle';
+        /**
+          * Size variant, either s or m.
+         */
+        "size"?: InterfaceSbbLoadingIndicatorAttributes['size'];
+        /**
+          * Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay.
+         */
+        "variant"?: InterfaceSbbLoadingIndicatorAttributes['variant'];
     }
     interface SbbLogo {
         /**

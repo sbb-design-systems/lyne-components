@@ -1,13 +1,12 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
 const Template = (args): JSX.Element => <sbb-loading-indicator {...args}></sbb-loading-indicator>;
 
-const type: InputType = {
+const variant: InputType = {
   control: {
     type: 'select',
   },
@@ -18,38 +17,35 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['large', 'small'],
+  options: ['small', 'large'],
 };
 
 const defaultArgTypes: ArgTypes = {
-  type,
+  variant,
   size,
 };
 
-export const WindowAnimationLarge: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    type: 'window',
-    size: 'large',
-  },
+const defaultArgs: Args = {
+  variant: variant.options[0],
+  size: size.options[0],
 };
 
 export const WindowAnimationSmall: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    type: 'window',
-    size: 'small',
-  },
+  args: { ...defaultArgs },
+};
+
+export const WindowAnimationLarge: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options[1] },
 };
 
 export const CircleAnimation: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    type: 'circle',
-  },
+  args: { ...defaultArgs, variant: variant.options[1] },
 };
 
 const meta: Meta = {
@@ -59,12 +55,8 @@ const meta: Meta = {
         <Story />
       </div>
     ),
-    withActions as Decorator,
   ],
   parameters: {
-    actions: {
-      handles: ['click'],
-    },
     backgrounds: {
       disable: true,
     },

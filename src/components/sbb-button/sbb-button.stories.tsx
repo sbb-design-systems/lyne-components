@@ -51,7 +51,7 @@ const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element
 
 const LoadingIndicatorTemplate = ({ text, ...args }): JSX.Element => (
   <sbb-button {...args}>
-    <sbb-loading-indicator slot="icon"></sbb-loading-indicator>
+    <sbb-loading-indicator slot="icon" variant="circle"></sbb-loading-indicator>
     {text}
   </sbb-button>
 );
