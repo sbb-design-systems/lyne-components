@@ -15,7 +15,7 @@ describe('sbb-navigation-section', () => {
               <dialog class="sbb-navigation-section" role="group" aria-labelledby="title">
                 <div class="sbb-navigation-section__wrapper">
                   <div class="sbb-navigation-section__content">
-                    <sbb-divider class="sbb-navigation-section__divider" negative orientation="vertical" />
+                    <sbb-divider class="sbb-navigation-section__divider" negative orientation="vertical"></sbb-divider>
                     <slot></slot>
                   </div>
                 </div>
