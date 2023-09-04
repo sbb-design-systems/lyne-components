@@ -45,6 +45,7 @@
   text-align: start;
   cursor: var(--sbb-expansion-panel-header-cursor);
   color: var(--sbb-expansion-panel-header-text-color);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .sbb-expansion-panel-header__title,
