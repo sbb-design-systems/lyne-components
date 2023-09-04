@@ -4,7 +4,6 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
-/* stylelint-disable */
 :host([type='window']) {
   --loading-indicator-height: 32px;
   --loading-indicator-width: 55px;
@@ -66,7 +65,9 @@
   overflow: hidden;
   border-radius: 50%;
   background: conic-gradient(from 90deg, #fff, #f00);
+  /* stylelint-disable */
   -webkit-mask: radial-gradient(circle 7px, #0000 98%, #fff);
+  /* stylelint-enable */
   mask: radial-gradient(circle 7px, #0000 98%, #fff);
   animation: rotation 1s infinite linear;
 
@@ -153,6 +154,7 @@
   0% {
     transform: translateX(0.73333em);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -162,6 +164,7 @@
   0% {
     transform: translateX(1.2em);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -171,6 +174,7 @@
   0% {
     opacity: 0.5;
   }
+
   100% {
     opacity: 0;
   }
@@ -180,6 +184,7 @@
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0.5;
   }
@@ -189,6 +194,7 @@
   0% {
     opacity: 0.5;
   }
+
   100% {
     opacity: 1;
   }
@@ -198,6 +204,7 @@
   0% {
     opacity: 0.25;
   }
+
   100% {
     opacity: 0.5;
   }
@@ -207,6 +214,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 0.25;
   }
@@ -221,5 +229,3 @@
     transform: rotate(359deg);
   }
 }
-
-/* stylelint-enable */
