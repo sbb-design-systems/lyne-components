@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.1](https://github.com/lyne-design-system/lyne-components/compare/v0.40.0...v0.40.1) (2023-09-04)
+
+### Features
+
+- **sbb-time-table-row:** show trip departure quay formatted ([#1960](https://github.com/lyne-design-system/lyne-components/issues/1960)) ([dd49d34](https://github.com/lyne-design-system/lyne-components/commit/dd49d34f5bc77a7472d6bddc1f46528ee4d7a844))
+
 ## [0.40.0](https://github.com/lyne-design-system/lyne-components/compare/v0.39.12...v0.40.0) (2023-09-04)
 
 ### ⚠ BREAKING CHANGES
