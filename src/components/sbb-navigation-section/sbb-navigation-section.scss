@@ -186,6 +186,17 @@
   }
 }
 
+.sbb-navigation-section__divider {
+  display: none;
+
+  @include sbb.mq($from: wide) {
+    display: block;
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+  }
+}
+
 .sbb-navigation-section__content {
   display: grid;
   grid-template-columns: 1fr;
@@ -210,7 +221,6 @@
 
   @include sbb.mq($from: wide) {
     grid-template-columns: repeat(3, 1fr);
-    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-color-charcoal-default);
   }
 
   :host([data-state='closing']) & {
