@@ -387,6 +387,11 @@ export class SbbNavigationSection implements ComponentInterface {
           >
             <div class="sbb-navigation-section__wrapper">
               <div class="sbb-navigation-section__content">
+                <sbb-divider
+                  class="sbb-navigation-section__divider"
+                  orientation="vertical"
+                  negative
+                />
                 {(!!this.titleContent || this._namedSlots.title) && labelElement}
                 <slot />
               </div>

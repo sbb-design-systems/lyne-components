@@ -70,11 +70,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [sbb-button](../sbb-button)
+- [sbb-divider](../sbb-divider)
 
 ### Graph
 ```mermaid
 graph TD;
   sbb-navigation-section --> sbb-button
+  sbb-navigation-section --> sbb-divider
   sbb-button --> sbb-icon
   style sbb-navigation-section fill:#f9f,stroke:#333,stroke-width:4px
 ```
