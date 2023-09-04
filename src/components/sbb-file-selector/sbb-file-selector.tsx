@@ -53,7 +53,7 @@ export class SbbFileSelector implements ComponentInterface {
   @Prop() public disabled: boolean;
 
   /** The list of selected files. */
-  @State() public files: File[];
+  @State() private _files: File[];
 
   /** Current document language used for translations. */
   @State() private _currentLanguage = documentLanguage();
@@ -167,25 +167,25 @@ export class SbbFileSelector implements ComponentInterface {
     if (
       !this.multiple ||
       this.multipleMode !== 'persistent' ||
-      !this.files ||
-      this.files.length === 0
+      !this._files ||
+      this._files.length === 0
     ) {
-      this.files = Array.from(files);
+      this._files = Array.from(files);
     } else {
-      this.files = Array.from(files)
+      this._files = Array.from(files)
         .filter(
           (newFile: File) =>
-            this.files.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
+            this._files.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
             -1,
         )
-        .concat(this.files);
+        .concat(this._files);
     }
-    this.fileChangedEvent.emit(this.files);
+    this.fileChangedEvent.emit(this._files);
   }
 
   private _removeFile(file: File): void {
-    this.files = this.files.filter((f: File) => !this._checkFileEquality(file, f));
-    this.fileChangedEvent.emit(this.files);
+    this._files = this._files.filter((f: File) => !this._checkFileEquality(file, f));
+    this.fileChangedEvent.emit(this._files);
   }
 
   /** Calculates the correct unit for the file's size. */
@@ -213,15 +213,15 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _renderDropzoneArea(): JSX.Element {
     return (
-      <div class="sbb-file-selector__dropzone-area">
-        <div class="sbb-file-selector__dropzone-area--icon">
+      <span class="sbb-file-selector__dropzone-area">
+        <span class="sbb-file-selector__dropzone-area--icon">
           <sbb-icon name="folder-open-medium"></sbb-icon>
-        </div>
-        <div class="sbb-file-selector__dropzone-area--title">{this.titleContent}</div>
-        <div class="sbb-file-selector__dropzone-area--subtitle">
+        </span>
+        <span class="sbb-file-selector__dropzone-area--title">{this.titleContent}</span>
+        <span class="sbb-file-selector__dropzone-area--subtitle">
           {i18nFileSelectorSubtitleLabel[this._currentLanguage]}
-        </div>
-        <div class="sbb-file-selector__dropzone-area--button">
+        </span>
+        <span class="sbb-file-selector__dropzone-area--button">
           <sbb-button
             variant="secondary"
             size="m"
@@ -233,15 +233,15 @@ export class SbbFileSelector implements ComponentInterface {
           >
             {i18nFileSelectorButtonLabel[this._currentLanguage]}
           </sbb-button>
-        </div>
-      </div>
+        </span>
+      </span>
     );
   }
 
   private _renderFileList(): JSX.Element {
     return (
-      <ul class="sbb-file-selector__file-list" role="list">
-        {this.files.map((file: File) => (
+      <ul class="sbb-file-selector__file-list">
+        {this._files.map((file: File) => (
           <li class="sbb-file-selector__file">
             <span class="sbb-file-selector__file-details">
               <span class="sbb-file-selector__file-name">{file.name}</span>
@@ -270,10 +270,10 @@ export class SbbFileSelector implements ComponentInterface {
           onDragLeave={(e) => this._onDragLeave(e)}
           onDrop={(e) => this._onFileDrop(e)}
         >
-          <label htmlFor="sbb-file-selector__hidden-input">
+          <label>
             {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
             <input
-              id="sbb-file-selector__hidden-input"
+              class="sbb-file-selector__input"
               type="file"
               disabled={this.disabled}
               multiple={this.multiple}
@@ -284,7 +284,7 @@ export class SbbFileSelector implements ComponentInterface {
             />
           </label>
         </div>
-        {this.files && this.files.length > 0 && this._renderFileList()}
+        {this._files && this._files.length > 0 && this._renderFileList()}
         {this._namedSlots.error && (
           <div class="sbb-file-selector__error">
             <slot name="error" />

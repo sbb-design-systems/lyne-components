@@ -8,7 +8,7 @@
   --sbb-file-selector-background-color: var(--sbb-color-white-default);
   --sbb-file-selector-border-color: var(--sbb-color-cloud-default);
 
-  width: sbb.px-to-rem-build(320);
+  width: #{sbb.px-to-rem-build(320)};
 }
 
 :host([data-active]) {
@@ -20,7 +20,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-#sbb-file-selector__hidden-input {
+.sbb-file-selector__input {
   @include sbb.screen-reader-only;
 }
 
@@ -28,8 +28,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-block: var(--sbb-spacing-responsive-s);
-  padding-inline: var(--sbb-spacing-responsive-s);
+  padding: var(--sbb-spacing-responsive-s);
   background-color: var(--sbb-file-selector-background-color);
   border: var(--sbb-border-width-1x) dashed var(--sbb-file-selector-border-color);
   border-radius: var(--sbb-border-radius-4x);
@@ -38,14 +37,14 @@
 .sbb-file-selector__dropzone-area--title {
   @include sbb.text--bold;
 
-  margin-bottom: var(--sbb-spacing-fixed-1x);
+  margin-block-end: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-file-selector__dropzone-area--subtitle {
   @include sbb.text-xs--regular;
 
   color: var(--sbb-color-granite-default);
-  margin-bottom: var(--sbb-spacing-fixed-4x);
+  margin-block-end: var(--sbb-spacing-fixed-4x);
 }
 
 .sbb-file-selector__file-list {
@@ -76,9 +75,7 @@
 }
 
 .sbb-file-selector__file-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include sbb.ellipsis;
 }
 
 .sbb-file-selector__file-size {

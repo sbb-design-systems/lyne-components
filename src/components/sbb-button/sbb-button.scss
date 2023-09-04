@@ -234,15 +234,20 @@
     transition-timing-function: var(--sbb-button-transition-easing-function);
     transition-property: inset, background-color, border-color, box-shadow;
 
-    // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-    :host([data-focus-visible]) &,
-    :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-      @include sbb.focus-outline;
-    }
-
     :host([disabled]:not([disabled='false'])) & {
       background-color: var(--sbb-button-color-disabled-background);
       border-color: var(--sbb-button-color-disabled-border);
+    }
+
+    // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+    :host(
+        :is(
+            [data-focus-visible],
+            :focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
+          )
+      )
+      & {
+      @include sbb.focus-outline;
     }
 
     :host(:not([disabled]:not([disabled='false']), :active, [data-active]):hover) & {

@@ -33,7 +33,7 @@ describe('sbb-file-selector', () => {
     expect(element).toHaveClass('hydrated');
   });
 
-  it('loads a file, the deletes it', async () => {
+  it('loads a file, then deletes it', async () => {
     const fileChangedSpy: EventSpy = await page.spyOnEvent(events.fileChangedEvent);
     await addFilesToComponentInput(page, 1);
     await page.waitForChanges();
@@ -43,7 +43,7 @@ describe('sbb-file-selector', () => {
 
     const listItems: E2EElement = await page.find('sbb-file-selector >>> ul');
     expect(listItems).toEqualHtml(`
-      <ul class="sbb-file-selector__file-list" role='list'>
+      <ul class="sbb-file-selector__file-list">
         <li class="sbb-file-selector__file">
           <span class="sbb-file-selector__file-details">
             <span class="sbb-file-selector__file-name">hello0.txt</span>
