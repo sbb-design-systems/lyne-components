@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.2](https://github.com/lyne-design-system/lyne-components/compare/v0.40.1...v0.40.2) (2023-09-04)
+
+### Bug Fixes
+
+- **sbb-navigation-section:** use divider instead of separation border ([#1965](https://github.com/lyne-design-system/lyne-components/issues/1965)) ([25ea609](https://github.com/lyne-design-system/lyne-components/commit/25ea60997a2cd50aa5df11c0b7a51fca5d2224ed))
+
 ### [0.40.1](https://github.com/lyne-design-system/lyne-components/compare/v0.40.0...v0.40.1) (2023-09-04)
 
 ### Features
