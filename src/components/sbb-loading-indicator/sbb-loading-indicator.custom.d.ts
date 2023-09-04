@@ -1,3 +1,4 @@
 export interface InterfaceSbbLoadingIndicatorAttributes {
-  someInterface: 'opt1' | 'opt2';
+  variant: 'window' | 'circle';
+  size: 's' | 'l';
 }
