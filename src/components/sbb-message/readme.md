@@ -1,17 +1,22 @@
-The component renders an `sbb-title` (which can be provided via property or slot) and a subtitle paragraph using the default style of `sbb-no-results` component. Optionally, the user can provide other elements such as an `sbb-image` to provide an image, a paragraph to provide an error code, and an `sbb-button` to provide a custom action.
+The component renders an `sbb-title` (which can be provided via property or slot) 
+and a subtitle paragraph using the default style of `sbb-message` component. Optionally, 
+the user can provide other elements such as an `sbb-image` to provide an image, a paragraph to provide an error code, 
+and an `sbb-button` to provide a custom action.
 
 ## Usage
 
 ```html
-<sbb-no-results title-content="Title" title-level="3">
+<sbb-message title-content="Title" title-level="3">
   <sbb-image slot="image" [...]></sbb-image>
   <p slot="subtitle">Subtitle</p>
   <p slot="legend">Error code: 0001</p>
   <sbb-button slot="action" [...]></sbb-button>
-</sbb-no-results>
+</sbb-message>
 ```
 ## Accessibility
-By default the `sbb-title` has a visual level of 5 and an actual level of 3. This can be changed by the user via the `title-level` property. As all other elements are regularly slotted, their accessibility relies on the standard techniques provided by the used components (e.g. alt text and aria-label).
+By default, the `sbb-title` has a visual level of 5 and an actual level of 3. This can be changed by the user
+via the `title-level` property. As all other elements are regularly slotted, their accessibility relies 
+on the standard techniques provided by the used components (e.g. alt text and aria-label).
 
 <!-- Auto Generated Below -->
 
@@ -44,8 +49,8 @@ By default the `sbb-title` has a visual level of 5 and an actual level of 3. Thi
 ### Graph
 ```mermaid
 graph TD;
-  sbb-no-results --> sbb-title
-  style sbb-no-results fill:#f9f,stroke:#333,stroke-width:4px
+  sbb-message --> sbb-title
+  style sbb-message fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -27,7 +27,7 @@ via simple CSS rules.
  - [sbb-dialog](../sbb-dialog)
  - [sbb-journey-header](../sbb-journey-header)
  - [sbb-link-list](../sbb-link-list)
- - [sbb-no-results](../sbb-no-results)
+ - [sbb-message](../sbb-message)
  - [sbb-notification](../sbb-notification)
  - [sbb-skiplink-list](../sbb-skiplink-list)
  - [sbb-teaser](../sbb-teaser)
@@ -39,7 +39,7 @@ graph TD;
   sbb-dialog --> sbb-title
   sbb-journey-header --> sbb-title
   sbb-link-list --> sbb-title
-  sbb-no-results --> sbb-title
+  sbb-message --> sbb-title
   sbb-notification --> sbb-title
   sbb-skiplink-list --> sbb-title
   sbb-teaser --> sbb-title
