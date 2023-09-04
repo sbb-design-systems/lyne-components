@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.40.0](https://github.com/lyne-design-system/lyne-components/compare/v0.39.12...v0.40.0) (2023-09-04)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-message:** - `sbb-no-results` was renamed to `sbb-message`
+
+### Refactorings
+
+- **sbb-message:** rename `sbb-no-results` to `sbb-message` ([#1954](https://github.com/lyne-design-system/lyne-components/issues/1954)) ([29df5a8](https://github.com/lyne-design-system/lyne-components/commit/29df5a8d899e0fa555342c91b6b7dc831868dfd6))
+
 ### [0.39.12](https://github.com/lyne-design-system/lyne-components/compare/v0.39.11...v0.39.12) (2023-08-31)
 
 ### Bug Fixes
