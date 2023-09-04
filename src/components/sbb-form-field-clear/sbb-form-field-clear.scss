@@ -23,8 +23,3 @@
 :host(:is(:active, [data-active])) {
   @include sbb.icon-button-active('.sbb-form-field-clear');
 }
-
-sbb-icon {
-  min-width: var(--sbb-size-icon-ui-small);
-  min-height: var(--sbb-size-icon-ui-small);
-}

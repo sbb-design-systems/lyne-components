@@ -439,6 +439,12 @@ export class SbbFormField implements ComponentInterface {
     (this._input as { value }).value = '';
     toggleDatasetEntry(this._element, 'inputEmpty', this._isInputValueEmpty());
     this._input.focus();
+    this._element.dispatchEvent(
+      new InputEvent('input', { bubbles: true, cancelable: true, composed: true }),
+    );
+    this._element.dispatchEvent(
+      new window.Event('change', { bubbles: true, cancelable: true, composed: true }),
+    );
   }
 
   public render(): JSX.Element {

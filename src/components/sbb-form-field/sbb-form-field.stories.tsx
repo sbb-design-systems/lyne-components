@@ -138,6 +138,19 @@ const TemplateInputWithIcons = (args): JSX.Element => (
   </sbb-form-field>
 );
 
+const TemplateInputWithButton = ({ disabled, readonly, active, ...args }): JSX.Element => (
+  <sbb-form-field {...args}>
+    {TemplateBasicInput({ ...args, disabled, readonly })}
+    <sbb-button
+      slot="suffix"
+      icon-name="pie-small"
+      disabled={disabled || readonly}
+      aria-label="Input button"
+      data-active={active}
+    />
+  </sbb-form-field>
+);
+
 const TemplateInputWithClearButton = ({ disabled, readonly, ...args }): JSX.Element => (
   <sbb-form-field {...args}>
     {TemplateBasicInput({ ...args, disabled, readonly })}
@@ -416,6 +429,24 @@ export const InputOptionalAndIcons: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
+};
+
+export const InputWithButton: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const InputWithButtonDisabled: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true },
+};
+
+export const InputWithButtonActive: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, active: true },
 };
 
 export const InputWithClearButton: StoryObj = {

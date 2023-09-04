@@ -76,7 +76,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-form-field-clear',
+  title: 'components/sbb-form-field/sbb-form-field-clear',
 };
 
 export default meta;
