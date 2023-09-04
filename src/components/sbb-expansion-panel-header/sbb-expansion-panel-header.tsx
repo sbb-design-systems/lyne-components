@@ -72,9 +72,8 @@ export class SbbExpansionPanelHeader implements ButtonProperties, ComponentInter
 
   private _onMouseMovement(toggleDataAttribute: boolean): void {
     const parent: HTMLSbbExpansionPanelElement = this._element.closest('sbb-expansion-panel');
-    // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have
-    // the correct behavior on mobile. Android devices need also `(pointer: fine)`.
-    if (parent && window.matchMedia('(any-hover: hover) and (pointer: fine)').matches) {
+    // The `sbb.hover-mq` logic has been removed from scss, but it must be replicated to have the correct behavior on mobile.
+    if (!toggleDataAttribute || (parent && window.matchMedia('(any-hover: hover)').matches)) {
       toggleDatasetEntry(parent, 'toggleHover', toggleDataAttribute);
     }
   }
