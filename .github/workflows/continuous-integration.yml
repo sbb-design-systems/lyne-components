@@ -39,6 +39,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      # Attempt to prevent "The operation was canceled" error
+      - name: Set Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 5
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -49,6 +54,8 @@ jobs:
       - name: Run tests
         # Try yarn test:prod up to three times, if it fails and exit with the exit code from the last execution
         run: for i in $(seq 1 3); do [ $i -gt 1 ] && sleep 5; yarn test:prod && s=0 && break || s=$?; done; (exit $s)
+        env:
+          NODE_OPTIONS: '--max-old-space-size=6144'
       - name: Store coverage
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v3
