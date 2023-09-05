@@ -26,6 +26,8 @@ import {
 import { toggleDatasetEntry } from '../../global/dom';
 import { sbbInputModalityDetector } from '../../global/a11y';
 
+export type DOMEvent = globalThis.Event;
+
 /**
  * @slot error - Use this to provide a `sbb-form-error` to show an error message.
  */
@@ -151,9 +153,10 @@ export class SbbFileSelector implements ComponentInterface {
     toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
   }
 
-  private _readFiles(event): void {
-    if (event.target.files) {
-      this._createFileList(event.target.files);
+  private _readFiles(event: DOMEvent): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files) {
+      this._createFileList(fileInput.files);
     }
   }
 
