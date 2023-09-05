@@ -165,7 +165,7 @@ describe('sbb-calendar', () => {
     expect(monthCells.length).toEqual(12);
     expect(monthCells[0]).toEqualHtml(`
       <td class="sbb-calendar__table-data sbb-calendar__table-month">
-        <button aria-disabled="false" aria-label="January 2023" aria-pressed="true" class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected" tabindex="0">
+        <button aria-disabled="false" aria-label="January 2023" aria-pressed="true" class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current " tabindex="0">
           Jan
         </button>
       </td>

@@ -12,7 +12,7 @@ import {
   State,
   Watch,
 } from '@stencil/core';
-import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../../global/a11y';
 import {
   DateAdapter,
   DAYS_PER_ROW,
@@ -215,8 +215,11 @@ export class SbbCalendar implements ComponentInterface {
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
     // When changing view to year/month, the tabindex is changed, but the focused element is not,
-    // so there's the need to call the _focusCell method explicitly.
-    this._focusCell();
+    // so if the navigation is done via keyboard, there's the need
+    // to call the `_focusCell()` method explicitly to correctly set the focus.
+    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+      this._focusCell();
+    }
   }
 
   public disconnectedCallback(): void {
@@ -863,7 +866,7 @@ export class SbbCalendar implements ComponentInterface {
     return week.map((day: Day) => {
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this.dateFilter(this._dateAdapter.createDateFromISOString(day.value));
-      const selected: boolean = this._selected && day.value === this._selected;
+      const selected: boolean = !!this._selected && day.value === this._selected;
       const dayValue = `${day.dayValue} ${day.monthValue} ${day.yearValue}`;
       const isToday = day.value === today;
       return (
@@ -919,7 +922,7 @@ export class SbbCalendar implements ComponentInterface {
           )}
         </div>
         <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
-          {this._createMonthTable(this._months, this._wide ? this._chosenYear : undefined)}
+          {this._createMonthTable(this._months, this._chosenYear)}
           {this._wide && this._createMonthTable(this._months, this._chosenYear + 1)}
         </div>
       </Fragment>
@@ -948,12 +951,12 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year?: number): JSX.Element {
+  private _createMonthTable(months: Month[][], year: number): JSX.Element {
     return (
       <table class="sbb-calendar__table">
         <thead class="sbb-calendar__table-header" aria-hidden={true}>
           <tr class="sbb-calendar__table-header-row">
-            <th colSpan={MONTHS_PER_ROW}>{year}</th>
+            <th colSpan={MONTHS_PER_ROW}>{this._wide && year}</th>
           </tr>
         </thead>
         <tbody class="sbb-calendar__table-body">
@@ -969,9 +972,7 @@ export class SbbCalendar implements ComponentInterface {
                   ? this._dateAdapter.getYear(new Date(this._selected))
                   : undefined;
                 const selected: boolean =
-                  this._selected &&
-                  (year ?? this._chosenYear) === selectedYear &&
-                  month.monthValue === selectedMonth;
+                  !!this._selected && year === selectedYear && month.monthValue === selectedMonth;
 
                 const isCurrentMonth =
                   year === this._dateAdapter.getYear(this._now()) &&
@@ -992,9 +993,7 @@ export class SbbCalendar implements ComponentInterface {
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       }}
-                      onClick={() =>
-                        this._onMonthSelection(month.monthValue, year ?? this._chosenYear)
-                      }
+                      onClick={() => this._onMonthSelection(month.monthValue, year)}
                       disabled={isOutOfRange || isFilteredOut}
                       aria-label={`${month.longValue} ${this._chosenYear}`}
                       aria-pressed={String(selected)}
@@ -1121,7 +1120,7 @@ export class SbbCalendar implements ComponentInterface {
           const selectedYear = this._selected
             ? this._dateAdapter.getYear(new Date(this._selected))
             : undefined;
-          const selected: boolean = this._selected && year === selectedYear;
+          const selected: boolean = !!this._selected && year === selectedYear;
           const isCurrentYear = this._dateAdapter.getYear(this._now()) === year;
           return (
             <td class="sbb-calendar__table-data sbb-calendar__table-year">
