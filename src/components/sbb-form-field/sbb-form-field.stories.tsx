@@ -464,7 +464,7 @@ export const InputWithClearButtonDisabled: StoryObj = {
 export const InputWithClearButtonActive: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
-  args: { ...basicArgs },
+  args: { ...basicArgs, active: true },
 };
 
 export const InputLongLabelAndErrorSpace: StoryObj = {
