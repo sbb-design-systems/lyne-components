@@ -151,10 +151,10 @@ const TemplateInputWithButton = ({ disabled, readonly, active, ...args }): JSX.E
   </sbb-form-field>
 );
 
-const TemplateInputWithClearButton = ({ disabled, readonly, ...args }): JSX.Element => (
+const TemplateInputWithClearButton = ({ disabled, readonly, active, ...args }): JSX.Element => (
   <sbb-form-field {...args}>
     {TemplateBasicInput({ ...args, disabled, readonly })}
-    <sbb-form-field-clear />
+    <sbb-form-field-clear data-active={active} />
   </sbb-form-field>
 );
 
