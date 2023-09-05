@@ -5,6 +5,7 @@ import {
   Event,
   EventEmitter,
   h,
+  Host,
   JSX,
   Method,
   Prop,
@@ -90,8 +91,6 @@ export class SbbDialog implements ComponentInterface {
    */
   @State() private _namedSlots = createNamedSlotState('title', 'action-group');
 
-  @State() private _hasTitle = false;
-
   @State() private _currentLanguage = documentLanguage();
 
   /*
@@ -168,7 +167,6 @@ export class SbbDialog implements ComponentInterface {
   private _scrollHandler = new ScrollHandler();
   private _returnValue: any;
   private _isPointerDownEventOnDialog: boolean;
-  private _hasActionGroup = false;
   private _dialogId = `sbb-dialog-${nextId++}`;
 
   // Last element which had focus before the dialog was opened.
@@ -232,10 +230,6 @@ export class SbbDialog implements ComponentInterface {
     this._handlerRepository.connect();
     this._state = 'closed';
     this._dialogController = new AbortController();
-
-    this._hasTitle = !!this.titleContent || this._namedSlots['title'];
-    toggleDatasetEntry(this._element, 'fullscreen', !this._hasTitle);
-    this._hasActionGroup = this._namedSlots['action-group'] && this._hasTitle;
 
     // Close dialog on backdrop click
     this._element.addEventListener('pointerdown', this._pointerDownListener, {
@@ -359,6 +353,9 @@ export class SbbDialog implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const hasTitle = !!this.titleContent || this._namedSlots['title'];
+    const hasActionGroup = this._namedSlots['action-group'] && hasTitle;
+
     const closeButton = (
       <sbb-button
         class="sbb-dialog__close"
@@ -388,7 +385,7 @@ export class SbbDialog implements ComponentInterface {
     const dialogHeader = (
       <div class="sbb-dialog__header">
         {this.titleBackButton && backButton}
-        {this._hasTitle && (
+        {hasTitle && (
           <sbb-title
             class="sbb-dialog__title"
             level={this.titleLevel}
@@ -416,32 +413,34 @@ export class SbbDialog implements ComponentInterface {
     }
 
     return (
-      <div class="sbb-dialog__container">
-        <dialog
-          ref={(dialogRef) => (this._dialog = dialogRef)}
-          onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
-          class="sbb-dialog"
-          role="group"
-          id={this._dialogId}
-          {...accessibilityAttributes}
-        >
-          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-          <div
-            onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
-            ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
-            class="sbb-dialog__wrapper"
+      <Host data-fullscreen={!hasTitle}>
+        <div class="sbb-dialog__container">
+          <dialog
+            ref={(dialogRef) => (this._dialog = dialogRef)}
+            onAnimationEnd={(event: AnimationEvent) => this._onDialogAnimationEnd(event)}
+            class="sbb-dialog"
+            role="group"
+            id={this._dialogId}
+            {...accessibilityAttributes}
           >
-            {dialogHeader}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div
-              class="sbb-dialog__content"
-              ref={(dialogContent) => (this._dialogContentElement = dialogContent)}
+              onClick={(event: Event) => this._closeOnSbbDialogCloseClick(event)}
+              ref={(dialogWrapperRef) => (this._dialogWrapperElement = dialogWrapperRef)}
+              class="sbb-dialog__wrapper"
             >
-              <slot />
+              {dialogHeader}
+              <div
+                class="sbb-dialog__content"
+                ref={(dialogContent) => (this._dialogContentElement = dialogContent)}
+              >
+                <slot />
+              </div>
+              {hasActionGroup && dialogFooter}
             </div>
-            {this._hasActionGroup && dialogFooter}
-          </div>
-        </dialog>
-      </div>
+          </dialog>
+        </div>
+      </Host>
     );
   }
 }
