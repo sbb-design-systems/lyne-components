@@ -7,6 +7,8 @@
 :host {
   --sbb-file-selector-background-color: var(--sbb-color-white-default);
   --sbb-file-selector-border-color: var(--sbb-color-cloud-default);
+  --sbb-file-selector-transition-duration: var(--sbb-animation-duration-2x);
+  --sbb-file-selector-transition-easing-function: var(--sbb-animation-easing);
 
   width: #{sbb.px-to-rem-build(320)};
 }
@@ -32,6 +34,9 @@
   background-color: var(--sbb-file-selector-background-color);
   border: var(--sbb-border-width-1x) dashed var(--sbb-file-selector-border-color);
   border-radius: var(--sbb-border-radius-4x);
+  transition-duration: var(--sbb-file-selector-transition-duration);
+  transition-timing-function: var(--sbb-file-selector-transition-easing-function);
+  transition-property: background-color, border-color;
 }
 
 .sbb-file-selector__dropzone-area--title {

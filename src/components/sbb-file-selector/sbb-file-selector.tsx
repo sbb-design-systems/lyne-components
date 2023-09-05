@@ -145,12 +145,9 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   private _setDragState(dragTarget = undefined, isDragEnter = false): void {
-    if (this.variant === 'dropzone') {
-      this._dragTarget = dragTarget;
-      toggleDatasetEntry(this._element, 'active', isDragEnter);
-      // FIXME the next line causes button flickering; same if directly setting the button background-color variable
-      toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
-    }
+    this._dragTarget = dragTarget;
+    toggleDatasetEntry(this._element, 'active', isDragEnter);
+    toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
   }
 
   private _readFiles(event): void {
