@@ -9,6 +9,7 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 @Component({
   shadow: true,
@@ -28,7 +29,7 @@ export class SbbJourneySummary implements ComponentInterface {
   @Prop() public roundTrip?: boolean;
 
   /** Heading level of the journey header element (e.g. h1-h6). */
-  @Prop() public headerLevel?: InterfaceSbbJourneySummaryAttributes['headerLevel'] = '3';
+  @Prop() public headerLevel?: InterfaceTitleAttributes['level'] = '3';
 
   /**
    * Per default, the current location has a pulsating animation. You can

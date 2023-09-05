@@ -5,11 +5,11 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 const Template = (): JSX.Element => (
   <sbb-card color="milk">
-    `sbb-card-action` is an invisible action element. See `sbb-card` examples to see it in action.
+    `sbb-expansion-panel-header` is an element to be only used together with `sbb-expansion-panel`.
+    See `sbb-expansion-panel` examples to see it in action.
   </sbb-card>
 );
-
-export const SbbCardAction: StoryObj = {
+export const ExpansionPanelHeader: StoryObj = {
   render: Template,
 };
 
@@ -20,7 +20,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-card/sbb-card-action',
+  title: 'components/sbb-accordion/sbb-expansion-panel-header',
 };
 
 export default meta;

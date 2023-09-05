@@ -9,7 +9,6 @@ import { defineCustomElements } from '@sbb-esta/lyne-components/loader';
 
 defineCustomElements();
 export const SbbAccordion = /*@__PURE__*/createReactComponent<JSX.SbbAccordion, HTMLSbbAccordionElement>('sbb-accordion');
-export const SbbAccordionItem = /*@__PURE__*/createReactComponent<JSX.SbbAccordionItem, HTMLSbbAccordionItemElement>('sbb-accordion-item');
 export const SbbActionGroup = /*@__PURE__*/createReactComponent<JSX.SbbActionGroup, HTMLSbbActionGroupElement>('sbb-action-group');
 export const SbbAlert = /*@__PURE__*/createReactComponent<JSX.SbbAlert, HTMLSbbAlertElement>('sbb-alert');
 export const SbbAlertGroup = /*@__PURE__*/createReactComponent<JSX.SbbAlertGroup, HTMLSbbAlertGroupElement>('sbb-alert-group');
@@ -31,6 +30,9 @@ export const SbbDatepickerPreviousDay = /*@__PURE__*/createReactComponent<JSX.Sb
 export const SbbDatepickerToggle = /*@__PURE__*/createReactComponent<JSX.SbbDatepickerToggle, HTMLSbbDatepickerToggleElement>('sbb-datepicker-toggle');
 export const SbbDialog = /*@__PURE__*/createReactComponent<JSX.SbbDialog, HTMLSbbDialogElement>('sbb-dialog');
 export const SbbDivider = /*@__PURE__*/createReactComponent<JSX.SbbDivider, HTMLSbbDividerElement>('sbb-divider');
+export const SbbExpansionPanel = /*@__PURE__*/createReactComponent<JSX.SbbExpansionPanel, HTMLSbbExpansionPanelElement>('sbb-expansion-panel');
+export const SbbExpansionPanelContent = /*@__PURE__*/createReactComponent<JSX.SbbExpansionPanelContent, HTMLSbbExpansionPanelContentElement>('sbb-expansion-panel-content');
+export const SbbExpansionPanelHeader = /*@__PURE__*/createReactComponent<JSX.SbbExpansionPanelHeader, HTMLSbbExpansionPanelHeaderElement>('sbb-expansion-panel-header');
 export const SbbFooter = /*@__PURE__*/createReactComponent<JSX.SbbFooter, HTMLSbbFooterElement>('sbb-footer');
 export const SbbFormError = /*@__PURE__*/createReactComponent<JSX.SbbFormError, HTMLSbbFormErrorElement>('sbb-form-error');
 export const SbbFormField = /*@__PURE__*/createReactComponent<JSX.SbbFormField, HTMLSbbFormFieldElement>('sbb-form-field');

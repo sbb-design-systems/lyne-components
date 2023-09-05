@@ -1,159 +1,275 @@
 /** @jsx h */
-import events from '../sbb-accordion-item/sbb-accordion-item.events';
 import { h, JSX } from 'jsx-dom';
-import { withActions } from '@storybook/addon-actions/decorator';
-
 import readme from './readme.md';
-import type { Meta, StoryObj, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import { InputType, StoryContext } from '@storybook/types';
+import sbbExpansionPanelEvents from '../sbb-expansion-panel/sbb-expansion-panel.events';
+import { withActions } from '@storybook/addon-actions/decorator';
+import { Decorator } from '@storybook/html';
 
-const ItemTemplate = (args): JSX.Element => (
-  <sbb-accordion-item {...args}>
-    <p slot="content">
-      1 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae
-      dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.
-    </p>
-    <p slot="content">
-      2 Donec sed odio operae, eu vulputate felis rhoncus. Curabitur est gravida et libero vitae
-      dictum. Me non paenitet nullum festiviorem excogitasse ad hoc.
-    </p>
-    <p slot="content">
-      3 Quis aute iure reprehenderit in voluptate velit esse. Ab illo tempore, ab est sed
-      immemorabili. Non equidem invideo, lit aliquet. Nihilne te nocturnum praesidium Palati, nihil
-      urbis vigiliae.
-    </p>
+const numberOfPanels: InputType = {
+  control: {
+    type: 'number',
+  },
+};
 
-    {args.icon && (
-      <svg slot="icon" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="m17.8436,12.1382-3.99-3.99196-.7072.70693,3.1366,3.13823H5v1h11.287l-3.1413,3.1555.7086.7056,3.99-4.008.3519-.3535-.3526-.3528z"
-        ></path>
-      </svg>
-    )}
-  </sbb-accordion-item>
-);
+const multi: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Accordion',
+  },
+};
 
-const Template = (args): JSX.Element => (
+const disableAnimation: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Accordion',
+  },
+};
+
+const titleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6, null],
+  table: {
+    category: 'Accordion',
+  },
+};
+
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['white', 'milk'],
+  table: {
+    category: 'Panel',
+  },
+};
+
+const expanded: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Panel',
+  },
+};
+
+const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Panel',
+  },
+};
+
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Panel',
+  },
+};
+
+const headerText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Header',
+  },
+};
+
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Header',
+  },
+};
+
+const contentText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Content',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
+  numberOfPanels,
+  multi,
+  'disable-animation': disableAnimation,
+  'title-level': titleLevel,
+  color,
+  expanded,
+  borderless,
+  disabled,
+  headerText,
+  iconName,
+  contentText,
+};
+
+const defaultArgs: Args = {
+  numberOfPanels: 3,
+  multi: false,
+  'disable-animation': false,
+  'title-level': titleLevel.options[2],
+  color: color.options[0],
+  expanded: false,
+  borderless: false,
+  disabled: false,
+  headerText: 'This is the header',
+  iconName: undefined,
+  contentText: 'This is the content: "Lorem ipsum dolor sit amet".',
+};
+
+const createExpansionPanelTemplate = (
+  numberOfPanels,
+  color,
+  expanded,
+  borderless,
+  disabled,
+  headerText,
+  iconName,
+  contentText,
+): JSX.Element[] => {
+  return new Array(numberOfPanels).fill(null).map((_, index) => (
+    <sbb-expansion-panel
+      color={color}
+      expanded={expanded}
+      borderless={borderless}
+      disabled={disabled && index === 0}
+    >
+      <sbb-expansion-panel-header icon-name={iconName}>
+        {headerText} {index + 1}
+      </sbb-expansion-panel-header>
+      <sbb-expansion-panel-content>
+        <p>Content {index + 1}</p>
+        {contentText}
+      </sbb-expansion-panel-content>
+    </sbb-expansion-panel>
+  ));
+};
+
+const Template = ({
+  numberOfPanels,
+  color,
+  expanded,
+  borderless,
+  disabled,
+  headerText,
+  iconName,
+  contentText,
+  ...args
+}): JSX.Element => (
   <sbb-accordion {...args}>
-    {args.items.map((item) => (
-      <ItemTemplate {...item} />
-    ))}
+    {createExpansionPanelTemplate(
+      numberOfPanels,
+      color,
+      expanded,
+      borderless,
+      disabled,
+      headerText,
+      iconName,
+      contentText,
+    )}
   </sbb-accordion>
 );
 
-const items = [
-  {
-    'event-id': 'id1',
-    heading: 'Accordion Item 1',
-    'heading-level': '2',
-    icon: true,
-    open: false,
-  },
-  {
-    heading: 'Accordion Item 2',
-    'heading-level': '2',
-    icon: false,
-    open: false,
-  },
-  {
-    'event-id': 'id3',
-    heading: 'Accordion Item 3',
-    'heading-level': '2',
-    icon: true,
-    open: false,
-  },
-];
-
-const table: Args = {
-  disable: true,
-};
-
 export const Default: StoryObj = {
   render: Template,
-  argTypes: {
-    items: {
-      table,
-    },
-    'non-white-background': {
-      table,
-    },
-  },
-  args: {
-    items,
-    'non-white-background': false,
-    'only-one-open': false,
-  },
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story />
-      </div>
-    ),
-    withActions as Decorator,
-  ],
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
-export const NonWhiteBackground: StoryObj = {
+export const Milk: StoryObj = {
   render: Template,
-  argTypes: {
-    items: {
-      table,
-    },
-    'non-white-background': {
-      table,
-    },
-  },
-  args: {
-    items,
-    'non-white-background': true,
-    'only-one-open': true,
-  },
-  decorators: [
-    (Story) => (
-      <div style={{ background: '#dcdcdc', padding: '2rem' }}>
-        <Story />
-      </div>
-    ),
-    withActions as Decorator,
-  ],
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1] },
 };
 
-export const OnlyOneOpen: StoryObj = {
+export const Borderless: StoryObj = {
   render: Template,
-  argTypes: {
-    items: {
-      table,
-    },
-    'non-white-background': {
-      table,
-    },
-  },
-  args: {
-    items,
-    'non-white-background': false,
-    'only-one-open': true,
-  },
-  decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
-        <Story />
-      </div>
-    ),
-    withActions as Decorator,
-  ],
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true },
 };
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
+};
+
+export const MilkBorderless: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1], borderless: true },
+};
+
+export const WithIcon: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, iconName: 'swisspass-medium' },
+};
+
+export const Expanded: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, expanded: true },
+};
+
+export const Multi: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multi: true },
+};
+
+export const NoAnimation: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'disable-animation': true },
+};
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.borderless ? '#bdbdbd' : 'var(--sbb-color-white-default)',
+});
 
 const meta: Meta = {
+  decorators: [
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
+        <Story />
+      </div>
+    ),
+    withActions as Decorator,
+  ],
   parameters: {
+    backgrounds: {
+      disable: true,
+    },
     actions: {
-      handles: [events.didOpen, events.didClose, events.willOpen, events.willClose],
+      handles: [
+        sbbExpansionPanelEvents.willOpen,
+        sbbExpansionPanelEvents.didOpen,
+        sbbExpansionPanelEvents.willClose,
+        sbbExpansionPanelEvents.didClose,
+      ],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'components/sbb-accordion/sbb-accordion (Unfinished)',
+  title: 'components/sbb-accordion/sbb-accordion',
 };
 
 export default meta;
