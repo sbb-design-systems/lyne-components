@@ -53,7 +53,7 @@ export class SbbFileSelector implements ComponentInterface {
   @Prop() public titleContent?: string;
 
   /** Whether the component is disabled. */
-  @Prop() public disabled: boolean;
+  @Prop({ reflect: true }) public disabled: boolean;
 
   /** This will be forwarded as aria-label to the native input element. */
   @Prop() public accessibilityLabel: string | undefined;
