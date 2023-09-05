@@ -44,6 +44,12 @@ const accept: InputType = {
   },
 };
 
+const accessibilityLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   variant,
   disabled,
@@ -51,6 +57,7 @@ const defaultArgTypes: ArgTypes = {
   multiple,
   'multiple-mode': multipleMode,
   accept,
+  'accessibility-label': accessibilityLabel,
 };
 
 const defaultArgs: Args = {
@@ -60,6 +67,7 @@ const defaultArgs: Args = {
   multiple: false,
   'multiple-mode': multipleMode.options[0],
   accept: undefined,
+  'accessibility-label': 'Select from hard disk',
 };
 
 const Template = (args): JSX.Element => <sbb-file-selector {...args}></sbb-file-selector>;

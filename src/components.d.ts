@@ -612,6 +612,10 @@ export namespace Components {
          */
         "accept": string;
         /**
+          * This will be forwarded as aria-label to the native input element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
           * Whether the component is disabled.
          */
         "disabled": boolean;
@@ -3344,6 +3348,10 @@ declare namespace LocalJSX {
           * A comma-separated list of allowed unique file type specifiers.
          */
         "accept"?: string;
+        /**
+          * This will be forwarded as aria-label to the native input element.
+         */
+        "accessibilityLabel"?: string | undefined;
         /**
           * Whether the component is disabled.
          */

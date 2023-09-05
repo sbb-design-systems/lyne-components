@@ -53,6 +53,9 @@ export class SbbFileSelector implements ComponentInterface {
   /** Whether the component is disabled. */
   @Prop() public disabled: boolean;
 
+  /** This will be forwarded as aria-label to the native input element. */
+  @Prop() public accessibilityLabel: string | undefined;
+
   /** The list of selected files. */
   @State() private _files: File[];
 
@@ -272,6 +275,7 @@ export class SbbFileSelector implements ComponentInterface {
               onChange={(event) => this._readFiles(event)}
               onFocus={() => this._onFocus()}
               onBlur={() => this._onBlur()}
+              aria-label={this.accessibilityLabel}
             />
           </label>
         </div>

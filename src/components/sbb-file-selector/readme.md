@@ -75,14 +75,15 @@ of currently selected files. The list can also be retrieved using the `getFiles(
 
 ## Properties
 
-| Property       | Attribute       | Description                                                              | Type                        | Default     |
-| -------------- | --------------- | ------------------------------------------------------------------------ | --------------------------- | ----------- |
-| `accept`       | `accept`        | A comma-separated list of allowed unique file type specifiers.           | `string`                    | `undefined` |
-| `disabled`     | `disabled`      | Whether the component is disabled.                                       | `boolean`                   | `undefined` |
-| `multiple`     | `multiple`      | Whether more than one file can be selected.                              | `boolean`                   | `undefined` |
-| `multipleMode` | `multiple-mode` | Whether the newly added files should override the previously added ones. | `"default" \| "persistent"` | `undefined` |
-| `titleContent` | `title-content` | The title displayed in `dropzone` variant.                               | `string`                    | `undefined` |
-| `variant`      | `variant`       | Whether the component has a dropzone area or not.                        | `"default" \| "dropzone"`   | `'default'` |
+| Property             | Attribute             | Description                                                              | Type                        | Default     |
+| -------------------- | --------------------- | ------------------------------------------------------------------------ | --------------------------- | ----------- |
+| `accept`             | `accept`              | A comma-separated list of allowed unique file type specifiers.           | `string`                    | `undefined` |
+| `accessibilityLabel` | `accessibility-label` | This will be forwarded as aria-label to the native input element.        | `string`                    | `undefined` |
+| `disabled`           | `disabled`            | Whether the component is disabled.                                       | `boolean`                   | `undefined` |
+| `multiple`           | `multiple`            | Whether more than one file can be selected.                              | `boolean`                   | `undefined` |
+| `multipleMode`       | `multiple-mode`       | Whether the newly added files should override the previously added ones. | `"default" \| "persistent"` | `undefined` |
+| `titleContent`       | `title-content`       | The title displayed in `dropzone` variant.                               | `string`                    | `undefined` |
+| `variant`            | `variant`             | Whether the component has a dropzone area or not.                        | `"default" \| "dropzone"`   | `'default'` |
 
 
 ## Events
