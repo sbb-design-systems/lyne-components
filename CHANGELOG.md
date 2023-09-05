@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.3](https://github.com/lyne-design-system/lyne-components/compare/v0.40.2...v0.40.3) (2023-09-05)
+
+### Features
+
+- **sbb-accordion:** component implementation ([#1860](https://github.com/lyne-design-system/lyne-components/issues/1860)) ([dae2246](https://github.com/lyne-design-system/lyne-components/commit/dae22462723c43321557907c7a17938366f42214))
+
 ### [0.40.2](https://github.com/lyne-design-system/lyne-components/compare/v0.40.1...v0.40.2) (2023-09-04)
 
 ### Bug Fixes
