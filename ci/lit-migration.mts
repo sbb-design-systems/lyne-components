@@ -494,10 +494,33 @@ function migrate(component: string, debug = false) {
     }
   }
 
-  function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation) {
-    // TODO
-    // Remove next line with implementation
-    // console.log(`${sourceFile.fileName}, ${mutator.toString()}`);
+  function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
+    let lastImport: ts.ImportDeclaration | undefined = undefined;
+    const componentName = toPascalCase(args.component);
+    const unitTests: ts.CallExpression[] = [];
+
+    iterate(sourceFile, (node) => {
+      if (ts.isImportDeclaration(node)) {
+        lastImport = node;
+
+        // remove @stencil imports
+        if (node.moduleSpecifier.getText().match('@stencil')) {
+          mutator.remove(node);
+        }
+      }
+
+      if (ts.isCallExpression(node) && node.expression.getText() === 'it') {
+        unitTests.push(node);
+      }
+    });
+
+    // New static imports
+    const newImports: String[] = []; 
+    newImports.push(`import { assert, expect, fixture, oneEvent } from '@open-wc/testing';`);
+    newImports.push(`import { html } from 'lit/static-html.js';`);
+    newImports.push(`import { ${componentName} } from './${args.component}';`);
+    newImports.push(`const instance = new ${componentName}();`);
+    mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
   /** Helper functions */
