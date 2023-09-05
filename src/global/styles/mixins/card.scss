@@ -18,6 +18,10 @@
   --sbb-card-border-style: solid;
   --sbb-card-hover-shift: 0;
 
+  // As the card has always a white/milk background, we have to fix the focus outline color
+  // to default color for cases where the card is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
   @include a11y.if-forced-colors {
     --sbb-card-border-color: CanvasText;
     --sbb-card-border-width: var(--sbb-border-width-2x);
@@ -33,6 +37,7 @@
   --sbb-card-background-color: transparent;
   --sbb-card-border-color: var(--sbb-color-cloud-default);
   --sbb-card-border-width: var(--sbb-border-width-1x);
+  --sbb-focus-outline-color: inherit;
 }
 
 @mixin card-variables--transparent-bordered-dashed {
@@ -40,6 +45,7 @@
   --sbb-card-border-color: var(--sbb-color-cement-default);
   --sbb-card-border-width: var(--sbb-border-width-1x);
   --sbb-card-border-style: dashed;
+  --sbb-focus-outline-color: inherit;
 }
 
 @mixin card-variables--active {

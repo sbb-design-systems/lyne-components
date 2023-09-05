@@ -5,12 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 import { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 import { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 import { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
-import { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 import { ButtonType, LinkTargetType, ValidationChangeEvent } from "./global/interfaces";
 import { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 import { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
@@ -20,6 +19,7 @@ import { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-g
 import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom";
 import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom";
+import { InterfaceSbbExpansionPanelAttributes } from "./components/sbb-expansion-panel/sbb-expansion-panel.custom";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
@@ -35,8 +35,8 @@ import { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-v
 import { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 import { SelectChange } from "./components/sbb-select/sbb-select.custom";
+import { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
-import { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 import { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
@@ -50,12 +50,11 @@ import { ToggleOptionStateChange } from "./components/sbb-toggle-option/sbb-togg
 import { SbbOverlayState } from "./components";
 import { InterfaceSbbTrainAttributes } from "./components/sbb-train/sbb-train.custom";
 import { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/sbb-train-wagon.custom";
-export { InterfaceAccordionItemAttributes } from "./components/sbb-accordion-item/sbb-accordion-item.custom";
+export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 export { InterfaceSbbActionGroupAttributes } from "./components/sbb-action-group/sbb-action-group.custom";
 export { InterfaceButtonAttributes } from "./components/sbb-button/sbb-button.custom";
 export { InterfaceLinkAttributes } from "./components/sbb-link/sbb-link.custom";
 export { InterfaceAlertAttributes } from "./components/sbb-alert/sbb-alert.custom";
-export { InterfaceTitleAttributes } from "./components/sbb-title/sbb-title.custom";
 export { ButtonType, LinkTargetType, ValidationChangeEvent } from "./global/interfaces";
 export { InterfaceSbbAlertGroupAttributes } from "./components/sbb-alert-group/sbb-alert-group.custom";
 export { InterfaceSbbCardAttributes } from "./components/sbb-card/sbb-card.custom";
@@ -65,6 +64,7 @@ export { InterfaceSbbCheckboxGroupAttributes } from "./components/sbb-checkbox-g
 export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custom";
 export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
 export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom";
+export { InterfaceSbbExpansionPanelAttributes } from "./components/sbb-expansion-panel/sbb-expansion-panel.custom";
 export { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 export { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
@@ -80,8 +80,8 @@ export { PearlChainVerticalItemAttributes } from "./components/sbb-pearl-chain-v
 export { InterfaceSbbRadioButtonAttributes, RadioButtonStateChange } from "./components/sbb-radio-button/sbb-radio-button.custom";
 export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-button-group/sbb-radio-button-group.custom";
 export { SelectChange } from "./components/sbb-select/sbb-select.custom";
+export { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
-export { InterfaceTabTitleAttributes } from "./components/sbb-tab-title/sbb-tab-title.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
@@ -98,35 +98,17 @@ export { InterfaceSbbTrainWagonAttributes } from "./components/sbb-train-wagon/s
 export namespace Components {
     interface SbbAccordion {
         /**
-          * Set this if you want to use the accordion on a non-white background.
+          * Whether the animation should be disabled.
          */
-        "nonWhiteBackground"?: boolean;
+        "disableAnimation": boolean;
         /**
-          * Set this if you want the accordion to always have open only one item.
+          * Whether more than one sbb-expansion-panel can be open at the same time.
          */
-        "onlyOneOpen"?: boolean;
-    }
-    interface SbbAccordionItem {
+        "multi": boolean;
         /**
-          * If set, an accordion can not be toggled
+          * The heading level for the sbb-expansion-panel-headers within the component.
          */
-        "disabled"?: boolean;
-        /**
-          * Id which is sent in the event after opening/closing accordion
-         */
-        "eventId"?: string;
-        /**
-          * Text to show as title for the accordion.
-         */
-        "heading": string;
-        /**
-          * Heading level.
-         */
-        "headingLevel"?: InterfaceAccordionItemAttributes['level'];
-        /**
-          * Set to true to open the accordion item. Set to false to close it.
-         */
-        "open"?: boolean;
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbActionGroup {
         /**
@@ -586,6 +568,44 @@ export namespace Components {
          */
         "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
+    interface SbbExpansionPanel {
+        /**
+          * Whether the panel has no border.
+         */
+        "borderless": boolean;
+        /**
+          * The background color of the panel.
+         */
+        "color": InterfaceSbbExpansionPanelAttributes['color'];
+        /**
+          * Whether the animations should be disabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Whether the panel is disabled, so its expanded state can't be changed.
+         */
+        "disabled": boolean;
+        /**
+          * Whether the panel is expanded.
+         */
+        "expanded": boolean;
+        /**
+          * Heading level; if unset, a `div` will be rendered.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbExpansionPanelContent {
+    }
+    interface SbbExpansionPanelHeader {
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
+         */
+        "iconName"?: string;
+    }
     interface SbbFooter {
         /**
           * Footer title text, visually hidden, necessary for screen readers.
@@ -827,7 +847,7 @@ export namespace Components {
         /**
           * Heading level of the journey header element (e.g. h1-h6).
          */
-        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['headerLevel'];
+        "headerLevel"?: InterfaceTitleAttributes['level'];
         /**
           * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
          */
@@ -1026,6 +1046,16 @@ export namespace Components {
           * The value attribute to use for the button.
          */
         "value"?: string;
+    }
+    interface SbbMessage {
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel": InterfaceTitleAttributes['level'];
     }
     interface SbbNavigation {
         /**
@@ -1350,7 +1380,7 @@ export namespace Components {
         /**
           * The background color of the panel.
          */
-        "color": 'white' | 'milk';
+        "color": InterfaceSbbSelectionPanelAttributes['color'];
         /**
           * Whether the animation is enabled.
          */
@@ -1463,7 +1493,7 @@ export namespace Components {
         /**
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
-        "level"?: InterfaceTabTitleAttributes['level'];
+        "level"?: InterfaceTitleAttributes['level'];
     }
     interface SbbTag {
         /**
@@ -1966,6 +1996,14 @@ export interface SbbDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbDialogElement;
 }
+export interface SbbExpansionPanelCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbExpansionPanelElement;
+}
+export interface SbbExpansionPanelHeaderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbExpansionPanelHeaderElement;
+}
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
@@ -2048,12 +2086,6 @@ declare global {
     var HTMLSbbAccordionElement: {
         prototype: HTMLSbbAccordionElement;
         new (): HTMLSbbAccordionElement;
-    };
-    interface HTMLSbbAccordionItemElement extends Components.SbbAccordionItem, HTMLStencilElement {
-    }
-    var HTMLSbbAccordionItemElement: {
-        prototype: HTMLSbbAccordionItemElement;
-        new (): HTMLSbbAccordionItemElement;
     };
     interface HTMLSbbActionGroupElement extends Components.SbbActionGroup, HTMLStencilElement {
     }
@@ -2181,6 +2213,24 @@ declare global {
         prototype: HTMLSbbDividerElement;
         new (): HTMLSbbDividerElement;
     };
+    interface HTMLSbbExpansionPanelElement extends Components.SbbExpansionPanel, HTMLStencilElement {
+    }
+    var HTMLSbbExpansionPanelElement: {
+        prototype: HTMLSbbExpansionPanelElement;
+        new (): HTMLSbbExpansionPanelElement;
+    };
+    interface HTMLSbbExpansionPanelContentElement extends Components.SbbExpansionPanelContent, HTMLStencilElement {
+    }
+    var HTMLSbbExpansionPanelContentElement: {
+        prototype: HTMLSbbExpansionPanelContentElement;
+        new (): HTMLSbbExpansionPanelContentElement;
+    };
+    interface HTMLSbbExpansionPanelHeaderElement extends Components.SbbExpansionPanelHeader, HTMLStencilElement {
+    }
+    var HTMLSbbExpansionPanelHeaderElement: {
+        prototype: HTMLSbbExpansionPanelHeaderElement;
+        new (): HTMLSbbExpansionPanelHeaderElement;
+    };
     interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
     var HTMLSbbFooterElement: {
@@ -2276,6 +2326,12 @@ declare global {
     var HTMLSbbMenuActionElement: {
         prototype: HTMLSbbMenuActionElement;
         new (): HTMLSbbMenuActionElement;
+    };
+    interface HTMLSbbMessageElement extends Components.SbbMessage, HTMLStencilElement {
+    }
+    var HTMLSbbMessageElement: {
+        prototype: HTMLSbbMessageElement;
+        new (): HTMLSbbMessageElement;
     };
     interface HTMLSbbNavigationElement extends Components.SbbNavigation, HTMLStencilElement {
     }
@@ -2576,7 +2632,6 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "sbb-accordion": HTMLSbbAccordionElement;
-        "sbb-accordion-item": HTMLSbbAccordionItemElement;
         "sbb-action-group": HTMLSbbActionGroupElement;
         "sbb-alert": HTMLSbbAlertElement;
         "sbb-alert-group": HTMLSbbAlertGroupElement;
@@ -2598,6 +2653,9 @@ declare global {
         "sbb-datepicker-toggle": HTMLSbbDatepickerToggleElement;
         "sbb-dialog": HTMLSbbDialogElement;
         "sbb-divider": HTMLSbbDividerElement;
+        "sbb-expansion-panel": HTMLSbbExpansionPanelElement;
+        "sbb-expansion-panel-content": HTMLSbbExpansionPanelContentElement;
+        "sbb-expansion-panel-header": HTMLSbbExpansionPanelHeaderElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
@@ -2614,6 +2672,7 @@ declare global {
         "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
         "sbb-menu-action": HTMLSbbMenuActionElement;
+        "sbb-message": HTMLSbbMessageElement;
         "sbb-navigation": HTMLSbbNavigationElement;
         "sbb-navigation-action": HTMLSbbNavigationActionElement;
         "sbb-navigation-list": HTMLSbbNavigationListElement;
@@ -2668,35 +2727,17 @@ declare global {
 declare namespace LocalJSX {
     interface SbbAccordion {
         /**
-          * Set this if you want to use the accordion on a non-white background.
+          * Whether the animation should be disabled.
          */
-        "nonWhiteBackground"?: boolean;
+        "disableAnimation"?: boolean;
         /**
-          * Set this if you want the accordion to always have open only one item.
+          * Whether more than one sbb-expansion-panel can be open at the same time.
          */
-        "onlyOneOpen"?: boolean;
-    }
-    interface SbbAccordionItem {
+        "multi"?: boolean;
         /**
-          * If set, an accordion can not be toggled
+          * The heading level for the sbb-expansion-panel-headers within the component.
          */
-        "disabled"?: boolean;
-        /**
-          * Id which is sent in the event after opening/closing accordion
-         */
-        "eventId"?: string;
-        /**
-          * Text to show as title for the accordion.
-         */
-        "heading": string;
-        /**
-          * Heading level.
-         */
-        "headingLevel"?: InterfaceAccordionItemAttributes['level'];
-        /**
-          * Set to true to open the accordion item. Set to false to close it.
-         */
-        "open"?: boolean;
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbActionGroup {
         /**
@@ -3202,6 +3243,61 @@ declare namespace LocalJSX {
          */
         "orientation"?: InterfaceSbbDividerAttributes['orientation'];
     }
+    interface SbbExpansionPanel {
+        /**
+          * Whether the panel has no border.
+         */
+        "borderless"?: boolean;
+        /**
+          * The background color of the panel.
+         */
+        "color"?: InterfaceSbbExpansionPanelAttributes['color'];
+        /**
+          * Whether the animations should be disabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Whether the panel is disabled, so its expanded state can't be changed.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether the panel is expanded.
+         */
+        "expanded"?: boolean;
+        /**
+          * Emits whenever the sbb-expansion-panel is closed.
+         */
+        "onDid-close"?: (event: SbbExpansionPanelCustomEvent<void>) => void;
+        /**
+          * Emits whenever the sbb-expansion-panel is opened.
+         */
+        "onDid-open"?: (event: SbbExpansionPanelCustomEvent<void>) => void;
+        /**
+          * Emits whenever the sbb-expansion-panel begins the closing transition.
+         */
+        "onWill-close"?: (event: SbbExpansionPanelCustomEvent<void>) => void;
+        /**
+          * Emits whenever the sbb-expansion-panel starts the opening transition.
+         */
+        "onWill-open"?: (event: SbbExpansionPanelCustomEvent<void>) => void;
+        /**
+          * Heading level; if unset, a `div` will be rendered.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbExpansionPanelContent {
+    }
+    interface SbbExpansionPanelHeader {
+        /**
+          * Whether the button is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
+         */
+        "iconName"?: string;
+        "onToggle-expanded"?: (event: SbbExpansionPanelHeaderCustomEvent<any>) => void;
+    }
     interface SbbFooter {
         /**
           * Footer title text, visually hidden, necessary for screen readers.
@@ -3439,7 +3535,7 @@ declare namespace LocalJSX {
         /**
           * Heading level of the journey header element (e.g. h1-h6).
          */
-        "headerLevel"?: InterfaceSbbJourneySummaryAttributes['headerLevel'];
+        "headerLevel"?: InterfaceTitleAttributes['level'];
         /**
           * The RoundTrip prop. This prop controls if one or two arrows are displayed in the header.
          */
@@ -3646,6 +3742,16 @@ declare namespace LocalJSX {
           * The value attribute to use for the button.
          */
         "value"?: string;
+    }
+    interface SbbMessage {
+        /**
+          * Content of title.
+         */
+        "titleContent"?: string;
+        /**
+          * Level of title, will be rendered as heading tag (e.g. h3). Defaults to level 3.
+         */
+        "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbNavigation {
         /**
@@ -4007,7 +4113,7 @@ declare namespace LocalJSX {
         /**
           * The background color of the panel.
          */
-        "color"?: 'white' | 'milk';
+        "color"?: InterfaceSbbSelectionPanelAttributes['color'];
         /**
           * Whether the animation is enabled.
          */
@@ -4129,7 +4235,7 @@ declare namespace LocalJSX {
         /**
           * The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration.
          */
-        "level"?: InterfaceTabTitleAttributes['level'];
+        "level"?: InterfaceTitleAttributes['level'];
     }
     interface SbbTag {
         /**
@@ -4656,7 +4762,6 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;
-        "sbb-accordion-item": SbbAccordionItem;
         "sbb-action-group": SbbActionGroup;
         "sbb-alert": SbbAlert;
         "sbb-alert-group": SbbAlertGroup;
@@ -4678,6 +4783,9 @@ declare namespace LocalJSX {
         "sbb-datepicker-toggle": SbbDatepickerToggle;
         "sbb-dialog": SbbDialog;
         "sbb-divider": SbbDivider;
+        "sbb-expansion-panel": SbbExpansionPanel;
+        "sbb-expansion-panel-content": SbbExpansionPanelContent;
+        "sbb-expansion-panel-header": SbbExpansionPanelHeader;
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
@@ -4694,6 +4802,7 @@ declare namespace LocalJSX {
         "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
         "sbb-menu-action": SbbMenuAction;
+        "sbb-message": SbbMessage;
         "sbb-navigation": SbbNavigation;
         "sbb-navigation-action": SbbNavigationAction;
         "sbb-navigation-list": SbbNavigationList;
@@ -4750,7 +4859,6 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "sbb-accordion": LocalJSX.SbbAccordion & JSXBase.HTMLAttributes<HTMLSbbAccordionElement>;
-            "sbb-accordion-item": LocalJSX.SbbAccordionItem & JSXBase.HTMLAttributes<HTMLSbbAccordionItemElement>;
             "sbb-action-group": LocalJSX.SbbActionGroup & JSXBase.HTMLAttributes<HTMLSbbActionGroupElement>;
             "sbb-alert": LocalJSX.SbbAlert & JSXBase.HTMLAttributes<HTMLSbbAlertElement>;
             "sbb-alert-group": LocalJSX.SbbAlertGroup & JSXBase.HTMLAttributes<HTMLSbbAlertGroupElement>;
@@ -4772,6 +4880,9 @@ declare module "@stencil/core" {
             "sbb-datepicker-toggle": LocalJSX.SbbDatepickerToggle & JSXBase.HTMLAttributes<HTMLSbbDatepickerToggleElement>;
             "sbb-dialog": LocalJSX.SbbDialog & JSXBase.HTMLAttributes<HTMLSbbDialogElement>;
             "sbb-divider": LocalJSX.SbbDivider & JSXBase.HTMLAttributes<HTMLSbbDividerElement>;
+            "sbb-expansion-panel": LocalJSX.SbbExpansionPanel & JSXBase.HTMLAttributes<HTMLSbbExpansionPanelElement>;
+            "sbb-expansion-panel-content": LocalJSX.SbbExpansionPanelContent & JSXBase.HTMLAttributes<HTMLSbbExpansionPanelContentElement>;
+            "sbb-expansion-panel-header": LocalJSX.SbbExpansionPanelHeader & JSXBase.HTMLAttributes<HTMLSbbExpansionPanelHeaderElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
@@ -4788,6 +4899,7 @@ declare module "@stencil/core" {
             "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
             "sbb-menu-action": LocalJSX.SbbMenuAction & JSXBase.HTMLAttributes<HTMLSbbMenuActionElement>;
+            "sbb-message": LocalJSX.SbbMessage & JSXBase.HTMLAttributes<HTMLSbbMessageElement>;
             "sbb-navigation": LocalJSX.SbbNavigation & JSXBase.HTMLAttributes<HTMLSbbNavigationElement>;
             "sbb-navigation-action": LocalJSX.SbbNavigationAction & JSXBase.HTMLAttributes<HTMLSbbNavigationActionElement>;
             "sbb-navigation-list": LocalJSX.SbbNavigationList & JSXBase.HTMLAttributes<HTMLSbbNavigationListElement>;

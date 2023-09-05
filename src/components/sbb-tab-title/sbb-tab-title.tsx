@@ -1,10 +1,10 @@
 import { Component, h, JSX, Prop, State, Element } from '@stencil/core';
-import { InterfaceTabTitleAttributes } from './sbb-tab-title.custom';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
 
 /**
  * @slot unnamed - This slot will show the provided tab title.
@@ -22,7 +22,7 @@ export class SbbTabTitle {
    * The level will correspond to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
-  @Prop() public level?: InterfaceTabTitleAttributes['level'] = '1';
+  @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
 
   /** Active tab state */
   @Prop({ reflect: true }) public active?: boolean;

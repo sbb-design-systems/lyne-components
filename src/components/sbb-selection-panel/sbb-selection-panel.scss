@@ -23,6 +23,10 @@
     padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
 
+  // As the selection panel has always a white/milk background, we have to fix the focus outline color
+  // to default color for cases where the selection panel is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
   display: contents;
 }
 

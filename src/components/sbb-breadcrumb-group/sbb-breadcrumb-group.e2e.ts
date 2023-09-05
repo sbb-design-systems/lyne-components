@@ -125,6 +125,31 @@ describe('sbb-breadcrumb-group', () => {
       expect(ellipsisBreadcrumb).toBeNull();
     });
 
+    it('should expand breadcrumbs and focus correctly by keyboard', async () => {
+      // When pressing space key on ellipsis
+      const ellipsisBreadcrumb = await page.find(
+        'sbb-breadcrumb-group >>> #sbb-breadcrumb-ellipsis',
+      );
+      await ellipsisBreadcrumb.press('Space');
+      await page.waitForChanges();
+
+      // Then focus should be on first breadcrumb
+      expect(await page.evaluate(() => document.activeElement.id)).toEqual('breadcrumb-1');
+
+      // When blurring the focus
+      await page.evaluate(() => (document.activeElement as HTMLElement).blur());
+
+      // Then body should be focused
+      expect(await page.evaluate(() => document.activeElement.tagName)).toEqual('BODY');
+
+      // When triggering a slotChange by removing a breadcrumb
+      await page.evaluate(() => document.getElementById('breadcrumb-6').remove());
+      await page.waitForChanges();
+
+      // Then still the body should be focused
+      expect(await page.evaluate(() => document.activeElement.tagName)).toEqual('BODY');
+    });
+
     it('should remove expand button when too less breadcrumbs available', async () => {
       let ellipsisElement = await page.find(
         'sbb-breadcrumb-group >>> #sbb-breadcrumb-group-ellipsis',

@@ -1,85 +1,85 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
-import events from '../sbb-accordion-item/sbb-accordion-item.events';
+import { Component, ComponentInterface, Element, h, JSX, Listen, Prop, Watch } from '@stencil/core';
+import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { toggleDatasetEntry } from '../../global/dom';
 
 /**
- * @slot unnamed - Place sbb-accordion-item elements in the slot
+ * @slot unnamed - Use this to add one or more sbb-expansion-panel.
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-accordion.scss',
   tag: 'sbb-accordion',
 })
 export class SbbAccordion implements ComponentInterface {
-  /**
-   * Set this if you want to use the accordion on a non-white background.
-   */
-  @Prop() public nonWhiteBackground?: boolean;
+  /** The heading level for the sbb-expansion-panel-headers within the component. */
+  @Prop() public titleLevel?: InterfaceTitleAttributes['level'];
 
-  /**
-   * Set this if you want the accordion to always have open only one item.
-   */
-  @Prop() public onlyOneOpen? = false;
+  /** Whether the animation should be disabled. */
+  @Prop({ reflect: true }) public disableAnimation = false;
 
-  @Element() private _element: HTMLElement;
+  /** Whether more than one sbb-expansion-panel can be open at the same time. */
+  @Prop() public multi = false;
 
-  private _eventIds = [];
-  private _items;
+  @Listen('will-open')
+  public closePanels(e): void {
+    if (e.target?.tagName !== 'SBB-EXPANSION-PANEL' || this.multi) {
+      return;
+    }
 
-  private _setEventIds(): void {
-    this._items = this._element.querySelectorAll('sbb-accordion-item');
+    this._expansionPanels
+      .filter((panel) => panel !== e.target)
+      .forEach((panel) => (panel.expanded = false));
+  }
 
-    this._items.forEach((item, index) => {
-      const eventId = item.getAttribute('event-id');
-      let finalEventId;
+  @Watch('multi')
+  public resetExpansionPanels(newValue: boolean, oldValue: boolean): void {
+    // If it's changing from "multi = true" to "multi = false", open the first panel and close all the others.
+    const expansionPanels = this._expansionPanels;
+    if (expansionPanels.length > 1 && oldValue && !newValue) {
+      expansionPanels[0].expanded = true;
+      expansionPanels
+        .filter((_, index: number) => index > 0)
+        .forEach((panel) => (panel.expanded = false));
+    }
+  }
 
-      if (eventId) {
-        finalEventId = eventId;
+  @Watch('titleLevel')
+  public setTitleLevelOnChildren(): void {
+    this._expansionPanels.forEach((panel) => (panel.titleLevel = this.titleLevel));
+  }
+
+  @Element() private _element!: HTMLElement;
+
+  private get _expansionPanels(): HTMLSbbExpansionPanelElement[] {
+    return Array.from(this._element.querySelectorAll('sbb-expansion-panel'));
+  }
+
+  private _setChildrenParameters(): void {
+    const expansionPanels = this._expansionPanels;
+    if (!expansionPanels) {
+      return;
+    }
+
+    expansionPanels.forEach((panel: HTMLSbbExpansionPanelElement) => {
+      panel.titleLevel = this.titleLevel;
+
+      toggleDatasetEntry(panel, 'accordionFirst', false);
+      toggleDatasetEntry(panel, 'accordionLast', false);
+
+      if (this.disableAnimation) {
+        panel.setAttribute('disable-animation', 'true');
       } else {
-        finalEventId = `accordion-item-id-${index}`;
-        item.setAttribute('event-id', finalEventId);
-      }
-
-      this._eventIds.push(finalEventId);
-    });
-  }
-
-  private _handleAccordionOpen(evt): void {
-    const eventId = evt.detail;
-
-    if (!eventId) {
-      return;
-    }
-
-    this._items.forEach((item) => {
-      const itemId = item.getAttribute('event-id');
-
-      if (itemId !== eventId) {
-        item.removeAttribute('open');
+        panel.removeAttribute('disable-animation');
       }
     });
-  }
-
-  public componentWillLoad(): void {
-    if (!this.onlyOneOpen) {
-      return;
-    }
-
-    this._setEventIds();
-
-    this._element.addEventListener(events.willOpen, this._handleAccordionOpen.bind(this));
+    toggleDatasetEntry(expansionPanels[0], 'accordionFirst', true);
+    toggleDatasetEntry(expansionPanels[expansionPanels.length - 1], 'accordionLast', true);
   }
 
   public render(): JSX.Element {
-    const nonWhite = this.nonWhiteBackground ? ' accordion--non-white' : '';
-
-    const attrs = {
-      class: `accordion${nonWhite}`,
-    };
-
     return (
-      <div {...attrs} role="list">
-        <slot />
+      <div class="sbb-accordion">
+        <slot onSlotchange={() => this._setChildrenParameters()}></slot>
       </div>
     );
   }

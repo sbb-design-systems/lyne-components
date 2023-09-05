@@ -19,7 +19,7 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { DateAdapter, DAYS_PER_WEEK, NativeDateAdapter } from '../../global/datetime';
-import { isBreakpoint } from '../../global/dom';
+import { isBreakpoint, toggleDatasetEntry } from '../../global/dom';
 import { isArrowKeyOrPageKeysPressed } from '../../global/a11y';
 
 @Component({
@@ -156,6 +156,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Initializes the component. */
   private _init(): void {
     this._wide = isBreakpoint('medium') && this.wide;
+    toggleDatasetEntry(this._element, 'wide', this._wide);
     this._setWeekdays();
     this._weeks = this._createWeekRows(
       this._dateAdapter.getMonth(this._activeDate),
@@ -254,7 +255,7 @@ export class SbbCalendar implements ComponentInterface {
           <tr>
             {[...Array(firstRowOffset).keys()].map(() => (
               <td
-                class="sbb-calendar__table-data-empty"
+                class="sbb-calendar__table-data"
                 data-day={`0 ${week[0].monthValue} ${week[0].yearValue}`}
               ></td>
             ))}

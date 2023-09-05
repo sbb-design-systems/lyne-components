@@ -22,6 +22,7 @@ import {
 } from '../../global/eventing';
 import { AgnosticResizeObserver } from '../../global/observers';
 import { InterfaceNotificationAttributes } from './sbb-notification.custom';
+import { toggleDatasetEntry } from '../../global/dom';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -77,8 +78,6 @@ export class SbbNotification implements ComponentInterface {
   @State() private _state: 'closed' | 'opening' | 'opened' | 'closing' = 'opened';
 
   @State() private _currentLanguage = documentLanguage();
-
-  @State() private _resizeDisableAnimation = false;
 
   @Element() private _element!: HTMLElement;
 
@@ -177,11 +176,14 @@ export class SbbNotification implements ComponentInterface {
 
     clearTimeout(this._resizeObserverTimeout);
 
-    this._resizeDisableAnimation = true;
+    toggleDatasetEntry(this._element, 'resizeDisableAnimation', true);
     this._setNotificationHeight();
 
     // Disable the animation when resizing the notification to avoid strange height transition effects.
-    this._resizeObserverTimeout = setTimeout(() => (this._resizeDisableAnimation = false), 150);
+    this._resizeObserverTimeout = setTimeout(
+      () => toggleDatasetEntry(this._element, 'resizeDisableAnimation', false),
+      150,
+    );
   }
 
   private _onNotificationTransitionEnd(event: TransitionEvent): void {
@@ -213,11 +215,7 @@ export class SbbNotification implements ComponentInterface {
     const hasTitle = !!this.titleContent || this._namedSlots['title'];
 
     return (
-      <Host
-        data-state={this._state}
-        data-resize-disable-animation={this._resizeDisableAnimation}
-        data-has-title={hasTitle}
-      >
+      <Host data-state={this._state} data-has-title={hasTitle}>
         <div
           class="sbb-notification__wrapper"
           ref={(el) => (this._notificationElement = el)}

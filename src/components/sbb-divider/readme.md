@@ -20,6 +20,7 @@ Based on the orientation property, the `sbb-divider` can be displayed vertically
 
  - [sbb-alert](../sbb-alert)
  - [sbb-journey-summary](../sbb-journey-summary)
+ - [sbb-navigation-section](../sbb-navigation-section)
  - [sbb-notification](../sbb-notification)
  - [sbb-optgroup](../sbb-optgroup)
  - [sbb-selection-panel](../sbb-selection-panel)
@@ -29,6 +30,7 @@ Based on the orientation property, the `sbb-divider` can be displayed vertically
 graph TD;
   sbb-alert --> sbb-divider
   sbb-journey-summary --> sbb-divider
+  sbb-navigation-section --> sbb-divider
   sbb-notification --> sbb-divider
   sbb-optgroup --> sbb-divider
   sbb-selection-panel --> sbb-divider

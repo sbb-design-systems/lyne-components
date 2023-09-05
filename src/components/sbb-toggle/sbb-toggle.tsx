@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { ToggleOptionStateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
-import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry } from '../../global/dom';
 import { AgnosticResizeObserver } from '../../global/observers';
 
@@ -180,7 +180,9 @@ export class SbbToggle implements ComponentInterface {
 
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
-    const enabledToggleOptions = this._options?.filter((t) => !t.disabled);
+    const enabledToggleOptions = this._options?.filter(
+      (t) => !t.disabled && interactivityChecker.isVisible(t),
+    );
 
     if (
       !enabledToggleOptions ||

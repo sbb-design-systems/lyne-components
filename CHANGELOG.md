@@ -2,6 +2,71 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.2](https://github.com/lyne-design-system/lyne-components/compare/v0.40.1...v0.40.2) (2023-09-04)
+
+### Bug Fixes
+
+- **sbb-navigation-section:** use divider instead of separation border ([#1965](https://github.com/lyne-design-system/lyne-components/issues/1965)) ([25ea609](https://github.com/lyne-design-system/lyne-components/commit/25ea60997a2cd50aa5df11c0b7a51fca5d2224ed))
+
+### [0.40.1](https://github.com/lyne-design-system/lyne-components/compare/v0.40.0...v0.40.1) (2023-09-04)
+
+### Features
+
+- **sbb-time-table-row:** show trip departure quay formatted ([#1960](https://github.com/lyne-design-system/lyne-components/issues/1960)) ([dd49d34](https://github.com/lyne-design-system/lyne-components/commit/dd49d34f5bc77a7472d6bddc1f46528ee4d7a844))
+
+## [0.40.0](https://github.com/lyne-design-system/lyne-components/compare/v0.39.12...v0.40.0) (2023-09-04)
+
+### ⚠ BREAKING CHANGES
+
+- **sbb-message:** - `sbb-no-results` was renamed to `sbb-message`
+
+### Refactorings
+
+- **sbb-message:** rename `sbb-no-results` to `sbb-message` ([#1954](https://github.com/lyne-design-system/lyne-components/issues/1954)) ([29df5a8](https://github.com/lyne-design-system/lyne-components/commit/29df5a8d899e0fa555342c91b6b7dc831868dfd6))
+
+### [0.39.12](https://github.com/lyne-design-system/lyne-components/compare/v0.39.11...v0.39.12) (2023-08-31)
+
+### Bug Fixes
+
+- **sbb-form-field:** support tooltip for floating labels ([#1959](https://github.com/lyne-design-system/lyne-components/issues/1959)) ([ce2dcf1](https://github.com/lyne-design-system/lyne-components/commit/ce2dcf1b7abd96a279d24fcc6e93899b6ebd11f6))
+
+### [0.39.11](https://github.com/lyne-design-system/lyne-components/compare/v0.39.10...v0.39.11) (2023-08-31)
+
+### Features
+
+- **sbb-calendar:** allow dynamic width ([#1957](https://github.com/lyne-design-system/lyne-components/issues/1957)) ([fc9d8fd](https://github.com/lyne-design-system/lyne-components/commit/fc9d8fdaafdddfe655853213efa0b2ea03fb0f99))
+
+### [0.39.10](https://github.com/lyne-design-system/lyne-components/compare/v0.39.9...v0.39.10) (2023-08-30)
+
+### Bug Fixes
+
+- ignore hidden elements for keyboard navigation ([#1937](https://github.com/lyne-design-system/lyne-components/issues/1937)) ([8f21bff](https://github.com/lyne-design-system/lyne-components/commit/8f21bffc63694acc8a82aacb9285ed6381e7da31))
+- **sbb-datepicker:** datepicker prev and next day buttons aria-label ([#1952](https://github.com/lyne-design-system/lyne-components/issues/1952)) ([2e1dfbf](https://github.com/lyne-design-system/lyne-components/commit/2e1dfbffbb2722ea9bd4be662128eb82ca2d01f3))
+
+### [0.39.9](https://github.com/lyne-design-system/lyne-components/compare/v0.39.8...v0.39.9) (2023-08-29)
+
+### Bug Fixes
+
+- fix focus outline color for positive elements in negative context ([#1947](https://github.com/lyne-design-system/lyne-components/issues/1947)) ([254e77c](https://github.com/lyne-design-system/lyne-components/commit/254e77c2e4731b77b480616ad2211ef51b448231))
+
+### [0.39.8](https://github.com/lyne-design-system/lyne-components/compare/v0.39.7...v0.39.8) (2023-08-29)
+
+### Refactorings
+
+- use dataset API for `resizeDisableAnimation` ([#1948](https://github.com/lyne-design-system/lyne-components/issues/1948)) ([43789ea](https://github.com/lyne-design-system/lyne-components/commit/43789ea2e3db36bd2bb35c3983c08932dc7e68b3))
+
+### [0.39.7](https://github.com/lyne-design-system/lyne-components/compare/v0.39.6...v0.39.7) (2023-08-28)
+
+### Refactorings
+
+- **sbb-no-results:** improve slot handling ([#1946](https://github.com/lyne-design-system/lyne-components/issues/1946)) ([1a56291](https://github.com/lyne-design-system/lyne-components/commit/1a56291888034b3e5a992704c9980908e81312c3))
+
+### [0.39.6](https://github.com/lyne-design-system/lyne-components/compare/v0.39.5...v0.39.6) (2023-08-28)
+
+### Features
+
+- **sbb-no-results:** first implementation ([#1943](https://github.com/lyne-design-system/lyne-components/issues/1943)) ([97c4355](https://github.com/lyne-design-system/lyne-components/commit/97c43557ad792ab8a522a6a3a191c0a07ed7218a))
+
 ### [0.39.5](https://github.com/lyne-design-system/lyne-components/compare/v0.39.4...v0.39.5) (2023-08-11)
 
 ### Bug Fixes

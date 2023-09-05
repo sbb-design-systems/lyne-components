@@ -11,7 +11,7 @@ import {
   Watch,
 } from '@stencil/core';
 import { InterfaceSbbCheckboxGroupAttributes } from './sbb-checkbox-group.custom';
-import { isArrowKeyPressed, getNextElementIndex } from '../../global/a11y';
+import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
@@ -106,7 +106,8 @@ export class SbbCheckboxGroup implements ComponentInterface {
   @Listen('keydown')
   public handleKeyDown(evt: KeyboardEvent): void {
     const enabledCheckboxes: HTMLSbbCheckboxElement[] = this._checkboxes.filter(
-      (tag: HTMLSbbCheckboxElement) => !isValidAttribute(tag, 'disabled'),
+      (checkbox: HTMLSbbCheckboxElement) =>
+        !isValidAttribute(checkbox, 'disabled') && interactivityChecker.isVisible(checkbox),
     );
 
     if (

@@ -56,12 +56,12 @@ describe('sbb-calendar', () => {
               </thead>
               <tbody class="sbb-calendar__table-body">
                 <tr>
-                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
-                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
-                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
-                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
-                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
-                  <td class="sbb-calendar__table-data-empty" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data" data-day="0 1 2023"></td>
+                  <td class="sbb-calendar__table-data" data-day="0 1 2023"></td>
                   <td class="sbb-calendar__table-data">
                     <button aria-disabled="false" aria-label="January 1, 2023" aria-pressed="false" class="sbb-calendar__day" data-day="1 1 2023" tabindex="-1" sbb-tooltip-close>
                       1

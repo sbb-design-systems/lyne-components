@@ -27,6 +27,10 @@
   --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
   --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
 
+  // As the form field has always a white background, we have to fix the focus outline color
+  // to default color for cases where the form field is used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
   display: inline-block;
 }
 
@@ -71,7 +75,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
 }
 
-:host(:focus-within),
+:host([data-input-focused]),
 :host([data-has-popup-open]) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
@@ -198,11 +202,11 @@
   // If floating-label is activated and there is no focus in it (except for select) and no popup is open
   // and input is empty
   // then apply the label transition.
+  // If it is empty and readonly, always apply transition
   :host(
-      [floating-label]:not(
-          [floating-label='false'],
-          :focus-within:not([data-input-type='sbb-select']),
-          [data-has-popup-open]
+      [floating-label]:not([floating-label='false']):is(
+          :not([data-input-focused]:not([data-input-type='sbb-select']), [data-has-popup-open]),
+          [data-readonly]
         )[data-input-empty]
     )
     & {
