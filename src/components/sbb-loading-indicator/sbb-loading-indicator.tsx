@@ -18,15 +18,15 @@ export class SbbLoadingIndicator implements ComponentInterface {
       <span class="sbb-loading-indicator">
         <span class="sbb-loading-indicator__animated-element">
           {this.variant === 'window' && (
-            <div>
-              <div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+            <span>
+              <span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </span>
           )}
         </span>
       </span>
