@@ -95,7 +95,7 @@ function migrate(component: string, debug = false) {
   );
 
   if (!existsSync(target)) {
-    mkdirSync(target);
+    mkdirSync(target, {recursive: true});
   }
   if (!debug) {
     copy(['readme.md', `${component}.scss`], source, target);
@@ -499,6 +499,18 @@ function migrate(component: string, debug = false) {
     const componentName = toPascalCase(args.component);
     const unitTests: ts.CallExpression[] = [];
 
+    const newImports = new Map<string, string[]>()
+      .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent'])
+      .set('lit/static-html.js', ['html'])
+      .set('@web/test-runner-commands', ['sendKeys', 'setViewport']);
+
+    const assertionConversionMap = [
+      { from: 'toEqual', to: 'to.be.equal'},
+      { from: 'toBe', to: 'to.be.equal'},
+      { from: 'toHaveClass', to: 'to.have.class'},
+      { from: 'toHaveAttribute', to: 'to.have.attribute'},
+    ];
+
     iterate(sourceFile, (node) => {
       if (ts.isImportDeclaration(node)) {
         lastImport = node;
@@ -509,18 +521,128 @@ function migrate(component: string, debug = false) {
         }
       }
 
-      if (ts.isCallExpression(node) && node.expression.getText() === 'it') {
+      if (ts.isCallExpression(node) && (node.expression.getText() === 'it' || node.expression.getText() === 'beforeEach')) {
         unitTests.push(node);
       }
     });
 
-    // New static imports
-    const newImports: String[] = []; 
-    newImports.push(`import { assert, expect, fixture, oneEvent } from '@open-wc/testing';`);
-    newImports.push(`import { html } from 'lit/static-html.js';`);
-    newImports.push(`import { ${componentName} } from './${args.component}';`);
-    newImports.push(`const instance = new ${componentName}();`);
-    mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
+    // Migrate each E2E test
+    unitTests.forEach((test) => {
+      const testName = test.expression.getText().startsWith('beforeEach') ? 'beforeEach' : test.arguments[0].getText();
+
+      try {
+        migrateUnitTest(test);
+      } catch (error) {
+        console.error(`Failed to migrate E2E test named ${testName}`, `Error: ${error}`);
+      }
+    });
+
+    // Insert imports
+    const newImport: string[] = [];
+    newImports.forEach((symbols, importName) => {
+      newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
+    });
+    newImport.push(`import { ${componentName} } from './${args.component}';`);
+    newImport.push(`const instance = new ${componentName}();`);
+    mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
+
+    function migrateUnitTest(test: ts.CallExpression) {
+      iterate(test, (node) => {
+        if (ts.isExpressionStatement(node)) {
+
+          if (node.getText().match(/\.setContent\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.setContent/)) as ts.AwaitExpression;
+            const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const template = call.arguments[0].getText();
+
+            mutator.replace(call, `fixture(${template})`);
+          }
+          
+          if (node.getText().match(/\.setProperty\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression.getText();
+            const property = call.arguments[0].getText().replace(/'/g, '');
+            const value = call.arguments[1].getText();
+
+            mutator.replace(node, `${element}.${property} = ${value};`);
+          }
+
+          if (node.getText().match(/\.getProperty\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.getProperty/)) as ts.AwaitExpression;
+            const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression.getText();
+            const property = call.arguments[0].getText().replace(/'/g, '');
+
+            mutator.replace(awaitNode, `${element}.${property}`);
+          }
+
+          if (node.getText().match(/page\.find\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await page\.find/)) as ts.AwaitExpression;
+            const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const querySelector = call.arguments[0].getText();
+            let warning = '';
+
+            if (querySelector.match('>>>')) {
+              warning = '// NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")'
+            }
+
+            mutator.replace(awaitNode, `document.querySelector(${querySelector}) ${warning}`);
+          }
+
+          if (node.getText().match(/\.waitForChanges\(/)) {
+            mutator.replace(node, 'await element.updateComplete;'); // TODO it's not always called 'element'
+          }
+
+          if (node.getText().match(/\.press\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression.getText();
+            const keyToPress = call.arguments[0].getText();
+
+            mutator.replace(node, `${element}.focus(); \n await sendKeys({press: ${keyToPress}});`);
+          }
+
+          if (node.getText().match(/\.type\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression.getText();
+            const keyToType = call.arguments[0].getText();
+
+            mutator.replace(node, `${element}.focus(); \n await sendKeys({type: ${keyToType}});`);
+          }
+
+          if (node.getText().match(/\.keyboard.down\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const keyToPress = call.arguments[0].getText();
+            mutator.replace(node, `await sendKeys({down: ${keyToPress}});`);
+          }
+
+          if (node.getText().match(/\.setViewport\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const settings = call.arguments[0].getText();
+            mutator.replace(node, `await setViewport(${settings});`);
+          }
+          
+          if (node.getText().match(/\.evaluate\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.evaluate/)) as ts.AwaitExpression;
+            const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            let innerCode = (deepFind(call, (n) => ts.isArrowFunction(n)) as ts.ArrowFunction).body.getText();
+
+            // Remove the brackets
+            if (innerCode.startsWith('{')) {
+              innerCode = innerCode.substring(1, innerCode.length - 1);
+            }
+
+            mutator.replace(awaitNode, innerCode);
+          }
+
+          // Plain assertion migration
+          if (node.getText().match(new RegExp(assertionConversionMap.map(a => `\\.${a.from}\\(`).join('|')))) {
+            const assertion = deepFind(node, (n) => assertionConversionMap.some(a => a.from === n.getText()))!;
+
+            mutator.replace(assertion, assertionConversionMap.find(a => a.from === assertion.getText())!.to);
+          }
+        }
+      });
+    }
   }
 
   /** Helper functions */
