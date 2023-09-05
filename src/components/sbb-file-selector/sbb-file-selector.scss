@@ -16,6 +16,9 @@
 :host([data-active]) {
   --sbb-file-selector-background-color: var(--sbb-color-milk-default);
   --sbb-file-selector-border-color: var(--sbb-color-storm-default);
+  @include sbb.if-forced-colors {
+    --sbb-file-selector-border-color: Highlight;
+  }
 }
 
 .sbb-file-selector__input-container {
