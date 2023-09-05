@@ -200,10 +200,10 @@
 
 .sbb-calendar__pill {
   width: var(--sbb-calendar-wide-cell-size);
-  border-radius: calc(var(--sbb-calendar-cell-size) / 2);
+  border-radius: var(--sbb-border-radius-infinity);
 
   &::before {
-    border-radius: calc(var(--sbb-calendar-cell-size) / 2);
+    border-radius: var(--sbb-border-radius-infinity);
   }
 }
 
