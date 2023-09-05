@@ -6,6 +6,7 @@ import {
   EventEmitter,
   h,
   JSX,
+  Method,
   Prop,
   State,
 } from '@stencil/core';
@@ -58,9 +59,7 @@ export class SbbFileSelector implements ComponentInterface {
   /** Current document language used for translations. */
   @State() private _currentLanguage = documentLanguage();
 
-  /**
-   * State of listed named slots, by indicating whether any element for a named slot is defined.
-   */
+  /** State of listed named slots, by indicating whether any element for a named slot is defined. */
   @State() private _namedSlots = createNamedSlotState('error');
 
   /** An event which is emitted each time the file list changes. */
@@ -69,10 +68,14 @@ export class SbbFileSelector implements ComponentInterface {
   })
   public fileChangedEvent: EventEmitter<File[]>;
 
-  /** An event emitted on error. */
-  @Event({ bubbles: true }) public error: EventEmitter;
-
   @Element() private _element!: HTMLElement;
+
+  // TODO: during Lit migration, convert this method in a getter
+  /** Gets the currently selected files. */
+  @Method()
+  public async getFiles(): Promise<File[]> {
+    return this._files || [];
+  }
 
   private _loadButton: HTMLElement;
   private _dragTarget: HTMLElement;
@@ -92,7 +95,7 @@ export class SbbFileSelector implements ComponentInterface {
     this._handlerRepository.disconnect();
   }
 
-  private _blockEvent(event): void {
+  private _blockEvent(event: DragEvent): void {
     event.stopPropagation();
     event.preventDefault();
   }
@@ -105,30 +108,25 @@ export class SbbFileSelector implements ComponentInterface {
     );
   }
 
-  private _onDragEnter(event): void {
+  private _onDragEnter(event: DragEvent): void {
     if (!this.disabled) {
-      this._setDragState(event.target, true);
+      this._setDragState(event.target as HTMLElement, true);
       this._blockEvent(event);
     }
   }
 
-  private _onDragLeave(event): void {
+  private _onDragLeave(event: DragEvent): void {
     if (!this.disabled && event.target === this._dragTarget) {
       this._setDragState();
       this._blockEvent(event);
     }
   }
 
-  private _onFileDrop(event): void {
+  private _onFileDrop(event: DragEvent): void {
     if (!this.disabled) {
       this._setDragState();
       this._blockEvent(event);
-      try {
-        const files = this.multiple ? event.dataTransfer.files : [event.dataTransfer.files[0]];
-        this._createFilesList(files);
-      } catch (e) {
-        this.error.emit(e);
-      }
+      this._createFileList(event.dataTransfer.files);
     }
   }
 
@@ -144,23 +142,19 @@ export class SbbFileSelector implements ComponentInterface {
     }
   }
 
-  private _setDragState(dragTarget = undefined, isDragEnter = false): void {
+  private _setDragState(dragTarget: HTMLElement = undefined, isDragEnter: boolean = false): void {
     this._dragTarget = dragTarget;
     toggleDatasetEntry(this._element, 'active', isDragEnter);
     toggleDatasetEntry(this._loadButton, 'active', isDragEnter);
   }
 
   private _readFiles(event): void {
-    try {
-      if (event.target.files) {
-        this._createFilesList(event.target.files);
-      }
-    } catch (e) {
-      this.error.emit(e);
+    if (event.target.files) {
+      this._createFileList(event.target.files);
     }
   }
 
-  private _createFilesList(files: File[]): void {
+  private _createFileList(files: FileList): void {
     if (
       !this.multiple ||
       this.multipleMode !== 'persistent' ||
@@ -171,7 +165,7 @@ export class SbbFileSelector implements ComponentInterface {
     } else {
       this._files = Array.from(files)
         .filter(
-          (newFile: File) =>
+          (newFile: File): boolean =>
             this._files.findIndex((oldFile: File) => this._checkFileEquality(newFile, oldFile)) ===
             -1,
         )
@@ -262,10 +256,10 @@ export class SbbFileSelector implements ComponentInterface {
       <div class="sbb-file-selector">
         <div
           class="sbb-file-selector__input-container"
-          onDragEnter={(e) => this._onDragEnter(e)}
-          onDragOver={(e) => this._blockEvent(e)}
-          onDragLeave={(e) => this._onDragLeave(e)}
-          onDrop={(e) => this._onFileDrop(e)}
+          onDragEnter={(e: DragEvent) => this._onDragEnter(e)}
+          onDragOver={(e: DragEvent) => this._blockEvent(e)}
+          onDragLeave={(e: DragEvent) => this._onDragLeave(e)}
+          onDrop={(e: DragEvent) => this._onFileDrop(e)}
         >
           <label>
             {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}

@@ -3,6 +3,5 @@
  * See stencil.config.ts in the root directory.
  */
 export default {
-  error: 'error',
   fileChangedEvent: 'file-changed',
 };

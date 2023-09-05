@@ -5,8 +5,8 @@ For each file, the name and the size are displayed and an icon allows for deleti
 
 ### Variants
 
-It has two different display options based on the value of the `variant` property: by default a `sbb-button` is displayed, 
-which mimics the native `<input type="file"/>`. 
+It has two different display options based on the value of the `variant` property:
+by default, a `sbb-button` is displayed, which mimics the native `<input type="file"/>`. 
 
 ```html
 <sbb-file-selector></sbb-file-selector>
@@ -37,8 +37,8 @@ The value of the `multipleMode` property determines whether added files should o
 
 ### Accept
 
-The `accept` property can be used to force the user to select one or more specific file types; in the next example,
-only images are allowed.
+The `accept` property can be used to force the user to select one or more specific file types; 
+in the next example, only images are allowed.
 
 ```html
 <sbb-file-selector accept=".png,.jpg,.jpeg"></sbb-file-selector>
@@ -68,7 +68,7 @@ The `error` named slot can be used to display an error message using the `sbb-fo
 ### Events
 
 Whenever the selection changes, a `file-changed` event is fired, whose `event.detail` property contains the list 
-of currently selected files. Consumers can also listen to the `error` event for unhandled exceptions.
+of currently selected files. The list can also be retrieved using the `getFiles()` method.
 
 <!-- Auto Generated Below -->
 
@@ -89,8 +89,20 @@ of currently selected files. Consumers can also listen to the `error` event for 
 
 | Event          | Description                                                | Type                  |
 | -------------- | ---------------------------------------------------------- | --------------------- |
-| `error`        | An event emitted on error.                                 | `CustomEvent<any>`    |
 | `file-changed` | An event which is emitted each time the file list changes. | `CustomEvent<File[]>` |
+
+
+## Methods
+
+### `getFiles() => Promise<File[]>`
+
+Gets the currently selected files.
+
+#### Returns
+
+Type: `Promise<File[]>`
+
+
 
 
 ## Slots

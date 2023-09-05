@@ -163,7 +163,7 @@ const meta: Meta = {
   ],
   parameters: {
     actions: {
-      handles: [events.fileChangedEvent, events.error],
+      handles: [events.fileChangedEvent],
     },
     backgrounds: {
       disable: true,
