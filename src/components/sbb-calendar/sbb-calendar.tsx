@@ -129,7 +129,7 @@ export class SbbCalendar implements ComponentInterface {
   private _nextMonthWeeks: Day[][];
 
   /** An array containing all the month names in the current language. */
-  private _monthNames = this._dateAdapter.getMonthNames('long');
+  private _monthNames: string[] = this._dateAdapter.getMonthNames('long');
 
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): HTMLButtonElement[] {
@@ -154,6 +154,7 @@ export class SbbCalendar implements ComponentInterface {
     languageChangeHandlerAspect((l) => {
       this._currentLanguage = l;
       this._monthNames = this._dateAdapter.getMonthNames('long');
+      this._months = this._createMonthRows();
     }),
   );
 
@@ -300,11 +301,10 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the rows for the month selection view. */
   private _createMonthRows(): Month[][] {
     const shortNames: string[] = this._dateAdapter.getMonthNames('short');
-    const longNames: string[] = this._dateAdapter.getMonthNames('long');
     const months: Month[] = new Array(12).fill(null).map(
       (_, i: number): Month => ({
         value: shortNames[i],
-        longValue: longNames[i],
+        longValue: this._monthNames[i],
         monthValue: i,
       }),
     );
