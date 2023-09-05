@@ -634,7 +634,7 @@ export namespace Components {
          */
         "borderless": boolean;
         /**
-          * Manually clears the input value.
+          * Manually clears the input value. It only works for inputs, selects are not supported.
          */
         "clear": () => Promise<void>;
         /**
@@ -645,6 +645,10 @@ export namespace Components {
           * Whether the label should float. If activated, the placeholder of the input is hidden.
          */
         "floatingLabel": boolean;
+        /**
+          * Returns the input element.
+         */
+        "getInputElement": () => Promise<HTMLInputElement | HTMLSelectElement | HTMLElement>;
         /**
           * Label text for the input which is internally rendered as `<label>`.
          */
@@ -667,10 +671,6 @@ export namespace Components {
         "width": 'default' | 'collapse';
     }
     interface SbbFormFieldClear {
-        /**
-          * The name attribute to use for the clear button.
-         */
-        "name": string | undefined;
     }
     interface SbbHeader {
         /**
@@ -3351,10 +3351,6 @@ declare namespace LocalJSX {
         "width"?: 'default' | 'collapse';
     }
     interface SbbFormFieldClear {
-        /**
-          * The name attribute to use for the clear button.
-         */
-        "name"?: string | undefined;
     }
     interface SbbHeader {
         /**

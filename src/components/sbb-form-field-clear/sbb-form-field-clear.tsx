@@ -1,14 +1,4 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Listen,
-  h,
-  Host,
-  JSX,
-  Prop,
-  State,
-} from '@stencil/core';
+import { Component, ComponentInterface, Element, Listen, h, Host, JSX, State } from '@stencil/core';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
 import { hostContext } from '../../global/dom';
 import {
@@ -27,12 +17,7 @@ import { i18nClearInput } from '../../global/i18n';
   styleUrl: 'sbb-form-field-clear.scss',
   tag: 'sbb-form-field-clear',
 })
-export class SbbFormFieldClear implements ComponentInterface, ButtonProperties {
-  /**
-   * The name attribute to use for the clear button.
-   */
-  @Prop({ reflect: true }) public name: string | undefined;
-
+export class SbbFormFieldClear implements ComponentInterface {
   @Element() private _element!: HTMLElement;
 
   @State() private _currentLanguage = documentLanguage();
@@ -46,7 +31,14 @@ export class SbbFormFieldClear implements ComponentInterface, ButtonProperties {
 
   @Listen('click')
   public async handleClick(): Promise<void> {
+    const input = await this._formField.getInputElement();
+    if (!input || input.tagName !== 'INPUT') {
+      return;
+    }
     this._formField.clear();
+    input.focus();
+    input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    input.dispatchEvent(new window.Event('change', { bubbles: true }));
   }
 
   public connectedCallback(): void {
@@ -61,7 +53,7 @@ export class SbbFormFieldClear implements ComponentInterface, ButtonProperties {
   }
 
   public render(): JSX.Element {
-    const { hostAttributes } = resolveButtonRenderVariables(this);
+    const { hostAttributes } = resolveButtonRenderVariables(this as ButtonProperties);
 
     return (
       <Host {...hostAttributes} slot="suffix" aria-label={i18nClearInput[this._currentLanguage]}>

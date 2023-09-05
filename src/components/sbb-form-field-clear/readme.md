@@ -14,13 +14,6 @@ It currently works with simple inputs and does not support, for example, `select
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property | Attribute | Description                                     | Type     | Default     |
-| -------- | --------- | ----------------------------------------------- | -------- | ----------- |
-| `name`   | `name`    | The name attribute to use for the clear button. | `string` | `undefined` |
-
-
 ## Slots
 
 | Slot        | Description                 |
