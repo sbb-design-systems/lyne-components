@@ -11,13 +11,13 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  --sbb-toggle-check-font-color: var(--sbb-color-charcoal-default);
   --sbb-toggle-check-checked-color: var(--sbb-color-red-default);
   --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
   --sbb-toggle-check-icon-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-icon-opacity: 0;
   --sbb-toggle-check-circle-background-color: var(--sbb-color-white-default);
   --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
+  --sbb-toggle-check-circle-border-style: solid;
   --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
   --sbb-toggle-check-overall-height: var(--sbb-toggle-check-circle-diameter);
   --sbb-toggle-check-circle-transform: translate(0, -50%);
@@ -26,7 +26,6 @@
   --sbb-toggle-check-cursor: pointer;
   --sbb-toggle-check-flex-direction: row-reverse;
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
-  --sbb-toggle-check-text-decoration: none;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-background-color: CanvasText;
@@ -58,13 +57,12 @@
 }
 
 :host([disabled]:not([disabled='false'])) {
-  --sbb-toggle-check-font-color: var(--sbb-color-granite-default);
   --sbb-toggle-check-background-color: var(--sbb-color-cloud-default);
-  --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
+  --sbb-toggle-check-circle-border-color: var(--sbb-color-smoke-default);
+  --sbb-toggle-check-circle-border-style: dashed;
   --sbb-toggle-check-circle-background-color: var(--sbb-color-milk-default);
   --sbb-toggle-check-icon-color: var(--sbb-color-granite-default);
   --sbb-toggle-check-cursor: default;
-  --sbb-toggle-check-text-decoration: line-through;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-icon-color: GrayText;
@@ -86,7 +84,7 @@
 
   position: relative;
   display: flex;
-  color: var(--sbb-toggle-check-font-color);
+  color: var(--sbb-color-charcoal-default);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
@@ -122,7 +120,6 @@ input[type='checkbox'] {
   padding-block-start: calc(
     (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
   );
-  text-decoration: var(--sbb-toggle-check-text-decoration);
 }
 
 .sbb-toggle-check__track {
@@ -143,7 +140,8 @@ input[type='checkbox'] {
 
   width: var(--sbb-toggle-check-circle-diameter);
   height: var(--sbb-toggle-check-circle-diameter);
-  border: var(--sbb-border-width-1x) solid var(--sbb-toggle-check-circle-border-color);
+  border: var(--sbb-border-width-1x) var(--sbb-toggle-check-circle-border-style)
+    var(--sbb-toggle-check-circle-border-color);
   border-radius: 50%;
   background-color: var(--sbb-toggle-check-circle-background-color);
   color: var(--sbb-toggle-check-icon-color);
