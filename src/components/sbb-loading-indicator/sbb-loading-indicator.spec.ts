@@ -9,7 +9,7 @@ describe('sbb-loading-indicator', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="window" size="m">
+      <sbb-loading-indicator variant="window" size="m" role="progressbar" aria-busy='true'>
         <mock:shadow-root>
           <span class="sbb-loading-indicator">
             <span class="sbb-loading-indicator__animated-element">
@@ -36,7 +36,7 @@ describe('sbb-loading-indicator', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="circle" size="s">
+      <sbb-loading-indicator variant="circle" size="s" role="progressbar" aria-busy="true">
         <mock:shadow-root>
           <span class="sbb-loading-indicator">
             <span class="sbb-loading-indicator__animated-element"></span>

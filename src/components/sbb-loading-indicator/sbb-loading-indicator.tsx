@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, h, Host, JSX, Prop } from '@stencil/core';
 import { InterfaceSbbLoadingIndicatorAttributes } from './sbb-loading-indicator.custom';
 
 @Component({
@@ -15,21 +15,23 @@ export class SbbLoadingIndicator implements ComponentInterface {
 
   public render(): JSX.Element {
     return (
-      <span class="sbb-loading-indicator">
-        <span class="sbb-loading-indicator__animated-element">
-          {this.variant === 'window' && (
-            <span>
+      <Host role="progressbar" aria-busy="true">
+        <span class="sbb-loading-indicator">
+          <span class="sbb-loading-indicator__animated-element">
+            {this.variant === 'window' && (
               <span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
               </span>
-            </span>
-          )}
+            )}
+          </span>
         </span>
-      </span>
+      </Host>
     );
   }
 }
