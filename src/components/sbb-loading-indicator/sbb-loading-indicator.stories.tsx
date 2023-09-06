@@ -4,6 +4,14 @@ import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
+const textBlockStyle: Args = {
+  marginBlock: '1rem',
+  padding: '1rem',
+  backgroundColor: 'var(--sbb-color-milk-default)',
+  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud-default)',
+  borderRadius: 'var(--sbb-border-radius-4x)',
+};
+
 const createLoadingIndicator = (args): void => {
   const loader: HTMLSbbLoadingIndicatorElement = document.createElement(
     'SBB-LOADING-INDICATOR',
@@ -17,9 +25,9 @@ const createLoadingIndicator = (args): void => {
 
 const TemplateAccessibility = (args): JSX.Element => (
   <Fragment>
-    <span style={{ 'margin-inline-end': '1rem' }}>
+    <div style={textBlockStyle}>
       Turn on your screen-reader and click the button to make the loading indicator appear.
-    </span>
+    </div>
     <sbb-button onClick={() => createLoadingIndicator(args)}>Show loader</sbb-button>
     <div class="loader-container" aria-live="polite"></div>
   </Fragment>
@@ -69,7 +77,7 @@ export const Circle: StoryObj = {
   args: { ...defaultArgs, variant: variant.options[1] },
 };
 
-export const WindowAccessibility: StoryObj = {
+export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
