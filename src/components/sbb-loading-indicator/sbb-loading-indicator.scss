@@ -31,17 +31,25 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 50%;
-  background: conic-gradient(from 90deg, #fff, var(--sbb-color-red-default));
+  background: conic-gradient(
+    from 90deg,
+    var(--sbb-color-white-default),
+    var(--sbb-color-red-default)
+  );
   /* stylelint-disable */
-  -webkit-mask: radial-gradient(circle 7px, #0000 98%, #fff);
+  -webkit-mask: radial-gradient(
+    circle sbb.px-to-rem-build(7),
+    #0000 98%,
+    var(--sbb-color-white-default)
+  );
   /* stylelint-enable */
-  mask: radial-gradient(circle 7px, #0000 98%, #fff);
+  mask: radial-gradient(circle sbb.px-to-rem-build(7), #0000 98%, var(--sbb-color-white-default));
   animation: rotation var(--sbb-loader-indicator-duration) infinite linear;
 
   &::after {
     content: '';
-    width: 3px;
-    height: 3px;
+    width: sbb.px-to-rem-build(3);
+    height: sbb.px-to-rem-build(3);
     background: var(--sbb-color-red-default);
     border-radius: 50%;
     position: absolute;
@@ -127,7 +135,7 @@
 :host([variant='window']) .sbb-loading-indicator__animated-element > span > span > span {
   background: var(--sbb-color-red-default);
   backface-visibility: hidden;
-  outline: 1px solid rgb(0 0 0 / 0%);
+  outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
   width: var(--sbb-loader-indicator-window-last-span-width);
   height: var(--sbb-loader-indicator-window-last-span-height);
   margin-right: var(--sbb-loader-indicator-window-last-span-margin);
