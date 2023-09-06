@@ -35,7 +35,7 @@
 :host([disabled]:not([disabled='false'])) {
   --sbb-slider-icon-color: var(--sbb-color-graphite-default);
   --sbb-slider-knob-border-color: var(--sbb-color-smoke-default);
-  --sbb-slider-knob-border-size: #{sbb.px-to-rem-build(2)};
+  --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
   --sbb-slider-knob-border-style: dashed;
 }
 
