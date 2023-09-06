@@ -30,7 +30,6 @@ sbb-form-field {
   input:disabled::placeholder {
     color: var(--sbb-color-granite-default);
     -webkit-text-fill-color: var(--sbb-color-granite-default);
-    text-decoration: line-through;
   }
 
   &[floating-label]:not([floating-label='false']) input::placeholder {
