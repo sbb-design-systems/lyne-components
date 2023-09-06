@@ -575,6 +575,7 @@ export const LoadingIndicator: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
+    disabled: true,
     variant: variant.options[1],
   },
 };

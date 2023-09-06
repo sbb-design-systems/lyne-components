@@ -5,23 +5,23 @@ describe('sbb-loading-indicator', () => {
   it('renders with variant `window`', async () => {
     const { root } = await newSpecPage({
       components: [SbbLoadingIndicator],
-      html: '<sbb-loading-indicator variant="window"/>',
+      html: '<sbb-loading-indicator variant="window" size="m"/>',
     });
 
     expect(root).toEqualHtml(`
-      <sbb-loading-indicator variant="window" size="s">
+      <sbb-loading-indicator variant="window" size="m">
         <mock:shadow-root>
           <span class="sbb-loading-indicator">
             <span class="sbb-loading-indicator__animated-element">
-              <div>
-                <div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
+              <span>
+                <span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </span>
             </span>
           </span>
         </mock:shadow-root>
