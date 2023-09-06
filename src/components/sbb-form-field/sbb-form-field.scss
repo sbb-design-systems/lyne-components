@@ -140,6 +140,12 @@
   color: var(--sbb-form-field-prefix-color);
 }
 
+::slotted(sbb-form-field-clear) {
+  :host(:is([data-input-empty], [data-disabled], [data-readonly])) & {
+    display: none;
+  }
+}
+
 @include sbb.if-forced-colors {
   // Align with prefix color
   ::slotted(*[slot='suffix']) {

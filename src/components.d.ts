@@ -636,6 +636,10 @@ export namespace Components {
          */
         "borderless": boolean;
         /**
+          * Manually clears the input value. It only works for inputs, selects are not supported.
+         */
+        "clear": () => Promise<void>;
+        /**
           * Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.
          */
         "errorSpace"?: InterfaceSbbFormFieldAttributes['errorSpace'];
@@ -643,6 +647,10 @@ export namespace Components {
           * Whether the label should float. If activated, the placeholder of the input is hidden.
          */
         "floatingLabel": boolean;
+        /**
+          * Returns the input element.
+         */
+        "getInputElement": () => Promise<HTMLInputElement | HTMLSelectElement | HTMLElement>;
         /**
           * Label text for the input which is internally rendered as `<label>`.
          */
@@ -663,6 +671,8 @@ export namespace Components {
           * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
          */
         "width": 'default' | 'collapse';
+    }
+    interface SbbFormFieldClear {
     }
     interface SbbHeader {
         /**
@@ -2249,6 +2259,12 @@ declare global {
         prototype: HTMLSbbFormFieldElement;
         new (): HTMLSbbFormFieldElement;
     };
+    interface HTMLSbbFormFieldClearElement extends Components.SbbFormFieldClear, HTMLStencilElement {
+    }
+    var HTMLSbbFormFieldClearElement: {
+        prototype: HTMLSbbFormFieldClearElement;
+        new (): HTMLSbbFormFieldClearElement;
+    };
     interface HTMLSbbHeaderElement extends Components.SbbHeader, HTMLStencilElement {
     }
     var HTMLSbbHeaderElement: {
@@ -2659,6 +2675,7 @@ declare global {
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
+        "sbb-form-field-clear": HTMLSbbFormFieldClearElement;
         "sbb-header": HTMLSbbHeaderElement;
         "sbb-header-action": HTMLSbbHeaderActionElement;
         "sbb-icon": HTMLSbbIconElement;
@@ -3351,6 +3368,8 @@ declare namespace LocalJSX {
           * Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content.
          */
         "width"?: 'default' | 'collapse';
+    }
+    interface SbbFormFieldClear {
     }
     interface SbbHeader {
         /**
@@ -4789,6 +4808,7 @@ declare namespace LocalJSX {
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
+        "sbb-form-field-clear": SbbFormFieldClear;
         "sbb-header": SbbHeader;
         "sbb-header-action": SbbHeaderAction;
         "sbb-icon": SbbIcon;
@@ -4886,6 +4906,7 @@ declare module "@stencil/core" {
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
+            "sbb-form-field-clear": LocalJSX.SbbFormFieldClear & JSXBase.HTMLAttributes<HTMLSbbFormFieldClearElement>;
             "sbb-header": LocalJSX.SbbHeader & JSXBase.HTMLAttributes<HTMLSbbHeaderElement>;
             "sbb-header-action": LocalJSX.SbbHeaderAction & JSXBase.HTMLAttributes<HTMLSbbHeaderActionElement>;
             "sbb-icon": LocalJSX.SbbIcon & JSXBase.HTMLAttributes<HTMLSbbIconElement>;

@@ -108,6 +108,26 @@ technology will announce errors when they appear.
 
 ## Methods
 
+### `clear() => Promise<void>`
+
+Manually clears the input value. It only works for inputs, selects are not supported.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `getInputElement() => Promise<HTMLInputElement | HTMLSelectElement | HTMLElement>`
+
+Returns the input element.
+
+#### Returns
+
+Type: `Promise<HTMLElement | HTMLInputElement | HTMLSelectElement>`
+
+
+
 ### `reset() => Promise<void>`
 
 Manually reset the form field. Currently, this only resets the floating label.

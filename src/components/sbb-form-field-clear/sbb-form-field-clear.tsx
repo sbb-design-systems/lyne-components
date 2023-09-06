@@ -1,0 +1,66 @@
+import { Component, ComponentInterface, Element, Listen, h, Host, JSX, State } from '@stencil/core';
+import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
+import { hostContext } from '../../global/dom';
+import {
+  HandlerRepository,
+  actionElementHandlerAspect,
+  documentLanguage,
+  languageChangeHandlerAspect,
+} from '../../global/eventing';
+import { i18nClearInput } from '../../global/i18n';
+
+/**
+ * @slot unnamed - Slot to render the content.
+ */
+@Component({
+  shadow: true,
+  styleUrl: 'sbb-form-field-clear.scss',
+  tag: 'sbb-form-field-clear',
+})
+export class SbbFormFieldClear implements ComponentInterface {
+  @Element() private _element!: HTMLElement;
+
+  @State() private _currentLanguage = documentLanguage();
+
+  private _handlerRepository = new HandlerRepository(
+    this._element,
+    actionElementHandlerAspect,
+    languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
+  );
+  private _formField: HTMLSbbFormFieldElement;
+
+  @Listen('click')
+  public async handleClick(): Promise<void> {
+    const input = await this._formField.getInputElement();
+    if (!input || input.tagName !== 'INPUT') {
+      return;
+    }
+    this._formField.clear();
+    input.focus();
+    input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    input.dispatchEvent(new window.Event('change', { bubbles: true }));
+  }
+
+  public connectedCallback(): void {
+    this._handlerRepository.connect();
+    this._formField =
+      (hostContext('sbb-form-field', this._element) as HTMLSbbFormFieldElement) ??
+      (hostContext('[data-form-field]', this._element) as HTMLSbbFormFieldElement);
+  }
+
+  public disconnectedCallback(): void {
+    this._handlerRepository.disconnect();
+  }
+
+  public render(): JSX.Element {
+    const { hostAttributes } = resolveButtonRenderVariables(this as ButtonProperties);
+
+    return (
+      <Host {...hostAttributes} slot="suffix" aria-label={i18nClearInput[this._currentLanguage]}>
+        <span class="sbb-form-field-clear">
+          <sbb-icon name="cross-small" />
+        </span>
+      </Host>
+    );
+  }
+}
