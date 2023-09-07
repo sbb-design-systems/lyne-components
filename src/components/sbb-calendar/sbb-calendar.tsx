@@ -941,6 +941,7 @@ export class SbbCalendar implements ComponentInterface {
           onClick={() => this._resetToDayView()}
         >
           {this._chosenYear}
+          {this._wide && ` - ${this._chosenYear + 1}`}
           <sbb-icon name="chevron-small-up-small"></sbb-icon>
         </button>
         <span role="status" class="sbb-calendar__visually-hidden">
@@ -954,11 +955,15 @@ export class SbbCalendar implements ComponentInterface {
   private _createMonthTable(months: Month[][], year: number): JSX.Element {
     return (
       <table class="sbb-calendar__table">
-        <thead class="sbb-calendar__table-header" aria-hidden={true}>
-          <tr class="sbb-calendar__table-header-row">
-            <th colSpan={MONTHS_PER_ROW}>{this._wide && year}</th>
-          </tr>
-        </thead>
+        {this._wide && (
+          <thead class="sbb-calendar__table-header" aria-hidden={true}>
+            <tr class="sbb-calendar__table-header-row">
+              <th class="sbb-calendar__table-header" colSpan={MONTHS_PER_ROW}>
+                {year}
+              </th>
+            </tr>
+          </thead>
+        )}
         <tbody class="sbb-calendar__table-body">
           {months.map((row: Month[]) => (
             <tr>
@@ -1100,11 +1105,6 @@ export class SbbCalendar implements ComponentInterface {
   private _createYearTable(years: number[][]): JSX.Element {
     return (
       <table class="sbb-calendar__table">
-        <thead class="sbb-calendar__table-header" aria-hidden={true}>
-          <tr class="sbb-calendar__table-header-row">
-            <th colSpan={YEARS_PER_ROW}></th>
-          </tr>
-        </thead>
         <tbody class="sbb-calendar__table-body">{this._createYearTableBody(years)}</tbody>
       </table>
     );
