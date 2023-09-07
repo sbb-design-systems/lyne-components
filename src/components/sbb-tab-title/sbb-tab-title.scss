@@ -6,16 +6,13 @@
 
 :host {
   --sbb-tab-title-height: #{sbb.px-to-rem-build(40)};
-  --sbb-tab-title-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-tab-title-color: var(--sbb-color-charcoal-default);
+  --sbb-tab-title-color: var(--sbb-color-granite-default);
   --sbb-tab-title-icon-color: var(--sbb-color-black-default);
   --sbb-tab-title-background-color: var(--sbb-color-white-default);
-  --sbb-tab-title-border-color: var(--sbb-color-cloud-default);
   --sbb-tab-title-cursor: pointer;
   --sbb-tab-title-pointer-events: unset;
-  --sbb-tab-title-shift: translateY(0);
   --sbb-tab-title-inset: 0;
-  --sbb-tab-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-tab-title-marker-inset-inline: 50%;
   --sbb-tab-title-text-decoration: none;
   --sbb-tab-title-animation-duration: var(--sbb-animation-duration-2x);
   --sbb-tab-title-animation-easing: var(--sbb-animation-easing);
@@ -33,73 +30,64 @@
     --sbb-tab-title-color: ButtonText;
     --sbb-tab-title-icon-color: ButtonText;
     --sbb-tab-title-amount-color: ButtonText;
-    --sbb-tab-title-border-color: CanvasText;
   }
 }
 
 :host([disabled]:not([disabled='false'])) {
-  --sbb-tab-title-color: var(--sbb-color-granite-default);
   --sbb-tab-title-icon-color: var(--sbb-color-granite-default);
   --sbb-tab-title-background-color: var(--sbb-color-milk-default);
-  --sbb-tab-title-border-color: var(--sbb-color-cloud-default);
   --sbb-tab-title-cursor: unset;
   --sbb-tab-title-pointer-events: none;
-  --sbb-tab-title-amount-color: var(--sbb-color-granite-default);
   --sbb-tab-title-text-decoration: line-through;
 
   @include sbb.if-forced-colors {
     --sbb-tab-title-color: GrayText;
     --sbb-tab-title-icon-color: GrayText;
     --sbb-tab-title-amount-color: GrayText;
-    --sbb-tab-title-border-color: GrayText;
   }
 }
 
 // If active and not disabled
 :host([active]:not([active='false'], [disabled]:not([disabled='false']))) {
-  --sbb-tab-title-color: var(--sbb-color-white-default);
+  --sbb-tab-title-color: var(--sbb-color-charcoal-default);
   --sbb-tab-title-icon-color: var(--sbb-tab-title-color);
   --sbb-tab-title-background-color: var(--sbb-color-black-default);
-  --sbb-tab-title-border-color: var(--sbb-color-black-default);
-  --sbb-tab-title-amount-color: var(--sbb-color-cement-default);
   --sbb-tab-title-cursor: unset;
   --sbb-tab-title-pointer-events: none;
+  --sbb-tab-title-marker-inset-inline: 0;
 
   @include sbb.if-forced-colors {
     --sbb-tab-title-color: ButtonText;
     --sbb-tab-title-icon-color: ButtonText;
     --sbb-tab-title-amount-color: ButtonText;
-    --sbb-tab-title-border-color: Highlight;
   }
 }
 
-// Hover if not disabled, not active and not pressed
-:host(
-    :hover:not(
-        [disabled]:not([disabled='false']),
-        [data-active],
-        :active,
-        [active]:not([active='false'])
-      )
-  ) {
+:host(:hover:not([disabled]:not([disabled='false']))) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-tab-title-shift: translateY(calc(-1 * #{sbb.px-to-rem-build(1)}));
-    --sbb-tab-title-inset: calc(-1 * #{sbb.px-to-rem-build(2)});
-    --sbb-tab-title-background-color: var(--sbb-color-milk-default);
-
-    @include sbb.if-forced-colors {
-      --sbb-tab-title-border-color: Highlight;
-    }
+    --sbb-tab-title-marker-inset-inline: 0;
   }
 }
 
 // Pressed/active state
 :host(:is([data-active], :active)) {
-  --sbb-tab-title-border-color: var(--sbb-color-black-default);
-  --sbb-tab-title-background-color: var(--sbb-color-white-default);
+  --sbb-tab-title-color: var(--sbb-color-charcoal-default);
+}
 
-  @include sbb.if-forced-colors {
-    --sbb-tab-title-border-color: Highlight;
+.sbb-tab-title__wrapper {
+  position: relative;
+
+  // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
+  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      inset: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
+      border: var(--sbb-focus-outline-width) solid var(--sbb-focus-outline-color);
+      border-radius: var(--sbb-border-radius-2x);
+      z-index: 1;
+    }
   }
 }
 
@@ -110,43 +98,47 @@
   display: flex;
   align-items: center;
   padding-block: var(--sbb-spacing-fixed-2x);
-  padding-inline: var(--sbb-spacing-fixed-5x);
-  gap: var(--sbb-tab-title-gap);
+  padding-inline: var(--sbb-spacing-responsive-xs);
+  gap: var(--sbb-spacing-fixed-2x);
   user-select: none;
   cursor: var(--sbb-tab-title-cursor);
   transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
   color: var(--sbb-tab-title-icon-color);
   pointer-events: var(--sbb-tab-title-pointer-events);
 
+  // Show a border between flex rows when the tab titles wrap to a new line
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    width: 100vw;
+    height: var(--sbb-border-width-1x);
+    background-color: var(--sbb-color-cloud-default);
+  }
+
   &::before {
     position: absolute;
     content: '';
-    inset: var(--sbb-tab-title-inset);
-    border: var(--sbb-border-width-1x) solid var(--sbb-tab-title-border-color);
-    border-radius: var(--sbb-tab-title-border-radius);
-    background-color: var(--sbb-tab-title-background-color);
+    inset-inline: var(--sbb-tab-title-marker-inset-inline);
+    inset-block-end: 0;
+    height: #{sbb.px-to-rem-build(3)};
+    background-color: var(--sbb-tab-title-color);
     transition-duration: var(--sbb-tab-title-animation-duration);
     transition-timing-function: var(--sbb-tab-title-animation-easing);
-    transition-property: inset, background-color, border-color, box-shadow;
-
-    // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
-    :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-      @include sbb.focus-outline;
-    }
-
-    @include sbb.if-forced-colors {
-      border-width: var(--sbb-border-width-2x);
-    }
+    transition-property: inset, background-color;
+    z-index: 1;
   }
 }
 
 .sbb-tab-title__icon {
   display: flex;
   flex-shrink: 0;
+  color: var(--sbb-tab-title-color);
 }
 
 .sbb-tab-title__text {
-  @include sbb.text-xs--bold;
+  @include sbb.text-m--bold;
   @include sbb.font-smoothing;
   @include sbb.ellipsis;
 
@@ -155,7 +147,7 @@
 }
 
 .sbb-tab-title__amount {
-  @include sbb.text-xs--regular;
+  @include sbb.text-m--regular;
   @include sbb.font-smoothing;
 
   display: flex;
@@ -166,9 +158,5 @@
 .sbb-tab-title__icon,
 .sbb-tab-title__text,
 .sbb-tab-title__amount {
-  transition: transform var(--sbb-tab-title-animation-duration)
-    var(--sbb-tab-title-animation-easing);
-  transform: var(--sbb-tab-title-shift);
-  will-change: transform;
   text-decoration: var(--sbb-tab-title-text-decoration);
 }

@@ -5,9 +5,13 @@
 @include sbb.host-component-properties;
 
 .tab-group {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  gap: var(--sbb-spacing-fixed-3x);
+  position: relative;
+  padding: calc(var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset));
+  inset-block-start: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
+  inset-inline-start: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
+  overflow: hidden;
 }
 
 .tab-content {
