@@ -54,13 +54,14 @@
 
 .sbb-file-selector__dropzone-area--icon {
   color: var(--sbb-file-selector-color);
+  line-height: 0;
 }
 
 .sbb-file-selector__dropzone-area--title {
   @include sbb.text--bold;
+  @include sbb.title-6($exclude-spacing: true);
 
   color: var(--sbb-file-selector-color);
-  margin-block-end: var(--sbb-spacing-fixed-1x);
 }
 
 .sbb-file-selector__dropzone-area--subtitle {

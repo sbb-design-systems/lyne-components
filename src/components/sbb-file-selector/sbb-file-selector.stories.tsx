@@ -163,7 +163,7 @@ export const DefaultOnlyPDF: StoryObj = {
 const meta: Meta = {
   decorators: [
     (Story) => (
-      <div style={{ padding: '2rem' }}>
+      <div>
         <Story />
       </div>
     ),

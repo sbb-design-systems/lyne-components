@@ -82,8 +82,13 @@ export class SbbFileSelector implements ComponentInterface {
     return this._files || [];
   }
 
+  // Safari has a peculiar behavior when dragging files on the inner button in 'dropzone' variant;
+  // this will require a counter to correctly handle the dragEnter/dragLeave.
+  private _counter: number = 0;
+
   private _loadButton: HTMLElement;
   private _dragTarget: HTMLElement;
+  private _hiddenInput: HTMLInputElement;
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
 
   private _handlerRepository = new HandlerRepository(
@@ -114,6 +119,7 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   private _onDragEnter(event: DragEvent): void {
+    this._counter++;
     if (!this.disabled) {
       this._setDragState(event.target as HTMLElement, true);
       this._blockEvent(event);
@@ -121,13 +127,15 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   private _onDragLeave(event: DragEvent): void {
-    if (!this.disabled && event.target === this._dragTarget) {
+    this._counter--;
+    if (!this.disabled && event.target === this._dragTarget && this._counter === 0) {
       this._setDragState();
       this._blockEvent(event);
     }
   }
 
   private _onFileDrop(event: DragEvent): void {
+    this._counter = 0;
     if (!this.disabled) {
       this._setDragState();
       this._blockEvent(event);
@@ -182,6 +190,10 @@ export class SbbFileSelector implements ComponentInterface {
 
   private _removeFile(file: File): void {
     this._files = this._files.filter((f: File) => !this._checkFileEquality(file, f));
+    // The item must be removed from the hidden file input too; the FileList API is flawed, so the DataTransfer object is used.
+    const dt: DataTransfer = new DataTransfer();
+    this._files.forEach((e: File) => dt.items.add(e));
+    this._hiddenInput.files = dt.files;
     this.fileChangedEvent.emit(this._files);
   }
 
@@ -279,6 +291,9 @@ export class SbbFileSelector implements ComponentInterface {
               onFocus={() => this._onFocus()}
               onBlur={() => this._onBlur()}
               aria-label={this.accessibilityLabel}
+              ref={(el): void => {
+                this._hiddenInput = el;
+              }}
             />
           </label>
         </div>
