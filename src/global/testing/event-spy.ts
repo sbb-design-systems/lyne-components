@@ -10,8 +10,17 @@ export class EventSpy {
     return this._count;
   }
 
+  private _events: Event[] = [];
   public get events(): { length: number } {
-    return { length: this._count };
+    return this._events;
+  }
+
+  public get firstEvent(): Event {
+    return this.events.length ? this.events[0] : null;
+  }
+
+  public get lastEvent(): Event {
+    return this.events.length ? this.events[this.events.length - 1] : null;
   }
 
   public constructor(
@@ -25,6 +34,9 @@ export class EventSpy {
   }
 
   private _listenForEvent(): void {
-    this._target.addEventListener(this._event, () => this._count++);
+    this._target.addEventListener(this._event, (ev) => {
+      this._events.push(ev);
+      this._count++;
+    });
   }
 }

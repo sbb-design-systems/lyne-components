@@ -218,7 +218,9 @@ async function migrate(component: string, debug = false) {
     // TODO: Validate logic
     const oldValue = this._${propertyName};
     this._${propertyName} = value;
-    this.${newWatcherName}(${argAmount === 0 ? '' : `this._${propertyName}${argAmount === 1 ? '' : ', oldValue'}`});
+    this.${newWatcherName}(${
+      argAmount === 0 ? '' : `this._${propertyName}${argAmount === 1 ? '' : ', oldValue'}`
+    });
     this.requestUpdate('${propertyName}', oldValue);
   }
   private _${propertyName}: ${type} = ${property.initializer?.getText() ?? 'null'};`,
@@ -555,6 +557,13 @@ async function migrate(component: string, debug = false) {
       const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
       const fullTemplate = assertion.arguments[0].getText();
 
+      if (fullTemplate.match(/<mock:shadow-root>/g)!.length > 1) {
+        mutator.insertAt(assertion, '/** NOTE: this test has multiple shadow DOMs. You need to manually migrate it, sorry :/ \n'
+        + '  * You could extract 3 different assertions. One for the light DOM,' 
+        + '  * one for the shadow DOM of the first component and one for the sh. Dom of the second */ \n')
+        return;
+      }
+
       // Split the html template into shadow and light DOMs
       const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
       const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
@@ -568,11 +577,11 @@ async function migrate(component: string, debug = false) {
       mutator.remove(assertion);
       mutator.insertAt(
         assertion,
-        `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`)`,
+        `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
       );
       mutator.insertAt(
         assertion,
-        `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
+        `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`);`,
       );
     }
   }
@@ -587,13 +596,14 @@ async function migrate(component: string, debug = false) {
       .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent', 'waitUntil'])
       .set('lit/static-html.js', ['html'])
       .set('@web/test-runner-commands', ['sendKeys', 'setViewport'])
-      .set('../global/testing/event-spy', ['EventSpy']);
+      .set('../../global/testing/event-spy', ['EventSpy']);
 
     const assertionConversionMap = [
       { from: 'toEqual', to: 'to.be.equal' },
       { from: 'toBe', to: 'to.be.equal' },
       { from: 'toHaveClass', to: 'to.have.class' },
       { from: 'toHaveAttribute', to: 'to.have.attribute' },
+      { from: 'toEqualAttribute', to: 'to.have.attribute' },
     ];
     const eventAssertionConversionMap = [
       { from: 'toHaveReceivedEvent', to: 'to.be.greaterThan'},
@@ -709,11 +719,11 @@ async function migrate(component: string, debug = false) {
             let warning = '';
 
             if (querySelector.match('>>>')) {
-              warning =
-                '// NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")';
+              warning = '// NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)") \n';
+              mutator.insertAt(node, warning);
             }
 
-            mutator.replace(awaitNode, `document.querySelector(${querySelector}) ${warning}`);
+            mutator.replace(awaitNode, `document.querySelector(${querySelector})`);
           }
 
           if (node.getText().match(/\.waitForChanges\(/)) {
