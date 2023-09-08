@@ -5,6 +5,8 @@
 @include sbb.host-component-properties;
 
 :host {
+  --sbb-loading-indicator-color: var(--sbb-color-red-default);
+
   display: inline-block;
   line-height: 0;
 }
@@ -14,7 +16,6 @@
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
   --sbb-loading-indicator-duration: 1.5s;
-  --sbb-loading-indicator-color: var(--sbb-color-red-default);
   --sbb-loading-indicator-background-color: var(--sbb-color-white-default);
   --sbb-loading-indicator-circle-background: conic-gradient(
     from 90deg,
@@ -24,11 +25,6 @@
   --sbb-loading-indicator-circle-animated-width: sbb.px-to-rem-build(3);
   --sbb-loading-indicator-circle-animated-height: sbb.px-to-rem-build(3);
   --sbb-loading-indicator-circle-animated-border-radius: 50%;
-  --sbb-loading-indicator-circle-mask: radial-gradient(
-    circle sbb.px-to-rem-build(7),
-    #0000 98%,
-    var(--sbb-loading-indicator-background-color)
-  );
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
@@ -50,8 +46,16 @@
   border-radius: 50%;
   background: var(--sbb-loading-indicator-circle-background);
   /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-mask: var(--sbb-loading-indicator-circle-mask);
-  mask: var(--sbb-loading-indicator-circle-mask);
+  -webkit-mask: radial-gradient(
+    circle sbb.px-to-rem-build(7),
+    #0000 98%,
+    var(--sbb-loading-indicator-background-color)
+  );
+  mask: radial-gradient(
+    circle sbb.px-to-rem-build(7),
+    #0000 98%,
+    var(--sbb-loading-indicator-background-color)
+  );
   animation: rotation var(--sbb-loading-indicator-duration) infinite linear;
 
   &::after {
@@ -70,7 +74,7 @@
       --sbb-loading-indicator-color: CanvasText;
       --sbb-loading-indicator-circle-animated-width: 50%;
       --sbb-loading-indicator-circle-animated-height: 100%;
-      --sbb-loading-indicator-circle-animated-border-radius: unset;
+      --sbb-loading-indicator-circle-animated-border-radius: 0;
     }
   }
 
