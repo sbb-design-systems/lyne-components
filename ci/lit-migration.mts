@@ -601,6 +601,7 @@ async function migrate(component: string, debug = false) {
     const assertionConversionMap = [
       { from: 'toEqual', to: 'to.be.equal' },
       { from: 'toBe', to: 'to.be.equal' },
+      { from: 'toBeNull', to: 'to.be.null' },
       { from: 'toHaveClass', to: 'to.have.class' },
       { from: 'toHaveAttribute', to: 'to.have.attribute' },
       { from: 'toEqualAttribute', to: 'to.have.attribute' },
@@ -650,16 +651,10 @@ async function migrate(component: string, debug = false) {
       newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
     });
     newImport.push(`import { ${componentName} } from './${args.component}';`);
-    // newImport.push(`const instance = new ${componentName}();`);
+    newImport.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     function migrateUnitTest(test: ts.CallExpression) {
-
-      if (test.arguments[0].getText() === `'renders'`) {
-        const assertion = deepFind(test, (n) => ts.isExpressionStatement(n) && n.getText().startsWith('expect'));
-        mutator.replace(assertion!, `assert.instanceOf(element, ${componentName});`)
-        return;
-      }
 
       iterate(test, (node) => {
         if (ts.isExpressionStatement(node) || ts.isVariableStatement(node)) {
@@ -804,20 +799,21 @@ async function migrate(component: string, debug = false) {
             mutator.replace(node, `${element.getText()}.dispatchEvent(new CustomEvent(${parameters.map(p => p.getText()).join(', ')}));`)
           }
 
+          // Hydrated check migration
+          if (node.getText().match(/\.toHaveClass\('hydrated'\)/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w+\)$/)) as ts.CallExpression;
+            const element = call.arguments[0];
+            mutator.replace(node, `assert.instanceOf(${element.getText()}, ${componentName});`)
+            return;
+          }
+
           // Plain assertion migration
-          if (
-            node
-              .getText()
-              .match(new RegExp(assertionConversionMap.map((a) => `\\.${a.from}\\(`).join('|')))
-          ) {
+          if (node.getText().match(new RegExp(assertionConversionMap.map((a) => `\\.${a.from}\\(`).join('|')))) {
             const assertion = deepFind(node, (n) =>
               assertionConversionMap.some((a) => a.from === n.getText()),
             )!;
 
-            mutator.replace(
-              assertion,
-              assertionConversionMap.find((a) => a.from === assertion.getText())!.to,
-            );
+            mutator.replace(assertion, assertionConversionMap.find((a) => a.from === assertion.getText())!.to);
           }
 
           // Events assertion migration
