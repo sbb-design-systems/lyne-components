@@ -17,7 +17,7 @@ function iterate(node: ts.Node, callback: (_node: ts.Node) => void) {
   });
 }
 
-function deepFind(node: ts.Node, predicate: (_node: ts.Node) => boolean): ts.Node | undefined { 
+function deepFind(node: ts.Node, predicate: (_node: ts.Node) => boolean): ts.Node | undefined {
   if (predicate(node)) {
     return node;
   }
@@ -95,7 +95,7 @@ function migrate(component: string, debug = false) {
   );
 
   if (!existsSync(target)) {
-    mkdirSync(target, {recursive: true});
+    mkdirSync(target, { recursive: true });
   }
   if (!debug) {
     copy(['readme.md', `${component}.scss`], source, target);
@@ -414,6 +414,7 @@ function migrate(component: string, debug = false) {
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
+  // prettier-ignore
   function migrateSpec(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     const componentName = toPascalCase(args.component);
@@ -494,6 +495,7 @@ function migrate(component: string, debug = false) {
     }
   }
 
+  // prettier-ignore
   function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     const componentName = toPascalCase(args.component);
@@ -558,7 +560,7 @@ function migrate(component: string, debug = false) {
           if (node.getText().match(/await newE2EPage\(/)) {
             const call = deepFind(node, (n) => ts.isCallExpression(n) && n.getText().startsWith('newE2EPage')) as ts.CallExpression;
             
-            // if it is 'newE2EPage()' we remove it
+            // if it's' 'newE2EPage()', just remove it
             if (call.arguments.length === 0) {
               mutator.remove(node);
             } else {
