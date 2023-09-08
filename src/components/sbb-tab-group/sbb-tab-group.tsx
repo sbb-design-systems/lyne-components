@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
-import { isValidAttribute, hostContext } from '../../global/dom';
+import { isValidAttribute, hostContext, toggleDatasetEntry } from '../../global/dom';
 import { throttle } from '../../global/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
 
@@ -43,12 +43,16 @@ export class SbbTabGroup implements ComponentInterface {
   public tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;
+  private _tabGroupElement: HTMLElement;
   private _tabContentElement: HTMLElement;
   private _tabAttributeObserver = new AgnosticMutationObserver(
     this._onTabAttributesChange.bind(this),
   );
-  private _tabContentResizeObserver = new AgnosticResizeObserver(
-    this._onTabContentElementResize.bind(this),
+  private _tabGroupResizeObserver = new AgnosticResizeObserver((entries) =>
+    this._onTabGroupElementResize(entries),
+  );
+  private _tabContentResizeObserver = new AgnosticResizeObserver((entries) =>
+    this._onTabContentElementResize(entries),
   );
 
   @Element() private _element: HTMLElement;
@@ -114,11 +118,13 @@ export class SbbTabGroup implements ComponentInterface {
     this.tabs = this._getTabs();
     this.tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
+    this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
 
   public disconnectedCallback(): void {
     this._tabAttributeObserver.disconnect();
     this._tabContentResizeObserver.disconnect();
+    this._tabGroupResizeObserver.disconnect();
   }
 
   private _onContentSlotChange = (): void => {
@@ -183,6 +189,26 @@ export class SbbTabGroup implements ComponentInterface {
           tab.setAttribute('active', '');
         }
       }
+    }
+  }
+
+  private _onTabGroupElementResize(entries: ResizeObserverEntry[]): void {
+    for (const entry of entries) {
+      const tabTitles = (
+        entry.target.firstElementChild as HTMLSlotElement
+      ).assignedElements() as HTMLSbbTabTitleElement[];
+
+      tabTitles.forEach((tab: HTMLSbbTabTitleElement) => {
+        toggleDatasetEntry(
+          tab,
+          'hasDivider',
+          tab === tabTitles[0] || tab.offsetLeft === tabTitles[0].offsetLeft,
+        );
+        this._element.style.setProperty(
+          '--sbb-tab-group-width',
+          `${this._tabGroupElement.clientWidth}px`,
+        );
+      });
     }
   }
 
@@ -309,7 +335,7 @@ export class SbbTabGroup implements ComponentInterface {
   public render(): JSX.Element {
     return (
       <Host class={this._isNested ? 'tab-group--nested' : ''}>
-        <div class="tab-group" role="tablist">
+        <div class="tab-group" role="tablist" ref={(el) => (this._tabGroupElement = el)}>
           <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
         </div>
 

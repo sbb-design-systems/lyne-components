@@ -106,15 +106,17 @@
   color: var(--sbb-tab-title-icon-color);
   pointer-events: var(--sbb-tab-title-pointer-events);
 
-  // Show a border between flex rows when the tab titles wrap to a new line
-  &::after {
-    content: '';
-    position: absolute;
-    inset-inline-start: 0;
-    inset-block-end: 0;
-    width: 100vw;
-    height: var(--sbb-border-width-1x);
-    background-color: var(--sbb-color-cloud-default);
+  // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
+  :host([data-has-divider]) & {
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-end: 0;
+      width: var(--sbb-tab-group-width);
+      height: var(--sbb-border-width-1x);
+      background-color: var(--sbb-color-cloud-default);
+    }
   }
 
   &::before {

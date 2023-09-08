@@ -7,11 +7,6 @@
 .tab-group {
   display: inline-flex;
   flex-wrap: wrap;
-  position: relative;
-  padding: calc(var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset));
-  inset-block-start: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
-  inset-inline-start: calc((var(--sbb-focus-outline-width) + var(--sbb-focus-outline-offset)) * -1);
-  overflow: hidden;
 }
 
 .tab-content {
