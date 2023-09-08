@@ -784,6 +784,15 @@ async function migrate(component: string, debug = false) {
             mutator.replace(awaitNode, `new EventSpy(${eventName})`)
           }
 
+          // element.triggerEvent('event', data) => element.dispatchEvent(new CustomEvent('event', data)
+          if (node.getText().match(/\.triggerEvent\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression;
+            const parameters = call.arguments;
+
+            mutator.replace(node, `${element.getText()}.dispatchEvent(new CustomEvent(${parameters.map(p => p.getText()).join(', ')}));`)
+          }
+
           // Plain assertion migration
           if (
             node
