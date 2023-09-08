@@ -8,7 +8,7 @@
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
-  --sbb-loader-indicator-duration: 1s;
+  --sbb-loader-indicator-duration: 1.5s;
 
   display: inline-block;
   line-height: 0;
@@ -58,6 +58,19 @@
     transform: translateY(-50%);
     overflow: hidden;
     margin: auto;
+  }
+}
+
+@include sbb.if-forced-colors {
+  :host([variant='circle']) .sbb-loading-indicator__animated-element {
+    background: transparent;
+
+    &::after {
+      content: '';
+      width: 50%;
+      height: 100%;
+      border-radius: unset;
+    }
   }
 }
 
@@ -140,50 +153,30 @@
   height: var(--sbb-loader-indicator-window-last-span-height);
   margin-right: var(--sbb-loader-indicator-window-last-span-margin);
   transform: var(--sbb-loader-indicator-window-last-span-transform);
-}
 
-:host([variant='window'])
-  .sbb-loading-indicator__animated-element
-  > span
-  > span
-  > span:nth-child(1) {
-  animation: loading-rectangle1 var(--sbb-loader-indicator-duration) linear infinite;
-}
+  &:nth-child(1) {
+    animation: loading-rectangle1 var(--sbb-loader-indicator-duration) linear infinite;
+  }
 
-:host([variant='window'])
-  .sbb-loading-indicator__animated-element
-  > span
-  > span
-  > span:nth-child(2) {
-  animation: loading-rectangle2 var(--sbb-loader-indicator-duration) linear infinite;
-}
+  &:nth-child(2) {
+    animation: loading-rectangle2 var(--sbb-loader-indicator-duration) linear infinite;
+  }
 
-:host([variant='window'])
-  .sbb-loading-indicator__animated-element
-  > span
-  > span
-  > span:nth-child(3) {
-  animation: loading-rectangle3 var(--sbb-loader-indicator-duration) linear infinite;
-}
+  &:nth-child(3) {
+    animation: loading-rectangle3 var(--sbb-loader-indicator-duration) linear infinite;
+  }
 
-:host([variant='window'])
-  .sbb-loading-indicator__animated-element
-  > span
-  > span
-  > span:nth-child(4) {
-  animation: loading-rectangle4 var(--sbb-loader-indicator-duration) linear infinite;
-}
+  &:nth-child(4) {
+    animation: loading-rectangle4 var(--sbb-loader-indicator-duration) linear infinite;
+  }
 
-:host([variant='window'])
-  .sbb-loading-indicator__animated-element
-  > span
-  > span
-  > span:nth-child(5) {
-  animation: loading-rectangle5 var(--sbb-loader-indicator-duration) linear infinite;
-}
+  &:nth-child(5) {
+    animation: loading-rectangle5 var(--sbb-loader-indicator-duration) linear infinite;
+  }
 
-:host([variant='window']) .sbb-loading-indicator__animated-element > span > span > span:last-child {
-  margin-right: 0;
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 @keyframes loading-container-small {
