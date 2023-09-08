@@ -11,6 +11,10 @@
   line-height: 0;
 }
 
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-loading-indicator-duration: 0;
+}
+
 :host([variant='circle']) {
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);

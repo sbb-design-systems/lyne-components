@@ -3,6 +3,8 @@ import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import isChromatic from 'chromatic';
+import { userEvent, within } from '@storybook/testing-library';
 
 const textBlockStyle: Args = {
   marginBlock: '1rem',
@@ -23,12 +25,19 @@ const createLoadingIndicator = (args): void => {
   setTimeout(() => loader.remove(), 6000);
 };
 
+// Story interaction executed after the story renders
+const playStory = async ({ canvasElement }): Promise<void> => {
+  await userEvent.click(within(canvasElement).getByTestId('trigger'));
+};
+
 const TemplateAccessibility = (args): JSX.Element => (
   <Fragment>
     <div style={textBlockStyle}>
       Turn on your screen-reader and click the button to make the loading indicator appear.
     </div>
-    <sbb-button onClick={() => createLoadingIndicator(args)}>Show loader</sbb-button>
+    <sbb-button data-testid="trigger" onClick={() => createLoadingIndicator(args)}>
+      Show loader
+    </sbb-button>
     <div class="loader-container" aria-live="polite"></div>
   </Fragment>
 );
@@ -49,14 +58,22 @@ const size: InputType = {
   options: ['small', 'large'],
 };
 
+const disableAnimation: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   variant,
   size,
+  'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
   variant: variant.options[0],
   size: size.options[0],
+  'disable-animation': isChromatic(),
 };
 
 export const WindowSmall: StoryObj = {
@@ -81,6 +98,13 @@ export const Accessibility: StoryObj = {
   render: TemplateAccessibility,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
+  play: isChromatic() && playStory,
+};
+
+export const NoAnimation: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'disable-animation': true },
 };
 
 const meta: Meta = {

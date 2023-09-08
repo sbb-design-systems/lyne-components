@@ -961,6 +961,10 @@ export namespace Components {
     }
     interface SbbLoadingIndicator {
         /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
           * Size variant, either s or m.
          */
         "size": InterfaceSbbLoadingIndicatorAttributes['size'];
@@ -3657,6 +3661,10 @@ declare namespace LocalJSX {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLoadingIndicator {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
         /**
           * Size variant, either s or m.
          */

@@ -47,10 +47,11 @@ and then append `sbb-loading-indicator` on it after giving it the correct `aria-
 
 ## Properties
 
-| Property  | Attribute | Description                                                                                       | Type                   | Default     |
-| --------- | --------- | ------------------------------------------------------------------------------------------------- | ---------------------- | ----------- |
-| `size`    | `size`    | Size variant, either s or m.                                                                      | `"l" \| "s"`           | `'s'`       |
-| `variant` | `variant` | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. | `"circle" \| "window"` | `undefined` |
+| Property           | Attribute           | Description                                                                                       | Type                   | Default     |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------- | ---------------------- | ----------- |
+| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                 | `boolean`              | `false`     |
+| `size`             | `size`              | Size variant, either s or m.                                                                      | `"l" \| "s"`           | `'s'`       |
+| `variant`          | `variant`           | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. | `"circle" \| "window"` | `undefined` |
 
 
 ----------------------------------------------
