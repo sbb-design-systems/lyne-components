@@ -7,15 +7,16 @@
 :host {
   --sbb-option-color: var(--sbb-color-charcoal-default);
   --sbb-option-background-color: inherit;
+  --sbb-option-margin: 0;
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-justify-content: start;
   --sbb-option-min-height: var(--sbb-size-button-m-min-height);
   --sbb-option-cursor: pointer;
-  --sbb-option-border-radius: var(--sbb-border-radius-4x);
+  --sbb-option-border: none;
+  --sbb-option-border-radius: 0;
   --sbb-option-icon-color: var(--sbb-color-metal-default);
-  --sbb-option-text-decoration: none;
 }
 
 :host([active]:not([active='false'])) {
@@ -41,13 +42,22 @@
 
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
-  --sbb-option-color: var(--sbb-color-granite-default);
   --sbb-option-cursor: default;
-  --sbb-option-text-decoration: line-through;
+}
 
-  @include sbb.if-forced-colors {
-    --sbb-option-color: GrayText;
-  }
+:host([data-group-disabled]:not([data-multiple])),
+:host([disabled]:not([disabled='false'], [data-multiple])) {
+  --sbb-option-margin: #{sbb.px-to-rem-build(6)};
+  --sbb-option-padding-inline: calc(
+    var(--sbb-spacing-responsive-xxxs) - var(--sbb-option-margin) - var(--sbb-border-width-1x)
+  );
+  --sbb-option-padding-block: calc(
+    (var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x)) -
+      (var(--sbb-option-margin) - var(--sbb-border-width-2x))
+  );
+  --sbb-option-background-color: var(--sbb-color-milk-default);
+  --sbb-option-border: var(--sbb-border-width-1x) dashed var(--sbb-color-graphite-default);
+  --sbb-option-border-radius: var(--sbb-border-radius-2x);
 }
 
 :host([data-variant='select']) {
@@ -69,7 +79,7 @@
 }
 
 .sbb-option__container {
-  background-color: var(--sbb-option-background-color);
+  margin: var(--sbb-option-margin);
 }
 
 .sbb-option {
@@ -82,8 +92,9 @@
   padding-block: var(--sbb-option-padding-block);
   justify-content: var(--sbb-option-justify-content);
   color: var(--sbb-option-color);
-  text-decoration: var(--sbb-option-text-decoration);
   background-color: var(--sbb-option-background-color);
+  border: var(--sbb-option-border);
+  border-radius: var(--sbb-option-border-radius);
   cursor: var(--sbb-option-cursor);
   -webkit-tap-highlight-color: transparent;
   -webkit-text-fill-color: var(--sbb-option-color);
@@ -91,7 +102,7 @@
   :host([active]:not([active='false'])) & {
     @include sbb.focus-outline;
 
-    border-radius: var(--sbb-option-border-radius);
+    --sbb-option-border-radius: var(--sbb-border-radius-4x);
   }
 }
 
