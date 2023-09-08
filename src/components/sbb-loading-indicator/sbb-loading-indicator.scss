@@ -4,14 +4,31 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  --sbb-loading-indicator-color: var(--sbb-color-red-default);
+
+  display: inline-block;
+  line-height: 0;
+}
+
+:host([disable-animation]:not([disable-animation='false'])) {
+  --sbb-loading-indicator-duration: 0;
+}
+
 :host([variant='circle']) {
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
-  --sbb-loader-indicator-duration: 1.5s;
-
-  display: inline-block;
-  line-height: 0;
+  --sbb-loading-indicator-duration: 1.5s;
+  --sbb-loading-indicator-background-color: var(--sbb-color-white-default);
+  --sbb-loading-indicator-circle-background: conic-gradient(
+    from 90deg,
+    var(--sbb-loading-indicator-background-color),
+    var(--sbb-loading-indicator-color)
+  );
+  --sbb-loading-indicator-circle-animated-width: sbb.px-to-rem-build(3);
+  --sbb-loading-indicator-circle-animated-height: sbb.px-to-rem-build(3);
+  --sbb-loading-indicator-circle-animated-border-radius: 50%;
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
@@ -31,46 +48,42 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 50%;
-  background: conic-gradient(
-    from 90deg,
-    var(--sbb-color-white-default),
-    var(--sbb-color-red-default)
-  );
-  /* stylelint-disable */
+  background: var(--sbb-loading-indicator-circle-background);
+  /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-mask: radial-gradient(
     circle sbb.px-to-rem-build(7),
     #0000 98%,
-    var(--sbb-color-white-default)
+    var(--sbb-loading-indicator-background-color)
   );
-  /* stylelint-enable */
-  mask: radial-gradient(circle sbb.px-to-rem-build(7), #0000 98%, var(--sbb-color-white-default));
-  animation: rotation var(--sbb-loader-indicator-duration) infinite linear;
+  mask: radial-gradient(
+    circle sbb.px-to-rem-build(7),
+    #0000 98%,
+    var(--sbb-loading-indicator-background-color)
+  );
+  animation: rotation var(--sbb-loading-indicator-duration) infinite linear;
 
   &::after {
     content: '';
-    width: sbb.px-to-rem-build(3);
-    height: sbb.px-to-rem-build(3);
-    background: var(--sbb-color-red-default);
-    border-radius: 50%;
+    width: var(--sbb-loading-indicator-circle-animated-width);
+    height: var(--sbb-loading-indicator-circle-animated-height);
+    background: var(--sbb-loading-indicator-color);
+    border-radius: var(--sbb-loading-indicator-circle-animated-border-radius);
     position: absolute;
     top: 50%;
     right: 0;
     transform: translateY(-50%);
     overflow: hidden;
     margin: auto;
-  }
-}
-
-@include sbb.if-forced-colors {
-  :host([variant='circle']) .sbb-loading-indicator__animated-element {
-    background: transparent;
-
-    &::after {
-      content: '';
-      width: 50%;
-      height: 100%;
-      border-radius: unset;
+    @include sbb.if-forced-colors {
+      --sbb-loading-indicator-color: CanvasText;
+      --sbb-loading-indicator-circle-animated-width: 50%;
+      --sbb-loading-indicator-circle-animated-height: 100%;
+      --sbb-loading-indicator-circle-animated-border-radius: 0;
     }
+  }
+
+  @include sbb.if-forced-colors {
+    --sbb-loading-indicator-circle-background: transparent;
   }
 }
 
@@ -78,10 +91,7 @@
   --sbb-loading-indicator-height: sbb.px-to-rem-build(32);
   --sbb-loading-indicator-width: sbb.px-to-rem-build(55);
   --sbb-loading-indicator-padding: 0;
-  --sbb-loader-indicator-duration: 0.23s;
-
-  display: inline-block;
-  line-height: 0;
+  --sbb-loading-indicator-duration: 0.23s;
 }
 
 :host([variant='window'][size='small']) {
@@ -121,8 +131,8 @@
 
 :host([variant='window']) .sbb-loading-indicator {
   display: flex;
-  height: var(--sbb-loader-indicator-window-height);
-  padding-block-start: var(--sbb-loader-indicator-window-padding-block-start);
+  height: var(--sbb-loading-indicator-window-height);
+  padding-block-start: var(--sbb-loading-indicator-window-padding-block-start);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element {
@@ -131,9 +141,9 @@
   transform: translate3d(-3em, 0, 0);
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  width: var(--sbb-loader-indicator-window-element-width);
-  height: var(--sbb-loader-indicator-window-element-height);
-  perspective: var(--sbb-loader-indicator-window-element-perspective);
+  width: var(--sbb-loading-indicator-window-element-width);
+  height: var(--sbb-loading-indicator-window-element-height);
+  perspective: var(--sbb-loading-indicator-window-element-perspective);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element > span {
@@ -146,36 +156,36 @@
 :host([variant='window']) .sbb-loading-indicator__animated-element > span > span {
   position: relative;
   display: flex;
-  animation: var(--sbb-loader-indicator-window-element-animation);
+  animation: var(--sbb-loading-indicator-window-element-animation);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element > span > span > span {
-  background: var(--sbb-color-red-default);
+  background: var(--sbb-loading-indicator-color);
   backface-visibility: hidden;
   outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
-  width: var(--sbb-loader-indicator-window-last-span-width);
-  height: var(--sbb-loader-indicator-window-last-span-height);
-  margin-right: var(--sbb-loader-indicator-window-last-span-margin);
-  transform: var(--sbb-loader-indicator-window-last-span-transform);
+  width: var(--sbb-loading-indicator-window-last-span-width);
+  height: var(--sbb-loading-indicator-window-last-span-height);
+  margin-right: var(--sbb-loading-indicator-window-last-span-margin);
+  transform: var(--sbb-loading-indicator-window-last-span-transform);
 
   &:nth-child(1) {
-    animation: loading-rectangle1 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle1 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(2) {
-    animation: loading-rectangle2 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle2 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(3) {
-    animation: loading-rectangle3 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle3 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(4) {
-    animation: loading-rectangle4 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle4 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(5) {
-    animation: loading-rectangle5 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle5 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:last-child {

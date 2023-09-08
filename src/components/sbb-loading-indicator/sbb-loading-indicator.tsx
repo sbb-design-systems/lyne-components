@@ -13,6 +13,9 @@ export class SbbLoadingIndicator implements ComponentInterface {
   /** Size variant, either s or m. */
   @Prop({ reflect: true }) public size: InterfaceSbbLoadingIndicatorAttributes['size'] = 's';
 
+  /** Whether the animation is enabled. */
+  @Prop({ reflect: true }) public disableAnimation = false;
+
   public render(): JSX.Element {
     return (
       <Host role="progressbar" aria-busy="true">
