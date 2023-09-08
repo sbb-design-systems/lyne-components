@@ -4,6 +4,7 @@ import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType, StoryContext } from '@storybook/types';
+import isChromatic from 'chromatic';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
@@ -51,7 +52,11 @@ const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element
 
 const LoadingIndicatorTemplate = ({ text, ...args }): JSX.Element => (
   <sbb-button {...args}>
-    <sbb-loading-indicator slot="icon" variant="circle"></sbb-loading-indicator>
+    <sbb-loading-indicator
+      disable-animation={isChromatic()}
+      slot="icon"
+      variant="circle"
+    ></sbb-loading-indicator>
     {text}
   </sbb-button>
 );

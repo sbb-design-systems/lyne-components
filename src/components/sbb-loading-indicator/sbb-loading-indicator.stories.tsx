@@ -28,6 +28,7 @@ const createLoadingIndicator = (args): void => {
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   await userEvent.click(within(canvasElement).getByTestId('trigger'));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 const TemplateAccessibility = (args): JSX.Element => (
