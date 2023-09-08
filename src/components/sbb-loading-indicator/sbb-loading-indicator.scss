@@ -4,14 +4,26 @@
 // travel the shadow boundary are defined through this mixin
 @include sbb.host-component-properties;
 
+:host {
+  display: inline-block;
+  line-height: 0;
+}
+
 :host([variant='circle']) {
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
   --sbb-loader-indicator-duration: 1.5s;
-
-  display: inline-block;
-  line-height: 0;
+  --sbb-loader-indicator-color: var(--sbb-color-red-default);
+  --sbb-loader-indicator-background-color: var(--sbb-color-white-default);
+  --sbb-loader-indicator-circle-background: conic-gradient(
+    from 90deg,
+    var(--sbb-loader-indicator-background-color),
+    var(--sbb-loader-indicator-color)
+  );
+  --sbb-loader-indicator-circle-animated-width: sbb.px-to-rem-build(3);
+  --sbb-loader-indicator-circle-animated-height: sbb.px-to-rem-build(3);
+  --sbb-loader-indicator-circle-animated-border-radius: 50%;
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
@@ -31,27 +43,27 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 50%;
-  background: conic-gradient(
-    from 90deg,
-    var(--sbb-color-white-default),
-    var(--sbb-color-red-default)
-  );
+  background: var(--sbb-loader-indicator-circle-background);
   /* stylelint-disable */
   -webkit-mask: radial-gradient(
     circle sbb.px-to-rem-build(7),
     #0000 98%,
-    var(--sbb-color-white-default)
+    var(--sbb-loader-indicator-background-color)
   );
   /* stylelint-enable */
-  mask: radial-gradient(circle sbb.px-to-rem-build(7), #0000 98%, var(--sbb-color-white-default));
+  mask: radial-gradient(
+    circle sbb.px-to-rem-build(7),
+    #0000 98%,
+    var(--sbb-loader-indicator-background-color)
+  );
   animation: rotation var(--sbb-loader-indicator-duration) infinite linear;
 
   &::after {
     content: '';
-    width: sbb.px-to-rem-build(3);
-    height: sbb.px-to-rem-build(3);
-    background: var(--sbb-color-red-default);
-    border-radius: 50%;
+    width: var(--sbb-loader-indicator-circle-animated-width);
+    height: var(--sbb-loader-indicator-circle-animated-height);
+    background: var(--sbb-loader-indicator-color);
+    border-radius: var(--sbb-loader-indicator-circle-animated-border-radius);
     position: absolute;
     top: 50%;
     right: 0;
@@ -59,18 +71,13 @@
     overflow: hidden;
     margin: auto;
   }
-}
 
-@include sbb.if-forced-colors {
-  :host([variant='circle']) .sbb-loading-indicator__animated-element {
-    background: transparent;
-
-    &::after {
-      content: '';
-      width: 50%;
-      height: 100%;
-      border-radius: unset;
-    }
+  @include sbb.if-forced-colors {
+    --sbb-loader-indicator-circle-background: transparent;
+    --sbb-loader-indicator-color: CanvasText;
+    --sbb-loader-indicator-circle-animated-width: 50%;
+    --sbb-loader-indicator-circle-animated-height: 100;
+    --sbb-loader-indicator-circle-animated-border-radius: unset;
   }
 }
 
@@ -79,9 +86,6 @@
   --sbb-loading-indicator-width: sbb.px-to-rem-build(55);
   --sbb-loading-indicator-padding: 0;
   --sbb-loader-indicator-duration: 0.23s;
-
-  display: inline-block;
-  line-height: 0;
 }
 
 :host([variant='window'][size='small']) {
@@ -146,7 +150,7 @@
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element > span > span > span {
-  background: var(--sbb-color-red-default);
+  background: var(--sbb-loader-indicator-color);
   backface-visibility: hidden;
   outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
   width: var(--sbb-loader-indicator-window-last-span-width);
