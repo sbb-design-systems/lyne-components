@@ -205,6 +205,7 @@ async function migrate(component: string, debug = false) {
             states.find((p) => p.name.getText() === propertyName)!;
 
           const type = resolvePropertyType(property);
+          const argAmount = node.parameters.length;
           mutator.replace(
             property
               .getText()
@@ -217,7 +218,7 @@ async function migrate(component: string, debug = false) {
     // TODO: Validate logic
     const oldValue = this._${propertyName};
     this._${propertyName} = value;
-    this.${newWatcherName}(this._${propertyName});
+    this.${newWatcherName}(${argAmount === 0 ? '' : `this._${propertyName}${argAmount === 1 ? '' : ', oldValue'}`});
     this.requestUpdate('${propertyName}', oldValue);
   }
   private _${propertyName}: ${type} = ${property.initializer?.getText() ?? 'null'};`,
@@ -274,7 +275,7 @@ async function migrate(component: string, debug = false) {
         pivot,
         `
 
-  willUpdate(changedProperties: PropertyValues<this>) {${propertyWatchers
+  public willUpdate(changedProperties: PropertyValues<this>): void {${propertyWatchers
     .map(
       (pw) => `
     if (${pw.props.map((p) => `changedProperties.has('${p}')`).join(' || ')}) {
@@ -292,14 +293,20 @@ async function migrate(component: string, debug = false) {
       );
     }
 
-    for (const node of properties) {
-      const decorator = node.modifiers?.find(ts.isDecorator)!;
-      mutator.replace(decorator, `@property(${resolvePropertyDecoratorArguments(node)})`);
+    if (properties.length) {
+      newImports.get('lit/decorators.js')!.push('property');
+      for (const node of properties) {
+        const decorator = node.modifiers?.find(ts.isDecorator)!;
+        mutator.replace(decorator, `@property(${resolvePropertyDecoratorArguments(node)})`);
+      }
     }
 
-    for (const node of states) {
-      const decorator = node.modifiers?.find(ts.isDecorator)!;
-      mutator.replace(decorator, `@state(${resolvePropertyDecoratorArguments(node)})`);
+    if (properties.length) {
+      newImports.get('lit/decorators.js')!.push('state');
+      for (const node of states) {
+        const decorator = node.modifiers?.find(ts.isDecorator)!;
+        mutator.replace(decorator, `@state(${resolvePropertyDecoratorArguments(node)})`);
+      }
     }
 
     function resolvePropertyDecoratorArguments(node: ts.PropertyDeclaration) {
@@ -406,7 +413,7 @@ async function migrate(component: string, debug = false) {
       mutator.insertAtEnd(classDeclaration.name!, ` extends LitElement`);
       mutator.insertAt(
         classDeclaration.members[0].getFullStart(),
-        `\n  static override styles = Style;\n`,
+        `\n  public static override styles = Style;\n`,
       );
     }
 
