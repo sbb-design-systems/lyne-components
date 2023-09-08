@@ -1,13 +1,15 @@
 import { relative } from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { createInterface } from 'readline/promises';
 import ts from 'typescript';
+import MagicString from 'magic-string';
+
+const readline = createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 const join = (base: URL, path: string) => new URL(path, base);
-
-const copy = (names: string[], from: URL, to: URL) =>
-  names
-    .map((n) => `./${n}`)
-    .forEach((n) => writeFileSync(join(to, n), readFileSync(join(from, n))));
 
 // eslint-disable-next-line no-unused-vars
 function iterate(node: ts.Node, callback: (_node: ts.Node) => void) {
@@ -17,6 +19,7 @@ function iterate(node: ts.Node, callback: (_node: ts.Node) => void) {
   });
 }
 
+// eslint-disable-next-line no-unused-vars
 function deepFind(node: ts.Node, predicate: (_node: ts.Node) => boolean): ts.Node | undefined {
   if (predicate(node)) {
     return node;
@@ -26,129 +29,122 @@ function deepFind(node: ts.Node, predicate: (_node: ts.Node) => boolean): ts.Nod
   });
 }
 
-class StringMutation {
-  private _mutations: {
-    position: number;
-    type: 'insert' | 'delete';
-    // eslint-disable-next-line no-unused-vars
-    mutate: (_result: string) => string;
-  }[] = [];
-  // eslint-disable-next-line no-unused-vars
-  constructor(private readonly _sourceFile: ts.SourceFile) {}
-
+class MyMagicString extends MagicString {
   insertAt(positionOrNode: number | ts.Node, text: string) {
     const position =
       typeof positionOrNode === 'number' ? positionOrNode : positionOrNode.getStart();
-    this._mutations.push({
-      position,
-      type: 'insert',
-      mutate: (result) => `${result.substring(0, position)}${text}${result.substring(position)}`,
-    });
+    this.appendRight(position, text);
   }
 
   insertAtEnd(node: ts.Node, text: string) {
     this.insertAt(node.getFullStart() + node.getFullWidth(), text);
   }
 
-  remove(...nodes: ts.Node[]) {
-    for (const node of nodes) {
-      this._mutations.push({
-        position: node.getStart(),
-        type: 'delete',
-        mutate: (result) =>
-          `${result.substring(0, node.getStart())}${result.substring(
-            node.getStart() + node.getWidth(),
-          )}`,
-      });
+  remove(...nodes: ts.Node[] | number[]): MagicString {
+    if ([...nodes].every((n) => Number.isInteger(n))) {
+      super.remove(nodes[0] as number, nodes[1] as number);
+    } else {
+      for (const node of nodes as ts.Node[]) {
+        this.remove(node.getStart(), node.getStart() + node.getWidth());
+      }
     }
+
+    return this;
   }
 
-  replace(node: ts.Node, text: string) {
-    this.remove(node);
-    this.insertAt(node, text);
-  }
+  // eslint-disable-next-line no-unused-vars
+  replace(
+    regex: RegExp | string | ts.Node,
+    // eslint-disable-next-line no-unused-vars
+    replacement: string | ((substring: string, ...args: any[]) => string),
+  ): MagicString {
+    if (regex instanceof RegExp || typeof regex === 'string') {
+      return super.replace(regex, replacement);
+    } else {
+      this.remove(regex);
+      this.insertAt(regex, replacement as string);
+    }
 
-  toString(): string {
-    return this._mutations
-      .sort((a, b) => b.position - a.position || a.type.localeCompare(b.type))
-      .reduce((current, next) => next.mutate(current), this._sourceFile.getFullText());
+    return this;
   }
 }
 
-function migrate(component: string, debug = false) {
+async function migrate(component: string, debug = false) {
   const projectRoot = new URL('..', import.meta.url);
   const source = join(projectRoot, `./src/components/${component}/`);
-  const target = join(projectRoot, `./src/migrated/${component}/`);
+  const target = join(projectRoot, `./src/${debug ? 'migrated' : 'components'}/${component}/`);
   if (!component) {
     console.error('Please add a component to the command');
     return;
-  } else if (existsSync(target) && !debug) {
-    console.error(`${relative(projectRoot.pathname, target.pathname)} already exists. Aborting...`);
-    return;
   }
 
-  console.log(
-    `Migrating ${relative(projectRoot.pathname, source.pathname)} to ${relative(
-      projectRoot.pathname,
-      target.pathname,
-    )}`,
-  );
+  console.log(`Migrating ${relative(projectRoot.pathname, source.pathname)}`);
 
   if (!existsSync(target)) {
     mkdirSync(target, { recursive: true });
   }
-  if (!debug) {
-    copy(['readme.md', `${component}.scss`], source, target);
-  }
 
+  type MigrationResult = void | Promise<void>;
   const migrations = new Map<
     string,
     // eslint-disable-next-line no-unused-vars
-    (_sourceFile: ts.SourceFile, _mutator: StringMutation, args: any) => void
+    (_sourceFile: ts.SourceFile, _mutator: MyMagicString, args: any) => MigrationResult
   >()
     .set(`./${component}.tsx`, migrateComponent)
     .set(`./${component}.stories.tsx`, migrateStories)
     .set(`./${component}.spec.ts`, migrateSpec)
     .set(`./${component}.e2e.ts`, migrateE2E);
 
-  migrations.forEach((migration, file) =>
-    Promise.resolve().then(() => {
-      const path = join(source, file);
-      const sourceFile = ts.createSourceFile(
-        path.pathname,
-        readFileSync(path, 'utf8'),
-        ts.ScriptTarget.ES2021,
-        true,
-      );
-      const mutator = new StringMutation(sourceFile);
-      const args = { component };
-      migration(sourceFile, mutator, args);
+  for (const [file, migration] of Array.from(migrations)) {
+    const path = join(source, file);
+    const sourceFile = ts.createSourceFile(
+      path.pathname,
+      readFileSync(path, 'utf8'),
+      ts.ScriptTarget.ES2021,
+      true,
+    );
+    const mutator = new MyMagicString(sourceFile.getFullText());
+    const args = { component };
+    try {
+      await migration(sourceFile, mutator, args);
+    } catch (e) {
+      console.error(e);
+    }
 
-      writeFileSync(join(target, file.replace(/.tsx$/, '.ts')), mutator.toString(), 'utf8');
-      console.log(`Migrated ${file}`);
-    }),
-  );
+    writeFileSync(join(target, file), mutator.toString(), 'utf8');
+    console.log(`Migrated ${file}`);
+  }
 
   console.log('Finished migration');
 
-  function migrateComponent(sourceFile: ts.SourceFile, mutator: StringMutation) {
+  async function migrateComponent(
+    sourceFile: ts.SourceFile,
+    mutator: MyMagicString,
+  ): Promise<void> {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     let eventingImport: ts.ImportDeclaration | undefined = undefined;
     const globalImports: ts.ImportDeclaration[] = [];
     const properties: ts.PropertyDeclaration[] = [];
+    const states: ts.PropertyDeclaration[] = [];
     const events: ts.PropertyDeclaration[] = [];
     const listeners: ts.MethodDeclaration[] = [];
     const watchers: ts.MethodDeclaration[] = [];
+    const methods: ts.MethodDeclaration[] = [];
     const propertyRenames = new Map<string, string>();
-    let element: ts.PropertyDeclaration;
-    let connectedCallback: ts.MethodDeclaration;
-    let disconnectedCallback: ts.MethodDeclaration;
-    let componentDecorator: ts.Decorator;
+    let clazz: ts.ClassDeclaration = undefined!;
+    let constructor: ts.ConstructorDeclaration = undefined!;
+    let element: ts.PropertyDeclaration = undefined!;
+    let connectedCallback: ts.MethodDeclaration = undefined!;
+    let disconnectedCallback: ts.MethodDeclaration = undefined!;
+    let componentDecorator: ts.Decorator = undefined!;
     const newImports = new Map<string, string[]>()
       .set('lit', ['LitElement'])
       .set('lit/decorators.js', ['customElement']);
+
     iterate(sourceFile, (node) => {
-      if (ts.isImportDeclaration(node)) {
+      if (ts.isConstructorDeclaration(node)) {
+        constructor = node;
+      } else if (ts.isImportDeclaration(node)) {
         lastImport = node;
         if (node.moduleSpecifier.getText() === `'@stencil/core'`) {
           mutator.remove(node);
@@ -162,6 +158,8 @@ function migrate(component: string, debug = false) {
         const decorator = node.modifiers?.find(ts.isDecorator);
         if (decorator?.expression.getText().startsWith('Prop')) {
           properties.push(node);
+        } else if (decorator?.expression.getText().startsWith('State')) {
+          states.push(node);
         } else if (decorator?.expression.getText().startsWith('Element')) {
           element = node;
           propertyRenames.set(`this.${element.name.getText()}`, 'this');
@@ -174,6 +172,8 @@ function migrate(component: string, debug = false) {
           listeners.push(node);
         } else if (decorator.some((d) => d.expression.getText().startsWith('Watch'))) {
           watchers.push(node);
+        } else if (decorator.some((d) => d.expression.getText().startsWith('Method'))) {
+          methods.push(node);
         } else if (node.name.getText() === 'connectedCallback') {
           connectedCallback = node;
         } else if (node.name.getText() === 'disconnectedCallback') {
@@ -181,44 +181,60 @@ function migrate(component: string, debug = false) {
         }
       } else if (ts.isDecorator(node) && node.expression.getText().startsWith('Component(')) {
         componentDecorator = node;
+        clazz = node.parent as ts.ClassDeclaration;
       }
     });
 
-    const propertyWatchers = new Map<string, string[]>();
+    const propertyWatchers: { name: string; argAmount: number; props: string[] }[] = [];
     for (const node of watchers) {
-      const decorators = node.modifiers?.filter(ts.isDecorator)!;
+      const decorators = node
+        .modifiers!.filter(ts.isDecorator)
+        .filter((n) => n.getText().startsWith('@Watch'));
       decorators.forEach((d) => mutator.remove(d));
       const newWatcherName = makePrivate(node);
-      for (const decorator of decorators) {
-        const propertyName = (
-          decorator.expression as ts.CallExpression
-        ).arguments[0]!.getText().replace(/'/g, '');
-        const property = properties.find((p) => p.name.getText() === propertyName)!;
-        propertyWatchers.set(
-          property.name.getText(),
-          (propertyWatchers.get(property.name.getText()) ?? []).concat(newWatcherName),
+      if (decorators.length === 1) {
+        const propertyName = (decorators[0].expression as ts.CallExpression).arguments[0]
+          .getText()
+          .replace(/['"]/g, '');
+        const result = await readline.question(
+          `Should ${propertyName}/${node.name.getText()} be converted to getter/setter? (y/N)`,
         );
-      }
-    }
+        if (result.trim().toLocaleLowerCase() === 'y') {
+          const property =
+            properties.find((p) => p.name.getText() === propertyName)! ??
+            states.find((p) => p.name.getText() === propertyName)!;
 
-    propertyWatchers.forEach((watcherNames, propertyName) => {
-      const property = properties.find((p) => p.name.getText() === propertyName)!;
-      const type = resolvePropertyType(property);
-      mutator.replace(
-        property,
-        `@property(${resolvePropertyDecoratorArguments(property)})
+          const type = resolvePropertyType(property);
+          mutator.replace(
+            property
+              .getText()
+              .substring(property.modifiers!.filter(ts.isDecorator)[0].getWidth() + 1),
+            `
   public get ${propertyName}(): ${type} {
     return this._${propertyName};
   }
   public set ${propertyName}(value: ${type}) {
+    // TODO: Validate logic
     const oldValue = this._${propertyName};
     this._${propertyName} = value;
-    ${watcherNames.map((w) => `this.${w}(this._${propertyName});`).join('\n    ')}
+    this.${newWatcherName}(this._${propertyName});
     this.requestUpdate('${propertyName}', oldValue);
   }
   private _${propertyName}: ${type} = ${property.initializer?.getText() ?? 'null'};`,
-      );
-    });
+          );
+
+          continue;
+        }
+      }
+
+      propertyWatchers.push({
+        name: newWatcherName,
+        argAmount: node.parameters.length,
+        props: decorators.map((d) =>
+          (d.expression as ts.CallExpression).arguments[0]!.getText().replace(/'/g, ''),
+        ),
+      });
+    }
 
     function resolvePropertyType(property: ts.PropertyDeclaration) {
       let type = property.type?.getText();
@@ -239,11 +255,51 @@ function migrate(component: string, debug = false) {
       return type;
     }
 
-    if (properties.length) {
-      for (const node of properties.filter((p) => !propertyWatchers.has(p.name.getText()))) {
-        const decorator = node.modifiers?.find(ts.isDecorator)!;
-        mutator.replace(decorator, `@property(${resolvePropertyDecoratorArguments(node)})`);
+    if (propertyWatchers.length) {
+      let pivot: ts.Node = connectedCallback! ?? constructor;
+      if (!pivot) {
+        let pi = 0;
+        let mi = 0;
+        clazz.members.forEach((n, i) => {
+          if (ts.isPropertyDeclaration(n)) {
+            pi = i;
+          } else if (ts.isMethodDeclaration(n) && mi < pi) {
+            mi = i;
+          }
+        });
+        pivot = clazz.members[mi];
       }
+
+      mutator.insertAtEnd(
+        pivot,
+        `
+
+  willUpdate(changedProperties: PropertyValues<this>) {${propertyWatchers
+    .map(
+      (pw) => `
+    if (${pw.props.map((p) => `changedProperties.has('${p}')`).join(' || ')}) {
+      this.${pw.name}(${
+        !pw.argAmount
+          ? ''
+          : pw.argAmount === 1
+          ? `this.${pw.props[0]}`
+          : `this.${pw.props[0]}, changedProperties.get('${pw.props[0]}')`
+      })
+    }`,
+    )
+    .join('')}
+  }    `,
+      );
+    }
+
+    for (const node of properties) {
+      const decorator = node.modifiers?.find(ts.isDecorator)!;
+      mutator.replace(decorator, `@property(${resolvePropertyDecoratorArguments(node)})`);
+    }
+
+    for (const node of states) {
+      const decorator = node.modifiers?.find(ts.isDecorator)!;
+      mutator.replace(decorator, `@state(${resolvePropertyDecoratorArguments(node)})`);
     }
 
     function resolvePropertyDecoratorArguments(node: ts.PropertyDeclaration) {
@@ -284,7 +340,7 @@ function migrate(component: string, debug = false) {
       }
 
       for (const node of events) {
-        const decorator = node.modifiers?.find(ts.isDecorator)!;
+        const decorator = node.modifiers!.find(ts.isDecorator)!;
         mutator.remove(decorator);
         const eventArguments: {
           eventName?: string;
@@ -292,7 +348,7 @@ function migrate(component: string, debug = false) {
           cancelable?: boolean;
           composed?: boolean;
         } = Function(
-          `return ${(decorator.expression as ts.CallExpression).arguments[0].getText()}`,
+          `return ${(decorator.expression as ts.CallExpression).arguments[0]?.getText() ?? '{}'}`,
         )();
         const eventName = eventArguments.eventName ?? toKebabCase(node.name.getText());
         eventNames.set(node.name.getText(), eventName);
@@ -312,10 +368,12 @@ function migrate(component: string, debug = false) {
 
     //let eventListeners: string[] = [];
     for (const node of listeners) {
-      makePrivate(node);
+      if (node.modifiers?.some((n) => n.kind === ts.SyntaxKind.PublicKeyword)) {
+        makePrivate(node);
+      }
     }
 
-    if (connectedCallback!) {
+    if (connectedCallback) {
       mutator.insertAt(connectedCallback.name, 'override ');
       const body = connectedCallback.body!;
       mutator.insertAt(
@@ -356,16 +414,6 @@ function migrate(component: string, debug = false) {
       mutator.remove(element);
     }
 
-    if (globalImports.length) {
-      for (const globalImport of globalImports) {
-        mutator.remove(globalImport.moduleSpecifier);
-        mutator.insertAt(
-          globalImport.moduleSpecifier,
-          globalImport.moduleSpecifier.getText().replace('../', ''),
-        );
-      }
-    }
-
     const newImport: string[] = [];
     newImports.forEach((symbols, importName) => {
       newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
@@ -392,7 +440,7 @@ function migrate(component: string, debug = false) {
     }
   }
 
-  function migrateStories(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
+  function migrateStories(sourceFile: ts.SourceFile, mutator: MyMagicString, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     const componentName = toPascalCase(args.component);
 
@@ -415,7 +463,7 @@ function migrate(component: string, debug = false) {
   }
 
   // prettier-ignore
-  function migrateSpec(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
+  function migrateSpec(sourceFile: ts.SourceFile, mutator: MyMagicString, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     const componentName = toPascalCase(args.component);
     const unitTests: ts.CallExpression[] = [];
@@ -436,7 +484,7 @@ function migrate(component: string, debug = false) {
     });
 
     // New static imports
-    const newImports: String[] = []; 
+    const newImports: String[] = [];
     newImports.push(`import { expect, fixture } from '@open-wc/testing';`);
     newImports.push(`import { html } from 'lit/static-html.js';`);
     newImports.push(`const instance = new ${componentName}();`);
@@ -457,27 +505,46 @@ function migrate(component: string, debug = false) {
       try {
         migrateSpecAssertion(node);
       } catch (error) {
-        console.error(`Failed to migrate assertion for the test named ${testName}`, `Error: ${error}`);
+        console.error(
+          `Failed to migrate assertion for the test named ${testName}`,
+          `Error: ${error}`,
+        );
       }
     });
 
     function migrateSpecSetup(node: ts.CallExpression) {
-      const setupStatement = deepFind(node, (n) => ts.isVariableStatement(n) && !!deepFind(n, (m) => ts.isCallExpression(m) && m.expression.getText() === 'newSpecPage'));
+      const setupStatement = deepFind(
+        node,
+        (n) =>
+          ts.isVariableStatement(n) &&
+          !!deepFind(n, (m) => ts.isCallExpression(m) && m.expression.getText() === 'newSpecPage'),
+      );
       if (!setupStatement) throw new Error('Canno find setup statement');
-      
+
       // variable declaration (es. 'const { root }' => 'const root')
-      const varDeclaration = deepFind(setupStatement, (n) => ts.isObjectBindingPattern(n)) as ts.ObjectBindingPattern;
+      const varDeclaration = deepFind(setupStatement, (n) =>
+        ts.isObjectBindingPattern(n),
+      ) as ts.ObjectBindingPattern;
       mutator.replace(varDeclaration!, varDeclaration.elements[0].getText());
 
       // newSpecPage => fixture
-      const templateSetup = deepFind(setupStatement, (n) => ts.isCallExpression(n) && n.expression.getText() === 'newSpecPage');
-      const templateAssignment = deepFind(templateSetup!, (n) => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment;
+      const templateSetup = deepFind(
+        setupStatement,
+        (n) => ts.isCallExpression(n) && n.expression.getText() === 'newSpecPage',
+      );
+      const templateAssignment = deepFind(
+        templateSetup!,
+        (n) => ts.isPropertyAssignment(n) && n.name.getText() === 'html',
+      ) as ts.PropertyAssignment;
       const template = templateAssignment.initializer.getText();
-      mutator.replace(templateSetup!, `fixture(html${template});`)
+      mutator.replace(templateSetup!, `fixture(html${template});`);
     }
 
     function migrateSpecAssertion(node: ts.CallExpression) {
-      const assertion = deepFind(node, (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/)) as ts.CallExpression;
+      const assertion = deepFind(
+        node,
+        (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/),
+      ) as ts.CallExpression;
       const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
       const fullTemplate = assertion.arguments[0].getText();
 
@@ -486,17 +553,25 @@ function migrate(component: string, debug = false) {
       const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
       const shadowStartIndex = shadowStart.index! + shadowStart?.[0].length!;
       const shadowEndIndex = shadowEnd.index!;
-      const lightDomTemplate = fullTemplate.substring(0, shadowStart.index!) + fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
+      const lightDomTemplate =
+        fullTemplate.substring(0, shadowStart.index!) +
+        fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
       const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
 
       mutator.remove(assertion);
-      mutator.insertAt(assertion, `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`)`);
-      mutator.insertAt(assertion, `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`);
+      mutator.insertAt(
+        assertion,
+        `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`)`,
+      );
+      mutator.insertAt(
+        assertion,
+        `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
+      );
     }
   }
 
   // prettier-ignore
-  function migrateE2E(sourceFile: ts.SourceFile, mutator: StringMutation, args: any) {
+  function migrateE2E(sourceFile: ts.SourceFile, mutator: MyMagicString, args: any) {
     let lastImport: ts.ImportDeclaration | undefined = undefined;
     const componentName = toPascalCase(args.component);
     const unitTests: ts.CallExpression[] = [];
@@ -508,10 +583,10 @@ function migrate(component: string, debug = false) {
       .set('../global/testing/event-spy', ['EventSpy']);
 
     const assertionConversionMap = [
-      { from: 'toEqual', to: 'to.be.equal'},
-      { from: 'toBe', to: 'to.be.equal'},
-      { from: 'toHaveClass', to: 'to.have.class'},
-      { from: 'toHaveAttribute', to: 'to.have.attribute'},
+      { from: 'toEqual', to: 'to.be.equal' },
+      { from: 'toBe', to: 'to.be.equal' },
+      { from: 'toHaveClass', to: 'to.have.class' },
+      { from: 'toHaveAttribute', to: 'to.have.attribute' },
     ];
     const eventAssertionConversionMap = [
       { from: 'toHaveReceivedEvent', to: 'to.be.greaterThan'},
@@ -528,14 +603,19 @@ function migrate(component: string, debug = false) {
         }
       }
 
-      if (ts.isCallExpression(node) && (node.expression.getText() === 'it' || node.expression.getText() === 'beforeEach')) {
+      if (
+        ts.isCallExpression(node) &&
+        (node.expression.getText() === 'it' || node.expression.getText() === 'beforeEach')
+      ) {
         unitTests.push(node);
       }
     });
 
     // Migrate each E2E test
     unitTests.forEach((test) => {
-      const testName = test.expression.getText().startsWith('beforeEach') ? 'beforeEach' : test.arguments[0].getText();
+      const testName = test.expression.getText().startsWith('beforeEach')
+        ? 'beforeEach'
+        : test.arguments[0].getText();
 
       try {
         migrateUnitTest(test);
@@ -571,13 +651,16 @@ function migrate(component: string, debug = false) {
           }
 
           if (node.getText().match(/\.setContent\(/)) {
-            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.setContent/)) as ts.AwaitExpression;
+            const awaitNode = deepFind(
+              node,
+              (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.setContent/),
+            ) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const template = call.arguments[0].getText();
 
             mutator.replace(call, `fixture(${template})`);
           }
-          
+
           if (node.getText().match(/\.setProperty\(/)) {
             const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const element = (call.expression as ts.PropertyAccessExpression).expression.getText();
@@ -588,7 +671,10 @@ function migrate(component: string, debug = false) {
           }
 
           if (node.getText().match(/\.getProperty\(/)) {
-            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.getProperty/)) as ts.AwaitExpression;
+            const awaitNode = deepFind(
+              node,
+              (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.getProperty/),
+            ) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const element = (call.expression as ts.PropertyAccessExpression).expression.getText();
             const property = call.arguments[0].getText().replace(/'/g, '');
@@ -597,13 +683,17 @@ function migrate(component: string, debug = false) {
           }
 
           if (node.getText().match(/page\.find\(/)) {
-            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await page\.find/)) as ts.AwaitExpression;
+            const awaitNode = deepFind(
+              node,
+              (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await page\.find/),
+            ) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const querySelector = call.arguments[0].getText();
             let warning = '';
 
             if (querySelector.match('>>>')) {
-              warning = '// NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")'
+              warning =
+                '// NOTE: the ">>>" operator is not supported outside stencil. (convert it to something like "element.shadowRoot.querySelector(...)")';
             }
 
             mutator.replace(awaitNode, `document.querySelector(${querySelector}) ${warning}`);
@@ -640,11 +730,16 @@ function migrate(component: string, debug = false) {
             const settings = call.arguments[0].getText();
             mutator.replace(node, `await setViewport(${settings});`);
           }
-          
+
           if (node.getText().match(/\.evaluate\(/)) {
-            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.evaluate/)) as ts.AwaitExpression;
+            const awaitNode = deepFind(
+              node,
+              (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.evaluate/),
+            ) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
-            let innerCode = (deepFind(call, (n) => ts.isArrowFunction(n)) as ts.ArrowFunction).body.getText();
+            let innerCode = (
+              deepFind(call, (n) => ts.isArrowFunction(n)) as ts.ArrowFunction
+            ).body.getText();
 
             // Remove the brackets
             if (innerCode.startsWith('{')) {
@@ -663,10 +758,19 @@ function migrate(component: string, debug = false) {
           }
 
           // Plain assertion migration
-          if (node.getText().match(new RegExp(assertionConversionMap.map(a => `\\.${a.from}\\(`).join('|')))) {
-            const assertion = deepFind(node, (n) => assertionConversionMap.some(a => a.from === n.getText()))!;
+          if (
+            node
+              .getText()
+              .match(new RegExp(assertionConversionMap.map((a) => `\\.${a.from}\\(`).join('|')))
+          ) {
+            const assertion = deepFind(node, (n) =>
+              assertionConversionMap.some((a) => a.from === n.getText()),
+            )!;
 
-            mutator.replace(assertion, assertionConversionMap.find(a => a.from === assertion.getText())!.to);
+            mutator.replace(
+              assertion,
+              assertionConversionMap.find((a) => a.from === assertion.getText())!.to,
+            );
           }
 
           // Events assertion migration
