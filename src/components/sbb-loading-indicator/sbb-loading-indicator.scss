@@ -73,7 +73,7 @@
     @include sbb.if-forced-colors {
       --sbb-loader-indicator-color: CanvasText;
       --sbb-loader-indicator-circle-animated-width: 50%;
-      --sbb-loader-indicator-circle-animated-height: 100;
+      --sbb-loader-indicator-circle-animated-height: 100%;
       --sbb-loader-indicator-circle-animated-border-radius: unset;
     }
   }
