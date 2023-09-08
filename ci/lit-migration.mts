@@ -500,15 +500,20 @@ function migrate(component: string, debug = false) {
     const unitTests: ts.CallExpression[] = [];
 
     const newImports = new Map<string, string[]>()
-      .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent'])
+      .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent', 'waitUntil'])
       .set('lit/static-html.js', ['html'])
-      .set('@web/test-runner-commands', ['sendKeys', 'setViewport']);
+      .set('@web/test-runner-commands', ['sendKeys', 'setViewport'])
+      .set('../global/testing/event-spy', ['EventSpy']);
 
     const assertionConversionMap = [
       { from: 'toEqual', to: 'to.be.equal'},
       { from: 'toBe', to: 'to.be.equal'},
       { from: 'toHaveClass', to: 'to.have.class'},
       { from: 'toHaveAttribute', to: 'to.have.attribute'},
+    ];
+    const eventAssertionConversionMap = [
+      { from: 'toHaveReceivedEvent', to: 'to.be.greaterThan'},
+      { from: 'toHaveReceivedEventTimes', to: 'to.be.equal'},
     ];
 
     iterate(sourceFile, (node) => {
@@ -548,7 +553,20 @@ function migrate(component: string, debug = false) {
 
     function migrateUnitTest(test: ts.CallExpression) {
       iterate(test, (node) => {
-        if (ts.isExpressionStatement(node)) {
+        if (ts.isExpressionStatement(node) || ts.isVariableStatement(node)) {
+
+          if (node.getText().match(/await newE2EPage\(/)) {
+            const call = deepFind(node, (n) => ts.isCallExpression(n) && n.getText().startsWith('newE2EPage')) as ts.CallExpression;
+            
+            // if it is 'newE2EPage()' we remove it
+            if (call.arguments.length === 0) {
+              mutator.remove(node);
+            } else {
+              // we extract the template from 'newE2EPage({html: ...})'
+              const template = (deepFind(call, n => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment).initializer.getText();
+              mutator.replace(node, `await fixture(${template})`);
+            }
+          }
 
           if (node.getText().match(/\.setContent\(/)) {
             const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.setContent/)) as ts.AwaitExpression;
@@ -634,11 +652,35 @@ function migrate(component: string, debug = false) {
             mutator.replace(awaitNode, innerCode);
           }
 
+          if (node.getText().match(/\.spyOnEvent\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.spyOnEvent/)) as ts.AwaitExpression;
+            const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const eventName = call.arguments[0].getText();
+
+            mutator.replace(awaitNode, `new EventSpy(${eventName})`)
+          }
+
           // Plain assertion migration
           if (node.getText().match(new RegExp(assertionConversionMap.map(a => `\\.${a.from}\\(`).join('|')))) {
             const assertion = deepFind(node, (n) => assertionConversionMap.some(a => a.from === n.getText()))!;
 
             mutator.replace(assertion, assertionConversionMap.find(a => a.from === assertion.getText())!.to);
+          }
+
+          // Events assertion migration
+          if (node.getText().match(new RegExp(eventAssertionConversionMap.map(a => `\\.${a.from}\\(`).join('|')))) {
+            const assertion = deepFind(node, (n) => eventAssertionConversionMap.some(a => a.from === n.getText()))!;
+            const expectNode = deepFind(node, (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w+\)$/))! as ts.CallExpression;
+            const eventSpy = expectNode.arguments[0];
+            const migratedAssertion = eventAssertionConversionMap.find(a => a.from === assertion.getText())!.to;
+            let negation = deepFind(node, (n) => ts.isIdentifier(n) && n.getText() === 'not') ? '.not' : '';
+            let args = ((node as ts.ExpressionStatement).expression as ts.CallExpression).arguments.map(a => a.getText()).join(', ');
+
+            if (assertion.getText() === 'toHaveReceivedEvent') {
+              args = '0';
+            }
+
+            mutator.replace(node, `expect(${eventSpy.getText()}.count)${negation}.${migratedAssertion}(${args});`);
           }
         }
       });
