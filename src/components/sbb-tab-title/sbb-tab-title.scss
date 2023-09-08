@@ -20,6 +20,7 @@
 
   display: inline-block;
   max-width: 100%;
+  pointer-events: var(--sbb-tab-title-pointer-events);
   -webkit-tap-highlight-color: transparent;
 
   // Use !important here to not interfere with Firefox focus ring definition
@@ -104,7 +105,6 @@
   cursor: var(--sbb-tab-title-cursor);
   transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
   color: var(--sbb-tab-title-icon-color);
-  pointer-events: var(--sbb-tab-title-pointer-events);
 
   // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
   :host([data-has-divider]) & {
@@ -127,9 +127,12 @@
     height: #{sbb.px-to-rem-build(3)};
     background-color: var(--sbb-tab-title-color);
     transform: var(--sbb-tab-title-marker-transform);
-    transition-duration: var(--sbb-tab-title-animation-duration);
-    transition-timing-function: var(--sbb-tab-title-animation-easing);
-    transition-property: transform, background-color;
+    transition: {
+      duration: var(--sbb-tab-title-animation-duration);
+      timing-function: var(--sbb-tab-title-animation-easing);
+      property: transform, background-color;
+    }
+
     z-index: 1;
   }
 }
@@ -144,6 +147,7 @@
   display: flex;
   flex-shrink: 0;
   color: var(--sbb-tab-title-color);
+  transition: color var(--sbb-tab-title-animation-duration) var(--sbb-tab-title-animation-easing);
 }
 
 .sbb-tab-title__text {
