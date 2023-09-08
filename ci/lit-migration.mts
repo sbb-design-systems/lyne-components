@@ -605,6 +605,8 @@ async function migrate(component: string, debug = false) {
       { from: 'toHaveClass', to: 'to.have.class' },
       { from: 'toHaveAttribute', to: 'to.have.attribute' },
       { from: 'toEqualAttribute', to: 'to.have.attribute' },
+      { from: 'toEqualHtml', to: 'dom.to.be.equal' },
+      { from: 'toEqualText', to: 'dom.text' },
     ];
     const eventAssertionConversionMap = [
       { from: 'toHaveReceivedEvent', to: 'to.be.greaterThan'},
