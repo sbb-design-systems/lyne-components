@@ -610,10 +610,13 @@ async function migrate(component: string, debug = false) {
         }
       }
 
-      if (
-        ts.isCallExpression(node) &&
-        (node.expression.getText() === 'it' || node.expression.getText() === 'beforeEach')
-      ) {
+      if (ts.isVariableStatement(node) && node.getText().match(/(element: E2EElement|page: E2EPage)/)) {
+        mutator.insertAt(node, '/** NOTE: These are too hard to migrate and are prone to errors :/ \n' 
+        + '  * consider that the E2EPage is now the \'document\' (you should just delete it) \n'
+        + '  * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */ \n');
+      }
+
+      if (ts.isCallExpression(node) && (node.expression.getText() === 'it' || node.expression.getText() === 'beforeEach')) {
         unitTests.push(node);
       }
     });
@@ -637,10 +640,17 @@ async function migrate(component: string, debug = false) {
       newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
     });
     newImport.push(`import { ${componentName} } from './${args.component}';`);
-    newImport.push(`const instance = new ${componentName}();`);
+    // newImport.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     function migrateUnitTest(test: ts.CallExpression) {
+
+      if (test.arguments[0].getText() === `'renders'`) {
+        const assertion = deepFind(test, (n) => ts.isExpressionStatement(n) && n.getText().startsWith('expect'));
+        mutator.replace(assertion!, `assert.instanceOf(element, ${componentName});`)
+        return;
+      }
+
       iterate(test, (node) => {
         if (ts.isExpressionStatement(node) || ts.isVariableStatement(node)) {
 
