@@ -13,17 +13,22 @@
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-padding: var(--sbb-border-width-2x);
-  --sbb-loader-indicator-duration: 1.5s;
-  --sbb-loader-indicator-color: var(--sbb-color-red-default);
-  --sbb-loader-indicator-background-color: var(--sbb-color-white-default);
-  --sbb-loader-indicator-circle-background: conic-gradient(
+  --sbb-loading-indicator-duration: 1.5s;
+  --sbb-loading-indicator-color: var(--sbb-color-red-default);
+  --sbb-loading-indicator-background-color: var(--sbb-color-white-default);
+  --sbb-loading-indicator-circle-background: conic-gradient(
     from 90deg,
-    var(--sbb-loader-indicator-background-color),
-    var(--sbb-loader-indicator-color)
+    var(--sbb-loading-indicator-background-color),
+    var(--sbb-loading-indicator-color)
   );
-  --sbb-loader-indicator-circle-animated-width: sbb.px-to-rem-build(3);
-  --sbb-loader-indicator-circle-animated-height: sbb.px-to-rem-build(3);
-  --sbb-loader-indicator-circle-animated-border-radius: 50%;
+  --sbb-loading-indicator-circle-animated-width: sbb.px-to-rem-build(3);
+  --sbb-loading-indicator-circle-animated-height: sbb.px-to-rem-build(3);
+  --sbb-loading-indicator-circle-animated-border-radius: 50%;
+  --sbb-loading-indicator-circle-mask: radial-gradient(
+    circle sbb.px-to-rem-build(7),
+    #0000 98%,
+    var(--sbb-loading-indicator-background-color)
+  );
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
@@ -43,27 +48,18 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 50%;
-  background: var(--sbb-loader-indicator-circle-background);
-  /* stylelint-disable */
-  -webkit-mask: radial-gradient(
-    circle sbb.px-to-rem-build(7),
-    #0000 98%,
-    var(--sbb-loader-indicator-background-color)
-  );
-  /* stylelint-enable */
-  mask: radial-gradient(
-    circle sbb.px-to-rem-build(7),
-    #0000 98%,
-    var(--sbb-loader-indicator-background-color)
-  );
-  animation: rotation var(--sbb-loader-indicator-duration) infinite linear;
+  background: var(--sbb-loading-indicator-circle-background);
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-mask: var(--sbb-loading-indicator-circle-mask);
+  mask: var(--sbb-loading-indicator-circle-mask);
+  animation: rotation var(--sbb-loading-indicator-duration) infinite linear;
 
   &::after {
     content: '';
-    width: var(--sbb-loader-indicator-circle-animated-width);
-    height: var(--sbb-loader-indicator-circle-animated-height);
-    background: var(--sbb-loader-indicator-color);
-    border-radius: var(--sbb-loader-indicator-circle-animated-border-radius);
+    width: var(--sbb-loading-indicator-circle-animated-width);
+    height: var(--sbb-loading-indicator-circle-animated-height);
+    background: var(--sbb-loading-indicator-color);
+    border-radius: var(--sbb-loading-indicator-circle-animated-border-radius);
     position: absolute;
     top: 50%;
     right: 0;
@@ -71,15 +67,15 @@
     overflow: hidden;
     margin: auto;
     @include sbb.if-forced-colors {
-      --sbb-loader-indicator-color: CanvasText;
-      --sbb-loader-indicator-circle-animated-width: 50%;
-      --sbb-loader-indicator-circle-animated-height: 100%;
-      --sbb-loader-indicator-circle-animated-border-radius: unset;
+      --sbb-loading-indicator-color: CanvasText;
+      --sbb-loading-indicator-circle-animated-width: 50%;
+      --sbb-loading-indicator-circle-animated-height: 100%;
+      --sbb-loading-indicator-circle-animated-border-radius: unset;
     }
   }
 
   @include sbb.if-forced-colors {
-    --sbb-loader-indicator-circle-background: transparent;
+    --sbb-loading-indicator-circle-background: transparent;
   }
 }
 
@@ -87,34 +83,34 @@
   --sbb-loading-indicator-height: sbb.px-to-rem-build(32);
   --sbb-loading-indicator-width: sbb.px-to-rem-build(55);
   --sbb-loading-indicator-padding: 0;
-  --sbb-loader-indicator-duration: 0.23s;
+  --sbb-loading-indicator-duration: 0.23s;
 }
 
 :host([variant='window'][size='small']) {
-  --sbb-loader-indicator-window-height: 1.66665em;
-  --sbb-loader-indicator-window-padding-block-start: 0.66666em;
-  --sbb-loader-indicator-window-element-width: 3.46665em;
-  --sbb-loader-indicator-window-element-height: 0.33333em;
-  --sbb-loader-indicator-window-element-perspective: 6em;
-  --sbb-loader-indicator-window-element-animation: loading-container-small
-    var(--sbb-loader-indicator-duration) linear infinite;
-  --sbb-loader-indicator-window-last-span-width: 0.53333em;
-  --sbb-loader-indicator-window-last-span-height: 0.33333em;
-  --sbb-loader-indicator-window-last-span-margin: 0.2em;
-  --sbb-loader-indicator-window-last-span-transform: translate3d(-0.1em, 0, 0);
+  --sbb-loading-indicator-window-height: 1.66665em;
+  --sbb-loading-indicator-window-padding-block-start: 0.66666em;
+  --sbb-loading-indicator-window-element-width: 3.46665em;
+  --sbb-loading-indicator-window-element-height: 0.33333em;
+  --sbb-loading-indicator-window-element-perspective: 6em;
+  --sbb-loading-indicator-window-element-animation: loading-container-small
+    var(--sbb-loading-indicator-duration) linear infinite;
+  --sbb-loading-indicator-window-last-span-width: 0.53333em;
+  --sbb-loading-indicator-window-last-span-height: 0.33333em;
+  --sbb-loading-indicator-window-last-span-margin: 0.2em;
+  --sbb-loading-indicator-window-last-span-transform: translate3d(-0.1em, 0, 0);
 }
 
 :host([variant='window'][size='large']) {
-  --sbb-loader-indicator-window-height: 3em;
-  --sbb-loader-indicator-window-padding-block-start: 1.2em;
-  --sbb-loader-indicator-window-element-width: 5.8em;
-  --sbb-loader-indicator-window-element-height: 0.6em;
-  --sbb-loader-indicator-window-element-perspective: 8em;
-  --sbb-loader-indicator-window-element-animation: loading-container-large
-    var(--sbb-loader-indicator-duration) linear infinite;
-  --sbb-loader-indicator-window-last-span-width: 1em;
-  --sbb-loader-indicator-window-last-span-height: 0.6em;
-  --sbb-loader-indicator-window-last-span-margin: 0.2em;
+  --sbb-loading-indicator-window-height: 3em;
+  --sbb-loading-indicator-window-padding-block-start: 1.2em;
+  --sbb-loading-indicator-window-element-width: 5.8em;
+  --sbb-loading-indicator-window-element-height: 0.6em;
+  --sbb-loading-indicator-window-element-perspective: 8em;
+  --sbb-loading-indicator-window-element-animation: loading-container-large
+    var(--sbb-loading-indicator-duration) linear infinite;
+  --sbb-loading-indicator-window-last-span-width: 1em;
+  --sbb-loading-indicator-window-last-span-height: 0.6em;
+  --sbb-loading-indicator-window-last-span-margin: 0.2em;
 }
 
 :host([variant='window']) span {
@@ -123,8 +119,8 @@
 
 :host([variant='window']) .sbb-loading-indicator {
   display: flex;
-  height: var(--sbb-loader-indicator-window-height);
-  padding-block-start: var(--sbb-loader-indicator-window-padding-block-start);
+  height: var(--sbb-loading-indicator-window-height);
+  padding-block-start: var(--sbb-loading-indicator-window-padding-block-start);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element {
@@ -133,9 +129,9 @@
   transform: translate3d(-3em, 0, 0);
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  width: var(--sbb-loader-indicator-window-element-width);
-  height: var(--sbb-loader-indicator-window-element-height);
-  perspective: var(--sbb-loader-indicator-window-element-perspective);
+  width: var(--sbb-loading-indicator-window-element-width);
+  height: var(--sbb-loading-indicator-window-element-height);
+  perspective: var(--sbb-loading-indicator-window-element-perspective);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element > span {
@@ -148,36 +144,36 @@
 :host([variant='window']) .sbb-loading-indicator__animated-element > span > span {
   position: relative;
   display: flex;
-  animation: var(--sbb-loader-indicator-window-element-animation);
+  animation: var(--sbb-loading-indicator-window-element-animation);
 }
 
 :host([variant='window']) .sbb-loading-indicator__animated-element > span > span > span {
-  background: var(--sbb-loader-indicator-color);
+  background: var(--sbb-loading-indicator-color);
   backface-visibility: hidden;
   outline: var(--sbb-border-width-1x) solid rgb(0 0 0 / 0%);
-  width: var(--sbb-loader-indicator-window-last-span-width);
-  height: var(--sbb-loader-indicator-window-last-span-height);
-  margin-right: var(--sbb-loader-indicator-window-last-span-margin);
-  transform: var(--sbb-loader-indicator-window-last-span-transform);
+  width: var(--sbb-loading-indicator-window-last-span-width);
+  height: var(--sbb-loading-indicator-window-last-span-height);
+  margin-right: var(--sbb-loading-indicator-window-last-span-margin);
+  transform: var(--sbb-loading-indicator-window-last-span-transform);
 
   &:nth-child(1) {
-    animation: loading-rectangle1 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle1 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(2) {
-    animation: loading-rectangle2 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle2 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(3) {
-    animation: loading-rectangle3 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle3 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(4) {
-    animation: loading-rectangle4 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle4 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:nth-child(5) {
-    animation: loading-rectangle5 var(--sbb-loader-indicator-duration) linear infinite;
+    animation: loading-rectangle5 var(--sbb-loading-indicator-duration) linear infinite;
   }
 
   &:last-child {
