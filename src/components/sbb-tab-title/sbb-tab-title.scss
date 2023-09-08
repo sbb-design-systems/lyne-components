@@ -12,7 +12,7 @@
   --sbb-tab-title-cursor: pointer;
   --sbb-tab-title-pointer-events: unset;
   --sbb-tab-title-inset: 0;
-  --sbb-tab-title-marker-inset-inline: 50%;
+  --sbb-tab-title-marker-transform: scale(0);
   --sbb-tab-title-text-decoration: none;
   --sbb-tab-title-animation-duration: var(--sbb-animation-duration-2x);
   --sbb-tab-title-animation-easing: var(--sbb-animation-easing);
@@ -54,7 +54,7 @@
   --sbb-tab-title-background-color: var(--sbb-color-black-default);
   --sbb-tab-title-cursor: unset;
   --sbb-tab-title-pointer-events: none;
-  --sbb-tab-title-marker-inset-inline: 0;
+  --sbb-tab-title-marker-transform: scale(1);
 
   @include sbb.if-forced-colors {
     --sbb-tab-title-color: ButtonText;
@@ -65,7 +65,7 @@
 
 :host(:hover:not([disabled]:not([disabled='false']))) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-tab-title-marker-inset-inline: 0;
+    --sbb-tab-title-marker-transform: scale(1);
   }
 }
 
@@ -122,13 +122,14 @@
   &::before {
     position: absolute;
     content: '';
-    inset-inline: var(--sbb-tab-title-marker-inset-inline);
+    inset-inline: 0;
     inset-block-end: 0;
     height: #{sbb.px-to-rem-build(3)};
     background-color: var(--sbb-tab-title-color);
+    transform: var(--sbb-tab-title-marker-transform);
     transition-duration: var(--sbb-tab-title-animation-duration);
     transition-timing-function: var(--sbb-tab-title-animation-easing);
-    transition-property: inset, background-color;
+    transition-property: transform, background-color;
     z-index: 1;
   }
 }
