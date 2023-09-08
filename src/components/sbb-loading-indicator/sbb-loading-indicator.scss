@@ -85,30 +85,34 @@
 }
 
 :host([variant='window'][size='small']) {
-  --sbb-loader-indicator-window-height: 1.66665em;
-  --sbb-loader-indicator-window-padding-block-start: 0.66666em;
-  --sbb-loader-indicator-window-element-width: 3.46665em;
-  --sbb-loader-indicator-window-element-height: 0.33333em;
-  --sbb-loader-indicator-window-element-perspective: 6em;
+  --sbb-loader-indicator-window-height: #{sbb.px-to-rem-build(26.66666)};
+  --sbb-loader-indicator-window-padding-block-start: #{sbb.px-to-rem-build(10.66666)};
+  --sbb-loader-indicator-window-element-width: #{sbb.px-to-rem-build(55.46666)};
+  --sbb-loader-indicator-window-element-height: #{sbb.px-to-rem-build(5.33333)};
+  --sbb-loader-indicator-window-element-perspective: #{sbb.px-to-rem-build(96)};
   --sbb-loader-indicator-window-element-animation: loading-container-small
     var(--sbb-loader-indicator-duration) linear infinite;
-  --sbb-loader-indicator-window-last-span-width: 0.53333em;
-  --sbb-loader-indicator-window-last-span-height: 0.33333em;
-  --sbb-loader-indicator-window-last-span-margin: 0.2em;
-  --sbb-loader-indicator-window-last-span-transform: translate3d(-0.1em, 0, 0);
+  --sbb-loader-indicator-window-last-span-width: #{sbb.px-to-rem-build(8.53333)};
+  --sbb-loader-indicator-window-last-span-height: #{sbb.px-to-rem-build(5.33333)};
+  --sbb-loader-indicator-window-last-span-margin: #{sbb.px-to-rem-build(3.2)};
+  --sbb-loader-indicator-window-last-span-transform: translate3d(
+    #{sbb.px-to-rem-build(-1.6)},
+    0,
+    0
+  );
 }
 
 :host([variant='window'][size='large']) {
-  --sbb-loader-indicator-window-height: 3em;
-  --sbb-loader-indicator-window-padding-block-start: 1.2em;
-  --sbb-loader-indicator-window-element-width: 5.8em;
-  --sbb-loader-indicator-window-element-height: 0.6em;
-  --sbb-loader-indicator-window-element-perspective: 8em;
+  --sbb-loader-indicator-window-height: #{sbb.px-to-rem-build(48)};
+  --sbb-loader-indicator-window-padding-block-start: #{sbb.px-to-rem-build(19.2)};
+  --sbb-loader-indicator-window-element-width: #{sbb.px-to-rem-build(92.7969)};
+  --sbb-loader-indicator-window-element-height: #{sbb.px-to-rem-build(9.59375)};
+  --sbb-loader-indicator-window-element-perspective: #{sbb.px-to-rem-build(128)};
   --sbb-loader-indicator-window-element-animation: loading-container-large
     var(--sbb-loader-indicator-duration) linear infinite;
-  --sbb-loader-indicator-window-last-span-width: 1em;
-  --sbb-loader-indicator-window-last-span-height: 0.6em;
-  --sbb-loader-indicator-window-last-span-margin: 0.2em;
+  --sbb-loader-indicator-window-last-span-width: #{sbb.px-to-rem-build(16)};
+  --sbb-loader-indicator-window-last-span-height: #{sbb.px-to-rem-build(9.59375)};
+  --sbb-loader-indicator-window-last-span-margin: #{sbb.px-to-rem-build(3.2)};
 }
 
 :host([variant='window']) span {
