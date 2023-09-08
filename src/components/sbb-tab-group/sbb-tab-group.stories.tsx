@@ -41,7 +41,7 @@ const tabPanelFour = (): JSX.Element => (
 );
 
 const DefaultTemplate = (args): JSX.Element => (
-  <sbb-tab-group initial-selected-index="0">
+  <sbb-tab-group size={args.size} initial-selected-index="0">
     {firstTabTitle(args)}
     {tabPanelOne()}
 
@@ -57,7 +57,7 @@ const DefaultTemplate = (args): JSX.Element => (
 );
 
 const IconsAndNumbersTemplate = (args): JSX.Element => (
-  <sbb-tab-group initial-selected-index="0">
+  <sbb-tab-group size={args.size} initial-selected-index="0">
     {firstTabTitle(args)}
     {tabPanelOne()}
 
@@ -79,9 +79,9 @@ const IconsAndNumbersTemplate = (args): JSX.Element => (
 );
 
 const NestedTemplate = (args): JSX.Element => (
-  <sbb-tab-group initial-selected-index="0">
+  <sbb-tab-group size={args.size} initial-selected-index="0">
     {firstTabTitle(args)}
-    <sbb-tab-group initial-selected-index="1">
+    <sbb-tab-group size={args.size} initial-selected-index="1">
       <sbb-tab-title level="2">Nested tab</sbb-tab-title>
       <div>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
@@ -143,16 +143,25 @@ const amount: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'xl'],
+};
+
 const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   amount: amount,
+  size: size,
 };
 
 const basicArgs: Args = {
   label: 'Tab label one',
   'icon-name': undefined,
   amount: undefined,
+  size: size.options[0],
 };
 
 const templateRes = [
@@ -164,17 +173,31 @@ const templateRes = [
   withActions as Decorator,
 ];
 
-export const defaultTabs: StoryObj = {
+export const defaultTabsSizeL: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
   decorators: templateRes,
 };
 
-export const numbersAndIcons: StoryObj = {
+export const numbersAndIconsSizeL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0] },
+  decorators: templateRes,
+};
+
+export const defaultTabsSizeXL: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, size: size.options[1] },
+  decorators: templateRes,
+};
+
+export const numbersAndIconsSizeXL: StoryObj = {
+  render: IconsAndNumbersTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options[0], size: size.options[1] },
   decorators: templateRes,
 };
 

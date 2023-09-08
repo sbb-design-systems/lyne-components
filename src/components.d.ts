@@ -38,6 +38,7 @@ import { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-b
 import { SelectChange } from "./components/sbb-select/sbb-select.custom";
 import { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom";
 import { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
+import { InterfaceSbbTabGroupTab } from "./components/sbb-tab-group/sbb-tab-group.custom";
 import { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 import { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 import { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
@@ -84,6 +85,7 @@ export { InterfaceSbbRadioButtonGroupAttributes } from "./components/sbb-radio-b
 export { SelectChange } from "./components/sbb-select/sbb-select.custom";
 export { InterfaceSbbSelectionPanelAttributes } from "./components/sbb-selection-panel/sbb-selection-panel.custom";
 export { InterfaceSignetAttributes } from "./components/sbb-signet/sbb-signet.custom";
+export { InterfaceSbbTabGroupTab } from "./components/sbb-tab-group/sbb-tab-group.custom";
 export { TagStateChange } from "./components/sbb-tag/sbb-tag.custom";
 export { InterfaceTimetableParkAndRailAttributes } from "./components/sbb-timetable-park-and-rail/sbb-timetable-park-and-rail.custom";
 export { Boarding, Price } from "./components/sbb-timetable-row/sbb-timetable-row.custom";
@@ -1554,6 +1556,10 @@ export namespace Components {
           * Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.
          */
         "initialSelectedIndex": number;
+        /**
+          * Size variant, either l or xl.
+         */
+        "size": InterfaceSbbTabGroupTab['size'];
     }
     interface SbbTabTitle {
         /**
@@ -4394,6 +4400,10 @@ declare namespace LocalJSX {
           * Emits an event on selected tab change
          */
         "onDid-change"?: (event: SbbTabGroupCustomEvent<void>) => void;
+        /**
+          * Size variant, either l or xl.
+         */
+        "size"?: InterfaceSbbTabGroupTab['size'];
     }
     interface SbbTabTitle {
         /**

@@ -10,6 +10,7 @@ import {
   Listen,
   Method,
   Prop,
+  Watch,
 } from '@stencil/core';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
@@ -40,13 +41,13 @@ let nextId = 0;
   tag: 'sbb-tab-group',
 })
 export class SbbTabGroup implements ComponentInterface {
-  public tabs: InterfaceSbbTabGroupTab[] = [];
+  private _tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;
   private _tabGroupElement: HTMLElement;
   private _tabContentElement: HTMLElement;
-  private _tabAttributeObserver = new AgnosticMutationObserver(
-    this._onTabAttributesChange.bind(this),
+  private _tabAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
+    this._onTabAttributesChange(mutationsList),
   );
   private _tabGroupResizeObserver = new AgnosticResizeObserver((entries) =>
     this._onTabGroupElementResize(entries),
@@ -58,10 +59,22 @@ export class SbbTabGroup implements ComponentInterface {
   @Element() private _element: HTMLElement;
 
   /**
+   * Size variant, either l or xl.
+   */
+  @Prop() public size: InterfaceSbbTabGroupTab['size'] = 'l';
+
+  /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
    */
   @Prop() public initialSelectedIndex = 0;
+
+  @Watch('size')
+  public updateSize(): void {
+    for (const tab of this._tabs) {
+      tab.setAttribute('data-size', this.size);
+    }
+  }
 
   /**
    * Emits an event on selected tab change
@@ -77,7 +90,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async disableTab(tabIndex: number): Promise<void> {
-    this.tabs[tabIndex]?.tabGroupActions.disable();
+    this._tabs[tabIndex]?.tabGroupActions.disable();
   }
 
   /**
@@ -86,7 +99,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async enableTab(tabIndex: number): Promise<void> {
-    this.tabs[tabIndex]?.tabGroupActions.enable();
+    this._tabs[tabIndex]?.tabGroupActions.enable();
   }
 
   /**
@@ -95,7 +108,7 @@ export class SbbTabGroup implements ComponentInterface {
    */
   @Method()
   public async activateTab(tabIndex: number): Promise<void> {
-    this.tabs[tabIndex]?.tabGroupActions.select();
+    this._tabs[tabIndex]?.tabGroupActions.select();
   }
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
@@ -105,7 +118,7 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   private get _enabledTabs(): InterfaceSbbTabGroupTab[] {
-    return this.tabs.filter(
+    return this._tabs.filter(
       (t) => !isValidAttribute(t, 'disabled') && interactivityChecker.isVisible(t),
     );
   }
@@ -115,8 +128,8 @@ export class SbbTabGroup implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    this.tabs = this._getTabs();
-    this.tabs.forEach((tab) => this._configure(tab));
+    this._tabs = this._getTabs();
+    this._tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
@@ -129,12 +142,12 @@ export class SbbTabGroup implements ComponentInterface {
 
   private _onContentSlotChange = (): void => {
     this._tabContentElement = this._element.shadowRoot.querySelector('div.tab-content');
-    const loadedTabs = this._getTabs().filter((tab) => !this.tabs.includes(tab));
+    const loadedTabs = this._getTabs().filter((tab) => !this._tabs.includes(tab));
 
     // if a new tab/content is added to the tab group
     if (loadedTabs.length) {
       loadedTabs.forEach((tab) => this._configure(tab));
-      this.tabs = this.tabs.concat(loadedTabs);
+      this._tabs = this._tabs.concat(loadedTabs);
     }
   };
 
@@ -142,14 +155,15 @@ export class SbbTabGroup implements ComponentInterface {
     const tabs = this._getTabs();
 
     // if a tab is removed from the tab group
-    if (tabs.length < this.tabs.length) {
-      const removedTabs = this.tabs.filter((tab) => !tabs.includes(tab));
+    if (tabs.length < this._tabs.length) {
+      const removedTabs = this._tabs.filter((tab) => !tabs.includes(tab));
 
       removedTabs.forEach((removedTab) => {
         removedTab.relatedContent?.remove();
       });
-      this.tabs = tabs;
+      this._tabs = tabs;
     }
+    this._tabs.forEach((tab: HTMLSbbTabTitleElement) => tab.setAttribute('data-size', this.size));
   };
 
   private _assignId(): string {
@@ -159,10 +173,10 @@ export class SbbTabGroup implements ComponentInterface {
   private _initSelection(): void {
     if (
       this.initialSelectedIndex >= 0 &&
-      this.initialSelectedIndex < this.tabs.length &&
-      !this.tabs[this.initialSelectedIndex].disabled
+      this.initialSelectedIndex < this._tabs.length &&
+      !this._tabs[this.initialSelectedIndex].disabled
     ) {
-      this.tabs[this.initialSelectedIndex].tabGroupActions.select();
+      this._tabs[this.initialSelectedIndex].tabGroupActions.select();
     } else {
       this._enabledTabs[0]?.tabGroupActions.select();
     }
@@ -198,7 +212,7 @@ export class SbbTabGroup implements ComponentInterface {
         entry.target.firstElementChild as HTMLSlotElement
       ).assignedElements() as HTMLSbbTabTitleElement[];
 
-      tabTitles.forEach((tab: HTMLSbbTabTitleElement) => {
+      for (const tab of tabTitles) {
         toggleDatasetEntry(
           tab,
           'hasDivider',
@@ -208,7 +222,7 @@ export class SbbTabGroup implements ComponentInterface {
           '--sbb-tab-group-width',
           `${this._tabGroupElement.clientWidth}px`,
         );
-      });
+      }
     }
   }
 
