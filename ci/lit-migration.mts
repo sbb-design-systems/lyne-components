@@ -672,8 +672,14 @@ async function migrate(component: string, debug = false) {
               mutator.remove(node);
             } else {
               // we extract the template from 'newE2EPage({html: ...})'
-              const template = (deepFind(call, n => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment).initializer.getText();
-              mutator.replace(node, `await fixture(${template})`);
+              let template = (deepFind(call, n => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment).initializer.getText();
+              
+              // Surrond the template with `
+              if (template.charAt(0) !== '`') {
+                template = `\`${template.substring(1, template.length - 1)}\``;
+              }
+
+              mutator.replace(node, `await fixture(html${template})`);
             }
           }
 
@@ -683,9 +689,14 @@ async function migrate(component: string, debug = false) {
               (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.setContent/),
             ) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
-            const template = call.arguments[0].getText();
+            let template = call.arguments[0].getText();
 
-            mutator.replace(call, `fixture(${template})`);
+            // Surrond the template with `
+            if (template.charAt(0) !== '`') {
+              template = `\`${template.substring(1, template.length - 1)}\``;
+            }
+
+            mutator.replace(call, `fixture(html${template})`);
           }
 
           if (node.getText().match(/\.setProperty\(/)) {
