@@ -67,6 +67,7 @@
   @include sbb.if-forced-colors {
     --sbb-toggle-check-icon-color: GrayText;
     --sbb-toggle-check-background-color: GrayText;
+    --sbb-toggle-check-circle-border-style: solid;
   }
 }
 

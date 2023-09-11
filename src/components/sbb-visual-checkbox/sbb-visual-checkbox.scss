@@ -15,6 +15,7 @@
 
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: Canvas;
+    --sbb-visual-checkbox-border-width: 0;
   }
 }
 

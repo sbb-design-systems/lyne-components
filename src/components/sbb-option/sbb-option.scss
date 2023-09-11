@@ -40,6 +40,10 @@
 
 :host(:is([data-group-disabled], [disabled]:not([disabled='false']))) {
   --sbb-option-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-option-color: GrayText;
+  }
 }
 
 :host([data-multiple]:is([data-group-disabled], [disabled]:not([disabled='false']))) {
@@ -103,6 +107,10 @@
       border-radius: var(--sbb-border-radius-2x);
       background-color: var(--sbb-color-milk-default);
       z-index: -1;
+
+      @include sbb.if-forced-colors {
+        border-color: GrayText;
+      }
     }
   }
 }

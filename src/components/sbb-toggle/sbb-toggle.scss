@@ -20,6 +20,11 @@
   @include sbb.mq($from: medium) {
     --sbb-toggle-height: #{sbb.px-to-rem-build(32)};
   }
+
+  @include sbb.if-forced-colors {
+    --sbb-toggle-selected-option-border-color: Highlight;
+    --sbb-toggle-border-width: var(--sbb-border-width-2x);
+  }
 }
 
 :host([even]:not([even='false'])) {
@@ -33,6 +38,11 @@
 :host([disabled]:not([disabled='false'])) {
   --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite-default);
   --sbb-toggle-border-style: dashed;
+
+  @include sbb.if-forced-colors {
+    --sbb-toggle-border-style: solid;
+    --sbb-toggle-selected-option-border-color: GrayText;
+  }
 }
 
 :host([size='m']) {
@@ -85,10 +95,6 @@
       duration: var(--sbb-toggle-animation-duration);
       timing-function: ease;
       property: opacity, inset-inline-end, inset-inline-start;
-    }
-
-    @include sbb.if-forced-colors {
-      --sbb-toggle-selected-option-border-color: Highlight;
     }
   }
 

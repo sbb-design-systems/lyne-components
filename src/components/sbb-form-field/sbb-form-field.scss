@@ -80,6 +80,11 @@
 :host([data-has-popup-open]) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-form-field-border-color: Highlight;
+    --sbb-form-field-prefix-color: Highlight;
+  }
 }
 
 :host([data-invalid]) {
@@ -260,6 +265,11 @@
     :host([floating-label]:not([floating-label='false'])) & {
       color: transparent !important;
       -webkit-text-fill-color: transparent !important;
+
+      @include sbb.if-forced-colors {
+        color: Canvas !important;
+        -webkit-text-fill-color: Canvas !important;
+      }
     }
 
     :host([data-disabled]:not([floating-label]:not([floating-label='false']))) & {

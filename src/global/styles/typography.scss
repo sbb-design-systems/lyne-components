@@ -35,6 +35,11 @@ sbb-form-field {
   &[floating-label]:not([floating-label='false']) input::placeholder {
     color: transparent;
     -webkit-text-fill-color: transparent;
+
+    @include a11y.if-forced-colors {
+      color: Canvas;
+      -webkit-text-fill-color: Canvas;
+    }
   }
 }
 

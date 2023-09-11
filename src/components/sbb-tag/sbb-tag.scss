@@ -46,7 +46,7 @@
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
   @include sbb.if-forced-colors {
-    --sbb-tag-border-color: Highlight;
+    --sbb-tag-border-color: Highlight !important;
   }
 }
 
