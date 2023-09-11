@@ -60,6 +60,18 @@ export const Disabled: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
+export const DisabledChecked: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true, checked: true },
+};
+
+export const DisabledIndeterminate: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, indeterminate: true, disabled: true },
+};
+
 const meta: Meta = {
   decorators: [
     (Story) => (
