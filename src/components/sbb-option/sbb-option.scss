@@ -43,6 +43,7 @@
 :host([data-group-disabled]),
 :host([disabled]:not([disabled='false'])) {
   --sbb-option-cursor: default;
+  --sbb-option-background-color: var(--sbb-color-milk-default);
 }
 
 :host([data-group-disabled]:not([data-multiple])),
@@ -55,7 +56,6 @@
     (var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x)) -
       (var(--sbb-option-margin) - var(--sbb-border-width-2x))
   );
-  --sbb-option-background-color: var(--sbb-color-milk-default);
   --sbb-option-border: var(--sbb-border-width-1x) dashed var(--sbb-color-graphite-default);
   --sbb-option-border-radius: var(--sbb-border-radius-2x);
 }
