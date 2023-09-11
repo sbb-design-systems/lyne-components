@@ -6,8 +6,14 @@ import { waitForComponentsReady } from '../../global/testing/wait-for-components
 import { waitForStablePosition } from '../../global/testing';
 import isChromatic from 'chromatic';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const disableAnimation: InputType = {
   control: {
@@ -15,12 +21,20 @@ const disableAnimation: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   'disable-animation': disableAnimation,
+  negative,
 };
 
 const defaultArgs: Args = {
   'disable-animation': isChromatic(),
+  negative: false,
 };
 
 // Story interaction executed after the story renders
@@ -57,8 +71,8 @@ const PickerAndButtonTemplate = (args): JSX.Element => (
   </div>
 );
 
-const FormFieldTemplate = (args): JSX.Element => (
-  <sbb-form-field>
+const FormFieldTemplate = ({ negative, ...args }): JSX.Element => (
+  <sbb-form-field negative={negative}>
     <input />
     <sbb-datepicker
       data-now={isChromatic() ? new Date(2023, 0, 12, 0, 0, 0).valueOf() : undefined}
@@ -81,11 +95,19 @@ export const InFormField: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const InFormFieldNegative: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+  play: isChromatic() && playStory,
+};
+
 const meta: Meta = {
   decorators: [
-    (Story) => (
+    (Story, context) => (
       <div
         style={{
+          ...wrapperStyle(context),
           padding: '2rem',
           ...(isChromatic() ? { 'min-height': '100vh', 'min-width': '100vw' } : undefined),
         }}

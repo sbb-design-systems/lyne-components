@@ -32,12 +32,29 @@
   // to default color for cases where the form field is used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
+  @include sbb.if-forced-colors {
+    --sbb-form-field-border-color: ButtonBorder;
+  }
+
   display: inline-block;
 }
 
 :host(:where(:not([width='collapse']))) {
   min-width: #{sbb.px-to-rem-build(150)};
   width: min(#{sbb.px-to-rem-build(300)}, 100%);
+}
+
+:host([negative]:not([negative='false'])) {
+  --sbb-form-field-background-color: var(--sbb-color-midnight-default);
+  --sbb-form-field-border-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-label-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-text-color: var(--sbb-color-milk-default);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
+  @include sbb.if-forced-colors {
+    --sbb-form-field-border-color: ButtonBorder;
+  }
 }
 
 :host([size='l']) {
@@ -52,10 +69,17 @@
   --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
 }
 
-:host([data-readonly]),
-:host([data-disabled]) {
+:host(:is([data-readonly], [data-disabled])) {
   --sbb-form-field-background-color: var(--sbb-color-milk-default);
   --sbb-form-field-border-color: var(--sbb-color-graphite-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-form-field-border-color: ButtonBorder;
+  }
+}
+
+:host(:is([data-readonly], [data-disabled])[negative]:not([negative='false'])) {
+  --sbb-form-field-background-color: var(--sbb-color-charcoal-default);
 }
 
 :host([data-disabled]) {
@@ -64,27 +88,36 @@
   --sbb-form-field-border-style: dashed;
 
   @include sbb.if-forced-colors {
-    --sbb-form-field-label-color: GrayText;
-    --sbb-form-field-prefix-color: GrayText;
-    --sbb-form-field-text-color: GrayText;
-    --sbb-form-field-border-color: GrayText;
+    --sbb-form-field-label-color: GrayText !important;
+    --sbb-form-field-prefix-color: GrayText !important;
+    --sbb-form-field-text-color: GrayText !important;
+    --sbb-form-field-border-color: GrayText !important;
   }
 }
 
-:host([data-readonly]) {
+:host([data-disabled][negative]:not([negative='false'])) {
+  --sbb-form-field-text-color: var(--sbb-color-smoke-default);
+}
+
+:host([data-readonly]:not([negative]:not([negative='false']))) {
   --sbb-form-field-label-color: var(--sbb-color-granite-default);
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
 }
 
-:host([data-input-focused]),
-:host([data-has-popup-open]) {
+:host(:is([data-input-focused], [data-has-popup-open])) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
+  --sbb-form-field-border-width: var(--sbb-border-width-2x);
 
   @include sbb.if-forced-colors {
-    --sbb-form-field-border-color: Highlight;
-    --sbb-form-field-prefix-color: Highlight;
+    --sbb-form-field-border-color: Highlight !important;
+    --sbb-form-field-prefix-color: Highlight !important;
   }
+}
+
+:host(:is([data-input-focused], [data-has-popup-open])[negative]:not([negative='false'])) {
+  --sbb-form-field-border-color: var(--sbb-color-milk-default);
+  --sbb-form-field-prefix-color: var(--sbb-color-milk-default);
 }
 
 :host([data-invalid]) {
@@ -92,9 +125,14 @@
   --sbb-form-field-text-color: var(--sbb-color-red125-default);
 
   @include sbb.if-forced-colors {
-    --sbb-form-field-border-color: LinkText;
-    --sbb-form-field-text-color: LinkText;
+    --sbb-form-field-border-color: LinkText !important;
+    --sbb-form-field-text-color: LinkText !important;
   }
+}
+
+:host([data-invalid][negative]:not([negative='false'])) {
+  --sbb-form-field-border-color: var(--sbb-color-red-mode-dark);
+  --sbb-form-field-text-color: var(--sbb-color-red-mode-dark);
 }
 
 :host(:not([data-has-error])) {
@@ -103,12 +141,6 @@
 
 :host([floating-label]:not([floating-label='false'])) {
   --sbb-select-placeholder-color: transparent;
-}
-
-// Should be after other definitions to override border style
-
-:host(:is([borderless], [data-input-type='sbb-slider'])) {
-  --sbb-form-field-border-color: transparent;
 }
 
 // Should be after other definitions to override overflow and background
@@ -134,6 +166,31 @@
   border-radius: var(--sbb-form-field-border-radius);
   height: var(--sbb-form-field-height);
   background-color: var(--sbb-form-field-background-color);
+
+  :host([data-input-focused][data-focus-origin='keyboard']) & {
+    @include sbb.focus-outline;
+  }
+
+  // In high contrast, there is no borderless variant
+  @media (forced-colors: none) {
+    :host(:is([borderless]:not([borderless='false']), [data-input-type='sbb-slider'])) & {
+      border-color: transparent;
+    }
+
+    :host(:is([data-input-focused], [data-has-popup-open])[borderless]:not([borderless='false']))
+      & {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
+          var(--sbb-form-field-border-color);
+        inset-inline: calc(var(--sbb-form-field-padding-inline) - 2 * var(--sbb-border-width-1x));
+        inset-block-end: calc(-2 * var(--sbb-border-width-1x));
+      }
+    }
+  }
 }
 
 // Ensure slotted inline elements are vertically centered
@@ -251,7 +308,7 @@
   // Fill color needed for Safari
   -webkit-text-fill-color: var(--sbb-form-field-text-color);
   opacity: 1;
-  background-color: var(--sbb-form-field-background-color);
+  background-color: transparent;
 
   // To be more specific than the styles in normalize.scss we need to use !important
   // TODO: Find a better solution
@@ -276,6 +333,11 @@
       color: var(--sbb-color-granite-default);
       -webkit-text-fill-color: var(--sbb-color-granite-default);
     }
+  }
+
+  // Fix positioning issue for select which occurs in Safari
+  :host([data-input-type='select']) & {
+    vertical-align: middle;
   }
 }
 

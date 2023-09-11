@@ -35,6 +35,7 @@ Inside `sbb-form-field`:
 | ------------------ | ------------------- | ---------------------------------- | ----------------------- | ----------- |
 | `datePicker`       | `date-picker`       | Datepicker reference.              | `HTMLElement \| string` | `undefined` |
 | `disableAnimation` | `disable-animation` | Whether the animation is disabled. | `boolean`               | `false`     |
+| `negative`         | `negative`          | Negative coloring variant flag.    | `boolean`               | `false`     |
 
 
 ## Methods

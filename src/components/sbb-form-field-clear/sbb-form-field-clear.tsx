@@ -1,6 +1,16 @@
-import { Component, ComponentInterface, Element, Listen, h, Host, JSX, State } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  Listen,
+  h,
+  Host,
+  JSX,
+  State,
+  Prop,
+} from '@stencil/core';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
-import { hostContext } from '../../global/dom';
+import { hostContext, isValidAttribute } from '../../global/dom';
 import {
   HandlerRepository,
   actionElementHandlerAspect,
@@ -18,6 +28,9 @@ import { i18nClearInput } from '../../global/i18n';
   tag: 'sbb-form-field-clear',
 })
 export class SbbFormFieldClear implements ComponentInterface {
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
   @Element() private _element!: HTMLElement;
 
   @State() private _currentLanguage = documentLanguage();
@@ -35,7 +48,7 @@ export class SbbFormFieldClear implements ComponentInterface {
     if (!input || input.tagName !== 'INPUT') {
       return;
     }
-    this._formField.clear();
+    await this._formField.clear();
     input.focus();
     input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     input.dispatchEvent(new window.Event('change', { bubbles: true }));
@@ -46,6 +59,10 @@ export class SbbFormFieldClear implements ComponentInterface {
     this._formField =
       (hostContext('sbb-form-field', this._element) as HTMLSbbFormFieldElement) ??
       (hostContext('[data-form-field]', this._element) as HTMLSbbFormFieldElement);
+
+    if (this._formField) {
+      this.negative = isValidAttribute(this._formField, 'negative');
+    }
   }
 
   public disconnectedCallback(): void {

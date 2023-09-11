@@ -489,6 +489,10 @@ export namespace Components {
           * The name attribute to use for the button.
          */
         "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbDatepickerPreviousDay {
         /**
@@ -499,6 +503,10 @@ export namespace Components {
           * The name attribute to use for the button.
          */
         "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbDatepickerToggle {
         /**
@@ -509,6 +517,10 @@ export namespace Components {
           * Whether the animation is disabled.
          */
         "disableAnimation": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
         /**
           * Opens the calendar.
          */
@@ -627,6 +639,10 @@ export namespace Components {
         "variant": InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbFormField {
         /**
@@ -654,6 +670,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
           * Indicates whether the input is optional.
          */
         "optional"?: boolean;
@@ -671,6 +691,10 @@ export namespace Components {
         "width": 'default' | 'collapse';
     }
     interface SbbFormFieldClear {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbHeader {
         /**
@@ -1890,6 +1914,10 @@ export namespace Components {
           * The name attribute to use for the button.
          */
         "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbTrain {
         /**
@@ -3156,6 +3184,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbDatepickerPreviousDay {
         /**
@@ -3166,6 +3198,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbDatepickerToggle {
         /**
@@ -3176,6 +3212,10 @@ declare namespace LocalJSX {
           * Whether the animation is disabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbDialog {
         /**
@@ -3319,6 +3359,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbFormField {
         /**
@@ -3338,6 +3382,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
           * Indicates whether the input is optional.
          */
         "optional"?: boolean;
@@ -3351,6 +3399,10 @@ declare namespace LocalJSX {
         "width"?: 'default' | 'collapse';
     }
     interface SbbFormFieldClear {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbHeader {
         /**
@@ -4673,6 +4725,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbTrain {
         /**

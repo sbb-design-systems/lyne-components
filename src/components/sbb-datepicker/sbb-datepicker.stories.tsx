@@ -9,6 +9,13 @@ import isChromatic from 'chromatic';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 import events from './sbb-datepicker.events';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const value: InputType = {
   control: {
@@ -160,6 +167,15 @@ const size: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -241,6 +257,7 @@ const formFieldBasicArgsTypes: ArgTypes = {
   ...basicArgTypes,
   label,
   size,
+  negative,
   optional,
   borderless,
 };
@@ -249,6 +266,7 @@ const formFieldBasicArgs = {
   ...basicArgs,
   label: 'Label',
   size: size.options[0],
+  negative: false,
   optional: false,
   borderless: false,
 };
@@ -317,7 +335,10 @@ const Template = ({
         ></sbb-datepicker>
         <sbb-datepicker-next-day date-picker="datepicker" />
       </div>
-      <div id="container-value" style={{ 'margin-block-start': '1rem' }}>
+      <div
+        id="container-value"
+        style={{ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' }}
+      >
         Change date to get the latest value:
       </div>
     </Fragment>
@@ -331,6 +352,7 @@ const TemplateFormField = ({
   optional,
   borderless,
   size,
+  negative,
   wide,
   dateFilter,
   dateHandling,
@@ -342,6 +364,7 @@ const TemplateFormField = ({
     <Fragment>
       <sbb-form-field
         size={size}
+        negative={negative}
         label={label}
         optional={optional}
         borderless={borderless}
@@ -362,7 +385,10 @@ const TemplateFormField = ({
           data-now={dataNow}
         ></sbb-datepicker>
       </sbb-form-field>
-      <div id="container-value" style={{ 'margin-block-start': '1rem' }}>
+      <div
+        id="container-value"
+        style={{ 'margin-block-start': '1rem', color: 'var(--sbb-color-smoke-default)' }}
+      >
         Change date to get the latest value:
       </div>
     </Fragment>
@@ -386,6 +412,24 @@ export const InFormFieldReadonly: StoryObj = {
   render: TemplateFormField,
   argTypes: { ...formFieldBasicArgsTypes },
   args: { ...formFieldBasicArgs, readonly: true },
+};
+
+export const InFormFieldNegative: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, negative: true },
+};
+
+export const InFormFieldDisabledNegative: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, disabled: true, negative: true },
+};
+
+export const InFormFieldReadonlyNegative: StoryObj = {
+  render: TemplateFormField,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, readonly: true, negative: true },
 };
 
 export const InFormFieldWide: StoryObj = {
@@ -442,8 +486,14 @@ export const WithoutFormField: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', 'min-height': isChromatic() ? '100vh' : undefined }}>
+    (Story, context) => (
+      <div
+        style={{
+          ...wrapperStyle(context),
+          padding: '2rem',
+          'min-height': isChromatic() ? '100vh' : undefined,
+        }}
+      >
         <Story />
       </div>
     ),

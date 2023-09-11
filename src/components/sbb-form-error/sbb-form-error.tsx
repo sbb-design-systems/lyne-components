@@ -1,5 +1,6 @@
-import { Component, h, JSX, Host } from '@stencil/core';
+import { Component, h, JSX, Host, Prop, ComponentInterface, Element } from '@stencil/core';
 import { assignId } from '../../global/a11y';
+import { isValidAttribute } from '../../global/dom';
 
 let nextId = 0;
 
@@ -8,7 +9,20 @@ let nextId = 0;
   styleUrl: './sbb-form-error.scss',
   tag: 'sbb-form-error',
 })
-export class SbbFormError {
+export class SbbFormError implements ComponentInterface {
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
+  @Element() private _element!: HTMLElement;
+
+  public connectedCallback(): void {
+    const formField =
+      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+    if (formField) {
+      this.negative = isValidAttribute(formField, 'negative');
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <Host ref={assignId(() => `sbb-form-error-${++nextId}`)}>

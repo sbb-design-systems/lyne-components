@@ -100,6 +100,9 @@ export class SbbFormField implements ComponentInterface {
   /** Whether the label should float. If activated, the placeholder of the input is hidden. */
   @Prop({ reflect: true }) public floatingLabel = false;
 
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
+
   /**
    * It is used internally to get the `error` slot.
    */
@@ -147,6 +150,7 @@ export class SbbFormField implements ComponentInterface {
     this._handlerRepository.connect();
     this.renderLabel(this.label);
     await this._registerInputListener();
+    this._syncNegative();
   }
 
   public disconnectedCallback(): void {
@@ -409,6 +413,7 @@ export class SbbFormField implements ComponentInterface {
     }
     this._applyAriaDescribedby();
     toggleDatasetEntry(this._element, 'hasError', !!this._errorElements.length);
+    this._syncNegative();
   }
 
   private _applyAriaDescribedby(): void {
@@ -451,6 +456,17 @@ export class SbbFormField implements ComponentInterface {
     return this._input;
   }
 
+  @Watch('negative')
+  private _syncNegative(): void {
+    this._element
+      .querySelectorAll(
+        'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle',
+      )
+      .forEach((element) =>
+        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
+      );
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
@@ -461,7 +477,7 @@ export class SbbFormField implements ComponentInterface {
           class="sbb-form-field__wrapper"
           id="overlay-anchor"
         >
-          <slot name="prefix"></slot>
+          <slot name="prefix" onSlotchange={() => this._syncNegative()}></slot>
           <div class="sbb-form-field__input-container">
             {(this.label || this._namedSlots.label) && (
               <Fragment>
@@ -486,7 +502,7 @@ export class SbbFormField implements ComponentInterface {
               ></sbb-icon>
             )}
           </div>
-          <slot name="suffix"></slot>
+          <slot name="suffix" onSlotchange={() => this._syncNegative()}></slot>
         </div>
 
         <div class="sbb-form-field__error">

@@ -10,16 +10,4 @@
   outline: none !important;
 }
 
-@include sbb.icon-button-base(':host', '.sbb-form-field-clear', 'sbb-icon');
-
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
-  @include sbb.icon-button-focus-visible('.sbb-form-field-clear');
-}
-
-:host(:not(:active, [data-active]):hover) {
-  @include sbb.icon-button-hover('.sbb-form-field-clear');
-}
-
-:host(:is(:active, [data-active])) {
-  @include sbb.icon-button-active('.sbb-form-field-clear');
-}
+@include sbb.icon-button('.sbb-form-field-clear', 'sbb-icon');
