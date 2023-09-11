@@ -100,7 +100,7 @@
       position: absolute;
       inset: #{sbb.px-to-rem-build(6)};
       border: var(--sbb-border-width-1x) dashed var(--sbb-color-graphite-default);
-      border-radius: var(--sbb-border-width-2x);
+      border-radius: var(--sbb-border-radius-2x);
       background-color: var(--sbb-color-milk-default);
       z-index: -1;
     }
