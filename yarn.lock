@@ -1296,9 +1296,9 @@
     get-tsconfig "^4.4.0"
 
 "@esbuild-kit/core-utils@^3.0.0", "@esbuild-kit/core-utils@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@esbuild-kit/core-utils/-/core-utils-3.2.2.tgz#ac3fe38d6ddcb3aa4658425034bb7a9cefa83495"
-  integrity sha512-Ub6LaRaAgF80dTSzUdXpFLM1pVDdmEVB9qb5iAzSpyDlX/mfJTFGOnZ516O05p5uWWteNviMKi4PAyEuRxI5gA==
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@esbuild-kit/core-utils/-/core-utils-3.2.3.tgz#ae458351a65743ae0841837c1888b33c4379d27f"
+  integrity sha512-daTXIDXv6lTpADQYTfY9BgHfL3HjVfY7xD8aOuPWtD1bJdqk9hAtHK5cErBcxcBtjFcfB0B2tftFtW01jTveKw==
   dependencies:
     esbuild "~0.18.20"
     source-map-support "^0.5.21"
