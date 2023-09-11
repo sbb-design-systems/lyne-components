@@ -298,13 +298,17 @@ export class SbbFormField implements ComponentInterface {
       signal: this._inputAbortController.signal,
     });
 
+    let inputFocusElement = this._input;
+
     if (this._input.tagName === 'SBB-SELECT') {
       this._input.addEventListener('state-change', () => this._checkAndUpdateInputEmpty(), {
         signal: this._inputAbortController.signal,
       });
+
+      inputFocusElement = this._input.parentElement.querySelector('.sbb-select-invisible-trigger');
     }
 
-    this._input.addEventListener(
+    inputFocusElement.addEventListener(
       'focusin',
       () => {
         toggleDatasetEntry(this._element, 'inputFocused', true);
@@ -316,7 +320,7 @@ export class SbbFormField implements ComponentInterface {
       },
     );
 
-    this._input.addEventListener(
+    inputFocusElement.addEventListener(
       'focusout',
       () => {
         delete this._element.dataset.focusOrigin;
