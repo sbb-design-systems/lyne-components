@@ -1,25 +1,16 @@
 The `sbb-breadcrumb` is a component used to display a link to a page; when it's used within the `sbb-breadcrumb-group` component, 
 it can display the list of the links the user visited to arrive at the current page.
 
+### Slots
+
 It is possible to provide a text via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 Text and icon are not exclusive and can be used together.
 
-It's possible to set all the link related properties (`download`, `href`, `rel` and `target`).
-
-## Accessibility 
-The `aria-current` property should be used to make the breadcrumb read correctly by screen-readers when the component
-is used in the `sbb-breadcrumb-group`.
-By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on the last slotted `sbb-breadcrumb`.
-
-## Usage
-
 Breadcrumb with text:
 
 ```html
-<sbb-breadcrumb href='/contact' target='_blank'>
-  Contact us
-</sbb-breadcrumb>
+<sbb-breadcrumb href='/contact' target='_blank'>Contact us</sbb-breadcrumb>
 ```
 
 Breadcrumb with icon:
@@ -36,6 +27,15 @@ Breadcrumb with text and slotted icon:
   <sbb-icon slot="icon" name="circle-information-small"></sbb-icon>
 </sbb-breadcrumb>
 ```
+
+### Link
+
+It's possible to set all the link related properties (`download`, `href`, `rel` and `target`).
+
+## Accessibility 
+The `aria-current` property should be used to make the breadcrumb read correctly by screen-readers when the component
+is used in the `sbb-breadcrumb-group`.
+By default, the `sbb-breadcrumb-group` component sets `aria-current="page"` on the last slotted `sbb-breadcrumb`.
 
 <!-- Auto Generated Below -->
 

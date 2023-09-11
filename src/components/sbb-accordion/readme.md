@@ -28,7 +28,7 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 ### Multi 
 
-The `multi` property, if set, allows to have more than one panel expanded at the same time.
+The `multi` property, if set, allows having more than one panel expanded at the same time.
 
 ```html
 <sbb-accordion multi>

@@ -1,7 +1,7 @@
-The dialog component provides a way to present content on top of the app's content and can be used
+The `sbb-dialog` component provides a way to present content on top of the app's content and can be used
 in several contexts. The dialog offers the following features:
 
-- creates a backdrop, for disabling interaction below the modal;
+- creates a backdrop for disabling interaction below the modal;
 - disables scrolling of the page content while open;
 - manages focus properly by setting it on the first focusable element;
 - can have a header and a footer, both of which are optional;
@@ -17,7 +17,8 @@ pressing the `Esc` key.
  `action-group` slot.
 
 ## Usage
-In order to show a modal you need to call the `open(event?: PointerEvent)` method on the
+
+In order to show a modal, you need to call the `open(event?: PointerEvent)` method on the
 `<sbb-dialog>` component:
 
 ```html
@@ -38,13 +39,14 @@ In order to show a modal you need to call the `open(event?: PointerEvent)` metho
 Note that it is necessary to pass the event object to the `open()` method to allow the dialog to
 detect whether it has been opened by click or keyboard, so that the focus can be better handled.
 
-To dismiss the dialog you need to get a reference to the `<sbb-dialog>` element and call 
+To dismiss the dialog, you need to get a reference to the `<sbb-dialog>` element and call 
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
 emit a close event with an optional result as a payload. You can also indicate that an element
 within the dialog content should close the dialog when clicked by marking it with the
 `sbb-dialog-close` attribute.
 
 ### Usage notes
+
 The default `z-index` of the component is set to `1000`; to specify a custom stack order, the
 `z-index` can be changed by defining the CSS variable `--sbb-dialog-z-index`. 
 

@@ -1,22 +1,10 @@
 The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
 
+### Connections
+
 If the component is used within a `sbb-form-field`, it will automatically connect to the native `input` as trigger
 and will display the option panel above or below the `sbb-form-field`; otherwise, it's possible to set 
 the panel `origin` and the input `trigger` passing an id or an element reference.
-
-The options panel opens on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
-it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
-
-### Events
-
-The `sbb-option` will emit the `option-selected` event when selected via user interaction.
-
-### Option highlight
-
-By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.
-See the [sbb-option](../sbb-option/readme.md) for more details.
-
-## Usage
 
 In a form field:
 
@@ -50,8 +38,15 @@ Standalone, by setting the `origin` and `trigger` properties:
   <sbb-option value="Option C">Option C</sbb-option>
 </sbb-autocomplete>
 ```
+
+### Option highlight
+
+By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.
+See the [sbb-option](../sbb-option/readme.md) for more details.
+
 ### Option grouping
-`sbb-option` can be collected into groups using `sbb-optgroup` element:
+
+The `sbb-option` can be collected into groups using `sbb-optgroup` element:
 
 ```html
 <!-- Origin element -->
@@ -72,19 +67,28 @@ Standalone, by setting the `origin` and `trigger` properties:
 </sbb-form-field>
 ```
 
+### Events
+
+The `sbb-option` will emit the `option-selected` event when selected via user interaction.
+
 ## Keyboard interaction
-| Keyboard shortcut                      | Action                                                         |
-|----------------------------------------|----------------------------------------------------------------|
-| <kbd>Down Arrow</kbd>                  | Navigate to the next option. Open the panel, if closed.        |
-| <kbd>Up Arrow</kbd>                    | Navigate to the previous option.                               |
-| <kbd>Enter</kbd>                       | Select the active option.                                      |
-| <kbd>Escape</kbd>                      | Close the autocomplete panel.                                  |
+
+The options panel opens on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
+it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
+
+| Keyboard              | Action                                                  |
+|-----------------------|---------------------------------------------------------|
+| <kbd>Down Arrow</kbd> | Navigate to the next option. Open the panel, if closed. |
+| <kbd>Up Arrow</kbd>   | Navigate to the previous option.                        |
+| <kbd>Enter</kbd>      | Select the active option.                               |
+| <kbd>Escape</kbd>     | Close the autocomplete panel.                           |
 
 ## Accessibility
+
 `sbb-autocomplete` implements the ARIA combobox interaction pattern. 
 The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`. 
-Because of this listbox pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. 
-Nesting interactive controls like this interferes with most assistive technology.
+Because of this `listbox` pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. 
+Nesting interactive controls like this interferes with many assistive technologies.
 
 `sbb-autocomplete` preserves focus on the input trigger, using `aria-activedescendant` to support navigation though the autocomplete options.
 

@@ -1,10 +1,29 @@
 The `sbb-card` component is a generic content container; its task is to contain content related to a single subject. 
-There are various sizes (affecting paddings) and colors available.
+
+### Size
+
+It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`); 
+the choice mainly affect the content's padding (default is `m`). 
 
 ```html
-<sbb-card size="xl" color="milk">
-  Card content
-</sbb-card>
+<sbb-card size="xs">Card content</sbb-card>
+<sbb-card size="s">Card content</sbb-card>
+<sbb-card size="m">Card content</sbb-card>
+<sbb-card size="l">Card content</sbb-card>
+<sbb-card size="xl">Card content</sbb-card>
+<sbb-card size="xxl">Card content</sbb-card>
+<sbb-card size="xxxl">Card content</sbb-card>
+```
+
+### Color
+
+The component has four different values to choose from for the `color` property; default is `white`.
+
+```html
+<sbb-card color="white">Card content</sbb-card>
+<sbb-card color="milk">Card content</sbb-card>
+<sbb-card color="transparent-bordered">Card content</sbb-card>
+<sbb-card color="transparent-bordered-dashed">Card content</sbb-card>
 ```
 
 ## Card With Badge
@@ -39,9 +58,13 @@ For API details see the [`sbb-card-action` docs](/docs/components-sbb-card-sbb-c
 ## Accessibility
 
 It's **important** that a descriptive message is being slotted into the unnamed slot of `<sbb-card-action>` 
-as it is used for search engines and screen reader users. E.g. `<sbb-card-action>Buy a half-fare ticket now</sbb-card-action>`.
+as it is used for search engines and screen reader users.
 
-Normally, a `<sbb-card>` should be a single action, however it's possible to place other interactive elements
+```html
+<sbb-card-action>Buy a half-fare ticket now</sbb-card-action>
+```
+
+Normally, a `<sbb-card>` should be a single action, however, it's possible to place other interactive elements
 in the card content. Interactive content will automatically be detected and made accessible to click / focus.
 In cases where there should be only a visual button or link inside the card content without a different action, the 
 `is-static` attribute should be set (e.g. `<sbb-button is-static></sbb-button>`).
@@ -51,7 +74,7 @@ In cases where there should be only a visual button or link inside the card cont
 In high contrast mode, all the content of a link or a button receives a specific color which overrides every other color. 
 However, as the content of the card is not directly inside the button or link, this does not happen 
 when the slotted content has a specific color set.
-To improve coloring, it's needed to manually define styles for windows high contrast mode (setting `LinkText` or `ButtonText`).
+To improve coloring, it's needed to manually define styles for Window high contrast mode (setting `LinkText` or `ButtonText`).
 
 <!-- Auto Generated Below -->
 
