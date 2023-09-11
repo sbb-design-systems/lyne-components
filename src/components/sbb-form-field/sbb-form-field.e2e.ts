@@ -142,7 +142,7 @@ describe('sbb-form-field', () => {
     beforeEach(async () => {
       page = await newE2EPage();
       await page.setContent(
-        '<sbb-form-field label="Example" id="form-field-1"><sbb-select><sbb-option>Test</sbb-option></sbb-select></sbb-form-field>',
+        '<sbb-form-field label="Example"><sbb-select><sbb-option>Test</sbb-option></sbb-select></sbb-form-field>',
       );
 
       element = await page.find('sbb-form-field');

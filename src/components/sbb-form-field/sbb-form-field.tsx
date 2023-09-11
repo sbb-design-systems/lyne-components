@@ -305,7 +305,7 @@ export class SbbFormField implements ComponentInterface {
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = this._input.parentElement.querySelector('.sbb-select-invisible-trigger');
+      inputFocusElement = this._element.querySelector('.sbb-select-invisible-trigger');
     }
 
     inputFocusElement.addEventListener(
