@@ -7,6 +7,7 @@
 :host {
   --sbb-form-field-background-color: var(--sbb-color-white-default);
   --sbb-form-field-border-color: var(--sbb-color-smoke-default);
+  --sbb-form-field-border-style: solid;
   --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
   --sbb-form-field-border-width: var(--sbb-border-width-1x);
   --sbb-form-field-height: var(--sbb-size-form-element-m-min-height);
@@ -60,7 +61,7 @@
 :host([data-disabled]) {
   --sbb-form-field-label-color: var(--sbb-color-granite-default);
   --sbb-form-field-prefix-color: var(--sbb-color-granite-default);
-  --sbb-form-field-text-color: var(--sbb-color-granite-default);
+  --sbb-form-field-border-style: dashed;
 
   @include sbb.if-forced-colors {
     --sbb-form-field-label-color: GrayText;
@@ -79,6 +80,11 @@
 :host([data-has-popup-open]) {
   --sbb-form-field-border-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-prefix-color: var(--sbb-color-charcoal-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-form-field-border-color: Highlight;
+    --sbb-form-field-prefix-color: Highlight;
+  }
 }
 
 :host([data-invalid]) {
@@ -123,7 +129,8 @@
   align-items: center;
   gap: var(--sbb-form-field-gap);
   padding-inline: calc(var(--sbb-form-field-padding-inline) - var(--sbb-form-field-border-width));
-  border: var(--sbb-form-field-border-width) solid var(--sbb-form-field-border-color);
+  border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
+    var(--sbb-form-field-border-color);
   border-radius: var(--sbb-form-field-border-radius);
   height: var(--sbb-form-field-height);
   background-color: var(--sbb-form-field-background-color);
@@ -258,17 +265,17 @@
     :host([floating-label]:not([floating-label='false'])) & {
       color: transparent !important;
       -webkit-text-fill-color: transparent !important;
+
+      @include sbb.if-forced-colors {
+        color: Canvas !important;
+        -webkit-text-fill-color: Canvas !important;
+      }
     }
 
     :host([data-disabled]:not([floating-label]:not([floating-label='false']))) & {
-      color: var(--sbb-form-field-text-color) !important;
-      -webkit-text-fill-color: var(--sbb-form-field-text-color) !important;
-      text-decoration: line-through !important;
+      color: var(--sbb-color-granite-default);
+      -webkit-text-fill-color: var(--sbb-color-granite-default);
     }
-  }
-
-  :host([data-disabled]) & {
-    text-decoration: line-through !important;
   }
 }
 

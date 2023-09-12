@@ -8,6 +8,7 @@
   --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
   --sbb-tag-background-color: var(--sbb-color-white-default);
   --sbb-tag-border-color: var(--sbb-color-cloud-default);
+  --sbb-tag-border-style: solid;
   --sbb-tag-border-width: var(--sbb-border-width-1x);
   --sbb-tag-text-color: var(--sbb-color-charcoal-default);
   --sbb-tag-amount-color: var(--sbb-color-metal-default);
@@ -18,7 +19,6 @@
   --sbb-tag-animation-easing: var(--sbb-animation-easing);
   --sbb-tag-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-tag-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-tag-text-decoration: none;
 
   @include sbb.mq($from: medium) {
     --sbb-tag-height: #{sbb.px-to-rem-build(40)};
@@ -46,7 +46,7 @@
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
   @include sbb.if-forced-colors {
-    --sbb-tag-border-color: Highlight;
+    --sbb-tag-border-color: Highlight !important;
   }
 }
 
@@ -54,8 +54,8 @@
   --sbb-tag-text-color: var(--sbb-color-granite-default);
   --sbb-tag-amount-color: var(--sbb-tag-text-color);
   --sbb-tag-background-color: var(--sbb-color-milk-default);
-  --sbb-tag-border-color: var(--sbb-color-cloud-default);
-  --sbb-tag-text-decoration: line-through;
+  --sbb-tag-border-color: var(--sbb-color-cement-default);
+  --sbb-tag-border-style: dashed;
 
   @include sbb.if-forced-colors {
     --sbb-tag-text-color: GrayText;
@@ -65,7 +65,7 @@
 }
 
 :host([checked]:not([checked='false'])[disabled]:not([disabled='false'])) {
-  --sbb-tag-border-color: var(--sbb-color-granite-default);
+  --sbb-tag-border-color: var(--sbb-color-metal-default);
 }
 
 :host(:hover:not([disabled]:not([disabled='false']), :active, [data-active])) {
@@ -109,14 +109,13 @@
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  text-decoration: var(--sbb-tag-text-decoration);
 
   &::before {
     content: '';
     position: absolute;
     inset: var(--sbb-tag-inset);
     background-color: var(--sbb-tag-background-color);
-    border: var(--sbb-tag-border-width) solid var(--sbb-tag-border-color);
+    border: var(--sbb-tag-border-width) var(--sbb-tag-border-style) var(--sbb-tag-border-color);
     border-radius: var(--sbb-tag-border-radius);
     transition-duration: var(--sbb-tag-animation-duration);
     transition-timing-function: var(--sbb-tag-animation-easing);
