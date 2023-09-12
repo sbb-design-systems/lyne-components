@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { createInterface } from 'readline/promises';
 import ts from 'typescript';
 import MagicString from 'magic-string';
+import * as prettier from 'prettier';
 
 const readline = createInterface({
   input: process.stdin,
@@ -111,7 +112,18 @@ async function migrate(component: string, debug = false) {
       console.error(e);
     }
 
-    writeFileSync(join(target, file), mutator.toString(), 'utf8');
+    let result = mutator.toString();
+    try {
+      const prettierConfig = await prettier.resolveConfig(path.pathname);
+      result = await prettier.format(mutator.toString(), {
+        ...prettierConfig!,
+        filepath: path.pathname,
+      });
+    } catch {
+      // Do nothing
+    }
+
+    writeFileSync(join(target, file), result, 'utf8');
     console.log(`Migrated ${file}`);
   }
 
@@ -259,27 +271,16 @@ async function migrate(component: string, debug = false) {
     }
 
     if (propertyWatchers.length) {
-      let pivot: ts.Node = connectedCallback! ?? constructor;
-      if (!pivot) {
-        let pi = 0;
-        let mi = 0;
-        clazz.members.forEach((n, i) => {
-          if (ts.isPropertyDeclaration(n)) {
-            pi = i;
-          } else if (ts.isMethodDeclaration(n) && mi < pi) {
-            mi = i;
-          }
-        });
-        pivot = clazz.members[mi];
-      }
-
+      const pivot: ts.Node = connectedCallback! ?? constructor ?? findLastProperty();
+      newImports.get('lit')!.push('PropertyValues');
       mutator.insertAtEnd(
         pivot,
         `
 
-  public willUpdate(changedProperties: PropertyValues<this>): void {${propertyWatchers
-    .map(
-      (pw) => `
+  public willUpdate(changedProperties: PropertyValues<this>): void {
+    // TODO: Verify parity${propertyWatchers
+      .map(
+        (pw) => `
     if (${pw.props.map((p) => `changedProperties.has('${p}')`).join(' || ')}) {
       this.${pw.name}(${
         !pw.argAmount
@@ -287,10 +288,10 @@ async function migrate(component: string, debug = false) {
           : pw.argAmount === 1
           ? `this.${pw.props[0]}`
           : `this.${pw.props[0]}, changedProperties.get('${pw.props[0]}')`
-      })
+      });
     }`,
-    )
-    .join('')}
+      )
+      .join('')}
   }    `,
       );
     }
@@ -307,7 +308,7 @@ async function migrate(component: string, debug = false) {
       newImports.get('lit/decorators.js')!.push('state');
       for (const node of states) {
         const decorator = node.modifiers?.find(ts.isDecorator)!;
-        mutator.replace(decorator, `@state(${resolvePropertyDecoratorArguments(node)})`);
+        mutator.replace(decorator, `@state()`);
       }
     }
 
@@ -375,11 +376,72 @@ async function migrate(component: string, debug = false) {
       );
     }
 
-    //let eventListeners: string[] = [];
-    for (const node of listeners) {
-      if (node.modifiers?.some((n) => n.kind === ts.SyntaxKind.PublicKeyword)) {
-        makePrivate(node);
+    for (const method of methods) {
+      method.modifiers
+        ?.filter(
+          (node) =>
+            (ts.isDecorator(node) && node.getText().startsWith('@Method')) ||
+            node.kind === ts.SyntaxKind.AsyncKeyword,
+        )
+        .forEach((node) => {
+          mutator.remove(node);
+        });
+      mutator.replace(
+        method.type!,
+        method
+          .type!.getText()
+          .replace(/^Promise</, '')
+          .replace(/>$/, ''),
+      );
+    }
+
+    let eventHandlers = '';
+    if (listeners.length) {
+      if (eventingImport) {
+        const lastImportSymbol = (
+          (eventingImport as ts.ImportDeclaration).importClause!.namedBindings as ts.NamedImports
+        ).elements.at(-1)!;
+        mutator.insertAtEnd(lastImportSymbol, ', ConnectedAbortController');
+      } else {
+        newImports.set(
+          '../global/eventing',
+          (newImports.get('../global/eventing') ?? []).concat('ConnectedAbortController'),
+        );
       }
+
+      mutator.insertAtEnd(
+        findLastProperty(),
+        `\n  private _abort = new ConnectedAbortController(this);`,
+      );
+      eventHandlers += '\n    const signal = this._abort.signal;';
+
+      for (const node of listeners) {
+        let methodName = node.name.getText();
+        if (node.modifiers?.some((n) => n.kind === ts.SyntaxKind.PublicKeyword)) {
+          methodName = makePrivate(node);
+        }
+        const decorators = node.modifiers!.filter(
+          (n): n is ts.Decorator => ts.isDecorator(n) && n.getText().startsWith('@Listen'),
+        );
+        for (const decorator of decorators) {
+          mutator.remove(decorator);
+          const args = (decorator.expression as ts.CallExpression).arguments;
+          const eventName = args[0].getText().replace(/'/g, '');
+          const options: { passive?: boolean } = Function(`return ${args[1]?.getText() ?? '{}'}`)();
+          const param = node.parameters.length === 0 ? '' : 'e';
+          eventHandlers += `\n    this.addEventListener('${eventName}', (${param}) => this.${methodName}(${param}), { signal${
+            options.passive ? ', passive: true' : ''
+          } });`;
+        }
+      }
+    }
+
+    if (constructor) {
+      const body = constructor.body!;
+      mutator.insertAt(
+        body.getStart() + body.getText().indexOf('{') + 1,
+        `\n    super();`,
+      );
     }
 
     if (connectedCallback) {
@@ -387,10 +449,19 @@ async function migrate(component: string, debug = false) {
       const body = connectedCallback.body!;
       mutator.insertAt(
         body.getStart() + body.getText().indexOf('{') + 1,
-        '\n    super.connectedCallback();',
+        `\n    super.connectedCallback();${eventHandlers}`,
       );
-    } else if (listeners.length) {
-      // DO Something
+    } else if (eventHandlers) {
+      const pivot = constructor ?? findLastProperty();
+      mutator.insertAtEnd(
+        pivot,
+        `
+
+  public override connectedCallback(): void {
+    super.connectedCallback();${eventHandlers}
+  }
+`,
+      );
     }
 
     if (disconnectedCallback!) {
@@ -400,14 +471,23 @@ async function migrate(component: string, debug = false) {
         body.getStart() + body.getText().indexOf('{') + 1,
         '\n    super.disconnectedCallback();',
       );
-    } else if (listeners.length) {
-      // DO Something
+    }
+
+    function findLastProperty(): ts.Node {
+      let pi = 0;
+      let mi = 0;
+      clazz.members.forEach((n, i) => {
+        if (ts.isPropertyDeclaration(n)) {
+          pi = i;
+        } else if (ts.isMethodDeclaration(n) && mi < pi) {
+          mi = i;
+        }
+      });
+      return clazz.members[mi];
     }
 
     if (componentDecorator!) {
-      const args = (componentDecorator.expression as ts.CallExpression).arguments[0];
-      const eventArguments: { tag: string } = Function(`return ${args.getText()}`)();
-      mutator.replace(componentDecorator, `@customElement('${eventArguments.tag}')`);
+      mutator.replace(componentDecorator, `@customElement('${getTag()}')`);
       const classDeclaration = componentDecorator.parent as ts.ClassDeclaration;
       if (classDeclaration.heritageClauses) {
         mutator.remove(...classDeclaration.heritageClauses);
@@ -430,6 +510,19 @@ async function migrate(component: string, debug = false) {
     newImport.push(`import Style from './${component}.scss';`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
+    mutator.insertAtEnd(
+      clazz,
+      `
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '${getTag()}': ${clazz.name!.getText()}
+  }
+}
+`,
+    );
+
     if (propertyRenames.size) {
       iterate(sourceFile, (innerNode) => {
         if (ts.isPropertyAccessExpression(innerNode) && propertyRenames.has(innerNode.getText())) {
@@ -446,6 +539,12 @@ async function migrate(component: string, debug = false) {
       propertyRenames.set(`this.${node.name.getText()}`, `this.${newName}`);
       mutator.replace(node.name, newName);
       return newName;
+    }
+
+    function getTag(): string {
+      const args = (componentDecorator.expression as ts.CallExpression).arguments[0];
+      const eventArguments: { tag: string } = Function(`return ${args.getText()}`)();
+      return eventArguments.tag;
     }
   }
 
