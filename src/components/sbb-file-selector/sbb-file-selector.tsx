@@ -261,7 +261,7 @@ export class SbbFileSelector implements ComponentInterface {
               size="m"
               icon-name="trash-small"
               onClick={() => this._removeFile(file)}
-              aria-label={i18nFileSelectorDeleteFile[this._currentLanguage]}
+              aria-label={`${i18nFileSelectorDeleteFile[this._currentLanguage]} - ${file.name}`}
             ></sbb-button>
           </li>
         ))}
