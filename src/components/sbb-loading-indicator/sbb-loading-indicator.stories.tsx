@@ -45,6 +45,17 @@ const TemplateAccessibility = (args): JSX.Element => (
 
 const Template = (args): JSX.Element => <sbb-loading-indicator {...args}></sbb-loading-indicator>;
 
+const InlineTemplate = (args): JSX.Element => (
+  <div>
+    <p>
+      <sbb-loading-indicator {...args}></sbb-loading-indicator> Inline loading indicator
+    </p>
+    <h2>
+      <sbb-loading-indicator {...args}></sbb-loading-indicator> Adaptive to font size
+    </h2>
+  </div>
+);
+
 const variant: InputType = {
   control: {
     type: 'select',
@@ -90,7 +101,7 @@ export const WindowLarge: StoryObj = {
 };
 
 export const Circle: StoryObj = {
-  render: Template,
+  render: InlineTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options[1] },
 };

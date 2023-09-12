@@ -32,16 +32,18 @@
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
-  height: var(--sbb-loading-indicator-height);
-  width: var(--sbb-loading-indicator-width);
+  display: inline-flex;
+  height: auto;
+  width: auto;
   padding-inline: var(--sbb-loading-indicator-padding);
   padding-block: var(--sbb-loading-indicator-padding);
-  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 :host([variant='circle']) .sbb-loading-indicator__animated-element {
-  width: 100%;
-  height: 100%;
+  width: 1.25em;
+  height: 1.25em;
   display: inline-block;
   color: transparent;
   position: relative;
@@ -51,21 +53,17 @@
   background: var(--sbb-loading-indicator-circle-background);
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-mask: radial-gradient(
-    circle sbb.px-to-rem-build(7),
+    circle 0.4375em,
     #0000 98%,
     var(--sbb-loading-indicator-background-color)
   );
-  mask: radial-gradient(
-    circle sbb.px-to-rem-build(7),
-    #0000 98%,
-    var(--sbb-loading-indicator-background-color)
-  );
+  mask: radial-gradient(circle 0.4375em, #0000 98%, var(--sbb-loading-indicator-background-color));
   animation: rotation var(--sbb-loading-indicator-duration) infinite linear;
 
   &::after {
     content: '';
-    width: var(--sbb-loading-indicator-circle-animated-width);
-    height: var(--sbb-loading-indicator-circle-animated-height);
+    width: 0.1875em;
+    height: 0.1875em;
     background: var(--sbb-loading-indicator-color);
     border-radius: var(--sbb-loading-indicator-circle-animated-border-radius);
     position: absolute;
