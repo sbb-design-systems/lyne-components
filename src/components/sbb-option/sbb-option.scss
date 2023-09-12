@@ -46,10 +46,6 @@
   }
 }
 
-:host([data-multiple]:is([data-group-disabled], [disabled]:not([disabled='false']))) {
-  --sbb-option-background-color: var(--sbb-color-milk-default);
-}
-
 :host([data-variant='select']) {
   --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
   --sbb-option-justify-content: space-between;

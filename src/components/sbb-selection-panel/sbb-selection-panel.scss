@@ -9,7 +9,6 @@
   --sbb-selection-panel-background: var(--sbb-color-white-default);
   --sbb-selection-panel-border-color: var(--sbb-color-cloud-default);
   --sbb-selection-panel-animation-duration: var(--sbb-animation-duration-4x);
-  --sbb-selection-panel-badge-background: var(--sbb-color-black-default);
   --sbb-selection-panel-border-width: var(--sbb-border-width-1x);
   --sbb-selection-panel-input-pointer-events: all;
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
@@ -45,7 +44,6 @@
 
 :host([data-disabled]) {
   --sbb-selection-panel-cursor: default;
-  --sbb-selection-panel-badge-background: var(--sbb-color-smoke-default);
 }
 
 :host([borderless]:not([data-checked])) {
@@ -109,10 +107,6 @@
 
 sbb-divider {
   margin-block-end: var(--sbb-spacing-responsive-xxs);
-}
-
-::slotted(sbb-card-badge) {
-  --sbb-card-badge-background-color: var(--sbb-selection-panel-badge-background);
 }
 
 ::slotted(sbb-radio-button),
