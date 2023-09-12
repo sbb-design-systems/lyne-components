@@ -270,6 +270,9 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   public render(): JSX.Element {
+    const ariaLabel = this.accessibilityLabel
+      ? `${i18nFileSelectorButtonLabel[this._currentLanguage]} - ${this.accessibilityLabel}`
+      : undefined;
     return (
       <div class="sbb-file-selector">
         <div
@@ -290,7 +293,7 @@ export class SbbFileSelector implements ComponentInterface {
               onChange={(event) => this._readFiles(event)}
               onFocus={() => this._onFocus()}
               onBlur={() => this._onBlur()}
-              aria-label={this.accessibilityLabel}
+              aria-label={ariaLabel}
               ref={(el): void => {
                 this._hiddenInput = el;
               }}
