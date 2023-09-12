@@ -90,7 +90,7 @@ describe('sbb-timetable-row', () => {
                       </span>
                     </span>
                     <span class="sbb-timetable__row-transportnumber">
-                      B 19
+                      B19
                     </span>
                   </div>
                   <p>

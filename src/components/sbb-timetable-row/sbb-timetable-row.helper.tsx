@@ -90,7 +90,7 @@ export const renderIconProduct = (transport: string, line?: string | null): JSX.
 export const renderStringProduct = (vehicleName: string, line?: string | null): JSX.Element => {
   return (
     <span class="sbb-timetable__row-transportnumber">
-      {line !== null ? vehicleName + ' ' + line : vehicleName}
+      {line !== null ? vehicleName + line : vehicleName}
     </span>
   );
 };
