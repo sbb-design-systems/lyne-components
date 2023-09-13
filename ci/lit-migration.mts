@@ -149,8 +149,10 @@ async function migrate(component: string, debug = false) {
     let connectedCallback: ts.MethodDeclaration = undefined!;
     let disconnectedCallback: ts.MethodDeclaration = undefined!;
     let componentDecorator: ts.Decorator = undefined!;
+    let renderMethod: ts.MethodDeclaration = undefined!;
+    let jsxTemplates: ts.JsxElement[] = [];
     const newImports = new Map<string, string[]>()
-      .set('lit', ['LitElement'])
+      .set('lit', ['html', 'LitElement', 'nothing', 'TemplateResult'])
       .set('lit/decorators.js', ['customElement']);
 
     iterate(sourceFile, (node) => {
@@ -190,10 +192,16 @@ async function migrate(component: string, debug = false) {
           connectedCallback = node;
         } else if (node.name.getText() === 'disconnectedCallback') {
           disconnectedCallback = node;
+        } else if (node.name.getText() === 'render') {
+          renderMethod = node;
         }
       } else if (ts.isDecorator(node) && node.expression.getText().startsWith('Component(')) {
         componentDecorator = node;
         clazz = node.parent as ts.ClassDeclaration;
+      } else if (ts.isJsxElement(node) && (ts.isParenthesizedExpression(node.parent) || ts.isArrayLiteralExpression(node.parent))) {
+        jsxTemplates.push(node);
+      } else if (ts.isTypeReferenceNode(node) && node.getText() === 'JSX.Element') {
+        mutator.replace(node, 'TemplateResult');
       }
     });
 
@@ -503,6 +511,14 @@ async function migrate(component: string, debug = false) {
       mutator.remove(element);
     }
 
+    if (renderMethod && renderMethod.modifiers!.length > 0) {
+      mutator.replace(renderMethod.modifiers![0], 'protected override')
+    }
+
+    for (const template of jsxTemplates) {
+      migrateJsxTemplate(template)
+    }
+
     const newImport: string[] = [];
     newImports.forEach((symbols, importName) => {
       newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
@@ -545,6 +561,101 @@ declare global {
       const args = (componentDecorator.expression as ts.CallExpression).arguments[0];
       const eventArguments: { tag: string } = Function(`return ${args.getText()}`)();
       return eventArguments.tag;
+    }
+    
+    function migrateJsxTemplate(root: ts.JsxElement) {
+      
+      // Surround the template with html``
+      mutator.appendRight(root.parent.getStart() + 1, `html\``);
+      mutator.appendLeft(root.parent.getEnd() - 1, `\``);
+
+      iterate(root, n => {
+        if (ts.isJsxOpeningElement(n) || ts.isJsxSelfClosingElement(n)) {
+          if (n.getText().startsWith('<Host')) {
+            migrateJsxHost(n as ts.JsxOpeningElement);
+          } else {
+            migrateJsxAttributes(n);
+          }
+        }
+
+      });
+    }
+
+    function migrateJsxAttributes(node: ts.JsxOpeningElement | ts.JsxSelfClosingElement) {
+      iterate(node, n => {
+        if (ts.isJsxAttribute(n)) {
+          // migrate 'ref={...}'
+          if (n.getText().startsWith('ref=')) {
+            let refContent = n.initializer!.getText();
+            refContent = refContent.substring(1, refContent.length - 1); // Strip the parenthesis
+            mutator.replace(n, `\${ref( ${refContent} )}`)
+
+            newImports.set('lit/directives/ref.js', ['ref']);
+          } else
+          // migrate events
+          if (n.getText().match(/on[A-Z]\w+/)) {
+            const eventName = n.name.getText().substring(2).toLowerCase();
+            mutator.replace(n.name, `@${eventName}`);
+            mutator.insertAt(n.initializer!, '$');
+          } else 
+          // attribute migration
+          if (n.initializer && ts.isJsxExpression(n.initializer)) {
+            // TODO we could enhance attribute migrations? Check the 'Attributes' section of the migration issue for more info
+            mutator.replace(n.initializer, `$${n.initializer.getText()}`);
+          }
+        }
+      });
+    }
+
+    function migrateJsxHost(host: ts.JsxOpeningElement) {
+      const codeToAdd: string[] = [];
+      newImports.set('../../global/dom', ['setAttribute, setAttributes']);
+
+      // Remove the <Host> tag
+      mutator.remove(host);
+      mutator.remove(host.parent.closingElement);
+
+      for (let attr of host.attributes.properties) {
+        
+        if (ts.isJsxAttribute(attr)) {
+          
+          // static boolean attributes
+          if (!attr.initializer) {
+            codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', true);`);
+            continue;
+          }
+
+          // 'ref={expression}' => 'expression(this)'
+          if (attr.name.getText() === 'ref') {
+            codeToAdd.push(`${(attr.initializer as ts.JsxExpression).expression?.getText()}(this);`)
+            continue;
+          }
+
+          // it's an event
+          if (attr.name.getText().match(/on[A-Z]\w+/)) {
+            codeToAdd.push(`// NOTE: Cannot automatically migrate "<Host ${attr.getText()}" >. \n// Add a 'this.addEventListener' in the constructor to preserve the same behavior`)
+            continue;
+          }
+
+          // Strip the parenthesis
+          let attrValue = attr.initializer?.getText();
+          if (attrValue.startsWith('{')) {
+            attrValue = attrValue.substring(1, attrValue.length - 1);
+          }
+          codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', ${attrValue});`)
+        }
+
+        if (ts.isJsxSpreadAttribute(attr)) {
+          codeToAdd.push(`setAttributes(this, '${attr.expression.getText()}');`);
+        }
+      }
+
+      const node = ts.findAncestor(host, n => ts.isReturnStatement(n) || ts.isVariableStatement(n))!;
+      if (codeToAdd.length > 0) {
+        codeToAdd.unshift('// ## Host attributes ##');
+        codeToAdd.push('// ####')
+      }
+      mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
     }
   }
 
