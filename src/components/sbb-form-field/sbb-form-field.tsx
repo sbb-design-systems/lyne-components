@@ -193,7 +193,13 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _handleWrapperClick(event: Event): void {
-    if ((event.target as Element).tagName !== 'LABEL' && !this._isButtonOrPopup(event)) {
+    if (this._isButtonOrPopup(event)) {
+      return;
+    }
+
+    if (this._input?.tagName === 'SBB-SELECT') {
+      this._input.click();
+    } else if ((event.target as Element).tagName !== 'LABEL') {
       this._input?.focus();
     }
   }
