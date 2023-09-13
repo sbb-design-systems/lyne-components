@@ -22,7 +22,12 @@ const createLoadingIndicator = (args): void => {
   loader.size = args['size'];
   loader.variant = args['variant'];
   document.querySelector('.loader-container').append(loader);
-  setTimeout(() => loader.remove(), 6000);
+  setTimeout(() => {
+    const p = document.createElement('p');
+    p.textContent = "Loading complete. Here's your data: . . . ";
+    document.querySelector('.loader-container').append(p);
+    loader.remove();
+  }, 5000);
 };
 
 // Story interaction executed after the story renders
