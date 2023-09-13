@@ -169,6 +169,4 @@
 @mixin card--wrapper {
   display: block;
   height: 100%;
-  transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-  transform: translateY(var(--sbb-card-hover-shift));
 }
