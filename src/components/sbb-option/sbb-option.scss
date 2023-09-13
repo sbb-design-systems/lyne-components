@@ -21,7 +21,7 @@
   --sbb-option-icon-color: var(--sbb-color-metal-default);
 }
 
-:host([negative]:not([negative='false'])) {
+:host([data-negative]) {
   --sbb-option-color: var(--sbb-color-milk-default);
   --sbb-option-icon-color: var(--sbb-color-smoke-default);
   --sbb-option-background-color-hover: var(--sbb-color-charcoal-default);

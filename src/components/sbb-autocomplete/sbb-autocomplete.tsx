@@ -229,10 +229,15 @@ export class SbbAutocomplete implements ComponentInterface {
 
   @Watch('negative')
   private _syncNegative(): void {
-    Array.from(this._element.querySelectorAll('sbb-option, sbb-optgroup, sbb-divider')).forEach(
-      (element) =>
+    this._element
+      .querySelectorAll('sbb-divider')
+      .forEach((element) =>
         this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-    );
+      );
+
+    this._element
+      .querySelectorAll('sbb-option, sbb-optgroup')
+      .forEach((element: HTMLElement) => toggleDatasetEntry(element, 'negative', this.negative));
   }
 
   public disconnectedCallback(): void {

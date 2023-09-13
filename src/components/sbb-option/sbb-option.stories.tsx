@@ -59,7 +59,6 @@ const numberOfOptions: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   value,
-  negative,
   'icon-name': iconName,
   active,
   disabled,
@@ -69,7 +68,6 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   value: 'Value',
-  negative: false,
   'icon-name': undefined,
   active: false,
   disabled: false,
@@ -79,7 +77,6 @@ const defaultArgs: Args = {
 
 const createOptions = ({
   value,
-  negative,
   active,
   disabled,
   numberOfOptions,
@@ -92,7 +89,6 @@ const createOptions = ({
       return (
         <sbb-option
           style={style}
-          negative={negative}
           active={active && i === 0}
           disabled={disabled && i === 0}
           value={`${value} ${i + 1}`}
@@ -102,7 +98,7 @@ const createOptions = ({
         </sbb-option>
       );
     }),
-    <sbb-option style={style} negative={negative} {...args} value="long-value">
+    <sbb-option style={style} {...args} value="long-value">
       Option Lorem ipsum dolor sit amet.
     </sbb-option>,
   ];
@@ -136,24 +132,10 @@ export const Standalone: StoryObj = {
   decorators: [borderDecorator],
 };
 
-export const StandaloneNegative: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
-  decorators: [borderDecorator],
-};
-
 export const WithIcon: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'clock-small' },
-  decorators: [borderDecorator],
-};
-
-export const WithIconNegative: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': 'clock-small', negative: true },
   decorators: [borderDecorator],
 };
 
@@ -164,24 +146,10 @@ export const WithDisabledState: StoryObj = {
   decorators: [borderDecorator],
 };
 
-export const WithDisabledStateNegative: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true, negative: true },
-  decorators: [borderDecorator],
-};
-
 export const WithActiveState: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, active: true },
-  decorators: [borderDecorator],
-};
-
-export const WithActiveStateNegative: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, active: true, negative: true },
   decorators: [borderDecorator],
 };
 
@@ -194,14 +162,14 @@ export const WithIconSpace: StoryObj = {
 
 export const Autocomplete: StoryObj = {
   render: AutocompleteTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false },
 };
 
 export const Select: StoryObj = {
   render: SelectTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false },
 };
 
 const meta: Meta = {

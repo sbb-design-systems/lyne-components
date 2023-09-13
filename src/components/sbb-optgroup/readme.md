@@ -32,11 +32,10 @@ Disabled:
 
 ## Properties
 
-| Property   | Attribute  | Description                     | Type      | Default     |
-| ---------- | ---------- | ------------------------------- | --------- | ----------- |
-| `disabled` | `disabled` | Whether the group is disabled.  | `boolean` | `false`     |
-| `label`    | `label`    | Option group label.             | `string`  | `undefined` |
-| `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false`     |
+| Property   | Attribute  | Description                    | Type      | Default     |
+| ---------- | ---------- | ------------------------------ | --------- | ----------- |
+| `disabled` | `disabled` | Whether the group is disabled. | `boolean` | `false`     |
+| `label`    | `label`    | Option group label.            | `string`  | `undefined` |
 
 
 ## Slots

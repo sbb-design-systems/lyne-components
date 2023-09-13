@@ -29,15 +29,6 @@ const disabled: InputType = {
   },
 };
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Option group',
-  },
-};
-
 const iconName: InputType = {
   control: {
     type: 'text',
@@ -74,6 +65,15 @@ const multiple: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete/Select',
+  },
+};
+
 const numberOfOptions: InputType = {
   control: {
     type: 'number',
@@ -85,9 +85,7 @@ const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
   value,
   disabled,
-  negative,
   disabledSingle,
-  multiple,
   numberOfOptions,
 };
 
@@ -96,9 +94,7 @@ const defaultArgs: Args = {
   'icon-name': undefined,
   value: 'Option',
   disabled: false,
-  negative: false,
   disabledSingle: false,
-  multiple: false,
   numberOfOptions: 3,
 };
 
@@ -121,12 +117,12 @@ const createOptions = (args): JSX.Element[] =>
     );
   });
 
-const Template = ({ label, disabled, negative, ...args }): JSX.Element => (
+const Template = ({ label, disabled, ...args }): JSX.Element => (
   <Fragment>
-    <sbb-optgroup label={label + ' 1'} disabled={disabled} negative={negative}>
+    <sbb-optgroup label={label + ' 1'} disabled={disabled}>
       {createOptions(args)}
     </sbb-optgroup>
-    <sbb-optgroup label={label + ' 2'} disabled={disabled} negative={negative}>
+    <sbb-optgroup label={label + ' 2'} disabled={disabled}>
       {createOptions(args)}
     </sbb-optgroup>
   </Fragment>
@@ -158,29 +154,22 @@ export const Standalone: StoryObj = {
   decorators: [borderDecorator],
 };
 
-export const StandaloneNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
-  decorators: [borderDecorator],
-};
-
 export const Autocomplete: StoryObj = {
   render: TemplateAutocomplete,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false },
 };
 
 export const Select: StoryObj = {
   render: TemplateSelect,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative, multiple },
+  args: { ...defaultArgs, multiple: false, negative: false },
 };
 
 export const MultipleSelect: StoryObj = {
   render: TemplateSelect,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, multiple: true },
+  argTypes: { ...defaultArgTypes, negative, multiple },
+  args: { ...defaultArgs, multiple: true, negative: false },
 };
 
 const meta: Meta = {

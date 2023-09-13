@@ -1217,10 +1217,6 @@ export namespace Components {
           * Option group label.
          */
         "label": string;
-        /**
-          * Negative coloring variant flag.
-         */
-        "negative": boolean;
     }
     interface SbbOption {
         /**
@@ -1240,10 +1236,6 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
-        /**
-          * Negative coloring variant flag.
-         */
-        "negative": boolean;
         /**
           * Whether the option is selected.
          */
@@ -3966,10 +3958,6 @@ declare namespace LocalJSX {
           * Option group label.
          */
         "label"?: string;
-        /**
-          * Negative coloring variant flag.
-         */
-        "negative"?: boolean;
     }
     interface SbbOption {
         /**
@@ -3984,10 +3972,6 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
-        /**
-          * Negative coloring variant flag.
-         */
-        "negative"?: boolean;
         /**
           * Emits when an option was selected by user.
          */

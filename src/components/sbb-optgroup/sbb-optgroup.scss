@@ -29,7 +29,7 @@
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
 }
 
-:host([negative]:not([negative='false'])) {
+:host([data-negative]) {
   --sbb-optgroup-label-color: var(--sbb-color-smoke-default);
 }
 

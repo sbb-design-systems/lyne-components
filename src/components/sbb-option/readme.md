@@ -63,7 +63,6 @@ Disabled:
 | `active`   | `active`    | Whether the option is currently active.                                                                                          | `boolean` | `undefined` |
 | `disabled` | `disabled`  | Whether the option is disabled. TBI: missing disabled style, will be implemented with the select component.                      | `boolean` | `undefined` |
 | `iconName` | `icon-name` | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. | `string`  | `undefined` |
-| `negative` | `negative`  | Negative coloring variant flag.                                                                                                  | `boolean` | `false`     |
 | `selected` | `selected`  | Whether the option is selected.                                                                                                  | `boolean` | `false`     |
 | `value`    | `value`     | Value of the option.                                                                                                             | `string`  | `undefined` |
 
