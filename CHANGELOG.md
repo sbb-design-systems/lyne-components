@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.8](https://github.com/lyne-design-system/lyne-components/compare/v0.40.7...v0.40.8) (2023-09-13)
+
+### Bug Fixes
+
+- **sbb-card:** allow placing tooltips inside non-interactive cards ([#1983](https://github.com/lyne-design-system/lyne-components/issues/1983)) ([cb716b3](https://github.com/lyne-design-system/lyne-components/commit/cb716b339a166dbeada88348e41fd4c0ea59d644)), closes [#1982](https://github.com/lyne-design-system/lyne-components/issues/1982)
+
 ### [0.40.7](https://github.com/lyne-design-system/lyne-components/compare/v0.40.6...v0.40.7) (2023-09-12)
 
 ### Bug Fixes
