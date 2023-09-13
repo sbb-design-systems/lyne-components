@@ -2270,10 +2270,10 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@sbb-esta/lyne-design-tokens@0.3.6":
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.3.6.tgz#cc69432bc7674edadd3f71091fc96a948f092e1c"
-  integrity sha512-a/rGaFWwqZ8d74PpJXJhhstUuOt7EoBtdn9mgOMXwqU62KRcCqqQPcstTF/V8tHICZynWK6zPnzoYwy+s7kTFg==
+"@sbb-esta/lyne-design-tokens@0.3.7":
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-0.3.7.tgz#0ec0154015274fa33e7dee66e5d36f4605650d73"
+  integrity sha512-SK2e0Kmsjbdjtnat9K7aTsY84fkl/qDtdwY+vsqHysQuZNmcjygkLLHwDgIKqdpsqLMpCahts71vy8KQf7Gz6g==
 
 "@sinclair/typebox@^0.24.1":
   version "0.24.51"
