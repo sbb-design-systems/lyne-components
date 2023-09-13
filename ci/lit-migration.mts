@@ -142,12 +142,17 @@ async function migrate(component: string, debug = false) {
     const listeners: ts.MethodDeclaration[] = [];
     const watchers: ts.MethodDeclaration[] = [];
     const methods: ts.MethodDeclaration[] = [];
+    const elementIdentifiers: ts.Identifier[] = [];
     const propertyRenames = new Map<string, string>();
     let clazz: ts.ClassDeclaration = undefined!;
     let constructor: ts.ConstructorDeclaration = undefined!;
     let element: ts.PropertyDeclaration = undefined!;
     let connectedCallback: ts.MethodDeclaration = undefined!;
     let disconnectedCallback: ts.MethodDeclaration = undefined!;
+    let componentWillLoad: ts.MethodDeclaration = undefined!;
+    let componentDidRender: ts.MethodDeclaration = undefined!;
+    let componentDidUpdate: ts.MethodDeclaration = undefined!;
+    let componentDidLoad: ts.MethodDeclaration = undefined!;
     let componentDecorator: ts.Decorator = undefined!;
     let renderMethod: ts.MethodDeclaration = undefined!;
     let jsxTemplates: ts.JsxElement[] = [];
@@ -194,6 +199,14 @@ async function migrate(component: string, debug = false) {
           disconnectedCallback = node;
         } else if (node.name.getText() === 'render') {
           renderMethod = node;
+        } else if (node.name.getText() === 'componentWillLoad') {
+          componentWillLoad = node;
+        } else if (node.name.getText() === 'componentDidRender') {
+          componentDidRender = node;
+        } else if (node.name.getText() === 'componentDidUpdate') {
+          componentDidUpdate = node;
+        } else if (node.name.getText() === 'componentDidLoad') {
+          componentDidLoad = node;
         }
       } else if (ts.isDecorator(node) && node.expression.getText().startsWith('Component(')) {
         componentDecorator = node;
@@ -202,6 +215,8 @@ async function migrate(component: string, debug = false) {
         jsxTemplates.push(node);
       } else if (ts.isTypeReferenceNode(node) && node.getText() === 'JSX.Element') {
         mutator.replace(node, 'TemplateResult');
+      } else if (ts.isIdentifier(node) && node.getText().match(/^HTMLSbb\w+Element$/)) {
+        elementIdentifiers.push(node);
       }
     });
 
@@ -446,10 +461,7 @@ async function migrate(component: string, debug = false) {
 
     if (constructor) {
       const body = constructor.body!;
-      mutator.insertAt(
-        body.getStart() + body.getText().indexOf('{') + 1,
-        `\n    super();`,
-      );
+      mutator.insertAt(body.getStart() + body.getText().indexOf('{') + 1, `\n    super();`);
     }
 
     if (connectedCallback) {
@@ -507,6 +519,38 @@ async function migrate(component: string, debug = false) {
       );
     }
 
+    if (componentWillLoad) {
+      const body = componentWillLoad.body!;
+      mutator.insertAt(
+        body.getStart() + body.getText().indexOf('{') + 1,
+        `\n    // TODO: Migrate to connectedCallback or firstUpdated`,
+      );
+    }
+
+    if (componentDidRender) {
+      newImports.get('lit')!.push('PropertyValues');
+      mutator.replace(
+        'public componentDidRender()',
+        'protected override updated(changedProperties: PropertyValues<this>)',
+      );
+    }
+
+    if (componentDidUpdate) {
+      newImports.get('lit')!.push('PropertyValues');
+      mutator.replace(
+        'public componentDidUpdate()',
+        'protected override updated(changedProperties: PropertyValues<this>)',
+      );
+    }
+
+    if (componentDidLoad) {
+      newImports.get('lit')!.push('PropertyValues');
+      mutator.replace(
+        'public componentDidLoad()',
+        'protected override firstUpdated(changedProperties: PropertyValues<this>)',
+      );
+    }
+
     if (element!) {
       mutator.remove(element);
     }
@@ -521,7 +565,11 @@ async function migrate(component: string, debug = false) {
 
     const newImport: string[] = [];
     newImports.forEach((symbols, importName) => {
-      newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
+      newImport.push(
+        `import { ${symbols
+          .filter((v, i, a) => a.indexOf(v) === i)
+          .join(', ')} } from '${importName}';`,
+      );
     });
     newImport.push(`import Style from './${component}.scss';`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
