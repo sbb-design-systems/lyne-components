@@ -103,9 +103,7 @@ export class SbbFormField implements ComponentInterface {
   /** Negative coloring variant flag. */
   @Prop({ reflect: true }) public negative = false;
 
-  /**
-   * It is used internally to get the `error` slot.
-   */
+  /** It is used internally to get the `error` slot. */
   @State() private _errorElements: Element[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
