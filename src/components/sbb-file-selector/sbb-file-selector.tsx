@@ -20,6 +20,7 @@ import {
 } from '../../global/eventing';
 import {
   i18nFileSelectorButtonLabel,
+  i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
   i18nFileSelectorSubtitleLabel,
 } from '../../global/i18n';
@@ -90,6 +91,7 @@ export class SbbFileSelector implements ComponentInterface {
   private _dragTarget: HTMLElement;
   private _hiddenInput: HTMLInputElement;
   private _suffixes: string[] = ['B', 'kB', 'MB', 'GB', 'TB'];
+  private _liveRegion: HTMLElement;
 
   private _handlerRepository = new HandlerRepository(
     this._element,
@@ -185,6 +187,9 @@ export class SbbFileSelector implements ComponentInterface {
         )
         .concat(this._files);
     }
+    this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this._files.map((e) => e.name))[
+      this._currentLanguage
+    ];
     this.fileChangedEvent.emit(this._files);
   }
 
@@ -194,6 +199,9 @@ export class SbbFileSelector implements ComponentInterface {
     const dt: DataTransfer = new DataTransfer();
     this._files.forEach((e: File) => dt.items.add(e));
     this._hiddenInput.files = dt.files;
+    this._liveRegion.innerText = i18nFileSelectorCurrentlySelected(this._files.map((e) => e.name))[
+      this._currentLanguage
+    ];
     this.fileChangedEvent.emit(this._files);
   }
 
@@ -285,7 +293,7 @@ export class SbbFileSelector implements ComponentInterface {
           <label>
             {this.variant === 'default' ? this._renderDefaultMode() : this._renderDropzoneArea()}
             <input
-              class="sbb-file-selector__input"
+              class="sbb-file-selector__visually-hidden"
               type="file"
               disabled={this.disabled}
               multiple={this.multiple}
@@ -300,6 +308,12 @@ export class SbbFileSelector implements ComponentInterface {
             />
           </label>
         </div>
+        <p
+          aria-live="assertive"
+          role="alert"
+          class="sbb-file-selector__visually-hidden"
+          ref={(p) => (this._liveRegion = p)}
+        ></p>
         {this._files && this._files.length > 0 && this._renderFileList()}
         {this._namedSlots.error && (
           <div class="sbb-file-selector__error">

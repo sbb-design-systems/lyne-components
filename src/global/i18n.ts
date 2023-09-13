@@ -716,3 +716,20 @@ export const i18nFileSelectorDeleteFile: Record<string, string> = {
   fr: 'Effacer le fichier',
   it: 'Rimuovi il file',
 };
+
+export const i18nFileSelectorCurrentlySelected = (filesName: string[]): Record<string, string> => {
+  if (filesName && filesName.length > 0) {
+    return {
+      de: `Aktuell ausgewählte Datei: ${filesName.join(', ')}.`,
+      en: `Currently selected files: ${filesName.join(', ')}.`,
+      fr: `Fichier actuellement sélectionné: ${filesName.join(', ')}.`,
+      it: `File attualmente selezionato: ${filesName.join(', ')}.`,
+    };
+  }
+  return {
+    de: 'Keine Datei ausgewählt.',
+    en: 'No files selected.',
+    fr: 'Nessun fichier sélectionné.',
+    it: 'Nessun file selezionato.',
+  };
+};
