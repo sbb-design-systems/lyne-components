@@ -99,6 +99,8 @@
 
   :host([data-has-action]) & {
     pointer-events: none;
+    transform: translateY(var(--sbb-card-hover-shift));
+    transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
   }
 }
 
