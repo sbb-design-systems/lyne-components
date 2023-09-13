@@ -199,6 +199,7 @@ export class SbbFormField implements ComponentInterface {
 
     if (this._input?.tagName === 'SBB-SELECT') {
       this._input.click();
+      this._input.focus();
     } else if ((event.target as Element).tagName !== 'LABEL') {
       this._input?.focus();
     }

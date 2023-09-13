@@ -179,6 +179,20 @@ describe('sbb-form-field', () => {
       expect(select).toEqualAttribute('data-state', 'opened');
     });
 
+    it('should focus select on form field click readonly', async () => {
+      const select = await page.find('sbb-select');
+      select.setAttribute('readonly', '');
+      await page.waitForChanges();
+
+      expect(element.getAttribute('data-input-focused')).toBeNull();
+
+      const label = await page.find('label');
+      await label.click();
+      await page.waitForChanges();
+
+      expect(element.getAttribute('data-input-focused')).not.toBeNull();
+    });
+
     it('should assign id to label and reference it in the sbb-select', async () => {
       element.setAttribute('label', 'Example');
       await page.waitForChanges();
