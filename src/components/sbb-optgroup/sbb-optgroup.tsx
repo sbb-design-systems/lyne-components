@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
 import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
-import { isSafari, toggleDatasetEntry } from '../../global/dom';
+import { isSafari, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot unnamed - Used to display options.
@@ -16,6 +16,9 @@ export class SbbOptGroup implements ComponentInterface {
 
   /** Whether the group is disabled. */
   @Prop() public disabled = false;
+
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
 
   @Element() private _element: HTMLElement;
 
@@ -51,6 +54,10 @@ export class SbbOptGroup implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    const parent = this._element.closest('sbb-select,sbb-autocomplete') as HTMLElement;
+    if (parent) {
+      this.negative = isValidAttribute(parent, 'negative');
+    }
     this._setVariantByContext();
     this.proxyGroupLabelToOptions();
   }
@@ -83,7 +90,7 @@ export class SbbOptGroup implements ComponentInterface {
         aria-disabled={!this._inertAriaGroups && this.disabled.toString()}
       >
         <div class="sbb-optgroup__divider">
-          <sbb-divider></sbb-divider>
+          <sbb-divider negative={this.negative}></sbb-divider>
         </div>
         <div class="sbb-optgroup__label" aria-hidden="true">
           <div class="sbb-optgroup__icon-space" />

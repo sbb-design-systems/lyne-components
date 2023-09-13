@@ -53,6 +53,9 @@ export class SbbSelect implements ComponentInterface {
   /** Whether the select is readonly. */
   @Prop() public readonly = false;
 
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
   /** Whether the animation is disabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
@@ -223,6 +226,14 @@ export class SbbSelect implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    const formField =
+      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+
+    if (formField) {
+      this.negative = isValidAttribute(formField, 'negative');
+    }
+    this._syncNegative();
+
     if (this._didLoad) {
       this._setupOrigin();
       this._setupTrigger();
@@ -237,16 +248,24 @@ export class SbbSelect implements ComponentInterface {
     this._openPanelEventsController?.abort();
   }
 
+  @Watch('negative')
+  private _syncNegative(): void {
+    Array.from(this._element.querySelectorAll('sbb-option, sbb-optgroup, sbb-divider')).forEach(
+      (element) =>
+        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
+    );
+  }
+
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
+    const formField = this._element.closest('sbb-form-field');
     this._originElement =
-      this._element.closest('sbb-form-field')?.shadowRoot.querySelector('#overlay-anchor') ||
-      this._element.parentElement;
+      formField?.shadowRoot.querySelector('#overlay-anchor') || this._element.parentElement;
     if (this._originElement) {
       toggleDatasetEntry(
         this._element,
         'optionPanelOriginBorderless',
-        this._element.closest('sbb-form-field')?.hasAttribute('borderless'),
+        formField?.hasAttribute('borderless'),
       );
     }
   }
@@ -644,7 +663,12 @@ export class SbbSelect implements ComponentInterface {
                 aria-multiselectable={this.multiple}
                 ref={(containerRef) => (this._optionContainer = containerRef)}
               >
-                <slot onSlotchange={(): void => this._setValueFromSelectedOption()}></slot>
+                <slot
+                  onSlotchange={(): void => {
+                    this._syncNegative();
+                    this._setValueFromSelectedOption();
+                  }}
+                ></slot>
               </div>
             </div>
           </div>

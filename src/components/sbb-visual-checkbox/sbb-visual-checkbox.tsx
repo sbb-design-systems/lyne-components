@@ -1,4 +1,5 @@
-import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
+import { Component, ComponentInterface, Element, h, JSX, Prop } from '@stencil/core';
+import { isValidAttribute } from '../../global/dom';
 
 @Component({
   shadow: true,
@@ -14,6 +15,18 @@ export class SbbVisualCheckbox implements ComponentInterface {
 
   /** Indeterminate state. */
   @Prop({ reflect: true }) public indeterminate = false;
+
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
+  @Element() private _element!: HTMLElement;
+
+  public connectedCallback(): void {
+    const parent = this._element.closest('sbb-option') as HTMLElement;
+    if (parent) {
+      this.negative = isValidAttribute(parent, 'negative');
+    }
+  }
 
   public render(): JSX.Element {
     return (

@@ -103,6 +103,7 @@ Opened panel:
 | `disableAnimation` | `disable-animation` | Whether the animation is disabled.                                       | `boolean`            | `false`     |
 | `disabled`         | `disabled`          | Whether the select is disabled.                                          | `boolean`            | `false`     |
 | `multiple`         | `multiple`          | Whether the select allows for multiple selection.                        | `boolean`            | `false`     |
+| `negative`         | `negative`          | Negative coloring variant flag.                                          | `boolean`            | `false`     |
 | `placeholder`      | `placeholder`       | The placeholder used if no value has been selected.                      | `string`             | `undefined` |
 | `readonly`         | `readonly`          | Whether the select is readonly.                                          | `boolean`            | `false`     |
 | `required`         | `required`          | Whether the select is required.                                          | `boolean`            | `false`     |

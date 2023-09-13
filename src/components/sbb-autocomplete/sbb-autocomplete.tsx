@@ -60,6 +60,9 @@ export class SbbAutocomplete implements ComponentInterface {
   /** Whether the icon space is preserved when no icon is set. */
   @Prop({ reflect: true }) public preserveIconSpace: boolean;
 
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
   /** The state of the autocomplete. */
   @State() private _state: SbbOverlayState = 'closed';
 
@@ -211,9 +214,25 @@ export class SbbAutocomplete implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    const formField =
+      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+
+    if (formField) {
+      this.negative = isValidAttribute(formField, 'negative');
+    }
+    this._syncNegative();
+
     if (this._didLoad) {
       this._componentSetup();
     }
+  }
+
+  @Watch('negative')
+  private _syncNegative(): void {
+    Array.from(this._element.querySelectorAll('sbb-option, sbb-optgroup, sbb-divider')).forEach(
+      (element) =>
+        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
+    );
   }
 
   public disconnectedCallback(): void {

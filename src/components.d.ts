@@ -204,6 +204,10 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
           * Opens the autocomplete.
          */
         "open": () => Promise<void>;
@@ -1213,6 +1217,10 @@ export namespace Components {
           * Option group label.
          */
         "label": string;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbOption {
         /**
@@ -1232,6 +1240,10 @@ export namespace Components {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
         /**
           * Whether the option is selected.
          */
@@ -1373,6 +1385,10 @@ export namespace Components {
           * Whether the select allows for multiple selection.
          */
         "multiple": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
         /**
           * Opens the selection panel.
          */
@@ -1992,6 +2008,10 @@ export namespace Components {
           * Indeterminate state.
          */
         "indeterminate": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
@@ -2872,6 +2892,10 @@ declare namespace LocalJSX {
           * Whether the animation is disabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
         /**
           * Emits whenever the autocomplete is closed.
          */
@@ -3942,6 +3966,10 @@ declare namespace LocalJSX {
           * Option group label.
          */
         "label"?: string;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbOption {
         /**
@@ -3956,6 +3984,10 @@ declare namespace LocalJSX {
           * The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.
          */
         "iconName"?: string;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
         /**
           * Emits when an option was selected by user.
          */
@@ -4107,6 +4139,10 @@ declare namespace LocalJSX {
           * Whether the select allows for multiple selection.
          */
         "multiple"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
         "onChange"?: (event: SbbSelectCustomEvent<any>) => void;
         /**
           * Emits whenever the select is closed.
@@ -4805,6 +4841,10 @@ declare namespace LocalJSX {
           * Indeterminate state.
          */
         "indeterminate"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;

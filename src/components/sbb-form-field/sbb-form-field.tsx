@@ -460,7 +460,7 @@ export class SbbFormField implements ComponentInterface {
   private _syncNegative(): void {
     this._element
       .querySelectorAll(
-        'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle',
+        'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
       )
       .forEach((element) =>
         this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),

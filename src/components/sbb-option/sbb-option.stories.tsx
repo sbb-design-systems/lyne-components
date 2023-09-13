@@ -4,6 +4,13 @@ import readme from './readme.md';
 import events from './sbb-option.events';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const preserveIconSpace: InputType = {
   control: {
@@ -11,6 +18,12 @@ const preserveIconSpace: InputType = {
   },
   table: {
     category: 'Wrapper property',
+  },
+};
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
   },
 };
 
@@ -46,6 +59,7 @@ const numberOfOptions: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   value,
+  negative,
   'icon-name': iconName,
   active,
   disabled,
@@ -55,6 +69,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   value: 'Value',
+  negative: false,
   'icon-name': undefined,
   active: false,
   disabled: false,
@@ -64,6 +79,7 @@ const defaultArgs: Args = {
 
 const createOptions = ({
   value,
+  negative,
   active,
   disabled,
   numberOfOptions,
@@ -76,6 +92,7 @@ const createOptions = ({
       return (
         <sbb-option
           style={style}
+          negative={negative}
           active={active && i === 0}
           disabled={disabled && i === 0}
           value={`${value} ${i + 1}`}
@@ -85,7 +102,7 @@ const createOptions = ({
         </sbb-option>
       );
     }),
-    <sbb-option style={style} {...args} value="long-value">
+    <sbb-option style={style} negative={negative} {...args} value="long-value">
       Option Lorem ipsum dolor sit amet.
     </sbb-option>,
   ];
@@ -94,14 +111,14 @@ const createOptions = ({
 const StandaloneTemplate = (args): JSX.Element => <Fragment>{createOptions(args)}</Fragment>;
 
 const AutocompleteTemplate = (args): JSX.Element => (
-  <sbb-form-field label="sbb-autocomplete">
+  <sbb-form-field label="sbb-autocomplete" negative={args.negative}>
     <input placeholder="Please select." />
     <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
   </sbb-form-field>
 );
 
 const SelectTemplate = (args): JSX.Element => (
-  <sbb-form-field label="sbb-select">
+  <sbb-form-field label="sbb-select" negative={args.negative}>
     <sbb-select placeholder="Please select.">{createOptions(args)}</sbb-select>
   </sbb-form-field>
 );
@@ -119,10 +136,24 @@ export const Standalone: StoryObj = {
   decorators: [borderDecorator],
 };
 
+export const StandaloneNegative: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+  decorators: [borderDecorator],
+};
+
 export const WithIcon: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'icon-name': 'clock-small' },
+  decorators: [borderDecorator],
+};
+
+export const WithIconNegative: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'icon-name': 'clock-small', negative: true },
   decorators: [borderDecorator],
 };
 
@@ -133,10 +164,24 @@ export const WithDisabledState: StoryObj = {
   decorators: [borderDecorator],
 };
 
+export const WithDisabledStateNegative: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true, negative: true },
+  decorators: [borderDecorator],
+};
+
 export const WithActiveState: StoryObj = {
   render: StandaloneTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, active: true },
+  decorators: [borderDecorator],
+};
+
+export const WithActiveStateNegative: StoryObj = {
+  render: StandaloneTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, active: true, negative: true },
   decorators: [borderDecorator],
 };
 
@@ -161,8 +206,8 @@ export const Select: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', width: '350px' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem', width: '350px' }}>
         <Story />
       </div>
     ),

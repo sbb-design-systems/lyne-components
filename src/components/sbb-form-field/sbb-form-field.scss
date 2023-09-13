@@ -15,6 +15,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-metal-default);
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
   --sbb-form-field-text-color: var(--sbb-color-charcoal-default);
+  --sbb-form-field-arrow-color: var(--sbb-color-charcoal-default);
   --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
   --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
@@ -51,6 +52,7 @@
   --sbb-form-field-prefix-color: var(--sbb-color-smoke-default);
   --sbb-form-field-text-color: var(--sbb-color-milk-default);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-form-field-arrow-color: var(--sbb-color-milk-default);
 
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: ButtonBorder;
@@ -72,6 +74,7 @@
 :host(:is([data-readonly], [data-disabled])) {
   --sbb-form-field-background-color: var(--sbb-color-milk-default);
   --sbb-form-field-border-color: var(--sbb-color-graphite-default);
+  --sbb-form-field-arrow-color: var(--sbb-color-granite-default);
 
   @include sbb.if-forced-colors {
     --sbb-form-field-border-color: ButtonBorder;
@@ -80,6 +83,7 @@
 
 :host(:is([data-readonly], [data-disabled])[negative]:not([negative='false'])) {
   --sbb-form-field-background-color: var(--sbb-color-charcoal-default);
+  --sbb-form-field-arrow-color: var(--sbb-color-smoke-default);
 }
 
 :host([data-disabled]) {
@@ -223,6 +227,7 @@
   inset-inline-end: 0;
   position: absolute;
   pointer-events: none;
+  color: var(--sbb-form-field-arrow-color);
 }
 
 .sbb-form-field__input-container {

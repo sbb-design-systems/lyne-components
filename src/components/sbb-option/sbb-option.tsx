@@ -55,6 +55,9 @@ export class SbbOption implements ComponentInterface {
   /** Whether the option is selected. */
   @Prop({ mutable: true, reflect: true }) public selected = false;
 
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @State() private _disabledFromGroup = false;
 
@@ -176,6 +179,11 @@ export class SbbOption implements ComponentInterface {
     }
     this._optionAttributeObserver.observe(this._element, optionObserverConfig);
     this._setVariantByContext();
+
+    const parent = this._element.closest('sbb-optgroup,sbb-select,sbb-autocomplete') as HTMLElement;
+    if (parent) {
+      this.negative = isValidAttribute(parent, 'negative');
+    }
   }
 
   public disconnectedCallback(): void {
@@ -278,6 +286,7 @@ export class SbbOption implements ComponentInterface {
               <sbb-visual-checkbox
                 checked={this.selected}
                 disabled={this.disabled || this._disabledFromGroup}
+                negative={this.negative}
               ></sbb-visual-checkbox>
             )}
 
