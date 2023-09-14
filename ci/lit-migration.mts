@@ -211,7 +211,10 @@ async function migrate(component: string, debug = false) {
       } else if (ts.isDecorator(node) && node.expression.getText().startsWith('Component(')) {
         componentDecorator = node;
         clazz = node.parent as ts.ClassDeclaration;
-      } else if (ts.isJsxElement(node) && (ts.isParenthesizedExpression(node.parent) || ts.isArrayLiteralExpression(node.parent))) {
+      } else if (ts.isJsxElement(node) && 
+        (ts.isParenthesizedExpression(node.parent) || ts.isArrayLiteralExpression(node.parent)) &&
+        !ts.findAncestor(node.parent, n => ts.isJsxElement(n))
+        ) {
         jsxTemplates.push(node);
       } else if (ts.isTypeReferenceNode(node) && node.getText() === 'JSX.Element') {
         mutator.replace(node, 'TemplateResult');
@@ -626,6 +629,39 @@ declare global {
           }
         }
 
+        if (ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n)) {
+          
+          // Migrate {{ condition ?? templateA }}
+          if (ts.isBinaryExpression(n.parent) || (ts.isParenthesizedExpression(n.parent) && ts.isBinaryExpression(n.parent?.parent))) {
+            const jsxExp = ts.findAncestor(n, m => ts.isJsxExpression(m))!;
+            const binaryExp = ts.isBinaryExpression(n.parent) ? n.parent : n.parent.parent as ts.BinaryExpression;
+            const template = ts.isParenthesizedExpression(binaryExp.right) ? binaryExp.right.expression : binaryExp.right;           
+
+            mutator.insertAt(jsxExp, '$');
+            mutator.replace(binaryExp, `${binaryExp.left.getText()} ? html\`${template.getText()}\` : nothing`);
+          }
+
+          // Migrate {{ condition ? templateA : templateB}}
+          if (ts.isConditionalExpression(n.parent) || (ts.isParenthesizedExpression(n.parent) && ts.isConditionalExpression(n.parent?.parent))) {
+            const jsxExp = ts.findAncestor(n, m => ts.isJsxExpression(m))!;
+            const conditionalExp = ts.isConditionalExpression(n.parent) ? n.parent : n.parent.parent as ts.ConditionalExpression;
+            const trueTemplate = ts.isParenthesizedExpression(conditionalExp.whenTrue) ? conditionalExp.whenTrue.expression : conditionalExp.whenTrue;   
+            const falseTemplate = ts.isParenthesizedExpression(conditionalExp.whenFalse) ? conditionalExp.whenFalse.expression : conditionalExp.whenFalse;   
+
+            // If this is the false template, the migration has already been done (skip this)
+            if (n === falseTemplate) {
+              return;
+            }
+
+            mutator.insertAt(jsxExp, '$');
+
+            mutator.appendRight(trueTemplate.getStart(), `html\``);
+            mutator.appendLeft(trueTemplate.getEnd(), `\``);
+
+            mutator.appendRight(falseTemplate.getStart(), `html\``);
+            mutator.appendLeft(falseTemplate.getEnd(), `\``);
+          }
+        }
       });
     }
 
