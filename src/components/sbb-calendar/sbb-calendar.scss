@@ -6,6 +6,7 @@
 
 :host {
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
+  --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
   --sbb-calendar-cell-disabled-color: var(--sbb-color-granite-default);
   --sbb-calendar-header-color: var(--sbb-color-granite-default);
@@ -92,7 +93,7 @@
 
   @include sbb.hover-mq {
     &:not(:active, :disabled):hover {
-      padding-block-end: 0.0625rem;
+      padding-block-end: var(--sbb-calendar-hover-shift);
     }
   }
 
@@ -184,7 +185,7 @@
     &:not(.sbb-calendar__selected, :active, :disabled):hover {
       --sbb-calendar-cell-background-color: var(--sbb-color-milk-default);
 
-      padding-block-end: #{sbb.px-to-rem-build(1)};
+      padding-block-end: var(--sbb-calendar-hover-shift);
 
       &::before {
         @include sbb.if-forced-colors {
