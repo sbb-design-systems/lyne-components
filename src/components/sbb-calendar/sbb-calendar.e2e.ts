@@ -344,8 +344,11 @@ describe('sbb-calendar', () => {
       const yearSelectionButton: E2EElement = await page.find(
         'sbb-calendar >>> #sbb-calendar__date-selection',
       );
+      const table: E2EElement = await page.find('sbb-calendar >>> table');
+      const animationSpy = await table.spyOnEvent('animationend');
+
       await yearSelectionButton.click();
-      await page.waitForChanges();
+      await waitForCondition(() => animationSpy.events.length >= 2);
       const selectedYear: E2EElement = await page.find({ text: '2023' });
       await selectedYear.focus();
     });
@@ -385,6 +388,7 @@ describe('sbb-calendar', () => {
     });
 
     it('navigates up via keyboard', async () => {
+      await page.waitForChanges();
       expect(
         await page.evaluate(() => {
           return document.activeElement.shadowRoot.activeElement.textContent;
@@ -419,6 +423,7 @@ describe('sbb-calendar', () => {
     });
 
     it('navigates to first day via keyboard', async () => {
+      await page.waitForChanges();
       expect(
         await page.evaluate(() => {
           return document.activeElement.shadowRoot.activeElement.textContent;
