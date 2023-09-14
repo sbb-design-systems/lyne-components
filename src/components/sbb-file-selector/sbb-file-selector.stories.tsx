@@ -70,6 +70,12 @@ const defaultArgs: Args = {
   'accessibility-label': 'Select from hard disk',
 };
 
+const multipleDefaultArgs: Args = {
+  ...defaultArgs,
+  multiple: true,
+  'accessibility-label': 'Select from hard disk - multiple files allowed',
+};
+
 const Template = (args): JSX.Element => <sbb-file-selector {...args}></sbb-file-selector>;
 
 const TemplateWithError = (args): JSX.Element => {
@@ -104,13 +110,13 @@ export const DefaultDisabled: StoryObj = {
 export const DefaultMulti: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, multiple: true },
+  args: { ...multipleDefaultArgs },
 };
 
 export const DefaultMultiPersistent: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, multiple: true, 'multiple-mode': multipleMode.options[1] },
+  args: { ...multipleDefaultArgs, 'multiple-mode': multipleMode.options[1] },
 };
 
 export const Dropzone: StoryObj = {
@@ -128,16 +134,15 @@ export const DropzoneDisabled: StoryObj = {
 export const DropzoneMulti: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, variant: variant.options[1], multiple: true },
+  args: { ...multipleDefaultArgs, variant: variant.options[1] },
 };
 
 export const DropzoneMultiPersistent: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
-    ...defaultArgs,
+    ...multipleDefaultArgs,
     variant: variant.options[1],
-    multiple: true,
     'multiple-mode': multipleMode.options[1],
   },
 };

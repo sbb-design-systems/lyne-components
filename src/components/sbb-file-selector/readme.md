@@ -2,7 +2,6 @@ The `sbb-file-selector` is a component which allows user to select one or more f
 When files are selected, they appear as a list below the button/dropzone area. 
 For each file, the name and the size are displayed and an icon allows for deletion.
 
-
 ### Variants
 
 It has two different display options based on the value of the `variant` property:
@@ -19,7 +18,6 @@ In this case, it's possible to customize the area's title via the `titleContent`
 <sbb-file-selector variant='dropzone' title-content='Drop file here.'></sbb-file-selector>
 ```
 
-
 ### Multiple and multipleMode
 
 In both variants, a single file can be selected by default; this can be changed setting the `multiple` property to `true`. 
@@ -34,7 +32,6 @@ The value of the `multipleMode` property determines whether added files should o
 <sbb-file-selector multiple multiple-mode='persistent'></sbb-file-selector>
 ```
 
-
 ### Accept
 
 The `accept` property can be used to force the user to select one or more specific file types; 
@@ -44,7 +41,6 @@ in the next example, only images are allowed.
 <sbb-file-selector accept=".png,.jpg,.jpeg"></sbb-file-selector>
 ```
 
-
 ### Disabled
 
 User interaction can be disabled using the `disabled` property. 
@@ -52,7 +48,6 @@ User interaction can be disabled using the `disabled` property.
 ```html
 <sbb-file-selector disabled></sbb-file-selector>
 ```
-
 
 ### Error slot
 
@@ -64,11 +59,23 @@ The `error` named slot can be used to display an error message using the `sbb-fo
 </sbb-file-selector>
 ```
 
-
 ### Events
 
 Whenever the selection changes, a `file-changed` event is fired, whose `event.detail` property contains the list 
 of currently selected files. The list can also be retrieved using the `getFiles()` method.
+
+
+## Accessibility
+
+It's possible to improve the component accessibility using the `accessibilityLabel` property; this will be set 
+as `aria-label` of the inner native input and read together with the visible button text.
+It's suggested to have a different value for each variant, e.g.:
+
+```html
+<sbb-file-selector accessibility-label='Select a file from hard disk'></sbb-file-selector>
+<sbb-file-selector multiple accessibility-label='Select from hard disk - multiple selection allowed'></sbb-file-selector>
+```
+
 
 <!-- Auto Generated Below -->
 
