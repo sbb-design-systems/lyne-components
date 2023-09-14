@@ -71,10 +71,10 @@ class MyMagicString extends MagicString {
 }
 
 async function migrate(component: string, debug = false) {
-
   // Enable the use of vs code to launch the script
-  if (component.startsWith('src/components/'))
+  if (component.startsWith('src/components/')) {
     component = component.replace('src/components/', '');
+  }
 
   const projectRoot = new URL('..', import.meta.url);
   const source = join(projectRoot, `./src/components/${component}/`);
@@ -216,10 +216,11 @@ async function migrate(component: string, debug = false) {
       } else if (ts.isDecorator(node) && node.expression.getText().startsWith('Component(')) {
         componentDecorator = node;
         clazz = node.parent as ts.ClassDeclaration;
-      } else if (ts.isJsxElement(node) && 
+      } else if (
+        ts.isJsxElement(node) &&
         (ts.isParenthesizedExpression(node.parent) || ts.isArrayLiteralExpression(node.parent)) &&
-        !ts.findAncestor(node.parent, n => ts.isJsxElement(n))
-        ) {
+        !ts.findAncestor(node.parent, (n) => ts.isJsxElement(n))
+      ) {
         jsxTemplates.push(node);
       } else if (ts.isTypeReferenceNode(node) && node.getText() === 'JSX.Element') {
         mutator.replace(node, 'TemplateResult');
@@ -564,11 +565,11 @@ async function migrate(component: string, debug = false) {
     }
 
     if (renderMethod && renderMethod.modifiers!.length > 0) {
-      mutator.replace(renderMethod.modifiers![0], 'protected override')
+      mutator.replace(renderMethod.modifiers![0], 'protected override');
     }
 
     for (const template of jsxTemplates) {
-      migrateJsxTemplate(template)
+      migrateJsxTemplate(template);
     }
 
     const newImport: string[] = [];
@@ -618,14 +619,13 @@ declare global {
       const eventArguments: { tag: string } = Function(`return ${args.getText()}`)();
       return eventArguments.tag;
     }
-    
+
     function migrateJsxTemplate(root: ts.JsxElement) {
-      
       // Surround the template with html``
       mutator.appendRight(root.parent.getStart() + 1, `html\``);
       mutator.appendLeft(root.parent.getEnd() - 1, `\``);
 
-      iterate(root, n => {
+      iterate(root, (n) => {
         if (ts.isJsxOpeningElement(n) || ts.isJsxSelfClosingElement(n)) {
           if (n.getText().startsWith('<Host')) {
             migrateJsxHost(n as ts.JsxOpeningElement);
@@ -635,23 +635,41 @@ declare global {
         }
 
         if (ts.isJsxElement(n) || ts.isJsxSelfClosingElement(n)) {
-          
           // Migrate {{ condition ?? templateA }}
-          if (ts.isBinaryExpression(n.parent) || (ts.isParenthesizedExpression(n.parent) && ts.isBinaryExpression(n.parent?.parent))) {
-            const jsxExp = ts.findAncestor(n, m => ts.isJsxExpression(m))!;
-            const binaryExp = ts.isBinaryExpression(n.parent) ? n.parent : n.parent.parent as ts.BinaryExpression;
-            const template = ts.isParenthesizedExpression(binaryExp.right) ? binaryExp.right.expression : binaryExp.right;           
+          if (
+            ts.isBinaryExpression(n.parent) ||
+            (ts.isParenthesizedExpression(n.parent) && ts.isBinaryExpression(n.parent?.parent))
+          ) {
+            const jsxExp = ts.findAncestor(n, (m) => ts.isJsxExpression(m))!;
+            const binaryExp = ts.isBinaryExpression(n.parent)
+              ? n.parent
+              : (n.parent.parent as ts.BinaryExpression);
+            const template = ts.isParenthesizedExpression(binaryExp.right)
+              ? binaryExp.right.expression
+              : binaryExp.right;
 
             mutator.insertAt(jsxExp, '$');
-            mutator.replace(binaryExp, `${binaryExp.left.getText()} ? html\`${template.getText()}\` : nothing`);
+            mutator.replace(
+              binaryExp,
+              `${binaryExp.left.getText()} ? html\`${template.getText()}\` : nothing`,
+            );
           }
 
           // Migrate {{ condition ? templateA : templateB}}
-          if (ts.isConditionalExpression(n.parent) || (ts.isParenthesizedExpression(n.parent) && ts.isConditionalExpression(n.parent?.parent))) {
-            const jsxExp = ts.findAncestor(n, m => ts.isJsxExpression(m))!;
-            const conditionalExp = ts.isConditionalExpression(n.parent) ? n.parent : n.parent.parent as ts.ConditionalExpression;
-            const trueTemplate = ts.isParenthesizedExpression(conditionalExp.whenTrue) ? conditionalExp.whenTrue.expression : conditionalExp.whenTrue;   
-            const falseTemplate = ts.isParenthesizedExpression(conditionalExp.whenFalse) ? conditionalExp.whenFalse.expression : conditionalExp.whenFalse;   
+          if (
+            ts.isConditionalExpression(n.parent) ||
+            (ts.isParenthesizedExpression(n.parent) && ts.isConditionalExpression(n.parent?.parent))
+          ) {
+            const jsxExp = ts.findAncestor(n, (m) => ts.isJsxExpression(m))!;
+            const conditionalExp = ts.isConditionalExpression(n.parent)
+              ? n.parent
+              : (n.parent.parent as ts.ConditionalExpression);
+            const trueTemplate = ts.isParenthesizedExpression(conditionalExp.whenTrue)
+              ? conditionalExp.whenTrue.expression
+              : conditionalExp.whenTrue;
+            const falseTemplate = ts.isParenthesizedExpression(conditionalExp.whenFalse)
+              ? conditionalExp.whenFalse.expression
+              : conditionalExp.whenFalse;
 
             // If this is the false template, the migration has already been done (skip this)
             if (n === falseTemplate) {
@@ -671,24 +689,24 @@ declare global {
     }
 
     function migrateJsxAttributes(node: ts.JsxOpeningElement | ts.JsxSelfClosingElement) {
-      iterate(node, n => {
+      iterate(node, (n) => {
         if (ts.isJsxAttribute(n)) {
           // migrate 'ref={...}'
           if (n.getText().startsWith('ref=')) {
             let refContent = n.initializer!.getText();
             refContent = refContent.substring(1, refContent.length - 1); // Strip the parenthesis
-            mutator.replace(n, `\${ref( ${refContent} )}`)
+            mutator.replace(n, `\${ref( ${refContent} )}`);
 
             newImports.set('lit/directives/ref.js', ['ref']);
-          } else
+          }
           // migrate events
-          if (n.getText().match(/on[A-Z]\w+/)) {
+          else if (n.getText().match(/on[A-Z]\w+/)) {
             const eventName = n.name.getText().substring(2).toLowerCase();
             mutator.replace(n.name, `@${eventName}`);
             mutator.insertAt(n.initializer!, '$');
-          } else 
+          }
           // attribute migration
-          if (n.initializer && ts.isJsxExpression(n.initializer)) {
+          else if (n.initializer && ts.isJsxExpression(n.initializer)) {
             // TODO we could enhance attribute migrations? Check the 'Attributes' section of the migration issue for more info
             mutator.replace(n.initializer, `$${n.initializer.getText()}`);
           }
@@ -705,9 +723,7 @@ declare global {
       mutator.remove(host.parent.closingElement);
 
       for (let attr of host.attributes.properties) {
-        
         if (ts.isJsxAttribute(attr)) {
-          
           // static boolean attributes
           if (!attr.initializer) {
             codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', true);`);
@@ -716,13 +732,17 @@ declare global {
 
           // 'ref={expression}' => 'expression(this)'
           if (attr.name.getText() === 'ref') {
-            codeToAdd.push(`${(attr.initializer as ts.JsxExpression).expression?.getText()}(this);`)
+            codeToAdd.push(
+              `${(attr.initializer as ts.JsxExpression).expression?.getText()}(this);`,
+            );
             continue;
           }
 
           // it's an event
           if (attr.name.getText().match(/on[A-Z]\w+/)) {
-            codeToAdd.push(`// NOTE: Cannot automatically migrate "<Host ${attr.getText()}" >. \n// Add a 'this.addEventListener' in the constructor to preserve the same behavior`)
+            codeToAdd.push(
+              `// NOTE: Cannot automatically migrate "<Host ${attr.getText()}" >. \n// Add a 'this.addEventListener' in the constructor to preserve the same behavior`,
+            );
             continue;
           }
 
@@ -731,7 +751,7 @@ declare global {
           if (attrValue.startsWith('{')) {
             attrValue = attrValue.substring(1, attrValue.length - 1);
           }
-          codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', ${attrValue});`)
+          codeToAdd.push(`setAttribute(this, '${attr.name.getText()}', ${attrValue});`);
         }
 
         if (ts.isJsxSpreadAttribute(attr)) {
@@ -739,10 +759,13 @@ declare global {
         }
       }
 
-      const node = ts.findAncestor(host, n => ts.isReturnStatement(n) || ts.isVariableStatement(n))!;
+      const node = ts.findAncestor(
+        host,
+        (n) => ts.isReturnStatement(n) || ts.isVariableStatement(n),
+      )!;
       if (codeToAdd.length > 0) {
         codeToAdd.unshift('// ## Host attributes ##');
-        codeToAdd.push('// ####')
+        codeToAdd.push('// ####');
       }
       mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
     }
