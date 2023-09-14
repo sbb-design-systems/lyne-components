@@ -1,8 +1,8 @@
-`<sbb-form-field>` is intended to be used as a form input wrapper with label and errors.
+The `sbb-form-field` component is intended to be used as a form input wrapper with label and errors.
 
 In this document, "form field" refers to the wrapper component `<sbb-form-field>` and
 "form field control" refers to the component that the `<sbb-form-field>` is wrapping
-(e.g. the input, select, etc.)
+(e.g., the input, select, etc.)
 
 The following components are designed to work inside a `<sbb-form-field>`:
 

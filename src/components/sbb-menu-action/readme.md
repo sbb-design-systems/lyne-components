@@ -1,15 +1,37 @@
 The component represents an action element contained by the [sbb-menu](../sbb-menu/readme.md) component.
 
-As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link,
-depending on the value of the `href` property.
+### Slots
 
-A [sbb-icon](../sbb-icon/readme.md) will be rendered via the `icon-name` property; otherwise consumers can provide
-their own content via slot named `icon`.
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
+at the component start using the `iconName` property or via custom content using the `icon` slot.
 
-An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property. 
+```html
+<sbb-menu-action>Text</sbb-menu-action>
 
+<sbb-menu-action icon-name='pie-small'>Another text</sbb-menu-action>
+```
 
-### Spacing
+### Amount
+
+An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property.
+
+```html
+<sbb-menu-action amount='123'>Amount text</sbb-menu-action>
+```
+
+### Link/button properties
+
+As the [sbb-link](../sbb-link/readme.md), the component can be internally rendered as a button or as a link,
+depending on the value of the `href` property, so the associated properties are available
+(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+
+```html
+<sbb-menu-action href="#info" target='_blank'>Link</sbb-menu-action>
+
+<sbb-menu-action type='button' value='menu' name='menu'>Button</sbb-menu-action>
+```
+
+### Style
 
 For cases where smaller outer paddings are needed, 
 you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.

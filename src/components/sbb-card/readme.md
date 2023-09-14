@@ -44,8 +44,8 @@ The badge is hidden with card sizes `xs` or `s`.
 
 ## Card With Action
 
-To add an action to a card, add a `<sbb-card-action>` to the main slot. With the `<sbb-card-action>` 
-all the card area becomes clickable. 
+To add an action to a card, add a `sbb-card-action` to the main slot. 
+With the `sbb-card-action` all the card area becomes clickable. 
 For API details see the [`sbb-card-action` docs](/docs/components-sbb-card-sbb-card-action--docs).
 
 ```html
@@ -57,14 +57,14 @@ For API details see the [`sbb-card-action` docs](/docs/components-sbb-card-sbb-c
 
 ## Accessibility
 
-It's **important** that a descriptive message is being slotted into the unnamed slot of `<sbb-card-action>` 
+It's **important** that a descriptive message is being slotted into the unnamed slot of `sbb-card-action` 
 as it is used for search engines and screen reader users.
 
 ```html
 <sbb-card-action>Buy a half-fare ticket now</sbb-card-action>
 ```
 
-Normally, a `<sbb-card>` should be a single action, however, it's possible to place other interactive elements
+Normally, a `sbb-card` should be a single action, however, it's possible to place other interactive elements
 in the card content. Interactive content will automatically be detected and made accessible to click / focus.
 In cases where there should be only a visual button or link inside the card content without a different action, the 
 `is-static` attribute should be set (e.g. `<sbb-button is-static></sbb-button>`).

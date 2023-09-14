@@ -1,20 +1,20 @@
 The `sbb-form-error` component can be used to provide an error message.
 
-## Usage
+### Slots
 
-The examples below shows how the component is used:
+It is possible to provide the error message via an unnamed slot; 
+the component displays an icon by default, and it can be changed using the `icon` slot.
 
 ```html
-<sbb-form-error>This field is required!</sbb-form-error>
+<sbb-form-error>
+  This is a required field.
+</sbb-form-error>
 
-<!-- It is possible to override the default icon -->
 <sbb-form-error>
   <sbb-icon name="pie-small" slot="icon"/>
   This is a required field.
 </sbb-form-error>
 ```
-
-
 
 <!-- Auto Generated Below -->
 

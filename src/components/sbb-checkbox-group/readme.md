@@ -9,7 +9,7 @@ which are projected inside an unnamed slot.
 </sbb-checkbox-group>
 ```
 
-### Orientation and horizontal-from
+### Orientation
 
 The `orientation` property is used to set item orientation. Possible values are `horizontal` (default) and `vertical`.
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to 

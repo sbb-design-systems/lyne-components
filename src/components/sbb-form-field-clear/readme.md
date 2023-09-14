@@ -21,13 +21,6 @@ It currently works with simple inputs and does not support, for example, `select
 | `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false` |
 
 
-## Slots
-
-| Slot        | Description                 |
-| ----------- | --------------------------- |
-| `"unnamed"` | Slot to render the content. |
-
-
 ## Dependencies
 
 ### Depends on

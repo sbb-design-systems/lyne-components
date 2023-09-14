@@ -17,7 +17,7 @@ The example below shows how to render an icon named `app-icon-medium` that point
 ### Accessibility
 
 Similar to an `<img>` element, an icon alone does not convey any useful information for a
-screen-reader user. The user of `<sbb-icon>` must provide additional information pertaining to how
+screen-reader user. The user of `sbb-icon` must provide additional information pertaining to how
 the icon is used. Based on the use-cases described below, `sbb-icon` is marked as
 `aria-hidden="true"` by default, but this can be overridden by adding `aria-hidden="false"` to the
 element.

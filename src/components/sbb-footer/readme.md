@@ -1,19 +1,17 @@
-The `<sbb-footer>` component is used to display page related information like copyright, contact or other 
-content related links. There are two variants of the footer. The default, which displays the slotted content in regular 
-block element approach and the clock-columns variant, which uses a css-grid for displaying the content over different 
+The `sbb-footer` component is used to display page related information like copyright, contact or other 
+content related links. 
+
+### Variants
+
+There are two variants of the footer: the `variant='default'`, which displays the slotted content in regular 
+block element approach and the `variant='clock-columns'`, which uses a css-grid for displaying the content over different 
 breakpoints.
 
-**Negative variant:**
-If using the footer in negative variant, please also apply the negative attribute 
-to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).
-
-**Note:** 
-Content, like sbb-link-list that could come along with a button, needs to be wrapped with a `<div>` element with a helper 
+**Note:**
+Content, like `sbb-link-list` that could come along with a button, needs to be wrapped with a `<div>` element with a helper
 class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 
-## Usage
-
-Default
+Default variant:
 
 ```html
 <sbb-footer accessibility-title="Footer">
@@ -58,9 +56,26 @@ Variant clock-columns with wrapped link-list with button:
     <sbb-link href="#">Praise</sbb-link>
     <sbb-link href="#">Report property damage</sbb-link>
   </sbb-link-list>
-
 </sbb-footer>
 ```
+
+### Negative
+
+It's possible to display the footer in `negative` variant; please also apply the negative attribute 
+to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).
+
+```html
+<sbb-footer negative accessibility-title="Footer">
+  <sbb-link-list negative title-level="2" title-content="Help &amp; Contact.">
+    <sbb-link negative href="#">Refunds</sbb-link>
+    <sbb-link negative href="#">Lost property office</sbb-link>
+    <sbb-link negative href="#">Complaints</sbb-link>
+    <sbb-link negative href="#">Praise</sbb-link>
+    <sbb-link negative href="#">Report property damage</sbb-link>
+  </sbb-link-list>
+</sbb-footer>
+```
+
 <!-- Auto Generated Below -->
 
 

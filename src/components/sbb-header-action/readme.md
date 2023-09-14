@@ -1,20 +1,35 @@
 The component represents an action element contained by the [sbb-header](../sbb-header/readme.md) component.
 
-As the [sbb-link](../sbb-link/readme.md), it can be internally rendered as a button or as a link.
-Consumers can set the icon and the label; the property `expandFrom` defines the minimum breakpoint 
-from which the label is displayed.
+### Slots
 
-## Usage
-Simple button
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
+at the component start using the `iconName` property or via custom content using the `icon` slot. 
 
 ```html
-<sbb-header-action>Button text</sbb-header-action>
+<sbb-header-action>Text</sbb-header-action>
+
+<sbb-header-action icon-name='pie-small'>Another text</sbb-header-action>
 ```
 
-Simple link
+### Hide label
+
+If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint 
+from which the label is displayed; below that, only the icon is visible.
 
 ```html
-<sbb-header-action href="#info">Link text</sbb-header-action>
+<sbb-header-action expand-from='medium'>Text</sbb-header-action>
+```
+
+### Link/button properties
+
+As the [sbb-link](../sbb-link/readme.md), the component can be internally rendered as a button or as a link,
+depending on the value of the `href` property, so the associated properties are available
+(`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+
+```html
+<sbb-header-action href="#info" target='_blank'>Link</sbb-header-action>
+
+<sbb-header-action type='button' value='menu' name='menu'>Button</sbb-header-action>
 ```
 
 

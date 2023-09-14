@@ -37,7 +37,7 @@ The component has two background options that can be set using the `color` varia
 
 ### Disabled
 
-The `disabled` state can be set using the self-named variable. In this state the component can not be collapsed or expanded.
+The `disabled` state can be set using the self-named variable. In this state, the component can not be collapsed or expanded.
 
 ```html
 <sbb-expansion-panel disabled>
