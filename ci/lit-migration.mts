@@ -71,6 +71,11 @@ class MyMagicString extends MagicString {
 }
 
 async function migrate(component: string, debug = false) {
+
+  // Enable the use of vs code to launch the script
+  if (component.startsWith('src/components/'))
+    component = component.replace('src/components/', '');
+
   const projectRoot = new URL('..', import.meta.url);
   const source = join(projectRoot, `./src/components/${component}/`);
   const target = join(projectRoot, `./src/${debug ? 'migrated' : 'components'}/${component}/`);
