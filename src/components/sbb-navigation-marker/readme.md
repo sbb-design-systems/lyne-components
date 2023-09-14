@@ -1,8 +1,5 @@
-The `<sbb-navigation-marker>` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md). 
-
+The `<sbb-navigation-marker>` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md).
 Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component. 
-
-## Usage
 
 ```html
 <sbb-navigation-marker>
@@ -11,6 +8,10 @@ Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) compo
     <sbb-navigation-action href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-action>
 <sbb-navigation-marker>
 ```
+
+### Size
+
+The component has a property named `size` which is proxied to all the `sbb-navigation-action` within it.
 
 <!-- Auto Generated Below -->
 

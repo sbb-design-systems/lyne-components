@@ -1,10 +1,6 @@
-The `<sbb-navigation-list>` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md). 
-
-Optionally a label can be provided via slot. 
-
+The `<sbb-navigation-list>` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md).
 Its intended use is inside a [sbb-navigation-section](../sbb-navigation-section/readme.md) component.
-
-## Usage
+Optionally, a label can be provided via slot via the self-named property or the self-named slot.
 
 ```html
 <sbb-navigation-list label="Label 1.1">
