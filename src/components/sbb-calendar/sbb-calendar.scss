@@ -20,6 +20,8 @@
   --sbb-calendar-cell-transition-duration: var(--sbb-animation-duration-2x);
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
+  --sbb-calendar-table-animation-shift: #{sbb.px-to-rem-build(0.1)};
+  --sbb-calendar-table-animation-duration: 0ms;
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal-default);
@@ -142,6 +144,24 @@
   width: 100%;
   border-collapse: collapse;
   height: max-content;
+
+  &.sbb-calendar__table-show {
+    --sbb-calendar-cell-transition-duration: 0ms;
+
+    animation: {
+      name: show;
+      duration: var(--sbb-calendar-table-animation-duration);
+    }
+  }
+
+  &.sbb-calendar__table-hide {
+    --sbb-calendar-cell-transition-duration: 0ms;
+
+    animation: {
+      name: hide;
+      duration: var(--sbb-calendar-table-animation-duration);
+    }
+  }
 }
 
 .sbb-calendar__table-header {
@@ -260,4 +280,28 @@
 
 .sbb-calendar__visually-hidden {
   @include sbb.screen-reader-only;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(var(--sbb-calendar-table-animation-shift));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(var(--sbb-calendar-table-animation-shift));
+  }
 }

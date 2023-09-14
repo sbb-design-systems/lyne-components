@@ -108,6 +108,8 @@ export class SbbCalendar implements ComponentInterface {
 
   @Element() private _element!: HTMLElement;
 
+  private _nextCalendarView: CalendarView = 'day';
+
   private _dateAdapter: DateAdapter<Date> = new NativeDateAdapter();
 
   /** A list of days, in two formats (long and single char). */
@@ -740,7 +742,8 @@ export class SbbCalendar implements ComponentInterface {
     this._activeDate = this._dateAdapter.deserializeDate(this.selectedDate) ?? this._now();
     this._chosenYear = undefined;
     this._chosenMonth = undefined;
-    this._calendarView = 'day';
+    this._nextCalendarView = 'day';
+    this._removeTable();
   }
 
   /** Render the view for the day selection. */
@@ -792,7 +795,8 @@ export class SbbCalendar implements ComponentInterface {
         aria-label={`${i18nYearMonthSelection[this._currentLanguage]} ${monthLabel}`}
         onClick={() => {
           this._resetFocus = true;
-          this._calendarView = 'year';
+          this._nextCalendarView = 'year';
+          this._removeTable();
         }}
       >
         {monthLabel}
@@ -820,6 +824,7 @@ export class SbbCalendar implements ComponentInterface {
       <table
         class="sbb-calendar__table"
         onFocusout={(event) => this._handleTableBlur(event.relatedTarget as HTMLElement)}
+        onAnimationEnd={(e) => this._tableAnimationEnd(e)}
       >
         <thead class="sbb-calendar__table-header">
           <tr class="sbb-calendar__table-header-row">{this._createDayTableHeader()}</tr>
@@ -954,7 +959,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the table for the month selection view. */
   private _createMonthTable(months: Month[][], year: number): JSX.Element {
     return (
-      <table class="sbb-calendar__table">
+      <table class="sbb-calendar__table" onAnimationEnd={(e) => this._tableAnimationEnd(e)}>
         {this._wide && (
           <thead class="sbb-calendar__table-header" aria-hidden={true}>
             <tr class="sbb-calendar__table-header-row">
@@ -1024,7 +1029,8 @@ export class SbbCalendar implements ComponentInterface {
     this._assignActiveDate(new Date(year, this._chosenMonth, this._activeDate.getDate()));
     this._init();
     this._resetFocus = true;
-    this._calendarView = 'day';
+    this._nextCalendarView = 'day';
+    this._removeTable();
   }
 
   /** Render the view for the year selection. */
@@ -1104,7 +1110,7 @@ export class SbbCalendar implements ComponentInterface {
   /** Creates the table for the year selection view. */
   private _createYearTable(years: number[][]): JSX.Element {
     return (
-      <table class="sbb-calendar__table">
+      <table class="sbb-calendar__table" onAnimationEnd={(e) => this._tableAnimationEnd(e)}>
         <tbody class="sbb-calendar__table-body">{this._createYearTableBody(years)}</tbody>
       </table>
     );
@@ -1156,7 +1162,8 @@ export class SbbCalendar implements ComponentInterface {
       new Date(this._chosenYear, this._activeDate.getMonth(), this._activeDate.getDate()),
     );
     this._resetFocus = true;
-    this._calendarView = 'month';
+    this._nextCalendarView = 'month';
+    this._removeTable();
   }
 
   private get _getView(): JSX.Element {
@@ -1169,6 +1176,23 @@ export class SbbCalendar implements ComponentInterface {
       default:
         return this._renderDayView();
     }
+  }
+
+  private _tableAnimationEnd(event: AnimationEvent): void {
+    const table = event.target as HTMLElement;
+    if (event.animationName === 'hide') {
+      table.classList.remove('sbb-calendar__table-hide');
+      this._calendarView = this._nextCalendarView;
+      table.classList.add('sbb-calendar__table-show');
+    } else if (event.animationName === 'show') {
+      table.classList.remove('sbb-calendar__table-show');
+    }
+  }
+
+  private _removeTable(): void {
+    const table = this._element.shadowRoot.querySelectorAll('table');
+    table.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));
+    return;
   }
 
   public render(): JSX.Element {
