@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.9](https://github.com/lyne-design-system/lyne-components/compare/v0.40.8...v0.40.9) (2023-09-14)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** add space for certain vehicles ([#1985](https://github.com/lyne-design-system/lyne-components/issues/1985)) ([739054d](https://github.com/lyne-design-system/lyne-components/commit/739054dbb42c8d9d524223be6f633580606ea9dc))
+
 ### [0.40.8](https://github.com/lyne-design-system/lyne-components/compare/v0.40.7...v0.40.8) (2023-09-13)
 
 ### Bug Fixes
