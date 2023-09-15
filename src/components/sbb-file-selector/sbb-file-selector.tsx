@@ -256,10 +256,14 @@ export class SbbFileSelector implements ComponentInterface {
   }
 
   private _renderFileList(): JSX.Element {
+    const TAG_NAME: Record<string, string> =
+      this._files.length > 1
+        ? { WRAPPER: 'ul', ELEMENT: 'li' }
+        : { WRAPPER: 'div', ELEMENT: 'span' };
     return (
-      <ul class="sbb-file-selector__file-list">
+      <TAG_NAME.WRAPPER class="sbb-file-selector__file-list">
         {this._files.map((file: File) => (
-          <li class="sbb-file-selector__file">
+          <TAG_NAME.ELEMENT class="sbb-file-selector__file">
             <span class="sbb-file-selector__file-details">
               <span class="sbb-file-selector__file-name">{file.name}</span>
               <span class="sbb-file-selector__file-size">{this._formatFileSize(file.size)}</span>
@@ -271,9 +275,9 @@ export class SbbFileSelector implements ComponentInterface {
               onClick={() => this._removeFile(file)}
               aria-label={`${i18nFileSelectorDeleteFile[this._currentLanguage]} - ${file.name}`}
             ></sbb-button>
-          </li>
+          </TAG_NAME.ELEMENT>
         ))}
-      </ul>
+      </TAG_NAME.WRAPPER>
     );
   }
 
@@ -309,8 +313,7 @@ export class SbbFileSelector implements ComponentInterface {
           </label>
         </div>
         <p
-          aria-live="assertive"
-          role="alert"
+          role="status"
           class="sbb-file-selector__visually-hidden"
           ref={(p) => (this._liveRegion = p)}
         ></p>

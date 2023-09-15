@@ -41,10 +41,12 @@ describe('sbb-file-selector', () => {
     expect(fileChangedSpy).toHaveReceivedEventTimes(1);
     expect(await element.getProperty('files')).not.toBeNull();
 
-    const listItems: E2EElement = await page.find('sbb-file-selector >>> ul');
+    const listItems: E2EElement = await page.find(
+      'sbb-file-selector >>> .sbb-file-selector__file-list',
+    );
     expect(listItems).toEqualHtml(`
-      <ul class="sbb-file-selector__file-list">
-        <li class="sbb-file-selector__file">
+      <div class="sbb-file-selector__file-list">
+        <span class="sbb-file-selector__file">
           <span class="sbb-file-selector__file-details">
             <span class="sbb-file-selector__file-name">hello0.txt</span>
             <span class="sbb-file-selector__file-size">15 B</span>
@@ -52,8 +54,8 @@ describe('sbb-file-selector', () => {
           <sbb-button aria-label="Remove file - hello0.txt" class="hydrated" data-icon-only dir="ltr" icon-name="trash-small"
                       role="button" size="m" tabindex="0" variant="secondary">
           </sbb-button>
-        </li>
-      </ul>
+        </span>
+      </div>
     `);
 
     const button: E2EElement = await page.find(
@@ -63,7 +65,9 @@ describe('sbb-file-selector', () => {
     await button.click();
     await page.waitForChanges();
     expect(fileChangedSpy).toHaveReceivedEventTimes(2);
-    expect((await page.findAll('sbb-file-selector >>> li')).length).toEqual(0);
+    expect((await page.findAll('sbb-file-selector >>> .sbb-file-selector__file')).length).toEqual(
+      0,
+    );
   });
 
   it('loads more than one file in multiple mode', async () => {
@@ -103,7 +107,9 @@ describe('sbb-file-selector', () => {
     expect(fileChangedSpy).toHaveReceivedEventTimes(1);
 
     expect(await element.getProperty('files')).not.toBeNull();
-    expect((await page.findAll('sbb-file-selector >>> li')).length).toEqual(1);
+    expect(
+      (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-name')).length,
+    ).toEqual(1);
     expect(
       (await page.findAll('sbb-file-selector >>> .sbb-file-selector__file-details')).length,
     ).toEqual(1);

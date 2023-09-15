@@ -20,7 +20,7 @@ describe('sbb-file-selector', () => {
                 <input class='sbb-file-selector__visually-hidden' type='file'>
               </label>
             </div>
-            <p aria-live='assertive' class='sbb-file-selector__visually-hidden' role='alert'></p>
+            <p class='sbb-file-selector__visually-hidden' role='status'></p>
           </div>
         </mock:shadow-root>
       </sbb-file-selector>
@@ -56,7 +56,7 @@ describe('sbb-file-selector', () => {
                 <input class='sbb-file-selector__visually-hidden' type='file'>
               </label>
             </div>
-            <p aria-live='assertive' class='sbb-file-selector__visually-hidden' role='alert'></p>
+            <p class='sbb-file-selector__visually-hidden' role='status'></p>
           </div>
         </mock:shadow-root>
       </sbb-file-selector>
