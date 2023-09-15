@@ -1,31 +1,11 @@
 The `sbb-select` is a component which provides a list of selectable options in an overlay panel, 
 emulating the behaviour of a native `select`. 
 
-If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it, 
+### In `sbb-form-field`
+
+If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it; 
 otherwise, the panel takes the component's parent element as origin. 
 Options or groups of options (see `sbb-option`/`sbb-optgroup` components) can be provided via an unnamed slot.
-
-The component has a `value` property, which can be a string or a string array (when `multiple` is set to true).
-If no `value` has been set, it is possible to display a placeholder using the `placeholder` property. Also note that 
-if the `value` is set on the `sbb-select`, it will override all the `selected` attributes on the internal `sbb-option`s, 
-so setting a default value should be done using the `value` attribute on the `sbb-select` and not by setting the
-`selected` attribute on the internal `sbb-option`s.
-
-If the `multiple` property is set to false, only one option can be selected: in this case the placeholder will be replaced 
-by the chosen value and a check mark will appear on the right of the selected option in the panel.
-If the `multiple` attribute is set to true, a visual checkbox will appear on the left of any option in the panel, and
-the selected values will be displayed in selection order, separated by a comma.
-
-It is possible to display the component in disabled or readonly state by using the self-named properties. The component 
-has a `required` property, which can be useful for setting a custom `<sbb-form-error>` message within a `<sbb-form-field>`.
-
-Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
-the current value can be read from `event.target.value`. 
-Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
-
-### Usage
-
-Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
 
 ```html
 <sbb-form-field label="Train types">
@@ -37,7 +17,20 @@ Single choice `sbb-select` inside a `sbb-form-field`, with pre-selected value:
 </sbb-form-field>
 ```
 
-Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-optgroup`:
+The component has a `value` property, which can be a string or a string array (when `multiple` is set to true).
+If no `value` has been set, it is possible to display a placeholder using the `placeholder` property. 
+
+Also note that if the `value` is set on the `sbb-select`, 
+it will override all the `selected` attributes on the internal `sbb-option`s, 
+so setting a default value should be done using the `value` attribute on the `sbb-select` and not by setting the
+`selected` attribute on the internal `sbb-option`s.
+
+### Multiple 
+
+If the `multiple` property is set to false, only one option can be selected: in this case the placeholder will be replaced 
+by the chosen value and a check mark will appear on the right of the selected option in the panel.
+If the `multiple` attribute is set to true, a visual checkbox will appear on the left of any option in the panel, and
+the selected values will be displayed in selection order, separated by a comma.
 
 ```html
 <sbb-form-field label="Cities">
@@ -55,7 +48,10 @@ Multiple choice `sbb-select` inside a `sbb-form-field` with two `sbb-optgroup`:
 </sbb-form-field>
 ```
 
-Required `sbb-select` inside a `sbb-form-field`:
+### States
+
+It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component 
+has a `required` property, which can be useful for setting a custom `<sbb-form-error>` message within a `<sbb-form-field>`.
 
 ```html
 <sbb-form-field label="Pick one:">
@@ -67,6 +63,12 @@ Required `sbb-select` inside a `sbb-form-field`:
   <sbb-form-error>You must pick one!</sbb-form-error>
 </sbb-form-field>
 ```
+
+### Events
+
+Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
+the current value can be read from `event.target.value`. 
+Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
 
 ### Keyboard interaction
 

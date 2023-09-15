@@ -1,4 +1,4 @@
-The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox">` enhanced with the SBB Design.
+The `sbb-checkbox` component provides the same functionality as a native `<input type="checkbox">` enhanced with the SBB Design.
 
 ### Slots
 
@@ -36,12 +36,16 @@ The component can be displayed in disabled or required state by using the self-n
 ```html
 <sbb-checkbox value="required-checkbox" required="true">Required</sbb-checkbox>
 
-<sbb-checkbox value="disabled-checkbox" Disabled="true">Disabled</sbb-checkbox>
+<sbb-checkbox value="disabled-checkbox" disabled="true">Disabled</sbb-checkbox>
 ```
 
-### Size
+### Style
 
 The component has two `size`, named `s` (default) and `m`. 
+
+```html
+<sbb-checkbox value="size" size='m'>Size</sbb-checkbox>
+```
 
 ### Events
 

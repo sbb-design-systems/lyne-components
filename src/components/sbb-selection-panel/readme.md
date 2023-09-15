@@ -1,10 +1,12 @@
 The `sbb-selection-panel` component wraps either a `sbb-checkbox` or a `sbb-radio-button` that can optionally toggle a content section.
 
-The content section can be opened by checking the checkbox or if radio is selected. Additionally, clicking on all the upper area sets the checked state and therefore open the content; clicking on the content area does not toggle anything.
+The content section can be opened by checking `sbb-checkbox` or selecting the `sbb-radio-button`. 
+Additionally, clicking on all the upper area sets the checked state and therefore opens the content; 
+clicking on the content area does not toggle anything.
 
 The selection panel can also be used inside a `sbb-radio-button-group` or a `sbb-checkbox-group`.
 
-#### With radio button group
+#### With `sbb-radio-button-group`
 
 ```html
 <sbb-radio-button-group>
@@ -30,7 +32,7 @@ The selection panel can also be used inside a `sbb-radio-button-group` or a `sbb
 </sbb-radio-button-group>
 ```
 
-#### With checkbox group
+#### With `sbb-checkbox-group`
 
 ```html
 <sbb-checkbox-group>
@@ -57,6 +59,24 @@ The selection panel can also be used inside a `sbb-radio-button-group` or a `sbb
 ```
 
 As shown in the examples above, `sbb-checkbox` and `sbb-radio-button` placed in a `sbb-selection-panel` are extended with a slot named "subtext" for the subtext and a slot named "suffix" for the suffix items.
+
+### Style
+
+The component has two background options that can be set using the `color` variable: `milk` and `white`.
+
+```html
+<sbb-selection-panel color='milk'>
+  ...
+</sbb-selection-panel>
+```
+
+It's also possible to display the `sbb-selection-panel` without border by setting the `borderless` variable to `true`.
+
+```html
+<sbb-selection-panel borderless>
+  ...
+</sbb-selection-panel>
+```
 
 <!-- Auto Generated Below -->
 

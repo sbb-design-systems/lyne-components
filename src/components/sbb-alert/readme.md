@@ -1,6 +1,5 @@
 The `sbb-alert` component should be used to display important messages to a client. 
 
-
 ### Slots
 
 The text content is projected using and unnamed slot, while the title uses the slot named `title` or alternatively the `titleContent` property. 
@@ -28,18 +27,6 @@ Usage with slots:
 </sbb-alert>
 ```
 
-
-### Size
-
-Users can choose between two `size`, `m` (default) and `l`.
-
-```html
-<sbb-alert size='l'>
-  ...
-</sbb-alert>
-```
-
-
 ### Action
 
 It's possible to place an action, which by clicking navigates somewhere to display more information. 
@@ -51,7 +38,6 @@ The `target` and `rel` property are also configurable via the self-named propert
   ...
 </sbb-alert>
 ```
-
 
 ### Dismiss
 
@@ -68,6 +54,15 @@ See also the `sbb-alert-group` which automatically removes an alert after clicki
 </sbb-alert>
 ```
 
+### Style
+
+Users can choose between two `size`, `m` (default) and `l`.
+
+```html
+<sbb-alert size='l'>
+  ...
+</sbb-alert>
+```
 
 ### Accessibility
 

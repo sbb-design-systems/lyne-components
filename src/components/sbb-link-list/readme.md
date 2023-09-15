@@ -1,6 +1,20 @@
 The `<sbb-link-list>` is a component that can be used to collect more `sbb-link`s; 
 it will automatically set variant `block` on nested `sbb-link` instances, 
-and it will sync the `textSize` and `negative` property.
+and it will sync the `size` and `negative` property.
+
+```html
+<sbb-link-list>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
+  ...
+</sbb-link-list>
+
+<sbb-link-list size='s' negative>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
+  ...
+</sbb-link-list>
+```
 
 ### Title
 
@@ -10,8 +24,6 @@ The title is projected using the `title` slot or, alternatively, the `titleConte
 
 ```html
 <sbb-link-list title-content="Help &amp; Contact">
-  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
-  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
   ...
 </sbb-link-list>
 ```

@@ -24,17 +24,6 @@ The visibility of the content is controlled by the value of the `expanded` prope
 </sbb-expansion-panel>
 ```
 
-### Color
-
-The component has two background options that can be set using the `color` variable.
-
-```html
-<sbb-expansion-panel color='milk'>
-  <sbb-expansion-panel-header>This is the header.</sbb-expansion-panel-header>
-  <sbb-expansion-panel-content>This is the content.</sbb-expansion-panel-content>
-</sbb-expansion-panel>
-```
-
 ### Disabled
 
 The `disabled` state can be set using the self-named variable. In this state, the component can not be collapsed or expanded.
@@ -46,7 +35,16 @@ The `disabled` state can be set using the self-named variable. In this state, th
 </sbb-expansion-panel>
 ```
 
-### Borderless
+### Style
+
+The component has two background options that can be set using the `color` variable: `milk` and `white`..
+
+```html
+<sbb-expansion-panel color='milk'>
+  <sbb-expansion-panel-header>This is the header.</sbb-expansion-panel-header>
+  <sbb-expansion-panel-content>This is the content.</sbb-expansion-panel-content>
+</sbb-expansion-panel>
+```
 
 It's also possible to display the `sbb-expansion-panel` without border by setting the `borderless` variable to `true`. 
 

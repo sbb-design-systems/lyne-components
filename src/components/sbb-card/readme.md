@@ -1,6 +1,6 @@
 The `sbb-card` component is a generic content container; its task is to contain content related to a single subject. 
 
-### Size
+### Style
 
 It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`); 
 the choice mainly affect the content's padding (default is `m`). 
@@ -14,8 +14,6 @@ the choice mainly affect the content's padding (default is `m`).
 <sbb-card size="xxl">Card content</sbb-card>
 <sbb-card size="xxxl">Card content</sbb-card>
 ```
-
-### Color
 
 The component has four different values to choose from for the `color` property; default is `white`.
 

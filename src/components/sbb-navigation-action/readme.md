@@ -13,7 +13,7 @@ depending on the value of the `href` property, so the associated properties are 
 <sbb-navigation-action type='button' value='menu' name='menu'>Button</sbb-navigation-action>
 ```
 
-### Size
+### Style
 
 The component has three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
 

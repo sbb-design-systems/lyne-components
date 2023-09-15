@@ -1,12 +1,25 @@
 The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
 
-### Connections
+It's possible to set the panel `origin` and the input `trigger` passing an id or an element reference.
+
+```html
+<!-- Origin element -->
+<div id="autocomplete-origin">Another origin</div>
+
+<!-- Trigger element -->
+<input id="autocomplete-txt" placeholder="Another trigger element" />
+
+<sbb-autocomplete origin="autocomplete-origin" trigger="autocomplete-txt">
+  <sbb-option value="Option A">Option A</sbb-option>
+  <sbb-option value="Option B">Option B</sbb-option>
+  <sbb-option value="Option C">Option C</sbb-option>
+</sbb-autocomplete>
+```
+
+### In `sbb-form-field`
 
 If the component is used within a `sbb-form-field`, it will automatically connect to the native `input` as trigger
-and will display the option panel above or below the `sbb-form-field`; otherwise, it's possible to set 
-the panel `origin` and the input `trigger` passing an id or an element reference.
-
-In a form field:
+and will display the option panel above or below the `sbb-form-field`.
 
 ```html
 <!-- Origin element -->
@@ -21,22 +34,6 @@ In a form field:
     <sbb-option icon-name="clock-small" value="Option 3"> Option 3 </sbb-option>
   </sbb-autocomplete>
 </sbb-form-field>
-```
-
-Standalone, by setting the `origin` and `trigger` properties:
-
-```html
-<!-- Origin element -->
-<div id="autocomplete-origin">Another origin</div>
-
-<!-- Trigger element -->
-<input id="autocomplete-txt" placeholder="Another trigger element" />
-
-<sbb-autocomplete origin="autocomplete-origin" trigger="autocomplete-txt">
-  <sbb-option value="Option A">Option A</sbb-option>
-  <sbb-option value="Option B">Option B</sbb-option>
-  <sbb-option value="Option C">Option C</sbb-option>
-</sbb-autocomplete>
 ```
 
 ### Option highlight
