@@ -928,7 +928,7 @@ export class SbbCalendar implements ComponentInterface {
         </div>
         <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
           {this._createMonthTable(this._months, this._chosenYear)}
-          {this._wide && this._createMonthTable(this._months, this._chosenYear + 1)}
+          {this._wide && this._createMonthTable(this._months, this._chosenYear + 1, true)}
         </div>
       </Fragment>
     );
@@ -957,7 +957,7 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year: number): JSX.Element {
+  private _createMonthTable(months: Month[][], year: number, shiftRight = false): JSX.Element {
     return (
       <table class="sbb-calendar__table" onAnimationEnd={(e) => this._tableAnimationEnd(e)}>
         {this._wide && (
@@ -1003,7 +1003,7 @@ export class SbbCalendar implements ComponentInterface {
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       }}
-                      onClick={() => this._onMonthSelection(month.monthValue, year)}
+                      onClick={() => this._onMonthSelection(month.monthValue, year, shiftRight)}
                       disabled={isOutOfRange || isFilteredOut}
                       aria-label={`${month.longValue} ${this._chosenYear}`}
                       aria-pressed={String(selected)}
@@ -1024,8 +1024,8 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Select the month and change the view to day selection. */
-  private _onMonthSelection(month: number, year: number): void {
-    this._chosenMonth = month;
+  private _onMonthSelection(month: number, year: number, shiftRight: boolean): void {
+    this._chosenMonth = shiftRight ? month - 1 : month;
     this._assignActiveDate(new Date(year, this._chosenMonth, this._activeDate.getDate()));
     this._init();
     this._resetFocus = true;
@@ -1054,7 +1054,7 @@ export class SbbCalendar implements ComponentInterface {
         </div>
         <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
           {this._createYearTable(this._years)}
-          {this._wide && this._createYearTable(this._nextMonthYears)}
+          {this._wide && this._createYearTable(this._nextMonthYears, true)}
         </div>
       </Fragment>
     );
@@ -1108,56 +1108,53 @@ export class SbbCalendar implements ComponentInterface {
   }
 
   /** Creates the table for the year selection view. */
-  private _createYearTable(years: number[][]): JSX.Element {
+  private _createYearTable(years: number[][], shiftRight = false): JSX.Element {
     return (
       <table class="sbb-calendar__table" onAnimationEnd={(e) => this._tableAnimationEnd(e)}>
-        <tbody class="sbb-calendar__table-body">{this._createYearTableBody(years)}</tbody>
+        <tbody class="sbb-calendar__table-body">
+          {years.map((row: number[]) => (
+            <tr>
+              {row.map((year: number) => {
+                const isOutOfRange = !this._isYearInRange(year);
+                const isFilteredOut = !this._isYearFilteredOut(year);
+                const selectedYear = this._selected
+                  ? this._dateAdapter.getYear(new Date(this._selected))
+                  : undefined;
+                const selected: boolean = !!this._selected && year === selectedYear;
+                const isCurrentYear = this._dateAdapter.getYear(this._now()) === year;
+                return (
+                  <td class="sbb-calendar__table-data sbb-calendar__table-year">
+                    <button
+                      class={{
+                        'sbb-calendar__cell': true,
+                        'sbb-calendar__pill': true,
+                        'sbb-calendar__cell-current': isCurrentYear,
+                        'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
+                        'sbb-calendar__selected': selected,
+                      }}
+                      onClick={() => this._onYearSelection(year, shiftRight)}
+                      disabled={isOutOfRange || isFilteredOut}
+                      aria-label={year}
+                      aria-pressed={String(selected)}
+                      aria-disabled={String(isOutOfRange || isFilteredOut)}
+                      tabindex="-1"
+                      onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                    >
+                      {year}
+                    </button>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
       </table>
     );
   }
 
-  /** Creates the table cells for the year selection view. */
-  private _createYearTableBody(years: number[][]): JSX.Element {
-    return years.map((row: number[]) => (
-      <tr>
-        {row.map((year: number) => {
-          const isOutOfRange = !this._isYearInRange(year);
-          const isFilteredOut = !this._isYearFilteredOut(year);
-          const selectedYear = this._selected
-            ? this._dateAdapter.getYear(new Date(this._selected))
-            : undefined;
-          const selected: boolean = !!this._selected && year === selectedYear;
-          const isCurrentYear = this._dateAdapter.getYear(this._now()) === year;
-          return (
-            <td class="sbb-calendar__table-data sbb-calendar__table-year">
-              <button
-                class={{
-                  'sbb-calendar__cell': true,
-                  'sbb-calendar__pill': true,
-                  'sbb-calendar__cell-current': isCurrentYear,
-                  'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
-                  'sbb-calendar__selected': selected,
-                }}
-                onClick={() => this._onYearSelection(year)}
-                disabled={isOutOfRange || isFilteredOut}
-                aria-label={year}
-                aria-pressed={String(selected)}
-                aria-disabled={String(isOutOfRange || isFilteredOut)}
-                tabindex="-1"
-                onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
-              >
-                {year}
-              </button>
-            </td>
-          );
-        })}
-      </tr>
-    ));
-  }
-
   /** Select the year and change the view to month selection. */
-  private _onYearSelection(year: number): void {
-    this._chosenYear = year;
+  private _onYearSelection(year: number, rightSide: boolean): void {
+    this._chosenYear = rightSide ? year - 1 : year;
     this._assignActiveDate(
       new Date(this._chosenYear, this._activeDate.getMonth(), this._activeDate.getDate()),
     );
