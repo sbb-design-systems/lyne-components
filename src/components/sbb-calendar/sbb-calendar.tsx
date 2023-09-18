@@ -546,7 +546,9 @@ export class SbbCalendar implements ComponentInterface {
         `[data-day="${active.getDate()} ${
           this._activeDate.getMonth() + 1
         } ${this._activeDate.getFullYear()}"]`,
-      );
+      ) ??
+      this._element.shadowRoot.querySelector(`[data-month="${this._activeDate.getMonth()}"]`) ??
+      this._element.shadowRoot.querySelector(`[data-year="${this._activeDate.getFullYear()}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable = this._element.shadowRoot.querySelector(
         '.sbb-calendar__cell:not([disabled])',
@@ -1009,6 +1011,7 @@ export class SbbCalendar implements ComponentInterface {
                       aria-pressed={String(selected)}
                       aria-disabled={String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
+                      data-month={month.monthValue}
                       onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
                       {month.value}
@@ -1138,6 +1141,7 @@ export class SbbCalendar implements ComponentInterface {
                       aria-pressed={String(selected)}
                       aria-disabled={String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
+                      data-year={year}
                       onKeyDown={(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                     >
                       {year}
