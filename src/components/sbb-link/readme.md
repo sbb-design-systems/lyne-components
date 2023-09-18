@@ -2,7 +2,7 @@ The `<sbb-link>` is a component which mimics the native `<a>` tag.
 
 ### Slots
 
-The link text is provided via an unnamed slot; the component can optionally display a `<sbb-icon>` using 
+The link text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using 
 the `iconName` property or via custom content using the `icon` slot. 
 By default, the icon is placed at the component's end, but this can be changed using the `iconPlacement` property.
 

@@ -2,7 +2,7 @@ The component represents an action element contained by the [sbb-menu](../sbb-me
 
 ### Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
+It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html

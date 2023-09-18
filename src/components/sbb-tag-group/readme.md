@@ -1,51 +1,40 @@
-The `<sbb-tag-group>` component is used as a container for one or multiple `<sbb-tag>` components,
+The `sbb-tag-group` component is used as a container for one or multiple `sbb-tag` components,
 which are projected inside the unnamed slot.
 
-To work properly, it's mandatory to provide a value to each `<sbb-tag>`.
+To work properly, it's mandatory to provide a value to each `sbb-tag`. See its documentation for more details.
+
+```html
+<sbb-tag-group>
+  <sbb-tag value="all">All</sbb-tag>
+  <sbb-tag value="phones">Phones</sbb-tag>
+  <sbb-tag value="computer">Computer</sbb-tag>
+  <sbb-tag value="laptop">Laptop</sbb-tag>
+</sbb-tag-group>
+```
 
 ## Exclusive selection vs. multiple selection
-By default, `<sbb-tag-group>` acts like a radio-button group: only one item can be selected. 
-In this mode, the value of the `<sbb-tag-group>` will reflect the value of the selected `<sbb-tag>`.
+
+By default, `sbb-tag-group` acts like a radio-button group: only one item can be selected. 
+In this mode, the value of the `sbb-tag-group` will reflect the value of the selected `sbb-tag`.
 
 Setting `multiple` property to `true` allows multiple items to be selected (checkbox behavior).
-In this mode the value of the `<sbb-tag-group>` is an array containing all values of the selected `<sbb-tag>` items.
+In this mode the value of the `sbb-tag-group` is an array containing all values of the selected `sbb-tag` items.
 
-## Changing multiple property during run time
+```html
+<sbb-tag-group multiple>
+  <sbb-tag value="all">All</sbb-tag>
+  <sbb-tag value="phones" checked>Phones</sbb-tag>
+  <sbb-tag value="computer" checked>Computer</sbb-tag>
+  <sbb-tag value="laptop">Laptop</sbb-tag>
+</sbb-tag-group>
+```
 
-There is no support for changing multiple mode during run time (e.g. update value automatically).
+### Changing multiple property during run time
+
+There is no support for changing multiple mode during run time (e.g., update value automatically).
 So this flag should be provided at component's instantiation time.
 
-## Accessibility
-
-The property `listAccessibilityLabel` is forwarded as `aria-label` to the inner list that the component uses to display the tags, to use the implicit role="list" of the `<ul>`.
-In case the `listAccessibilityLabel` property is not defined, the `<sbb-tag-group>` surrounding the buttons applies role="group" to convey the association between the individual `<sbb-tag>`s. When using the role="group", each `<sbb-tag-group>` element should be given a label with aria-label or aria-labelledby that communicates the collective meaning of all `<sbb-tag>`s.
-For example, if you have toggles for "Bold", "Italic", and "Underline", you might label the parent group "Font styles".
-
-## Usage
-
-Basic usage exclusive:
-
-```html
-<sbb-tag-group aria-label="Select your desired device to filter it">
-  <sbb-tag value="all" checked>All</sbb-tag>
-  <sbb-tag value="phones" disabled>Phones</sbb-tag>
-  <sbb-tag value="computer">Computer</sbb-tag>
-  <sbb-tag value="laptop">Laptop</sbb-tag>
-</sbb-tag-group>
-```
-
-Basic usage multiple:
-
-```html
-<sbb-tag-group aria-label="Select your desired device to filter it" multiple>
-  <sbb-tag value="all" checked>All</sbb-tag>
-  <sbb-tag value="phones" disabled>Phones</sbb-tag>
-  <sbb-tag value="computer">Computer</sbb-tag>
-  <sbb-tag value="laptop">Laptop</sbb-tag>
-</sbb-tag-group>
-```
-
-Advanced usage multiple and exclusive mixed:
+### Advanced usage: multiple and exclusive mixed
 
 ```ts
 const uncheckAllTag = () => {
@@ -63,11 +52,31 @@ const uncheckTags = () => {
 ```html
 <sbb-tag-group aria-label="Select your desired device to filter it" multiple>
   <sbb-tag id="all" onChange={() => uncheckTags()} value="All" checked>
-  All
+    All
   </sbb-tag>
   <sbb-tag value="phones" onChange={() => uncheckAllTag()}>Phones</sbb-tag>
   <sbb-tag value="computer" onChange={() => uncheckAllTag()}>Computer</sbb-tag>
   <sbb-tag value="laptop" onChange={() => uncheckAllTag()}>Laptop</sbb-tag>
+</sbb-tag-group>
+```
+
+## Accessibility
+
+The property `listAccessibilityLabel` is forwarded as `aria-label` to the inner list that the component uses to display the tags,
+to use the implicit `role="list"` of the `ul`.
+
+If the `listAccessibilityLabel` property is not defined, the `sbb-tag-group` surrounding the buttons 
+applies `role="group"` to convey the association between the individual `sbb-tag`s. 
+
+When using the `role="group"`, each `sbb-tag-group` element should be given a label with `aria-label` or `aria-labelledby`,
+that communicates the collective meaning of all `sbb-tag`s.
+
+```html
+<sbb-tag-group aria-label="Select your desired font styles to filter it">
+  <sbb-tag value="all" checked>All</sbb-tag>
+  <sbb-tag value="phones" >Bold</sbb-tag>
+  <sbb-tag value="computer">Italic</sbb-tag>
+  <sbb-tag value="laptop">Underline</sbb-tag>
 </sbb-tag-group>
 ```
 

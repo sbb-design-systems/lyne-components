@@ -2,7 +2,7 @@ The `sbb-option` is a component which can be used to display items in components
 
 ### Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
+It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 Icon space can be reserved even if the `iconName` property is not set by overriding the `--sbb-option-icon-container-display` variable.
 

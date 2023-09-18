@@ -2,7 +2,7 @@ The `sbb-checkbox` component provides the same functionality as a native `<input
 
 ### Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>` using
+It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon` using
 the `iconName` property or via custom SVG using the `icon` slot.
 The icon can be placed before or after the label based on the value of the `iconPlacement` property (default: end).
 

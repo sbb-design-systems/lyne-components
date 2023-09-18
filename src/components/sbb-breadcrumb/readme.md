@@ -3,7 +3,7 @@ it can display the list of the links the user visited to arrive at the current p
 
 ### Slots
 
-It is possible to provide a text via an unnamed slot; the component can optionally display a `<sbb-icon>`
+It is possible to provide a text via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 Text and icon are not exclusive and can be used together.
 

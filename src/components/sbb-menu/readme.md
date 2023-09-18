@@ -53,7 +53,7 @@ using `<ul>` and `<li>` items, for more complex scenarios the grouping must be d
 
 The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-menu-z-index`.
 
-### Accessibility
+## Accessibility
 
 As the menu opens, the focus will automatically be set to the first focusable item within the component.
 When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute 

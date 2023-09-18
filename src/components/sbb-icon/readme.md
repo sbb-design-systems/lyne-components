@@ -14,7 +14,7 @@ The example below shows how to render an icon named `app-icon-medium` that point
 <sbb-icon name="app-icon-medium"></sbb-icon>
 ```
 
-### Accessibility
+## Accessibility
 
 Similar to an `<img>` element, an icon alone does not convey any useful information for a
 screen-reader user. The user of `sbb-icon` must provide additional information pertaining to how

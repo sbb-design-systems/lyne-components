@@ -26,7 +26,7 @@ The component also has two sizes, named `m` (default) and `l`, and a `negative` 
 <sbb-journey-header origin="Point A" destination="Point B" negative/>
 ```
 
-### Accessibility
+## Accessibility
 
 The component has some hidden elements in order to be correctly read from a screen-reader.
 

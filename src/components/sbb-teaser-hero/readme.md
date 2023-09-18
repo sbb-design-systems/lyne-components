@@ -1,30 +1,29 @@
-The hero teaser should be an eye-catcher and should have an emotional effect on the user with its large image component. 
+The `sbb-teaser-hero` is a component with a background image and an action call within a panel;
+it should be an eye-catcher and should have an emotional effect on the user with its large image component.
 
-The `sbb-teaser-hero` is a link with a description, an action call and a background image.
-You can either use slots or props to render the `sbb-teaser-hero` component.
+### Slots
 
-## Accessibility
-
-The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
-Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have negative effects on screen readers.
-
-## Usage with props
+It is possible to provide the panel label via an unnamed slot, 
+while the link text can be provided using the `link-content` slot or the `linkContent` property;
+similarly, the background image can be provided using the `image` slot or the `imageSrc` property.
 
 ```html
 <sbb-teaser-hero href="https://www.sbb.ch" link-content="Find out more" image-src="https://path-to-source" image-alt="SBB CFF FFS Employee">
   Break out and explore castles and palaces.
 </sbb-teaser-hero>
-```
 
-## Usage with slots
-
-```html
 <sbb-teaser-hero href="https://www.sbb.ch">
   Break out and explore castles and palaces.
   <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"/>
   <span slot="link-content">Find out more</span>
 </sbb-teaser-hero>
 ```
+
+## Accessibility
+
+The description text is wrapped into an `p` element to guarantee the semantic meaning.
+
+Avoid slotting block elements (e.g. `div`) as this violates semantic rules and can have negative effects on screen readers.
 
 <!-- Auto Generated Below -->
 

@@ -4,7 +4,7 @@ as a formatted date (dd.MM.yyyy).
 The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, ` `, `,` or `/`, 
 then automatically formats the value as date and displays it. It also exposes methods to get/set the value formatted as Date.
 
-The component and the native input can be connected using the `input` property, 
+The component and the native `input` can be connected using the `input` property, 
 which accepts the id of the native input, or directly its reference.
 
 ```html
@@ -91,7 +91,7 @@ For custom `format` functions is recommended to use the `Intl.DateTimeFormat` AP
 
 ## Validation Change
 
-Whenever the validation state changes (e.g. a valid value becomes invalid or vice versa), the `validationChange` event is emitted.
+Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
 
 ## Testing
 

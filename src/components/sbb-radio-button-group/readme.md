@@ -63,7 +63,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 Consumers can listen to the native `change`/`input` event on the `sbb-radio-button-group` component 
 to intercept the selection's change; the current value can be read from `event.detail.value`.
 
-### Accessibility
+## Accessibility
 
 In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
 

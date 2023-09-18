@@ -1635,9 +1635,6 @@ export namespace Components {
          */
         "value": string | string[] | null;
     }
-    /**
-     * Generalized Teaser - for displaying an image, title and paragraph
-     */
     interface SbbTeaser {
         /**
           * The href value you want to link to.
@@ -2591,9 +2588,6 @@ declare global {
         prototype: HTMLSbbTagGroupElement;
         new (): HTMLSbbTagGroupElement;
     };
-    /**
-     * Generalized Teaser - for displaying an image, title and paragraph
-     */
     interface HTMLSbbTeaserElement extends Components.SbbTeaser, HTMLStencilElement {
     }
     var HTMLSbbTeaserElement: {
@@ -4503,9 +4497,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | string[] | null;
     }
-    /**
-     * Generalized Teaser - for displaying an image, title and paragraph
-     */
     interface SbbTeaser {
         /**
           * The href value you want to link to.
@@ -5141,9 +5132,6 @@ declare module "@stencil/core" {
             "sbb-tab-title": LocalJSX.SbbTabTitle & JSXBase.HTMLAttributes<HTMLSbbTabTitleElement>;
             "sbb-tag": LocalJSX.SbbTag & JSXBase.HTMLAttributes<HTMLSbbTagElement>;
             "sbb-tag-group": LocalJSX.SbbTagGroup & JSXBase.HTMLAttributes<HTMLSbbTagGroupElement>;
-            /**
-             * Generalized Teaser - for displaying an image, title and paragraph
-             */
             "sbb-teaser": LocalJSX.SbbTeaser & JSXBase.HTMLAttributes<HTMLSbbTeaserElement>;
             "sbb-teaser-hero": LocalJSX.SbbTeaserHero & JSXBase.HTMLAttributes<HTMLSbbTeaserHeroElement>;
             "sbb-time-input": LocalJSX.SbbTimeInput & JSXBase.HTMLAttributes<HTMLSbbTimeInputElement>;

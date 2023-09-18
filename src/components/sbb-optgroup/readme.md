@@ -14,7 +14,7 @@ the component has also a `label` property as name of the group.
 </sbb-optgroup>
 ```
 
-### State
+### States
 
 The component has a `disabled` property which, if set to `true`, sets all the `sbb-option` in the group as disabled.
 

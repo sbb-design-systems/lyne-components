@@ -3,7 +3,7 @@ The `sbb-alert` component should be used to display important messages to a clie
 ### Slots
 
 The text content is projected using and unnamed slot, while the title uses the slot named `title` or alternatively the `titleContent` property. 
-The component can optionally display a `<sbb-icon>` at the component start using the `iconName` property or via custom content using the `icon` slot.
+The component can optionally display a `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 Basic usage: 
 
@@ -64,7 +64,7 @@ Users can choose between two `size`, `m` (default) and `l`.
 </sbb-alert>
 ```
 
-### Accessibility
+## Accessibility
 
 Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning. 

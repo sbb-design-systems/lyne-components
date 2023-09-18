@@ -47,7 +47,7 @@ The tooltip automatically calculates where it should place itself, based on avai
 - When an element needs more context or explanation.
 - When defining a term or inline item.
 
-### Accessibility
+## Accessibility
 
 In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below. If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it, since the `aria-describedby` attribute can be used with semantic HTML elements and with elements that have an ARIA `role`.
 

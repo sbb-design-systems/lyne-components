@@ -32,7 +32,8 @@ The examples below shows how to use the component with the `<sbb-icon>` and cust
 </sbb-tooltip>
 ```
 
-### Accessibility
+## Accessibility
+
 In order to make screen readers announce the type of the trigger when is focused, use the `aria-label` attribute, as shown below:
 
 ```html
