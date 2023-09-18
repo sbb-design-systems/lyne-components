@@ -1,30 +1,44 @@
-The `sbb-tooltip` component is useful for displaying additional information on mouse hover or click of a trigger element. The information included should be contextual, useful, and provide additional communication and clarity to the user.
+The `sbb-tooltip` component can be useful for displaying additional information on mouse hover or click of a trigger element. 
+The information included should be contextual, useful, and provide additional communication and clarity to the user.
 
-## Usage
-
-The tooltip can show a simple message and a close button (if the `hover-trigger` property is configured, the close button is hidden), any content is allowed (including HTML elements):
+The component must be connected with the trigger element using the `trigger` property,
+which accepts the id of the element, or directly its reference;
+the `sbb-tooltip-trigger` is meant to be used as trigger.
 
 ```html
-<!-- Trigger element -->
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
-<!-- Tooltip component with custom content and a link -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger">
+  <p id="tooltip-content">Tooltip content.</p>
+</sbb-tooltip>
+```
+
+The `sbb-tooltip` can be dismissed by clicking on an interactive element within its content, 
+by clicking on the close button or by performing another action on the page.
+You can also indicate that an element within the tooltip content should close the `sbb-tooltip` when clicked 
+by marking it with the `sbb-tooltip-close` attribute; 
+it's also possible to hide the default close button using the `hideCloseButton` property.
+
+```html
+<sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
+
+<sbb-tooltip id="tooltip" trigger="tooltip-trigger" hide-close-button>
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline" sbb-tooltip-close>Link</sbb-link>
   </p>
 </sbb-tooltip>
 ```
 
-The tooltip can be dismissed by clicking on an interactive element within its content, by clicking on the close button or by performing another action on the page. You can also indicate that an element within the tooltip content should close the tooltip when clicked by marking it with the `sbb-tooltip-close` attribute.
-
-You can also indicate that the tooltip should be shown on hover with the property `hover-trigger` and set a custom delay for the open and close animations (defaults to 0). If hover is not supported by the current device, the component will be triggered on click/tap as default:
+You can also indicate that the `sbb-tooltip` should be shown on hover with the property `hoverTrigger`
+and set a custom delay for the open and close animations (defaults to 0). 
+In this case, the default close button is hidden.
+If hover is not supported by the current device, the component will be triggered on click/tap as default.
+The `sbb-tooltip` will automatically disappear after the hiding delay 
+if neither the trigger element nor the tooltip are on hover or if another action is performed on the page.
 
 ```html
-<!-- Trigger element -->
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>
 
-<!-- Tooltip component with `hover-trigger` property -->
 <sbb-tooltip id="tooltip" trigger="tooltip-trigger" hover-trigger open-delay="500" close-delay="750">
   <p id="tooltip-content">
     Tooltip content. <sbb-link id="tooltip-link" variant="inline">Link</sbb-link>
@@ -32,24 +46,26 @@ You can also indicate that the tooltip should be shown on hover with the propert
 </sbb-tooltip>
 ```
 
-The tooltip will automatically disappear after the hiding delay if neither the trigger element nor the tooltip are on hover or if another action is performed on the page.
+### Style
 
-The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-tooltip-z-index`. 
-
-### Placement
-
-The tooltip automatically calculates where it should place itself, based on available space. Default is below and center.
+The `sbb-tooltip` automatically calculates where it should place itself, based on available space. Default is below and center.
+The default `z-index` of the component is set to `1000`;
+to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-tooltip-z-index`.
 
 ### When to use
 
 - Describe icons and buttons.
-- When more information is useful to help a user making decisions.
+- When more information is useful to help a user make decisions.
 - When an element needs more context or explanation.
 - When defining a term or inline item.
 
 ## Accessibility
 
-In order to make screen readers announce the tooltip content when the trigger is focused, associate the tooltip trigger with the tooltip via `aria-describedby` and `id` as shown below. If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it, since the `aria-describedby` attribute can be used with semantic HTML elements and with elements that have an ARIA `role`.
+To make screen-readers announce the tooltip content when the trigger is focused, 
+associate the trigger with the `sbb-tooltip` via `aria-describedby` and `id` as shown below. 
+If the tooltip trigger is a `sbb-tooltip-trigger` component, set `role="button"` on it, 
+since the `aria-describedby` attribute can be used with semantic HTML elements and with elements 
+that have an ARIA `role`.
 
 ```html
 <!-- Trigger element -->

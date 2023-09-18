@@ -1,10 +1,33 @@
-The component renders a title according to the provided `level`.
-Internally this is represented by the heading elements: h1, h2, h3, h4, h5 and h6.
-In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
-it is possible to use the `visual-level`.
+The `sbb-title` is a component which renders an heading element according to the provided `level` (default: `1`).
 
-As a default the `<sbb-title>` contains spacing on top and bottom on the host. This can be removed or customized
-via simple CSS rules.
+```html
+<sbb-title>Hello</sbb-title>
+```
+
+In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
+it is possible to use the `visualLevel` property.
+The available values for both `level` and `visualLevel` are the numbers from 1 to 6 (`h1` to `h6`).
+
+```html
+<sbb-title title='3' visual-level='4'>Hi!</sbb-title>
+```
+
+If the title is needed, but it must to not be displayed, it's possible to use the `visuallyHidden` property to hide it.
+
+```html
+<sbb-title visually-hidden>Screen-reader only.</sbb-title>
+```
+
+### Style
+
+As a default the `sbb-title` contains spacing on top and bottom on the host. 
+This can be removed or customized via simple CSS rules.
+
+The component has a `negative` variant which can be set with the self-named property.
+
+```html
+<sbb-title negative>Negative</sbb-title>
+```
 
 <!-- Auto Generated Below -->
 

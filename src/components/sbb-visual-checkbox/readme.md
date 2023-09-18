@@ -1,6 +1,8 @@
 The `sbb-visual-checkbox` is an 'internal-use-only' component used to display a non-interactive checkbox within an interactive component.
 It is used in the `sbb-checkbox` component, and in the `sbb-option` component when it's used within a multiple `sbb-select`.
 
+### States
+
 It has four different states related to the properties `checked`, `indeterminate` and `disabled`:
 - a default unchecked state: an empty square is shown;
 - a checked state (`checked` set to `true`): a tick appears in the square;

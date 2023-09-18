@@ -1870,7 +1870,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+          * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
          */
         "even": boolean;
         /**
@@ -4740,7 +4740,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
+          * If true, set the width of the component fixed; if false, the width is dynamic based on the label of the sbb-toggle-option.
          */
         "even"?: boolean;
         /**

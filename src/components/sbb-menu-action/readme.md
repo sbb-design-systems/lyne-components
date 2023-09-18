@@ -58,10 +58,10 @@ you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to you
 
 ## Slots
 
-| Slot        | Description                                                                  |
-| ----------- | ---------------------------------------------------------------------------- |
-| `"icon"`    | Use this slot to provide an icon. If `icon` is set, a sbb-icon will be used. |
-| `"unnamed"` | Use this slot to provide the menu action label.                              |
+| Slot        | Description                                                                       |
+| ----------- | --------------------------------------------------------------------------------- |
+| `"icon"`    | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
+| `"unnamed"` | Use this slot to provide the menu action label.                                   |
 
 
 ## Dependencies
