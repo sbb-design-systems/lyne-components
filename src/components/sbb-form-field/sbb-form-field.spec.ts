@@ -45,7 +45,7 @@ describe('sbb-form-field', () => {
   });
 
   // TODO: Enable once onSlotchange is fixed https://github.com/ionic-team/stencil/issues/3536
-  // eslint-disable-next-line jest/no-disabled-tests
+  // eslint-disable-next-line
   it.skip('renders slotted label', async () => {
     const { root } = await newSpecPage({
       components: [SbbFormField],

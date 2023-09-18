@@ -30,7 +30,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+      "extends": ["plugin:@typescript-eslint/recommended", "plugin:lit/recommended", "prettier"],
       "rules": {
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/explicit-function-return-type": ["warn", { "allowExpressions": true }],
@@ -89,14 +89,6 @@
     {
       "files": ["*.yaml", "*.yml"],
       "plugins": ["yaml"]
-    },
-    {
-      "files": ["*e2e.ts", "*spec.ts"],
-      "env": {
-        "jest/globals": true
-      },
-      "extends": ["plugin:jest/recommended"],
-      "plugins": ["jest"]
     },
     {
       "files": ["*.tsx", "*.jsx"],

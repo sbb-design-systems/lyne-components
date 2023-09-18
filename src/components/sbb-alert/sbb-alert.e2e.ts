@@ -14,7 +14,7 @@ describe('sbb-alert', () => {
   });
 
   // TODO: maybe fix some day. Test just doesn't work for unknown reason.
-  // eslint-disable-next-line jest/no-disabled-tests
+  // eslint-disable-next-line
   it.skip('should fire animation events', async () => {
     page = await newE2EPage();
 

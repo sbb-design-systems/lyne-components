@@ -586,7 +586,7 @@ async function migrate(component: string, debug = false) {
           .join(', ')} } from '${importName}';`,
       );
     });
-    newImport.push(`import Style from './${component}.scss';`);
+    newImport.push(`import Style from './${component}.scss?lit&inline';`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     mutator.insertAtEnd(
@@ -786,7 +786,7 @@ declare global {
         lastImport = node;
 
         // Replace '@storybook/html' => '@storybook/web-components'
-        if (node.moduleSpecifier.getText() === '@storybook/html') {
+        if (node.moduleSpecifier.getText().match('@storybook/html')) {
           mutator.replace(node.moduleSpecifier, '@storybook/web-components');
         }
       }
@@ -794,8 +794,7 @@ declare global {
 
     // Create an instance of the component
     const newImports: String[] = [];
-    newImports.push(`import { ${componentName} } from './${args.component}';`);
-    newImports.push(`const instance = new ${componentName}();`);
+    newImports.push(`import './${args.component}';`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
@@ -824,7 +823,6 @@ declare global {
     const newImports: String[] = [];
     newImports.push(`import { expect, fixture } from '@open-wc/testing';`);
     newImports.push(`import { html } from 'lit/static-html.js';`);
-    newImports.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
 
     // Migrate each 'it(...)'
@@ -873,7 +871,13 @@ declare global {
         templateSetup!,
         (n) => ts.isPropertyAssignment(n) && n.name.getText() === 'html',
       ) as ts.PropertyAssignment;
-      const template = templateAssignment.initializer.getText();
+      let template = templateAssignment.initializer.getText();
+
+      // Surrond the template with `
+      if (template.charAt(0) !== '`') {
+        template = `\`${template.substring(1, template.length - 1)}\``;
+      }
+
       mutator.replace(templateSetup!, `fixture(html${template});`);
     }
 
@@ -981,7 +985,6 @@ declare global {
       newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
     });
     newImport.push(`import { ${componentName} } from './${args.component}';`);
-    newImport.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     function migrateUnitTest(test: ts.CallExpression) {
