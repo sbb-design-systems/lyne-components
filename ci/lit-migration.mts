@@ -103,6 +103,12 @@ async function migrate(component: string, debug = false) {
 
   for (const [file, migration] of Array.from(migrations)) {
     const path = join(source, file);
+
+    if (!existsSync(path)) {
+      console.warn(`WARN: file ${file} not found`);
+      continue;
+    }
+
     const sourceFile = ts.createSourceFile(
       path.pathname,
       readFileSync(path, 'utf8'),
@@ -162,7 +168,7 @@ async function migrate(component: string, debug = false) {
     let renderMethod: ts.MethodDeclaration = undefined!;
     let jsxTemplates: ts.JsxElement[] = [];
     const newImports = new Map<string, string[]>()
-      .set('lit', ['html', 'LitElement', 'nothing', 'TemplateResult'])
+      .set('lit', ['CSSResult', 'html', 'LitElement', 'nothing', 'TemplateResult'])
       .set('lit/decorators.js', ['customElement']);
 
     iterate(sourceFile, (node) => {
@@ -260,12 +266,10 @@ async function migrate(component: string, debug = false) {
   }
   public set ${propertyName}(value: ${type}) {
     // TODO: Validate logic
-    const oldValue = this._${propertyName};
     this._${propertyName} = value;
     this.${newWatcherName}(${
       argAmount === 0 ? '' : `this._${propertyName}${argAmount === 1 ? '' : ', oldValue'}`
     });
-    this.requestUpdate('${propertyName}', oldValue);
   }
   private _${propertyName}: ${type} = ${property.initializer?.getText() ?? 'null'};`,
           );
@@ -309,7 +313,7 @@ async function migrate(component: string, debug = false) {
         pivot,
         `
 
-  public willUpdate(changedProperties: PropertyValues<this>): void {
+  protected override willUpdate(changedProperties: PropertyValues<this>): void {
     // TODO: Verify parity${propertyWatchers
       .map(
         (pw) => `
@@ -395,7 +399,16 @@ async function migrate(component: string, debug = false) {
         const eventName = eventArguments.eventName ?? toKebabCase(node.name.getText());
         eventNames.set(node.name.getText(), eventName);
         makePrivate(node);
-        mutator.insertAtEnd(node.type!, ` = new EventEmitter(this, events.${node.name.getText()})`);
+
+        const eventConfig = Object.keys(eventArguments)
+          .filter((k) => k !== 'eventName' && eventArguments[k])
+          .map((k) => `${k}: true`);
+        const eventConfigStr = eventConfig.length > 0 ? `, { ${eventConfig.join(', ')} }` : '';
+
+        mutator.insertAtEnd(
+          node.type!,
+          ` = new EventEmitter(this, events.${node.name.getText()}${eventConfigStr})`,
+        );
       }
 
       mutator.insertAt(
@@ -524,7 +537,7 @@ async function migrate(component: string, debug = false) {
       mutator.insertAtEnd(classDeclaration.name!, ` extends LitElement`);
       mutator.insertAt(
         classDeclaration.members[0].getFullStart(),
-        `\n  public static override styles = Style;\n`,
+        `\n  public static override styles: CSSResult = style;\n`,
       );
     }
 
@@ -586,7 +599,7 @@ async function migrate(component: string, debug = false) {
           .join(', ')} } from '${importName}';`,
       );
     });
-    newImport.push(`import Style from './${component}.scss';`);
+    newImport.push(`import style from './${component}.scss?lit&inline';`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     mutator.insertAtEnd(
@@ -613,6 +626,12 @@ declare global {
 
     function makePrivate(node: ts.PropertyDeclaration | ts.MethodDeclaration) {
       const publicKeyword = node.modifiers?.find((n) => n.kind === ts.SyntaxKind.PublicKeyword)!;
+
+      // Then is already private
+      if (!publicKeyword) {
+        return node.name.getText();
+      }
+
       mutator.replace(publicKeyword, 'private');
       const newName = `_${node.name.getText()}`;
       propertyRenames.set(`this.${node.name.getText()}`, `this.${newName}`);
@@ -722,7 +741,7 @@ declare global {
 
     function migrateJsxHost(host: ts.JsxOpeningElement) {
       const codeToAdd: string[] = [];
-      newImports.set('../../global/dom', ['setAttribute, setAttributes']);
+      newImports.set('../core/dom', ['setAttribute, setAttributes']);
 
       // Remove the <Host> tag
       mutator.remove(host);
@@ -761,7 +780,7 @@ declare global {
         }
 
         if (ts.isJsxSpreadAttribute(attr)) {
-          codeToAdd.push(`setAttributes(this, '${attr.expression.getText()}');`);
+          codeToAdd.push(`setAttributes(this, ${attr.expression.getText()});`);
         }
       }
 
@@ -770,7 +789,7 @@ declare global {
         (n) => ts.isReturnStatement(n) || ts.isVariableStatement(n),
       )!;
       if (codeToAdd.length > 0) {
-        codeToAdd.unshift('// ## Host attributes ##');
+        codeToAdd.unshift('// ## Migr: Host attributes ##');
         codeToAdd.push('// ####');
       }
       mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
@@ -786,16 +805,15 @@ declare global {
         lastImport = node;
 
         // Replace '@storybook/html' => '@storybook/web-components'
-        if (node.moduleSpecifier.getText() === '@storybook/html') {
-          mutator.replace(node.moduleSpecifier, '@storybook/web-components');
+        if (node.moduleSpecifier.getText().match('@storybook/html')) {
+          mutator.replace(node.moduleSpecifier, "'@storybook/web-components'");
         }
       }
     });
 
     // Create an instance of the component
     const newImports: String[] = [];
-    newImports.push(`import { ${componentName} } from './${args.component}';`);
-    newImports.push(`const instance = new ${componentName}();`);
+    newImports.push(`import './${args.component}';`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
   }
 
@@ -824,7 +842,6 @@ declare global {
     const newImports: String[] = [];
     newImports.push(`import { expect, fixture } from '@open-wc/testing';`);
     newImports.push(`import { html } from 'lit/static-html.js';`);
-    newImports.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImports.join('\n')}`);
 
     // Migrate each 'it(...)'
@@ -856,7 +873,7 @@ declare global {
           ts.isVariableStatement(n) &&
           !!deepFind(n, (m) => ts.isCallExpression(m) && m.expression.getText() === 'newSpecPage'),
       );
-      if (!setupStatement) throw new Error('Canno find setup statement');
+      if (!setupStatement) throw new Error('Cannot find setup statement');
 
       // variable declaration (es. 'const { root }' => 'const root')
       const varDeclaration = deepFind(setupStatement, (n) =>
@@ -873,44 +890,60 @@ declare global {
         templateSetup!,
         (n) => ts.isPropertyAssignment(n) && n.name.getText() === 'html',
       ) as ts.PropertyAssignment;
-      const template = templateAssignment.initializer.getText();
+      let template = templateAssignment.initializer.getText();
+
+      // Surrond the template with `
+      if (template.charAt(0) !== '`') {
+        template = `\`${template.substring(1, template.length - 1)}\``;
+      }
+
       mutator.replace(templateSetup!, `fixture(html${template});`);
     }
 
     function migrateSpecAssertion(node: ts.CallExpression) {
-      const assertion = deepFind(
-        node,
-        (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/),
-      ) as ts.CallExpression;
-      const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
-      const fullTemplate = assertion.arguments[0].getText();
+      const assertionsList: ts.CallExpression[] = [];
 
-      if (fullTemplate.match(/<mock:shadow-root>/g)!.length > 1) {
-        mutator.insertAt(assertion, '/** NOTE: this test has multiple shadow DOMs. You need to manually migrate it, sorry :/ \n'
-        + '  * You could extract 3 different assertions. One for the light DOM,' 
-        + '  * one for the shadow DOM of the first component and one for the sh. Dom of the second */ \n')
+      iterate(node, n => {
+        if (ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/)) {
+          assertionsList.push(n);
+        }
+      })
+
+      if (assertionsList.length === 0) {
         return;
       }
 
-      // Split the html template into shadow and light DOMs
-      const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
-      const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
-      const shadowStartIndex = shadowStart.index! + shadowStart?.[0].length!;
-      const shadowEndIndex = shadowEnd.index!;
-      const lightDomTemplate =
-        fullTemplate.substring(0, shadowStart.index!) +
-        fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
-      const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
+      for (const assertion of assertionsList) {
+        const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
+        const fullTemplate = assertion.arguments[0].getText();
 
-      mutator.remove(assertion);
-      mutator.insertAt(
-        assertion,
-        `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
-      );
-      mutator.insertAt(
-        assertion,
-        `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`);`,
-      );
+        if (fullTemplate.match(/<mock:shadow-root>/g)!.length > 1) {
+          mutator.insertAt(assertion, '/** NOTE: this test has multiple shadow DOMs. You need to manually migrate it, sorry :/ \n'
+          + '  * You could extract 3 different assertions. One for the light DOM,'
+          + '  * one for the shadow DOM of the first component and one for the sh. Dom of the second */ \n')
+          continue;
+        }
+
+        // Split the html template into shadow and light DOMs
+        const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
+        const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
+        const shadowStartIndex = shadowStart.index! + shadowStart?.[0].length!;
+        const shadowEndIndex = shadowEnd.index!;
+        const lightDomTemplate =
+          fullTemplate.substring(0, shadowStart.index!) +
+          fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
+        const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
+
+        mutator.remove(assertion);
+        mutator.insertAt(
+          assertion,
+          `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
+        );
+        mutator.insertAt(
+          assertion,
+          `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`);`,
+        );
+      }
     }
   }
 
@@ -924,7 +957,7 @@ declare global {
       .set('@open-wc/testing', ['assert', 'expect', 'fixture', 'oneEvent', 'waitUntil'])
       .set('lit/static-html.js', ['html'])
       .set('@web/test-runner-commands', ['sendKeys', 'setViewport'])
-      .set('../../global/testing/event-spy', ['EventSpy']);
+      .set('../core/testing', ['EventSpy, waitForLitRender']);
 
     const assertionConversionMap = [
       { from: 'toEqual', to: 'to.be.equal' },
@@ -933,6 +966,7 @@ declare global {
       { from: 'toHaveClass', to: 'to.have.class' },
       { from: 'toHaveAttribute', to: 'to.have.attribute' },
       { from: 'toEqualAttribute', to: 'to.have.attribute' },
+      { from: 'toMatch', to: 'to.match' },
       { from: 'toEqualHtml', to: 'dom.to.be.equal' },
       { from: 'toEqualText', to: 'dom.text' },
     ];
@@ -952,7 +986,7 @@ declare global {
       }
 
       if (ts.isVariableStatement(node) && node.getText().match(/(element: E2EElement|page: E2EPage)/)) {
-        mutator.insertAt(node, '/** NOTE: These are too hard to migrate and are prone to errors :/ \n' 
+        mutator.insertAt(node, '/** NOTE: These are too hard to migrate and are prone to errors :/ \n'
         + '  * consider that the E2EPage is now the \'document\' (you should just delete it) \n'
         + '  * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */ \n');
       }
@@ -981,7 +1015,6 @@ declare global {
       newImport.push(`import { ${symbols.join(', ')} } from '${importName}';`);
     });
     newImport.push(`import { ${componentName} } from './${args.component}';`);
-    newImport.push(`const instance = new ${componentName}();`);
     mutator.insertAtEnd(lastImport!, `\n${newImport.join('\n')}`);
 
     function migrateUnitTest(test: ts.CallExpression) {
@@ -991,14 +1024,14 @@ declare global {
 
           if (node.getText().match(/await newE2EPage\(/)) {
             const call = deepFind(node, (n) => ts.isCallExpression(n) && n.getText().startsWith('newE2EPage')) as ts.CallExpression;
-            
+
             // if it's' 'newE2EPage()', just remove it
             if (call.arguments.length === 0) {
               mutator.remove(node);
             } else {
               // we extract the template from 'newE2EPage({html: ...})'
               let template = (deepFind(call, n => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment).initializer.getText();
-              
+
               // Surrond the template with `
               if (template.charAt(0) !== '`') {
                 template = `\`${template.substring(1, template.length - 1)}\``;
@@ -1063,7 +1096,7 @@ declare global {
           }
 
           if (node.getText().match(/\.waitForChanges\(/)) {
-            mutator.replace(node, 'await element.updateComplete;'); // TODO it's not always called 'element'
+            mutator.replace(node, 'await waitForLitRender(element);'); // TODO it's not always called 'element'
           }
 
           if (node.getText().match(/\.press\(/)) {
@@ -1116,8 +1149,9 @@ declare global {
             const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.spyOnEvent/)) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const eventName = call.arguments[0].getText();
+            const target = (call.expression as ts.PropertyAccessExpression).expression.getText();
 
-            mutator.replace(awaitNode, `new EventSpy(${eventName})`)
+            mutator.replace(awaitNode, `new EventSpy(${eventName}, ${target})`)
           }
 
           // element.triggerEvent('event', data) => element.dispatchEvent(new CustomEvent('event', data)
@@ -1127,6 +1161,16 @@ declare global {
             const parameters = call.arguments;
 
             mutator.replace(node, `${element.getText()}.dispatchEvent(new CustomEvent(${parameters.map(p => p.getText()).join(', ')}));`)
+          }
+
+          if (node.getText().match(/\.callMethod\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n)) as ts.CallExpression;
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression;
+            const methodName = call.arguments[0].getText().replace(/\'/g, '');
+            const parameters = call.arguments.slice(1);
+
+            mutator.replace(awaitNode, `${element.getText()}.${methodName}(${parameters.map(p => p.getText()).join(', ')})`)
           }
 
           // Hydrated check migration

@@ -1,13 +1,30 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /** @jsx h */
-import { StoryContext } from '@storybook/html';
+import { StoryContext } from '@storybook/web-components';
 import isChromatic from 'chromatic';
 import { JSX, h } from 'jsx-dom';
 
+import type { SbbNavigationMarker } from '../../../components/navigation';
+import '../../../components/button';
+import '../../../components/card';
+import '../../../components/clock';
+import '../../../components/divider';
+import '../../../components/footer';
+import '../../../components/icon';
+import '../../../components/header';
+import '../../../components/logo';
+import '../../../components/link';
+import '../../../components/link-list';
+import '../../../components/menu';
+import '../../../components/navigation';
+import '../../../components/skiplink-list';
+import '../../../components/teaser-hero';
+import '../../../components/title';
+
 export const SkiplinkList = (): JSX.Element => (
   <sbb-skiplink-list title-level="2" title-content="Skip to">
-    <sbb-link href="/">Skip to content</sbb-link>
-    <sbb-link href="/">Go to help page</sbb-link>
+    <sbb-link href="#">Skip to content</sbb-link>
+    <sbb-link href="#">Go to help page</sbb-link>
   </sbb-skiplink-list>
 );
 
@@ -21,7 +38,7 @@ export const TimetableInput = (): JSX.Element => (
 
 const onNavigationClose = (dialog): void => {
   dialog.addEventListener('didClose', () => {
-    (document.getElementById('nav-marker') as HTMLSbbNavigationMarkerElement).reset();
+    (document.getElementById('nav-marker') as SbbNavigationMarker).reset();
     document.getElementById('nav-1').setAttribute('active', '');
   });
 };
@@ -331,7 +348,7 @@ export const Footer = (args): JSX.Element => (
     <sbb-clock
       {...(isChromatic() ? { 'data-now': new Date('2023-01-24T02:59:27+01:00').valueOf() } : {})}
     ></sbb-clock>
-    <sbb-divider negative={args.negative} />
+    <sbb-divider negative={args.negative}></sbb-divider>
     <sbb-link-list horizontal-from="large" negative={args.negative}>
       <sbb-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"

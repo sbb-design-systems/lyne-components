@@ -1,25 +1,35 @@
-import type { StorybookConfig } from '@storybook/html-webpack5';
+import type { StorybookConfig } from '@storybook/web-components-vite';
+import { BuildOptions, UserConfig, mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.tsx', '../src/**/*.stories.mdx'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
-    '@storybook/addon-interactions',
-    '@storybook/preset-scss',
-    '@storybook/addon-mdx-gfm',
-  ],
-  features: {},
-  typescript: {
-    check: false,
-  },
+  stories: ['../src/**/*.stories.@(ts|tsx)'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-interactions'],
   framework: {
-    name: '@storybook/html-webpack5',
+    name: '@storybook/web-components-vite',
     options: {},
   },
   docs: {
     autodocs: true,
   },
-};
+  async viteFinal(config) {
+    let build: BuildOptions = {};
+    if (process.env.CHROMATIC) {
+      build = {
+        sourcemap: false,
+        rollupOptions: {
+          output: {
+            manualChunks(id) {
+              return 'main';
+            },
+          },
+        },
+      };
+    }
 
+    return mergeConfig(config, <UserConfig>{
+      assetsInclude: ['src/**/*.md'],
+      build,
+    });
+  },
+};
 export default config;

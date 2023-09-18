@@ -48,11 +48,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: sbb-esta
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Run build
-        run: yarn build:chromatic-stories && yarn build
-
-      - name: Bundle stories
-        run: node ./ci/bundleStories.js
 
       - name: 'Release: Set git user'
         run: |
@@ -65,45 +60,22 @@ jobs:
         run: echo "value=$(jq --raw-output .version ./package.json)" >> $GITHUB_OUTPUT
       - name: 'Release: Push release to repository'
         run: git push --follow-tags origin master
+      - name: Run build
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build
       - name: 'Release: Determine npm tag'
         id: npm_tag
         run: echo "npm_tag=$([[ "${{ steps.version.outputs.value }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
       - name: 'Release: Publish @sbb-esta/lyne-components'
-        run: yarn publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        run: yarn publish dist/components --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: 'Release: Assign current dependency version'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const fs = require('fs');
-            const path = `${process.env.GITHUB_WORKSPACE}/react-library/package.json`;
-            const pkgJson = fs.readFileSync(path, 'utf8');
-            fs.writeFileSync(path, pkgJson.replace(/0.0.0-PLACEHOLDER/g, '${{ steps.version.outputs.value }}'), 'utf8');
       - name: 'Release: Publish @sbb-esta/lyne-components-react'
-        run: yarn publish react-library --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Create versioned storybook for chromatic
-        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
-        # Send storybook to chromatic. These snapshots should be accepted as new
-        # baseline in storybook.
-      - name: Publish to Chromatic
-        uses: chromaui/action@v1
-        with:
-          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBuildDir: storybook-static
-          autoAcceptChanges: true
-          exitZeroOnChanges: true
-
-      - name: Remove chromatic stories
-        run: cd src && git clean -f -X
-      - name: Create versioned storybook for image
-        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
       - name: Remove files with forbidden extensions
-        run: node ./ci/clean-storybook-files.js
-
+        run: node ./ci/clean-storybook-files.cjs
       - name: 'Container: Login to GitHub Container Repository'
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       - name: 'Container: Build image'
@@ -114,3 +86,18 @@ jobs:
         run: docker push $IMAGE_REPO:${{ steps.version.outputs.value }}
       - name: 'Container: Publish image as latest'
         run: docker push $IMAGE_REPO:latest
+
+      - name: Generate chromatic stories
+        run: yarn generate:chromatic-stories
+      - name: Create versioned storybook for chromatic
+        run: STORYBOOK_COMPONENTS_VERSION=${{ steps.version.outputs.value }} yarn build:storybook
+        # Send storybook to chromatic. These snapshots should be accepted as new
+        # baseline in storybook.
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          storybookBuildDir: dist/storybook
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
+          zip: true

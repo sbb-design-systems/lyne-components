@@ -1,24 +1,56 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
-    "declaration": false,
-    "experimentalDecorators": true,
-    "lib": ["dom", "es2021"],
-    "moduleResolution": "node",
-    "module": "esnext",
+    "baseUrl": ".",
+    "outDir": "./dist/out-tsc",
     "target": "es2021",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "module": "esnext",
+    "lib": ["es2021", "DOM", "DOM.Iterable"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "paths": {
+      "@sbb-esta/lyne-components": ["src/components"],
+      "@sbb-esta/lyne-components/*": ["src/components/*"],
+      "@sbb-esta/lyne-components-react": ["src/react"],
+      "@sbb-esta/lyne-components-react/*": ["src/react/*"]
+    },
+
+    /** JSX **/
     "jsx": "react",
     "jsxFactory": "h",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "types": ["@stencil/core", "jsx-dom"],
-    "paths": {
-      "@sbb-esta/lyne-components": ["."]
-    }
+
+    /** linting **/
+    "allowSyntheticDefaultImports": true,
+    "useDefineForClassFields": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitOverride": true,
+
+    "types": ["jsx-dom", "mocha"],
+
+    "plugins": [
+      {
+        "name": "ts-lit-plugin",
+        "strict": true,
+        "rules": {
+          // The following rules are broken
+          "no-incompatible-type-binding": "off",
+          "no-property-visibility-mismatch": "off",
+          "no-missing-import": "off",
+
+          // The following rules cannot be used, due to internal constraints
+          // Reason: We use e.g. sbb-tooltip-close as indicators of close origins for overlays
+          "no-unknown-attribute": "off"
+        }
+      }
+    ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": [".storybook/**/*.ts", "src/**/*.ts", "src/**/*.tsx", "tools/**/*.ts", "ci/**/*.ts"],
+  "exclude": ["node_modules/"]
 }

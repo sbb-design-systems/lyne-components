@@ -1,7 +1,0 @@
-@use '../../global/styles' as sbb;
-
-:host {
-  @include sbb.screen-reader-only;
-
-  display: block;
-}

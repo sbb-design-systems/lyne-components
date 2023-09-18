@@ -22,5 +22,6 @@ To make sure developers properly style their commit messages, we use `husky` tog
 
 The following build artefacts are relevant for deployments:
 
-- `./dist` & `./loader`: stencil components that are published to npm
-- `./storybook-static`: the storybook build that is deployed to netlify
+- `./dist/components`: web components that are published to npm
+- `./dist/react`: react components that are published to npm
+- `./dist/storybook`: the storybook build that is deployed to chromatic and to preview environment

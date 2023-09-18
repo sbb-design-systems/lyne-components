@@ -1,5 +1,0 @@
-@use '../../global/styles' as sbb;
-
-.row-header {
-  @include sbb.screen-reader-only;
-}
