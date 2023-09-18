@@ -1,12 +1,13 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbTitle } from './sbb-title';
 
 describe('sbb-title', () => {
-  let element, page;
+  let element: SbbTitle;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-title></sbb-title>');
-    element = await page.find('sbb-title');
-    expect(element).toHaveClass('hydrated');
+    await fixture(html`<sbb-title></sbb-title>`);
+    element = document.querySelector('sbb-title');
+    assert.instanceOf(element, SbbTitle);
   });
 });
