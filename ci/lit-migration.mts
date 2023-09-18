@@ -528,6 +528,12 @@ async function migrate(component: string, debug = false) {
       );
     }
 
+    for (let identifier of elementIdentifiers) {
+      const newIdentifier = identifier.getText().replace(/(^HTML|Element$)/g, '');
+      mutator.replace(identifier, newIdentifier);
+      newImports.set(`../${toKebabCase(newIdentifier)}/index`, [newIdentifier]);
+    }
+
     if (componentWillLoad) {
       const body = componentWillLoad.body!;
       mutator.insertAt(
