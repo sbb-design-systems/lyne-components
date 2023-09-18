@@ -695,3 +695,41 @@ export const i18nClearInput: Record<string, string> = {
   fr: 'Effacer la valeur d’entrée',
   it: 'Cancella il valore dell’input',
 };
+
+export const i18nFileSelectorButtonLabel: Record<string, string> = {
+  de: 'Datei auswählen',
+  en: 'Choose a file',
+  fr: 'Choisissez un fichier',
+  it: 'Scegli un file',
+};
+
+export const i18nFileSelectorSubtitleLabel: Record<string, string> = {
+  de: 'Ziehe deine Dateien hier hin (Drag & Drop)',
+  en: 'Drag & Drop your files here',
+  fr: 'Faites glisser et déposez vos fichiers ici',
+  it: 'Trascina e rilascia i tuoi file qui',
+};
+
+export const i18nFileSelectorDeleteFile: Record<string, string> = {
+  de: 'Datei entfernen',
+  en: 'Remove file',
+  fr: 'Effacer le fichier',
+  it: 'Rimuovi il file',
+};
+
+export const i18nFileSelectorCurrentlySelected = (filesName: string[]): Record<string, string> => {
+  if (filesName && filesName.length > 0) {
+    return {
+      de: `Aktuell ausgewählte Datei: ${filesName.join(', ')}.`,
+      en: `Currently selected files: ${filesName.join(', ')}.`,
+      fr: `Fichier actuellement sélectionné: ${filesName.join(', ')}.`,
+      it: `File attualmente selezionato: ${filesName.join(', ')}.`,
+    };
+  }
+  return {
+    de: 'Keine Datei ausgewählt.',
+    en: 'No files selected.',
+    fr: 'Nessun fichier sélectionné.',
+    it: 'Nessun file selezionato.',
+  };
+};
