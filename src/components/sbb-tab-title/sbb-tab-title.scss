@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-tab-title-height: #{sbb.px-to-rem-build(40)};
+  --sbb-tab-title-height: var(--sbb-spacing-fixed-12x);
   --sbb-tab-title-color: var(--sbb-color-granite-default);
   --sbb-tab-title-icon-color: var(--sbb-color-black-default);
   --sbb-tab-title-background-color: var(--sbb-color-white-default);
@@ -26,6 +26,10 @@
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
+
+  @include sbb.mq($from: medium) {
+    --sbb-tab-title-height: var(--sbb-spacing-fixed-14x);
+  }
 
   @include sbb.if-forced-colors {
     --sbb-tab-title-color: ButtonText;
@@ -98,7 +102,6 @@
   min-height: var(--sbb-tab-title-height);
   display: flex;
   align-items: center;
-  padding-block: var(--sbb-spacing-fixed-2x);
   padding-inline: var(--sbb-spacing-responsive-xs);
   gap: var(--sbb-spacing-fixed-2x);
   user-select: none;
