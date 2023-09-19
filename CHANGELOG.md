@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.11](https://github.com/lyne-design-system/lyne-components/compare/v0.40.10...v0.40.11) (2023-09-19)
+
+### Features
+
+- **sbb-loading-indicator:** initial implementation ([#1968](https://github.com/lyne-design-system/lyne-components/issues/1968)) ([98c4f7a](https://github.com/lyne-design-system/lyne-components/commit/98c4f7a0af5e09ccd0d69fa106974781ae5e7b22))
+
 ### [0.40.10](https://github.com/lyne-design-system/lyne-components/compare/v0.40.9...v0.40.10) (2023-09-18)
 
 ### Features
