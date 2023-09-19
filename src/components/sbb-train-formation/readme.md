@@ -1,6 +1,6 @@
-The sbb-train-formation is the top container element for wrapping sbb-train´s. The sbb-train-formation has no properties.
-It applies the possible scrollable-width to every given sbb-train as css var (--sbb-train-direction-width) 
-initially and on resize.
+The `sbb-train-formation` is a component used as a top container element for wrapping `sbb-train`s. 
+It has no properties, and it applies the possible scrollable-width to every given `sbb-train` as CSS variable 
+(`--sbb-train-direction-width`) initially and on resize.
 
 ```html
 <sbb-train-formation>
