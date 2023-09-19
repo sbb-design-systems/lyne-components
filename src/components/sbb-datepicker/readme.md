@@ -1,8 +1,9 @@
-The `sbb-datepicker` component can be used together with a native input element to display the typed value 
-as a formatted date (dd.MM.yyyy). 
+The `sbb-datepicker` is a component which can be used together with a native `<input>` element 
+to display the typed value as a formatted date (default: `dd.MM.yyyy`). 
 
-The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, ` `, `,` or `/`, 
-then automatically formats the value as date and displays it. It also exposes methods to get/set the value formatted as Date.
+The component allows the insertion of up to 10 numbers, possibly with separators like `.`, `-`, `` ``, `,` or `/`, 
+then automatically formats the value as date and displays it. 
+It also exposes methods to get / set the value formatted as Date.
 
 The component and the native `input` can be connected using the `input` property, 
 which accepts the id of the native input, or directly its reference.
@@ -14,11 +15,13 @@ which accepts the id of the native input, or directly its reference.
 
 ### In `sbb-form-field`
 
-If the `sbb-datepicker` is used within a `sbb-form-field` with a native input, they are automatically linked;
-the component sets the input placeholder and the input's type as `text`, then reads the `disabled`, `readonly`, 
-`min` and `max` attributes from the input and emits then as payload of the `inputUpdated` event.
+If the `sbb-datepicker` is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs) with a native input, 
+they are automatically linked; the component sets the input placeholder and the input's type as `text`, 
+then reads the `disabled`, `readonly`, `min` and `max` attributes from the input and emits then as payload of the `inputUpdated` event.
+
 It's possible to remove unwanted dates from selection using the `dateFilter` function, however, this should **not** 
 be used as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+
 It's also possible to display a two-months view using the `wide` property.
 
 ```html
@@ -33,7 +36,7 @@ It's also possible to display a two-months view using the `wide` property.
 <sbb-form-field>
   <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
   <sbb-datepicker-toggle></sbb-datepicker-toggle>
-  <input value="01.01.2023" min="1600000000" max="1700000000" readonly=""/>
+  <input value="01.01.2023" min="1600000000" max="1700000000"/>
   <sbb-datepicker></sbb-datepicker>
   <sbb-datepicker-next-day></sbb-datepicker-next-day>
 </sbb-form-field>
@@ -51,7 +54,6 @@ To set the value programmatically, it's recommended to use the `setValueAsDate()
 
 Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `setValueAsDate()` method, 
 a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.
-
 
 ## Custom date formats
 
@@ -117,9 +119,9 @@ This is helpful if you need a specific state of the component.
 | Event               | Description                                                                                                                         | Type                                 |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | `change`            |                                                                                                                                     | `CustomEvent<any>`                   |
-| `datePickerUpdated` | Notifies that the attributes of the datepicker has changes.                                                                         | `CustomEvent<any>`                   |
+| `datePickerUpdated` | Notifies that the attributes of the datepicker have changes.                                                                        | `CustomEvent<any>`                   |
 | `didChange`         | <span style="color:red">**[DEPRECATED]**</span> only used for React. Will probably be removed once React 19 is available.<br/><br/> | `CustomEvent<any>`                   |
-| `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker has changes.                                                  | `CustomEvent<InputUpdateEvent>`      |
+| `inputUpdated`      | Notifies that the attributes of the input connected to the datepicker have changes.                                                 | `CustomEvent<InputUpdateEvent>`      |
 | `validationChange`  | Emits whenever the internal validation state changes.                                                                               | `CustomEvent<ValidationChangeEvent>` |
 
 

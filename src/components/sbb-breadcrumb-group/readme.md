@@ -1,4 +1,4 @@
-The `sbb-breadcrumb-group` component is a container for one or more `sbb-breadcrumb`,
+The `sbb-breadcrumb-group` component is a container for one or more [sbb-breadcrumb](/docs/components-sbb-breadcrumb-sbb-breadcrumb--docs),
 which are meant to represent the hierarchy of visited pages before arriving to the current one.
 
 ```html
@@ -13,18 +13,19 @@ which are meant to represent the hierarchy of visited pages before arriving to t
 </sbb-breadcrumb-group>
 ```
 
-### Ellipsis
+### Style
 
-If the width of all the nested breadcrumbs exceeds the container width, only the first and the last breadcrumb are displayed,
-and a new one with the ellipsis symbol appears between them. 
-Clicking on this breadcrumb will make the ellipsis disappear and will restore the full list (the action is not reversible).
+If the width of all the nested `sbb-breadcrumb` exceeds the container width, 
+only the first and the last breadcrumb are displayed, and a new one with the ellipsis symbol appears between them. 
+Clicking on this `sbb-breadcrumb` will make the ellipsis disappear and will restore the full list 
+(the action is not reversible).
 
 ## Accessibility
 
-It is strongly recommended to place an `aria-label` attribute on the `sbb-breadcrumb-group`, to describe
-what context the breadcrumbs have.
-Whenever the `sbb-breadcrumb` list within the component is loaded or updated, the last element of the list 
-receive the attribute `aria-current` set to `page`.
+It is strongly recommended to place an `aria-label` attribute on the `sbb-breadcrumb-group`, as in the example above,
+to describe what context the breadcrumbs have.
+Whenever the `sbb-breadcrumb` list within the component is loaded or updated, 
+the last element of the list receives the attribute `aria-current="page"`.
 
 <!-- Auto Generated Below -->
 

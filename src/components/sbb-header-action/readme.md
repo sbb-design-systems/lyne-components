@@ -20,9 +20,10 @@ from which the label is displayed; below that, only the icon is visible.
 <sbb-header-action expand-from='medium'>Text</sbb-header-action>
 ```
 
-### Link/button properties
+### Link / button properties
 
-As the [sbb-link](../sbb-link/readme.md), the component can be internally rendered as a button or as a link,
+As the [sbb-link](/docs/components-sbb-link--docs) and the [sbb-button](/docs/components-sbb-button--docs),
+the component can be internally rendered as a button or as a link,
 depending on the value of the `href` property, so the associated properties are available
 (`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
 

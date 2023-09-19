@@ -4,7 +4,7 @@ The `sbb-checkbox` component provides the same functionality as a native `<input
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon` using
 the `iconName` property or via custom SVG using the `icon` slot.
-The icon can be placed before or after the label based on the value of the `iconPlacement` property (default: end).
+The icon can be placed before or after the label based on the value of the `iconPlacement` property (default: `end`).
 
 ```html
 <sbb-checkbox value="checkbox">Example</sbb-checkbox>
@@ -31,7 +31,7 @@ Clicking on a `sbb-checkbox` in this state sets `checked` to `true` and `indeter
 <sbb-checkbox value="indeterminate-checkbox" indeterminate="true">Indeterminate state</sbb-checkbox>
 ```
 
-The component can be displayed in disabled or required state by using the self-named properties.
+The component can be displayed in `disabled` or `required` state by using the self-named properties.
 
 ```html
 <sbb-checkbox value="required-checkbox" required="true">Required</sbb-checkbox>
@@ -55,14 +55,12 @@ the current state can be read from `event.target.checked`, while the value from 
 ## Accessibility
 
 The component uses an internal `<input type="checkbox">` element to provide an accessible experience.
-This internal checkbox receives focus and is automatically labeled by the text content of the
-`sbb-checkbox` element. Avoid adding other interactive controls into the content of
-`sbb-checkbox`, as this degrades the experience for users of assistive technology.
 
-Always provide an accessible label via `aria-label` for checkboxes without
-descriptive text content.
-If you don't want the label to appear next to the checkbox, you can use
-`aria-label` to specify an appropriate label.
+This internal checkbox receives focus and is automatically labeled by the text content of the `sbb-checkbox` element. 
+Avoid adding other interactive controls into the content of `sbb-checkbox`, as this degrades the experience for users of assistive technology.
+
+Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
+If you don't want the label to appear next to the checkbox, you can use `aria-label` to specify an appropriate label.
 
 ```html
 <sbb-checkbox aria-label="Subscribed to email message" />

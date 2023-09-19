@@ -3249,7 +3249,7 @@ declare namespace LocalJSX {
         "input"?: string | HTMLElement;
         "onChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
-          * Notifies that the attributes of the datepicker has changes.
+          * Notifies that the attributes of the datepicker have changes.
          */
         "onDatePickerUpdated"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
@@ -3257,7 +3257,7 @@ declare namespace LocalJSX {
          */
         "onDidChange"?: (event: SbbDatepickerCustomEvent<any>) => void;
         /**
-          * Notifies that the attributes of the input connected to the datepicker has changes.
+          * Notifies that the attributes of the input connected to the datepicker have changes.
          */
         "onInputUpdated"?: (event: SbbDatepickerCustomEvent<InputUpdateEvent>) => void;
         /**

@@ -1,28 +1,28 @@
-The `sbb-expansion-panel-header` is a component which is meant to be used as a header in the `sbb-expansion-panel`, 
-acting as a control for an expanding/collapsing content, like a native `<summary>` tag.
+The `sbb-expansion-panel-header` is a component which is meant to be used as a header 
+in the [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansion-panel--docs), 
+acting as a control for an expanding / collapsing content, like a native `<summary>` tag.
+
+
+```html
+<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+```
 
 ### Slots
 
 The component is internally rendered as a button, and it is possible to provide text via an unnamed slot.
 On the left side, a toggle icon is displayed; it flips based on the host's `aria-expanded` property.
 
-```html
-<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
-```
-
-### Icon
-
 The component can optionally display a `sbb-icon` at the component start using the `iconName` 
 property or via custom content using the `icon` slot.
-If using the sbb icons, the icon should be a medium size icon.
+If using the SBB icons, the icon should be a medium size icon.
 
 ```html
 <sbb-expansion-panel-header icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
 ```
 
-### Disabled
+### States
 
-The component can be disabled via the `disabled` property. 
+The component can be displayed in `disabled` satte using the self-named property. 
 
 ```html
 <sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>

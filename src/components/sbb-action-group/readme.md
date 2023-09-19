@@ -1,10 +1,14 @@
-The `sbb-action-group` component is a generic content container which can contain up to three
-action items (`sbb-button` or `sbb-link` or other HTML elements) in various allocations.
+The `sbb-action-group` component is a generic content container which can contain up to three action items 
+([sbb-button](/docs/components-sbb-button--docs) or [sbb-link](/docs/components-sbb-link--docs) or other HTML elements) 
+in various [allocations](#allocations).
 
-### Orientation
+### Style
+
+#### Orientation
 
 The `orientation` property is used to set item's orientation. 
 Possible values are `horizontal` (default) and `vertical`.
+
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
@@ -22,7 +26,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 </sbb-action-group>
 ```
 
-### Button-size and link-size
+#### Button-size and link-size
 
 The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-link`.
 Default values are `l` for `sbb-button` and `m` for `sbb-link`.
@@ -39,7 +43,8 @@ Default values are `l` for `sbb-button` and `m` for `sbb-link`.
 </sbb-action-group>
 ```
 
-### Align-group and align-self
+#### Align-group and align-self
+
 The `align-group` property can be used to set the default alignment of the contained elements; 
 possible values are `start`, `center`, `stretch` and `end`.
 
@@ -58,7 +63,7 @@ opposite direction to the group; possible values are `start`, `center` or `end`.
 </sbb-action-group>
 ```
 
-## Allocations
+### Allocations
 
 Items can be displayed inside `sbb-action-group` in different allocations.
 
@@ -77,7 +82,7 @@ and we consider a template like the following one (possibly removing the link fo
 
 The values for `align-group` and `align-self` for the various allocations are as follows:
 
-### Horizontal
+#### Horizontal
 
 | orientation='horizontal' | align-group |     align-self     |
 |:------------------------:|:-----------:|:------------------:|
@@ -88,7 +93,7 @@ The values for `align-group` and `align-self` for the various allocations are as
 |           2-0-0          |    start    |         /          |
 |           1-0-1          |    start    |  Button 2: 'end'   |
 
-### Vertical
+#### Vertical
 
 | orientation='vertical' | align-group | align-self |
 |:----------------------:|:-----------:|:----------:|

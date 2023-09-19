@@ -8,10 +8,12 @@ The `sbb-button` component provides the same functionality as a native `<button>
 
 The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
-Neither is mandatory, so you can have a `sbb-button` with icon only, text only, or both.
+At least one is mandatory, so you can have a `sbb-button` with icon only, text only, or with both.
 
 ```html
-<sbb-button icon-name="info">Button text</sbb-button>
+<sbb-button icon-name="info">
+  Button text
+</sbb-button>
 
 <sbb-button>
   <sbb-icon slot="icon" name="info"></sbb-icon>
@@ -21,11 +23,12 @@ Neither is mandatory, so you can have a `sbb-button` with icon only, text only, 
 <sbb-button icon-name="info" aria-label='Click for more information.'></sbb-button>
 ```
 
-### Link/button properties
+### Link / button properties
 
 The component can be internally rendered as a button or as a link,
 depending on the value of the `href` property, so the associated properties are available
 (`href`, `target`, `rel` and `download` for link; `type`, `name`, `value` and `form` for button).
+
 If `isStatic` is set, the component will be rendered as a button without any user interaction.
 Please note that if the `sbb-button` is placed inside another anchor or button tag,
 it is internally rendered as a span in order to not break HTML functionality.
@@ -60,7 +63,7 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-button disabled>Button</sbb-button>
 ```
 
-### Focus outline
+#### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
 You can set it by re-defining the css var on `sbb-button` or any parent element:
@@ -73,7 +76,7 @@ sbb-button {
 
 ## Accessibility
 
-Use the accessibility properties in case of an icon only button to describe the purpose of the `sbb-button` for screen reader users.
+Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button` for screen-reader users.
 
 <!-- Auto Generated Below -->
 

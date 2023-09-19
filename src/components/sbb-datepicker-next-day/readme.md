@@ -1,4 +1,4 @@
-The `sbb-datepicker-next-day` is a component closely connected to the `sbb-datepicker`;
+The `sbb-datepicker-next-day` is a component closely connected to the [sbb-datepicker](/docs/components-sbb-datepicker-sbb-datepicker--docs);
 when the two are used together, the `sbb-datepicker-next-day` can be used to choose
 the date after the selected date, or tomorrow's date if the date-picker's input has no defined value.
 
@@ -13,8 +13,8 @@ or directly its reference.
 
 ### In `sbb-form-field`
 
-If the two components are used within a `sbb-form-field`, they are automatically linked and
-the `sbb-datepicker-next-day` will be projected in the `suffix` slot of the `sbb-form-field`; 
+If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
+they are automatically linked and the `sbb-datepicker-next-day` will be projected in the `suffix` slot of the `sbb-form-field`; 
 otherwise, they can be connected using the `datePicker` property as described above.
 
 The `sbb-datepicker-next-day` has an internal disabled state, which is set looking at the `sbb-datepicker`'s input:

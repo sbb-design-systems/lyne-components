@@ -1,5 +1,6 @@
-The `sbb-checkbox-group` component is used as a container for one or multiple `sbb-checkbox` components,
-or, alternatively, for a collection of `sbb-selection-panel`, which are projected inside an unnamed slot.
+The `sbb-checkbox-group` component is used as a container for one or multiple 
+[sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--docs) components,
+or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs).
 
 ```html
 <sbb-checkbox-group>
@@ -7,25 +8,40 @@ or, alternatively, for a collection of `sbb-selection-panel`, which are projecte
   <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
   <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
 </sbb-checkbox-group>
+
+<sbb-checkbox-group>
+  <sbb-selection-panel>
+    <sbb-checkbox>
+      Value
+      <span slot="suffix">
+        <sbb-icon/>
+        <span class="sbb-text-xs sbb-text--bold">CHF</span>
+        <span class="sbb-text-m sbb-text--bold">40.00</span>
+      </span>
+    </sbb-checkbox>
+  </sbb-selection-panel>
+</sbb-checkbox-group>
 ```
 
-### Orientation
+### Slots
 
-The `orientation` property is used to set item orientation. Possible values are `horizontal` (default) and `vertical`.
-The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to 
-indicate the minimum breakpoint from which the orientation changes to `horizontal`.
+The content is projected in an unnamed slot.
+
+The component can display one or more [sbb-form-error](/docs/components-sbb-form-field-sbb-form-error--docs) components 
+right below the `sbb-checkbox-group` using the `error` slot.
 
 ```html
-<sbb-checkbox-group orientation="vertical" horizontal-from="large">
-  ...
+<sbb-checkbox-group>
+  <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
+  <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
+  <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
+  <sbb-form-error slot="error">You must accept all the terms and conditions.</sbb-form-error>
 </sbb-checkbox-group>
 ```
 
 ### States
 
 It is possible to mark the entire group as disabled or required using the properties `disabled` and `required`.
-The component has a `size` property too, which can be used to change the size of all the inner `sbb-checkbox`.
-
 
 ```html
 <!-- All the child sbb-checkbox will be marked as required. -->
@@ -37,23 +53,27 @@ The component has a `size` property too, which can be used to change the size of
 <sbb-checkbox-group disabled>
   ...
 </sbb-checkbox-group>
+```
 
-<!-- All the child sbb-checkbox will have size="s". -->
-<sbb-checkbox-group size='s'>
+### Style
+
+The `orientation` property is used to set item orientation. 
+Possible values are `horizontal` (default) and `vertical`.
+The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
+indicate the minimum breakpoint from which the orientation changes to `horizontal`.
+
+```html
+<sbb-checkbox-group orientation="vertical" horizontal-from="large">
   ...
 </sbb-checkbox-group>
 ```
 
-### Error
-
-The component can display one or more `sbb-form-error` components right below the `sbb-checkbox-group` using the `error` slot.
+The component has a `size` property too, which can be used to change the size of all the inner `sbb-checkbox`. 
+Two values are available, `s` and `m`, which is the default
 
 ```html
-<sbb-checkbox-group required>
-  <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
-  <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
-  <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
-  <sbb-form-error slot="error">You must accept all the terms and conditions.</sbb-form-error>
+<sbb-checkbox-group size='s'>
+  ...
 </sbb-checkbox-group>
 ```
 

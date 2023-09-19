@@ -1,6 +1,8 @@
 The `sbb-autocomplete` is a component that can be used to display a panel of suggested options connected to a text input.
 
-It's possible to set the panel `origin` and the input `trigger` passing an id or an element reference.
+It's possible to set the element to which the component's panel will be attached using the `origin` prop,
+and the input which will work as a trigger using the `trigger` prop. 
+Both accept an id or an element reference.
 
 ```html
 <!-- Origin element -->
@@ -18,8 +20,8 @@ It's possible to set the panel `origin` and the input `trigger` passing an id or
 
 ### In `sbb-form-field`
 
-If the component is used within a `sbb-form-field`, it will automatically connect to the native `input` as trigger
-and will display the option panel above or below the `sbb-form-field`.
+If the component is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
+it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
 
 ```html
 <!-- Origin element -->
@@ -36,14 +38,16 @@ and will display the option panel above or below the `sbb-form-field`.
 </sbb-form-field>
 ```
 
-### Option highlight
+### Style
+
+#### Option highlight
 
 By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.
-See the [sbb-option](../sbb-option/readme.md) for more details.
+See the [sbb-option](/docs/components-sbb-option-sbb-option--docs) for more details.
 
-### Option grouping
+#### Option grouping
 
-The `sbb-option` can be collected into groups using `sbb-optgroup` element:
+The displayed `sbb-option` can be collected into groups using `sbb-optgroup` element:
 
 ```html
 <!-- Origin element -->
@@ -66,11 +70,11 @@ The `sbb-option` can be collected into groups using `sbb-optgroup` element:
 
 ### Events
 
-The `sbb-option` will emit the `option-selected` event when selected via user interaction.
+The `sbb-option` emits the `option-selected` event when selected via user interaction.
 
 ## Keyboard interaction
 
-The options panel opens on `focus`, `click` or `input` on the trigger element, or on `ArrowDown` keypress;
+The options panel opens on `focus`, `click` or `input` events on the trigger element, or on `ArrowDown` keypress;
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
 | Keyboard              | Action                                                  |
@@ -82,12 +86,14 @@ it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
 
 ## Accessibility
 
-`sbb-autocomplete` implements the ARIA combobox interaction pattern. 
+The `sbb-autocomplete` implements the [ARIA combobox interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+
 The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="listbox"`. 
 Because of this `listbox` pattern, you should not put other interactive controls, such as buttons or checkboxes, inside an autocomplete option. 
 Nesting interactive controls like this interferes with many assistive technologies.
 
-`sbb-autocomplete` preserves focus on the input trigger, using `aria-activedescendant` to support navigation though the autocomplete options.
+The component preserves focus on the input trigger, 
+using `aria-activedescendant` to support navigation though the autocomplete options.
 
 
 <!-- Auto Generated Below -->

@@ -4,6 +4,7 @@ import { InterfaceSbbCardAttributes } from './sbb-card.custom';
 /**
  * @slot unnamed - Slot to render the content.
  * @slot badge - Slot to render `<sbb-card-badge>`.
+ * @slot action - Slot to render `<sbb-card-action>`.
  */
 @Component({
   shadow: true,

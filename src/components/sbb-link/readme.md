@@ -16,7 +16,7 @@ By default, the icon is placed at the component's end, but this can be changed u
 </sbb-link>
 ```
 
-### Link/button properties
+### Link / button properties
 
 The component can be internally rendered as a button or as a link,
 depending on the value of the `href` property, so the associated properties are available

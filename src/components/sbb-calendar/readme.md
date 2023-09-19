@@ -1,40 +1,42 @@
 The `sbb-calendar` component displays a calendar that allows the user to select a date. 
-For accessibility purposes, it's rendered as a native table element and each day is a button.
-While being deeply linked to the implementation of the `sbb-datepicker-toggle` component, it can be used on its own.
 
-### Select a date and boundaries
+While being deeply linked to the implementation of the [sbb-datepicker-toggle](/docs/components-sbb-datepicker-sbb-datepicker-toggle--docs) component, 
+it can be used on its own.
+
+```html
+<sbb-calendar></sbb-calendar>
+```
 
 It's possible to set a date using the `dateSelected` property. Also, it's possible to place limits on the selection
-using the two properties name `min` and `max`. For these three properties, the accepted formats are:
+using the two properties named `min` and `max`. For these three properties, the accepted formats are:
 
 - Date objects
 - ISO String
-- Unix Timestamp (number of seconds since 1 Jan 1970)
+- Unix Timestamp (number of seconds since Jan 1, 1970)
 
-And it's recommended to set the time to 00:00:00.
+It's recommended to set the time to 00:00:00.
 
 ```html
 <sbb-calendar min="1600000000" max="1700000000" selected-date="1650000000"></sbb-calendar>
 ```
 
-### Date filter
-
-It's possible to filter out unwanted date using the `dateFilter` function property.
-Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
-
-### Wide
+### Style
 
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`.
+
 ```html
 <sbb-calendar wide='true' selected-date="1650000000"></sbb-calendar>
 ```
+
+It's also possible to filter out unwanted date using the `dateFilter` function property.
+Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
 
 ### Events
 
 Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date 
 which can be read from `event.detail`.
 
-## Accessibility
+### Keyboard interaction
 
 It's possible to move within the component using the keyboard.
 
@@ -48,6 +50,10 @@ It's possible to move within the component using the keyboard.
 | <kbd>End</kbd>         | Go to the last day of the month.                              |
 | <kbd>Page Up</kbd>     | Go to the top of the column of the currently selected day.    |
 | <kbd>Page Down</kbd>   | Go to the bottom of the column of the currently selected day. |
+
+## Accessibility
+
+For accessibility purposes, the component is rendered as a native table element and each day is a button.
 
 ## Testing
 

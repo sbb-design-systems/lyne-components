@@ -1,5 +1,8 @@
-The `sbb-datepicker-toggle` is a component closely connected to the `sbb-datepicker`.
-When the two are used together, the `sbb-datepicker-toggle` can be used to link the `sbb-datepicker` to a `sbb-calendar`:
+The `sbb-datepicker-toggle` is a component 
+closely connected to the [sbb-datepicker](/docs/components-sbb-datepicker-sbb-datepicker--docs).
+
+When the two are used together, the `sbb-datepicker-toggle` can be used to link the `sbb-datepicker` 
+to a [sbb-calendar](/docs/components-sbb-datepicker-sbb-calendar--docs):
 a change in the latter, like selecting a date, is propagated to the former; and conversely, changes in the `sbb-datepicker`
 properties, or in the date-picker's input attributes, are propagated to the `sbb-calendar` to modify its appearance.
 
@@ -14,12 +17,9 @@ or directly its reference.
 
 ### In `sbb-form-field`
 
-If the two components are used within a `sbb-form-field`, they are automatically linked and
-the `sbb-datepicker-toggle` will be projected in the `prefix` slot of the `sbb-form-field`; 
+If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
+they are automatically linked and the `sbb-datepicker-toggle` will be projected in the `prefix` slot of the `sbb-form-field`; 
 otherwise, they can be connected using the `datePicker` property as described above.
-
-The `wide` property from the `sbb-datepicker` can be used to display the calendar in a two-months
-view, while the `dateFilter` property can be used to filter unwanted dates.
 
 ```html
 <sbb-form-field>
