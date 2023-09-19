@@ -863,7 +863,7 @@ declare global {
           ts.isVariableStatement(n) &&
           !!deepFind(n, (m) => ts.isCallExpression(m) && m.expression.getText() === 'newSpecPage'),
       );
-      if (!setupStatement) throw new Error('Canno find setup statement');
+      if (!setupStatement) throw new Error('Cannot find setup statement');
 
       // variable declaration (es. 'const { root }' => 'const root')
       const varDeclaration = deepFind(setupStatement, (n) =>
@@ -895,6 +895,11 @@ declare global {
         node,
         (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/),
       ) as ts.CallExpression;
+
+      if (!assertion) {
+        return;
+      }
+
       const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
       const fullTemplate = assertion.arguments[0].getText();
 
