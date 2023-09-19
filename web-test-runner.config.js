@@ -27,8 +27,8 @@ const browsers = process.env.CI
   : [
       playwrightLauncher({
         product: 'chromium',
-        launchOptions: { headless: false, devtools: true },
-      }), // Set headless to false to use the debugger
+        launchOptions: { headless: true, devtools: true },
+      }),
     ];
 
 // TODO: Revert to glob rules after migration
