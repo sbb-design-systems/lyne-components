@@ -1,4 +1,4 @@
-The `<sbb-link-list>` is a component that can be used to collect more `sbb-link`s; 
+The `sbb-link-list` is a component that can be used to collect more `sbb-link`s; 
 it will automatically set variant `block` on nested `sbb-link` instances, 
 and it will sync the `size` and `negative` property.
 

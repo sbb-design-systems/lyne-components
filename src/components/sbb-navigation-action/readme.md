@@ -1,4 +1,4 @@
-The `<sbb-navigation-action>` component is an action element contained by 
+The `sbb-navigation-action` component is an action element contained by 
 a [sbb-navigation-list](../sbb-navigation-list/readme.md) component or a [sbb-navigation-marker](../sbb-navigation-marker/readme.md) component. 
 
 ### Link/button properties

@@ -1,4 +1,4 @@
-The `<sbb-slider>` is an input component that allows for the selection of a value within a range.
+The `sbb-slider` is an input component that allows for the selection of a value within a range.
 
 This can be set using the `min` and `max` properties (default values are 0 and 100),
 while the initial value can be set using the `value` property (string), or the `valueAsNumber` (number).
@@ -52,7 +52,7 @@ the current value can be read from `event.target.value` or `event.target.valueAs
 
 ## Accessibility
 
-The `<sbb-slider>` has the following behaviour on keypress when focused:
+The `sbb-slider` has the following behaviour on keypress when focused:
 
 | Key         | Action                                            |
 |-------------|---------------------------------------------------|

@@ -1,4 +1,4 @@
-The `<sbb-link>` is a component which mimics the native `<a>` tag.
+The `sbb-link` component provides the same functionality as a native `<a>` enhanced with the SBB Design.
 
 ### Slots
 

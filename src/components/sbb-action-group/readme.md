@@ -46,8 +46,8 @@ possible values are `start`, `center`, `stretch` and `end`.
 It is also possible to set the `align-self` attribute on action items in order to move them in the
 opposite direction to the group; possible values are `start`, `center` or `end`.
 
-**NOTE**: `<sbb-action-group>` will automatically set variant `block` and will sync the `linkSize`
- property with nested `<sbb-link>` and the `buttonSize` property with the nested `<sbb-button>`
+**NOTE**: The `sbb-action-group` will automatically set variant `block` and will sync the `linkSize`
+ property with nested `sbb-link` and the `buttonSize` property with the nested `sbb-button`
  instances.
 
 ```html

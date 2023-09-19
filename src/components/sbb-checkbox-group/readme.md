@@ -46,7 +46,7 @@ The component has a `size` property too, which can be used to change the size of
 
 ### Error
 
-The component can display one or more `<sbb-form-error>` components right below the `<sbb-checkbox-group>` using the `error` slot.
+The component can display one or more `sbb-form-error` components right below the `sbb-checkbox-group` using the `error` slot.
 
 ```html
 <sbb-checkbox-group required>

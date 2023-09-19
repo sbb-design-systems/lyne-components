@@ -1,4 +1,4 @@
-The `sbb-option` is a component which can be used to display items in components like `<sbb-autocomplete>` or `<sbb-select>`.
+The `sbb-option` is a component which can be used to display items in components like `sbb-autocomplete` or `sbb-select`.
 
 ### Slots
 

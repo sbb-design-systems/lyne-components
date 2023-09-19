@@ -13,13 +13,12 @@ in several contexts. The dialog offers the following features:
 The dialog box can be dismissed by clicking on the close button, clicking on the backdrop, or
 pressing the `Esc` key.
 
-**NOTE**: `<sbb-dialog>` will automatically set size `m` on slotted `<sbb-action-group>` in the
- `action-group` slot.
+**NOTE**: `sbb-dialog` will automatically set size `m` on slotted `sbb-action-group` in the `action-group` slot.
 
 ## Usage
 
 In order to show a modal, you need to call the `open(event?: PointerEvent)` method on the
-`<sbb-dialog>` component:
+`sbb-dialog` component:
 
 ```html
 <sbb-button label="Open dialog" click="openDialog(event, 'my-dialog')"></sbb-button>
@@ -39,7 +38,7 @@ In order to show a modal, you need to call the `open(event?: PointerEvent)` meth
 Note that it is necessary to pass the event object to the `open()` method to allow the dialog to
 detect whether it has been opened by click or keyboard, so that the focus can be better handled.
 
-To dismiss the dialog, you need to get a reference to the `<sbb-dialog>` element and call 
+To dismiss the dialog, you need to get a reference to the `sbb-dialog` element and call 
 the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
 emit a close event with an optional result as a payload. You can also indicate that an element
 within the dialog content should close the dialog when clicked by marking it with the

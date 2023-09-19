@@ -1,4 +1,4 @@
-The `<sbb-navigation-section>` is a container for both [sbb-navigation-list](../sbb-navigation-list/readme.md) and [sbb-button](../sbb-button/readme.md).
+The `sbb-navigation-section` is a container for both [sbb-navigation-list](../sbb-navigation-list/readme.md) and [sbb-button](../sbb-button/readme.md).
 Its intended use is inside a [sbb-navigation](../sbb-navigation/readme.md) component, in which it can be seen as a 'second-level' panel.
 
 ### Trigger

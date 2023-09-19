@@ -56,8 +56,8 @@ the current state can be read from `event.target.checked`, while the value from 
 
 The component uses an internal `<input type="checkbox">` element to provide an accessible experience.
 This internal checkbox receives focus and is automatically labeled by the text content of the
-`<sbb-checkbox>` element. Avoid adding other interactive controls into the content of
-`<sbb-checkbox>`, as this degrades the experience for users of assistive technology.
+`sbb-checkbox` element. Avoid adding other interactive controls into the content of
+`sbb-checkbox`, as this degrades the experience for users of assistive technology.
 
 Always provide an accessible label via `aria-label` for checkboxes without
 descriptive text content.

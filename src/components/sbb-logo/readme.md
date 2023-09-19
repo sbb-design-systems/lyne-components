@@ -1,5 +1,5 @@
 The `sbb-logo` is used as a wrapper for the SBB logo and ensures his aspect ratio and protective room. 
-To use the component, please define the desired height or width on `<sbb-logo>`.
+To use the component, please define the desired height or width on `sbb-logo`.
 
 ```html
 <style>

@@ -47,7 +47,7 @@ The component also listens for changes in its two properties, `wide` and `dateFi
 
 Consumers can listen to the native `change` and `input` events on the `sbb-datepicker` component to intercept date changes, 
 the current value can be read from the async method `event.target.getValueAsDate()`.
-To set the value programmatically, it's recommended to use the `setValueAsDate()` method of the `<sbb-datepicker>`.
+To set the value programmatically, it's recommended to use the `setValueAsDate()` method of the `sbb-datepicker`.
 
 Each time the user changes the date by using the calendar, or the next and previous day arrow, or by using the `setValueAsDate()` method, 
 a `blur` event is fired on the input to ensure compatibility with any framework that relies on that event to update the current state.

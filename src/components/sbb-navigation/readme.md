@@ -1,4 +1,4 @@
-The `<sbb-navigation>` component provides a way to present a navigation menu. 
+The `sbb-navigation` component provides a way to present a navigation menu. 
 
 Some of its features are: 
 

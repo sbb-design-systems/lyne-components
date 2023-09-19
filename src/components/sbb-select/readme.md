@@ -51,7 +51,7 @@ the selected values will be displayed in selection order, separated by a comma.
 ### States
 
 It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component 
-has a `required` property, which can be useful for setting a custom `<sbb-form-error>` message within a `<sbb-form-field>`.
+has a `required` property, which can be useful for setting a custom `sbb-form-error` message within a `sbb-form-field`.
 
 ```html
 <sbb-form-field label="Pick one:">

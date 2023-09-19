@@ -1,5 +1,5 @@
-The `sbb-radio-button` is a component which mimics the native `<input type="radio">`;
-use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` component 
+The `sbb-radio-button` component provides the same functionality as a native `<input type="radio">` 
+enhanced with the SBB Design: use multiple `sbb-radio-button` components inside a `sbb-radio-button-group` component 
 in order to display a radio input within a group.
 
 ```html
@@ -12,7 +12,7 @@ in order to display a radio input within a group.
 ### States
 
 It is possible to display the component in `disabled` or `checked` state by using the self-named property. 
-The component has a `required` property, which can be useful for setting a custom `<sbb-form-error>` message within a `<sbb-form-field>`.
+The component has a `required` property, which can be useful for setting a custom `sbb-form-error` message within a `sbb-form-field`.
 The `allowEmptySelection` property allows user to deselect the component.
 
 ```html

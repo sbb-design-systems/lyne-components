@@ -1,10 +1,10 @@
 The `sbb-form-field` component is intended to be used as a form input wrapper with label and errors.
 
-In this document, "form field" refers to the wrapper component `<sbb-form-field>` and
-"form field control" refers to the component that the `<sbb-form-field>` is wrapping
+In this document, "form field" refers to the wrapper component `sbb-form-field` and
+"form field control" refers to the component that the `sbb-form-field` is wrapping
 (e.g., the input, select, etc.)
 
-The following components are designed to work inside a `<sbb-form-field>`:
+The following components are designed to work inside a `sbb-form-field`:
 
 - `<input>`
 - `<select>`
@@ -33,7 +33,7 @@ The examples below show how to render the component:
 ### Label
 
 Either use a `<label>` or the `label` attribute to provide a label for a form input. The
-`<sbb-form-field>` will automatically assign the correct id reference between label and input.
+`sbb-form-field` will automatically assign the correct id reference between label and input.
 
 When using the floating label and setting the value programmatically to empty or from empty to a specific value,
 it's mandatory to call the `reset()` method of the `sbb-form-field` to update the state of the floating label.
@@ -46,12 +46,12 @@ form field.
 #### Reserve error space
 
 In order to avoid the layout from "jumping" when an error is shown, the option of setting
-`error-space="reserve"` on the `<sbb-form-field>` will reserve space for a single line of an error
+`error-space="reserve"` on the `sbb-form-field` will reserve space for a single line of an error
 message.
 
 ### Prefix & Suffix
 
-It is possible to add content as a prefix or suffix in a `<sbb-form-field>`. This can be done via
+It is possible to add content as a prefix or suffix in a `sbb-form-field`. This can be done via
 the `prefix` and `suffix` slots. 
 
 ```html
@@ -71,23 +71,23 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 
 ## Accessibility
 
-By itself, `<sbb-form-field>` does not apply any additional accessibility treatment to a form
+By itself, the `sbb-form-field` does not apply any additional accessibility treatment to a form
 element. However, several of the form field's optional features interact with the form element
 contained within the form field.
 
-When you provide a label via `<label>` or the `label` attribute, `<sbb-form-field>` automatically
+When you provide a label via `<label>` or the `label` attribute, the `sbb-form-field` automatically
 associates this label with the field's form element via a native `<label>` element, using the `for`
 attribute to reference the control's ID.
-When using a non-native form element (e.g. `<sbb-select>`) `aria-labelledby` is used, to connect the
+When using a non-native form element (e.g. `sbb-select`), the `aria-labelledby` is used to connect the
 form element with the label, by setting an id on the label and referencing this id in the
 `aria-labelledby` attribute placed on the form element.
 Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
-element outside the `<sbb-form-field>`, the automatic assignment is skipped, and it is up to the
+element outside the `sbb-form-field`, the automatic assignment is skipped, and it is up to the
 consumer to use the correct id references.
 
-When you provide informational text via `<sbb-form-error>`, `<sbb-form-error>` automatically adds
-these elements' IDs to the form element's aria-describedby attribute. Additionally, 
-`<sbb-form-error>` is slotted to an element having `aria-live="polite"` so that assistive
+When you provide informational text via `sbb-form-error`, it automatically adds these elements' IDs 
+to the form element's `aria-describedby` attribute. 
+Additionally, `sbb-form-error` is slotted to an element having `aria-live="polite"` so that assistive
 technology will announce errors when they appear.
 
 <!-- Auto Generated Below -->
