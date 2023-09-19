@@ -46,6 +46,7 @@ export const SbbJourneyHeader = /*@__PURE__*/createReactComponent<JSX.SbbJourney
 export const SbbJourneySummary = /*@__PURE__*/createReactComponent<JSX.SbbJourneySummary, HTMLSbbJourneySummaryElement>('sbb-journey-summary');
 export const SbbLink = /*@__PURE__*/createReactComponent<JSX.SbbLink, HTMLSbbLinkElement>('sbb-link');
 export const SbbLinkList = /*@__PURE__*/createReactComponent<JSX.SbbLinkList, HTMLSbbLinkListElement>('sbb-link-list');
+export const SbbLoadingIndicator = /*@__PURE__*/createReactComponent<JSX.SbbLoadingIndicator, HTMLSbbLoadingIndicatorElement>('sbb-loading-indicator');
 export const SbbLogo = /*@__PURE__*/createReactComponent<JSX.SbbLogo, HTMLSbbLogoElement>('sbb-logo');
 export const SbbMapContainer = /*@__PURE__*/createReactComponent<JSX.SbbMapContainer, HTMLSbbMapContainerElement>('sbb-map-container');
 export const SbbMenu = /*@__PURE__*/createReactComponent<JSX.SbbMenu, HTMLSbbMenuElement>('sbb-menu');

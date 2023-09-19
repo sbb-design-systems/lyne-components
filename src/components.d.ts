@@ -28,6 +28,7 @@ import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+import { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 import { ITripItem, Leg } from "./global/timetable";
@@ -73,6 +74,7 @@ export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+export { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 export { ITripItem, Leg } from "./global/timetable";
@@ -992,6 +994,20 @@ export namespace Components {
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbLoadingIndicator {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Size variant, either s or m.
+         */
+        "size": InterfaceSbbLoadingIndicatorAttributes['size'];
+        /**
+          * Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay.
+         */
+        "variant"?: InterfaceSbbLoadingIndicatorAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -2347,6 +2363,12 @@ declare global {
         prototype: HTMLSbbLinkListElement;
         new (): HTMLSbbLinkListElement;
     };
+    interface HTMLSbbLoadingIndicatorElement extends Components.SbbLoadingIndicator, HTMLStencilElement {
+    }
+    var HTMLSbbLoadingIndicatorElement: {
+        prototype: HTMLSbbLoadingIndicatorElement;
+        new (): HTMLSbbLoadingIndicatorElement;
+    };
     interface HTMLSbbLogoElement extends Components.SbbLogo, HTMLStencilElement {
     }
     var HTMLSbbLogoElement: {
@@ -2713,6 +2735,7 @@ declare global {
         "sbb-journey-summary": HTMLSbbJourneySummaryElement;
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
+        "sbb-loading-indicator": HTMLSbbLoadingIndicatorElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
@@ -3717,6 +3740,20 @@ declare namespace LocalJSX {
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbLoadingIndicator {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Size variant, either s or m.
+         */
+        "size"?: InterfaceSbbLoadingIndicatorAttributes['size'];
+        /**
+          * Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay.
+         */
+        "variant"?: InterfaceSbbLoadingIndicatorAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -4870,6 +4907,7 @@ declare namespace LocalJSX {
         "sbb-journey-summary": SbbJourneySummary;
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
+        "sbb-loading-indicator": SbbLoadingIndicator;
         "sbb-logo": SbbLogo;
         "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
@@ -4968,6 +5006,7 @@ declare module "@stencil/core" {
             "sbb-journey-summary": LocalJSX.SbbJourneySummary & JSXBase.HTMLAttributes<HTMLSbbJourneySummaryElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
+            "sbb-loading-indicator": LocalJSX.SbbLoadingIndicator & JSXBase.HTMLAttributes<HTMLSbbLoadingIndicatorElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;
