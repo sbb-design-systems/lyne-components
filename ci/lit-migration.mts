@@ -796,7 +796,7 @@ declare global {
 
         // Replace '@storybook/html' => '@storybook/web-components'
         if (node.moduleSpecifier.getText().match('@storybook/html')) {
-          mutator.replace(node.moduleSpecifier, '@storybook/web-components');
+          mutator.replace(node.moduleSpecifier, "'@storybook/web-components'");
         }
       }
     });
@@ -1139,6 +1139,16 @@ declare global {
             const parameters = call.arguments;
 
             mutator.replace(node, `${element.getText()}.dispatchEvent(new CustomEvent(${parameters.map(p => p.getText()).join(', ')}));`)
+          }
+
+          if (node.getText().match(/\.callMethod\(/)) {
+            const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n)) as ts.CallExpression;
+            const call = deepFind(node, (n) => ts.isCallExpression(n)) as ts.CallExpression;
+            const element = (call.expression as ts.PropertyAccessExpression).expression;
+            const methodName = call.arguments[0].getText().replace(/\'/g, '');
+            const parameters = call.arguments.slice(1);
+
+            mutator.replace(awaitNode, `${element.getText()}.${methodName}(${parameters.map(p => p.getText()).join(', ')})`)
           }
 
           // Hydrated check migration
