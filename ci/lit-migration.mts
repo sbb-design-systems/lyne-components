@@ -770,7 +770,7 @@ declare global {
         }
 
         if (ts.isJsxSpreadAttribute(attr)) {
-          codeToAdd.push(`setAttributes(this, '${attr.expression.getText()}');`);
+          codeToAdd.push(`setAttributes(this, ${attr.expression.getText()});`);
         }
       }
 
