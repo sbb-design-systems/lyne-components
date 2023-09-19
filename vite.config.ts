@@ -1,8 +1,8 @@
 import { PluginOption, defineConfig } from 'vite';
 import postcssLit from 'rollup-plugin-postcss-lit';
-// import dts from 'vite-plugin-dts';
+import dts from 'vite-plugin-dts';
 import glob from 'glob';
-import { basename, dirname } from 'path';
+import { basename, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 export const plugins: PluginOption[] = [
@@ -11,20 +11,30 @@ export const plugins: PluginOption[] = [
   }),
 ];
 
+// Include all directories containing an index.ts
+const modules = glob
+  .sync('src/components/*/index.ts', {
+    cwd: dirname(fileURLToPath(import.meta.url)),
+  })
+  .map(dirname);
+
 export default defineConfig({
-  // TODO: Add dts({ rollupTypes: true }) for production
-  plugins: [...plugins],
+  plugins: [
+    ...plugins,
+    ...modules.map((p) =>
+      dts({
+        entryRoot: p,
+        include: `${p}/**/*.{ts,tsx}`,
+        exclude: '**/*.{stories,spec,e2e}.{ts,tsx}',
+      }),
+    ),
+  ],
   build: {
     lib: {
-      // Could also be a dictionary or array of multiple entry points
-      entry: glob
-        .sync('src/components/*/index.ts', {
-          cwd: dirname(fileURLToPath(import.meta.url)),
-        })
-        .reduce(
-          (current, next) => Object.assign(current, { [basename(dirname(next))]: next }),
-          {} as Record<string, string>,
-        ),
+      entry: modules.reduce(
+        (current, next) => Object.assign(current, { [basename(next)]: join(next, 'index.ts') }),
+        {} as Record<string, string>,
+      ),
       formats: ['es'],
     },
     minify: false,

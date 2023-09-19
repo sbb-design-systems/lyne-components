@@ -30,5 +30,5 @@
       }
     ]
   },
-  "include": ["./src/**/*.ts", "node_modules/lit-scss-loader/types.d.ts"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "node_modules/lit-scss-loader/types.d.ts"]
 }
