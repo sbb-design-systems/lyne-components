@@ -1,8 +1,8 @@
 import { LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { html, literal } from 'lit/static-html.js';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-title.scss?lit&inline';
-import { html, literal } from 'lit/static-html.js';
 
 export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 const headingMap = {
@@ -30,7 +30,8 @@ export class SbbTitle extends LitElement {
    * to the screen readers while we do not want to let that title appear
    * visually. In this case we set visuallyHidden to true
    */
-  @property({ attribute: 'visually-hidden', reflect: true }) public visuallyHidden?: false;
+  @property({ attribute: 'visually-hidden', reflect: true, type: Boolean })
+  public visuallyHidden?: boolean;
 
   /** Choose negative variant */
   @property({ reflect: true, type: Boolean }) public negative?: boolean = false;
@@ -42,7 +43,7 @@ export class SbbTitle extends LitElement {
     /* eslint-disable lit/binding-positions, lit/no-invalid-html */
     return html`
       <${heading} class="sbb-title" role="presentation">
-        <slot />
+        <slot></slot>
       </${heading}>
     `;
     /* eslint-enable lit/binding-positions, lit/no-invalid-html */
