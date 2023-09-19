@@ -395,7 +395,16 @@ async function migrate(component: string, debug = false) {
         const eventName = eventArguments.eventName ?? toKebabCase(node.name.getText());
         eventNames.set(node.name.getText(), eventName);
         makePrivate(node);
-        mutator.insertAtEnd(node.type!, ` = new EventEmitter(this, events.${node.name.getText()})`);
+
+        const eventConfig = Object.keys(eventArguments)
+          .filter((k) => k !== 'eventName' && eventArguments[k])
+          .map((k) => `${k}: true`);
+        const eventConfigStr = eventConfig.length > 0 ? `, { ${eventConfig.join(', ')} }` : '';
+
+        mutator.insertAtEnd(
+          node.type!,
+          ` = new EventEmitter(this, events.${node.name.getText()}${eventConfigStr})`,
+        );
       }
 
       mutator.insertAt(
