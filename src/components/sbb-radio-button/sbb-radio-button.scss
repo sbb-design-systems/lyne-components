@@ -5,22 +5,35 @@
 @include sbb.host-component-properties;
 
 :host {
-  --sbb-radio-button-label-color: var(--color-black-default);
+  --sbb-radio-button-label-color: var(--sbb-color-charcoal-default);
   --sbb-radio-button-background-color: var(--sbb-color-white-default);
-  --sbb-radio-button-border: var(--sbb-border-width-1x);
-  --sbb-radio-button-size: calc(var(--sbb-spacing-fixed-6x) - var(--sbb-radio-button-border) * 2);
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-white-default);
+  --sbb-radio-button-border-width: var(--sbb-border-width-1x);
+  --sbb-radio-button-border-style: solid;
+  --sbb-radio-button-border-color: var(--sbb-color-smoke-default);
+  --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
   --sbb-radio-button-subtext-color: var(--sbb-color-granite-default);
-  --sbb-radio-button-text-decoration: none;
+  --sbb-radio-button-cursor: pointer;
+
+  // The border in unchecked state should fill the circle.
+  --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
 
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
   --sbb-radio-button-icon-align: calc(
-    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-size)) / 2
+    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-dimension)) / 2
   );
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize css of several frameworks.
   outline: none !important;
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-background-color: Canvas !important;
+    --sbb-radio-button-border-width: var(--sbb-border-width-2x);
+    --sbb-radio-button-border-color: ButtonBorder;
+  }
 }
 
 // Change the focus outline when the input is placed inside of a selection panel
@@ -30,7 +43,7 @@
   // which appears in normalize css of several frameworks.
   outline: none !important;
 
-  .sbb-radio-button__label-slot::after {
+  .sbb-radio-button::after {
     content: '';
     position: absolute;
     display: block;
@@ -47,11 +60,31 @@
   }
 }
 
-:host([data-group-disabled]),
-:host([disabled]:not([disabled='false'])) {
-  --sbb-radio-button-label-color: var(--sbb-color-granite-default);
+:host([checked]:not([checked='false'])) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-red-default);
+  --sbb-radio-button-background-fake-border-width: calc(
+    (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
+  );
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-inner-circle-color: Highlight;
+    --sbb-radio-button-border-color: Highlight;
+  }
+}
+
+// Disabled definitions have to be after checked definitions
+:host(:is([data-group-disabled], [disabled]):not([disabled='false'])) {
+  --sbb-radio-button-background-color: var(--sbb-color-milk-default);
   --sbb-radio-button-subtext-color: var(--sbb-color-smoke-default);
-  --sbb-radio-button-text-decoration: line-through;
+  --sbb-radio-button-border-style: dashed;
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal-default);
+  --sbb-radio-button-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-radio-button-inner-circle-color: GrayText;
+    --sbb-radio-button-border-color: GrayText;
+    --sbb-radio-button-border-style: solid;
+  }
 }
 
 .sbb-radio-button__input {
@@ -63,7 +96,7 @@
   @include sbb.text-m--regular;
 
   display: block;
-  cursor: pointer;
+  cursor: var(--sbb-radio-button-cursor);
   user-select: none;
   position: relative;
   color: var(--sbb-radio-button-label-color);
@@ -71,11 +104,6 @@
 
   :host([size='s']) & {
     @include sbb.text-s--regular;
-  }
-
-  :host([data-group-disabled]) &,
-  :host([disabled]:not([disabled='false'])) & {
-    cursor: default;
   }
 
   // Hide focus outline when focus origin is mouse or touch. This is being used in tooltip as a workaround.
@@ -103,66 +131,42 @@ slot[name='subtext'] {
   display: flex;
   align-items: flex-start;
   overflow: hidden;
-  text-decoration: var(--sbb-radio-button-text-decoration);
 
-  // Unchecked style
-  &::before {
+  &::before,
+  &::after {
     content: '';
     flex-shrink: 0;
-    width: var(--sbb-radio-button-size);
-    height: var(--sbb-radio-button-size);
-    background: var(--sbb-radio-button-background-color);
+    width: var(--sbb-radio-button-dimension);
+    height: var(--sbb-radio-button-dimension);
     border-radius: 50%;
-
-    // The border was used to generate the animation of the radio-button,
-    // consequently the box-shadow was used as the actual border of the radio.
-    border: calc(var(--sbb-radio-button-size) / 2) solid var(--sbb-color-white-default);
-    box-shadow: 0 0 0 var(--sbb-radio-button-border) var(--sbb-color-smoke-default);
-    margin-inline-end: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-radio-button-border));
-    margin-inline-start: var(--sbb-radio-button-border);
     margin-block-start: var(--sbb-radio-button-icon-align);
+
     transition: {
       duration: var(--sbb-animation-duration-4x);
       timing-function: ease;
       property: background-color, border;
     }
 
-    // We use the :checked pseudo-class to reflect the checked state
-    .sbb-radio-button__input:checked + & {
-      --sbb-radio-button-background-color: var(--sbb-color-red-default);
-
-      border-width: #{sbb.px-to-rem-build(6)};
-
-      @include sbb.if-forced-colors {
-        --sbb-radio-button-background-color: Highlight;
-
-        outline: var(--sbb-border-width-2x) solid Highlight;
-        border-color: Canvas;
-      }
-    }
-
-    // We use the :checked pseudo-class to reflect the checked state
-    :host([data-group-disabled]) .sbb-radio-button__input:checked + &,
-    :host([disabled]:not([disabled='false'])) .sbb-radio-button__input:checked + & {
-      --sbb-radio-button-background-color: var(--sbb-color-granite-default);
-
-      @include sbb.if-forced-colors {
-        --sbb-radio-button-background-color: GrayText;
-
-        outline-color: GrayText;
-        border-color: Canvas;
-      }
-    }
-
     @include sbb.if-forced-colors {
       transition: none;
-      border: var(--sbb-border-width-2x) solid ButtonBorder;
-
-      :host([data-group-disabled]) &,
-      :host([disabled]:not([disabled='false'])) & {
-        border-color: GrayText;
-      }
     }
+  }
+
+  // Unchecked style
+  &::before {
+    background: var(--sbb-radio-button-inner-circle-color);
+
+    // The border was used to generate the animation of the radio-button
+    // The border color acts as background color.
+    border: var(--sbb-radio-button-background-fake-border-width) solid
+      var(--sbb-radio-button-background-color);
+    margin-inline-end: var(--sbb-spacing-fixed-2x);
+  }
+
+  &::after {
+    position: absolute;
+    border: var(--sbb-radio-button-border-width) var(--sbb-radio-button-border-style)
+      var(--sbb-radio-button-border-color);
   }
 }
 

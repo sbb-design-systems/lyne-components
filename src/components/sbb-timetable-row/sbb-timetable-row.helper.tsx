@@ -88,9 +88,10 @@ export const renderIconProduct = (transport: string, line?: string | null): JSX.
 };
 
 export const renderStringProduct = (vehicleName: string, line?: string | null): JSX.Element => {
+  const space = ['M', 'B', 'T'].includes(vehicleName) ? ' ' : '';
   return (
     <span class="sbb-timetable__row-transportnumber">
-      {line !== null ? vehicleName + ' ' + line : vehicleName}
+      {line !== null ? vehicleName + space + line : vehicleName}
     </span>
   );
 };

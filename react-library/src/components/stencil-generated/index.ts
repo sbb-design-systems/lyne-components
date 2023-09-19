@@ -33,6 +33,7 @@ export const SbbDivider = /*@__PURE__*/createReactComponent<JSX.SbbDivider, HTML
 export const SbbExpansionPanel = /*@__PURE__*/createReactComponent<JSX.SbbExpansionPanel, HTMLSbbExpansionPanelElement>('sbb-expansion-panel');
 export const SbbExpansionPanelContent = /*@__PURE__*/createReactComponent<JSX.SbbExpansionPanelContent, HTMLSbbExpansionPanelContentElement>('sbb-expansion-panel-content');
 export const SbbExpansionPanelHeader = /*@__PURE__*/createReactComponent<JSX.SbbExpansionPanelHeader, HTMLSbbExpansionPanelHeaderElement>('sbb-expansion-panel-header');
+export const SbbFileSelector = /*@__PURE__*/createReactComponent<JSX.SbbFileSelector, HTMLSbbFileSelectorElement>('sbb-file-selector');
 export const SbbFooter = /*@__PURE__*/createReactComponent<JSX.SbbFooter, HTMLSbbFooterElement>('sbb-footer');
 export const SbbFormError = /*@__PURE__*/createReactComponent<JSX.SbbFormError, HTMLSbbFormErrorElement>('sbb-form-error');
 export const SbbFormField = /*@__PURE__*/createReactComponent<JSX.SbbFormField, HTMLSbbFormFieldElement>('sbb-form-field');

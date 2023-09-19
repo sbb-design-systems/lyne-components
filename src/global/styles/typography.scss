@@ -30,12 +30,16 @@ sbb-form-field {
   input:disabled::placeholder {
     color: var(--sbb-color-granite-default);
     -webkit-text-fill-color: var(--sbb-color-granite-default);
-    text-decoration: line-through;
   }
 
   &[floating-label]:not([floating-label='false']) input::placeholder {
     color: transparent;
     -webkit-text-fill-color: transparent;
+
+    @include a11y.if-forced-colors {
+      color: Canvas;
+      -webkit-text-fill-color: Canvas;
+    }
   }
 }
 

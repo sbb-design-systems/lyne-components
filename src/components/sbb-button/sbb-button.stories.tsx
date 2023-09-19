@@ -37,8 +37,8 @@ const RequestSubmitTemplate = ({ text }): JSX.Element => (
   </form>
 );
 
-const Template = ({ text, active, ...args }): JSX.Element => (
-  <sbb-button {...args} data-active={active}>
+const Template = ({ text, active, focusVisible, ...args }): JSX.Element => (
+  <sbb-button {...args} data-active={active} data-focus-visible={focusVisible}>
     {text}
   </sbb-button>
 );
@@ -565,6 +565,16 @@ export const TransparentNegativeActive: StoryObj = {
   },
 };
 
+export const PrimaryFocusVisible: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    variant: variant.options[0],
+    focusVisible: true,
+  },
+};
+
 export const RequestSubmit: StoryObj = {
   render: RequestSubmitTemplate,
   argTypes: defaultArgTypes,
@@ -586,7 +596,7 @@ export const LoadingIndicator: StoryObj = {
 };
 
 const meta: Meta = {
-  excludeStories: /.*Active$/,
+  excludeStories: /.*(Active|FocusVisible)$/,
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), ...focusStyle(context), padding: '2rem' }}>

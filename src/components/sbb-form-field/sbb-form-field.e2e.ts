@@ -55,6 +55,20 @@ describe('sbb-form-field', () => {
       expect(element.getAttribute('data-input-empty')).not.toBeNull();
     });
 
+    it('should react to focus state', async () => {
+      const input = await page.find('input');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-focused')).toBeNull();
+
+      await input.type('v');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-focused')).not.toBeNull();
+
+      await input.press('Tab');
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-focused')).toBeNull();
+    });
+
     it('should assign id to input and reference it in the label', async () => {
       element.setAttribute('label', 'Example');
       await page.waitForChanges();
@@ -136,6 +150,21 @@ describe('sbb-form-field', () => {
 
     it('renders', async () => {
       expect(element).toHaveClass('hydrated');
+    });
+
+    it('should react to focus state', async () => {
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-focused')).toBeNull();
+
+      await page.evaluate(() => document.querySelector('sbb-select').focus());
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-focused')).not.toBeNull();
+
+      await page.evaluate(() =>
+        (document.querySelector('.sbb-select-invisible-trigger') as HTMLDivElement).blur(),
+      );
+      await page.waitForChanges();
+      expect(element.getAttribute('data-input-focused')).toBeNull();
     });
 
     it('should assign id to label and reference it in the sbb-select', async () => {

@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.10](https://github.com/lyne-design-system/lyne-components/compare/v0.40.9...v0.40.10) (2023-09-18)
+
+### Features
+
+- **sbb-file-selector:** component implementation ([#1894](https://github.com/lyne-design-system/lyne-components/issues/1894)) ([0019676](https://github.com/lyne-design-system/lyne-components/commit/001967618ed4ce2ece098761e78f444afcd23722))
+
+### [0.40.9](https://github.com/lyne-design-system/lyne-components/compare/v0.40.8...v0.40.9) (2023-09-14)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** add space for certain vehicles ([#1985](https://github.com/lyne-design-system/lyne-components/issues/1985)) ([739054d](https://github.com/lyne-design-system/lyne-components/commit/739054dbb42c8d9d524223be6f633580606ea9dc))
+
+### [0.40.8](https://github.com/lyne-design-system/lyne-components/compare/v0.40.7...v0.40.8) (2023-09-13)
+
+### Bug Fixes
+
+- **sbb-card:** allow placing tooltips inside non-interactive cards ([#1983](https://github.com/lyne-design-system/lyne-components/issues/1983)) ([cb716b3](https://github.com/lyne-design-system/lyne-components/commit/cb716b339a166dbeada88348e41fd4c0ea59d644)), closes [#1982](https://github.com/lyne-design-system/lyne-components/issues/1982)
+
+### [0.40.7](https://github.com/lyne-design-system/lyne-components/compare/v0.40.6...v0.40.7) (2023-09-12)
+
+### Bug Fixes
+
+- **multiple:** disabled states ([#1972](https://github.com/lyne-design-system/lyne-components/issues/1972)) ([dc47583](https://github.com/lyne-design-system/lyne-components/commit/dc47583e62997bf002bddb7be6fe5e3b1134f152)), closes [#1955](https://github.com/lyne-design-system/lyne-components/issues/1955)
+
+### [0.40.6](https://github.com/lyne-design-system/lyne-components/compare/v0.40.5...v0.40.6) (2023-09-11)
+
+### Bug Fixes
+
+- **sbb-select:** fix focused styles ([#1979](https://github.com/lyne-design-system/lyne-components/issues/1979)) ([7ab3ea6](https://github.com/lyne-design-system/lyne-components/commit/7ab3ea6616951fac7f984eb07dc9713214b64660))
+
 ### [0.40.5](https://github.com/lyne-design-system/lyne-components/compare/v0.40.4...v0.40.5) (2023-09-05)
 
 ### Features

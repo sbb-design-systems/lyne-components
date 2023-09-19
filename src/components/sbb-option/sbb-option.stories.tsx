@@ -78,8 +78,8 @@ const createOptions = ({
           style={style}
           active={active && i === 0}
           disabled={disabled && i === 0}
-          {...args}
           value={`${value} ${i + 1}`}
+          {...args}
         >
           {`${value} ${i + 1}`}
         </sbb-option>

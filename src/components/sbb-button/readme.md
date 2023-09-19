@@ -77,6 +77,7 @@ sbb-button {
  - [sbb-alert](../sbb-alert)
  - [sbb-calendar](../sbb-calendar)
  - [sbb-dialog](../sbb-dialog)
+ - [sbb-file-selector](../sbb-file-selector)
  - [sbb-map-container](../sbb-map-container)
  - [sbb-navigation](../sbb-navigation)
  - [sbb-navigation-section](../sbb-navigation-section)
@@ -95,6 +96,7 @@ graph TD;
   sbb-alert --> sbb-button
   sbb-calendar --> sbb-button
   sbb-dialog --> sbb-button
+  sbb-file-selector --> sbb-button
   sbb-map-container --> sbb-button
   sbb-navigation --> sbb-button
   sbb-navigation-section --> sbb-button
