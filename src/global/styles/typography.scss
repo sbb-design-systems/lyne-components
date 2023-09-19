@@ -53,12 +53,12 @@ sbb-form-field {
     sbb-autocomplete,
     sbb-select,
     sbb-toast
-  ):not(.hydrated) {
+  ):not(:defined) {
   display: none;
 }
 
 // Ensure stable breadcrumb height during hydrating
-sbb-breadcrumb-group:not(.hydrated) {
+sbb-breadcrumb-group:not(:defined) {
   display: block;
   height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
   overflow: hidden;
