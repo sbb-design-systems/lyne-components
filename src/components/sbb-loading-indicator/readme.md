@@ -1,8 +1,7 @@
 The `sbb-loading-indicator` is a component which can be used to indicate progress status 
 or an ongoing activity which require some time to complete.
 
-
-### Variant
+### Variants
 
 It has two different variants: 
 in `window` mode, the component completely covers the parent element, preventing interaction with it,
@@ -20,8 +19,7 @@ while the `circle` mode can be used inline within another component (e.g., butto
 </sbb-button>
 ```
 
-
-### Size
+### Style
 
 In `window` mode it's possible to define the `size` of the component, choosing between `s` (default) and `l`.
 
@@ -29,12 +27,11 @@ In `window` mode it's possible to define the `size` of the component, choosing b
 <sbb-loading-indicator variant="window" size='l'/>
 ```
 
-
-#### Accessibility
+## Accessibility
 
 If the `sbb-loading-indicator` should be announced by screen-readers, use an element with the correct aria attributes 
 (`aria-live` set to `polite` or `assertive`, and possibly `aria-atomic` and `aria-relevant`) 
-and then append `sbb-loading-indicator` on it after giving it the correct `aria-label`.
+and then append the `sbb-loading-indicator` on it after giving it the correct `aria-label`.
 
 ```html
 <div class="loader-container" aria-live="polite">
