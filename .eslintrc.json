@@ -83,6 +83,8 @@
         "@typescript-eslint/no-var-requires": "off",
         // TODO: Evaluate this rule
         "@typescript-eslint/semi": ["error"],
+        // TODO Discuss this with the team
+        "lit/no-invalid-html": "off",
         "camelcase": "off"
       }
     },
