@@ -1,18 +1,10 @@
 import { LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { html, literal } from 'lit/static-html.js';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-title.scss?lit&inline';
 
 export type TitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
-const headingMap = {
-  1: literal`h1`,
-  2: literal`h2`,
-  3: literal`h3`,
-  4: literal`h4`,
-  5: literal`h5`,
-  6: literal`h6`,
-};
 
 @customElement('sbb-title')
 export class SbbTitle extends LitElement {
@@ -37,16 +29,17 @@ export class SbbTitle extends LitElement {
   @property({ reflect: true, type: Boolean }) public negative?: boolean = false;
 
   protected override render(): TemplateResult {
-    const heading = headingMap[Number(this.level)] ?? headingMap[6];
+    const TAGNAME = `h${this.level}`;
     setAttribute(this, 'role', 'heading');
     setAttribute(this, 'aria-level', this.level);
-    /* eslint-disable lit/binding-positions, lit/no-invalid-html */
+
+    /* eslint-disable lit/binding-positions */
     return html`
-      <${heading} class="sbb-title" role="presentation">
+      <${unsafeStatic(TAGNAME)} class="sbb-title" role="presentation">
         <slot></slot>
-      </${heading}>
+      </${unsafeStatic(TAGNAME)}>
     `;
-    /* eslint-enable lit/binding-positions, lit/no-invalid-html */
+    /* eslint-enable lit/binding-positions */
   }
 }
 
