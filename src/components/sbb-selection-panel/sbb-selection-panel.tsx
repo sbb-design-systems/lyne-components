@@ -19,6 +19,8 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom';
+import { AgnosticResizeObserver } from '../../global/observers';
+import { toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
@@ -50,6 +52,11 @@ export class SbbSelectionPanel implements ComponentInterface {
    * Whether the animation is enabled.
    */
   @Prop({ reflect: true }) public disableAnimation = false;
+
+  /**
+   * The state of the selection panel.
+   */
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing';
 
   /**
    * Whether the selection panel is checked.
@@ -114,6 +121,10 @@ export class SbbSelectionPanel implements ComponentInterface {
   );
 
   private _contentElement: HTMLElement;
+  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _selectionPanelResizeObserver = new AgnosticResizeObserver(() =>
+    this._onNotificationResize(),
+  );
 
   private get _input(): HTMLSbbCheckboxElement | HTMLSbbRadioButtonElement {
     return this._element.querySelector('sbb-checkbox, sbb-radio-button') as
@@ -138,11 +149,15 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     if (this._checked) {
+      this._state = 'opening';
       this.willOpen.emit();
-      this.disableAnimation && this.didOpen.emit();
+      this._selectionPanelResizeObserver.observe(this._contentElement);
+      this.disableAnimation && this._handleOpening();
     } else {
+      this._state = 'closing';
       this.willClose.emit();
-      this.disableAnimation && this.didClose.emit();
+      this._selectionPanelResizeObserver.unobserve(this._contentElement);
+      this.disableAnimation && this._handleClosing();
     }
   }
 
@@ -153,10 +168,12 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
+    this._selectionPanelResizeObserver.disconnect();
   }
 
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
+    this._state = this._checked ? 'opened' : 'closed';
     this._disabled = this._input?.disabled;
   }
 
@@ -169,22 +186,50 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
   }
 
+  private _onNotificationResize(): void {
+    if (this._state !== 'opened') {
+      return;
+    }
+
+    clearTimeout(this._resizeObserverTimeout);
+
+    toggleDatasetEntry(this._element, 'resizeDisableAnimation', true);
+    this._setContentElementHeight();
+
+    // Disable the animation when resizing the selection panel to avoid strange height transition effects.
+    this._resizeObserverTimeout = setTimeout(
+      () => toggleDatasetEntry(this._element, 'resizeDisableAnimation', false),
+      150,
+    );
+  }
+
   private _onTransitionEnd(event: TransitionEvent): void {
     if (event.target !== this._contentElement || event.propertyName !== 'opacity') {
       return;
     }
 
     if (this._checked) {
-      this.didOpen.emit();
+      this._handleOpening();
     } else {
-      this.didClose.emit();
+      this._handleClosing();
     }
+  }
+
+  private _handleOpening(): void {
+    this._state = 'opened';
+    this.didOpen.emit();
+  }
+
+  private _handleClosing(): void {
+    this._state = 'closed';
+    this.didClose.emit();
   }
 
   public render(): JSX.Element {
     return (
       <Host
         data-has-content={this._namedSlots['content']}
+        data-state={this._state}
         data-checked={this._checked}
         data-disabled={this._disabled}
       >

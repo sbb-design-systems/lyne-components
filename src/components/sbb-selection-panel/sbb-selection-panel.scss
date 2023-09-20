@@ -50,7 +50,7 @@
   --sbb-selection-panel-border-color: transparent;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
   --sbb-selection-panel-animation-duration: 0s;
 }
 
