@@ -309,7 +309,7 @@ async function migrate(component: string, debug = false) {
         pivot,
         `
 
-  public willUpdate(changedProperties: PropertyValues<this>): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
     // TODO: Verify parity${propertyWatchers
       .map(
         (pw) => `
@@ -891,44 +891,49 @@ declare global {
     }
 
     function migrateSpecAssertion(node: ts.CallExpression) {
-      const assertion = deepFind(
-        node,
-        (n) => ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/),
-      ) as ts.CallExpression;
+      const assertionsList: ts.CallExpression[] = [];
 
-      if (!assertion) {
+      iterate(node, n => {
+        if (ts.isCallExpression(n) && !!n.getText().match(/^expect\(\w*\).toEqualHtml/)) {
+          assertionsList.push(n);
+        }
+      })
+
+      if (assertionsList.length === 0) {
         return;
       }
 
-      const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
-      const fullTemplate = assertion.arguments[0].getText();
-
-      if (fullTemplate.match(/<mock:shadow-root>/g)!.length > 1) {
-        mutator.insertAt(assertion, '/** NOTE: this test has multiple shadow DOMs. You need to manually migrate it, sorry :/ \n'
-        + '  * You could extract 3 different assertions. One for the light DOM,' 
-        + '  * one for the shadow DOM of the first component and one for the sh. Dom of the second */ \n')
-        return;
+      for (const assertion of assertionsList) {
+        const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
+        const fullTemplate = assertion.arguments[0].getText();
+  
+        if (fullTemplate.match(/<mock:shadow-root>/g)!.length > 1) {
+          mutator.insertAt(assertion, '/** NOTE: this test has multiple shadow DOMs. You need to manually migrate it, sorry :/ \n'
+          + '  * You could extract 3 different assertions. One for the light DOM,' 
+          + '  * one for the shadow DOM of the first component and one for the sh. Dom of the second */ \n')
+          continue;
+        }
+  
+        // Split the html template into shadow and light DOMs
+        const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
+        const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
+        const shadowStartIndex = shadowStart.index! + shadowStart?.[0].length!;
+        const shadowEndIndex = shadowEnd.index!;
+        const lightDomTemplate =
+          fullTemplate.substring(0, shadowStart.index!) +
+          fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
+        const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
+  
+        mutator.remove(assertion);
+        mutator.insertAt(
+          assertion,
+          `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
+        );
+        mutator.insertAt(
+          assertion,
+          `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`);`,
+        );
       }
-
-      // Split the html template into shadow and light DOMs
-      const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
-      const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
-      const shadowStartIndex = shadowStart.index! + shadowStart?.[0].length!;
-      const shadowEndIndex = shadowEnd.index!;
-      const lightDomTemplate =
-        fullTemplate.substring(0, shadowStart.index!) +
-        fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
-      const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
-
-      mutator.remove(assertion);
-      mutator.insertAt(
-        assertion,
-        `${expectNode.getText()}.dom.to.be.equal(\n${lightDomTemplate}\n);\n`,
-      );
-      mutator.insertAt(
-        assertion,
-        `${expectNode.getText()}.shadowDom.to.be.equal(\n\`${shadowDomTemplate}\`);`,
-      );
     }
   }
 
