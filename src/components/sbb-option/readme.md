@@ -1,4 +1,5 @@
-The `sbb-option` is a component which can be used to display items in components like `sbb-autocomplete` or `sbb-select`.
+The `sbb-option` is a component which can be used to display items in components like
+[sbb-autocomplete](/docs/components-sbb-autocomplete--docs) or a [sbb-select](/docs/components-sbb-select--docs).
 
 ### Slots
 
@@ -14,8 +15,10 @@ Icon space can be reserved even if the `iconName` property is not set by overrid
 
 ### States
 
-Like the native `option`, the component has a `value` property. The `selected`, `disabled` and `active` properties are 
-connected to the self-named states. When disabled, the selection via click is prevented.
+Like the native `option`, the component has a `value` property. 
+
+The `selected`, `disabled` and `active` properties are connected to the self-named states. 
+When disabled, the selection via click is prevented.
 If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from the parent the `disabled` state.
 
 ```html

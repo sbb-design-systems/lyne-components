@@ -1,5 +1,5 @@
-The `sbb-navigation-list` component is a collection of [sbb-navigation-action](../sbb-navigation-action/readme.md).
-Its intended use is inside a [sbb-navigation-section](../sbb-navigation-section/readme.md) component.
+The `sbb-navigation-list` component is a collection of [sbb-navigation-action](/docs/components-sbb-navigation-sbb-navigation-action--docs).
+Its intended use is inside a [sbb-navigation-section](/docs/components-sbb-navigation-sbb-navigation-section--docs) component.
 Optionally, a label can be provided via slot via the self-named property or the self-named slot.
 
 ```html
@@ -9,7 +9,6 @@ Optionally, a label can be provided via slot via the self-named property or the 
     <sbb-navigation-action href="...">Label 1.1.3</sbb-navigation-action>
 </sbb-navigation-list>
 ```
-
 
 <!-- Auto Generated Below -->
 

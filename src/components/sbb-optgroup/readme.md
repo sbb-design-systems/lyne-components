@@ -1,7 +1,10 @@
-The `sbb-optgroup` is a component used to group more `sbb-option` within a `sbb-autocomplete` or a `sbb-select` component.
-A `sbb-divider` is displayed at the bottom of the component.
+The `sbb-optgroup` is a component used to group more [sbb-option](/docs/components-sbb-option-sbb-option--docs)
+within a [sbb-autocomplete](/docs/components-sbb-autocomplete--docs)
+or a [sbb-select](/docs/components-sbb-select--docs) component.
 
-### Slot
+A [sbb-divider](/docs/components-sbb-divider--docs) is displayed at the bottom of the component.
+
+### Slots
 
 It is possible to provide a set of `sbb-option` via an unnamed slot; 
 the component has also a `label` property as name of the group.
@@ -16,7 +19,7 @@ the component has also a `label` property as name of the group.
 
 ### States
 
-The component has a `disabled` property which, if set to `true`, sets all the `sbb-option` in the group as disabled.
+The component has a `disabled` property which sets all the `sbb-option` in the group as disabled.
 
 ```html
 <sbb-optgroup label="Disabled group" disabled>

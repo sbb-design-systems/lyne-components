@@ -1,5 +1,6 @@
 The `sbb-navigation-action` component is an action element contained by 
-a [sbb-navigation-list](../sbb-navigation-list/readme.md) component or a [sbb-navigation-marker](../sbb-navigation-marker/readme.md) component. 
+a [sbb-navigation-list](/docs/components-sbb-navigation-sbb-navigation-list--docs) component 
+or a [sbb-navigation-marker](/docs/components-sbb-navigation-sbb-navigation-marker--docs) component. 
 
 ### Link / button properties
 

@@ -20,7 +20,7 @@ The component can be used within a `sbb-form-field` component.
 </sbb-form-field>
 ```
 
-### Icons 
+### Slots 
 
 The component can optionally display two `sbb-icon`s at either end; 
 consumers could set one/both of them using the `startIcon` and `endIcon` properties, 
@@ -50,7 +50,7 @@ It is possible to display the component in `disabled` or `readonly` state by usi
 Consumers can listen to the native `change` event on the `sbb-slider` component to intercept the input's change `event`;
 the current value can be read from `event.target.value` or `event.target.valueAsNumber`.
 
-## Accessibility
+### Keyboard interaction
 
 The `sbb-slider` has the following behaviour on keypress when focused:
 

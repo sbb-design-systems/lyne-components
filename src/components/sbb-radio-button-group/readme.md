@@ -1,7 +1,6 @@
-The `sbb-radio-button-group` is a component which can be used as a wrapper for a collection of `sbb-radio-button`,
-or, alternatively, for a collection of `sbb-selection-panel`.
-Pressing a `sbb-radio-button` checks it and unchecks the previously selected one, if any. 
-They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
+The `sbb-radio-button-group` is a component which can be used as a wrapper for 
+a collection of [sbb-radio-button](/docs/components-sbb-radio-button-sbb-radio-button--docs)s,
+or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sbb-selection-panel--docs)s.
 
 ```html
 <!-- The first option will be selected by default -->
@@ -11,6 +10,10 @@ They can also be controlled programmatically by setting the value property of th
   <sbb-radio-button value="Value three">Option three</sbb-radio-button>
 </sbb-radio-button-group>
 ```
+
+
+Pressing a `sbb-radio-button` checks it and unchecks the previously selected one, if any.
+They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
 
 Please note that within a `sbb-radio-button-group`, only one `sbb-radio-button` can be selected at a time;
 if you need to select more than one item, it is recommended to use the `sbb-checkbox-group` component.
@@ -34,8 +37,6 @@ The radio group can have different states:
 </sbb-radio-button-group>
 ```
 
-### Deselecting Radios
-
 In order to deselect a `sbb-radio-button` inside the `sbb-radio-button-group`,
 you can use the `allowEmptySelection` property, which will be proxied to the inner `sbb-radio-button` 
 enabling their deselection (by default, a selected `sbb-radio-button` cannot be deselected).
@@ -46,7 +47,7 @@ enabling their deselection (by default, a selected `sbb-radio-button` cannot be 
 </sbb-radio-button-group>
 ```
 
-### Orientation
+### Style
 
 The `orientation` property is used to set item orientation. Possible values are `horizontal` (default) and `vertical`.
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to

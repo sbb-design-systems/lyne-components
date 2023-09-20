@@ -1,5 +1,6 @@
-The `sbb-skiplink-list` is a component that can be used to collect one or more hidden `sbb-link`s,
+The `sbb-skiplink-list` is a component that can be used to collect one or more hidden [sbb-link](/docs/components-sbb-link--docs)s,
 which become visible only when focused, e.g., using the `Tab` key. 
+
 When the component contains multiple link elements, only one of them is shown (the focused one), while the others stay visually hidden.
 
 It has an optional `sbb-title` element, which is visually hidden too, but it's read from screen-readers, 

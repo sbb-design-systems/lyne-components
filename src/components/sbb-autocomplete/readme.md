@@ -72,7 +72,7 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 
 The `sbb-option` emits the `option-selected` event when selected via user interaction.
 
-## Keyboard interaction
+### Keyboard interaction
 
 The options panel opens on `focus`, `click` or `input` events on the trigger element, or on `ArrowDown` keypress;
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.
