@@ -9,7 +9,7 @@ enhanced with the SBB Design.
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 using the `iconName` property or via custom content using the `icon` slot. 
-The icon can be at the component start or end based on the value of `labelPosition` property (default: `after`).
+The icon can be at the component start or end based on the value of the `labelPosition` property (default: `after`).
 
 ```html
 <sbb-toggle-check value="single-checkbox" icon-name='pie-small'>
@@ -20,8 +20,6 @@ The icon can be at the component start or end based on the value of `labelPositi
   Another example
 </sbb-toggle-check>
 ```
-
-If you don't want the label to appear next to the toggle-check, you can use `aria-label` to specify an appropriate label.
 
 ### States
 
@@ -44,7 +42,8 @@ The `sbb-toggle-check` component uses an internal `<input type="checkbox"/>` to 
 This internal checkbox receives focus and is automatically labelled by the text content of the `sbb-toggle-check` element. 
 Avoid adding other interactive controls into the content of `sbb-toggle-check`, as this degrades the experience for users of assistive technology.
 
-Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
+If you don't want the label to appear next to the `sbb-toggle-check` component,
+you can not provide it and then use `aria-label` to specify an appropriate label for screen-readers.
 
 ```html
 <sbb-toggle-check aria-label="Subscribed to email message" />

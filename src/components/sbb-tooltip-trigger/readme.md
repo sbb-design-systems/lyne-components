@@ -1,4 +1,5 @@
-The `sbb-tooltip-trigger` component is used to trigger a tooltip by pressing or hovering on a button. 
+The `sbb-tooltip-trigger` component is used to trigger a [sbb-tooltip](/docs/components-sbb-tooltip-sbb-tooltip--docs) 
+by pressing or hovering on it. 
 
 ```html
 <sbb-tooltip-trigger id="tooltip-trigger"></sbb-tooltip-trigger>

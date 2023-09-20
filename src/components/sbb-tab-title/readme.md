@@ -1,35 +1,30 @@
-The `sbb-tab-title` is a component which is meant to be used in combination with the `sbb-tab-group` component 
+The `sbb-tab-title` is a component which is meant to be used in combination with the 
+[sbb-tab-group](/docs/components-sbb-tab-sbb-tab-group--docs) component 
 in order to display a tab label within the tab bar.
 
 ```html
-<sbb-tab-group>
-  <sbb-tab-title>
-    Tab Label
-  </sbb-tab-title>
-</sbb-tab-group>
+<sbb-tab-title>Tab Label</sbb-tab-title>
 ```
 
 ### Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
+
 It's also possible to display a numeric amount at the component's end using the `amount` property or slot.
-It's possible to change the label's heading tag using the `level` property.
+
+The label's heading tag can be changed using the `level` property.
 
 ```html
-<sbb-tab-group>
-  <sbb-tab-title icon-name="app-icon-small" amount="123">
-    Tab Label
-  </sbb-tab-title>
-</sbb-tab-group>
+<sbb-tab-title icon-name="app-icon-small" amount="123">
+  Tab Label
+</sbb-tab-title>
 
-<sbb-tab-group>
-  <sbb-tab-title>
-    <sbb-icon slot="icon" name="circle-information-small"></sbb-icon>
-    Tab Label
-    <span slot="amount">123</span>
-  </sbb-tab-title>
-</sbb-tab-group>
+<sbb-tab-title>
+  <sbb-icon slot="icon" name="circle-information-small"></sbb-icon>
+  Tab Label
+  <span slot="amount">123</span>
+</sbb-tab-title>
 ```
 
 ### States
@@ -37,11 +32,9 @@ It's possible to change the label's heading tag using the `level` property.
 It is possible to display the component in `disabled` state by using the self-named property.
 
 ```html
-<sbb-tab-group disabled>
-  <sbb-tab-title>
-    Tab Label
-  </sbb-tab-title>
-</sbb-tab-group>
+<sbb-tab-title disabled>
+  Tab Label
+</sbb-tab-title>
 ```
 
 <!-- Auto Generated Below -->

@@ -1,7 +1,8 @@
 The `sbb-tag-group` component is used as a container for one or multiple `sbb-tag` components,
 which are projected inside the unnamed slot.
 
-To work properly, it's mandatory to provide a value to each `sbb-tag`. See its documentation for more details.
+To work properly, it's mandatory to provide a value to each `sbb-tag`. 
+See [its documentation]((/docs/components-sbb-tag-sbb-tag--docs)) for more details.
 
 ```html
 <sbb-tag-group>
@@ -12,7 +13,9 @@ To work properly, it's mandatory to provide a value to each `sbb-tag`. See its d
 </sbb-tag-group>
 ```
 
-## Exclusive selection vs. multiple selection
+### Interaction
+
+#### Exclusive selection vs. multiple selection
 
 By default, `sbb-tag-group` acts like a radio-button group: only one item can be selected. 
 In this mode, the value of the `sbb-tag-group` will reflect the value of the selected `sbb-tag`.
@@ -29,12 +32,12 @@ In this mode the value of the `sbb-tag-group` is an array containing all values 
 </sbb-tag-group>
 ```
 
-### Changing multiple property during run time
+#### Changing multiple property during run time
 
 There is no support for changing multiple mode during run time (e.g., update value automatically).
 So this flag should be provided at component's instantiation time.
 
-### Advanced usage: multiple and exclusive mixed
+#### Advanced usage: multiple and exclusive mixed
 
 ```ts
 const uncheckAllTag = () => {
@@ -65,8 +68,8 @@ const uncheckTags = () => {
 The property `listAccessibilityLabel` is forwarded as `aria-label` to the inner list that the component uses to display the tags,
 to use the implicit `role="list"` of the `ul`.
 
-If the `listAccessibilityLabel` property is not defined, the `sbb-tag-group` surrounding the buttons 
-applies `role="group"` to convey the association between the individual `sbb-tag`s. 
+If the `listAccessibilityLabel` property is not defined, the `sbb-tag-group` surrounding the buttons applies `role="group"` 
+to convey the association between the individual `sbb-tag`s. 
 
 When using the `role="group"`, each `sbb-tag-group` element should be given a label with `aria-label` or `aria-labelledby`,
 that communicates the collective meaning of all `sbb-tag`s.

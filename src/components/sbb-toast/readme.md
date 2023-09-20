@@ -13,7 +13,7 @@ if a new `sbb-toast` is opened while a previous message is still showing, the ol
 ### Important note
 
 You should carefully consider every use of the `sbb-toast` component since it can be a source of stress for people with visual impairments
-(see the [accessibility](#accessibility) section for more info).
+(see the ["Accessibility"](#accessibility) section for more info).
 
 Here are a few tips for correct usage:
 * Try to avoid actions inside a `sbb-toast` since they are not easily reachable;
@@ -54,7 +54,7 @@ The time before the component auto-closing can be set with the `timeout` propert
 
 The position on the page where the toast will be opened can be configured with the `position` property,
 which accepts all the combinations of the vertical positions `top` and `bottom` 
-with the horizontal positions `left`, `start`, `center`, `right` and `end` (default: 'bottom-center').
+with the horizontal positions `left`, `start`, `center`, `right` and `end` (default: `bottom-center`).
 
 ```html
 <sbb-button onClick={() => document.querySelector('sbb-toast').open() } />
@@ -77,7 +77,7 @@ Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibi
 The `sbb-toast` does not move focus to the toast element, because it would disrupt users in the middle of a workflow. 
 
 For any action offered in the `sbb-toast`, your application should provide an alternative way to perform the action 
-(e.g., a keyboard combination).
+(e.g. a keyboard combination).
 
 Avoid setting a `timeout` for toasts that have an action available,
 as screen reader users may want to navigate to the toast element to activate the action.

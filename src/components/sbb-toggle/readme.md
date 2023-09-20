@@ -1,7 +1,9 @@
-The `sbb-toggle` component is a wrapper for two `sbb-toggle-option` that can be selected by the user. 
+The `sbb-toggle` component is a wrapper for a couple of [sbb-toggle-option](/docs/components-sbb-toggle-sbb-toggle-option--docs)s
+that can be selected by the user; it is useful for switching between views within the content 
 
-Their behavior is similar to `sbb-tab-group` or `sbb-radio-button-group`, where selecting an option deselects the previously selected one. 
-The `sbb-toggle` component is useful for switching between views within the content.
+Their behavior is similar to [sbb-tab-group](/docs/components-sbb-tab-sbb-tab-group--docs) 
+or [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs), 
+where selecting an option deselects the previously selected one. 
 
 ```html
 <sbb-toggle value="Value 1">

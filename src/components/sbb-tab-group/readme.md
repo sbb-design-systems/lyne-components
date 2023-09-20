@@ -1,6 +1,7 @@
 The `sbb-tab-group` is a component used to organize and gather tabs that the user can navigate through; 
 use it when you want to provide navigation within blocks of content, instead of showing everything in one place 
 or requiring the user to navigate between several different views. 
+
 Each tab has a related content, distinct from other tabs' content; 
 tab panels can present different sections of content and include text, images, forms, other tab groups, etc.
 
@@ -17,9 +18,10 @@ tab panels can present different sections of content and include text, images, f
 </sbb-tab-group>
 ```
 
-In order to display a tab label within the tab bar, provide an `sbb-tab-title` right before the related tab content; 
-please refer to the `sbb-tab-title` documentation for more details.
-The content element should be wrapped in a `div`, a `section` or an `article` and placed right after its relative tab title.
+In order to display a tab label within the tab bar, provide a `sbb-tab-title` right before its related tab content; 
+please refer to the [sbb-tab-title](/docs/components-sbb-tab-sbb-tab-title--docs) documentation for more details.
+
+**Note:** the content element should be wrapped in a `div`, a `section` or an `article` and placed right after its relative `sbb-tab-title`.
 Tab groups can also be nested, which means that a tab's content block can be represented by another `sbb-tab-group`, 
 as shown in the "Nested Tab Groups" example.
 
@@ -27,6 +29,7 @@ as shown in the "Nested Tab Groups" example.
 
 A tab can be selected, unselected, or in `disabled` state; disable a tab to mark it as unavailable. 
 Disabled tabs cannot be focused and may be invisible to assistive technologies such as screen readers.
+
 It's possible to set the first selected tab using the `initialSelectedIndex` property.
 
 ```html

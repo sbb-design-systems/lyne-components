@@ -1,4 +1,4 @@
-The `sbb-title` is a component which renders an heading element according to the provided `level` (default: `1`).
+The `sbb-title` is a component which renders a heading element according to the provided `level` (default: `1`).
 
 ```html
 <sbb-title>Hello</sbb-title>

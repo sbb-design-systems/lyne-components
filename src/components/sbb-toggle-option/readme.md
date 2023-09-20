@@ -1,4 +1,5 @@
-The `sbb-toggle-option` component is used inside the `sbb-toggle` in order to render the toggle's options. 
+The `sbb-toggle-option` component is used inside the 
+[sbb-toggle](/docs/components-sbb-toggle-sbb-toggle--docs) in order to render the toggle's options. 
 
 ```html
 <sbb-toggle-option value="Value">Option</sbb-toggle-option>

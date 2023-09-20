@@ -1,7 +1,7 @@
 The `sbb-time-input` is a component that displays the typed value as a formatted time (HH:mm).
 
 The component allows the insertion of up to 4 numbers, possibly with a separator char like `.`, `:`, `,` or `-`, 
-then automatically formats the value as time and displays it (see the "Format example" paragraph).
+then automatically formats the value as time and displays it (see ["Format example"](#format-example)).
 
 The component and the native `input` can be connected using the `input` property,
 which accepts the id of the native input, or directly its reference.
@@ -25,11 +25,12 @@ If the `sbb-time-input` is used within a `sbb-form-field` with a native input, t
 The initial value can be set using the `value` property (string) of the `input`or the `setValueAsDate()` method of the `sbb-time-input`.
 
 When the input changes, if it is valid, the component updates the `value` of the `input`. 
+
 To get the value as a `Date` object, the `getValueAsDate()` method of the `sbb-time-input` can be called.
 The date is constructed like following: the start date is set to 01.01.1970, 00:00:00 UTC, then the typed hours and minuted are added, 
 e.g.: with a value of `12:34`, the `getValueAsDate()` will be 01.01.1970, 12:34:00 UTC.
 
-If the value is invalid because not real (e.g., 12:61 or 25:30), the component does not format the `value`,
+If the value is invalid because not real (e.g. 12:61 or 25:30), the component does not format the `value`,
 and will return `null` if  `getValueAsDate()` was called.
 
 ### Format example
@@ -51,7 +52,7 @@ See the table below for some formatting examples:
 | 12,34 | 12:34  |
 | 12-34 | 12:34  |
 
-## Validation Change
+## Events
 
 Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
 
