@@ -1,8 +1,8 @@
 The `sbb-menu` is a component that can be attached to any element to open and display a custom context menu,
 which allows to perform actions relevant to the current task or to navigate within or outside the application 
-by using the `sbb-menu-action` component along with it.
+by using the [sbb-menu-action](/docs/components-sbb-menu-sbb-menu-action--docs) component along with it.
 
-### Trigger and content
+### Interaction
 
 The element that will trigger the menu dialog must be set using the `trigger` property. 
 
@@ -51,7 +51,8 @@ You can also provide custom content inside the `sbb-menu`:
 If only `sbb-menu-action` components are provided, the items are automatically grouped within a list
 using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.
 
-The default `z-index` of the component is set to `1000`; to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-menu-z-index`.
+The default `z-index` of the component is set to `1000`; 
+to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-menu-z-index`.
 
 ## Accessibility
 

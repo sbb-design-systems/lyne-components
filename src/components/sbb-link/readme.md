@@ -16,6 +16,14 @@ By default, the icon is placed at the component's end, but this can be changed u
 </sbb-link>
 ```
 
+### States
+
+The component can be displayed in `disabled` state using the self-named property.
+
+```html
+<sbb-link disabled>Refunds</sbb-link>
+```
+
 ### Link / button properties
 
 The component can be internally rendered as a button or as a link,
@@ -35,11 +43,10 @@ it is internally rendered as a span in order to not break HTML functionality.
 </sbb-link>
 ```
  
-### Variants
+### Style
 
 The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
 and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.
-The component can be displayed in `disabled` state using the self-named property.
 
 ```html
 <sbb-link size='m'>Refunds</sbb-link>
@@ -48,8 +55,6 @@ The component can be displayed in `disabled` state using the self-named property
   Some informative text.
   <sbb-link variant='inline' href='#info'>Show more.</sbb-link>
 </p>
-
-<sbb-link disabled>Refunds</sbb-link>
 ```
 
 <!-- Auto Generated Below -->

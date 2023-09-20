@@ -1,4 +1,4 @@
-The component represents an action element contained by the [sbb-header](../sbb-header/readme.md) component.
+The component represents an action element contained by the [sbb-header](/docs/components-sbb-header-sbb-header--docs) component.
 
 ### Slots
 
@@ -10,8 +10,6 @@ at the component start using the `iconName` property or via custom content using
 
 <sbb-header-action icon-name='pie-small'>Another text</sbb-header-action>
 ```
-
-### Hide label
 
 If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint 
 from which the label is displayed; below that, only the icon is visible.
@@ -32,7 +30,6 @@ depending on the value of the `href` property, so the associated properties are 
 
 <sbb-header-action type='button' value='menu' name='menu'>Button</sbb-header-action>
 ```
-
 
 <!-- Auto Generated Below -->
 

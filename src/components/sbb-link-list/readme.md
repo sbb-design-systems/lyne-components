@@ -1,6 +1,4 @@
-The `sbb-link-list` is a component that can be used to collect more `sbb-link`s; 
-it will automatically set variant `block` on nested `sbb-link` instances, 
-and it will sync the `size` and `negative` property.
+The `sbb-link-list` is a component that can be used to collect and display more [sbb-link](/docs/components-sbb-link--docs)s. 
 
 ```html
 <sbb-link-list>
@@ -8,19 +6,15 @@ and it will sync the `size` and `negative` property.
   <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
   ...
 </sbb-link-list>
-
-<sbb-link-list size='s' negative>
-  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
-  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
-  ...
-</sbb-link-list>
 ```
 
-### Title
+### Slots
 
-The component can display an optional title, which is visually shown as a level-5 `sbb-title` 
+The component can display an optional title, 
+which is visually shown as a level-5 [sbb-title](/docs/components-sbb-title--docs) 
 and is used as the `aria-labelledby` attribute of the `ul` element.
-The title is projected using the `title` slot or, alternatively, the `titleContent` property.
+
+The title can be set using the `titleContent` property or, alternatively, can be projected using the `title` slot.
 
 ```html
 <sbb-link-list title-content="Help &amp; Contact">
@@ -28,7 +22,20 @@ The title is projected using the `title` slot or, alternatively, the `titleConte
 </sbb-link-list>
 ```
 
-### Orientation
+### Style
+
+The component will automatically set variant `block` on nested `sbb-link` instances, 
+and it will sync its `size` and `negative` property with the inner links.
+
+```html
+<sbb-link-list size='s' negative>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
+  ...
+</sbb-link-list>
+```
+
+#### Orientation
 
 The `orientation` property is used to set links' orientation; possible values are `horizontal` and `vertical` (default).
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` 
@@ -37,9 +44,9 @@ The title will not be displayed in the horizontal orientation.
 
 ```html
 <sbb-link-list horizontal-from="medium">
-<sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
-<sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
-...
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html'>Refunds</sbb-link>
+  <sbb-link href='https://www.sbb.ch/en/help-and-contact/lost-found-office/submit-loss-report.html'>Loss Report</sbb-link>
+  ...
 </sbb-link-list>
 ```
 

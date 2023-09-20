@@ -1,10 +1,9 @@
 The `sbb-journey-header` is a component used to display the journey's details.
 
-### Origin and destination
-
-The component has two required properties, named `origin` and `destination`, which represents the two ends of the journey.
-An icon is placed between them: if the property `roundTrip` is set to false (default), the icon is 
-an arrow pointing to the `destination`, otherwise it is a double arrow to display the round-trip.
+The component has two required properties, named `origin` and `destination`, 
+which represents the two ends of the journey.
+An icon is placed between them: if the property `roundTrip` is set to false (default), 
+the icon is an arrow pointing to the `destination`, otherwise it is a double arrow to display the round-trip.
 
 ```html
 <sbb-journey-header origin="Point A" destination="Point B" />
@@ -12,10 +11,11 @@ an arrow pointing to the `destination`, otherwise it is a double arrow to displa
 <sbb-journey-header origin="Point A" destination="Point B" round-trip/>
 ```
 
-### Display properties
+### Style
 
 The component has a `level` property, which is passed to its inner `sbb-title` component; 
 it is rendered as a heading from `h1` to `h6`. Default `level` is `3`. 
+
 The component also has two sizes, named `m` (default) and `l`, and a `negative` background variant.
 
 ```html

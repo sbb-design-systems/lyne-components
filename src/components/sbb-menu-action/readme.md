@@ -1,4 +1,4 @@
-The component represents an action element contained by the [sbb-menu](../sbb-menu/readme.md) component.
+The component represents an action element contained by the [sbb-menu](/docs/components-sbb-menu-sbb-menu--docs) component.
 
 ### Slots
 
@@ -10,8 +10,6 @@ at the component start using the `iconName` property or via custom content using
 
 <sbb-menu-action icon-name='pie-small'>Another text</sbb-menu-action>
 ```
-
-### Amount
 
 An amount can be rendered at the end of the action element as white text in a red circle via the `amount` property.
 

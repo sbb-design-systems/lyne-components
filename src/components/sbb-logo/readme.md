@@ -10,15 +10,13 @@ To use the component, please define the desired height or width on `sbb-logo`.
 <sbb-logo></sbb-logo>
 ```
 
-### Negative
+### Style
 
 The component has a negative variant which can be set using the `negative` property.
 
 ```html
 <sbb-logo negative></sbb-logo>
 ```
-
-### Aspect ratio
 
 The aspect ratio of the logo can be changed using the `protectiveRoom` property. 
 Possible values are `ideal` (default), `minimal` and `none`.
