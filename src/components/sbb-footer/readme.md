@@ -1,5 +1,5 @@
 The `sbb-footer` component is used to display page related information like copyright, contact or other 
-content related links. 
+content related links; for these, the [sbb-link-list](/docs/components-sbb-link-list--docs) component can be used.
 
 ### Variants
 
@@ -11,9 +11,8 @@ breakpoints.
 Content, like `sbb-link-list` that could come along with a button, needs to be wrapped with a `<div>` element with a helper
 class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 
-Default variant:
-
 ```html
+<!-- 'default' variant -->
 <sbb-footer accessibility-title="Footer">
   <sbb-link-list title-level="2" title-content="List title text">
     <sbb-link href="#">Link 1</sbb-link>
@@ -24,11 +23,7 @@ Default variant:
   </sbb-link-list>
 </sbb-footer>
 
-```
-
-Variant clock-columns with wrapped link-list with button:
-
-```html
+<!--'clock-columns' variant -->
 <sbb-footer accessibility-title="Footer" variant="clock-columns">
   <div class="sbb-link-list-button-group">
     <sbb-link-list title-level="2" title-content="Help &amp; Contact.">
@@ -59,7 +54,7 @@ Variant clock-columns with wrapped link-list with button:
 </sbb-footer>
 ```
 
-### Negative
+### Style
 
 It's possible to display the footer in `negative` variant; please also apply the negative attribute 
 to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).

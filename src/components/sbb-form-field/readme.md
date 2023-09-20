@@ -1,5 +1,17 @@
 The `sbb-form-field` component is intended to be used as a form input wrapper with label and errors.
 
+```html
+<sbb-form-field label="Example">
+  <input />
+</sbb-form-field>
+
+<sbb-form-field>
+  <label>Example</label>
+  <input required/>
+  <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
+
 In this document, "form field" refers to the wrapper component `sbb-form-field` and
 "form field control" refers to the component that the `sbb-form-field` is wrapping
 (e.g., the input, select, etc.)
@@ -8,51 +20,53 @@ The following components are designed to work inside a `sbb-form-field`:
 
 - `<input>`
 - `<select>`
-- `<sbb-datepicker>`
-- `<sbb-select>`
-- `<sbb-slider>`
-- `<sbb-time-input>`
+- [sbb-datepicker](/docs/components-sbb-datepicker-sbb-datepicker--docs) and its associated components
+- [sbb-select](/docs/components-sbb-select--docs)
+- [sbb-slider](/docs/components-sbb-slider--docs)
+- [sbb-time-input](/docs/components-sbb-time-input--docs)
+- [sbb-autocomplete](/docs/components-sbb-autocomplete--docs)
 
-## Usage
+### Slots
 
-The examples below show how to render the component:
-
-```html
-<sbb-form-field label="Example">
-  <input />
-</sbb-form-field>
-
-
-<sbb-form-field>
-  <label>Example</label>
-  <input />
-  <sbb-form-error>This field is required!</sbb-form-error>
-</sbb-form-field>
-```
-
-### Label
+#### Label
 
 Either use a `<label>` or the `label` attribute to provide a label for a form input. The
 `sbb-form-field` will automatically assign the correct id reference between label and input.
 
-When using the floating label and setting the value programmatically to empty or from empty to a specific value,
+It's possible to use the `floatingLabel` property to display the label inside the input. 
+When using it and setting the value programmatically to empty or from empty to a specific value,
 it's mandatory to call the `reset()` method of the `sbb-form-field` to update the state of the floating label.
 
-### Error messages
+```html
+<sbb-form-field label="Example" floating-label>
+  <input required/>
+  <sbb-form-error>This field is required!</sbb-form-error>
+</sbb-form-field>
+```
 
-Error messages can be shown under the form field by adding `sbb-form-error` elements inside the
-form field.
+#### Error messages
 
-#### Reserve error space
+Error messages can be shown under the form field by adding `sbb-form-error` elements inside the form field. 
+The component will automatically assign them to the `slot='error'`.
 
-In order to avoid the layout from "jumping" when an error is shown, the option of setting
-`error-space="reserve"` on the `sbb-form-field` will reserve space for a single line of an error
-message.
+```html
+  <sbb-form-field label="Example">
+    <input />
+  </sbb-form-field>
+```
 
-### Prefix & Suffix
+In order to avoid the layout from "jumping" when an error is shown, the option of setting `error-space="reserve"` 
+on the `sbb-form-field` will reserve space for a single line of an error message.
 
-It is possible to add content as a prefix or suffix in a `sbb-form-field`. This can be done via
-the `prefix` and `suffix` slots. 
+#### Prefix & Suffix
+
+It is possible to add content as a prefix or suffix in a `sbb-form-field`. 
+This can be done via the `prefix` and `suffix` slots.
+
+Some components, like the [sbb-form-field-clear](/docs/components-sbb-form-field-sbb-form-field-clear--docs) or the
+[sbb-slider](/docs/components-sbb-slider--docs), when used within the form field, will automatically occupy
+one or both of these slots. 
+Please refer to their documentation for more details.
 
 ```html
 <sbb-form-field label="Example">
@@ -62,12 +76,20 @@ the `prefix` and `suffix` slots.
 </sbb-form-field>
 ```
 
-### Width
+### Style
 
 By default, the component has a defined width and min-width. However, this behavior can be overridden by setting 
 the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.
-This is useful, for example, for the `sbb-time-input` component. However, as the width-styles are exposed to the host, 
+This is useful, for example, for the [sbb-time-input](/docs/components-sbb-time-input--docs) component. 
+However, as the width-styles are exposed to the host, 
 it's possible to apply any desired width by setting just the `width` and `min-width` CSS properties.
+
+```html
+<sbb-form-field width='collapse'>
+  <input value='13:30'>
+  <sbb-time-input></sbb-time-input>
+</sbb-form-field>
+```
 
 ## Accessibility
 
