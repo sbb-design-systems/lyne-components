@@ -43,7 +43,7 @@ export default {
     { name: 'e2e', files: e2eFiles },
   ],
   nodeResolve: true,
-  reporters: [defaultReporter(), summaryReporter()],
+  reporters: [defaultReporter({ reportTestResults: false }), summaryReporter()],
   browsers: browsers,
   plugins: [
     vitePlugin({
