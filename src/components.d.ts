@@ -20,6 +20,7 @@ import { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custo
 import { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
 import { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom";
 import { InterfaceSbbExpansionPanelAttributes } from "./components/sbb-expansion-panel/sbb-expansion-panel.custom";
+import { InterfaceSbbFileSelectorAttributes } from "./components/sbb-file-selector/sbb-file-selector.custom";
 import { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 import { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 import { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
@@ -27,6 +28,7 @@ import { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 import { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 import { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 import { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+import { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 import { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 import { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 import { ITripItem, Leg } from "./global/timetable";
@@ -64,6 +66,7 @@ export { InterfaceSbbChipAttributes } from "./components/sbb-chip/sbb-chip.custo
 export { InputUpdateEvent } from "./components/sbb-datepicker/sbb-datepicker.helper";
 export { InterfaceSbbDividerAttributes } from "./components/sbb-divider/sbb-divider.custom";
 export { InterfaceSbbExpansionPanelAttributes } from "./components/sbb-expansion-panel/sbb-expansion-panel.custom";
+export { InterfaceSbbFileSelectorAttributes } from "./components/sbb-file-selector/sbb-file-selector.custom";
 export { InterfaceFooterAttributes } from "./components/sbb-footer/sbb-footer.custom";
 export { InterfaceSbbFormFieldAttributes } from "./components/sbb-form-field/sbb-form-field.custom";
 export { InterfaceSbbHeaderActionAttributes } from "./components/sbb-header-action/sbb-header-action.custom";
@@ -71,6 +74,7 @@ export { InterfaceImageAttributes } from "./components/sbb-image/sbb-image.custo
 export { InterfaceJourneyHeaderAttributes } from "./components/sbb-journey-header/sbb-journey-header.custom";
 export { InterfaceSbbJourneySummaryAttributes } from "./components/sbb-journey-summary/sbb-journey-summary.custom";
 export { InterfaceLinkListAttributes } from "./components/sbb-link-list/sbb-link-list.custom";
+export { InterfaceSbbLoadingIndicatorAttributes } from "./components/sbb-loading-indicator/sbb-loading-indicator.custom";
 export { InterfaceLogoAttributes } from "./components/sbb-logo/sbb-logo.custom";
 export { InterfaceNotificationAttributes } from "./components/sbb-notification/sbb-notification.custom";
 export { ITripItem, Leg } from "./global/timetable";
@@ -620,6 +624,40 @@ export namespace Components {
          */
         "iconName"?: string;
     }
+    interface SbbFileSelector {
+        /**
+          * A comma-separated list of allowed unique file type specifiers.
+         */
+        "accept": string;
+        /**
+          * This will be forwarded as aria-label to the native input element.
+         */
+        "accessibilityLabel": string | undefined;
+        /**
+          * Whether the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Gets the currently selected files.
+         */
+        "getFiles": () => Promise<File[]>;
+        /**
+          * Whether more than one file can be selected.
+         */
+        "multiple": boolean;
+        /**
+          * Whether the newly added files should override the previously added ones.
+         */
+        "multipleMode": InterfaceSbbFileSelectorAttributes['multipleMode'];
+        /**
+          * The title displayed in `dropzone` variant.
+         */
+        "titleContent"?: string;
+        /**
+          * Whether the component has a dropzone area or not.
+         */
+        "variant": InterfaceSbbFileSelectorAttributes['variant'];
+    }
     interface SbbFooter {
         /**
           * Footer title text, visually hidden, necessary for screen readers.
@@ -984,6 +1022,20 @@ export namespace Components {
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbLoadingIndicator {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation": boolean;
+        /**
+          * Size variant, either s or m.
+         */
+        "size": InterfaceSbbLoadingIndicatorAttributes['size'];
+        /**
+          * Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay.
+         */
+        "variant"?: InterfaceSbbLoadingIndicatorAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -2042,6 +2094,10 @@ export interface SbbExpansionPanelHeaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbExpansionPanelHeaderElement;
 }
+export interface SbbFileSelectorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSbbFileSelectorElement;
+}
 export interface SbbMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLSbbMenuElement;
@@ -2269,6 +2325,12 @@ declare global {
         prototype: HTMLSbbExpansionPanelHeaderElement;
         new (): HTMLSbbExpansionPanelHeaderElement;
     };
+    interface HTMLSbbFileSelectorElement extends Components.SbbFileSelector, HTMLStencilElement {
+    }
+    var HTMLSbbFileSelectorElement: {
+        prototype: HTMLSbbFileSelectorElement;
+        new (): HTMLSbbFileSelectorElement;
+    };
     interface HTMLSbbFooterElement extends Components.SbbFooter, HTMLStencilElement {
     }
     var HTMLSbbFooterElement: {
@@ -2340,6 +2402,12 @@ declare global {
     var HTMLSbbLinkListElement: {
         prototype: HTMLSbbLinkListElement;
         new (): HTMLSbbLinkListElement;
+    };
+    interface HTMLSbbLoadingIndicatorElement extends Components.SbbLoadingIndicator, HTMLStencilElement {
+    }
+    var HTMLSbbLoadingIndicatorElement: {
+        prototype: HTMLSbbLoadingIndicatorElement;
+        new (): HTMLSbbLoadingIndicatorElement;
     };
     interface HTMLSbbLogoElement extends Components.SbbLogo, HTMLStencilElement {
     }
@@ -2694,6 +2762,7 @@ declare global {
         "sbb-expansion-panel": HTMLSbbExpansionPanelElement;
         "sbb-expansion-panel-content": HTMLSbbExpansionPanelContentElement;
         "sbb-expansion-panel-header": HTMLSbbExpansionPanelHeaderElement;
+        "sbb-file-selector": HTMLSbbFileSelectorElement;
         "sbb-footer": HTMLSbbFooterElement;
         "sbb-form-error": HTMLSbbFormErrorElement;
         "sbb-form-field": HTMLSbbFormFieldElement;
@@ -2706,6 +2775,7 @@ declare global {
         "sbb-journey-summary": HTMLSbbJourneySummaryElement;
         "sbb-link": HTMLSbbLinkElement;
         "sbb-link-list": HTMLSbbLinkListElement;
+        "sbb-loading-indicator": HTMLSbbLoadingIndicatorElement;
         "sbb-logo": HTMLSbbLogoElement;
         "sbb-map-container": HTMLSbbMapContainerElement;
         "sbb-menu": HTMLSbbMenuElement;
@@ -3352,6 +3422,40 @@ declare namespace LocalJSX {
         "iconName"?: string;
         "onToggle-expanded"?: (event: SbbExpansionPanelHeaderCustomEvent<any>) => void;
     }
+    interface SbbFileSelector {
+        /**
+          * A comma-separated list of allowed unique file type specifiers.
+         */
+        "accept"?: string;
+        /**
+          * This will be forwarded as aria-label to the native input element.
+         */
+        "accessibilityLabel"?: string | undefined;
+        /**
+          * Whether the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Whether more than one file can be selected.
+         */
+        "multiple"?: boolean;
+        /**
+          * Whether the newly added files should override the previously added ones.
+         */
+        "multipleMode"?: InterfaceSbbFileSelectorAttributes['multipleMode'];
+        /**
+          * An event which is emitted each time the file list changes.
+         */
+        "onFile-changed"?: (event: SbbFileSelectorCustomEvent<File[]>) => void;
+        /**
+          * The title displayed in `dropzone` variant.
+         */
+        "titleContent"?: string;
+        /**
+          * Whether the component has a dropzone area or not.
+         */
+        "variant"?: InterfaceSbbFileSelectorAttributes['variant'];
+    }
     interface SbbFooter {
         /**
           * Footer title text, visually hidden, necessary for screen readers.
@@ -3704,6 +3808,20 @@ declare namespace LocalJSX {
           * The semantic level of the title, e.g. 2 = h2.
          */
         "titleLevel"?: InterfaceTitleAttributes['level'];
+    }
+    interface SbbLoadingIndicator {
+        /**
+          * Whether the animation is enabled.
+         */
+        "disableAnimation"?: boolean;
+        /**
+          * Size variant, either s or m.
+         */
+        "size"?: InterfaceSbbLoadingIndicatorAttributes['size'];
+        /**
+          * Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay.
+         */
+        "variant"?: InterfaceSbbLoadingIndicatorAttributes['variant'];
     }
     interface SbbLogo {
         /**
@@ -4856,6 +4974,7 @@ declare namespace LocalJSX {
         "sbb-expansion-panel": SbbExpansionPanel;
         "sbb-expansion-panel-content": SbbExpansionPanelContent;
         "sbb-expansion-panel-header": SbbExpansionPanelHeader;
+        "sbb-file-selector": SbbFileSelector;
         "sbb-footer": SbbFooter;
         "sbb-form-error": SbbFormError;
         "sbb-form-field": SbbFormField;
@@ -4868,6 +4987,7 @@ declare namespace LocalJSX {
         "sbb-journey-summary": SbbJourneySummary;
         "sbb-link": SbbLink;
         "sbb-link-list": SbbLinkList;
+        "sbb-loading-indicator": SbbLoadingIndicator;
         "sbb-logo": SbbLogo;
         "sbb-map-container": SbbMapContainer;
         "sbb-menu": SbbMenu;
@@ -4953,6 +5073,7 @@ declare module "@stencil/core" {
             "sbb-expansion-panel": LocalJSX.SbbExpansionPanel & JSXBase.HTMLAttributes<HTMLSbbExpansionPanelElement>;
             "sbb-expansion-panel-content": LocalJSX.SbbExpansionPanelContent & JSXBase.HTMLAttributes<HTMLSbbExpansionPanelContentElement>;
             "sbb-expansion-panel-header": LocalJSX.SbbExpansionPanelHeader & JSXBase.HTMLAttributes<HTMLSbbExpansionPanelHeaderElement>;
+            "sbb-file-selector": LocalJSX.SbbFileSelector & JSXBase.HTMLAttributes<HTMLSbbFileSelectorElement>;
             "sbb-footer": LocalJSX.SbbFooter & JSXBase.HTMLAttributes<HTMLSbbFooterElement>;
             "sbb-form-error": LocalJSX.SbbFormError & JSXBase.HTMLAttributes<HTMLSbbFormErrorElement>;
             "sbb-form-field": LocalJSX.SbbFormField & JSXBase.HTMLAttributes<HTMLSbbFormFieldElement>;
@@ -4965,6 +5086,7 @@ declare module "@stencil/core" {
             "sbb-journey-summary": LocalJSX.SbbJourneySummary & JSXBase.HTMLAttributes<HTMLSbbJourneySummaryElement>;
             "sbb-link": LocalJSX.SbbLink & JSXBase.HTMLAttributes<HTMLSbbLinkElement>;
             "sbb-link-list": LocalJSX.SbbLinkList & JSXBase.HTMLAttributes<HTMLSbbLinkListElement>;
+            "sbb-loading-indicator": LocalJSX.SbbLoadingIndicator & JSXBase.HTMLAttributes<HTMLSbbLoadingIndicatorElement>;
             "sbb-logo": LocalJSX.SbbLogo & JSXBase.HTMLAttributes<HTMLSbbLogoElement>;
             "sbb-map-container": LocalJSX.SbbMapContainer & JSXBase.HTMLAttributes<HTMLSbbMapContainerElement>;
             "sbb-menu": LocalJSX.SbbMenu & JSXBase.HTMLAttributes<HTMLSbbMenuElement>;

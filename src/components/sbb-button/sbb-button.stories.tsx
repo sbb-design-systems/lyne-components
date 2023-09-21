@@ -4,6 +4,7 @@ import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType, StoryContext } from '@storybook/types';
+import isChromatic from 'chromatic';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative ? '#484040' : 'var(--sbb-color-white-default)',
@@ -36,8 +37,8 @@ const RequestSubmitTemplate = ({ text }): JSX.Element => (
   </form>
 );
 
-const Template = ({ text, active, ...args }): JSX.Element => (
-  <sbb-button {...args} data-active={active}>
+const Template = ({ text, active, focusVisible, ...args }): JSX.Element => (
+  <sbb-button {...args} data-active={active} data-focus-visible={focusVisible}>
     {text}
   </sbb-button>
 );
@@ -46,6 +47,17 @@ const IconSlotTemplate = ({ text, 'icon-name': iconName, ...args }): JSX.Element
   <sbb-button {...args}>
     {text}
     <sbb-icon slot="icon" name={iconName}></sbb-icon>
+  </sbb-button>
+);
+
+const LoadingIndicatorTemplate = ({ text, ...args }): JSX.Element => (
+  <sbb-button {...args}>
+    <sbb-loading-indicator
+      disable-animation={isChromatic()}
+      slot="icon"
+      variant="circle"
+    ></sbb-loading-indicator>
+    {text}
   </sbb-button>
 );
 
@@ -553,6 +565,16 @@ export const TransparentNegativeActive: StoryObj = {
   },
 };
 
+export const PrimaryFocusVisible: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    variant: variant.options[0],
+    focusVisible: true,
+  },
+};
+
 export const RequestSubmit: StoryObj = {
   render: RequestSubmitTemplate,
   argTypes: defaultArgTypes,
@@ -563,8 +585,18 @@ export const RequestSubmit: StoryObj = {
   },
 };
 
+export const LoadingIndicator: StoryObj = {
+  render: LoadingIndicatorTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    disabled: true,
+    variant: variant.options[1],
+  },
+};
+
 const meta: Meta = {
-  excludeStories: /.*Active$/,
+  excludeStories: /.*(Active|FocusVisible)$/,
   decorators: [
     (Story, context) => (
       <div style={{ ...wrapperStyle(context), ...focusStyle(context), padding: '2rem' }}>

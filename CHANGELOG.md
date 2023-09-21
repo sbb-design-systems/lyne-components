@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.11](https://github.com/lyne-design-system/lyne-components/compare/v0.40.10...v0.40.11) (2023-09-19)
+
+### Features
+
+- **sbb-loading-indicator:** initial implementation ([#1968](https://github.com/lyne-design-system/lyne-components/issues/1968)) ([98c4f7a](https://github.com/lyne-design-system/lyne-components/commit/98c4f7a0af5e09ccd0d69fa106974781ae5e7b22))
+
+### [0.40.10](https://github.com/lyne-design-system/lyne-components/compare/v0.40.9...v0.40.10) (2023-09-18)
+
+### Features
+
+- **sbb-file-selector:** component implementation ([#1894](https://github.com/lyne-design-system/lyne-components/issues/1894)) ([0019676](https://github.com/lyne-design-system/lyne-components/commit/001967618ed4ce2ece098761e78f444afcd23722))
+
+### [0.40.9](https://github.com/lyne-design-system/lyne-components/compare/v0.40.8...v0.40.9) (2023-09-14)
+
+### Bug Fixes
+
+- **sbb-timetable-row:** add space for certain vehicles ([#1985](https://github.com/lyne-design-system/lyne-components/issues/1985)) ([739054d](https://github.com/lyne-design-system/lyne-components/commit/739054dbb42c8d9d524223be6f633580606ea9dc))
+
+### [0.40.8](https://github.com/lyne-design-system/lyne-components/compare/v0.40.7...v0.40.8) (2023-09-13)
+
+### Bug Fixes
+
+- **sbb-card:** allow placing tooltips inside non-interactive cards ([#1983](https://github.com/lyne-design-system/lyne-components/issues/1983)) ([cb716b3](https://github.com/lyne-design-system/lyne-components/commit/cb716b339a166dbeada88348e41fd4c0ea59d644)), closes [#1982](https://github.com/lyne-design-system/lyne-components/issues/1982)
+
 ### [0.40.7](https://github.com/lyne-design-system/lyne-components/compare/v0.40.6...v0.40.7) (2023-09-12)
 
 ### Bug Fixes
