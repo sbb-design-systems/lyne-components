@@ -1,14 +1,13 @@
-> Explain the use and the purpose of the component, add minor details if needed, and provide a basic example.<br>
-> If you reference other components, link at least once their documentation page (the path must start from "/docs/...").<br>
-> Use triple backticks for the examples code block.
+> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
+> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
+> For the examples, use triple backticks with file extension (```` ```html <code here>``` ````).<br>
+> The following list of paragraphs is only suggested; remove, create and adapt as needed.
 
-The `__name__` is a component...
+The `__name__` is a component . . .
 
 ```html
 <__name__></__name__>
 ```
-
-> The following list of "## Paragraph" is only suggested; remove, create and adapt based on needs.
 
 ## Slots
 
@@ -16,15 +15,15 @@ The `__name__` is a component...
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide an example.
+> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide an example.
+> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide an example.
+> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
 
 ## Events
 
