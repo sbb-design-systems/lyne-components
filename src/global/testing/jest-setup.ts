@@ -1,5 +1,7 @@
 import { mergeConfig, SbbIconConfig } from '../config';
 
+// TODO-Migr Find a way to reuse this setup for tests
+
 beforeEach(() => {
   const icon: SbbIconConfig = {
     interceptor: ({ namespace, name, request }) => {

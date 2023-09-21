@@ -1,3 +1,4 @@
+import { expect } from '@open-wc/testing';
 import { isValid } from './sbb-icon-validate';
 
 describe('isValid', () => {
@@ -8,7 +9,7 @@ describe('isValid', () => {
       attributes: [{ name: 'onload' }],
       childNodes: [],
     } as any;
-    expect(isValid(el)).toBe(false);
+    expect(isValid(el)).to.be.equal(false);
   });
 
   it('invalid onclick attr', () => {
@@ -18,7 +19,7 @@ describe('isValid', () => {
       attributes: [{ name: 'OnClIcK' }],
       childNodes: [],
     } as any;
-    expect(isValid(el)).toBe(false);
+    expect(isValid(el)).to.be.equal(false);
   });
 
   it('invalid child SCRIPT elm', () => {
@@ -28,17 +29,17 @@ describe('isValid', () => {
       attributes: [],
       childNodes: [{ nodeType: 1, nodeName: 'SCRIPT', attributes: [], childNodes: [] }],
     } as any;
-    expect(isValid(el)).toBe(false);
+    expect(isValid(el)).to.be.equal(false);
   });
 
   it('invalid script elm', () => {
     const el = { nodeType: 1, nodeName: 'script', attributes: [], childNodes: [] } as any;
-    expect(isValid(el)).toBe(false);
+    expect(isValid(el)).to.be.equal(false);
   });
 
   it('is valid circle elm', () => {
     const el = { nodeType: 1, nodeName: 'circle', attributes: [], childNodes: [] } as any;
-    expect(isValid(el)).toBe(true);
+    expect(isValid(el)).to.be.equal(true);
   });
 
   it('is valid SVG elm', () => {
@@ -48,11 +49,11 @@ describe('isValid', () => {
       attributes: [],
       childNodes: [{ nodeType: 1, nodeName: 'line', attributes: [], childNodes: [] }],
     } as any;
-    expect(isValid(el)).toBe(true);
+    expect(isValid(el)).to.be.equal(true);
   });
 
   it('is valid text node', () => {
     const el = { nodeType: 3, nodeName: '#text' } as any;
-    expect(isValid(el)).toBe(true);
+    expect(isValid(el)).to.be.equal(true);
   });
 });

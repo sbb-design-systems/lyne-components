@@ -1,13 +1,13 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbIcon } from './sbb-icon';
 
 describe('sbb-icon', () => {
-  let element, page;
+  let element;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-icon></sbb-icon>');
+    element = await fixture(html`<sbb-icon></sbb-icon>`);
 
-    element = await page.find('sbb-icon');
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbIcon);
   });
 });
