@@ -1319,7 +1319,7 @@ export namespace Components {
          */
         "disableAnimation"?: boolean;
         /**
-          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+          * Define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
         "legs": Leg[];
     }
@@ -1353,7 +1353,7 @@ export namespace Components {
     }
     interface SbbPearlChainVerticalItem {
         /**
-          * If true the position won't be animated.
+          * If true, the position won't be animated.
          */
         "disableAnimation"?: boolean;
         /**
@@ -4129,7 +4129,7 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
-          * define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
+          * Define the legs of the pearl-chain. Format: `{"legs": [{"duration": 25}, ...]}` `duration` in minutes. Duration of the leg is relative to the total travel time. Example: departure 16:30, change at 16:40, arrival at 17:00. So the change should have a duration of 33.33%.
          */
         "legs"?: Leg[];
     }
@@ -4163,7 +4163,7 @@ declare namespace LocalJSX {
     }
     interface SbbPearlChainVerticalItem {
         /**
-          * If true the position won't be animated.
+          * If true, the position won't be animated.
          */
         "disableAnimation"?: boolean;
         /**

@@ -5,7 +5,6 @@ import { PearlChainVerticalItemAttributes } from './sbb-pearl-chain-vertical-ite
  * @slot left - content of the left side of the item
  * @slot right - content of the right side of the item
  */
-
 @Component({
   shadow: true,
   styleUrl: 'sbb-pearl-chain-vertical-item.scss',
@@ -15,7 +14,7 @@ export class SbbPearlChainVerticalItem {
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @Prop() public pearlChainVerticalItemAttributes!: PearlChainVerticalItemAttributes;
 
-  /** If true the position won't be animated. */
+  /** If true, the position won't be animated. */
   @Prop({ reflect: true }) public disableAnimation?: boolean;
 
   public render(): JSX.Element {

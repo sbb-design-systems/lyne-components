@@ -1,9 +1,11 @@
 THe `sbb-train-wagon` is a component which represents a train compartment. 
-It can be a locomotive or a wagon ad it is used inside the `sbb-train` element. 
+
+It is used inside the [sbb-train](/docs/timetable-sbb-train--docs) element. 
 
 ### Variants
 
-It's possible to display the component in three different variants, based on the value of the `type` property.
+The component can visualize a locomotive or a wagon (possibly closed), 
+so it has three different variants, based on the value of the `type` property.
 
 ```html
 <sbb-train-wagon type="wagon"></sbb-train-wagon>
@@ -23,7 +25,7 @@ and a `label` above the component with the self-named property.
 
 **Note:**
 A `sbb-train-wagon` with `type="wagon"` has the possibilities of slotting icons. 
-They will be applied internally into a list (ul>li) element and requires an `aria-label` for each slotted icon.
+They will be applied internally into a list (using `<ul>` and `<li>`) and requires an `aria-label` for each slotted icon.
 
 ```html
 <sbb-train-wagon type="wagon">

@@ -4,6 +4,7 @@ import { removeTimezoneFromISOTimeString } from '../../global/datetime';
 import { isRideLeg, Leg, PtRideLeg } from '../../global/timetable';
 
 type Status = 'progress' | 'future' | 'past';
+
 @Component({
   shadow: true,
   styleUrl: 'sbb-pearl-chain.scss',
@@ -11,7 +12,7 @@ type Status = 'progress' | 'future' | 'past';
 })
 export class SbbPearlChain {
   /**
-   * define the legs of the pearl-chain.
+   * Define the legs of the pearl-chain.
    * Format:
    * `{"legs": [{"duration": 25}, ...]}`
    * `duration` in minutes. Duration of the leg is relative

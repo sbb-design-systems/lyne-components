@@ -1,5 +1,7 @@
-A `sbb-train` is a component used as a container element for a collection of `sbb-train-wagon` or `sbb-train-blocked-passage`
-and it can be used within the `sbb-train-formation` component.
+A `sbb-train` is a component used as a container element for a collection of 
+[sbb-train-wagon](/docs/timetable-sbb-train-wagon--docs)s 
+or [sbb-train-blocked-passage](/docs/timetable-sbb-train-blocked-passage--docs)s, 
+and it can be used within the [sbb-train-formation](/docs/timetable-sbb-train-formation--docs) component.
 
 ```html
 <sbb-train 
@@ -16,7 +18,7 @@ and it can be used within the `sbb-train-formation` component.
 It's possible to use the `station` property to display the label of the `sbb-train` destination, 
 while the `direction` property can be used to display the direction indicator (default: `left`).
 The direction label and the level of its heading tag are set, respectively, 
-with the property `directionLabel` and `directionLabelLevel`
+with the property `directionLabel` and `directionLabelLevel`.
 
 ## Accessibility
 
