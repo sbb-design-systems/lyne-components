@@ -67,6 +67,7 @@ graph TD;
   sbb-tooltip-trigger --> sbb-icon
   sbb-tooltip --> sbb-button
   sbb-button --> sbb-icon
+  sbb-calendar --> sbb-icon
   sbb-calendar --> sbb-button
   style sbb-datepicker-toggle fill:#f9f,stroke:#333,stroke-width:4px
 ```

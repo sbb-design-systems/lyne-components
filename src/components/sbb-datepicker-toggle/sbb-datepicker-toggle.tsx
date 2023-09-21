@@ -138,6 +138,9 @@ export class SbbDatepickerToggle implements ComponentInterface {
   }
 
   private async _assignCalendar(calendar: HTMLSbbCalendarElement): Promise<void> {
+    if (this._calendarElement && this._calendarElement === calendar) {
+      return;
+    }
     this._calendarElement = calendar;
     if (!this._datePickerElement || !this._calendarElement.resetPosition) {
       return;

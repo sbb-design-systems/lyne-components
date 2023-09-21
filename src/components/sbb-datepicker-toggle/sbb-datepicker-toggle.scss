@@ -14,6 +14,7 @@ sbb-tooltip-trigger {
   height: var(--sbb-form-field-height);
   display: flex;
   align-items: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 sbb-icon {
