@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.12](https://github.com/lyne-design-system/lyne-components/compare/v0.40.11...v0.40.12) (2023-09-21)
+
+### Features
+
+- **sbb-calendar:** add year and month selection views ([#1951](https://github.com/lyne-design-system/lyne-components/issues/1951)) ([df3a5d7](https://github.com/lyne-design-system/lyne-components/commit/df3a5d78c70f4b95ddc0227fe42552310d1af265))
+
 ### [0.40.11](https://github.com/lyne-design-system/lyne-components/compare/v0.40.10...v0.40.11) (2023-09-19)
 
 ### Features
