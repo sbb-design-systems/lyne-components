@@ -87,7 +87,7 @@ describe('sbb-icon', () => {
     `);
   });
 
-  it.only('registers a custom namespace', async () => {
+  it('registers a custom namespace', async () => {
     const globalConfig = readConfig();
     let interceptorCalled = false;
     globalConfig.icon = {};
