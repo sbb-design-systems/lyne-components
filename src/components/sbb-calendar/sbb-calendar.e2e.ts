@@ -19,7 +19,7 @@ describe('sbb-calendar', () => {
 
   it('highlights current day', async () => {
     const currentDayButton = await page.find(`sbb-calendar >>> button[data-day="10 1 2023"]`);
-    expect(currentDayButton).toHaveClass('sbb-calendar__day-today');
+    expect(currentDayButton).toHaveClass('sbb-calendar__cell-current');
   });
 
   it('renders and navigates to next month', async () => {
@@ -83,15 +83,15 @@ describe('sbb-calendar', () => {
     await page.waitForChanges();
 
     const selectedDate = await page.find('sbb-calendar >>> button[data-day="15 1 2023"]');
-    expect(selectedDate).toHaveClass('sbb-calendar__day-selected');
+    expect(selectedDate).toHaveClass('sbb-calendar__selected');
 
     const newSelectedDate = await page.find('sbb-calendar >>> button[data-day="18 1 2023"]');
-    expect(newSelectedDate).not.toHaveClass('sbb-calendar__day-selected');
+    expect(newSelectedDate).not.toHaveClass('sbb-calendar__selected');
     await newSelectedDate.click();
     await waitForCondition(() => selectedSpy.events.length === 1);
 
-    expect(selectedDate).not.toHaveClass('sbb-calendar__day-selected');
-    expect(newSelectedDate).toHaveClass('sbb-calendar__day-selected');
+    expect(selectedDate).not.toHaveClass('sbb-calendar__selected');
+    expect(newSelectedDate).toHaveClass('sbb-calendar__selected');
     expect(selectedSpy).toHaveReceivedEvent();
   });
 
@@ -103,171 +103,392 @@ describe('sbb-calendar', () => {
 
     const day = await page.find('sbb-calendar >>> button[data-day="30 1 2023"]');
     expect(day).toHaveAttribute('disabled');
-    expect(day).not.toHaveClass('sbb-calendar__day-selected');
+    expect(day).not.toHaveClass('sbb-calendar__selected');
     await day.click();
     await page.waitForChanges();
 
-    expect(day).not.toHaveClass('sbb-calendar__day-selected');
+    expect(day).not.toHaveClass('sbb-calendar__selected');
     expect(selectedSpy).not.toHaveReceivedEvent();
   });
 
-  it('navigates left via keyboard', async () => {
-    await element.focus();
+  it('changes to year and month selection views', async () => {
+    const yearSelectionButton: E2EElement = await page.find(
+      'sbb-calendar >>> #sbb-calendar__date-selection',
+    );
+    expect(yearSelectionButton).not.toBeNull();
+    await yearSelectionButton.click();
     await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+    const yearSelection: E2EElement = await page.find(
+      'sbb-calendar >>> #sbb-calendar__year-selection',
+    );
+    expect(yearSelection).not.toBeNull();
+    expect(yearSelection).toEqualHtml(`
+      <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
+        2016 - 2039
+        <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+      </button>
+    `);
 
-    await element.press('ArrowLeft');
+    const yearCells: E2EElement[] = await page.findAll(
+      'sbb-calendar >>> .sbb-calendar__table-year',
+    );
+    expect(yearCells.length).toEqual(24);
+    expect(yearCells[0]).toEqualHtml(`
+      <td class="sbb-calendar__table-data sbb-calendar__table-year">
+        <button aria-disabled="false" aria-label="2016" aria-pressed="false" class="sbb-calendar__cell sbb-calendar__pill" data-year="2016" tabindex="-1">
+          2016
+        </button>
+      </td>
+    `);
+
+    const selectedYear: E2EElement = await page.find({ text: '2023' });
+    expect(selectedYear).toHaveClass('sbb-calendar__selected');
+    expect(yearCells[yearCells.length - 1].textContent).toEqual('2039');
+    await selectedYear.click();
     await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('14 1 2023');
+    const monthSelection: E2EElement = await page.find(
+      'sbb-calendar >>> #sbb-calendar__month-selection',
+    );
+    expect(monthSelection).not.toBeNull();
+    expect(monthSelection).toEqualHtml(`
+      <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
+        2023
+        <sbb-icon aria-hidden="true" class="hydrated" data-namespace="default" name="chevron-small-up-small" role="img"></sbb-icon>
+      </button>
+    `);
+
+    const monthCells: E2EElement[] = await page.findAll(
+      'sbb-calendar >>> .sbb-calendar__table-month',
+    );
+    expect(monthCells.length).toEqual(12);
+    expect(monthCells[0]).toEqualHtml(`
+      <td class="sbb-calendar__table-data sbb-calendar__table-month">
+        <button aria-disabled="false" aria-label="January 2023" aria-pressed="true" class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current"  data-month="0" tabindex="0">
+          Jan
+        </button>
+      </td>
+    `);
+    await monthCells[0].click();
+    await page.waitForChanges();
+
+    const dayCells: E2EElement[] = await page.findAll('sbb-calendar >>> .sbb-calendar__day');
+    expect(dayCells.length).toEqual(31);
   });
 
-  it('navigates right via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+  describe('navigation', () => {
+    it('navigates left via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
 
-    await element.press('ArrowRight');
-    await page.waitForChanges();
+      await element.press('ArrowLeft');
+      await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('16 1 2023');
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('14 1 2023');
+    });
+
+    it('navigates right via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('ArrowRight');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('16 1 2023');
+    });
+
+    it('navigates up via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('ArrowUp');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('8 1 2023');
+    });
+
+    it('navigates down via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('ArrowDown');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('22 1 2023');
+    });
+
+    it('navigates to first day via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('Home');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('1 1 2023');
+    });
+
+    it('navigates to last day via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('End');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('31 1 2023');
+    });
+
+    it('navigates to column start via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('PageUp');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('1 1 2023');
+    });
+
+    it('navigates to column end via keyboard', async () => {
+      await element.focus();
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('15 1 2023');
+
+      await element.press('PageDown');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
+        }),
+      ).toEqual('29 1 2023');
+    });
   });
 
-  it('navigates up via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+  describe('navigation for year view', () => {
+    beforeEach(async () => {
+      const yearSelectionButton: E2EElement = await page.find(
+        'sbb-calendar >>> #sbb-calendar__date-selection',
+      );
+      const table: E2EElement = await page.find('sbb-calendar >>> table');
+      const animationSpy = await table.spyOnEvent('animationend');
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+      await yearSelectionButton.click();
+      await waitForCondition(() => animationSpy.events.length >= 2);
+      const selectedYear: E2EElement = await page.find({ text: '2023' });
+      await selectedYear.focus();
+    });
 
-    await element.press('ArrowUp');
-    await page.waitForChanges();
+    it('navigates left via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('8 1 2023');
-  });
+      await element.press('ArrowLeft');
+      await page.waitForChanges();
 
-  it('navigates down via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2022');
+    });
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+    it('navigates right via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-    await element.press('ArrowDown');
-    await page.waitForChanges();
+      await element.press('ArrowRight');
+      await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('22 1 2023');
-  });
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2024');
+    });
 
-  it('navigates to first day via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+    it('navigates up via keyboard', async () => {
+      await page.waitForChanges();
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+      await element.press('ArrowUp');
+      await page.waitForChanges();
 
-    await element.press('Home');
-    await page.waitForChanges();
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2019');
+    });
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('1 1 2023');
-  });
+    it('navigates down via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-  it('navigates to last day via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+      await element.press('ArrowDown');
+      await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2027');
+    });
 
-    await element.press('End');
-    await page.waitForChanges();
+    it('navigates to first day via keyboard', async () => {
+      await page.waitForChanges();
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('31 1 2023');
-  });
+      await element.press('Home');
+      await page.waitForChanges();
 
-  it('navigates to column start via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2016');
+    });
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+    it('navigates to last day via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-    await element.press('PageUp');
-    await page.waitForChanges();
+      await element.press('End');
+      await page.waitForChanges();
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('1 1 2023');
-  });
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2039');
+    });
 
-  it('navigates to column end via keyboard', async () => {
-    await element.focus();
-    await page.waitForChanges();
+    it('navigates to column start via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('15 1 2023');
+      await element.press('PageUp');
+      await page.waitForChanges();
 
-    await element.press('PageDown');
-    await page.waitForChanges();
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2019');
+    });
 
-    expect(
-      await page.evaluate(() => {
-        return document.activeElement.shadowRoot.activeElement.getAttribute('data-day');
-      }),
-    ).toEqual('29 1 2023');
+    it('navigates to column end via keyboard', async () => {
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2023');
+
+      await element.press('PageDown');
+      await page.waitForChanges();
+
+      expect(
+        await page.evaluate(() => {
+          return document.activeElement.shadowRoot.activeElement.textContent;
+        }),
+      ).toEqual('2039');
+    });
   });
 });

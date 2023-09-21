@@ -107,6 +107,13 @@ export interface DateAdapter<T = any> {
   compareDate: (first: T, second: T) => number;
 
   /**
+   * Creates a new date adding the number of provided `years` to the provided `date`.
+   * @param date The starting date.
+   * @param years The number of years to add.
+   */
+  addCalendarYears: (date: T, years: number) => T;
+
+  /**
    * Creates a new date adding the number of provided `months` to the provided `date`.
    * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
    * E.g. with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
@@ -120,6 +127,14 @@ export interface DateAdapter<T = any> {
    * @param days The number of days to add.
    */
   addCalendarDays: (date: T, days: number) => T;
+
+  /**
+   * Calculates the first year that will be shown in the year selection panel.
+   * @param activeDate The active date.
+   * @param minDate The minimum date, if set.
+   * @param maxDate The maximum date, if set.
+   */
+  getStartValueYearView: (activeDate: T, minDate: T | null, maxDate: T | null) => number;
 
   /** Get the date in the local format.
    * @param date The date to format

@@ -242,4 +242,22 @@ describe('NativeDateAdapter', () => {
       '15 août 2018',
     );
   });
+
+  it('should return the correct year', () => {
+    const startDate: Date = new Date(2023, 0, 1);
+    const minDate: Date = new Date(2000, 0, 1);
+    const maxDate: Date = new Date(2042, 0, 1);
+    const noMinAndMax: number = nativeDateAdapter.getStartValueYearView(startDate, null, null);
+    expect(noMinAndMax).toEqual(2016);
+    const withMin: number = nativeDateAdapter.getStartValueYearView(startDate, minDate, null);
+    expect(withMin).toEqual(2000);
+    const withMax: number = nativeDateAdapter.getStartValueYearView(startDate, null, maxDate);
+    expect(withMax).toEqual(2019);
+    const withMinAndMax: number = nativeDateAdapter.getStartValueYearView(
+      startDate,
+      minDate,
+      maxDate,
+    );
+    expect(withMinAndMax).toEqual(2019);
+  });
 });

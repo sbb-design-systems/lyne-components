@@ -1,7 +1,10 @@
 import { DateAdapter } from './date-adapter';
 import { documentLanguage } from '../eventing';
 
-export const DAYS_PER_WEEK = 7;
+export const DAYS_PER_ROW: number = 7;
+export const MONTHS_PER_ROW: number = 4;
+export const YEARS_PER_ROW: number = 4;
+export const YEARS_PER_PAGE: number = 24;
 export const FORMAT_DATE =
   /(^0?[1-9]?|[12]?[0-9]?|3?[01]?)[.,\\/\-\s](0?[1-9]?|1?[0-2]?)?[.,\\/\-\s](\d{1,4}$)?/;
 
@@ -18,7 +21,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   public getFirstWeekOffset(year: number, month: number): number {
     const firstOfMonth = this.createDate(year, month, 1);
     return (
-      (DAYS_PER_WEEK + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_WEEK
+      (DAYS_PER_ROW + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_ROW
     );
   }
 
@@ -144,9 +147,18 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   }
 
   /**
+   * Creates a new date adding the number of provided `years` to the provided `date`.
+   * @param date The starting date.
+   * @param years The number of years to add.
+   */
+  public addCalendarYears(date: Date, years: number): Date {
+    return this.addCalendarMonths(date, years * 12);
+  }
+
+  /**
    * Creates a new date adding the number of provided `months` to the provided `date`.
    * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
-   * E.g. with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
+   * E.g., with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
    */
   public addCalendarMonths(date: Date, months: number): Date {
     const targetMonth = date.getMonth() + months;
@@ -155,7 +167,7 @@ export class NativeDateAdapter implements DateAdapter<Date> {
       this.getYear(dateWithCorrectMonth),
       this.getMonth(dateWithCorrectMonth),
     );
-    // Adapt last day of month for shorter months
+    // Adapt the last day of month for shorter months
     return new Date(this.clone(date).setMonth(targetMonth, Math.min(daysInMonth, date.getDate())));
   }
 
@@ -163,6 +175,34 @@ export class NativeDateAdapter implements DateAdapter<Date> {
   public addCalendarDays(date: Date, days: number): Date {
     const targetDay = date.getDate() + days;
     return new Date(date.getFullYear(), date.getMonth(), targetDay, 0, 0, 0, 0);
+  }
+
+  /**
+   * Calculates the first year that will be shown in the year selection panel.
+   * If `minDate` and `maxDate` are both null, the starting year is calculated as
+   * the multiple of YEARS_PER_PAGE closest to and less than activeDate,
+   * e.g., with `YEARS_PER_PAGE` = 24 and `activeDate` = 2020, the function will return 2016 (24 * 83),
+   * while with `activeDate` = 2000, the function will return 1992 (24 * 82).
+   * If `minDate` is not null, it returns the corresponding year; if `maxDate` is not null,
+   * it returns the corresponding year minus `YEARS_PER_PAGE`, so that the `maxDate` is the last rendered year.
+   * If both are not null, `maxDate` has priority over `minDate`.
+   */
+  public getStartValueYearView(
+    activeDate: Date,
+    minDate: Date | null,
+    maxDate: Date | null,
+  ): number {
+    let startingYear: number = 0;
+    if (maxDate) {
+      startingYear = this.getYear(maxDate) - YEARS_PER_PAGE + 1;
+    } else if (minDate) {
+      startingYear = this.getYear(minDate);
+    }
+    const activeYear: number = this.getYear(activeDate);
+    return (
+      activeYear -
+      ((((activeYear - startingYear) % YEARS_PER_PAGE) + YEARS_PER_PAGE) % YEARS_PER_PAGE)
+    );
   }
 
   /**
