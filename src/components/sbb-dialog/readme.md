@@ -16,7 +16,7 @@ It offers the following features:
 </sbb-dialog>
 ```
 
-### Slots
+## Slots
 
 The content is projected in an unnamed slot, while the dialog's title can be provided via the `titleContent` property or via slot `name="title"`.
 It's also possible to display buttons in the component's footer using the `action-group` slot with the `sbb-action-group` component.
@@ -44,7 +44,7 @@ It's also possible to display buttons in the component's footer using the `actio
 </sbb-dialog>
 ```
 
-### Interaction
+## Interactions
 
 In order to show the dialog, you need to call the `open(event?: PointerEvent)` method on the `sbb-dialog` component.
 It is necessary to pass the event object to the `open()` method to allow the dialog to detect 
@@ -75,7 +75,7 @@ or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, 
 You can also set the property `titleBackButton` to display the back button in the title section
 (or content section, if title is omitted) which will emit the event `request-back-action` when clicked.
 
-### Style
+## Style
 
 It's possible to display the component in `negative` variant using the self-named property.
 

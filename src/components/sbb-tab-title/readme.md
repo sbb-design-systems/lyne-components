@@ -6,7 +6,7 @@ in order to display a tab label within the tab bar.
 <sbb-tab-title>Tab Label</sbb-tab-title>
 ```
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -27,7 +27,7 @@ The label's heading tag can be changed using the `level` property.
 </sbb-tab-title>
 ```
 
-### States
+## States
 
 It is possible to display the component in `disabled` state by using the self-named property.
 

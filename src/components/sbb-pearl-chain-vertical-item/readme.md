@@ -24,7 +24,7 @@ The `pearlChainVerticalItemAttributes` property is mandatory.
 <sbb-pearl-chain-vertical-item>
 ```
 
-### Style
+## Style
 
 The component has many styling options, which can be configured through the 'pearlChainVerticalItemAttributes' property.
 The slots themselves are unstyled, so that they can be used in various ways.

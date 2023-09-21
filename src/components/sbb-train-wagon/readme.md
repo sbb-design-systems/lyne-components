@@ -2,7 +2,7 @@ THe `sbb-train-wagon` is a component which represents a train compartment.
 
 It is used inside the [sbb-train](/docs/timetable-sbb-train--docs) element. 
 
-### Variants
+## Variants
 
 The component can visualize a locomotive or a wagon (possibly closed), 
 so it has three different variants, based on the value of the `type` property.

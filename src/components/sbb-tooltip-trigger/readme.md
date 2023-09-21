@@ -9,7 +9,7 @@ by pressing or hovering on it.
 </sbb-tooltip>
 ```
 
-### Slots
+## Slots
 
 By default, it renders the `sbb-icon` named `information-circle-small`; 
 it is possible to define a custom icon with the property `iconName`. 
@@ -32,7 +32,7 @@ Moreover, it is possible to override the `sbb-icon` with custom content by slott
 </sbb-tooltip>
 ```
 
-### State
+## State
 
 It is possible to display the component in `disabled`  state by using the self-named properties. 
 

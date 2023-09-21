@@ -15,7 +15,7 @@ or directly its reference.
 <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
 ```
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
 they are automatically linked and the `sbb-datepicker-toggle` will be projected in the `prefix` slot of the `sbb-form-field`; 

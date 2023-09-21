@@ -1,6 +1,6 @@
 The `sbb-message` component can be used to display a complex message.
 
-### Slots 
+## Slots 
 
 It renders by default a [sbb-title](/docs/components-sbb-title--docs), 
 which can be provided via `titleContent` property or `title` slot.

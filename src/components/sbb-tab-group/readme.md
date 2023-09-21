@@ -25,7 +25,7 @@ please refer to the [sbb-tab-title](/docs/components-sbb-tab-sbb-tab-title--docs
 Tab groups can also be nested, which means that a tab's content block can be represented by another `sbb-tab-group`, 
 as shown in the "Nested Tab Groups" example.
 
-### States
+## States
 
 A tab can be selected, unselected, or in `disabled` state; disable a tab to mark it as unavailable. 
 Disabled tabs cannot be focused and may be invisible to assistive technologies such as screen readers.

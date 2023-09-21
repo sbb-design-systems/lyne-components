@@ -4,7 +4,7 @@ The `sbb-card-action` is the component used to turn a `sbb-card` into an action.
 <sbb-card-action href="https://www.sbb.ch">Check all the wonderful trips available.</sbb-card-action>
 ```
 
-### Link / button properties
+## Link / button properties
 
 As the [sbb-link](/docs/components-sbb-link--docs) and the [sbb-button](/docs/components-sbb-button--docs),
 the component can be internally rendered as a button or as a link,

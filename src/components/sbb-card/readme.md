@@ -4,12 +4,12 @@ The `sbb-card` component is a generic content container; its task is to contain 
 <sbb-card>Card content</sbb-card>
 ```
 
-### Slots
+## Slots
 
 The content is projected in an unnamed slot.
 It's possible to use the component together with the `sbb-card-badge` and the `sbb-card-action`.
 
-#### With `sbb-card-badge`
+### With `sbb-card-badge`
 
 The `sbb-card-badge` component can be used to display a badge in the upper right corner.
 The badge is hidden with card sizes are `xs` or `s`.
@@ -26,7 +26,7 @@ For API details, see the [sbb-card-badge](/docs/components-sbb-card-sbb-card-bad
 </sbb-card>
 ```
 
-#### With `sbb-card-action`
+### With `sbb-card-action`
 
 To add an action to a card, add a `sbb-card-action` to the main slot.
 With the `sbb-card-action` all the card area becomes clickable.
@@ -39,7 +39,7 @@ For API details (mainly accessibility), see the [sbb-card-action](/docs/componen
 </sbb-card>
 ```
 
-### Style
+## Style
 
 It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`, default `m`); 
 the choice mainly affect the content's padding. 

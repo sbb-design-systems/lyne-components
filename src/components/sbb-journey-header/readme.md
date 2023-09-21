@@ -11,7 +11,7 @@ the icon is an arrow pointing to the `destination`, otherwise it is a double arr
 <sbb-journey-header origin="Point A" destination="Point B" round-trip/>
 ```
 
-### Style
+## Style
 
 The component has a `level` property, which is passed to its inner `sbb-title` component; 
 it is rendered as a heading from `h1` to `h6`. Default `level` is `3`. 

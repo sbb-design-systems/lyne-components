@@ -10,7 +10,7 @@ if a new `sbb-toast` is opened while a previous message is still showing, the ol
 <sbb-toast>Toast content</sbb-toast>
 ```
 
-### Important note
+## Important note
 
 You should carefully consider every use of the `sbb-toast` component since it can be a source of stress for people with visual impairments
 (see the ["Accessibility"](#accessibility) section for more info).
@@ -20,7 +20,7 @@ Here are a few tips for correct usage:
 * If an action is needed, you should provide an alternative way to perform it;
 * If not strictly necessary, use the `polite` (_default_) configuration since it is less aggressive for screen-reader users.
 
-### Slots
+## Slots
 
 It is possible to provide a text via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -47,7 +47,7 @@ A `sbb-toast` can also be given a custom action that, if marked with the `sbb-to
 </sbb-toast>
 ```
 
-### Style
+## Style
 
 If the `dismissible` property is set to true, a close button is displayed at the component end.
 The time before the component auto-closing can be set with the `timeout` property (in milliseconds, default is 6000).

@@ -1,7 +1,7 @@
 The `sbb-teaser-hero` is a component with a background image and an action call within a panel;
 it should be an eye-catcher and should have an emotional effect on the user with its large image component.
 
-### Slots
+## Slots
 
 It is possible to provide the panel label via an unnamed slot, 
 while the link text can be provided using the `link-content` slot or the `linkContent` property;

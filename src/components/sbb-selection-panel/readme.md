@@ -8,7 +8,7 @@ clicking on the content area does not toggle anything.
 The selection panel can also be used inside a [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs) 
 or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs).
 
-#### With `sbb-radio-button-group`
+### With `sbb-radio-button-group`
 
 ```html
 <sbb-radio-button-group>
@@ -34,7 +34,7 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
 </sbb-radio-button-group>
 ```
 
-#### With `sbb-checkbox-group`
+### With `sbb-checkbox-group`
 
 ```html
 <sbb-checkbox-group>
@@ -63,7 +63,7 @@ or a [sbb-checkbox-group](/docs/components-sbb-checkbox-sbb-checkbox-group--docs
 As shown in the examples above, `sbb-checkbox` and `sbb-radio-button` placed in a `sbb-selection-panel` are extended 
 with a slot named `subtext` for the subtext and a slot named `suffix` for the suffix items.
 
-### Style
+## Style
 
 The component has two background options that can be set using the `color` variable: `milk` and `white` (default).
 

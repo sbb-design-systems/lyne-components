@@ -19,7 +19,7 @@ the [sbb-tooltip-trigger](/docs/components-sbb-tooltip-sbb-tooltip-trigger--docs
 </sbb-tooltip>
 ```
 
-### Interaction
+## Interactions
 
 The `sbb-tooltip` can be dismissed by clicking on an interactive element within its content, 
 by clicking on the close button or by performing another action on the page.
@@ -56,7 +56,7 @@ if neither the trigger element nor the tooltip are on hover or if another action
 </sbb-tooltip>
 ```
 
-### Style
+## Style
 
 The `sbb-tooltip` automatically calculates where it should place itself, based on available space. Default is below and center.
 The default `z-index` of the component is set to `1000`;

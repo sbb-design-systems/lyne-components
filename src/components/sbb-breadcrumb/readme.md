@@ -3,7 +3,7 @@ The `sbb-breadcrumb` is a component used to display a link to a page.
 When it's used within the [sbb-breadcrumb-group](/docs/components-sbb-breadcrumb-sbb-breadcrumb-group--docs) component, 
 it can display the list of the links the user visited to arrive at the current page.
 
-### Slots
+## Slots
 
 It is possible to provide a text via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -20,7 +20,7 @@ Text and icon are not exclusive and can be used together.
 </sbb-breadcrumb>
 ```
 
-### Link properties
+## Link properties
 
 It's possible to set all the link related properties (`download`, `href`, `rel` and `target`).
 

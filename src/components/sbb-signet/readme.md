@@ -10,7 +10,7 @@ To use the component, please define the desired height or width on `sbb-signet`.
 <sbb-signet></sbb-signet>
 ```
 
-### Style
+## Style
 
 The aspect ratio of the logo can be changed using the `protectiveRoom` property.
 Possible values are `ideal` (default), `minimal` and `none`.

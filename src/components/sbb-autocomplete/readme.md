@@ -18,7 +18,7 @@ Both accept an id or an element reference.
 </sbb-autocomplete>
 ```
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 If the component is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
@@ -38,14 +38,14 @@ it will automatically connect to the native `<input>` as trigger and will displa
 </sbb-form-field>
 ```
 
-### Style
+## Style
 
-#### Option highlight
+### Option highlight
 
 By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.
 See the [sbb-option](/docs/components-sbb-option-sbb-option--docs) for more details.
 
-#### Option grouping
+### Option grouping
 
 The displayed `sbb-option` can be collected into groups using `sbb-optgroup` element:
 
@@ -68,11 +68,11 @@ The displayed `sbb-option` can be collected into groups using `sbb-optgroup` ele
 </sbb-form-field>
 ```
 
-### Events
+## Events
 
 The `sbb-option` emits the `option-selected` event when selected via user interaction.
 
-### Keyboard interaction
+## Keyboard interaction
 
 The options panel opens on `focus`, `click` or `input` events on the trigger element, or on `ArrowDown` keypress;
 it can be closed on backdrop click, or using the `Escape` or `Tab` keys.

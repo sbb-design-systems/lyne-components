@@ -3,7 +3,7 @@ The `sbb-form-error` component can be used to provide an error message in inputs
 [sbb-radio-button-group](/docs/components-sbb-radio-button-sbb-radio-button-group--docs),
 or within the [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs).
 
-### Slots
+## Slots
 
 It is possible to provide the error message via an unnamed slot; 
 the component displays an icon by default, that can be changed using the `icon` slot.

@@ -18,7 +18,7 @@ The `sbb-alert-group` manages the dismissal and accessibility of one or multiple
 </sbb-alert-group>
 ```
 
-### Interactions
+## Interactions
 
 If all the `sbb-alert`s are dismissed, it's recommended to completely remove the `sbb-alert-group` from DOM.
 

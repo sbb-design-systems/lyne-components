@@ -1,7 +1,7 @@
 The `sbb-option` is a component which can be used to display items in components like
 [sbb-autocomplete](/docs/components-sbb-autocomplete--docs) or a [sbb-select](/docs/components-sbb-select--docs).
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -13,7 +13,7 @@ Icon space can be reserved even if the `iconName` property is not set by overrid
 <sbb-option icon-name="info">Option label</sbb-option>
 ```
 
-### States
+## States
 
 Like the native `option`, the component has a `value` property. 
 
@@ -29,13 +29,13 @@ If the `sbb-option` is nested in a `sbb-optgroup` component, it inherits from th
 <sbb-option value="value"ß disabled>Option label</sbb-option>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the `optionSelected` event on the `sbb-option` component to intercept the selected value;
 the event is triggered if the element has been selected by some user interaction. Alternatively, 
 the `selectionChange` event can be listened to, which is triggered if the element has been both selected or deselected.
 
-### Highlight
+## Style
 
 If the label slot contains only a **text node**, it is possible to search for text in the `sbb-option` using the 
 `highlight` method, passing the desired text; if the text is present it will be highlighted in bold.

@@ -14,7 +14,7 @@ and it can be set using the `title-content` property.
 </sbb-skiplink-list>
 ```
 
-### Style
+## Style
 
 The default `z-index` of the component is set to `1000`; 
 to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-skiplink-z-index`.

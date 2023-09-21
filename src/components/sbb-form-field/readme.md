@@ -26,9 +26,9 @@ The following components are designed to work inside a `sbb-form-field`:
 - [sbb-time-input](/docs/components-sbb-time-input--docs)
 - [sbb-autocomplete](/docs/components-sbb-autocomplete--docs)
 
-### Slots
+## Slots
 
-#### Label
+### Label
 
 Either use a `<label>` or the `label` attribute to provide a label for a form input. The
 `sbb-form-field` will automatically assign the correct id reference between label and input.
@@ -44,7 +44,7 @@ it's mandatory to call the `reset()` method of the `sbb-form-field` to update th
 </sbb-form-field>
 ```
 
-#### Error messages
+### Error messages
 
 Error messages can be shown under the form field by adding `sbb-form-error` elements inside the form field. 
 The component will automatically assign them to the `slot='error'`.
@@ -58,7 +58,7 @@ The component will automatically assign them to the `slot='error'`.
 In order to avoid the layout from "jumping" when an error is shown, the option of setting `error-space="reserve"` 
 on the `sbb-form-field` will reserve space for a single line of an error message.
 
-#### Prefix & Suffix
+### Prefix & Suffix
 
 It is possible to add content as a prefix or suffix in a `sbb-form-field`. 
 This can be done via the `prefix` and `suffix` slots.
@@ -76,7 +76,7 @@ Please refer to their documentation for more details.
 </sbb-form-field>
 ```
 
-### Style
+## Style
 
 By default, the component has a defined width and min-width. However, this behavior can be overridden by setting 
 the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.

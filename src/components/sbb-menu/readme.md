@@ -2,7 +2,7 @@ The `sbb-menu` is a component that can be attached to any element to open and di
 which allows to perform actions relevant to the current task or to navigate within or outside the application 
 by using the [sbb-menu-action](/docs/components-sbb-menu-sbb-menu-action--docs) component along with it.
 
-### Interaction
+## Interactions
 
 The element that will trigger the menu dialog must be set using the `trigger` property. 
 
@@ -46,7 +46,7 @@ You can also provide custom content inside the `sbb-menu`:
 </sbb-menu>
 ```
 
-### Style 
+## Style 
 
 If only `sbb-menu-action` components are provided, the items are automatically grouped within a list
 using `<ul>` and `<li>` items, for more complex scenarios the grouping must be done manually.

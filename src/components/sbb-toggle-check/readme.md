@@ -5,7 +5,7 @@ enhanced with the SBB Design.
 <sbb-toggle-check value="single-checkbox">Example</sbb-toggle-check>
 ```
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 using the `iconName` property or via custom content using the `icon` slot. 
@@ -21,7 +21,7 @@ The icon can be at the component start or end based on the value of the `labelPo
 </sbb-toggle-check>
 ```
 
-### States
+## States
 
 The component can be displayed in `checked` or `disabled` states using the self-named properties.
 
@@ -31,7 +31,7 @@ The component can be displayed in `checked` or `disabled` states using the self-
 <sbb-toggle-check value="Value" disabled>Option</sbb-toggle-check>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the native `change` event on the `sbb-toggle-check` component to intercept the input's change;
 the current state can be read from `event.target.checked` and the value from `event.target.value`.

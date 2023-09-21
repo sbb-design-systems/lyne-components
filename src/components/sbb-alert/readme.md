@@ -3,7 +3,7 @@ The `sbb-alert` is a component which should be used to display important message
 Multiple instances of this component can be used within 
 the [sbb-alert-group](/docs/components-sbb-alert-sbb-alert-group--docs) component.
 
-### Slots
+## Slots
 
 The text content is projected using and unnamed slot, while the title uses the slot named `title` or alternatively the `titleContent` property. 
 The component can optionally display a `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -24,7 +24,7 @@ The component can optionally display a `sbb-icon` at the component start using t
 </sbb-alert>
 ```
 
-### Interactions
+## Interactions
 
 It's possible to place an action, which by clicking navigates somewhere to display more information. 
 This can be done using the `linkContent` property combined with the `href` one. 
@@ -50,7 +50,7 @@ which automatically removes an alert after clicking the close button.
 </sbb-alert>
 ```
 
-### Style
+## Style
 
 Users can choose between two `size`, `m` (default) and `l`.
 

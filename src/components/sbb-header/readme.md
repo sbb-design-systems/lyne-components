@@ -1,6 +1,6 @@
 The `sbb-header` component is a container for actions and a logo, and it is displayed at the top of the page.
 
-### Slots
+## Slots
 
 It has two slots: 
 the first one can contain one or more [sbb-header-action](/docs/components-sbb-header-sbb-header-action--docs) 
@@ -15,7 +15,7 @@ and it can contain a logo, which by default is the [sbb-logo](/docs/components-s
 </sbb-header>
 ```
 
-### Style
+## Style
 
 Setting the `expanded` property will cause the `sbb-header` component to take up the full width of the page.
 
@@ -27,7 +27,7 @@ With this, it's ensured that content will be visible all the time.
 The default `z-index` of the component is set to `10`; to specify a custom stack order, the `z-index` can
 be changed by defining the CSS variable `--sbb-header-z-index`.
 
-#### Positioning and visibility
+### Positioning and visibility
 
 By default, the `sbb-header` has a fixed position at the top of the page;
 when the page is scrolled down, a box-shadow appears below it and the component remains visible.
@@ -45,7 +45,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 </sbb-header>
 ```
 
-#### Customizing
+### Customizing
 
 Users can customize position and behaviour of actions inside the `sbb-header` component 
 by adding classes to `sbb-header-action` elements and then defining their own style rules.

@@ -16,7 +16,7 @@ that needs to be displayed in a [sbb-expansion-panel](/docs/components-sbb-accor
 </sbb-expansion-panel-content>
 ```
 
-### Style
+## Style
 
 When it's used in combination with a `sbb-expansion-panel-header` with an icon displayed via slot or `iconName` property,
 the `sbb-expansion-panel-content` receives a padding on the left side in order to align it with the header label.

@@ -1,7 +1,7 @@
 The `sbb-footer` component is used to display page related information like copyright, contact or other 
 content related links; for these, the [sbb-link-list](/docs/components-sbb-link-list--docs) component can be used.
 
-### Variants
+## Variants
 
 There are two variants of the footer: the `variant='default'`, which displays the slotted content in regular 
 block element approach and the `variant='clock-columns'`, which uses a css-grid for displaying the content over different 
@@ -54,7 +54,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 </sbb-footer>
 ```
 
-### Style
+## Style
 
 It's possible to display the footer in `negative` variant; please also apply the negative attribute 
 to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).

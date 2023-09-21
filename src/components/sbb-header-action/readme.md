@@ -1,6 +1,6 @@
 The component represents an action element contained by the [sbb-header](/docs/components-sbb-header-sbb-header--docs) component.
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot. 
@@ -18,7 +18,7 @@ from which the label is displayed; below that, only the icon is visible.
 <sbb-header-action expand-from='medium'>Text</sbb-header-action>
 ```
 
-### Link / button properties
+## Link / button properties
 
 As the [sbb-link](/docs/components-sbb-link--docs) and the [sbb-button](/docs/components-sbb-button--docs),
 the component can be internally rendered as a button or as a link,

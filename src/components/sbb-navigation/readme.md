@@ -10,7 +10,7 @@ Some of its features are:
  [sbb-navigation-marker](/docs/components-sbb-navigation-sbb-navigation-marker--docs) 
  and [sbb-navigation-section](/docs/components-sbb-navigation-sbb-navigation-section--docs);
 
-### Interaction
+## Interactions
 
 To display the `sbb-navigation` component you can either provide a trigger element using the `trigger` property,
 or call the `open()` method on the `sbb-navigation` component.
@@ -48,7 +48,7 @@ or call the `open()` method on the `sbb-navigation` component.
 </sbb-navigation>
 ```
 
-### Style
+## Style
 
 The default `z-index` of the component is set to `1000`; 
 to specify a custom stack order, the `z-index` can be changed by defining the CSS variable `--sbb-navigation-z-index`.

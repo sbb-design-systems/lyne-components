@@ -11,14 +11,13 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
 </sbb-radio-button-group>
 ```
 
-
 Pressing a `sbb-radio-button` checks it and unchecks the previously selected one, if any.
 They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
 
 Please note that within a `sbb-radio-button-group`, only one `sbb-radio-button` can be selected at a time;
 if you need to select more than one item, it is recommended to use the `sbb-checkbox-group` component.
 
-### States
+## States
 
 The radio group can have different states:
 
@@ -47,7 +46,7 @@ enabling their deselection (by default, a selected `sbb-radio-button` cannot be 
 </sbb-radio-button-group>
 ```
 
-### Style
+## Style
 
 The `orientation` property is used to set item orientation. Possible values are `horizontal` (default) and `vertical`.
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` to
@@ -59,7 +58,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 </sbb-radio-button-group>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the native `change`/`input` event on the `sbb-radio-button-group` component 
 to intercept the selection's change; the current value can be read from `event.detail.value`.

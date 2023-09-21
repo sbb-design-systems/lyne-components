@@ -1,6 +1,6 @@
 The `sbb-teaser` is a component which can display an image with a caption, and it behaves like a link on user interaction.
 
-### Slots
+## Slots
 
 The component displays the `image`, the `title` and the `description` in the self-named slots.
 

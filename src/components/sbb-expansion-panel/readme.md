@@ -2,7 +2,7 @@ The `sbb-expansion-panel` is a component which acts as an expandable summary-det
 
 It can be used standalone or inside a [sbb-accordion](/docs/components-sbb-accordion-sbb-accordion--docs).
 
-### Slots 
+## Slots 
 
 In order to correctly display the component, it must be used together with 
 a [sbb-expansion-panel-header](/docs/components-sbb-accordion-sbb-expansion-panel-header--docs)
@@ -18,7 +18,7 @@ These two components automatically fill the two available slots, named `header` 
 </sbb-expansion-panel>
 ```
 
-### States
+## States
 
 The visibility of the content is controlled by the value of the `expanded` property.
 
@@ -36,7 +36,7 @@ The `disabled` state can be set using the self-named variable. In this state, th
 </sbb-expansion-panel>
 ```
 
-### Style
+## Style
 
 The component has two background options (`milk` and `white`, which is the default) that can be set using the `color` variable.
 

@@ -3,7 +3,7 @@ It is used in the [sbb-checkbox](/docs/components-sbb-checkbox-sbb-checkbox--doc
 and in the [sbb-option](/docs/components-sbb-option-sbb-option--docs) component 
 when it's used within a multiple [sbb-select](/docs/components-sbb-select--docs).
 
-### States
+## States
 
 It has four different states related to the properties `checked`, `indeterminate` and `disabled`:
 - a default unchecked state: an empty square is shown;

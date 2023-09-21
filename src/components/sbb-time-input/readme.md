@@ -11,7 +11,7 @@ which accepts the id of the native input, or directly its reference.
 <sbb-time-input input='input-id'></sbb-time-input>
 ```
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 If the `sbb-time-input` is used within a `sbb-form-field` with a native input, they are automatically linked.
 
@@ -33,7 +33,7 @@ e.g.: with a value of `12:34`, the `getValueAsDate()` will be 01.01.1970, 12:34:
 If the value is invalid because not real (e.g. 12:61 or 25:30), the component does not format the `value`,
 and will return `null` if  `getValueAsDate()` was called.
 
-### Format example
+## Format example
 
 See the table below for some formatting examples:
 

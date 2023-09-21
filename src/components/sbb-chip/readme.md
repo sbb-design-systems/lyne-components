@@ -4,7 +4,7 @@ The `sbb-chip` is a visual component used to display compact information, like a
 <sbb-chip>On sale</sbb-chip>
 ```
 
-### Style
+## Style
 
 It's possible to choose among three different values for the `size` property (`s`, `xs` and `xxs`, which is the default), 
 and four different values for the `color` property (`charcoal`, `granite`, `white` and `milk`, which is the default).

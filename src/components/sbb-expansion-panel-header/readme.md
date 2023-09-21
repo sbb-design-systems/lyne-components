@@ -7,7 +7,7 @@ acting as a control for an expanding / collapsing content, like a native `<summa
 <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
 ```
 
-### Slots
+## Slots
 
 The component is internally rendered as a button, and it is possible to provide text via an unnamed slot.
 On the left side, a toggle icon is displayed; it flips based on the host's `aria-expanded` property.
@@ -20,7 +20,7 @@ If using the SBB icons, the icon should be a medium size icon.
 <sbb-expansion-panel-header icon-name='swisspass-medium'>Header</sbb-expansion-panel-header>
 ```
 
-### States
+## States
 
 The component can be displayed in `disabled` satte using the self-named property. 
 
@@ -28,7 +28,7 @@ The component can be displayed in `disabled` satte using the self-named property
 <sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>
 ```
 
-### Events
+## Events
 
 When the element is clicked, the `toggle-expanded` event is emitted.
 

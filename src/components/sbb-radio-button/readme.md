@@ -10,7 +10,7 @@ in order to display a radio input within a group.
 </sbb-radio-button-group>
 ```
 
-### States
+## States
 
 It is possible to display the component in `disabled` or `checked` state by using the self-named properties. 
 
@@ -30,7 +30,7 @@ The `allowEmptySelection` property allows user to deselect the component.
 <sbb-radio-button value="Four" allowEmptySelection>Option four</sbb-radio-button>
 ```
 
-### Style
+## Style
 
 The component has two different sizes, which can be changed using the `size` property (`m`, which is the default, and `s`).
 

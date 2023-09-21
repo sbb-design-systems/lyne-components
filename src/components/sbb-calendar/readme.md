@@ -20,7 +20,7 @@ It's recommended to set the time to 00:00:00.
 <sbb-calendar min="1600000000" max="1700000000" selected-date="1650000000"></sbb-calendar>
 ```
 
-### Style
+## Style
 
 The component displays one month by default; two months can be displayed setting the `wide` property to `true`.
 
@@ -31,12 +31,12 @@ The component displays one month by default; two months can be displayed setting
 It's also possible to filter out unwanted date using the `dateFilter` function property.
 Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
 
-### Events
+## Events
 
 Consumers can listen to the `dateSelected` event on the `sbb-calendar` component to intercept the selected date 
 which can be read from `event.detail`.
 
-### Keyboard interaction
+## Keyboard interaction
 
 It's possible to move within the component using the keyboard.
 

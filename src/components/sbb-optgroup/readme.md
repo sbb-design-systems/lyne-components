@@ -4,7 +4,7 @@ or a [sbb-select](/docs/components-sbb-select--docs) component.
 
 A [sbb-divider](/docs/components-sbb-divider--docs) is displayed at the bottom of the component.
 
-### Slots
+## Slots
 
 It is possible to provide a set of `sbb-option` via an unnamed slot; 
 the component has also a `label` property as name of the group.
@@ -17,7 +17,7 @@ the component has also a `label` property as name of the group.
 </sbb-optgroup>
 ```
 
-### States
+## States
 
 The component has a `disabled` property which sets all the `sbb-option` in the group as disabled.
 

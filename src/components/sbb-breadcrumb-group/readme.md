@@ -13,7 +13,7 @@ which are meant to represent the hierarchy of visited pages before arriving to t
 </sbb-breadcrumb-group>
 ```
 
-### Style
+## Style
 
 If the width of all the nested `sbb-breadcrumb` exceeds the container width, 
 only the first and the last breadcrumb are displayed, and a new one with the ellipsis symbol appears between them. 

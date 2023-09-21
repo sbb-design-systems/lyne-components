@@ -8,7 +8,7 @@ The `sbb-link-list` is a component that can be used to collect and display more 
 </sbb-link-list>
 ```
 
-### Slots
+## Slots
 
 The component can display an optional title, 
 which is visually shown as a level-5 [sbb-title](/docs/components-sbb-title--docs) 
@@ -22,7 +22,7 @@ The title can be set using the `titleContent` property or, alternatively, can be
 </sbb-link-list>
 ```
 
-### Style
+## Style
 
 The component will automatically set variant `block` on nested `sbb-link` instances, 
 and it will sync its `size` and `negative` property with the inner links.
@@ -35,7 +35,7 @@ and it will sync its `size` and `negative` property with the inner links.
 </sbb-link-list>
 ```
 
-#### Orientation
+### Orientation
 
 The `orientation` property is used to set links' orientation; possible values are `horizontal` and `vertical` (default).
 The optional property `horizontalFrom` can be used in combination with `orientation='vertical'` 

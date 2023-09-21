@@ -5,7 +5,7 @@ The `sbb-toggle-option` component is used inside the
 <sbb-toggle-option value="Value">Option</sbb-toggle-option>
 ```
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -17,7 +17,7 @@ Text and icon are not exclusive and can be used together.
 <sbb-toggle-option value="Value" icon-name="app-icon-small">Option</sbb-toggle-option>
 ```
 
-### States
+## States
 
 The component can be displayed in `checked` or `disabled` states using the self-named properties.
 

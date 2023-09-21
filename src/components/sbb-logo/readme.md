@@ -10,7 +10,7 @@ To use the component, please define the desired height or width on `sbb-logo`.
 <sbb-logo></sbb-logo>
 ```
 
-### Style
+## Style
 
 The component has a negative variant which can be set using the `negative` property.
 

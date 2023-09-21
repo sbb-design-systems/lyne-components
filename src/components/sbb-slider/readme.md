@@ -10,7 +10,7 @@ If no value is provided, by default it is set halfway between the minimum and ma
 <sbb-slider value="0"></sbb-slider>
 ```
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 The component can be used within a `sbb-form-field` component.
 
@@ -20,7 +20,7 @@ The component can be used within a `sbb-form-field` component.
 </sbb-form-field>
 ```
 
-### Slots 
+## Slots 
 
 The component can optionally display two `sbb-icon`s at either end; 
 consumers could set one/both of them using the `startIcon` and `endIcon` properties, 
@@ -35,7 +35,7 @@ or can provide their own using the two slots named `prefix` and `suffix`.
 </sbb-slider>
 ```
 
-### States
+## States
 
 It is possible to display the component in `disabled` or `readonly` state by using the self-named properties.
 
@@ -45,12 +45,12 @@ It is possible to display the component in `disabled` or `readonly` state by usi
 <sbb-slider readonly></sbb-slider>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the native `change` event on the `sbb-slider` component to intercept the input's change `event`;
 the current value can be read from `event.target.value` or `event.target.valueAsNumber`.
 
-### Keyboard interaction
+## Keyboard interaction
 
 The `sbb-slider` has the following behaviour on keypress when focused:
 

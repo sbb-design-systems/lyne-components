@@ -1,6 +1,6 @@
 The `sbb-checkbox` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the SBB Design.
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon` using
 the `iconName` property or via custom SVG using the `icon` slot.
@@ -14,7 +14,7 @@ The icon can be placed before or after the label based on the value of the `icon
 <sbb-checkbox value="start-icon" icon-name="tickets-class-small" icon-placement="start">Icon at start</sbb-checkbox>
 ```
 
-### States
+## States
 
 The component could be checked or not depending on the value of the `checked` attribute.
 
@@ -39,7 +39,7 @@ The component can be displayed in `disabled` or `required` state by using the se
 <sbb-checkbox value="disabled-checkbox" disabled="true">Disabled</sbb-checkbox>
 ```
 
-### Style
+## Style
 
 The component has two `size`, named `s` (default) and `m`. 
 
@@ -47,7 +47,7 @@ The component has two `size`, named `s` (default) and `m`.
 <sbb-checkbox value="size" size='m'>Size</sbb-checkbox>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the native `change` event on the `sbb-checkbox` component to intercept the input's change;
 the current state can be read from `event.target.checked`, while the value from `event.target.value`.

@@ -13,7 +13,7 @@ which accepts the id of the native input, or directly its reference.
 <sbb-datepicker input="datepicker-input" id="datepicker"></sbb-datepicker>
 ```
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 If the `sbb-datepicker` is used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs) with a native input, 
 they are automatically linked; the component sets the input placeholder and the input's type as `text`, 
@@ -42,7 +42,7 @@ It's also possible to display a two-months view using the `wide` property.
 </sbb-form-field>
 ```
 
-### Events
+## Events
 
 If the input's value changes, it is formatted then a `change` event is emitted with the new value. 
 If it's an invalid date, the `data-sbb-invalid` attribute is added to the input. 

@@ -12,7 +12,7 @@ where selecting an option deselects the previously selected one.
 </sbb-toggle>
 ```
 
-### States
+## States
 
 The component can be displayed in `disabled` state using the self-named property.
 
@@ -22,7 +22,7 @@ The component can be displayed in `disabled` state using the self-named property
 </sbb-toggle>
 ```
 
-### Style
+## Style
 
 The `even` property can be used to let the component expand to the parent component or adapt to the label's width.
 

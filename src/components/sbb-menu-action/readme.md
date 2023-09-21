@@ -1,6 +1,6 @@
 The component represents an action element contained by the [sbb-menu](/docs/components-sbb-menu-sbb-menu--docs) component.
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -17,7 +17,7 @@ An amount can be rendered at the end of the action element as white text in a re
 <sbb-menu-action amount='123'>Amount text</sbb-menu-action>
 ```
 
-### Link / button properties
+## Link / button properties
 
 As the [sbb-link](/docs/components-sbb-link--docs) and the [sbb-button](/docs/components-sbb-button--docs),
 the component can be internally rendered as a button or as a link,
@@ -30,7 +30,7 @@ depending on the value of the `href` property, so the associated properties are 
 <sbb-menu-action type='button' value='menu' name='menu'>Button</sbb-menu-action>
 ```
 
-### Style
+## Style
 
 For cases where smaller outer paddings are needed, 
 you can set the css variable `--sbb-menu-action-outer-horizontal-padding` to your desired outer padding.

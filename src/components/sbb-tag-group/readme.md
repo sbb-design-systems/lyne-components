@@ -13,9 +13,9 @@ See [its documentation]((/docs/components-sbb-tag-sbb-tag--docs)) for more detai
 </sbb-tag-group>
 ```
 
-### Interaction
+## Interactions
 
-#### Exclusive selection vs. multiple selection
+### Exclusive selection vs. multiple selection
 
 By default, `sbb-tag-group` acts like a radio-button group: only one item can be selected. 
 In this mode, the value of the `sbb-tag-group` will reflect the value of the selected `sbb-tag`.
@@ -32,12 +32,12 @@ In this mode the value of the `sbb-tag-group` is an array containing all values 
 </sbb-tag-group>
 ```
 
-#### Changing multiple property during run time
+### Changing multiple property during run time
 
 There is no support for changing multiple mode during run time (e.g., update value automatically).
 So this flag should be provided at component's instantiation time.
 
-#### Advanced usage: multiple and exclusive mixed
+### Advanced usage: multiple and exclusive mixed
 
 ```ts
 const uncheckAllTag = () => {

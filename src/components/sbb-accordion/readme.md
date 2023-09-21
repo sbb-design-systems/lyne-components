@@ -14,7 +14,7 @@ for one or more [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansi
 </sbb-accordion>
 ```
 
-### Variants
+## Variants
 
 The `multi` property, if set, allows having more than one `sbb-expansion-panel` expanded at the same time.
 
@@ -24,7 +24,7 @@ The `multi` property, if set, allows having more than one `sbb-expansion-panel` 
 </sbb-accordion>
 ```
 
-### Style
+## Style
 
 The component has a `titleLevel` property, which is proxied to each inner `sbb-expansion-panel-header`, and can be used
 to wrap the header of each `sbb-expansion-panel` in a heading tag; if the property is unset, a `div` is used.

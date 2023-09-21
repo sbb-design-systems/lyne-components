@@ -1,6 +1,6 @@
 The `sbb-divider` is used to visually divide sections.
 
-### Style 
+## Style 
 
 Based on the `orientation` property, the `sbb-divider` can be displayed vertically or horizontally.
 

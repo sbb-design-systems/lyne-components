@@ -23,7 +23,7 @@ or, alternatively, for a collection of [sbb-selection-panel](/docs/components-sb
 </sbb-checkbox-group>
 ```
 
-### Slots
+## Slots
 
 The content is projected in an unnamed slot.
 
@@ -39,7 +39,7 @@ right below the `sbb-checkbox-group` using the `error` slot.
 </sbb-checkbox-group>
 ```
 
-### States
+## States
 
 It is possible to mark the entire group as disabled or required using the properties `disabled` and `required`.
 
@@ -55,7 +55,7 @@ It is possible to mark the entire group as disabled or required using the proper
 </sbb-checkbox-group>
 ```
 
-### Style
+## Style
 
 The `orientation` property is used to set item orientation. 
 Possible values are `horizontal` (default) and `vertical`.

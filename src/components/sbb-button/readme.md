@@ -4,7 +4,7 @@ The `sbb-button` component provides the same functionality as a native `<button>
 <sbb-button>Button text</sbb-button>
 ```
 
-### Slots
+## Slots
 
 The button text is provided via an unnamed slot; the component can optionally display a `sbb-icon`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -23,7 +23,7 @@ At least one is mandatory, so you can have a `sbb-button` with icon only, text o
 <sbb-button icon-name="info" aria-label='Click for more information.'></sbb-button>
 ```
 
-### Link / button properties
+## Link / button properties
 
 The component can be internally rendered as a button or as a link,
 depending on the value of the `href` property, so the associated properties are available
@@ -44,7 +44,7 @@ If the component is placed inside an `sbb-form-field`, it renders with the corre
 </sbb-button>
 ```
 
-### Style
+## Style
 
 The component has four color variants that can be set using the `variant` property (default: `primary`),
 and it has also a negative one which can be set using the `negative` property.
@@ -63,7 +63,7 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-button disabled>Button</sbb-button>
 ```
 
-#### Focus outline
+### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
 You can set it by re-defining the css var on `sbb-button` or any parent element:

@@ -5,7 +5,7 @@ It's intended to be used inside the [sbb-tag-group](/docs/components-sbb-tag-sbb
 <sbb-tag value="All">All</sbb-tag>
 ```
 
-### Slots
+## Slots
 
 It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon` 
 at the component start using the `iconName` property or via custom content using the `icon` slot.
@@ -24,7 +24,7 @@ It's also possible to display a numeric amount at the component's end using the 
 </sbb-tag>
 ```
 
-### States
+## States
 
 The component can be displayed in `checked` or `disabled` state using the self-named property.
 
@@ -34,7 +34,7 @@ The component can be displayed in `checked` or `disabled` state using the self-n
 <sbb-tag disabled value="All" icon-name="circle-information-small">All</sbb-tag>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the native `change` and `input` events on the `sbb-tag`.
 The current state can be read from `event.target.checked`, while the value from `event.target.value`.

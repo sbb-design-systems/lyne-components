@@ -9,7 +9,7 @@ Its intended use is inside a [sbb-navigation](/docs/components-sbb-navigation-sb
 <sbb-navigation-marker>
 ```
 
-### Style
+## Style
 
 The component has a property named `size` which is proxied to all the `sbb-navigation-action` within it.
 Possible values are `l` (default) and `s`.

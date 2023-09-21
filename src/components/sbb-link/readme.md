@@ -1,6 +1,6 @@
 The `sbb-link` component provides the same functionality as a native `<a>` enhanced with the SBB Design.
 
-### Slots
+## Slots
 
 The link text is provided via an unnamed slot; the component can optionally display a `sbb-icon` using 
 the `iconName` property or via custom content using the `icon` slot. 
@@ -16,7 +16,7 @@ By default, the icon is placed at the component's end, but this can be changed u
 </sbb-link>
 ```
 
-### States
+## States
 
 The component can be displayed in `disabled` state using the self-named property.
 
@@ -24,7 +24,7 @@ The component can be displayed in `disabled` state using the self-named property
 <sbb-link disabled>Refunds</sbb-link>
 ```
 
-### Link / button properties
+## Link / button properties
 
 The component can be internally rendered as a button or as a link,
 depending on the value of the `href` property, so the associated properties are available
@@ -43,7 +43,7 @@ it is internally rendered as a span in order to not break HTML functionality.
 </sbb-link>
 ```
  
-### Style
+## Style
 
 The component has two variants (`block`, which is the default, and `inline`), that can be set using the `variant` property,
 and it has also three sizes (`xs`, `s`, which is the default, and `m`) that are relevant only in `variant='block`'.

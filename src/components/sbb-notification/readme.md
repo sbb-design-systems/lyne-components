@@ -21,7 +21,7 @@ The `sbb-notification` is structured in the following way:
 
 Note that the notification only supports inline links, therefore any slotted link will be forced to be a `variant="inline"` link.
 
-### States
+## States
 
 It is possible to display the component in `readonly` state by using the self-named property.
 In this case, the close button will not be shown.
@@ -32,7 +32,7 @@ In this case, the close button will not be shown.
 </sbb-notification>
 ```
 
-### Variants
+## Variants
 
 The `sbb-notification` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
 
@@ -44,7 +44,7 @@ The `sbb-notification` supports four types: `info` (default), `success`, `warn` 
 <sbb-notification type="error">...</sbb-notification>
 ```
 
-### Interaction
+## Interactions
 
 Inline notifications do not dismiss automatically. 
 They persist on the page until the user dismisses them or takes action that resolves the notification.
@@ -52,7 +52,7 @@ They persist on the page until the user dismisses them or takes action that reso
 By default, a close button is displayed to dismiss inline notifications. Including the close button is optional 
 and should not be included if it is critical for a user to read or interact with the notification by setting the `readonly` property to `true`.
 
-### Style
+## Style
 
 If the `sbb-notification` host needs a margin, in order to properly animate it on open/close, 
 we suggest using the `--sbb-notification-margin` variable to set it. 

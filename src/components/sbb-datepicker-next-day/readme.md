@@ -11,7 +11,7 @@ or directly its reference.
 <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
 ```
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 If the two components are used within a [sbb-form-field](/docs/components-sbb-form-field-sbb-form-field--docs), 
 they are automatically linked and the `sbb-datepicker-next-day` will be projected in the `suffix` slot of the `sbb-form-field`; 

@@ -1,7 +1,7 @@
 The `sbb-select` is a component which provides a list of selectable options in an overlay panel, 
 emulating the behaviour of a native `<select>`. 
 
-### In `sbb-form-field`
+## In `sbb-form-field`
 
 If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it; 
 otherwise, the panel takes the component's parent element as origin. 
@@ -26,7 +26,7 @@ Also note that if the `value` is set on the `sbb-select`, it will override all t
 so setting a default value should be done using the `value` attribute on the `sbb-select` and not by setting the
 `selected` attribute on the internal `sbb-option`s.
 
-### States
+## States
 
 It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component 
 has a `required` property, which can be useful for setting a custom `sbb-form-error` message within a `sbb-form-field`.
@@ -42,7 +42,7 @@ has a `required` property, which can be useful for setting a custom `sbb-form-er
 </sbb-form-field>
 ```
 
-#### Multiple
+### Multiple
 
 If the `multiple` property is set to false, only one option can be selected: 
 in this case the placeholder will be replaced by the chosen value and a check mark will appear 
@@ -67,13 +67,13 @@ the selected values will be displayed in selection order, separated by a comma.
 </sbb-form-field>
 ```
 
-### Events
+## Events
 
 Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
 the current value can be read from `event.target.value`. 
 Additionally `sbb-option` will emit `option-selected` when selected via user interaction.
 
-### Keyboard interaction
+## Keyboard interaction
 
 Closed panel, `sbb-select` has focus:
 
