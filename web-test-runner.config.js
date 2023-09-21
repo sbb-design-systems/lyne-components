@@ -1,5 +1,6 @@
 import { defaultReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { vitePlugin } from '@remcovaes/web-test-runner-vite-plugin';
 import postcssLit from 'rollup-plugin-postcss-lit';
 import { existsSync } from 'fs';
@@ -25,10 +26,13 @@ const browsers = process.env.CI
       playwrightLauncher({ product: 'webkit' }),
     ]
   : [
-      playwrightLauncher({
-        product: 'chromium',
-        launchOptions: { headless: true, devtools: true },
-      }),
+      // playwrightLauncher({
+      //   product: 'chromium',
+      //   launchOptions: { headless: true, devtools: true },
+      // }),
+
+      // In dev, we prefer to use puppeteer because has a better behavior in debug mode
+      puppeteerLauncher({ concurrency: 1, launchOptions: { headless: true, devtools: true } }),
     ];
 
 // TODO: Revert to glob rules after migration
@@ -39,7 +43,7 @@ export default {
     { name: 'e2e', files: e2eFiles },
   ],
   nodeResolve: true,
-  reporters: [defaultReporter(), summaryReporter()],
+  reporters: [defaultReporter({ reportTestResults: false }), summaryReporter()],
   browsers: browsers,
   plugins: [
     vitePlugin({

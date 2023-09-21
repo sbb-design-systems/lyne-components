@@ -779,7 +779,7 @@ declare global {
         (n) => ts.isReturnStatement(n) || ts.isVariableStatement(n),
       )!;
       if (codeToAdd.length > 0) {
-        codeToAdd.unshift('// ## Host attributes ##');
+        codeToAdd.unshift('// ## Migr: Host attributes ##');
         codeToAdd.push('// ####');
       }
       mutator.insertAt(node, codeToAdd.join('\n') + '\n\n');
