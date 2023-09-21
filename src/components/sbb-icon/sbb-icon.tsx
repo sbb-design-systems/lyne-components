@@ -107,11 +107,9 @@ export class SbbIcon extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    // ## Host attributes ##
     setAttribute(this, 'role', 'img');
     setAttribute(this, 'data-namespace', this._svgNamespace);
     setAttribute(this, 'data-empty', !this._svgIcon && !this._svgFetchInProgress);
-    // ####
 
     return html`
       ${this._svgIcon
