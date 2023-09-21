@@ -12,11 +12,12 @@ It has four different states related to the properties `checked`, `indeterminate
 
 ## Properties
 
-| Property        | Attribute       | Description          | Type      | Default     |
-| --------------- | --------------- | -------------------- | --------- | ----------- |
-| `checked`       | `checked`       | Checked state.       | `boolean` | `undefined` |
-| `disabled`      | `disabled`      | Disabled state.      | `boolean` | `undefined` |
-| `indeterminate` | `indeterminate` | Indeterminate state. | `boolean` | `false`     |
+| Property        | Attribute       | Description                     | Type      | Default     |
+| --------------- | --------------- | ------------------------------- | --------- | ----------- |
+| `checked`       | `checked`       | Checked state.                  | `boolean` | `undefined` |
+| `disabled`      | `disabled`      | Disabled state.                 | `boolean` | `undefined` |
+| `indeterminate` | `indeterminate` | Indeterminate state.            | `boolean` | `false`     |
+| `negative`      | `negative`      | Negative coloring variant flag. | `boolean` | `false`     |
 
 
 ## Dependencies

@@ -2,8 +2,20 @@
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, Decorator, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, Decorator, ArgTypes, Args, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
+
+const negativeArg: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
 
 const disabledArg: InputType = {
   control: {
@@ -24,17 +36,19 @@ const readonlyArg: InputType = {
 };
 
 const basicArgTypes: ArgTypes = {
+  negative: negativeArg,
   disabled: disabledArg,
   readonly: readonlyArg,
 };
 
 const basicArgs: Args = {
+  negative: false,
   disabled: false,
   readonly: false,
 };
 
-const DefautlTemplate = ({ ...args }): JSX.Element => (
-  <sbb-form-field label="Label">
+const DefaultTemplate = ({ negative, ...args }): JSX.Element => (
+  <sbb-form-field label="Label" negative={negative}>
     <sbb-icon slot="prefix" name="pie-small" />
     <input type="text" placeholder="Input placeholder" value="Input value" {...args} />
     <sbb-form-field-clear />
@@ -42,27 +56,45 @@ const DefautlTemplate = ({ ...args }): JSX.Element => (
 );
 
 export const Default: StoryObj = {
-  render: DefautlTemplate,
+  render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
 export const Disabled: StoryObj = {
-  render: DefautlTemplate,
+  render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
 };
 
 export const Readonly: StoryObj = {
-  render: DefautlTemplate,
+  render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, readonly: true },
 };
 
+export const DefaultNegative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, negative: true },
+};
+
+export const DisabledNegative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const ReadonlyNegative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, readonly: true, negative: true },
+};
+
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

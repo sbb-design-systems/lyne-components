@@ -3,6 +3,13 @@ import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const label: InputType = {
   control: {
@@ -58,6 +65,15 @@ const multiple: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete/Select',
+  },
+};
+
 const numberOfOptions: InputType = {
   control: {
     type: 'number',
@@ -70,7 +86,6 @@ const defaultArgTypes: ArgTypes = {
   value,
   disabled,
   disabledSingle,
-  multiple,
   numberOfOptions,
 };
 
@@ -80,7 +95,6 @@ const defaultArgs: Args = {
   value: 'Option',
   disabled: false,
   disabledSingle: false,
-  multiple: false,
   numberOfOptions: 3,
 };
 
@@ -116,7 +130,7 @@ const Template = ({ label, disabled, ...args }): JSX.Element => (
 
 const TemplateAutocomplete = (args): JSX.Element => {
   return (
-    <sbb-form-field label="Autocomplete">
+    <sbb-form-field label="Autocomplete" negative={args.negative}>
       <input placeholder="Placeholder" />
       <sbb-autocomplete>{Template(args)}</sbb-autocomplete>
     </sbb-form-field>
@@ -125,7 +139,7 @@ const TemplateAutocomplete = (args): JSX.Element => {
 
 const TemplateSelect = (args): JSX.Element => {
   return (
-    <sbb-form-field label="Select">
+    <sbb-form-field label="Select" negative={args.negative}>
       <sbb-select multiple={args.multiple} placeholder="Select">
         {Template(args)}
       </sbb-select>
@@ -142,26 +156,26 @@ export const Standalone: StoryObj = {
 
 export const Autocomplete: StoryObj = {
   render: TemplateAutocomplete,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false },
 };
 
 export const Select: StoryObj = {
   render: TemplateSelect,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative, multiple },
+  args: { ...defaultArgs, multiple: false, negative: false },
 };
 
 export const MultipleSelect: StoryObj = {
   render: TemplateSelect,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, multiple: true },
+  argTypes: { ...defaultArgTypes, negative, multiple },
+  args: { ...defaultArgs, multiple: true, negative: false },
 };
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

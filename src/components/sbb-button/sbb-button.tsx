@@ -17,7 +17,12 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
-import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../../global/dom';
+import {
+  ACTION_ELEMENTS,
+  hostContext,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../../global/dom';
 import { LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -105,8 +110,11 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
-    if (this.closest('sbb-form-field') || this.closest('[data-form-field]')) {
+
+    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
+    if (formField) {
       toggleDatasetEntry(this, 'iconSmall', true);
+      this.negative = isValidAttribute(formField, 'negative');
     }
   }
 

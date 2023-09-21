@@ -33,6 +33,7 @@ Inside `sbb-form-field`:
 | ------------ | ------------- | ----------------------------------------- | ----------------------- | ----------- |
 | `datePicker` | `date-picker` | Datepicker reference.                     | `HTMLElement \| string` | `undefined` |
 | `name`       | `name`        | The name attribute to use for the button. | `string`                | `undefined` |
+| `negative`   | `negative`    | Negative coloring variant flag.           | `boolean`               | `false`     |
 
 
 ## Dependencies

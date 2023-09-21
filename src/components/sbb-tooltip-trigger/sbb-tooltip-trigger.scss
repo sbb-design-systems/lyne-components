@@ -21,23 +21,39 @@
   :host(:hover) {
     --sbb-tooltip-color: var(--sbb-color-iron-default);
   }
+
+  :host(:hover[negative]:not([negative='false'])) {
+    --sbb-tooltip-color: var(--sbb-color-cloud-default);
+  }
 }
 
 :host(:is(:active, [data-active])) {
   --sbb-tooltip-color: var(--sbb-color-anthracite-default);
 }
 
+:host(:is(:active, [data-active])[negative]:not([negative='false'])) {
+  --sbb-tooltip-color: var(--sbb-color-cement-default);
+}
+
 :host([disabled]:not([disabled='false'])) {
   --sbb-tooltip-color: var(--sbb-color-graphite-default);
 
   @include sbb.if-forced-colors {
-    --sbb-tooltip-color: GrayText;
+    --sbb-tooltip-color: GrayText !important;
   }
 
   pointer-events: none;
 }
 
+:host([disabled]:not([disabled='false'])[negative]:not([negative='false'])) {
+  --sbb-tooltip-color: var(--sbb-color-smoke-default);
+}
+
 @include sbb.icon-button-base(':host([data-icon-small])', '.sbb-tooltip-trigger', 'sbb-icon');
+
+:host([data-icon-small][negative]:not([negative='false'])) {
+  @include sbb.icon-button-variables-negative;
+}
 
 :host([data-icon-small][disabled]:not([disabled='false'])) {
   @include sbb.icon-button-disabled('.sbb-tooltip-trigger');

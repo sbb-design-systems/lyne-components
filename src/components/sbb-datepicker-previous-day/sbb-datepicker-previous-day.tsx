@@ -36,6 +36,9 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
   /** The name attribute to use for the button. */
   @Prop({ reflect: true }) public name: string | undefined;
 
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
+
   /** Datepicker reference. */
   @Prop() public datePicker?: string | HTMLElement;
 
@@ -68,9 +71,12 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
   private _datePickerController: AbortController;
 
   @Watch('datePicker')
-  public findDatePicker(newValue: string | HTMLElement, oldValue: string | HTMLElement): void {
+  public async findDatePicker(
+    newValue: string | HTMLElement,
+    oldValue: string | HTMLElement,
+  ): Promise<void> {
     if (newValue !== oldValue) {
-      this._init(this.datePicker);
+      await this._init(this.datePicker);
     }
   }
 
@@ -91,9 +97,27 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
     }
   }
 
-  public connectedCallback(): void {
+  public async connectedCallback(): Promise<void> {
     this._handlerRepository.connect();
-    this._init(this.datePicker);
+    this._syncUpstreamProperties();
+    await this._init(this.datePicker);
+  }
+
+  private _syncUpstreamProperties(): void {
+    const formField =
+      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+    if (formField) {
+      this.negative = isValidAttribute(formField, 'negative');
+
+      // We can't use getInputElement of SbbFormField as async awaiting is not supported in connectedCallback.
+      // We here only have to look for input.
+      const inputElement = formField.querySelector('input');
+
+      if (inputElement) {
+        this._inputDisabled =
+          isValidAttribute(inputElement, 'disabled') || isValidAttribute(inputElement, 'readonly');
+      }
+    }
   }
 
   public disconnectedCallback(): void {
@@ -101,15 +125,15 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
     this._datePickerController?.abort();
   }
 
-  private _init(picker?: string | HTMLElement): void {
+  private async _init(picker?: string | HTMLElement): Promise<void> {
     this._datePickerController?.abort();
     this._datePickerController = new AbortController();
     this._datePickerElement = getDatePicker(this._element, picker);
     if (!this._datePickerElement) {
       return;
     }
-    this._setDisabledState(this._datePickerElement);
-    this._setAriaLabel();
+    await this._setDisabledState(this._datePickerElement);
+    await this._setAriaLabel();
 
     this._datePickerElement.addEventListener(
       'change',
@@ -139,6 +163,7 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
       },
       { signal: this._datePickerController.signal },
     );
+
     this._datePickerElement.dispatchEvent(datepickerControlRegisteredEvent);
   }
 
@@ -156,7 +181,6 @@ export class SbbDatepickerPreviousDay implements ComponentInterface, ButtonPrope
       this._dateAdapter,
       this._min,
     );
-
     this._disabled = this._dateAdapter.compareDate(previousDate, pickerValueAsDate) === 0;
   }
 

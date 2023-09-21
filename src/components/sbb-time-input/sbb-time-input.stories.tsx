@@ -5,6 +5,13 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 import events from './sbb-time-input.events';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const formError = document.createElement('sbb-form-error');
 formError.innerText = 'Time value is invalid';
@@ -85,6 +92,15 @@ const size: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -135,6 +151,7 @@ const basicArgTypes: ArgTypes = {
   disabled,
   readonly,
   required,
+  negative,
 };
 
 const formFieldBasicArgsTypes: ArgTypes = {
@@ -152,6 +169,7 @@ const basicArgs: Args = {
   disabled: false,
   readonly: false,
   required: false,
+  negative: false,
 };
 
 const formFieldBasicArgs = {
@@ -178,6 +196,7 @@ const TemplateSbbTimeInput = ({
   label,
   optional,
   borderless,
+  negative,
   iconStart,
   iconEnd,
   size,
@@ -189,6 +208,7 @@ const TemplateSbbTimeInput = ({
       label={label}
       optional={optional}
       borderless={borderless}
+      negative={negative}
       width="collapse"
     >
       {iconStart && <sbb-icon slot="prefix" name={iconStart} />}
@@ -207,8 +227,10 @@ const TemplateSbbTimeInput = ({
         Set value to 00:00
       </sbb-button>
     </div>
-    <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
-    <div id="container-value"></div>
+    <div style={{ color: 'var(--sbb-color-smoke-default)' }}>
+      <div style={{ 'margin-block-start': '1rem' }}>Change time in input:</div>
+      <div id="container-value"></div>
+    </div>
   </Fragment>
 );
 
@@ -260,10 +282,62 @@ export const SbbTimeInputWithError: StoryObj = {
   },
 };
 
+export const SbbTimeInputNegative: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgs, negative: true },
+};
+
+export const SbbTimeInputWithIconsNegative: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: { ...formFieldBasicArgsWithIcons, negative: true },
+};
+
+export const SbbTimeInputBorderlessNegative: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
+    ...formFieldBasicArgsWithIcons,
+    borderless: true,
+    negative: true,
+  },
+};
+
+export const SbbTimeInputDisabledNegative: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
+    ...formFieldBasicArgsWithIcons,
+    disabled: true,
+    negative: true,
+  },
+};
+
+export const SbbTimeInputReadonlyNegative: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
+    ...formFieldBasicArgsWithIcons,
+    readonly: true,
+    negative: true,
+  },
+};
+
+export const SbbTimeInputWithErrorNegative: StoryObj = {
+  render: TemplateSbbTimeInput,
+  argTypes: { ...formFieldBasicArgsTypes },
+  args: {
+    ...formFieldBasicArgsWithIcons,
+    value: '99:99',
+    negative: true,
+  },
+};
+
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

@@ -7,9 +7,24 @@ import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import isChromatic from 'chromatic';
 import { waitForStablePosition } from '../../global/testing';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
 
 const disabled: InputType = {
   control: {
@@ -94,6 +109,7 @@ const disableGroup: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   // Autocomplete args
+  negative,
   disabled,
   readonly,
   disableAnimation,
@@ -117,6 +133,7 @@ const withGroupsArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   // Autocomplete args
+  negative: false,
   disabled: false,
   readonly: false,
   disableAnimation: isChromatic(),
@@ -222,6 +239,7 @@ const textBlock = (): JSX.Element => (
 const Template = (args): JSX.Element => (
   <div>
     <sbb-form-field
+      negative={args.negative}
       borderless={args.borderless}
       floating-label={args.floatingLabel}
       label="Label"
@@ -249,6 +267,7 @@ const Template = (args): JSX.Element => (
 const OptionGroupTemplate = (args): JSX.Element => (
   <div>
     <sbb-form-field
+      negative={args.negative}
       borderless={args.borderless}
       floating-label={args.floatingLabel}
       label="Label"
@@ -278,6 +297,7 @@ const OptionGroupTemplate = (args): JSX.Element => (
 const MixedTemplate = (args): JSX.Element => (
   <div>
     <sbb-form-field
+      negative={args.negative}
       borderless={args.borderless}
       floating-label={args.floatingLabel}
       label="Label"
@@ -318,6 +338,7 @@ const RequiredTemplate = (args): JSX.Element => {
   return (
     <div>
       <sbb-form-field
+        negative={args.negative}
         borderless={args.borderless}
         floating-label={args.floatingLabel}
         label="Label"
@@ -365,6 +386,13 @@ export const Basic: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const BasicNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+  play: isChromatic() && playStory,
+};
+
 export const BasicOpenAbove: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -380,6 +408,13 @@ export const Borderless: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const BorderlessNegative: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true, negative: true },
+  play: isChromatic() && playStory,
+};
+
 export const FloatingLabel: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -391,6 +426,13 @@ export const WithError: StoryObj = {
   render: RequiredTemplate,
   argTypes: withGroupsArgTypes,
   args: { ...withGroupsDefaultArgs },
+  play: isChromatic() && playStory,
+};
+
+export const WithErrorNegative: StoryObj = {
+  render: RequiredTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs, negative: true },
   play: isChromatic() && playStory,
 };
 
@@ -447,10 +489,17 @@ export const MixedSingleOptionWithOptionGroup: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const MixedSingleOptionWithOptionGroupNegative: StoryObj = {
+  render: MixedTemplate,
+  argTypes: withGroupsArgTypes,
+  args: { ...withGroupsDefaultArgs, negative: true },
+  play: isChromatic() && playStory,
+};
+
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem', height: 'calc(100vh - 2rem)' }}>
         <Story />
       </div>
     ),

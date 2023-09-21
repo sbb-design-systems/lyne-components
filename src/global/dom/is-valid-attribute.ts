@@ -3,7 +3,7 @@
  * @param element The element to check.
  * @param attribute The attribute to be checked.
  */
-export function isValidAttribute(element: HTMLElement, attribute: string): boolean {
+export function isValidAttribute(element: Element, attribute: string): boolean {
   return element.hasAttribute(attribute) && element.getAttribute(attribute) !== 'false';
 }
 

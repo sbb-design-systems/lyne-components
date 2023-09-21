@@ -1,4 +1,8 @@
+@use './scrollbar';
+
 @mixin options-panel-overlay-variables {
+  @include scrollbar.scrollbar-variables;
+
   --sbb-options-panel-position-x: 0;
   --sbb-options-panel-position-y: 0;
   --sbb-options-panel-active-option-y: 0;
@@ -23,6 +27,16 @@
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+}
+
+@mixin options-panel-overlay-negative-variables {
+  @include scrollbar.scrollbar-variables--color-negative;
+
+  --sbb-options-panel-background-color: var(--sbb-color-midnight-default);
+
+  // As the overlays have always a white background, we have to fix the focus outline color
+  // to default color for cases where the overlays are used in a negative context.
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 @mixin options-panel-overlay-container {

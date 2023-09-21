@@ -29,6 +29,10 @@
   --sbb-optgroup-label-padding-start: var(--sbb-spacing-fixed-4x);
 }
 
+:host([data-negative]) {
+  --sbb-optgroup-label-color: var(--sbb-color-smoke-default);
+}
+
 .sbb-optgroup {
   margin-block: var(--sbb-spacing-fixed-4x);
   margin-inline: var(--sbb-spacing-fixed-4x);

@@ -19,12 +19,32 @@
   }
 }
 
+:host([negative]:not([negative='false'])) {
+  --sbb-visual-checkbox-background-color: var(--sbb-color-midnight-default);
+  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-red-default);
+
+  @include sbb.if-forced-colors {
+    --sbb-visual-checkbox-selection-color: Canvas;
+  }
+}
+
 :host([disabled]:not([disabled='false'])) {
   --sbb-visual-checkbox-background-color: var(--sbb-color-milk-default);
   --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
   --sbb-visual-checkbox-border-style: dashed;
   --sbb-visual-checkbox-selection-color: var(--sbb-color-charcoal-default);
   --sbb-visual-checkbox-cursor: default;
+
+  @include sbb.if-forced-colors {
+    --sbb-visual-checkbox-selection-color: Canvas;
+  }
+}
+
+:host([disabled]:not([disabled='false'])[negative]:not([negative='false'])) {
+  --sbb-visual-checkbox-background-color: var(--sbb-color-charcoal-default);
+  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke-default);
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-white-default);
 
   @include sbb.if-forced-colors {
     --sbb-visual-checkbox-selection-color: Canvas;
