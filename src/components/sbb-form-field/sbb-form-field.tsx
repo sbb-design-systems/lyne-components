@@ -100,9 +100,10 @@ export class SbbFormField implements ComponentInterface {
   /** Whether the label should float. If activated, the placeholder of the input is hidden. */
   @Prop({ reflect: true }) public floatingLabel = false;
 
-  /**
-   * It is used internally to get the `error` slot.
-   */
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
+
+  /** It is used internally to get the `error` slot. */
   @State() private _errorElements: Element[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
@@ -147,6 +148,7 @@ export class SbbFormField implements ComponentInterface {
     this._handlerRepository.connect();
     this.renderLabel(this.label);
     await this._registerInputListener();
+    this._syncNegative();
   }
 
   public disconnectedCallback(): void {
@@ -191,7 +193,14 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _handleWrapperClick(event: Event): void {
-    if ((event.target as Element).tagName !== 'LABEL' && !this._isButtonOrPopup(event)) {
+    if (this._isButtonOrPopup(event)) {
+      return;
+    }
+
+    if (this._input?.tagName === 'SBB-SELECT') {
+      this._input.click();
+      this._input.focus();
+    } else if ((event.target as Element).tagName !== 'LABEL') {
       this._input?.focus();
     }
   }
@@ -409,6 +418,7 @@ export class SbbFormField implements ComponentInterface {
     }
     this._applyAriaDescribedby();
     toggleDatasetEntry(this._element, 'hasError', !!this._errorElements.length);
+    this._syncNegative();
   }
 
   private _applyAriaDescribedby(): void {
@@ -451,6 +461,17 @@ export class SbbFormField implements ComponentInterface {
     return this._input;
   }
 
+  @Watch('negative')
+  private _syncNegative(): void {
+    this._element
+      .querySelectorAll(
+        'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
+      )
+      .forEach((element) =>
+        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
+      );
+  }
+
   public render(): JSX.Element {
     return (
       <div class="sbb-form-field__space-wrapper">
@@ -461,7 +482,7 @@ export class SbbFormField implements ComponentInterface {
           class="sbb-form-field__wrapper"
           id="overlay-anchor"
         >
-          <slot name="prefix"></slot>
+          <slot name="prefix" onSlotchange={() => this._syncNegative()}></slot>
           <div class="sbb-form-field__input-container">
             {(this.label || this._namedSlots.label) && (
               <Fragment>
@@ -486,7 +507,7 @@ export class SbbFormField implements ComponentInterface {
               ></sbb-icon>
             )}
           </div>
-          <slot name="suffix"></slot>
+          <slot name="suffix" onSlotchange={() => this._syncNegative()}></slot>
         </div>
 
         <div class="sbb-form-field__error">

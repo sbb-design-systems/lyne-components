@@ -10,6 +10,13 @@ import { waitForStablePosition } from '../../global/testing';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
@@ -26,6 +33,15 @@ const playStory = async ({ canvasElement }): Promise<void> => {
 };
 
 const borderless: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
+const negative: InputType = {
   control: {
     type: 'boolean',
   },
@@ -145,6 +161,7 @@ const disableGroup: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   borderless,
+  negative,
   floatingLabel,
   value,
   multiple,
@@ -161,6 +178,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   borderless: false,
+  negative: false,
   floatingLabel: false,
   value: undefined,
   multiple: false,
@@ -237,9 +255,9 @@ const textBlock = (text = null): JSX.Element => {
 };
 
 const createOptions = (
-  numberOfOptions,
-  disableOption,
-  group,
+  numberOfOptions: number,
+  disableOption: boolean,
+  group: string | boolean,
   selectValue = null,
 ): JSX.Element[] => {
   return new Array(numberOfOptions).fill(null).map((_, i) => {
@@ -268,6 +286,7 @@ const createOptionsGroup = (numberOfOptions, disableOption, disableGroup): JSX.E
 
 const FormFieldTemplate = ({
   borderless,
+  negative,
   floatingLabel,
   numberOfOptions,
   disableOption,
@@ -279,6 +298,7 @@ const FormFieldTemplate = ({
     <div>
       <sbb-form-field
         borderless={borderless}
+        negative={negative}
         floating-label={floatingLabel}
         label="Select"
         data-testid="form-field"
@@ -291,12 +311,16 @@ const FormFieldTemplate = ({
       </sbb-form-field>
       {textBlock()}
     </div>
-    <div id="container-value" style={{ 'margin-block-start': '2rem' }}></div>
+    <div
+      id="container-value"
+      style={{ 'margin-block-start': '2rem', color: 'var(--sbb-color-smoke-default)' }}
+    ></div>
   </Fragment>
 );
 
 const SelectEllipsisTemplate = ({
   borderless,
+  negative,
   floatingLabel,
   numberOfOptions,
   disableOption,
@@ -314,6 +338,7 @@ const SelectEllipsisTemplate = ({
       <div>
         <sbb-form-field
           borderless={borderless}
+          negative={negative}
           floating-label={floatingLabel}
           label="Select"
           data-testid="form-field"
@@ -333,13 +358,17 @@ const SelectEllipsisTemplate = ({
         </sbb-form-field>
         {textBlock()}
       </div>
-      <div id="container-value" style={{ 'margin-block-start': '2rem' }}></div>
+      <div
+        id="container-value"
+        style={{ 'margin-block-start': '2rem', color: 'var(--sbb-color-smoke-default)' }}
+      ></div>
     </Fragment>
   );
 };
 
 const FormFieldTemplateWithError = ({
   borderless,
+  negative,
   floatingLabel,
   numberOfOptions,
   disableOption,
@@ -355,6 +384,7 @@ const FormFieldTemplateWithError = ({
     <div>
       <sbb-form-field
         borderless={borderless}
+        negative={negative}
         floating-label={floatingLabel}
         id="sbb-form-field"
         label="Select"
@@ -386,10 +416,16 @@ const FormFieldTemplateWithError = ({
   );
 };
 
-const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JSX.Element => (
+const KeyboardInteractionTemplate = ({
+  borderless,
+  negative,
+  floatingLabel,
+  ...args
+}): JSX.Element => (
   <Fragment>
     <sbb-form-field
       borderless={borderless}
+      negative={negative}
       floating-label={floatingLabel}
       label="Select"
       data-testid="form-field"
@@ -411,7 +447,10 @@ const KeyboardInteractionTemplate = ({ borderless, floatingLabel, ...args }): JS
       </sbb-select>
     </sbb-form-field>
     {textBlock('Focus the select and type letters with closed or open panel.')}
-    <div id="container-value" style={{ 'margin-block-start': '2rem' }}></div>
+    <div
+      id="container-value"
+      style={{ 'margin-block-start': '2rem', color: 'var(--sbb-color-smoke-default)' }}
+    ></div>
   </Fragment>
 );
 
@@ -422,10 +461,24 @@ export const SingleSelect: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const SingleSelectNegative: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, negative: true },
+  play: isChromatic() && playStory,
+};
+
 export const MultipleSelect: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, multiple: true },
+  play: isChromatic() && playStory,
+};
+
+export const MultipleSelectNegative: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, multiple: true, negative: true },
   play: isChromatic() && playStory,
 };
 
@@ -491,6 +544,13 @@ export const Borderless: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const BorderlessNegative: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, borderless: true, negative: true },
+  play: isChromatic() && playStory,
+};
+
 export const BorderlessOpenAbove: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
@@ -523,6 +583,13 @@ export const DisableOptionGroup: StoryObj = {
   play: isChromatic() && playStory,
 };
 
+export const DisableOptionGroupNegative: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, withOptionGroup: true, disableGroup: true, negative: true },
+  play: isChromatic() && playStory,
+};
+
 export const DisableMultipleOption: StoryObj = {
   render: FormFieldTemplate,
   argTypes: defaultArgTypes,
@@ -531,6 +598,19 @@ export const DisableMultipleOption: StoryObj = {
     multiple: true,
     withOptionGroup: true,
     disableOption: true,
+  },
+  play: isChromatic() && playStory,
+};
+
+export const DisableMultipleOptionNegative: StoryObj = {
+  render: FormFieldTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    multiple: true,
+    withOptionGroup: true,
+    disableOption: true,
+    negative: true,
   },
   play: isChromatic() && playStory,
 };
@@ -546,8 +626,8 @@ export const KeyboardInteraction: StoryObj = {
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', height: 'calc(100vh - 2rem)' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem', height: 'calc(100vh - 2rem)' }}>
         <Story />
       </div>
     ),

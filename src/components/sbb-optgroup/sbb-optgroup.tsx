@@ -1,6 +1,17 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, Watch } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Host,
+  JSX,
+  Prop,
+  State,
+  Watch,
+} from '@stencil/core';
 import { SbbOptionVariant } from '../sbb-option/sbb-option.custom';
-import { isSafari, toggleDatasetEntry } from '../../global/dom';
+import { isSafari, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { AgnosticMutationObserver } from '../../global/observers';
 
 /**
  * @slot unnamed - Used to display options.
@@ -18,6 +29,10 @@ export class SbbOptGroup implements ComponentInterface {
   @Prop() public disabled = false;
 
   @Element() private _element: HTMLElement;
+
+  @State() private _negative = false;
+
+  private _negativeObserver = new AgnosticMutationObserver(() => this._onNegativeChange());
 
   private _variant: SbbOptionVariant;
 
@@ -51,8 +66,24 @@ export class SbbOptGroup implements ComponentInterface {
   }
 
   public connectedCallback(): void {
+    this._negativeObserver?.disconnect();
+    this._negative = !!this._element.closest(
+      // :is() selector not possible due to test environment
+      `sbb-autocomplete[negative]:not([negative='false']),sbb-select[negative]:not([negative='false']),sbb-form-field[negative]:not([negative='false'])`,
+    );
+    toggleDatasetEntry(this._element, 'negative', this._negative);
+
+    this._negativeObserver.observe(this._element, {
+      attributes: true,
+      attributeFilter: ['data-negative'],
+    });
+
     this._setVariantByContext();
     this.proxyGroupLabelToOptions();
+  }
+
+  public disconnectedCallback(): void {
+    this._negativeObserver?.disconnect();
   }
 
   private get _options(): HTMLSbbOptionElement[] {
@@ -73,6 +104,10 @@ export class SbbOptGroup implements ComponentInterface {
     }
   }
 
+  private _onNegativeChange(): void {
+    this._negative = isValidAttribute(this._element, 'data-negative');
+  }
+
   public render(): JSX.Element {
     return (
       <Host
@@ -83,7 +118,7 @@ export class SbbOptGroup implements ComponentInterface {
         aria-disabled={!this._inertAriaGroups && this.disabled.toString()}
       >
         <div class="sbb-optgroup__divider">
-          <sbb-divider></sbb-divider>
+          <sbb-divider negative={this._negative}></sbb-divider>
         </div>
         <div class="sbb-optgroup__label" aria-hidden="true">
           <div class="sbb-optgroup__icon-space" />

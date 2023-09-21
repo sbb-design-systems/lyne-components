@@ -208,6 +208,10 @@ export namespace Components {
          */
         "disableAnimation": boolean;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
           * Opens the autocomplete.
          */
         "open": () => Promise<void>;
@@ -493,6 +497,10 @@ export namespace Components {
           * The name attribute to use for the button.
          */
         "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbDatepickerPreviousDay {
         /**
@@ -503,6 +511,10 @@ export namespace Components {
           * The name attribute to use for the button.
          */
         "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbDatepickerToggle {
         /**
@@ -513,6 +525,10 @@ export namespace Components {
           * Whether the animation is disabled.
          */
         "disableAnimation": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
         /**
           * Opens the calendar.
          */
@@ -665,6 +681,10 @@ export namespace Components {
         "variant": InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbFormField {
         /**
@@ -692,6 +712,10 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
           * Indicates whether the input is optional.
          */
         "optional"?: boolean;
@@ -709,6 +733,10 @@ export namespace Components {
         "width": 'default' | 'collapse';
     }
     interface SbbFormFieldClear {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbHeader {
         /**
@@ -1402,6 +1430,10 @@ export namespace Components {
          */
         "multiple": boolean;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
+        /**
           * Opens the selection panel.
          */
         "open": () => Promise<void>;
@@ -1942,6 +1974,10 @@ export namespace Components {
           * The name attribute to use for the button.
          */
         "name": string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
     interface SbbTrain {
         /**
@@ -2016,6 +2052,10 @@ export namespace Components {
           * Indeterminate state.
          */
         "indeterminate": boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative": boolean;
     }
 }
 export interface SbbAlertCustomEvent<T> extends CustomEvent<T> {
@@ -2915,6 +2955,10 @@ declare namespace LocalJSX {
          */
         "disableAnimation"?: boolean;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
           * Emits whenever the autocomplete is closed.
          */
         "onDid-close"?: (event: SbbAutocompleteCustomEvent<void>) => void;
@@ -3226,6 +3270,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbDatepickerPreviousDay {
         /**
@@ -3236,6 +3284,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbDatepickerToggle {
         /**
@@ -3246,6 +3298,10 @@ declare namespace LocalJSX {
           * Whether the animation is disabled.
          */
         "disableAnimation"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbDialog {
         /**
@@ -3423,6 +3479,10 @@ declare namespace LocalJSX {
         "variant"?: InterfaceFooterAttributes['variant'];
     }
     interface SbbFormError {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbFormField {
         /**
@@ -3442,6 +3502,10 @@ declare namespace LocalJSX {
          */
         "label"?: string;
         /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
+        /**
           * Indicates whether the input is optional.
          */
         "optional"?: boolean;
@@ -3455,6 +3519,10 @@ declare namespace LocalJSX {
         "width"?: 'default' | 'collapse';
     }
     interface SbbFormFieldClear {
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbHeader {
         /**
@@ -4173,6 +4241,10 @@ declare namespace LocalJSX {
           * Whether the select allows for multiple selection.
          */
         "multiple"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
         "onChange"?: (event: SbbSelectCustomEvent<any>) => void;
         /**
           * Emits whenever the select is closed.
@@ -4791,6 +4863,10 @@ declare namespace LocalJSX {
           * The name attribute to use for the button.
          */
         "name"?: string | undefined;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface SbbTrain {
         /**
@@ -4867,6 +4943,10 @@ declare namespace LocalJSX {
           * Indeterminate state.
          */
         "indeterminate"?: boolean;
+        /**
+          * Negative coloring variant flag.
+         */
+        "negative"?: boolean;
     }
     interface IntrinsicElements {
         "sbb-accordion": SbbAccordion;

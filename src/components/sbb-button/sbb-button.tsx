@@ -18,7 +18,12 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
-import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../../global/dom';
+import {
+  ACTION_ELEMENTS,
+  hostContext,
+  isValidAttribute,
+  toggleDatasetEntry,
+} from '../../global/dom';
 
 /**
  * @slot unnamed - Button Content
@@ -34,7 +39,7 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
   @Prop({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true }) public negative = false;
+  @Prop({ reflect: true, mutable: true }) public negative = false;
 
   /** Size variant, either l or m. */
   @Prop({ reflect: true }) public size?: InterfaceButtonAttributes['size'] = 'l';
@@ -102,8 +107,12 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
-    if (this._element.closest('sbb-form-field') || this._element.closest('[data-form-field]')) {
+
+    const formField =
+      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+    if (formField) {
       toggleDatasetEntry(this._element, 'iconSmall', true);
+      this.negative = isValidAttribute(formField, 'negative');
     }
   }
 

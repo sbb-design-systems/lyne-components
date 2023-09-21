@@ -13,7 +13,7 @@
   --sbb-icon-svg-height: var(--sbb-size-icon-form-error);
 
   @include sbb.if-forced-colors {
-    --sbb-form-error-color: LinkText;
+    --sbb-form-error-color: LinkText !important;
   }
 
   @include sbb.text-xs--regular;
@@ -22,6 +22,10 @@
   align-items: flex-start;
   color: var(--sbb-form-error-color);
   min-height: var(--sbb-form-error-height);
+}
+
+:host([negative]:not([negative='false'])) {
+  --sbb-form-error-color: var(--sbb-color-red-mode-dark);
 }
 
 .form-error__icon {

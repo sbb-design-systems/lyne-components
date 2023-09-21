@@ -14,6 +14,10 @@
   --sbb-options-panel-internal-z-index: var(--sbb-select-z-index, var(--sbb-overlay-z-index));
 }
 
+:host([negative]:not([negative='false'])) {
+  @include sbb.options-panel-overlay-negative-variables;
+}
+
 :host([data-state='closed']) {
   --sbb-options-panel-visibility: hidden;
 }
@@ -87,31 +91,48 @@
 .sbb-select__panel {
   @include sbb.options-panel-overlay;
 
-  :host([data-state='opened']) &,
-  :host([data-state='opening']) & {
-    @include sbb.shadow-level-5-hard;
-  }
-
   :host([data-options-panel-position='below']) & {
     inset-block-start: calc(
       var(--sbb-options-panel-position-y) - var(--sbb-options-panel-origin-height)
     );
+  }
 
-    &::before {
+  :host(:is([data-state='opened'], [data-state='opening'])) & {
+    @include sbb.shadow-level-5-hard;
+  }
+
+  :host(:is([data-state='opened'], [data-state='opening'])[negative]:not([negative='false'])) & {
+    @include sbb.shadow-level-5-hard-negative;
+  }
+
+  &::before {
+    :host([data-options-panel-position='below']) & {
       display: block;
     }
   }
 
-  :host([data-options-panel-position='above']) & {
-    &::after {
+  &::after {
+    :host([data-options-panel-position='above']) & {
       display: block;
     }
   }
 
-  :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless]) & {
-    &::before,
-    &::after {
+  /* stylelint-disable-next-line no-descending-specificity */
+  &::before,
+  &::after {
+    :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless])
+      & {
       @include sbb.shadow-level-5-hard;
+    }
+
+    :host(
+        :is(
+            [data-state='opened'],
+            [data-state='opening']
+          )[data-option-panel-origin-borderless][negative]:not([negative='false'])
+      )
+      & {
+      @include sbb.shadow-level-5-hard-negative;
     }
   }
 }
@@ -121,7 +142,7 @@
 }
 
 .sbb-select__options {
-  @include sbb.scrollbar;
+  @include sbb.scrollbar-rules;
   @include sbb.optionsOverlay;
 
   padding-block: var(--sbb-spacing-fixed-2x);

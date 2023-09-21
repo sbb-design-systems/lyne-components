@@ -4,6 +4,13 @@ import readme from './readme.md';
 import events from './sbb-option.events';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const preserveIconSpace: InputType = {
   control: {
@@ -11,6 +18,12 @@ const preserveIconSpace: InputType = {
   },
   table: {
     category: 'Wrapper property',
+  },
+};
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
   },
 };
 
@@ -94,14 +107,14 @@ const createOptions = ({
 const StandaloneTemplate = (args): JSX.Element => <Fragment>{createOptions(args)}</Fragment>;
 
 const AutocompleteTemplate = (args): JSX.Element => (
-  <sbb-form-field label="sbb-autocomplete">
+  <sbb-form-field label="sbb-autocomplete" negative={args.negative}>
     <input placeholder="Please select." />
     <sbb-autocomplete>{createOptions(args)}</sbb-autocomplete>
   </sbb-form-field>
 );
 
 const SelectTemplate = (args): JSX.Element => (
-  <sbb-form-field label="sbb-select">
+  <sbb-form-field label="sbb-select" negative={args.negative}>
     <sbb-select placeholder="Please select.">{createOptions(args)}</sbb-select>
   </sbb-form-field>
 );
@@ -149,20 +162,20 @@ export const WithIconSpace: StoryObj = {
 
 export const Autocomplete: StoryObj = {
   render: AutocompleteTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false },
 };
 
 export const Select: StoryObj = {
   render: SelectTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false },
 };
 
 const meta: Meta = {
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem', width: '350px' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem', width: '350px' }}>
         <Story />
       </div>
     ),

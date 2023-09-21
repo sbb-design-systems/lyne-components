@@ -15,6 +15,9 @@ export class SbbVisualCheckbox implements ComponentInterface {
   /** Indeterminate state. */
   @Prop({ reflect: true }) public indeterminate = false;
 
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true }) public negative = false;
+
   public render(): JSX.Element {
     return (
       <span class="sbb-visual-checkbox">

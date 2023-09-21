@@ -23,6 +23,7 @@ import {
   languageChangeHandlerAspect,
 } from '../../global/eventing';
 import { sbbInputModalityDetector } from '../../global/a11y';
+import { isValidAttribute } from '../../global/dom';
 
 @Component({
   shadow: true,
@@ -35,6 +36,9 @@ export class SbbDatepickerToggle implements ComponentInterface {
 
   /** Whether the animation is disabled. */
   @Prop() public disableAnimation = false;
+
+  /** Negative coloring variant flag. */
+  @Prop({ reflect: true, mutable: true }) public negative = false;
 
   @Element() private _element!: HTMLSbbDatepickerToggleElement;
 
@@ -83,6 +87,12 @@ export class SbbDatepickerToggle implements ComponentInterface {
   public async connectedCallback(): Promise<void> {
     this._handlerRepository.connect();
     await this._init(this.datePicker);
+
+    const formField =
+      this._element.closest('sbb-form-field') ?? this._element.closest('[data-form-field]');
+    if (formField) {
+      this.negative = isValidAttribute(formField, 'negative');
+    }
   }
 
   public disconnectedCallback(): void {
@@ -174,6 +184,7 @@ export class SbbDatepickerToggle implements ComponentInterface {
           aria-label={i18nShowCalendar[this._currentLanguage]}
           iconName="calendar-small"
           disabled={!this._datePickerElement || this._disabled}
+          negative={this.negative}
           ref={(trigger) => {
             this._triggerElement = trigger;
           }}

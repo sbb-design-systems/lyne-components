@@ -3,6 +3,13 @@ import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
 import type { InputType } from '@storybook/types';
+import { StoryContext } from '@storybook/html';
+
+const wrapperStyle = (context: StoryContext): Record<string, string> => ({
+  'background-color': context.args.negative
+    ? 'var(--sbb-color-black-default)'
+    : 'var(--sbb-color-white-default)',
+});
 
 const TooltipTrigger = (): JSX.Element[] => [
   <sbb-tooltip-trigger
@@ -51,6 +58,7 @@ const TemplateInput = ({
   size,
   borderless,
   width,
+  negative,
   'floating-label': floatingLabel,
   ...args
 }): JSX.Element => (
@@ -62,6 +70,7 @@ const TemplateInput = ({
     borderless={borderless}
     width={width}
     floating-label={floatingLabel}
+    negative={negative}
   >
     {TemplateBasicInput(args)}
   </sbb-form-field>
@@ -74,6 +83,7 @@ const TemplateInputWithSlottedLabel = ({
   size,
   borderless,
   width,
+  negative,
   'floating-label': floatingLabel,
   ...args
 }): JSX.Element => (
@@ -84,6 +94,7 @@ const TemplateInputWithSlottedLabel = ({
     borderless={borderless}
     width={width}
     floating-label={floatingLabel}
+    negative={negative}
   >
     <span slot="label">{label}</span>
     {TemplateBasicInput(args)}
@@ -105,6 +116,7 @@ const TemplateInputWithErrorSpace = (args): JSX.Element => {
           borderless={args.borderless}
           width={args.width}
           floating-label={args['floating-label']}
+          negative={args.negative}
         >
           <input
             id="sbb-form-field-input"
@@ -125,7 +137,9 @@ const TemplateInputWithErrorSpace = (args): JSX.Element => {
           {sbbFormError}
         </sbb-form-field>
       </div>
-      <div>Some text, right below the form-field, inside a div.</div>
+      <div style={{ color: 'var(--sbb-color-smoke-default)' }}>
+        Some text, right below the form-field, inside a div.
+      </div>
     </form>
   );
 };
@@ -167,6 +181,7 @@ const TemplateSelect = (args): JSX.Element => (
     borderless={args.borderless}
     width={args.width}
     floating-label={args['floating-label']}
+    negative={args.negative}
   >
     {TemplateBasicSelect(args)}
   </sbb-form-field>
@@ -187,6 +202,7 @@ const TemplateSelectWithErrorSpace = (args): JSX.Element => {
           borderless={args.borderless}
           width={args.width}
           floating-label={args['floating-label']}
+          negative={args.negative}
         >
           <select
             id="sbb-form-field-input"
@@ -211,7 +227,9 @@ const TemplateSelectWithErrorSpace = (args): JSX.Element => {
         </sbb-form-field>
       </div>
       <div>
-        <div>Some text, right below the form-field, inside a div.</div>
+        <div style={{ color: 'var(--sbb-color-smoke-default)' }}>
+          Some text, right below the form-field, inside a div.
+        </div>
       </div>
     </form>
   );
@@ -347,6 +365,15 @@ const sizeArg: InputType = {
   },
 };
 
+const negativeArg: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form-field attribute',
+  },
+};
+
 const basicArgTypes: ArgTypes = {
   'error-space': errorSpaceArg,
   label: labelArg,
@@ -354,6 +381,7 @@ const basicArgTypes: ArgTypes = {
   optional: optionalArg,
   borderless: borderlessArg,
   size: sizeArg,
+  negative: negativeArg,
   class: classArg,
   placeholder: placeholderArg,
   disabled: disabledArg,
@@ -370,6 +398,7 @@ const basicArgs: Args = {
   optional: false,
   borderless: false,
   size: sizeArg.options[0],
+  negative: false,
   class: '',
   placeholder: 'Input placeholder',
   value: 'Input value',
@@ -554,11 +583,177 @@ export const InputWithIconsDisabled: StoryObj = {
   args: { ...basicArgs, disabled: true },
 };
 
+export const InputNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    value: 'This input value is so long that it needs ellipsis to fit.',
+    negative: true,
+  },
+};
+
+export const InputWithSlottedLabelNegative: StoryObj = {
+  render: TemplateInputWithSlottedLabel,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, value: 'Random value', negative: true },
+};
+
+export const InputWithoutBorderNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, borderless: true, negative: true },
+};
+
+export const InputDisabledNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const InputReadonlyNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, readonly: true, negative: true },
+};
+
+export const InputOptionalAndIconsNegative: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true },
+};
+
+export const InputWithButtonNegative: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, negative: true },
+};
+
+export const InputWithButtonDisabledNegative: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const InputWithButtonActiveNegative: StoryObj = {
+  render: TemplateInputWithButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, active: true, negative: true },
+};
+
+export const InputWithClearButtonNegative: StoryObj = {
+  render: TemplateInputWithClearButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, negative: true },
+};
+
+export const InputWithClearButtonDisabledNegative: StoryObj = {
+  render: TemplateInputWithClearButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const InputWithClearButtonActiveNegative: StoryObj = {
+  render: TemplateInputWithClearButton,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, active: true, negative: true },
+};
+
+export const InputLongLabelAndErrorSpaceNegative: StoryObj = {
+  render: TemplateInputWithErrorSpace,
+  argTypes: { ...basicArgTypes, 'error-space': errorSpaceArg },
+  args: {
+    ...basicArgs,
+    'error-space': 'reserve',
+    class: 'sbb-invalid',
+    label: 'This label name is so long that it needs ellipsis to fit.',
+    value: 'This input value is so long that it needs ellipsis to fit.',
+    negative: true,
+  },
+};
+
+export const InputFloatingLabelNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'floating-label': true, value: undefined, negative: true },
+};
+
+export const InputFloatingLongLabelNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+    label: 'This is a very long label which receives ellipsis',
+    negative: true,
+  },
+};
+
+export const InputFloatingWithIconsNegative: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    'floating-label': true,
+    value: undefined,
+    negative: true,
+  },
+};
+
+export const SelectNegative: StoryObj = {
+  render: TemplateSelect,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, negative: true },
+};
+
+export const SelectWithoutBorderNegative: StoryObj = {
+  render: TemplateSelect,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, borderless: true, negative: true },
+};
+
+export const SelectDisabledNegative: StoryObj = {
+  render: TemplateSelect,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
+export const SelectErrorSpaceNegative: StoryObj = {
+  render: TemplateSelectWithErrorSpace,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'error-space': 'reserve', class: 'sbb-invalid', negative: true },
+};
+
+export const SelectFloatingLabelNegative: StoryObj = {
+  render: TemplateSelectWithErrorSpace,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'floating-label': true, value: undefined, negative: true },
+};
+
+export const SelectOptionalAndIconsNegative: StoryObj = {
+  render: TemplateSelectWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, optional: true, negative: true },
+};
+
+export const InputCollapsedWidthNegative: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, width: widthArg.options[1], negative: true },
+};
+
+export const InputWithIconsDisabledNegative: StoryObj = {
+  render: TemplateInputWithIcons,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, disabled: true, negative: true },
+};
+
 const meta: Meta = {
-  excludeStories: /.*Active$/,
+  excludeStories: /.*(Active|ActiveNegative)$/,
   decorators: [
-    (Story) => (
-      <div style={{ padding: '2rem' }}>
+    (Story, context) => (
+      <div style={{ ...wrapperStyle(context), padding: '2rem' }}>
         <Story />
       </div>
     ),

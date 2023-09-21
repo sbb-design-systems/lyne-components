@@ -14,6 +14,13 @@ It currently works with simple inputs and does not support, for example, `select
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property   | Attribute  | Description                     | Type      | Default |
+| ---------- | ---------- | ------------------------------- | --------- | ------- |
+| `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false` |
+
+
 ## Slots
 
 | Slot        | Description                 |

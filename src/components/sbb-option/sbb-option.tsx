@@ -13,7 +13,7 @@ import {
   State,
 } from '@stencil/core';
 import { assignId } from '../../global/a11y';
-import { isSafari, isValidAttribute, isAndroid } from '../../global/dom';
+import { isSafari, isValidAttribute, isAndroid, toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
   HandlerRepository,
@@ -26,7 +26,7 @@ let nextId = 0;
 
 /** Configuration for the attribute to look at if component is nested in a sbb-checkbox-group */
 const optionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled'],
+  attributeFilter: ['data-group-disabled', 'data-negative'],
 };
 
 /**
@@ -54,6 +54,8 @@ export class SbbOption implements ComponentInterface {
 
   /** Whether the option is selected. */
   @Prop({ mutable: true, reflect: true }) public selected = false;
+
+  @State() private _negative = false;
 
   /** Whether the component must be set disabled due disabled attribute on sbb-checkbox-group. */
   @State() private _disabledFromGroup = false;
@@ -118,8 +120,8 @@ export class SbbOption implements ComponentInterface {
   }
 
   /** MutationObserver on data attributes. */
-  private _optionAttributeObserver = new AgnosticMutationObserver(
-    this._onOptionAttributesChange.bind(this),
+  private _optionAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
+    this._onOptionAttributesChange(mutationsList),
   );
 
   /**
@@ -175,11 +177,19 @@ export class SbbOption implements ComponentInterface {
       this._disabledFromGroup = isValidAttribute(parentGroup, 'disabled');
     }
     this._optionAttributeObserver.observe(this._element, optionObserverConfig);
+
+    this._negative = !!this._element.closest(
+      // :is() selector not possible due to test environment
+      `sbb-autocomplete[negative]:not([negative='false']),sbb-select[negative]:not([negative='false']),sbb-form-field[negative]:not([negative='false'])`,
+    );
+    toggleDatasetEntry(this._element, 'negative', this._negative);
+
     this._setVariantByContext();
   }
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
+    this._optionAttributeObserver.disconnect();
   }
 
   private _setVariantByContext(): void {
@@ -197,7 +207,9 @@ export class SbbOption implements ComponentInterface {
   private _onOptionAttributesChange(mutationsList: MutationRecord[]): void {
     for (const mutation of mutationsList) {
       if (mutation.attributeName === 'data-group-disabled') {
-        this._disabledFromGroup = !!isValidAttribute(this._element, 'data-group-disabled');
+        this._disabledFromGroup = isValidAttribute(this._element, 'data-group-disabled');
+      } else if (mutation.attributeName === 'data-negative') {
+        this._negative = isValidAttribute(this._element, 'data-negative');
       }
     }
   }
@@ -278,6 +290,7 @@ export class SbbOption implements ComponentInterface {
               <sbb-visual-checkbox
                 checked={this.selected}
                 disabled={this.disabled || this._disabledFromGroup}
+                negative={this._negative}
               ></sbb-visual-checkbox>
             )}
 

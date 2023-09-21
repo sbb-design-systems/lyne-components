@@ -19,6 +19,13 @@ The examples below shows how the component is used:
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property   | Attribute  | Description                     | Type      | Default |
+| ---------- | ---------- | ------------------------------- | --------- | ------- |
+| `negative` | `negative` | Negative coloring variant flag. | `boolean` | `false` |
+
+
 ----------------------------------------------
 
 

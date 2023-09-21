@@ -25,6 +25,10 @@
 @mixin icon-button($button-selector, $icon-selector) {
   @include icon-button-base(':host', #{$button-selector}, #{$icon-selector});
 
+  :host([negative]:not([negative='false'])) {
+    @include icon-button-variables-negative;
+  }
+
   :host([data-disabled]:not([data-disabled='false'])) {
     @include icon-button-disabled(#{$button-selector});
   }
@@ -44,19 +48,19 @@
 
 // Variables used in the icon-button
 @mixin icon-button-variables {
-  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
-  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
-  --sbb-button-color-active-text: var(--sbb-color-charcoal-default);
   --sbb-button-color-default-background: var(--sbb-color-black-alpha-0);
   --sbb-button-color-default-border: var(--sbb-color-black-alpha-0);
   --sbb-button-color-default-text: var(--sbb-color-charcoal-default);
-  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
-  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
   --sbb-button-color-hover-background: var(--sbb-color-milk-default);
   --sbb-button-color-hover-border: var(--sbb-color-milk-default);
   --sbb-button-color-hover-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-active-background: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-border: var(--sbb-color-cloud-default);
+  --sbb-button-color-active-text: var(--sbb-color-charcoal-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-border: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-text: var(--sbb-color-granite-default);
+  --sbb-button-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-button-border-width: #{functions.px-to-rem-build(0)};
   --sbb-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-button-min-height: var(--sbb-size-icon-ui-small);
@@ -73,9 +77,28 @@
   }
 
   @include a11y.if-forced-colors {
+    --sbb-button-color-default-text: ButtonText !important;
     --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-text: ButtonText !important;
     --sbb-button-color-active-border: Highlight !important;
+    --sbb-button-color-hover-text: ButtonText !important;
   }
+}
+
+// Variables used in the icon-button negative variant
+@mixin icon-button-variables-negative {
+  --sbb-button-color-default-background: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-default-text: var(--sbb-color-milk-default);
+  --sbb-button-color-hover-background: var(--sbb-color-charcoal-default);
+  --sbb-button-color-hover-border: var(--sbb-color-charcoal-default);
+  --sbb-button-color-hover-text: var(--sbb-color-milk-default);
+  --sbb-button-color-active-background: var(--sbb-color-iron-default);
+  --sbb-button-color-active-border: var(--sbb-color-iron-default);
+  --sbb-button-color-active-text: var(--sbb-color-milk-default);
+  --sbb-button-color-disabled-background: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-border: var(--sbb-color-black-alpha-0);
+  --sbb-button-color-disabled-text: var(--sbb-color-smoke-default);
 }
 
 // Default state for icon-button in form-field
