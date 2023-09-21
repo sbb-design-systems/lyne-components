@@ -21,17 +21,6 @@ The `sbb-notification` is structured in the following way:
 
 Note that the notification only supports inline links, therefore any slotted link will be forced to be a `variant="inline"` link.
 
-## States
-
-It is possible to display the component in `readonly` state by using the self-named property.
-In this case, the close button will not be shown.
-
-```html
-<sbb-notification readonly>
-  ...
-</sbb-notification>
-```
-
 ## Variants
 
 The `sbb-notification` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
@@ -42,6 +31,17 @@ The `sbb-notification` supports four types: `info` (default), `success`, `warn` 
 <sbb-notification type="warn">...</sbb-notification>
 
 <sbb-notification type="error">...</sbb-notification>
+```
+
+## States
+
+It is possible to display the component in `readonly` state by using the self-named property.
+In this case, the close button will not be shown.
+
+```html
+<sbb-notification readonly>
+  ...
+</sbb-notification>
 ```
 
 ## Interactions

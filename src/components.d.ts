@@ -334,7 +334,7 @@ export namespace Components {
          */
         "selectedDate": Date | string | number;
         /**
-          * If set to true, two months are displayed
+          * If set to true, two months are displayed.
          */
         "wide": boolean;
     }
@@ -3099,7 +3099,7 @@ declare namespace LocalJSX {
          */
         "selectedDate"?: Date | string | number;
         /**
-          * If set to true, two months are displayed
+          * If set to true, two months are displayed.
          */
         "wide"?: boolean;
     }

@@ -14,7 +14,7 @@ for one or more [sbb-expansion-panel](/docs/components-sbb-accordion-sbb-expansi
 </sbb-accordion>
 ```
 
-## Variants
+## Interaction
 
 The `multi` property, if set, allows having more than one `sbb-expansion-panel` expanded at the same time.
 

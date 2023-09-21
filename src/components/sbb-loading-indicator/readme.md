@@ -3,14 +3,16 @@ or an ongoing activity which require some time to complete.
 
 ### Variants
 
-It has two different variants: 
-in `window` mode, the component completely covers the parent element, preventing interaction with it,
+The component has two different variants.
+
+In `window` mode, the component completely covers the parent element, preventing interaction with it.
 
 ```html
 <sbb-loading-indicator variant="window"/>
 ```
 
-while the `circle` mode can be used inline within another component (e.g., button) and adjust its size to the parent font size.
+While the `circle` mode can be used inline within another component (e.g. button);
+in this case the component adjusts its size to the parent font size.
 
 ```html
 <sbb-button>
