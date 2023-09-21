@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.13](https://github.com/lyne-design-system/lyne-components/compare/v0.40.12...v0.40.13) (2023-09-21)
+
+### Features
+
+- **sbb-form-field:** adapt new design and add negative mode ([#1976](https://github.com/lyne-design-system/lyne-components/issues/1976)) ([c04a0ef](https://github.com/lyne-design-system/lyne-components/commit/c04a0ef3c368455f32fa6fa71f853b552a364d11))
+
 ### [0.40.12](https://github.com/lyne-design-system/lyne-components/compare/v0.40.11...v0.40.12) (2023-09-21)
 
 ### Features
