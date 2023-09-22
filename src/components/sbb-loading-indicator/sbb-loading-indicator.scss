@@ -97,6 +97,12 @@
   }
 }
 
+:host([color='white'][variant='circle']) .sbb-loading-indicator__animated-element::after {
+  @include sbb.if-forced-colors {
+    --sbb-loading-indicator-color: var(--sbb-color-white-default);
+  }
+}
+
 :host([variant='window']) {
   --sbb-loading-indicator-height: sbb.px-to-rem-build(32);
   --sbb-loading-indicator-width: sbb.px-to-rem-build(55);
