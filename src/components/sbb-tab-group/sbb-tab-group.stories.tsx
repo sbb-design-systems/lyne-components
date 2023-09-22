@@ -6,7 +6,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 
-const firstTabTitle = ({ label, ...args }): JSX.Element => (
+const firstTabTitle = (label, args): JSX.Element => (
   <sbb-tab-title {...args}>{label}</sbb-tab-title>
 );
 
@@ -40,9 +40,9 @@ const tabPanelFour = (): JSX.Element => (
   </article>
 );
 
-const DefaultTemplate = (args): JSX.Element => (
-  <sbb-tab-group size={args.size} initial-selected-index="0">
-    {firstTabTitle(args)}
+const DefaultTemplate = ({ size, label, ...args }): JSX.Element => (
+  <sbb-tab-group size={size} initial-selected-index="0">
+    {firstTabTitle(label, args)}
     {tabPanelOne()}
 
     <sbb-tab-title>Tab title two</sbb-tab-title>
@@ -56,9 +56,9 @@ const DefaultTemplate = (args): JSX.Element => (
   </sbb-tab-group>
 );
 
-const IconsAndNumbersTemplate = (args): JSX.Element => (
-  <sbb-tab-group size={args.size} initial-selected-index="0">
-    {firstTabTitle(args)}
+const IconsAndNumbersTemplate = ({ size, label, ...args }): JSX.Element => (
+  <sbb-tab-group size={size} initial-selected-index="0">
+    {firstTabTitle(label, args)}
     {tabPanelOne()}
 
     <sbb-tab-title amount={args.amount} icon-name="swisspass-small">
@@ -78,10 +78,10 @@ const IconsAndNumbersTemplate = (args): JSX.Element => (
   </sbb-tab-group>
 );
 
-const NestedTemplate = (args): JSX.Element => (
-  <sbb-tab-group size={args.size} initial-selected-index="0">
-    {firstTabTitle(args)}
-    <sbb-tab-group size={args.size} initial-selected-index="1">
+const NestedTemplate = ({ size, label, ...args }): JSX.Element => (
+  <sbb-tab-group size={size} initial-selected-index="0">
+    {firstTabTitle(label, args)}
+    <sbb-tab-group size={size} initial-selected-index="1">
       <sbb-tab-title level="2">Nested tab</sbb-tab-title>
       <div>
         Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
