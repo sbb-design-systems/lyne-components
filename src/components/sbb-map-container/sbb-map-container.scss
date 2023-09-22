@@ -31,7 +31,6 @@
     grid-template-columns: max(var(--sbb-map-container-sidebar-width)) calc(
         100% - var(--sbb-map-container-sidebar-width)
       );
-    width: 100vw;
     height: calc(100vh - var(--sbb-map-container-margin-start, var(--sbb-header-height)));
     overflow: hidden;
   }
