@@ -1,4 +1,3 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import { InterfaceButtonAttributes } from './sbb-button.custom';
 import {
   ButtonType,
@@ -19,95 +18,100 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import { ACTION_ELEMENTS, hostContext, toggleDatasetEntry } from '../../global/dom';
+import { LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { setAttribute, setAttributes } from '../../global/dom';
+import Style from './sbb-button.scss?lit&inline';
+import '../sbb-icon';
 
 /**
  * @slot unnamed - Button Content
  * @slot icon - Slot used to display the icon, if one is set
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-button.scss',
-  tag: 'sbb-button',
-})
-export class SbbButton implements ComponentInterface, LinkButtonProperties, IsStaticProperty {
+@customElement('sbb-button')
+export class SbbButton extends LitElement implements LinkButtonProperties, IsStaticProperty {
+  public static override styles = Style;
+
   /** Variant of the button, like primary, secondary etc. */
-  @Prop({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
+  @property({ reflect: true }) public variant: InterfaceButtonAttributes['variant'] = 'primary';
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** Size variant, either l or m. */
-  @Prop({ reflect: true }) public size?: InterfaceButtonAttributes['size'] = 'l';
+  @property({ reflect: true }) public size?: InterfaceButtonAttributes['size'] = 'l';
 
   /**
    * Set this property to true if you want only a visual representation of a
    * button, but no interaction (a span instead of a link/button will be rendered).
    */
-  @Prop({ mutable: true, reflect: true }) public isStatic = false;
+  @property({ attribute: 'is-static', reflect: true, type: Boolean }) public isStatic = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** The href value you want to link to (if it is present, button becomes a link). */
-  @Prop() public href: string | undefined;
+  @property() public href: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel?: string | undefined;
+  @property() public rel?: string | undefined;
 
   /** Whether the browser will show the download dialog on click. */
-  @Prop() public download?: boolean;
+  @property({ type: Boolean }) public download?: boolean;
 
   /** The type attribute to use for the button. */
-  @Prop() public type: ButtonType | undefined;
+  @property() public type: ButtonType | undefined;
 
   /** Whether the button is disabled. */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
-  @Prop() public value?: string;
+  @property() public value?: string;
 
   /** The <form> element to associate the button with. */
-  @Prop() public form?: string;
-
-  @Element() private _element!: HTMLElement;
+  @property() public form?: string;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @state() private _namedSlots = createNamedSlotState('icon');
 
-  @State() private _hasText = false;
+  @state() private _hasText = false;
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     // Check if the current element is nested in an action element.
-    this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
-    this._hasText = Array.from(this._element.childNodes).some(
+    this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
+    this._hasText = Array.from(this.childNodes).some(
       (n) => !(n as Element).slot && n.textContent?.trim(),
     );
     this._handlerRepository.connect();
-    if (this._element.closest('sbb-form-field') || this._element.closest('[data-form-field]')) {
-      toggleDatasetEntry(this._element, 'iconSmall', true);
+    if (this.closest('sbb-form-field') || this.closest('[data-form-field]')) {
+      toggleDatasetEntry(this, 'iconSmall', true);
     }
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
@@ -117,32 +121,48 @@ export class SbbButton implements ComponentInterface, LinkButtonProperties, IsSt
       .some((n) => !!n.textContent?.trim());
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
     }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
-    return (
-      <Host {...hostAttributes} data-icon-only={!this._hasText}>
-        <TAG_NAME class="sbb-button" {...attributes}>
-          {(this.iconName || this._namedSlots.icon) && (
-            <span class="sbb-button__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-          )}
+    setAttributes(this, hostAttributes);
+    setAttribute(this, 'data-icon-only', !this._hasText);
 
-          <span class="sbb-button__label">
-            <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
-            {targetsNewWindow(this) && (
-              <span class="sbb-button__opens-in-new-window">
-                . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-              </span>
-            )}
-          </span>
-        </TAG_NAME>
-      </Host>
-    );
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${unsafeStatic(TAG_NAME)} class="sbb-button" ${spread(attributes)}>
+        ${
+          this.iconName || this._namedSlots.icon
+            ? html`<span class="sbb-button__icon">
+                <slot name="icon">
+                  ${this.iconName ? html`<sbb-icon name="${this.iconName}" />` : nothing}
+                </slot>
+              </span>`
+            : nothing
+        }
+
+        <span class="sbb-button__label">
+          <slot @slotchange=${(event): void => this._onLabelSlotChange(event)}></slot>
+          ${
+            targetsNewWindow(this)
+              ? html`<span class="sbb-button__opens-in-new-window">
+                  . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+                </span>`
+              : nothing
+          }
+        </span>
+      </${unsafeStatic(TAG_NAME)}>
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-button': SbbButton;
   }
 }

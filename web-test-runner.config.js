@@ -32,7 +32,7 @@ const browsers = process.env.CI
       // }),
 
       // In dev, we prefer to use puppeteer because has a better behavior in debug mode
-      puppeteerLauncher({ concurrency: 1, launchOptions: { headless: true, devtools: true } }),
+      puppeteerLauncher({ concurrency: 1, launchOptions: { headless: 'new', devtools: true } }),
     ];
 
 // TODO: Revert to glob rules after migration
@@ -43,7 +43,7 @@ export default {
     { name: 'e2e', files: e2eFiles },
   ],
   nodeResolve: true,
-  reporters: [defaultReporter({ reportTestResults: false }), summaryReporter()],
+  reporters: [defaultReporter(), summaryReporter()],
   browsers: browsers,
   plugins: [
     vitePlugin({
