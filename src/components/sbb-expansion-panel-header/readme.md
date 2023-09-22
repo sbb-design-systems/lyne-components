@@ -22,7 +22,7 @@ If using the SBB icons, the icon should be a medium size icon.
 
 ## States
 
-The component can be displayed in `disabled` satte using the self-named property. 
+The component can be displayed in `disabled` state using the self-named property. 
 
 ```html
 <sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>
