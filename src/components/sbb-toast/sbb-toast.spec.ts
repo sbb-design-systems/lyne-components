@@ -22,7 +22,7 @@ describe('sbb-toast', () => {
         <div class="sbb-toast">
           <div class="sbb-toast__icon">
             <slot name="icon">
-              <sbb-icon name="circle-tick-small">
+              <sbb-icon name="circle-tick-small" role="img" aria-hidden="true" data-namespace="default">
               </sbb-icon>
             </slot>
           </div>
@@ -31,7 +31,10 @@ describe('sbb-toast', () => {
           </div>
           <div class="sbb-toast__action">
             <slot name="action">
-              <sbb-button class="sbb-toast__action-button" aria-label="Close message" variant="transparent" negative size="m" icon-name="cross-small" sbb-toast-close >
+              <sbb-button class="sbb-toast__action-button" aria-label="Close message" 
+                variant="transparent" negative size="m" icon-name="cross-small" 
+                dir="ltr" role="button" tabindex="0" data-icon-only sbb-toast-close 
+              >
               </sbb-button>
             </slot>
           </div>

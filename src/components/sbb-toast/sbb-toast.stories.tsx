@@ -93,8 +93,7 @@ const defaultArgs: Args = {
 
 const toastTemplate = (args, action, contentLength = 's'): JSX.Element => (
   <Fragment>
-    {/* TODO-Migr: use SbbButton once the button is migrated */}
-    <button onClick={() => document.querySelector('sbb-toast').open()}>Show toast</button>
+    <sbb-button onClick={() => document.querySelector('sbb-toast').open()}>Show toast</sbb-button>
     <sbb-toast {...args} data-testid="sbb-toast">
       {contentLength === 's'
         ? 'Lorem ipsum dolor'

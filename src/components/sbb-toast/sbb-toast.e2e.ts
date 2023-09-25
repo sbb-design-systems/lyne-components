@@ -109,8 +109,7 @@ describe('sbb-toast', () => {
     expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
-  // TODO-Migr Will work after the migration of the SbbButton
-  it.skip('forces state on button actions', async () => {
+  it('forces state on button actions', async () => {
     element = await fixture(html`
       <sbb-toast>
         <sbb-button slot="action" />
@@ -124,8 +123,7 @@ describe('sbb-toast', () => {
     expect(actionBtn).to.have.attribute('negative');
   });
 
-  // TODO-Migr Will work after the migration of the SbbLink
-  it.skip('forces state on link actions', async () => {
+  it('forces state on link actions', async () => {
     element = await fixture(html`
       <sbb-toast>
         <sbb-link slot="action" />

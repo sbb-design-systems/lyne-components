@@ -16,6 +16,8 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-toast.scss?lit&inline';
 import { SbbOverlayState } from '../../global/overlay';
+import '../sbb-link';
+import '../sbb-button';
 
 // A global collection of existing toasts
 const toastRefs = new Set<SbbToast>();
@@ -266,13 +268,13 @@ export class SbbToast extends LitElement {
           @animationend=${(event: AnimationEvent) => this._onToastAnimationEnd(event)}
         >
           <div class="sbb-toast__icon">
-            <slot name="icon"
-              >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
-            >
+            <slot name="icon">
+              ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+            </slot>
           </div>
 
           <div class="sbb-toast__content" aria-live=${this.politeness}>
-            <slot @slotchange=${(event) => this._onContentSlotChange(event)} />
+            <slot @slotchange=${(event) => this._onContentSlotChange(event)}></slot>
           </div>
 
           <div class="sbb-toast__action">
