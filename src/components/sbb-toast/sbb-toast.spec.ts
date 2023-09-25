@@ -1,8 +1,8 @@
-import './sbb-toast';
-import { SbbToast } from './sbb-toast';
-
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import { isFirefox } from '../../global/dom';
+import { SbbToast } from './sbb-toast';
+import './sbb-toast';
 
 describe('sbb-toast', () => {
   it('renders', async () => {
@@ -19,7 +19,7 @@ describe('sbb-toast', () => {
     `);
     expect(root).shadowDom.to.be.equal(`
       <div class="sbb-toast__overlay-container">
-        <div class="sbb-toast">
+        <div class="sbb-toast" ${isFirefox() ? 'role="status"' : ''}>
           <div class="sbb-toast__icon">
             <slot name="icon">
               <sbb-icon name="circle-tick-small" role="img" aria-hidden="true" data-namespace="default">
