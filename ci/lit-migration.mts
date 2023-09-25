@@ -162,7 +162,7 @@ async function migrate(component: string, debug = false) {
     let renderMethod: ts.MethodDeclaration = undefined!;
     let jsxTemplates: ts.JsxElement[] = [];
     const newImports = new Map<string, string[]>()
-      .set('lit', ['html', 'LitElement', 'nothing', 'TemplateResult'])
+      .set('lit', ['CSSResult', 'html', 'LitElement', 'nothing', 'TemplateResult'])
       .set('lit/decorators.js', ['customElement']);
 
     iterate(sourceFile, (node) => {
@@ -533,7 +533,7 @@ async function migrate(component: string, debug = false) {
       mutator.insertAtEnd(classDeclaration.name!, ` extends LitElement`);
       mutator.insertAt(
         classDeclaration.members[0].getFullStart(),
-        `\n  public static override styles = Style;\n`,
+        `\n  public static override styles: CSSResult = Style;\n`,
       );
     }
 
@@ -906,14 +906,14 @@ declare global {
       for (const assertion of assertionsList) {
         const expectNode = (assertion.expression as ts.PropertyAccessExpression).expression; // e.g. 'expect(root)'
         const fullTemplate = assertion.arguments[0].getText();
-  
+
         if (fullTemplate.match(/<mock:shadow-root>/g)!.length > 1) {
           mutator.insertAt(assertion, '/** NOTE: this test has multiple shadow DOMs. You need to manually migrate it, sorry :/ \n'
-          + '  * You could extract 3 different assertions. One for the light DOM,' 
+          + '  * You could extract 3 different assertions. One for the light DOM,'
           + '  * one for the shadow DOM of the first component and one for the sh. Dom of the second */ \n')
           continue;
         }
-  
+
         // Split the html template into shadow and light DOMs
         const shadowStart = fullTemplate.match(/<mock:shadow-root>/)!;
         const shadowEnd = fullTemplate.match(/<\/mock:shadow-root>/)!;
@@ -923,7 +923,7 @@ declare global {
           fullTemplate.substring(0, shadowStart.index!) +
           fullTemplate.substring(shadowEnd.index! + shadowEnd[0].length!);
         const shadowDomTemplate = fullTemplate.substring(shadowStartIndex, shadowEndIndex);
-  
+
         mutator.remove(assertion);
         mutator.insertAt(
           assertion,
@@ -975,7 +975,7 @@ declare global {
       }
 
       if (ts.isVariableStatement(node) && node.getText().match(/(element: E2EElement|page: E2EPage)/)) {
-        mutator.insertAt(node, '/** NOTE: These are too hard to migrate and are prone to errors :/ \n' 
+        mutator.insertAt(node, '/** NOTE: These are too hard to migrate and are prone to errors :/ \n'
         + '  * consider that the E2EPage is now the \'document\' (you should just delete it) \n'
         + '  * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */ \n');
       }
@@ -1013,14 +1013,14 @@ declare global {
 
           if (node.getText().match(/await newE2EPage\(/)) {
             const call = deepFind(node, (n) => ts.isCallExpression(n) && n.getText().startsWith('newE2EPage')) as ts.CallExpression;
-            
+
             // if it's' 'newE2EPage()', just remove it
             if (call.arguments.length === 0) {
               mutator.remove(node);
             } else {
               // we extract the template from 'newE2EPage({html: ...})'
               let template = (deepFind(call, n => ts.isPropertyAssignment(n) && n.name.getText() === 'html') as ts.PropertyAssignment).initializer.getText();
-              
+
               // Surrond the template with `
               if (template.charAt(0) !== '`') {
                 template = `\`${template.substring(1, template.length - 1)}\``;
