@@ -11,7 +11,7 @@ import {
 } from '../../global/eventing';
 import { i18nCloseAlert } from '../../global/i18n';
 import { SbbToastPosition, SbbToastAriaPoliteness, SbbToastAriaRole } from './sbb-toast.custom';
-import { html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { setAttribute } from '../../global/dom';
 import Style from './sbb-toast.scss?lit&inline';
@@ -34,7 +34,7 @@ export const events = {
 
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {
-  public static override styles = Style;
+  public static override styles: CSSResult = Style;
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
