@@ -22,9 +22,6 @@ import '../sbb-button';
 // A global collection of existing toasts
 const toastRefs = new Set<SbbToast>();
 
-/**
- * @slot unnamed - Use this to document a slot.
- */
 export const events = {
   willOpen: 'will-open',
   didOpen: 'did-open',
@@ -32,6 +29,9 @@ export const events = {
   didClose: 'did-close',
 };
 
+/**
+ * @slot unnamed - Use this to document a slot.
+ */
 @customElement('sbb-toast')
 export class SbbToast extends LitElement {
   public static override styles: CSSResult = Style;
@@ -265,7 +265,7 @@ export class SbbToast extends LitElement {
           class="sbb-toast"
           ${/* Firefox needs 'role' to enable screen readers */ ''}
           role=${this._role ?? nothing}
-          @animationend=${(event: AnimationEvent) => this._onToastAnimationEnd(event)}
+          @animationend=${this._onToastAnimationEnd}
         >
           <div class="sbb-toast__icon">
             <slot name="icon">
@@ -274,11 +274,11 @@ export class SbbToast extends LitElement {
           </div>
 
           <div class="sbb-toast__content" aria-live=${this.politeness}>
-            <slot @slotchange=${(event) => this._onContentSlotChange(event)}></slot>
+            <slot @slotchange=${this._onContentSlotChange}></slot>
           </div>
 
           <div class="sbb-toast__action">
-            <slot name="action" @slotchange=${(event) => this._onActionSlotChange(event)}>
+            <slot name="action" @slotchange=${this._onActionSlotChange}>
               ${this.dismissible
                 ? html` <sbb-button
                     class="sbb-toast__action-button"

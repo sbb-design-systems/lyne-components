@@ -145,7 +145,7 @@ export class SbbButton extends LitElement implements LinkButtonProperties, IsSta
         }
 
         <span class="sbb-button__label">
-          <slot @slotchange=${(event): void => this._onLabelSlotChange(event)}></slot>
+          <slot @slotchange=${this._onLabelSlotChange}></slot>
           ${
             targetsNewWindow(this)
               ? html`<span class="sbb-button__opens-in-new-window">
