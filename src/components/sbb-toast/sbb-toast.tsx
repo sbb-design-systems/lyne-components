@@ -1,18 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  State,
-} from '@stencil/core';
-import { SbbOverlayState } from '../../components';
 import { isFirefox, isValidAttribute } from '../../global/dom';
 import {
   createNamedSlotState,
@@ -21,98 +6,108 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
   composedPathHasAttribute,
+  EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import { i18nCloseAlert } from '../../global/i18n';
 import { SbbToastPosition, SbbToastAriaPoliteness, SbbToastAriaRole } from './sbb-toast.custom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute } from '../../global/dom';
+import Style from './sbb-toast.scss?lit&inline';
+import { SbbOverlayState } from '../../global/overlay';
+import '../sbb-link';
+import '../sbb-button';
 
 // A global collection of existing toasts
-const toastRefs = new Set<HTMLSbbToastElement>();
+const toastRefs = new Set<SbbToast>();
+
+export const events = {
+  willOpen: 'will-open',
+  didOpen: 'did-open',
+  willClose: 'will-close',
+  didClose: 'did-close',
+};
 
 /**
  * @slot unnamed - Use this to document a slot.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-toast.scss',
-  tag: 'sbb-toast',
-})
-export class SbbToast implements ComponentInterface {
+@customElement('sbb-toast')
+export class SbbToast extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
    * If 0, it stays open indefinitely.
    */
-  @Prop() public timeout = 6000;
+  @property({ type: Number }) public timeout = 6000;
 
   /**
    * The name of the icon, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** The position where to place the toast. */
-  @Prop({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
+  @property({ reflect: true }) public position: SbbToastPosition = 'bottom-center';
 
   /** Whether the toast has a close button. */
-  @Prop() public dismissible = false;
+  @property({ type: Boolean }) public dismissible = false;
 
   /**
    * The ARIA politeness level.
    * Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions for further info
    */
-  @Prop() public politeness: SbbToastAriaPoliteness = 'polite';
+  @property() public politeness: SbbToastAriaPoliteness = 'polite';
 
   /** Whether the animation is disabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   /** The state of the autocomplete. */
-  @State() private _state: SbbOverlayState = 'closed';
+  @state() private _state: SbbOverlayState = 'closed';
 
-  @State() private _namedSlots = createNamedSlotState('icon', 'action');
+  @state() private _namedSlots = createNamedSlotState('icon', 'action');
 
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   /** Emits whenever the autocomplete starts the opening transition. */
-  @Event({
+
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
     bubbles: true,
     composed: true,
-    eventName: 'will-open',
-  })
-  public willOpen: EventEmitter<void>;
+  });
 
   /** Emits whenever the autocomplete is opened. */
-  @Event({
+
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
     bubbles: true,
     composed: true,
-    eventName: 'did-open',
-  })
-  public didOpen: EventEmitter<void>;
+  });
 
   /** Emits whenever the autocomplete begins the closing transition. */
-  @Event({
+
+  private _willClose: EventEmitter<void> = new EventEmitter(this, events.willClose, {
     bubbles: true,
     composed: true,
-    eventName: 'will-close',
-  })
-  public willClose: EventEmitter<void>;
+  });
 
   /** Emits whenever the autocomplete is closed. */
-  @Event({
+
+  private _didClose: EventEmitter<void> = new EventEmitter(this, events.didClose, {
     bubbles: true,
     composed: true,
-    eventName: 'did-close',
-  })
-  public didClose: EventEmitter<void>;
-
-  @Element() private _element!: HTMLElement;
+  });
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
   private _closeTimeout: ReturnType<typeof setTimeout>;
+  private _abort = new ConnectedAbortController(this);
 
   /**
    * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
@@ -134,7 +129,7 @@ export class SbbToast implements ComponentInterface {
    * Open the toast.
    * If there are other opened toasts in the page, close them first.
    */
-  @Method() public async open(): Promise<void> {
+  public open(): void {
     if (this._state !== 'closed') {
       return;
     }
@@ -142,13 +137,13 @@ export class SbbToast implements ComponentInterface {
     this._closeOtherToasts();
 
     this._state = 'opening';
-    this.willOpen.emit();
+    this._willOpen.emit();
   }
 
   /**
    * Close the toast.
    */
-  @Method() public async close(): Promise<void> {
+  public close(): void {
     if (this._state !== 'opened') {
       return;
     }
@@ -156,31 +151,35 @@ export class SbbToast implements ComponentInterface {
     clearTimeout(this._closeTimeout);
 
     this._state = 'closing';
-    this.willClose.emit();
+    this._willClose.emit();
   }
 
   // Close the tooltip on click of any element that has the 'sbb-toast-close' attribute.
-  @Listen('click') public async onClick(event: Event): Promise<void> {
-    const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this._element);
+  private _onClick(event: Event): void {
+    const closeElement = composedPathHasAttribute(event, 'sbb-toast-close', this);
 
     if (closeElement && !isValidAttribute(closeElement, 'disabled')) {
-      await this.close();
+      this.close();
     }
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('click', (e) => this._onClick(e), { signal });
     this._handlerRepository.connect();
 
     // Add this toast to the global collection
-    toastRefs.add(this._element as HTMLSbbToastElement);
+    toastRefs.add(this);
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     clearTimeout(this._closeTimeout);
     this._handlerRepository.disconnect();
 
     // Remove this instance
-    toastRefs.delete(this._element as HTMLSbbToastElement);
+    toastRefs.delete(this);
   }
 
   /**
@@ -193,7 +192,7 @@ export class SbbToast implements ComponentInterface {
 
     if (slotNodes.some((el) => el.nodeType === Node.TEXT_NODE)) {
       const span = document.createElement('span');
-      this._element.appendChild(span);
+      this.appendChild(span);
       span.append(...slotNodes);
     }
   }
@@ -204,7 +203,8 @@ export class SbbToast implements ComponentInterface {
     // Force the visual state on slotted buttons
     slotNodes
       .filter((el) => el.nodeName === 'SBB-BUTTON')
-      .forEach((btn: HTMLSbbButtonElement) => {
+      .forEach((btn: any) => {
+        // TODO-Migr: use SbbButton once the button is migrated
         btn.variant = 'transparent';
         btn.negative = true;
         btn.size = 'm';
@@ -213,7 +213,8 @@ export class SbbToast implements ComponentInterface {
     // Force the visual state on slotted links
     slotNodes
       .filter((el) => el.nodeName === 'SBB-LINK')
-      .forEach((link: HTMLSbbLinkElement) => {
+      .forEach((link: any) => {
+        // TODO-Migr: use SbbLink once the button is migrated
         link.variant = 'inline';
         link.negative = true;
       });
@@ -225,7 +226,7 @@ export class SbbToast implements ComponentInterface {
     // On toast opened
     if (event.animationName === 'open' && this._state === 'opening') {
       this._state = 'opened';
-      this.didOpen.emit();
+      this._didOpen.emit();
 
       // Start the countdown to close it
       if (this.timeout) {
@@ -236,7 +237,7 @@ export class SbbToast implements ComponentInterface {
     // On toast closed
     if (event.animationName === 'close' && this._state === 'closing') {
       this._state = 'closed';
-      this.didClose.emit();
+      this._didClose.emit();
     }
   }
 
@@ -251,45 +252,55 @@ export class SbbToast implements ComponentInterface {
     });
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host
-        data-state={this._state}
-        data-has-icon={this._namedSlots['icon'] || !!this.iconName}
-        data-has-action={this._namedSlots['action'] || this.dismissible}
-      >
-        <div class="sbb-toast__overlay-container">
-          <div
-            class="sbb-toast"
-            role={this._role} // Firefox needs this to abilitate screen readers
-            onAnimationEnd={(event: AnimationEvent) => this._onToastAnimationEnd(event)}
-          >
-            <div class="sbb-toast__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </div>
+  protected override render(): TemplateResult {
+    // ## Host attributes ##
+    setAttribute(this, 'data-state', this._state);
+    setAttribute(this, 'data-has-icon', this._namedSlots['icon'] || !!this.iconName);
+    setAttribute(this, 'data-has-action', this._namedSlots['action'] || this.dismissible);
+    // ####
 
-            <div class="sbb-toast__content" aria-live={this.politeness}>
-              <slot onSlotchange={(event) => this._onContentSlotChange(event)} />
-            </div>
+    return html`
+      <div class="sbb-toast__overlay-container">
+        <div
+          class="sbb-toast"
+          ${/* Firefox needs 'role' to enable screen readers */ ''}
+          role=${this._role ?? nothing}
+          @animationend=${this._onToastAnimationEnd}
+        >
+          <div class="sbb-toast__icon">
+            <slot name="icon">
+              ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+            </slot>
+          </div>
 
-            <div class="sbb-toast__action">
-              <slot name="action" onSlotchange={(event) => this._onActionSlotChange(event)}>
-                {this.dismissible && (
-                  <sbb-button
+          <div class="sbb-toast__content" aria-live=${this.politeness}>
+            <slot @slotchange=${this._onContentSlotChange}></slot>
+          </div>
+
+          <div class="sbb-toast__action">
+            <slot name="action" @slotchange=${this._onActionSlotChange}>
+              ${this.dismissible
+                ? html` <sbb-button
                     class="sbb-toast__action-button"
                     icon-name="cross-small"
                     variant="transparent"
-                    negative={true}
+                    negative
                     size="m"
-                    aria-label={i18nCloseAlert[this._currentLanguage]}
+                    aria-label=${i18nCloseAlert[this._currentLanguage]}
                     sbb-toast-close
-                  ></sbb-button>
-                )}
-              </slot>
-            </div>
+                  ></sbb-button>`
+                : nothing}
+            </slot>
           </div>
         </div>
-      </Host>
-    );
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-toast': SbbToast;
   }
 }

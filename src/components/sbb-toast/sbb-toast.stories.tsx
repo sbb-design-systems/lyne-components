@@ -1,23 +1,24 @@
 /** @jsx h */
-import events from './sbb-toast.events';
+import './sbb-toast';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md';
 import { withActions } from '@storybook/addon-actions/decorator';
 import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import { within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
+import { events, SbbToast } from './sbb-toast';
 
 // Story interaction executed after the story renders
 const playStory = async ({ canvasElement }): Promise<void> => {
   const canvas = within(canvasElement);
 
   await waitForComponentsReady(() =>
-    canvas.getByTestId('sbb-toast').shadowRoot.querySelector('.sbb-toast'),
+    canvas.getByTestId('sbb-toast').shadowRoot!.querySelector('.sbb-toast'),
   );
 
-  const toast = canvas.getByTestId('sbb-toast') as HTMLSbbToastElement;
+  const toast = canvas.getByTestId('sbb-toast') as SbbToast;
   toast.open();
   await new Promise((resolve) => setTimeout(resolve, 2000));
 };

@@ -1,168 +1,162 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-toast.events';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbToast, events } from './sbb-toast';
 
 describe('sbb-toast', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbToast;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent(`
-      <sbb-toast></sbb-toast>
-    `);
-
-    element = await page.find('sbb-toast');
+    element = await fixture(html` <sbb-toast></sbb-toast> `);
   });
 
   it('renders and sets the correct attributes', async () => {
-    expect(element).toHaveClass('hydrated');
-    expect(element).not.toHaveAttribute('data-has-action');
-    expect(element).not.toHaveAttribute('data-has-icon');
-    expect(element).toEqualAttribute('data-state', 'closed');
+    assert.instanceOf(element, SbbToast);
+    expect(element).not.to.have.attribute('data-has-action');
+    expect(element).not.to.have.attribute('data-has-icon');
+    expect(element).to.have.attribute('data-state', 'closed');
   });
 
   it('opens and closes after timeout', async () => {
-    const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
-    const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const willOpenEventSpy = new EventSpy(events.willOpen);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    await element.setAttribute('duration', 250);
-    await page.waitForChanges();
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.setAttribute('timeout', '50');
+    await element.updateComplete;
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpenEventSpy.events.length === 1);
-    expect(willOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpenEventSpy.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpenEventSpy.events.length === 1);
-    expect(didOpenEventSpy).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
-    expect(element.getAttribute('data-state')).toEqual('opened');
+    expect(didOpenEventSpy.count).to.be.equal(1);
+    await element.updateComplete;
+    expect(element.getAttribute('data-state')).to.be.equal('opened');
 
-    await page.waitForChanges();
+    // Will wait for timeout and then close itself
+
+    await element.updateComplete;
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await page.waitForChanges();
+    await element.updateComplete;
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await page.waitForChanges();
-    expect(element.getAttribute('data-state')).toEqual('closed');
+    await element.updateComplete;
+    expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
   it('closes by dismiss button click', async () => {
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    await element.setAttribute('dismissible', true);
-    await page.waitForChanges();
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.setAttribute('dismissible', '');
+    await element.updateComplete;
+    element.open();
+    await element.updateComplete;
 
-    const dismissBtn = (await page.waitForSelector('sbb-toast >>> sbb-button')).asElement();
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
+
+    const dismissBtn = element.shadowRoot.querySelector('sbb-button') as HTMLElement;
     dismissBtn.click();
 
-    await page.waitForChanges();
+    await element.updateComplete;
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await page.waitForChanges();
+    await element.updateComplete;
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await page.waitForChanges();
-    expect(element.getAttribute('data-state')).toEqual('closed');
+    await element.updateComplete;
+    expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
   it('closes by marked action element', async () => {
-    page = await newE2EPage({
-      html: `
+    element = await fixture(html`
       <sbb-toast>
-        <sbb-button slot="action" sbb-toast-close/>
+        <sbb-button slot="action" sbb-toast-close />
       </sbb-toast>
-    `,
-    });
-    element = await page.find('sbb-toast');
-    const actionBtn = await element.find('sbb-button');
+    `);
+    const actionBtn = element.querySelector('sbb-button') as HTMLElement;
 
-    const willCloseEventSpy = await page.spyOnEvent(events.willClose);
-    const didCloseEventSpy = await page.spyOnEvent(events.didClose);
+    const didOpenEventSpy = new EventSpy(events.didOpen);
+    const willCloseEventSpy = new EventSpy(events.willClose);
+    const didCloseEventSpy = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
+    await waitForCondition(() => didOpenEventSpy.events.length === 1);
 
     actionBtn.click();
 
-    await page.waitForChanges();
+    await element.updateComplete;
     await waitForCondition(() => willCloseEventSpy.events.length === 1);
-    expect(willCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(willCloseEventSpy.count).to.be.equal(1);
 
-    await page.waitForChanges();
+    await element.updateComplete;
     await waitForCondition(() => didCloseEventSpy.events.length === 1);
-    expect(didCloseEventSpy).toHaveReceivedEventTimes(1);
+    expect(didCloseEventSpy.count).to.be.equal(1);
 
-    await page.waitForChanges();
-    expect(element.getAttribute('data-state')).toEqual('closed');
+    await element.updateComplete;
+    expect(element.getAttribute('data-state')).to.be.equal('closed');
   });
 
   it('forces state on button actions', async () => {
-    page = await newE2EPage({
-      html: `
+    element = await fixture(html`
       <sbb-toast>
         <sbb-button slot="action" />
       </sbb-toast>
-    `,
-    });
+    `);
 
-    element = await page.find('sbb-toast');
-    const actionBtn = await element.find('sbb-button');
+    const actionBtn = element.querySelector('sbb-button');
 
-    expect(actionBtn).toEqualAttribute('variant', 'transparent');
-    expect(actionBtn).toEqualAttribute('size', 'm');
-    expect(actionBtn).toHaveAttribute('negative');
+    expect(actionBtn).to.have.attribute('variant', 'transparent');
+    expect(actionBtn).to.have.attribute('size', 'm');
+    expect(actionBtn).to.have.attribute('negative');
   });
 
   it('forces state on link actions', async () => {
-    page = await newE2EPage({
-      html: `
+    element = await fixture(html`
       <sbb-toast>
         <sbb-link slot="action" />
       </sbb-toast>
-    `,
-    });
+    `);
+    const actionLink = element.querySelector('sbb-link');
 
-    element = await page.find('sbb-toast');
-    const actionLink = await element.find('sbb-link');
-
-    expect(actionLink).toEqualAttribute('variant', 'inline');
-    expect(actionLink).toHaveAttribute('negative');
+    expect(actionLink).to.have.attribute('variant', 'inline');
+    expect(actionLink).to.have.attribute('negative');
   });
 
   it('closes other toasts on open', async () => {
-    page = await newE2EPage({
-      html: `
+    await fixture(html`
       <sbb-toast id="toast1" disable-animation />
       <sbb-toast id="toast2" disable-animation />
-    `,
-    });
+    `);
 
-    const toast1 = await page.find('#toast1');
-    const toast2 = await page.find('#toast2');
+    const toast1: SbbToast = document.querySelector('#toast1');
+    const toast2: SbbToast = document.querySelector('#toast2');
 
     // Open the first toast
-    await toast1.callMethod('open');
-    await page.waitForChanges();
+    toast1.open();
+    await element.updateComplete;
 
-    expect(toast1).toEqualAttribute('data-state', 'opened');
+    await waitForCondition(() => toast1.getAttribute('data-state') === 'opened');
+    expect(toast1).to.have.attribute('data-state', 'opened');
 
     // Open the second toast and expect the first to be closed
-    await toast2.callMethod('open');
-    await page.waitForChanges();
+    toast2.open();
+    await element.updateComplete;
 
-    expect(toast1).toEqualAttribute('data-state', 'closed');
-    expect(toast2).toEqualAttribute('data-state', 'opened');
+    await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
+    expect(toast1).to.have.attribute('data-state', 'closed');
+    expect(toast2).to.have.attribute('data-state', 'opened');
   });
 });
