@@ -1,4 +1,3 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   ButtonType,
   IsStaticProperty,
@@ -19,34 +18,39 @@ import {
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
+import { LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttributes } from '../../global/dom';
+import Style from './sbb-link.scss?lit&inline';
+import { spread } from '@open-wc/lit-helpers';
+import '../sbb-icon';
 
 /**
  * @slot unnamed - Link Content
  * @slot icon - Slot used to display the icon, if one is set
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-link.scss',
-  tag: 'sbb-link',
-})
-export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStaticProperty {
+@customElement('sbb-link')
+export class SbbLink extends LitElement implements LinkButtonProperties, IsStaticProperty {
+  public static override styles = Style;
+
   /** Variant of the link (block or inline). */
-  @Prop({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
+  @property({ reflect: true }) public variant: InterfaceLinkAttributes['variant'] = 'block';
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /**
    * Text size, the link should get in the non-button variation.
    * With inline variant, the text size adapts to where it is used.
    */
-  @Prop({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
+  @property({ reflect: true }) public size: InterfaceLinkAttributes['size'] = 's';
 
   /**
    * Set this property to true if you want only a visual representation of a
    * link, but no interaction (a span instead of a link/button will be rendered).
    */
-  @Prop({ mutable: true, reflect: true }) public isStatic = false;
+  @property({ attribute: 'is-static', reflect: true, type: Boolean }) public isStatic = false;
 
   /**
    * The icon name we want to use, choose from the small icon variants
@@ -54,85 +58,103 @@ export class SbbLink implements ComponentInterface, LinkButtonProperties, IsStat
    * https://icons.app.sbb.ch.
    * Inline variant doesn't support icons.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** Moves the icon to the end of the component if set to true. */
-  @Prop() public iconPlacement?: InterfaceLinkAttributes['iconPlacement'] = 'start';
+  @property({ attribute: 'icon-placement' })
+  public iconPlacement?: InterfaceLinkAttributes['iconPlacement'] = 'start';
 
   /** The href value you want to link to (if it is not present link becomes a button). */
-  @Prop() public href: string | undefined;
+  @property() public href: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel?: string | undefined;
+  @property() public rel?: string | undefined;
 
   /** Whether the browser will show the download dialog on click. */
-  @Prop() public download?: boolean;
+  @property({ type: Boolean }) public download?: boolean;
 
   /** The type attribute to use for the button. */
-  @Prop() public type: ButtonType | undefined;
+  @property() public type: ButtonType | undefined;
 
   /** Whether the button is disabled. */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
-  @Prop() public value?: string;
+  @property() public value?: string;
 
   /** The <form> element to associate the button with. */
-  @Prop() public form?: string;
+  @property() public form?: string;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon');
+  @state() private _namedSlots = createNamedSlotState('icon');
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     // Check if the current element is nested in an action element.
-    this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this._element);
+    this.isStatic = this.isStatic || !!hostContext(ACTION_ELEMENTS, this);
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
       attributes,
       hostAttributes,
     }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
-    return (
-      <Host {...hostAttributes}>
-        <TAG_NAME class="sbb-link" {...attributes}>
-          {this.variant !== 'inline' && (this.iconName || this._namedSlots.icon) && (
-            <span class="sbb-link__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-          )}
-          <slot />
-          {targetsNewWindow(this) && (
-            <span class="sbb-link__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-            </span>
-          )}
-        </TAG_NAME>
-      </Host>
-    );
+    // ## Migr: Host attributes ##
+    setAttributes(this, hostAttributes);
+    // ####
+
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${unsafeStatic(TAG_NAME)} class="sbb-link" ${spread(attributes)}>
+        ${
+          this.variant !== 'inline' && (this.iconName || this._namedSlots.icon)
+            ? html`<span class="sbb-link__icon">
+                <slot name="icon">
+                  ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+                </slot>
+              </span>`
+            : nothing
+        }
+        <slot></slot>
+        ${
+          targetsNewWindow(this)
+            ? html`<span class="sbb-link__opens-in-new-window">
+                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+              </span>`
+            : nothing
+        }
+      </${unsafeStatic(TAG_NAME)}>
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-link': SbbLink;
   }
 }
