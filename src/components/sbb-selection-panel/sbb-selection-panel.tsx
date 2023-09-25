@@ -19,8 +19,6 @@ import {
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
 import { InterfaceSbbSelectionPanelAttributes } from './sbb-selection-panel.custom';
-import { AgnosticResizeObserver } from '../../global/observers';
-import { toggleDatasetEntry } from '../../global/dom';
 
 /**
  * @slot unnamed - Use this slot to provide a `sbb-checkbox` or a `sbb-radio-button`.
@@ -121,10 +119,6 @@ export class SbbSelectionPanel implements ComponentInterface {
   );
 
   private _contentElement: HTMLElement;
-  private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
-  private _selectionPanelResizeObserver = new AgnosticResizeObserver(() =>
-    this._onNotificationResize(),
-  );
 
   private get _input(): HTMLSbbCheckboxElement | HTMLSbbRadioButtonElement {
     return this._element.querySelector('sbb-checkbox, sbb-radio-button') as
@@ -142,7 +136,6 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     this._checked = event.detail.checked;
-    this._setContentElementHeight();
 
     if (this.forceOpen) {
       return;
@@ -151,12 +144,10 @@ export class SbbSelectionPanel implements ComponentInterface {
     if (this._checked) {
       this._state = 'opening';
       this.willOpen.emit();
-      this._selectionPanelResizeObserver.observe(this._contentElement);
       this.disableAnimation && this._handleOpening();
     } else {
       this._state = 'closing';
       this.willClose.emit();
-      this._selectionPanelResizeObserver.unobserve(this._contentElement);
       this.disableAnimation && this._handleClosing();
     }
   }
@@ -168,39 +159,12 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   public disconnectedCallback(): void {
     this._handlerRepository.disconnect();
-    this._selectionPanelResizeObserver.disconnect();
   }
 
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
     this._state = this._checked ? 'opened' : 'closed';
     this._disabled = this._input?.disabled;
-  }
-
-  private _setContentElementHeight(): void {
-    if (this._contentElement && this._checked && !this.forceOpen) {
-      this._element.style.setProperty(
-        '--sbb-selection-panel-content-height',
-        `${this._contentElement.scrollHeight}px`,
-      );
-    }
-  }
-
-  private _onNotificationResize(): void {
-    if (this._state !== 'opened') {
-      return;
-    }
-
-    clearTimeout(this._resizeObserverTimeout);
-
-    toggleDatasetEntry(this._element, 'resizeDisableAnimation', true);
-    this._setContentElementHeight();
-
-    // Disable the animation when resizing the selection panel to avoid strange height transition effects.
-    this._resizeObserverTimeout = setTimeout(
-      () => toggleDatasetEntry(this._element, 'resizeDisableAnimation', false),
-      150,
-    );
   }
 
   private _onTransitionEnd(event: TransitionEvent): void {
@@ -244,7 +208,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
           {this._namedSlots['content'] && (
             <div
-              class="sbb-selection-panel__content"
+              class="sbb-selection-panel__content--wrapper"
               data-expanded={this._checked && !this.forceOpen}
               ref={(el) => {
                 this._contentElement = el;
@@ -252,8 +216,10 @@ export class SbbSelectionPanel implements ComponentInterface {
               }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
-              <sbb-divider />
-              <slot name="content" />
+              <div class="sbb-selection-panel__content">
+                <sbb-divider />
+                <slot name="content" />
+              </div>
             </div>
           )}
         </div>
