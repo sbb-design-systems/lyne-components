@@ -34,9 +34,11 @@ describe('sbb-selection-panel', () => {
             <div class="sbb-selection-panel__input">
               <slot></slot>
             </div>
-            <div class="sbb-selection-panel__content">
-              <sbb-divider></sbb-divider>
-              <slot name="content"></slot>
+            <div class="sbb-selection-panel__content--wrapper">
+              <div class="sbb-selection-panel__content">
+                <sbb-divider></sbb-divider>
+                <slot name="content"></slot>
+              </div>
             </div>
           </div>
         </mock:shadow-root>
