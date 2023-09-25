@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbChip } from './sbb-chip';
 
 describe('sbb-chip', () => {
-  let element: E2EElement, page: E2EPage;
-
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-chip>Label</sbb-chip>');
+    await fixture(html`<sbb-chip>Label</sbb-chip>`);
 
-    element = await page.find('sbb-chip');
-    expect(element).toHaveClass('hydrated');
+    const element: SbbChip = document.querySelector('sbb-chip');
+    assert.instanceOf(element, SbbChip);
   });
 });
