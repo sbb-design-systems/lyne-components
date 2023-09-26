@@ -622,6 +622,12 @@ declare global {
 
     function makePrivate(node: ts.PropertyDeclaration | ts.MethodDeclaration) {
       const publicKeyword = node.modifiers?.find((n) => n.kind === ts.SyntaxKind.PublicKeyword)!;
+
+      // Then is already private
+      if (!publicKeyword) {
+        return node.name.getText();
+      }
+
       mutator.replace(publicKeyword, 'private');
       const newName = `_${node.name.getText()}`;
       propertyRenames.set(`this.${node.name.getText()}`, `this.${newName}`);
@@ -956,6 +962,7 @@ declare global {
       { from: 'toHaveClass', to: 'to.have.class' },
       { from: 'toHaveAttribute', to: 'to.have.attribute' },
       { from: 'toEqualAttribute', to: 'to.have.attribute' },
+      { from: 'toMatch', to: 'to.match' },
       { from: 'toEqualHtml', to: 'dom.to.be.equal' },
       { from: 'toEqualText', to: 'dom.text' },
     ];
