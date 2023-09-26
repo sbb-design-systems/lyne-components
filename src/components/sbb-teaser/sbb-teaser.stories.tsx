@@ -50,9 +50,16 @@ const isStacked: InputType = {
 
 /* --- Link ---------------------------------------- */
 
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
   },
   table: {
     category: 'Link',
@@ -76,7 +83,7 @@ const defaultArgs: Args = {
   'aria-label':
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
   'is-stacked': true,
-  href: 'https://github.com/lyne-design-system/lyne-components',
+  href: href.options[1],
 };
 
 /* ************************************************* */

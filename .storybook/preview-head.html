@@ -30,3 +30,46 @@
     }
   }
 </style>
+
+<script>
+  const windowRef = typeof window !== 'undefined' && window;
+  if (!inIframe() && !isChromatic() && !isDev()) {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.textContent = 'EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO ';
+      div.style.cssText = `
+        position: fixed;
+        display: inline-block;
+        border: 1px solid red;
+        border-radius: 0.25rem;
+        background-color: yellow;
+        padding-inline: 0.5rem;
+        inset: 0.5rem auto auto 50%;
+        transform: translateX(-50%);
+      `;
+      const a = document.createElement('a');
+      a.href = 'https://lyne-storybook.app.sbb.ch/';
+      a.textContent = '(Create your own)';
+      div.append(a);
+      document.body.append(div);
+    });
+  }
+
+  function inIframe() {
+    try {
+      return windowRef.self !== windowRef.top;
+    } catch (e) {
+      return true;
+    }
+  }
+  function isChromatic() {
+    return !!(
+      windowRef &&
+      (windowRef.navigator.userAgent.match(/Chromatic/) ||
+        windowRef.location.href.match(/chromatic=true/))
+    );
+  }
+  function isDev() {
+    return window.location.hostname === 'localhost';
+  }
+</script>

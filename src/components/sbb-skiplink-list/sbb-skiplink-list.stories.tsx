@@ -21,6 +21,11 @@ const titleLevel: InputType = {
   options: [2, 3, 4, 5, 6],
 };
 
+const hrefs = [
+  'https://www.sbb.ch',
+  'https://www.sbb.ch/en/help-and-contact.html',
+  'https://github.com/lyne-design-system/lyne-components',
+];
 const labelFirstLink: InputType = {
   control: {
     type: 'text',
@@ -31,8 +36,14 @@ const labelFirstLink: InputType = {
 };
 
 const hrefFirstLink: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
   },
   table: {
     category: 'Links',
@@ -49,8 +60,14 @@ const labelSecondLink: InputType = {
 };
 
 const hrefSecondLink: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
   },
   table: {
     category: 'Links',
@@ -70,9 +87,9 @@ const defaultArgs: Args = {
   'title-level': undefined,
   'title-content': undefined,
   labelFirstLink: 'To content',
-  hrefFirstLink: 'https://www.sbb.ch/',
+  hrefFirstLink: hrefFirstLink.options[0],
   labelSecondLink: 'To help',
-  hrefSecondLink: 'https://www.sbb.ch/en/help-and-contact.html',
+  hrefSecondLink: hrefSecondLink.options[1],
 };
 
 // Story interaction executed after the story renders

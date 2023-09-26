@@ -108,9 +108,16 @@ const label: InputType = {
   },
 };
 
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
   },
   table: {
     category: 'Card Action Link',
@@ -209,7 +216,7 @@ const defaultArgsAction = {
   ...defaultArgs,
   active: false,
   label: 'Click this card to follow the action.',
-  href: 'https://github.com/lyne-design-system/lyne-components',
+  href: href.options[1],
   download: false,
   target: '_blank',
   rel: undefined,
