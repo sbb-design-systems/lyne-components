@@ -1,84 +1,95 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbMenuAction } from './sbb-menu-action';
 
 describe('sbb-menu-action', () => {
-  let element: E2EElement, page: E2EPage;
+  /** NOTE: These are too hard to migrate and are prone to errors :/
+   * consider that the E2EPage is now the 'document' (you should just delete it)
+   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
+  let element: SbbMenuAction;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>');
-    element = await page.find('sbb-menu-action');
+    await fixture(html`<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>`);
+    element = document.querySelector('sbb-menu-action');
   });
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await page.waitForChanges();
-      const changeSpy = await page.spyOnEvent('click');
+      await element.updateComplete;
+      const changeSpy = new EventSpy('click');
 
       await element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(changeSpy.count).to.be.equal(1);
     });
 
     it('should not dispatch event on click if disabled', async () => {
-      element.setAttribute('disabled', true);
+      element.setAttribute('disabled', 'true');
 
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      const clickSpy = await page.spyOnEvent('click');
+      const clickSpy = new EventSpy('click');
 
-      element.triggerEvent('click', { bubbles: true, cancelable: true, composed: true });
-      expect(clickSpy).not.toHaveReceivedEvent();
+      element.dispatchEvent(
+        new CustomEvent('click', { bubbles: true, cancelable: true, composed: true }),
+      );
+      expect(clickSpy.count).not.to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Enter', async () => {
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press('Enter');
-      expect(changeSpy).toHaveReceivedEvent();
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(changeSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Space', async () => {
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press(' ');
-      expect(changeSpy).toHaveReceivedEvent();
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(changeSpy.count).to.be.greaterThan(0);
     });
 
     it('should dispatch click event on pressing Enter with href', async () => {
       element.setAttribute('href', 'test');
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press('Enter');
-      expect(changeSpy).toHaveReceivedEvent();
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: 'Enter' });
+      expect(changeSpy.count).to.be.greaterThan(0);
     });
 
     it('should not dispatch click event on pressing Space with href', async () => {
       element.setAttribute('href', 'test');
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      const changeSpy = await page.spyOnEvent('click');
-      await element.press(' ');
-      expect(changeSpy).not.toHaveReceivedEvent();
+      const changeSpy = new EventSpy('click');
+      element.focus();
+      await sendKeys({ press: ' ' });
+      expect(changeSpy.count).not.to.be.greaterThan(0);
     });
 
     it('should receive focus', async () => {
       await element.focus();
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
+      expect(document.activeElement.id).to.be.equal('focus-id');
     });
   });
 
   it('renders as a button and triggers click event', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-menu-action></sbb-menu-action>');
+    await fixture(html`<sbb-menu-action></sbb-menu-action>`);
 
-    element = await page.find('sbb-menu-action');
-    expect(element).toHaveClass('hydrated');
+    element = document.querySelector('sbb-menu-action');
+    assert.instanceOf(element, SbbMenuAction);
 
-    const clickedSpy = await element.spyOnEvent('click');
+    const clickedSpy = new EventSpy('click');
     await element.click();
     await waitForCondition(() => clickedSpy.events.length === 1);
-    expect(clickedSpy).toHaveReceivedEventTimes(1);
+    expect(clickedSpy.count).to.be.equal(1);
   });
 });
