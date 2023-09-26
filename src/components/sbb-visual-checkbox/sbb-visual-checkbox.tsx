@@ -1,45 +1,52 @@
-import { Component, ComponentInterface, h, JSX, Prop } from '@stencil/core';
+import { CSSResult, html, LitElement, TemplateResult, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import Style from './sbb-visual-checkbox.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-visual-checkbox.scss',
-  tag: 'sbb-visual-checkbox',
-})
-export class SbbVisualCheckbox implements ComponentInterface {
+@customElement('sbb-visual-checkbox')
+export class SbbVisualCheckbox extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Checked state. */
-  @Prop({ reflect: true }) public checked: boolean;
+  @property({ reflect: true, type: Boolean }) public checked: boolean;
 
   /** Disabled state. */
-  @Prop({ reflect: true }) public disabled: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled: boolean;
 
   /** Indeterminate state. */
-  @Prop({ reflect: true }) public indeterminate = false;
+  @property({ reflect: true, type: Boolean }) public indeterminate = false;
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
-  public render(): JSX.Element {
-    return (
+  protected override render(): TemplateResult {
+    return html`
       <span class="sbb-visual-checkbox">
         <span class="sbb-visual-checkbox__icon">
-          {(this.checked || this.indeterminate) && (
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d={this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          )}
+          ${this.checked || this.indeterminate
+            ? html`<svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d=${this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>`
+            : nothing}
         </span>
       </span>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-visual-checkbox': SbbVisualCheckbox;
   }
 }
