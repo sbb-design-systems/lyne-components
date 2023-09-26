@@ -17,9 +17,19 @@ const ariaLabel: InputType = {
   },
 };
 
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
+  },
+  table: {
+    category: 'Link',
   },
 };
 
@@ -66,7 +76,7 @@ export const SizeS: StoryObj = {
 export const Link: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, href: 'https://www.sbb.ch' },
+  args: { ...defaultArgs, href: href.options[1] },
 };
 
 const meta: Meta = {

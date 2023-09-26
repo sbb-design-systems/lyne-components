@@ -10,9 +10,19 @@ const text: InputType = {
   },
 };
 
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
+  },
+  table: {
+    category: 'Link',
   },
 };
 
@@ -51,7 +61,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   text: 'Breadcrumb',
-  href: 'https://github.com/lyne-design-system/lyne-components',
+  href: href.options[0],
   target: '_blank',
   rel: undefined,
   download: false,
