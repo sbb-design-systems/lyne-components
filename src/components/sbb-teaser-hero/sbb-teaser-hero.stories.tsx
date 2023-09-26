@@ -15,12 +15,19 @@ const ariaLabel: InputType = {
   },
 };
 
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
   },
   table: {
-    category: 'link',
+    category: 'Link',
   },
 };
 
@@ -79,7 +86,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   'aria-label': undefined,
-  href: 'https://www.sbb.ch',
+  href: href.options[0],
   rel: undefined,
   target: undefined,
   content: 'Break out and explore castles and palaces.',

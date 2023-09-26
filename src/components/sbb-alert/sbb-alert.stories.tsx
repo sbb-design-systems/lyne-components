@@ -90,9 +90,16 @@ const linkContent: InputType = {
   },
 };
 
+const hrefs = ['https://www.sbb.ch', 'https://github.com/lyne-design-system/lyne-components'];
 const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
   control: {
-    type: 'text',
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
   },
   table: {
     category: 'Link',
@@ -151,7 +158,7 @@ const defaultArgs: Args = {
   'content-slot-text':
     "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
   'link-content': undefined,
-  href: 'https://www.sbb.ch',
+  href: href.options[0],
   target: undefined,
   rel: undefined,
   'accessibility-label': undefined,
