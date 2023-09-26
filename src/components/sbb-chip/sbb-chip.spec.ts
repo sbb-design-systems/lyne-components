@@ -1,24 +1,19 @@
-import { SbbChip } from './sbb-chip';
-import { newSpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-chip';
 
 describe('sbb-chip', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbChip],
-      html: '<sbb-chip>Label</sbb-chip>',
-    });
+    const root: Element = await fixture(html`<sbb-chip>Label</sbb-chip>`);
 
-    expect(root).toEqualHtml(`
-        <sbb-chip color="milk" size="xxs">
-          <mock:shadow-root>
-            <span class="sbb-chip">
-              <span class="sbb-chip__text-wrapper">
-                <slot></slot>
-              </span>
-            </span>
-          </mock:shadow-root>
-          Label
-        </sbb-chip>
-      `);
+    expect(root).dom.to.be.equal(`<sbb-chip color="milk" size="xxs">Label</sbb-chip>`);
+
+    expect(root).shadowDom.to.be.equal(`
+      <span class="sbb-chip">
+        <span class="sbb-chip__text-wrapper">
+          <slot></slot>
+        </span>
+      </span>
+    `);
   });
 });
