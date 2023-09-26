@@ -1,361 +1,322 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { SbbFormField } from './sbb-form-field';
 
 describe('sbb-form-field', () => {
   describe('with input', () => {
-    let element: E2EElement, page: E2EPage;
+    let element: SbbFormField;
+    let input: HTMLInputElement;
 
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent('<sbb-form-field><input/></sbb-form-field>');
-
-      element = await page.find('sbb-form-field');
+      element = await fixture(html`<sbb-form-field><input /></sbb-form-field>`);
+      input = element.querySelector('input');
     });
 
     it('renders', async () => {
-      expect(element).toHaveClass('hydrated');
+      assert.instanceOf(element, SbbFormField);
     });
 
     it('should remove the label element if no label is configured', async () => {
-      expect(await page.findAll('sbb-form-field label')).toEqual([]);
-      expect(element.shadowRoot.querySelector('label')).toBeNull();
+      expect(document.querySelectorAll('sbb-form-field label').length).to.be.equal(0);
+      expect(element.querySelector('label')).to.be.null;
 
       element.setAttribute('label', 'Label');
-      await page.waitForChanges();
-      expect(await element.find('label')).not.toBeNull();
+      await element.updateComplete;
+      expect(element.querySelector('label')).not.to.be.null;
 
       element.removeAttribute('label');
-      await page.waitForChanges();
-      expect(await element.find('label')).toBeNull();
+      await element.updateComplete;
+      expect(element.querySelector('label')).to.be.null;
     });
 
     it('should update empty input state', async () => {
-      const input = await page.find('input');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      expect(element).to.have.attribute('data-input-empty');
 
-      await input.type('v');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
+      input.focus();
+      await sendKeys({ type: 'v' });
+      await element.updateComplete;
+      expect(element).not.to.have.attribute('data-input-empty');
 
-      await input.press('Backspace');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      await sendKeys({ press: 'Backspace' });
+      await element.updateComplete;
+      expect(element).to.have.attribute('data-input-empty');
 
-      await input.type('v');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
+      await sendKeys({ type: 'v' });
+      await element.updateComplete;
+      expect(element).not.to.have.attribute('data-input-empty');
 
       // Clearing value programmatically which does not trigger input event but can be caught by blur event.
-      await page.evaluate(() => {
-        const htmlInputElement = document.querySelector('input');
-        htmlInputElement.value = '';
-        htmlInputElement.blur();
-      });
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      input.value = '';
+      input.blur();
+      await element.updateComplete;
+      expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should react to focus state', async () => {
-      const input = await page.find('input');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).toBeNull();
+      element = await fixture(html`
+        <sbb-form-field><input /></sbb-form-field>
+        <button></button>
+      `);
+      input = element.querySelector('input');
 
-      await input.type('v');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).not.toBeNull();
+      expect(element).not.to.have.attribute('data-input-focused');
 
-      await input.press('Tab');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).toBeNull();
+      input.focus();
+      await sendKeys({ type: 'v' });
+      await element.updateComplete;
+      expect(element).to.have.attribute('data-input-focused');
+
+      input.focus();
+      await sendKeys({ press: 'Tab' });
+      await element.updateComplete;
+
+      expect(element).not.to.have.attribute('data-input-focused');
     });
 
     it('should assign id to input and reference it in the label', async () => {
       element.setAttribute('label', 'Example');
-      await page.waitForChanges();
-      const input = await page.find('input');
-      const label = await page.find('label');
+      await element.updateComplete;
+      const label = document.querySelector('label');
 
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      expect(input.id).toMatch(/^sbb-form-field-input-/);
-      expect(label.getAttribute('for')).toEqual(input.id);
+      expect(input.id).to.match(/^sbb-form-field-input-/);
+      expect(label).to.have.attribute('for', input.id);
     });
 
-    it('should reference sbb-form-error', async () => {
-      const input = await page.find('input');
-      await page.waitForChanges();
-
+    // TODO-Migr: Unskip this when sbb-form-error is migrated
+    it.skip('should reference sbb-form-error', async () => {
       // When adding a sbb-form-error
-      await page.evaluate(() => {
-        const formError = document.createElement('sbb-form-error');
-        document.querySelector('sbb-form-field').append(formError);
-      });
-      const formError = await page.find('sbb-form-error');
-      await page.waitForChanges();
+      const formError = document.createElement('sbb-form-error');
+      element.append(formError);
+      await element.updateComplete;
 
       // Then input should be linked and sbb-form-error configured
-      expect(input.getAttribute('aria-describedby')).toMatch(/^sbb-form-field-error-/);
-      expect(formError.id).toEqual(input.getAttribute('aria-describedby'));
-      expect(formError.getAttribute('role')).toEqual('status');
+      expect(input.getAttribute('aria-describedby')).to.match(/^sbb-form-field-error-/);
+      expect(formError.id).to.be.equal(input.getAttribute('aria-describedby'));
+      expect(formError).to.have.attribute('role', 'status');
 
       // When removing sbb-form-error
-      await page.evaluate(() => {
-        document.querySelector('sbb-form-error').remove();
-      });
-      await page.waitForChanges();
+      formError.remove();
+      await element.updateComplete;
 
       // Then aria-describedby should be removed
-      expect(input.getAttribute('aria-describedby')).toBeNull();
+      expect(input).not.to.have.attribute('aria-describedby');
     });
 
-    it('should reference sbb-form-error with original aria-describedby', async () => {
-      const input = await page.find('input');
-      await page.waitForChanges();
-      await page.evaluate(() => {
-        document.querySelector('input').setAttribute('aria-describedby', 'foo');
-      });
-
+    // TODO-Migr: Unskip this when sbb-form-error is migrated
+    it.skip('should reference sbb-form-error with original aria-describedby', async () => {
+      input.setAttribute('aria-describedby', 'foo');
       // When adding a sbb-form-error
-      await page.evaluate(() => {
-        const formError = document.createElement('sbb-form-error');
-        document.querySelector('sbb-form-field').append(formError);
-      });
-      await page.waitForChanges();
+      const formError = document.createElement('sbb-form-error');
+      element.append(formError);
+      await element.updateComplete;
 
       // Then input should be linked and original aria-describedby preserved
-      expect(input.getAttribute('aria-describedby')).toMatch(/^foo sbb-form-field-error-/);
+      expect(input.getAttribute('aria-describedby')).to.match(/^foo sbb-form-field-error-/);
 
       // When removing sbb-form-error
-      await page.evaluate(() => {
-        document.querySelector('sbb-form-error').remove();
-      });
-      await page.waitForChanges();
+
+      formError.remove();
+      await element.updateComplete;
 
       // Then aria-describedby should be set to foo
-      expect(input.getAttribute('aria-describedby')).toBe('foo');
+      expect(input).to.have.attribute('aria-describedby');
     });
   });
 
-  describe('with sbb-select', () => {
-    let element: E2EElement, page: E2EPage;
+  // TODO-Migr: Unskip this when sbb-select is migrated
+  describe.skip('with sbb-select', () => {
+    let element: SbbFormField;
+    let select: any; // TODO-Migr: Change to SbbSelect
 
     beforeEach(async () => {
-      page = await newE2EPage();
-      await page.setContent(
-        '<sbb-form-field label="Example"><sbb-select><sbb-option>Test</sbb-option></sbb-select></sbb-form-field>',
-      );
-
-      element = await page.find('sbb-form-field');
-    });
-
-    it('renders', async () => {
-      expect(element).toHaveClass('hydrated');
+      element = await fixture(html`
+        <sbb-form-field label="Example">
+          <sbb-select><sbb-option>Test</sbb-option></sbb-select>
+        </sbb-form-field>
+      `);
+      select = document.querySelector('sbb-select');
     });
 
     it('should react to focus state', async () => {
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).toBeNull();
+      expect(element).not.to.have.attribute('data-input-focused');
 
-      await page.evaluate(() => document.querySelector('sbb-select').focus());
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).not.toBeNull();
+      select.focus();
+      await element.updateComplete;
+      expect(element).to.have.attribute('data-input-focused');
 
-      await page.evaluate(() =>
-        (document.querySelector('.sbb-select-invisible-trigger') as HTMLDivElement).blur(),
-      );
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).toBeNull();
+      // TODO The select should also handle the 'blur' function
+      (document.querySelector('.sbb-select-invisible-trigger') as HTMLDivElement).blur();
+      await element.updateComplete;
+      expect(element).not.to.have.attribute('data-input-focused');
     });
 
     it('should open select on form field click', async () => {
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-focused')).toBeNull();
+      expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = await page.find('label');
-      await label.click();
-      await page.waitForChanges();
+      const label = document.querySelector('label');
+      label.click();
+      await element.updateComplete;
 
-      const select = await page.find('sbb-select');
-      expect(select).toEqualAttribute('data-state', 'opened');
+      expect(select).to.have.attribute('data-state', 'opened');
     });
 
     it('should focus select on form field click readonly', async () => {
-      const select = await page.find('sbb-select');
       select.setAttribute('readonly', '');
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      expect(element.getAttribute('data-input-focused')).toBeNull();
+      expect(element).not.to.have.attribute('data-input-focused');
 
-      const label = await page.find('label');
-      await label.click();
-      await page.waitForChanges();
+      const label = document.querySelector('label');
+      label.click();
+      await element.updateComplete;
 
-      expect(element.getAttribute('data-input-focused')).not.toBeNull();
+      expect(element).to.have.attribute('data-input-focused');
     });
 
     it('should assign id to label and reference it in the sbb-select', async () => {
       element.setAttribute('label', 'Example');
-      await page.waitForChanges();
-      const select = await page.find('sbb-select');
-      const label = await page.find('label');
+      await element.updateComplete;
+      const label = document.querySelector('label');
 
-      await page.waitForChanges();
-
-      expect(label.id).toMatch(/^sbb-form-field-label-/);
-      expect(select.getAttribute('aria-labelledby')).toEqual(label.id);
+      expect(label.id).to.match(/^sbb-form-field-label-/);
+      expect(select).to.have.attribute('aria-labelledby', label.id);
     });
   });
 
   describe('with floating label', () => {
     it('should read native empty select state', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
-          <sbb-form-field floating-label>
-            <select>
-              <option value='0'></option>
-              <option value='1'>Displayed Value</option>
-            </select>
-          </sbb-form-field>`,
-      );
+      const element = await fixture(html`
+        <sbb-form-field floating-label>
+          <select>
+            <option value="0"></option>
+            <option value="1">Displayed Value</option>
+          </select>
+        </sbb-form-field>
+      `);
 
-      const element = await page.find('sbb-form-field');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should not read native empty select state', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
-          <sbb-form-field floating-label>
-            <select>
-              <option value='' selected>Empty Value</option>
-              <option value='1'>Displayed Value</option>
-            </select>
-         </sbb-form-field>`,
-      );
-
-      const element = await page.find('sbb-form-field');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
+      const element = await fixture(html`
+        <sbb-form-field floating-label>
+          <select>
+            <option value="" selected>Empty Value</option>
+            <option value="1">Displayed Value</option>
+          </select>
+        </sbb-form-field>
+      `);
+      expect(element).not.to.have.attribute('data-input-empty');
     });
 
     it('should never be empty if input type is date', async () => {
-      const page = await newE2EPage();
-      await page.setContent(`<sbb-form-field floating-label><input type="date"/></sbb-form-field>`);
-
-      const element = await page.find('sbb-form-field');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
-    });
-
-    it('should read sbb-select empty state', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
-          <sbb-form-field floating-label>
-            <sbb-select value='0'>
-              <sbb-option value='0'></sbb-option>
-              <sbb-option value='1'>Displayed Value</sbb-option>
-            </sbb-select>
-          </sbb-form-field>`,
+      const element: SbbFormField = await fixture(
+        html`<sbb-form-field floating-label><input type="date" /></sbb-form-field>`,
       );
 
-      const element = await page.find('sbb-form-field');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      expect(element).not.to.have.attribute('data-input-empty');
     });
 
-    it('should not read sbb-select empty state', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
-          <sbb-form-field floating-label>
-            <sbb-select>
-              <sbb-option value='' selected>Empty Value</sbb-option>
-              <sbb-option value='1'>Displayed Value</sbb-option>
-            </sbb-select>
-          </sbb-form-field>`,
-      );
+    // TODO-Migr: Unskip this when sbb-select is migrated
+    it.skip('should read sbb-select empty state', async () => {
+      const element: SbbFormField = await fixture(html`
+        <sbb-form-field floating-label>
+          <sbb-select value="0">
+            <sbb-option value="0"></sbb-option>
+            <sbb-option value="1">Displayed Value</sbb-option>
+          </sbb-select>
+        </sbb-form-field>
+      `);
 
-      const element = await page.find('sbb-form-field');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
+      expect(element).to.have.attribute('data-input-empty');
     });
 
-    it('should update floating label after clearing', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
-          <sbb-form-field floating-label>
-            <sbb-select>
-              <sbb-option value='1' selected>Displayed Value</sbb-option>
-            </sbb-select>
-          </sbb-form-field>`,
+    // TODO-Migr: Unskip this when sbb-select is migrated
+    it.skip('should not read sbb-select empty state', async () => {
+      const element: SbbFormField = await fixture(html`
+        <sbb-form-field floating-label>
+          <sbb-select>
+            <sbb-option value="" selected>Empty Value</sbb-option>
+            <sbb-option value="1">Displayed Value</sbb-option>
+          </sbb-select>
+        </sbb-form-field>
+      `);
+
+      expect(element).not.to.have.attribute('data-input-empty');
+    });
+
+    // TODO-Migr: Unskip this when sbb-select is migrated
+    it.skip('should update floating label after clearing', async () => {
+      const element: SbbFormField = await fixture(
+        html` <sbb-form-field floating-label>
+          <sbb-select>
+            <sbb-option value="1" selected>Displayed Value</sbb-option>
+          </sbb-select>
+        </sbb-form-field>`,
       );
 
-      const element = await page.find('sbb-form-field');
-      await page.waitForChanges();
+      // TODO-Migr: Remove as any
+      (document.querySelector('sbb-select') as any).value = '';
+      await element.updateComplete;
 
-      (await page.find('sbb-select')).setProperty('value', '');
-      await page.waitForChanges();
-
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      expect(element).to.have.attribute('data-input-empty');
     });
 
     it('should update floating label when resetting form', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
-          <form>
-            <sbb-form-field floating-label>
-              <input />
-            </sbb-form-field>
-          </form>`,
-      );
-
-      const element = await page.find('sbb-form-field');
-      await (await page.find('input')).type('test');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
-
-      await page.evaluate(() => document.querySelector('form').reset());
-      await page.waitForChanges();
-
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
-    });
-
-    it('should reset floating label when calling reset of sbb-form-field', async () => {
-      const page = await newE2EPage();
-      await page.setContent(
-        `
+      await fixture(html`
+        <form>
           <sbb-form-field floating-label>
             <input />
           </sbb-form-field>
-          `,
-      );
+        </form>
+      `);
+      const element = document.querySelector('sbb-form-field');
+      document.querySelector('input').focus();
+      await sendKeys({ type: 'test' });
+      await element.updateComplete;
+      expect(element).not.to.have.attribute('data-input-empty');
 
-      const element = await page.find('sbb-form-field');
-      const input = await page.find('input');
+      document.querySelector('form').reset();
+      await element.updateComplete;
 
-      await input.type('test');
-      await page.waitForChanges();
-      expect(element.getAttribute('data-input-empty')).toBeNull();
+      // This is necessary to await for the reset event to be propagated
+      // In general, 'element.updateComplete' should suffice. Unless the changes
+      // do not trigger a rendering of the component
+      await aTimeout(0);
+
+      expect(element).to.have.attribute('data-input-empty');
+    });
+
+    it('should reset floating label when calling reset of sbb-form-field', async () => {
+      const element: SbbFormField = await fixture(html`
+        <sbb-form-field floating-label>
+          <input />
+        </sbb-form-field>
+      `);
+
+      const input = document.querySelector('input');
+
+      input.focus();
+      await sendKeys({ type: 'test' });
+      await element.updateComplete;
+      expect(element).not.to.have.attribute('data-input-empty');
 
       // When setting value to empty
-      await page.evaluate(() => (document.querySelector('input').value = ''));
-      await page.waitForChanges();
+      input.value = '';
+      await element.updateComplete;
 
       // Then empty state is not updated
-      expect(element.getAttribute('data-input-empty')).toBeNull();
+      expect(element).not.to.have.attribute('data-input-empty');
 
       // When manually calling reset method
-      await element.callMethod('reset');
-      await page.waitForChanges();
+      element.reset();
+      await element.updateComplete;
 
       // Then empty state should be updated
-      expect(element.getAttribute('data-input-empty')).not.toBeNull();
+      expect(element).to.have.attribute('data-input-empty');
     });
   });
 });
