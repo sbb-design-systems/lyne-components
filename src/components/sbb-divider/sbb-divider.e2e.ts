@@ -1,13 +1,10 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbDivider } from './sbb-divider';
 
 describe('sbb-divider', () => {
-  let element, page;
-
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-divider></sbb-divider>');
-
-    element = await page.find('sbb-divider');
-    expect(element).toHaveClass('hydrated');
+    const element: SbbDivider = await fixture(html`<sbb-divider></sbb-divider>`);
+    assert.instanceOf(element, SbbDivider);
   });
 });
