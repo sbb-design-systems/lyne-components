@@ -16,14 +16,7 @@ describe('sbb-menu', () => {
     await fixture(html`
       <sbb-button id="menu-trigger">Menu trigger</sbb-button>
       <sbb-menu id="menu" trigger="menu-trigger" disable-animation>
-        <sbb-link
-          id="menu-link"
-          href="https://www.sbb.ch/en"
-          size="xs"
-          variant="block"
-          target="_blank"
-          >Profile</sbb-link
-        >
+        <sbb-link id="menu-link" href="#" size="xs" variant="block">Profile</sbb-link>
         <sbb-menu-action id="menu-action-1" icon="tick-small">View</sbb-menu-action>
         <sbb-menu-action id="menu-action-2" icon="pen-small" amount="1" disabled
           >Edit</sbb-menu-action
