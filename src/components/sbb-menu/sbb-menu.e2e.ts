@@ -171,7 +171,7 @@ describe('sbb-menu', () => {
     expect(dialog).not.to.have.attribute('open');
   });
 
-  it.skip('is correctly positioned on desktop', async () => {
+  it('is correctly positioned on desktop', async () => {
     const willOpenEventSpy = new EventSpy(events.willOpen);
     const didOpenEventSpy = new EventSpy(events.didOpen);
     await setViewport({ width: 1200, height: 800 });
@@ -205,7 +205,7 @@ describe('sbb-menu', () => {
     expect(element.shadowRoot.querySelector('dialog').offsetLeft).to.be.equal(0);
   });
 
-  it.skip('is correctly positioned on mobile', async () => {
+  it('is correctly positioned on mobile', async () => {
     const willOpenEventSpy = new EventSpy(events.willOpen);
     const didOpenEventSpy = new EventSpy(events.didOpen);
 
