@@ -1,4 +1,4 @@
-import { aTimeout, assert, expect, fixture } from '@open-wc/testing';
+import { aTimeout, assert, expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { SbbFormField } from './sbb-form-field';
@@ -85,15 +85,17 @@ describe('sbb-form-field', () => {
       expect(label).to.have.attribute('for', input.id);
     });
 
-    // TODO-Migr: Unskip this when sbb-form-error is migrated
-    it.skip('should reference sbb-form-error', async () => {
+    it('should reference sbb-form-error', async () => {
       // When adding a sbb-form-error
       const formError = document.createElement('sbb-form-error');
       element.append(formError);
       await element.updateComplete;
+      await nextFrame();
 
       // Then input should be linked and sbb-form-error configured
-      expect(input.getAttribute('aria-describedby')).to.match(/^sbb-form-field-error-/);
+      expect(input)
+        .to.have.attribute('aria-describedby')
+        .match(/^sbb-form-field-error-/);
       expect(formError.id).to.be.equal(input.getAttribute('aria-describedby'));
       expect(formError).to.have.attribute('role', 'status');
 
@@ -105,16 +107,18 @@ describe('sbb-form-field', () => {
       expect(input).not.to.have.attribute('aria-describedby');
     });
 
-    // TODO-Migr: Unskip this when sbb-form-error is migrated
-    it.skip('should reference sbb-form-error with original aria-describedby', async () => {
+    it('should reference sbb-form-error with original aria-describedby', async () => {
       input.setAttribute('aria-describedby', 'foo');
       // When adding a sbb-form-error
       const formError = document.createElement('sbb-form-error');
       element.append(formError);
       await element.updateComplete;
+      await nextFrame();
 
       // Then input should be linked and original aria-describedby preserved
-      expect(input.getAttribute('aria-describedby')).to.match(/^foo sbb-form-field-error-/);
+      expect(input)
+        .to.have.attribute('aria-describedby')
+        .match(/^foo sbb-form-field-error-/);
 
       // When removing sbb-form-error
 
