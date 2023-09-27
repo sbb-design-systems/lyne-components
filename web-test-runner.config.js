@@ -7,6 +7,9 @@ import { existsSync } from 'fs';
 import glob from 'glob';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import * as sass from 'sass';
+
+const globalCss = sass.compile('./src/global/styles/global.scss', { loadPaths: ['.'] });
 
 const specFiles = glob
   .sync('src/components/*/*.spec.ts', {
@@ -32,7 +35,7 @@ const browsers = process.env.CI
       // }),
 
       // In dev, we prefer to use puppeteer because has a better behavior in debug mode
-      puppeteerLauncher({ concurrency: 1, launchOptions: { headless: 'new', devtools: true } }),
+      puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } }),
     ];
 
 // TODO: Revert to glob rules after migration
@@ -52,4 +55,21 @@ export default {
       }),
     }),
   ],
+  testFramework: {
+    config: {
+      timeout: '3000',
+      slow: '1000',
+      failZero: true,
+    },
+  },
+  testRunnerHtml: (testFramework) => `
+    <html>
+      <head>
+        <style type="text/css">${globalCss.css}</style>
+      </head>
+      <body>
+        <script type="module" src="${testFramework}"></script>
+      </body>
+    </html>
+  `,
 };
