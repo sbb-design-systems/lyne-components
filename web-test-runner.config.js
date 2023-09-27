@@ -52,4 +52,11 @@ export default {
       }),
     }),
   ],
+  testFramework: {
+    config: {
+      timeout: '3000',
+      slow: '1000',
+      failZero: true,
+    },
+  },
 };
