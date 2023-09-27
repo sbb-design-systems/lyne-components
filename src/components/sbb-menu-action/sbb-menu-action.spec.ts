@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import './sbb-menu-action';
 
 describe('sbb-menu-action', () => {
   it('renders component as button', async () => {
@@ -12,7 +13,6 @@ describe('sbb-menu-action', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-menu-action form="formid" name="name" type="submit" role="button" tabindex="0" dir="ltr">
-
           <span>Action</span>
         </sbb-menu-action>
       `,
@@ -48,32 +48,31 @@ describe('sbb-menu-action', () => {
     expect(root).dom.to.be.equal(
       `
         <sbb-menu-action amount="123456" icon-name="menu-small" href="https://github.com/lyne-design-system/lyne-components" target="_blank" role="link" tabindex="0" dir="ltr">
-
           <span>Action</span>
         </sbb-menu-action>
       `,
     );
     expect(root).shadowDom.to.be.equal(
       `
-            <a class="sbb-menu-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank" role="presentation" tabindex="-1">
-              <span class="sbb-menu-action__content">
-                <span class="sbb-menu-action__icon">
-                  <slot name="icon">
-                    <sbb-icon name='menu-small'/>
-                  </slot>
-                </span>
-                <span class="sbb-menu-action__label">
-                  <slot></slot>
-                </span>
-                <span class="sbb-menu-action__amount">
-                  123456
-                </span>
-              </span>
-              <span class="sbb-menu-action__opens-in-new-window">
-                . Link target opens in new window.
-              </span>
-            </a>
-          `,
+        <a class="sbb-menu-action" href="https://github.com/lyne-design-system/lyne-components" rel="external noopener nofollow" target="_blank" role="presentation" tabindex="-1">
+          <span class="sbb-menu-action__content">
+            <span class="sbb-menu-action__icon">
+              <slot name="icon">
+                <sbb-icon name='menu-small'/>
+              </slot>
+            </span>
+            <span class="sbb-menu-action__label">
+              <slot></slot>
+            </span>
+            <span class="sbb-menu-action__amount">
+              123456
+            </span>
+          </span>
+          <span class="sbb-menu-action__opens-in-new-window">
+            . Link target opens in new window.
+          </span>
+        </a>
+      `,
     );
   });
 });

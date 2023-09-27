@@ -51,7 +51,7 @@ describe('sbb-menu-action', () => {
     });
 
     it('should dispatch click event on pressing Enter with href', async () => {
-      element.setAttribute('href', 'test');
+      element.setAttribute('href', '#');
       await element.updateComplete;
 
       const changeSpy = new EventSpy('click');
@@ -61,7 +61,7 @@ describe('sbb-menu-action', () => {
     });
 
     it('should not dispatch click event on pressing Space with href', async () => {
-      element.setAttribute('href', 'test');
+      element.setAttribute('href', '#');
       await element.updateComplete;
 
       const changeSpy = new EventSpy('click');
