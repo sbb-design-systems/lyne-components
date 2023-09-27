@@ -1,9 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md';
-import type { Meta, StoryContext, StoryObj } from '@storybook/html';
+import type { Meta, StoryContext, StoryObj } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
-import { Args, ArgTypes } from '@storybook/html';
+import { Args, ArgTypes } from '@storybook/web-components';
+import './sbb-form-error';
 
 const wrapperStyle = (context: StoryContext): Record<string, string> => ({
   'background-color': context.args.negative
