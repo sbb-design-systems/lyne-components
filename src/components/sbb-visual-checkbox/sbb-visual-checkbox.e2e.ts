@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbVisualCheckbox } from './sbb-visual-checkbox';
 
-describe('sbb-visual-checkbox', () => {
-  let element: E2EElement, page: E2EPage;
-
-  it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-visual-checkbox></sbb-visual-checkbox>');
-
-    element = await page.find('sbb-visual-checkbox');
-    expect(element).toHaveClass('hydrated');
+describe('sbb-visual-checkbox', (): void => {
+  it('renders', async (): Promise<void> => {
+    const element: SbbVisualCheckbox = await fixture(
+      html`<sbb-visual-checkbox></sbb-visual-checkbox>`,
+    );
+    assert.instanceOf(element, SbbVisualCheckbox);
   });
 });
