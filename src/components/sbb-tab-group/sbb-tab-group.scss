@@ -5,7 +5,7 @@
 @include sbb.host-component-properties;
 
 .tab-group {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
 }
 
