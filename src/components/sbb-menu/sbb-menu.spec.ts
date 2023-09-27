@@ -5,22 +5,22 @@ import { html } from 'lit/static-html.js';
 
 describe('sbb-menu', () => {
   it('renders', async () => {
-    const root = await fixture(
-      html` <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-        <sbb-menu trigger="menu-trigger">
-          <sbb-link href="https://www.sbb.ch/en" variant="block">Profile</sbb-link>
-          <sbb-menu-action icon="tick-small">View</sbb-menu-action>
-          <sbb-menu-action icon="pen-small" amount="1" disabled>Edit</sbb-menu-action>
-          <sbb-menu-action icon="swisspass-small" amount="2">Details</sbb-menu-action>
-          <sbb-divider />
-          <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
-        </sbb-menu>`,
-    );
+    await fixture(html`
+      <sbb-button id="menu-trigger">Menu trigger</sbb-button>
+      <sbb-menu trigger="menu-trigger">
+        <sbb-link href="https://www.sbb.ch/en" variant="block">Profile</sbb-link>
+        <sbb-menu-action icon="tick-small">View</sbb-menu-action>
+        <sbb-menu-action icon="pen-small" amount="1" disabled>Edit</sbb-menu-action>
+        <sbb-menu-action icon="swisspass-small" amount="2">Details</sbb-menu-action>
+        <sbb-divider />
+        <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
+      </sbb-menu>
+    `);
+    const menu = document.querySelector('sbb-menu');
 
-    expect(root).dom.to.be.equal(
+    expect(menu).dom.to.be.equal(
       `
       <sbb-menu trigger="menu-trigger" data-state="closed" id="sbb-menu-1">
-
         <sbb-link href="https://www.sbb.ch/en" variant="block">
           Profile
         </sbb-link>
@@ -41,7 +41,7 @@ describe('sbb-menu', () => {
       </sbb-menu>
     `,
     );
-    expect(root).shadowDom.to.be.equal(
+    expect(menu).shadowDom.to.be.equal(
       `
           <div class="sbb-menu__container">
             <dialog class="sbb-menu" role="presentation">
@@ -55,7 +55,7 @@ describe('sbb-menu', () => {
   });
 
   it('renders with list', async () => {
-    const root = await fixture(
+    await fixture(
       html` <sbb-button id="menu-trigger">Menu trigger</sbb-button>
         <sbb-menu trigger="menu-trigger">
           <sbb-menu-action icon="tick-small">View</sbb-menu-action>
@@ -64,10 +64,11 @@ describe('sbb-menu', () => {
           <sbb-menu-action icon="cross-small">Cancel</sbb-menu-action>
         </sbb-menu>`,
     );
+    const menu = document.querySelector('sbb-menu');
 
-    expect(root).dom.to.be.equal(
+    expect(menu).dom.to.be.equal(
       `
-    <sbb-menu data-state="closed" id="sbb-menu-2" trigger="menu-trigger">
+    <sbb-menu data-state="closed" id="sbb-menu-4" trigger="menu-trigger">
 
       <sbb-menu-action icon="tick-small" slot="action-0">
         View
@@ -84,12 +85,12 @@ describe('sbb-menu', () => {
     </sbb-menu>
     `,
     );
-    expect(root).shadowDom.to.be.equal(
+    expect(menu).shadowDom.to.be.equal(
       `
         <div class="sbb-menu__container">
           <dialog class="sbb-menu" role="presentation">
             <div class="sbb-menu__content">
-              <ul class="sbb-menu-list">
+              <ul aria-label="" class="sbb-menu-list">
                 <li>
                   <slot name="action-0"></slot>
                 </li>
