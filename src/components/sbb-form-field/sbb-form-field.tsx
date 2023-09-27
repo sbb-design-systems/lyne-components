@@ -1,6 +1,6 @@
 import { i18nOptional } from '../../global/i18n';
 import { AgnosticMutationObserver } from '../../global/observers';
-import { isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { isFirefox, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
@@ -418,6 +418,9 @@ export class SbbFormField extends LitElement {
         // Instead of defining a container with an aria-live region as expected, we had to change
         // setting it for every slotted element to properly work in all browsers and screen reader combinations.
         el.role = 'status';
+        if (isFirefox()) {
+          el.setAttribute('role', 'status');
+        }
       }
     }
     this._applyAriaDescribedby();
