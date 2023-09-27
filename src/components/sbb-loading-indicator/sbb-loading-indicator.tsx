@@ -13,6 +13,10 @@ export class SbbLoadingIndicator implements ComponentInterface {
   /** Size variant, either s or m. */
   @Prop({ reflect: true }) public size: InterfaceSbbLoadingIndicatorAttributes['size'] = 's';
 
+  /** Color variant. */
+  @Prop({ reflect: true }) public color: InterfaceSbbLoadingIndicatorAttributes['color'] =
+    'default';
+
   /** Whether the animation is enabled. */
   @Prop({ reflect: true }) public disableAnimation = false;
 
