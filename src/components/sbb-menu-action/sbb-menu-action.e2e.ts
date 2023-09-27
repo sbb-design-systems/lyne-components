@@ -6,9 +6,6 @@ import { EventSpy } from '../../global/testing/event-spy';
 import { SbbMenuAction } from './sbb-menu-action';
 
 describe('sbb-menu-action', () => {
-  /** NOTE: These are too hard to migrate and are prone to errors :/
-   * consider that the E2EPage is now the 'document' (you should just delete it)
-   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
   let element: SbbMenuAction;
 
   beforeEach(async () => {

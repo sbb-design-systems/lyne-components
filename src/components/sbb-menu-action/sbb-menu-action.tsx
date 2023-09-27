@@ -13,12 +13,12 @@ import {
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-menu-action.scss?lit&inline';
-import { unsafeStatic } from 'lit/static-html';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
@@ -98,7 +98,7 @@ export class SbbMenuAction extends LitElement implements LinkButtonProperties {
         <span class="sbb-menu-action__content">
           <span class="sbb-menu-action__icon">
             <slot name="icon"
-              >${this.iconName ? html`<sbb-icon name="{this.iconName}" />` : nothing}</slot
+              >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
             >
           </span>
           <span class="sbb-menu-action__label">
