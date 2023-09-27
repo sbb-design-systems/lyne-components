@@ -145,7 +145,6 @@ export class SbbFormField extends LitElement {
     this.addEventListener('will-open', (e) => this._onPopupOpen(e), { signal });
     this.addEventListener('did-close', (e) => this._onPopupClose(e), { signal });
     this._handlerRepository.connect();
-    // this._renderLabel(this.label);
     this._registerInputListener();
     this._syncNegative();
   }
