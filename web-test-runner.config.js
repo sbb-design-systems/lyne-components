@@ -7,6 +7,9 @@ import { existsSync } from 'fs';
 import glob from 'glob';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import * as sass from 'sass';
+
+const globalCss = sass.compile('./src/global/styles/global.scss', { loadPaths: ['.'] });
 
 const specFiles = glob
   .sync('src/components/*/*.spec.ts', {
@@ -59,4 +62,14 @@ export default {
       failZero: true,
     },
   },
+  testRunnerHtml: (testFramework) => `
+    <html>
+      <head>
+        <style type="text/css">${globalCss.css}</style>
+      </head>
+      <body>
+        <script type="module" src="${testFramework}"></script>
+      </body>
+    </html>
+  `,
 };
