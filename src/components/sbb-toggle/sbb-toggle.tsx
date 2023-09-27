@@ -1,70 +1,80 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Prop,
-  Watch,
-} from '@stencil/core';
 import { InterfaceSbbToggleAttributes } from './sbb-toggle.custom';
 import { ToggleOptionStateChange } from '../sbb-toggle-option/sbb-toggle-option.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { toggleDatasetEntry } from '../../global/dom';
 import { AgnosticResizeObserver } from '../../global/observers';
+import { html, LitElement, PropertyValues, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { EventEmitter, ConnectedAbortController } from '../../global/eventing';
+import { SbbToggleOption } from '../sbb-toggle-option/index';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-toggle.scss?lit&inline';
 
 /**
  * @slot unnamed - Slot used to render the `<sbb-toggle-option>`.
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-toggle.scss',
-  tag: 'sbb-toggle',
-})
-export class SbbToggle implements ComponentInterface {
+export const events = {
+  didChange: 'did-change',
+  change: 'change',
+};
+
+@customElement('sbb-toggle')
+export class SbbToggle extends LitElement {
+  public static override styles = Style;
+
   /**
    * Whether the toggle is disabled.
    */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean })
+  public get disabled(): boolean {
+    return this._disabled;
+  }
+  public set disabled(value: boolean) {
+    // TODO: Validate logic
+    const oldValue = this._disabled;
+    this._disabled = value;
+    this._updateDisabled();
+    this.requestUpdate('disabled', oldValue);
+  }
+  private _disabled: boolean = false;
 
   /**
    * If true set the width of the component fixed; if false the width is dynamic based on the label of the sbb-toggle-option.
    */
-  @Prop({ reflect: true }) public even: boolean;
+  @property({ reflect: true, type: Boolean }) public even: boolean;
 
   /**
    * Size variant, either m or s.
    */
-  @Prop({ reflect: true }) public size?: InterfaceSbbToggleAttributes['size'] = 'm';
+  @property({ reflect: true }) public size?: InterfaceSbbToggleAttributes['size'] = 'm';
 
   /**
    * The value of the toggle. It needs to be mutable since it is updated whenever
    * a new option is selected (see the `onToggleOptionSelect()` method).
    */
-  @Prop({ mutable: true }) public value: any | null;
+  @property()
+  public value: any | null;
 
   /**
    * Whether the animation is enabled.
    */
-  @Prop({ reflect: true }) public disableAnimation = false;
-
-  @Element() private _element: HTMLElement;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   private _toggleElement: HTMLElement;
   private _toggleResizeObserver = new AgnosticResizeObserver(() =>
     this._setCheckedPillPosition(true),
   );
 
-  @Watch('value')
-  public valueChanged(value: any | undefined): void {
-    const selectedOption = this._options.find((o) => o.value === value) ?? this._options[0];
+  private _valueChanged(value: any | undefined): void {
+    const selectedOption =
+      this._options.find((o) => o.value === value) ??
+      this._options.find((o) => o.checked) ??
+      this._options[0];
     if (!selectedOption) {
-      console.warn(`sbb-toggle: No available options! (${this._element.id || 'No id'})`);
+      console.warn(`sbb-toggle: No available options! (${this.id || 'No id'})`);
       return;
     }
     if (!selectedOption.checked) {
@@ -76,8 +86,7 @@ export class SbbToggle implements ComponentInterface {
     this._setCheckedPillPosition(false);
   }
 
-  @Watch('disabled')
-  public updateDisabled(): void {
+  private _updateDisabled(): void {
     for (const toggleOption of this._options) {
       toggleOption.disabled = this.disabled;
     }
@@ -87,35 +96,32 @@ export class SbbToggle implements ComponentInterface {
    * Emits whenever the radio group value changes.
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  @Event({
+
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
     bubbles: true,
     composed: true,
-  })
-  public didChange: EventEmitter;
+  });
 
   /**
    * Emits whenever the radio group value changes.
    */
-  @Event({
+
+  private _change: EventEmitter = new EventEmitter(this, events.change, {
     bubbles: true,
     composed: true,
-  })
-  public change: EventEmitter;
+  });
 
-  private get _options(): HTMLSbbToggleOptionElement[] {
-    return Array.from(
-      this._element.querySelectorAll('sbb-toggle-option'),
-    ) as HTMLSbbToggleOptionElement[];
+  private get _options(): SbbToggleOption[] {
+    return Array.from(this.querySelectorAll('sbb-toggle-option')) as SbbToggleOption[];
   }
 
-  @Listen('input', { passive: true })
-  public handleInput(): void {
+  private _handleInput(): void {
     this._emitChange();
   }
+  private _abort = new ConnectedAbortController(this);
 
-  @Listen('state-change', { passive: true })
-  public handleStateChange(event: CustomEvent<ToggleOptionStateChange>): void {
-    const target: HTMLSbbToggleOptionElement = event.target as HTMLSbbToggleOptionElement;
+  private _handleStateChange(event: CustomEvent<ToggleOptionStateChange>): void {
+    const target: SbbToggleOption = event.target as SbbToggleOption;
     event.stopPropagation();
     if (event.detail.type === 'value') {
       this.value = event.detail.value;
@@ -146,7 +152,7 @@ export class SbbToggle implements ComponentInterface {
       return;
     }
 
-    toggleDatasetEntry(this._element, 'disableAnimationOnResizing', resizing);
+    toggleDatasetEntry(this, 'disableAnimationOnResizing', resizing);
 
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
@@ -155,31 +161,49 @@ export class SbbToggle implements ComponentInterface {
       ? `${this._toggleElement.clientWidth - firstOption.clientWidth}px`
       : '0px';
 
-    this._element.style.setProperty('--sbb-toggle-option-left', pillLeft);
-    this._element.style.setProperty('--sbb-toggle-option-right', pillRight);
+    this.style.setProperty('--sbb-toggle-option-left', pillLeft);
+    this.style.setProperty('--sbb-toggle-option-right', pillRight);
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('input', () => this._handleInput(), { signal, passive: true });
+    this.addEventListener(
+      'state-change',
+      (e) => this._handleStateChange(e as CustomEvent<ToggleOptionStateChange>),
+      {
+        signal,
+        passive: true,
+      },
+    );
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
     this._options.forEach((option) => this._toggleResizeObserver.observe(option));
     this._updateToggle();
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('value')) {
+      this._valueChanged(this.value);
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._toggleResizeObserver.disconnect();
   }
 
   private _updateToggle(): void {
-    this.valueChanged(this.value);
-    this.updateDisabled();
+    this._valueChanged(this.value);
+    this._updateDisabled();
   }
 
   private _emitChange(): void {
-    this.change.emit();
-    this.didChange.emit();
+    this._change.emit();
+    this._didChange.emit();
   }
 
-  @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
+  private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledToggleOptions = this._options?.filter(
       (t) => !t.disabled && interactivityChecker.isVisible(t),
     );
@@ -187,15 +211,14 @@ export class SbbToggle implements ComponentInterface {
     if (
       !enabledToggleOptions ||
       // don't trap nested handling
-      ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element)
+      ((evt.target as HTMLElement) !== this && (evt.target as HTMLElement).parentElement !== this)
     ) {
       return;
     }
 
     if (isArrowKeyPressed(evt)) {
       const checked: number = enabledToggleOptions.findIndex(
-        (toggleOption: HTMLSbbToggleOptionElement) => toggleOption.checked,
+        (toggleOption: SbbToggleOption) => toggleOption.checked,
       );
       const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
       if (!enabledToggleOptions[nextIndex].checked) {
@@ -209,13 +232,19 @@ export class SbbToggle implements ComponentInterface {
     }
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host role="radiogroup">
-        <div class="sbb-toggle" ref={(toggle) => (this._toggleElement = toggle)}>
-          <slot onSlotchange={() => this._updateToggle()} />
-        </div>
-      </Host>
-    );
+  protected override render(): TemplateResult {
+    setAttribute(this, 'role', 'radiogroup');
+    return html`
+      <div class="sbb-toggle" ${ref((toggle) => (this._toggleElement = toggle as HTMLElement))}>
+        <slot @slotchange=${() => this._updateToggle()}></slot>
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-toggle': SbbToggle;
   }
 }
