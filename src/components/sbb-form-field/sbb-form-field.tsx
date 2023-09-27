@@ -1,28 +1,20 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Fragment,
-  h,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  State,
-  Watch,
-} from '@stencil/core';
 import { i18nOptional } from '../../global/i18n';
-import { InterfaceSbbFormFieldAttributes } from './sbb-form-field.custom';
 import { AgnosticMutationObserver } from '../../global/observers';
-import { isValidAttribute, toggleDatasetEntry } from '../../global/dom';
+import { isFirefox, isValidAttribute, toggleDatasetEntry } from '../../global/dom';
 import {
   createNamedSlotState,
   documentLanguage,
   HandlerRepository,
   languageChangeHandlerAspect,
   namedSlotChangeHandlerAspect,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import { SbbInputModality, sbbInputModalityDetector } from '../../global/a11y';
+import { CSSResult, html, LitElement, nothing, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-form-field.scss?lit&inline';
+//import { SbbSelect } from '../sbb-select'; TODO-Migr: Uncomment when the sbb-select has been migrated
+import '../sbb-icon';
 
 let nextId = 0;
 let nextFormFieldErrorId = 0;
@@ -36,12 +28,10 @@ const supportedPopupTagNames = ['SBB-AUTOCOMPLETE', 'SBB-SELECT'];
  * @slot suffix - Slot to render an icon on the right side of the input.
  * @slot error - Slot to render an error.
  */
-@Component({
-  shadow: true,
-  styleUrl: './sbb-form-field.scss',
-  tag: 'sbb-form-field',
-})
-export class SbbFormField implements ComponentInterface {
+@customElement('sbb-form-field')
+export class SbbFormField extends LitElement {
+  public static override styles: CSSResult = Style;
+
   private readonly _supportedNativeInputElements = ['INPUT', 'SELECT'];
   // List of supported element selectors in unnamed slot
   private readonly _supportedInputElements = [
@@ -69,47 +59,46 @@ export class SbbFormField implements ComponentInterface {
    * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
-  @Prop({ reflect: true }) public errorSpace?: InterfaceSbbFormFieldAttributes['errorSpace'] =
-    'none';
+  @property({ attribute: 'error-space', reflect: true })
+  public errorSpace?: 'none' | 'reserve' = 'none';
 
   /**
    * Label text for the input which is internally rendered as `<label>`.
    */
-  @Prop() public label: string;
+  @property() public label: string;
 
   /**
    * Indicates whether the input is optional.
    */
-  @Prop() public optional?: boolean;
+  @property({ type: Boolean }) public optional?: boolean;
 
   /**
    * Size variant, either l or m.
    */
-  @Prop({ reflect: true }) public size?: InterfaceSbbFormFieldAttributes['size'] = 'm';
+  @property({ reflect: true }) public size?: 'l' | 'm' = 'm';
 
   /**
    * Whether to display the form field without a border.
    */
-  @Prop({ reflect: true }) public borderless = false;
+  @property({ reflect: true, type: Boolean }) public borderless = false;
 
   /** Defines the width of the component:
    * - `default`: the component has defined width and min-width;
    * - `collapse`: the component adapts itself to its inner input content. */
-  @Prop({ reflect: true }) public width: 'default' | 'collapse' = 'default';
+  @property({ reflect: true }) public width: 'default' | 'collapse' = 'default';
 
   /** Whether the label should float. If activated, the placeholder of the input is hidden. */
-  @Prop({ reflect: true }) public floatingLabel = false;
+  @property({ attribute: 'floating-label', reflect: true, type: Boolean }) public floatingLabel =
+    false;
 
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
   /** It is used internally to get the `error` slot. */
-  @State() private _errorElements: Element[] = [];
+  @state() private _errorElements: Element[] = [];
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('label');
-
-  @Element() private _element!: HTMLElement;
+  @state() private _namedSlots = createNamedSlotState('label');
 
   /** Original aria-describedby value of the slotted input element. */
   private _originalInputAriaDescribedby?: string;
@@ -117,16 +106,22 @@ export class SbbFormField implements ComponentInterface {
   /**
    * Get the document language; used for translations.
    */
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   /** Reference to the slotted input element. */
-  @State() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
+  @state() private _input?: HTMLInputElement | HTMLSelectElement | HTMLElement;
 
   /** Reference to the slotted label elements. */
-  @State() private _label?: HTMLLabelElement;
+  @state() private _label?: HTMLLabelElement;
 
+  /** Returns the input element. */
+  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement {
+    return this._input;
+  }
+
+  private _abort = new ConnectedAbortController(this);
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
@@ -144,51 +139,61 @@ export class SbbFormField implements ComponentInterface {
 
   private _inputAbortController = new AbortController();
 
-  public async connectedCallback(): Promise<void> {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('will-open', (e) => this._onPopupOpen(e), { signal });
+    this.addEventListener('did-close', (e) => this._onPopupClose(e), { signal });
     this._handlerRepository.connect();
-    this.renderLabel(this.label);
-    await this._registerInputListener();
+    this._registerInputListener();
     this._syncNegative();
   }
 
-  public disconnectedCallback(): void {
+  public override willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('label')) {
+      this._renderLabel(this.label);
+    }
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
     this._formFieldAttributeObserver.disconnect();
     this._inputAbortController.abort();
   }
 
-  @Watch('label')
-  public renderLabel(newValue: string): void {
-    let labelElement: HTMLLabelElement | undefined = Array.from(this._element.children).find(
+  private _renderLabel(newValue: string): void {
+    let labelElement: HTMLLabelElement | undefined = Array.from(this.children).find(
       (element) => element.tagName === 'LABEL',
     ) as HTMLLabelElement | undefined;
-    if (!newValue && labelElement?.dataset.creator === this._element.tagName) {
+    if (!newValue && labelElement?.dataset.creator === this.tagName) {
       labelElement.remove();
     } else if (
-      labelElement?.dataset.creator === this._element.tagName &&
+      labelElement?.dataset.creator === this.tagName &&
       labelElement.textContent !== newValue
     ) {
       labelElement.textContent = newValue;
     } else if (!labelElement && newValue) {
-      labelElement = this._element.ownerDocument.createElement('label');
-      labelElement.dataset.creator = this._element.tagName;
+      labelElement = this.ownerDocument.createElement('label');
+      labelElement.dataset.creator = this.tagName;
       labelElement.setAttribute('slot', 'label');
       labelElement.textContent = newValue;
-      this._element.insertBefore(labelElement, this._element.firstChild);
+      this.insertBefore(labelElement, this.firstChild);
     }
   }
 
-  @Listen('will-open')
-  public onPopupOpen({ target }): void {
+  private _onPopupOpen({ target }): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
-      toggleDatasetEntry(this._element, 'hasPopupOpen', true);
+      toggleDatasetEntry(this, 'hasPopupOpen', true);
     }
   }
 
-  @Listen('did-close')
-  public onPopupClose({ target }): void {
+  private _onPopupClose({ target }): void {
     if (supportedPopupTagNames.includes((target as HTMLElement).nodeName)) {
-      toggleDatasetEntry(this._element, 'hasPopupOpen', false);
+      toggleDatasetEntry(this, 'hasPopupOpen', false);
     }
   }
 
@@ -216,15 +221,15 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _onSlotLabelChange(): void {
-    let labels = Array.from(this._element.querySelectorAll('label'));
-    const createdLabel = labels.find((l) => l.dataset.creator === this._element.tagName);
+    let labels = Array.from(this.querySelectorAll('label'));
+    const createdLabel = labels.find((l) => l.dataset.creator === this.tagName);
     if (labels.length > 1 && createdLabel) {
       createdLabel.remove();
       labels = labels.filter((l) => l !== createdLabel);
     }
     if (labels.length > 1) {
       console.warn(
-        `Detected more than one label in sbb-form-field#${this._element.id}. Only one label is supported.`,
+        `Detected more than one label in sbb-form-field#${this.id}. Only one label is supported.`,
       );
     }
     this._label = labels[0];
@@ -234,7 +239,7 @@ export class SbbFormField implements ComponentInterface {
   /**
    * It is used internally to assign the attributes of `<input>` to `_id` and `_input` and to observe the native readonly and disabled attributes.
    */
-  private async _onSlotInputChange(event: Event): Promise<void> {
+  private _onSlotInputChange(event: Event): void {
     this._input = (event.target as HTMLSlotElement)
       .assignedElements()
       .find((e): e is HTMLElement => this._supportedInputElements.includes(e.tagName));
@@ -247,14 +252,14 @@ export class SbbFormField implements ComponentInterface {
     this._originalInputAriaDescribedby = this._input.getAttribute('aria-describedby');
     this._applyAriaDescribedby();
     this._readInputState();
-    await this._registerInputListener();
+    this._registerInputListener();
 
     this._formFieldAttributeObserver.disconnect();
     this._formFieldAttributeObserver.observe(this._input, {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'class', 'data-sbb-invalid'],
     });
-    this._element.dataset.inputType = this._input.tagName.toLowerCase();
+    this.dataset.inputType = this._input.tagName.toLowerCase();
     this._syncLabelInputReferences();
   }
 
@@ -286,13 +291,13 @@ export class SbbFormField implements ComponentInterface {
     }
   }
 
-  private async _registerInputListener(): Promise<void> {
+  private _registerInputListener(): void {
     if (!this._input) {
       return;
     }
     this._inputAbortController.abort();
     this._inputAbortController = new AbortController();
-    await this._checkAndUpdateInputEmpty();
+    this._checkAndUpdateInputEmpty();
 
     // Timeout needed to have value updated
     this._getInputForm()?.addEventListener('reset', () => setTimeout(() => this.reset()), {
@@ -314,14 +319,14 @@ export class SbbFormField implements ComponentInterface {
         signal: this._inputAbortController.signal,
       });
 
-      inputFocusElement = this._element.querySelector('.sbb-select-invisible-trigger');
+      inputFocusElement = this.querySelector('.sbb-select-invisible-trigger');
     }
 
     inputFocusElement.addEventListener(
       'focusin',
       () => {
-        toggleDatasetEntry(this._element, 'inputFocused', true);
-        (this._element.dataset.focusOrigin as SbbInputModality) =
+        toggleDatasetEntry(this, 'inputFocused', true);
+        (this.dataset.focusOrigin as SbbInputModality) =
           sbbInputModalityDetector.mostRecentModality;
       },
       {
@@ -332,8 +337,8 @@ export class SbbFormField implements ComponentInterface {
     inputFocusElement.addEventListener(
       'focusout',
       () => {
-        delete this._element.dataset.focusOrigin;
-        toggleDatasetEntry(this._element, 'inputFocused', false);
+        delete this.dataset.focusOrigin;
+        toggleDatasetEntry(this, 'inputFocused', false);
       },
       {
         signal: this._inputAbortController.signal,
@@ -348,16 +353,16 @@ export class SbbFormField implements ComponentInterface {
     return this._input.closest('form');
   }
 
-  private async _checkAndUpdateInputEmpty(): Promise<void> {
+  private _checkAndUpdateInputEmpty(): void {
     toggleDatasetEntry(
-      this._element,
+      this,
       'inputEmpty',
       this._floatingLabelSupportedInputElements.includes(this._input.tagName) &&
-        (await this._isInputEmpty()),
+        this._isInputEmpty(),
     );
   }
 
-  private async _isInputEmpty(): Promise<boolean> {
+  private _isInputEmpty(): boolean {
     if (this._input instanceof HTMLInputElement) {
       return (
         this._floatingLabelSupportedInputTypes.includes(this._input.type) &&
@@ -366,7 +371,8 @@ export class SbbFormField implements ComponentInterface {
     } else if (this._input instanceof HTMLSelectElement) {
       return this._input.selectedOptions?.item(0)?.label?.trim() === '';
     } else if (this._input.tagName === 'SBB-SELECT') {
-      return (await (this._input as HTMLSbbSelectElement).getDisplayValue())?.trim() === '';
+      // TODO-Migr: change the 'any' to SbbSelect
+      return (this._input as any).getDisplayValue()?.trim() === '';
     } else {
       return this._isInputValueEmpty();
     }
@@ -378,19 +384,17 @@ export class SbbFormField implements ComponentInterface {
   }
 
   private _assignSlots(): void {
-    this._element
-      .querySelectorAll('label:not([slot])')
-      .forEach((e) => e.setAttribute('slot', 'label'));
-    this._element
-      .querySelectorAll('sbb-form-error:not([slot])')
-      .forEach((e) => e.setAttribute('slot', 'error'));
+    this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
+    this.querySelectorAll('sbb-form-error:not([slot])').forEach((e) =>
+      e.setAttribute('slot', 'error'),
+    );
   }
 
   private _readInputState(): void {
-    toggleDatasetEntry(this._element, 'readonly', isValidAttribute(this._input, 'readonly'));
-    toggleDatasetEntry(this._element, 'disabled', isValidAttribute(this._input, 'disabled'));
+    toggleDatasetEntry(this, 'readonly', isValidAttribute(this._input, 'readonly'));
+    toggleDatasetEntry(this, 'disabled', isValidAttribute(this._input, 'disabled'));
     toggleDatasetEntry(
-      this._element,
+      this,
       'invalid',
       this._input.hasAttribute('data-sbb-invalid') ||
         this._input.classList.contains('sbb-invalid') ||
@@ -414,10 +418,13 @@ export class SbbFormField implements ComponentInterface {
         // Instead of defining a container with an aria-live region as expected, we had to change
         // setting it for every slotted element to properly work in all browsers and screen reader combinations.
         el.role = 'status';
+        if (isFirefox()) {
+          el.setAttribute('role', 'status');
+        }
       }
     }
     this._applyAriaDescribedby();
-    toggleDatasetEntry(this._element, 'hasError', !!this._errorElements.length);
+    toggleDatasetEntry(this, 'hasError', !!this._errorElements.length);
     this._syncNegative();
   }
 
@@ -441,79 +448,81 @@ export class SbbFormField implements ComponentInterface {
   }
 
   /** Manually reset the form field. Currently, this only resets the floating label. */
-  @Method() public async reset(): Promise<void> {
-    await this._checkAndUpdateInputEmpty();
+  public reset(): void {
+    this._checkAndUpdateInputEmpty();
   }
 
   /** Manually clears the input value. It only works for inputs, selects are not supported. */
-  @Method() public async clear(): Promise<void> {
+  public clear(): void {
     if (this._input.tagName !== 'INPUT') {
       return;
     }
     (this._input as { value }).value = '';
-    await this._checkAndUpdateInputEmpty();
+    this._checkAndUpdateInputEmpty();
   }
 
-  /** Returns the input element. */
-  @Method() public async getInputElement(): Promise<
-    HTMLInputElement | HTMLSelectElement | HTMLElement
-  > {
+  /**
+   * Returns the input element.
+   * @deprecated Use the 'inputElement' property instead
+   */
+  public getInputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement {
     return this._input;
   }
 
-  @Watch('negative')
   private _syncNegative(): void {
-    this._element
-      .querySelectorAll(
-        'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
-      )
-      .forEach((element) =>
-        this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
-      );
+    this.querySelectorAll(
+      'sbb-form-error,sbb-button,sbb-tooltip-trigger,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete',
+    ).forEach((element) =>
+      this.negative ? element.setAttribute('negative', '') : element.removeAttribute('negative'),
+    );
   }
 
-  public render(): JSX.Element {
-    return (
+  protected override render(): TemplateResult {
+    return html`
       <div class="sbb-form-field__space-wrapper">
-        {/* Queried by id from the autocomplete/select to be used as the anchor element */}
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div
-          onClick={(event) => this._handleWrapperClick(event)}
-          class="sbb-form-field__wrapper"
-          id="overlay-anchor"
-        >
-          <slot name="prefix" onSlotchange={() => this._syncNegative()}></slot>
+        ${/* Queried by id from the autocomplete/select to be used as the anchor element */ ''}
+        <div @click=${this._handleWrapperClick} class="sbb-form-field__wrapper" id="overlay-anchor">
+          <slot name="prefix" @slotchange=${this._syncNegative}></slot>
           <div class="sbb-form-field__input-container">
-            {(this.label || this._namedSlots.label) && (
-              <Fragment>
-                <span class="sbb-form-field__label-spacer" aria-hidden="true"></span>
-                <span class="sbb-form-field__label">
-                  <span class="sbb-form-field__label-ellipsis">
-                    <slot name="label" onSlotchange={() => this._onSlotLabelChange()}></slot>
-                    {this.optional && (
-                      <span aria-hidden="true">&nbsp;{i18nOptional[this._currentLanguage]}</span>
-                    )}
+            ${this.label || this._namedSlots.label
+              ? html`
+                  <span class="sbb-form-field__label-spacer" aria-hidden="true"></span>
+                  <span class="sbb-form-field__label">
+                    <span class="sbb-form-field__label-ellipsis">
+                      <slot name="label" @slotchange=${this._onSlotLabelChange}></slot>
+                      ${this.optional
+                        ? html` <span aria-hidden="true">
+                            &nbsp;${i18nOptional[this._currentLanguage]}
+                          </span>`
+                        : nothing}
+                    </span>
                   </span>
-                </span>
-              </Fragment>
-            )}
+                `
+              : nothing}
             <div class="sbb-form-field__input">
-              <slot onSlotchange={(event) => this._onSlotInputChange(event)}></slot>
+              <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            {['SELECT', 'SBB-SELECT'].includes(this._input?.tagName) && (
-              <sbb-icon
-                name="chevron-small-down-small"
-                class="sbb-form-field__select-input-icon"
-              ></sbb-icon>
-            )}
+            ${['SELECT', 'SBB-SELECT'].includes(this._input?.tagName)
+              ? html`<sbb-icon
+                  name="chevron-small-down-small"
+                  class="sbb-form-field__select-input-icon"
+                ></sbb-icon>`
+              : nothing}
           </div>
-          <slot name="suffix" onSlotchange={() => this._syncNegative()}></slot>
+          <slot name="suffix" @slotchange=${this._syncNegative}></slot>
         </div>
 
         <div class="sbb-form-field__error">
-          <slot name="error" onSlotchange={(event) => this._onSlotErrorChange(event)}></slot>
+          <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
         </div>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-form-field': SbbFormField;
   }
 }

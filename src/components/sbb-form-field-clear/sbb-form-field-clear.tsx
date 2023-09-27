@@ -1,14 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Listen,
-  h,
-  Host,
-  JSX,
-  State,
-  Prop,
-} from '@stencil/core';
 import { ButtonProperties, resolveButtonRenderVariables } from '../../global/interfaces';
 import { hostContext, isValidAttribute } from '../../global/dom';
 import {
@@ -16,34 +5,56 @@ import {
   actionElementHandlerAspect,
   documentLanguage,
   languageChangeHandlerAspect,
+  ConnectedAbortController,
 } from '../../global/eventing';
 import { i18nClearInput } from '../../global/i18n';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttribute, setAttributes } from '../../global/dom';
+import { SbbFormField } from '../sbb-form-field';
+import Style from './sbb-form-field-clear.scss?lit&inline';
+import '../sbb-icon';
 
 /**
  * @slot unnamed - Slot to render the content.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-form-field-clear.scss',
-  tag: 'sbb-form-field-clear',
-})
-export class SbbFormFieldClear implements ComponentInterface {
+@customElement('sbb-form-field-clear')
+export class SbbFormFieldClear extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /** Negative coloring variant flag. */
-  @Prop({ reflect: true, mutable: true }) public negative = false;
+  @property({ reflect: true, type: Boolean }) public negative = false;
 
-  @Element() private _element!: HTMLElement;
-
-  @State() private _currentLanguage = documentLanguage();
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
-  private _formField: HTMLSbbFormFieldElement;
+  private _formField: SbbFormField;
+  private _abort = new ConnectedAbortController(this);
 
-  @Listen('click')
-  public async handleClick(): Promise<void> {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('click', () => this._handleClick(), { signal });
+    this._handlerRepository.connect();
+    this._formField =
+      (hostContext('sbb-form-field', this) as SbbFormField) ??
+      (hostContext('[data-form-field]', this) as SbbFormField);
+
+    if (this._formField) {
+      this.negative = isValidAttribute(this._formField, 'negative');
+    }
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._handlerRepository.disconnect();
+  }
+
+  private async _handleClick(): Promise<void> {
     const input = await this._formField.getInputElement();
     if (!input || input.tagName !== 'INPUT') {
       return;
@@ -54,30 +65,24 @@ export class SbbFormFieldClear implements ComponentInterface {
     input.dispatchEvent(new window.Event('change', { bubbles: true }));
   }
 
-  public connectedCallback(): void {
-    this._handlerRepository.connect();
-    this._formField =
-      (hostContext('sbb-form-field', this._element) as HTMLSbbFormFieldElement) ??
-      (hostContext('[data-form-field]', this._element) as HTMLSbbFormFieldElement);
-
-    if (this._formField) {
-      this.negative = isValidAttribute(this._formField, 'negative');
-    }
-  }
-
-  public disconnectedCallback(): void {
-    this._handlerRepository.disconnect();
-  }
-
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const { hostAttributes } = resolveButtonRenderVariables(this as ButtonProperties);
 
-    return (
-      <Host {...hostAttributes} slot="suffix" aria-label={i18nClearInput[this._currentLanguage]}>
-        <span class="sbb-form-field-clear">
-          <sbb-icon name="cross-small" />
-        </span>
-      </Host>
-    );
+    setAttributes(this, hostAttributes);
+    setAttribute(this, 'slot', 'suffix');
+    setAttribute(this, 'aria-label', i18nClearInput[this._currentLanguage]);
+
+    return html`
+      <span class="sbb-form-field-clear">
+        <sbb-icon name="cross-small"></sbb-icon>
+      </span>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-form-field-clear': SbbFormFieldClear;
   }
 }
