@@ -50,7 +50,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "lit": "^2.7.5"
+    "lit": "2.7.5"
   },
   "devDependencies": {
     "@commitlint/cli": "17.7.1",
