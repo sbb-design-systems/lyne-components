@@ -25,7 +25,7 @@ describe('sbb-selection-panel', () => {
     });
 
     expect(root).toEqualHtml(`
-      <sbb-selection-panel data-has-content>
+      <sbb-selection-panel data-has-content data-state="closed">
         <mock:shadow-root>
           <div class="sbb-selection-panel">
             <div class="sbb-selection-panel__badge">
@@ -34,9 +34,11 @@ describe('sbb-selection-panel', () => {
             <div class="sbb-selection-panel__input">
               <slot></slot>
             </div>
-            <div class="sbb-selection-panel__content">
-              <sbb-divider></sbb-divider>
-              <slot name="content"></slot>
+            <div class="sbb-selection-panel__content--wrapper">
+              <div class="sbb-selection-panel__content">
+                <sbb-divider></sbb-divider>
+                <slot name="content"></slot>
+              </div>
             </div>
           </div>
         </mock:shadow-root>

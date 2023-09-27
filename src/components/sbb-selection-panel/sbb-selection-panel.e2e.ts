@@ -60,7 +60,9 @@ describe('sbb-selection-panel', () => {
     it('selects input on click and shows related content', async () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
-      const content = await page.find('#sbb-selection-panel-2 >>> .sbb-selection-panel__content');
+      const content = await page.find(
+        '#sbb-selection-panel-2 >>> .sbb-selection-panel__content--wrapper',
+      );
 
       const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
       const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
@@ -100,7 +102,7 @@ describe('sbb-selection-panel', () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
       const contentOne = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content',
+        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content--wrapper',
       );
 
       expect(firstInput).toHaveAttribute('checked');
@@ -336,7 +338,9 @@ describe('sbb-selection-panel', () => {
     it('selects input on click and shows related content', async () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
-      const content = await page.find('#sbb-selection-panel-2 >>> .sbb-selection-panel__content');
+      const content = await page.find(
+        '#sbb-selection-panel-2 >>> .sbb-selection-panel__content--wrapper',
+      );
 
       const willOpenEventSpy = await page.spyOnEvent(events.willOpen);
       const didOpenEventSpy = await page.spyOnEvent(events.didOpen);
@@ -360,7 +364,9 @@ describe('sbb-selection-panel', () => {
 
     it('deselects input on click and hides related content', async () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
-      const content = await page.find('#sbb-selection-panel-1 >>> .sbb-selection-panel__content');
+      const content = await page.find(
+        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content--wrapper',
+      );
 
       const willCloseEventSpy = await page.spyOnEvent(events.willClose);
       const didCloseEventSpy = await page.spyOnEvent(events.didClose);
@@ -389,7 +395,7 @@ describe('sbb-selection-panel', () => {
       const firstInput = await page.find('sbb-selection-panel > #sbb-input-1');
       const input = await page.find('sbb-selection-panel > #sbb-input-2');
       const contentOne = await page.find(
-        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content',
+        '#sbb-selection-panel-1 >>> .sbb-selection-panel__content--wrapper',
       );
 
       expect(firstInput).toHaveAttribute('checked');
