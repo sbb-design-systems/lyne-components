@@ -42,6 +42,9 @@ describe('sbb-breadcrumb', () => {
                 <sbb-icon name="house-small"></sbb-icon>
               </slot>
             </span>
+            <span hidden>
+              <slot></slot>
+            </span>
           </a>
         </mock:shadow-root>
       </sbb-breadcrumb>

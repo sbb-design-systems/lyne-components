@@ -102,6 +102,11 @@ export class SbbBreadcrumb implements ComponentInterface, LinkProperties {
               )}
             </span>
           )}
+          {!this._hasText && (
+            <span hidden>
+              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)}></slot>
+            </span>
+          )}
         </TAG_NAME>
       </Host>
     );
