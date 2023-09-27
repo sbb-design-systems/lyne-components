@@ -52,6 +52,11 @@ export class SbbSelectionPanel implements ComponentInterface {
   @Prop({ reflect: true }) public disableAnimation = false;
 
   /**
+   * The state of the selection panel.
+   */
+  @State() private _state: 'closed' | 'opening' | 'opened' | 'closing';
+
+  /**
    * Whether the selection panel is checked.
    */
   @State() private _checked = false;
@@ -131,18 +136,19 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     this._checked = event.detail.checked;
-    this._setContentElementHeight();
 
     if (this.forceOpen) {
       return;
     }
 
     if (this._checked) {
+      this._state = 'opening';
       this.willOpen.emit();
-      this.disableAnimation && this.didOpen.emit();
+      this.disableAnimation && this._handleOpening();
     } else {
+      this._state = 'closing';
       this.willClose.emit();
-      this.disableAnimation && this.didClose.emit();
+      this.disableAnimation && this._handleClosing();
     }
   }
 
@@ -157,16 +163,8 @@ export class SbbSelectionPanel implements ComponentInterface {
 
   private _updateSelectionPanel(): void {
     this._checked = this._input?.checked;
+    this._state = this._checked ? 'opened' : 'closed';
     this._disabled = this._input?.disabled;
-  }
-
-  private _setContentElementHeight(): void {
-    if (this._contentElement && this._checked && !this.forceOpen) {
-      this._element.style.setProperty(
-        '--sbb-selection-panel-content-height',
-        `${this._contentElement.scrollHeight}px`,
-      );
-    }
   }
 
   private _onTransitionEnd(event: TransitionEvent): void {
@@ -175,16 +173,27 @@ export class SbbSelectionPanel implements ComponentInterface {
     }
 
     if (this._checked) {
-      this.didOpen.emit();
+      this._handleOpening();
     } else {
-      this.didClose.emit();
+      this._handleClosing();
     }
+  }
+
+  private _handleOpening(): void {
+    this._state = 'opened';
+    this.didOpen.emit();
+  }
+
+  private _handleClosing(): void {
+    this._state = 'closed';
+    this.didClose.emit();
   }
 
   public render(): JSX.Element {
     return (
       <Host
         data-has-content={this._namedSlots['content']}
+        data-state={this._state}
         data-checked={this._checked}
         data-disabled={this._disabled}
       >
@@ -199,7 +208,7 @@ export class SbbSelectionPanel implements ComponentInterface {
 
           {this._namedSlots['content'] && (
             <div
-              class="sbb-selection-panel__content"
+              class="sbb-selection-panel__content--wrapper"
               data-expanded={this._checked && !this.forceOpen}
               ref={(el) => {
                 this._contentElement = el;
@@ -207,8 +216,10 @@ export class SbbSelectionPanel implements ComponentInterface {
               }}
               onTransitionEnd={(event: TransitionEvent) => this._onTransitionEnd(event)}
             >
-              <sbb-divider />
-              <slot name="content" />
+              <div class="sbb-selection-panel__content">
+                <sbb-divider />
+                <slot name="content" />
+              </div>
             </div>
           )}
         </div>

@@ -14,11 +14,11 @@
   --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-content-visibility: hidden;
-  --sbb-selection-panel-content-max-height: 0;
+  --sbb-selection-panel-content-grid-template-rows: 0fr;
   --sbb-selection-panel-content-opacity: 0;
   --sbb-selection-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-panel-content-transition: max-height var(--sbb-selection-panel-animation-duration)
-      var(--sbb-animation-easing),
+  --sbb-selection-panel-content-transition: grid-template-rows
+      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
     padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
 
@@ -50,7 +50,7 @@
   --sbb-selection-panel-border-color: transparent;
 }
 
-:host([disable-animation]:not([disable-animation='false'])) {
+:host(:is([data-resize-disable-animation], [disable-animation]:not([disable-animation='false']))) {
   --sbb-selection-panel-animation-duration: 0s;
 }
 
@@ -60,14 +60,11 @@
     var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxs)
     var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-content-visibility: visible;
-  --sbb-selection-panel-content-max-height: calc(
-    var(--sbb-selection-panel-content-height) + var(--sbb-spacing-responsive-xxs) +
-      var(--sbb-spacing-responsive-xs)
-  );
+  --sbb-selection-panel-content-grid-template-rows: 1fr;
   --sbb-selection-panel-content-opacity: 1;
   --sbb-selection-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);
-  --sbb-selection-panel-content-transition: max-height var(--sbb-selection-panel-animation-duration)
-      var(--sbb-animation-easing),
+  --sbb-selection-panel-content-transition: grid-template-rows
+      var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
     padding var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing),
     opacity var(--sbb-selection-panel-animation-duration)
       var(--sbb-selection-panel-animation-duration) var(--sbb-animation-easing);
@@ -96,13 +93,18 @@
   overflow: hidden;
 }
 
-.sbb-selection-panel__content {
+.sbb-selection-panel__content--wrapper {
+  display: grid;
+  grid-template-rows: var(--sbb-selection-panel-content-grid-template-rows);
   visibility: var(--sbb-selection-panel-content-visibility);
-  max-height: var(--sbb-selection-panel-content-max-height);
   opacity: var(--sbb-selection-panel-content-opacity);
   padding-inline: var(--sbb-selection-panel-content-padding-inline);
   padding-block-end: var(--sbb-selection-panel-content-padding-block-end);
   transition: var(--sbb-selection-panel-content-transition);
+}
+
+.sbb-selection-panel__content {
+  overflow: hidden;
 }
 
 sbb-divider {
