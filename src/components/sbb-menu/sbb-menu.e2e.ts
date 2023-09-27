@@ -1,11 +1,9 @@
-import events from './sbb-menu.events';
-
 import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
-import { SbbMenu } from './sbb-menu';
+import { SbbMenu, events } from './sbb-menu';
 import '../sbb-button';
 import '../sbb-menu-action';
 import '../sbb-link';

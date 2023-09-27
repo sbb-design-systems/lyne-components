@@ -1,5 +1,5 @@
 /** @jsx h */
-import events from './sbb-menu.events';
+import { events } from './sbb-menu';
 import { Fragment, h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
