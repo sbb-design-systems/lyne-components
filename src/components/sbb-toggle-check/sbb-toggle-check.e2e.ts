@@ -1,69 +1,74 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit/static-html.js';
 import { waitForCondition } from '../../global/testing';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbToggleCheck } from './sbb-toggle-check';
 
 describe('sbb-toggle-check', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbToggleCheck;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-toggle-check id="focus-id"></sbb-toggle-check>');
-    element = await page.find('sbb-toggle-check');
+    await fixture(html`<sbb-toggle-check id="focus-id"></sbb-toggle-check>`);
+    element = document.querySelector('sbb-toggle-check');
   });
 
   it('renders', async () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbToggleCheck);
   });
 
   describe('events', () => {
     it('emit event on click', async () => {
-      await page.waitForChanges();
-      const changeSpy = await page.spyOnEvent('change');
+      await element.updateComplete;
+      const changeSpy = new EventSpy('change');
 
-      await element.click();
+      element.click();
+      await element.updateComplete;
+
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(changeSpy.count).to.be.equal(1);
     });
 
     it('should emit click on Space', async () => {
-      const changeSpy = await element.spyOnEvent('click');
+      const changeSpy = new EventSpy('click');
 
-      await element.press(' ');
-      await page.waitForChanges();
+      element.focus();
+      await sendKeys({ press: ' ' });
+      await element.updateComplete;
 
       await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      expect(changeSpy.count).to.be.equal(1);
     });
 
     it('should receive focus', async () => {
-      const changeSpy = await element.spyOnEvent('focus');
+      const focusSpy = new EventSpy('focus', element);
 
-      await element.focus();
-      await page.waitForChanges();
+      element.focus();
 
-      await waitForCondition(() => changeSpy.events.length === 1);
-      expect(changeSpy).toHaveReceivedEventTimes(1);
+      await waitForCondition(() => focusSpy.events.length === 1);
+      expect(focusSpy.count).to.be.equal(1);
 
-      expect(await page.evaluate(() => document.activeElement.id)).toBe('focus-id');
+      expect(document.activeElement.id).to.be.equal('focus-id');
     });
   });
 
   it('should prevent scrolling on space bar press', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<div style="height: 100px; overflow: scroll" id="scroll-context">
-              <div style="height: 500px">
-                <sbb-toggle-check></sbb-toggle-check>
-              </div>
-            </div>`,
+    await fixture(
+      html`<div style="height: 100px; overflow: scroll" id="scroll-context">
+        <div style="height: 500px">
+          <sbb-toggle-check></sbb-toggle-check>
+        </div>
+      </div>`,
     );
-    element = await page.find('sbb-toggle-check');
-    expect(element).not.toHaveAttribute('checked');
-    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+    element = document.querySelector('sbb-toggle-check');
+    expect(element).not.to.have.attribute('checked');
+    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
 
-    await element.press(' ');
-    await page.waitForChanges();
+    element.focus();
+    await sendKeys({ press: ' ' });
+    await element.updateComplete;
 
-    expect(element).toHaveAttribute('checked');
-    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+    expect(element).to.have.attribute('checked');
+    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
   });
 });
