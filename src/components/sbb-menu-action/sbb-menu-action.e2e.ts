@@ -9,16 +9,14 @@ describe('sbb-menu-action', () => {
   let element: SbbMenuAction;
 
   beforeEach(async () => {
-    await fixture(html`<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>`);
-    element = document.querySelector('sbb-menu-action');
+    element = await fixture(html`<sbb-menu-action id="focus-id">Menu Action</sbb-menu-action>`);
   });
 
   describe('events', () => {
     it('dispatches event on click', async () => {
-      await element.updateComplete;
       const changeSpy = new EventSpy('click');
 
-      await element.click();
+      element.click();
       await waitForCondition(() => changeSpy.events.length === 1);
       expect(changeSpy.count).to.be.equal(1);
     });
@@ -71,7 +69,7 @@ describe('sbb-menu-action', () => {
     });
 
     it('should receive focus', async () => {
-      await element.focus();
+      element.focus();
       await element.updateComplete;
 
       expect(document.activeElement.id).to.be.equal('focus-id');
@@ -79,13 +77,12 @@ describe('sbb-menu-action', () => {
   });
 
   it('renders as a button and triggers click event', async () => {
-    await fixture(html`<sbb-menu-action></sbb-menu-action>`);
+    element = await fixture(html`<sbb-menu-action></sbb-menu-action>`);
 
-    element = document.querySelector('sbb-menu-action');
     assert.instanceOf(element, SbbMenuAction);
 
     const clickedSpy = new EventSpy('click');
-    await element.click();
+    element.click();
     await waitForCondition(() => clickedSpy.events.length === 1);
     expect(clickedSpy.count).to.be.equal(1);
   });

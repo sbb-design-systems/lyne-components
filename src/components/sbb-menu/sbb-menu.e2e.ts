@@ -192,8 +192,8 @@ describe('sbb-menu', () => {
     expect(trigger.offsetLeft).to.be.equal(0);
 
     // Expect dialog offsetTop to be equal to the trigger height + the dialog offset (8px)
-    expect(element.shadowRoot.querySelector('dialog').offsetTop).to.be.equal(buttonHeightPx + 8);
-    expect(element.shadowRoot.querySelector('dialog').offsetLeft).to.be.equal(0);
+    expect(dialog.offsetTop).to.be.equal(buttonHeightPx + 8);
+    expect(dialog.offsetLeft).to.be.equal(0);
   });
 
   it('is correctly positioned on mobile', async () => {
@@ -216,12 +216,8 @@ describe('sbb-menu', () => {
 
     expect(dialog).to.have.attribute('open');
 
-    const menuOffsetTop = document
-      .querySelector('sbb-menu')
-      .shadowRoot.querySelector('dialog').offsetTop;
-    const menuHeight = document
-      .querySelector('sbb-menu')
-      .shadowRoot.querySelector('dialog').offsetHeight;
+    const menuOffsetTop = dialog.offsetTop;
+    const menuHeight = dialog.offsetHeight;
     const pageHeight = window.innerHeight;
 
     expect(menuOffsetTop).to.be.equal(pageHeight - menuHeight);

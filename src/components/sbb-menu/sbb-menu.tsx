@@ -57,7 +57,6 @@ export class SbbMenu extends LitElement {
     return this._trigger;
   }
   public set trigger(value: string | HTMLElement) {
-    // TODO: Validate logic
     const oldValue = this._trigger;
     this._trigger = value;
     this._removeTriggerClickListener(this._trigger, oldValue);
@@ -123,6 +122,7 @@ export class SbbMenu extends LitElement {
   private _isPointerDownEventOnMenu: boolean;
   private _menuController: AbortController;
   private _windowEventsController: AbortController;
+  private _abort = new ConnectedAbortController(this);
   private _focusTrap = new FocusTrap();
   private _scrollHandler = new ScrollHandler();
   private _menuId = `sbb-menu-${++nextId}`;
@@ -163,10 +163,10 @@ export class SbbMenu extends LitElement {
   /**
    * Handles click and checks if its target is a sbb-menu-action.
    */
-  private async _onClick(event: Event): Promise<void> {
+  private _onClick(event: Event): void {
     const target = event.target as HTMLElement | undefined;
     if (target?.tagName === 'SBB-MENU-ACTION') {
-      await this.close();
+      this.close();
     }
   }
 
@@ -193,7 +193,7 @@ export class SbbMenu extends LitElement {
     }
 
     if (event.key === 'Escape') {
-      await this.close();
+      this.close();
       return;
     }
   }
@@ -277,10 +277,10 @@ export class SbbMenu extends LitElement {
   }
 
   // Close menu at any click on an interactive element inside the <sbb-menu> that bubbles to the container.
-  private async _closeOnInteractiveElementClick(event: Event): Promise<void> {
+  private _closeOnInteractiveElementClick(event: Event): void {
     const target = event.target as HTMLElement;
     if (INTERACTIVE_ELEMENTS.includes(target.nodeName) && !isValidAttribute(target, 'disabled')) {
-      await this.close();
+      this.close();
     }
   }
 
@@ -290,9 +290,9 @@ export class SbbMenu extends LitElement {
   };
 
   // Close menu on backdrop click.
-  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): void => {
     if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._dialog, event)) {
-      await this.close();
+      this.close();
     }
   };
 
@@ -325,7 +325,6 @@ export class SbbMenu extends LitElement {
       this._scrollHandler.enableScroll();
     }
   }
-  private _abort = new ConnectedAbortController(this);
 
   // Set focus on the first focusable element.
   private _setDialogFocus(): void {

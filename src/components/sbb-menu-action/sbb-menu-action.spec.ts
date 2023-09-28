@@ -19,17 +19,17 @@ describe('sbb-menu-action', () => {
     );
     expect(root).shadowDom.to.be.equal(
       `
-            <span class="sbb-menu-action">
-              <span class="sbb-menu-action__content">
-                <span class="sbb-menu-action__icon">
-                  <slot name="icon"></slot>
-                </span>
-                <span class="sbb-menu-action__label">
-                  <slot></slot>
-                </span>
-              </span>
+        <span class="sbb-menu-action">
+          <span class="sbb-menu-action__content">
+            <span class="sbb-menu-action__icon">
+              <slot name="icon"></slot>
             </span>
-          `,
+            <span class="sbb-menu-action__label">
+              <slot></slot>
+            </span>
+          </span>
+        </span>
+      `,
     );
   });
 
