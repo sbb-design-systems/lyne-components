@@ -1,16 +1,3 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  EventEmitter,
-  Event,
-  h,
-  JSX,
-  Prop,
-  State,
-  Host,
-  Listen,
-} from '@stencil/core';
 import { InterfaceToggleCheckAttributes } from './sbb-toggle-check.custom';
 import { findShadowInput } from '../../global/dom';
 import {
@@ -18,81 +5,94 @@ import {
   formElementHandlerAspect,
   getEventTarget,
   forwardEventToHost,
+  EventEmitter,
+  ConnectedAbortController,
 } from '../../global/eventing';
+import { html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { setAttributes } from '../../global/dom';
+import Style from './sbb-toggle-check.scss?lit&inline';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-toggle-check.scss',
-  tag: 'sbb-toggle-check',
-})
-export class SbbToggleCheck implements ComponentInterface {
+export const events = {
+  didChange: 'did-change',
+};
+
+@customElement('sbb-toggle-check')
+export class SbbToggleCheck extends LitElement {
+  public static override styles = Style;
+
   /** Whether the toggle-check is checked. */
-  @Prop({ mutable: true, reflect: true }) public checked = false;
+  @property({ reflect: true, type: Boolean }) public checked = false;
 
   /** Value of toggle-check. */
-  @Prop() public value?: string;
+  @property() public value?: string;
 
   /** Name of the toggle-check. */
-  @Prop({ reflect: true }) public name?: string;
+  @property({ reflect: true }) public name?: string;
 
   /** Size variant, either m or s. */
-  @Prop({ reflect: true }) public size: InterfaceToggleCheckAttributes['size'] = 's';
+  @property({ reflect: true }) public size: InterfaceToggleCheckAttributes['size'] = 's';
 
   /** The svg name for the true state - default -> 'tick-small' */
-  @Prop() public iconName = 'tick-small';
+  @property({ attribute: 'icon-name' }) public iconName = 'tick-small';
 
   /** The disabled prop for the disabled state. */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The required prop for the required state. */
-  @Prop() public required = false;
+  @property({ type: Boolean }) public required = false;
 
   /** The label position relative to the toggle. Defaults to 'after' */
-  @Prop({ reflect: true }) public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] =
-    'after';
+  @property({ attribute: 'label-position', reflect: true })
+  public labelPosition?: InterfaceToggleCheckAttributes['labelPosition'] = 'after';
 
   /**
    * @deprecated only used for React. Will probably be removed once React 19 is available.
    */
-  @Event({ bubbles: true, cancelable: true }) public didChange: EventEmitter;
+  private _didChange: EventEmitter = new EventEmitter(this, events.didChange, {
+    bubbles: true,
+    cancelable: true,
+  });
 
-  @Element() private _element!: HTMLElement;
+  @state() private _hasLabelText = false;
 
-  @State() private _hasLabelText = false;
+  private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
+  private _abort = new ConnectedAbortController(this);
 
-  private _handlerRepository = new HandlerRepository(this._element, formElementHandlerAspect);
-
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('click', (e) => this._handleClick(e), { signal });
+    this.addEventListener('keyup', (e) => this._handleKeyup(e), { signal });
     this._handlerRepository.connect();
-    this._hasLabelText = Array.from(this._element.childNodes).some(
+    this._hasLabelText = Array.from(this.childNodes).some(
       (n: ChildNode) => !(n as Element).slot && n.textContent,
     );
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  @Listen('click')
-  public handleClick(event: Event): void {
-    if (!this.disabled && getEventTarget(event) === this._element) {
-      findShadowInput(this._element).click();
+  private _handleClick(event: Event): void {
+    if (!this.disabled && getEventTarget(event) === this) {
+      findShadowInput(this).click();
     }
   }
 
-  @Listen('keyup')
-  public handleKeyup(event: KeyboardEvent): void {
+  private _handleKeyup(event: KeyboardEvent): void {
     // The native checkbox input toggles state on keyup with space.
     if (!this.disabled && event.key === ' ') {
       // The toggle needs to happen after the keyup event finishes, so we schedule
       // it to be triggered after the current event loop.
-      setTimeout(() => findShadowInput(this._element).click());
+      setTimeout(() => findShadowInput(this).click());
     }
   }
 
   public handleChangeEvent(event: Event): void {
-    forwardEventToHost(event, this._element);
-    this.didChange.emit();
+    forwardEventToHost(event, this);
+    this._didChange.emit();
   }
 
   /**
@@ -100,7 +100,7 @@ export class SbbToggleCheck implements ComponentInterface {
    * If not indeterminate, inverts the value; otherwise sets checked to true.
    */
   public handleInputEvent(): void {
-    this.checked = findShadowInput(this._element)?.checked ?? false;
+    this.checked = findShadowInput(this)?.checked ?? false;
   }
 
   private _onLabelSlotChange(event: Event): void {
@@ -109,7 +109,7 @@ export class SbbToggleCheck implements ComponentInterface {
       .some((n: Node) => !!n.textContent.trim());
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const attributes = {
       role: 'checkbox',
       'aria-checked': this.checked?.toString() ?? 'false',
@@ -117,37 +117,45 @@ export class SbbToggleCheck implements ComponentInterface {
       'aria-disabled': this.disabled.toString(),
       ...(this.disabled ? undefined : { tabIndex: '0' }),
     };
-    return (
-      <Host {...attributes}>
-        <label class="sbb-toggle-check">
-          <input
-            type="checkbox"
-            aria-hidden="true"
-            tabIndex={-1}
-            name={this.name}
-            disabled={this.disabled}
-            required={this.required}
-            checked={this.checked}
-            value={this.value}
-            onInput={() => this.handleInputEvent()}
-            onChange={(event) => this.handleChangeEvent(event)}
-          />
-          <span class="sbb-toggle-check__container">
-            <span class="sbb-toggle-check__label" hidden={!this._hasLabelText}>
-              <slot onSlotchange={(event): void => this._onLabelSlotChange(event)} />
-            </span>
-            <span class="sbb-toggle-check__track">
-              <span class="sbb-toggle-check__circle">
-                <span class="sbb-toggle-check__icon">
-                  <slot name="icon">
-                    {this.iconName && <sbb-icon name={this.iconName}></sbb-icon>}
-                  </slot>
-                </span>
+
+    setAttributes(this, attributes);
+
+    return html`
+      <label class="sbb-toggle-check">
+        <input
+          type="checkbox"
+          aria-hidden="true"
+          tabindex="-1"
+          .name=${this.name || nothing}
+          ?disabled=${this.disabled}
+          ?required=${this.required}
+          ?checked=${this.checked}
+          .value=${this.value || nothing}
+          @input=${() => this.handleInputEvent()}
+          @change=${(event) => this.handleChangeEvent(event)}
+        />
+        <span class="sbb-toggle-check__container">
+          <span class="sbb-toggle-check__label" ?hidden=${!this._hasLabelText}>
+            <slot @slotchange=${(event): void => this._onLabelSlotChange(event)}></slot>
+          </span>
+          <span class="sbb-toggle-check__track">
+            <span class="sbb-toggle-check__circle">
+              <span class="sbb-toggle-check__icon">
+                <slot name="icon">
+                  ${this.iconName ? html`<sbb-icon name=${this.iconName}></sbb-icon>` : nothing}
+                </slot>
               </span>
             </span>
           </span>
-        </label>
-      </Host>
-    );
+        </span>
+      </label>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-toggle-check': SbbToggleCheck;
   }
 }
