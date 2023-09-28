@@ -62,21 +62,23 @@ export class SbbTabTitle {
     const TAGNAME = `h${Number(this.level) < 7 ? this.level : '1'}`;
 
     return (
-      <TAGNAME class="sbb-tab-title">
-        {(this.iconName || this._namedSlots['icon']) && (
-          <span class="sbb-tab-title__icon">
-            <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+      <div class="sbb-tab-title__wrapper">
+        <TAGNAME class="sbb-tab-title">
+          {(this.iconName || this._namedSlots['icon']) && (
+            <span class="sbb-tab-title__icon">
+              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
+            </span>
+          )}
+          <span class="sbb-tab-title__text">
+            <slot></slot>
           </span>
-        )}
-        <span class="sbb-tab-title__text">
-          <slot></slot>
-        </span>
-        {(this.amount || this._namedSlots['amount']) && (
-          <span class="sbb-tab-title__amount">
-            <slot name="amount">{this.amount}</slot>
-          </span>
-        )}
-      </TAGNAME>
+          {(this.amount || this._namedSlots['amount']) && (
+            <span class="sbb-tab-title__amount">
+              <slot name="amount">{this.amount}</slot>
+            </span>
+          )}
+        </TAGNAME>
+      </div>
     );
   }
 }

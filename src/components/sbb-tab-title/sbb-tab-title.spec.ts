@@ -11,11 +11,13 @@ describe('sbb-tab-title', () => {
     expect(root).toEqualHtml(`
         <sbb-tab-title>
           <mock:shadow-root>
-          <h1 class="sbb-tab-title">
-            <span class="sbb-tab-title__text">
-              <slot></slot>
-            </span>
-          </h1>
+            <div class="sbb-tab-title__wrapper">
+              <h1 class="sbb-tab-title">
+                <span class="sbb-tab-title__text">
+                  <slot></slot>
+                </span>
+              </h1>
+            </div>
           </mock:shadow-root>
         </sbb-tab-title>
       `);
@@ -28,18 +30,20 @@ describe('sbb-tab-title', () => {
     });
 
     expect(root).toEqualHtml(`
-        <sbb-tab-title level="2" icon-name="pie-small">
-          <mock:shadow-root>
-          <h2 class="sbb-tab-title">
-            <span class="sbb-tab-title__icon">
-              <slot name="icon"><sbb-icon name="pie-small"></sbb-icon></slot>
-            </span>
-            <span class="sbb-tab-title__text">
-              <slot></slot>
-            </span>
-          </h2>
-          </mock:shadow-root>
-        </sbb-tab-title>
+      <sbb-tab-title level="2" icon-name="pie-small">
+        <mock:shadow-root>
+          <div class="sbb-tab-title__wrapper">
+            <h2 class="sbb-tab-title">
+              <span class="sbb-tab-title__icon">
+                <slot name="icon"><sbb-icon name="pie-small"></sbb-icon></slot>
+              </span>
+              <span class="sbb-tab-title__text">
+                <slot></slot>
+              </span>
+            </h2>
+            </div>
+        </mock:shadow-root>
+      </sbb-tab-title>
       `);
   });
 
@@ -52,14 +56,16 @@ describe('sbb-tab-title', () => {
     expect(root).toEqualHtml(`
         <sbb-tab-title level="7" amount="78">
           <mock:shadow-root>
-          <h1 class="sbb-tab-title">
-            <span class="sbb-tab-title__text">
-              <slot></slot>
-            </span>
-            <span class="sbb-tab-title__amount">
-              <slot name="amount">78</slot>
-            </span>
-          </h1>
+            <div class="sbb-tab-title__wrapper">
+              <h1 class="sbb-tab-title">
+                <span class="sbb-tab-title__text">
+                  <slot></slot>
+                </span>
+                <span class="sbb-tab-title__amount">
+                  <slot name="amount">78</slot>
+                </span>
+              </h1>
+            </div>
           </mock:shadow-root>
         </sbb-tab-title>
       `);
