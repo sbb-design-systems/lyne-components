@@ -1,212 +1,166 @@
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
 import { SbbToggle } from './sbb-toggle';
-import { newSpecPage, SpecPage } from '@stencil/core/testing';
 import { SbbToggleOption } from '../sbb-toggle-option/sbb-toggle-option';
 
+import '../sbb-toggle';
+import '../sbb-toggle-option';
+
 describe('sbb-toggle', () => {
-  let option: HTMLSbbToggleOptionElement, page: SpecPage;
-  const toggleComponents = [SbbToggle, SbbToggleOption];
-  const simpleToggleTemplate = `
-      <sbb-toggle>
-        <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
-        <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
-      </sbb-toggle>
-    `;
+  let option: SbbToggleOption, page: SbbToggle;
+  const simpleToggleTemplate = html`
+    <sbb-toggle>
+      <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
+      <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
+    </sbb-toggle>
+  `;
 
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbToggle],
-      html: '<sbb-toggle />',
-    });
+    const root = await fixture(html`<sbb-toggle />`);
 
-    expect(root).toEqualHtml(`
-        <sbb-toggle role="radiogroup" size="m">
-          <mock:shadow-root>
-            <div class="sbb-toggle">
-              <slot></slot>
-            </div>
-          </mock:shadow-root>
-        </sbb-toggle>
+    expect(root).dom.to.be.equal(`<sbb-toggle role="radiogroup" size="m"></sbb-toggle>`);
+    expect(root).shadowDom.to.be.equal(`
+      <div class="sbb-toggle">
+        <slot></slot>
+      </div>
       `);
   });
 
   describe('value', () => {
     it('should select the correct option by setting value via attribute', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: `
-          <sbb-toggle value="Value two">
-            <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
-            <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
-          </sbb-toggle>
-        `,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[1];
+      page = await fixture(html`
+        <sbb-toggle value="Value two">
+          <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
+          <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
+        </sbb-toggle>
+      `);
+      option = page.querySelectorAll('sbb-toggle-option')[1];
 
-      await page.waitForChanges();
+      await option.updateComplete;
+      await page.updateComplete;
 
-      expect(option).toHaveAttribute('checked');
+      expect(option).to.have.attribute('checked');
     });
 
     it('should select the correct option by setting value programmatically', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[1];
-      const toggle = page.doc.querySelector('sbb-toggle');
-      toggle.value = 'Value two';
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[1];
+      page.value = 'Value two';
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(option).toHaveAttribute('checked');
+      expect(option).to.have.attribute('checked');
     });
 
     it('should update the value of the sbb-toggle when the value of a checked option changes', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[0];
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[0];
       option.value = 'Changed';
-      const toggle = page.doc.querySelector('sbb-toggle');
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(toggle.value).toBe(option.value);
+      expect(page.value).to.be.equal(option.value);
     });
 
     it('should not update the value of the sbb-toggle when the value of a unchecked option changes', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[1];
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[1];
       option.value = 'Changed';
-      const toggle = page.doc.querySelector('sbb-toggle');
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(toggle.value).not.toBe(option.value);
+      expect(page.value).not.to.be.equal(option.value);
     });
   });
 
   describe('checked', () => {
     it('should initially have the checked attributes on the first option by default', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[0];
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[0];
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(option).toHaveAttribute('checked');
+      expect(option).to.have.attribute('checked');
     });
 
     it('should initially have the checked property set to true on the first option by default', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[0];
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[0];
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(option.checked).toBe(true);
+      expect(option.checked).to.be.equal(true);
     });
 
     it('should select the correct option by setting checked on the option', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[1];
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[1];
       option.checked = true;
 
-      await page.waitForChanges();
+      await option.updateComplete;
 
-      expect(option).toHaveAttribute('checked');
+      expect(option).to.have.attribute('checked');
     });
 
     it('should select the correct option by setting the checked attribute on the option', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: `
+      page = await fixture(html`
         <sbb-toggle>
           <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
           <sbb-toggle-option value="Value two" checked>Value two</sbb-toggle-option>
         </sbb-toggle>
-      `,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[1];
-      option.checked = true;
+      `);
+      option = page.querySelectorAll('sbb-toggle-option')[1];
 
-      await page.waitForChanges();
-
-      expect(option).toHaveAttribute('checked');
+      expect(option.checked).to.be.equal(true);
     });
 
     it('should check first option when unchecking all options', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[0];
-      option.checked = false;
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[0];
+      option.setAttribute('checked', 'false');
 
-      await page.waitForChanges();
+      await option.updateComplete;
 
-      expect(option.checked).toBe(true);
+      expect(option.checked).to.be.equal(true);
     });
   });
 
   describe('disabled', () => {
     it('should sync disabled state with options', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: `
-          <sbb-toggle disabled>
-            <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
-            <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
-          </sbb-toggle>
-        `,
-      });
-      const options = Array.from(page.doc.querySelectorAll('sbb-toggle-option'));
+      page = await fixture(html`
+        <sbb-toggle disabled>
+          <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
+          <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
+        </sbb-toggle>
+      `);
+      const options = Array.from(page.querySelectorAll('sbb-toggle-option'));
 
-      await page.waitForChanges();
-
-      options.forEach((option) => expect(option).toHaveAttribute('disabled'));
+      options.forEach((option) => expect(option).to.have.attribute('disabled'));
     });
 
     it('should prevent disabled option from unsetting disabled', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: `
-          <sbb-toggle disabled>
-            <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
-            <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
-          </sbb-toggle>
-        `,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[0];
+      page = await fixture(html`
+        <sbb-toggle disabled>
+          <sbb-toggle-option value="Value one">Value one</sbb-toggle-option>
+          <sbb-toggle-option value="Value two">Value two</sbb-toggle-option>
+        </sbb-toggle>
+      `);
+      option = page.querySelectorAll('sbb-toggle-option')[0];
       option.disabled = false;
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(option).toHaveAttribute('disabled');
+      expect(option).to.have.attribute('disabled');
     });
 
     it('should prevent enabled option from setting disabled', async () => {
-      page = await newSpecPage({
-        components: toggleComponents,
-        html: simpleToggleTemplate,
-      });
-      option = page.doc.querySelectorAll('sbb-toggle-option')[0];
+      page = await fixture(simpleToggleTemplate);
+      option = page.querySelectorAll('sbb-toggle-option')[0];
       option.disabled = true;
 
-      await page.waitForChanges();
+      await page.updateComplete;
 
-      expect(option).not.toHaveAttribute('disabled');
+      expect(option).not.to.have.attribute('disabled');
     });
   });
 });
