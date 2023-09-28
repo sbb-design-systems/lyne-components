@@ -13,4 +13,5 @@ export interface InterfaceSbbTabGroupTab extends HTMLStencilElement {
   relatedContent?: HTMLElement;
   index?: number;
   tabGroupActions?: InterfaceSbbTabGroupActions;
+  size: 'l' | 'xl';
 }
