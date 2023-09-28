@@ -103,6 +103,12 @@ async function migrate(component: string, debug = false) {
 
   for (const [file, migration] of Array.from(migrations)) {
     const path = join(source, file);
+
+    if (!existsSync(path)) {
+      console.warn(`WARN: file ${file} not found`);
+      continue;
+    }
+
     const sourceFile = ts.createSourceFile(
       path.pathname,
       readFileSync(path, 'utf8'),
