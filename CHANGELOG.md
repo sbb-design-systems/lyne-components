@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.19](https://github.com/lyne-design-system/lyne-components/compare/v0.40.18...v0.40.19) (2023-09-28)
+
+### Features
+
+- **sbb-tab-group:** tab titles redesign ([#1975](https://github.com/lyne-design-system/lyne-components/issues/1975)) ([231c140](https://github.com/lyne-design-system/lyne-components/commit/231c14087640d6730d979f1abb050a4f678ce892))
+
 ### [0.40.18](https://github.com/lyne-design-system/lyne-components/compare/v0.40.17...v0.40.18) (2023-09-28)
 
 ### Bug Fixes
