@@ -58,14 +58,16 @@ describe('sbb-toggle-check', () => {
         </div>
       </div>`,
     );
-    expect(element).not.to.have.attribute('checked');
+    const toggle = element.querySelector('sbb-toggle-check');
+
+    expect(toggle).not.to.have.attribute('checked');
     expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
 
-    element.focus();
+    toggle.focus();
     await sendKeys({ press: ' ' });
-    await element.updateComplete;
+    await toggle.updateComplete;
 
-    expect(element).to.have.attribute('checked');
+    expect(toggle).to.have.attribute('checked');
     expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
   });
 });
