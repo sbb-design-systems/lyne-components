@@ -1,8 +1,7 @@
+import { sbbInputModalityDetector } from '../a11y';
 import { mergeConfig, SbbIconConfig } from '../config';
 
-// TODO-Migr Find a way to reuse this setup for tests
-
-beforeEach(() => {
+function setupIconConfig(): void {
   const icon: SbbIconConfig = {
     interceptor: ({ namespace, name, request }) => {
       if (namespace === 'default') {
@@ -16,4 +15,10 @@ beforeEach(() => {
   mergeConfig({
     icon,
   });
+}
+
+beforeEach(() => {
+  setupIconConfig();
+
+  sbbInputModalityDetector.reset();
 });

@@ -69,6 +69,7 @@ export default {
       </head>
       <body>
         <script type="module" src="${testFramework}"></script>
+        <script type="module" src="/src/global/testing/test-setup.ts"></script>
       </body>
     </html>
   `,
