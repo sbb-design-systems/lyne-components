@@ -32,7 +32,6 @@ export class SbbToggle extends LitElement {
     return this._disabled;
   }
   public set disabled(value: boolean) {
-    // TODO: Validate logic
     const oldValue = this._disabled;
     this._disabled = value;
     this._updateDisabled();

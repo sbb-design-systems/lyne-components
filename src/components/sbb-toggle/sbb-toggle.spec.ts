@@ -18,20 +18,12 @@ describe('sbb-toggle', () => {
   it('renders', async () => {
     const root = await fixture(html`<sbb-toggle />`);
 
-    expect(root).dom.to.be.equal(
-      `
-        <sbb-toggle role="radiogroup" size="m">
-          
-        </sbb-toggle>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-            <div class="sbb-toggle">
-              <slot></slot>
-            </div>
-          `,
-    );
+    expect(root).dom.to.be.equal(`<sbb-toggle role="radiogroup" size="m"></sbb-toggle>`);
+    expect(root).shadowDom.to.be.equal(`
+      <div class="sbb-toggle">
+        <slot></slot>
+      </div>
+      `);
   });
 
   describe('value', () => {
@@ -119,8 +111,6 @@ describe('sbb-toggle', () => {
       `);
       option = page.querySelectorAll('sbb-toggle-option')[1];
 
-      await page.updateComplete;
-
       expect(option.checked).to.be.equal(true);
     });
 
@@ -144,8 +134,6 @@ describe('sbb-toggle', () => {
         </sbb-toggle>
       `);
       const options = Array.from(page.querySelectorAll('sbb-toggle-option'));
-
-      await page.updateComplete;
 
       options.forEach((option) => expect(option).to.have.attribute('disabled'));
     });

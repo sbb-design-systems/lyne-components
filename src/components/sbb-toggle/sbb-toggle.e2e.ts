@@ -12,13 +12,12 @@ describe('sbb-toggle', () => {
   let element: SbbToggle;
 
   beforeEach(async () => {
-    await fixture(html`
+    element = await fixture(html`
       <sbb-toggle value="Value one">
         <sbb-toggle-option id="sbb-toggle-option-1" value="Value one">Value one</sbb-toggle-option>
         <sbb-toggle-option id="sbb-toggle-option-2" value="Value two">Value two</sbb-toggle-option>
       </sbb-toggle>
     `);
-    element = document.querySelector('sbb-toggle');
   });
 
   it('renders', () => {
@@ -60,7 +59,7 @@ describe('sbb-toggle', () => {
       expect(firstOption).not.to.have.attribute('checked');
     });
 
-    it.only('dispatches event on option change', async () => {
+    it('dispatches event on option change', async () => {
       const firstOption = document.querySelector(
         'sbb-toggle > sbb-toggle-option#sbb-toggle-option-1',
       ) as SbbToggleOption;
