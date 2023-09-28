@@ -57,6 +57,7 @@ export class SbbToggleCheck extends LitElement {
   @state() private _hasLabelText = false;
 
   private _handlerRepository = new HandlerRepository(this, formElementHandlerAspect);
+  private _abort = new ConnectedAbortController(this);
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -68,7 +69,6 @@ export class SbbToggleCheck extends LitElement {
       (n: ChildNode) => !(n as Element).slot && n.textContent,
     );
   }
-  private _abort = new ConnectedAbortController(this);
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();

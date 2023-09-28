@@ -7,34 +7,30 @@ describe('sbb-toggle-check', () => {
   it('renders sbb-toggle-check', async () => {
     const root = await fixture(html`<sbb-toggle-check></sbb-toggle-check>`);
 
-    expect(root).dom.to.be.equal(
-      `
+    expect(root).dom.to.be.equal(`
         <sbb-toggle-check size="s" aria-checked="false" aria-disabled="false" aria-required="false" label-position="after" role="checkbox" tabindex="0">
-          
         </sbb-toggle-check>
-      `,
-    );
-    expect(root).shadowDom.to.be.equal(
-      `
-            <label class="sbb-toggle-check">
-              <input aria-hidden="true" tabindex="-1" type="checkbox"/>
-              <span class="sbb-toggle-check__container">
-                <span class="sbb-toggle-check__label" hidden="">
-                  <slot></slot>
-                </span>
-                <span class="sbb-toggle-check__track">
-                  <span class="sbb-toggle-check__circle">
-                    <span class="sbb-toggle-check__icon">
-                      <slot name="icon">
-                        <sbb-icon name="tick-small"></sbb-icon>
-                      </slot>
-                    </span>
-                  </span>
-                </span>
+    `);
+
+    expect(root).shadowDom.to.be.equal(`
+      <label class="sbb-toggle-check">
+        <input aria-hidden="true" tabindex="-1" type="checkbox"/>
+        <span class="sbb-toggle-check__container">
+          <span class="sbb-toggle-check__label" hidden="">
+            <slot></slot>
+          </span>
+          <span class="sbb-toggle-check__track">
+            <span class="sbb-toggle-check__circle">
+              <span class="sbb-toggle-check__icon">
+                <slot name="icon">
+                  <sbb-icon name="tick-small"></sbb-icon>
+                </slot>
               </span>
-            </label>
-          `,
-    );
+            </span>
+          </span>
+        </span>
+      </label>
+    `);
   });
 
   describe('label position', () => {
@@ -43,34 +39,29 @@ describe('sbb-toggle-check', () => {
         <sbb-toggle-check label-position="before">Check it</sbb-toggle-check>
       `);
 
-      expect(root).dom.to.be.equal(
-        `
+      expect(root).dom.to.be.equal(`
         <sbb-toggle-check size="s" aria-checked="false" aria-disabled="false" aria-required="false" label-position="before" role="checkbox" tabindex="0">
-          
           Check it
         </sbb-toggle-check>
-      `,
-      );
-      expect(root).shadowDom.to.be.equal(
-        `
-            <label class="sbb-toggle-check">
-              <input aria-hidden="true" tabindex="-1" type="checkbox"/>
-              <span class="sbb-toggle-check__container">
-                <span class="sbb-toggle-check__label">
-                  <slot></slot>
-                </span>
-                <span class="sbb-toggle-check__track">
-                <span class="sbb-toggle-check__circle">
-                  <span class="sbb-toggle-check__icon">
-                    <slot name="icon">
-                      <sbb-icon name="tick-small"></sbb-icon>
-                    </slot>
-                  </span>
-                </span>
+      `);
+      expect(root).shadowDom.to.be.equal(`
+        <label class="sbb-toggle-check">
+          <input aria-hidden="true" tabindex="-1" type="checkbox"/>
+          <span class="sbb-toggle-check__container">
+            <span class="sbb-toggle-check__label">
+              <slot></slot>
+            </span>
+            <span class="sbb-toggle-check__track">
+            <span class="sbb-toggle-check__circle">
+              <span class="sbb-toggle-check__icon">
+                <slot name="icon">
+                  <sbb-icon name="tick-small"></sbb-icon>
+                </slot>
               </span>
-            </label>
-          `,
-      );
+            </span>
+          </span>
+        </label>
+      `);
     });
   });
 
@@ -86,27 +77,25 @@ describe('sbb-toggle-check', () => {
           </sbb-toggle-check>
         `,
         );
-        expect(root).shadowDom.to.be.equal(
-          `
-              <label class="sbb-toggle-check">
-                <input aria-hidden="true" checked="" tabindex="-1" checked="" type="checkbox"/>
-                <span class="sbb-toggle-check__container">
-                  <span class="sbb-toggle-check__label" hidden="">
-                    <slot></slot>
-                  </span>
-                  <span class="sbb-toggle-check__track">
-                    <span class="sbb-toggle-check__circle">
-                      <span class="sbb-toggle-check__icon">
-                        <slot name="icon">
-                          <sbb-icon name="tick-small"></sbb-icon>
-                        </slot>
-                      </span>
-                    </span>
+        expect(root).shadowDom.to.be.equal(`
+          <label class="sbb-toggle-check">
+            <input aria-hidden="true" checked="" tabindex="-1" checked="" type="checkbox"/>
+            <span class="sbb-toggle-check__container">
+              <span class="sbb-toggle-check__label" hidden="">
+                <slot></slot>
+              </span>
+              <span class="sbb-toggle-check__track">
+                <span class="sbb-toggle-check__circle">
+                  <span class="sbb-toggle-check__icon">
+                    <slot name="icon">
+                      <sbb-icon name="tick-small"></sbb-icon>
+                    </slot>
                   </span>
                 </span>
-              </label>
-            `,
-        );
+              </span>
+            </span>
+          </label>
+        `);
       });
     });
 
@@ -114,34 +103,29 @@ describe('sbb-toggle-check', () => {
       it('renders toggle in disabled state', async () => {
         const root = await fixture(html`<sbb-toggle-check disabled></sbb-toggle-check>`);
 
-        expect(root).dom.to.be.equal(
-          `
+        expect(root).dom.to.be.equal(`
           <sbb-toggle-check size="s" aria-checked="false" aria-disabled="true" aria-required="false" disabled label-position="after" role="checkbox">
-            
           </sbb-toggle-check>
-        `,
-        );
-        expect(root).shadowDom.to.be.equal(
-          `
-              <label class="sbb-toggle-check">
-                <input disabled aria-hidden="true" tabindex="-1" type="checkbox">
-                <span class="sbb-toggle-check__container">
-                  <span class="sbb-toggle-check__label" hidden="">
-                    <slot></slot>
-                  </span>
-                  <span class="sbb-toggle-check__track">
-                    <span class="sbb-toggle-check__circle">
-                      <span class="sbb-toggle-check__icon">
-                        <slot name="icon">
-                          <sbb-icon name="tick-small"></sbb-icon>
-                        </slot>
-                      </span>
-                    </span>
+        `);
+        expect(root).shadowDom.to.be.equal(`
+          <label class="sbb-toggle-check">
+            <input disabled aria-hidden="true" tabindex="-1" type="checkbox">
+            <span class="sbb-toggle-check__container">
+              <span class="sbb-toggle-check__label" hidden="">
+                <slot></slot>
+              </span>
+              <span class="sbb-toggle-check__track">
+                <span class="sbb-toggle-check__circle">
+                  <span class="sbb-toggle-check__icon">
+                    <slot name="icon">
+                      <sbb-icon name="tick-small"></sbb-icon>
+                    </slot>
                   </span>
                 </span>
-              </label>
-            `,
-        );
+              </span>
+            </span>
+          </label>
+        `);
       });
     });
 
@@ -156,27 +140,25 @@ describe('sbb-toggle-check', () => {
           </sbb-toggle-check>
         `,
         );
-        expect(root).shadowDom.to.be.equal(
-          `
-              <label class="sbb-toggle-check">
-                <input checked="" type="checkbox" disabled aria-hidden="true" tabindex="-1" />
-                <span class="sbb-toggle-check__container">
-                  <span class="sbb-toggle-check__label" hidden="">
-                    <slot></slot>
-                  </span>
-                  <span class="sbb-toggle-check__track">
-                    <span class="sbb-toggle-check__circle">
-                      <span class="sbb-toggle-check__icon">
-                        <slot name="icon">
-                          <sbb-icon name="tick-small"></sbb-icon>
-                        </slot>
-                      </span>
-                    </span>
+        expect(root).shadowDom.to.be.equal(`
+          <label class="sbb-toggle-check">
+            <input checked="" type="checkbox" disabled aria-hidden="true" tabindex="-1" />
+            <span class="sbb-toggle-check__container">
+              <span class="sbb-toggle-check__label" hidden="">
+                <slot></slot>
+              </span>
+              <span class="sbb-toggle-check__track">
+                <span class="sbb-toggle-check__circle">
+                  <span class="sbb-toggle-check__icon">
+                    <slot name="icon">
+                      <sbb-icon name="tick-small"></sbb-icon>
+                    </slot>
                   </span>
                 </span>
-              </label>
-            `,
-        );
+              </span>
+            </span>
+          </label>
+        `);
       });
     });
   });

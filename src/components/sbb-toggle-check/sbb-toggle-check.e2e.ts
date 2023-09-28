@@ -9,8 +9,7 @@ describe('sbb-toggle-check', () => {
   let element: SbbToggleCheck;
 
   beforeEach(async () => {
-    await fixture(html`<sbb-toggle-check id="focus-id"></sbb-toggle-check>`);
-    element = document.querySelector('sbb-toggle-check');
+    element = await fixture(html`<sbb-toggle-check id="focus-id"></sbb-toggle-check>`);
   });
 
   it('renders', async () => {
@@ -19,7 +18,6 @@ describe('sbb-toggle-check', () => {
 
   describe('events', () => {
     it('emit event on click', async () => {
-      await element.updateComplete;
       const changeSpy = new EventSpy('change');
 
       element.click();
@@ -53,14 +51,13 @@ describe('sbb-toggle-check', () => {
   });
 
   it('should prevent scrolling on space bar press', async () => {
-    await fixture(
+    element = await fixture(
       html`<div style="height: 100px; overflow: scroll" id="scroll-context">
         <div style="height: 500px">
           <sbb-toggle-check></sbb-toggle-check>
         </div>
       </div>`,
     );
-    element = document.querySelector('sbb-toggle-check');
     expect(element).not.to.have.attribute('checked');
     expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
 
