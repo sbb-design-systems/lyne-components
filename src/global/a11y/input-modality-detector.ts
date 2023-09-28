@@ -77,6 +77,12 @@ class SbbInputModalityDetector {
     return this._mostRecentModality;
   }
 
+  public reset(): void {
+    this._mostRecentModality = 'mouse';
+    this._mostRecentTarget = null;
+    this._lastTouchMs = 0;
+  }
+
   /**
    * The most recent modality must be initialised with the value 'mouse' to cover the case where an action is
    * performed but no mouse or keyboard event has yet occurred on the page (e.g. `sbb-tooltip` with hover trigger).
