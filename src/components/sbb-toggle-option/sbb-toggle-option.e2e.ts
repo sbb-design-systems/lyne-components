@@ -8,9 +8,7 @@ describe('sbb-toggle-option', () => {
   let element: SbbToggleOption;
 
   beforeEach(async () => {
-    await fixture(html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`);
-
-    element = document.querySelector('sbb-toggle-option');
+    element = await fixture(html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`);
   });
 
   it('renders', async () => {
