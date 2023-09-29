@@ -181,6 +181,7 @@
 
 .sbb-dialog__header {
   display: flex;
+  pointer-events: none;
   gap: var(--sbb-spacing-fixed-6x);
   align-items: start;
   justify-content: space-between;
@@ -188,6 +189,10 @@
   padding-block: var(--sbb-dialog-header-padding-block);
   background-color: var(--sbb-dialog-background-color);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-z-index));
+
+  * {
+    pointer-events: all;
+  }
 
   :host([data-fullscreen]) & {
     position: fixed;
