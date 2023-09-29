@@ -266,7 +266,7 @@ export class SbbDialog implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the dialog.
   private _pointerDownListener = (event: PointerEvent): void => {
-    if (this.backdropAction === 'none') {
+    if (this.backdropAction !== 'close') {
       return;
     }
 
