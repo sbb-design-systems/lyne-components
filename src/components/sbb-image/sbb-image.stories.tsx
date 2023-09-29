@@ -16,11 +16,10 @@ const imageSrc: InputType = {
   options: images,
 };
 
-const borderRadius: InputType = {
+const noBorderRadius: InputType = {
   control: {
-    type: 'select',
+    type: 'boolean',
   },
-  options: ['true', 'false'],
 };
 
 const aspectRatio: InputType = {
@@ -93,7 +92,7 @@ const loading: InputType = {
   },
 };
 
-const lqip: InputType = {
+const skipLqip: InputType = {
   control: {
     type: 'boolean',
   },
@@ -120,7 +119,7 @@ const disableAnimation: InputType = {
 const defaultArgTypes: ArgTypes = {
   alt: {},
   caption: {},
-  'border-radius': borderRadius,
+  'no-border-radius': noBorderRadius,
   'aspect-ratio': aspectRatio,
   copyright,
   'copyright-holder': copyrightHolder,
@@ -130,7 +129,7 @@ const defaultArgTypes: ArgTypes = {
   'focal-point-y': focalPointY,
   'image-src': imageSrc,
   loading,
-  lqip,
+  'skip-lqip': skipLqip,
   'performance-mark': performanceMark,
   'disable-animation': disableAnimation,
 };
@@ -139,7 +138,7 @@ const defaultArgs: Args = {
   alt: '',
   caption: undefined,
   // we need a string and not boolean, otherwise storybook add/remove the attribute but don't write the value
-  'border-radius': 'true',
+  'no-border-radius': false,
   'aspect-ratio': aspectRatio.options[0],
   copyright: '',
   'copyright-holder': copyrightHolder.options[0],
@@ -149,7 +148,7 @@ const defaultArgs: Args = {
   'focal-point-y': '',
   'image-src': imageSrc.options[0],
   loading: loading.options[1],
-  lqip: true,
+  'skip-lqip': false,
   'performance-mark': '',
   'disable-animation': isChromatic(),
 };
@@ -178,7 +177,7 @@ export const NoCaptionNoRadius: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'border-radius': 'false',
+    'no-border-radius': true,
   },
 };
 

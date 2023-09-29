@@ -41,13 +41,13 @@ export class SbbImage extends LitElement {
   @property() public alt?: string;
 
   /**
-   * If set to true, we show a blurred version of the image as
+   * If set to false, we show a blurred version of the image as
    * placeholder before the actual image shows up. This will help
    * to improve the perceived loading performance. Read more about
    * the idea of lqip here:
    * https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
    */
-  @property({ type: Boolean }) public lqip = true;
+  @property({ attribute: 'skip-lqip', type: Boolean }) public skipLqip = false;
 
   /**
    * A caption can provide additional context to the image (e.g.
@@ -95,12 +95,12 @@ export class SbbImage extends LitElement {
   /**
    * Pass in a floating number between 0 (left) and 1 (right).
    */
-  @property({ attribute: 'focal-point-x' }) public focalPointX = 1;
+  @property({ attribute: 'focal-point-x', type: Number }) public focalPointX = 1;
 
   /**
    * Pass in a floating number between 0 (top) and 1 (bottom).
    */
-  @property({ attribute: 'focal-point-y' }) public focalPointY = 1;
+  @property({ attribute: 'focal-point-y', type: Number }) public focalPointY = 1;
 
   /**
    * Right now the module is heavily coupled with the image delivery
@@ -223,9 +223,9 @@ export class SbbImage extends LitElement {
   @property({ attribute: 'picture-sizes-config' }) public pictureSizesConfig?: string;
 
   /**
-   * border-radius: if set to false, there will be no border-radius on the image
+   * Whether to have no border-radius on the image
    */
-  @property({ attribute: 'border-radius', type: Boolean }) public borderRadius = true;
+  @property({ attribute: 'no-border-radius', type: Boolean }) public noBorderRadius = false;
 
   /**
    * Set an aspect ratio
@@ -418,14 +418,14 @@ export class SbbImage extends LitElement {
         class=${classMap({
           image__figure: true,
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
-          [`image__figure--no-radius`]: !this.borderRadius || this._variantTeaserHero,
+          [`image__figure--no-radius`]: this.noBorderRadius || this._variantTeaserHero,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`image__figure--loaded`]: this._loaded,
         })}
         ${spread(attributes)}
       >
         <div class="image__wrapper">
-          ${this.lqip
+          ${!this.skipLqip
             ? html`<img
                 alt=""
                 class="image__blur-hash"
