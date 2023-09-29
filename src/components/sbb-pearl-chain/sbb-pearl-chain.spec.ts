@@ -1,48 +1,36 @@
-import { newSpecPage } from '@stencil/core/testing';
 import { SbbPearlChain } from './sbb-pearl-chain';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { PtRideLeg } from '../../global/timetable';
+import './sbb-pearl-chain';
 
 describe('sbb-pearl-chain', () => {
   describe('sbb-pearl-chain with one leg', () => {
     it('renders component with config', async () => {
-      const page = await newSpecPage({
-        components: [SbbPearlChain],
-        html: `
-            <sbb-pearl-chain>
-            </sbb-pearl-chain>
-        `,
-      });
-      page.rootInstance.legs = [
+      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      element.legs = [
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T05:00' },
           departure: { time: '2022-08-18T04:00' },
-        },
+        } as PtRideLeg,
       ];
-      await page.waitForChanges();
-      expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain>
-          <mock:shadow-root>
-            <div class="sbb-pearl-chain">
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width: 100%;"></div>
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-            </div>
-          </mock:shadow-root>
-        </sbb-pearl-chain>
+      await element.updateComplete;
+      expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
+      expect(element).shadowDom.to.be.equal(`
+        <div class="sbb-pearl-chain">
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:100%;"></div>
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+        </div>
       `);
     });
   });
 
   describe('sbb-pearl-chain with two legs', () => {
     it('renders component with config', async () => {
-      const page = await newSpecPage({
-        components: [SbbPearlChain],
-        html: `
-            <sbb-pearl-chain>
-            </sbb-pearl-chain>
-        `,
-      });
-      page.rootInstance.legs = [
+      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      element.legs = [
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T05:00' },
@@ -52,7 +40,7 @@ describe('sbb-pearl-chain', () => {
               cancelled: false,
             },
           },
-        },
+        } as PtRideLeg,
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T16:00' },
@@ -62,36 +50,27 @@ describe('sbb-pearl-chain', () => {
               cancelled: false,
             },
           },
-        },
+        } as PtRideLeg,
       ];
-      await page.waitForChanges();
-      expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain>
-          <mock:shadow-root>
-            <div class="sbb-pearl-chain">
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width: 8.333333333333332%;"></div>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width: 91.66666666666666%;">
-                <span class="sbb-pearl-chain__stop"></span>
-              </div>
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-            </div>
-          </mock:shadow-root>
-        </sbb-pearl-chain>
+      await element.updateComplete;
+      expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
+      expect(element).shadowDom.to.be.equal(`
+        <div class="sbb-pearl-chain">
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:8.333333333333332%;"></div>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
+            <span class="sbb-pearl-chain__stop"></span>
+          </div>
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+        </div>
       `);
     });
   });
 
   describe('sbb-pearl-chain with skipped stops', () => {
     it('renders component with departure skipped', async () => {
-      const page = await newSpecPage({
-        components: [SbbPearlChain],
-        html: `
-            <sbb-pearl-chain>
-            </sbb-pearl-chain>
-        `,
-      });
-      page.rootInstance.legs = [
+      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      element.legs = [
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T05:00' },
@@ -101,7 +80,7 @@ describe('sbb-pearl-chain', () => {
               cancelled: false,
             },
           },
-        },
+        } as PtRideLeg,
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T16:00' },
@@ -119,34 +98,25 @@ describe('sbb-pearl-chain', () => {
               },
             ],
           },
-        },
+        } as PtRideLeg,
       ];
-      await page.waitForChanges();
-      expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain>
-          <mock:shadow-root>
-            <div class="sbb-pearl-chain">
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width: 8.333333333333332%;"></div>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width: 91.66666666666666%;">
-                <span class="sbb-pearl-chain__stop sbb-pearl-chain__stop--departure-skipped"></span>
-              </div>
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-            </div>
-          </mock:shadow-root>
-        </sbb-pearl-chain>
+      await element.updateComplete;
+      expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
+      expect(element).shadowDom.to.be.equal(`
+        <div class="sbb-pearl-chain">
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:8.333333333333332%;"></div>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
+            <span class="sbb-pearl-chain__stop sbb-pearl-chain__stop--departure-skipped"></span>
+          </div>
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+        </div>
       `);
     });
 
     it('renders component with arrival skipped', async () => {
-      const page = await newSpecPage({
-        components: [SbbPearlChain],
-        html: `
-            <sbb-pearl-chain>
-            </sbb-pearl-chain>
-        `,
-      });
-      page.rootInstance.legs = [
+      const element = await fixture<SbbPearlChain>(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+      element.legs = [
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T05:00' },
@@ -156,7 +126,7 @@ describe('sbb-pearl-chain', () => {
               cancelled: false,
             },
           },
-        },
+        } as PtRideLeg,
         {
           __typename: 'PTRideLeg',
           arrival: { time: '2022-08-18T16:00' },
@@ -174,22 +144,19 @@ describe('sbb-pearl-chain', () => {
               },
             ],
           },
-        },
+        } as PtRideLeg,
       ];
-      await page.waitForChanges();
-      expect(page.root).toEqualHtml(`
-        <sbb-pearl-chain>
-          <mock:shadow-root>
-            <div class="sbb-pearl-chain">
-              <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width: 8.333333333333332%;"></div>
-              <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width: 91.66666666666666%;">
-                <span class="sbb-pearl-chain__stop"></span>
-              </div>
-              <span class="sbb-pearl-chain--arrival-skipped sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
-            </div>
-          </mock:shadow-root>
-        </sbb-pearl-chain>
+      await element.updateComplete;
+      expect(element).dom.to.be.equal(`<sbb-pearl-chain></sbb-pearl-chain>`);
+      expect(element).shadowDom.to.be.equal(`
+        <div class="sbb-pearl-chain">
+          <span class="sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past" style="--sbb-pearl-chain-leg-width:8.333333333333332%;"></div>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--past sbb-pearl-chain__leg--skipped" style="--sbb-pearl-chain-leg-width:91.66666666666666%;">
+            <span class="sbb-pearl-chain__stop"></span>
+          </div>
+          <span class="sbb-pearl-chain--arrival-skipped sbb-pearl-chain__bullet sbb-pearl-chain__bullet--past"></span>
+        </div>
       `);
     });
   });

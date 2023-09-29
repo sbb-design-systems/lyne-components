@@ -1,13 +1,12 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbPearlChain } from './sbb-pearl-chain';
 
 describe('sbb-pearl-chain', () => {
-  let element, page;
+  let element: SbbPearlChain;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-pearl-chain></sbb-pearl-chain>');
-
-    element = await page.find('sbb-pearl-chain');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-pearl-chain></sbb-pearl-chain>`);
+    assert.instanceOf(element, SbbPearlChain);
   });
 });

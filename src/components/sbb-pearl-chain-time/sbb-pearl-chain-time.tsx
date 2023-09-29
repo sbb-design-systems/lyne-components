@@ -1,4 +1,3 @@
-import { Component, Element, h, JSX, Prop, State } from '@stencil/core';
 import { i18nDeparture, i18nArrival, i18nTransferProcedures } from '../../global/i18n';
 import { format } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/datetime';
@@ -7,14 +6,21 @@ import {
   HandlerRepository,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
-import { getDepartureArrivalTimeAttribute, isRideLeg, Leg } from '../../global/timetable';
+import {
+  getDepartureArrivalTimeAttribute,
+  isRideLeg,
+  Leg,
+  PtRideLeg,
+} from '../../global/timetable';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-pearl-chain-time.scss?lit&inline';
+import '../sbb-pearl-chain';
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-pearl-chain-time.scss',
-  tag: 'sbb-pearl-chain-time',
-})
-export class SbbPearlChainTime {
+@customElement('sbb-pearl-chain-time')
+export class SbbPearlChainTime extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * define the legs of the pearl-chain.
    * Format:
@@ -23,49 +29,49 @@ export class SbbPearlChainTime {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs!: Leg[];
+  @property() public legs!: (Leg | PtRideLeg)[];
 
   /** Prop to render the departure time - will be formatted as "H:mm" */
-  @Prop() public departureTime?: string;
+  @property({ attribute: 'departure-time' }) public departureTime?: string;
 
   /** Prop to render the arrival time - will be formatted as "H:mm" */
-  @Prop() public arrivalTime?: string;
+  @property({ attribute: 'arrival-time' }) public arrivalTime?: string;
 
   /** Optional prop to render the walk time (in minutes) before departure */
-  @Prop() public departureWalk?: number;
+  @property({ attribute: 'departure-walk' }) public departureWalk?: number;
 
   /** Optional prop to render the walk time (in minutes) after arrival */
-  @Prop() public arrivalWalk?: number;
+  @property({ attribute: 'arrival-walk' }) public arrivalWalk?: number;
 
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
    */
-  @Prop() public disableAnimation?: boolean;
+  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
   private _now(): number {
-    const dataNow = +this._element.dataset?.now;
+    const dataNow = +this.dataset?.now;
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const departure: Date | undefined = this.departureTime
       ? removeTimezoneFromISOTimeString(this.departureTime)
       : undefined;
@@ -82,35 +88,43 @@ export class SbbPearlChainTime {
       );
 
     const rideLegs = this.legs?.filter((leg) => isRideLeg(leg));
-    return (
+    return html`
       <div class="sbb-pearl-chain__time">
-        {renderDepartureTimeAttribute()}
-
-        {departure && (
-          <time class="sbb-pearl-chain__time-time" dateTime={this.departureTime}>
-            <span class="sbb-screenreaderonly">{i18nDeparture[this._currentLanguage]}:&nbsp;</span>
-            {format(departure, 'HH:mm')}
-          </time>
-        )}
-        {rideLegs?.length > 1 && (
-          <span class="sbb-screenreaderonly">
-            {`${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}`}
-          </span>
-        )}
+        ${renderDepartureTimeAttribute()}
+        ${departure
+          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.departureTime}>
+              <span class="sbb-screenreaderonly"
+                >${i18nDeparture[this._currentLanguage]}:&nbsp;</span
+              >
+              ${format(departure, 'HH:mm')}
+            </time>`
+          : nothing}
+        ${rideLegs?.length > 1
+          ? html`<span class="sbb-screenreaderonly">
+              ${rideLegs?.length - 1} ${i18nTransferProcedures[this._currentLanguage]}
+            </span>`
+          : nothing}
         <sbb-pearl-chain
           class="sbb-pearl-chain__time-chain"
-          legs={this.legs}
-          disable-animation={this.disableAnimation}
-          data-now={this._now()}
-        />
-        {arrival && (
-          <time class="sbb-pearl-chain__time-time" dateTime={this.arrivalTime}>
-            <span class="sbb-screenreaderonly">{i18nArrival[this._currentLanguage]}:&nbsp;</span>
-            {format(arrival, 'HH:mm')}
-          </time>
-        )}
-        {renderArrivalTimeAttribute()}
+          .legs=${this.legs}
+          .disableAnimation=${this.disableAnimation}
+          data-now=${this._now()}
+        ></sbb-pearl-chain>
+        ${arrival
+          ? html`<time class="sbb-pearl-chain__time-time" datetime=${this.arrivalTime}>
+              <span class="sbb-screenreaderonly">${i18nArrival[this._currentLanguage]}:&nbsp;</span>
+              ${format(arrival, 'HH:mm')}
+            </time>`
+          : nothing}
+        ${renderArrivalTimeAttribute()}
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-pearl-chain-time': SbbPearlChainTime;
   }
 }

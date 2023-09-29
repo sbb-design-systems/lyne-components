@@ -1,5 +1,5 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
 import { withoutVitePlugins } from '@storybook/builder-vite';
+import type { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],

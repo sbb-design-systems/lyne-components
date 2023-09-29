@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface ScheduledStopPointDetail {
   /** delay at arrival/departure (in minutes) */
-  delay: number;
+  delay?: number;
   /** reason for delayed arrival/departure */
   delayText?: string | null;
   /** True if platform change (de:Gleis-/Kante-/Steg-Änderung) */
