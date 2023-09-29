@@ -113,6 +113,43 @@ describe('sbb-dialog', () => {
     expect(dialog).not.toHaveAttribute('open');
   });
 
+  it('does not close the dialog on backdrop click', async () => {
+    const willOpen = await page.spyOnEvent(events.willOpen);
+    const didOpen = await page.spyOnEvent(events.didOpen);
+    const willClose = await page.spyOnEvent(events.willClose);
+    const didClose = await page.spyOnEvent(events.didClose);
+    const dialog = await page.find('sbb-dialog >>> dialog');
+
+    await element.setProperty('backdropAction', 'none');
+    await page.waitForChanges();
+
+    await element.callMethod('open');
+    await page.waitForChanges();
+
+    await waitForCondition(() => willOpen.events.length === 1);
+    expect(willOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    await waitForCondition(() => didOpen.events.length === 1);
+    expect(didOpen).toHaveReceivedEventTimes(1);
+    await page.waitForChanges();
+
+    expect(dialog).toHaveAttribute('open');
+
+    // Simulate backdrop click
+    await page.mouse.click(1, 1);
+    await page.waitForChanges();
+
+    expect(willClose).toHaveReceivedEventTimes(0);
+    await page.waitForChanges();
+
+    expect(didClose).toHaveReceivedEventTimes(0);
+    await page.waitForChanges();
+
+    expect(element).toEqualAttribute('data-state', 'opened');
+    expect(dialog).not.toHaveAttribute('closed');
+  });
+
   it('closes the dialog on close button click', async () => {
     const dialog = await page.find('sbb-dialog >>> dialog');
     const closeButton = await page.find('sbb-dialog >>> [sbb-dialog-close]');

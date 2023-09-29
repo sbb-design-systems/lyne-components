@@ -83,6 +83,13 @@ const disableAnimation: InputType = {
   },
 };
 
+const backdropAction: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['close', 'none'],
+};
+
 const basicArgTypes: ArgTypes = {
   'title-content': titleContent,
   'title-level': titleLevel,
@@ -92,6 +99,7 @@ const basicArgTypes: ArgTypes = {
   'accessibility-close-label': accessibilityCloseLabel,
   'accessibility-back-label': accessibilityBackLabel,
   'disable-animation': disableAnimation,
+  'backdrop-action': backdropAction,
 };
 
 const basicArgs: Args = {
@@ -103,6 +111,7 @@ const basicArgs: Args = {
   'accessibility-close-label': undefined,
   'accessibility-back-label': undefined,
   'disable-animation': isChromatic(),
+  'backdrop-action': backdropAction.options[0],
 };
 
 const openDialog = (_event, id): void => {
@@ -339,6 +348,13 @@ export const Negative: StoryObj = {
     ...basicArgs,
     negative: true,
   },
+  play: isChromatic() && playStory,
+};
+
+export const AllowBackdropClick: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, 'backdrop-action': backdropAction.options[1] },
   play: isChromatic() && playStory,
 };
 

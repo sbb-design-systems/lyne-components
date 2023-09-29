@@ -62,6 +62,11 @@ export class SbbDialog implements ComponentInterface {
   @Prop() public titleBackButton = false;
 
   /**
+   * Backdrop click action.
+   */
+  @Prop() public backdropAction: 'close' | 'none' = 'close';
+
+  /**
    * Negative coloring variant flag.
    */
   @Prop({ reflect: true }) public negative = false;
@@ -261,6 +266,10 @@ export class SbbDialog implements ComponentInterface {
 
   // Check if the pointerdown event target is triggered on the dialog.
   private _pointerDownListener = (event: PointerEvent): void => {
+    if (this.backdropAction !== 'close') {
+      return;
+    }
+
     this._isPointerDownEventOnDialog = event
       .composedPath()
       .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
@@ -269,6 +278,10 @@ export class SbbDialog implements ComponentInterface {
 
   // Close dialog on backdrop click.
   private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+    if (this.backdropAction !== 'close') {
+      return;
+    }
+
     if (
       !this._isPointerDownEventOnDialog &&
       !event
