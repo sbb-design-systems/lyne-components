@@ -1,4 +1,3 @@
-import { Component, ComponentInterface, Element, h, Host, JSX, Prop, State } from '@stencil/core';
 import {
   ButtonType,
   LinkButtonProperties,
@@ -14,100 +13,119 @@ import {
   actionElementHandlerAspect,
   languageChangeHandlerAspect,
 } from '../../global/eventing';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { setAttributes } from '../../global/dom';
+import Style from './sbb-menu-action.scss?lit&inline';
 
 /**
  * @slot unnamed - Use this slot to provide the menu action label.
  * @slot icon - Use this slot to provide an icon. If `icon` is set, a sbb-icon will be used.
  */
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-menu-action.scss',
-  tag: 'sbb-menu-action',
-})
-export class SbbMenuAction implements ComponentInterface, LinkButtonProperties {
+@customElement('sbb-menu-action')
+export class SbbMenuAction extends LitElement implements LinkButtonProperties {
+  public static override styles: CSSResult = Style;
+
   /**
    * The name of the icon, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string | undefined;
+  @property({ attribute: 'icon-name' }) public iconName?: string | undefined;
 
   /** Value shown as badge at component end. */
-  @Prop() public amount?: string | undefined;
+  @property() public amount?: string | undefined;
 
   /** The href value you want to link to (if it is not present menu action becomes a button). */
-  @Prop() public href: string | undefined;
+  @property() public href: string | undefined;
 
   /** Where to display the linked URL. */
-  @Prop() public target?: LinkTargetType | string | undefined;
+  @property() public target?: LinkTargetType | string | undefined;
 
   /** The relationship of the linked URL as space-separated link types. */
-  @Prop() public rel?: string | undefined;
+  @property() public rel?: string | undefined;
 
   /** Whether the browser will show the download dialog on click. */
-  @Prop() public download?: boolean;
+  @property({ type: Boolean }) public download?: boolean;
 
   /** The type attribute to use for the button. */
-  @Prop() public type: ButtonType | undefined;
+  @property() public type: ButtonType | undefined;
 
   /** Whether the button is disabled. */
-  @Prop({ reflect: true }) public disabled = false;
+  @property({ reflect: true, type: Boolean }) public disabled = false;
 
   /** The name attribute to use for the button. */
-  @Prop({ reflect: true }) public name: string | undefined;
+  @property({ reflect: true }) public name: string | undefined;
 
   /** The value attribute to use for the button. */
-  @Prop() public value?: string;
+  @property() public value?: string;
 
   /** The <form> element to associate the button with. */
-  @Prop() public form?: string;
+  @property() public form?: string;
 
-  @State() private _currentLanguage = documentLanguage();
-
-  @Element() private _element!: HTMLElement;
+  @state() private _currentLanguage = documentLanguage();
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     actionElementHandlerAspect,
     languageChangeHandlerAspect((l) => (this._currentLanguage = l)),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const {
       tagName: TAG_NAME,
       hostAttributes,
       attributes,
     }: LinkButtonRenderVariables = resolveRenderVariables(this);
 
-    return (
-      <Host {...hostAttributes}>
-        <TAG_NAME class="sbb-menu-action" {...attributes}>
-          <span class="sbb-menu-action__content">
-            <span class="sbb-menu-action__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-            <span class="sbb-menu-action__label">
-              <slot />
-            </span>
-            {this.amount && !this.disabled && (
-              <span class="sbb-menu-action__amount">{this.amount}</span>
-            )}
+    setAttributes(this, hostAttributes);
+
+    /* eslint-disable lit/binding-positions */
+    return html`
+      <${unsafeStatic(TAG_NAME)} class="sbb-menu-action" ${spread(attributes)}>
+        <span class="sbb-menu-action__content">
+          <span class="sbb-menu-action__icon">
+            <slot name="icon"
+              >${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}</slot
+            >
           </span>
-          {targetsNewWindow(this) && (
-            <span class="sbb-menu-action__opens-in-new-window">
-              . {i18nTargetOpensInNewWindow[this._currentLanguage]}
-            </span>
-          )}
-        </TAG_NAME>
-      </Host>
-    );
+          <span class="sbb-menu-action__label">
+            <slot></slot>
+          </span>
+          ${
+            this.amount && !this.disabled
+              ? html`<span class="sbb-menu-action__amount">${this.amount}</span>`
+              : nothing
+          }
+        </span>
+        ${
+          targetsNewWindow(this)
+            ? html`<span class="sbb-menu-action__opens-in-new-window">
+                . ${i18nTargetOpensInNewWindow[this._currentLanguage]}
+              </span>`
+            : nothing
+        }
+      </${unsafeStatic(TAG_NAME)}>
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-menu-action': SbbMenuAction;
   }
 }
