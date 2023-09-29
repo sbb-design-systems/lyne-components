@@ -185,7 +185,7 @@ export class SbbDialog implements ComponentInterface {
    */
   @Method()
   public async open(): Promise<void> {
-    if (this._state === 'closing' || !this._dialog) {
+    if (this._state !== 'closed' || !this._dialog) {
       return;
     }
     this._lastFocusedElement = document.activeElement as HTMLElement;
@@ -204,7 +204,7 @@ export class SbbDialog implements ComponentInterface {
    */
   @Method()
   public async close(result?: any, target?: HTMLElement): Promise<any> {
-    if (this._state === 'opening') {
+    if (this._state !== 'opened') {
       return;
     }
 
