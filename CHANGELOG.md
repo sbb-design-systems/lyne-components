@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.20](https://github.com/lyne-design-system/lyne-components/compare/v0.40.19...v0.40.20) (2023-09-29)
+
+### Bug Fixes
+
+- **sbb-dialog:** open/close methods exit conditions ([#2027](https://github.com/lyne-design-system/lyne-components/issues/2027)) ([a966a01](https://github.com/lyne-design-system/lyne-components/commit/a966a015385a1af7ae93fb6b38ce2eaca8c78778))
+
 ### [0.40.19](https://github.com/lyne-design-system/lyne-components/compare/v0.40.18...v0.40.19) (2023-09-28)
 
 ### Features
