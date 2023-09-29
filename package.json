@@ -54,7 +54,7 @@
     "@babel/preset-env": "7.22.20",
     "@babel/preset-typescript": "7.23.0",
     "@brightlayer-ui/storybook-rtl-addon": "1.1.0",
-    "@commitlint/cli": "17.7.1",
+    "@commitlint/cli": "17.7.2",
     "@commitlint/config-conventional": "17.7.0",
     "@sbb-esta/lyne-design-tokens": "0.3.7",
     "@stencil/core": "4.3.0",
