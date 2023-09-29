@@ -1,17 +1,23 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbCheckbox } from './sbb-checkbox';
 
 describe('sbb-checkbox', () => {
-  let element: E2EElement, page: E2EPage;
+  /** NOTE: These are too hard to migrate and are prone to errors :/
+   * consider that the E2EPage is now the 'document' (you should just delete it)
+   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
+  let element: SbbCheckbox;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-checkbox></sbb-checkbox>');
-    element = await page.find('sbb-checkbox');
+    await fixture(html`<sbb-checkbox></sbb-checkbox>`);
+    element = document.querySelector('sbb-checkbox');
   });
 
   it('should render', async () => {
-    element = await page.find('sbb-checkbox');
-    expect(element).toHaveClass('hydrated');
+    element = document.querySelector('sbb-checkbox');
+    assert.instanceOf(element, SbbCheckbox);
   });
 
   it('should not render accessibility label containing expanded state', async () => {
@@ -20,69 +26,71 @@ describe('sbb-checkbox', () => {
   });
 
   describe('events', () => {
-    it('emit event on click', async () => {
-      await page.waitForChanges();
-      const changeSpy = await page.spyOnEvent('change');
+    it.only('emit event on click', async () => {
+      expect(element.getAttribute('checked')).to.be.null;
+      await element.updateComplete;
+      const changeSpy = new EventSpy('change');
       await element.click();
-      expect(changeSpy).toHaveReceivedEvent();
+      expect(changeSpy.count).to.be.greaterThan(0);
+      expect(element.getAttribute('checked')).not.to.be.null;
     });
 
     it('emit event on keypress', async () => {
-      await page.waitForChanges();
-      const changeSpy = await page.spyOnEvent('change');
-      await element.press('Tab');
-      await element.press('Space');
-      await page.waitForChanges();
-      expect(changeSpy).toHaveReceivedEvent();
+      await element.updateComplete;
+      const changeSpy = new EventSpy('change');
+      element.focus();
+      await sendKeys({ press: 'Tab' });
+      element.focus();
+      await sendKeys({ press: 'Space' });
+      await element.updateComplete;
+      expect(changeSpy.count).to.be.greaterThan(0);
     });
   });
 
   describe('indeterminate', () => {
     it('should set indeterminate to false after checked', async () => {
-      page = await newE2EPage();
-      await page.setContent('<sbb-checkbox indeterminate>Label</sbb-checkbox>');
-      element = await page.find('sbb-checkbox');
-      await page.waitForChanges();
+      element.setAttribute('indeterminate', 'true');
+      await element.updateComplete;
 
-      expect(await element.getProperty('checked')).toBe(false);
-      expect(await element.getProperty('indeterminate')).toBe(true);
+      expect(element.checked).to.be.equal(false);
+      expect(element.indeterminate).to.be.equal(true);
 
       await element.click();
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      expect(await element.getProperty('checked')).toBe(true);
-      expect(await element.getProperty('indeterminate')).toBeFalsy();
+      expect(element.checked).to.be.equal(true);
+      expect(element.indeterminate).to.be.equal(false);
     });
 
     it('should update indeterminate state of input', async () => {
-      await page.waitForChanges();
+      await element.updateComplete;
 
-      expect(await element.getProperty('indeterminate')).toBeFalsy();
+      expect(element.indeterminate).to.be.equal(false);
 
-      element.setProperty('indeterminate', true);
-      await page.waitForChanges();
+      element.indeterminate = true;
+      await element.updateComplete;
 
-      expect(await element.getProperty('indeterminate')).toBe(true);
+      expect(element.indeterminate).to.be.equal(true);
     });
   });
 
   it('should prevent scrolling on space bar press', async () => {
-    page = await newE2EPage();
-    await page.setContent(
-      `<div style="height: 100px; overflow: scroll" id="scroll-context">
-              <div style="height: 500px">
-                <sbb-checkbox></sbb-checkbox>
-              </div>
-            </div>`,
+    await fixture(
+      html`<div style="height: 100px; overflow: scroll" id="scroll-context">
+        <div style="height: 500px">
+          <sbb-checkbox></sbb-checkbox>
+        </div>
+      </div>`,
     );
-    element = await page.find('sbb-checkbox');
-    expect(element).not.toHaveAttribute('checked');
-    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+    element = document.querySelector('sbb-checkbox');
+    expect(element).not.to.have.attribute('checked');
+    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
 
-    await element.press(' ');
-    await page.waitForChanges();
+    element.focus();
+    await sendKeys({ press: ' ' });
+    await element.updateComplete;
 
-    expect(element).toHaveAttribute('checked');
-    expect(await page.evaluate(() => document.querySelector('#scroll-context').scrollTop)).toBe(0);
+    expect(element).to.have.attribute('checked');
+    expect(document.querySelector('#scroll-context').scrollTop).to.be.equal(0);
   });
 });
