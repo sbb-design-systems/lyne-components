@@ -550,6 +550,10 @@ export namespace Components {
          */
         "accessibilityLabel": string | undefined;
         /**
+          * Backdrop click action.
+         */
+        "backdropAction": 'close' | 'none';
+        /**
           * Closes the dialog element.
          */
         "close": (result?: any, target?: HTMLElement) => Promise<any>;
@@ -3322,6 +3326,10 @@ declare namespace LocalJSX {
           * This will be forwarded as aria-label to the relevant nested element.
          */
         "accessibilityLabel"?: string | undefined;
+        /**
+          * Backdrop click action.
+         */
+        "backdropAction"?: 'close' | 'none';
         /**
           * Whether the animation is enabled.
          */

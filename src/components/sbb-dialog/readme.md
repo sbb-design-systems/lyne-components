@@ -90,6 +90,7 @@ displayed.
 | `accessibilityBackLabel`  | `accessibility-back-label`  | This will be forwarded as aria-label to the back button element.                | `string`                                 | `undefined` |
 | `accessibilityCloseLabel` | `accessibility-close-label` | This will be forwarded as aria-label to the close button element.               | `string`                                 | `undefined` |
 | `accessibilityLabel`      | `accessibility-label`       | This will be forwarded as aria-label to the relevant nested element.            | `string`                                 | `undefined` |
+| `backdropAction`          | `backdrop-action`           | Backdrop click action.                                                          | `"close" \| "none"`                      | `'close'`   |
 | `disableAnimation`        | `disable-animation`         | Whether the animation is enabled.                                               | `boolean`                                | `false`     |
 | `negative`                | `negative`                  | Negative coloring variant flag.                                                 | `boolean`                                | `false`     |
 | `titleBackButton`         | `title-back-button`         | Whether a back button is displayed next to the title.                           | `boolean`                                | `false`     |
