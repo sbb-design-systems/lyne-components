@@ -14,6 +14,12 @@ const textBlockStyle: Args = {
   borderRadius: 'var(--sbb-border-radius-4x)',
 };
 
+const negativeBlockStyle: Args = {
+  backgroundColor: 'var(--sbb-color-iron-default)',
+  color: 'var(--sbb-color-white-default)',
+  padding: '2rem',
+};
+
 const createLoadingIndicator = (args): void => {
   const loader: HTMLSbbLoadingIndicatorElement = document.createElement(
     'SBB-LOADING-INDICATOR',
@@ -50,8 +56,25 @@ const TemplateAccessibility = (args): JSX.Element => (
 
 const Template = (args): JSX.Element => <sbb-loading-indicator {...args}></sbb-loading-indicator>;
 
+const NegativeTemplate = (args): JSX.Element => (
+  <div style={negativeBlockStyle}>
+    <sbb-loading-indicator {...args}></sbb-loading-indicator>
+  </div>
+);
+
 const InlineTemplate = (args): JSX.Element => (
   <div>
+    <p>
+      <sbb-loading-indicator {...args}></sbb-loading-indicator> Inline loading indicator
+    </p>
+    <h2>
+      <sbb-loading-indicator {...args}></sbb-loading-indicator> Adaptive to font size
+    </h2>
+  </div>
+);
+
+const NegativeInlineTemplate = (args): JSX.Element => (
+  <div style={negativeBlockStyle}>
     <p>
       <sbb-loading-indicator {...args}></sbb-loading-indicator> Inline loading indicator
     </p>
@@ -75,6 +98,13 @@ const size: InputType = {
   options: ['small', 'large'],
 };
 
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['default', 'smoke', 'white'],
+};
+
 const disableAnimation: InputType = {
   control: {
     type: 'boolean',
@@ -84,31 +114,69 @@ const disableAnimation: InputType = {
 const defaultArgTypes: ArgTypes = {
   variant,
   size,
+  color,
   'disable-animation': disableAnimation,
 };
 
 const defaultArgs: Args = {
   variant: variant.options[0],
   size: size.options[0],
+  color: color.options[0],
   'disable-animation': isChromatic(),
 };
 
-export const WindowSmall: StoryObj = {
+export const WindowSmallDefault: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const WindowLarge: StoryObj = {
+export const WindowSmallSmoke: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1] },
+};
+
+export const WindowSmallWhite: StoryObj = {
+  render: NegativeTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[2] },
+};
+
+export const WindowLargeDefault: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options[1] },
 };
 
-export const Circle: StoryObj = {
+export const WindowLargeSmoke: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1], size: size.options[1] },
+};
+
+export const WindowLargeWhite: StoryObj = {
+  render: NegativeTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[2], size: size.options[1] },
+};
+
+export const CircleDefault: StoryObj = {
   render: InlineTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, variant: variant.options[1] },
+};
+
+export const CircleSmoke: StoryObj = {
+  render: InlineTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[1], variant: variant.options[1] },
+};
+
+export const CircleWhite: StoryObj = {
+  render: NegativeInlineTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, color: color.options[2], variant: variant.options[1] },
 };
 
 export const Accessibility: StoryObj = {
