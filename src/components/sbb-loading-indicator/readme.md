@@ -44,11 +44,12 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                       | Type                   | Default     |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------- | ---------------------- | ----------- |
-| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                 | `boolean`              | `false`     |
-| `size`             | `size`              | Size variant, either s or m.                                                                      | `"l" \| "s"`           | `'s'`       |
-| `variant`          | `variant`           | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. | `"circle" \| "window"` | `undefined` |
+| Property           | Attribute           | Description                                                                                       | Type                              | Default     |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------- | ----------- |
+| `color`            | `color`             | Color variant.                                                                                    | `"default" \| "smoke" \| "white"` | `'default'` |
+| `disableAnimation` | `disable-animation` | Whether the animation is enabled.                                                                 | `boolean`                         | `false`     |
+| `size`             | `size`              | Size variant, either s or m.                                                                      | `"l" \| "s"`                      | `'s'`       |
+| `variant`          | `variant`           | Variant of the loading indicator; `circle` is meant to be used inline, while `window` as overlay. | `"circle" \| "window"`            | `undefined` |
 
 
 ----------------------------------------------

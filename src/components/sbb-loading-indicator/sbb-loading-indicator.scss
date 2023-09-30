@@ -15,6 +15,14 @@
   --sbb-loading-indicator-duration: 0;
 }
 
+:host([color='smoke']) {
+  --sbb-loading-indicator-color: var(--sbb-color-smoke-default);
+}
+
+:host([color='white']) {
+  --sbb-loading-indicator-color: var(--sbb-color-white-default);
+}
+
 :host([variant='circle']) {
   --sbb-loading-indicator-height: var(--sbb-size-icon-ui-small);
   --sbb-loading-indicator-width: var(--sbb-size-icon-ui-small);
@@ -29,6 +37,10 @@
   --sbb-loading-indicator-circle-animated-width: 0.1875em;
   --sbb-loading-indicator-circle-animated-height: 0.1875em;
   --sbb-loading-indicator-circle-animated-border-radius: 50%;
+}
+
+:host([color='white'][variant='circle']) {
+  --sbb-loading-indicator-background-color: var(--sbb-color-iron-default);
 }
 
 :host([variant='circle']) .sbb-loading-indicator {
@@ -82,6 +94,12 @@
 
   @include sbb.if-forced-colors {
     --sbb-loading-indicator-circle-background: transparent;
+  }
+}
+
+:host([color='white'][variant='circle']) .sbb-loading-indicator__animated-element::after {
+  @include sbb.if-forced-colors {
+    --sbb-loading-indicator-color: var(--sbb-color-white-default);
   }
 }
 

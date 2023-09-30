@@ -1031,6 +1031,10 @@ export namespace Components {
     }
     interface SbbLoadingIndicator {
         /**
+          * Color variant.
+         */
+        "color": InterfaceSbbLoadingIndicatorAttributes['color'];
+        /**
           * Whether the animation is enabled.
          */
         "disableAnimation": boolean;
@@ -3824,6 +3828,10 @@ declare namespace LocalJSX {
         "titleLevel"?: InterfaceTitleAttributes['level'];
     }
     interface SbbLoadingIndicator {
+        /**
+          * Color variant.
+         */
+        "color"?: InterfaceSbbLoadingIndicatorAttributes['color'];
         /**
           * Whether the animation is enabled.
          */
