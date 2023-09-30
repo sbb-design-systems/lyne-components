@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.40.21](https://github.com/lyne-design-system/lyne-components/compare/v0.40.20...v0.40.21) (2023-09-30)
+
+### Features
+
+- **sbb-dialog:** add backdropAction property ([#2028](https://github.com/lyne-design-system/lyne-components/issues/2028)) ([5f16c79](https://github.com/lyne-design-system/lyne-components/commit/5f16c79efaa8db1feea82bf487447088f6c0300e))
+- **sbb-loading:** add color variants ([#1998](https://github.com/lyne-design-system/lyne-components/issues/1998)) ([7c57401](https://github.com/lyne-design-system/lyne-components/commit/7c5740165cfe43e19f9c711456e084aa724fd912))
+
 ### [0.40.20](https://github.com/lyne-design-system/lyne-components/compare/v0.40.19...v0.40.20) (2023-09-29)
 
 ### Bug Fixes
