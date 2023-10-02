@@ -1,6 +1,5 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
-import { mergeConfig } from 'vite';
-import { plugins } from '../vite.config';
+import { withoutVitePlugins } from '@storybook/builder-vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
@@ -13,10 +12,11 @@ const config: StorybookConfig = {
     autodocs: true,
   },
   async viteFinal(config) {
-    return mergeConfig(config, {
+    return {
+      ...config,
       assetsInclude: ['**/*.md'],
-      plugins: [plugins],
-    });
+      plugins: await withoutVitePlugins(config.plugins, ['vite:dts']),
+    };
   },
 };
 export default config;

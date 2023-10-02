@@ -2,12 +2,14 @@ import { defaultReporter, summaryReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { puppeteerLauncher } from '@web/test-runner-puppeteer';
 import { vitePlugin } from '@remcovaes/web-test-runner-vite-plugin';
-import postcssLit from 'rollup-plugin-postcss-lit';
 import { existsSync } from 'fs';
 import glob from 'glob';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import * as sass from 'sass';
+
+const isCIEnvironment = !!process.env.CI;
+const isDebugMode = process.argv.includes('--debug');
 
 const globalCss = sass.compile('./src/global/styles/global.scss', { loadPaths: ['.'] });
 
@@ -22,21 +24,15 @@ const e2eFiles = glob
   })
   .filter((f) => existsSync(join(dirname(f), 'index.ts')));
 
-const browsers = process.env.CI
+const browsers = isCIEnvironment
   ? [
-      playwrightLauncher({ product: 'chromium' }),
-      playwrightLauncher({ product: 'firefox' }),
-      playwrightLauncher({ product: 'webkit' }),
+      playwrightLauncher({ product: 'chromium', concurrency: 1 }),
+      playwrightLauncher({ product: 'firefox', concurrency: 1 }),
+      playwrightLauncher({ product: 'webkit', concurrency: 1 }),
     ]
-  : [
-      // playwrightLauncher({
-      //   product: 'chromium',
-      //   launchOptions: { headless: true, devtools: true },
-      // }),
-
-      // In dev, we prefer to use puppeteer because has a better behavior in debug mode
-      puppeteerLauncher({ concurrency: 1, launchOptions: { headless: 'new', devtools: true } }),
-    ];
+  : isDebugMode
+  ? [puppeteerLauncher({ concurrency: 1, launchOptions: { devtools: true } })]
+  : [playwrightLauncher({ product: 'chromium' })];
 
 // TODO: Revert to glob rules after migration
 export default {
@@ -48,13 +44,7 @@ export default {
   nodeResolve: true,
   reporters: [defaultReporter(), summaryReporter()],
   browsers: browsers,
-  plugins: [
-    vitePlugin({
-      plugins: postcssLit({
-        exclude: '**/*.global.*',
-      }),
-    }),
-  ],
+  plugins: [vitePlugin()],
   testFramework: {
     config: {
       timeout: '3000',
