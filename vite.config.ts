@@ -18,16 +18,18 @@ const modules = glob
   })
   .map(dirname);
 
-export default defineConfig({
+export default defineConfig(({ command, mode }) => ({
   plugins: [
     ...plugins,
-    ...modules.map((p) =>
-      dts({
-        entryRoot: p,
-        include: `${p}/**/*.{ts,tsx}`,
-        exclude: '**/*.{stories,spec,e2e}.{ts,tsx}',
-      }),
-    ),
+    ...(command === 'build' && mode !== 'development'
+      ? modules.map((p) =>
+          dts({
+            entryRoot: p,
+            include: `${p}/**/*.{ts,tsx}`,
+            exclude: '**/*.{stories,spec,e2e}.{ts,tsx}',
+          }),
+        )
+      : []),
   ],
   build: {
     lib: {
@@ -42,4 +44,4 @@ export default defineConfig({
       external: [/^lit\/?/],
     },
   },
-});
+}));
