@@ -1,10 +1,11 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import events from './sbb-tab-group.events';
-import readme from './readme.md';
+import { events } from './sbb-tab-group';
+import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-tab-group';
 
 const firstTabTitle = (label, args): JSX.Element => (
   <sbb-tab-title {...args}>{label}</sbb-tab-title>

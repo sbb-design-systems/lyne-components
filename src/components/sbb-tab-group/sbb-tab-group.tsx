@@ -1,22 +1,14 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  JSX,
-  Listen,
-  Method,
-  Prop,
-  Watch,
-} from '@stencil/core';
 import { InterfaceSbbTabGroupTab } from './sbb-tab-group.custom';
 import { isArrowKeyPressed, getNextElementIndex, interactivityChecker } from '../../global/a11y';
 import { isValidAttribute, hostContext, toggleDatasetEntry } from '../../global/dom';
-import { throttle } from '../../global/eventing';
+import { throttle, EventEmitter, ConnectedAbortController } from '../../global/eventing';
 import { AgnosticMutationObserver, AgnosticResizeObserver } from '../../global/observers';
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { SbbTabTitle } from '../sbb-tab-title/index';
+import { setAttribute } from '../../global/dom';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-tab-group.scss?lit&inline';
 
 const tabObserverConfig: MutationObserverInit = {
   attributeFilter: ['active', 'disabled'],
@@ -35,12 +27,14 @@ let nextId = 0;
  * This is not correct: `<span>Some text</span><p>Some other text</p>`
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-tab-group.scss',
-  tag: 'sbb-tab-group',
-})
-export class SbbTabGroup implements ComponentInterface {
+export const events = {
+  selectedTabChanged: 'did-change',
+};
+
+@customElement('sbb-tab-group')
+export class SbbTabGroup extends LitElement {
+  public static override styles: CSSResult = Style;
+
   private _tabs: InterfaceSbbTabGroupTab[] = [];
   private _selectedTab: InterfaceSbbTabGroupTab;
   private _isNested: boolean;
@@ -56,21 +50,28 @@ export class SbbTabGroup implements ComponentInterface {
     this._onTabContentElementResize(entries),
   );
 
-  @Element() private _element: HTMLElement;
-
   /**
    * Size variant, either l or xl.
    */
-  @Prop() public size: InterfaceSbbTabGroupTab['size'] = 'l';
+  @property()
+  public get size(): InterfaceSbbTabGroupTab['size'] {
+    return this._size;
+  }
+  public set size(value: InterfaceSbbTabGroupTab['size']) {
+    const oldValue = this._size;
+    this._size = value;
+    this._updateSize();
+    this.requestUpdate('size', oldValue);
+  }
+  private _size: InterfaceSbbTabGroupTab['size'] = 'l';
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
    * the tab group, the first enabled tab will be selected.
    */
-  @Prop() public initialSelectedIndex = 0;
+  @property({ attribute: 'initial-selected-index', type: Number }) public initialSelectedIndex = 0;
 
-  @Watch('size')
-  public updateSize(): void {
+  private _updateSize(): void {
     for (const tab of this._tabs) {
       tab.setAttribute('data-size', this.size);
     }
@@ -79,17 +80,20 @@ export class SbbTabGroup implements ComponentInterface {
   /**
    * Emits an event on selected tab change
    */
-  @Event({
-    eventName: 'did-change',
-  })
-  public selectedTabChanged: EventEmitter<void>;
+  private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
+    this,
+    events.selectedTabChanged,
+    {
+      bubbles: true,
+      composed: true,
+    },
+  );
 
   /**
    * Disables a tab by index.
    * @param tabIndex The index of the tab you want to disable.
    */
-  @Method()
-  public async disableTab(tabIndex: number): Promise<void> {
+  public disableTab(tabIndex: number): void {
     this._tabs[tabIndex]?.tabGroupActions.disable();
   }
 
@@ -97,8 +101,7 @@ export class SbbTabGroup implements ComponentInterface {
    * Enables a tab by index.
    * @param tabIndex The index of the tab you want to enable.
    */
-  @Method()
-  public async enableTab(tabIndex: number): Promise<void> {
+  public enableTab(tabIndex: number): void {
     this._tabs[tabIndex]?.tabGroupActions.enable();
   }
 
@@ -106,13 +109,12 @@ export class SbbTabGroup implements ComponentInterface {
    * Activates a tab by index.
    * @param tabIndex The index of the tab you want to activate.
    */
-  @Method()
-  public async activateTab(tabIndex: number): Promise<void> {
+  public activateTab(tabIndex: number): void {
     this._tabs[tabIndex]?.tabGroupActions.select();
   }
 
   private _getTabs(): InterfaceSbbTabGroupTab[] {
-    return Array.from(this._element.children).filter((child) =>
+    return Array.from(this.children).filter((child) =>
       /^SBB-TAB-TITLE$/u.test(child.tagName),
     ) as InterfaceSbbTabGroupTab[];
   }
@@ -123,25 +125,29 @@ export class SbbTabGroup implements ComponentInterface {
     );
   }
 
-  public connectedCallback(): void {
-    this._isNested = !!hostContext('sbb-tab-group', this._element);
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    const signal = this._abort.signal;
+    this.addEventListener('keydown', (e) => this._handleKeyDown(e), { signal });
+    this._isNested = !!hostContext('sbb-tab-group', this);
   }
 
-  public componentDidLoad(): void {
+  protected override firstUpdated(): void {
     this._tabs = this._getTabs();
     this._tabs.forEach((tab) => this._configure(tab));
     this._initSelection();
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._tabAttributeObserver.disconnect();
     this._tabContentResizeObserver.disconnect();
     this._tabGroupResizeObserver.disconnect();
   }
 
   private _onContentSlotChange = (): void => {
-    this._tabContentElement = this._element.shadowRoot.querySelector('div.tab-content');
+    this._tabContentElement = this.shadowRoot.querySelector('div.tab-content');
     const loadedTabs = this._getTabs().filter((tab) => !this._tabs.includes(tab));
 
     // if a new tab/content is added to the tab group
@@ -163,12 +169,13 @@ export class SbbTabGroup implements ComponentInterface {
       });
       this._tabs = tabs;
     }
-    this._tabs.forEach((tab: HTMLSbbTabTitleElement) => tab.setAttribute('data-size', this.size));
+    this._tabs.forEach((tab: InterfaceSbbTabGroupTab) => tab.setAttribute('data-size', this.size));
   };
 
   private _assignId(): string {
     return `sbb-tab-panel-${++nextId}`;
   }
+  private _abort = new ConnectedAbortController(this);
 
   private _initSelection(): void {
     if (
@@ -210,7 +217,7 @@ export class SbbTabGroup implements ComponentInterface {
     for (const entry of entries) {
       const tabTitles = (
         entry.target.firstElementChild as HTMLSlotElement
-      ).assignedElements() as HTMLSbbTabTitleElement[];
+      ).assignedElements() as SbbTabTitle[];
 
       for (const tab of tabTitles) {
         toggleDatasetEntry(
@@ -218,10 +225,7 @@ export class SbbTabGroup implements ComponentInterface {
           'hasDivider',
           tab === tabTitles[0] || tab.offsetLeft === tabTitles[0].offsetLeft,
         );
-        this._element.style.setProperty(
-          '--sbb-tab-group-width',
-          `${this._tabGroupElement.clientWidth}px`,
-        );
+        this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);
       }
     }
   }
@@ -286,7 +290,7 @@ export class SbbTabGroup implements ComponentInterface {
           this._selectedTab = tab;
 
           this._tabContentResizeObserver.observe(tab.relatedContent);
-          this.selectedTabChanged.emit();
+          this._selectedTabChanged.emit();
         } else if (tab.disabled) {
           console.warn('You cannot activate a disabled tab');
         }
@@ -324,15 +328,13 @@ export class SbbTabGroup implements ComponentInterface {
     tab.slot = 'tab-bar';
   }
 
-  @Listen('keydown')
-  public handleKeyDown(evt: KeyboardEvent): void {
+  private _handleKeyDown(evt: KeyboardEvent): void {
     const enabledTabs: InterfaceSbbTabGroupTab[] = this._enabledTabs;
 
     if (
       !enabledTabs ||
       // don't trap nested handling
-      ((evt.target as HTMLElement) !== this._element &&
-        (evt.target as HTMLElement).parentElement !== this._element)
+      ((evt.target as HTMLElement) !== this && (evt.target as HTMLElement).parentElement !== this)
     ) {
       return;
     }
@@ -346,17 +348,28 @@ export class SbbTabGroup implements ComponentInterface {
     }
   }
 
-  public render(): JSX.Element {
-    return (
-      <Host class={this._isNested ? 'tab-group--nested' : ''}>
-        <div class="tab-group" role="tablist" ref={(el) => (this._tabGroupElement = el)}>
-          <slot name="tab-bar" onSlotchange={this._onTabsSlotChange}></slot>
-        </div>
+  protected override render(): TemplateResult {
+    setAttribute(this, 'class', this._isNested ? 'tab-group--nested' : '');
 
-        <div class="tab-content">
-          <slot onSlotchange={throttle(this._onContentSlotChange, 150)}></slot>
-        </div>
-      </Host>
-    );
+    return html`
+      <div
+        class="tab-group"
+        role="tablist"
+        ${ref((el) => (this._tabGroupElement = el as HTMLElement))}
+      >
+        <slot name="tab-bar" @slotchange=${this._onTabsSlotChange}></slot>
+      </div>
+
+      <div class="tab-content">
+        <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
+      </div>
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-tab-group': SbbTabGroup;
   }
 }
