@@ -455,7 +455,7 @@ export class SbbImage extends LitElement {
               ];
             })}
             <img
-              alt=${this.alt}
+              alt=${this.alt || nothing}
               class="image__img"
               src=${this.imageSrc}
               width="1000"
