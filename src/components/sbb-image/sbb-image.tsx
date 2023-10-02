@@ -1,23 +1,25 @@
-import { Component, ComponentInterface, Element, h, JSX, Prop, State } from '@stencil/core';
-
 import {
   InterfaceImageAttributes,
   InterfaceImageAttributesSizesConfigBreakpoint,
 } from './sbb-image.custom';
 import imageHelperGetBreakpoints from './sbb-image.helper';
 import { hostContext } from '../../global/dom';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { spread } from '@open-wc/lit-helpers';
+import { classMap } from 'lit/directives/class-map.js';
+import { ref } from 'lit/directives/ref.js';
+import Style from './sbb-image.scss?lit&inline';
 
 const eventListenerOptions = {
   once: true,
   passive: true,
 };
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-image.scss',
-  tag: 'sbb-image',
-})
-export class SbbImage implements ComponentInterface {
+@customElement('sbb-image')
+export class SbbImage extends LitElement {
+  public static override styles: CSSResult = Style;
+
   private _captionElement?: HTMLElement;
   private _imageElement!: HTMLElement;
   private _linksInCaption;
@@ -27,9 +29,7 @@ export class SbbImage implements ComponentInterface {
   };
   private _variantTeaserHero = false;
 
-  @Element() public el!: HTMLElement;
-
-  @State() private _loaded = false;
+  @state() private _loaded = false;
 
   /**
    * An alt text is not always necessary (e.g. in teaser cards when
@@ -38,16 +38,16 @@ export class SbbImage implements ComponentInterface {
    * still needs to be present. That way we can signal assistive
    * technology, that they can skip the image.
    */
-  @Prop() public alt?: string;
+  @property() public alt?: string;
 
   /**
-   * If set to true, we show a blurred version of the image as
+   * If set to false, we show a blurred version of the image as
    * placeholder before the actual image shows up. This will help
    * to improve the perceived loading performance. Read more about
    * the idea of lqip here:
    * https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62
    */
-  @Prop() public lqip = true;
+  @property({ attribute: 'skip-lqip', type: Boolean }) public skipLqip = false;
 
   /**
    * A caption can provide additional context to the image (e.g.
@@ -55,26 +55,27 @@ export class SbbImage implements ComponentInterface {
    * Links will automatically receive tabindex=-1 if hideFromScreenreader
    * is set to true. That way they will no longer become focusable.
    */
-  @Prop() public caption?: string;
+  @property() public caption?: string;
 
   /**
    * If a copyright text is provided, we will add it to the caption
    * and create a structured data json-ld block with the copyright
    * information.
    */
-  @Prop() public copyright?: string;
+  @property() public copyright?: string;
 
   /**
    * Copyright holder can either be an Organization or a Person
    */
-  @Prop() public copyrightHolder: InterfaceImageAttributes['copyrightHolder'] = 'Organization';
+  @property({ attribute: 'copyright-holder' })
+  public copyrightHolder: InterfaceImageAttributes['copyrightHolder'] = 'Organization';
 
   /**
    * Set this to true, if you want to pass a custom focal point
    * for the image. See full documentation here:
    * https://docs.imgix.com/apis/rendering/focalpoint-crop
    */
-  @Prop() public customFocalPoint = false;
+  @property({ attribute: 'custom-focal-point', type: Boolean }) public customFocalPoint = false;
 
   /**
    * If the lazy property is set to true, the module will automatically
@@ -83,23 +84,23 @@ export class SbbImage implements ComponentInterface {
    * decoding attribute here:
    * https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding
    */
-  @Prop() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
+  @property() public decoding: InterfaceImageAttributes['decoding'] = 'auto';
 
   /**
    * Set this to true, to receive visual guidance where the custom focal
    * point is currently set.
    */
-  @Prop() public focalPointDebug = false;
+  @property({ attribute: 'focal-point-debug', type: Boolean }) public focalPointDebug = false;
 
   /**
    * Pass in a floating number between 0 (left) and 1 (right).
    */
-  @Prop() public focalPointX = 1;
+  @property({ attribute: 'focal-point-x', type: Number }) public focalPointX = 1;
 
   /**
    * Pass in a floating number between 0 (top) and 1 (bottom).
    */
-  @Prop() public focalPointY = 1;
+  @property({ attribute: 'focal-point-y', type: Number }) public focalPointY = 1;
 
   /**
    * Right now the module is heavily coupled with the image delivery
@@ -111,7 +112,7 @@ export class SbbImage implements ComponentInterface {
    * images coming from a different source, please contact the
    * LYNE Core Team.
    */
-  @Prop() public imageSrc?: string;
+  @property({ attribute: 'image-src' }) public imageSrc?: string;
 
   /**
    * The importance attribute is fairly new attribute which should
@@ -122,7 +123,7 @@ export class SbbImage implements ComponentInterface {
    * attribute value to 'high'. 'lazy', which we use for images below
    * the fold, will set the attribute value to 'low'.
    */
-  @Prop() public importance: InterfaceImageAttributes['importance'] = 'high';
+  @property() public importance: InterfaceImageAttributes['importance'] = 'high';
 
   /**
    * With the support of native image lazy loading, we can now
@@ -134,7 +135,7 @@ export class SbbImage implements ComponentInterface {
    * which are further down the page or invisible during the loading
    * of the initial viewport.
    */
-  @Prop() public loading: InterfaceImageAttributes['loading'] = 'eager';
+  @property() public loading: InterfaceImageAttributes['loading'] = 'eager';
 
   /**
    * With performance.mark you can log a timestamp associated with
@@ -149,7 +150,7 @@ export class SbbImage implements ComponentInterface {
    * increases or decreases over time. Best to use lowercase strings
    * here, separate words with underscores or dashes.
    */
-  @Prop() public performanceMark?: string;
+  @property({ attribute: 'performance-mark' }) public performanceMark?: string;
 
   /**
    * With the pictureSizesConfig object, you can pass in information
@@ -219,22 +220,24 @@ export class SbbImage implements ComponentInterface {
    *    ]
    *  }
    */
-  @Prop() public pictureSizesConfig?: string;
+  @property({ attribute: 'picture-sizes-config' }) public pictureSizesConfig?: string;
 
   /**
-   * border-radius: if set to false, there will be no border-radius on the image
+   * Whether to have no border-radius on the image
    */
-  @Prop() public borderRadius = true;
+  @property({ attribute: 'no-border-radius', type: Boolean }) public noBorderRadius = false;
 
   /**
    * Set an aspect ratio
    * default is '16-9' (16/9)
    * other values: 'free', '1-1', '1-2', '2-1', '2-3', '3-2', '3-4', '4-3', '4-5', '5-4', '9-16'
    */
-  @Prop() public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
+  @property({ attribute: 'aspect-ratio' })
+  public aspectRatio: InterfaceImageAttributes['aspectRatio'] = '16-9';
 
   /** Whether the fade animation from blurred to real image should be disabled. */
-  @Prop({ reflect: true }) public disableAnimation = false;
+  @property({ attribute: 'disable-animation', reflect: true, type: Boolean })
+  public disableAnimation = false;
 
   private _logPerformanceMarks(): void {
     if (window.performance.mark && this.performanceMark) {
@@ -244,7 +247,7 @@ export class SbbImage implements ComponentInterface {
   }
 
   private _matchMediaQueryDesignToken(breakpointSizeName): string {
-    return getComputedStyle(this.el).getPropertyValue(`--${breakpointSizeName}`)?.trim();
+    return getComputedStyle(this).getPropertyValue(`--${breakpointSizeName}`)?.trim();
   }
 
   private _addFocusAbilityToLinksInCaption(): void {
@@ -373,12 +376,13 @@ export class SbbImage implements ComponentInterface {
     return mediaQuery;
   }
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     // Check if the current element is nested in an `<sbb-teaser-hero>` element.
-    this._variantTeaserHero = !!hostContext('sbb-teaser-hero', this.el);
+    this._variantTeaserHero = !!hostContext('sbb-teaser-hero', this);
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     let { caption } = this;
     let schemaData = '';
 
@@ -409,84 +413,79 @@ export class SbbImage implements ComponentInterface {
 
     const pictureSizeConfigs = this._preparePictureSizeConfigs();
 
-    return (
+    return html`
       <figure
-        class={{
+        class=${classMap({
           image__figure: true,
           [`image__figure--teaser-hero`]: this._variantTeaserHero,
-          [`image__figure--no-radius`]: !this.borderRadius || this._variantTeaserHero,
+          [`image__figure--no-radius`]: this.noBorderRadius || this._variantTeaserHero,
           [`image__figure--ratio-${this.aspectRatio}`]: true,
           [`image__figure--loaded`]: this._loaded,
-        }}
-        {...attributes}
+        })}
+        ${spread(attributes)}
       >
         <div class="image__wrapper">
-          {this.lqip ? (
-            <img
-              alt=""
-              class="image__blur-hash"
-              src={imageUrlLQIP}
-              width="1000"
-              height="562"
-              loading={this.loading}
-              decoding={this.decoding}
-            />
-          ) : (
-            ''
-          )}
+          ${!this.skipLqip
+            ? html`<img
+                alt=""
+                class="image__blur-hash"
+                src=${imageUrlLQIP}
+                width="1000"
+                height="562"
+                loading=${this.loading}
+                decoding=${this.decoding}
+              />`
+            : nothing}
 
           <picture>
-            {/* render picture element sources */}
-            {pictureSizeConfigs.map((config) => {
+            <!-- render picture element sources -->
+            ${pictureSizeConfigs.map((config) => {
               const imageHeight = config.image.height;
               const imageWidth = config.image.width;
               const mediaQuery = this._createMediaQueryString(config.mediaQueries);
-
               return [
-                <source
-                  media={`${mediaQuery}`}
-                  sizes={`${imageWidth}px`}
-                  srcSet={
-                    `${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
-                    `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
-                      this._config.retinaQuality
-                    } ${imageWidth * 2}w`
-                  }
-                />,
+                html` <source
+                  media=${`${mediaQuery}`}
+                  sizes=${`${imageWidth}px`}
+                  srcset=${`${imageUrlWithParams}&w=${imageWidth}&h=${imageHeight}&q=${this._config.nonRetinaQuality} ${imageWidth}w, ` +
+                  `${imageUrlWithParams}&w=${imageWidth * 2}&h=${imageHeight * 2}&q=${
+                    this._config.retinaQuality
+                  } ${imageWidth * 2}w`}
+                />`,
               ];
             })}
             <img
-              alt={this.alt}
+              alt=${this.alt || nothing}
               class="image__img"
-              src={this.imageSrc}
+              src=${this.imageSrc}
               width="1000"
               height="562"
-              loading={this.loading}
-              decoding={this.decoding}
-              importance={this.importance}
-              ref={(el): void => {
-                this._imageElement = el;
-              }}
+              loading=${this.loading}
+              decoding=${this.decoding}
+              importance=${this.importance}
+              ${ref((el): void => {
+                this._imageElement = el as HTMLElement;
+              })}
             />
           </picture>
         </div>
-        {caption ? (
-          <figcaption
-            class="image__caption"
-            innerHTML={caption}
-            ref={(el): void => {
-              this._captionElement = el;
-            }}
-          />
-        ) : (
-          ''
-        )}
-        {schemaData ? <script type="application/ld+json" innerHTML={schemaData} /> : ''}
+        ${caption
+          ? html`<figcaption
+              class="image__caption"
+              .innerHTML=${caption}
+              ${ref((el): void => {
+                this._captionElement = el as HTMLElement;
+              })}
+            ></figcaption>`
+          : nothing}
+        ${schemaData
+          ? html`<script type="application/ld+json" .innerHTML=${schemaData}></script>`
+          : nothing}
       </figure>
-    );
+    `;
   }
 
-  public componentDidRender(): void {
+  protected override updated(): void {
     this._imageElement.addEventListener(
       'load',
       () => {
@@ -507,5 +506,12 @@ export class SbbImage implements ComponentInterface {
     }
 
     this._addFocusAbilityToLinksInCaption();
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-image': SbbImage;
   }
 }
