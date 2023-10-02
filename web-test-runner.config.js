@@ -44,11 +44,7 @@ export default {
   nodeResolve: true,
   reporters: [defaultReporter(), summaryReporter()],
   browsers: browsers,
-  plugins: [
-    vitePlugin({
-      mode: isCIEnvironment ? 'production' : 'development',
-    }),
-  ],
+  plugins: [vitePlugin()],
   testFramework: {
     config: {
       timeout: '3000',
