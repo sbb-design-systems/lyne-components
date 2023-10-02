@@ -1,14 +1,27 @@
-import { SbbActionGroup } from './sbb-action-group';
-import { newSpecPage } from '@stencil/core/testing';
-import { AnyHTMLElement } from '@stencil/core/internal';
 import { patchSlotchangeEvent } from '../../global/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbActionGroup } from './sbb-action-group';
+import { SbbButton } from '../sbb-button';
+import '../sbb-action-group';
 
 describe('sbb-action-group', () => {
   it('renders', async () => {
-    const { root } = await newSpecPage({
-      components: [SbbActionGroup],
-      html: `
-        <sbb-action-group align="start" orientation="horizontal">
+    const root = await fixture(html`
+      <sbb-action-group align-group="start" orientation="horizontal">
+        <sbb-button variant="secondary">Button</sbb-button>
+        <sbb-link
+          icon-name="chevron-small-left-small"
+          href="https://github.com/lyne-design-system/lyne-components"
+        >
+          Link
+        </sbb-link>
+      </sbb-action-group>
+    `);
+
+    expect(root).dom.to.be.equal(
+      `
+        <sbb-action-group align-group="start" orientation="horizontal" align-group="start" horizontal-from="medium" button-size="l" link-size="m">
           <sbb-button variant="secondary">Button</sbb-button>
           <sbb-link
             icon-name="chevron-small-left-small"
@@ -17,109 +30,89 @@ describe('sbb-action-group', () => {
           </sbb-link>
         </sbb-action-group>
       `,
-    });
-
-    expect(root).toEqualHtml(`
-      <sbb-action-group align="start" orientation="horizontal" align-group="start" horizontal-from="medium" button-size="l" link-size="m">
-        <mock:shadow-root>
-          <div class="sbb-action-group">
-            <slot></slot>
-          </div>
-        </mock:shadow-root>
-        <sbb-button variant="secondary">Button</sbb-button>
-        <sbb-link
-          icon-name="chevron-small-left-small"
-          href="https://github.com/lyne-design-system/lyne-components">
-          Link
-        </sbb-link>
-      </sbb-action-group>
-      `);
+    );
+    expect(root).shadowDom.to.be.equal(
+      `
+        <div class="sbb-action-group">
+          <slot></slot>
+        </div>
+      `,
+    );
   });
 
   describe('property sync', () => {
     const assertButtons = (
-      root: AnyHTMLElement,
-      assertion: (link: HTMLSbbButtonElement) => boolean,
+      root: SbbActionGroup,
+      assertion: (link: SbbButton) => boolean,
     ): boolean => Array.from(root.querySelectorAll('sbb-button')).every(assertion);
 
     it('should sync default button-size property with sbb-button', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbActionGroup],
-        html: `
-          <sbb-action-group align="start" orientation="horizontal">
-            <sbb-button variant="secondary">Button</sbb-button>
-            <sbb-link
-              icon-name="chevron-small-left-small"
-              href="https://github.com/lyne-design-system/lyne-components">
-              Link
-            </sbb-link>
-          </sbb-action-group>
-        `,
-      });
+      const root = (await fixture(html`
+        <sbb-action-group align-group="start" orientation="horizontal">
+          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-link
+            icon-name="chevron-small-left-small"
+            href="https://github.com/lyne-design-system/lyne-components"
+          >
+            Link
+          </sbb-link>
+        </sbb-action-group>
+      `)) as SbbActionGroup;
       patchSlotchangeEvent(root);
 
-      expect(assertButtons(root, (b) => b.size === 'l')).toBeTruthy();
+      expect(assertButtons(root, (b) => b.size === 'l')).to.be.ok;
     });
 
     it('should sync button-size property with sbb-button', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbActionGroup],
-        html: `
-          <sbb-action-group align="start" orientation="horizontal" button-size="m">
-            <sbb-button variant="secondary">Button</sbb-button>
-            <sbb-link
-              icon-name="chevron-small-left-small"
-              href="https://github.com/lyne-design-system/lyne-components">
-              Link
-            </sbb-link>
-          </sbb-action-group>
-        `,
-      });
+      const root = (await fixture(html`
+        <sbb-action-group align-group="start" orientation="horizontal" button-size="m">
+          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-link
+            icon-name="chevron-small-left-small"
+            href="https://github.com/lyne-design-system/lyne-components"
+          >
+            Link
+          </sbb-link>
+        </sbb-action-group>
+      `)) as SbbActionGroup;
       patchSlotchangeEvent(root);
 
-      expect(assertButtons(root, (b) => b.size === 'm')).toBeTruthy();
+      expect(assertButtons(root, (b) => b.size === 'm')).to.be.ok;
     });
 
     it('should apply block variant to sbb-link', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbActionGroup],
-        html: `
-          <sbb-action-group align="start" orientation="horizontal" button-size="m">
-            <sbb-button variant="secondary">Button</sbb-button>
-            <sbb-link
-              icon-name="chevron-small-left-small"
-              href="https://github.com/lyne-design-system/lyne-components">
-              Link
-            </sbb-link>
-          </sbb-action-group>
-        `,
-      });
+      const root = (await fixture(html`
+        <sbb-action-group align-group="start" orientation="horizontal" button-size="m">
+          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-link
+            icon-name="chevron-small-left-small"
+            href="https://github.com/lyne-design-system/lyne-components"
+          >
+            Link
+          </sbb-link>
+        </sbb-action-group>
+      `)) as SbbActionGroup;
       patchSlotchangeEvent(root);
 
-      expect(
-        Array.from(root.querySelectorAll('sbb-link')).every((l) => l.variant === 'block'),
-      ).toBeTruthy();
+      expect(Array.from(root.querySelectorAll('sbb-link')).every((l) => l.variant === 'block')).to
+        .be.ok;
     });
 
     it('should sync link-size property with sbb-link', async () => {
-      const { root } = await newSpecPage({
-        components: [SbbActionGroup],
-        html: `
-          <sbb-action-group align="start" orientation="horizontal" link-size="s">
-            <sbb-button variant="secondary">Button</sbb-button>
-            <sbb-link
-              icon-name="chevron-small-left-small"
-              href="https://github.com/lyne-design-system/lyne-components">
-              Link
-            </sbb-link>
-          </sbb-action-group>
-        `,
-      });
+      const root = (await fixture(html`
+        <sbb-action-group align-group="start" orientation="horizontal" link-size="s">
+          <sbb-button variant="secondary">Button</sbb-button>
+          <sbb-link
+            icon-name="chevron-small-left-small"
+            href="https://github.com/lyne-design-system/lyne-components"
+          >
+            Link
+          </sbb-link>
+        </sbb-action-group>
+      `)) as SbbActionGroup;
       patchSlotchangeEvent(root);
 
-      expect(
-        Array.from(root.querySelectorAll('sbb-link')).every((l) => l.size === 's'),
-      ).toBeTruthy();
+      expect(Array.from(root.querySelectorAll('sbb-link')).every((l) => l.size === 's')).to.be.ok;
     });
   });
 });
