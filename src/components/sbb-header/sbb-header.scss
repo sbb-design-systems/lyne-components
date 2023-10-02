@@ -72,9 +72,8 @@
 .sbb-header__wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: var(--sbb-header-height);
-  gap: var(--sbb-spacing-responsive-s);
 
   :host(:not([expanded]:not([expanded='false']))) & {
     @include sbb.page-spacing;
@@ -85,24 +84,29 @@
   }
 }
 
-.sbb-header__content {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 1 1 auto;
-
-  // Flex has a default min-width of auto. To let content shrink, we need to set min-width to 0 manually.
-  min-width: 0;
-}
-
 .sbb-header__logo {
   flex: 0 0 auto;
+  margin-inline-start: auto;
+  padding-inline-start: var(--sbb-spacing-responsive-s);
 }
 
 // Fix left offset if first element of the header is a sbb-header-action.
 // The value of the offset is calculated inside sbb-header-action styles.
-.sbb-header__content > ::slotted(sbb-header-action:first-child) {
+::slotted(sbb-header-action:first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
+}
+
+::slotted(*) {
+  flex: 0 0 auto;
+}
+
+::slotted(.sbb-header-shrinkable) {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+::slotted(.sbb-header-spacer) {
+  flex-grow: 1;
 }
 
 // Apply padding and outline to possible slotted link in logo slot

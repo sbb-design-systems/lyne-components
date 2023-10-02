@@ -167,9 +167,7 @@ export class SbbHeader implements ComponentInterface {
     return (
       <header class="sbb-header">
         <div class="sbb-header__wrapper">
-          <div class="sbb-header__content">
-            <slot />
-          </div>
+          <slot />
           <div class="sbb-header__logo">
             <slot name="logo">
               <sbb-logo protective-room="none" />

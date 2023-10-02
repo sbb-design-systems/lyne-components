@@ -28,7 +28,7 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }): JSX.Element[] =
     <sbb-header-action icon-name="hamburger-menu-small" expand-from="small">
       Menu
     </sbb-header-action>
-    <div class="spacer" />
+    <div class="sbb-header-spacer" />
     <sbb-header-action icon-name="magnifying-glass-small">Search</sbb-header-action>
     {children}
     <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
@@ -56,7 +56,7 @@ const TemplateWithUserMenu = (args): JSX.Element => (
       icon-name="user-small"
       id="user-menu-trigger"
       data-testid="user-menu-trigger"
-      style={{ 'min-width': '0' }}
+      class="sbb-header-shrinkable"
     >
       Christina Müller
     </sbb-header-action>

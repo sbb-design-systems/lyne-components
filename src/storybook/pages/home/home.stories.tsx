@@ -49,7 +49,7 @@ const Template = (args): JSX.Element => (
       <sbb-header-action id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
         Menu
       </sbb-header-action>
-      <div class="spacer" />
+      <div class="sbb-header-spacer" />
       <sbb-header-action icon-name="magnifying-glass-small" href="/">
         Search
       </sbb-header-action>

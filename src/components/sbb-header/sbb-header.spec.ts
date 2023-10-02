@@ -13,9 +13,7 @@ describe('sbb-header', () => {
         <mock:shadow-root>
           <header class="sbb-header">
             <div class="sbb-header__wrapper">
-              <div class="sbb-header__content">
-                <slot></slot>
-              </div>
+              <slot></slot>
               <div class="sbb-header__logo">
                 <slot name="logo">
                   <sbb-logo protective-room="none"></sbb-logo>
@@ -49,9 +47,7 @@ describe('sbb-header', () => {
         <mock:shadow-root>
           <header class="sbb-header">
             <div class="sbb-header__wrapper">
-              <div class="sbb-header__content">
-                <slot></slot>
-              </div>
+              <slot></slot>
               <div class="sbb-header__logo">
                 <slot name="logo">
                   <sbb-logo protective-room="none"></sbb-logo>

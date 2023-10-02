@@ -32,15 +32,11 @@ An example has been created with the following requirements:
 - the other 3 items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
 - the last item is not visible in breakpoints zero to small.
 
-To achieve this result, a `div` tag with a class named `spacer` was added between the first 
+To achieve this result, a `div` tag with a CSS class named `sbb-header-spacer` was added between the first 
 and the second `sbb-header-action` item, then a class named `last-element` was added to the last one.
 Finally, the following custom CSS has been added*. The result can be seen in the home and home--logged-in stories.
 
 ```css
-.spacer {
-  display: none;
-}
-
 .last-element {
   display: none;
 }
@@ -51,10 +47,9 @@ Finally, the following custom CSS has been added*. The result can be seen in the
   }
 }
 
-@media screen and (min-width: 1024px) {
-  .spacer {
-    display: flex;
-    flex-grow: 1;
+@media screen and (min-width < 1024px) {
+  .sbb-header-spacer {
+    display: none;
   }
 }
 ```
@@ -62,7 +57,7 @@ Finally, the following custom CSS has been added*. The result can be seen in the
 ### Content overflow
 
 If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too less space, 
-the min-width should be set to 0 on the desired `sbb-header-action`.
+set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
 
 ```html
 <sbb-header shadow="true">
@@ -73,7 +68,7 @@ the min-width should be set to 0 on the desired `sbb-header-action`.
   >
     Menu
   </sbb-header-action>
-  <sbb-header-action style="min-width: 0;">Christina Müller has a long name</sbb-header-action>
+  <sbb-header-action class="sbb-header-shrinkable">Christina Müller has a long name</sbb-header-action>
 </sbb-header>
 ```
 
@@ -144,5 +139,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-
