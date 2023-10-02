@@ -56,6 +56,7 @@ const TemplateWithUserMenu = (args): JSX.Element => (
       icon-name="user-small"
       id="user-menu-trigger"
       data-testid="user-menu-trigger"
+      style={{ 'min-width': '0' }}
     >
       Christina Müller
     </sbb-header-action>

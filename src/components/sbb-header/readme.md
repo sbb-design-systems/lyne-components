@@ -56,12 +56,27 @@ Finally, the following custom CSS has been added*. The result can be seen in the
     display: flex;
     flex-grow: 1;
   }
-
-  .last-element {
-    margin-inline-end: var(--sbb-spacing-responsive-s);
-  }
 }
 ```
+
+### Content overflow
+
+If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too less space, 
+the min-width should be set to 0 on the desired `sbb-header-action`.
+
+```html
+<sbb-header shadow="true">
+  <sbb-header-action
+    icon-name="hamburger-menu-small"
+    href="https://sbb.ch/somewhere"
+    target="_blank"
+  >
+    Menu
+  </sbb-header-action>
+  <sbb-header-action style="min-width: 0;">Christina Müller has a long name</sbb-header-action>
+</sbb-header>
+```
+
 
 *Technical note: Due the presence of media-query rules, it was not possible to add those rules directly 
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),

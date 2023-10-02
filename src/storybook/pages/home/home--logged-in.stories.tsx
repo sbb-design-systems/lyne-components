@@ -58,7 +58,7 @@ const Template = (args): JSX.Element => (
       <sbb-header-action icon-name="magnifying-glass-small" href="/">
         Search
       </sbb-header-action>
-      <sbb-header-action icon-name="user-small" id="user-menu-trigger">
+      <sbb-header-action icon-name="user-small" id="user-menu-trigger" style={{ 'min-width': '0' }}>
         Christina Müller
       </sbb-header-action>
       <sbb-menu trigger="user-menu-trigger">

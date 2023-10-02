@@ -72,8 +72,9 @@
 .sbb-header__wrapper {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: var(--sbb-header-height);
+  gap: var(--sbb-spacing-responsive-s);
 
   :host(:not([expanded]:not([expanded='false']))) & {
     @include sbb.page-spacing;
@@ -84,13 +85,23 @@
   }
 }
 
+.sbb-header__content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+
+  // Flex has a default min-width of auto. To let content shrink, we need to set min-width to 0 manually.
+  min-width: 0;
+}
+
 .sbb-header__logo {
-  margin-inline-start: auto;
+  flex: 0 0 auto;
 }
 
 // Fix left offset if first element of the header is a sbb-header-action.
 // The value of the offset is calculated inside sbb-header-action styles.
-.sbb-header__wrapper > ::slotted(sbb-header-action:first-child) {
+.sbb-header__content > ::slotted(sbb-header-action:first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
 }
 
