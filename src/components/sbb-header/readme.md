@@ -47,7 +47,7 @@ Finally, the following custom CSS has been added*. The result can be seen in the
   }
 }
 
-@media screen and (min-width < 1024px) {
+@media screen and (max-width < 1024px) {
   .sbb-header-spacer {
     display: none;
   }
@@ -139,5 +139,3 @@ graph TD;
 ```
 
 ----------------------------------------------
-
-

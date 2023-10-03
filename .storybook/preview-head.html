@@ -15,7 +15,7 @@
     }
   }
 
-  @media screen and (max-width < 1024px) {
+  @media screen and (max-width: 1023px) {
     .sbb-header-spacer {
       display: none;
     }
@@ -30,6 +30,7 @@
       div.textContent = 'EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO ';
       div.style.cssText = `
         position: fixed;
+        z-index: 100000;
         display: inline-block;
         border: 1px solid red;
         border-radius: 0.25rem;
