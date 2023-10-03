@@ -56,7 +56,7 @@ Finally, the following custom CSS has been added*. The result can be seen in the
 
 ### Content overflow
 
-If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too less space, 
+If a certain `sbb-header-action` should be shrunken (receive ellipsis) when there is too little space, 
 set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-action`.
 
 ```html
