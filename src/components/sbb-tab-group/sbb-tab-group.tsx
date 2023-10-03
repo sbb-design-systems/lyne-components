@@ -40,6 +40,7 @@ export class SbbTabGroup extends LitElement {
   private _isNested: boolean;
   private _tabGroupElement: HTMLElement;
   private _tabContentElement: HTMLElement;
+  private _abort = new ConnectedAbortController(this);
   private _tabAttributeObserver = new AgnosticMutationObserver((mutationsList) =>
     this._onTabAttributesChange(mutationsList),
   );
@@ -83,10 +84,6 @@ export class SbbTabGroup extends LitElement {
   private _selectedTabChanged: EventEmitter<void> = new EventEmitter(
     this,
     events.selectedTabChanged,
-    {
-      bubbles: true,
-      composed: true,
-    },
   );
 
   /**
@@ -175,7 +172,6 @@ export class SbbTabGroup extends LitElement {
   private _assignId(): string {
     return `sbb-tab-panel-${++nextId}`;
   }
-  private _abort = new ConnectedAbortController(this);
 
   private _initSelection(): void {
     if (

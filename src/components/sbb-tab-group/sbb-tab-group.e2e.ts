@@ -106,10 +106,7 @@ describe('sbb-tab-group', () => {
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
     );
-
-    await element.updateComplete;
     const tab = element.querySelector('sbb-tab-title#sbb-tab-1');
-
     expect(tab).to.have.attribute('active');
   });
 
@@ -122,10 +119,7 @@ describe('sbb-tab-group', () => {
         <div>Test tab content 2</div>
       </sbb-tab-group>`,
     );
-
-    await element.updateComplete;
     const tab = element.querySelector('sbb-tab-title#sbb-tab-2');
-
     expect(tab).to.have.attribute('active');
   });
 });
