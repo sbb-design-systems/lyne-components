@@ -31,7 +31,7 @@ const browsers = isCIEnvironment
       playwrightLauncher({ product: 'webkit', concurrency: 1 }),
     ]
   : isDebugMode
-  ? [puppeteerLauncher({ concurrency: 1, launchOptions: { devtools: true } })]
+  ? [puppeteerLauncher({ concurrency: 1, launchOptions: { headless: false, devtools: true } })]
   : [playwrightLauncher({ product: 'chromium' })];
 
 // TODO: Revert to glob rules after migration
