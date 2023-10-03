@@ -4,22 +4,22 @@
  *
  * TODO: Properly implement and document this class
  */
-export class EventSpy {
+export class EventSpy<T extends Event> {
   private _count: number = 0;
   public get count(): number {
     return this._count;
   }
 
-  private _events: Event[] = [];
+  private _events: T[] = [];
   public get events(): { length: number } {
     return this._events;
   }
 
-  public get firstEvent(): Event {
+  public get firstEvent(): T {
     return this.events.length ? this.events[0] : null;
   }
 
-  public get lastEvent(): Event {
+  public get lastEvent(): T {
     return this.events.length ? this.events[this.events.length - 1] : null;
   }
 
@@ -35,7 +35,7 @@ export class EventSpy {
 
   private _listenForEvent(): void {
     this._target.addEventListener(this._event, (ev) => {
-      this._events.push(ev);
+      this._events.push(ev as T);
       this._count++;
     });
   }
