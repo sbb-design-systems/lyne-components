@@ -1,13 +1,12 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
+import { assert, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { SbbMessage } from './sbb-message';
 
 describe('sbb-message', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbMessage;
 
   it('renders', async () => {
-    page = await newE2EPage();
-    await page.setContent('<sbb-message></sbb-message>');
-
-    element = await page.find('sbb-message');
-    expect(element).toHaveClass('hydrated');
+    element = await fixture(html`<sbb-message></sbb-message>`);
+    assert.instanceOf(element, SbbMessage);
   });
 });

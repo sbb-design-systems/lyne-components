@@ -1,10 +1,14 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import { withActions } from '@storybook/addon-actions/decorator';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
 import images from '../../global/images';
+import '../sbb-image';
+import '../sbb-title';
+import '../sbb-button';
+import './sbb-message';
 
 const DefaultTemplate = (args): JSX.Element => (
   <sbb-message {...args}>
