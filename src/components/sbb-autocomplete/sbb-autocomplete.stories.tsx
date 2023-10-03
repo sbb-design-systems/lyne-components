@@ -6,7 +6,7 @@ import readme from './readme.md';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
 import isChromatic from 'chromatic';
-import { waitForStablePosition } from '../../global/testing';
+import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator, StoryContext } from '@storybook/html';
 import type { InputType } from '@storybook/types';
 import { withActions } from '@storybook/addon-actions/decorator';

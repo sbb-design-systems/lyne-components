@@ -5,7 +5,7 @@ import readme from './readme.md?raw';
 import isChromatic from 'chromatic';
 import { userEvent, within } from '@storybook/testing-library';
 import { waitForComponentsReady } from '../../global/testing/wait-for-components-ready';
-import { waitForStablePosition } from '../../global/testing';
+import { waitForStablePosition } from '../../global/testing/wait-for-stable-position';
 import { withActions } from '@storybook/addon-actions/decorator';
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';

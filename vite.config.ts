@@ -1,15 +1,9 @@
-import { PluginOption, defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 import postcssLit from 'rollup-plugin-postcss-lit';
 import dts from 'vite-plugin-dts';
 import glob from 'glob';
 import { basename, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-
-export const plugins: PluginOption[] = [
-  postcssLit({
-    exclude: ['**/*global.*', 'src/storybook/**/*'],
-  }),
-];
 
 // Include all directories containing an index.ts
 const modules = glob
@@ -20,7 +14,9 @@ const modules = glob
 
 export default defineConfig(({ command, mode }) => ({
   plugins: [
-    ...plugins,
+    postcssLit({
+      exclude: ['**/*global.*', 'src/storybook/**/*'],
+    }),
     ...(command === 'build' && mode !== 'development'
       ? modules.map((p) =>
           dts({
