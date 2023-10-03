@@ -16,6 +16,11 @@ describe('sbb-radio-button', () => {
     expect(element).toHaveClass('hydrated');
   });
 
+  it('should not render accessibility label about containing state', async () => {
+    element = await page.find('sbb-radio-button >>> .sbb-radio-button__expanded-label');
+    expect(element).toBeFalsy();
+  });
+
   it('selects radio on click', async () => {
     const stateChange = await page.spyOnEvent(events.stateChange);
 
