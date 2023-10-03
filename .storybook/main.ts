@@ -18,6 +18,7 @@ const config: StorybookConfig = {
       ...config,
       build: {
         ...config.build,
+        // Disable sourcemap generation for production build.
         sourcemap: !isCIEnvironment,
       },
       assetsInclude: ['src/**/*.md'],
