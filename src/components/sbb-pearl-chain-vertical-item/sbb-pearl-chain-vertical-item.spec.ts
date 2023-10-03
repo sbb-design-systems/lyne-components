@@ -1,99 +1,95 @@
-import { newSpecPage } from '@stencil/core/testing';
-import { SbbPearlChainVerticalItem } from './sbb-pearl-chain-vertical-item';
+import { LineColor, SbbPearlChainVerticalItem } from './sbb-pearl-chain-vertical-item';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-pearl-chain-vertical-item';
 
 describe('sbb-pearl-chain-vertical-item', () => {
   it('renders component with charcoal standard line and bullet', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
-            </sbb-pearl-chain-vertical-item>
-      `,
-    });
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'default',
       bulletType: 'default',
-      minHeight: '100',
+      minHeight: 100,
       hideLine: false,
       bulletSize: 'start-end',
       position: 0,
     };
-    await page.waitForChanges();
-    expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-    <mock:shadow-root>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column  sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
-        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>       
+        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status:0%;"></div>       
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
-    </mock:shadow-root>
-  </sbb-pearl-chain-vertical-item>
     `);
   });
 
   it('renders component with red line and bullet', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
-            </sbb-pearl-chain-vertical-item>
-      `,
-    });
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'disruption',
       bulletType: 'default',
-      minHeight: '100',
+      minHeight: 100,
       hideLine: false,
       bulletSize: 'start-end',
       position: 0,
     };
-    await page.waitForChanges();
-    expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-    <mock:shadow-root>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+      </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
       <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
-        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--disruption sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"></div>
+        <div class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--disruption sbb-pearl-chain-vertical-item__line--standard" style="--sbb-pearl-chain-vertical-item-leg-status:0%;"></div>
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
-    </mock:shadow-root>
-  </sbb-pearl-chain-vertical-item>
     `);
   });
 
   it('renders component with left slot', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
-            <div slot="left">content</div>
-            </sbb-pearl-chain-vertical-item>
-      `,
-    });
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+        <div slot="left">content</div>
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'dotted',
-      lineColor: 'charcoal',
+      lineColor: 'charcoal' as LineColor,
       bulletType: 'default',
-      minHeight: '100',
+      minHeight: 100,
       bulletSize: 'start-end',
       hideLine: true,
     };
-    await page.waitForChanges();
-    expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-    <mock:shadow-root>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+        <div slot="left">content</div>
+      </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
@@ -101,36 +97,31 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
-    </mock:shadow-root>
-    <div slot="left">
-      content
-    </div>
-  </sbb-pearl-chain-vertical-item>
     `);
   });
 
   it('renders component with right slot', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
-            <div slot="right">right content</div>
-            </sbb-pearl-chain-vertical-item>
-      `,
-    });
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+        <div slot="right">right content</div>
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'disruption',
       bulletType: 'past',
-      minHeight: '100',
+      minHeight: 100,
       bulletSize: 'start-end',
       hideLine: true,
     };
-    await page.waitForChanges();
-    expect(page.root).toEqualHtml(`
-    <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-    <mock:shadow-root>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+        <div slot="right">right content</div>
+      </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
       <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
         <slot name="left"></slot>
       </div>
@@ -138,139 +129,111 @@ describe('sbb-pearl-chain-vertical-item', () => {
         <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
       </div>
       <slot name="right"></slot>
-    </mock:shadow-root>
-    <div slot="right">
-      right content
-    </div>
-  </sbb-pearl-chain-vertical-item>
     `);
   });
 
   it('renders component with both slots', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-            <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
-            <div slot="right">right content</div>
-            <div slot="left">left content</div>
-            </sbb-pearl-chain-vertical-item>
-      `,
-    });
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
+        <div slot="right">right content</div>
+        <div slot="left">left content</div>
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'disruption',
       bulletType: 'past',
-      minHeight: '100',
+      minHeight: 100,
       bulletSize: 'start-end',
       hideLine: true,
     };
-    await page.waitForChanges();
-    expect(page.root).toEqualHtml(`
-      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
-        <mock:shadow-root>
-          <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
-            <slot name="left"></slot>
-          </div>
-          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
-            <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
-          </div>
-          <slot name="right"></slot>
-        </mock:shadow-root>
-        <div slot="right">
-          right content
-        </div>
-        <div slot="left">
-          left content
-        </div>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes>
+        <div slot="right">right content</div>
+        <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
+      <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
+        <slot name="left"></slot>
+      </div>
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
+        <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
+      </div>
+      <slot name="right"></slot>
     `);
   });
 
   it('renders a position', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-        <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="right">right content</div>
         <div slot="left">left content</div>
-        </sbb-pearl-chain-vertical-item>
-      `,
-    });
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'disruption',
       bulletType: 'default',
-      minHeight: '100',
+      minHeight: 100,
       hideLine: true,
       bulletSize: 'start-end',
       position: 50,
     };
-    await page.waitForChanges();
-
-    expect(page.root).toEqualHtml(`
-      <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes="">
-        <mock:shadow-root>
-          <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
-            <slot name="left"></slot>
-          </div>
-          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
-          <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
-            <div class="sbb-pearl-chain-vertical-item__bullet--position" style="--sbb-pearl-chain-vertical-item-position: 50%;"></div>
-          </div>
-          <slot name="right"></slot>
-        </mock:shadow-root>
-        <div slot="right">
-          right content
-        </div>
-        <div slot="left">
-          left content
-        </div>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes>
+        <div slot="right">right content</div>
+        <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
+      <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
+        <slot name="left"></slot>
+      </div>
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
+      <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--past sbb-pearl-chain-vertical-item__bullet--start-end"></div>
+        <div class="sbb-pearl-chain-vertical-item__bullet--position" style="--sbb-pearl-chain-vertical-item-position:50%;"></div>
+      </div>
+      <slot name="right"></slot>
     `);
   });
 
   it('renders a crossed-bullet', async () => {
-    const page = await newSpecPage({
-      components: [SbbPearlChainVerticalItem],
-      html: `
-        <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes=''> 
+    const element = await fixture<SbbPearlChainVerticalItem>(html`
+      <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes="">
         <div slot="right">right content</div>
         <div slot="left">left content</div>
-        </sbb-pearl-chain-vertical-item>
-      `,
-    });
+      </sbb-pearl-chain-vertical-item>
+    `);
 
-    page.rootInstance.pearlChainVerticalItemAttributes = {
+    element.pearlChainVerticalItemAttributes = {
       lineType: 'standard',
       lineColor: 'disruption',
       bulletType: 'skipped',
-      minHeight: '100',
+      minHeight: 100,
       hideLine: true,
       bulletSize: 'start-end',
       position: 0,
     };
-    await page.waitForChanges();
-
-    expect(page.root).toEqualHtml(`
-      <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes="">
-        <mock:shadow-root>
-          <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
-            <slot name="left"></slot>
-          </div>
-          <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
-            <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--skipped sbb-pearl-chain-vertical-item__bullet--start-end"></div>
-          </div>
-          <slot name="right"></slot>
-        </mock:shadow-root>
-        <div slot="right">
-          right content
-        </div>
-        <div slot="left">
-          left content
-        </div>
+    await element.updateComplete;
+    expect(element).dom.to.be.equal(`
+      <sbb-pearl-chain-vertical-item pearlchainverticalitemattributes>
+        <div slot="right">right content</div>
+        <div slot="left">left content</div>
       </sbb-pearl-chain-vertical-item>
+    `);
+    expect(element).shadowDom.to.be.equal(`
+      <div class="sbb-pearl-chain-vertical-item__column" style="height: 100px;">
+        <slot name="left"></slot>
+      </div>
+      <div class="sbb-pearl-chain-vertical-item__column sbb-pearl-chain-vertical-item__column--middle" aria-hidden="true">
+        <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--skipped sbb-pearl-chain-vertical-item__bullet--start-end"></div>
+      </div>
+      <slot name="right"></slot>
     `);
   });
 });

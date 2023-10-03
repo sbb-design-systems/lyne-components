@@ -11,176 +11,88 @@ const defaultService = {
     unplannedStopPointsText: '',
   },
 };
-
-const cancelledService = {
-  serviceAlteration: {
-    cancelled: true,
-  },
-};
-
-const delayedService = {
-  serviceAlteration: {
-    delay: true,
-  },
-};
-
-const isNotReachableService = {
-  serviceAlteration: {
-    reachable: false,
-  },
-};
-
-const unplannedStopService = {
-  serviceAlteration: {
-    unplannedStopPointsText: 'unplannedStop',
-  },
-};
-
-const redirectedService = {
-  serviceAlteration: {
-    redirectedText: 'Ausnahmsweise kein Halt',
-  },
-};
-
+const cancelledService = { serviceAlteration: { cancelled: true } };
+const delayedService = { serviceAlteration: { delay: true } };
+const isNotReachableService = { serviceAlteration: { reachable: false } };
+const unplannedStopService = { serviceAlteration: { unplannedStopPointsText: 'unplannedStop' } };
+const redirectedService = { serviceAlteration: { redirectedText: 'Ausnahmsweise kein Halt' } };
 const departureNotServiced = {
-  stopPoints: [
-    {
-      stopStatus: 'NOT_SERVICED',
-    },
-    {
-      stopStatus: 'PLANNED',
-    },
-  ],
+  stopPoints: [{ stopStatus: 'NOT_SERVICED' }, { stopStatus: 'PLANNED' }],
 };
-
 const arrivalNotServiced = {
-  stopPoints: [
-    {
-      stopStatus: 'PLANNED',
-    },
-    {
-      stopStatus: 'NOT_SERVICED',
-    },
-  ],
+  stopPoints: [{ stopStatus: 'PLANNED' }, { stopStatus: 'NOT_SERVICED' }],
 };
 
 export const futureLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: defaultService,
 };
 
 export const extendedLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: {
     ...defaultService,
-    notices: [
-      {
-        name: 'CI',
-        text: {
-          template: "Extended boarding time (45')",
-        },
-      },
-    ],
+    notices: [{ name: 'CI', text: { template: "Extended boarding time (45')" } }],
   },
 };
 
 export const longFutureLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: defaultService,
 };
 
 export const cancelledLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: cancelledService,
 };
 
 export const progressLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future,
-  },
-  departure: {
-    time: past,
-  },
+  arrival: { time: future },
+  departure: { time: past },
   serviceJourney: defaultService,
 };
 
 export const pastLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: past,
-  },
-  departure: {
-    time: past2,
-  },
+  arrival: { time: past },
+  departure: { time: past2 },
   serviceJourney: defaultService,
 };
 
 export const delayedLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: delayedService,
 };
 
 export const notReachableLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: isNotReachableService,
 };
 
 export const unplannedStopLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: unplannedStopService,
 };
 
 export const redirectedOnDepartureLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: {
     ...redirectedService,
     ...departureNotServiced,
@@ -189,11 +101,7 @@ export const redirectedOnDepartureLeg = {
 
 export const redirectedOnArrivalLeg = {
   __typename: 'PTRideLeg',
-  arrival: {
-    time: future2,
-  },
-  departure: {
-    time: future,
-  },
+  arrival: { time: future2 },
+  departure: { time: future },
   serviceJourney: { ...redirectedService, ...arrivalNotServiced },
 };

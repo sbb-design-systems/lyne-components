@@ -1,15 +1,16 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
 import { differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { removeTimezoneFromISOTimeString } from '../../global/datetime';
 import { isRideLeg, Leg, PtRideLeg } from '../../global/timetable';
+import { CSSResult, html, LitElement, nothing, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import Style from './sbb-pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-pearl-chain.scss',
-  tag: 'sbb-pearl-chain',
-})
-export class SbbPearlChain {
+@customElement('sbb-pearl-chain')
+export class SbbPearlChain extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * define the legs of the pearl-chain.
    * Format:
@@ -18,18 +19,16 @@ export class SbbPearlChain {
    * to the total travel time. Example: departure 16:30, change at 16:40,
    * arrival at 17:00. So the change should have a duration of 33.33%.
    */
-  @Prop() public legs: Leg[];
+  @property({ type: Array }) public legs: (Leg | PtRideLeg)[];
 
   /**
    * Per default, the current location has a pulsating animation. You can
    * disable the animation with this property.
    */
-  @Prop() public disableAnimation?: boolean;
-
-  @Element() private _element: HTMLElement;
+  @property({ attribute: 'disable-animation', type: Boolean }) public disableAnimation?: boolean;
 
   private _now(): number {
-    const dataNow = +this._element.dataset?.now;
+    const dataNow = +this.dataset?.now;
     return isNaN(dataNow) ? Date.now() : dataNow;
   }
 
@@ -77,7 +76,7 @@ export class SbbPearlChain {
     return 'future';
   }
 
-  private _renderPosition(start: Date, end: Date): JSX.Element | undefined {
+  private _renderPosition(start: Date, end: Date): TemplateResult | undefined {
     const currentPosition = this._getProgress(start, end);
     if (currentPosition < 0 && currentPosition > 100) return undefined;
 
@@ -90,10 +89,13 @@ export class SbbPearlChain {
 
     const animation = this.disableAnimation ? 'sbb-pearl-chain__position--no-animation' : '';
 
-    return <span style={statusStyle()} class={`sbb-pearl-chain__position ${animation}`}></span>;
+    return html`<span
+      style=${styleMap(statusStyle())}
+      class="sbb-pearl-chain__position ${animation}"
+    ></span>`;
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const rideLegs: PtRideLeg[] = this.legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
 
     const departureTime =
@@ -142,21 +144,21 @@ export class SbbPearlChain {
         : '';
 
     if (this._isAllCancelled(rideLegs)) {
-      return (
-        <div class={`sbb-pearl-chain`}>
+      return html`
+        <div class="sbb-pearl-chain">
           <span class="sbb-pearl-chain__bullet sbb-pearl-chain--departure-disruption"></span>
-          <div class={`sbb-pearl-chain__leg sbb-pearl-chain__leg--disruption`}></div>
+          <div class="sbb-pearl-chain__leg sbb-pearl-chain__leg--disruption"></div>
           <span class="sbb-pearl-chain__bullet sbb-pearl-chain--departure-disruption"></span>
         </div>
-      );
+      `;
     }
 
-    return (
+    return html`
       <div class="sbb-pearl-chain">
         <span
-          class={`sbb-pearl-chain__bullet ${statusClassDeparture} ${departureNotServiced} ${departureCancelClass}`}
+          class="sbb-pearl-chain__bullet ${statusClassDeparture} ${departureNotServiced} ${departureCancelClass}"
         ></span>
-        {rideLegs?.map((leg: PtRideLeg, index: number) => {
+        ${rideLegs?.map((leg: PtRideLeg, index: number) => {
           const { stopPoints, serviceAlteration } = leg?.serviceJourney || {};
 
           const duration = this._getRelativeDuration(rideLegs, leg);
@@ -199,24 +201,29 @@ export class SbbPearlChain {
             };
           };
 
-          return (
-            <div
-              class={`sbb-pearl-chain__leg ${legStatus} ${cancelled} ${skippedLeg}`}
-              style={legStyle()}
-            >
-              {index > 0 && index < rideLegs.length && (
-                <span class={`sbb-pearl-chain__stop ${departureSkippedBullet}`}></span>
-              )}
-              {this._getStatus(arrival, departure) === 'progress' &&
-                !cancelled &&
-                this._renderPosition(departure, arrival)}
-            </div>
-          );
+          return html` <div
+            class="sbb-pearl-chain__leg ${legStatus} ${cancelled} ${skippedLeg}"
+            style=${styleMap(legStyle())}
+          >
+            ${index > 0 && index < rideLegs.length
+              ? html`<span class="sbb-pearl-chain__stop ${departureSkippedBullet}"></span>`
+              : nothing}
+            ${this._getStatus(arrival, departure) === 'progress' && !cancelled
+              ? this._renderPosition(departure, arrival)
+              : nothing}
+          </div>`;
         })}
         <span
-          class={`sbb-pearl-chain__bullet ${statusClassArrival} ${arrivalNotServiced} ${arrivalCancelClass}`}
+          class="sbb-pearl-chain__bullet ${statusClassArrival} ${arrivalNotServiced} ${arrivalCancelClass}"
         ></span>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-pearl-chain': SbbPearlChain;
   }
 }

@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
-import readme from './readme.md';
+import readme from './readme.md?raw';
 import {
   cancelledLeg,
   progressLeg,
@@ -11,8 +11,9 @@ import {
   redirectedOnArrivalLeg,
 } from './sbb-pearl-chain.sample-data';
 import isChromatic from 'chromatic';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-pearl-chain';
 
 const disableAnimation: InputType = {
   control: {

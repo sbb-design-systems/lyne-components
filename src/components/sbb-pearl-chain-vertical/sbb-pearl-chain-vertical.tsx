@@ -1,19 +1,26 @@
-import { Component, h, JSX } from '@stencil/core';
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-pearl-chain-vertical.scss',
-  tag: 'sbb-pearl-chain-vertical',
-})
+import { CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import Style from './sbb-pearl-chain-vertical.scss?lit&inline';
 
 /**
  * @slot unnamed - for <sbb-pearl-chain-vertical-item /> component
  */
-export class SbbPearlChainVertical {
-  public render(): JSX.Element {
-    return (
+@customElement('sbb-pearl-chain-vertical')
+export class SbbPearlChainVertical extends LitElement {
+  public static override styles: CSSResult = Style;
+
+  protected override render(): TemplateResult {
+    return html`
       <div class="sbb-pearl-chain-vertical">
         <slot></slot>
       </div>
-    );
+    `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-pearl-chain-vertical': SbbPearlChainVertical;
   }
 }

@@ -1,10 +1,10 @@
 // This helper file contains several functions related to accessing attributes for the connections.
 
-import { JSX, h, Fragment } from '@stencil/core';
 import { i18nWalkingDistanceArrival, i18nWalkingDistanceDeparture } from '../i18n';
 import { extractTimeAndStringFromNoticeText } from '../../components/sbb-pearl-chain-time/sbb-pearl-chain-time.helper';
 import { isConnectionLeg, isRideLeg } from './timetable-helper';
 import { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties';
+import { TemplateResult, html, nothing } from 'lit';
 
 interface IAccessAttribute {
   duration: number;
@@ -92,25 +92,25 @@ function renderTransferTime(
   currentLanguage: string,
   label?: string,
   type?: 'departure' | 'arrival',
-): JSX.Element {
-  return (
-    <span class={`sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}`}>
-      <sbb-icon name={icon}></sbb-icon>
-      <time dateTime={duration + 'M'}>
+): TemplateResult {
+  return html`
+    <span class="sbb-pearl-chain__time-transfer sbb-pearl-chain__time-transfer--${type}">
+      <sbb-icon name=${icon}></sbb-icon>
+      <time datetime=${duration + 'M'}>
         <span class="sbb-screenreaderonly">
-          {!label &&
-            type &&
-            (type === 'departure'
+          ${!label && type
+            ? type === 'departure'
               ? i18nWalkingDistanceDeparture[currentLanguage]
-              : i18nWalkingDistanceArrival[currentLanguage])}
-          {label && <span>{label}</span>}&nbsp;
+              : i18nWalkingDistanceArrival[currentLanguage]
+            : nothing}
+          ${label ? html`<span>${label}</span>` : nothing}&nbsp;
         </span>
-        {duration}
+        ${duration}
         <span aria-hidden="true">'</span>
         <span class="sbb-screenreaderonly">min</span>
       </time>
     </span>
-  );
+  `;
 }
 
 /**
@@ -120,17 +120,17 @@ function renderWalkTime(
   duration: number | string,
   label: string,
   variant: 'left' | 'right',
-): JSX.Element {
-  return (
-    <span class={`sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${variant}`}>
+): TemplateResult {
+  return html`
+    <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--${variant}">
       <sbb-icon name="walk-small"></sbb-icon>
-      <time dateTime={duration + 'M'}>
-        <span class="sbb-screenreaderonly">{label}</span>
-        {duration}
+      <time datetime=${duration + 'M'}>
+        <span class="sbb-screenreaderonly">${label}</span>
+        ${duration}
         <span aria-hidden="true">'</span>
       </time>
     </span>
-  );
+  `;
 }
 
 /**
@@ -149,8 +149,8 @@ export function getDepartureArrivalTimeAttribute(
   arrivalWalk: number,
   currentLanguage: string,
 ): {
-  renderDepartureTimeAttribute: () => JSX.Element;
-  renderArrivalTimeAttribute: () => JSX.Element;
+  renderDepartureTimeAttribute: () => TemplateResult;
+  renderArrivalTimeAttribute: () => TemplateResult;
   departureTimeAttribute: IAccessAttribute | null;
   arrivalTimeAttribute: IAccessAttribute | null;
 } {
@@ -184,27 +184,24 @@ export function getDepartureArrivalTimeAttribute(
     }
   };
 
-  function renderDepartureTimeAttribute(): JSX.Element {
-    return (
-      <Fragment>
-        {connectionFirstLeg &&
-          renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left')}
-
-        {departureWalkAttribute &&
-          !extendedFirstLeg &&
-          !connectionFirstLeg &&
-          renderWalkTime(departureWalkAttribute.duration, departureWalkAttribute.text, 'left')}
-
-        {extendedFirstLeg &&
-          renderTransferTime(
+  function renderDepartureTimeAttribute(): TemplateResult {
+    return html`
+      ${connectionFirstLeg
+        ? renderWalkTime(connectionFirstLeg.duration, connectionFirstLeg.text, 'left')
+        : nothing}
+      ${departureWalkAttribute && !extendedFirstLeg && !connectionFirstLeg
+        ? renderWalkTime(departureWalkAttribute.duration, departureWalkAttribute.text, 'left')
+        : nothing}
+      ${extendedFirstLeg
+        ? renderTransferTime(
             extendedFirstLeg.duration,
             extendedFirstLeg.icon,
             currentLanguage,
             extendedFirstLeg.text,
             'departure',
-          )}
-      </Fragment>
-    );
+          )
+        : nothing}
+    `;
   }
 
   const lastLeg = legs && legs[legs.length - 1];
@@ -235,27 +232,24 @@ export function getDepartureArrivalTimeAttribute(
     }
   };
 
-  function renderArrivalTimeAttribute(): JSX.Element {
-    return (
-      <Fragment>
-        {connectionLastLeg &&
-          renderWalkTime(connectionLastLeg.duration, connectionLastLeg.text, 'right')}
-
-        {arrivalWalkAttribute &&
-          !extendedLastLeg &&
-          !connectionLastLeg &&
-          renderWalkTime(arrivalWalkAttribute.duration, arrivalWalkAttribute.text, 'right')}
-
-        {extendedLastLeg &&
-          renderTransferTime(
+  function renderArrivalTimeAttribute(): TemplateResult {
+    return html`
+      ${connectionLastLeg
+        ? renderWalkTime(connectionLastLeg.duration, connectionLastLeg.text, 'right')
+        : nothing}
+      ${arrivalWalkAttribute && !extendedLastLeg && !connectionLastLeg
+        ? renderWalkTime(arrivalWalkAttribute.duration, arrivalWalkAttribute.text, 'right')
+        : nothing}
+      ${extendedLastLeg
+        ? renderTransferTime(
             extendedLastLeg.duration,
             extendedLastLeg.icon,
             currentLanguage,
             extendedLastLeg.text,
             'arrival',
-          )}
-      </Fragment>
-    );
+          )
+        : nothing}
+    `;
   }
 
   return {
