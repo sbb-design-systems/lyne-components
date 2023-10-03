@@ -32,12 +32,12 @@ describe('sbb-time-input', () => {
   });
 
   it('should emit form events', async () => {
-    const changeSpy = new EventSpy('change');
-    const inputSpy = new EventSpy('input');
+    const changeSpy = new EventSpy('change', element);
+    const inputSpy = new EventSpy('input', element);
 
     input.focus();
     await sendKeys({ press: '1' });
-    await sendKeys({ press: 'Tab' });
+    input.blur();
     await element.updateComplete;
 
     expect(changeSpy.count).to.be.greaterThan(0);
@@ -53,7 +53,7 @@ describe('sbb-time-input', () => {
     // When entering 99
     input.focus();
     await sendKeys({ type: '99' });
-    await sendKeys({ press: 'Tab' });
+    input.blur();
 
     // Then validation event should emit with false
     expect(validationChangeSpy.lastEvent.detail).to.own.include({ valid: false });
@@ -61,8 +61,9 @@ describe('sbb-time-input', () => {
 
     // When adding another 9 (999)
     input.focus();
+    await sendKeys({ press: 'ArrowRight' }); // Fix for Firefox: de-highlight text
     await sendKeys({ press: '9' });
-    await sendKeys({ press: 'Tab' });
+    input.blur();
 
     // Then validation event should not be emitted a second time
     expect(validationChangeSpy.count).to.be.equal(1);
@@ -72,7 +73,7 @@ describe('sbb-time-input', () => {
     input.focus();
     await sendKeys({ press: 'Backspace' });
     await sendKeys({ press: 'Backspace' });
-    await sendKeys({ press: 'Tab' });
+    input.blur();
 
     // Then validation event should be emitted with true
     expect(validationChangeSpy.count).to.be.equal(2);
@@ -84,18 +85,19 @@ describe('sbb-time-input', () => {
     // Creating invalid entry
     input.focus();
     await sendKeys({ type: '99' });
-    await sendKeys({ press: 'Tab' });
+    input.blur();
     await element.updateComplete;
 
     const validationChangeSpy = new EventSpy<CustomEvent<ValidationChangeEvent>>(
       'validationChange',
+      element,
     );
 
     // When deleting input to achieve empty input
     input.focus();
     await sendKeys({ press: 'Backspace' });
     await sendKeys({ press: 'Backspace' });
-    await sendKeys({ press: 'Tab' });
+    input.blur();
 
     // Then validation event should emit with true
     expect(validationChangeSpy.lastEvent.detail).to.own.include({ valid: true });
@@ -133,7 +135,7 @@ describe('sbb-time-input', () => {
 
       input.focus();
       await sendKeys({ type: testCase.value });
-      await sendKeys({ press: 'Tab' });
+      input.blur();
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
       const paragraphElement = element.shadowRoot.querySelector('p');
@@ -158,7 +160,7 @@ describe('sbb-time-input', () => {
 
       input.focus();
       await sendKeys({ type: testCase.value });
-      await sendKeys({ press: 'Tab' });
+      input.blur();
       expect(input.value).to.be.equal(testCase.interpretedAs);
 
       const paragraphElement = element.shadowRoot.querySelector('p');
@@ -181,7 +183,7 @@ describe('sbb-time-input', () => {
 
     await element.updateComplete;
     input.focus();
-    await sendKeys({ press: 'Home' });
+    input.setSelectionRange(0, 0);
     await sendKeys({ press: 'Delete' });
     await sendKeys({ press: 'Delete' });
 
