@@ -41,13 +41,13 @@ Finally, the following custom CSS has been added*. The result can be seen in the
   display: none;
 }
 
-@media screen and (min-width: 840px) {
+@media screen and (width >= 840px) {
   .last-element {
     display: block;
   }
 }
 
-@media screen and (max-width < 1024px) {
+@media screen and (width < 1024px) {
   .sbb-header-spacer {
     display: none;
   }
