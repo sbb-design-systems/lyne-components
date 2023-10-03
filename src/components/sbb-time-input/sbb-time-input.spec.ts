@@ -1,22 +1,26 @@
-import { SbbTimeInput } from './sbb-time-input';
-import { newSpecPage } from '@stencil/core/testing';
+import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import './sbb-time-input';
 
 describe('sbb-time-input', () => {
   it('renders', async () => {
-    const { doc } = await newSpecPage({
-      components: [SbbTimeInput],
-      html: '<span><sbb-time-input input="id-1"></sbb-time-input><input id="id-1" /></span>',
-    });
+    const root = await fixture(
+      html` <span>
+        <sbb-time-input input="id-1"></sbb-time-input>
+        <input id="id-1" />
+      </span>`,
+    );
+    const elem = root.querySelector('sbb-time-input');
 
-    expect(doc.querySelector('span')).toEqualHtml(`
+    expect(root).dom.to.be.equal(`
       <span>
         <sbb-time-input input="id-1">
-          <mock:shadow-root>
-            <p role="status"></p>
-          </mock:shadow-root>
         </sbb-time-input>
-        <input id="id-1" placeholder="HH:MM" type="text" maxlength="5" data-sbb-time-input>
+        <input id="id-1" placeholder="HH:MM" type="text" maxlength="5" inputmode="numeric" data-sbb-time-input>
       </span>
+    `);
+    expect(elem).shadowDom.to.be.equal(`
+      <p role="status"></p>
     `);
   });
 });
