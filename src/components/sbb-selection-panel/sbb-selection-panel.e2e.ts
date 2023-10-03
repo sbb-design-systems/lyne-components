@@ -290,6 +290,33 @@ describe('sbb-selection-panel', () => {
       await page.waitForChanges();
     });
 
+    it('should display expanded label correctly', async () => {
+      await page.waitForChanges();
+
+      const mainRadioButton1 = await page.find(
+        "sbb-radio-button[value='main1'] >>> .sbb-radio-button__expanded-label",
+      );
+      const mainRadioButton2 = await page.find(
+        "sbb-radio-button[value='main2'] >>> .sbb-radio-button__expanded-label",
+      );
+      const subRadioButton1 = await page.find(
+        "sbb-radio-button[value='sub1'] >>> .sbb-radio-button__expanded-label",
+      );
+
+      expect(mainRadioButton1.textContent).toBe(', expanded');
+      expect(mainRadioButton2.textContent).toBe(', collapsed');
+      expect(subRadioButton1).toBeFalsy();
+
+      // Activate main option 2
+      await mainRadioButton2.click();
+
+      await page.waitForChanges();
+
+      expect(mainRadioButton1.textContent).toBe(', collapsed');
+      expect(mainRadioButton2.textContent).toBe(', expanded');
+      expect(subRadioButton1).toBeFalsy();
+    });
+
     it('should mark only outer group children as disabled', async () => {
       element.setAttribute('disabled', '');
 
@@ -556,6 +583,36 @@ describe('sbb-selection-panel', () => {
       element = await page.find('sbb-checkbox-group');
 
       await page.waitForChanges();
+    });
+
+    it('should display expanded label correctly', async () => {
+      await page.waitForChanges();
+
+      const mainCheckbox1 = await page.find(
+        "sbb-checkbox[value='main1'] >>> .sbb-checkbox__expanded-label",
+      );
+      const mainCheckbox2 = await page.find(
+        "sbb-checkbox[value='main2'] >>> .sbb-checkbox__expanded-label",
+      );
+      const subCheckbox1 = await page.find(
+        "sbb-checkbox[value='sub1'] >>> .sbb-checkbox__expanded-label",
+      );
+
+      expect(mainCheckbox1.textContent).toBe(', expanded');
+      expect(mainCheckbox2.textContent).toBe(', collapsed');
+      expect(subCheckbox1).toBeFalsy();
+
+      // Deactivate main option 1
+      await mainCheckbox1.click();
+
+      // Activate main option 2
+      await mainCheckbox2.click();
+
+      await page.waitForChanges();
+
+      expect(mainCheckbox1.textContent).toBe(', collapsed');
+      expect(mainCheckbox2.textContent).toBe(', expanded');
+      expect(subCheckbox1).toBeFalsy();
     });
 
     it('should mark only outer group children as disabled', async () => {
