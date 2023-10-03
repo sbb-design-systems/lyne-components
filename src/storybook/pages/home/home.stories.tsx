@@ -53,7 +53,9 @@ const Template = (args): JSX.Element => (
       <sbb-header-action icon-name="magnifying-glass-small" href="/">
         Search
       </sbb-header-action>
-      <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
+      <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
+        Sign in
+      </sbb-header-action>
       <sbb-header-action icon-name="globe-small" id="language-menu-trigger" class="last-element">
         English
       </sbb-header-action>

@@ -46,7 +46,9 @@ const HeaderBasicTemplate = ({ children, attributes, ...args }): JSX.Element[] =
 
 const Template = (args): JSX.Element => (
   <HeaderBasicTemplate {...args}>
-    <sbb-header-action icon-name="user-small">Sign in</sbb-header-action>
+    <sbb-header-action icon-name="user-small" class="sbb-header-shrinkable">
+      Sign in
+    </sbb-header-action>
   </HeaderBasicTemplate>
 );
 
