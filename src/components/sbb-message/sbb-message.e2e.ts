@@ -6,9 +6,7 @@ describe('sbb-message', () => {
   let element: SbbMessage;
 
   it('renders', async () => {
-    await fixture(html`<sbb-message></sbb-message>`);
-
-    element = document.querySelector('sbb-message');
+    element = await fixture(html`<sbb-message></sbb-message>`);
     assert.instanceOf(element, SbbMessage);
   });
 });
