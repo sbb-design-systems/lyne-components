@@ -124,7 +124,7 @@ export class SbbRadioButton implements ComponentInterface {
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
-      !!this._selectionPanelElement && this._updateExpandedLabel();
+      this._isSelectionPanelInput && this._updateExpandedLabel();
     }
   }
 
@@ -172,7 +172,7 @@ export class SbbRadioButton implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    !!this._selectionPanelElement && this._updateExpandedLabel();
+    this._isSelectionPanelInput && this._updateExpandedLabel();
   }
 
   public disconnectedCallback(): void {
@@ -212,6 +212,7 @@ export class SbbRadioButton implements ComponentInterface {
 
   private _updateExpandedLabel(): void {
     if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+      this._selectionPanelExpandedLabel = '';
       return;
     }
 
@@ -246,7 +247,7 @@ export class SbbRadioButton implements ComponentInterface {
             {!!this._selectionPanelElement && this._namedSlots['suffix'] && <slot name="suffix" />}
           </span>
           {!!this._selectionPanelElement && this._namedSlots['subtext'] && <slot name="subtext" />}
-          {!!this._selectionPanelElement && this._selectionPanelExpandedLabel && (
+          {this._isSelectionPanelInput && this._selectionPanelExpandedLabel && (
             /* For screen readers only */
             <span class="sbb-radio-button__expanded-label">
               {this._selectionPanelExpandedLabel}

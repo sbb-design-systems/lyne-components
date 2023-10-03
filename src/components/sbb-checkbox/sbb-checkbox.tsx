@@ -119,7 +119,7 @@ export class SbbCheckbox implements ComponentInterface {
   public handleCheckedChange(currentValue: boolean, previousValue: boolean): void {
     if (this._isSelectionPanelInput && currentValue !== previousValue) {
       this.stateChange.emit({ type: 'checked', checked: currentValue });
-      !!this._selectionPanelElement && this._updateExpandedLabel();
+      this._updateExpandedLabel();
     }
   }
 
@@ -171,7 +171,7 @@ export class SbbCheckbox implements ComponentInterface {
   }
 
   public componentDidLoad(): void {
-    !!this._selectionPanelElement && this._updateExpandedLabel();
+    this._isSelectionPanelInput && this._updateExpandedLabel();
   }
 
   public disconnectedCallback(): void {
@@ -216,6 +216,7 @@ export class SbbCheckbox implements ComponentInterface {
 
   private _updateExpandedLabel(): void {
     if (!this._selectionPanelElement.hasAttribute('data-has-content')) {
+      this._selectionPanelExpandedLabel = '';
       return;
     }
 
@@ -278,7 +279,7 @@ export class SbbCheckbox implements ComponentInterface {
             {!!this._selectionPanelElement && this._namedSlots['subtext'] && (
               <slot name="subtext" />
             )}
-            {!!this._selectionPanelElement && this._selectionPanelExpandedLabel && (
+            {this._isSelectionPanelInput && this._selectionPanelExpandedLabel && (
               /* For screen readers only */
               <span class="sbb-checkbox__expanded-label">{this._selectionPanelExpandedLabel}</span>
             )}

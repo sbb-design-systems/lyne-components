@@ -14,6 +14,11 @@ describe('sbb-checkbox', () => {
     expect(element).toHaveClass('hydrated');
   });
 
+  it('should not render accessibility label containing expanded state', async () => {
+    element = await page.find('sbb-checkbox >>> .sbb-checkbox__expanded-label');
+    expect(element).toBeFalsy();
+  });
+
   describe('events', () => {
     it('emit event on click', async () => {
       await page.waitForChanges();
