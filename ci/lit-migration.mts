@@ -1151,8 +1151,9 @@ declare global {
             const awaitNode = deepFind(node, (n) => ts.isAwaitExpression(n) && !!n.getText().match(/^await .+\.spyOnEvent/)) as ts.AwaitExpression;
             const call = deepFind(awaitNode, (n) => ts.isCallExpression(n)) as ts.CallExpression;
             const eventName = call.arguments[0].getText();
+            const target = (call.expression as ts.PropertyAccessExpression).expression.getText();
 
-            mutator.replace(awaitNode, `new EventSpy(${eventName})`)
+            mutator.replace(awaitNode, `new EventSpy(${eventName}, ${target})`)
           }
 
           // element.triggerEvent('event', data) => element.dispatchEvent(new CustomEvent('event', data)
