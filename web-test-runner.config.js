@@ -44,7 +44,23 @@ export default {
   nodeResolve: true,
   reporters: [defaultReporter(), summaryReporter()],
   browsers: browsers,
-  plugins: [vitePlugin()],
+  plugins: [
+    vitePlugin({
+      // This configuration is necessary, as vite will otherwise detect dependencies
+      // that can be optimized. This will cause vite to reload, which leads to
+      // 'Could not import your test module.' errors, that happen randomly.
+      // Excluding the dependencies, prevents this from happening at the cost of slightly
+      // increased test times.
+      optimizeDeps: {
+        exclude: [
+          '@storybook/testing-library',
+          '@web/test-runner-commands',
+          'lit',
+          'lit/directives/*.js',
+        ],
+      },
+    }),
+  ],
   testFramework: {
     config: {
       timeout: '3000',
