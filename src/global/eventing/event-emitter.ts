@@ -1,3 +1,9 @@
+const defaultOptions = {
+  bubbles: true,
+  cancelable: false,
+  composed: true,
+};
+
 export class EventEmitter<T = any> {
   public constructor(
     private _element: HTMLElement,
@@ -6,10 +12,8 @@ export class EventEmitter<T = any> {
   ) {}
 
   public emit(data?: T): CustomEvent<T> {
-    const event = new CustomEvent(
-      this._eventName,
-      Object.assign({}, this._options, { detail: data }),
-    );
+    const options = this._options ?? defaultOptions;
+    const event = new CustomEvent(this._eventName, Object.assign({}, options, { detail: data }));
     this._element.dispatchEvent(event);
     return event;
   }

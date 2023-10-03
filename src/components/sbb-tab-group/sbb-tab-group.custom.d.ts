@@ -1,5 +1,3 @@
-import { HTMLStencilElement } from '@stencil/core/internal';
-
 export interface InterfaceSbbTabGroupActions {
   activate(): void;
   deactivate(): void;
@@ -7,7 +5,7 @@ export interface InterfaceSbbTabGroupActions {
   disable(): void;
   select(): void;
 }
-export interface InterfaceSbbTabGroupTab extends HTMLStencilElement {
+export interface InterfaceSbbTabGroupTab extends HTMLElement {
   active?: boolean;
   disabled?: boolean;
   relatedContent?: HTMLElement;

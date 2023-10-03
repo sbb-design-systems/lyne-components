@@ -1,10 +1,13 @@
-import { Component, h, JSX, Prop, State, Element } from '@stencil/core';
 import {
   createNamedSlotState,
   HandlerRepository,
   namedSlotChangeHandlerAspect,
 } from '../../global/eventing';
-import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
+import { TitleLevel } from '../sbb-title';
+import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import Style from './sbb-tab-title.scss?lit&inline';
 
 /**
  * @slot unnamed - This slot will show the provided tab title.
@@ -12,73 +15,86 @@ import { InterfaceTitleAttributes } from '../sbb-title/sbb-title.custom';
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
 
-@Component({
-  shadow: true,
-  styleUrl: 'sbb-tab-title.scss',
-  tag: 'sbb-tab-title',
-})
-export class SbbTabTitle {
+@customElement('sbb-tab-title')
+export class SbbTabTitle extends LitElement {
+  public static override styles: CSSResult = Style;
+
   /**
    * The level will correspond to the heading tag generated in the title.
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
-  @Prop() public level?: InterfaceTitleAttributes['level'] = '1';
+  @property() public level?: TitleLevel = '1';
 
   /** Active tab state */
-  @Prop({ reflect: true }) public active?: boolean;
+  @property({ reflect: true, type: Boolean }) public active?: boolean;
 
   /** Disabled tab state */
-  @Prop({ reflect: true }) public disabled?: boolean;
+  @property({ reflect: true, type: Boolean }) public disabled?: boolean;
 
   /**
    * The icon name we want to use, choose from the small icon variants
    * from the ui-icons category from here
    * https://icons.app.sbb.ch.
    */
-  @Prop() public iconName?: string;
+  @property({ attribute: 'icon-name' }) public iconName?: string;
 
   /** Amount displayed inside the tab. */
-  @Prop() public amount?: string;
+  @property() public amount?: string;
 
   /** State of listed named slots, by indicating whether any element for a named slot is defined. */
-  @State() private _namedSlots = createNamedSlotState('icon', 'amount');
-
-  @Element() private _element!: HTMLElement;
+  @state() private _namedSlots = createNamedSlotState('icon', 'amount');
 
   private _handlerRepository = new HandlerRepository(
-    this._element,
+    this,
     namedSlotChangeHandlerAspect((m) => (this._namedSlots = m(this._namedSlots))),
   );
 
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
+    super.connectedCallback();
     this._handlerRepository.connect();
   }
 
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
     this._handlerRepository.disconnect();
   }
 
-  public render(): JSX.Element {
+  protected override render(): TemplateResult {
     const TAGNAME = `h${Number(this.level) < 7 ? this.level : '1'}`;
 
-    return (
+    /* eslint-disable lit/binding-positions */
+    return html`
       <div class="sbb-tab-title__wrapper">
-        <TAGNAME class="sbb-tab-title">
-          {(this.iconName || this._namedSlots['icon']) && (
-            <span class="sbb-tab-title__icon">
-              <slot name="icon">{this.iconName && <sbb-icon name={this.iconName} />}</slot>
-            </span>
-          )}
+        <${unsafeStatic(TAGNAME)} class="sbb-tab-title">
+          ${
+            this.iconName || this._namedSlots['icon']
+              ? html`<span class="sbb-tab-title__icon">
+                  <slot name="icon">
+                    ${this.iconName ? html`<sbb-icon name=${this.iconName} />` : nothing}
+                  </slot>
+                </span>`
+              : nothing
+          }
           <span class="sbb-tab-title__text">
             <slot></slot>
           </span>
-          {(this.amount || this._namedSlots['amount']) && (
-            <span class="sbb-tab-title__amount">
-              <slot name="amount">{this.amount}</slot>
-            </span>
-          )}
-        </TAGNAME>
+          ${
+            this.amount || this._namedSlots['amount']
+              ? html`<span class="sbb-tab-title__amount">
+                  <slot name="amount">${this.amount}</slot>
+                </span>`
+              : nothing
+          }
+        </${unsafeStatic(TAGNAME)}>
       </div>
-    );
+    `;
+    /* eslint-disable lit/binding-positions */
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'sbb-tab-title': SbbTabTitle;
   }
 }
