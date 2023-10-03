@@ -2,7 +2,7 @@ import { events } from './sbb-dialog';
 import { waitForCondition } from '../../global/testing';
 import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
-import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { EventSpy } from '../../global/testing/event-spy';
 import { SbbDialog } from './sbb-dialog';
 import '../sbb-button';
@@ -31,8 +31,6 @@ describe('sbb-dialog', () => {
     const dialog = element.shadowRoot.querySelector('dialog');
     const willOpen = new EventSpy(events.willOpen);
     const didOpen = new EventSpy(events.didOpen);
-    const willClose = new EventSpy(events.willClose);
-    const didClose = new EventSpy(events.didClose);
 
     element.open();
     await element.updateComplete;
@@ -47,22 +45,6 @@ describe('sbb-dialog', () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(dialog).to.have.attribute('open');
-
-    element.close();
-    await element.updateComplete;
-
-    await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose.count).to.be.equal(1);
-    await element.updateComplete;
-
-    await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose.count).to.be.equal(1);
-    await element.updateComplete;
-
-    expect(element).not.to.have.attribute('data-state', 'opened');
-
-    await waitForCondition(() => dialog.getAttribute('open') === null);
-    expect(dialog).not.to.have.attribute('open');
   });
 
   it('closes the dialog', async () => {
@@ -123,7 +105,8 @@ describe('sbb-dialog', () => {
     expect(dialog).to.have.attribute('open');
 
     // Simulate backdrop click
-    await sendMouse({ type: 'click', position: [1, 1] });
+    element.dispatchEvent(new CustomEvent('pointerdown'));
+    element.dispatchEvent(new CustomEvent('pointerup'));
     await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -164,7 +147,8 @@ describe('sbb-dialog', () => {
     expect(dialog).to.have.attribute('open');
 
     // Simulate backdrop click
-    await sendMouse({ type: 'click', position: [1, 1] });
+    element.dispatchEvent(new CustomEvent('pointerdown'));
+    element.dispatchEvent(new CustomEvent('pointerup'));
     await element.updateComplete;
 
     expect(willClose.count).to.be.equal(0);
@@ -385,6 +369,15 @@ describe('sbb-dialog', () => {
     await sendKeys({ down: 'Escape' });
     await element.updateComplete;
 
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => didClose.events.length === 1);
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => stackedDialogElement.getAttribute('open') === null);
     expect(stackedDialogElement).not.to.have.attribute('open');
     expect(dialog).to.have.attribute('open');
 
@@ -394,15 +387,12 @@ describe('sbb-dialog', () => {
     await sendKeys({ down: 'Escape' });
     await element.updateComplete;
 
-    element.close();
+    await waitForCondition(() => willClose.events.length === 2);
+    expect(willClose.count).to.be.equal(2);
     await element.updateComplete;
 
-    await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose.count).to.be.equal(1);
-    await element.updateComplete;
-
-    await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose.count).to.be.equal(1);
+    await waitForCondition(() => didClose.events.length === 2);
+    expect(didClose.count).to.be.equal(2);
     await element.updateComplete;
 
     expect(element).not.to.have.attribute('data-state', 'opened');
@@ -458,7 +448,8 @@ describe('sbb-dialog', () => {
     expect(innerDialog).to.have.attribute('open');
 
     // Simulate a click on the inner dialog's backdrop
-    await sendMouse({ type: 'click', position: [1, 1] });
+    innerElement.dispatchEvent(new CustomEvent('pointerdown'));
+    innerElement.dispatchEvent(new CustomEvent('pointerup'));
     await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
@@ -474,21 +465,5 @@ describe('sbb-dialog', () => {
 
     expect(element).to.have.attribute('data-state', 'opened');
     expect(outerDialog).to.have.attribute('open');
-
-    element.close();
-    await element.updateComplete;
-
-    await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose.count).to.be.equal(1);
-    await element.updateComplete;
-
-    await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose.count).to.be.equal(1);
-    await element.updateComplete;
-
-    expect(element).not.to.have.attribute('data-state', 'opened');
-
-    await waitForCondition(() => outerDialog.getAttribute('open') === null);
-    expect(outerDialog).not.to.have.attribute('open');
   });
 });

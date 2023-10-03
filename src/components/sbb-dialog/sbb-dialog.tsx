@@ -125,42 +125,27 @@ export class SbbDialog extends LitElement {
   /**
    * Emits whenever the dialog starts the opening transition.
    */
-  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willOpen: EventEmitter<void> = new EventEmitter(this, events.willOpen);
 
   /**
    * Emits whenever the dialog is opened.
    */
-  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didOpen: EventEmitter<void> = new EventEmitter(this, events.didOpen);
 
   /**
    * Emits whenever the dialog begins the closing transition.
    */
-  private _willClose: EventEmitter = new EventEmitter(this, events.willClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _willClose: EventEmitter = new EventEmitter(this, events.willClose);
 
   /**
    * Emits whenever the dialog is closed.
    */
-  private _didClose: EventEmitter = new EventEmitter(this, events.didClose, {
-    bubbles: true,
-    composed: true,
-  });
+  private _didClose: EventEmitter = new EventEmitter(this, events.didClose);
 
   /**
    * Emits whenever the back button is clicked.
    */
-  private _backClick: EventEmitter<void> = new EventEmitter(this, events.backClick, {
-    bubbles: true,
-    composed: true,
-  });
+  private _backClick: EventEmitter<void> = new EventEmitter(this, events.backClick);
 
   private _dialog: HTMLDialogElement;
   private _dialogWrapperElement: HTMLElement;
@@ -217,13 +202,13 @@ export class SbbDialog extends LitElement {
   }
 
   // Closes the dialog on "Esc" key pressed.
-  private async _onKeydownEvent(event: KeyboardEvent): Promise<void> {
+  private _onKeydownEvent(event: KeyboardEvent): Promise<void> {
     if (this._state !== 'opened') {
       return;
     }
 
     if (event.key === 'Escape') {
-      await dialogRefs[dialogRefs.length - 1].close();
+      dialogRefs[dialogRefs.length - 1].close();
       return;
     }
   }
@@ -249,6 +234,7 @@ export class SbbDialog extends LitElement {
     this._dialogController?.abort();
     this._windowEventsController?.abort();
     this._focusTrap.disconnect();
+    this._dialogContentResizeObserver.disconnect();
     this._removeInstanceFromGlobalCollection();
   }
 
@@ -276,7 +262,7 @@ export class SbbDialog extends LitElement {
   };
 
   // Close dialog on backdrop click.
-  private _closeOnBackdropClick = async (event: PointerEvent): Promise<void> => {
+  private _closeOnBackdropClick = (event: PointerEvent): Promise<void> => {
     if (this.backdropAction !== 'close') {
       return;
     }
@@ -288,12 +274,12 @@ export class SbbDialog extends LitElement {
         .filter((e): e is HTMLElement => e instanceof window.HTMLElement)
         .some((target) => target.id === this._dialogId)
     ) {
-      await this.close();
+      this.close();
     }
   };
 
   // Close the dialog on click of any element that has the 'sbb-dialog-close' attribute.
-  private async _closeOnSbbDialogCloseClick(event: Event): Promise<void> {
+  private _closeOnSbbDialogCloseClick(event: Event): void {
     const target = event.target as HTMLElement;
 
     if (target.hasAttribute('sbb-dialog-close') && !isValidAttribute(target, 'disabled')) {
@@ -302,7 +288,7 @@ export class SbbDialog extends LitElement {
         target.getAttribute('type') === 'submit'
           ? (hostContext('form', target) as HTMLFormElement)
           : undefined;
-      await this.close(closestForm, target);
+      this.close(closestForm, target);
     }
   }
 
