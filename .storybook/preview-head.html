@@ -31,18 +31,26 @@
       div.style.cssText = `
         position: fixed;
         z-index: 100000;
-        display: inline-block;
+        display: flex;
+        gap: 0.5rem;
         border: 1px solid red;
         border-radius: 0.25rem;
         background-color: yellow;
-        padding-inline: 0.5rem;
-        inset: 0.5rem auto auto 50%;
-        transform: translateX(-50%);
+        padding: 0.5rem;
+        inset: 0.5rem 0 auto;
+        margin: 0 auto;
+        max-width: fit-content;
       `;
       const a = document.createElement('a');
       a.href = 'https://lyne-storybook.app.sbb.ch/';
       a.textContent = '(Create your own)';
+
+      const button = document.createElement('button');
+      button.textContent = 'Close';
+      button.addEventListener('click', () => div.remove());
+
       div.append(a);
+      div.append(button);
       document.body.append(div);
     });
   }
