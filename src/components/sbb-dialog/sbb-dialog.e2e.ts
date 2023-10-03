@@ -1,403 +1,499 @@
-import { E2EElement, E2EPage, newE2EPage } from '@stencil/core/testing';
-import events from './sbb-dialog.events';
+import { events } from './sbb-dialog';
 import { waitForCondition } from '../../global/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { html } from 'lit/static-html.js';
+import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
+import { EventSpy } from '../../global/testing/event-spy';
+import { SbbDialog } from './sbb-dialog';
+import '../sbb-button';
+import '../sbb-icon';
+import '../sbb-title';
 
 describe('sbb-dialog', () => {
-  let element: E2EElement, page: E2EPage;
+  let element: SbbDialog;
 
   beforeEach(async () => {
-    page = await newE2EPage();
-    await page.setViewport({ width: 900, height: 600 });
-    await page.setContent(`
-      <sbb-dialog id="my-dialog" title-content="Title" title-back-button="true" disable-animation>
+    await setViewport({ width: 900, height: 600 });
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-1" title-content="Title" title-back-button="true" disable-animation>
         Dialog content.
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    element = await page.find('sbb-dialog');
-    await page.waitForChanges();
+    await element.updateComplete;
   });
 
   it('renders', () => {
-    expect(element).toHaveClass('hydrated');
+    assert.instanceOf(element, SbbDialog);
   });
 
   it('opens the dialog', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(element).toEqualAttribute('data-state', 'opened');
-    expect(dialog).toHaveAttribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(dialog).to.have.attribute('open');
+
+    element.close();
+    await element.updateComplete;
+
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => didClose.events.length === 1);
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    expect(element).not.to.have.attribute('data-state', 'opened');
+
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('closes the dialog', async () => {
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
-    const willClose = await page.spyOnEvent(events.willClose);
-    const didClose = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    await element.callMethod('close');
-    await page.waitForChanges();
+    element.close();
+    await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(element).toEqualAttribute('data-state', 'closed');
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).to.have.attribute('data-state', 'closed');
+
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('closes the dialog on backdrop click', async () => {
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
-    const willClose = await page.spyOnEvent(events.willClose);
-    const didClose = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
     // Simulate backdrop click
-    await page.mouse.click(1, 1);
-    await page.waitForChanges();
+    await sendMouse({ type: 'click', position: [1, 1] });
+    await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(element).toEqualAttribute('data-state', 'closed');
-    expect(dialog).not.toHaveAttribute('open');
+    expect(element).to.have.attribute('data-state', 'closed');
+
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('does not close the dialog on backdrop click', async () => {
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
-    const willClose = await page.spyOnEvent(events.willClose);
-    const didClose = await page.spyOnEvent(events.didClose);
-    const dialog = await page.find('sbb-dialog >>> dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
 
-    await element.setProperty('backdropAction', 'none');
-    await page.waitForChanges();
+    element.backdropAction = 'none';
+    await element.updateComplete;
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
     // Simulate backdrop click
-    await page.mouse.click(1, 1);
-    await page.waitForChanges();
+    await sendMouse({ type: 'click', position: [1, 1] });
+    await element.updateComplete;
 
-    expect(willClose).toHaveReceivedEventTimes(0);
-    await page.waitForChanges();
+    expect(willClose.count).to.be.equal(0);
+    await element.updateComplete;
 
-    expect(didClose).toHaveReceivedEventTimes(0);
-    await page.waitForChanges();
+    expect(didClose.count).to.be.equal(0);
+    await element.updateComplete;
 
-    expect(element).toEqualAttribute('data-state', 'opened');
-    expect(dialog).not.toHaveAttribute('closed');
+    expect(element).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => dialog.getAttribute('open') === '');
+    expect(dialog).to.have.attribute('open');
   });
 
   it('closes the dialog on close button click', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
-    const closeButton = await page.find('sbb-dialog >>> [sbb-dialog-close]');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
-    const willClose = await page.spyOnEvent(events.willClose);
-    const didClose = await page.spyOnEvent(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const closeButton = element.shadowRoot.querySelector('[sbb-dialog-close]') as HTMLElement;
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    closeButton.triggerEvent('click');
-    await page.waitForChanges();
+    closeButton.click();
+    await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).not.toHaveAttribute('open');
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('closes the dialog on Esc key press', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
-    const willClose = await page.spyOnEvent(events.willClose);
-    const didClose = await page.spyOnEvent(events.didClose);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
+    await sendKeys({ down: 'Tab' });
+    await element.updateComplete;
 
-    await page.keyboard.down('Escape');
-    await page.waitForChanges();
+    await sendKeys({ down: 'Escape' });
+    await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).not.toHaveAttribute('open');
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('does not have the fullscreen attribute', async () => {
-    const dialog = await page.find('sbb-dialog >>> dialog');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    await page.waitForChanges();
-    expect(element).not.toHaveAttribute('data-fullscreen');
+    await element.updateComplete;
+    expect(element).not.to.have.attribute('data-fullscreen');
+
+    element.close();
+    await element.updateComplete;
+
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => didClose.events.length === 1);
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    expect(element).not.to.have.attribute('data-state', 'opened');
+
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('renders in fullscreen mode if no title is provided', async () => {
-    page = await newE2EPage();
-    await page.setContent(`
-      <sbb-dialog id="my-dialog" title-back-button="true" disable-animation>
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-2" title-back-button="true" disable-animation>
         Dialog content.
         <div slot="action-group">Action group</div>
       </sbb-dialog>
     `);
-    element = await page.find('sbb-dialog');
 
-    const dialog = await page.find('sbb-dialog >>> dialog');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    await page.waitForChanges();
-    expect(element).toHaveAttribute('data-fullscreen');
+    await element.updateComplete;
+    expect(element).to.have.attribute('data-fullscreen');
+
+    element.close();
+    await element.updateComplete;
+
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => didClose.events.length === 1);
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    expect(element).not.to.have.attribute('data-state', 'opened');
+
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('closes stacked dialogs one by one on ESC key pressed', async () => {
-    page = await newE2EPage();
-    await page.setContent(`
-      <sbb-dialog id="my-dialog" title-content="Title" title-back-button="true" disable-animation>
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-3" title-content="Title" title-back-button="true" disable-animation>
         Dialog content.
-        <div slot="action-group">Action group</div>  
+        <div slot="action-group">Action group</div>
       </sbb-dialog>
 
-      <sbb-dialog id="stacked-dialog" disable-animation>
+      <sbb-dialog id="stacked-dialog" disable-animation title-content="Stacked title">
         Stacked dialog.
       </sbb-dialog>
     `);
-    element = await page.find('sbb-dialog');
 
-    const dialog = await page.find('#my-dialog >>> dialog');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
+    const dialog = element.shadowRoot.querySelector('dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(dialog).toHaveAttribute('open');
-    await page.waitForChanges();
+    expect(dialog).to.have.attribute('open');
+    await element.updateComplete;
 
-    const stackedDialog = await page.find('#stacked-dialog');
-    const stackedDialogElement = await page.find('#stacked-dialog >>> dialog');
+    const stackedDialog = document.querySelector('#stacked-dialog') as SbbDialog;
+    const stackedDialogElement = stackedDialog.shadowRoot.querySelector('dialog');
 
-    await stackedDialog.callMethod('open');
-    await page.waitForChanges();
+    stackedDialog.open();
+    await element.updateComplete;
 
-    expect(stackedDialogElement).toHaveAttribute('open');
+    expect(stackedDialogElement).to.have.attribute('open');
 
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
+    await sendKeys({ down: 'Tab' });
+    await element.updateComplete;
 
-    await page.keyboard.down('Escape');
-    await page.waitForChanges();
+    await sendKeys({ down: 'Escape' });
+    await element.updateComplete;
 
-    expect(stackedDialogElement).not.toHaveAttribute('open');
-    expect(dialog).toHaveAttribute('open');
+    expect(stackedDialogElement).not.to.have.attribute('open');
+    expect(dialog).to.have.attribute('open');
 
-    await page.keyboard.down('Tab');
-    await page.waitForChanges();
+    await sendKeys({ down: 'Tab' });
+    await element.updateComplete;
 
-    await page.keyboard.down('Escape');
-    await page.waitForChanges();
+    await sendKeys({ down: 'Escape' });
+    await element.updateComplete;
 
-    expect(stackedDialogElement).not.toHaveAttribute('open');
-    expect(dialog).not.toHaveAttribute('open');
+    element.close();
+    await element.updateComplete;
+
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => didClose.events.length === 1);
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    expect(element).not.to.have.attribute('data-state', 'opened');
+
+    await waitForCondition(() => dialog.getAttribute('open') === null);
+    expect(dialog).not.to.have.attribute('open');
   });
 
   it('does not close the dialog on other overlay click', async () => {
-    page = await newE2EPage();
-    await page.setViewport({ width: 900, height: 600 });
-    await page.setContent(`
-      <sbb-dialog id="my-dialog" title-content="Title" title-back-button="true" disable-animation>
+    await setViewport({ width: 900, height: 600 });
+    element = await fixture(html`
+      <sbb-dialog id="my-dialog-4" title-content="Title" title-back-button="true" disable-animation>
         Dialog content.
         <div slot="action-group">Action group</div>
-        <sbb-dialog id="inner-dialog" title-content="Inner Dialog title" title-back-button="true" disable-animation>
+        <sbb-dialog
+          id="inner-dialog"
+          title-content="Inner Dialog title"
+          title-back-button="true"
+          disable-animation
+        >
           Dialog content.
           <div slot="action-group">Action group</div>
         </sbb-dialog>
       </sbb-dialog>
     `);
-    element = await page.find('sbb-dialog');
-    const willOpen = await page.spyOnEvent(events.willOpen);
-    const didOpen = await page.spyOnEvent(events.didOpen);
-    const willClose = await page.spyOnEvent(events.willClose);
-    const didClose = await page.spyOnEvent(events.didClose);
-    const outerDialog = await page.find('sbb-dialog >>> dialog');
-    const innerElement = await page.find('sbb-dialog > sbb-dialog');
-    const innerDialog = await page.find('sbb-dialog > sbb-dialog >>> dialog');
+    const willOpen = new EventSpy(events.willOpen);
+    const didOpen = new EventSpy(events.didOpen);
+    const willClose = new EventSpy(events.willClose);
+    const didClose = new EventSpy(events.didClose);
+    const outerDialog = element.shadowRoot.querySelector('dialog');
+    const innerElement = element.querySelector('sbb-dialog') as SbbDialog;
+    const innerDialog = element.querySelector('sbb-dialog').shadowRoot.querySelector('dialog');
 
-    await element.callMethod('open');
-    await page.waitForChanges();
+    element.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 1);
-    expect(willOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 1);
-    expect(didOpen).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(outerDialog).toHaveAttribute('open');
+    expect(outerDialog).to.have.attribute('open');
 
-    await innerElement.callMethod('open');
-    await page.waitForChanges();
+    innerElement.open();
+    await element.updateComplete;
 
     await waitForCondition(() => willOpen.events.length === 2);
-    expect(willOpen).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
+    expect(willOpen.count).to.be.equal(2);
+    await element.updateComplete;
 
     await waitForCondition(() => didOpen.events.length === 2);
-    expect(didOpen).toHaveReceivedEventTimes(2);
-    await page.waitForChanges();
+    expect(didOpen.count).to.be.equal(2);
+    await element.updateComplete;
 
-    expect(innerDialog).toHaveAttribute('open');
+    expect(innerDialog).to.have.attribute('open');
 
     // Simulate a click on the inner dialog's backdrop
-    await page.mouse.click(1, 1);
-    await page.waitForChanges();
+    await sendMouse({ type: 'click', position: [1, 1] });
+    await element.updateComplete;
 
     await waitForCondition(() => willClose.events.length === 1);
-    expect(willClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
 
     await waitForCondition(() => didClose.events.length === 1);
-    expect(didClose).toHaveReceivedEventTimes(1);
-    await page.waitForChanges();
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
 
-    expect(innerElement).toEqualAttribute('data-state', 'closed');
-    expect(innerDialog).not.toHaveAttribute('open');
+    expect(innerElement).to.have.attribute('data-state', 'closed');
+    expect(innerDialog).not.to.have.attribute('open');
 
-    expect(element).toEqualAttribute('data-state', 'opened');
-    expect(outerDialog).toHaveAttribute('open');
+    expect(element).to.have.attribute('data-state', 'opened');
+    expect(outerDialog).to.have.attribute('open');
+
+    element.close();
+    await element.updateComplete;
+
+    await waitForCondition(() => willClose.events.length === 1);
+    expect(willClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    await waitForCondition(() => didClose.events.length === 1);
+    expect(didClose.count).to.be.equal(1);
+    await element.updateComplete;
+
+    expect(element).not.to.have.attribute('data-state', 'opened');
+
+    await waitForCondition(() => outerDialog.getAttribute('open') === null);
+    expect(outerDialog).not.to.have.attribute('open');
   });
 });
