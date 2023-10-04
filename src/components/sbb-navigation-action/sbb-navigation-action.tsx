@@ -6,7 +6,7 @@ import {
   targetsNewWindow,
 } from '../../global/interfaces';
 import { i18nTargetOpensInNewWindow } from '../../global/i18n';
-import { hostContext, isValidAttribute } from '../../global/dom';
+import { hostContext } from '../../global/dom';
 import {
   documentLanguage,
   HandlerRepository,
@@ -14,20 +14,13 @@ import {
   languageChangeHandlerAspect,
   ConnectedAbortController,
 } from '../../global/eventing';
-import { AgnosticMutationObserver } from '../../global/observers';
 import { CSSResult, LitElement, nothing, TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { spread } from '@open-wc/lit-helpers';
-import { SbbNavigationMarker } from '../sbb-navigation-marker';
+import { SbbNavigationMarker } from '../sbb-navigation-marker/index';
 import { setAttributes } from '../../global/dom';
 import Style from './sbb-navigation-action.scss?lit&inline';
-
-// This approach allows us to just check whether an attribute has been added or removed
-// from the DOM.
-const navigationActionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['active'],
-};
 
 /**
  * @slot unnamed - Use this slot to provide the navigation action label.
@@ -70,7 +63,21 @@ export class SbbNavigationAction extends LitElement {
   /**
    * Whether the action is active.
    */
-  @property({ reflect: true, type: Boolean }) public active = false;
+  @property({ reflect: true, type: Boolean })
+  public get active(): boolean {
+    return this._active;
+  }
+
+  public set active(value: boolean) {
+    const oldValue = this.active;
+    if (value !== oldValue) {
+      this._active = value;
+      this._handleActiveChange(this.active, oldValue);
+    }
+    this.requestUpdate('active', oldValue);
+  }
+
+  private _active = false;
 
   /**
    * The name attribute to use for the button.
@@ -86,9 +93,6 @@ export class SbbNavigationAction extends LitElement {
 
   private _navigationMarker: SbbNavigationMarker;
   private _abort = new ConnectedAbortController(this);
-  private _navigationActionAttributeObserver = new AgnosticMutationObserver(() =>
-    this._onActiveActionChange(),
-  );
 
   private _handlerRepository = new HandlerRepository(
     this,
@@ -99,8 +103,15 @@ export class SbbNavigationAction extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     const signal = this._abort.signal;
-    this.addEventListener('click', () => this._handleClick(), { signal });
-    this._navigationActionAttributeObserver.observe(this, navigationActionObserverConfig);
+    this.addEventListener(
+      'click',
+      () => {
+        if (!this.active) {
+          this.active = true;
+        }
+      },
+      { signal },
+    );
     this._handlerRepository.connect();
 
     // Check if the current element is nested inside a navigation marker.
@@ -109,23 +120,16 @@ export class SbbNavigationAction extends LitElement {
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._navigationActionAttributeObserver.disconnect();
     this._handlerRepository.disconnect();
   }
 
   // Check whether the `active` attribute has been added or removed from the DOM
   // and call the `select()` or `reset()` method accordingly.
-  private _onActiveActionChange(): void {
-    if (isValidAttribute(this, 'active')) {
+  private _handleActiveChange(newValue: boolean, oldValue: boolean): void {
+    if (newValue && !oldValue) {
       this._navigationMarker?.select(this);
-    } else {
+    } else if (!newValue && oldValue) {
       this._navigationMarker?.reset();
-    }
-  }
-
-  private _handleClick(): void {
-    if (!this.active) {
-      this._navigationMarker?.select(this);
     }
   }
 

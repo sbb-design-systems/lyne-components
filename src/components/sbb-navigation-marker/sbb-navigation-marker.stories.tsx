@@ -1,8 +1,10 @@
 /** @jsx h */
 import { h, JSX } from 'jsx-dom';
 import readme from './readme.md?raw';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/html';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
 import type { InputType } from '@storybook/types';
+import './sbb-navigation-marker';
+import '../sbb-navigation-action';
 
 const size: InputType = {
   control: {
@@ -16,7 +18,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: size.options[0],
+  // size: size.options[0],
 };
 
 const style = {

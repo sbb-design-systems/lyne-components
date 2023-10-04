@@ -7,9 +7,6 @@ import { SbbNavigationAction } from './sbb-navigation-action';
 import '../sbb-navigation-action';
 
 describe('sbb-navigation-action', () => {
-  /** NOTE: These are too hard to migrate and are prone to errors :/
-   * consider that the E2EPage is now the 'document' (you should just delete it)
-   * and that the E2EElement equivalent is directly the SbbComponent (e.g. SbbTimeInput) */
   let element: SbbNavigationAction;
 
   beforeEach(async () => {
@@ -43,7 +40,7 @@ describe('sbb-navigation-action', () => {
     });
 
     it('should dispatch click event on pressing Enter with href', async () => {
-      element.setAttribute('href', 'test');
+      element.setAttribute('href', '#');
       await element.updateComplete;
       const changeSpy = new EventSpy('click', document);
       element.focus();
@@ -52,7 +49,7 @@ describe('sbb-navigation-action', () => {
     });
 
     it('should not dispatch click event on pressing Space with href', async () => {
-      element.setAttribute('href', 'test');
+      element.setAttribute('href', '#');
       await element.updateComplete;
 
       const changeSpy = new EventSpy('click', document);
